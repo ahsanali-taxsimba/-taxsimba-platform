@@ -297,6 +297,28 @@ def _checkout(amount: float, label: str, origin_url: str, metadata: dict):
     return session
 
 
+async def _inflight(query: dict):
+    """One payable checkout at a time per business key — reuse the open session instead of
+    creating a second payable one."""
+    rec = await db.payment_transactions.find_one({**query, "payment_status": "pending",
+                                                  "status": "initiated"})
+    if not rec:
+        return None
+    try:
+        s = stripe.checkout.Session.retrieve(rec["session_id"])
+    except Exception:
+        return None
+    if s.status == "open" and s.url:
+        return {"checkout_url": s.url, "session_id": rec["session_id"],
+                "amount": rec["amount"], "reused": True}
+    await db.payment_transactions.update_one(
+        {"session_id": rec["session_id"]},
+        {"$set": {"status": s.status or "expired",
+                  "payment_status": s.payment_status or "expired",
+                  "updated_at": now_iso()}})
+    return None
+
+
 @router.post("/payments/upgrade-checkout")
 async def upgrade_checkout(body: UpgradeCheckoutIn, user: dict = Depends(require_roles("CLIENT"))):
     client = await _client_of(user)
@@ -315,6 +337,10 @@ async def upgrade_checkout(body: UpgradeCheckoutIn, user: dict = Depends(require
     amount = round(max(target["price"] - current["price"], 0.0), 2)
     if amount <= 0:
         raise HTTPException(status_code=400, detail="No additional amount payable")
+    reuse = await _inflight({"client_id": client["id"], "kind": "SA_UPGRADE",
+                             "new_package": target["code"]})
+    if reuse:
+        return reuse
     session = _checkout(amount, f"Self Assessment upgrade — {current['name']} to {target['name']}",
                         body.origin_url,
                         {"kind": "SA_UPGRADE", "client_id": client["id"], "user_id": user["id"],
@@ -337,6 +363,9 @@ async def offer_checkout(body: OfferCheckoutIn, user: dict = Depends(require_rol
         raise HTTPException(status_code=404, detail="Offer not found")
     if offer["status"] != "PENDING":
         raise HTTPException(status_code=400, detail="Offer is no longer available")
+    reuse = await _inflight({"offer_id": offer["id"], "kind": "SERVICE_ACTIVATION"})
+    if reuse:
+        return reuse
     label = f"{SERVICE_LABELS.get(offer['service_type'], offer['service_type'])} — {offer['package_name']}"
     session = _checkout(offer["amount_due"], label, body.origin_url,
                         {"kind": "SERVICE_ACTIVATION", "offer_id": offer["id"],
@@ -371,6 +400,13 @@ async def _fulfil(tx: dict):
     if tx["kind"] == "SA_UPGRADE":
         svc = await db.client_services.find_one({"client_id": tx["client_id"],
                                                  "service_type": SELF_ASSESSMENT})
+        if svc and svc.get("package_code") == tx["new_package"]:
+            # Business-key idempotency: this upgrade has already been applied.
+            await db.payment_transactions.update_one({"session_id": tx["session_id"]},
+                                                     {"$set": {"fulfilled": True,
+                                                               "duplicate": True,
+                                                               "updated_at": now_iso()}})
+            return
         case = await _sa_case(tx["client_id"])
         await db.client_services.update_one(
             {"id": svc["id"]},
@@ -391,6 +427,23 @@ async def _fulfil(tx: dict):
                              case["id"] if case else None, "/admin/recommendations", "UPGRADE")
 
     elif tx["kind"] == "SERVICE_ACTIVATION":
+        if tx.get("offer_id"):
+            offer_now = await db.offers.find_one({"id": tx["offer_id"]})
+            if offer_now and offer_now.get("status") == "PAID":
+                await db.payment_transactions.update_one({"session_id": tx["session_id"]},
+                                                         {"$set": {"fulfilled": True,
+                                                                   "duplicate": True,
+                                                                   "updated_at": now_iso()}})
+                return
+        already = await db.client_services.find_one({"client_id": tx["client_id"],
+                                                     "service_type": tx["service_type"],
+                                                     "status": "ACTIVE"})
+        if already and already.get("package_code") == tx["new_package"]:
+            await db.payment_transactions.update_one({"session_id": tx["session_id"]},
+                                                     {"$set": {"fulfilled": True,
+                                                               "duplicate": True,
+                                                               "updated_at": now_iso()}})
+            return
         pkg = await db.packages.find_one({"service_type": tx["service_type"], "code": tx["new_package"]})
         tax_year = "2026/27"
         existing = await db.client_services.find_one({"client_id": tx["client_id"],
@@ -538,6 +591,14 @@ async def _accountant_case(case_id: str, user: dict):
 
 
 async def _create_recommendation(case: dict, user: dict, rtype: str, body: RecommendIn):
+    existing = await db.recommendations.find_one({
+        "case_id": case["id"], "type": rtype, "status": {"$in": ["PENDING", "APPROVED"]}})
+    if existing:
+        raise HTTPException(
+            status_code=409,
+            detail=f"{'A package upgrade' if rtype == 'PACKAGE_UPGRADE' else 'An MTD'} "
+                   f"recommendation is already {existing['status'].lower()} on this case",
+        )
     if rtype == "PACKAGE_UPGRADE":
         svc = await db.client_services.find_one({"client_id": case["client_id"],
                                                  "service_type": SELF_ASSESSMENT})

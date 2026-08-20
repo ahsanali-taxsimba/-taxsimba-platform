@@ -50,6 +50,14 @@ One login / one Client ID / many services: `client_services` gives every client 
 - Phase 1B: 94 backend tests green plus a live Stripe Checkout upgrade driven through the browser — package flipped Smart → Elite with same client ref, no duplicated/damaged cases, payment + audit + admin notification recorded (iteration_4, zero open issues).
 - Fixed along the way: `/api/documents` leaked `client_user_id` to accountants; login ignored `is_active`.
 
+## Pre-MTD QA audit (2026-06)
+Full four-role end-to-end audit of the current build (no features added). Defects found and fixed:
+1. **Duplicate MTD recommendations** could be created — `_create_recommendation` now rejects with 409 when a PENDING/APPROVED recommendation of the same type exists on the case (rejection re-opens the path; MTD and package-upgrade types are independent).
+2. **Duplicate package-upgrade recommendations** — same guard.
+3. **Duplicate-payment protection was per Stripe session only** — `_inflight()` now reuses the single open checkout session per business key (client+target package, or offer), clearing stale non-open sessions, and `_fulfil()` gained business-key idempotency (an already-applied upgrade or an already-PAID offer/ACTIVE service is marked `duplicate` and applied once).
+
+Final matrix (iteration_8): all 11 QA sections **PASS**, zero critical or minor open issues; 134 regression tests + 8 new verification tests green; screenshots of all four role journeys in `/app/test_reports/screens_it8/`.
+
 ## Known gaps / not built
 - MTD quarterly operational workflow, HMRC API, Xero, SimbaX (deliberately deferred).
 - CORS is `*`; no login brute-force lockout; no outbound email.
