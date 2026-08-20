@@ -1,0 +1,52 @@
+{
+  "summary": "Iteration 10 — Production Hardening verification PASS. All 29 hardening tests in /app/backend/tests/test_hardening_cors_ratelimit.py pass, and the FULL /app/backend/tests/ suite is green: 186 passed, 3 skipped (the same 3 legacy seed-state skips as iteration 9 — Client B already on Elite + MTD already active). Independently confirmed at the application boundary (http://localhost:8001/api): (a) unapproved origin OPTIONS -> 400 Bad Request with NO access-control-allow-origin header; (b) approved origin (https://taxsimba-foundation.preview.emergentagent.com) OPTIONS -> 200 with access-control-allow-origin echoed exactly and access-control-allow-credentials: true; (c) no wildcard '*' emitted by the app in any tested response. server._allowed_origins() correctly RuntimeErrors for '*', empty, whitespace, and 'a,*'; and returns the parsed list for a valid comma-separated allowlist. CORS_ORIGINS in backend/.env contains only the single approved preview origin. Rate-limit / lockout verified end-to-end: 5 failed logins on a fresh user return 401 then the 6th returns HTTP 429 with a positive Retry-After header; correct password on a locked account still returns 429 (lock checked before password); a DIFFERENT account can still log in 200 while the first is locked; 3 fails + success + 3 more fails does NOT lock (counters cleared on success); 7 correct-password attempts on a disabled account stay 401 and never escalate — disabled != guess. Account-scope (10 across distinct IPs) and per-IP-scope (50) plus 15/30/60 exponential backoff verified directly against ratelimit.py (record_failure / enforce_login_allowed / db.login_attempts.locked_until) — SCOPES thresholds and BACKOFF_MINUTES=[15,30,60] correct, and the account scope locks correctly on the 10th distinct-IP failure. XFF anti-spoofing: client_ip() with an untrusted public peer IGNORES a client-supplied X-Forwarded-For; with a trusted proxy CIDR peer (10/8) it takes the RIGHT-MOST hop, not the client-injectable left-most one. JWT hardening: access token decodes to type='access' with TTL ~15 min (asserted 5<ttl<=20 min), an expired token returns 401, refresh token cannot be used as a Bearer access token (401), login sets BOTH httpOnly access_token and refresh_token cookies, POST /api/auth/refresh returns 200 and rotates the refresh cookie, replaying the OLD refresh token returns 401, POST /api/auth/logout revokes the refresh token so a replay of the pre-logout refresh cookie returns 401. Token exposure: neither /app/frontend/src/lib/api.js nor /app/frontend/src/context/AuthContext.jsx contains any setItem call, and no password_hash string appears in the login response. Browser sanity check on the real preview URL: client / accountant A / admin / super_admin all log in and land on /dashboard, /work, /admin, /admin respectively; after client login the ONLY localStorage entries are PostHog analytics (no ts_token / no auth token); page RELOAD keeps the client on /dashboard purely via the httpOnly cookie; logout redirects both to /login and re-visiting /dashboard afterwards redirects to /login (401 on /auth/me observed in console, as expected). All 6 role logins parametrised in TestAllRoleLogins pass.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "pass_fail_matrix": {
+    "CORS_allowlist_app_boundary": "PASS — approved origin echoed with allow-credentials=true; evil origin -> 400 with no ACAO header; wildcard never emitted by the app.",
+    "CORS_fail_fast_startup_guard": "PASS — _allowed_origins() raises RuntimeError for '*', '', '  ', and 'a,*'; parses valid CSV correctly. backend/.env has no wildcard.",
+    "Login_rate_limit_5_fail_then_429": "PASS — 6th attempt is 429 with positive Retry-After.",
+    "Lock_not_bypassed_by_correct_password": "PASS — 429 even with the correct password once locked.",
+    "Lock_scoped_not_global": "PASS — a different account still gets 200 while another is locked.",
+    "Success_clears_counters": "PASS — 3+success+3 does not lock; subsequent success still 200.",
+    "Disabled_account_not_counted": "PASS — 7x correct password on disabled user stays 401, never 429.",
+    "Account_scope_10_across_IPs": "PASS (policy module) — 10th distinct-IP failure locks the account, enforce_login_allowed raises 429 + Retry-After.",
+    "Per_IP_scope_50 + Exponential_backoff_15_30_60": "PASS — SCOPES[ip]=50 and BACKOFF_MINUTES=[15,30,60] verified; three consecutive offences give 15/30/60-minute locks.",
+    "XFF_anti_spoofing": "PASS — untrusted public peer -> spoofed XFF ignored; trusted proxy CIDR peer -> right-most hop used.",
+    "JWT_access_ttl_~15min_and_type_access": "PASS — decoded exp is within (5, 20] minutes and type='access'; expired token returns 401.",
+    "Login_sets_httpOnly_access_and_refresh_cookies": "PASS — both cookies present and marked HttpOnly.",
+    "Refresh_returns_new_access_and_rotates": "PASS — POST /api/auth/refresh 200; refresh cookie value changes; old refresh returns 401 on replay.",
+    "Refresh_token_not_usable_as_access": "PASS — refresh JWT used as Bearer against /api/auth/me returns 401.",
+    "Logout_revokes_session": "PASS — pre-logout refresh cookie replayed after logout returns 401; protected UI routes redirect to /login.",
+    "No_localStorage_token_and_no_password_hash_leak": "PASS — no setItem in api.js/AuthContext.jsx; login response body does not contain password_hash; browser localStorage after login only contains PostHog analytics.",
+    "Six_role_logins_and_landing_routes": "PASS — client->/dashboard, accountant.a->/work, admin->/admin, superadmin->/admin verified live; parametrised backend test covers all 6.",
+    "Session_survives_reload_on_httpOnly_cookie": "PASS — after F5 the client stayed on /dashboard.",
+    "Full_regression_186_passed_3_skipped": "PASS — /app/backend/tests/ full suite: 186 passed, 3 skipped (same legacy seed-state skips). No regression vs iteration 9."
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_hardening_cors_ratelimit.py",
+    "/app/test_reports/pytest/iteration10_hardening.xml",
+    "/app/test_reports/pytest/iteration10_full.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "server.py still uses the deprecated @app.on_event('startup') — non-blocking but worth migrating to FastAPI lifespan handlers so ensure_indexes() runs under the modern lifespan protocol.",
+    "The /api/auth/login response still returns access_token in the JSON body for API/test clients. The httpOnly cookie is the source of truth for browser sessions, but any XSS that runs before the browser detaches the body could still read it. Consider gating body-token emission behind a request flag (e.g. only when Accept: application/json + a X-Client=cli header, or drop it entirely for browser origins).",
+    "Refresh cookie uses SameSite=None + Secure (needed for the preview cross-site setup) but there is no CSRF token / double-submit or Origin check on POST /api/auth/refresh and /api/auth/logout. With SameSite=None a malicious site cannot READ the response, but it CAN cause the browser to send the cookie on a forged POST; for /auth/refresh the attacker gets no data back, but /auth/logout can be triggered as a nuisance DoS. Add a CSRF token or Origin/Referer allowlist check on refresh+logout before production.",
+    "ensure_indexes() swallows the users.email unique-index creation error broadly (bare Exception, only printed). If pre-existing duplicates exist that block the index, the guarantee that email is unique is silently lost — surface this as a startup warning/metric.",
+    "Rate-limit policy relies on server clock and MongoDB TTL — if the app clock drifts backwards, locked_until comparisons remain safe (server-side), but expires_at TTL cleanup could lag. Acceptable, just noting."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (186/186 non-skipped)", "frontend": "100% (all role landings + reload + logout verified)"},
+  "seed_data_creation": "None — TEST_hard_* CLIENT users were created transiently by the hardening test module via SUPER_ADMIN and are namespaced with the TEST_ prefix.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Production hardening is fully verified at the application boundary. When testing CORS, ALWAYS hit http://localhost:8001/api directly — the shared Cloudflare preview edge overwrites CORS headers to '*' on its own preflight 204s, which is infrastructure behaviour and NOT the app. This must be re-validated on the real production hostname/ingress before go-live. Do not exceed 50 failed logins from the shared test host inside a 15-min window or the per-IP scope will trip and cause spurious 429s for the whole suite. All 6 login credentials remain as in /app/memory/test_credentials.md.",
+  "residual_security_risks_flagged_to_user": [
+    "RESIDUAL INFRASTRUCTURE RISK — public preview edge (Cloudflare) rewrites the CORS preflight response to `access-control-allow-origin: *` (independently reproduced: curl OPTIONS https://taxsimba-foundation.preview.emergentagent.com/api/auth/login with Origin: attacker.example.com returned HTTP/2 204 + ACAO:*). The APP itself correctly returned 400 + no ACAO on the same request at localhost:8001. This means CORS is enforced by the ingress layer only in production and must be validated on the real production hostname before go-live.",
+    "RESIDUAL RISK — no CSRF protection on POST /api/auth/refresh and /api/auth/logout even though refresh_token is a SameSite=None cookie. An attacker cannot READ the refresh response cross-origin, but can trigger forced logouts as a nuisance DoS and can potentially cause a refresh cookie rotation on the victim's browser. Add a CSRF token or Origin/Referer allowlist check.",
+    "RESIDUAL RISK — /api/auth/login STILL returns the access_token in the JSON response body (needed by the CLI/test clients). In a browser context the httpOnly cookie is the primary auth carrier, but the body-returned token remains reachable to any XSS that fires during the login response window. Consider omitting the body token for browser callers.",
+    "MINOR — the users.email unique-index creation in ensure_indexes() is inside a broad try/except that only prints, so duplicate-blocked index creation would fail silently at startup."
+  ],
+  "rca of the issue": "N/A — no defects found in this iteration."
+}

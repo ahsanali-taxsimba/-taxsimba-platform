@@ -1,3 +1,4 @@
+import os
 import uuid
 from datetime import datetime, timezone, timedelta
 from typing import Optional, List
@@ -11,9 +12,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response as FastResponse
 from pydantic import BaseModel, EmailStr
 
-from auth import (create_access_token, get_current_user, hash_password, is_admin,
-                  is_staff, require_roles, verify_password)
+from auth import (ACCESS_COOKIE, ACCESS_TTL_MINUTES, REFRESH_COOKIE, REFRESH_TTL_DAYS,
+                  create_access_token, get_current_user, hash_password, is_admin, is_staff,
+                  issue_refresh_token, require_roles, revoke_refresh_token,
+                  rotate_refresh_token, verify_password)
 from db import clean, clean_many, db, mask_contact_many, scrub, scrub_many
+from ratelimit import (clear_failures, client_ip, enforce_login_allowed, ensure_indexes,
+                       record_failure)
 from seed import seed
 from phase1b import bootstrap_client_services, ensure_phase1b_data, router as phase1b_router
 from storage import init_storage, put_object, get_object, APP_NAME
@@ -23,8 +28,23 @@ from workflow import (ALLOWED_TRANSITIONS, STATUSES, STATUS_META, journey, log_a
 app = FastAPI(title="TaxSimba")
 api = APIRouter(prefix="/api")
 
+
+def _allowed_origins() -> List[str]:
+    """Explicit allowlist only. A wildcard or empty value is a hard startup failure so the
+    permissive '*' configuration can never silently return."""
+    raw = os.environ.get("CORS_ORIGINS", "")
+    origins = [o.strip() for o in raw.split(",") if o.strip()]
+    if not origins:
+        raise RuntimeError("CORS_ORIGINS must list at least one approved origin")
+    if any(o == "*" for o in origins):
+        raise RuntimeError("CORS_ORIGINS must not contain a wildcard '*'")
+    return origins
+
+
+ALLOWED_ORIGINS = _allowed_origins()
+
 app.add_middleware(
-    CORSMiddleware, allow_origins=["*"], allow_credentials=True,
+    CORSMiddleware, allow_origins=ALLOWED_ORIGINS, allow_credentials=True,
     allow_methods=["*"], allow_headers=["*"],
 )
 
@@ -33,6 +53,7 @@ app.add_middleware(
 async def startup():
     await seed()
     await ensure_phase1b_data()
+    await ensure_indexes()
     try:
         init_storage()
     except Exception as e:
@@ -127,10 +148,13 @@ class NoteIn(BaseModel):
 
 
 # ---------------------------------------------------------------- auth
-def _auth_response(response: Response, user: dict):
+async def _auth_response(response: Response, user: dict):
     token = create_access_token(user["id"], user["email"])
-    response.set_cookie("access_token", token, httponly=True, secure=True,
-                        samesite="none", max_age=604800, path="/")
+    refresh = await issue_refresh_token(user["id"])
+    response.set_cookie(ACCESS_COOKIE, token, httponly=True, secure=True,
+                        samesite="none", max_age=ACCESS_TTL_MINUTES * 60, path="/")
+    response.set_cookie(REFRESH_COOKIE, refresh, httponly=True, secure=True,
+                        samesite="none", max_age=REFRESH_TTL_DAYS * 86400, path="/")
     return {"user": clean(dict(user)), "access_token": token}
 
 
@@ -151,22 +175,43 @@ async def register(body: RegisterIn, response: Response):
     client["client_ref"] = f"CL-{42 + count:04d}"
     await db.clients.insert_one(dict(client))
     await bootstrap_client_services(client)
-    return _auth_response(response, user)
+    return await _auth_response(response, user)
 
 
 @api.post("/auth/login")
-async def login(body: LoginIn, response: Response):
-    user = await db.users.find_one({"email": body.email.lower()})
+async def login(body: LoginIn, request: Request, response: Response):
+    email = body.email.lower()
+    ip = client_ip(request)
+    await enforce_login_allowed(ip, email)
+    user = await db.users.find_one({"email": email})
     if not user or not verify_password(body.password, user["password_hash"]):
+        await record_failure(ip, email)
         raise HTTPException(status_code=401, detail="Invalid email or password")
     if not user.get("is_active", True):
         raise HTTPException(status_code=401, detail="Account disabled")
-    return _auth_response(response, user)
+    await clear_failures(ip, email)
+    return await _auth_response(response, user)
+
+
+@api.post("/auth/refresh")
+async def refresh_session(request: Request, response: Response):
+    token = request.cookies.get(REFRESH_COOKIE)
+    if not token:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    user, new_refresh = await rotate_refresh_token(token)
+    access = create_access_token(user["id"], user["email"])
+    response.set_cookie(ACCESS_COOKIE, access, httponly=True, secure=True,
+                        samesite="none", max_age=ACCESS_TTL_MINUTES * 60, path="/")
+    response.set_cookie(REFRESH_COOKIE, new_refresh, httponly=True, secure=True,
+                        samesite="none", max_age=REFRESH_TTL_DAYS * 86400, path="/")
+    return {"user": clean(dict(user)), "access_token": access}
 
 
 @api.post("/auth/logout")
-async def logout(response: Response):
-    response.delete_cookie("access_token", path="/")
+async def logout(request: Request, response: Response):
+    await revoke_refresh_token(request.cookies.get(REFRESH_COOKIE))
+    response.delete_cookie(ACCESS_COOKIE, path="/")
+    response.delete_cookie(REFRESH_COOKIE, path="/")
     return {"ok": True}
 
 

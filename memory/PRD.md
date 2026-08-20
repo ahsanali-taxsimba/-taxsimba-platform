@@ -82,14 +82,35 @@ Test-fixture note: Phase 1/1B/2 suites now resolve CLIENT users via the super-ad
 - **READY TO START FULL MTD OPERATIONS PHASE: YES — but it MUST NOT start automatically.** No Full MTD Operations work has been started and none may begin without explicit user instruction.
 - "Ready to lock" is **not** "production-security-ready": the production-hardening items below are mandatory before any live launch. Stripe remains test/sandbox only; nothing has been deployed.
 
+## Production hardening (2026-06) — completed before Phase 2
+Scope was hardening only: no features, no MTD, no email/reminders, no redesign, no deploy.
+
+**CORS.** `_allowed_origins()` (`server.py`) builds an explicit allowlist from the `CORS_ORIGINS` env var and **raises `RuntimeError` at import time** if the value is empty or contains `*`, so the permissive wildcard cannot silently return. `CORS_ORIGINS` currently holds the single approved preview origin; production/staging hostnames are added by env change only, no code change. Unapproved origins get `400 Disallowed CORS origin` with no `Access-Control-Allow-Origin`.
+
+**Login rate limiting / temporary lockout.** New `backend/ratelimit.py`, MongoDB-backed with TTL expiry. Three scopes: IP+email 5 failures, account 10 failures across IPs, IP 50 failures — each a 15 minute lock, with 15/30/60 minute exponential backoff for repeat offences. Returns **429 + `Retry-After`**. The lock is checked *before* the password, so a correct password cannot bypass it. A successful login clears the counters. Only genuine credential failures count — a correct password against a disabled account is never counted. Locks are temporary and automatic; there is no permanent lock and no admin unlock.
+
+**X-Forwarded-For anti-spoofing.** `client_ip()` honours XFF **only** when the immediate peer is inside `TRUSTED_PROXY_CIDRS`, and then uses the **right-most** hop (the value appended by the trusted ingress), so an arbitrary client cannot spoof its source IP to evade the limiter.
+
+**JWT / session hardening.** Access token cut from **7 days to ~15 minutes** with `type=access` enforced in `get_current_user`. Added a refresh-token mechanism (7 days, httpOnly cookie) with a `jti` registered in `db.refresh_tokens`: every `POST /api/auth/refresh` **rotates** the token and revokes the old one, so a replayed refresh token is rejected. `POST /api/auth/logout` revokes the refresh token, ending the usable session. A refresh token cannot authenticate an API call. The frontend no longer writes any token to `localStorage` — the httpOnly cookie is the only browser carrier, and a transparent single-retry refresh interceptor preserves the existing login UX. Indexes added: unique `(scope,key)` and TTL on `login_attempts`, `jti` + TTL on `refresh_tokens`, unique `users.email`.
+
+### Verification (iteration_10, testing agent) — PASS
+29 new tests in `/app/backend/tests/test_hardening_cors_ratelimit.py`; **full regression 186 passed, 3 legacy skips** (unchanged from iteration 9). All 20 matrix rows PASS, zero critical and zero minor defects, zero action items. All six role logins land correctly, the session survives a reload on the cookie alone, and logout blocks protected routes.
+
+### Residual security risks (reported, NOT fixed — awaiting user decision)
+1. **Infrastructure:** the shared Cloudflare preview edge rewrites CORS preflight responses to `access-control-allow-origin: *` regardless of the app. The application itself enforces the allowlist correctly (verified at `localhost:8001`). **CORS must be re-validated on the real production hostname/ingress before go-live.**
+2. **No CSRF protection** on `POST /api/auth/refresh` and `/api/auth/logout` while the refresh cookie is `SameSite=None`. An attacker cannot read the response but can force a nuisance logout. Recommend a CSRF token or an Origin/Referer allowlist check.
+3. `/api/auth/login` **still returns `access_token` in the response body** for API/CLI/test clients; reachable by XSS during the login response window.
+4. The `users.email` unique-index creation is inside a broad try/except that only prints, so a duplicate-blocked index would fail silently at startup.
+
 ## Known gaps / not built
 - MTD quarterly operational workflow, HMRC API, Xero, SimbaX (deliberately deferred).
-- **Production hardening (REPORT-ONLY, deliberately not changed):** `CORS_ORIGINS="*"` with cookie auth; **no login rate limiting** on `/api/auth/login` (no lockout counter in code); **no brute-force protection**; JWT session cookie is httpOnly/`secure=true`/`samesite=none` — fine for preview, needs per-IP/per-account throttling and a rotation strategy for production. **Mandatory pre-production actions.**
+- **Production hardening: DONE (2026-06)** — explicit CORS allowlist with wildcard fail-fast, login rate limiting + temporary lockout, XFF anti-spoofing, 15-minute access tokens with rotating/revocable refresh tokens. Residual risks listed above (edge CORS rewrite, CSRF on refresh/logout, body-returned access token).
 - No outbound email (Resend not implemented); in-app notifications only.
 - `server.py` + `phase1b.py` are large and would benefit from being split into routers.
 
 ## Backlog
-- P1: production hardening (explicit CORS origins, login rate limiting/lockout)
+- P1: CSRF token / Origin-Referer check on `/api/auth/refresh` + `/api/auth/logout`; omit the body-returned access token for browser callers
+- P1: validate the CORS allowlist on the real production hostname/ingress (the preview edge masks it)
 - P1: Resend email notifications mirroring in-app triggers; deadline-approaching / overdue scheduler
 - P2: submission-issue handling flow; message attachments; TaxSimba Support as a separate message thread
 - P2: split `server.py`/`phase1b.py` into routers
