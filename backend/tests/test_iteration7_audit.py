@@ -15,6 +15,8 @@ Focus:
 import os, uuid, io, pytest, requests
 
 BASE = os.environ.get('REACT_APP_BACKEND_URL')
+
+from qa_clients import QA_CLIENT_A, QA_CLIENT_B  # noqa: E402
 if not BASE:
     with open('/app/frontend/.env') as f:
         for line in f:
@@ -40,8 +42,8 @@ def tokens():
         "adm":  _login("admin@taxsimba.co.uk", "Admin@123"),
         "acca": _login("accountant.a@taxsimba.co.uk", "Account@123"),
         "accb": _login("accountant.b@taxsimba.co.uk", "Account@123"),
-        "cla":  _login("clienta@example.com", "Client@123"),
-        "clb":  _login("clientb@example.com", "Client@123"),
+        "cla":  _login(*QA_CLIENT_A),
+        "clb":  _login(*QA_CLIENT_B),
     }
 
 

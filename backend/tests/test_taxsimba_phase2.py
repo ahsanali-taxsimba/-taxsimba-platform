@@ -25,13 +25,15 @@ if not BASE_URL:
 BASE_URL = BASE_URL.rstrip("/")
 API = f"{BASE_URL}/api"
 
+from qa_clients import QA_CLIENT_A, QA_CLIENT_B  # noqa: E402
+
 CREDS = {
     "admin":    ("admin@taxsimba.co.uk",         "Admin@123"),
     "super":    ("superadmin@taxsimba.co.uk",    "Super@123"),
     "acc_a":    ("accountant.a@taxsimba.co.uk",  "Account@123"),
     "acc_b":    ("accountant.b@taxsimba.co.uk",  "Account@123"),
-    "client_a": ("clienta@example.com",          "Client@123"),
-    "client_b": ("clientb@example.com",          "Client@123"),
+    "client_a": QA_CLIENT_A,
+    "client_b": QA_CLIENT_B,
 }
 
 FULL_CHECKLIST = {k: True for k in [
@@ -212,7 +214,7 @@ class TestFullLifecycle:
 class TestNegativeSubmissionCompletion:
     """Fresh case per test to isolate negative paths."""
 
-    def _create_case_at_status(self, tok, target_status, client_email="clientb@example.com"):
+    def _create_case_at_status(self, tok, target_status, client_email=QA_CLIENT_B[0]):
         """Drives a fresh case to target_status. Returns case_id."""
         client = _find_user(tok["super"], client_email, "CLIENT")
         acc = _find_user(tok["super"], CREDS["acc_a"][0], "ACCOUNTANT")

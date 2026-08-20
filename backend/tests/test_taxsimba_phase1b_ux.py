@@ -13,13 +13,15 @@ BASE_URL = os.environ.get("REACT_APP_BACKEND_URL", "").rstrip("/") or \
     open("/app/frontend/.env").read().split("REACT_APP_BACKEND_URL=")[1].split()[0].strip()
 API = f"{BASE_URL}/api"
 
+from qa_clients import QA_CLIENT_A, QA_CLIENT_B  # noqa: E402
+
 CREDS = {
     "admin":    ("admin@taxsimba.co.uk",        "Admin@123"),
     "super":    ("superadmin@taxsimba.co.uk",   "Super@123"),
     "acc_a":    ("accountant.a@taxsimba.co.uk", "Account@123"),
     "acc_b":    ("accountant.b@taxsimba.co.uk", "Account@123"),
-    "client_a": ("clienta@example.com",         "Client@123"),
-    "client_b": ("clientb@example.com",         "Client@123"),
+    "client_a": QA_CLIENT_A,
+    "client_b": QA_CLIENT_B,
 }
 
 

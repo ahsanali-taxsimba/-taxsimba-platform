@@ -170,6 +170,34 @@ Tasks (Action Required / Completed tabs, "No due date" instead of `Due —`), Do
 - Browser: all 11 client pages plus Client B, Accountant, Admin and Super Admin render correctly with **zero** internal enum/placeholder violations; mobile checked at 390px.
 - Two transient chunked-read network errors under parallel load were confirmed to pass in isolation (not product defects).
 
+## Final hardening: cross-role QA, demo isolation, production CORS (2026-06)
+
+### 1. Cross-role QA (`tests/test_cross_role_qa.py`, 29 tests)
+Real workflow and permission testing on a **disposable** client, not page rendering:
+- **Assignment propagation** — assigned Accountant A sees the case; Accountant B gets 403/404 and it is absent from their list; Admin and Super Admin both see it.
+- **Status propagation** — an accountant's information request flips the case to `AWAITING_CLIENT` for every staff role and reads *"Waiting for you"* for the client; the client's upload becomes visible to Accountant, Admin and Super Admin and yields exactly **one** document and **one** completed-history entry.
+- **Approval gates** — accountant cannot record a submission; client cannot see a calculation before admin approval; client cannot approve before release; accountant cannot approve on the client's behalf; client approval propagates to all staff roles.
+- **Submission truth** — while only ready: `has_submission_record` false, journey `Ready to Submit`, label never "Submitted to HMRC"; client cannot record a submission (403); only an admin-recorded authorised submission flips it to `Submitted Successfully`; client and admin never disagree on status.
+- **Permission matrix / privacy** — client 403 on 7 staff actions; accountant 403 on admin actions; no `password_hash`, client email or Stripe ids reach an accountant; internal notes never reach the client; Admin contact masked, Super Admin unmasked with mandatory-reason audited reveal and Admin 403.
+
+Note: the sequential steps live in a **single class** on purpose — under `--dist loadscope` separate classes land on different xdist workers, which rebuilds the module fixture and hands later classes a fresh case (a flaw in the test design, fixed).
+
+### 2. Demo data isolation
+`tests/qa_clients.py` + `tests/conftest.py` provide dedicated disposable accounts (`qa.client.a@`/`qa.client.b@qa-taxsimba.example.com`, `QaClient@123`), provisioned idempotently and pruned by a session autouse fixture. **All mutating suites** (phase1, phase1b, phase1b_ux, phase2, iteration7) were repointed off the demo accounts — 91 references migrated. `demo_account_counts()` / `assert_demo_accounts_untouched()` give an objective before/after diff, asserted by `TestDemoAccountsUntouched`.
+**Proven empirically:** a complete regression left Client A `{cases:1, notifications:2, documents:2, tasks:2, payments:0}` and Client B `{1,0,0,0,0}` **identical** — zero growth on every collection. Client A/B stay clean for manual preview testing.
+
+### 3. Production CORS
+`CORS_ORIGINS="https://taxsimba.co.uk,https://www.taxsimba.co.uk"` (production only) is now separate from `CORS_DEV_ORIGINS` (preview only); `_allowed_origins()` merges them and **raises `RuntimeError` on `*` or empty in either**. Verified at the app boundary: both production domains and the preview origin echoed, `attacker.example.com` → **400 with no allow-origin**, no wildcard anywhere.
+
+### Verification (iteration_12, independent)
+**328 passed / 2 skipped / 0 failed**, zero critical and zero minor product defects, `retest_needed: false`. All 4 role logins land correctly, all 11 client routes render, mobile 390px has no overflow and Documents renders as stacked cards.
+
+### Still requires external integration/configuration (deliberately NOT faked)
+1. **HMRC filing** — no API integration; submissions are recorded manually by authorised staff.
+2. **Transactional email** — no provider; email-change verification stays a PENDING staff-reviewed record.
+3. **Live Stripe** — TEST/SANDBOX keys only.
+4. **Production DNS/ingress** — the preview edge rewrites `Origin` and returns `*` on preflight, so CORS must be re-validated once `taxsimba.co.uk` ingress exists.
+
 ## Known gaps / not built
 - MTD quarterly operational workflow, HMRC API, Xero, SimbaX (deliberately deferred).
 - **Production hardening: DONE (2026-06)** — explicit CORS allowlist with wildcard fail-fast, login rate limiting + temporary lockout, XFF anti-spoofing, 15-minute access tokens with rotating/revocable refresh tokens. Residual risks listed above (edge CORS rewrite, CSRF on refresh/logout, body-returned access token).

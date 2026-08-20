@@ -83,17 +83,47 @@ class TestCors:
         assert r.headers.get("access-control-allow-origin") not in (EVIL_ORIGIN, "*"), \
             "unapproved origin was granted CORS access"
 
+    def test_production_domains_are_allowed(self):
+        for origin in ("https://taxsimba.co.uk", "https://www.taxsimba.co.uk"):
+            r = requests.options(f"{APP}/auth/login",
+                                 headers={"Origin": origin,
+                                          "Access-Control-Request-Method": "POST"}, timeout=30)
+            assert r.headers.get("access-control-allow-origin") == origin, \
+                f"production domain {origin} is not on the allowlist"
+
+    def test_dev_origins_are_configured_separately(self):
+        prod = [o.strip() for o in os.environ["CORS_ORIGINS"].split(",") if o.strip()]
+        dev = [o.strip() for o in os.environ.get("CORS_DEV_ORIGINS", "").split(",") if o.strip()]
+        assert "https://taxsimba.co.uk" in prod and "https://www.taxsimba.co.uk" in prod
+        assert all("preview" not in o and "emergentagent" not in o for o in prod), \
+            "preview origins must live in CORS_DEV_ORIGINS, not the production list"
+        assert any("emergentagent" in o for o in dev), "preview origin missing from dev list"
+        assert "*" not in prod + dev
+
+    def test_dev_origin_still_allowed_for_testing(self):
+        r = requests.options(f"{APP}/auth/login",
+                             headers={"Origin": APPROVED_ORIGIN,
+                                      "Access-Control-Request-Method": "POST"}, timeout=30)
+        assert r.headers.get("access-control-allow-origin") == APPROVED_ORIGIN
+
     def test_env_has_no_wildcard(self):
         raw = os.environ["CORS_ORIGINS"]
         assert raw.strip() and "*" not in raw
 
     def test_startup_guard_rejects_wildcard_and_empty(self, monkeypatch):
         import server
+        monkeypatch.setenv("CORS_DEV_ORIGINS", "")
         for bad in ("*", "", "  ", "https://a.example.com,*"):
             monkeypatch.setenv("CORS_ORIGINS", bad)
             with pytest.raises(RuntimeError):
                 server._allowed_origins()
+        # a wildcard smuggled into the dev list must also fail
+        monkeypatch.setenv("CORS_ORIGINS", "https://a.example.com")
+        monkeypatch.setenv("CORS_DEV_ORIGINS", "*")
+        with pytest.raises(RuntimeError):
+            server._allowed_origins()
         monkeypatch.setenv("CORS_ORIGINS", "https://a.example.com,https://b.example.com")
+        monkeypatch.setenv("CORS_DEV_ORIGINS", "")
         assert server._allowed_origins() == ["https://a.example.com", "https://b.example.com"]
 
 

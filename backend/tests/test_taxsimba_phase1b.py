@@ -12,13 +12,15 @@ BASE_URL = os.environ["REACT_APP_BACKEND_URL"].rstrip("/") if os.environ.get("RE
     open("/app/frontend/.env").read().split("REACT_APP_BACKEND_URL=")[1].split()[0].strip()
 API = f"{BASE_URL}/api"
 
+from qa_clients import QA_CLIENT_A, QA_CLIENT_B  # noqa: E402
+
 CREDS = {
     "admin":    ("admin@taxsimba.co.uk",        "Admin@123"),
     "super":    ("superadmin@taxsimba.co.uk",   "Super@123"),
     "acc_a":    ("accountant.a@taxsimba.co.uk", "Account@123"),
     "acc_b":    ("accountant.b@taxsimba.co.uk", "Account@123"),
-    "client_a": ("clienta@example.com",         "Client@123"),
-    "client_b": ("clientb@example.com",         "Client@123"),
+    "client_a": QA_CLIENT_A,
+    "client_b": QA_CLIENT_B,
 }
 
 
@@ -54,9 +56,9 @@ class TestMultiService:
 
     def test_admin_view_client_services(self, tokens):
         # find client B user_id
-        r = requests.get(f"{API}/users?email=clientb@example.com", headers=_hdr(tokens["super"]))
+        r = requests.get(f"{API}/users?email={QA_CLIENT_B[0]}", headers=_hdr(tokens["super"]))
         assert r.status_code == 200
-        cb_uid = next(u["id"] for u in r.json() if u["email"] == "clientb@example.com")
+        cb_uid = next(u["id"] for u in r.json() if u["email"] == QA_CLIENT_B[0])
         r = requests.get(f"{API}/clients/{cb_uid}/services", headers=_hdr(tokens["admin"]))
         assert r.status_code == 200
         data = r.json()
@@ -64,8 +66,8 @@ class TestMultiService:
         assert any(s["service_type"] == "SELF_ASSESSMENT" for s in data["services"])
 
     def test_accountant_cannot_read_client_services(self, tokens):
-        r = requests.get(f"{API}/users?email=clientb@example.com", headers=_hdr(tokens["super"]))
-        cb_uid = next(u["id"] for u in r.json() if u["email"] == "clientb@example.com")
+        r = requests.get(f"{API}/users?email={QA_CLIENT_B[0]}", headers=_hdr(tokens["super"]))
+        cb_uid = next(u["id"] for u in r.json() if u["email"] == QA_CLIENT_B[0])
         r = requests.get(f"{API}/clients/{cb_uid}/services", headers=_hdr(tokens["acc_a"]))
         assert r.status_code == 403
 
@@ -165,8 +167,8 @@ def client_b_case_id(tokens):
     if cases:
         return cases[0]["id"]
     # else create one via admin
-    r = requests.get(f"{API}/users?email=clientb@example.com", headers=_hdr(tokens["super"]))
-    cb_uid = next(u["id"] for u in r.json() if u["email"] == "clientb@example.com")
+    r = requests.get(f"{API}/users?email={QA_CLIENT_B[0]}", headers=_hdr(tokens["super"]))
+    cb_uid = next(u["id"] for u in r.json() if u["email"] == QA_CLIENT_B[0])
     r2 = requests.get(f"{API}/users?email=accountant.b@taxsimba.co.uk", headers=_hdr(tokens["super"]))
     acc_b_id = next(u["id"] for u in r2.json() if u["email"] == "accountant.b@taxsimba.co.uk")
     r = requests.post(f"{API}/cases", headers=_hdr(tokens["admin"]),
@@ -321,24 +323,24 @@ class TestAdminOffer:
 # ------------------------------------------------------- admin override
 class TestOverride:
     def test_override_requires_reason(self, tokens):
-        r = requests.get(f"{API}/users?email=clientb@example.com", headers=_hdr(tokens["super"]))
-        cb_uid = next(u["id"] for u in r.json() if u["email"] == "clientb@example.com")
+        r = requests.get(f"{API}/users?email={QA_CLIENT_B[0]}", headers=_hdr(tokens["super"]))
+        cb_uid = next(u["id"] for u in r.json() if u["email"] == QA_CLIENT_B[0])
         r = requests.post(f"{API}/clients/{cb_uid}/override-package",
                           headers=_hdr(tokens["admin"]),
                           json={"package_code": "SIMPLE", "reason": " "})
         assert r.status_code == 400
 
     def test_override_accountant_forbidden(self, tokens):
-        r = requests.get(f"{API}/users?email=clientb@example.com", headers=_hdr(tokens["super"]))
-        cb_uid = next(u["id"] for u in r.json() if u["email"] == "clientb@example.com")
+        r = requests.get(f"{API}/users?email={QA_CLIENT_B[0]}", headers=_hdr(tokens["super"]))
+        cb_uid = next(u["id"] for u in r.json() if u["email"] == QA_CLIENT_B[0])
         r = requests.post(f"{API}/clients/{cb_uid}/override-package",
                           headers=_hdr(tokens["acc_a"]),
                           json={"package_code": "SIMPLE", "reason": "test"})
         assert r.status_code == 403
 
     def test_override_success(self, tokens):
-        r = requests.get(f"{API}/users?email=clientb@example.com", headers=_hdr(tokens["super"]))
-        cb_uid = next(u["id"] for u in r.json() if u["email"] == "clientb@example.com")
+        r = requests.get(f"{API}/users?email={QA_CLIENT_B[0]}", headers=_hdr(tokens["super"]))
+        cb_uid = next(u["id"] for u in r.json() if u["email"] == QA_CLIENT_B[0])
         # get current package
         svc = requests.get(f"{API}/clients/{cb_uid}/services",
                            headers=_hdr(tokens["admin"])).json()

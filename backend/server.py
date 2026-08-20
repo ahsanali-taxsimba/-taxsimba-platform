@@ -36,11 +36,19 @@ CSRF_COOKIE = "csrf_token"
 
 def _allowed_origins() -> List[str]:
     """Explicit allowlist only. A wildcard or empty value is a hard startup failure so the
-    permissive '*' configuration can never silently return."""
+    permissive '*' configuration can never silently return.
+
+    CORS_ORIGINS holds the official production domains. CORS_DEV_ORIGINS holds the separate
+    preview/development origins and can be emptied for a production deployment without
+    touching the production list.
+    """
     raw = os.environ.get("CORS_ORIGINS", "")
-    origins = [o.strip() for o in raw.split(",") if o.strip()]
-    if not origins:
+    dev = os.environ.get("CORS_DEV_ORIGINS", "")
+    prod_origins = [o.strip() for o in raw.split(",") if o.strip()]
+    dev_origins = [o.strip() for o in dev.split(",") if o.strip()]
+    if not prod_origins:
         raise RuntimeError("CORS_ORIGINS must list at least one approved origin")
+    origins = prod_origins + [o for o in dev_origins if o not in prod_origins]
     if any(o == "*" for o in origins):
         raise RuntimeError("CORS_ORIGINS must not contain a wildcard '*'")
     return origins
