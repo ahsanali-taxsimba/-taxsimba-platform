@@ -32,6 +32,8 @@ export default function CaseWorkspace() {
   const [calcs, setCalcs] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [accountants, setAccountants] = useState([]);
+  const [saPackages, setSaPackages] = useState([]);
+  const [recs, setRecs] = useState([]);
   const [modal, setModal] = useState(null);
   const [err, setErr] = useState("");
   const [form, setForm] = useState({});
@@ -47,6 +49,8 @@ export default function CaseWorkspace() {
     api.get(`/cases/${id}/activity`).then((r) => setLogs(r.data));
     api.get(`/cases/${id}/calculations`).then((r) => setCalcs(r.data));
     api.get(`/cases/${id}/reviews`).then((r) => setReviews(r.data));
+    api.get(`/cases/${id}/recommendations`).then((r) => setRecs(r.data)).catch(() => {});
+    api.get("/packages", { params: { service_type: "SELF_ASSESSMENT" } }).then((r) => setSaPackages(r.data));
     if (isAdmin) api.get("/accountants/workload").then((r) => setAccountants(r.data));
   };
   useEffect(() => { load(); }, [id]);
@@ -92,6 +96,8 @@ export default function CaseWorkspace() {
         <button data-testid="submit-admin-review-btn" className={primary} onClick={() => setModal("submit")}>Send to Admin for Review</button>
       )}
       <button data-testid="add-note-btn" className={ghost} onClick={() => setModal("note")}>Add Internal Note</button>
+      <button data-testid="recommend-package-btn" className={ghost} onClick={() => setModal("recPackage")}>Recommend Package Upgrade</button>
+      <button data-testid="recommend-mtd-btn" className={ghost} onClick={() => setModal("recMtd")}>Recommend MTD</button>
       <label className={`${ghost} cursor-pointer`}>
         Upload Working Document
         <input data-testid="upload-working-doc" type="file" className="hidden" onChange={async (e) => {
@@ -166,6 +172,16 @@ export default function CaseWorkspace() {
               <div><dt className="text-xs uppercase text-[#626A65]">Submission</dt><dd className="mt-1" data-testid="overview-submission">{cs.submission_reference ? `${cs.submission_reference} · ${cs.submission_date} · by ${cs.submitted_by_name}` : "—"}</dd></div>
               <div><dt className="text-xs uppercase text-[#626A65]">Completed</dt><dd className="mt-1">{cs.completed_by_name ? `${cs.completed_by_name} · ${dt(cs.completed_at)}` : "—"}</dd></div>
             </dl>
+            {recs.length > 0 && (
+              <div className="mt-6 border border-[#E3E7E4] rounded-lg p-5" data-testid="overview-recommendations">
+                <div className="text-sm font-semibold mb-2">Service recommendations</div>
+                <ul className="text-sm text-[#626A65] space-y-1">
+                  {recs.map((r) => (
+                    <li key={r.id}>{r.type === "MTD" ? "MTD" : `Package upgrade → ${r.recommended_package}`} · {r.reason} · <b>{r.status}</b> · {r.raised_by_name}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <div className="mt-6 grid md:grid-cols-2 gap-6">
               <div className="rounded-lg bg-[#F1F8F4] p-5">
                 <div className="text-sm font-semibold mb-2">Missing items</div>
@@ -417,6 +433,64 @@ export default function CaseWorkspace() {
                   onClick={() => act(() => api.post(`/cases/${id}/admin-return`, { reason: form.reason, instructions: form.instructions }))}>
                   Return for Changes
                 </button>
+              </>
+            )}
+
+            {modal === "recPackage" && (
+              <>
+                <h3 className="text-lg font-semibold mb-2">Recommend Package Upgrade</h3>
+                <p className="text-sm text-[#626A65] mb-5">Admin reviews this before anything is offered to the client. You cannot change packages or prices.</p>
+                <div className="space-y-4">
+                  <select data-testid="rec-package-select" className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    value={form.recommended_package || ""} onChange={(e) => setForm({ ...form, recommended_package: e.target.value })}>
+                    <option value="">Select recommended package</option>
+                    {saPackages.map((p) => <option key={p.id} value={p.code}>{p.name}</option>)}
+                  </select>
+                  <select data-testid="rec-package-reason" className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    value={form.reason || ""} onChange={(e) => setForm({ ...form, reason: e.target.value })}>
+                    <option value="">Select reason</option>
+                    <option>Rental income requires a higher package</option>
+                    <option>Self-employment accounts required</option>
+                    <option>Capital gains reporting required</option>
+                    <option>Multiple income sources</option>
+                    <option>Complex expenses review required</option>
+                  </select>
+                  <textarea data-testid="rec-package-note" rows={3} placeholder="Internal note for Admin"
+                    className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    value={form.note || ""} onChange={(e) => setForm({ ...form, note: e.target.value })} />
+                  <button data-testid="send-package-rec-btn" disabled={!form.recommended_package || !form.reason}
+                    className={`${primary} w-full disabled:opacity-50`}
+                    onClick={() => act(() => api.post(`/cases/${id}/recommend-package`, {
+                      recommended_package: form.recommended_package, reason: form.reason, note: form.note || null,
+                    }))}>Send recommendation to Admin</button>
+                  {err && <p className="text-sm text-[#D64545]">{err}</p>}
+                </div>
+              </>
+            )}
+
+            {modal === "recMtd" && (
+              <>
+                <h3 className="text-lg font-semibold mb-2">Recommend MTD</h3>
+                <p className="text-sm text-[#626A65] mb-5">Admin selects the MTD package, price and activation. You cannot activate MTD or take payment.</p>
+                <div className="space-y-4">
+                  <select data-testid="rec-mtd-reason" className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    value={form.reason || ""} onChange={(e) => setForm({ ...form, reason: e.target.value })}>
+                    <option value="">Select reason</option>
+                    <option>Turnover above the MTD threshold</option>
+                    <option>Rental income requires quarterly reporting</option>
+                    <option>Self-employment requires quarterly reporting</option>
+                    <option>Client would benefit from quarterly bookkeeping</option>
+                  </select>
+                  <textarea data-testid="rec-mtd-note" rows={3} placeholder="Internal note for Admin"
+                    className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    value={form.note || ""} onChange={(e) => setForm({ ...form, note: e.target.value })} />
+                  <button data-testid="send-mtd-rec-btn" disabled={!form.reason}
+                    className={`${primary} w-full disabled:opacity-50`}
+                    onClick={() => act(() => api.post(`/cases/${id}/recommend-mtd`, {
+                      reason: form.reason, note: form.note || null,
+                    }))}>Send recommendation to Admin</button>
+                  {err && <p className="text-sm text-[#D64545]">{err}</p>}
+                </div>
               </>
             )}
 

@@ -13,8 +13,9 @@ from pydantic import BaseModel, EmailStr
 
 from auth import (create_access_token, get_current_user, hash_password, is_admin,
                   is_staff, require_roles, verify_password)
-from db import clean, clean_many, db
+from db import clean, clean_many, db, scrub, scrub_many
 from seed import seed
+from phase1b import ensure_phase1b_data, router as phase1b_router
 from storage import init_storage, put_object, get_object, APP_NAME
 from workflow import (STATUSES, STATUS_META, journey, log_activity, notify, now_iso,
                       transition)
@@ -31,6 +32,7 @@ app.add_middleware(
 @app.on_event("startup")
 async def startup():
     await seed()
+    await ensure_phase1b_data()
     try:
         init_storage()
     except Exception as e:
@@ -172,24 +174,6 @@ async def _get_case(case_id: str, user: dict) -> dict:
     if user["role"] == "ACCOUNTANT" and case.get("assigned_accountant_id") != user["id"]:
         raise HTTPException(status_code=403, detail="Case not assigned to you")
     return clean(case)
-
-
-# Fields an accountant must never receive about a client (contact / auth data).
-PROTECTED_CLIENT_FIELDS = ["client_email", "client_phone", "client_user_id", "email", "phone",
-                           "utr", "address", "password_hash"]
-
-
-def scrub(doc: dict, user: dict) -> dict:
-    """Strip protected client contact/auth data from accountant-facing payloads."""
-    if not doc or user["role"] != "ACCOUNTANT":
-        return doc
-    for f in PROTECTED_CLIENT_FIELDS:
-        doc.pop(f, None)
-    return doc
-
-
-def scrub_many(docs, user):
-    return [scrub(x, user) for x in docs]
 
 
 def _days_left(case: dict):
@@ -991,3 +975,4 @@ async def root():
 
 
 app.include_router(api)
+app.include_router(phase1b_router)

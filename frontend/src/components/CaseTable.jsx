@@ -32,7 +32,7 @@ export default function CaseTable({ cases, basePath = "/work/cases", showAccount
               <td className="py-4 pr-4"><PriorityBadge priority={c.priority} /></td>
               <td className="py-4 pr-4 font-semibold text-[#161B18] whitespace-nowrap">{c.client_name}</td>
               <td className="py-4 pr-4 text-[#626A65]">{c.case_ref}</td>
-              {showAccountant && <td className="py-4 pr-4 text-[#626A65]">Self Assessment</td>}
+              {showAccountant && <td className="py-4 pr-4 text-[#626A65]">{c.service_type === "MTD_INCOME_TAX" ? "MTD for Income Tax" : "Self Assessment"}</td>}
               <td className="py-4 pr-4 text-[#626A65]">{c.tax_year}</td>
               {showAccountant && (
                 <td className="py-4 pr-4 text-[#626A65] whitespace-nowrap">

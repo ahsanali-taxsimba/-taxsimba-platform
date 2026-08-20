@@ -3,7 +3,7 @@ import AppShell from "@/components/AppShell";
 import { Empty, Panel } from "@/components/StatCard";
 import { api, d, dt } from "@/lib/api";
 
-const TABS = [["users", "Users"], ["accountants", "Accountants"], ["admins", "Admins"], ["roles", "Roles"], ["services", "Services"], ["workflow", "Workflow Settings"], ["audit", "Audit Log"]];
+const TABS = [["users", "Users"], ["accountants", "Accountants"], ["admins", "Admins"], ["roles", "Roles"], ["services", "Services"], ["packages", "Packages & Pricing"], ["payments", "Payments"], ["workflow", "Workflow Settings"], ["audit", "Audit Log"]];
 
 export default function SuperAdmin() {
   const [tab, setTab] = useState("users");
@@ -11,6 +11,9 @@ export default function SuperAdmin() {
   const [services, setServices] = useState([]);
   const [workflow, setWorkflow] = useState(null);
   const [audit, setAudit] = useState([]);
+  const [packages, setPackages] = useState([]);
+  const [payments, setPayments] = useState([]);
+  const [lock, setLock] = useState(null);
   const [form, setForm] = useState({ name: "", email: "", password: "", role: "ACCOUNTANT" });
   const [err, setErr] = useState("");
 
@@ -19,6 +22,9 @@ export default function SuperAdmin() {
     api.get("/services").then(({ data }) => setServices(data));
     api.get("/workflow/settings").then(({ data }) => setWorkflow(data));
     api.get("/audit-log").then(({ data }) => setAudit(data));
+    api.get("/packages").then(({ data }) => setPackages(data));
+    api.get("/payments").then(({ data }) => setPayments(data));
+    api.get("/settings/package-lock").then(({ data }) => setLock(data));
   };
   useEffect(() => { load(); }, []);
 
@@ -105,6 +111,61 @@ export default function SuperAdmin() {
                 <tr key={s.id} className="border-b border-[#E3E7E4]"><td className="py-4 font-mono text-xs">{s.code}</td><td className="py-4">{s.name}</td><td className="py-4">£{s.price}</td><td className="py-4">{s.is_active ? "Yes" : "No"}</td></tr>
               ))}</tbody>
             </table>
+          </Panel>
+        )}
+
+        {tab === "packages" && (
+          <Panel title="Packages & pricing" testId="packages-panel">
+            <table className="w-full text-sm">
+              <thead><tr className="text-left text-[11px] uppercase text-[#626A65] border-b border-[#E3E7E4]">
+                <th className="py-3 pr-4">Service</th><th className="py-3 pr-4">Package</th><th className="py-3 pr-4">Rank</th>
+                <th className="py-3 pr-4">Billing</th><th className="py-3 pr-4">Price (£)</th><th className="py-3" /></tr></thead>
+              <tbody>{packages.map((p) => (
+                <tr key={p.id} data-testid={`package-row-${p.code}`} className="border-b border-[#E3E7E4]">
+                  <td className="py-4 pr-4">{p.service_type === "MTD_INCOME_TAX" ? "MTD for Income Tax" : "Self Assessment"}</td>
+                  <td className="py-4 pr-4 font-semibold">{p.name}</td>
+                  <td className="py-4 pr-4">{p.rank}</td>
+                  <td className="py-4 pr-4 text-[#626A65]">{p.billing_frequency}</td>
+                  <td className="py-4 pr-4">
+                    <input data-testid={`price-input-${p.code}`} type="number" defaultValue={p.price}
+                      onBlur={async (e) => {
+                        const v = Number(e.target.value);
+                        if (v !== p.price) { await api.patch(`/packages/${p.id}/price`, { price: v }); load(); }
+                      }}
+                      className="w-28 rounded-lg border border-[#E3E7E4] px-2 py-1 text-sm" />
+                  </td>
+                  <td className="py-4 text-xs text-[#626A65]">Edit and click away to save</td>
+                </tr>
+              ))}</tbody>
+            </table>
+            {lock && (
+              <p className="text-xs text-[#626A65] mt-5">
+                Client package changes are locked from these case statuses: {lock.locked_statuses.join(", ")}
+              </p>
+            )}
+          </Panel>
+        )}
+
+        {tab === "payments" && (
+          <Panel title="Payments" testId="payments-admin-panel">
+            {!payments.length && <Empty text="No payments recorded yet." />}
+            {payments.length > 0 && (
+              <table className="w-full text-sm">
+                <thead><tr className="text-left text-[11px] uppercase text-[#626A65] border-b border-[#E3E7E4]">
+                  <th className="py-3 pr-4">Date</th><th className="py-3 pr-4">Client</th><th className="py-3 pr-4">Type</th>
+                  <th className="py-3 pr-4">Change</th><th className="py-3 pr-4">Amount</th><th className="py-3">Status</th></tr></thead>
+                <tbody>{payments.map((p) => (
+                  <tr key={p.id} className="border-b border-[#E3E7E4]">
+                    <td className="py-3 pr-4 text-[#626A65]">{dt(p.created_at)}</td>
+                    <td className="py-3 pr-4">{p.client_name} <span className="text-xs text-[#626A65]">{p.client_ref}</span></td>
+                    <td className="py-3 pr-4">{p.kind === "SA_UPGRADE" ? "Package upgrade" : "Service activation"}</td>
+                    <td className="py-3 pr-4 text-[#626A65]">{p.previous_package ? `${p.previous_package} → ` : ""}{p.new_package}</td>
+                    <td className="py-3 pr-4 font-semibold">£{Number(p.amount).toFixed(2)}</td>
+                    <td className="py-3" style={{ color: p.payment_status === "paid" ? "#16A05D" : "#626A65" }}>{p.payment_status}</td>
+                  </tr>
+                ))}</tbody>
+              </table>
+            )}
           </Panel>
         )}
 

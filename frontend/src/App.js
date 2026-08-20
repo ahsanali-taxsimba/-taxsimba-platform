@@ -4,6 +4,8 @@ import Login from "@/pages/Login";
 import ClientDashboard from "@/pages/client/ClientDashboard";
 import MyTaxReturn from "@/pages/client/MyTaxReturn";
 import { ClientDocuments, ClientJourneyPage, ClientMessages, ClientTasks, SimplePage } from "@/pages/client/ClientPages";
+import MyServices, { PaymentCancel, PaymentSuccess } from "@/pages/client/MyServices";
+import AdminRecommendations from "@/pages/staff/AdminRecommendations";
 import AccountantDashboard from "@/pages/staff/AccountantDashboard";
 import { AdminAccountants, AdminCases, AdminDashboard } from "@/pages/staff/AdminPages";
 import CaseWorkspace from "@/pages/staff/CaseWorkspace";
@@ -57,10 +59,9 @@ export default function App() {
           <Route path="/tasks" element={<Guard roles={CLIENT}><ClientTasks /></Guard>} />
           <Route path="/journey" element={<Guard roles={CLIENT}><ClientJourneyPage /></Guard>} />
           <Route path="/profile" element={<Guard roles={CLIENT}><ClientProfile /></Guard>} />
-          <Route path="/subscription" element={<Guard roles={CLIENT}>
-            <SimplePage title="Subscription" subtitle="Your TaxSimba service" testId="subscription-panel">
-              <p className="text-sm text-[#626A65]">Self Assessment 2024/25 — active. Billing management arrives in a later phase.</p>
-            </SimplePage></Guard>} />
+          <Route path="/subscription" element={<Guard roles={CLIENT}><MyServices /></Guard>} />
+          <Route path="/payment/success" element={<Guard roles={CLIENT}><PaymentSuccess /></Guard>} />
+          <Route path="/payment/cancel" element={<Guard roles={CLIENT}><PaymentCancel /></Guard>} />
           <Route path="/help" element={<Guard roles={CLIENT}>
             <SimplePage title="Help Centre" subtitle="Support and guidance" testId="help-panel">
               <p className="text-sm text-[#626A65]">Message your accountant from the Messages page, or email support@taxsimba.co.uk.</p>
@@ -78,6 +79,7 @@ export default function App() {
           <Route path="/admin/cases/:id" element={<Guard roles={ADMIN}><CaseWorkspace /></Guard>} />
           <Route path="/admin/review/:id" element={<Guard roles={ADMIN}><CaseWorkspace /></Guard>} />
           <Route path="/admin/accountants" element={<Guard roles={ADMIN}><AdminAccountants /></Guard>} />
+          <Route path="/admin/recommendations" element={<Guard roles={ADMIN}><AdminRecommendations /></Guard>} />
           <Route path="/super" element={<Guard roles={["SUPER_ADMIN"]}><SuperAdmin /></Guard>} />
 
           <Route path="*" element={<Landing />} />

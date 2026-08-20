@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Bell, LayoutDashboard, FileText, FolderOpen, MessageSquare, CheckSquare, Route,
-  User, CreditCard, HelpCircle, Settings, Users, Briefcase, ShieldCheck, LogOut, Menu,
+  User, CreditCard, HelpCircle, Settings, Users, Briefcase, ShieldCheck, LogOut, Menu, Sparkles,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { api, dt } from "@/lib/api";
@@ -15,7 +15,7 @@ const CLIENT_NAV = [
   ["Tasks", "/tasks", CheckSquare],
   ["Your Tax Journey", "/journey", Route],
   ["Profile", "/profile", User],
-  ["Subscription", "/subscription", CreditCard],
+  ["My Services", "/subscription", CreditCard],
   ["Help Centre", "/help", HelpCircle],
   ["Settings", "/settings", Settings],
 ];
@@ -29,6 +29,7 @@ const ADMIN_NAV = [
   ["Dashboard", "/admin", LayoutDashboard],
   ["All Cases", "/admin/cases", Briefcase],
   ["Admin Review", "/admin/cases?bucket=admin_review", ShieldCheck],
+  ["Recommendations", "/admin/recommendations", Sparkles],
   ["Accountants", "/admin/accountants", Users],
 ];
 

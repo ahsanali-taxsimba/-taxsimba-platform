@@ -1,58 +1,48 @@
 # TaxSimba — Product Requirements & Build Log
 
-## Original problem statement (verbatim scope)
-Build **Phase 1 only** of TaxSimba: an accountant-led UK Self Assessment tax preparation platform.
-Explicitly out of scope: MTD, Xero, SimbaX, public website redesign, fake HMRC functionality, any unrequested feature.
-
-Operating model: Client purchases Self Assessment → Admin receives & assigns → Accountant reviews, requests info, prepares calculation → Admin performs final internal review → Client receives the ADMIN-APPROVED calculation and approves → case becomes Ready for Submission. One connected database and workflow, no disconnected per-role systems.
+## Original problem statement (scope)
+Accountant-led UK Self Assessment tax preparation platform. Phase 1: core platform + Self Assessment operations. Phase 1A: submission workflow + accountant client privacy. Phase 1B: multi-service client accounts, Self Assessment package upgrades, MTD recommendation/activation foundation.
+Out of scope throughout: MTD quarterly workflow, HMRC APIs, Xero, SimbaX, public website redesign, fake HMRC functionality.
 
 ## Architecture
-- **Backend** (FastAPI + MongoDB, all routes under `/api`):
-  - `server.py` — all routes (auth, cases, tasks, documents, messages, notes, activity, reviews, notifications, stats, users, services, workflow settings, audit log)
-  - `workflow.py` — the single controlled workflow engine: 18 statuses, `STATUS_META` maps status → stage / next action / next action owner; `transition()` is the only way a status changes and always updates the case, writes an Activity Log entry and (where relevant) notifications; `journey()` derives the client-facing 5-step journey from status
-  - `auth.py` — bcrypt + JWT, `require_roles()` RBAC; `db.py`; `storage.py` (Emergent object storage); `seed.py` (demo users, accountant profiles, clients, Self Assessment service, 2 cases)
-- **Frontend** (React + Tailwind, role-based shell): `AppShell` (role nav + notification bell), client pages (Dashboard, My Tax Return, Documents, Messages, Tasks, Your Tax Journey, Profile, Subscription, Help Centre, Settings), Accountant dashboard, Admin dashboard/cases/accountants, shared staff `CaseWorkspace` (7 tabs + all workflow modals), Super Admin.
-- **Data entities**: User, Client, Accountant Profile, Service, Case, Assignment, Task, Document, Document Request, Message, Internal Note, Notification, Review, Calculation Version, Client Approval, Submission Record, Activity Log. `service_type` is a field on Case (`SELF_ASSESSMENT`) so MTD can be added later without rebuilding.
+- **Backend** (FastAPI + MongoDB, all routes `/api`):
+  - `server.py` — auth, cases, tasks, documents, messages, notes, activity, reviews, submission/completion, notifications, stats, users, services, workflow settings, audit log
+  - `workflow.py` — single controlled workflow engine: 18 statuses, `STATUS_META` (status → stage / next action / owner), `ALLOWED_TRANSITIONS` guard, `transition()`, `journey()`, `log_activity()`, `notify()`
+  - `phase1b.py` — packages & pricing, package-change lock, client services, upgrade options, Stripe checkout + webhook + fulfilment, recommendations, offers, admin override
+  - `auth.py` (bcrypt + JWT + `require_roles`), `db.py` (`clean`, `scrub`/`PROTECTED_CLIENT_FIELDS`), `storage.py` (object storage), `seed.py`
+- **Frontend** (React + Tailwind): role-based `AppShell`; client pages (Dashboard, My Tax Return, Documents, Messages, Tasks, Tax Journey, Profile, My Services, Help, Settings, payment result pages); accountant dashboard; admin dashboard/cases/accountants/recommendations; shared staff `CaseWorkspace` (7 tabs + workflow modals); Super Admin.
+- **Data model**: one connected set of collections — users, clients (`client_ref` CL-00xx), accountant_profiles, services, packages, client_services (Client → Services → Cases), cases, assignments, tasks, documents, document_requests, messages, internal_notes, notifications, reviews, calculation_versions, client_approvals, submission_records, recommendations, offers, payment_transactions, activity_logs, override_audit, pricing_audit, settings. `service_type` on Case (`SELF_ASSESSMENT`, `MTD_INCOME_TAX`) so MTD extends without a rebuild.
 
-## Roles / personas
-- **CLIENT** — sees only their own case, tasks, documents, messages and *admin-approved* calculations.
-- **ACCOUNTANT** — sees only cases assigned to them; full workspace incl. internal notes and tax working.
-- **ADMIN** — all operational cases, assignment centre, internal review (approve / return for changes).
-- **SUPER ADMIN** — everything plus users, roles, services, workflow settings, audit log.
+## Roles
+- **CLIENT** — own data only; sees only admin-approved calculations; can upgrade (never downgrade) SA package and accept admin-approved service offers.
+- **ACCOUNTANT** — assigned cases only; no client email/phone/payment data; can recommend upgrades and MTD but cannot price, activate, take payment, release to client, submit or complete.
+- **ADMIN** — all operations, assignment, internal review, recommendations/offers, submission and completion, authorised overrides.
+- **SUPER ADMIN** — all of the above plus users, roles, services, packages & pricing, payments, workflow settings, audit log.
 
-## Enhancement 1 (2026-06) — Submission workflow + accountant client privacy
-- **Server-side workflow guard**: `ALLOWED_TRANSITIONS` in `workflow.py` — `transition()` rejects any out-of-order status change with 400, so the workflow cannot be bypassed via raw API calls (frontend button states are no longer the control).
-- **Accountant stage**: "Send to Admin for Review" with an optional internal note for Admin (stored as an internal note + on the review record). Accountant cannot release to the client, record a submission or complete a case.
-- **Admin review**: Approve (records reviewer, date/time, admin note, approved version — version locked) or Return for Changes (reason + instructions required) → CHANGES_REQUIRED back into the accountant's queue with an accountant task.
-- **Submission**: `POST /api/cases/{id}/record-submission` (ADMIN/SUPER_ADMIN only) requires submission date + reference + submitted-by + optional note, and is refused unless admin approval **and** client approval are both complete and status is READY_FOR_SUBMISSION → SUBMITTED. Then `POST /api/cases/{id}/complete` (SUBMITTED only) → COMPLETED with completion date + user. No HMRC API.
-- **Accountant client privacy**: `PROTECTED_CLIENT_FIELDS` + `scrub()`/`scrub_many()` strip client email, phone, UTR, address, `client_user_id` and any auth data from every accountant-facing response (cases, tasks, documents, messages, activity, notes, calculations, reviews, notifications). `/users`, `/accountants/workload` and `/audit-log` are 403 for accountants. Accountants still see client name, internal client ID, tax year, service, status, deadlines, internal instructions, documents, tasks, calculations and case history. All accountant→client contact goes through "Message Client" / "Request from Client" — no email/phone is ever needed or returned.
-- **Audit trail**: every activity entry now stores action, user, role, timestamp, case id, comments, previous status and new status.
-- **Queues**: accountant dashboard (Needs My Action, New Assigned, In Progress, Waiting for Client, Changes Required, Awaiting Admin Review, Approved/Ready for Submission, Completed, Due Today, Due This Week) and admin dashboard (New, Unassigned, Assigned, Waiting for Client, In Progress, Awaiting Admin Review, Changes Required, Awaiting Client Approval, Ready for Submission, Submitted, Completed, Overdue/Attention) — every card clickable to its filtered list.
-- **Verified**: 67/67 backend tests plus frontend checks green (iteration_3 report, zero open issues).
+## Implemented
+### Phase 1 (2026-06)
+JWT auth + RBAC with seeded accounts; controlled workflow engine; client dashboard (single intelligent action card), auto-derived tax journey, tasks, document centre (6 statuses / 4 filters), case-linked messaging; admin dashboard with clickable stat cards, case table with filters/search, Assignment Centre with live accountant workload; accountant dashboard (own workload) + case workspace with stage-conditional actions; request-from-client automation; immutable calculation versions; checklist-gated submit for admin review; admin approve / return for changes; client final review + approval; activity timeline; notifications; Super Admin foundation; real uploads via object storage.
 
-## Implemented (2026-06)- JWT email/password auth with RBAC, seeded demo accounts, deactivated accounts rejected at login
-- Controlled workflow engine (18 statuses) — every transition updates case, stage, next action, owner, activity log, notifications
-- Client dashboard with a single intelligent action card, auto-derived Tax Journey, tasks, document centre (6 statuses, 4 filters), case-linked messaging
-- Admin dashboard with 8 clickable stat cards, full case table with filters + search, Assignment Centre showing live accountant workload/capacity
-- Accountant dashboard (own workload only) with 7 cards + 6 tabs, and case workspace with stage-conditional actions
-- Request-from-Client automation (task + document request + notification + AWAITING_CLIENT), auto-return to accountant queue when client responds
-- Tax working area: immutable calculation versions, version + review history, internal notes, internal working documents (client-invisible)
-- Submit-for-Admin-Review with mandatory 7-item checklist and version locking; Admin approve / return-for-changes with reason + instructions
-- Client final review of the approved version and client approval → CLIENT_APPROVED → READY_FOR_SUBMISSION + Submission Record
-- Activity timeline per case, notification bell, Super Admin screens (Users, Accountants, Admins, Roles, Services, Workflow Settings, Audit Log)
-- Real file uploads via Emergent object storage; downloads gated by role
+### Phase 1A (2026-06)
+`ALLOWED_TRANSITIONS` server-side guard (no stage skipping via API); "Send to Admin for Review" with internal note for admin; admin approve records reviewer/date/time/note/approved version, or return with reason + instructions; Record Submission (date, reference, submitted-by, note) blocked unless admin **and** client approval complete; Mark Completed (SUBMITTED only) with completion date/user; accountant privacy scrubbing across every accountant-facing endpoint; audit entries carry previous/new status + comments; full accountant and admin queue sets.
+
+### Phase 1B (2026-06)
+One login / one Client ID / many services: `client_services` gives every client a Self Assessment service plus an MTD placeholder; My Services page shows each service, package, tax year, status and its cases. Configurable packages & pricing (Super Admin editable, pricing audit) — SA Simple/Smart/Elite, MTD Essential/Plus. Upgrade-only rule enforced server-side (downgrade or equal package rejected 400; only higher packages ever returned/rendered; "Current Package — Highest Package" on Elite). Upgrade pricing computed from package records (credit, upgrade price, additional amount payable, total due now) and paid via Stripe Checkout; on payment the same Client ID and same SA case are kept, package flips, payment + previous/new package + timestamp recorded, activity log written, admin notified. Configurable late-stage package-change lock plus admin/super-admin override requiring a reason (previous/new package, user, role, timestamp, reason audited). Accountant actions "Recommend Package Upgrade" and "Recommend MTD" (reason + internal note → admin) with no pricing, activation or payment rights. Admin recommendations centre: review, decline, or send a priced offer (package, optional price override, credit → amount due) to the client. Client sees "MTD Recommended" on the dashboard and the full offer on My Services; paying activates MTD under the same account, keeps SA active, creates the MTD case at AWAITING_ASSIGNMENT in the admin assignment queue, records payment/activation and audit entries.
 
 ## Verified
-25-step Phase 1 success test passes end-to-end (API + UI). Role isolation verified: Accountant B cannot see or open Accountant A's cases (403); client cannot read internal notes (403) or unapproved calculation versions.
+- Phase 1: 25-step success test end-to-end (iteration_1).
+- Phase 1A: submission/completion lifecycle + all 10 negative tests (iteration_3).
+- Phase 1B: 94 backend tests green plus a live Stripe Checkout upgrade driven through the browser — package flipped Smart → Elite with same client ref, no duplicated/damaged cases, payment + audit + admin notification recorded (iteration_4, zero open issues).
+- Fixed along the way: `/api/documents` leaked `client_user_id` to accountants; login ignored `is_active`.
 
-## Not built in Phase 1 (deferred, by design / noted to user)
-- HMRC submission (workflow deliberately stops at READY_FOR_SUBMISSION — no fake HMRC)
-- Stripe checkout for purchasing the service (user selected it; deferred as it is not part of the Phase 1 spec sections)
-- Email notifications via Resend (user selected it; in-app notifications only in Phase 1)
-- MTD, Xero, SimbaX
+## Known gaps / not built
+- MTD quarterly operational workflow, HMRC API, Xero, SimbaX (deliberately deferred).
+- MTD activation payment path was verified by tests and by an identical live SA upgrade payment, but not itself driven through hosted Checkout in a browser.
+- CORS is `*`; no login brute-force lockout; no outbound email.
 
 ## Backlog
-- P1: Stripe checkout for Self Assessment purchase; Resend email notifications mirroring in-app triggers; deadline-approaching / overdue notification scheduler
-- P1: message attachments; TaxSimba Support as a distinct message thread
-- P2: brute-force lockout + password reset; explicit CORS origins; split `server.py` into routers
-- P2 (Phase 2+): MTD service type, Xero integration, SimbaX
+- P1: production hardening (explicit CORS origins, login rate limiting/lockout)
+- P1: Resend email notifications mirroring in-app triggers; deadline-approaching / overdue scheduler
+- P2: submission-issue handling flow; message attachments; TaxSimba Support as a separate message thread
+- P2: split `server.py`/`phase1b.py` into routers
+- Phase 2: MTD quarterly compliance workflow on the same operational core

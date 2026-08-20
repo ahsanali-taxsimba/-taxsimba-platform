@@ -12,6 +12,7 @@ export default function ClientDashboard() {
   const { user } = useAuth();
   const [cs, setCs] = useState(null);
   const [tasks, setTasks] = useState([]);
+  const [offers, setOffers] = useState([]);
 
   useEffect(() => {
     api.get("/cases").then(async ({ data }) => {
@@ -20,6 +21,7 @@ export default function ClientDashboard() {
       setCs(full);
     });
     api.get("/tasks", { params: { status: "OPEN" } }).then(({ data }) => setTasks(data));
+    api.get("/my-offers").then(({ data }) => setOffers(data));
   }, []);
 
   const firstName = (user?.name || "").split(" ")[0];
@@ -82,10 +84,25 @@ export default function ClientDashboard() {
           </div>
         )}
 
+        {offers.map((o) => (
+          <div key={o.id} data-testid="mtd-recommended-card" className="bg-white border border-[#7656C9] rounded-xl p-8">
+            <h2 className="text-lg md:text-xl font-semibold text-[#161B18]">{o.service_name === "MTD for Income Tax" ? "MTD Recommended" : `${o.service_name} Recommended`}</h2>
+            <p className="text-sm text-[#626A65] mt-2 max-w-xl">
+              {o.message || "Your accountant recommends this service and our team has approved it. Making Tax Digital means HMRC needs quarterly updates instead of one annual return — we can handle that for you."}
+            </p>
+            <p className="text-sm text-[#161B18] mt-3">
+              {o.package_name} · {o.billing_frequency} · total due now <b>£{Number(o.amount_due).toFixed(2)}</b>
+            </p>
+            <Link to="/subscription" data-testid="view-offer-btn"
+              className="inline-flex mt-5 px-5 py-2.5 rounded-lg bg-[#078A4B] text-white text-sm font-semibold hover:bg-[#006B3C] transition-colors">
+              Add {o.service_name}
+            </Link>
+          </div>
+        ))}
+
         {cs && (
           <>
-            <Panel title="Your Tax Journey" testId="journey-panel">
-              <Journey steps={cs.journey} />
+            <Panel title="Your Tax Journey" testId="journey-panel">              <Journey steps={cs.journey} />
             </Panel>
             <Panel title="Case summary" testId="client-case-summary">
               <dl className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
