@@ -12,7 +12,7 @@ export default function MyTaxReturn() {
   const [sent, setSent] = useState(false);
 
   const load = async () => {
-    const { data } = await api.get("/cases");
+    const { data } = await api.get("/cases", { params: { service_type: "SELF_ASSESSMENT" } });
     if (!data.length) return;
     const { data: full } = await api.get(`/cases/${data[0].id}`);
     setCs(full);

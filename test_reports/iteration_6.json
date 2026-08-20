@@ -1,0 +1,43 @@
+{
+  "summary": "Iteration 6 — TaxSimba Phase 1B UX retest. Backend: 114 passed / 3 skipped / 2 failed on the full suite AFTER Scenario D was driven live through Stripe; both remaining failures are the expected side-effects of the successful Scenario D run (Client B's MTD is now ACTIVE so a pre-existing baseline assertion flips, and test_taxsimba_phase1b_ux::TestScenarioC_Approve is a pre-existing fixture-ordering brittleness where acc_b tries to recommend on a case fresh_sa_client assigned to acc_a — unrelated to any iteration 6 change). Before Scenario D was driven, the same suite was 116 passed / 3 skipped / 0 failed. New /app/backend/tests/test_iteration6_retest.py (6/6 green) explicitly re-tests the iteration 5 HIGH bug and the send-offer alias. HIGH bug from iteration 5 is fixed: both POST /api/users (role=CLIENT) and POST /api/auth/register now allocate a client_ref (verified CL-0056..CL-0060 range) and immediately bootstrap SA ACTIVE on SMART + MTD NOT_ACTIVE, with /my-upgrade-options offering Elite at additional_amount_payable=£100 — no server restart needed. Scenario A on a fresh admin-created client: /my-offers empty, /my-actions contains no 'mtd' text, MTD service present but NOT_ACTIVE with no case. send-offer alias verified: POST /recommendations/{id}/send-offer sets status=APPROVED, creates exactly one offer, second call returns 400. Frontend: /recommendation/{offerId} now carries BOTH rec-explanation and offer-explanation testids (both resolve to 'MTD offer test'). Scenario D driven end-to-end via Stripe with card 4242 4242 4242 4242 (UK billing address, 'Save my info' unchecked): /payment/success displayed → MTD_INCOME_TAX now ACTIVE under Client B (CL-0043), /subscription shows both open-service-SELF_ASSESSMENT and open-service-MTD_INCOME_TAX, nav-mtd-for-income-tax visible, /mtd shows only MTD-2001 · 2026/27 · AWAITING_ASSIGNMENT (no SA leakage), SA dashboard still shows SA-1206 in progress, and admin All Cases page contains the new MTD-2001 case at AWAITING_ASSIGNMENT.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "test_taxsimba_phase1b_ux.py::TestScenarioC_Approve", "issue": "Pre-existing test brittleness: fresh_sa_client is assigned to accountant A but the test posts /cases/{id}/recommend-mtd with acc_b's token → 403 'Case not assigned to you'. Not a product bug; the recommend-mtd endpoint correctly enforces the accountant/case link. Fix should use tokens['acc_a'] or assign to acc_b."},
+      {"endpoint": "test_taxsimba_phase1b.py::TestMultiService::test_my_services_client_b", "issue": "Baseline test hard-codes MTD_INCOME_TAX == NOT_ACTIVE for Client B; after Scenario D was successfully driven Client B's MTD is now ACTIVE. Expected — Client B seed should either not be used for Scenario D or the baseline should be reset per run."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration6_retest.py",
+    "/app/test_reports/pytest/iteration6_full.xml"
+  ],
+  "action_items": [
+    "Fix pre-existing TestScenarioC_Approve fixture in test_taxsimba_phase1b_ux.py to use the accountant the fresh_sa_client case is assigned to (or re-assign to acc_b in the test setup).",
+    "Reset Client B's MTD service state (or scope Scenario D to a dedicated seeded client) so test_my_services_client_b baseline stops flipping every time Scenario D runs."
+  ],
+  "critical_code_review_comments": [
+    "bootstrap_client_services helper is well-placed and reused from both POST /users and POST /auth/register — the previous iteration bug is genuinely gone. Good idempotency (client_ref allocated once, SA row added only if missing).",
+    "send-offer is now a documented alias of approve — clean and backwards compatible; second-call rejection is enforced via the PENDING guard in approve_recommendation.",
+    "offer-explanation lives in a hidden span while rec-explanation carries the visible copy — both are present in the DOM which satisfies automated testing but the hidden span duplicates text unnecessarily. Consider using a single element with the two testids on the same node (data-testid attribute + a wrapper).",
+    "MyServices route is /subscription in App.js but the spec (and older tests) sometimes refer to /services — worth aliasing or documenting.",
+    "Known carry-overs unchanged: CORS wildcard + credentials, no login lockout, server.py/phase1b.py size, MTD case_ref via count_documents."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration6_retest.py (new, 6 tests covering the iteration 5 retest scope)"
+  ],
+  "success_rate": {
+    "backend": "98.3% (114/116 non-skip passing; 2 failures are test pollution from the successful Scenario D run, not product regressions — all 6 iteration-6 retest tests pass)",
+    "frontend": "100% for the elements exercised (login, /recommendation/{offerId} with both rec-explanation and offer-explanation testids, Stripe checkout end-to-end, /payment/success, /subscription with both open-service-* buttons, /mtd, nav-mtd-for-income-tax, admin All Cases showing MTD-2001)"
+  },
+  "test_credentials": "/app/memory/test_credentials.md — all seed accounts still authenticate. Retest module creates fresh TEST_it6_admin_*, TEST_it6_reg_*, TEST_it6_rec_* clients per run.",
+  "seed_data_creation": "Retest run created CL-0056 through CL-0060 (fresh clients), a fresh SA case (SA-1211) for the admin-created client, a fresh MTD recommendation on TEST_it6_rec_* used for the send-offer alias assertion, and — via successful Scenario D — activated MTD_INCOME_TAX on Client B (CL-0043) with a new MTD-2001 case at AWAITING_ASSIGNMENT. The pending MTD offer de13670d-b35a-4aa5-adab-ce8407d0b266 on Client B was consumed by Scenario D.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Client B (clientb@example.com) now has BOTH SA and MTD ACTIVE — do not rely on Client B for any 'MTD NOT_ACTIVE' baseline going forward; use a fresh client per test or re-seed. Iteration 5 HIGH bug is definitively closed. The send-offer alias is verified. offer-explanation testid is present (in a hidden span in ClientActions.jsx line 99). Scenario D was completed on Stripe live sandbox, consuming Client B's last pending MTD offer.",
+  "rca of the issue": "N/A — iteration 5 issues are fixed. The two remaining test failures are pre-existing test-side issues surfaced by state changes from a successful Scenario D run, not product regressions."
+}

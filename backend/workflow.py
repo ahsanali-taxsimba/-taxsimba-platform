@@ -58,7 +58,8 @@ ALLOWED_TRANSITIONS = {
     "SUBMISSION_IN_PROGRESS": ["SUBMITTED", "SUBMISSION_ISSUE"],
     "SUBMITTED": ["COMPLETED", "SUBMISSION_ISSUE"],
     "SUBMISSION_ISSUE": ["SUBMISSION_IN_PROGRESS", "SUBMITTED"],
-    "COMPLETED": [],
+    # Completed cases are locked; only an audited admin reopen can move them.
+    "COMPLETED": ["ACCOUNTANT_REVIEW", "ASSIGNED"],
 }
 
 STAGE_ORDER = {s: i for i, s in enumerate(STAGES)}

@@ -42,7 +42,7 @@ export function AdminCases() {
   const [cases, setCases] = useState([]);
   const [accountants, setAccountants] = useState([]);
   const [q, setQ] = useState("");
-  const [filters, setFilters] = useState({ accountant_id: "", priority: "", tax_year: "" });
+  const [filters, setFilters] = useState({ accountant_id: "", priority: "", tax_year: "", service_type: "" });
 
   const load = () => {
     const p = { ...filters };
@@ -75,10 +75,17 @@ export function AdminCases() {
             <option value="">All priorities</option>
             <option value="HIGH">High</option><option value="MEDIUM">Medium</option><option value="LOW">Low</option>
           </select>
+          <select data-testid="filter-service" value={filters.service_type}
+            onChange={(e) => setFilters({ ...filters, service_type: e.target.value })}
+            className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm">
+            <option value="">All services</option>
+            <option value="SELF_ASSESSMENT">Self Assessment</option>
+            <option value="MTD_INCOME_TAX">MTD for Income Tax</option>
+          </select>
           <select data-testid="filter-taxyear" value={filters.tax_year}
             onChange={(e) => setFilters({ ...filters, tax_year: e.target.value })}
             className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm">
-            <option value="">All tax years</option><option value="2024/25">2024/25</option><option value="2023/24">2023/24</option>
+            <option value="">All tax years</option><option value="2024/25">2024/25</option><option value="2025/26">2025/26</option><option value="2026/27">2026/27</option><option value="2023/24">2023/24</option>
           </select>
           {bucket && (
             <button data-testid="clear-bucket-btn" onClick={() => setParams({})}

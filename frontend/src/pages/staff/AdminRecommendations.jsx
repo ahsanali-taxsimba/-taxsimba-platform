@@ -60,10 +60,10 @@ export default function AdminRecommendations() {
                       <div className="flex gap-2">
                         <button data-testid={`send-offer-btn-${r.id}`}
                           onClick={() => { setModal(r); setForm({ package_code: r.recommended_package || "", credit: 0 }); }}
-                          className="px-3 py-1.5 rounded-lg bg-[#078A4B] text-white text-xs font-semibold">Send offer</button>
+                          className="px-3 py-1.5 rounded-lg bg-[#078A4B] text-white text-xs font-semibold">Approve</button>
                         <button data-testid={`decline-rec-btn-${r.id}`}
-                          onClick={() => act(() => api.post(`/recommendations/${r.id}/decline`, { reason: "Not required" }))}
-                          className="px-3 py-1.5 rounded-lg border border-[#E3E7E4] text-xs font-semibold">Decline</button>
+                          onClick={() => act(() => api.post(`/recommendations/${r.id}/reject`, { reason: "Not required" }))}
+                          className="px-3 py-1.5 rounded-lg border border-[#E3E7E4] text-xs font-semibold">Reject</button>
                       </div>
                     )}
                   </td>
@@ -78,8 +78,8 @@ export default function AdminRecommendations() {
       {modal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50" onClick={() => setModal(null)}>
           <div data-testid="offer-modal" className="bg-white rounded-xl w-full max-w-lg p-8" onClick={(e) => e.stopPropagation()}>
-            <h3 className="text-lg font-semibold mb-2">Send payment request to client</h3>
-            <p className="text-sm text-[#626A65] mb-5">{modal.client_name} · {modal.type === "MTD" ? "MTD for Income Tax" : "Self Assessment upgrade"}</p>
+            <h3 className="text-lg font-semibold mb-2">Approve recommendation & release to client</h3>
+            <p className="text-sm text-[#626A65] mb-5">{modal.client_name} · {modal.type === "MTD" ? "MTD for Income Tax" : "Self Assessment upgrade"} — the client will be asked to review it, not charged automatically.</p>
             <div className="space-y-4">
               <select data-testid="offer-package" className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
                 value={form.package_code || ""} onChange={(e) => setForm({ ...form, package_code: e.target.value })}>
@@ -96,16 +96,20 @@ export default function AdminRecommendations() {
                 <input data-testid="offer-credit" type="number" className="mt-1 w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
                   value={form.credit ?? 0} onChange={(e) => setForm({ ...form, credit: e.target.value })} />
               </div>
+              <textarea data-testid="offer-explanation" rows={3} placeholder="Plain-English explanation of why this is recommended (shown to the client)"
+                className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                value={form.explanation || ""} onChange={(e) => setForm({ ...form, explanation: e.target.value })} />
               <textarea data-testid="offer-message" rows={3} placeholder="Message to client"
                 className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
                 value={form.message || ""} onChange={(e) => setForm({ ...form, message: e.target.value })} />
               <button data-testid="confirm-offer-btn" disabled={!form.package_code}
                 className="w-full px-5 py-2.5 rounded-lg bg-[#078A4B] text-white text-sm font-semibold disabled:opacity-50"
-                onClick={() => act(() => api.post(`/recommendations/${modal.id}/send-offer`, {
+                onClick={() => act(() => api.post(`/recommendations/${modal.id}/approve`, {
                   package_code: form.package_code,
                   price: form.price !== undefined && form.price !== "" ? Number(form.price) : null,
                   credit: Number(form.credit || 0), message: form.message || null,
-                }))}>Send payment request</button>
+                  explanation: form.explanation || null,
+                }))}>Approve & release to client</button>
               {err && <p className="text-sm text-[#D64545]">{err}</p>}
             </div>
           </div>

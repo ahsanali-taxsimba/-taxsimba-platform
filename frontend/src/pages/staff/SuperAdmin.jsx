@@ -3,10 +3,10 @@ import AppShell from "@/components/AppShell";
 import { Empty, Panel } from "@/components/StatCard";
 import { api, d, dt } from "@/lib/api";
 
-const TABS = [["users", "Users"], ["accountants", "Accountants"], ["admins", "Admins"], ["roles", "Roles"], ["services", "Services"], ["packages", "Packages & Pricing"], ["payments", "Payments"], ["workflow", "Workflow Settings"], ["audit", "Audit Log"]];
+const TABS = [["overview", "Business Overview"], ["users", "Users"], ["accountants", "Accountants"], ["admins", "Admins"], ["roles", "Roles"], ["services", "Services"], ["packages", "Packages & Pricing"], ["payments", "Payments"], ["workflow", "Workflow Settings"], ["audit", "Audit Log"]];
 
 export default function SuperAdmin() {
-  const [tab, setTab] = useState("users");
+  const [tab, setTab] = useState("overview");
   const [users, setUsers] = useState([]);
   const [services, setServices] = useState([]);
   const [workflow, setWorkflow] = useState(null);
@@ -14,6 +14,7 @@ export default function SuperAdmin() {
   const [packages, setPackages] = useState([]);
   const [payments, setPayments] = useState([]);
   const [lock, setLock] = useState(null);
+  const [overview, setOverview] = useState(null);
   const [form, setForm] = useState({ name: "", email: "", password: "", role: "ACCOUNTANT" });
   const [err, setErr] = useState("");
 
@@ -25,6 +26,7 @@ export default function SuperAdmin() {
     api.get("/packages").then(({ data }) => setPackages(data));
     api.get("/payments").then(({ data }) => setPayments(data));
     api.get("/settings/package-lock").then(({ data }) => setLock(data));
+    api.get("/overview").then(({ data }) => setOverview(data));
   };
   useEffect(() => { load(); }, []);
 
@@ -112,6 +114,54 @@ export default function SuperAdmin() {
               ))}</tbody>
             </table>
           </Panel>
+        )}
+
+        {tab === "overview" && overview && (
+          <div className="space-y-6" data-testid="overview-panel">
+            <Panel title="Clients">
+              <dl className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 text-sm">
+                {[["Total clients", overview.clients.total, "total-clients"],
+                  ["New this month", overview.clients.new_this_month, "new-clients"],
+                  ["Active Self Assessment", overview.clients.active_self_assessment, "active-sa"],
+                  ["Active MTD", overview.clients.active_mtd, "active-mtd"],
+                  ["Both services", overview.clients.both_services, "both-services"]].map(([l, v, t]) => (
+                  <div key={l}><dt className="text-xs uppercase text-[#626A65]">{l}</dt>
+                    <dd data-testid={`overview-${t}`} className="mt-1 text-2xl font-bold text-[#006B3C]">{v}</dd></div>
+                ))}
+              </dl>
+            </Panel>
+            <Panel title="Cases">
+              <dl className="grid sm:grid-cols-3 gap-6 text-sm">
+                <div><dt className="text-xs uppercase text-[#626A65]">Open</dt><dd className="mt-1 text-2xl font-bold">{overview.cases.open}</dd></div>
+                <div><dt className="text-xs uppercase text-[#626A65]">Completed</dt><dd className="mt-1 text-2xl font-bold">{overview.cases.completed}</dd></div>
+                <div><dt className="text-xs uppercase text-[#626A65]">Overdue</dt><dd className="mt-1 text-2xl font-bold text-[#D64545]">{overview.cases.overdue}</dd></div>
+              </dl>
+              <table className="w-full text-sm mt-6">
+                <thead><tr className="text-left text-[11px] uppercase text-[#626A65] border-b border-[#E3E7E4]">
+                  <th className="py-3">Accountant</th><th className="py-3">Open cases</th><th className="py-3">Completed</th></tr></thead>
+                <tbody>{overview.cases.per_accountant.map((a) => (
+                  <tr key={a.name} className="border-b border-[#E3E7E4]">
+                    <td className="py-3">{a.name}</td><td className="py-3">{a.open_cases}</td><td className="py-3">{a.completed_cases}</td>
+                  </tr>
+                ))}</tbody>
+              </table>
+            </Panel>
+            <Panel title="Financial overview">
+              <dl className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
+                {[["Revenue this month", overview.revenue.this_month, "revenue-month"],
+                  ["Revenue this year", overview.revenue.this_year, "revenue-year"],
+                  ["Self Assessment revenue", overview.revenue.self_assessment, "revenue-sa"],
+                  ["MTD revenue", overview.revenue.mtd, "revenue-mtd"],
+                  ["Package upgrade revenue", overview.revenue.package_upgrades, "revenue-upgrades"]].map(([l, v, t]) => (
+                  <div key={l}><dt className="text-xs uppercase text-[#626A65]">{l}</dt>
+                    <dd data-testid={`overview-${t}`} className="mt-1 text-2xl font-bold text-[#006B3C]">£{Number(v).toFixed(2)}</dd></div>
+                ))}
+                <div><dt className="text-xs uppercase text-[#626A65]">Successful payments</dt><dd className="mt-1 text-2xl font-bold">{overview.revenue.successful_payments}</dd></div>
+                <div><dt className="text-xs uppercase text-[#626A65]">Failed / expired</dt><dd className="mt-1 text-2xl font-bold">{overview.revenue.failed_payments}</dd></div>
+              </dl>
+              <p className="text-xs text-[#626A65] mt-4">{overview.revenue.note}</p>
+            </Panel>
+          </div>
         )}
 
         {tab === "packages" && (

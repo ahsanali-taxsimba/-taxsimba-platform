@@ -115,8 +115,16 @@ export default function CaseWorkspace() {
 
   const adminActions = isAdmin && (
     <div className="flex flex-wrap gap-3">
-      {!cs.assigned_accountant_id && (
+      {!cs.assigned_accountant_id ? (
         <button data-testid="assign-accountant-btn" className={primary} onClick={() => setModal("assign")}>Assign Accountant</button>
+      ) : (
+        <>
+          <button data-testid="reassign-accountant-btn" className={ghost} onClick={() => setModal("assign")}>Reassign Accountant</button>
+          <button data-testid="unassign-accountant-btn" className={ghost} onClick={() => setModal("unassign")}>Unassign</button>
+        </>
+      )}
+      {st === "COMPLETED" && (
+        <button data-testid="reopen-case-btn" className={ghost} onClick={() => setModal("reopen")}>Reopen Case</button>
       )}
       {["READY_FOR_ADMIN_REVIEW", "ADMIN_REVIEW"].includes(st) && (
         <>
@@ -305,7 +313,10 @@ export default function CaseWorkspace() {
         )}
 
         {tab === "Internal Notes" && (
-          <Panel title="Internal notes — never visible to the client" testId="tab-internal-notes">
+          <Panel title="Internal notes — Internal – Client cannot see this" testId="tab-internal-notes">
+            <p className="text-xs font-semibold text-[#7656C9] mb-4" data-testid="internal-notes-warning">
+              Internal – Client cannot see this
+            </p>
             {!notes.length && <Empty text="No internal notes yet." />}
             <ul className="space-y-3">{notes.map((n) => (
               <li key={n.id} className="border border-[#E3E7E4] rounded-lg p-4">
@@ -433,6 +444,28 @@ export default function CaseWorkspace() {
                   onClick={() => act(() => api.post(`/cases/${id}/admin-return`, { reason: form.reason, instructions: form.instructions }))}>
                   Return for Changes
                 </button>
+              </>
+            )}
+
+            {modal === "unassign" && (
+              <>
+                <h3 className="text-lg font-semibold mb-2">Unassign Accountant</h3>
+                <p className="text-sm text-[#626A65] mb-5">All work, notes and history are preserved. The case returns to the unassigned queue.</p>
+                <input data-testid="unassign-reason" placeholder="Reason" className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                  value={form.reason || ""} onChange={(e) => setForm({ ...form, reason: e.target.value })} />
+                <button data-testid="confirm-unassign-btn" disabled={!form.reason} className={`${primary} w-full mt-4 disabled:opacity-50`}
+                  onClick={() => act(() => api.post(`/cases/${id}/unassign`, { reason: form.reason }))}>Unassign</button>
+              </>
+            )}
+
+            {modal === "reopen" && (
+              <>
+                <h3 className="text-lg font-semibold mb-2">Reopen Completed Case</h3>
+                <p className="text-sm text-[#626A65] mb-5">A reason is required and this is recorded in the audit trail.</p>
+                <input data-testid="reopen-reason" placeholder="Reason" className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                  value={form.reason || ""} onChange={(e) => setForm({ ...form, reason: e.target.value })} />
+                <button data-testid="confirm-reopen-btn" disabled={!form.reason} className={`${primary} w-full mt-4 disabled:opacity-50`}
+                  onClick={() => act(() => api.post(`/cases/${id}/reopen`, { reason: form.reason }))}>Reopen Case</button>
               </>
             )}
 

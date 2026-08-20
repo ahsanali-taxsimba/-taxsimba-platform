@@ -3,12 +3,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Bell, LayoutDashboard, FileText, FolderOpen, MessageSquare, CheckSquare, Route,
   User, CreditCard, HelpCircle, Settings, Users, Briefcase, ShieldCheck, LogOut, Menu, Sparkles,
+  AlertCircle, Layers,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { api, dt } from "@/lib/api";
 
 const CLIENT_NAV = [
   ["Dashboard", "/dashboard", LayoutDashboard],
+  ["Action Required", "/actions", AlertCircle],
   ["My Tax Return", "/my-return", FileText],
   ["Documents", "/documents", FolderOpen],
   ["Messages", "/messages", MessageSquare],
@@ -42,6 +44,15 @@ export default function AppShell({ children, title, subtitle }) {
   const [notes, setNotes] = useState([]);
   const [openNotes, setOpenNotes] = useState(false);
   const [openNav, setOpenNav] = useState(false);
+  const [mtdActive, setMtdActive] = useState(false);
+
+  useEffect(() => {
+    if (user?.role !== "CLIENT") return;
+    api.get("/my-services")
+      .then(({ data }) => setMtdActive(
+        (data.services || []).some((s) => s.service_type === "MTD_INCOME_TAX" && s.status === "ACTIVE")))
+      .catch(() => {});
+  }, [user]);
 
   const load = () => api.get("/notifications").then(({ data }) => setNotes(data)).catch(() => {});
   useEffect(() => {
@@ -54,6 +65,9 @@ export default function AppShell({ children, title, subtitle }) {
   if (user?.role === "ACCOUNTANT") items = ACCOUNTANT_NAV;
   if (user?.role === "ADMIN") items = ADMIN_NAV;
   if (user?.role === "SUPER_ADMIN") items = [...ADMIN_NAV, ...SUPER_NAV];
+  if (user?.role === "CLIENT" && mtdActive) {
+    items = [...CLIENT_NAV.slice(0, 2), ["MTD for Income Tax", "/mtd", Layers], ...CLIENT_NAV.slice(2)];
+  }
 
   const unread = notes.filter((n) => !n.is_read).length;
 

@@ -15,7 +15,7 @@ from auth import (create_access_token, get_current_user, hash_password, is_admin
                   is_staff, require_roles, verify_password)
 from db import clean, clean_many, db, scrub, scrub_many
 from seed import seed
-from phase1b import ensure_phase1b_data, router as phase1b_router
+from phase1b import bootstrap_client_services, ensure_phase1b_data, router as phase1b_router
 from storage import init_storage, put_object, get_object, APP_NAME
 from workflow import (STATUSES, STATUS_META, journey, log_activity, notify, now_iso,
                       transition)
@@ -97,7 +97,13 @@ class ChecklistIn(BaseModel):
 class SubmissionIn(BaseModel):
     submission_date: str
     submission_reference: str
+    provider: Optional[str] = None
+    evidence_document_id: Optional[str] = None
     note: Optional[str] = None
+
+
+class ReasonIn(BaseModel):
+    reason: str
 
 
 class ApproveIn(BaseModel):
@@ -138,8 +144,12 @@ async def register(body: RegisterIn, response: Response):
         "is_active": True, "created_at": now_iso(),
     }
     await db.users.insert_one(dict(user))
-    await db.clients.insert_one({"id": str(uuid.uuid4()), "user_id": user["id"], "name": body.name,
-                                 "email": email, "phone": body.phone, "created_at": now_iso()})
+    client = {"id": str(uuid.uuid4()), "user_id": user["id"], "name": body.name,
+              "email": email, "phone": body.phone, "created_at": now_iso()}
+    count = await db.clients.count_documents({})
+    client["client_ref"] = f"CL-{42 + count:04d}"
+    await db.clients.insert_one(dict(client))
+    await bootstrap_client_services(client)
     return _auth_response(response, user)
 
 
@@ -201,9 +211,12 @@ async def _decorate(cases: List[dict]):
 @api.get("/cases")
 async def list_cases(status: Optional[str] = None, bucket: Optional[str] = None,
                      accountant_id: Optional[str] = None, priority: Optional[str] = None,
-                     tax_year: Optional[str] = None, q: Optional[str] = None,
+                     tax_year: Optional[str] = None, service_type: Optional[str] = None,
+                     q: Optional[str] = None,
                      user: dict = Depends(get_current_user)):
     query = {}
+    if service_type:
+        query["service_type"] = service_type
     if user["role"] == "CLIENT":
         query["client_user_id"] = user["id"]
     elif user["role"] == "ACCOUNTANT":
@@ -391,6 +404,8 @@ async def request_from_client(case_id: str, body: RequestIn,
 async def create_calculation(case_id: str, body: CalcIn,
                              user: dict = Depends(require_roles("ACCOUNTANT"))):
     case = await _get_case(case_id, user)
+    if case["status"] in ("SUBMITTED", "COMPLETED"):
+        raise HTTPException(status_code=400, detail="This case is locked")
     count = await db.calculation_versions.count_documents({"case_id": case_id})
     calc = {
         "id": str(uuid.uuid4()), "case_id": case_id, "version": count + 1,
@@ -570,14 +585,18 @@ async def record_submission(case_id: str, body: SubmissionIn,
         {"$set": {"status": "SUBMITTED", "submission_date": body.submission_date,
                   "reference": body.submission_reference, "submitted_by": user["id"],
                   "submitted_by_name": user["name"], "note": body.note,
+                  "provider": body.provider, "evidence_document_id": body.evidence_document_id,
                   "calculation_version_id": case.get("approved_version_id"),
                   "recorded_at": now_iso()}},
         upsert=True,
     )
     await transition(case, "SUBMITTED", user,
-                     f"Submission recorded (ref {body.submission_reference})", comments=body.note,
+                     f"Submission recorded (ref {body.submission_reference}"
+                     f"{', via ' + body.provider if body.provider else ''})",
+                     comments=body.note,
                      extra={"submission_reference": body.submission_reference,
                             "submission_date": body.submission_date,
+                            "submission_provider": body.provider,
                             "submitted_by_name": user["name"]})
     await notify(case["client_user_id"], "Your tax return has been submitted",
                  f"Submission reference {body.submission_reference}", case_id, "/my-return", "SUBMISSION")
@@ -612,11 +631,63 @@ async def get_submission(case_id: str, user: dict = Depends(get_current_user)):
     return clean(rec) if rec else None
 
 
+@api.post("/cases/{case_id}/reopen")
+async def reopen_case(case_id: str, body: ReasonIn,
+                      user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    """Completed cases are locked; reopening requires a reason and is audited."""
+    case = await _get_case(case_id, user)
+    if case["status"] != "COMPLETED":
+        raise HTTPException(status_code=400, detail="Only completed cases can be reopened")
+    if not body.reason.strip():
+        raise HTTPException(status_code=400, detail="A reason is required to reopen a case")
+    target = "ACCOUNTANT_REVIEW" if case.get("assigned_accountant_id") else "ASSIGNED"
+    await transition(case, target, user, f"Case reopened by {user['name']}", comments=body.reason)
+    if case.get("assigned_accountant_id"):
+        await notify(case["assigned_accountant_id"], "Case reopened",
+                     f"{case['client_name']}: {body.reason}", case_id,
+                     f"/work/cases/{case_id}", "CHANGES")
+    return await get_case(case_id, user)
+
+
+@api.post("/cases/{case_id}/unassign")
+async def unassign_case(case_id: str, body: ReasonIn,
+                        user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    case = await _get_case(case_id, user)
+    if not case.get("assigned_accountant_id"):
+        raise HTTPException(status_code=400, detail="Case is not assigned")
+    previous = case.get("assigned_accountant_name")
+    await db.assignments.update_many({"case_id": case_id, "ended_at": None},
+                                     {"$set": {"ended_at": now_iso(),
+                                               "ended_by": user["name"],
+                                               "end_reason": body.reason}})
+    await db.cases.update_one({"id": case_id}, {"$set": {
+        "assigned_accountant_id": None, "assigned_accountant_name": None,
+        "status": "AWAITING_ASSIGNMENT", "current_stage": "Information",
+        "next_action": "Assign an accountant", "next_action_owner": "ADMIN",
+        "last_updated": now_iso()}})
+    await log_activity(case_id, f"Case unassigned from {previous}", user,
+                       previous_status=case["status"], new_status="AWAITING_ASSIGNMENT",
+                       comments=body.reason)
+    return await get_case(case_id, user)
+
+
+@api.get("/cases/{case_id}/assignments")
+async def assignment_history(case_id: str,
+                             user: dict = Depends(require_roles("ACCOUNTANT", "ADMIN", "SUPER_ADMIN"))):
+    await _get_case(case_id, user)
+    rows = await db.assignments.find({"case_id": case_id}).sort("created_at", -1).to_list(100)
+    return scrub_many(clean_many(rows), user)
+
+
 # ---------------------------------------------------------------- tasks
 @api.get("/tasks")
 async def list_tasks(case_id: Optional[str] = None, status: Optional[str] = None,
+                     service_type: Optional[str] = None,
                      user: dict = Depends(get_current_user)):
     query = {}
+    if service_type:
+        ids = [c["id"] async for c in db.cases.find({"service_type": service_type})]
+        query["case_id"] = {"$in": ids}
     if user["role"] == "CLIENT":
         query["owner_id"] = user["id"]
     elif user["role"] == "ACCOUNTANT" and not case_id:
@@ -660,8 +731,12 @@ async def complete_task(task_id: str, user: dict = Depends(get_current_user)):
 # ---------------------------------------------------------------- documents
 @api.get("/documents")
 async def list_documents(case_id: Optional[str] = None, filter: Optional[str] = None,
+                         service_type: Optional[str] = None,
                          user: dict = Depends(get_current_user)):
     query = {}
+    if service_type:
+        ids = [c["id"] async for c in db.cases.find({"service_type": service_type})]
+        query["case_id"] = {"$in": ids}
     if user["role"] == "CLIENT":
         query["client_user_id"] = user["id"]
         query["is_internal"] = False
@@ -732,7 +807,9 @@ async def set_document_status(document_id: str, status: str = Query(...),
     doc = await db.documents.find_one({"id": document_id})
     if not doc:
         raise HTTPException(status_code=404, detail="Document not found")
-    await _get_case(doc["case_id"], user)
+    case = await _get_case(doc["case_id"], user)
+    if case["status"] == "COMPLETED" and user["role"] == "ACCOUNTANT":
+        raise HTTPException(status_code=400, detail="This case is completed and locked")
     if status not in ("Requested", "Uploaded", "Under Review", "Accepted", "Replacement Required", "Final"):
         raise HTTPException(status_code=400, detail="Invalid status")
     await db.documents.update_one({"id": document_id}, {"$set": {"status": status}})
@@ -929,8 +1006,12 @@ async def create_user(body: CreateUserIn, user: dict = Depends(require_roles("SU
            "phone": body.phone, "is_active": True, "created_at": now_iso()}
     await db.users.insert_one(dict(new))
     if body.role == "CLIENT":
-        await db.clients.insert_one({"id": str(uuid.uuid4()), "user_id": new["id"], "name": body.name,
-                                     "email": new["email"], "phone": body.phone, "created_at": now_iso()})
+        client = {"id": str(uuid.uuid4()), "user_id": new["id"], "name": body.name,
+                  "email": new["email"], "phone": body.phone, "created_at": now_iso()}
+        count = await db.clients.count_documents({})
+        client["client_ref"] = f"CL-{42 + count:04d}"
+        await db.clients.insert_one(dict(client))
+        await bootstrap_client_services(client)
     if body.role == "ACCOUNTANT":
         await db.accountant_profiles.insert_one({"id": str(uuid.uuid4()), "user_id": new["id"],
                                                  "name": body.name, "email": new["email"],
@@ -969,10 +1050,109 @@ async def audit_log(user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN")))
     return out
 
 
+SERVICE_LABELS_ALL = {"SELF_ASSESSMENT": "Self Assessment", "MTD_INCOME_TAX": "MTD for Income Tax"}
+
+
+@api.get("/my-actions")
+async def my_actions(user: dict = Depends(require_roles("CLIENT"))):
+    """Single Action Required feed for the client across every service."""
+    outstanding, history = [], []
+    async for t in db.tasks.find({"owner_id": user["id"]}).sort("created_at", -1):
+        case = await db.cases.find_one({"id": t["case_id"]})
+        item = {
+            "id": t["id"], "type": "TASK", "action": t["name"], "description": t.get("description"),
+            "service_type": case["service_type"] if case else None,
+            "service_name": SERVICE_LABELS_ALL.get(case["service_type"]) if case else None,
+            "case_id": t["case_id"], "case_ref": t.get("case_ref"),
+            "due_date": t.get("due_date"), "status": t["status"], "link": "/tasks",
+            "completed_date": t.get("completed_date"), "created_at": t["created_at"],
+        }
+        (history if t["status"] == "COMPLETED" else outstanding).append(item)
+
+    async for c in db.cases.find({"client_user_id": user["id"],
+                                  "status": {"$in": ["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"]}}):
+        outstanding.append({
+            "id": f"approve-{c['id']}", "type": "APPROVAL",
+            "action": "Review and approve your tax return",
+            "description": "Your return has been approved internally and is ready for your approval.",
+            "service_type": c["service_type"],
+            "service_name": SERVICE_LABELS_ALL.get(c["service_type"]),
+            "case_id": c["id"], "case_ref": c["case_ref"], "due_date": c.get("external_deadline"),
+            "status": "OPEN", "link": "/my-return", "created_at": c["last_updated"],
+        })
+
+    async for o in db.offers.find({"client_user_id": user["id"], "status": "PENDING"}):
+        outstanding.append({
+            "id": o["id"], "type": "RECOMMENDATION",
+            "action": f"Review recommended service: {o.get('service_name')}",
+            "description": "Your accountant recommended this and our team has approved it for review.",
+            "service_type": o["service_type"], "service_name": o.get("service_name"),
+            "case_id": o.get("recommendation_id"), "case_ref": None, "due_date": None,
+            "status": "OPEN", "link": f"/recommendation/{o['id']}", "created_at": o["created_at"],
+        })
+
+    return {"outstanding": outstanding, "history": history[:50]}
+
+
+@api.get("/overview")
+async def business_overview(user: dict = Depends(require_roles("SUPER_ADMIN"))):
+    month_start = datetime.now(timezone.utc).replace(day=1, hour=0, minute=0, second=0,
+                                                     microsecond=0).isoformat()
+    year_start = datetime.now(timezone.utc).replace(month=1, day=1, hour=0, minute=0, second=0,
+                                                    microsecond=0).isoformat()
+    active = {"$nin": ["SUBMITTED", "COMPLETED"]}
+
+    sa_active = {c["client_id"] async for c in db.client_services.find(
+        {"service_type": "SELF_ASSESSMENT", "status": "ACTIVE"})}
+    mtd_active = {c["client_id"] async for c in db.client_services.find(
+        {"service_type": "MTD_INCOME_TAX", "status": "ACTIVE"})}
+
+    paid = await db.payment_transactions.find({"payment_status": "paid"}).to_list(2000)
+    def total(rows):
+        return round(sum(r.get("amount", 0) for r in rows), 2)
+
+    per_accountant = []
+    async for a in db.users.find({"role": "ACCOUNTANT", "is_active": True}):
+        per_accountant.append({
+            "name": a["name"],
+            "open_cases": await db.cases.count_documents({"assigned_accountant_id": a["id"],
+                                                          "status": active}),
+            "completed_cases": await db.cases.count_documents({"assigned_accountant_id": a["id"],
+                                                               "status": "COMPLETED"}),
+        })
+
+    return {
+        "clients": {
+            "total": await db.clients.count_documents({}),
+            "new_this_month": await db.clients.count_documents({"created_at": {"$gte": month_start}}),
+            "active_self_assessment": len(sa_active),
+            "active_mtd": len(mtd_active),
+            "both_services": len(sa_active & mtd_active),
+        },
+        "cases": {
+            "open": await db.cases.count_documents({"status": active}),
+            "completed": await db.cases.count_documents({"status": "COMPLETED"}),
+            "overdue": await db.cases.count_documents({"internal_deadline": {"$lt": now_iso()},
+                                                       "status": active}),
+            "per_accountant": per_accountant,
+        },
+        "revenue": {
+            "this_month": total([p for p in paid if p["created_at"] >= month_start]),
+            "this_year": total([p for p in paid if p["created_at"] >= year_start]),
+            "self_assessment": total([p for p in paid if p.get("service_type") == "SELF_ASSESSMENT"]),
+            "mtd": total([p for p in paid if p.get("service_type") == "MTD_INCOME_TAX"]),
+            "package_upgrades": total([p for p in paid if p.get("kind") == "SA_UPGRADE"]),
+            "successful_payments": len(paid),
+            "failed_payments": await db.payment_transactions.count_documents(
+                {"payment_status": {"$in": ["failed", "expired"]}}),
+            "note": "Revenue is summed from recorded successful payment transactions only.",
+        },
+    }
+
+
 @api.get("/")
 async def root():
     return {"message": "TaxSimba API"}
-
 
 app.include_router(api)
 app.include_router(phase1b_router)

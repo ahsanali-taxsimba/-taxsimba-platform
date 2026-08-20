@@ -5,6 +5,7 @@ import ClientDashboard from "@/pages/client/ClientDashboard";
 import MyTaxReturn from "@/pages/client/MyTaxReturn";
 import { ClientDocuments, ClientJourneyPage, ClientMessages, ClientTasks, SimplePage } from "@/pages/client/ClientPages";
 import MyServices, { PaymentCancel, PaymentSuccess } from "@/pages/client/MyServices";
+import { ActionRequired, MtdDashboard, RecommendationReview } from "@/pages/client/ClientActions";
 import AdminRecommendations from "@/pages/staff/AdminRecommendations";
 import AccountantDashboard from "@/pages/staff/AccountantDashboard";
 import { AdminAccountants, AdminCases, AdminDashboard } from "@/pages/staff/AdminPages";
@@ -62,6 +63,9 @@ export default function App() {
           <Route path="/subscription" element={<Guard roles={CLIENT}><MyServices /></Guard>} />
           <Route path="/payment/success" element={<Guard roles={CLIENT}><PaymentSuccess /></Guard>} />
           <Route path="/payment/cancel" element={<Guard roles={CLIENT}><PaymentCancel /></Guard>} />
+          <Route path="/actions" element={<Guard roles={CLIENT}><ActionRequired /></Guard>} />
+          <Route path="/recommendation/:offerId" element={<Guard roles={CLIENT}><RecommendationReview /></Guard>} />
+          <Route path="/mtd" element={<Guard roles={CLIENT}><MtdDashboard /></Guard>} />
           <Route path="/help" element={<Guard roles={CLIENT}>
             <SimplePage title="Help Centre" subtitle="Support and guidance" testId="help-panel">
               <p className="text-sm text-[#626A65]">Message your accountant from the Messages page, or email support@taxsimba.co.uk.</p>

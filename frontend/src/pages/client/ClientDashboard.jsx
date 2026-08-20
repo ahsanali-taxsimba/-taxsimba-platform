@@ -16,14 +16,14 @@ export default function ClientDashboard() {
 
   useEffect(() => {
     api.get("/cases").then(async ({ data }) => {
-      if (!data.length) return;
-      const { data: full } = await api.get(`/cases/${data[0].id}`);
+      const sa = data.filter((c) => c.service_type === "SELF_ASSESSMENT");
+      if (!sa.length) return;
+      const { data: full } = await api.get(`/cases/${sa[0].id}`);
       setCs(full);
     });
-    api.get("/tasks", { params: { status: "OPEN" } }).then(({ data }) => setTasks(data));
+    api.get("/tasks", { params: { status: "OPEN", service_type: "SELF_ASSESSMENT" } }).then(({ data }) => setTasks(data));
     api.get("/my-offers").then(({ data }) => setOffers(data));
   }, []);
-
   const firstName = (user?.name || "").split(" ")[0];
   const openTasks = tasks.length;
   const readyToApprove = cs && ["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"].includes(cs.status);
@@ -84,18 +84,16 @@ export default function ClientDashboard() {
           </div>
         )}
 
-        {offers.map((o) => (
-          <div key={o.id} data-testid="mtd-recommended-card" className="bg-white border border-[#7656C9] rounded-xl p-8">
-            <h2 className="text-lg md:text-xl font-semibold text-[#161B18]">{o.service_name === "MTD for Income Tax" ? "MTD Recommended" : `${o.service_name} Recommended`}</h2>
+        {offers.slice(0, 1).map((o) => (
+          <div key={o.id} data-testid="recommendation-action-card" className="bg-white border border-[#7656C9] rounded-xl p-8">
+            <h2 className="text-lg md:text-xl font-semibold text-[#161B18]">Additional service recommended</h2>
             <p className="text-sm text-[#626A65] mt-2 max-w-xl">
-              {o.message || "Your accountant recommends this service and our team has approved it. Making Tax Digital means HMRC needs quarterly updates instead of one annual return — we can handle that for you."}
+              Based on the information provided, your accountant has recommended that we review whether{" "}
+              {o.service_name === "MTD for Income Tax" ? "Making Tax Digital for Income Tax" : o.service_name} applies to you.
             </p>
-            <p className="text-sm text-[#161B18] mt-3">
-              {o.package_name} · {o.billing_frequency} · total due now <b>£{Number(o.amount_due).toFixed(2)}</b>
-            </p>
-            <Link to="/subscription" data-testid="view-offer-btn"
+            <Link to={`/recommendation/${o.id}`} data-testid="review-recommendation-btn"
               className="inline-flex mt-5 px-5 py-2.5 rounded-lg bg-[#078A4B] text-white text-sm font-semibold hover:bg-[#006B3C] transition-colors">
-              Add {o.service_name}
+              Review Recommendation
             </Link>
           </div>
         ))}

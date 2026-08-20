@@ -44,6 +44,24 @@ DEFAULT_LOCK_STATUSES = ["READY_FOR_ADMIN_REVIEW", "ADMIN_REVIEW", "ADMIN_APPROV
                          "SUBMITTED", "SUBMISSION_ISSUE", "COMPLETED"]
 
 
+async def bootstrap_client_services(client: dict, tax_year: str = "2024/25"):
+    """Every client gets a Self Assessment service plus a dormant MTD placeholder."""
+    if not await db.client_services.find_one({"client_id": client["id"],
+                                              "service_type": SELF_ASSESSMENT}):
+        await db.client_services.insert_one({
+            "id": str(uuid.uuid4()), "client_id": client["id"], "client_user_id": client["user_id"],
+            "service_type": SELF_ASSESSMENT, "status": "ACTIVE", "package_code": "SMART",
+            "tax_year": tax_year, "activated_at": now_iso(), "package_history": [],
+            "created_at": now_iso(),
+        })
+    if not await db.client_services.find_one({"client_id": client["id"], "service_type": MTD}):
+        await db.client_services.insert_one({
+            "id": str(uuid.uuid4()), "client_id": client["id"], "client_user_id": client["user_id"],
+            "service_type": MTD, "status": "NOT_ACTIVE", "package_code": None, "tax_year": None,
+            "activated_at": None, "package_history": [], "created_at": now_iso(),
+        })
+
+
 # ------------------------------------------------------------------ bootstrap
 async def ensure_phase1b_data():
     for p in DEFAULT_PACKAGES:
@@ -60,25 +78,8 @@ async def ensure_phase1b_data():
     )
     # Give every existing client a Self Assessment service record (one client, many services).
     async for c in db.clients.find({}):
-        existing = await db.client_services.find_one({"client_id": c["id"], "service_type": SELF_ASSESSMENT})
-        if existing:
-            continue
         case = await db.cases.find_one({"client_id": c["id"], "service_type": SELF_ASSESSMENT})
-        await db.client_services.insert_one({
-            "id": str(uuid.uuid4()), "client_id": c["id"], "client_user_id": c["user_id"],
-            "service_type": SELF_ASSESSMENT, "status": "ACTIVE", "package_code": "SMART",
-            "tax_year": case["tax_year"] if case else "2024/25",
-            "activated_at": now_iso(), "package_history": [], "created_at": now_iso(),
-        })
-        await db.client_services.update_one(
-            {"client_id": c["id"], "service_type": MTD},
-            {"$setOnInsert": {"id": str(uuid.uuid4()), "client_id": c["id"],
-                              "client_user_id": c["user_id"], "service_type": MTD,
-                              "status": "NOT_ACTIVE", "package_code": None, "tax_year": None,
-                              "activated_at": None, "package_history": [],
-                              "created_at": now_iso()}},
-            upsert=True,
-        )
+        await bootstrap_client_services(c, case["tax_year"] if case else "2024/25")
     if not await db.clients.find_one({"client_ref": {"$exists": True}}):
         n = 42
         async for c in db.clients.find({}).sort("created_at", 1):
@@ -609,36 +610,74 @@ class OfferIn(BaseModel):
     price: Optional[float] = None
     credit: float = 0.0
     message: Optional[str] = None
+    explanation: Optional[str] = None
+
+
+async def _approve_and_offer(rec: dict, body: OfferIn, user: dict):
+    pkg = await _package(rec["service_type"], body.package_code)
+    price = body.price if body.price is not None else pkg["price"]
+    amount_due = round(max(price - body.credit, 0.0), 2)
+    offer = {
+        "id": str(uuid.uuid4()), "recommendation_id": rec["id"], "client_id": rec["client_id"],
+        "client_user_id": rec["client_user_id"], "client_name": rec["client_name"],
+        "service_type": rec["service_type"], "service_name": SERVICE_LABELS.get(rec["service_type"]),
+        "package_code": pkg["code"], "package_name": pkg["name"],
+        "billing_frequency": pkg["billing_frequency"], "price": price, "credit": body.credit,
+        "amount_due": amount_due, "message": body.message,
+        "explanation": body.explanation or rec.get("reason"), "status": "PENDING",
+        "created_by": user["id"], "created_by_name": user["name"], "created_at": now_iso(),
+    }
+    await db.offers.insert_one(dict(offer))
+    await db.recommendations.update_one({"id": rec["id"]}, {"$set": {
+        "status": "APPROVED", "reviewed_by": user["name"], "reviewed_at": now_iso(),
+        "offer_id": offer["id"]}})
+    await log_activity(rec["case_id"],
+                       f"Recommendation approved and released to client: {pkg['name']} (£{amount_due:.2f} due)",
+                       user, comments=body.explanation or body.message)
+    await notify(rec["client_user_id"], "Additional service recommended",
+                 "Your accountant has recommended a service for you to review.",
+                 rec["case_id"], f"/recommendation/{offer['id']}", "RECOMMENDATION")
+    return clean(offer)
+
+
+@router.post("/recommendations/{rec_id}/approve")
+async def approve_recommendation(rec_id: str, body: OfferIn,
+                                 user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    rec = await db.recommendations.find_one({"id": rec_id})
+    if not rec:
+        raise HTTPException(status_code=404, detail="Recommendation not found")
+    if rec["status"] != "PENDING":
+        raise HTTPException(status_code=400, detail="Recommendation has already been reviewed")
+    return await _approve_and_offer(rec, body, user)
+
+
+@router.post("/recommendations/{rec_id}/reject")
+async def reject_recommendation(rec_id: str, body: Optional[RecommendIn] = None,
+                                user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    """Rejected recommendations stay internal — the client is never told."""
+    rec = await db.recommendations.find_one({"id": rec_id})
+    if not rec:
+        raise HTTPException(status_code=404, detail="Recommendation not found")
+    await db.recommendations.update_one({"id": rec_id}, {"$set": {
+        "status": "REJECTED", "reviewed_by": user["name"], "reviewed_at": now_iso(),
+        "review_reason": body.reason if body else None}})
+    await log_activity(rec["case_id"], "Recommendation rejected by admin (internal only)", user,
+                       comments=body.reason if body else None)
+    return {"ok": True}
 
 
 @router.post("/recommendations/{rec_id}/send-offer")
 async def send_offer(rec_id: str, body: OfferIn,
                      user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
-    rec = await db.recommendations.find_one({"id": rec_id})
-    if not rec:
+    """Alias of /approve kept for compatibility — approving is what releases the offer."""
+    return await approve_recommendation(rec_id, body, user)
+
+
+@router.get("/my-offers/{offer_id}")
+async def my_offer(offer_id: str, user: dict = Depends(require_roles("CLIENT"))):
+    offer = await db.offers.find_one({"id": offer_id, "client_user_id": user["id"]})
+    if not offer:
         raise HTTPException(status_code=404, detail="Recommendation not found")
-    pkg = await _package(rec["service_type"], body.package_code)
-    price = body.price if body.price is not None else pkg["price"]
-    amount_due = round(max(price - body.credit, 0.0), 2)
-    offer = {
-        "id": str(uuid.uuid4()), "recommendation_id": rec_id, "client_id": rec["client_id"],
-        "client_user_id": rec["client_user_id"], "client_name": rec["client_name"],
-        "service_type": rec["service_type"], "service_name": SERVICE_LABELS.get(rec["service_type"]),
-        "package_code": pkg["code"], "package_name": pkg["name"],
-        "billing_frequency": pkg["billing_frequency"], "price": price, "credit": body.credit,
-        "amount_due": amount_due, "message": body.message, "status": "PENDING",
-        "created_by": user["id"], "created_by_name": user["name"], "created_at": now_iso(),
-    }
-    await db.offers.insert_one(dict(offer))
-    await db.recommendations.update_one({"id": rec_id}, {"$set": {
-        "status": "OFFER_SENT", "reviewed_by": user["name"], "reviewed_at": now_iso(),
-        "offer_id": offer["id"]}})
-    await log_activity(rec["case_id"], f"Offer sent to client: {pkg['name']} (£{amount_due:.2f} due)",
-                      user, comments=body.message)
-    await notify(rec["client_user_id"],
-                 f"{SERVICE_LABELS.get(rec['service_type'])} recommended for you",
-                 f"{pkg['name']} — £{amount_due:.2f} due now", rec["case_id"], "/subscription",
-                 "OFFER")
     return clean(offer)
 
 
@@ -659,7 +698,14 @@ async def decline_recommendation(rec_id: str, body: Optional[RecommendIn] = None
 @router.get("/my-offers")
 async def my_offers(user: dict = Depends(require_roles("CLIENT"))):
     rows = await db.offers.find({"client_user_id": user["id"], "status": "PENDING"}).sort("created_at", -1).to_list(50)
-    return clean_many(rows)
+    # One live recommendation per service — later approvals supersede earlier ones.
+    seen, latest = set(), []
+    for r in clean_many(rows):
+        if r["service_type"] in seen:
+            continue
+        seen.add(r["service_type"])
+        latest.append(r)
+    return latest
 
 
 # ------------------------------------------------------------------ admin override

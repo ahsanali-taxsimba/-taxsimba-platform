@@ -8,7 +8,7 @@ import { api, d, dt, money } from "@/lib/api";
 export function ClientJourneyPage() {
   const [cs, setCs] = useState(null);
   useEffect(() => {
-    api.get("/cases").then(async ({ data }) => {
+    api.get("/cases", { params: { service_type: "SELF_ASSESSMENT" } }).then(async ({ data }) => {
       if (data.length) setCs((await api.get(`/cases/${data[0].id}`)).data);
     });
   }, []);
@@ -24,10 +24,10 @@ export function ClientTasks() {
   const [cs, setCs] = useState(null);
   const [busy, setBusy] = useState(null);
 
-  const load = () => api.get("/tasks").then(({ data }) => setTasks(data));
+  const load = () => api.get("/tasks", { params: { service_type: "SELF_ASSESSMENT" } }).then(({ data }) => setTasks(data));
   useEffect(() => {
     load();
-    api.get("/cases").then(({ data }) => data.length && setCs(data[0]));
+    api.get("/cases", { params: { service_type: "SELF_ASSESSMENT" } }).then(({ data }) => data.length && setCs(data[0]));
   }, []);
 
   const upload = async (task, file) => {
@@ -94,9 +94,9 @@ export function ClientDocuments() {
   const [filter, setFilter] = useState("all");
   const [cs, setCs] = useState(null);
 
-  const load = (f) => api.get("/documents", { params: f === "all" ? {} : { filter: f } }).then(({ data }) => setDocs(data));
+  const load = (f) => api.get("/documents", { params: f === "all" ? { service_type: "SELF_ASSESSMENT" } : { filter: f, service_type: "SELF_ASSESSMENT" } }).then(({ data }) => setDocs(data));
   useEffect(() => { load(filter); }, [filter]);
-  useEffect(() => { api.get("/cases").then(({ data }) => data.length && setCs(data[0])); }, []);
+  useEffect(() => { api.get("/cases", { params: { service_type: "SELF_ASSESSMENT" } }).then(({ data }) => data.length && setCs(data[0])); }, []);
 
   const upload = async (file) => {
     const fd = new FormData();
@@ -110,6 +110,7 @@ export function ClientDocuments() {
   return (
     <AppShell title="Documents" subtitle="Requested items, your uploads and final documents.">
       <Panel
+        title="Documents"
         testId="client-documents-panel"
         action={cs && (
           <label className="px-4 py-2 rounded-lg bg-[#078A4B] text-white text-xs font-semibold cursor-pointer hover:bg-[#006B3C] transition-colors">
@@ -173,7 +174,7 @@ export function ClientMessages() {
 
   const load = (id) => api.get("/messages", { params: { case_id: id } }).then(({ data }) => setMsgs(data));
   useEffect(() => {
-    api.get("/cases").then(({ data }) => {
+    api.get("/cases", { params: { service_type: "SELF_ASSESSMENT" } }).then(({ data }) => {
       if (data.length) { setCs(data[0]); load(data[0].id); }
     });
   }, []);

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import AppShell from "@/components/AppShell";
 import { Empty, Panel } from "@/components/StatCard";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -11,6 +11,7 @@ export default function MyServices() {
   const [offers, setOffers] = useState([]);
   const [payments, setPayments] = useState([]);
   const [selected, setSelected] = useState(null);
+  const activeCount = (data?.services || []).filter((s) => s.status === "ACTIVE").length;
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -52,7 +53,7 @@ export default function MyServices() {
         <Panel title="My Services" testId="my-services-panel">
           {!data?.services?.length && <Empty text="No services yet." />}
           <ul className="space-y-4">
-            {data?.services?.map((s) => (
+            {data?.services?.filter((s) => s.status === "ACTIVE" || activeCount < 2).map((s) => (
               <li key={s.id} data-testid={`service-${s.service_type}`} className="border border-[#E3E7E4] rounded-lg p-5">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div>
@@ -68,6 +69,13 @@ export default function MyServices() {
                     {s.status === "ACTIVE" ? "Active" : "Not Active"}
                   </span>
                 </div>
+                {s.status === "ACTIVE" && (
+                  <Link to={s.service_type === "MTD_INCOME_TAX" ? "/mtd" : "/dashboard"}
+                    data-testid={`open-service-${s.service_type}`}
+                    className="inline-flex mt-4 px-4 py-2 rounded-lg border border-[#E3E7E4] text-xs font-semibold hover:bg-[#F1F8F4] transition-colors">
+                    Open {s.service_name}
+                  </Link>
+                )}
                 {s.cases?.length > 0 && (
                   <ul className="mt-4 space-y-2">
                     {s.cases.map((c) => (
