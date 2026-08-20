@@ -76,13 +76,15 @@ async def startup():
 
 
 async def _seed_faqs():
-    """Seed Help Centre content once. Admins edit it at runtime, so existing rows are kept."""
+    """Seed Help Centre content. The default answers are the canonical wording, so they are
+    kept in step on start-up; admin-authored FAQs are untouched."""
     for order, (category, question, answer) in enumerate(DEFAULT_FAQS):
         await db.faqs.update_one(
             {"question": question},
-            {"$setOnInsert": {"id": str(uuid.uuid4()), "category": category,
-                              "question": question, "answer": answer, "order": order,
-                              "is_active": True, "created_at": now_iso()}},
+            {"$set": {"category": category, "answer": answer, "order": order,
+                      "is_active": True},
+             "$setOnInsert": {"id": str(uuid.uuid4()), "question": question,
+                              "created_at": now_iso()}},
             upsert=True)
 
 
@@ -456,8 +458,13 @@ async def list_cases(status: Optional[str] = None, bucket: Optional[str] = None,
     if bucket and bucket in buckets:
         query.update(buckets[bucket])
     if q:
+        # Search by client name, case reference or the client's email address. Email is used to
+        # locate the case only -- it is never returned to an accountant.
+        matched_users = [u["id"] async for u in db.users.find(
+            {"role": "CLIENT", "email": {"$regex": q, "$options": "i"}}, {"id": 1})]
         query["$or"] = [{"client_name": {"$regex": q, "$options": "i"}},
-                        {"case_ref": {"$regex": q, "$options": "i"}}]
+                        {"case_ref": {"$regex": q, "$options": "i"}},
+                        {"client_user_id": {"$in": matched_users}}]
 
     cases = await db.cases.find(query).sort("last_updated", -1).to_list(500)
     return scrub_many(await _decorate(cases), user)
@@ -607,7 +614,7 @@ async def request_from_client(case_id: str, body: RequestIn,
         })
     await notify(case["client_user_id"], "Action required: " + body.title,
                  body.description or "Your accountant needs information from you.",
-                 case_id, "/tasks", "TASK")
+                 case_id, f"/tasks?task={task_id}", "TASK")
     await transition(case, "AWAITING_CLIENT", user, f"Requested from client: {body.title}",
                      waiting_reason=body.title)
     return {"ok": True, "task_id": task_id, "request_id": req_id}
@@ -932,7 +939,16 @@ async def list_tasks(case_id: Optional[str] = None, status: Optional[str] = None
     if status:
         query["status"] = status
     tasks = await db.tasks.find(query).sort("created_at", -1).to_list(300)
-    return scrub_many(clean_many(tasks), user)
+    tasks = clean_many(tasks)
+    # Tax year comes from the parent case so a task card can never show a stale copy.
+    years = {}
+    for t in tasks:
+        cid = t.get("case_id")
+        if cid and cid not in years:
+            c = await db.cases.find_one({"id": cid}, {"tax_year": 1})
+            years[cid] = (c or {}).get("tax_year")
+        t["tax_year"] = years.get(cid)
+    return scrub_many(tasks, user)
 
 
 @api.post("/tasks/{task_id}/complete")
@@ -1032,6 +1048,10 @@ async def upload_document(case_id: str = Form(...), document_type: str = Form("O
         await notify(case["assigned_accountant_id"], "Client upload received",
                      f"{case['client_name']} uploaded {file.filename}", case_id,
                      f"/work/cases/{case_id}", "UPLOAD")
+        await db.cases.update_one({"id": case_id}, {"$set": {
+            "next_action_owner": "ACCOUNTANT",
+            "next_action": "Review the document the client uploaded",
+            "last_updated": now_iso()}})
     if task_id:
         await complete_task(task_id, user)
     return clean(record)
@@ -1094,8 +1114,19 @@ async def send_message(body: MessageIn, user: dict = Depends(get_current_user)):
     await db.messages.insert_one(dict(msg))
     await log_activity(body.case_id, "Message sent", user)
     if recipient:
+        recipient_user = await db.users.find_one({"id": recipient}, {"role": 1})
+        # Staff open the exact case conversation; the client's own thread lives on Messages.
+        link = "/messages" if (recipient_user or {}).get("role") == "CLIENT" \
+            else f"/work/cases/{body.case_id}"
         await notify(recipient, f"New message from {user['name']}", body.body[:120],
-                     body.case_id, "/messages", "MESSAGE")
+                     body.case_id, link, "MESSAGE")
+    if user["role"] == "CLIENT":
+        # A new client message needs a human response -- put this case in the accountant's
+        # "Needs My Action" queue without touching any other case.
+        await db.cases.update_one({"id": body.case_id}, {"$set": {
+            "next_action_owner": "ACCOUNTANT",
+            "next_action": "Reply to the client's message",
+            "last_updated": now_iso()}})
     return clean(msg)
 
 
@@ -1236,6 +1267,13 @@ async def update_my_profile(body: ProfileIn, user: dict = Depends(require_roles(
         updates["name"] = body.name
     if updates:
         await db.clients.update_one({"user_id": user["id"]}, {"$set": updates})
+    if updates:
+        # Audit who changed which personal details and when -- values themselves are not logged.
+        await db.activity_logs.insert_one({
+            "id": str(uuid.uuid4()), "case_id": None, "action": "Personal details updated",
+            "user_id": user["id"], "user_name": body.name or user["name"], "role": user["role"],
+            "meta": {"fields": sorted(updates.keys())}, "created_at": now_iso(),
+        })
     return await my_profile(user)
 
 

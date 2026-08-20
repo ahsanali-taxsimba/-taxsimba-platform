@@ -54,6 +54,10 @@ export default function ClientSettings() {
 
   const raise = async (kind) => {
     setErr(""); setMsg("");
+    const confirmText = kind === "DATA_EXPORT"
+      ? "Request a copy of your personal data? Our team will prepare it and contact you."
+      : "Request account closure? Nothing is closed or deleted straight away — our team will contact you first, and tax records we must keep by law are retained.";
+    if (!window.confirm(confirmText)) return;
     try {
       await api.post("/my-data-requests", { kind });
       setMsg(kind === "DATA_EXPORT"
@@ -70,7 +74,7 @@ export default function ClientSettings() {
           <div className="text-sm">
             Login email: <b data-testid="settings-email">{profile?.email || "—"}</b>
             {profile?.pending_email_change && (
-              <span className="text-[#E6A23C]"> · change to {profile.pending_email_change} awaiting verification</span>
+              <span className="text-[#E6A23C]"> · email change awaiting approval by our team</span>
             )}
           </div>
           <Link to="/profile" data-testid="settings-change-email-link"

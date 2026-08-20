@@ -23,6 +23,7 @@ export function ClientTasks() {
   const [tasks, setTasks] = useState([]);
   const [tab, setTab] = useState("open");
   const [busy, setBusy] = useState(null);
+  const highlight = new URLSearchParams(window.location.search).get("task");
 
   const load = () => api.get("/tasks", { params: { service_type: "SELF_ASSESSMENT" } })
     .then(({ data }) => setTasks(data));
@@ -63,13 +64,15 @@ export function ClientTasks() {
         )}
         <ul className="space-y-4">
           {shown.map((t) => (
-            <li key={t.id} data-testid={`task-${t.id}`} className="border border-[#E3E7E4] rounded-lg p-5">
+            <li key={t.id} data-testid={`task-${t.id}`}
+              className={`border rounded-lg p-5 ${t.id === highlight ? "border-[#078A4B] bg-[#F1F8F4]" : "border-[#E3E7E4]"}`}>
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="min-w-0">
                   <div className="font-semibold text-[#161B18]">{t.name}</div>
                   {t.description && <p className="text-sm text-[#626A65] mt-1">{t.description}</p>}
                   <p className="text-xs text-[#626A65] mt-2">
                     {t.case_ref ? `Case ${t.case_ref}` : "Your account"}
+                    {t.tax_year ? ` · ${t.tax_year}` : ""}
                     {" · "}
                     {t.due_date ? `Due ${d(t.due_date)}` : "No due date"}
                     {t.created_by_name ? ` · Requested by ${t.created_by_name} on ${d(t.created_at)}` : ""}

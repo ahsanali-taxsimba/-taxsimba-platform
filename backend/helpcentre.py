@@ -34,12 +34,14 @@ DEFAULT_FAQS = [
      "the information is complete and correct to the best of your knowledge. If something looks "
      "wrong, ask your accountant a question instead of approving."),
     ("HMRC Submission", "When will my return be submitted?",
-     "TaxSimba submits your return to HMRC after you approve it. Submission is handled by our "
-     "authorised team, so there is nothing more for you to do. You can follow progress on Your "
-     "Tax Journey."),
+     "Once you have approved your return, your authorised TaxSimba accountant submits it to HMRC "
+     "using their professional filing software. TaxSimba does not file automatically through an "
+     "HMRC connection — a qualified person handles it and records the outcome in your portal, so "
+     "you can follow progress on Your Tax Journey."),
     ("HMRC Submission", "Where can I find my submission confirmation?",
-     "Once your return has been submitted, the submission reference and date appear on My Tax "
-     "Return, and any final documents are available under Final Documents."),
+     "Once your accountant has filed your return and recorded the submission, the submission date "
+     "and any reference appear on My Tax Return, and final documents are available under Final "
+     "Documents."),
     ("Payments & Packages", "How do I change my package?",
      "Go to My Services and choose an upgrade. You only pay the difference between your current "
      "package and the new one. Packages can be upgraded at any time, but cannot be downgraded "
@@ -50,7 +52,9 @@ DEFAULT_FAQS = [
     ("MTD for Income Tax", "What is MTD for Income Tax?",
      "Making Tax Digital for Income Tax is an HMRC scheme that replaces the single annual return "
      "with digital record keeping and quarterly updates. It only applies to some people. If it "
-     "applies to you, your accountant will recommend it and explain why before anything changes."),
+     "applies to you, your accountant will recommend it and explain why before anything changes. "
+     "Where MTD applies, your accountant handles the quarterly submissions using their own filing "
+     "software and records each one here."),
     ("Getting Started", "How do I contact my accountant?",
      "Use Messages in your portal. Your messages go straight to the accountant looking after your "
      "case and stay attached to your tax year, so nothing gets lost."),

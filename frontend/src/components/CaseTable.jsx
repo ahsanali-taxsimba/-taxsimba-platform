@@ -7,7 +7,37 @@ export default function CaseTable({ cases, basePath = "/work/cases", showAccount
   const nav = useNavigate();
   if (!cases?.length) return <Empty text="No cases match this view." />;
   return (
-    <div className="overflow-x-auto">
+    <>
+    {/* Mobile: cards so Case ID and Tax Year are never cut off by a wide table */}
+    <ul className="md:hidden space-y-3" data-testid="case-cards">
+      {cases.map((c) => (
+        <li key={c.id} data-testid={`case-card-${c.case_ref}`} className="border border-[#E3E7E4] rounded-lg p-4">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <div className="font-semibold text-sm text-[#161B18] break-words">{c.client_name}</div>
+              <div className="text-xs text-[#626A65] mt-1">
+                Case {c.case_ref} · {c.tax_year}
+              </div>
+            </div>
+            <PriorityBadge priority={c.priority} />
+          </div>
+          <div className="text-xs text-[#626A65] mt-2">{c.current_stage}</div>
+          <div className="mt-2 flex flex-wrap items-center gap-2">
+            <StatusBadge status={c.status} />
+            <span className="text-xs text-[#626A65]">Due {d(c.internal_deadline)}</span>
+          </div>
+          <div className="text-xs text-[#626A65] mt-2">Next: {c.next_action} ({c.next_action_owner})</div>
+          <button
+            data-testid={`open-case-m-${c.case_ref}`}
+            onClick={() => nav(`${basePath}/${c.id}`)}
+            className="mt-3 px-3 py-1.5 rounded-lg bg-[#078A4B] text-white text-xs font-semibold hover:bg-[#006B3C] transition-colors"
+          >
+            Open
+          </button>
+        </li>
+      ))}
+    </ul>
+    <div className="hidden md:block overflow-x-auto">
       <table data-testid="case-table" className="w-full text-sm">
         <thead>
           <tr className="text-left text-[11px] uppercase tracking-wide text-[#626A65] border-b border-[#E3E7E4]">
@@ -66,5 +96,6 @@ export default function CaseTable({ cases, basePath = "/work/cases", showAccount
         </tbody>
       </table>
     </div>
+    </>
   );
 }

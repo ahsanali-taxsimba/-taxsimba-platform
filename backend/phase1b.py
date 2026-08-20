@@ -4,6 +4,7 @@ Extends the existing Phase 1 architecture; nothing here replaces Self Assessment
 """
 import os
 import uuid
+from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 import stripe
@@ -557,9 +558,19 @@ async def stripe_webhook(request: Request):
 @router.get("/my-payments")
 async def my_payments(user: dict = Depends(require_roles("CLIENT"))):
     rows = await db.payment_transactions.find({"user_id": user["id"]}).sort("created_at", -1).to_list(100)
-    return [{k: v for k, v in clean(r).items()
-             if k in ("id", "kind", "service_type", "previous_package", "new_package",
-                      "amount", "currency", "payment_status", "created_at")} for r in rows]
+    # A checkout that was never completed must not sit as "Pending" forever. Anything still
+    # unresolved after 24 hours is reported as cancelled; confirmed payments are untouched.
+    cutoff = (datetime.now(timezone.utc) - timedelta(hours=24)).isoformat()
+    out = []
+    for r in rows:
+        r = clean(r)
+        if r.get("payment_status") in ("pending", "open", "unpaid") and not r.get("fulfilled") \
+                and (r.get("created_at") or "") < cutoff:
+            r["payment_status"] = "cancelled"
+        out.append({k: v for k, v in r.items()
+                    if k in ("id", "kind", "service_type", "previous_package", "new_package",
+                             "amount", "currency", "payment_status", "created_at")})
+    return out
 
 
 @router.get("/payments")

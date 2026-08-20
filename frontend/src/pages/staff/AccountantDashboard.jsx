@@ -36,9 +36,14 @@ export default function AccountantDashboard() {
   const tab = params.get("tab") || "needs_my_action";
   const [stats, setStats] = useState({});
   const [cases, setCases] = useState([]);
+  const [q, setQ] = useState("");
+  const [search, setSearch] = useState("");
 
   useEffect(() => { api.get("/stats/accountant").then(({ data }) => setStats(data)); }, [tab]);
-  useEffect(() => { api.get("/cases", { params: { bucket: tab } }).then(({ data }) => setCases(data)); }, [tab]);
+  useEffect(() => {
+    api.get("/cases", { params: search ? { bucket: tab, q: search } : { bucket: tab } })
+      .then(({ data }) => setCases(data));
+  }, [tab, search]);
 
   return (
     <AppShell title="My Workload" subtitle="Cases assigned to you.">
@@ -50,6 +55,26 @@ export default function AccountantDashboard() {
           ))}
         </div>
         <Panel title="My cases" testId="accountant-cases-panel">
+          <div className="flex flex-col sm:flex-row gap-3 mb-6">
+            <input
+              data-testid="case-search-input"
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && setSearch(q.trim())}
+              placeholder="Search client name, case ID or email…"
+              className="w-full sm:max-w-sm rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#078A4B]/30"
+            />
+            <button data-testid="case-search-btn" onClick={() => setSearch(q.trim())}
+              className="px-5 py-2.5 rounded-lg bg-[#078A4B] text-white text-sm font-semibold hover:bg-[#006B3C] transition-colors">
+              Search
+            </button>
+            {search && (
+              <button data-testid="case-search-clear-btn" onClick={() => { setQ(""); setSearch(""); }}
+                className="px-4 py-2.5 rounded-lg border border-[#E3E7E4] text-sm font-semibold hover:bg-[#F1F8F4] transition-colors">
+                Clear
+              </button>
+            )}
+          </div>
           <div className="flex gap-2 flex-wrap mb-6">
             {TABS.map(([k, l]) => (
               <button key={k} data-testid={`acc-tab-${k}`} onClick={() => setParams({ tab: k })}

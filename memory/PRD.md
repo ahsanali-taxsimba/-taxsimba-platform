@@ -234,3 +234,8 @@ Scoped to the My Tax Return page only — no redesign, no HMRC API.
 - Client Documents + My Tax Return final documents use `openDocument`.
 - Staff `pages/staff/CaseWorkspace.jsx` (~line 251) still uses a raw href to the protected endpoint - KNOWN, intentionally out of scope.
 - Note: two QA test PDFs (qa_upload.pdf, qa-upload.pdf) were uploaded to Client A during targeted testing; run `python scripts/fix_demo_data.py` to re-normalise the demo portal.
+
+## 2026-06 Client portal final correction pass
+Files: backend/server.py (case search by email, task tax_year, task-request deep link, role-aware message notification link + case moves to Needs My Action on client message/upload, profile-change audit, canonical FAQ answers re-synced on boot), backend/phase1b.py (my-payments: unresolved pending >24h reported as cancelled), backend/helpcentre.py (accountant-led HMRC/MTD wording), backend/scripts/fix_demo_data.py (demo-only stray email-change/data-request/unpaid-payment cleanup), frontend: ClientDashboard (full saved name greeting), AuthContext (refresh()), ClientProfile (refresh after save, no pending address shown, approval wording), ClientSettings (confirm before data/closure request, approval wording), ClientPages (task tax year + ?task= highlight), MyServices (title My Services, Cancelled status), CaseTable (mobile cards), AccountantDashboard (case search).
+All 12 targeted checks A-L PASS (self-tested, no regression, no testing agent per user instruction).
+Known/out of scope: staff CaseWorkspace still uses a raw href for document download; hundreds of historical automated-test cases remain in accountant.a Needs My Action (search added to make the right case findable).

@@ -8,10 +8,11 @@ import { api, apiError, d, dt, money } from "@/lib/api";
 // Customer-facing payment wording only -- never the provider's raw status string.
 const PAY_LABEL = {
   paid: "Paid", pending: "Pending", open: "Pending", unpaid: "Pending",
-  failed: "Failed", expired: "Failed", refunded: "Refunded",
+  failed: "Failed", expired: "Failed", refunded: "Refunded", cancelled: "Cancelled",
 };
 const PAY_TONE = {
   paid: "#16A05D", refunded: "#7656C9", failed: "#D64545", expired: "#D64545",
+  cancelled: "#626A65",
 };
 
 export default function MyServices() {
@@ -57,7 +58,7 @@ export default function MyServices() {
   const opt = upgrade?.options?.find((o) => o.code === selected);
 
   return (
-    <AppShell title="Subscription" subtitle={data?.client_ref ? `Client ${data.client_ref} · one account, all your services` : "Your TaxSimba services"}>
+    <AppShell title="My Services" subtitle={data?.client_ref ? `Client ${data.client_ref} · one account, all your services` : "Your TaxSimba services"}>
       <div className="space-y-6">
         <Panel title="My Services" testId="my-services-panel">
           {!data?.services?.length && <Empty text="No services yet." />}

@@ -70,6 +70,19 @@ async def _dedupe(case_ids: list) -> dict:
     return removed
 
 
+async def _clear_demo_stray_requests(uid: str) -> dict:
+    """Demo-only tidy-up: fake email-change requests, stale unpaid checkouts and stray
+    in-progress data/closure requests left behind by test runs. Only the demo client's own
+    rows are touched."""
+    e = await db.email_change_requests.delete_many({"user_id": uid, "status": "PENDING"})
+    r = await db.data_requests.delete_many({"user_id": uid, "status": "PENDING"})
+    p = await db.payment_transactions.delete_many(
+        {"user_id": uid, "fulfilled": {"$ne": True},
+         "payment_status": {"$in": ["pending", "open", "unpaid", "expired"]}})
+    return {"email_change_requests": e.deleted_count, "data_requests": r.deleted_count,
+            "unpaid_payments": p.deleted_count}
+
+
 async def main():
     report = {}
     for email in DEMO_EMAILS:
@@ -114,6 +127,7 @@ async def main():
 
         orphans = await _purge_orphans(uid, owned)
         deduped = await _dedupe(list(owned))
+        strays = await _clear_demo_stray_requests(uid)
 
         # Standardise the active journey on 2025/26 with the derived deadline.
         await db.cases.update_one({"id": keep_id}, {"$set": {
@@ -133,6 +147,7 @@ async def main():
         report[email] = {
             "kept_case": active.get("case_ref"), "duplicate_cases_removed": len(drop),
             "orphans_removed": orphans, "duplicates_removed": deduped,
+            "stray_requests_removed": strays,
             "notifications_remaining": remaining_notes,
         }
 

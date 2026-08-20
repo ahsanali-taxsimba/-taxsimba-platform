@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AppShell from "@/components/AppShell";
 import { Panel } from "@/components/StatCard";
+import { useAuth } from "@/context/AuthContext";
 import { api, apiError } from "@/lib/api";
 
 function Field({ label, value, onChange, testId, type = "text", placeholder }) {
@@ -20,6 +21,7 @@ function Field({ label, value, onChange, testId, type = "text", placeholder }) {
 }
 
 export default function ClientProfile() {
+  const { refresh } = useAuth();
   const [p, setP] = useState(null);
   const [form, setForm] = useState({});
   const [utr, setUtr] = useState(null);
@@ -36,6 +38,8 @@ export default function ClientProfile() {
       await api.patch("/my-profile", { name: form.name, phone: form.phone, address: form.address });
       setMsg("Your details have been saved.");
       load();
+      // Keep the greeting and identity across the portal in step with the saved name.
+      refresh().catch(() => {});
     } catch (e) { setErr(apiError(e.response?.data?.detail)); }
   };
 
@@ -44,7 +48,7 @@ export default function ClientProfile() {
     try {
       await api.post("/my-profile/email-change", { new_email: newEmail });
       setNewEmail("");
-      setMsg("We've received your request. For your security we verify email changes before they take effect.");
+      setMsg("We've received your request. Our team will approve the change before it takes effect.");
       load();
     } catch (e) { setErr(apiError(e.response?.data?.detail)); }
   };
@@ -104,7 +108,8 @@ export default function ClientProfile() {
           </div>
           {p.pending_email_change ? (
             <p data-testid="profile-email-pending" className="text-sm text-[#E6A23C] mt-3">
-              A change to <b>{p.pending_email_change}</b> is awaiting verification. We'll confirm once it's approved.
+              Email change awaiting approval by our team. You'll keep signing in with the email above
+              until it's approved.
             </p>
           ) : (
             <div className="mt-4 flex flex-col sm:flex-row gap-3 sm:items-end">
@@ -117,7 +122,7 @@ export default function ClientProfile() {
               </button>
             </div>
           )}
-          <p className="text-xs text-[#626A65] mt-3">For your security, email changes are verified before they take effect.</p>
+          <p className="text-xs text-[#626A65] mt-3">For your security, our team approves email changes before they take effect.</p>
         </Panel>
 
         <Panel title="Security" testId="profile-security-panel">

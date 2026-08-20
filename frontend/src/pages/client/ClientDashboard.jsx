@@ -24,15 +24,14 @@ export default function ClientDashboard() {
     api.get("/tasks", { params: { status: "OPEN", service_type: "SELF_ASSESSMENT" } }).then(({ data }) => setTasks(data));
     api.get("/my-offers").then(({ data }) => setOffers(data));
   }, []);
-  const firstName = (user?.name || "").split(" ")[0];
-  const openTasks = tasks.length;
+  const clientName = (user?.name || "").trim();  const openTasks = tasks.length;
   const readyToApprove = cs && ["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"].includes(cs.status);
   // Never claim a successful HMRC submission without an authorised submission record.
   const submitted = cs && ["SUBMITTED", "COMPLETED"].includes(cs.status) && cs.has_submission_record;
 
   return (
     <AppShell
-      title={`Welcome back, ${firstName}`}
+      title={`Welcome back, ${clientName}`}
       subtitle={cs ? `Your Self Assessment (${cs.tax_year}) is in progress.` : "No active Self Assessment yet."}
     >
       <div className="space-y-6">

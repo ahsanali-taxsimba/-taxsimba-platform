@@ -27,6 +27,12 @@ export function AuthProvider({ children }) {
     return data.user;
   };
 
+  const refresh = async () => {
+    const { data } = await api.get("/auth/me");
+    setUser(data);
+    return data;
+  };
+
   const logout = async () => {
     localStorage.removeItem("ts_token");
     try {
@@ -36,7 +42,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout, refresh }}>
       {children}
     </AuthContext.Provider>
   );
