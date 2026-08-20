@@ -339,7 +339,8 @@ class TestTokenExposure:
                       json={"email": CREDS["client_a"][0], "password": CREDS["client_a"][1]},
                       headers=BROWSER_HEADERS, timeout=30).status_code == 200
         old = s.cookies["refresh_token"]
-        r = s.post(f"{API}/auth/refresh", headers=BROWSER_HEADERS, timeout=30)
+        hdr = {**BROWSER_HEADERS, "X-CSRF-Token": s.cookies["csrf_token"]}
+        r = s.post(f"{API}/auth/refresh", headers=hdr, timeout=30)
         assert r.status_code == 200, r.text
         assert "access_token" not in r.json() and "eyJ" not in r.text, \
             "browser refresh leaked a token in the body"
@@ -385,6 +386,155 @@ class TestCookieSecurityControls:
         assert os.environ["COOKIE_SECURE"].lower() == "true", \
             "COOKIE_SECURE must be true wherever the app is served over HTTPS"
         assert os.environ["COOKIE_SAMESITE"].lower() in ("none", "lax", "strict")
+
+
+class TestCsrfProtection:
+    """Cookie-authenticated state-changing endpoints must reject cross-origin callers.
+
+    NOTE: this deployment sits behind an edge proxy that REWRITES the inbound Origin header
+    to its own hostname, so an Origin-only defence would be defeated here. The primary
+    defence is therefore the proxy-independent double-submit token, backed up by
+    Sec-Fetch-Site and Referer (both of which are passed through untouched).
+    """
+
+    def _session(self):
+        s = requests.Session()
+        r = s.post(f"{API}/auth/login",
+                   json={"email": CREDS["client_a"][0], "password": CREDS["client_a"][1]},
+                   headers=BROWSER_HEADERS, timeout=30)
+        assert r.status_code == 200, r.text
+        assert "csrf_token" in s.cookies, "login must issue a csrf_token cookie"
+        return s
+
+    def _hdr(self, s, **extra):
+        h = dict(BROWSER_HEADERS)
+        h["X-CSRF-Token"] = s.cookies["csrf_token"]
+        h.update(extra)
+        return h
+
+    # ---------------- legitimate same-origin traffic
+    def test_same_origin_refresh_allowed(self):
+        s = self._session()
+        old = s.cookies["refresh_token"]
+        r = s.post(f"{API}/auth/refresh", headers=self._hdr(s), timeout=30)
+        assert r.status_code == 200, r.text
+        assert s.cookies["refresh_token"] != old
+
+    def test_same_origin_logout_allowed(self):
+        s = self._session()
+        r = s.post(f"{API}/auth/logout", headers=self._hdr(s), timeout=30)
+        assert r.status_code == 200, r.text
+
+    # ---------------- cross-origin attacks
+    def test_cross_origin_refresh_rejected(self):
+        """Sec-Fetch-Site survives the proxy and is not settable by page script."""
+        s = self._session()
+        before = s.cookies["refresh_token"]
+        r = s.post(f"{API}/auth/refresh",
+                   headers=self._hdr(s, **{"Sec-Fetch-Site": "cross-site"}), timeout=30)
+        assert r.status_code == 403, f"cross-origin refresh must be 403, got {r.status_code}"
+        # no forced rotation -- the victim's original refresh token still works
+        ok = s.post(f"{API}/auth/refresh", cookies={"refresh_token": before},
+                    headers=self._hdr(s), timeout=30)
+        assert ok.status_code == 200, "the attacker rotated the victim's refresh token"
+
+    def test_cross_origin_logout_rejected(self):
+        s = self._session()
+        r = s.post(f"{API}/auth/logout",
+                   headers=self._hdr(s, **{"Sec-Fetch-Site": "cross-site"}), timeout=30)
+        assert r.status_code == 403, f"cross-origin logout must be 403, got {r.status_code}"
+        # no forced logout -- the victim is still signed in
+        assert s.get(f"{API}/auth/me", headers=BROWSER_HEADERS, timeout=30).status_code == 200
+
+    def test_same_site_is_also_rejected(self):
+        s = self._session()
+        for path in ("/auth/refresh", "/auth/logout"):
+            r = s.post(f"{API}{path}", headers=self._hdr(s, **{"Sec-Fetch-Site": "same-site"}),
+                       timeout=30)
+            assert r.status_code == 403, f"{path} same-site should be refused"
+
+    def test_cross_origin_referer_rejected(self):
+        s = self._session()
+        for path in ("/auth/refresh", "/auth/logout"):
+            r = s.post(f"{API}{path}",
+                       headers={"Referer": f"{EVIL_ORIGIN}/attack.html",
+                                "X-CSRF-Token": s.cookies["csrf_token"]}, timeout=30)
+            assert r.status_code == 403, f"{path} with an evil Referer must be 403, got {r.status_code}"
+
+    def test_missing_csrf_token_rejected(self):
+        """A cross-origin page cannot read the csrf_token cookie, so it cannot send it."""
+        s = self._session()
+        for path in ("/auth/refresh", "/auth/logout"):
+            r = s.post(f"{API}{path}", headers=BROWSER_HEADERS, timeout=30)
+            assert r.status_code == 403, f"{path} without a CSRF token must be 403, got {r.status_code}"
+
+    def test_wrong_csrf_token_rejected(self):
+        s = self._session()
+        r = s.post(f"{API}/auth/refresh", headers=self._hdr(s, **{"X-CSRF-Token": "not-the-token"}),
+                   timeout=30)
+        assert r.status_code == 403
+
+    def test_victim_session_survives_a_full_attack_sequence(self):
+        s = self._session()
+        for headers in ({"Sec-Fetch-Site": "cross-site"},
+                        {"Referer": f"{EVIL_ORIGIN}/a.html"},
+                        {"Origin": EVIL_ORIGIN, "Sec-Fetch-Mode": "cors"}):
+            s.post(f"{API}/auth/refresh", headers=headers, timeout=30)
+            s.post(f"{API}/auth/logout", headers=headers, timeout=30)
+        assert s.get(f"{API}/auth/me", headers=BROWSER_HEADERS, timeout=30).status_code == 200, \
+            "the victim was logged out or rotated by a cross-origin attacker"
+        assert s.post(f"{API}/auth/refresh", headers=self._hdr(s), timeout=30).status_code == 200
+
+    # ---------------- non-browser clients and CORS integrity
+    def test_non_browser_client_unaffected(self):
+        """No browser markers at all cannot be a CSRF vector, so CLI/API clients keep working."""
+        s = requests.Session()
+        assert _login(*CREDS["client_a"], session=s).status_code == 200
+        assert s.post(f"{API}/auth/refresh", timeout=30).status_code == 200
+        assert s.post(f"{API}/auth/logout", timeout=30).status_code == 200
+
+    def test_csrf_cookie_is_readable_but_session_cookies_are_not(self):
+        s = self._session()
+        raw = [c for c in s.cookies]
+        by_name = {c.name: c for c in raw}
+        assert "csrf_token" in by_name
+        # httpOnly is not exposed by the cookiejar, so assert on the raw header instead
+        r = requests.post(f"{API}/auth/login",
+                          json={"email": CREDS["client_a"][0], "password": CREDS["client_a"][1]},
+                          headers=BROWSER_HEADERS, timeout=30)
+        for c in r.raw.headers.getlist("Set-Cookie"):
+            low = c.lower()
+            if c.startswith(("access_token=", "refresh_token=")):
+                assert "httponly" in low, f"session cookie must stay httpOnly: {c}"
+            if c.startswith("csrf_token="):
+                assert "httponly" not in low, "the csrf cookie must be readable by script"
+                assert "secure" in low and "samesite=" in low
+
+    def test_csrf_does_not_weaken_cors(self):
+        raw = os.environ["CORS_ORIGINS"]
+        assert "*" not in raw and raw.strip()
+        r = requests.options(
+            f"{APP}/auth/refresh",
+            headers={"Origin": EVIL_ORIGIN, "Access-Control-Request-Method": "POST"},
+            timeout=30)
+        assert r.headers.get("access-control-allow-origin") not in (EVIL_ORIGIN, "*")
+
+    def test_no_auth_token_exposed_by_csrf_change(self):
+        s = self._session()
+        r = s.post(f"{API}/auth/refresh", headers=self._hdr(s), timeout=30)
+        assert "access_token" not in r.json() and "eyJ" not in r.text
+
+    @pytest.mark.parametrize("role", list(CREDS))
+    def test_all_roles_session_lifecycle_with_csrf(self, role):
+        email, pw = CREDS[role]
+        s = requests.Session()
+        assert s.post(f"{API}/auth/login", json={"email": email, "password": pw},
+                      headers=BROWSER_HEADERS, timeout=30).status_code == 200
+        me = s.get(f"{API}/auth/me", headers=BROWSER_HEADERS, timeout=30)
+        assert me.status_code == 200 and me.json()["email"] == email
+        assert s.post(f"{API}/auth/refresh", headers=self._hdr(s), timeout=30).status_code == 200
+        assert s.get(f"{API}/auth/me", headers=BROWSER_HEADERS, timeout=30).status_code == 200
+        assert s.post(f"{API}/auth/logout", headers=self._hdr(s), timeout=30).status_code == 200
 
 
 class TestAllRoleLogins:

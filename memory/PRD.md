@@ -115,6 +115,27 @@ Two `test_taxsimba_phase1b.py` tests (`test_recommend_package_downgrade_rejected
 
 **CORS remains environment-configurable and unvalidated against real infrastructure — no production/staging TaxSimba hostnames have been invented or configured. The final allowlist MUST be validated when deployed to the real infrastructure.**
 
+## CSRF protection (2026-06)
+`_enforce_csrf()` guards the two cookie-authenticated state-changing endpoints, `POST /api/auth/refresh` and `POST /api/auth/logout`.
+
+**Critical infrastructure finding:** the edge proxy in front of this app **rewrites the inbound `Origin` header to its own cluster hostname** (`https://taxsimba-foundation.cluster-3.preview.emergentcf.cloud`), verified by logging live request headers. An attacker sending `Origin: https://attacker.example.com` therefore arrives at the app looking same-origin, so **an Origin-only CSRF defence is silently ineffective behind this proxy**. `Sec-Fetch-Site` and `Referer` were confirmed to pass through untouched, and a pure CLI request arrives with no Origin injected.
+
+Three independent layers are applied:
+1. **`Sec-Fetch-Site`** — browser-set and not settable by page script; anything other than `same-origin`/`none` is rejected (`same-site` is also rejected).
+2. **`Referer`** — must match the CORS allowlist or the app's own origin (via `_self_origins()`, which accepts `Host`/`X-Forwarded-Host` since the proxy rewrites Origin).
+3. **Double-submit token (primary, proxy-independent)** — a readable `csrf_token` cookie must be echoed in the `X-CSRF-Token` header, compared with `secrets.compare_digest`. A third-party origin cannot read that cookie, so it cannot forge the header.
+
+A request with **none** of these browser markers cannot come from a browser document and so cannot be a CSRF vector — non-browser API/CLI clients are unaffected.
+
+The `csrf_token` cookie is intentionally **not** httpOnly (that is how double-submit works) and is `Secure` + `SameSite`. **It is not an authentication credential and grants no access on its own** — `access_token`/`refresh_token` remain httpOnly and invisible to JavaScript. The frontend attaches the header via a request interceptor in `lib/api.js`; the login/session/logout UX is unchanged. Logout clears all three cookies.
+
+### Verification (self-tested)
+- 60 hardening tests + 8 adversarial = **68 passed** serially; **full regression 226 passed / 2 skipped / 0 failed**.
+- Live probes: legitimate same-origin refresh/logout `200`; cross-site `403`; missing/forged CSRF token `403`; evil Referer `403`; **the victim stayed signed in and their refresh token was never rotated** by any attack sequence.
+- Browser-verified for Client, Accountant, Admin and Super Admin: correct landing routes, `csrf_token` readable, `access_token`/`refresh_token` **not** in `document.cookie`, session survives reload, UI sign-out works and blocks protected routes, mobile renders.
+- CORS unchanged and not weakened; no production hostnames configured.
+- One pre-existing flake (`test_notifications_and_mark_all_read`) fails intermittently under `-n 2` because parallel workers create new notifications between `read-all` and the re-fetch; it passes in isolation and on re-run. Unrelated to CSRF.
+
 ## Known gaps / not built
 - MTD quarterly operational workflow, HMRC API, Xero, SimbaX (deliberately deferred).
 - **Production hardening: DONE (2026-06)** — explicit CORS allowlist with wildcard fail-fast, login rate limiting + temporary lockout, XFF anti-spoofing, 15-minute access tokens with rotating/revocable refresh tokens. Residual risks listed above (edge CORS rewrite, CSRF on refresh/logout, body-returned access token).
@@ -122,9 +143,9 @@ Two `test_taxsimba_phase1b.py` tests (`test_recommend_package_downgrade_rejected
 - `server.py` + `phase1b.py` are large and would benefit from being split into routers.
 
 ## Backlog
-- P1: CSRF token / Origin-Referer check on `/api/auth/refresh` + `/api/auth/logout` (only remaining known auth risk)
 - P1: pagination on `GET /api/users` (hard-capped at 500) and `GET /api/recommendations` (300) — accumulated records can silently hide accounts
-- P1: validate the CORS allowlist on the real production hostname/ingress (the preview edge masks it)
+- P1: validate the CORS allowlist **and the Origin-rewriting behaviour** on the real production hostname/ingress (the preview edge masks both)
+- P2: de-flake `test_notifications_and_mark_all_read` (parallel-worker race under `-n 2`)
 - P1: Resend email notifications mirroring in-app triggers; deadline-approaching / overdue scheduler
 - P2: submission-issue handling flow; message attachments; TaxSimba Support as a separate message thread
 - P2: split `server.py`/`phase1b.py` into routers

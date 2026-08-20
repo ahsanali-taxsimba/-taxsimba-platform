@@ -4,6 +4,15 @@ const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 export const api = axios.create({ baseURL: API, withCredentials: true });
 
+// Double-submit CSRF token: the server sets a readable csrf_token cookie and requires it
+// echoed back in this header on cookie-authenticated state-changing calls. This is not an
+// authentication credential -- the session itself stays in httpOnly cookies.
+api.interceptors.request.use((config) => {
+  const match = document.cookie.match(/(?:^|;\s*)csrf_token=([^;]*)/);
+  if (match) config.headers["X-CSRF-Token"] = decodeURIComponent(match[1]);
+  return config;
+});
+
 // The session lives in httpOnly cookies only -- the access token is never written to
 // localStorage where client-side script could read it. Access tokens are short-lived, so a
 // single 401 transparently rotates the session via the refresh cookie and retries once.

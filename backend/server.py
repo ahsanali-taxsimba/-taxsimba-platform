@@ -1,6 +1,8 @@
 import os
+import secrets
 import uuid
 from datetime import datetime, timezone, timedelta
+from urllib.parse import urlparse
 from typing import Optional, List
 
 from dotenv import load_dotenv
@@ -27,6 +29,8 @@ from workflow import (ALLOWED_TRANSITIONS, STATUSES, STATUS_META, journey, log_a
 
 app = FastAPI(title="TaxSimba")
 api = APIRouter(prefix="/api")
+
+CSRF_COOKIE = "csrf_token"
 
 
 def _allowed_origins() -> List[str]:
@@ -163,12 +167,74 @@ def _set_session_cookies(response: Response, access: str, refresh: str):
     kw = _cookie_kwargs()
     response.set_cookie(ACCESS_COOKIE, access, max_age=ACCESS_TTL_MINUTES * 60, **kw)
     response.set_cookie(REFRESH_COOKIE, refresh, max_age=REFRESH_TTL_DAYS * 86400, **kw)
+    # The CSRF token is deliberately readable by page script -- that is how the double-submit
+    # pattern works. It is not an authentication credential and grants no access on its own.
+    response.set_cookie(CSRF_COOKIE, secrets.token_urlsafe(32),
+                        max_age=REFRESH_TTL_DAYS * 86400, **{**kw, "httponly": False})
 
 
 def _is_browser(request: Request) -> bool:
     """Browsers always send Origin on POST and Sec-Fetch-* on fetch/XHR. Non-browser API
     and CLI clients send neither."""
     return bool(request.headers.get("origin") or request.headers.get("sec-fetch-mode"))
+
+
+def _norm_origin(value: str) -> str:
+    return value.strip().rstrip("/").lower()
+
+
+def _self_origins(request: Request) -> set:
+    """Origins that represent this application itself.
+
+    The ingress/edge may rewrite the inbound Origin to an internal cluster hostname while
+    preserving the public one in X-Forwarded-Host, so a genuine same-origin request can
+    legitimately arrive with either. Host headers are set by the trusted proxy, and Origin is
+    set by the browser and cannot be spoofed by page script, so comparing the two is a sound
+    same-origin test: a third-party page always sends its own (non-matching) Origin.
+    """
+    scheme = request.headers.get("x-forwarded-proto") or request.url.scheme
+    hosts = {request.headers.get("host"), request.headers.get("x-forwarded-host")}
+    return {_norm_origin(f"{scheme}://{h}") for h in hosts if h}
+
+
+def _enforce_csrf(request: Request):
+    """CSRF defence for cookie-authenticated state-changing endpoints.
+
+    The session lives in cookies, so a cross-origin page could otherwise make the browser
+    POST these endpoints with the victim's cookies attached. Three independent checks are
+    applied, because this deployment sits behind an edge proxy that REWRITES the inbound
+    Origin header to its own hostname -- Origin alone is therefore not a trustworthy signal
+    here, while Sec-Fetch-Site and Referer are passed through untouched.
+
+      1. Sec-Fetch-Site: set by the browser and not settable by page script. Anything other
+         than same-origin/none is refused.
+      2. Referer: must match the CORS allowlist or this application's own origin.
+      3. Double-submit token: the X-CSRF-Token header must equal the csrf_token cookie. A
+         third-party origin cannot read that cookie, so it cannot forge a matching header.
+         This check is proxy-independent and is the primary defence.
+
+    A request carrying none of these browser markers cannot originate from a browser
+    document and so cannot be a CSRF vector; non-browser API/CLI clients are unaffected.
+    """
+    permitted = {_norm_origin(o) for o in ALLOWED_ORIGINS} | _self_origins(request)
+
+    fetch_site = request.headers.get("sec-fetch-site")
+    if fetch_site and fetch_site.lower() not in ("same-origin", "none"):
+        raise HTTPException(status_code=403, detail="Cross-origin request rejected")
+
+    referer = request.headers.get("referer")
+    if referer:
+        parsed = urlparse(referer)
+        if _norm_origin(f"{parsed.scheme}://{parsed.netloc}") not in permitted:
+            raise HTTPException(status_code=403, detail="Cross-origin request rejected")
+
+    is_browser = bool(fetch_site or referer or request.headers.get("origin")
+                      or request.headers.get("sec-fetch-mode"))
+    if is_browser:
+        sent = request.headers.get("x-csrf-token")
+        expected = request.cookies.get(CSRF_COOKIE)
+        if not sent or not expected or not secrets.compare_digest(sent, expected):
+            raise HTTPException(status_code=403, detail="Invalid or missing CSRF token")
 
 
 async def _auth_response(response: Response, user: dict, request: Request):
@@ -221,6 +287,7 @@ async def login(body: LoginIn, request: Request, response: Response):
 
 @api.post("/auth/refresh")
 async def refresh_session(request: Request, response: Response):
+    _enforce_csrf(request)
     token = request.cookies.get(REFRESH_COOKIE)
     if not token:
         raise HTTPException(status_code=401, detail="Not authenticated")
@@ -235,9 +302,11 @@ async def refresh_session(request: Request, response: Response):
 
 @api.post("/auth/logout")
 async def logout(request: Request, response: Response):
+    _enforce_csrf(request)
     await revoke_refresh_token(request.cookies.get(REFRESH_COOKIE))
     response.delete_cookie(ACCESS_COOKIE, path="/")
     response.delete_cookie(REFRESH_COOKIE, path="/")
+    response.delete_cookie(CSRF_COOKIE, path="/")
     return {"ok": True}
 
 

@@ -100,16 +100,19 @@ class TestBrowserDetectionAdversarial:
         old_refresh = s.cookies.get("refresh_token")
         assert old_refresh
         rr = s.post(f"{BASE_URL}/api/auth/refresh",
-                    headers={"Origin": APPROVED_ORIGIN, "Sec-Fetch-Mode": "cors"}, timeout=15)
+                    headers={"Origin": APPROVED_ORIGIN, "Sec-Fetch-Mode": "cors",
+                             "X-CSRF-Token": s.cookies.get("csrf_token")}, timeout=15)
         assert rr.status_code == 200
         _assert_no_token(rr.json(), rr.text)
         new_refresh = s.cookies.get("refresh_token")
         assert new_refresh and new_refresh != old_refresh, "refresh cookie was not rotated"
         # Replaying the OLD refresh must fail.
+        csrf = s.cookies.get("csrf_token")
         replay = requests.post(
             f"{BASE_URL}/api/auth/refresh",
             headers={"Origin": APPROVED_ORIGIN, "Sec-Fetch-Mode": "cors",
-                     "Cookie": f"refresh_token={old_refresh}"},
+                     "X-CSRF-Token": csrf,
+                     "Cookie": f"refresh_token={old_refresh}; csrf_token={csrf}"},
             timeout=15,
         )
         assert replay.status_code == 401, f"old refresh should be revoked, got {replay.status_code}"
