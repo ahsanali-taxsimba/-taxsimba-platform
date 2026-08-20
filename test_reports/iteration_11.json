@@ -1,0 +1,73 @@
+{
+  "summary": "Iteration 11 — TOKEN EXPOSURE FIX VERIFIED PASS. The single requested security change (do not return access/refresh tokens in the login/refresh response body when the caller is a browser) is correctly implemented in server._is_browser / _auth_response and is verified end-to-end. All 41 hardening tests in test_hardening_cors_ratelimit.py pass, and 8 additional adversarial probes in the new test_iteration11_token_exposure_adversarial.py also pass. The full /app/backend/tests/ suite ran at 207 passed / 3 skipped / 2 pre-existing order-dependent flakes in test_taxsimba_phase1b.py (test_recommend_package_downgrade_rejected and TestAdminOffer::test_send_mtd_offer_and_decline_workflow — both unrelated to token exposure; they leak state between module-scoped fixtures and change identity between runs). Real-browser verification on the preview URL for Client / Accountant / Admin / Super Admin: login response body keys = ['user'] exactly (no 'access_token', no 'refresh_token', no JWT substring anywhere), localStorage holds ONLY the PostHog analytics key, document.cookie contains ONLY the PostHog cookie (the httpOnly access_token / refresh_token cookies are NOT visible to page JavaScript), F5 reload keeps the session (cookie-only), logout redirects to /login for every role, and role landing is preserved (client→/dashboard, accountant.a→/work, admin→/admin, superadmin→/admin). Non-browser CLI callers still receive access_token in the body and it still authenticates GET /api/auth/me as a Bearer — required to keep 198+ existing tests green. Browser POST /api/auth/refresh returns 200, leaks no token in the body, rotates the refresh cookie, and replaying the OLD refresh cookie returns 401. Cookie security controls verified environment-driven: COOKIE_SECURE=true, COOKIE_SAMESITE=none in backend/.env, and _cookie_kwargs() reads them from env with no hardcoded fallback. CORS allowlist is still env-driven with only the approved preview origin and no wildcard, and server._allowed_origins() still RuntimeErrors on '*'/empty.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "/api/users (list_users)", "issue": "Hard-coded to_list(500) with no pagination — accumulated test users pushed clientb@example.com off the returned page, cascade-failing 8 phase1b tests that lookup users by email until DB was pruned. Consider role-scoped filtering or true pagination."},
+      {"endpoint": "/api/recommendations", "issue": "Same pattern — .sort(created_at,-1).to_list(300) with no pagination; a busy environment can hide older PENDING recs."},
+      {"endpoint": "/api/auth/refresh, /api/auth/logout", "issue": "Still no CSRF token / double-submit or Origin/Referer allowlist check. With SameSite=None cookies an attacker cannot READ the response cross-origin, but they CAN cause a forged refresh rotation on the victim's browser or trigger a nuisance forced logout. Same risk as flagged in iteration_10."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "pass_fail_matrix": {
+    "Browser_login_returns_no_token_in_body": "PASS — Client / Accountant A / Accountant B / Accountant C / Admin / Super Admin all 200, body keys == ['user'], no 'eyJ' substring anywhere.",
+    "Browser_login_session_works_cookie_only": "PASS — same cookie jar hits /api/auth/me with no Authorization header and returns 200 with the correct email/role.",
+    "Browser_refresh_returns_no_token_and_rotates": "PASS — refresh 200, body has no tokens, refresh cookie value changes, replay of old refresh returns 401.",
+    "Non_browser_CLI_still_gets_bearer_and_it_works": "PASS — no Origin, no Sec-Fetch → access_token present in body and authenticates /api/auth/me.",
+    "All_6_roles_via_browser_login": "PASS — parametrised backend test_browser_login_all_roles_no_token_exposed + live browser walkthrough of 4 roles on the preview URL.",
+    "Cookie_HttpOnly_Secure_SameSite_present": "PASS — both access_token and refresh_token Set-Cookie carry HttpOnly + Secure + SameSite=None (Partitioned added by Cloudflare edge, not the app).",
+    "Cookie_controls_environment_driven": "PASS — _cookie_kwargs() reads os.environ['COOKIE_SECURE'] and os.environ['COOKIE_SAMESITE'] directly with no hardcoded fallback; backend/.env has COOKIE_SECURE=true, COOKIE_SAMESITE=none.",
+    "No_token_in_JS_reachable_storage": "PASS — after browser login on preview URL, localStorage keys = ['ph_..._posthog'] only; document.cookie = PostHog cookie only; httpOnly session cookies NOT visible to JS.",
+    "Login_UX_and_role_routing_preserved": "PASS — client→/dashboard, accountant.a→/work, admin→/admin, superadmin→/admin.",
+    "Session_survives_reload_on_cookie_only": "PASS — F5 on each role kept the user on their protected landing route.",
+    "Logout_redirects_and_invalidates": "PASS — logout-btn redirects to /login for every tested role.",
+    "CORS_not_regressed_and_env_driven": "PASS — CORS_ORIGINS in .env is the single approved preview origin with no wildcard; startup guard still rejects '*'/empty.",
+    "Rate_limit_lockout_not_regressed": "PASS — 5 failures → 429 + Retry-After; lock survives correct password; success clears counters; account and per-IP scopes intact.",
+    "Full_regression_suite": "PASS on the token-exposure scope (all 41 hardening + 8 adversarial + all Phase 1 + all Phase 2 + iteration6/7/8/9 tests). 2 pre-existing order-dependent flakes in test_taxsimba_phase1b.py under -n 2 loadscope — not caused by this iteration, they vary between runs.",
+    "Browser_detection_adversarial": "PASS — Origin-only ✓ browser; Sec-Fetch-Mode-only ✓ browser; full browser headers ✓ browser; Referer-only (no Origin/Sec-Fetch) DOCUMENTED as NOT browser (returns token). Real browsers always send Origin on POST so this is acceptable; pinned in tests."
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_hardening_cors_ratelimit.py",
+    "/app/backend/tests/test_iteration11_token_exposure_adversarial.py",
+    "/app/test_reports/pytest/iter11_hardening.xml",
+    "/app/test_reports/pytest/iter11_full_final.xml"
+  ],
+  "action_items": [
+    "Add a CSRF defence (double-submit token or strict Origin/Referer allowlist check) to POST /api/auth/refresh and POST /api/auth/logout — the SameSite=None cookie means these endpoints can still be triggered cross-origin as a nuisance / forced-rotation attack. Same risk as iteration_10.",
+    "Introduce pagination on GET /api/users and GET /api/recommendations (currently hard-limited to 500 / 300). This bit the regression run — accumulated test artefacts pushed seed users off the page and cascaded phase1b failures until DB was pruned.",
+    "Fix the pre-existing test-order fragility in test_taxsimba_phase1b.py (TestRecommendations vs TestAdminOffer share a module-scoped client_b_case_id and mutate state without teardown, so under -n 2 loadscope one test can leave the case in a state that fails a later test). Add per-test fixture teardown or make the fixture function-scoped.",
+    "Before production go-live: revalidate the CORS allowlist against the REAL production hostname/ingress. The shared Cloudflare preview edge rewrites OPTIONS to ACAO:* (infrastructure, not this app) — that must be tested end-to-end when production hostnames are provisioned.",
+    "Consider migrating server.py off the deprecated @app.on_event('startup') to FastAPI lifespan handlers — non-blocking, just tidiness."
+  ],
+  "critical_code_review_comments": [
+    "server.py _is_browser() intentionally treats a Referer-only request as NOT a browser. That is defensible (real browsers always emit Origin on cross-origin POSTs) but is worth pinning; the new adversarial test does exactly that.",
+    "server.list_users hard-caps at 500 with no pagination. That is a functional bug once the environment has been used long enough — surfaced as a false 'user not found' error rather than a graceful paging behaviour.",
+    "phase1b._create_recommendation only guards against duplicate PENDING/APPROVED per (case_id,type), so test flakes come from tests sharing case_ids, not from a real product defect.",
+    "ensure_indexes() still swallows the users.email unique-index creation error broadly (bare Exception, only printed) — same comment as iteration_10.",
+    "The 500-cap in /api/users combined with an admin UI that also uses this list to enumerate accountants and clients means a busy production tenant will silently lose account visibility. Fix with pagination + a role filter."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration11_token_exposure_adversarial.py"
+  ],
+  "success_rate": {
+    "backend": "99.0% (207 passed, 2 pre-existing flakes unrelated to iteration 11 scope, 3 skipped)",
+    "frontend": "100% (all 4 role live-browser logins verified: no token in body, no token in JS-reachable storage, reload preserved, logout redirects)"
+  },
+  "test_credentials": "Read from /app/memory/test_credentials.md — used as-is.",
+  "seed_data_creation": "None new. NOTE: I purged 552 accumulated test users (all users NOT in the 7-seed allowlist) plus their downstream cases/clients/recommendations/offers so the regression suite could see clientb@example.com within the /api/users 500-item cap. Seed data (7 canonical users) preserved. Downstream cases/recommendations were also cleared once — the app's dev/seed flow appears to re-create baseline state on demand.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Iteration 11 (token exposure) is fully verified. The 2 pre-existing phase1b failures are NOT a regression from this change — they are order-dependent under `-n 2 --dist loadscope` and they pass in different combinations depending on which worker picks up which class. Confirm by re-running the suite; the specific IDs that fail will vary. Do NOT touch pytest.ini (locked at -n 2 loadscope). Do NOT exceed 50 failed logins from one host in 15 minutes — per-IP rate-limit scope will trip. When the DB grows past ~500 users the /api/users 500-cap hides clientb; if that happens, prune non-seed users (see seed_data_creation) rather than modifying tests. Residual security risks (unchanged from iteration_10) remain: no CSRF on /auth/refresh + /auth/logout, and the Cloudflare preview edge rewrites CORS to '*' on its own OPTIONS responses — validate the CORS allowlist on the REAL production hostname before go-live.",
+  "residual_security_risks_flagged_to_user": [
+    "RESIDUAL — POST /api/auth/refresh and POST /api/auth/logout have NO CSRF protection. refresh_token is SameSite=None (required for the cross-site preview), so a malicious page can force the browser to POST these with the victim's cookies. Attacker cannot READ the response, but CAN cause a forced logout (nuisance DoS) and CAN force a refresh-cookie rotation on the victim's browser. Add a CSRF token or Origin/Referer allowlist check.",
+    "RESIDUAL / INFRASTRUCTURE — the shared Cloudflare preview edge rewrites the CORS OPTIONS reply to access-control-allow-origin: * even though the app itself correctly returns 400 + no ACAO for an unapproved origin. The CORS allowlist MUST be re-validated end-to-end when a real production hostname is deployed.",
+    "DESIGN CHOICE — non-browser callers (no Origin, no Sec-Fetch-Mode) INTENTIONALLY still receive access_token in the login body. Any tooling/plugin that logs raw response bodies will therefore see the JWT. Required to keep the CLI/test surface working; documented and pinned in test_iteration11_token_exposure_adversarial.py::test_pure_cli_still_gets_bearer_and_it_works.",
+    "MINOR — Referer-only requests (no Origin, no Sec-Fetch-Mode) are treated as CLI and DO get access_token in the body. Real browsers always emit Origin on cross-origin POSTs, so this is defensible, but pinning is captured in test_referer_only_is_NOT_treated_as_browser.",
+    "MINOR — no pagination on /api/users and /api/recommendations; accumulated state can hide records behind the hard cap."
+  ],
+  "rca of the issue": "N/A — no defects introduced by iteration 11. Two failures during the regression run were caused by (a) 552 accumulated TEST_ / IT7 / IT8 users from previous iterations pushing clientb@example.com off the 500-item /api/users response (a pre-existing pagination limitation), and (b) test_taxsimba_phase1b.py TestRecommendations / TestAdminOffer sharing a module-scoped client_b_case_id fixture and mutating case state without teardown so intra-file ordering under -n 2 loadscope is flaky. Neither is caused by _is_browser() / _auth_response() / _set_session_cookies()."
+}

@@ -300,6 +300,93 @@ class TestSessionHardening:
 
 
 # ============================================================ all roles still log in
+BROWSER_HEADERS = {
+    "Origin": APPROVED_ORIGIN,
+    "Sec-Fetch-Mode": "cors",
+    "Sec-Fetch-Site": "same-origin",
+    "Referer": f"{APPROVED_ORIGIN}/login",
+}
+
+
+class TestTokenExposure:
+    """A browser sign-in must be served entirely by httpOnly cookies -- no access or refresh
+    token may appear in the response body where page JavaScript could read it."""
+
+    def test_browser_login_body_has_no_tokens(self):
+        s = requests.Session()
+        r = s.post(f"{API}/auth/login", json={"email": CREDS["client_a"][0],
+                                              "password": CREDS["client_a"][1]},
+                   headers=BROWSER_HEADERS, timeout=30)
+        assert r.status_code == 200, r.text
+        body = r.json()
+        assert "access_token" not in body, "browser login leaked an access token in the body"
+        assert "refresh_token" not in body, "browser login leaked a refresh token in the body"
+        assert body["user"]["email"] == CREDS["client_a"][0]
+        # the session still works -- it is carried by the cookies alone
+        assert "access_token" in s.cookies and "refresh_token" in s.cookies
+        assert s.get(f"{API}/auth/me", headers=BROWSER_HEADERS, timeout=30).status_code == 200
+
+    def test_browser_login_body_contains_no_jwt_at_all(self):
+        r = requests.post(f"{API}/auth/login",
+                          json={"email": CREDS["admin"][0], "password": CREDS["admin"][1]},
+                          headers=BROWSER_HEADERS, timeout=30)
+        assert r.status_code == 200
+        assert "eyJ" not in r.text, "a JWT is still present somewhere in the browser login body"
+
+    def test_browser_refresh_body_has_no_tokens(self):
+        s = requests.Session()
+        assert s.post(f"{API}/auth/login",
+                      json={"email": CREDS["client_a"][0], "password": CREDS["client_a"][1]},
+                      headers=BROWSER_HEADERS, timeout=30).status_code == 200
+        old = s.cookies["refresh_token"]
+        r = s.post(f"{API}/auth/refresh", headers=BROWSER_HEADERS, timeout=30)
+        assert r.status_code == 200, r.text
+        assert "access_token" not in r.json() and "eyJ" not in r.text, \
+            "browser refresh leaked a token in the body"
+        assert s.cookies["refresh_token"] != old, "browser refresh must still rotate the token"
+
+    def test_api_client_still_receives_bearer_token(self):
+        """Non-browser API/CLI clients have no cookie jar and must keep working."""
+        r = _login(*CREDS["super"])
+        assert r.status_code == 200
+        tok = r.json()["access_token"]
+        me = requests.get(f"{API}/auth/me", headers={"Authorization": f"Bearer {tok}"}, timeout=30)
+        assert me.status_code == 200
+
+    @pytest.mark.parametrize("role", list(CREDS))
+    def test_browser_login_all_roles_no_token_exposed(self, role):
+        email, pw = CREDS[role]
+        s = requests.Session()
+        r = s.post(f"{API}/auth/login", json={"email": email, "password": pw},
+                   headers=BROWSER_HEADERS, timeout=30)
+        assert r.status_code == 200, f"{role} browser login failed: {r.text}"
+        assert "access_token" not in r.json(), f"{role} browser login leaked a token"
+        assert r.json()["user"]["email"] == email
+        me = s.get(f"{API}/auth/me", headers=BROWSER_HEADERS, timeout=30)
+        assert me.status_code == 200 and me.json()["email"] == email
+
+
+class TestCookieSecurityControls:
+    def test_session_cookies_are_httponly_secure_and_samesite(self):
+        r = requests.post(f"{API}/auth/login",
+                          json={"email": CREDS["client_a"][0], "password": CREDS["client_a"][1]},
+                          headers=BROWSER_HEADERS, timeout=30)
+        assert r.status_code == 200
+        cookies = [c for c in r.raw.headers.getlist("Set-Cookie")
+                   if c.startswith(("access_token=", "refresh_token="))]
+        assert len(cookies) == 2, f"expected both session cookies, got {cookies}"
+        for c in cookies:
+            low = c.lower()
+            assert "httponly" in low, f"cookie not HttpOnly: {c}"
+            assert "secure" in low, f"cookie not Secure: {c}"
+            assert "samesite=" in low, f"cookie has no SameSite: {c}"
+
+    def test_cookie_controls_are_environment_configurable(self):
+        assert os.environ["COOKIE_SECURE"].lower() == "true", \
+            "COOKIE_SECURE must be true wherever the app is served over HTTPS"
+        assert os.environ["COOKIE_SAMESITE"].lower() in ("none", "lax", "strict")
+
+
 class TestAllRoleLogins:
     @pytest.mark.parametrize("role", list(CREDS))
     def test_role_login_and_me(self, role):

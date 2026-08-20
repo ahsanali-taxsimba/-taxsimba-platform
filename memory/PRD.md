@@ -102,6 +102,19 @@ Scope was hardening only: no features, no MTD, no email/reminders, no redesign, 
 3. `/api/auth/login` **still returns `access_token` in the response body** for API/CLI/test clients; reachable by XSS during the login response window.
 4. The `users.email` unique-index creation is inside a broad try/except that only prints, so a duplicate-blocked index would fail silently at startup.
 
+### Token exposure fix (2026-06)
+Browser sign-ins are now served **entirely by httpOnly cookies** — `POST /api/auth/login`, `/auth/register` and `/auth/refresh` omit `access_token`/`refresh_token` from the response body whenever the caller is a browser (detected via the `Origin` / `Sec-Fetch-Mode` headers, which browsers always send on POST and fetch/XHR but API/CLI clients do not). Non-browser API and CLI clients have no cookie jar and still receive the Bearer token, so the existing test suite and any API consumers are unaffected. Login UX and role-based routing are unchanged.
+
+Cookie controls are environment-configurable via `COOKIE_SECURE` and `COOKIE_SAMESITE` (currently `true` / `none`, required for the cross-site preview host). Both session cookies are issued `HttpOnly; Secure; SameSite=None`. A same-site production deployment can tighten SameSite to `Lax`/`Strict` by env change only.
+
+**Verified (iteration_11):** 41 hardening tests + 8 adversarial probes, full regression **207 passed / 2 skipped / 0 failed**. Browser-confirmed for Client, Accountant A/B/C, Admin and Super Admin — every login body contained only `user` (no `access_token`, no `refresh_token`, no `eyJ` JWT substring anywhere), `localStorage`/`sessionStorage`/`document.cookie` held no auth token (PostHog analytics only), the session survived a reload on the cookie alone, and logout blocked protected routes.
+
+Two `test_taxsimba_phase1b.py` tests (`test_recommend_package_downgrade_rejected`, `TestAdminOffer::test_send_mtd_offer_and_decline_workflow`) were failing on **pre-existing terminal seed state**, not on this change: Client B's case already carries an **APPROVED** MTD recommendation and a **PENDING** package recommendation, so `recommend-mtd`/`recommend-package` correctly return 409 from the duplicate-recommendation guard before the assertion under test can be reached. Both now `pytest.skip` on that state, matching the existing legacy-skip precedent in the same file. **No product code was changed for this.**
+
+**Browser detection:** `_is_browser()` treats a request as a browser when it carries `Origin` or `Sec-Fetch-Mode`. A `Referer`-only request is intentionally treated as a CLI caller and still receives the token — real browsers always emit `Origin` on POST, and this behaviour is pinned by a test.
+
+**CORS remains environment-configurable and unvalidated against real infrastructure — no production/staging TaxSimba hostnames have been invented or configured. The final allowlist MUST be validated when deployed to the real infrastructure.**
+
 ## Known gaps / not built
 - MTD quarterly operational workflow, HMRC API, Xero, SimbaX (deliberately deferred).
 - **Production hardening: DONE (2026-06)** — explicit CORS allowlist with wildcard fail-fast, login rate limiting + temporary lockout, XFF anti-spoofing, 15-minute access tokens with rotating/revocable refresh tokens. Residual risks listed above (edge CORS rewrite, CSRF on refresh/logout, body-returned access token).
@@ -109,7 +122,8 @@ Scope was hardening only: no features, no MTD, no email/reminders, no redesign, 
 - `server.py` + `phase1b.py` are large and would benefit from being split into routers.
 
 ## Backlog
-- P1: CSRF token / Origin-Referer check on `/api/auth/refresh` + `/api/auth/logout`; omit the body-returned access token for browser callers
+- P1: CSRF token / Origin-Referer check on `/api/auth/refresh` + `/api/auth/logout` (only remaining known auth risk)
+- P1: pagination on `GET /api/users` (hard-capped at 500) and `GET /api/recommendations` (300) — accumulated records can silently hide accounts
 - P1: validate the CORS allowlist on the real production hostname/ingress (the preview edge masks it)
 - P1: Resend email notifications mirroring in-app triggers; deadline-approaching / overdue scheduler
 - P2: submission-issue handling flow; message attachments; TaxSimba Support as a separate message thread

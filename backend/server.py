@@ -148,18 +148,44 @@ class NoteIn(BaseModel):
 
 
 # ---------------------------------------------------------------- auth
-async def _auth_response(response: Response, user: dict):
+def _cookie_kwargs() -> dict:
+    """Session cookie security controls. Secure/SameSite are environment-configurable so a
+    same-site production deployment can tighten SameSite without a code change."""
+    return {
+        "httponly": True,
+        "secure": os.environ["COOKIE_SECURE"].lower() == "true",
+        "samesite": os.environ["COOKIE_SAMESITE"].lower(),
+        "path": "/",
+    }
+
+
+def _set_session_cookies(response: Response, access: str, refresh: str):
+    kw = _cookie_kwargs()
+    response.set_cookie(ACCESS_COOKIE, access, max_age=ACCESS_TTL_MINUTES * 60, **kw)
+    response.set_cookie(REFRESH_COOKIE, refresh, max_age=REFRESH_TTL_DAYS * 86400, **kw)
+
+
+def _is_browser(request: Request) -> bool:
+    """Browsers always send Origin on POST and Sec-Fetch-* on fetch/XHR. Non-browser API
+    and CLI clients send neither."""
+    return bool(request.headers.get("origin") or request.headers.get("sec-fetch-mode"))
+
+
+async def _auth_response(response: Response, user: dict, request: Request):
     token = create_access_token(user["id"], user["email"])
     refresh = await issue_refresh_token(user["id"])
-    response.set_cookie(ACCESS_COOKIE, token, httponly=True, secure=True,
-                        samesite="none", max_age=ACCESS_TTL_MINUTES * 60, path="/")
-    response.set_cookie(REFRESH_COOKIE, refresh, httponly=True, secure=True,
-                        samesite="none", max_age=REFRESH_TTL_DAYS * 86400, path="/")
-    return {"user": clean(dict(user)), "access_token": token}
+    _set_session_cookies(response, token, refresh)
+    body = {"user": clean(dict(user))}
+    if not _is_browser(request):
+        # API/CLI clients have no cookie jar and authenticate with a Bearer token. Browser
+        # sign-ins are served entirely by the httpOnly cookies, so no token is ever placed
+        # where page JavaScript could read it.
+        body["access_token"] = token
+    return body
 
 
 @api.post("/auth/register")
-async def register(body: RegisterIn, response: Response):
+async def register(body: RegisterIn, request: Request, response: Response):
     email = body.email.lower()
     if await db.users.find_one({"email": email}):
         raise HTTPException(status_code=400, detail="Email already registered")
@@ -175,7 +201,7 @@ async def register(body: RegisterIn, response: Response):
     client["client_ref"] = f"CL-{42 + count:04d}"
     await db.clients.insert_one(dict(client))
     await bootstrap_client_services(client)
-    return await _auth_response(response, user)
+    return await _auth_response(response, user, request)
 
 
 @api.post("/auth/login")
@@ -190,7 +216,7 @@ async def login(body: LoginIn, request: Request, response: Response):
     if not user.get("is_active", True):
         raise HTTPException(status_code=401, detail="Account disabled")
     await clear_failures(ip, email)
-    return await _auth_response(response, user)
+    return await _auth_response(response, user, request)
 
 
 @api.post("/auth/refresh")
@@ -200,11 +226,11 @@ async def refresh_session(request: Request, response: Response):
         raise HTTPException(status_code=401, detail="Not authenticated")
     user, new_refresh = await rotate_refresh_token(token)
     access = create_access_token(user["id"], user["email"])
-    response.set_cookie(ACCESS_COOKIE, access, httponly=True, secure=True,
-                        samesite="none", max_age=ACCESS_TTL_MINUTES * 60, path="/")
-    response.set_cookie(REFRESH_COOKIE, new_refresh, httponly=True, secure=True,
-                        samesite="none", max_age=REFRESH_TTL_DAYS * 86400, path="/")
-    return {"user": clean(dict(user)), "access_token": access}
+    _set_session_cookies(response, access, new_refresh)
+    body = {"user": clean(dict(user))}
+    if not _is_browser(request):
+        body["access_token"] = access
+    return body
 
 
 @api.post("/auth/logout")
