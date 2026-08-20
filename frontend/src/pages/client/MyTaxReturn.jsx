@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import AppShell from "@/components/AppShell";
 import { Empty, Panel } from "@/components/StatCard";
 import { StatusBadge } from "@/components/StatusBadge";
-import { api, d, money } from "@/lib/api";
+import { api, d, money, openDocument } from "@/lib/api";
 
 export default function MyTaxReturn() {
   const [cs, setCs] = useState(null);
@@ -113,11 +113,11 @@ export default function MyTaxReturn() {
                         {doc.tax_year ? ` · ${doc.tax_year}` : ""}
                       </span>
                     </span>
-                    <a data-testid={`final-doc-download-${doc.id}`}
-                      className="text-xs font-semibold text-[#078A4B] shrink-0" target="_blank" rel="noreferrer"
-                      href={`${process.env.REACT_APP_BACKEND_URL}/api/documents/${doc.id}/download`}>
+                    <button data-testid={`final-doc-download-${doc.id}`} type="button"
+                      onClick={() => openDocument(doc.id, doc.name)}
+                      className="text-xs font-semibold text-[#078A4B] shrink-0 hover:underline">
                       View / Download
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>

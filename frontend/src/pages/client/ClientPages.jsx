@@ -3,7 +3,7 @@ import AppShell from "@/components/AppShell";
 import { Journey } from "@/components/Journey";
 import { Empty, Panel } from "@/components/StatCard";
 import { DocStatusBadge } from "@/components/StatusBadge";
-import { api, d, dt } from "@/lib/api";
+import { api, d, dt, openDocument } from "@/lib/api";
 
 export function ClientJourneyPage() {
   const [cs, setCs] = useState(null);
@@ -108,6 +108,7 @@ export function ClientDocuments() {
   const [docs, setDocs] = useState([]);
   const [filter, setFilter] = useState("all");
   const [cs, setCs] = useState(null);
+  const [notice, setNotice] = useState("");
 
   const load = (f) => api.get("/documents", {
     params: f === "all" ? { service_type: "SELF_ASSESSMENT" } : { filter: f, service_type: "SELF_ASSESSMENT" },
@@ -115,13 +116,23 @@ export function ClientDocuments() {
   useEffect(() => { load(filter); }, [filter]);
   useEffect(() => { api.get("/cases", { params: { service_type: "SELF_ASSESSMENT" } }).then(({ data }) => data.length && setCs(data[0])); }, []);
 
-  const upload = async (file) => {
+  const upload = async (file, input) => {
+    setNotice("");
     const fd = new FormData();
     fd.append("case_id", cs.id);
     fd.append("document_type", "Client upload");
     fd.append("file", file);
-    await api.post("/documents/upload", fd, { headers: { "Content-Type": "multipart/form-data" } });
-    load(filter);
+    try {
+      await api.post("/documents/upload", fd, { headers: { "Content-Type": "multipart/form-data" } });
+      // Stay on the Documents page, confirm, and refresh the list in place.
+      setNotice("Document uploaded successfully.");
+      setFilter("all");
+      await load("all");
+    } catch (e) {
+      setNotice("");
+      window.alert("Sorry, that upload didn't work. Please try again.");
+    }
+    if (input) input.value = "";
   };
 
   const who = (doc) => {
@@ -139,10 +150,15 @@ export function ClientDocuments() {
           <label className="px-4 py-2 rounded-lg bg-[#078A4B] text-white text-xs font-semibold cursor-pointer hover:bg-[#006B3C] transition-colors">
             Upload document
             <input data-testid="client-upload-input" type="file" className="hidden"
-              onChange={(e) => e.target.files[0] && upload(e.target.files[0])} />
+              onChange={(e) => e.target.files[0] && upload(e.target.files[0], e.target)} />
           </label>
         )}
       >
+        {notice && (
+          <p data-testid="upload-success-notice" className="text-sm text-[#16A05D] font-semibold mb-4">
+            {notice}
+          </p>
+        )}
         <div className="flex gap-2 mb-6 flex-wrap">
           {[["all", "All"], ["requested", "Requested"], ["uploaded", "Uploaded"], ["final", "Final Documents"]].map(([k, l]) => (
             <button key={k} data-testid={`doc-filter-${k}`} onClick={() => setFilter(k)}
@@ -165,10 +181,11 @@ export function ClientDocuments() {
               <div className="flex items-center justify-between gap-3 mt-3">
                 <DocStatusBadge status={doc.status} />
                 {doc.storage_path && (
-                  <a data-testid={`download-m-${doc.id}`} className="text-xs font-semibold text-[#078A4B]"
-                    href={`${process.env.REACT_APP_BACKEND_URL}/api/documents/${doc.id}/download`} target="_blank" rel="noreferrer">
+                  <button data-testid={`download-m-${doc.id}`} type="button"
+                    onClick={() => openDocument(doc.id, doc.name)}
+                    className="text-xs font-semibold text-[#078A4B] hover:underline">
                     View document
-                  </a>
+                  </button>
                 )}
               </div>
             </li>
@@ -196,10 +213,11 @@ export function ClientDocuments() {
                     <td className="py-4 pr-4"><DocStatusBadge status={doc.status} /></td>
                     <td className="py-4">
                       {doc.storage_path && (
-                        <a data-testid={`download-${doc.id}`} className="text-xs font-semibold text-[#078A4B]"
-                          href={`${process.env.REACT_APP_BACKEND_URL}/api/documents/${doc.id}/download`} target="_blank" rel="noreferrer">
+                        <button data-testid={`download-${doc.id}`} type="button"
+                          onClick={() => openDocument(doc.id, doc.name)}
+                          className="text-xs font-semibold text-[#078A4B] hover:underline">
                           View
-                        </a>
+                        </button>
                       )}
                     </td>
                   </tr>

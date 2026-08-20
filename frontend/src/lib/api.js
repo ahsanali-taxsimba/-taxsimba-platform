@@ -54,3 +54,34 @@ export const dt = (s) =>
 
 export const d = (s) =>
   s ? new Date(s).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }) : "—";
+
+
+// Documents live behind an authenticated endpoint. A plain <a href> opens the API as a new
+// top-level document, so the httpOnly session cookie (SameSite=None / Partitioned) is not
+// sent and the browser lands on {"detail":"Not authenticated"}. Fetching it with the
+// authenticated client and viewing the resulting blob keeps access control fully server-side
+// and never exposes a public document URL.
+export async function openDocument(id, name) {
+  // The tab must be opened synchronously within the click handler, otherwise the browser
+  // treats the later window.open as non user-initiated and blocks it.
+  const win = window.open("", "_blank");
+  let res;
+  try {
+    res = await api.get(`/documents/${id}/download`, { responseType: "blob" });
+  } catch (e) {
+    if (win) win.close();
+    throw e;
+  }
+  const url = URL.createObjectURL(res.data);
+  if (win) {
+    win.location.href = url;
+  } else {
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = name || "document";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+}

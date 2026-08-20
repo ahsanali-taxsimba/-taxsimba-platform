@@ -228,3 +228,9 @@ Scoped to the My Tax Return page only — no redesign, no HMRC API.
 - P2: submission-issue handling flow; message attachments; TaxSimba Support as a separate message thread
 - P2: split `server.py`/`phase1b.py` into routers
 - Phase 2: MTD quarterly compliance workflow on the same operational core
+
+## 2026-06 Documents view/upload fix
+- `frontend/src/lib/api.js` `openDocument()` now opens the new tab synchronously on click, then points it at the authenticated blob URL (download-anchor fallback if popup blocked). Fixes the raw `{"detail":"Not authenticated"}` page from the previous plain <a href> to /api/documents/{id}/download.
+- Client Documents + My Tax Return final documents use `openDocument`.
+- Staff `pages/staff/CaseWorkspace.jsx` (~line 251) still uses a raw href to the protected endpoint - KNOWN, intentionally out of scope.
+- Note: two QA test PDFs (qa_upload.pdf, qa-upload.pdf) were uploaded to Client A during targeted testing; run `python scripts/fix_demo_data.py` to re-normalise the demo portal.
