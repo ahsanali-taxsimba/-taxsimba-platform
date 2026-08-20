@@ -26,7 +26,8 @@ from seed import seed
 from phase1b import bootstrap_client_services, ensure_phase1b_data, router as phase1b_router
 from storage import init_storage, put_object, get_object, APP_NAME
 from workflow import (ALLOWED_TRANSITIONS, STATUSES, STATUS_META, client_status,
-                      deadline_for_tax_year, journey, log_activity, notify, now_iso, transition)
+                      deadline_for_tax_year, journey, log_activity, notify, now_iso,
+                      payment_deadline_label, transition)
 
 app = FastAPI(title="TaxSimba")
 api = APIRouter(prefix="/api")
@@ -131,7 +132,7 @@ class CalcIn(BaseModel):
     tax_due: float
     is_refund: bool = False
     notes: str = ""
-    payment_deadline: str = "31 January 2026"
+    payment_deadline: Optional[str] = None
     breakdown: Optional[dict] = None
 
 
@@ -505,6 +506,12 @@ async def get_case(case_id: str, user: dict = Depends(get_current_user)):
     case["journey"] = journey(case["status"], has_submission=bool(submission))
     case["status_label"] = client_status(case["status"])
     case["has_submission_record"] = bool(submission)
+    if submission:
+        case["submission_date"] = submission.get("submission_date") or case.get("submission_date")
+        case["submission_reference"] = (submission.get("submission_reference")
+                                        or case.get("submission_reference"))
+    approval = await db.client_approvals.find_one({"case_id": case_id})
+    case["approved_version"] = approval.get("version") if approval else None
     if not case.get("external_deadline") and case.get("tax_year"):
         case["external_deadline"] = deadline_for_tax_year(case["tax_year"])
     return scrub(case, user)
@@ -617,7 +624,8 @@ async def create_calculation(case_id: str, body: CalcIn,
         "id": str(uuid.uuid4()), "case_id": case_id, "version": count + 1,
         "total_income": body.total_income, "taxable_income": body.taxable_income,
         "tax_due": body.tax_due, "is_refund": body.is_refund, "notes": body.notes,
-        "payment_deadline": body.payment_deadline, "breakdown": body.breakdown or {},
+        "payment_deadline": body.payment_deadline or payment_deadline_label(case["tax_year"]),
+        "breakdown": body.breakdown or {},
         "created_by": user["id"], "created_by_name": user["name"],
         "is_locked": False, "is_approved": False, "created_at": now_iso(),
     }
@@ -634,6 +642,11 @@ async def list_calculations(case_id: str, user: dict = Depends(get_current_user)
         # Client may only ever see admin-approved versions.
         query["is_approved"] = True
     calcs = await db.calculation_versions.find(query).sort("version", -1).to_list(100)
+    # The payment deadline is always derived from the case tax year, so historic records that
+    # stored an older literal still display the correct date.
+    derived = payment_deadline_label(case["tax_year"])
+    for c in calcs:
+        c["payment_deadline"] = derived
     return scrub_many(clean_many(calcs), user)
 
 

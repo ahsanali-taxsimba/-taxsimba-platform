@@ -198,6 +198,19 @@ Note: the sequential steps live in a **single class** on purpose — under `--di
 3. **Live Stripe** — TEST/SANDBOX keys only.
 4. **Production DNS/ingress** — the preview edge rewrites `Origin` and returns `*` on preflight, so CORS must be re-validated once `taxsimba.co.uk` ingress exists.
 
+## My Tax Return final section corrections (2026-06)
+Scoped to the My Tax Return page only — no redesign, no HMRC API.
+
+1. **Final Documents** — empty state reads *"Final documents will appear here once available."*; released documents show name, released date and a **View / Download** action (`final-doc-{id}`, `final-doc-download-{id}`). Case- and client-specific via the existing ownership gate: a foreign client gets 403/404 on the download URL and the id never appears in their list.
+2. **Approval wording** — now *"You approved version {n}. Your return is now with your accountant for submission to HMRC."* The number is dynamic: `get_case` returns **`approved_version`** from `db.client_approvals` (null before approval), and the page reads `cs.approved_version ?? calc?.version`. Proven by creating v1+v2, approving v2, and getting 2 back. "authorised submission team" wording removed.
+3. **Submission model** — TaxSimba does **not** file via an HMRC API. The accountant files using third-party tax software and records the outcome. Client approval alone never marks the return submitted: `client-approve` inserts a submission record with status **READY**, and case reads only count a **SUBMITTED** record, so the label stays *"Ready for HMRC submission"* with journey *Ready to Submit*. Only an admin/super-admin `record-submission` flips the client label to *"Submitted to HMRC"*, surfacing the recorded **submission date** and reference (journey *Submitted Successfully*). A client calling `record-submission` gets 403.
+4. **Deadline** — the hard-coded `payment_deadline: str = "31 January 2026"` default was **removed**. New `payment_deadline_label(tax_year)` derives it (2025/26 → **31 January 2027**, 2024/25 → 31 January 2026); `create_calculation` falls back to it and `list_calculations` **overrides it on read**, so historic rows that stored a stale literal now display the correct derived date without a migration.
+
+### Verification (iteration_13, independent)
+18/18 new tests in `tests/test_my_tax_return_final.py`; **full regression 336 passed / 2 skipped**; all 15 matrix rows PASS; zero critical and zero minor product defects; `retest_needed: false`. Desktop and 390px mobile confirmed: "31 January 2027" present, "31 January 2026" absent, "authorised submission team" absent, no raw enums, no console errors.
+
+**Known test-harness flake (not a product defect, P2):** under `-n 2 --dist loadscope` a small number of tests intermittently fail because a second worker seeds data mid-test (`test_iteration7_audit::TestAccountantRBAC::test_accountant_cannot_see_other_accountant_case`, `test_taxsimba_phase1::TestStatsAndAdmin::test_notifications_and_mark_all_read`). Both pass in isolation. Fix pattern: pin sequential steps into a single class so loadscope keeps them on one worker (as done for `TestCrossRoleWorkflow` and `TestApprovalAndSubmissionModel`).
+
 ## Known gaps / not built
 - MTD quarterly operational workflow, HMRC API, Xero, SimbaX (deliberately deferred).
 - **Production hardening: DONE (2026-06)** — explicit CORS allowlist with wildcard fail-fast, login rate limiting + temporary lockout, XFF anti-spoofing, 15-minute access tokens with rotating/revocable refresh tokens. Residual risks listed above (edge CORS rewrite, CSRF on refresh/logout, body-returned access token).
@@ -209,6 +222,7 @@ Note: the sequential steps live in a **single class** on purpose — under `--di
 - P1: pagination/search on `GET /api/users` (exact `?email=` lookup added; the 500-row page cap remains) and `GET /api/recommendations` (300)
 - P1: validate the CORS allowlist **and the Origin-rewriting behaviour** on the real production hostname/ingress (the preview edge masks both)
 - P2: point the Phase 1/1B/2 suites at dedicated throwaway clients instead of the shared demo accounts, so the preview portal stays clean after a regression run
+- P2: pin the remaining xdist-race tests into single classes (`test_iteration7_audit::TestAccountantRBAC::test_accountant_cannot_see_other_accountant_case`, `test_taxsimba_phase1::TestStatsAndAdmin::test_notifications_and_mark_all_read`) — both pass in isolation
 - P2: de-flake `test_notifications_and_mark_all_read` (parallel-worker race under `-n 2`)
 - P1: Resend email notifications mirroring in-app triggers; deadline-approaching / overdue scheduler
 - P2: submission-issue handling flow; message attachments; TaxSimba Support as a separate message thread

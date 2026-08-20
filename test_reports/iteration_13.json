@@ -1,0 +1,60 @@
+{
+  "summary": "Iteration 13 — My Tax Return final-section corrections VERIFIED. The new tests/test_my_tax_return_final.py suite (18 tests: TestPaymentDeadline + TestApprovalAndSubmissionModel + TestFinalDocuments) passes 18/18 in ~18s under the locked -n 2 --dist loadscope harness — including the two adversarial cases the user asked for (a) stale stored '31 January 2026' on a 2025/26 case is overridden on read to '31 January 2027' (proves it is derived not stored) and (b) approve v2 with two calculations present yields approved_version==2 (proves the version is dynamic not hard-coded). Full backend regression (all 15 test files, ignoring test_zz_demo_portal_state which resets demo data): 336 passed / 2 skipped / 1 failed in 268s. The one failure is tests/test_iteration7_audit.py::TestAccountantRBAC::test_accountant_cannot_see_other_accountant_case which PASSES in isolation (verified) — same class of pre-existing xdist parallel-worker race the previous iteration flagged (previously it was TestStatsAndAdmin::test_notifications_and_mark_all_read; this run it surfaced a different one), NOT a regression from the My Tax Return changes and not related to any of the four corrections. FRONTEND E2E on the demo client /my-return: page renders without any real console error; shows 'Ready for HMRC submission', 'You've approved your return. Your accountant will now submit it to HMRC — nothing more is needed from you.', 'Payment deadline: 31 January 2027', empty-state 'Final documents will appear here once available.'; DOES NOT contain '31 January 2026', DOES NOT contain 'authorised submission team', DOES NOT leak any raw enum (READY_FOR_SUBMISSION / CLIENT_APPROVED / SELF_ASSESSMENT); final-docs-panel testid present; version label shows 'Your calculation (Version 2)' sourced from the dynamic approved_version (demo client has 2 calc versions and approved v2 — matches what the backend returns). Mobile at 390px re-verified: '31 January 2027' present, no '31 January 2026', no 'authorised submission team'. Adversarial probes on final documents (attempted from another disposable client): download URL returns 403/404 and the other client's list never contains the id. No hard-coded version or deadline was reachable via any endpoint I probed.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "tests/test_iteration7_audit.py::TestAccountantRBAC::test_accountant_cannot_see_other_accountant_case", "issue": "Intermittent under -n 2 loadscope (passes in isolation). Same class of pre-existing xdist race the previous iteration described for TestStatsAndAdmin; unrelated to My Tax Return changes."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "pass_fail_matrix": {
+    "deadline_2025_26_returns_2027": "PASS (calc read override + case external_deadline 2027-01-31)",
+    "deadline_never_contains_2026_for_2025_26": "PASS (including stale stored literal is overridden on read)",
+    "deadline_2024_25_returns_2026": "PASS (proves derivation from tax year)",
+    "approved_version_null_before_client_approve": "PASS",
+    "approved_version_matches_approval_record_int": "PASS",
+    "approved_version_is_dynamic_two_yields_two": "PASS (created v1+v2, approved v2, GET returned 2)",
+    "approval_alone_does_not_flip_submitted": "PASS (has_submission_record=false, status_label='Ready for HMRC submission', journey='Ready to Submit')",
+    "admin_record_submission_flips_status": "PASS (label='Submitted to HMRC', submission_date + reference returned, journey='Submitted Successfully')",
+    "client_403_on_record_submission": "PASS",
+    "final_docs_empty_state": "PASS (empty list before release, UI shows empty-state copy)",
+    "final_docs_visible_with_date_after_release": "PASS (name + upload_date, download 200)",
+    "final_docs_case_specific_and_client_isolated": "PASS (another client 403/404 on download and id absent from their list)",
+    "page_render_client_my_return_desktop": "PASS (2027 present, 2026 absent, 'authorised submission team' absent, 'Ready for HMRC submission' present, no raw enums, no console errors of substance)",
+    "page_render_client_my_return_mobile_390px": "PASS",
+    "full_backend_regression": "336 passed / 2 skipped / 1 intermittent xdist race (passes in isolation)"
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_my_tax_return_final.py",
+    "/app/test_reports/pytest/iter13_mtr.xml",
+    "/app/test_reports/pytest/iter13_full.xml",
+    "/app/test_reports/pytest/iter13_full.log"
+  ],
+  "action_items": [
+    "Non-blocking: consider stabilising the small handful of parallel-worker races (test_iteration7_audit::TestAccountantRBAC::test_accountant_cannot_see_other_accountant_case, test_taxsimba_phase1::TestStatsAndAdmin::test_notifications_and_mark_all_read) — both pass in isolation and only flake under -n 2 loadscope when other workers seed data concurrently.",
+    "External work still required (unchanged from iter12): real HMRC MTD/SA API integration, real transactional email provider, live Stripe keys, production DNS/ingress + real Cloudflare CORS validation. All four corrections requested here work correctly WITHOUT any of those since the model is 'accountant records the outcome manually'."
+  ],
+  "critical_code_review_comments": [
+    "server.py list_calculations correctly OVERRIDES payment_deadline on read using payment_deadline_label(case tax_year). This is the right design because it repairs historic rows that stored a stale literal — verified end-to-end by test_stale_stored_deadline_is_overridden_on_read.",
+    "get_case now derives approved_version from db.client_approvals (nullable int) and only exposes submission_date/submission_reference when a SUBMITTED submission_record exists — cleanly separating 'client approved' from 'accountant filed and recorded'. approved_version==None before approval, ==record.version after, and dynamically equals 2 when v2 is approved.",
+    "record-submission endpoint is correctly gated to ADMIN/SUPER_ADMIN (client → 403 verified). Client-approve endpoint intentionally inserts a submission_records row with status READY, and the case-read code correctly ignores non-SUBMITTED submission_records when computing has_submission_record and status_label — so approval alone never leaks 'Submitted to HMRC' into the UI.",
+    "Frontend MyTaxReturn.jsx correctly reads approvedVersion from cs.approved_version with a ?? calc?.version fallback, applies the 'with your accountant for submission to HMRC' wording, and only shows the recorded submission date when has_submission_record is true. Empty state 'Final documents will appear here once available.' verified.",
+    "Client isolation on final documents is enforced via the shared ownership gate (foreign client → 403/404 on download; id never appears in their list) — same guarantee proven in the 50-test isolation suite in earlier iterations.",
+    "One residual quality item (non-blocking): the two xdist parallel-worker races (see action items) should ideally be pinned by scoping their fixtures similarly to the way TestCrossRoleWorkflow and TestApprovalAndSubmissionModel are — pin sequential steps to one class so loadscope keeps them on a single worker."
+  ],
+  "updated_files": [],
+  "success_rate": {
+    "backend": "99.7% overall (336/337 unique tests; 100% on the 18 new My Tax Return tests). The 1 failure is a known xdist race that passes serially.",
+    "frontend": "100% on /my-return desktop + mobile (all required strings present/absent as specified, no console errors of substance, final-docs-panel testid present)."
+  },
+  "test_credentials": "Used /app/memory/test_credentials.md exactly. Mutating tests used disposable per-test QA clients (qa.mtr.<uuid>@qa-taxsimba.example.com) created via super-admin; demo clienta@/clientb@example.com used ONLY as read-only for the UI render check.",
+  "seed_data_creation": "Per-test disposable QA clients (uuid-prefixed) created by _make_client(); cleaned by session conftest fixture. Persistent demo accounts NOT mutated.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "The four My Tax Return corrections (final documents empty-state + release+download+isolation, dynamic approved_version wording, submission model gated to admin record-submission not client-approve, and 2027 deadline derived from case tax year) are all working end-to-end. Do NOT change pytest.ini (-n 2 --dist loadscope). Run test_zz_demo_portal_state.py LAST if the suite ever creates cases on demo accounts (it did not this iteration — everything ran against disposable QA clients). The one intermittent failure (test_iteration7_audit::TestAccountantRBAC::test_accountant_cannot_see_other_accountant_case) passes in isolation and is a pre-existing xdist race, NOT related to these changes.",
+  "rca of the issue": "The single flaky test failure under -n 2 --dist loadscope is caused by a second xdist worker creating additional cases/notifications while the audit-RBAC test iterates. Isolated pytest run passes deterministically. Mitigation: move the sequential steps into a single test class so loadscope keeps the entire flow on one worker, exactly as was already done for TestCrossRoleWorkflow and TestApprovalAndSubmissionModel."
+}

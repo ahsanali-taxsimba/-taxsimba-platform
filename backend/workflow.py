@@ -67,6 +67,12 @@ def client_status(status: str) -> str:
     return CLIENT_STATUS_LABELS.get(status) or status.replace("_", " ").capitalize()
 
 
+def payment_deadline_label(tax_year: str) -> str:
+    """Client-facing payment deadline derived from the case tax year (2025/26 -> 31 January 2027)."""
+    iso = deadline_for_tax_year(tax_year)
+    return f"31 January {iso[:4]}" if iso else "31 January"
+
+
 def deadline_for_tax_year(tax_year: str) -> str:
     """UK online filing/payment deadline: 31 January following the end of the tax year.
 

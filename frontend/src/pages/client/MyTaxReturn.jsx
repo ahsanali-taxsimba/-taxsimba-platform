@@ -36,6 +36,10 @@ export default function MyTaxReturn() {
 
   if (!cs) return <AppShell title="My Tax Return"><Empty text="No active case yet." /></AppShell>;
 
+  // The approved version comes from the recorded client approval, falling back to the version
+  // the client is currently being shown -- never a hard-coded number.
+  const approvedVersion = cs.approved_version ?? calc?.version;
+
   return (
     <AppShell title="My Tax Return" subtitle={`Self Assessment ${cs.tax_year} · ${cs.case_ref}`}>
       <div className="space-y-6">
@@ -44,21 +48,23 @@ export default function MyTaxReturn() {
             <StatusBadge status={cs.status} client testId="return-status-badge" />
             <span className="text-sm text-[#626A65]">
               {cs.has_submission_record
-                ? "Submitted to HMRC by TaxSimba."
+                ? "Your accountant has submitted your return to HMRC."
                 : ["CLIENT_APPROVED", "READY_FOR_SUBMISSION"].includes(cs.status)
-                  ? "You've approved your return. Our authorised team will submit it to HMRC — nothing more is needed from you."
+                  ? "You've approved your return. Your accountant will now submit it to HMRC — nothing more is needed from you."
                   : cs.next_action_owner === "CLIENT"
                     ? cs.next_action
                     : "Your return is with our team. We'll let you know when we need anything."}
             </span>
           </div>
-          {cs.submission_reference && (
+          {cs.has_submission_record && cs.submission_date && (
             <p data-testid="client-submission-info" className="text-sm text-[#161B18] mt-4">
-              Submitted on {d(cs.submission_date)} · reference <b>{cs.submission_reference}</b>
+              Submitted to HMRC on <b>{d(cs.submission_date)}</b>
+              {cs.submission_reference ? <> · reference <b>{cs.submission_reference}</b></> : null}
             </p>
           )}
           <p className="text-xs text-[#626A65] mt-4">
-            You review and approve your return. Submitting it to HMRC is handled by TaxSimba's authorised team.
+            You review and approve your return. Your accountant then files it with HMRC and records the
+            outcome here.
           </p>
         </Panel>
 
@@ -98,10 +104,20 @@ export default function MyTaxReturn() {
               {!docs.length && <Empty text="Final documents will appear here once available." />}
               <ul className="space-y-3">
                 {docs.map((doc) => (
-                  <li key={doc.id} className="flex items-center justify-between border border-[#E3E7E4] rounded-lg px-4 py-3">
-                    <span className="text-sm font-semibold">{doc.name}</span>
-                    <a className="text-xs font-semibold text-[#078A4B]" target="_blank" rel="noreferrer"
-                      href={`${process.env.REACT_APP_BACKEND_URL}/api/documents/${doc.id}/download`}>View</a>
+                  <li key={doc.id} data-testid={`final-doc-${doc.id}`}
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border border-[#E3E7E4] rounded-lg px-4 py-3">
+                    <span className="min-w-0">
+                      <span className="block text-sm font-semibold break-words">{doc.name}</span>
+                      <span className="block text-xs text-[#626A65] mt-0.5">
+                        Released {d(doc.upload_date || doc.created_at)}
+                        {doc.tax_year ? ` · ${doc.tax_year}` : ""}
+                      </span>
+                    </span>
+                    <a data-testid={`final-doc-download-${doc.id}`}
+                      className="text-xs font-semibold text-[#078A4B] shrink-0" target="_blank" rel="noreferrer"
+                      href={`${process.env.REACT_APP_BACKEND_URL}/api/documents/${doc.id}/download`}>
+                      View / Download
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -132,7 +148,8 @@ export default function MyTaxReturn() {
                 </>
               ) : (
                 <p data-testid="already-approved-text" className="text-sm text-[#16A05D] font-semibold">
-                  You approved version {calc.version}. Your return is now with our authorised submission team.
+                  You approved version {approvedVersion}. Your return is now with your accountant for
+                  submission to HMRC.
                 </p>
               )}
             </Panel>
