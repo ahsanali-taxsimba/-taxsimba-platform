@@ -89,7 +89,7 @@ export default function CaseWorkspace() {
         <button data-testid="prepare-calculation-btn" className={primary} onClick={() => setModal("calc")}>Prepare Calculation</button>
       )}
       {["ACCOUNTANT_REVIEW", "IN_PREPARATION", "CHANGES_REQUIRED"].includes(st) && latestCalc && (
-        <button data-testid="submit-admin-review-btn" className={primary} onClick={() => setModal("submit")}>Submit for Admin Review</button>
+        <button data-testid="submit-admin-review-btn" className={primary} onClick={() => setModal("submit")}>Send to Admin for Review</button>
       )}
       <button data-testid="add-note-btn" className={ghost} onClick={() => setModal("note")}>Add Internal Note</button>
       <label className={`${ghost} cursor-pointer`}>
@@ -114,12 +114,18 @@ export default function CaseWorkspace() {
       )}
       {["READY_FOR_ADMIN_REVIEW", "ADMIN_REVIEW"].includes(st) && (
         <>
-          <button data-testid="admin-approve-btn" className={primary} onClick={() => act(() => api.post(`/cases/${id}/admin-approve`))}>Approve</button>
+          <button data-testid="admin-approve-btn" className={primary} onClick={() => setModal("approve")}>Approve</button>
           <button data-testid="admin-return-btn" className={`${btn} bg-[#D64545] text-white hover:opacity-90`} onClick={() => setModal("return")}>Return for Changes</button>
         </>
       )}
       <button data-testid="admin-request-btn" className={ghost} onClick={() => setModal("request")}>Request from Client</button>
       <button data-testid="add-note-btn" className={ghost} onClick={() => setModal("note")}>Add Internal Note</button>
+      {st === "READY_FOR_SUBMISSION" && (
+        <button data-testid="record-submission-btn" className={primary} onClick={() => setModal("submission")}>Record Submission</button>
+      )}
+      {st === "SUBMITTED" && (
+        <button data-testid="mark-completed-btn" className={primary} onClick={() => setModal("complete")}>Mark Completed</button>
+      )}
     </div>
   );
 
@@ -156,6 +162,9 @@ export default function CaseWorkspace() {
               <div><dt className="text-xs uppercase text-[#626A65]">HMRC Deadline</dt><dd className="mt-1">{d(cs.external_deadline)}</dd></div>
               <div><dt className="text-xs uppercase text-[#626A65]">Admin Reviewer</dt><dd className="mt-1">{cs.admin_reviewer_name || "—"}</dd></div>
               <div><dt className="text-xs uppercase text-[#626A65]">Internal Instructions</dt><dd className="mt-1">{cs.internal_instructions || "—"}</dd></div>
+              <div><dt className="text-xs uppercase text-[#626A65]">Admin Approved</dt><dd className="mt-1">{cs.admin_approved_by ? `${cs.admin_approved_by} · ${dt(cs.admin_approved_at)}` : "—"}</dd></div>
+              <div><dt className="text-xs uppercase text-[#626A65]">Submission</dt><dd className="mt-1" data-testid="overview-submission">{cs.submission_reference ? `${cs.submission_reference} · ${cs.submission_date} · by ${cs.submitted_by_name}` : "—"}</dd></div>
+              <div><dt className="text-xs uppercase text-[#626A65]">Completed</dt><dd className="mt-1">{cs.completed_by_name ? `${cs.completed_by_name} · ${dt(cs.completed_at)}` : "—"}</dd></div>
             </dl>
             <div className="mt-6 grid md:grid-cols-2 gap-6">
               <div className="rounded-lg bg-[#F1F8F4] p-5">
@@ -374,9 +383,12 @@ export default function CaseWorkspace() {
                       {l}
                     </label>
                   ))}
+                  <textarea data-testid="submit-admin-note" rows={3} placeholder="Internal note for Admin (optional)"
+                    className="w-full mt-2 rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    value={form.admin_note || ""} onChange={(e) => setForm({ ...form, admin_note: e.target.value })} />
                   <button data-testid="confirm-submit-review-btn" className={`${primary} w-full mt-4`}
-                    onClick={() => act(() => api.post(`/cases/${id}/submit-for-admin-review`, { calculation_version_id: latestCalc.id, checklist: checks }))}>
-                    Submit for Admin Review
+                    onClick={() => act(() => api.post(`/cases/${id}/submit-for-admin-review`, { calculation_version_id: latestCalc.id, checklist: checks, admin_note: form.admin_note || null }))}>
+                    Send to Admin for Review
                   </button>
                   {err && <p className="text-sm text-[#D64545]">{err}</p>}
                 </div>
@@ -405,6 +417,58 @@ export default function CaseWorkspace() {
                   onClick={() => act(() => api.post(`/cases/${id}/admin-return`, { reason: form.reason, instructions: form.instructions }))}>
                   Return for Changes
                 </button>
+              </>
+            )}
+
+            {modal === "approve" && (
+              <>
+                <h3 className="text-lg font-semibold mb-2">Approve Calculation</h3>
+                <p className="text-sm text-[#626A65] mb-5">Approving releases V{latestCalc?.version} to the client for final review.</p>
+                <textarea data-testid="approve-note" rows={3} placeholder="Admin note (optional)"
+                  className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                  value={form.note || ""} onChange={(e) => setForm({ ...form, note: e.target.value })} />
+                <button data-testid="confirm-approve-btn" className={`${primary} w-full mt-4`}
+                  onClick={() => act(() => api.post(`/cases/${id}/admin-approve`, { note: form.note || null }))}>Approve</button>
+              </>
+            )}
+
+            {modal === "submission" && (
+              <>
+                <h3 className="text-lg font-semibold mb-2">Record Submission</h3>
+                <p className="text-sm text-[#626A65] mb-5">Only available once Admin approval and Client approval are both complete.</p>
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-sm font-medium">Submission date</label>
+                    <input data-testid="submission-date" type="date" className="mt-1 w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                      value={form.submission_date || ""} onChange={(e) => setForm({ ...form, submission_date: e.target.value })} />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium">Submission reference</label>
+                    <input data-testid="submission-reference" className="mt-1 w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                      value={form.submission_reference || ""} onChange={(e) => setForm({ ...form, submission_reference: e.target.value })} />
+                  </div>
+                  <textarea data-testid="submission-note" rows={3} placeholder="Internal note (optional)"
+                    className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    value={form.note || ""} onChange={(e) => setForm({ ...form, note: e.target.value })} />
+                  <button data-testid="confirm-submission-btn" disabled={!form.submission_date || !form.submission_reference}
+                    className={`${primary} w-full disabled:opacity-50`}
+                    onClick={() => act(() => api.post(`/cases/${id}/record-submission`, {
+                      submission_date: form.submission_date, submission_reference: form.submission_reference,
+                      note: form.note || null,
+                    }))}>Record Submission</button>
+                  {err && <p className="text-sm text-[#D64545]">{err}</p>}
+                </div>
+              </>
+            )}
+
+            {modal === "complete" && (
+              <>
+                <h3 className="text-lg font-semibold mb-5">Mark Case Completed</h3>
+                <textarea data-testid="complete-note" rows={3} placeholder="Completion note (optional)"
+                  className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                  value={form.note || ""} onChange={(e) => setForm({ ...form, note: e.target.value })} />
+                <button data-testid="confirm-complete-btn" className={`${primary} w-full mt-4`}
+                  onClick={() => act(() => api.post(`/cases/${id}/complete`, { note: form.note || null }))}>Mark Completed</button>
               </>
             )}
 

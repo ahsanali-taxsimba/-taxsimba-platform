@@ -44,6 +44,11 @@ export default function MyTaxReturn() {
             <StatusBadge status={cs.status} />
             <span className="text-sm text-[#626A65]">{cs.next_action}</span>
           </div>
+          {cs.submission_reference && (
+            <p data-testid="client-submission-info" className="text-sm text-[#161B18] mt-4">
+              Submitted on {cs.submission_date} · reference <b>{cs.submission_reference}</b>
+            </p>
+          )}
         </Panel>
 
         {!calc && (

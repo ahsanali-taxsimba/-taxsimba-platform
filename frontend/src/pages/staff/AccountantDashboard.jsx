@@ -7,21 +7,28 @@ import { api } from "@/lib/api";
 
 const CARDS = [
   ["needs_my_action", "Needs My Action", "#D64545"],
+  ["new_assigned", "New Assigned", "#006B3C"],
+  ["in_progress", "In Progress", "#078A4B"],
+  ["awaiting_client", "Waiting for Client", "#E6A23C"],
+  ["changes_required", "Changes Required", "#D64545"],
+  ["awaiting_admin_review", "Awaiting Admin Review", "#7656C9"],
+  ["approved_ready", "Approved / Ready for Submission", "#16A05D"],
+  ["case_completed", "Completed", "#626A65"],
   ["due_today", "Due Today", "#E6A23C"],
   ["due_week", "Due This Week", "#006B3C"],
-  ["awaiting_client", "Awaiting Client", "#E6A23C"],
-  ["ready_for_admin", "Ready for Admin Review", "#7656C9"],
-  ["admin_changes", "Admin Changes", "#D64545"],
-  ["completed", "Completed", "#16A05D"],
 ];
 
 const TABS = [
   ["needs_my_action", "Needs My Action"],
+  ["new_assigned", "New Assigned"],
   ["in_progress", "In Progress"],
-  ["awaiting_client", "Awaiting Client"],
-  ["ready_for_admin", "Ready for Admin Review"],
-  ["admin_changes", "Admin Changes"],
-  ["completed", "Completed"],
+  ["awaiting_client", "Waiting for Client"],
+  ["changes_required", "Changes Required"],
+  ["awaiting_admin_review", "Awaiting Admin Review"],
+  ["approved_ready", "Approved / Ready for Submission"],
+  ["case_completed", "Completed"],
+  ["due_today", "Due Today"],
+  ["due_week", "Due This Week"],
 ];
 
 export default function AccountantDashboard() {

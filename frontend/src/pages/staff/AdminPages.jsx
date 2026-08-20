@@ -7,13 +7,17 @@ import { api, d } from "@/lib/api";
 
 const CARDS = [
   ["new", "New Cases", "#006B3C"],
-  ["unassigned", "Unassigned", "#E6A23C"],
-  ["in_progress", "In Progress", "#078A4B"],
+  ["unassigned", "Unassigned Cases", "#E6A23C"],
+  ["assigned", "Assigned Cases", "#078A4B"],
   ["waiting_client", "Waiting for Client", "#E6A23C"],
-  ["admin_review", "Admin Review Required", "#7656C9"],
-  ["client_approval", "Client Approval Required", "#16A05D"],
+  ["in_progress", "In Progress", "#078A4B"],
+  ["awaiting_admin_review", "Awaiting Admin Review", "#7656C9"],
+  ["changes_required", "Changes Required", "#D64545"],
+  ["awaiting_client_approval", "Awaiting Client Approval", "#16A05D"],
   ["ready_submission", "Ready for Submission", "#16A05D"],
-  ["overdue", "Overdue", "#D64545"],
+  ["submitted", "Submitted", "#006B3C"],
+  ["case_completed", "Completed", "#626A65"],
+  ["attention", "Overdue / Attention Required", "#D64545"],
 ];
 
 export function AdminDashboard() {

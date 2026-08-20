@@ -2,6 +2,8 @@
 import uuid
 from datetime import datetime, timezone
 
+from fastapi import HTTPException
+
 from db import db
 
 STATUSES = [
@@ -36,6 +38,29 @@ STATUS_META = {
 
 STAGES = ["Information", "Documents", "Accountant Review", "Your Approval", "Submitted to HMRC"]
 
+# Server-side workflow guard. A transition not listed here is rejected, so no API
+# request can skip a stage even if the frontend is bypassed.
+ALLOWED_TRANSITIONS = {
+    "NEW": ["ONBOARDING", "AWAITING_ASSIGNMENT"],
+    "ONBOARDING": ["AWAITING_ASSIGNMENT"],
+    "AWAITING_ASSIGNMENT": ["ASSIGNED"],
+    "ASSIGNED": ["ACCOUNTANT_REVIEW", "ASSIGNED"],
+    "ACCOUNTANT_REVIEW": ["AWAITING_CLIENT", "IN_PREPARATION", "READY_FOR_ADMIN_REVIEW", "ASSIGNED"],
+    "AWAITING_CLIENT": ["ACCOUNTANT_REVIEW", "AWAITING_CLIENT", "ASSIGNED"],
+    "IN_PREPARATION": ["AWAITING_CLIENT", "IN_PREPARATION", "READY_FOR_ADMIN_REVIEW", "ASSIGNED"],
+    "READY_FOR_ADMIN_REVIEW": ["ADMIN_REVIEW", "CHANGES_REQUIRED", "ADMIN_APPROVED"],
+    "ADMIN_REVIEW": ["CHANGES_REQUIRED", "ADMIN_APPROVED"],
+    "CHANGES_REQUIRED": ["ACCOUNTANT_REVIEW", "IN_PREPARATION", "AWAITING_CLIENT", "READY_FOR_ADMIN_REVIEW", "ASSIGNED"],
+    "ADMIN_APPROVED": ["AWAITING_CLIENT_APPROVAL"],
+    "AWAITING_CLIENT_APPROVAL": ["CLIENT_APPROVED", "AWAITING_CLIENT_APPROVAL"],
+    "CLIENT_APPROVED": ["READY_FOR_SUBMISSION"],
+    "READY_FOR_SUBMISSION": ["SUBMISSION_IN_PROGRESS", "SUBMITTED"],
+    "SUBMISSION_IN_PROGRESS": ["SUBMITTED", "SUBMISSION_ISSUE"],
+    "SUBMITTED": ["COMPLETED", "SUBMISSION_ISSUE"],
+    "SUBMISSION_ISSUE": ["SUBMISSION_IN_PROGRESS", "SUBMITTED"],
+    "COMPLETED": [],
+}
+
 STAGE_ORDER = {s: i for i, s in enumerate(STAGES)}
 
 
@@ -68,7 +93,8 @@ def journey(status: str):
     ]
 
 
-async def log_activity(case_id: str, action: str, user: dict, meta: dict = None):
+async def log_activity(case_id: str, action: str, user: dict, meta: dict | None = None,
+                       previous_status: str | None = None, new_status: str | None = None, comments: str | None = None):
     await db.activity_logs.insert_one({
         "id": str(uuid.uuid4()),
         "case_id": case_id,
@@ -76,12 +102,15 @@ async def log_activity(case_id: str, action: str, user: dict, meta: dict = None)
         "user_id": user.get("id") if user else None,
         "user_name": user.get("name") if user else "System",
         "role": user.get("role") if user else "SYSTEM",
+        "previous_status": previous_status,
+        "new_status": new_status,
+        "comments": comments,
         "meta": meta or {},
         "created_at": now_iso(),
     })
 
 
-async def notify(user_id: str, title: str, body: str, case_id: str = None, link: str = None, ntype: str = "INFO"):
+async def notify(user_id: str, title: str, body: str, case_id: str | None = None, link: str | None = None, ntype: str = "INFO"):
     await db.notifications.insert_one({
         "id": str(uuid.uuid4()),
         "user_id": user_id,
@@ -96,10 +125,16 @@ async def notify(user_id: str, title: str, body: str, case_id: str = None, link:
 
 
 async def transition(case: dict, new_status: str, user: dict, action_label: str,
-                     waiting_reason: str = None, extra: dict = None):
-    """Single controlled entry point for every status change."""
+                     waiting_reason: str | None = None, extra: dict | None = None, comments: str | None = None):
+    """Single controlled entry point for every status change, validated server-side."""
     if new_status not in STATUSES:
-        raise ValueError(f"Unknown status {new_status}")
+        raise HTTPException(status_code=400, detail=f"Unknown status {new_status}")
+    previous = case["status"]
+    if new_status not in ALLOWED_TRANSITIONS.get(previous, []):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Workflow rule: cannot move from {previous} to {new_status}",
+        )
     stage, next_action, owner = STATUS_META[new_status]
     update = {
         "status": new_status,
@@ -112,6 +147,7 @@ async def transition(case: dict, new_status: str, user: dict, action_label: str,
     if extra:
         update.update(extra)
     await db.cases.update_one({"id": case["id"]}, {"$set": update})
-    await log_activity(case["id"], action_label, user, {"status": new_status})
+    await log_activity(case["id"], action_label, user, {"status": new_status},
+                       previous_status=previous, new_status=new_status, comments=comments)
     case.update(update)
     return case

@@ -89,6 +89,17 @@ class CalcIn(BaseModel):
 class ChecklistIn(BaseModel):
     calculation_version_id: str
     checklist: dict
+    admin_note: Optional[str] = None
+
+
+class SubmissionIn(BaseModel):
+    submission_date: str
+    submission_reference: str
+    note: Optional[str] = None
+
+
+class ApproveIn(BaseModel):
+    note: Optional[str] = None
 
 
 class ReturnChangesIn(BaseModel):
@@ -163,6 +174,24 @@ async def _get_case(case_id: str, user: dict) -> dict:
     return clean(case)
 
 
+# Fields an accountant must never receive about a client (contact / auth data).
+PROTECTED_CLIENT_FIELDS = ["client_email", "client_phone", "client_user_id", "email", "phone",
+                           "utr", "address", "password_hash"]
+
+
+def scrub(doc: dict, user: dict) -> dict:
+    """Strip protected client contact/auth data from accountant-facing payloads."""
+    if not doc or user["role"] != "ACCOUNTANT":
+        return doc
+    for f in PROTECTED_CLIENT_FIELDS:
+        doc.pop(f, None)
+    return doc
+
+
+def scrub_many(docs, user):
+    return [scrub(x, user) for x in docs]
+
+
 def _days_left(case: dict):
     dl = case.get("internal_deadline")
     if not dl:
@@ -224,6 +253,19 @@ async def list_cases(status: Optional[str] = None, bucket: Optional[str] = None,
                       "status": {"$nin": ["SUBMITTED", "COMPLETED"]}},
         "due_week": {"internal_deadline": {"$lte": (datetime.now(timezone.utc) + timedelta(days=7)).isoformat()},
                      "status": {"$nin": ["SUBMITTED", "COMPLETED"]}},
+        # queue buckets
+        "new_assigned": {"status": "ASSIGNED"},
+        "assigned": {"assigned_accountant_id": {"$ne": None}},
+        "changes_required": {"status": "CHANGES_REQUIRED"},
+        "awaiting_admin_review": {"status": {"$in": ["READY_FOR_ADMIN_REVIEW", "ADMIN_REVIEW"]}},
+        "awaiting_client_approval": {"status": {"$in": ["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"]}},
+        "approved_ready": {"status": {"$in": ["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL",
+                                              "CLIENT_APPROVED", "READY_FOR_SUBMISSION"]}},
+        "submitted": {"status": {"$in": ["SUBMITTED", "SUBMISSION_IN_PROGRESS"]}},
+        "case_completed": {"status": "COMPLETED"},
+        "attention": {"$or": [{"status": "SUBMISSION_ISSUE"},
+                              {"internal_deadline": {"$lt": now_iso()},
+                               "status": {"$nin": ["SUBMITTED", "COMPLETED"]}}]},
     }
     if bucket and bucket in buckets:
         query.update(buckets[bucket])
@@ -232,7 +274,7 @@ async def list_cases(status: Optional[str] = None, bucket: Optional[str] = None,
                         {"case_ref": {"$regex": q, "$options": "i"}}]
 
     cases = await db.cases.find(query).sort("last_updated", -1).to_list(500)
-    return await _decorate(cases)
+    return scrub_many(await _decorate(cases), user)
 
 
 @api.post("/cases")
@@ -275,7 +317,7 @@ async def get_case(case_id: str, user: dict = Depends(get_current_user)):
     case = await _get_case(case_id, user)
     case["days_left"] = _days_left(case)
     case["journey"] = journey(case["status"])
-    return case
+    return scrub(case, user)
 
 
 @api.post("/cases/{case_id}/assign")
@@ -387,7 +429,7 @@ async def list_calculations(case_id: str, user: dict = Depends(get_current_user)
         # Client may only ever see admin-approved versions.
         query["is_approved"] = True
     calcs = await db.calculation_versions.find(query).sort("version", -1).to_list(100)
-    return clean_many(calcs)
+    return scrub_many(clean_many(calcs), user)
 
 
 @api.post("/cases/{case_id}/submit-for-admin-review")
@@ -412,7 +454,17 @@ async def submit_for_admin_review(case_id: str, body: ChecklistIn,
         "reason": None, "instructions": None, "decided_at": None,
     })
     await transition(case, "READY_FOR_ADMIN_REVIEW", user,
-                     f"Calculation V{calc['version']} submitted for admin review")
+                     f"Calculation V{calc['version']} sent to admin for review",
+                     comments=body.admin_note)
+    if body.admin_note:
+        await db.internal_notes.insert_one({
+            "id": str(uuid.uuid4()), "case_id": case_id,
+            "body": f"Note for Admin review: {body.admin_note}",
+            "author_id": user["id"], "author_name": user["name"], "author_role": user["role"],
+            "created_at": now_iso(),
+        })
+        await db.reviews.update_one({"case_id": case_id, "calculation_version_id": calc["id"]},
+                                    {"$set": {"accountant_note": body.admin_note}})
     async for admin in db.users.find({"role": {"$in": ["ADMIN", "SUPER_ADMIN"]}}):
         await notify(admin["id"], "Admin review required",
                      f"{case['client_name']} — V{calc['version']} submitted by {user['name']}",
@@ -421,24 +473,29 @@ async def submit_for_admin_review(case_id: str, body: ChecklistIn,
 
 
 @api.post("/cases/{case_id}/admin-approve")
-async def admin_approve(case_id: str, user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+async def admin_approve(case_id: str, body: Optional[ApproveIn] = None,
+                        user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
     case = await _get_case(case_id, user)
     if case["status"] not in ("READY_FOR_ADMIN_REVIEW", "ADMIN_REVIEW"):
         raise HTTPException(status_code=400, detail="Case is not awaiting admin review")
     review = await db.reviews.find_one({"case_id": case_id, "outcome": None}, sort=[("submitted_at", -1)])
     if not review:
         raise HTTPException(status_code=400, detail="No submitted work to approve")
+    admin_note = body.note if body else None
     await db.calculation_versions.update_one(
         {"id": review["calculation_version_id"]},
         {"$set": {"is_approved": True, "is_locked": True, "approved_by": user["name"],
                   "approved_at": now_iso()}})
     await db.reviews.update_one({"id": review["id"]}, {"$set": {
         "outcome": "APPROVED", "reviewer_id": user["id"], "reviewer_name": user["name"],
-        "decided_at": now_iso()}})
+        "admin_note": admin_note, "decided_at": now_iso()}})
     await transition(case, "ADMIN_APPROVED", user, f"Admin approved V{review['version']}",
+                     comments=admin_note,
                      extra={"approved_version_id": review["calculation_version_id"],
-                            "admin_reviewer_id": user["id"], "admin_reviewer_name": user["name"]})
-    await transition(case, "AWAITING_CLIENT_APPROVAL", user, "Client notified — return ready to review")
+                            "admin_reviewer_id": user["id"], "admin_reviewer_name": user["name"],
+                            "admin_approved_at": now_iso(), "admin_approved_by": user["name"]})
+    await transition(case, "AWAITING_CLIENT_APPROVAL", user,
+                     "Approved calculation released to client for review")
     await notify(case["client_user_id"], "Your tax return is ready to review",
                  "Your Self Assessment calculation has been approved and is ready for your review.",
                  case_id, "/my-return", "APPROVAL")
@@ -467,7 +524,8 @@ async def admin_return(case_id: str, body: ReturnChangesIn,
         "created_by_name": user["name"], "created_at": now_iso(), "completed_date": None,
     })
     await transition(case, "CHANGES_REQUIRED", user,
-                     f"Admin returned V{review['version']} for changes: {body.reason}")
+                     f"Admin returned V{review['version']} for changes: {body.reason}",
+                     comments=body.instructions)
     if case.get("assigned_accountant_id"):
         await notify(case["assigned_accountant_id"], "Admin returned changes",
                      f"{case['client_name']}: {body.reason}", case_id,
@@ -489,7 +547,8 @@ async def client_approve(case_id: str, user: dict = Depends(require_roles("CLIEN
         "approved_at": now_iso(),
     })
     await transition(case, "CLIENT_APPROVED", user,
-                     f"Client approved V{calc['version'] if calc else ''}")
+                     f"Client approved V{calc['version'] if calc else ''}",
+                     extra={"client_approved_at": now_iso()})
     await transition(case, "READY_FOR_SUBMISSION", user, "Case ready for submission")
     await db.submission_records.insert_one({
         "id": str(uuid.uuid4()), "case_id": case_id, "status": "READY",
@@ -506,6 +565,67 @@ async def client_approve(case_id: str, user: dict = Depends(require_roles("CLIEN
                      f"{case['client_name']} — {case['case_ref']}", case_id,
                      f"/admin/cases/{case_id}", "SUBMISSION")
     return await get_case(case_id, user)
+
+
+# ---------------------------------------------------------------- submission
+@api.post("/cases/{case_id}/record-submission")
+async def record_submission(case_id: str, body: SubmissionIn,
+                            user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    """Records an out-of-band submission. Requires admin approval AND client approval."""
+    case = await _get_case(case_id, user)
+    review = await db.reviews.find_one({"case_id": case_id, "outcome": "APPROVED"})
+    approval = await db.client_approvals.find_one({"case_id": case_id})
+    if not review or not case.get("approved_version_id"):
+        raise HTTPException(status_code=400, detail="Admin approval is not complete")
+    if not approval:
+        raise HTTPException(status_code=400, detail="Client approval is not complete")
+    if case["status"] != "READY_FOR_SUBMISSION":
+        raise HTTPException(status_code=400, detail=f"Case must be READY_FOR_SUBMISSION (currently {case['status']})")
+    await db.submission_records.update_one(
+        {"case_id": case_id},
+        {"$set": {"status": "SUBMITTED", "submission_date": body.submission_date,
+                  "reference": body.submission_reference, "submitted_by": user["id"],
+                  "submitted_by_name": user["name"], "note": body.note,
+                  "calculation_version_id": case.get("approved_version_id"),
+                  "recorded_at": now_iso()}},
+        upsert=True,
+    )
+    await transition(case, "SUBMITTED", user,
+                     f"Submission recorded (ref {body.submission_reference})", comments=body.note,
+                     extra={"submission_reference": body.submission_reference,
+                            "submission_date": body.submission_date,
+                            "submitted_by_name": user["name"]})
+    await notify(case["client_user_id"], "Your tax return has been submitted",
+                 f"Submission reference {body.submission_reference}", case_id, "/my-return", "SUBMISSION")
+    if case.get("assigned_accountant_id"):
+        await notify(case["assigned_accountant_id"], "Submission recorded",
+                     f"{case['client_name']} — ref {body.submission_reference}", case_id,
+                     f"/work/cases/{case_id}", "SUBMISSION")
+    return await get_case(case_id, user)
+
+
+@api.post("/cases/{case_id}/complete")
+async def complete_case(case_id: str, body: Optional[ApproveIn] = None,
+                        user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    case = await _get_case(case_id, user)
+    if case["status"] != "SUBMITTED":
+        raise HTTPException(status_code=400, detail="Case must be SUBMITTED before completion")
+    await transition(case, "COMPLETED", user, "Case marked completed",
+                     comments=body.note if body else None,
+                     extra={"completed_at": now_iso(), "completed_by_name": user["name"],
+                            "completed_by_id": user["id"]})
+    await db.submission_records.update_one({"case_id": case_id},
+                                          {"$set": {"status": "COMPLETED", "completed_at": now_iso()}})
+    await notify(case["client_user_id"], "Your Self Assessment is complete",
+                 "Your case has been completed by TaxSimba.", case_id, "/my-return", "INFO")
+    return await get_case(case_id, user)
+
+
+@api.get("/cases/{case_id}/submission")
+async def get_submission(case_id: str, user: dict = Depends(get_current_user)):
+    await _get_case(case_id, user)
+    rec = await db.submission_records.find_one({"case_id": case_id})
+    return clean(rec) if rec else None
 
 
 # ---------------------------------------------------------------- tasks
@@ -525,7 +645,7 @@ async def list_tasks(case_id: Optional[str] = None, status: Optional[str] = None
     if status:
         query["status"] = status
     tasks = await db.tasks.find(query).sort("created_at", -1).to_list(300)
-    return clean_many(tasks)
+    return scrub_many(clean_many(tasks), user)
 
 
 @api.post("/tasks/{task_id}/complete")
@@ -574,7 +694,7 @@ async def list_documents(case_id: Optional[str] = None, filter: Optional[str] = 
     elif filter == "final":
         query["status"] = "Final"
     docs = await db.documents.find(query).sort("created_at", -1).to_list(500)
-    return clean_many(docs)
+    return scrub_many(clean_many(docs), user)
 
 
 @api.post("/documents/upload")
@@ -657,7 +777,7 @@ async def list_messages(case_id: str, user: dict = Depends(get_current_user)):
     msgs = await db.messages.find({"case_id": case_id}).sort("created_at", 1).to_list(500)
     await db.messages.update_many({"case_id": case_id, "recipient_id": user["id"]},
                                   {"$set": {"is_read": True}})
-    return clean_many(msgs)
+    return scrub_many(clean_many(msgs), user)
 
 
 @api.post("/messages")
@@ -683,7 +803,7 @@ async def send_message(body: MessageIn, user: dict = Depends(get_current_user)):
 async def list_notes(case_id: str, user: dict = Depends(require_roles("ACCOUNTANT", "ADMIN", "SUPER_ADMIN"))):
     await _get_case(case_id, user)
     notes = await db.internal_notes.find({"case_id": case_id}).sort("created_at", -1).to_list(200)
-    return clean_many(notes)
+    return scrub_many(clean_many(notes), user)
 
 
 @api.post("/cases/{case_id}/notes")
@@ -702,21 +822,21 @@ async def add_note(case_id: str, body: NoteIn,
 async def case_activity(case_id: str, user: dict = Depends(get_current_user)):
     await _get_case(case_id, user)
     logs = await db.activity_logs.find({"case_id": case_id}).sort("created_at", -1).to_list(500)
-    return clean_many(logs)
+    return scrub_many(clean_many(logs), user)
 
 
 @api.get("/cases/{case_id}/reviews")
 async def case_reviews(case_id: str, user: dict = Depends(require_roles("ACCOUNTANT", "ADMIN", "SUPER_ADMIN"))):
     await _get_case(case_id, user)
     reviews = await db.reviews.find({"case_id": case_id}).sort("submitted_at", -1).to_list(100)
-    return clean_many(reviews)
+    return scrub_many(clean_many(reviews), user)
 
 
 # ---------------------------------------------------------------- notifications
 @api.get("/notifications")
 async def list_notifications(user: dict = Depends(get_current_user)):
     items = await db.notifications.find({"user_id": user["id"]}).sort("created_at", -1).to_list(100)
-    return clean_many(items)
+    return scrub_many(clean_many(items), user)
 
 
 @api.post("/notifications/{notification_id}/read")
@@ -747,7 +867,15 @@ async def admin_stats(user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN")
         "waiting_client": await _count({"status": "AWAITING_CLIENT"}),
         "admin_review": await _count({"status": {"$in": ["READY_FOR_ADMIN_REVIEW", "ADMIN_REVIEW"]}}),
         "client_approval": await _count({"status": {"$in": ["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"]}}),
+        "awaiting_admin_review": await _count({"status": {"$in": ["READY_FOR_ADMIN_REVIEW", "ADMIN_REVIEW"]}}),
+        "awaiting_client_approval": await _count({"status": {"$in": ["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"]}}),
         "ready_submission": await _count({"status": {"$in": ["CLIENT_APPROVED", "READY_FOR_SUBMISSION"]}}),
+        "assigned": await _count({"assigned_accountant_id": {"$ne": None}, "status": active}),
+        "changes_required": await _count({"status": "CHANGES_REQUIRED"}),
+        "submitted": await _count({"status": {"$in": ["SUBMITTED", "SUBMISSION_IN_PROGRESS"]}}),
+        "case_completed": await _count({"status": "COMPLETED"}),
+        "attention": await _count({"$or": [{"status": "SUBMISSION_ISSUE"},
+                                           {"internal_deadline": {"$lt": now_iso()}, "status": active}]}),
         "overdue": await _count({"internal_deadline": {"$lt": now_iso()}, "status": active}),
     }
 
@@ -763,6 +891,12 @@ async def accountant_stats(user: dict = Depends(require_roles("ACCOUNTANT"))):
         "due_today": await _count({**base, "internal_deadline": {"$lte": today}, "status": active}),
         "due_week": await _count({**base, "internal_deadline": {"$lte": week}, "status": active}),
         "awaiting_client": await _count({**base, "status": "AWAITING_CLIENT"}),
+        "new_assigned": await _count({**base, "status": "ASSIGNED"}),
+        "in_progress": await _count({**base, "status": {"$in": ["ACCOUNTANT_REVIEW", "IN_PREPARATION"]}}),
+        "changes_required": await _count({**base, "status": "CHANGES_REQUIRED"}),
+        "awaiting_admin_review": await _count({**base, "status": {"$in": ["READY_FOR_ADMIN_REVIEW", "ADMIN_REVIEW"]}}),
+        "approved_ready": await _count({**base, "status": {"$in": ["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL", "CLIENT_APPROVED", "READY_FOR_SUBMISSION"]}}),
+        "case_completed": await _count({**base, "status": {"$in": ["SUBMITTED", "COMPLETED"]}}),
         "ready_for_admin": await _count({**base, "status": {"$in": ["READY_FOR_ADMIN_REVIEW", "ADMIN_REVIEW"]}}),
         "admin_changes": await _count({**base, "status": "CHANGES_REQUIRED"}),
         "completed": await _count({**base, "status": {"$in": ["SUBMITTED", "COMPLETED", "READY_FOR_SUBMISSION"]}}),
