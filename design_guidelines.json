@@ -1,0 +1,79 @@
+{
+  "theme": "light",
+  "typography": {
+    "heading_font": "Manrope",
+    "body_font": "Inter",
+    "scale": {
+      "h1": "text-3xl sm:text-4xl font-bold tracking-tight",
+      "h2": "text-2xl sm:text-3xl font-semibold tracking-tight",
+      "h3": "text-xl sm:text-2xl font-medium tracking-tight",
+      "h4": "text-lg sm:text-xl font-medium",
+      "body": "text-sm md:text-base leading-relaxed",
+      "small": "text-xs md:text-sm text-secondary-text"
+    }
+  },
+  "colors": {
+    "primary": "#006B3C",
+    "primary_action": "#078A4B",
+    "success": "#16A05D",
+    "background_soft": "#F1F8F4",
+    "nav_selected": "#EAF5EE",
+    "background_main": "#F7F8F7",
+    "surface_card": "#FFFFFF",
+    "text_primary": "#161B18",
+    "text_secondary": "#626A65",
+    "border_subtle": "#E3E7E4",
+    "warning": "#E6A23C",
+    "error": "#D64545",
+    "admin_review": "#7656C9"
+  },
+  "visual_enhancers": {
+    "shadows": "Very subtle ambient shadows for cards. 'shadow-sm' on cards, 'shadow-md' for dropdowns and modals.",
+    "borders": "1px solid #E3E7E4 (border_subtle) on all cards and containers.",
+    "radius": "Rounded corners: 'rounded-xl' for main cards, 'rounded-lg' for inner elements/buttons, 'rounded-md' for small badges.",
+    "spacing": "Generous padding inside cards ('p-6' or 'p-8'). High density grid gap 'gap-6'.",
+    "glassmorphism": "Not recommended for this standard accounting app unless for sticky headers ('bg-white/80 backdrop-blur-md'). Use flat solid surfaces mostly."
+  },
+  "layouts": {
+    "app_shell": "Left Sidebar Navigation + Top Header + Main Content Area. Sidebar is collapsible. Top-left for North Star metric/Greeting.",
+    "dashboard_grid": "Bento Grid Mode B (High Density Grid). 4-column layout ('grid-cols-4'). Stat cards take 1 column each. Main tables take 'col-span-full' or 'col-span-3'.",
+    "case_workspace": "Tabbed layout for Overview, Tasks, Documents, Messages, Tax Working, Internal Notes, Activity. Split pane if needed (Table on left, Details on right)."
+  },
+  "components": {
+    "cards": "Clean white background (#FFFFFF), 1px subtle border (#E3E7E4), no heavy shadows, generous internal padding (p-6).",
+    "badges": "Clear status badges. Use soft background of the status color with darker text (e.g. bg-success/10 text-success).",
+    "tables": "Tabular layout with sticky headers. Left aligned columns. 'border-b' on rows. Use distinct hover state ('hover:bg-background_main').",
+    "buttons": "Pill-shaped or rounded-lg. Primary action uses '#078A4B'. No excessive gradients.",
+    "stepper": "Client tax journey stepper: horizontally laid out steps with clear active/completed/upcoming states using primary green and subtle borders.",
+    "navigation": "Left nav. Selected item uses '#EAF5EE' with bold text and primary icon color."
+  },
+  "motion": {
+    "transitions": "Simple, functional. 'transition-colors duration-200' for hovers. No unnecessary scaling or bouncing animations.",
+    "loading": "Skeleton loaders matching the shape of the content, or simple spinners in Primary Green."
+  },
+  "accessibility": {
+    "contrast": "Ensure text contrast on buttons. #FFFFFF on #078A4B is accessible.",
+    "focus": "Clear focus rings ('focus:ring-2 focus:ring-primary/50 focus:outline-none') on all inputs and buttons.",
+    "test_ids": "All interactive and key informational elements MUST include a `data-testid` attribute in kebab-case."
+  },
+  "media": {
+    "icons": "lucide-react for simple professional icons.",
+    "images": "Not heavily requested. Use standard user avatars or simple document illustrations if needed."
+  },
+  "image_urls": {},
+  "instructions_to_main_agent": [
+    "Configure Tailwind with the exact custom color palette provided.",
+    "Use Shadcn UI components heavily customized to have subtle borders, no aggressive shadows, and white backgrounds.",
+    "Structure the dashboards using a Sidebar + Header + Main Area layout.",
+    "For the case tables, ensure robust filtering and clear status badges (19 states means a reusable Badge component with varying colors is critical).",
+    "Strictly follow the 'no unnecessary animations' rule. Stick to opacity and color transitions only.",
+    "Apply 'data-testid' to all buttons, links, inputs, and tab triggers."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Do not use generic centered layouts. Left-align most dashboard content for readability.",
+    "Ensure generous spacing: avoid cramped text or widgets.",
+    "Use predefined color variables instead of hardcoded hex values in classes.",
+    "Do not apply universal 'transition: all'. Apply to specific properties like background-color or border-color.",
+    "Never use transparent backgrounds on elements that have content beneath them, such as dropdown menus or sticky headers."
+  ]
+}

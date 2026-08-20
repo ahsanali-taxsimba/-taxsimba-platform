@@ -1,0 +1,859 @@
+import uuid
+from datetime import datetime, timezone, timedelta
+from typing import Optional, List
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+from fastapi import FastAPI, APIRouter, Depends, HTTPException, Request, Response, UploadFile, File, Form, Query
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response as FastResponse
+from pydantic import BaseModel, EmailStr
+
+from auth import (create_access_token, get_current_user, hash_password, is_admin,
+                  is_staff, require_roles, verify_password)
+from db import clean, clean_many, db
+from seed import seed
+from storage import init_storage, put_object, get_object, APP_NAME
+from workflow import (STATUSES, STATUS_META, journey, log_activity, notify, now_iso,
+                      transition)
+
+app = FastAPI(title="TaxSimba")
+api = APIRouter(prefix="/api")
+
+app.add_middleware(
+    CORSMiddleware, allow_origins=["*"], allow_credentials=True,
+    allow_methods=["*"], allow_headers=["*"],
+)
+
+
+@app.on_event("startup")
+async def startup():
+    await seed()
+    try:
+        init_storage()
+    except Exception as e:
+        print(f"storage init failed: {e}")
+
+
+# ---------------------------------------------------------------- schemas
+class LoginIn(BaseModel):
+    email: EmailStr
+    password: str
+
+
+class RegisterIn(BaseModel):
+    email: EmailStr
+    password: str
+    name: str
+    phone: Optional[str] = None
+
+
+class CreateUserIn(RegisterIn):
+    role: str
+
+
+class CaseIn(BaseModel):
+    client_user_id: Optional[str] = None
+    tax_year: str = "2024/25"
+    service_type: str = "SELF_ASSESSMENT"
+
+
+class AssignIn(BaseModel):
+    accountant_id: str
+    priority: str = "MEDIUM"
+    internal_deadline: Optional[str] = None
+    internal_instructions: Optional[str] = None
+
+
+class RequestIn(BaseModel):
+    request_type: str = "DOCUMENT"
+    title: str
+    description: str = ""
+    document_required: bool = True
+    due_date: Optional[str] = None
+    message: str = ""
+
+
+class CalcIn(BaseModel):
+    total_income: float
+    taxable_income: float
+    tax_due: float
+    is_refund: bool = False
+    notes: str = ""
+    payment_deadline: str = "31 January 2026"
+    breakdown: Optional[dict] = None
+
+
+class ChecklistIn(BaseModel):
+    calculation_version_id: str
+    checklist: dict
+
+
+class ReturnChangesIn(BaseModel):
+    reason: str
+    instructions: str
+
+
+class MessageIn(BaseModel):
+    case_id: str
+    body: str
+    recipient_id: Optional[str] = None
+
+
+class NoteIn(BaseModel):
+    body: str
+
+
+# ---------------------------------------------------------------- auth
+def _auth_response(response: Response, user: dict):
+    token = create_access_token(user["id"], user["email"])
+    response.set_cookie("access_token", token, httponly=True, secure=True,
+                        samesite="none", max_age=604800, path="/")
+    return {"user": clean(dict(user)), "access_token": token}
+
+
+@api.post("/auth/register")
+async def register(body: RegisterIn, response: Response):
+    email = body.email.lower()
+    if await db.users.find_one({"email": email}):
+        raise HTTPException(status_code=400, detail="Email already registered")
+    user = {
+        "id": str(uuid.uuid4()), "email": email, "name": body.name, "role": "CLIENT",
+        "password_hash": hash_password(body.password), "phone": body.phone,
+        "is_active": True, "created_at": now_iso(),
+    }
+    await db.users.insert_one(dict(user))
+    await db.clients.insert_one({"id": str(uuid.uuid4()), "user_id": user["id"], "name": body.name,
+                                 "email": email, "phone": body.phone, "created_at": now_iso()})
+    return _auth_response(response, user)
+
+
+@api.post("/auth/login")
+async def login(body: LoginIn, response: Response):
+    user = await db.users.find_one({"email": body.email.lower()})
+    if not user or not verify_password(body.password, user["password_hash"]):
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+    if not user.get("is_active", True):
+        raise HTTPException(status_code=401, detail="Account disabled")
+    return _auth_response(response, user)
+
+
+@api.post("/auth/logout")
+async def logout(response: Response):
+    response.delete_cookie("access_token", path="/")
+    return {"ok": True}
+
+
+@api.get("/auth/me")
+async def me(user: dict = Depends(get_current_user)):
+    return user
+
+
+# ---------------------------------------------------------------- helpers
+async def _get_case(case_id: str, user: dict) -> dict:
+    case = await db.cases.find_one({"id": case_id})
+    if not case:
+        raise HTTPException(status_code=404, detail="Case not found")
+    if user["role"] == "CLIENT" and case["client_user_id"] != user["id"]:
+        raise HTTPException(status_code=403, detail="Not your case")
+    if user["role"] == "ACCOUNTANT" and case.get("assigned_accountant_id") != user["id"]:
+        raise HTTPException(status_code=403, detail="Case not assigned to you")
+    return clean(case)
+
+
+def _days_left(case: dict):
+    dl = case.get("internal_deadline")
+    if not dl:
+        return None
+    try:
+        return (datetime.fromisoformat(dl) - datetime.now(timezone.utc)).days
+    except Exception:
+        return None
+
+
+async def _decorate(cases: List[dict]):
+    out = []
+    for c in cases:
+        c = clean(c)
+        c["days_left"] = _days_left(c)
+        last = await db.activity_logs.find_one({"case_id": c["id"]}, sort=[("created_at", -1)])
+        c["last_activity"] = clean(last) if last else None
+        out.append(c)
+    return out
+
+
+# ---------------------------------------------------------------- cases
+@api.get("/cases")
+async def list_cases(status: Optional[str] = None, bucket: Optional[str] = None,
+                     accountant_id: Optional[str] = None, priority: Optional[str] = None,
+                     tax_year: Optional[str] = None, q: Optional[str] = None,
+                     user: dict = Depends(get_current_user)):
+    query = {}
+    if user["role"] == "CLIENT":
+        query["client_user_id"] = user["id"]
+    elif user["role"] == "ACCOUNTANT":
+        query["assigned_accountant_id"] = user["id"]
+
+    if status:
+        query["status"] = {"$in": status.split(",")}
+    if accountant_id:
+        query["assigned_accountant_id"] = None if accountant_id == "UNASSIGNED" else accountant_id
+    if priority:
+        query["priority"] = priority
+    if tax_year:
+        query["tax_year"] = tax_year
+
+    buckets = {
+        "new": {"status": {"$in": ["NEW", "ONBOARDING", "AWAITING_ASSIGNMENT"]}},
+        "unassigned": {"assigned_accountant_id": None},
+        "in_progress": {"status": {"$in": ["ASSIGNED", "ACCOUNTANT_REVIEW", "IN_PREPARATION", "CHANGES_REQUIRED"]}},
+        "waiting_client": {"status": "AWAITING_CLIENT"},
+        "admin_review": {"status": {"$in": ["READY_FOR_ADMIN_REVIEW", "ADMIN_REVIEW"]}},
+        "client_approval": {"status": {"$in": ["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"]}},
+        "ready_submission": {"status": {"$in": ["CLIENT_APPROVED", "READY_FOR_SUBMISSION"]}},
+        "overdue": {"internal_deadline": {"$lt": now_iso()},
+                    "status": {"$nin": ["SUBMITTED", "COMPLETED"]}},
+        "needs_my_action": {"next_action_owner": "ACCOUNTANT",
+                            "status": {"$nin": ["SUBMITTED", "COMPLETED"]}},
+        "ready_for_admin": {"status": {"$in": ["READY_FOR_ADMIN_REVIEW", "ADMIN_REVIEW"]}},
+        "admin_changes": {"status": "CHANGES_REQUIRED"},
+        "completed": {"status": {"$in": ["SUBMITTED", "COMPLETED", "READY_FOR_SUBMISSION"]}},
+        "due_today": {"internal_deadline": {"$lte": (datetime.now(timezone.utc) + timedelta(days=1)).isoformat()},
+                      "status": {"$nin": ["SUBMITTED", "COMPLETED"]}},
+        "due_week": {"internal_deadline": {"$lte": (datetime.now(timezone.utc) + timedelta(days=7)).isoformat()},
+                     "status": {"$nin": ["SUBMITTED", "COMPLETED"]}},
+    }
+    if bucket and bucket in buckets:
+        query.update(buckets[bucket])
+    if q:
+        query["$or"] = [{"client_name": {"$regex": q, "$options": "i"}},
+                        {"case_ref": {"$regex": q, "$options": "i"}}]
+
+    cases = await db.cases.find(query).sort("last_updated", -1).to_list(500)
+    return await _decorate(cases)
+
+
+@api.post("/cases")
+async def create_case(body: CaseIn, user: dict = Depends(get_current_user)):
+    if user["role"] == "CLIENT":
+        client_user_id = user["id"]
+    else:
+        if not body.client_user_id:
+            raise HTTPException(status_code=400, detail="client_user_id required")
+        client_user_id = body.client_user_id
+    client_user = await db.users.find_one({"id": client_user_id, "role": "CLIENT"})
+    if not client_user:
+        raise HTTPException(status_code=404, detail="Client not found")
+    client = await db.clients.find_one({"user_id": client_user_id})
+    stage, next_action, owner = STATUS_META["AWAITING_ASSIGNMENT"]
+    count = await db.cases.count_documents({})
+    case = {
+        "id": str(uuid.uuid4()), "case_ref": f"SA-{1001 + count}",
+        "client_id": client["id"] if client else None, "client_user_id": client_user_id,
+        "client_name": client_user["name"], "service_type": body.service_type,
+        "tax_year": body.tax_year, "assigned_accountant_id": None,
+        "assigned_accountant_name": None, "admin_reviewer_id": None, "admin_reviewer_name": None,
+        "status": "AWAITING_ASSIGNMENT", "current_stage": stage, "next_action": next_action,
+        "next_action_owner": owner, "priority": "MEDIUM",
+        "internal_deadline": (datetime.now(timezone.utc) + timedelta(days=14)).isoformat(),
+        "external_deadline": "2026-01-31T23:59:00+00:00", "internal_instructions": None,
+        "waiting_reason": None, "approved_version_id": None,
+        "created_at": now_iso(), "last_updated": now_iso(),
+    }
+    await db.cases.insert_one(dict(case))
+    await log_activity(case["id"], "Case created", user)
+    async for admin in db.users.find({"role": {"$in": ["ADMIN", "SUPER_ADMIN"]}}):
+        await notify(admin["id"], "New case awaiting assignment",
+                     f"{case['client_name']} — {case['case_ref']}", case["id"], f"/admin/cases/{case['id']}")
+    return clean(case)
+
+
+@api.get("/cases/{case_id}")
+async def get_case(case_id: str, user: dict = Depends(get_current_user)):
+    case = await _get_case(case_id, user)
+    case["days_left"] = _days_left(case)
+    case["journey"] = journey(case["status"])
+    return case
+
+
+@api.post("/cases/{case_id}/assign")
+async def assign_case(case_id: str, body: AssignIn,
+                      user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    case = await _get_case(case_id, user)
+    acc = await db.users.find_one({"id": body.accountant_id, "role": "ACCOUNTANT", "is_active": True})
+    if not acc:
+        raise HTTPException(status_code=404, detail="Accountant not found")
+    await db.assignments.insert_one({
+        "id": str(uuid.uuid4()), "case_id": case_id, "accountant_id": acc["id"],
+        "accountant_name": acc["name"], "assigned_by": user["id"], "assigned_by_name": user["name"],
+        "priority": body.priority, "internal_deadline": body.internal_deadline,
+        "internal_instructions": body.internal_instructions, "created_at": now_iso(),
+    })
+    extra = {"assigned_accountant_id": acc["id"], "assigned_accountant_name": acc["name"],
+             "priority": body.priority, "internal_instructions": body.internal_instructions}
+    if body.internal_deadline:
+        extra["internal_deadline"] = body.internal_deadline
+    await transition(case, "ASSIGNED", user, f"Assigned to {acc['name']}", extra=extra)
+    await notify(acc["id"], "New case assigned",
+                 f"{case['client_name']} — {case['case_ref']} ({case['tax_year']})",
+                 case_id, f"/work/cases/{case_id}", "ASSIGNMENT")
+    return await get_case(case_id, user)
+
+
+@api.post("/cases/{case_id}/start-review")
+async def start_review(case_id: str, user: dict = Depends(require_roles("ACCOUNTANT"))):
+    case = await _get_case(case_id, user)
+    if case["status"] not in ("ASSIGNED", "AWAITING_CLIENT", "CHANGES_REQUIRED", "ACCOUNTANT_REVIEW"):
+        raise HTTPException(status_code=400, detail="Not allowed at this stage")
+    await transition(case, "ACCOUNTANT_REVIEW", user, "Accountant started review")
+    return await get_case(case_id, user)
+
+
+@api.post("/cases/{case_id}/mark-reviewed")
+async def mark_reviewed(case_id: str, user: dict = Depends(require_roles("ACCOUNTANT"))):
+    case = await _get_case(case_id, user)
+    await transition(case, "IN_PREPARATION", user, "Information marked as reviewed")
+    return await get_case(case_id, user)
+
+
+@api.post("/cases/{case_id}/request-from-client")
+async def request_from_client(case_id: str, body: RequestIn,
+                             user: dict = Depends(require_roles("ACCOUNTANT", "ADMIN", "SUPER_ADMIN"))):
+    case = await _get_case(case_id, user)
+    req_id = str(uuid.uuid4())
+    task_id = str(uuid.uuid4())
+    await db.tasks.insert_one({
+        "id": task_id, "case_id": case_id, "case_ref": case["case_ref"],
+        "name": body.title, "description": body.description, "owner_role": "CLIENT",
+        "owner_id": case["client_user_id"], "due_date": body.due_date, "status": "OPEN",
+        "created_by": user["id"], "created_by_name": user["name"],
+        "created_at": now_iso(), "completed_date": None, "request_id": req_id,
+    })
+    if body.document_required:
+        await db.document_requests.insert_one({
+            "id": req_id, "case_id": case_id, "client_user_id": case["client_user_id"],
+            "title": body.title, "description": body.description, "task_id": task_id,
+            "status": "Requested", "requested_by": user["id"], "requested_by_name": user["name"],
+            "due_date": body.due_date, "created_at": now_iso(),
+        })
+        await db.documents.insert_one({
+            "id": str(uuid.uuid4()), "case_id": case_id, "client_user_id": case["client_user_id"],
+            "tax_year": case["tax_year"], "document_type": body.title, "name": body.title,
+            "status": "Requested", "request_id": req_id, "task_id": task_id,
+            "storage_path": None, "uploader_id": None, "uploader_name": None,
+            "content_type": None, "size": 0, "is_internal": False,
+            "created_at": now_iso(), "upload_date": None,
+        })
+    if body.message:
+        await db.messages.insert_one({
+            "id": str(uuid.uuid4()), "case_id": case_id, "sender_id": user["id"],
+            "sender_name": user["name"], "sender_role": user["role"],
+            "recipient_id": case["client_user_id"], "body": body.message,
+            "is_read": False, "created_at": now_iso(),
+        })
+    await notify(case["client_user_id"], "Action required: " + body.title,
+                 body.description or "Your accountant needs information from you.",
+                 case_id, "/tasks", "TASK")
+    await transition(case, "AWAITING_CLIENT", user, f"Requested from client: {body.title}",
+                     waiting_reason=body.title)
+    return {"ok": True, "task_id": task_id, "request_id": req_id}
+
+
+@api.post("/cases/{case_id}/calculations")
+async def create_calculation(case_id: str, body: CalcIn,
+                             user: dict = Depends(require_roles("ACCOUNTANT"))):
+    case = await _get_case(case_id, user)
+    count = await db.calculation_versions.count_documents({"case_id": case_id})
+    calc = {
+        "id": str(uuid.uuid4()), "case_id": case_id, "version": count + 1,
+        "total_income": body.total_income, "taxable_income": body.taxable_income,
+        "tax_due": body.tax_due, "is_refund": body.is_refund, "notes": body.notes,
+        "payment_deadline": body.payment_deadline, "breakdown": body.breakdown or {},
+        "created_by": user["id"], "created_by_name": user["name"],
+        "is_locked": False, "is_approved": False, "created_at": now_iso(),
+    }
+    await db.calculation_versions.insert_one(dict(calc))
+    await transition(case, "IN_PREPARATION", user, f"Calculation V{calc['version']} created")
+    return clean(calc)
+
+
+@api.get("/cases/{case_id}/calculations")
+async def list_calculations(case_id: str, user: dict = Depends(get_current_user)):
+    case = await _get_case(case_id, user)
+    query = {"case_id": case_id}
+    if user["role"] == "CLIENT":
+        # Client may only ever see admin-approved versions.
+        query["is_approved"] = True
+    calcs = await db.calculation_versions.find(query).sort("version", -1).to_list(100)
+    return clean_many(calcs)
+
+
+@api.post("/cases/{case_id}/submit-for-admin-review")
+async def submit_for_admin_review(case_id: str, body: ChecklistIn,
+                                  user: dict = Depends(require_roles("ACCOUNTANT"))):
+    case = await _get_case(case_id, user)
+    required = ["client_information_reviewed", "required_documents_reviewed", "income_checked",
+                "allowable_expenses_checked", "tax_calculation_checked",
+                "supporting_documents_attached", "return_ready"]
+    missing = [k for k in required if not body.checklist.get(k)]
+    if missing:
+        raise HTTPException(status_code=400, detail=f"Checklist incomplete: {', '.join(missing)}")
+    calc = await db.calculation_versions.find_one({"id": body.calculation_version_id, "case_id": case_id})
+    if not calc:
+        raise HTTPException(status_code=404, detail="Calculation version not found")
+    await db.calculation_versions.update_one({"id": calc["id"]}, {"$set": {"is_locked": True}})
+    await db.reviews.insert_one({
+        "id": str(uuid.uuid4()), "case_id": case_id, "calculation_version_id": calc["id"],
+        "version": calc["version"], "checklist": body.checklist, "submitted_by": user["id"],
+        "submitted_by_name": user["name"], "submitted_at": now_iso(),
+        "outcome": None, "reviewer_id": None, "reviewer_name": None,
+        "reason": None, "instructions": None, "decided_at": None,
+    })
+    await transition(case, "READY_FOR_ADMIN_REVIEW", user,
+                     f"Calculation V{calc['version']} submitted for admin review")
+    async for admin in db.users.find({"role": {"$in": ["ADMIN", "SUPER_ADMIN"]}}):
+        await notify(admin["id"], "Admin review required",
+                     f"{case['client_name']} — V{calc['version']} submitted by {user['name']}",
+                     case_id, f"/admin/review/{case_id}", "REVIEW")
+    return {"ok": True}
+
+
+@api.post("/cases/{case_id}/admin-approve")
+async def admin_approve(case_id: str, user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    case = await _get_case(case_id, user)
+    if case["status"] not in ("READY_FOR_ADMIN_REVIEW", "ADMIN_REVIEW"):
+        raise HTTPException(status_code=400, detail="Case is not awaiting admin review")
+    review = await db.reviews.find_one({"case_id": case_id, "outcome": None}, sort=[("submitted_at", -1)])
+    if not review:
+        raise HTTPException(status_code=400, detail="No submitted work to approve")
+    await db.calculation_versions.update_one(
+        {"id": review["calculation_version_id"]},
+        {"$set": {"is_approved": True, "is_locked": True, "approved_by": user["name"],
+                  "approved_at": now_iso()}})
+    await db.reviews.update_one({"id": review["id"]}, {"$set": {
+        "outcome": "APPROVED", "reviewer_id": user["id"], "reviewer_name": user["name"],
+        "decided_at": now_iso()}})
+    await transition(case, "ADMIN_APPROVED", user, f"Admin approved V{review['version']}",
+                     extra={"approved_version_id": review["calculation_version_id"],
+                            "admin_reviewer_id": user["id"], "admin_reviewer_name": user["name"]})
+    await transition(case, "AWAITING_CLIENT_APPROVAL", user, "Client notified — return ready to review")
+    await notify(case["client_user_id"], "Your tax return is ready to review",
+                 "Your Self Assessment calculation has been approved and is ready for your review.",
+                 case_id, "/my-return", "APPROVAL")
+    if case.get("assigned_accountant_id"):
+        await notify(case["assigned_accountant_id"], "Admin approved your work",
+                     f"V{review['version']} approved for {case['client_name']}", case_id,
+                     f"/work/cases/{case_id}", "APPROVAL")
+    return await get_case(case_id, user)
+
+
+@api.post("/cases/{case_id}/admin-return")
+async def admin_return(case_id: str, body: ReturnChangesIn,
+                       user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    case = await _get_case(case_id, user)
+    review = await db.reviews.find_one({"case_id": case_id, "outcome": None}, sort=[("submitted_at", -1)])
+    if not review:
+        raise HTTPException(status_code=400, detail="No submitted work to return")
+    await db.reviews.update_one({"id": review["id"]}, {"$set": {
+        "outcome": "CHANGES_REQUIRED", "reviewer_id": user["id"], "reviewer_name": user["name"],
+        "reason": body.reason, "instructions": body.instructions, "decided_at": now_iso()}})
+    await db.tasks.insert_one({
+        "id": str(uuid.uuid4()), "case_id": case_id, "case_ref": case["case_ref"],
+        "name": f"Admin changes required: {body.reason}", "description": body.instructions,
+        "owner_role": "ACCOUNTANT", "owner_id": case.get("assigned_accountant_id"),
+        "due_date": None, "status": "OPEN", "created_by": user["id"],
+        "created_by_name": user["name"], "created_at": now_iso(), "completed_date": None,
+    })
+    await transition(case, "CHANGES_REQUIRED", user,
+                     f"Admin returned V{review['version']} for changes: {body.reason}")
+    if case.get("assigned_accountant_id"):
+        await notify(case["assigned_accountant_id"], "Admin returned changes",
+                     f"{case['client_name']}: {body.reason}", case_id,
+                     f"/work/cases/{case_id}", "CHANGES")
+    return await get_case(case_id, user)
+
+
+@api.post("/cases/{case_id}/client-approve")
+async def client_approve(case_id: str, user: dict = Depends(require_roles("CLIENT"))):
+    case = await _get_case(case_id, user)
+    if case["status"] not in ("ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"):
+        raise HTTPException(status_code=400, detail="Return is not ready for your approval")
+    calc = await db.calculation_versions.find_one({"id": case.get("approved_version_id")})
+    await db.client_approvals.insert_one({
+        "id": str(uuid.uuid4()), "case_id": case_id, "client_user_id": user["id"],
+        "client_name": user["name"], "calculation_version_id": case.get("approved_version_id"),
+        "version": calc["version"] if calc else None,
+        "confirmation": "I confirm the information is complete and correct to the best of my knowledge.",
+        "approved_at": now_iso(),
+    })
+    await transition(case, "CLIENT_APPROVED", user,
+                     f"Client approved V{calc['version'] if calc else ''}")
+    await transition(case, "READY_FOR_SUBMISSION", user, "Case ready for submission")
+    await db.submission_records.insert_one({
+        "id": str(uuid.uuid4()), "case_id": case_id, "status": "READY",
+        "calculation_version_id": case.get("approved_version_id"),
+        "reference": None, "created_at": now_iso(),
+    })
+    for uid in [case.get("assigned_accountant_id")]:
+        if uid:
+            await notify(uid, "Client approved the return",
+                         f"{case['client_name']} approved their tax return.", case_id,
+                         f"/work/cases/{case_id}", "APPROVAL")
+    async for admin in db.users.find({"role": {"$in": ["ADMIN", "SUPER_ADMIN"]}}):
+        await notify(admin["id"], "Ready for submission",
+                     f"{case['client_name']} — {case['case_ref']}", case_id,
+                     f"/admin/cases/{case_id}", "SUBMISSION")
+    return await get_case(case_id, user)
+
+
+# ---------------------------------------------------------------- tasks
+@api.get("/tasks")
+async def list_tasks(case_id: Optional[str] = None, status: Optional[str] = None,
+                     user: dict = Depends(get_current_user)):
+    query = {}
+    if user["role"] == "CLIENT":
+        query["owner_id"] = user["id"]
+    elif user["role"] == "ACCOUNTANT" and not case_id:
+        query["owner_id"] = user["id"]
+    if case_id:
+        await _get_case(case_id, user)
+        query["case_id"] = case_id
+        if user["role"] == "CLIENT":
+            query["owner_role"] = "CLIENT"
+    if status:
+        query["status"] = status
+    tasks = await db.tasks.find(query).sort("created_at", -1).to_list(300)
+    return clean_many(tasks)
+
+
+@api.post("/tasks/{task_id}/complete")
+async def complete_task(task_id: str, user: dict = Depends(get_current_user)):
+    task = await db.tasks.find_one({"id": task_id})
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    if task.get("owner_id") != user["id"] and not is_admin(user):
+        raise HTTPException(status_code=403, detail="Not your task")
+    await db.tasks.update_one({"id": task_id}, {"$set": {"status": "COMPLETED",
+                                                         "completed_date": now_iso()}})
+    case = await db.cases.find_one({"id": task["case_id"]})
+    case = clean(case)
+    await log_activity(case["id"], f"Task completed: {task['name']}", user)
+    if task.get("owner_role") == "CLIENT":
+        open_client_tasks = await db.tasks.count_documents(
+            {"case_id": case["id"], "owner_role": "CLIENT", "status": "OPEN"})
+        if case.get("assigned_accountant_id"):
+            await notify(case["assigned_accountant_id"], "Client completed a task",
+                         f"{case['client_name']}: {task['name']}", case["id"],
+                         f"/work/cases/{case['id']}", "TASK")
+        if open_client_tasks == 0 and case["status"] == "AWAITING_CLIENT":
+            await transition(case, "ACCOUNTANT_REVIEW", user,
+                             "Client provided requested information — back to accountant")
+    return {"ok": True}
+
+
+# ---------------------------------------------------------------- documents
+@api.get("/documents")
+async def list_documents(case_id: Optional[str] = None, filter: Optional[str] = None,
+                         user: dict = Depends(get_current_user)):
+    query = {}
+    if user["role"] == "CLIENT":
+        query["client_user_id"] = user["id"]
+        query["is_internal"] = False
+    elif user["role"] == "ACCOUNTANT":
+        case_ids = [c["id"] async for c in db.cases.find({"assigned_accountant_id": user["id"]})]
+        query["case_id"] = {"$in": case_ids}
+    if case_id:
+        await _get_case(case_id, user)
+        query["case_id"] = case_id
+    if filter == "requested":
+        query["status"] = "Requested"
+    elif filter == "uploaded":
+        query["status"] = {"$in": ["Uploaded", "Under Review", "Accepted", "Replacement Required"]}
+    elif filter == "final":
+        query["status"] = "Final"
+    docs = await db.documents.find(query).sort("created_at", -1).to_list(500)
+    return clean_many(docs)
+
+
+@api.post("/documents/upload")
+async def upload_document(case_id: str = Form(...), document_type: str = Form("Other"),
+                          document_id: Optional[str] = Form(None),
+                          task_id: Optional[str] = Form(None),
+                          is_internal: bool = Form(False),
+                          file: UploadFile = File(...),
+                          user: dict = Depends(get_current_user)):
+    case = await _get_case(case_id, user)
+    if is_internal and user["role"] == "CLIENT":
+        raise HTTPException(status_code=403, detail="Clients cannot upload internal documents")
+    ext = file.filename.split(".")[-1] if "." in file.filename else "bin"
+    path = f"{APP_NAME}/uploads/{user['id']}/{uuid.uuid4()}.{ext}"
+    data = await file.read()
+    result = put_object(path, data, file.content_type or "application/octet-stream")
+    record = {
+        "id": document_id or str(uuid.uuid4()), "case_id": case_id,
+        "client_user_id": case["client_user_id"], "tax_year": case["tax_year"],
+        "document_type": document_type, "name": file.filename,
+        "status": "Final" if is_internal else "Uploaded",
+        "storage_path": result["path"], "uploader_id": user["id"],
+        "uploader_name": user["name"], "content_type": file.content_type,
+        "size": result.get("size", len(data)), "is_internal": is_internal,
+        "is_deleted": False, "upload_date": now_iso(), "created_at": now_iso(),
+        "task_id": task_id,
+    }
+    existing = await db.documents.find_one({"id": record["id"]})
+    if existing:
+        record["created_at"] = existing.get("created_at", now_iso())
+        record["request_id"] = existing.get("request_id")
+        await db.documents.replace_one({"id": record["id"]}, dict(record))
+        if existing.get("request_id"):
+            await db.document_requests.update_one({"id": existing["request_id"]},
+                                                  {"$set": {"status": "Uploaded"}})
+    else:
+        await db.documents.insert_one(dict(record))
+    await log_activity(case_id, f"Document uploaded: {file.filename}", user)
+    if user["role"] == "CLIENT" and case.get("assigned_accountant_id"):
+        await notify(case["assigned_accountant_id"], "Client upload received",
+                     f"{case['client_name']} uploaded {file.filename}", case_id,
+                     f"/work/cases/{case_id}", "UPLOAD")
+    if task_id:
+        await complete_task(task_id, user)
+    return clean(record)
+
+
+@api.patch("/documents/{document_id}/status")
+async def set_document_status(document_id: str, status: str = Query(...),
+                              user: dict = Depends(require_roles("ACCOUNTANT", "ADMIN", "SUPER_ADMIN"))):
+    doc = await db.documents.find_one({"id": document_id})
+    if not doc:
+        raise HTTPException(status_code=404, detail="Document not found")
+    await _get_case(doc["case_id"], user)
+    if status not in ("Requested", "Uploaded", "Under Review", "Accepted", "Replacement Required", "Final"):
+        raise HTTPException(status_code=400, detail="Invalid status")
+    await db.documents.update_one({"id": document_id}, {"$set": {"status": status}})
+    await log_activity(doc["case_id"], f"Document '{doc['name']}' marked {status}", user)
+    return {"ok": True}
+
+
+@api.get("/documents/{document_id}/download")
+async def download_document(document_id: str, user: dict = Depends(get_current_user)):
+    doc = await db.documents.find_one({"id": document_id})
+    if not doc or not doc.get("storage_path"):
+        raise HTTPException(status_code=404, detail="File not found")
+    if user["role"] == "CLIENT" and (doc["client_user_id"] != user["id"] or doc.get("is_internal")):
+        raise HTTPException(status_code=403, detail="Not allowed")
+    if user["role"] == "ACCOUNTANT":
+        await _get_case(doc["case_id"], user)
+    data, ctype = get_object(doc["storage_path"])
+    return FastResponse(content=data, media_type=doc.get("content_type") or ctype,
+                        headers={"Content-Disposition": f'inline; filename="{doc["name"]}"'})
+
+
+# ---------------------------------------------------------------- messages / notes
+@api.get("/messages")
+async def list_messages(case_id: str, user: dict = Depends(get_current_user)):
+    await _get_case(case_id, user)
+    msgs = await db.messages.find({"case_id": case_id}).sort("created_at", 1).to_list(500)
+    await db.messages.update_many({"case_id": case_id, "recipient_id": user["id"]},
+                                  {"$set": {"is_read": True}})
+    return clean_many(msgs)
+
+
+@api.post("/messages")
+async def send_message(body: MessageIn, user: dict = Depends(get_current_user)):
+    case = await _get_case(body.case_id, user)
+    recipient = body.recipient_id
+    if not recipient:
+        recipient = case.get("assigned_accountant_id") if user["role"] == "CLIENT" else case["client_user_id"]
+    msg = {
+        "id": str(uuid.uuid4()), "case_id": body.case_id, "sender_id": user["id"],
+        "sender_name": user["name"], "sender_role": user["role"], "recipient_id": recipient,
+        "body": body.body, "is_read": False, "created_at": now_iso(),
+    }
+    await db.messages.insert_one(dict(msg))
+    await log_activity(body.case_id, "Message sent", user)
+    if recipient:
+        await notify(recipient, f"New message from {user['name']}", body.body[:120],
+                     body.case_id, "/messages", "MESSAGE")
+    return clean(msg)
+
+
+@api.get("/cases/{case_id}/notes")
+async def list_notes(case_id: str, user: dict = Depends(require_roles("ACCOUNTANT", "ADMIN", "SUPER_ADMIN"))):
+    await _get_case(case_id, user)
+    notes = await db.internal_notes.find({"case_id": case_id}).sort("created_at", -1).to_list(200)
+    return clean_many(notes)
+
+
+@api.post("/cases/{case_id}/notes")
+async def add_note(case_id: str, body: NoteIn,
+                   user: dict = Depends(require_roles("ACCOUNTANT", "ADMIN", "SUPER_ADMIN"))):
+    await _get_case(case_id, user)
+    note = {"id": str(uuid.uuid4()), "case_id": case_id, "body": body.body,
+            "author_id": user["id"], "author_name": user["name"], "author_role": user["role"],
+            "created_at": now_iso()}
+    await db.internal_notes.insert_one(dict(note))
+    await log_activity(case_id, "Internal note added", user)
+    return clean(note)
+
+
+@api.get("/cases/{case_id}/activity")
+async def case_activity(case_id: str, user: dict = Depends(get_current_user)):
+    await _get_case(case_id, user)
+    logs = await db.activity_logs.find({"case_id": case_id}).sort("created_at", -1).to_list(500)
+    return clean_many(logs)
+
+
+@api.get("/cases/{case_id}/reviews")
+async def case_reviews(case_id: str, user: dict = Depends(require_roles("ACCOUNTANT", "ADMIN", "SUPER_ADMIN"))):
+    await _get_case(case_id, user)
+    reviews = await db.reviews.find({"case_id": case_id}).sort("submitted_at", -1).to_list(100)
+    return clean_many(reviews)
+
+
+# ---------------------------------------------------------------- notifications
+@api.get("/notifications")
+async def list_notifications(user: dict = Depends(get_current_user)):
+    items = await db.notifications.find({"user_id": user["id"]}).sort("created_at", -1).to_list(100)
+    return clean_many(items)
+
+
+@api.post("/notifications/{notification_id}/read")
+async def read_notification(notification_id: str, user: dict = Depends(get_current_user)):
+    await db.notifications.update_one({"id": notification_id, "user_id": user["id"]},
+                                      {"$set": {"is_read": True}})
+    return {"ok": True}
+
+
+@api.post("/notifications/read-all")
+async def read_all(user: dict = Depends(get_current_user)):
+    await db.notifications.update_many({"user_id": user["id"]}, {"$set": {"is_read": True}})
+    return {"ok": True}
+
+
+# ---------------------------------------------------------------- stats
+async def _count(query):
+    return await db.cases.count_documents(query)
+
+
+@api.get("/stats/admin")
+async def admin_stats(user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    active = {"$nin": ["SUBMITTED", "COMPLETED"]}
+    return {
+        "new": await _count({"status": {"$in": ["NEW", "ONBOARDING", "AWAITING_ASSIGNMENT"]}}),
+        "unassigned": await _count({"assigned_accountant_id": None}),
+        "in_progress": await _count({"status": {"$in": ["ASSIGNED", "ACCOUNTANT_REVIEW", "IN_PREPARATION", "CHANGES_REQUIRED"]}}),
+        "waiting_client": await _count({"status": "AWAITING_CLIENT"}),
+        "admin_review": await _count({"status": {"$in": ["READY_FOR_ADMIN_REVIEW", "ADMIN_REVIEW"]}}),
+        "client_approval": await _count({"status": {"$in": ["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"]}}),
+        "ready_submission": await _count({"status": {"$in": ["CLIENT_APPROVED", "READY_FOR_SUBMISSION"]}}),
+        "overdue": await _count({"internal_deadline": {"$lt": now_iso()}, "status": active}),
+    }
+
+
+@api.get("/stats/accountant")
+async def accountant_stats(user: dict = Depends(require_roles("ACCOUNTANT"))):
+    base = {"assigned_accountant_id": user["id"]}
+    active = {"$nin": ["SUBMITTED", "COMPLETED"]}
+    week = (datetime.now(timezone.utc) + timedelta(days=7)).isoformat()
+    today = (datetime.now(timezone.utc) + timedelta(days=1)).isoformat()
+    return {
+        "needs_my_action": await _count({**base, "next_action_owner": "ACCOUNTANT", "status": active}),
+        "due_today": await _count({**base, "internal_deadline": {"$lte": today}, "status": active}),
+        "due_week": await _count({**base, "internal_deadline": {"$lte": week}, "status": active}),
+        "awaiting_client": await _count({**base, "status": "AWAITING_CLIENT"}),
+        "ready_for_admin": await _count({**base, "status": {"$in": ["READY_FOR_ADMIN_REVIEW", "ADMIN_REVIEW"]}}),
+        "admin_changes": await _count({**base, "status": "CHANGES_REQUIRED"}),
+        "completed": await _count({**base, "status": {"$in": ["SUBMITTED", "COMPLETED", "READY_FOR_SUBMISSION"]}}),
+    }
+
+
+@api.get("/accountants/workload")
+async def accountant_workload(user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    out = []
+    week = (datetime.now(timezone.utc) + timedelta(days=7)).isoformat()
+    active = {"$nin": ["SUBMITTED", "COMPLETED"]}
+    async for acc in db.users.find({"role": "ACCOUNTANT", "is_active": True}):
+        base = {"assigned_accountant_id": acc["id"]}
+        profile = await db.accountant_profiles.find_one({"user_id": acc["id"]})
+        capacity = (profile or {}).get("capacity", 15)
+        active_cases = await _count({**base, "status": active})
+        out.append({
+            "id": acc["id"], "name": acc["name"], "email": acc["email"],
+            "active_cases": active_cases,
+            "waiting_client": await _count({**base, "status": "AWAITING_CLIENT"}),
+            "due_this_week": await _count({**base, "internal_deadline": {"$lte": week}, "status": active}),
+            "overdue": await _count({**base, "internal_deadline": {"$lt": now_iso()}, "status": active}),
+            "capacity": capacity,
+            "availability": "Available" if active_cases < capacity else "At Capacity",
+        })
+    return out
+
+
+# ---------------------------------------------------------------- super admin
+@api.get("/users")
+async def list_users(role: Optional[str] = None,
+                     user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    query = {"role": role} if role else {}
+    users = await db.users.find(query).sort("created_at", -1).to_list(500)
+    return clean_many(users)
+
+
+@api.post("/users")
+async def create_user(body: CreateUserIn, user: dict = Depends(require_roles("SUPER_ADMIN"))):
+    if body.role not in ("CLIENT", "ACCOUNTANT", "ADMIN", "SUPER_ADMIN"):
+        raise HTTPException(status_code=400, detail="Invalid role")
+    if await db.users.find_one({"email": body.email.lower()}):
+        raise HTTPException(status_code=400, detail="Email already exists")
+    new = {"id": str(uuid.uuid4()), "email": body.email.lower(), "name": body.name,
+           "role": body.role, "password_hash": hash_password(body.password),
+           "phone": body.phone, "is_active": True, "created_at": now_iso()}
+    await db.users.insert_one(dict(new))
+    if body.role == "CLIENT":
+        await db.clients.insert_one({"id": str(uuid.uuid4()), "user_id": new["id"], "name": body.name,
+                                     "email": new["email"], "phone": body.phone, "created_at": now_iso()})
+    if body.role == "ACCOUNTANT":
+        await db.accountant_profiles.insert_one({"id": str(uuid.uuid4()), "user_id": new["id"],
+                                                 "name": body.name, "email": new["email"],
+                                                 "specialisms": ["SELF_ASSESSMENT"], "capacity": 15,
+                                                 "is_active": True, "created_at": now_iso()})
+    return clean(new)
+
+
+@api.patch("/users/{user_id}/active")
+async def toggle_user(user_id: str, is_active: bool = Query(...),
+                      user: dict = Depends(require_roles("SUPER_ADMIN"))):
+    await db.users.update_one({"id": user_id}, {"$set": {"is_active": is_active}})
+    return {"ok": True}
+
+
+@api.get("/services")
+async def list_services(user: dict = Depends(get_current_user)):
+    return clean_many(await db.services.find({}).to_list(50))
+
+
+@api.get("/workflow/settings")
+async def workflow_settings(user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    return {"statuses": STATUSES, "meta": {k: {"stage": v[0], "next_action": v[1], "owner": v[2]}
+                                           for k, v in STATUS_META.items()}}
+
+
+@api.get("/audit-log")
+async def audit_log(user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    logs = await db.activity_logs.find({}).sort("created_at", -1).to_list(300)
+    out = []
+    for l in clean_many(logs):
+        case = await db.cases.find_one({"id": l["case_id"]})
+        l["case_ref"] = case["case_ref"] if case else None
+        l["client_name"] = case["client_name"] if case else None
+        out.append(l)
+    return out
+
+
+@api.get("/")
+async def root():
+    return {"message": "TaxSimba API"}
+
+
+app.include_router(api)

@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    margin: 0;
+    background: #f7f8f7;
+    color: #161b18;
+    font-family: "Public Sans", "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.font-heading {
+    font-family: "Manrope", "Public Sans", sans-serif;
+}
+
+h1,
+h2,
+h3 {
+    font-family: "Manrope", "Public Sans", sans-serif;
+}
+
+::selection {
+    background: #eaf5ee;
+    color: #006b3c;
+}
+
+@layer base {
+    :root {
+        --background: 0 0% 100%;
+        --foreground: 150 10% 9%;
+        --primary: 154 89% 29%;
+        --primary-foreground: 0 0% 100%;
+        --border: 140 8% 90%;
+        --radius: 0.75rem;
+    }
+}
+
+* {
+    border-color: #e3e7e4;
+}
