@@ -3,9 +3,12 @@ import { AuthProvider, useAuth } from "@/context/AuthContext";
 import Login from "@/pages/Login";
 import ClientDashboard from "@/pages/client/ClientDashboard";
 import MyTaxReturn from "@/pages/client/MyTaxReturn";
-import { ClientDocuments, ClientJourneyPage, ClientMessages, ClientTasks, SimplePage } from "@/pages/client/ClientPages";
+import { ClientDocuments, ClientJourneyPage, ClientMessages, ClientTasks } from "@/pages/client/ClientPages";
 import MyServices, { PaymentCancel, PaymentSuccess } from "@/pages/client/MyServices";
 import { ActionRequired, MtdDashboard, RecommendationReview } from "@/pages/client/ClientActions";
+import ClientProfile from "@/pages/client/ClientProfile";
+import ClientSettings from "@/pages/client/ClientSettings";
+import HelpCentre from "@/pages/client/HelpCentre";
 import AdminRecommendations from "@/pages/staff/AdminRecommendations";
 import AccountantDashboard from "@/pages/staff/AccountantDashboard";
 import { AdminAccountants, AdminCases, AdminDashboard } from "@/pages/staff/AdminPages";
@@ -31,20 +34,6 @@ const CLIENT = ["CLIENT"];
 const STAFF = ["ACCOUNTANT"];
 const ADMIN = ["ADMIN", "SUPER_ADMIN"];
 
-function ClientProfile() {
-  const { user } = useAuth();
-  return (
-    <SimplePage title="Profile" subtitle="Your details" testId="profile-panel">
-      <dl className="grid sm:grid-cols-2 gap-6 text-sm">
-        <div><dt className="text-xs uppercase text-[#626A65]">Name</dt><dd className="mt-1 font-semibold">{user?.name}</dd></div>
-        <div><dt className="text-xs uppercase text-[#626A65]">Email</dt><dd className="mt-1 font-semibold">{user?.email}</dd></div>
-        <div><dt className="text-xs uppercase text-[#626A65]">Phone</dt><dd className="mt-1 font-semibold">{user?.phone || "—"}</dd></div>
-        <div><dt className="text-xs uppercase text-[#626A65]">UTR</dt><dd className="mt-1 font-semibold">{user?.utr || "—"}</dd></div>
-      </dl>
-    </SimplePage>
-  );
-}
-
 export default function App() {
   return (
     <AuthProvider>
@@ -66,14 +55,8 @@ export default function App() {
           <Route path="/actions" element={<Guard roles={CLIENT}><ActionRequired /></Guard>} />
           <Route path="/recommendation/:offerId" element={<Guard roles={CLIENT}><RecommendationReview /></Guard>} />
           <Route path="/mtd" element={<Guard roles={CLIENT}><MtdDashboard /></Guard>} />
-          <Route path="/help" element={<Guard roles={CLIENT}>
-            <SimplePage title="Help Centre" subtitle="Support and guidance" testId="help-panel">
-              <p className="text-sm text-[#626A65]">Message your accountant from the Messages page, or email support@taxsimba.co.uk.</p>
-            </SimplePage></Guard>} />
-          <Route path="/settings" element={<Guard roles={CLIENT}>
-            <SimplePage title="Settings" subtitle="Preferences" testId="settings-panel">
-              <p className="text-sm text-[#626A65]">Notification and security preferences arrive in a later phase.</p>
-            </SimplePage></Guard>} />
+          <Route path="/help" element={<Guard roles={CLIENT}><HelpCentre /></Guard>} />
+          <Route path="/settings" element={<Guard roles={CLIENT}><ClientSettings /></Guard>} />
 
           <Route path="/work" element={<Guard roles={STAFF}><AccountantDashboard /></Guard>} />
           <Route path="/work/cases/:id" element={<Guard roles={["ACCOUNTANT", "ADMIN", "SUPER_ADMIN"]}><CaseWorkspace /></Guard>} />

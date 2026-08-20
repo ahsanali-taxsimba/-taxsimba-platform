@@ -29,14 +29,54 @@ STATUS_META = {
     "ADMIN_APPROVED": ("Your Approval", "Release calculation to client", "ADMIN"),
     "AWAITING_CLIENT_APPROVAL": ("Your Approval", "Client to review and approve return", "CLIENT"),
     "CLIENT_APPROVED": ("Your Approval", "Prepare for submission", "ADMIN"),
-    "READY_FOR_SUBMISSION": ("Submitted to HMRC", "Submit return", "ADMIN"),
-    "SUBMISSION_IN_PROGRESS": ("Submitted to HMRC", "Submission in progress", "ADMIN"),
-    "SUBMITTED": ("Submitted to HMRC", "Awaiting confirmation", "ADMIN"),
-    "SUBMISSION_ISSUE": ("Submitted to HMRC", "Resolve submission issue", "ADMIN"),
-    "COMPLETED": ("Submitted to HMRC", "No action required", "NONE"),
+    "READY_FOR_SUBMISSION": ("HMRC Submission", "Submit return", "ADMIN"),
+    "SUBMISSION_IN_PROGRESS": ("HMRC Submission", "Submission in progress", "ADMIN"),
+    "SUBMITTED": ("HMRC Submission", "Awaiting confirmation", "ADMIN"),
+    "SUBMISSION_ISSUE": ("HMRC Submission", "Resolve submission issue", "ADMIN"),
+    "COMPLETED": ("HMRC Submission", "No action required", "NONE"),
 }
 
-STAGES = ["Information", "Documents", "Accountant Review", "Your Approval", "Submitted to HMRC"]
+STAGES = ["Information", "Documents", "Accountant Review", "Your Approval", "HMRC Submission"]
+
+# Plain-English, client-facing wording for every internal status. Client-facing surfaces must
+# never render the raw enum.
+CLIENT_STATUS_LABELS = {
+    "NEW": "Getting started",
+    "ONBOARDING": "Getting started",
+    "AWAITING_ASSIGNMENT": "With TaxSimba",
+    "ASSIGNED": "With your accountant",
+    "ACCOUNTANT_REVIEW": "With your accountant",
+    "AWAITING_CLIENT": "Waiting for you",
+    "IN_PREPARATION": "Being prepared",
+    "READY_FOR_ADMIN_REVIEW": "In internal review",
+    "ADMIN_REVIEW": "In internal review",
+    "CHANGES_REQUIRED": "Being updated",
+    "ADMIN_APPROVED": "Ready for your approval",
+    "AWAITING_CLIENT_APPROVAL": "Ready for your approval",
+    "CLIENT_APPROVED": "Approved by you",
+    "READY_FOR_SUBMISSION": "Ready for HMRC submission",
+    "SUBMISSION_IN_PROGRESS": "Submitting to HMRC",
+    "SUBMITTED": "Submitted to HMRC",
+    "SUBMISSION_ISSUE": "Submission issue",
+    "COMPLETED": "Completed",
+}
+
+
+def client_status(status: str) -> str:
+    """Client-safe label. Falls back to sentence case rather than exposing an enum."""
+    return CLIENT_STATUS_LABELS.get(status) or status.replace("_", " ").capitalize()
+
+
+def deadline_for_tax_year(tax_year: str) -> str:
+    """UK online filing/payment deadline: 31 January following the end of the tax year.
+
+    2025/26 -> 31 January 2027. Derived from the record so no screen hard-codes a year.
+    """
+    try:
+        start = int(str(tax_year).split("/")[0])
+    except (ValueError, IndexError):
+        return None
+    return f"{start + 2}-01-31T23:59:00+00:00"
 
 # Server-side workflow guard. A transition not listed here is rejected, so no API
 # request can skip a stage even if the frontend is bypassed.
@@ -69,8 +109,12 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
-def journey(status: str):
-    """Client-facing journey derived automatically from case status."""
+def journey(status: str, has_submission: bool = False):
+    """Client-facing journey derived automatically from case status.
+
+    Stage wording is data-driven and never claims a successful HMRC submission unless an
+    authorised submission record actually exists.
+    """
     order = ["NEW", "ONBOARDING", "AWAITING_ASSIGNMENT", "ASSIGNED", "ACCOUNTANT_REVIEW",
              "AWAITING_CLIENT", "IN_PREPARATION", "READY_FOR_ADMIN_REVIEW", "ADMIN_REVIEW",
              "CHANGES_REQUIRED", "ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL",
@@ -78,19 +122,65 @@ def journey(status: str):
              "SUBMITTED", "SUBMISSION_ISSUE", "COMPLETED"]
     idx = order.index(status) if status in order else 0
 
-    def state(step_start, step_done):
-        if idx >= order.index(step_done):
-            return "Completed"
-        if idx >= order.index(step_start):
-            return "In Progress"
-        return "Not Started"
+    def reached(s):
+        return idx >= order.index(s)
+
+    # Information
+    if reached("AWAITING_ASSIGNMENT"):
+        info = "Completed"
+    elif reached("ONBOARDING"):
+        info = "In Progress"
+    else:
+        info = "Not Started"
+
+    # Documents
+    if status == "AWAITING_CLIENT":
+        docs = "Documents Required"
+    elif reached("IN_PREPARATION"):
+        docs = "Completed"
+    elif reached("ASSIGNED"):
+        docs = "In Progress"
+    else:
+        docs = "Not Started"
+
+    # Accountant Review
+    if reached("ADMIN_APPROVED"):
+        review = "Completed"
+    elif status in ("READY_FOR_ADMIN_REVIEW", "ADMIN_REVIEW", "CHANGES_REQUIRED"):
+        review = "In Review"
+    elif reached("ASSIGNED"):
+        review = "In Review"
+    else:
+        review = "Waiting"
+
+    # Your Approval
+    if reached("CLIENT_APPROVED"):
+        approval = "Approved"
+    elif status in ("ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"):
+        approval = "Action Required"
+    else:
+        approval = "Waiting"
+
+    # HMRC Submission -- only ever "Submitted Successfully" with a real submission record
+    if status == "SUBMISSION_ISSUE":
+        submission = "Submission Failed"
+    elif status in ("SUBMITTED", "COMPLETED") and has_submission:
+        submission = "Submitted Successfully"
+    elif status in ("SUBMITTED", "COMPLETED"):
+        submission = "Submitting"
+    elif status == "SUBMISSION_IN_PROGRESS":
+        submission = "Submitting"
+    elif status in ("CLIENT_APPROVED", "READY_FOR_SUBMISSION"):
+        submission = "Ready to Submit"
+    else:
+        submission = "Not Started"
 
     return [
-        {"step": "Information", "state": state("NEW", "AWAITING_ASSIGNMENT")},
-        {"step": "Documents", "state": state("AWAITING_ASSIGNMENT", "IN_PREPARATION")},
-        {"step": "Accountant Review", "state": state("ASSIGNED", "ADMIN_APPROVED")},
-        {"step": "Your Approval", "state": state("ADMIN_APPROVED", "CLIENT_APPROVED")},
-        {"step": "Submitted to HMRC", "state": state("READY_FOR_SUBMISSION", "SUBMITTED")},
+        {"step": "Information", "state": info},
+        {"step": "Documents", "state": docs},
+        {"step": "Accountant Review", "state": review},
+        {"step": "Your Approval", "state": approval},
+        {"step": "HMRC Submission", "state": submission},
     ]
 
 
@@ -112,6 +202,18 @@ async def log_activity(case_id: str, action: str, user: dict, meta: dict | None 
 
 
 async def notify(user_id: str, title: str, body: str, case_id: str | None = None, link: str | None = None, ntype: str = "INFO"):
+    """Idempotent notification: one genuine event produces one genuine notification.
+
+    A repeated API call or retry that would raise the same still-unread notification for the
+    same user and case is collapsed instead of stacking up a duplicate badge count.
+    """
+    duplicate = await db.notifications.find_one({
+        "user_id": user_id, "title": title, "case_id": case_id, "is_read": False,
+    })
+    if duplicate:
+        await db.notifications.update_one({"id": duplicate["id"]},
+                                         {"$set": {"body": body, "created_at": now_iso()}})
+        return
     await db.notifications.insert_one({
         "id": str(uuid.uuid4()),
         "user_id": user_id,

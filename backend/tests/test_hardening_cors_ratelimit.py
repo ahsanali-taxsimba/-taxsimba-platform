@@ -138,7 +138,7 @@ class TestLoginRateLimit:
     def test_disabled_account_failure_is_not_counted(self, super_token):
         email, pw = _mk_user(super_token)
         h = {"Authorization": f"Bearer {super_token}"}
-        uid = requests.get(f"{API}/users?role=CLIENT", headers=h, timeout=30).json()
+        uid = requests.get(f"{API}/users?role=CLIENT&email={email}", headers=h, timeout=30).json()
         uid = [u for u in uid if u["email"] == email][0]["id"]
         assert requests.patch(f"{API}/users/{uid}/active?is_active=false",
                               headers=h, timeout=30).status_code == 200

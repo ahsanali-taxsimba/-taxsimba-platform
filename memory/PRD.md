@@ -136,6 +136,40 @@ The `csrf_token` cookie is intentionally **not** httpOnly (that is how double-su
 - CORS unchanged and not weakened; no production hostnames configured.
 - One pre-existing flake (`test_notifications_and_mark_all_read`) fails intermittently under `-n 2` because parallel workers create new notifications between `read-all` and the re-fetch; it passes in isolation and on re-run. Unrelated to CSRF.
 
+## Client Portal correction, data isolation & QA lock (2026-06)
+
+### CRITICAL: cross-client data leakage — root cause and fix
+**Symptom:** one logged-in client saw records from many foreign Self Assessment cases (SA-1003, SA-1009, SA-1015, SA-1277 …) in Tasks, Documents, My Services and Completed History. Reproduced before fixing: **Client A owned 35 cases but the API returned 181 tasks spanning 145 non-owned cases and 382 documents across 145 non-owned cases.**
+
+**Root cause:** the client-facing list endpoints authorised on a *denormalised copy of the user id on the child row* (`tasks.owner_id`, `documents.client_user_id`) instead of verifying that the child's **parent case** belonged to the authenticated client. Repeated test runs had written child rows carrying Client A's user id while their `case_id` pointed at other clients' cases, so a single stale field granted cross-client read access. The `service_type` filter compounded it by querying **all** cases globally, and `/my-actions` and `/notifications` shared the same weakness.
+
+**Fix (server-side, `server.py`):** new `_owned_case_ids(user)` derives the authoritative case set from *authenticated user → client record → cases*, and **every** client-facing query is constrained by `case_id ∈ owned`. `_get_case()` now also accepts ownership via the client record, and `download_document` proves ownership against the parent case rather than the document's copied field. Enforcement is entirely in the API layer — no frontend filtering is relied on.
+
+**Verified:** `foreign = 0` on tasks, documents, notifications and my-actions; direct/modified case, task, document, message and download IDs all return 403/404 in both directions (A→B and B→A).
+
+### Other defects found and fixed
+- **`GET /api/users` silently truncated** at 500 rows sorted newest-first, so with 900+ accumulated accounts the original demo clients became invisible and staff lookups broke. Added a server-side exact `?email=` filter.
+- **`READY_FOR_SUBMISSION` was labelled "Submitted to HMRC"** in `STATUS_META`/`STAGES` — the direct cause of the false "Submitted to HMRC — In Progress" dashboard claim. Stage renamed to **HMRC Submission** and `journey()` now takes `has_submission`, so "Submitted Successfully" requires a real submission record. States: Ready to Submit / Submitting / Submitted Successfully / Submission Failed.
+- **Duplicate creation** — `request-from-client` is now idempotent (an open request of the same title is reused, no second task/request/document); `notify()` collapses an identical still-unread notification for the same user+case; completed history is de-duplicated by (action, case, day).
+- **Hard-coded deadline** `2026-01-31` on case creation replaced by `deadline_for_tax_year()` (2025/26 → **31 January 2027**), derived from the record so no screen hard-codes a year.
+- **`case_id` misuse** — account-level recommendations were writing `recommendation_id` into `case_id`.
+- **Malformed history rows** (`Bank statements · · completed`) fixed; history now paginates with **Show more**.
+- Client-facing enum leakage removed via `client_status()` / `clientStatusLabel()`; `StatusBadge` gained a `client` prop.
+
+### Client portal changes
+Tasks (Action Required / Completed tabs, "No due date" instead of `Due —`), Documents (All / Requested / Uploaded / Final Documents, **mobile card layout** instead of four cramped columns), Messages ("You" on the client's own side, mobile input no longer clipped), Dashboard (correct submission sequence, "Tax Return Deadline"), My Tax Return (no client Submit action — client reviews and approves, TaxSimba submits), My Services (current service + collapsed **Previous Tax Returns**, customer-facing payment statuses Paid/Pending/Failed/Refunded).
+
+**New:** Help Centre (search, 8 categories, 12 seeded FAQs, quick actions) with **Admin/Super-Admin CRUD at `/api/faqs`** so content is maintained without code changes; Settings (change password, 6 notification preferences, privacy/data export and controlled account-closure requests — closure never destroys retained tax records; no fake 2FA/device buttons); Profile (name/phone/address editing, UTR masked with Show, email change via **verified pending request** to Admin/Super Admin since no email sending exists).
+
+### Demo data normalisation
+`scripts/fix_demo_data.py` (idempotent, demo clients only) removed 34 duplicate cases, 146 orphan tasks and 306 orphan documents for Client A and reset notifications 94 → 2. **Note:** the Phase 1/1B/2 suites deliberately drive the shared demo accounts and create new cases on every run, so presentation state is asserted in `tests/test_zz_demo_portal_state.py`, which re-runs the normalisation first and should be run last.
+
+### Verification
+- **Full regression: 287 passed, 2 skipped, 0 failed** (`--ignore=test_zz_demo_portal_state.py`), then **9/9** demo-state checks.
+- New suites: `test_client_portal_isolation.py` (50 tests inc. the A/B security gate), `test_clean_client_journey.py` (**13/13**, full purchase → assignment → request → upload → calculation → admin approval → client approval → authorised submission → completed → final documents, with zero duplicates), `test_zz_demo_portal_state.py` (9).
+- Browser: all 11 client pages plus Client B, Accountant, Admin and Super Admin render correctly with **zero** internal enum/placeholder violations; mobile checked at 390px.
+- Two transient chunked-read network errors under parallel load were confirmed to pass in isolation (not product defects).
+
 ## Known gaps / not built
 - MTD quarterly operational workflow, HMRC API, Xero, SimbaX (deliberately deferred).
 - **Production hardening: DONE (2026-06)** — explicit CORS allowlist with wildcard fail-fast, login rate limiting + temporary lockout, XFF anti-spoofing, 15-minute access tokens with rotating/revocable refresh tokens. Residual risks listed above (edge CORS rewrite, CSRF on refresh/logout, body-returned access token).
@@ -143,8 +177,10 @@ The `csrf_token` cookie is intentionally **not** httpOnly (that is how double-su
 - `server.py` + `phase1b.py` are large and would benefit from being split into routers.
 
 ## Backlog
-- P1: pagination on `GET /api/users` (hard-capped at 500) and `GET /api/recommendations` (300) — accumulated records can silently hide accounts
+- P1: CSRF token / Origin-Referer check is DONE; remaining auth risk is the edge Origin rewrite (see above)
+- P1: pagination/search on `GET /api/users` (exact `?email=` lookup added; the 500-row page cap remains) and `GET /api/recommendations` (300)
 - P1: validate the CORS allowlist **and the Origin-rewriting behaviour** on the real production hostname/ingress (the preview edge masks both)
+- P2: point the Phase 1/1B/2 suites at dedicated throwaway clients instead of the shared demo accounts, so the preview portal stays clean after a regression run
 - P2: de-flake `test_notifications_and_mark_all_read` (parallel-worker race under `-n 2`)
 - P1: Resend email notifications mirroring in-app triggers; deadline-approaching / overdue scheduler
 - P2: submission-issue handling flow; message attachments; TaxSimba Support as a separate message thread

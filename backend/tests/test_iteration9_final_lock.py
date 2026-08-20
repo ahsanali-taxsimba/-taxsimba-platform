@@ -113,7 +113,8 @@ class TestAdminContactMasking:
                 assert "***" in row["phone"]
 
     def test_superadmin_sees_full_contact(self, tokens):
-        r = requests.get(f"{BASE}/api/users?role=CLIENT", headers=_h(tokens["sa"]))
+        r = requests.get(f"{BASE}/api/users?role=CLIENT&email=clienta@example.com",
+                         headers=_h(tokens["sa"]))
         assert r.status_code == 200
         rows = r.json()
         assert rows
@@ -143,7 +144,7 @@ class TestAdminContactMasking:
 # ============================================================= FIX 2
 class TestAuditedContactReveal:
     def test_super_admin_reveal_returns_full_and_logs(self, tokens):
-        clients = requests.get(f"{BASE}/api/users?role=CLIENT",
+        clients = requests.get(f"{BASE}/api/users?role=CLIENT&email=clienta@example.com",
                                headers=_h(tokens["sa"])).json()
         target = next(x for x in clients if x["email"] == "clienta@example.com")
         r = requests.post(f"{BASE}/api/clients/{target['id']}/reveal-contact",

@@ -5,6 +5,15 @@ import { Empty, Panel } from "@/components/StatCard";
 import { StatusBadge } from "@/components/StatusBadge";
 import { api, apiError, d, dt, money } from "@/lib/api";
 
+// Customer-facing payment wording only -- never the provider's raw status string.
+const PAY_LABEL = {
+  paid: "Paid", pending: "Pending", open: "Pending", unpaid: "Pending",
+  failed: "Failed", expired: "Failed", refunded: "Refunded",
+};
+const PAY_TONE = {
+  paid: "#16A05D", refunded: "#7656C9", failed: "#D64545", expired: "#D64545",
+};
+
 export default function MyServices() {
   const [data, setData] = useState(null);
   const [upgrade, setUpgrade] = useState(null);
@@ -76,16 +85,34 @@ export default function MyServices() {
                     Open {s.service_name}
                   </Link>
                 )}
-                {s.cases?.length > 0 && (
-                  <ul className="mt-4 space-y-2">
-                    {s.cases.map((c) => (
-                      <li key={c.id} className="flex flex-wrap items-center gap-3 text-sm">
-                        <span className="text-[#626A65]">{c.case_ref} · {c.tax_year}</span>
-                        <StatusBadge status={c.status} />
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                {s.status === "ACTIVE" && s.cases?.length > 0 && (() => {
+                  const sorted = [...s.cases].sort((a, b) => (b.tax_year || "").localeCompare(a.tax_year || ""));
+                  const current = sorted[0];
+                  const previous = sorted.slice(1);
+                  return (
+                    <div className="mt-4">
+                      <div className="flex flex-wrap items-center gap-3 text-sm">
+                        <span className="text-[#626A65]">Current case: {current.case_ref}{current.tax_year ? ` · ${current.tax_year}` : ""}</span>
+                        <StatusBadge status={current.status} client />
+                      </div>
+                      {previous.length > 0 && (
+                        <details className="mt-3" data-testid={`previous-returns-${s.service_type}`}>
+                          <summary className="text-xs font-semibold text-[#078A4B] cursor-pointer">
+                            Previous Tax Returns ({previous.length})
+                          </summary>
+                          <ul className="mt-3 space-y-2">
+                            {previous.map((c) => (
+                              <li key={c.id} className="flex flex-wrap items-center gap-3 text-sm">
+                                <span className="text-[#626A65]">{c.tax_year || c.case_ref}</span>
+                                <StatusBadge status={c.status} client />
+                              </li>
+                            ))}
+                          </ul>
+                        </details>
+                      )}
+                    </div>
+                  );
+                })()}
               </li>
             ))}
           </ul>
@@ -133,7 +160,7 @@ export default function MyServices() {
               )}
               {upgrade.locked && (
                 <p data-testid="package-locked-text" className="text-sm text-[#E6A23C] mt-3">
-                  Package changes are closed for this tax year at this stage of your return. {upgrade.lock_reason}. Please message your accountant if you need help.
+                  Package changes are closed for this tax year at this stage of your return. {(upgrade.lock_reason || "").replaceAll("_", " ").toLowerCase().replace(/^./, (c) => c.toUpperCase())}. Please message your accountant if you need help.
                 </p>
               )}
               {!upgrade.locked && upgrade.options.length > 0 && (
@@ -185,7 +212,9 @@ export default function MyServices() {
                   <td className="py-3 pr-4">{p.kind === "SA_UPGRADE" ? "Package upgrade" : "Service activation"}</td>
                   <td className="py-3 pr-4 text-[#626A65]">{p.previous_package ? `${p.previous_package} → ` : ""}{p.new_package}</td>
                   <td className="py-3 pr-4 font-semibold">{money(p.amount)}</td>
-                  <td className="py-3" style={{ color: p.payment_status === "paid" ? "#16A05D" : "#626A65" }}>{p.payment_status}</td>
+                  <td className="py-3" style={{ color: PAY_TONE[p.payment_status] || "#626A65" }}>
+                    {PAY_LABEL[p.payment_status] || "Pending"}
+                  </td>
                 </tr>
               ))}</tbody>
             </table>

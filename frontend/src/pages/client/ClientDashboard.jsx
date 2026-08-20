@@ -27,6 +27,8 @@ export default function ClientDashboard() {
   const firstName = (user?.name || "").split(" ")[0];
   const openTasks = tasks.length;
   const readyToApprove = cs && ["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"].includes(cs.status);
+  // Never claim a successful HMRC submission without an authorised submission record.
+  const submitted = cs && ["SUBMITTED", "COMPLETED"].includes(cs.status) && cs.has_submission_record;
 
   return (
     <AppShell
@@ -47,6 +49,23 @@ export default function ClientDashboard() {
                 <Link to="/my-return" data-testid="review-my-return-btn"
                   className="inline-flex mt-5 px-5 py-2.5 rounded-lg bg-[#078A4B] text-white text-sm font-semibold hover:bg-[#006B3C] transition-colors">
                   Review My Tax Return
+                </Link>
+              </div>
+            </div>
+          </div>
+        ) : submitted ? (
+          <div data-testid="client-action-card" className="bg-white border border-[#16A05D] rounded-xl p-8">
+            <div className="flex items-start gap-4">
+              <CheckCircle2 size={22} color="#16A05D" className="mt-1" />
+              <div>
+                <h2 className="text-lg md:text-xl font-semibold text-[#161B18]">Your return has been submitted to HMRC</h2>
+                <p className="text-sm text-[#626A65] mt-2 max-w-xl">
+                  We've submitted your tax return and you'll find your submission reference and final documents on
+                  My Tax Return. There's nothing more for you to do.
+                </p>
+                <Link to="/my-return" data-testid="view-submission-btn"
+                  className="inline-flex mt-5 px-5 py-2.5 rounded-lg bg-[#078A4B] text-white text-sm font-semibold hover:bg-[#006B3C] transition-colors">
+                  View My Tax Return
                 </Link>
               </div>
             </div>
@@ -105,9 +124,9 @@ export default function ClientDashboard() {
             <Panel title="Case summary" testId="client-case-summary">
               <dl className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
                 <div><dt className="text-[#626A65] text-xs uppercase tracking-wide">Case</dt><dd className="mt-1 font-semibold">{cs.case_ref}</dd></div>
-                <div><dt className="text-[#626A65] text-xs uppercase tracking-wide">Tax Year</dt><dd className="mt-1 font-semibold">{cs.tax_year}</dd></div>
-                <div><dt className="text-[#626A65] text-xs uppercase tracking-wide">Status</dt><dd className="mt-1"><StatusBadge status={cs.status} /></dd></div>
-                <div><dt className="text-[#626A65] text-xs uppercase tracking-wide">HMRC Deadline</dt><dd className="mt-1 font-semibold">{d(cs.external_deadline)}</dd></div>
+                <div><dt className="text-[#626A65] text-xs uppercase tracking-wide">Tax Year</dt><dd data-testid="dashboard-tax-year" className="mt-1 font-semibold">{cs.tax_year}</dd></div>
+                <div><dt className="text-[#626A65] text-xs uppercase tracking-wide">Status</dt><dd className="mt-1"><StatusBadge status={cs.status} client testId="dashboard-status" /></dd></div>
+                <div><dt className="text-[#626A65] text-xs uppercase tracking-wide">Tax Return Deadline</dt><dd data-testid="dashboard-deadline" className="mt-1 font-semibold">{d(cs.external_deadline)}</dd></div>
               </dl>
             </Panel>
           </>

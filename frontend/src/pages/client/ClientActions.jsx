@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import AppShell from "@/components/AppShell";
 import { Empty, Panel } from "@/components/StatCard";
+import { clientStatusLabel } from "@/components/StatusBadge";
 import { api, apiError, d, money } from "@/lib/api";
 
 export function ActionRequired() {
   const [data, setData] = useState({ outstanding: [], history: [] });
+  const [shown, setShown] = useState(10);
   const load = () => api.get("/my-actions").then(({ data }) => setData(data));
   useEffect(() => { load(); }, []);
 
@@ -21,7 +23,7 @@ export function ActionRequired() {
                   <div className="font-semibold text-sm text-[#161B18]">{a.action}</div>
                   {a.description && <p className="text-sm text-[#626A65] mt-1">{a.description}</p>}
                   <p className="text-xs text-[#626A65] mt-2">
-                    {a.service_name || "Account"}{a.case_ref ? ` · ${a.case_ref}` : ""}{a.due_date ? ` · Due ${d(a.due_date)}` : ""} · {a.status}
+                    {a.service_name || "Account"}{a.case_ref ? ` · ${a.case_ref}` : ""}{a.due_date ? ` · Due ${d(a.due_date)}` : ""}
                   </p>
                 </div>
                 <Link to={a.link} data-testid={`action-open-${a.id}`}
@@ -35,12 +37,20 @@ export function ActionRequired() {
         <Panel title="Completed history" testId="actions-history-panel">
           {!data.history.length && <Empty text="No completed actions yet." />}
           <ul className="space-y-2 text-sm">
-            {data.history.map((a) => (
-              <li key={a.id} className="text-[#626A65]">
-                {a.action} · {a.service_name} · completed {d(a.completed_date)}
+            {data.history.slice(0, shown).map((a) => (
+              <li key={a.id} data-testid={`history-${a.id}`} className="text-[#626A65]">
+                {a.action}
+                {a.service_name ? ` · ${a.service_name}` : ""}
+                {a.completed_date ? ` · completed ${d(a.completed_date)}` : " · completed"}
               </li>
             ))}
           </ul>
+          {data.history.length > shown && (
+            <button data-testid="history-show-more-btn" onClick={() => setShown(shown + 10)}
+              className="mt-4 px-4 py-2 rounded-lg border border-[#E3E7E4] text-xs font-semibold hover:bg-[#F1F8F4] transition-colors">
+              Show more ({data.history.length - shown} remaining)
+            </button>
+          )}
         </Panel>
       </div>
     </AppShell>
@@ -154,7 +164,7 @@ export function MtdDashboard() {
             {cases.map((c) => (
               <li key={c.id} data-testid={`mtd-case-${c.case_ref}`} className="border border-[#E3E7E4] rounded-lg p-5 text-sm">
                 <div className="font-semibold">{c.case_ref} · {c.tax_year}</div>
-                <p className="text-[#626A65] mt-1">{c.current_stage} · {c.status.replaceAll("_", " ")}</p>
+                <p className="text-[#626A65] mt-1">{c.current_stage} · {clientStatusLabel(c.status)}</p>
                 <p className="text-xs text-[#626A65] mt-1">Next: {c.next_action}</p>
               </li>
             ))}

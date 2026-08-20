@@ -3,7 +3,7 @@ import AppShell from "@/components/AppShell";
 import { Journey } from "@/components/Journey";
 import { Empty, Panel } from "@/components/StatCard";
 import { DocStatusBadge } from "@/components/StatusBadge";
-import { api, d, dt, money } from "@/lib/api";
+import { api, d, dt } from "@/lib/api";
 
 export function ClientJourneyPage() {
   const [cs, setCs] = useState(null);
@@ -13,7 +13,7 @@ export function ClientJourneyPage() {
     });
   }, []);
   return (
-    <AppShell title="Your Tax Journey" subtitle="Updated automatically as your case progresses.">
+    <AppShell title="Your Tax Journey" subtitle={cs ? `Self Assessment ${cs.tax_year} · ${cs.case_ref}` : "Updated automatically as your case progresses."}>
       <Panel testId="journey-page">{cs ? <Journey steps={cs.journey} /> : <Empty text="No active case yet." />}</Panel>
     </AppShell>
   );
@@ -21,14 +21,12 @@ export function ClientJourneyPage() {
 
 export function ClientTasks() {
   const [tasks, setTasks] = useState([]);
-  const [cs, setCs] = useState(null);
+  const [tab, setTab] = useState("open");
   const [busy, setBusy] = useState(null);
 
-  const load = () => api.get("/tasks", { params: { service_type: "SELF_ASSESSMENT" } }).then(({ data }) => setTasks(data));
-  useEffect(() => {
-    load();
-    api.get("/cases", { params: { service_type: "SELF_ASSESSMENT" } }).then(({ data }) => data.length && setCs(data[0]));
-  }, []);
+  const load = () => api.get("/tasks", { params: { service_type: "SELF_ASSESSMENT" } })
+    .then(({ data }) => setTasks(data));
+  useEffect(() => { load(); }, []);
 
   const upload = async (task, file) => {
     setBusy(task.id);
@@ -45,22 +43,39 @@ export function ClientTasks() {
     load();
   };
 
+  const open = tasks.filter((t) => t.status !== "COMPLETED");
+  const done = tasks.filter((t) => t.status === "COMPLETED");
+  const shown = tab === "open" ? open : done;
+
   return (
     <AppShell title="Tasks" subtitle="Everything we need from you, in one place.">
       <Panel testId="client-tasks-panel">
-        {!tasks.length && <Empty text="You have no outstanding tasks." />}
+        <div className="flex gap-2 mb-6">
+          {[["open", `Action Required (${open.length})`], ["completed", `Completed (${done.length})`]].map(([k, l]) => (
+            <button key={k} data-testid={`task-tab-${k}`} onClick={() => setTab(k)}
+              className={`px-4 py-2 rounded-lg text-xs font-semibold transition-colors ${tab === k ? "bg-[#EAF5EE] text-[#006B3C]" : "border border-[#E3E7E4] text-[#626A65] hover:bg-[#F1F8F4]"}`}>
+              {l}
+            </button>
+          ))}
+        </div>
+        {!shown.length && (
+          <Empty text={tab === "open" ? "You have no outstanding tasks." : "No completed tasks yet."} />
+        )}
         <ul className="space-y-4">
-          {tasks.map((t) => (
+          {shown.map((t) => (
             <li key={t.id} data-testid={`task-${t.id}`} className="border border-[#E3E7E4] rounded-lg p-5">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div>
+                <div className="min-w-0">
                   <div className="font-semibold text-[#161B18]">{t.name}</div>
-                  <p className="text-sm text-[#626A65] mt-1">{t.description}</p>
+                  {t.description && <p className="text-sm text-[#626A65] mt-1">{t.description}</p>}
                   <p className="text-xs text-[#626A65] mt-2">
-                    Case {t.case_ref} · Due {d(t.due_date)} · Requested by {t.created_by_name} on {d(t.created_at)}
+                    {t.case_ref ? `Case ${t.case_ref}` : "Your account"}
+                    {" · "}
+                    {t.due_date ? `Due ${d(t.due_date)}` : "No due date"}
+                    {t.created_by_name ? ` · Requested by ${t.created_by_name} on ${d(t.created_at)}` : ""}
                   </p>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 shrink-0">
                   {t.status === "COMPLETED" ? (
                     <span className="text-xs font-semibold text-[#16A05D]">Completed {d(t.completed_date)}</span>
                   ) : (
@@ -94,7 +109,9 @@ export function ClientDocuments() {
   const [filter, setFilter] = useState("all");
   const [cs, setCs] = useState(null);
 
-  const load = (f) => api.get("/documents", { params: f === "all" ? { service_type: "SELF_ASSESSMENT" } : { filter: f, service_type: "SELF_ASSESSMENT" } }).then(({ data }) => setDocs(data));
+  const load = (f) => api.get("/documents", {
+    params: f === "all" ? { service_type: "SELF_ASSESSMENT" } : { filter: f, service_type: "SELF_ASSESSMENT" },
+  }).then(({ data }) => setDocs(data));
   useEffect(() => { load(filter); }, [filter]);
   useEffect(() => { api.get("/cases", { params: { service_type: "SELF_ASSESSMENT" } }).then(({ data }) => data.length && setCs(data[0])); }, []);
 
@@ -105,6 +122,12 @@ export function ClientDocuments() {
     fd.append("file", file);
     await api.post("/documents/upload", fd, { headers: { "Content-Type": "multipart/form-data" } });
     load(filter);
+  };
+
+  const who = (doc) => {
+    if (!doc.uploader_name) return "Requested by your accountant";
+    if (doc.uploader_id && cs && doc.uploader_id === cs.client_user_id) return "Uploaded by you";
+    return `Uploaded by ${doc.uploader_name}`;
   };
 
   return (
@@ -129,7 +152,30 @@ export function ClientDocuments() {
           ))}
         </div>
         {!docs.length && <Empty text="Nothing here yet." />}
-        <div className="overflow-x-auto">
+
+        {/* Mobile: readable cards instead of four cramped columns */}
+        <ul className="md:hidden space-y-3" data-testid="documents-cards">
+          {docs.map((doc) => (
+            <li key={doc.id} data-testid={`doc-card-${doc.id}`} className="border border-[#E3E7E4] rounded-lg p-4">
+              <div className="font-semibold text-sm text-[#161B18] break-words">{doc.name}</div>
+              <div className="text-xs text-[#626A65] mt-1">
+                {doc.document_type}{doc.tax_year ? ` · ${doc.tax_year}` : ""}
+              </div>
+              <div className="text-xs text-[#626A65] mt-1">{who(doc)}{doc.upload_date ? ` · ${d(doc.upload_date)}` : ""}</div>
+              <div className="flex items-center justify-between gap-3 mt-3">
+                <DocStatusBadge status={doc.status} />
+                {doc.storage_path && (
+                  <a data-testid={`download-m-${doc.id}`} className="text-xs font-semibold text-[#078A4B]"
+                    href={`${process.env.REACT_APP_BACKEND_URL}/api/documents/${doc.id}/download`} target="_blank" rel="noreferrer">
+                    View document
+                  </a>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <div className="hidden md:block overflow-x-auto">
           {docs.length > 0 && (
             <table className="w-full text-sm" data-testid="documents-table">
               <thead>
@@ -144,14 +190,14 @@ export function ClientDocuments() {
                   <tr key={doc.id} className="border-b border-[#E3E7E4]">
                     <td className="py-4 pr-4 font-semibold">{doc.name}</td>
                     <td className="py-4 pr-4 text-[#626A65]">{doc.document_type}</td>
-                    <td className="py-4 pr-4 text-[#626A65]">{doc.tax_year}</td>
+                    <td className="py-4 pr-4 text-[#626A65]">{doc.tax_year || "—"}</td>
                     <td className="py-4 pr-4 text-[#626A65]">{doc.uploader_name || "—"}</td>
-                    <td className="py-4 pr-4 text-[#626A65]">{d(doc.upload_date)}</td>
+                    <td className="py-4 pr-4 text-[#626A65]">{doc.upload_date ? d(doc.upload_date) : "—"}</td>
                     <td className="py-4 pr-4"><DocStatusBadge status={doc.status} /></td>
                     <td className="py-4">
                       {doc.storage_path && (
                         <a data-testid={`download-${doc.id}`} className="text-xs font-semibold text-[#078A4B]"
-                          href={`${process.env.REACT_APP_BACKEND_URL}/api/documents/${doc.id}/download?`} target="_blank" rel="noreferrer">
+                          href={`${process.env.REACT_APP_BACKEND_URL}/api/documents/${doc.id}/download`} target="_blank" rel="noreferrer">
                           View
                         </a>
                       )}
@@ -187,26 +233,33 @@ export function ClientMessages() {
   };
 
   return (
-    <AppShell title="Messages" subtitle={cs?.assigned_accountant_name ? `Your accountant: ${cs.assigned_accountant_name}` : "TaxSimba Support"}>
+    <AppShell
+      title="Messages"
+      subtitle={cs?.assigned_accountant_name
+        ? `Your accountant: ${cs.assigned_accountant_name}${cs.tax_year ? ` · ${cs.tax_year}` : ""}`
+        : "TaxSimba Support"}
+    >
       <Panel testId="client-messages-panel">
         <div className="space-y-4 max-h-[420px] overflow-y-auto mb-6">
           {!msgs.length && <Empty text="No messages yet." />}
           {msgs.map((m) => (
             <div key={m.id} data-testid={`message-${m.id}`}
-              className={`rounded-lg p-4 border ${m.sender_role === "CLIENT" ? "bg-[#F1F8F4] border-[#EAF5EE] ml-auto max-w-[80%]" : "bg-white border-[#E3E7E4] max-w-[80%]"}`}>
-              <div className="text-xs font-semibold text-[#006B3C]">{m.sender_name} · {m.sender_role === "CLIENT" ? "You" : m.sender_role}</div>
-              <p className="text-sm text-[#161B18] mt-1.5 whitespace-pre-wrap">{m.body}</p>
+              className={`rounded-lg p-4 border ${m.sender_role === "CLIENT" ? "bg-[#F1F8F4] border-[#EAF5EE] ml-auto max-w-[85%]" : "bg-white border-[#E3E7E4] max-w-[85%]"}`}>
+              <div className="text-xs font-semibold text-[#006B3C]">
+                {m.sender_role === "CLIENT" ? "You" : m.sender_name}
+              </div>
+              <p className="text-sm text-[#161B18] mt-1.5 whitespace-pre-wrap break-words">{m.body}</p>
               <div className="text-[11px] text-[#626A65] mt-2">{dt(m.created_at)}</div>
             </div>
           ))}
         </div>
         {cs && (
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             <input data-testid="message-input" value={body} onChange={(e) => setBody(e.target.value)}
-              placeholder="Write a message to your accountant…"
-              className="flex-1 rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#078A4B]/30" />
+              placeholder="Write a message…"
+              className="w-full sm:flex-1 min-w-0 rounded-lg border border-[#E3E7E4] px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#078A4B]/30" />
             <button data-testid="send-message-btn" onClick={send}
-              className="px-5 py-2.5 rounded-lg bg-[#078A4B] text-white text-sm font-semibold hover:bg-[#006B3C] transition-colors">Send</button>
+              className="w-full sm:w-auto shrink-0 px-5 py-3 rounded-lg bg-[#078A4B] text-white text-sm font-semibold hover:bg-[#006B3C] transition-colors">Send</button>
           </div>
         )}
       </Panel>

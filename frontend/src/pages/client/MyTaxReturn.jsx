@@ -41,14 +41,25 @@ export default function MyTaxReturn() {
       <div className="space-y-6">
         <Panel title="Current status" testId="return-status-panel">
           <div className="flex flex-wrap items-center gap-4">
-            <StatusBadge status={cs.status} />
-            <span className="text-sm text-[#626A65]">{cs.next_action}</span>
+            <StatusBadge status={cs.status} client testId="return-status-badge" />
+            <span className="text-sm text-[#626A65]">
+              {cs.has_submission_record
+                ? "Submitted to HMRC by TaxSimba."
+                : ["CLIENT_APPROVED", "READY_FOR_SUBMISSION"].includes(cs.status)
+                  ? "You've approved your return. Our authorised team will submit it to HMRC — nothing more is needed from you."
+                  : cs.next_action_owner === "CLIENT"
+                    ? cs.next_action
+                    : "Your return is with our team. We'll let you know when we need anything."}
+            </span>
           </div>
           {cs.submission_reference && (
             <p data-testid="client-submission-info" className="text-sm text-[#161B18] mt-4">
-              Submitted on {cs.submission_date} · reference <b>{cs.submission_reference}</b>
+              Submitted on {d(cs.submission_date)} · reference <b>{cs.submission_reference}</b>
             </p>
           )}
+          <p className="text-xs text-[#626A65] mt-4">
+            You review and approve your return. Submitting it to HMRC is handled by TaxSimba's authorised team.
+          </p>
         </Panel>
 
         {!calc && (
@@ -121,7 +132,7 @@ export default function MyTaxReturn() {
                 </>
               ) : (
                 <p data-testid="already-approved-text" className="text-sm text-[#16A05D] font-semibold">
-                  You approved version {calc.version}. Your return is now with our submission team.
+                  You approved version {calc.version}. Your return is now with our authorised submission team.
                 </p>
               )}
             </Panel>

@@ -19,6 +19,36 @@ export const STATUS_LABELS = {
   COMPLETED: "Completed",
 };
 
+// Plain-English wording for client-facing surfaces. Clients must never see a raw enum.
+export const CLIENT_STATUS_LABELS = {
+  NEW: "Getting started",
+  ONBOARDING: "Getting started",
+  AWAITING_ASSIGNMENT: "With TaxSimba",
+  ASSIGNED: "With your accountant",
+  ACCOUNTANT_REVIEW: "With your accountant",
+  AWAITING_CLIENT: "Waiting for you",
+  IN_PREPARATION: "Being prepared",
+  READY_FOR_ADMIN_REVIEW: "In internal review",
+  ADMIN_REVIEW: "In internal review",
+  CHANGES_REQUIRED: "Being updated",
+  ADMIN_APPROVED: "Ready for your approval",
+  AWAITING_CLIENT_APPROVAL: "Ready for your approval",
+  CLIENT_APPROVED: "Approved by you",
+  READY_FOR_SUBMISSION: "Ready for HMRC submission",
+  SUBMISSION_IN_PROGRESS: "Submitting to HMRC",
+  SUBMITTED: "Submitted to HMRC",
+  SUBMISSION_ISSUE: "Submission issue",
+  COMPLETED: "Completed",
+};
+
+export function clientStatusLabel(status) {
+  if (!status) return "—";
+  return (
+    CLIENT_STATUS_LABELS[status] ||
+    status.replaceAll("_", " ").toLowerCase().replace(/^./, (c) => c.toUpperCase())
+  );
+}
+
 const TONES = {
   AWAITING_ASSIGNMENT: ["#FDF3E3", "#B77A12"],
   NEW: ["#EAF5EE", "#006B3C"],
@@ -40,7 +70,7 @@ const TONES = {
   COMPLETED: ["#F1F3F2", "#626A65"],
 };
 
-export function StatusBadge({ status, testId }) {
+export function StatusBadge({ status, testId, client }) {
   const [bg, fg] = TONES[status] || ["#F1F3F2", "#626A65"];
   return (
     <span
@@ -48,7 +78,7 @@ export function StatusBadge({ status, testId }) {
       className="inline-flex items-center rounded-md px-2.5 py-1 text-xs font-semibold whitespace-nowrap"
       style={{ backgroundColor: bg, color: fg }}
     >
-      {STATUS_LABELS[status] || status}
+      {client ? clientStatusLabel(status) : STATUS_LABELS[status] || status}
     </span>
   );
 }

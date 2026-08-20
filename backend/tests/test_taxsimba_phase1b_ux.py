@@ -101,7 +101,7 @@ class TestScenarioA_SAOnlyClient:
 class TestScenarioB_Reject:
     def test_reject_keeps_client_silent(self, tokens, fresh_sa_client):
         # accountant needs to be assigned; admin assigns accountant B to this case
-        acc_b_id = next(u["id"] for u in requests.get(f"{API}/users", headers=_h(tokens["admin"])).json()
+        acc_b_id = next(u["id"] for u in requests.get(f"{API}/users?email=accountant.b@taxsimba.co.uk", headers=_h(tokens["admin"])).json()
                         if u["email"] == "accountant.b@taxsimba.co.uk")
         r = requests.post(f"{API}/cases/{fresh_sa_client['case_id']}/assign",
                           headers=_h(tokens["admin"]),
@@ -136,7 +136,7 @@ class TestScenarioB_Reject:
 class TestScenarioC_Approve:
     def test_approve_creates_offer_and_double_approve_400(self, tokens, fresh_sa_client):
         # make sure accountant B holds this case before recommending on it
-        acc_b_id = next(u["id"] for u in requests.get(f"{API}/users", headers=_h(tokens["admin"])).json()
+        acc_b_id = next(u["id"] for u in requests.get(f"{API}/users?email=accountant.b@taxsimba.co.uk", headers=_h(tokens["admin"])).json()
                         if u["email"] == "accountant.b@taxsimba.co.uk")
         requests.post(f"{API}/cases/{fresh_sa_client['case_id']}/assign",
                       headers=_h(tokens["admin"]), json={"accountant_id": acc_b_id})

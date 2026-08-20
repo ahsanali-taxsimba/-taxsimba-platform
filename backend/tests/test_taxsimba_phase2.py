@@ -59,7 +59,7 @@ def tok():
 
 
 def _find_user(tok_admin, email, role=None):
-    q = f"{API}/users" + (f"?role={role}" if role else "")
+    q = f"{API}/users?email={email}" + (f"&role={role}" if role else "")
     r = requests.get(q, headers=_h(tok_admin))
     assert r.status_code == 200
     return next(u for u in r.json() if u["email"] == email)

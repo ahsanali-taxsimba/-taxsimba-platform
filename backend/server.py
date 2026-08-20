@@ -19,13 +19,14 @@ from auth import (ACCESS_COOKIE, ACCESS_TTL_MINUTES, REFRESH_COOKIE, REFRESH_TTL
                   issue_refresh_token, require_roles, revoke_refresh_token,
                   rotate_refresh_token, verify_password)
 from db import clean, clean_many, db, mask_contact_many, scrub, scrub_many
+from helpcentre import DEFAULT_FAQS, FAQ_CATEGORIES
 from ratelimit import (clear_failures, client_ip, enforce_login_allowed, ensure_indexes,
                        record_failure)
 from seed import seed
 from phase1b import bootstrap_client_services, ensure_phase1b_data, router as phase1b_router
 from storage import init_storage, put_object, get_object, APP_NAME
-from workflow import (ALLOWED_TRANSITIONS, STATUSES, STATUS_META, journey, log_activity, notify,
-                      now_iso, transition)
+from workflow import (ALLOWED_TRANSITIONS, STATUSES, STATUS_META, client_status,
+                      deadline_for_tax_year, journey, log_activity, notify, now_iso, transition)
 
 app = FastAPI(title="TaxSimba")
 api = APIRouter(prefix="/api")
@@ -58,10 +59,22 @@ async def startup():
     await seed()
     await ensure_phase1b_data()
     await ensure_indexes()
+    await _seed_faqs()
     try:
         init_storage()
     except Exception as e:
         print(f"storage init failed: {e}")
+
+
+async def _seed_faqs():
+    """Seed Help Centre content once. Admins edit it at runtime, so existing rows are kept."""
+    for order, (category, question, answer) in enumerate(DEFAULT_FAQS):
+        await db.faqs.update_one(
+            {"question": question},
+            {"$setOnInsert": {"id": str(uuid.uuid4()), "category": category,
+                              "question": question, "answer": answer, "order": order,
+                              "is_active": True, "created_at": now_iso()}},
+            upsert=True)
 
 
 # ---------------------------------------------------------------- schemas
@@ -316,12 +329,38 @@ async def me(user: dict = Depends(get_current_user)):
 
 
 # ---------------------------------------------------------------- helpers
+async def _client_record(user: dict) -> Optional[dict]:
+    return await db.clients.find_one({"user_id": user["id"]})
+
+
+async def _owned_case_ids(user: dict, service_type: Optional[str] = None) -> List[str]:
+    """The authoritative set of case ids the authenticated client owns.
+
+    Ownership is derived from the CASE (authenticated user -> client record -> cases), never
+    from a denormalised copy of the user id on a child row. Child records such as tasks and
+    documents carry their own `owner_id`/`client_user_id` fields, and a stale or incorrectly
+    written value on one of those rows must never grant a client access to another client's
+    data, so every client-facing query is constrained by this set.
+    """
+    query = {"client_user_id": user["id"]}
+    client = await _client_record(user)
+    if client:
+        query = {"$or": [{"client_user_id": user["id"]}, {"client_id": client["id"]}]}
+    if service_type:
+        query = {"$and": [query, {"service_type": service_type}]}
+    return [c["id"] async for c in db.cases.find(query, {"id": 1})]
+
+
 async def _get_case(case_id: str, user: dict) -> dict:
     case = await db.cases.find_one({"id": case_id})
     if not case:
         raise HTTPException(status_code=404, detail="Case not found")
-    if user["role"] == "CLIENT" and case["client_user_id"] != user["id"]:
-        raise HTTPException(status_code=403, detail="Not your case")
+    if user["role"] == "CLIENT":
+        client = await _client_record(user)
+        owns = case.get("client_user_id") == user["id"] or (
+            client and case.get("client_id") == client["id"])
+        if not owns:
+            raise HTTPException(status_code=403, detail="Not your case")
     if user["role"] == "ACCOUNTANT" and case.get("assigned_accountant_id") != user["id"]:
         raise HTTPException(status_code=403, detail="Case not assigned to you")
     return clean(case)
@@ -438,7 +477,7 @@ async def create_case(body: CaseIn, user: dict = Depends(get_current_user)):
         "status": "AWAITING_ASSIGNMENT", "current_stage": stage, "next_action": next_action,
         "next_action_owner": owner, "priority": "MEDIUM",
         "internal_deadline": (datetime.now(timezone.utc) + timedelta(days=14)).isoformat(),
-        "external_deadline": "2026-01-31T23:59:00+00:00", "internal_instructions": None,
+        "external_deadline": deadline_for_tax_year(body.tax_year), "internal_instructions": None,
         "waiting_reason": None, "approved_version_id": None,
         "created_at": now_iso(), "last_updated": now_iso(),
     }
@@ -454,7 +493,12 @@ async def create_case(body: CaseIn, user: dict = Depends(get_current_user)):
 async def get_case(case_id: str, user: dict = Depends(get_current_user)):
     case = await _get_case(case_id, user)
     case["days_left"] = _days_left(case)
-    case["journey"] = journey(case["status"])
+    submission = await db.submission_records.find_one({"case_id": case_id, "status": "SUBMITTED"})
+    case["journey"] = journey(case["status"], has_submission=bool(submission))
+    case["status_label"] = client_status(case["status"])
+    case["has_submission_record"] = bool(submission)
+    if not case.get("external_deadline") and case.get("tax_year"):
+        case["external_deadline"] = deadline_for_tax_year(case["tax_year"])
     return scrub(case, user)
 
 
@@ -508,6 +552,14 @@ async def request_from_client(case_id: str, body: RequestIn,
             detail=f"Information cannot be requested from the client at this stage ({case['status']})")
     req_id = str(uuid.uuid4())
     task_id = str(uuid.uuid4())
+    # Idempotency: one genuine request produces one genuine task/request/document. A repeated
+    # click, refresh or retry for the same still-open item reuses the existing records.
+    existing_task = await db.tasks.find_one({
+        "case_id": case_id, "name": body.title, "owner_role": "CLIENT", "status": "OPEN"})
+    if existing_task:
+        await transition(case, "AWAITING_CLIENT", user,
+                         f"Requested from client: {body.title}", waiting_reason=body.title)
+        return {"ok": True, "task_id": existing_task["id"], "duplicate_prevented": True}
     await db.tasks.insert_one({
         "id": task_id, "case_id": case_id, "case_ref": case["case_ref"],
         "name": body.title, "description": body.description, "owner_role": "CLIENT",
@@ -838,18 +890,24 @@ async def list_tasks(case_id: Optional[str] = None, status: Optional[str] = None
                      service_type: Optional[str] = None,
                      user: dict = Depends(get_current_user)):
     query = {}
-    if service_type:
-        ids = [c["id"] async for c in db.cases.find({"service_type": service_type})]
-        query["case_id"] = {"$in": ids}
     if user["role"] == "CLIENT":
+        # Scoped by owned CASES, not by the task's own owner_id copy.
+        owned = await _owned_case_ids(user, service_type)
+        query["case_id"] = {"$in": owned}
         query["owner_id"] = user["id"]
-    elif user["role"] == "ACCOUNTANT" and not case_id:
-        query["owner_id"] = user["id"]
+        query["owner_role"] = "CLIENT"
+    else:
+        if service_type:
+            ids = [c["id"] async for c in db.cases.find({"service_type": service_type}, {"id": 1})]
+            query["case_id"] = {"$in": ids}
+        if user["role"] == "ACCOUNTANT" and not case_id:
+            query["owner_id"] = user["id"]
     if case_id:
         await _get_case(case_id, user)
         query["case_id"] = case_id
         if user["role"] == "CLIENT":
             query["owner_role"] = "CLIENT"
+            query["owner_id"] = user["id"]
     if status:
         query["status"] = status
     tasks = await db.tasks.find(query).sort("created_at", -1).to_list(300)
@@ -887,15 +945,18 @@ async def list_documents(case_id: Optional[str] = None, filter: Optional[str] = 
                          service_type: Optional[str] = None,
                          user: dict = Depends(get_current_user)):
     query = {}
-    if service_type:
-        ids = [c["id"] async for c in db.cases.find({"service_type": service_type})]
-        query["case_id"] = {"$in": ids}
     if user["role"] == "CLIENT":
-        query["client_user_id"] = user["id"]
+        # Scoped by owned CASES, not by the document's own client_user_id copy.
+        owned = await _owned_case_ids(user, service_type)
+        query["case_id"] = {"$in": owned}
         query["is_internal"] = False
-    elif user["role"] == "ACCOUNTANT":
-        case_ids = [c["id"] async for c in db.cases.find({"assigned_accountant_id": user["id"]})]
-        query["case_id"] = {"$in": case_ids}
+    else:
+        if service_type:
+            ids = [c["id"] async for c in db.cases.find({"service_type": service_type}, {"id": 1})]
+            query["case_id"] = {"$in": ids}
+        if user["role"] == "ACCOUNTANT":
+            case_ids = [c["id"] async for c in db.cases.find({"assigned_accountant_id": user["id"]}, {"id": 1})]
+            query["case_id"] = {"$in": case_ids}
     if case_id:
         await _get_case(case_id, user)
         query["case_id"] = case_id
@@ -905,6 +966,7 @@ async def list_documents(case_id: Optional[str] = None, filter: Optional[str] = 
         query["status"] = {"$in": ["Uploaded", "Under Review", "Accepted", "Replacement Required"]}
     elif filter == "final":
         query["status"] = "Final"
+    query["is_deleted"] = {"$ne": True}
     docs = await db.documents.find(query).sort("created_at", -1).to_list(500)
     return scrub_many(clean_many(docs), user)
 
@@ -975,8 +1037,11 @@ async def download_document(document_id: str, user: dict = Depends(get_current_u
     doc = await db.documents.find_one({"id": document_id})
     if not doc or not doc.get("storage_path"):
         raise HTTPException(status_code=404, detail="File not found")
-    if user["role"] == "CLIENT" and (doc["client_user_id"] != user["id"] or doc.get("is_internal")):
-        raise HTTPException(status_code=403, detail="Not allowed")
+    if user["role"] == "CLIENT":
+        if doc.get("is_internal"):
+            raise HTTPException(status_code=403, detail="Not allowed")
+        # Ownership is proven against the parent case, not the document's copied field.
+        await _get_case(doc["case_id"], user)
     if user["role"] == "ACCOUNTANT":
         await _get_case(doc["case_id"], user)
     data, ctype = get_object(doc["storage_path"])
@@ -1049,7 +1114,13 @@ async def case_reviews(case_id: str, user: dict = Depends(require_roles("ACCOUNT
 # ---------------------------------------------------------------- notifications
 @api.get("/notifications")
 async def list_notifications(user: dict = Depends(get_current_user)):
-    items = await db.notifications.find({"user_id": user["id"]}).sort("created_at", -1).to_list(100)
+    query = {"user_id": user["id"]}
+    if user["role"] == "CLIENT":
+        # Belt and braces: a notification must belong to this client AND reference either no
+        # case or a case they actually own.
+        owned = await _owned_case_ids(user)
+        query["$or"] = [{"case_id": None}, {"case_id": {"$in": owned}}]
+    items = await db.notifications.find(query).sort("created_at", -1).to_list(100)
     return scrub_many(clean_many(items), user)
 
 
@@ -1063,6 +1134,219 @@ async def read_notification(notification_id: str, user: dict = Depends(get_curre
 @api.post("/notifications/read-all")
 async def read_all(user: dict = Depends(get_current_user)):
     await db.notifications.update_many({"user_id": user["id"]}, {"$set": {"is_read": True}})
+    return {"ok": True}
+
+
+@api.get("/notifications/unread-count")
+async def unread_count(user: dict = Depends(get_current_user)):
+    items = await list_notifications(user)
+    return {"count": sum(1 for n in items if not n.get("is_read"))}
+
+
+# ---------------------------------------------------------------- client profile & settings
+class ProfileIn(BaseModel):
+    name: Optional[str] = None
+    phone: Optional[str] = None
+    address: Optional[str] = None
+
+
+class EmailChangeIn(BaseModel):
+    new_email: str
+
+
+class PasswordChangeIn(BaseModel):
+    current_password: str
+    new_password: str
+
+
+class PrefsIn(BaseModel):
+    preferences: dict
+
+
+class DataRequestIn(BaseModel):
+    kind: str
+    reason: Optional[str] = None
+
+
+NOTIFICATION_PREF_KEYS = [
+    "accountant_message", "document_requested", "calculation_ready",
+    "approval_required", "submission_update", "payment_update",
+]
+
+
+def _mask_utr(utr: Optional[str]) -> Optional[str]:
+    if not utr:
+        return None
+    tail = str(utr)[-4:]
+    return f"{'*' * max(len(str(utr)) - 4, 0)}{tail}"
+
+
+@api.get("/my-profile")
+async def my_profile(user: dict = Depends(require_roles("CLIENT"))):
+    client = await _client_record(user)
+    prefs = await db.notification_preferences.find_one({"user_id": user["id"]}) or {}
+    pending_email = await db.email_change_requests.find_one(
+        {"user_id": user["id"], "status": "PENDING"})
+    return {
+        "name": user["name"], "email": user["email"],
+        "phone": (client or {}).get("phone"), "address": (client or {}).get("address"),
+        "client_ref": (client or {}).get("client_ref"),
+        # UTR is masked by default and is never casually editable by the client.
+        "utr_masked": _mask_utr((client or {}).get("utr")),
+        "utr_on_record": bool((client or {}).get("utr")),
+        "pending_email_change": pending_email["new_email"] if pending_email else None,
+        "preferences": {k: prefs.get("preferences", {}).get(k, True) for k in NOTIFICATION_PREF_KEYS},
+    }
+
+
+@api.get("/my-profile/utr")
+async def reveal_utr(user: dict = Depends(require_roles("CLIENT"))):
+    client = await _client_record(user)
+    return {"utr": (client or {}).get("utr")}
+
+
+@api.patch("/my-profile")
+async def update_my_profile(body: ProfileIn, user: dict = Depends(require_roles("CLIENT"))):
+    if body.name:
+        await db.users.update_one({"id": user["id"]}, {"$set": {"name": body.name}})
+    updates = {k: v for k, v in {"phone": body.phone, "address": body.address}.items()
+               if v is not None}
+    if body.name:
+        updates["name"] = body.name
+    if updates:
+        await db.clients.update_one({"user_id": user["id"]}, {"$set": updates})
+    return await my_profile(user)
+
+
+@api.post("/my-profile/email-change")
+async def request_email_change(body: EmailChangeIn, user: dict = Depends(require_roles("CLIENT"))):
+    """Email changes are verified, never applied straight away."""
+    new_email = body.new_email.strip().lower()
+    if "@" not in new_email:
+        raise HTTPException(status_code=400, detail="Enter a valid email address")
+    if await db.users.find_one({"email": new_email}):
+        raise HTTPException(status_code=400, detail="That email address is already in use")
+    existing = await db.email_change_requests.find_one({"user_id": user["id"], "status": "PENDING"})
+    if existing:
+        await db.email_change_requests.update_one(
+            {"id": existing["id"]}, {"$set": {"new_email": new_email, "created_at": now_iso()}})
+        return {"ok": True, "status": "PENDING", "duplicate_prevented": True}
+    await db.email_change_requests.insert_one({
+        "id": str(uuid.uuid4()), "user_id": user["id"], "current_email": user["email"],
+        "new_email": new_email, "status": "PENDING", "created_at": now_iso(),
+    })
+    async for admin in db.users.find({"role": {"$in": ["ADMIN", "SUPER_ADMIN"]}}):
+        await notify(admin["id"], "Email change verification requested",
+                     f"{user['name']} asked to change their sign-in email.", None,
+                     "/admin", "SECURITY")
+    return {"ok": True, "status": "PENDING"}
+
+
+@api.post("/my-profile/change-password")
+async def change_my_password(body: PasswordChangeIn, user: dict = Depends(get_current_user)):
+    full = await db.users.find_one({"id": user["id"]})
+    if not verify_password(body.current_password, full["password_hash"]):
+        raise HTTPException(status_code=400, detail="Your current password is not correct")
+    if len(body.new_password) < 8:
+        raise HTTPException(status_code=400, detail="Choose a password of at least 8 characters")
+    await db.users.update_one({"id": user["id"]},
+                             {"$set": {"password_hash": hash_password(body.new_password)}})
+    await db.activity_logs.insert_one({
+        "id": str(uuid.uuid4()), "case_id": None, "action": "Password changed",
+        "user_id": user["id"], "user_name": user["name"], "role": user["role"],
+        "meta": {}, "created_at": now_iso(),
+    })
+    return {"ok": True}
+
+
+@api.patch("/my-preferences")
+async def update_prefs(body: PrefsIn, user: dict = Depends(require_roles("CLIENT"))):
+    prefs = {k: bool(body.preferences.get(k, True)) for k in NOTIFICATION_PREF_KEYS}
+    await db.notification_preferences.update_one(
+        {"user_id": user["id"]}, {"$set": {"user_id": user["id"], "preferences": prefs}},
+        upsert=True)
+    return {"preferences": prefs}
+
+
+@api.post("/my-data-requests")
+async def create_data_request(body: DataRequestIn, user: dict = Depends(require_roles("CLIENT"))):
+    """Data export / account closure requests are controlled. Closure never destroys records
+    that must be retained for tax and accounting purposes."""
+    if body.kind not in ("DATA_EXPORT", "ACCOUNT_CLOSURE"):
+        raise HTTPException(status_code=400, detail="Unknown request type")
+    existing = await db.data_requests.find_one({"user_id": user["id"], "kind": body.kind,
+                                                "status": "PENDING"})
+    if existing:
+        return {"ok": True, "status": "PENDING", "duplicate_prevented": True}
+    await db.data_requests.insert_one({
+        "id": str(uuid.uuid4()), "user_id": user["id"], "user_name": user["name"],
+        "kind": body.kind, "reason": body.reason, "status": "PENDING", "created_at": now_iso(),
+    })
+    async for admin in db.users.find({"role": {"$in": ["ADMIN", "SUPER_ADMIN"]}}):
+        await notify(admin["id"], "Client data request",
+                     f"{user['name']} submitted a {body.kind.replace('_', ' ').lower()} request.",
+                     None, "/admin", "REQUEST")
+    return {"ok": True, "status": "PENDING"}
+
+
+@api.get("/my-data-requests")
+async def list_my_data_requests(user: dict = Depends(require_roles("CLIENT"))):
+    rows = await db.data_requests.find({"user_id": user["id"]}).sort("created_at", -1).to_list(20)
+    return clean_many(rows)
+
+
+# ---------------------------------------------------------------- help centre
+class FaqIn(BaseModel):
+    category: str
+    question: str
+    answer: str
+    order: int = 0
+
+
+@api.get("/faqs")
+async def list_faqs(category: Optional[str] = None, q: Optional[str] = None,
+                    user: dict = Depends(get_current_user)):
+    query = {"is_active": True}
+    if category:
+        query["category"] = category
+    rows = await db.faqs.find(query).sort("order", 1).to_list(300)
+    rows = clean_many(rows)
+    if q:
+        needle = q.lower()
+        rows = [r for r in rows
+                if needle in r["question"].lower() or needle in r["answer"].lower()
+                or needle in r["category"].lower()]
+    return rows
+
+
+@api.get("/faq-categories")
+async def faq_categories(user: dict = Depends(get_current_user)):
+    return FAQ_CATEGORIES
+
+
+@api.post("/faqs")
+async def create_faq(body: FaqIn, user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    row = {"id": str(uuid.uuid4()), "category": body.category, "question": body.question,
+           "answer": body.answer, "order": body.order, "is_active": True,
+           "updated_by": user["name"], "created_at": now_iso()}
+    await db.faqs.insert_one(dict(row))
+    return clean(row)
+
+
+@api.patch("/faqs/{faq_id}")
+async def update_faq(faq_id: str, body: FaqIn,
+                     user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    res = await db.faqs.update_one({"id": faq_id}, {"$set": {
+        "category": body.category, "question": body.question, "answer": body.answer,
+        "order": body.order, "updated_by": user["name"], "updated_at": now_iso()}})
+    if not res.matched_count:
+        raise HTTPException(status_code=404, detail="FAQ not found")
+    return {"ok": True}
+
+
+@api.delete("/faqs/{faq_id}")
+async def delete_faq(faq_id: str, user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    await db.faqs.update_one({"id": faq_id}, {"$set": {"is_active": False}})
     return {"ok": True}
 
 
@@ -1141,9 +1425,19 @@ async def accountant_workload(user: dict = Depends(require_roles("ADMIN", "SUPER
 
 # ---------------------------------------------------------------- super admin
 @api.get("/users")
-async def list_users(role: Optional[str] = None,
+async def list_users(role: Optional[str] = None, email: Optional[str] = None,
                      user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
-    query = {"role": role} if role else {}
+    """Staff directory lookup.
+
+    The list is capped, so an exact `email` lookup is resolved server-side rather than by
+    scanning a truncated page -- otherwise an older account can silently fall off the end
+    once enough newer accounts exist.
+    """
+    query = {}
+    if role:
+        query["role"] = role
+    if email:
+        query["email"] = email.strip().lower()
     users = await db.users.find(query).sort("created_at", -1).to_list(500)
     return mask_contact_many(clean_many(users), user)
 
@@ -1234,7 +1528,10 @@ SERVICE_LABELS_ALL = {"SELF_ASSESSMENT": "Self Assessment", "MTD_INCOME_TAX": "M
 async def my_actions(user: dict = Depends(require_roles("CLIENT"))):
     """Single Action Required feed for the client across every service."""
     outstanding, history = [], []
-    async for t in db.tasks.find({"owner_id": user["id"]}).sort("created_at", -1):
+    owned = set(await _owned_case_ids(user))
+    seen_history = set()
+    async for t in db.tasks.find({"owner_id": user["id"], "case_id": {"$in": list(owned)}}
+                                ).sort("created_at", -1):
         case = await db.cases.find_one({"id": t["case_id"]})
         item = {
             "id": t["id"], "type": "TASK", "action": t["name"], "description": t.get("description"),
@@ -1244,9 +1541,17 @@ async def my_actions(user: dict = Depends(require_roles("CLIENT"))):
             "due_date": t.get("due_date"), "status": t["status"], "link": "/tasks",
             "completed_date": t.get("completed_date"), "created_at": t["created_at"],
         }
-        (history if t["status"] == "COMPLETED" else outstanding).append(item)
+        if t["status"] == "COMPLETED":
+            # One completed request must produce exactly one completed-history entry.
+            key = (t["name"], t["case_id"], (t.get("completed_date") or "")[:10])
+            if key in seen_history:
+                continue
+            seen_history.add(key)
+            history.append(item)
+        else:
+            outstanding.append(item)
 
-    async for c in db.cases.find({"client_user_id": user["id"],
+    async for c in db.cases.find({"client_user_id": user["id"], "id": {"$in": list(owned)},
                                   "status": {"$in": ["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"]}}):
         outstanding.append({
             "id": f"approve-{c['id']}", "type": "APPROVAL",
@@ -1264,11 +1569,13 @@ async def my_actions(user: dict = Depends(require_roles("CLIENT"))):
             "action": f"Review recommended service: {o.get('service_name')}",
             "description": "Your accountant recommended this and our team has approved it for review.",
             "service_type": o["service_type"], "service_name": o.get("service_name"),
-            "case_id": o.get("recommendation_id"), "case_ref": None, "due_date": None,
+            # A recommendation is account-level, not tied to a case.
+            "case_id": None, "recommendation_id": o.get("recommendation_id"),
+            "case_ref": None, "due_date": None,
             "status": "OPEN", "link": f"/recommendation/{o['id']}", "created_at": o["created_at"],
         })
 
-    return {"outstanding": outstanding, "history": history[:50]}
+    return {"outstanding": outstanding, "history": history}
 
 
 @api.get("/overview")
