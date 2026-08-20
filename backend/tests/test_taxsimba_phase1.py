@@ -62,7 +62,7 @@ class TestAuth:
 @pytest.fixture(scope="module")
 def new_case(tokens):
     # find Client B user id
-    r = requests.get(f"{API}/users?role=CLIENT", headers=_hdr(tokens["admin"]))
+    r = requests.get(f"{API}/users?role=CLIENT", headers=_hdr(tokens["super"]))
     assert r.status_code == 200
     client_b = next(u for u in r.json() if u["email"] == CREDS["client_b"][0])
     r = requests.post(f"{API}/cases",

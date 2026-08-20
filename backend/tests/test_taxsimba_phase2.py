@@ -85,8 +85,8 @@ def _leaks(obj) -> list:
 @pytest.fixture(scope="module")
 def lifecycle(tok):
     """Drive a brand-new case all the way to COMPLETED. Returns final case dict + ids."""
-    client = _find_user(tok["admin"], CREDS["client_a"][0], "CLIENT")
-    acc = _find_user(tok["admin"], CREDS["acc_a"][0], "ACCOUNTANT")
+    client = _find_user(tok["super"], CREDS["client_a"][0], "CLIENT")
+    acc = _find_user(tok["super"], CREDS["acc_a"][0], "ACCOUNTANT")
 
     # 1. Create
     r = requests.post(f"{API}/cases",
@@ -214,8 +214,8 @@ class TestNegativeSubmissionCompletion:
 
     def _create_case_at_status(self, tok, target_status, client_email="clientb@example.com"):
         """Drives a fresh case to target_status. Returns case_id."""
-        client = _find_user(tok["admin"], client_email, "CLIENT")
-        acc = _find_user(tok["admin"], CREDS["acc_a"][0], "ACCOUNTANT")
+        client = _find_user(tok["super"], client_email, "CLIENT")
+        acc = _find_user(tok["super"], CREDS["acc_a"][0], "ACCOUNTANT")
         r = requests.post(f"{API}/cases",
                           json={"client_user_id": client["id"], "tax_year": "2024/25",
                                 "service_type": "SELF_ASSESSMENT"}, headers=_h(tok["admin"]))
@@ -295,8 +295,8 @@ class TestNegativeSubmissionCompletion:
 # ============================================================ negative: no stage skipping (raw API)
 class TestNoStageSkipping:
     def test_submit_for_admin_review_from_assigned(self, tok):
-        client = _find_user(tok["admin"], CREDS["client_b"][0], "CLIENT")
-        acc = _find_user(tok["admin"], CREDS["acc_a"][0], "ACCOUNTANT")
+        client = _find_user(tok["super"], CREDS["client_b"][0], "CLIENT")
+        acc = _find_user(tok["super"], CREDS["acc_a"][0], "ACCOUNTANT")
         r = requests.post(f"{API}/cases",
                           json={"client_user_id": client["id"], "tax_year": "2024/25",
                                 "service_type": "SELF_ASSESSMENT"}, headers=_h(tok["admin"]))
@@ -313,8 +313,8 @@ class TestNoStageSkipping:
         assert c["status"] == "ASSIGNED"
 
     def test_admin_approve_when_no_review_submitted(self, tok):
-        client = _find_user(tok["admin"], CREDS["client_b"][0], "CLIENT")
-        acc = _find_user(tok["admin"], CREDS["acc_a"][0], "ACCOUNTANT")
+        client = _find_user(tok["super"], CREDS["client_b"][0], "CLIENT")
+        acc = _find_user(tok["super"], CREDS["acc_a"][0], "ACCOUNTANT")
         r = requests.post(f"{API}/cases",
                           json={"client_user_id": client["id"], "tax_year": "2024/25",
                                 "service_type": "SELF_ASSESSMENT"}, headers=_h(tok["admin"]))
@@ -331,8 +331,8 @@ class TestNoStageSkipping:
         assert c["status"] == "ACCOUNTANT_REVIEW"
 
     def test_client_approve_before_admin_approval(self, tok):
-        client = _find_user(tok["admin"], CREDS["client_b"][0], "CLIENT")
-        acc = _find_user(tok["admin"], CREDS["acc_a"][0], "ACCOUNTANT")
+        client = _find_user(tok["super"], CREDS["client_b"][0], "CLIENT")
+        acc = _find_user(tok["super"], CREDS["acc_a"][0], "ACCOUNTANT")
         r = requests.post(f"{API}/cases",
                           json={"client_user_id": client["id"], "tax_year": "2024/25",
                                 "service_type": "SELF_ASSESSMENT"}, headers=_h(tok["admin"]))

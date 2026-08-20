@@ -34,3 +34,34 @@ def scrub(doc, user):
 
 def scrub_many(docs, user):
     return [scrub(x, user) for x in docs]
+
+
+def mask_email(v):
+    if not v or "@" not in v:
+        return v
+    name, dom = v.split("@", 1)
+    return f"{name[0]}***@{dom}"
+
+
+def mask_phone(v):
+    if not v or len(v) < 4:
+        return v
+    return f"{v[:2]}*** ***{v[-3:]}"
+
+
+def mask_contact(doc, user):
+    """Standard Admin sees masked client contact details; Super Admin sees full."""
+    if not doc or user["role"] != "ADMIN":
+        return doc
+    if doc.get("role") and doc.get("role") != "CLIENT":
+        return doc
+    if "email" in doc:
+        doc["email"] = mask_email(doc["email"])
+        doc["contact_masked"] = True
+    if "phone" in doc:
+        doc["phone"] = mask_phone(doc["phone"])
+    return doc
+
+
+def mask_contact_many(docs, user):
+    return [mask_contact(x, user) for x in docs]

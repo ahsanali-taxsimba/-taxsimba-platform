@@ -58,9 +58,34 @@ Full four-role end-to-end audit of the current build (no features added). Defect
 
 Final matrix (iteration_8): all 11 QA sections **PASS**, zero critical or minor open issues; 134 regression tests + 8 new verification tests green; screenshots of all four role journeys in `/app/test_reports/screens_it8/`.
 
+## Final Phase 1 / 1B refinement, verification & LOCK (2026-06)
+Minimum corrective changes only — two newly identified functional requirements plus one side-effect defect:
+1. **Admin client-contact masking** — `GET /api/users?role=CLIENT` returns client email as `x***@domain` and phone as `07*** ***nnn` with `contact_masked=true` for ADMIN; SUPER_ADMIN receives the same rows unmasked; non-CLIENT rows are never masked; `password_hash`, card data and `stripe_payment_intent_id` are never returned to any role.
+2. **Audited contact reveal** — `POST /api/clients/{id}/reveal-contact` (SUPER_ADMIN only, mandatory non-blank reason, else 400) returns full contact and persists an audit row (user, role, client, reason, timestamp) readable via `GET /api/contact-access-log`. ADMIN and ACCOUNTANT get 403 on both endpoints.
+3. **Missing mandatory information blocks final submission only, never dashboard access** — a client with a missing UTR/questionnaire/documents keeps full access to the dashboard, `/api/auth/me`, cases, tasks, documents, messages, notifications and `/api/my-actions`; the gap surfaces as an "Action Required" card. `POST /api/cases/{id}/record-submission` returns 400 ("mandatory item(s) of tax information outstanding") while an open mandatory task exists, and 200 once completed.
+4. **Stage-guard orphan fix** — request-from-client on a `READY_FOR_SUBMISSION` case is rejected 400 **before** any write, creating zero rows in `tasks`, `document_requests` or `messages`. Requests from ACCOUNTANT_REVIEW / IN_PREPARATION / AWAITING_CLIENT / CHANGES_REQUIRED still succeed.
+
+Test-fixture note: Phase 1/1B/2 suites now resolve CLIENT users via the super-admin token because admin email is intentionally masked. Correct-by-design, not a masked defect.
+
+### Independent verification (iteration_9, testing agent)
+- All four fixes **PASS** via 15 new targeted tests in `/app/backend/tests/test_iteration9_final_lock.py`.
+- **Full regression: 157 passed, 3 legacy skips** (Client B already on Elite so the upgrade path is exhausted; MTD already active — legitimate seed state, same as iteration 8).
+- **Multi-accountant isolation at scale**: 9 fresh clients/cases across Accountants A/B/C — each accountant's `/api/cases` contains only their own IDs, cross-accountant direct fetches return 403/404, admin sees all. Needs-action workloads 231 / 22 / 9 non-overlapping; Admin and Super Admin both see the practice-wide 399.
+- **Reassignment without data loss**: `POST /api/cases/{id}/assign` transfers ownership, the previous accountant loses access, the new accountant gains it, and tasks / activity / assignment history are all preserved (≥2 assignment entries).
+- **All six role browser journeys** render clean at their landing routes with no console errors — screenshots in `/app/test_reports/screens_it9/` (01 client, 02 accountant A, 03 accountant B, 04 accountant C, 05 admin, 06 super admin).
+- Client-facing language re-checked: friendly labels only, no HMRC API codes or raw statuses.
+- Payments (test/sandbox only) duplicate guards from iteration 8 still green.
+- Zero critical and zero minor open defects. No product code was changed by the testing agent.
+
+### Lock state
+- **PHASE 1 / 1B: LOCKED** — functionally verified end-to-end (automated regression + role-based browser + backend/API authorisation checks).
+- **READY TO START FULL MTD OPERATIONS PHASE: YES — but it MUST NOT start automatically.** No Full MTD Operations work has been started and none may begin without explicit user instruction.
+- "Ready to lock" is **not** "production-security-ready": the production-hardening items below are mandatory before any live launch. Stripe remains test/sandbox only; nothing has been deployed.
+
 ## Known gaps / not built
 - MTD quarterly operational workflow, HMRC API, Xero, SimbaX (deliberately deferred).
-- CORS is `*`; no login brute-force lockout; no outbound email.
+- **Production hardening (REPORT-ONLY, deliberately not changed):** `CORS_ORIGINS="*"` with cookie auth; **no login rate limiting** on `/api/auth/login` (no lockout counter in code); **no brute-force protection**; JWT session cookie is httpOnly/`secure=true`/`samesite=none` — fine for preview, needs per-IP/per-account throttling and a rotation strategy for production. **Mandatory pre-production actions.**
+- No outbound email (Resend not implemented); in-app notifications only.
 - `server.py` + `phase1b.py` are large and would benefit from being split into routers.
 
 ## Backlog

@@ -361,6 +361,10 @@ export default function CaseWorkspace() {
                     <input data-testid="request-doc-required" type="checkbox" checked={form.document_required !== false}
                       onChange={(e) => setForm({ ...form, document_required: e.target.checked })} /> Document required
                   </label>
+                  <label className="flex items-center gap-2 text-sm">
+                    <input data-testid="request-mandatory" type="checkbox" checked={!!form.mandatory}
+                      onChange={(e) => setForm({ ...form, mandatory: e.target.checked })} /> Mandatory for submission
+                  </label>
                   <input data-testid="request-due-date" type="date" className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
                     value={form.due_date || ""} onChange={(e) => setForm({ ...form, due_date: e.target.value })} />
                   <textarea data-testid="request-message" rows={2} placeholder="Message to client" className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
@@ -368,6 +372,7 @@ export default function CaseWorkspace() {
                   <button data-testid="send-request-btn" className={`${primary} w-full`} onClick={() => act(() => api.post(`/cases/${id}/request-from-client`, {
                     request_type: form.request_type || "DOCUMENT", title: form.title, description: form.description || "",
                     document_required: form.document_required !== false,
+                    mandatory: !!form.mandatory,
                     due_date: form.due_date ? new Date(form.due_date).toISOString() : null, message: form.message || "",
                   }))}>Send Request</button>
                 </div>

@@ -13,12 +13,12 @@ from pydantic import BaseModel, EmailStr
 
 from auth import (create_access_token, get_current_user, hash_password, is_admin,
                   is_staff, require_roles, verify_password)
-from db import clean, clean_many, db, scrub, scrub_many
+from db import clean, clean_many, db, mask_contact_many, scrub, scrub_many
 from seed import seed
 from phase1b import bootstrap_client_services, ensure_phase1b_data, router as phase1b_router
 from storage import init_storage, put_object, get_object, APP_NAME
-from workflow import (STATUSES, STATUS_META, journey, log_activity, notify, now_iso,
-                      transition)
+from workflow import (ALLOWED_TRANSITIONS, STATUSES, STATUS_META, journey, log_activity, notify,
+                      now_iso, transition)
 
 app = FastAPI(title="TaxSimba")
 api = APIRouter(prefix="/api")
@@ -74,6 +74,7 @@ class RequestIn(BaseModel):
     title: str
     description: str = ""
     document_required: bool = True
+    mandatory: bool = False
     due_date: Optional[str] = None
     message: str = ""
 
@@ -361,12 +362,17 @@ async def mark_reviewed(case_id: str, user: dict = Depends(require_roles("ACCOUN
 async def request_from_client(case_id: str, body: RequestIn,
                              user: dict = Depends(require_roles("ACCOUNTANT", "ADMIN", "SUPER_ADMIN"))):
     case = await _get_case(case_id, user)
+    if "AWAITING_CLIENT" not in ALLOWED_TRANSITIONS.get(case["status"], []):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Information cannot be requested from the client at this stage ({case['status']})")
     req_id = str(uuid.uuid4())
     task_id = str(uuid.uuid4())
     await db.tasks.insert_one({
         "id": task_id, "case_id": case_id, "case_ref": case["case_ref"],
         "name": body.title, "description": body.description, "owner_role": "CLIENT",
         "owner_id": case["client_user_id"], "due_date": body.due_date, "status": "OPEN",
+        "mandatory": body.mandatory,
         "created_by": user["id"], "created_by_name": user["name"],
         "created_at": now_iso(), "completed_date": None, "request_id": req_id,
     })
@@ -580,6 +586,13 @@ async def record_submission(case_id: str, body: SubmissionIn,
         raise HTTPException(status_code=400, detail="Client approval is not complete")
     if case["status"] != "READY_FOR_SUBMISSION":
         raise HTTPException(status_code=400, detail=f"Case must be READY_FOR_SUBMISSION (currently {case['status']})")
+    blocking = await db.tasks.count_documents({"case_id": case_id, "status": "OPEN",
+                                              "mandatory": True})
+    if blocking:
+        raise HTTPException(
+            status_code=400,
+            detail=f"{blocking} mandatory item(s) of tax information are still outstanding — "
+                   "these must be resolved before a submission can be recorded")
     await db.submission_records.update_one(
         {"case_id": case_id},
         {"$set": {"status": "SUBMITTED", "submission_date": body.submission_date,
@@ -992,7 +1005,31 @@ async def list_users(role: Optional[str] = None,
                      user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
     query = {"role": role} if role else {}
     users = await db.users.find(query).sort("created_at", -1).to_list(500)
-    return clean_many(users)
+    return mask_contact_many(clean_many(users), user)
+
+
+@api.post("/clients/{client_user_id}/reveal-contact")
+async def reveal_contact(client_user_id: str, body: ReasonIn,
+                         user: dict = Depends(require_roles("SUPER_ADMIN"))):
+    """Authorised full-contact reveal — recorded in the audit trail."""
+    if not body.reason.strip():
+        raise HTTPException(status_code=400, detail="A reason is required")
+    target = await db.users.find_one({"id": client_user_id, "role": "CLIENT"})
+    if not target:
+        raise HTTPException(status_code=404, detail="Client not found")
+    await db.contact_access_audit.insert_one({
+        "id": str(uuid.uuid4()), "client_user_id": client_user_id,
+        "client_name": target["name"], "accessed_by": user["name"], "role": user["role"],
+        "reason": body.reason, "created_at": now_iso(),
+    })
+    return {"email": target["email"], "phone": target.get("phone"),
+            "name": target["name"], "utr": target.get("utr")}
+
+
+@api.get("/contact-access-log")
+async def contact_access_log(user: dict = Depends(require_roles("SUPER_ADMIN"))):
+    rows = await db.contact_access_audit.find({}).sort("created_at", -1).to_list(200)
+    return clean_many(rows)
 
 
 @api.post("/users")
