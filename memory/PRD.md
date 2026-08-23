@@ -281,3 +281,8 @@ Both checks PASS.
 frontend staff/CaseWorkspace.jsx: reference field relabelled "HMRC / filing software submission reference" with helper text warning against the TaxSimba case ID (date + reference still required, note optional).
 frontend client/MyTaxReturn.jsx: new "Paying your tax" panel shown once a submission is recorded - amount due and payment deadline from the final approved calculation only, payments on account rendered when present in the calc breakdown, "No payment is currently due." when nothing is owed or a refund, plus the "paid directly to HMRC" disclaimer and GOV.UK Sign in to HMRC / Pay HMRC links. No backend changes.
 Checks 1-7 PASS.
+
+## 2026-06 Completed case lock
+backend/server.py: assign and unassign now reject COMPLETED cases (400, "reopen the case first"); request-from-client was already blocked by the transition rules; reopen stays ADMIN/SUPER_ADMIN only with a required reason and audited entry.
+frontend staff/CaseWorkspace.jsx: Assign/Reassign/Unassign and Request from Client hidden when the case is COMPLETED; Add Internal Note, Reopen Case and all history tabs remain.
+Checks 1-7 PASS. SA-1456 left COMPLETED with its submission and completion records intact (test note and test reopen audit entry removed).

@@ -561,6 +561,9 @@ async def get_case(case_id: str, user: dict = Depends(get_current_user)):
 async def assign_case(case_id: str, body: AssignIn,
                       user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
     case = await _get_case(case_id, user)
+    if case["status"] == "COMPLETED":
+        raise HTTPException(status_code=400,
+                            detail="Completed cases are locked — reopen the case first")
     acc = await db.users.find_one({"id": body.accountant_id, "role": "ACCOUNTANT", "is_active": True})
     if not acc:
         raise HTTPException(status_code=404, detail="Accountant not found")
@@ -961,6 +964,9 @@ async def reopen_case(case_id: str, body: ReasonIn,
 async def unassign_case(case_id: str, body: ReasonIn,
                         user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
     case = await _get_case(case_id, user)
+    if case["status"] == "COMPLETED":
+        raise HTTPException(status_code=400,
+                            detail="Completed cases are locked — reopen the case first")
     if not case.get("assigned_accountant_id"):
         raise HTTPException(status_code=400, detail="Case is not assigned")
     previous = case.get("assigned_accountant_name")

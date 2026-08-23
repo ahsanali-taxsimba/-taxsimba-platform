@@ -115,7 +115,7 @@ export default function CaseWorkspace() {
 
   const adminActions = isAdmin && (
     <div className="flex flex-wrap gap-3">
-      {!cs.assigned_accountant_id ? (
+      {st === "COMPLETED" ? null : !cs.assigned_accountant_id ? (
         <button data-testid="assign-accountant-btn" className={primary} onClick={() => setModal("assign")}>Assign Accountant</button>
       ) : (
         <>
@@ -132,7 +132,9 @@ export default function CaseWorkspace() {
           <button data-testid="admin-return-btn" className={`${btn} bg-[#D64545] text-white hover:opacity-90`} onClick={() => setModal("return")}>Return for Changes</button>
         </>
       )}
-      <button data-testid="admin-request-btn" className={ghost} onClick={() => setModal("request")}>Request from Client</button>
+      {st !== "COMPLETED" && (
+        <button data-testid="admin-request-btn" className={ghost} onClick={() => setModal("request")}>Request from Client</button>
+      )}
       <button data-testid="add-note-btn" className={ghost} onClick={() => setModal("note")}>Add Internal Note</button>
       {st === "READY_FOR_SUBMISSION" && (
         <button data-testid="record-submission-btn" className={primary} onClick={() => setModal("submission")}>Record Submission</button>
