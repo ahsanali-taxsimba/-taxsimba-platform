@@ -216,6 +216,9 @@ export default function CaseWorkspace() {
                 <div>
                   <div className="font-semibold text-sm">{t.name}</div>
                   <p className="text-sm text-[#626A65]">{t.description}</p>
+                  <p className="text-xs text-[#626A65] mt-1">
+                    Case {t.case_ref || cs?.case_ref}{(t.tax_year || cs?.tax_year) ? ` · ${t.tax_year || cs.tax_year}` : ""}
+                  </p>
                   <p className="text-xs text-[#626A65] mt-1">Owner: {t.owner_role} · Due {d(t.due_date)} · Created by {t.created_by_name} {d(t.created_at)}</p>
                 </div>
                 <div className="text-xs font-semibold" style={{ color: t.status === "COMPLETED" ? "#16A05D" : "#E6A23C" }}>

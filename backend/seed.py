@@ -24,6 +24,10 @@ def _user(email, name, role, password, extra=None):
 async def seed():
     await db.users.create_index("email", unique=True)
     await db.cases.create_index("id")
+    try:
+        await db.cases.create_index("case_ref", unique=True)
+    except Exception as e:
+        print(f"case_ref unique index not applied: {e}")
     await db.services.create_index("code", unique=True)
 
     await db.services.update_one(

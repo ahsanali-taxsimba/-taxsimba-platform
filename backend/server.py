@@ -427,6 +427,7 @@ async def list_cases(status: Optional[str] = None, bucket: Optional[str] = None,
         "unassigned": {"assigned_accountant_id": None},
         "in_progress": {"status": {"$in": ["ASSIGNED", "ACCOUNTANT_REVIEW", "IN_PREPARATION", "CHANGES_REQUIRED"]}},
         "waiting_client": {"status": "AWAITING_CLIENT"},
+        "awaiting_client": {"status": "AWAITING_CLIENT"},
         "admin_review": {"status": {"$in": ["READY_FOR_ADMIN_REVIEW", "ADMIN_REVIEW"]}},
         "client_approval": {"status": {"$in": ["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"]}},
         "ready_submission": {"status": {"$in": ["CLIENT_APPROVED", "READY_FOR_SUBMISSION"]}},
@@ -457,17 +458,43 @@ async def list_cases(status: Optional[str] = None, bucket: Optional[str] = None,
     }
     if bucket and bucket in buckets:
         query.update(buckets[bucket])
+    elif bucket:
+        # An unknown bucket used to be ignored, which silently returned every case under the
+        # wrong status filter.
+        raise HTTPException(status_code=400, detail="Unknown case filter")
     if q:
-        # Search by client name, case reference or the client's email address. Email is used to
-        # locate the case only -- it is never returned to an accountant.
+        # Search by client name, case reference or the client's email address. The client's
+        # current name is resolved from the client record, so a case whose denormalised copy is
+        # stale is still found. Email is used to locate the case only -- it is never returned.
         matched_users = [u["id"] async for u in db.users.find(
-            {"role": "CLIENT", "email": {"$regex": q, "$options": "i"}}, {"id": 1})]
+            {"role": "CLIENT", "$or": [{"email": {"$regex": q, "$options": "i"}},
+                                       {"name": {"$regex": q, "$options": "i"}}]}, {"id": 1})]
         query["$or"] = [{"client_name": {"$regex": q, "$options": "i"}},
                         {"case_ref": {"$regex": q, "$options": "i"}},
                         {"client_user_id": {"$in": matched_users}}]
 
     cases = await db.cases.find(query).sort("last_updated", -1).to_list(500)
     return scrub_many(await _decorate(cases), user)
+
+
+async def _next_case_ref() -> str:
+    """Allocate a unique case reference. Derived from the highest reference ever issued, not
+    from the document count, so deleting a case can never re-issue its reference."""
+    while True:
+        counter = await db.counters.find_one_and_update(
+            {"id": "case_ref"}, {"$inc": {"value": 1}},
+            upsert=True, return_document=True)
+        seq = (counter or {}).get("value", 1)
+        if seq < 1001:
+            highest = 1000
+            async for c in db.cases.find({"case_ref": {"$regex": r"^SA-\d+$"}}, {"case_ref": 1}):
+                highest = max(highest, int(c["case_ref"].split("-")[1]))
+            await db.counters.update_one({"id": "case_ref"}, {"$set": {"value": highest}},
+                                         upsert=True)
+            continue
+        ref = f"SA-{seq}"
+        if not await db.cases.find_one({"case_ref": ref}):
+            return ref
 
 
 @api.post("/cases")
@@ -483,9 +510,8 @@ async def create_case(body: CaseIn, user: dict = Depends(get_current_user)):
         raise HTTPException(status_code=404, detail="Client not found")
     client = await db.clients.find_one({"user_id": client_user_id})
     stage, next_action, owner = STATUS_META["AWAITING_ASSIGNMENT"]
-    count = await db.cases.count_documents({})
     case = {
-        "id": str(uuid.uuid4()), "case_ref": f"SA-{1001 + count}",
+        "id": str(uuid.uuid4()), "case_ref": await _next_case_ref(),
         "client_id": client["id"] if client else None, "client_user_id": client_user_id,
         "client_name": client_user["name"], "service_type": body.service_type,
         "tax_year": body.tax_year, "assigned_accountant_id": None,
@@ -1267,6 +1293,11 @@ async def update_my_profile(body: ProfileIn, user: dict = Depends(require_roles(
         updates["name"] = body.name
     if updates:
         await db.clients.update_one({"user_id": user["id"]}, {"$set": updates})
+    if body.name:
+        # The client's name is denormalised onto their cases for staff views -- keep every copy
+        # in step so one client always resolves to the same identity everywhere.
+        await db.cases.update_many({"client_user_id": user["id"]},
+                                   {"$set": {"client_name": body.name}})
     if updates:
         # Audit who changed which personal details and when -- values themselves are not logged.
         await db.activity_logs.insert_one({
