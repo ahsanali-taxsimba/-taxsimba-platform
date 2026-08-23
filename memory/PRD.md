@@ -293,3 +293,11 @@ backend/server.py: POST /staff-invites (SUPER_ADMIN, creates PENDING user with n
 frontend: new pages/AcceptInvite.jsx at route /invite/:token; SuperAdmin.jsx invite form (name, work email, role, specialism, capacity) showing the one-time link, Resend invite for pending users, reassignment warning on deactivate. POST /api/users left untouched.
 NOTE: no email delivery exists in this app, so the setup link is shown to the Super Admin to pass on (Resend integration would be needed to email it).
 Checks 1-10 PASS. Demo staff added during checks: Dana Osei (dana.osei@taxsimba.co.uk / Dana@12345) - see test_credentials.md.
+
+## 2026-06 Super Admin reporting integrity + invite polish
+backend/server.py: /overview now applies OPERATIONAL_ONLY everywhere (clients, new this month, SA/MTD/both, open/completed/overdue cases, per-accountant workload) and filters payments to genuine client users for revenue, successful and failed/expired counts; revenue note states SA+MTD are the categories and package upgrades are a SUBSET of SA. /accountants/workload and /users exclude test staff (is_test flag + email pattern, in-query so the cap cannot hide genuine users). /users adds invite_expires_at for pending users (never the token).
+Dana Osei flagged is_test (invite/audit history preserved).
+frontend SuperAdmin.jsx: invite role follows the tab (Accountants -> ACCOUNTANT with Specialism + labelled Case capacity and helper text; Admins -> ADMIN with accountant fields hidden), button shows the role, Pending invitation shows expiry + Resend, mobile stacked user cards.
+Corrected figures: 2 clients (2 new this month, 2 active SA, 0 MTD), 1 open case, 1 completed, 0 overdue; Amara 0/1, Ben 1/0, Accountant C 0/0; revenue this month/year GBP460 = SA 100 + MTD 360, upgrades GBP100 subset of SA, 2 successful payments, 0 failed.
+EMAIL DELIVERY NOT CONFIGURED - no SMTP/email provider exists in the project, so no delivery was added; the one-time link is shown to the Super Admin only.
+Checks 1-11 PASS.

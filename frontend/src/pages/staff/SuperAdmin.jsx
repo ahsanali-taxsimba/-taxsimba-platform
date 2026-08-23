@@ -30,6 +30,11 @@ export default function SuperAdmin() {
     api.get("/overview").then(({ data }) => setOverview(data));
   };
   useEffect(() => { load(); }, []);
+  // The invite form follows the tab: accountant fields only apply to accountants.
+  useEffect(() => {
+    if (tab === "admins") setForm((f) => ({ ...f, role: "ADMIN" }));
+    if (tab === "accountants") setForm((f) => ({ ...f, role: "ACCOUNTANT" }));
+  }, [tab]);
 
   const create = async () => {
     setErr(""); setInvite(null);
@@ -56,6 +61,28 @@ export default function SuperAdmin() {
   const filtered = tab === "accountants" ? users.filter((u) => u.role === "ACCOUNTANT")
     : tab === "admins" ? users.filter((u) => ["ADMIN", "SUPER_ADMIN"].includes(u.role)) : users;
 
+  const statusCell = (u) => (u.status === "PENDING" ? (
+    <div className="flex flex-wrap items-center gap-3" data-testid={`status-${u.email}`}>
+      <span className="text-xs font-semibold text-[#E6A23C]">
+        Pending invitation{u.invite_expires_at ? ` · expires ${dt(u.invite_expires_at)}` : ""}
+      </span>
+      <button data-testid={`resend-invite-${u.email}`} onClick={() => resend(u)}
+        className="text-xs font-semibold text-[#006B3C]">Resend invite</button>
+    </div>
+  ) : (
+    <button data-testid={`toggle-user-${u.email}`}
+      onClick={async () => {
+        const { data } = await api.patch(`/users/${u.id}/active`, null, { params: { is_active: !u.is_active } });
+        if (data.active_cases_needing_reassignment) {
+          window.alert(`${u.name} still has ${data.active_cases_needing_reassignment} active case(s). Please reassign them so they are not left unowned.`);
+        }
+        load();
+      }}
+      className="text-xs font-semibold" style={{ color: u.is_active ? "#16A05D" : "#D64545" }}>
+      {u.is_active ? "Active" : "Inactive"}
+    </button>
+  ));
+
   return (
     <AppShell title="Super Admin" subtitle="Platform users, services, workflow and audit.">
       <div className="space-y-6">
@@ -69,22 +96,29 @@ export default function SuperAdmin() {
         {["users", "accountants", "admins"].includes(tab) && (
           <>
             <Panel title="Invite staff member" testId="create-user-panel">
-              <div className="grid sm:grid-cols-6 gap-3">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-3">
                 <input data-testid="new-user-name" placeholder="Full name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm" />
                 <input data-testid="new-user-email" placeholder="Work email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm" />
                 <select data-testid="new-user-role" value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })} className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm">
                   {["ACCOUNTANT", "ADMIN", "SUPER_ADMIN"].map((r) => <option key={r}>{r}</option>)}
                 </select>
-                <select data-testid="new-user-specialism" value={form.specialisms.join(",")}
-                  onChange={(e) => setForm({ ...form, specialisms: e.target.value.split(",") })}
-                  className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm">
-                  <option value="SELF_ASSESSMENT">Self Assessment</option>
-                  <option value="MTD_IT">MTD for Income Tax</option>
-                  <option value="SELF_ASSESSMENT,MTD_IT">Both</option>
-                </select>
-                <input data-testid="new-user-capacity" type="number" placeholder="Capacity" value={form.capacity}
-                  onChange={(e) => setForm({ ...form, capacity: Number(e.target.value) })} className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm" />
-                <button data-testid="create-user-btn" onClick={create} className="rounded-lg bg-[#078A4B] text-white text-xs font-semibold px-4 py-2">Send invitation</button>
+                {form.role === "ACCOUNTANT" && (
+                  <>
+                    <select data-testid="new-user-specialism" value={form.specialisms.join(",")}
+                      onChange={(e) => setForm({ ...form, specialisms: e.target.value.split(",") })}
+                      className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm">
+                      <option value="SELF_ASSESSMENT">Self Assessment</option>
+                      <option value="MTD_IT">MTD for Income Tax</option>
+                      <option value="SELF_ASSESSMENT,MTD_IT">Both</option>
+                    </select>
+                    <div>
+                      <input data-testid="new-user-capacity" type="number" placeholder="Case capacity" value={form.capacity}
+                        onChange={(e) => setForm({ ...form, capacity: Number(e.target.value) })} className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm" />
+                      <p className="text-[11px] text-[#626A65] mt-1">Case capacity — recommended maximum number of active cases for this accountant.</p>
+                    </div>
+                  </>
+                )}
+                <button data-testid="create-user-btn" onClick={create} className="rounded-lg bg-[#078A4B] text-white text-xs font-semibold px-4 py-2 h-10">Send invitation as {form.role}</button>
               </div>
               <p className="text-xs text-[#626A65] mt-3">
                 The invitee sets their own password from a single-use link that expires in 72 hours.
@@ -98,7 +132,18 @@ export default function SuperAdmin() {
               {err && <p className="text-xs text-[#D64545] mt-2">{err}</p>}
             </Panel>
             <Panel title="Users" testId="users-panel">
-              <table className="w-full text-sm">
+              {/* Mobile: stacked cards so role, status and actions are never cut off */}
+              <ul className="md:hidden space-y-3" data-testid="user-cards">
+                {filtered.map((u) => (
+                  <li key={u.id} data-testid={`user-card-${u.email}`} className="border border-[#E3E7E4] rounded-lg p-4">
+                    <div className="font-semibold text-sm">{u.name}</div>
+                    <div className="text-xs text-[#626A65] break-all mt-1">{u.email}</div>
+                    <div className="text-xs text-[#626A65] mt-1">{u.role} · created {d(u.created_at)}</div>
+                    <div className="mt-3">{statusCell(u)}</div>
+                  </li>
+                ))}
+              </ul>
+              <table className="w-full text-sm hidden md:table">
                 <thead><tr className="text-left text-[11px] uppercase text-[#626A65] border-b border-[#E3E7E4]">
                   <th className="py-3 pr-4">Name</th><th className="py-3 pr-4">Email</th><th className="py-3 pr-4">Role</th><th className="py-3 pr-4">Created</th><th className="py-3">Status</th></tr></thead>
                 <tbody>
@@ -108,27 +153,7 @@ export default function SuperAdmin() {
                       <td className="py-4 pr-4 text-[#626A65]">{u.email}</td>
                       <td className="py-4 pr-4">{u.role}</td>
                       <td className="py-4 pr-4 text-[#626A65]">{d(u.created_at)}</td>
-                      <td className="py-4">
-                        {u.status === "PENDING" ? (
-                          <div className="flex items-center gap-3">
-                            <span className="text-xs font-semibold text-[#E6A23C]">Pending invite</span>
-                            <button data-testid={`resend-invite-${u.email}`} onClick={() => resend(u)}
-                              className="text-xs font-semibold text-[#006B3C]">Resend invite</button>
-                          </div>
-                        ) : (
-                          <button data-testid={`toggle-user-${u.email}`}
-                            onClick={async () => {
-                              const { data } = await api.patch(`/users/${u.id}/active`, null, { params: { is_active: !u.is_active } });
-                              if (data.active_cases_needing_reassignment) {
-                                window.alert(`${u.name} still has ${data.active_cases_needing_reassignment} active case(s). Please reassign them so they are not left unowned.`);
-                              }
-                              load();
-                            }}
-                            className="text-xs font-semibold" style={{ color: u.is_active ? "#16A05D" : "#D64545" }}>
-                            {u.is_active ? "Active" : "Inactive"}
-                          </button>
-                        )}
-                      </td>
+                      <td className="py-4">{statusCell(u)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -195,7 +220,7 @@ export default function SuperAdmin() {
                   ["Revenue this year", overview.revenue.this_year, "revenue-year"],
                   ["Self Assessment revenue", overview.revenue.self_assessment, "revenue-sa"],
                   ["MTD revenue", overview.revenue.mtd, "revenue-mtd"],
-                  ["Package upgrade revenue", overview.revenue.package_upgrades, "revenue-upgrades"]].map(([l, v, t]) => (
+                  ["Package upgrades (subset of Self Assessment)", overview.revenue.package_upgrades, "revenue-upgrades"]].map(([l, v, t]) => (
                   <div key={l}><dt className="text-xs uppercase text-[#626A65]">{l}</dt>
                     <dd data-testid={`overview-${t}`} className="mt-1 text-2xl font-bold text-[#006B3C]">£{Number(v).toFixed(2)}</dd></div>
                 ))}

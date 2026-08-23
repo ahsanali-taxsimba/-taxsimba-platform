@@ -1577,7 +1577,7 @@ async def accountant_workload(user: dict = Depends(require_roles("ADMIN", "SUPER
     out = []
     week = (datetime.now(timezone.utc) + timedelta(days=7)).isoformat()
     active = {"$nin": ["SUBMITTED", "COMPLETED"]}
-    async for acc in db.users.find({"role": "ACCOUNTANT", "is_active": True}):
+    async for acc in db.users.find({"role": "ACCOUNTANT", "is_active": True, **OPERATIONAL_ONLY}):
         base = {"assigned_accountant_id": acc["id"]}
         profile = await db.accountant_profiles.find_one({"user_id": acc["id"]})
         capacity = (profile or {}).get("capacity", 15)
@@ -1615,8 +1615,17 @@ async def list_users(role: Optional[str] = None, email: Optional[str] = None,
         # Filtered in the query so they cannot consume the result cap and push genuine
         # (older) accounts off the end of the list.
         query["email"] = query.get("email") or {"$not": {"$regex": TEST_EMAIL_REGEX}}
+        query["is_test"] = {"$ne": True}
     users = await db.users.find(query).sort("created_at", -1).to_list(500)
-    return mask_contact_many(clean_many(users), user)
+    users = clean_many(users)
+    for u in users:
+        if u.get("status") == "PENDING":
+            invite = await db.staff_invites.find_one(
+                {"user_id": u["id"], "used_at": None, "revoked_at": None},
+                sort=[("created_at", -1)])
+            # Only the expiry is exposed -- never the token.
+            u["invite_expires_at"] = invite.get("expires_at") if invite else None
+    return mask_contact_many(users, user)
 
 
 @api.post("/clients/{client_user_id}/reveal-contact")
@@ -1853,39 +1862,48 @@ async def business_overview(user: dict = Depends(require_roles("SUPER_ADMIN"))):
     year_start = datetime.now(timezone.utc).replace(month=1, day=1, hour=0, minute=0, second=0,
                                                     microsecond=0).isoformat()
     active = {"$nin": ["SUBMITTED", "COMPLETED"]}
+    # Reporting uses the same genuine-record rule as the operational Admin/accountant views.
+    genuine_clients = {c["id"] async for c in db.clients.find(OPERATIONAL_ONLY, {"id": 1})}
+    genuine_client_users = {c["user_id"] async for c in db.clients.find(OPERATIONAL_ONLY,
+                                                                       {"user_id": 1})}
 
     sa_active = {c["client_id"] async for c in db.client_services.find(
-        {"service_type": "SELF_ASSESSMENT", "status": "ACTIVE"})}
+        {"service_type": "SELF_ASSESSMENT", "status": "ACTIVE"}) if c["client_id"] in genuine_clients}
     mtd_active = {c["client_id"] async for c in db.client_services.find(
-        {"service_type": "MTD_INCOME_TAX", "status": "ACTIVE"})}
+        {"service_type": "MTD_INCOME_TAX", "status": "ACTIVE"}) if c["client_id"] in genuine_clients}
 
-    paid = await db.payment_transactions.find({"payment_status": "paid"}).to_list(2000)
+    paid = [p for p in await db.payment_transactions.find({"payment_status": "paid"}).to_list(3000)
+            if p.get("user_id") in genuine_client_users]
+
     def total(rows):
         return round(sum(r.get("amount", 0) for r in rows), 2)
 
     per_accountant = []
-    async for a in db.users.find({"role": "ACCOUNTANT", "is_active": True}):
+    async for a in db.users.find({"role": "ACCOUNTANT", "is_active": True, **OPERATIONAL_ONLY}):
         per_accountant.append({
             "name": a["name"],
-            "open_cases": await db.cases.count_documents({"assigned_accountant_id": a["id"],
-                                                          "status": active}),
-            "completed_cases": await db.cases.count_documents({"assigned_accountant_id": a["id"],
-                                                               "status": "COMPLETED"}),
+            "open_cases": await _count({"assigned_accountant_id": a["id"], "status": active}),
+            "completed_cases": await _count({"assigned_accountant_id": a["id"],
+                                             "status": "COMPLETED"}),
         })
+
+    failed = [p for p in await db.payment_transactions.find(
+        {"payment_status": {"$in": ["failed", "expired"]}}).to_list(3000)
+        if p.get("user_id") in genuine_client_users]
 
     return {
         "clients": {
-            "total": await db.clients.count_documents({}),
-            "new_this_month": await db.clients.count_documents({"created_at": {"$gte": month_start}}),
+            "total": await db.clients.count_documents(OPERATIONAL_ONLY),
+            "new_this_month": await db.clients.count_documents({"created_at": {"$gte": month_start},
+                                                               **OPERATIONAL_ONLY}),
             "active_self_assessment": len(sa_active),
             "active_mtd": len(mtd_active),
             "both_services": len(sa_active & mtd_active),
         },
         "cases": {
-            "open": await db.cases.count_documents({"status": active}),
-            "completed": await db.cases.count_documents({"status": "COMPLETED"}),
-            "overdue": await db.cases.count_documents({"internal_deadline": {"$lt": now_iso()},
-                                                       "status": active}),
+            "open": await _count({"status": active}),
+            "completed": await _count({"status": "COMPLETED"}),
+            "overdue": await _count({"internal_deadline": {"$lt": now_iso()}, "status": active}),
             "per_accountant": per_accountant,
         },
         "revenue": {
@@ -1895,9 +1913,11 @@ async def business_overview(user: dict = Depends(require_roles("SUPER_ADMIN"))):
             "mtd": total([p for p in paid if p.get("service_type") == "MTD_INCOME_TAX"]),
             "package_upgrades": total([p for p in paid if p.get("kind") == "SA_UPGRADE"]),
             "successful_payments": len(paid),
-            "failed_payments": await db.payment_transactions.count_documents(
-                {"payment_status": {"$in": ["failed", "expired"]}}),
-            "note": "Revenue is summed from recorded successful payment transactions only.",
+            "failed_payments": len(failed),
+            "note": "Revenue is summed from unique genuine successful payment transactions only. "
+                    "Self Assessment and MTD are the service categories and add up to the total; "
+                    "package upgrades are a subset of Self Assessment revenue, not additional "
+                    "revenue. Automated-test transactions are excluded.",
         },
     }
 
