@@ -270,3 +270,9 @@ Checks 1-5 PASS.
 backend/server.py record_submission: idempotent (already SUBMITTED/COMPLETED returns the existing case, so double-click cannot duplicate), date+reference blank validation, submission record now stores case_id, case_ref, submitted_by, submitted_by_name, submitted_by_role, note, provider, recorded_at timestamp.
 Targeted check PASS: status SUBMITTED, date/ref saved, one audit entry (admin name + role + timestamp + note), one client notification to /my-return, repeated request returned the same record with no duplicate, documents/messages/notes/calculations unchanged.
 SA-1456 restored to READY_FOR_SUBMISSION after the check (submission record, activity entry and notification reverted).
+
+## 2026-06 Client post-submission display fix
+backend/server.py: client case payload reads the stored submission reference from the record field `reference` (it was only checking `submission_reference`, so the real external reference never reached the client view).
+frontend MyTaxReturn.jsx: once submitted, the approval line reads "Your return has now been submitted to HMRC."
+frontend staff/CaseWorkspace.jsx: submission reference input now hints it is the filing-software reference, not the TaxSimba case ID (the SA-1456 value currently stored was typed by the admin in that field).
+Both checks PASS.

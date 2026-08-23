@@ -547,7 +547,8 @@ async def get_case(case_id: str, user: dict = Depends(get_current_user)):
     case["has_submission_record"] = bool(submission)
     if submission:
         case["submission_date"] = submission.get("submission_date") or case.get("submission_date")
-        case["submission_reference"] = (submission.get("submission_reference")
+        case["submission_reference"] = (submission.get("reference")
+                                        or submission.get("submission_reference")
                                         or case.get("submission_reference"))
     approval = await db.client_approvals.find_one({"case_id": case_id})
     case["approved_version"] = approval.get("version") if approval else None

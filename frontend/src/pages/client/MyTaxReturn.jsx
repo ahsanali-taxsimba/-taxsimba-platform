@@ -148,8 +148,9 @@ export default function MyTaxReturn() {
                 </>
               ) : (
                 <p data-testid="already-approved-text" className="text-sm text-[#16A05D] font-semibold">
-                  You approved version {approvedVersion}. Your return is now with your accountant for
-                  submission to HMRC.
+                  {cs.has_submission_record
+                    ? `You approved version ${approvedVersion}. Your return has now been submitted to HMRC.`
+                    : `You approved version ${approvedVersion}. Your return is now with your accountant for submission to HMRC.`}
                 </p>
               )}
             </Panel>

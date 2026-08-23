@@ -559,7 +559,8 @@ export default function CaseWorkspace() {
                   </div>
                   <div>
                     <label className="text-sm font-medium">Submission reference</label>
-                    <input data-testid="submission-reference" className="mt-1 w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    <input data-testid="submission-reference" placeholder="Reference from your filing software (not the TaxSimba case ID)"
+                      className="mt-1 w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
                       value={form.submission_reference || ""} onChange={(e) => setForm({ ...form, submission_reference: e.target.value })} />
                   </div>
                   <textarea data-testid="submission-note" rows={3} placeholder="Internal note (optional)"
