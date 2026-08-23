@@ -558,7 +558,11 @@ export default function CaseWorkspace() {
                       value={form.submission_date || ""} onChange={(e) => setForm({ ...form, submission_date: e.target.value })} />
                   </div>
                   <div>
-                    <label className="text-sm font-medium">Submission reference</label>
+                    <label className="text-sm font-medium">HMRC / filing software submission reference</label>
+                    <p className="text-xs text-[#626A65] mt-1">
+                      Enter the submission reference provided by the third-party tax software after
+                      filing. Do not enter the TaxSimba case ID.
+                    </p>
                     <input data-testid="submission-reference" placeholder="Reference from your filing software (not the TaxSimba case ID)"
                       className="mt-1 w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
                       value={form.submission_reference || ""} onChange={(e) => setForm({ ...form, submission_reference: e.target.value })} />

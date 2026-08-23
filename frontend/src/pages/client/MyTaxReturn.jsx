@@ -100,8 +100,54 @@ export default function MyTaxReturn() {
               </div>
             </Panel>
 
-            <Panel title="Final documents" testId="final-docs-panel">
-              {!docs.length && <Empty text="Final documents will appear here once available." />}
+            {cs.has_submission_record && (
+              <Panel title="Paying your tax" testId="paying-your-tax-panel">
+                {calc.is_refund || !(calc.tax_due > 0) ? (
+                  <p data-testid="no-payment-due" className="text-sm font-semibold text-[#16A05D]">
+                    No payment is currently due.
+                  </p>
+                ) : (
+                  <>
+                    <dl className="grid sm:grid-cols-2 gap-6">
+                      <div>
+                        <dt className="text-xs uppercase tracking-wide text-[#626A65]">Amount due</dt>
+                        <dd data-testid="pay-amount-due" className="mt-1 text-lg font-bold">{money(calc.tax_due)}</dd>
+                      </div>
+                      <div>
+                        <dt className="text-xs uppercase tracking-wide text-[#626A65]">Payment deadline</dt>
+                        <dd data-testid="pay-deadline" className="mt-1 text-lg font-semibold">{calc.payment_deadline}</dd>
+                      </div>
+                    </dl>
+                    {(calc.breakdown?.payments_on_account || []).length > 0 && (
+                      <ul data-testid="payments-on-account" className="mt-6 space-y-2">
+                        {calc.breakdown.payments_on_account.map((p, i) => (
+                          <li key={i} className="text-sm text-[#161B18]">
+                            Payment on account: <b>{money(p.amount)}</b> due <b>{p.due}</b>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </>
+                )}
+                <p className="text-sm text-[#626A65] mt-6">
+                  Any tax due is paid directly to HMRC. TaxSimba does not collect your tax payment.
+                </p>
+                <div className="mt-4 flex flex-col sm:flex-row gap-3">
+                  <a data-testid="hmrc-signin-link" href="https://www.gov.uk/log-in-file-self-assessment-tax-return"
+                    target="_blank" rel="noopener noreferrer"
+                    className="px-5 py-2.5 rounded-lg border border-[#E3E7E4] text-sm font-semibold text-center hover:bg-[#F1F8F4] transition-colors">
+                    Sign in to HMRC
+                  </a>
+                  <a data-testid="hmrc-pay-link" href="https://www.gov.uk/pay-self-assessment-tax-bill"
+                    target="_blank" rel="noopener noreferrer"
+                    className="px-5 py-2.5 rounded-lg bg-[#078A4B] text-white text-sm font-semibold text-center hover:bg-[#006B3C] transition-colors">
+                    Pay HMRC
+                  </a>
+                </div>
+              </Panel>
+            )}
+
+            <Panel title="Final documents" testId="final-docs-panel">              {!docs.length && <Empty text="Final documents will appear here once available." />}
               <ul className="space-y-3">
                 {docs.map((doc) => (
                   <li key={doc.id} data-testid={`final-doc-${doc.id}`}

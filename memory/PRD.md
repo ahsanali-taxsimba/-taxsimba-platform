@@ -276,3 +276,8 @@ backend/server.py: client case payload reads the stored submission reference fro
 frontend MyTaxReturn.jsx: once submitted, the approval line reads "Your return has now been submitted to HMRC."
 frontend staff/CaseWorkspace.jsx: submission reference input now hints it is the filing-software reference, not the TaxSimba case ID (the SA-1456 value currently stored was typed by the admin in that field).
 Both checks PASS.
+
+## 2026-06 Submission UX polish
+frontend staff/CaseWorkspace.jsx: reference field relabelled "HMRC / filing software submission reference" with helper text warning against the TaxSimba case ID (date + reference still required, note optional).
+frontend client/MyTaxReturn.jsx: new "Paying your tax" panel shown once a submission is recorded - amount due and payment deadline from the final approved calculation only, payments on account rendered when present in the calc breakdown, "No payment is currently due." when nothing is owed or a refund, plus the "paid directly to HMRC" disclaimer and GOV.UK Sign in to HMRC / Pay HMRC links. No backend changes.
+Checks 1-7 PASS.
