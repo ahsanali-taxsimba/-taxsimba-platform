@@ -771,6 +771,15 @@ async def admin_approve(case_id: str, body: Optional[ApproveIn] = None,
                      extra={"approved_version_id": review["calculation_version_id"],
                             "admin_reviewer_id": user["id"], "admin_reviewer_name": user["name"],
                             "admin_approved_at": now_iso(), "admin_approved_by": user["name"]})
+    # The approved version supersedes any earlier admin change request, so its task is resolved.
+    # The original return-for-changes stays in the activity history.
+    closed = await db.tasks.update_many(
+        {"case_id": case_id, "status": "OPEN", "name": {"$regex": "^Admin changes required"}},
+        {"$set": {"status": "COMPLETED", "completed_at": now_iso(),
+                  "completed_by_name": user["name"]}})
+    if closed.modified_count:
+        await log_activity(case_id, "Admin change request resolved by the approved version", user,
+                           {"tasks_closed": closed.modified_count})
     await transition(case, "AWAITING_CLIENT_APPROVAL", user,
                      "Approved calculation released to client for review")
     await notify(case["client_user_id"], "Your tax return is ready to review",
@@ -826,6 +835,10 @@ async def client_approve(case_id: str, user: dict = Depends(require_roles("CLIEN
     await transition(case, "CLIENT_APPROVED", user,
                      f"Client approved V{calc['version'] if calc else ''}",
                      extra={"client_approved_at": now_iso()})
+    blocking = await db.tasks.count_documents({"case_id": case_id, "status": "OPEN"})
+    if blocking:
+        # Client approval stands, but the case cannot be ready for submission while work is open.
+        return await get_case(case_id, user)
     await transition(case, "READY_FOR_SUBMISSION", user, "Case ready for submission")
     await db.submission_records.insert_one({
         "id": str(uuid.uuid4()), "case_id": case_id, "status": "READY",
@@ -858,12 +871,11 @@ async def record_submission(case_id: str, body: SubmissionIn,
         raise HTTPException(status_code=400, detail="Client approval is not complete")
     if case["status"] != "READY_FOR_SUBMISSION":
         raise HTTPException(status_code=400, detail=f"Case must be READY_FOR_SUBMISSION (currently {case['status']})")
-    blocking = await db.tasks.count_documents({"case_id": case_id, "status": "OPEN",
-                                              "mandatory": True})
+    blocking = await db.tasks.count_documents({"case_id": case_id, "status": "OPEN"})
     if blocking:
         raise HTTPException(
             status_code=400,
-            detail=f"{blocking} mandatory item(s) of tax information are still outstanding — "
+            detail=f"{blocking} item(s) are still outstanding on this case — "
                    "these must be resolved before a submission can be recorded")
     await db.submission_records.update_one(
         {"case_id": case_id},
@@ -1103,7 +1115,8 @@ async def upload_document(case_id: str = Form(...), document_type: str = Form("O
         await db.cases.update_one({"id": case_id}, {"$set": {
             "next_action_owner": "ACCOUNTANT",
             "next_action": "Review the document the client uploaded",
-            "last_updated": now_iso()}})
+            "last_updated": now_iso()}}) if case["status"] in (
+                "ASSIGNED", "ACCOUNTANT_REVIEW", "AWAITING_CLIENT", "CHANGES_REQUIRED") else None
     if task_id:
         await complete_task(task_id, user)
     return clean(record)
@@ -1172,9 +1185,11 @@ async def send_message(body: MessageIn, user: dict = Depends(get_current_user)):
             else f"/work/cases/{body.case_id}"
         await notify(recipient, f"New message from {user['name']}", body.body[:120],
                      body.case_id, link, "MESSAGE")
-    if user["role"] == "CLIENT":
+    if user["role"] == "CLIENT" and case["status"] in (
+            "ASSIGNED", "ACCOUNTANT_REVIEW", "AWAITING_CLIENT", "CHANGES_REQUIRED"):
         # A new client message needs a human response -- put this case in the accountant's
-        # "Needs My Action" queue without touching any other case.
+        # "Needs My Action" queue without touching any other case. Cases already past
+        # preparation (approved / ready for submission) keep their own next action.
         await db.cases.update_one({"id": body.case_id}, {"$set": {
             "next_action_owner": "ACCOUNTANT",
             "next_action": "Reply to the client's message",
