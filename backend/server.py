@@ -573,7 +573,27 @@ async def assign_case(case_id: str, body: AssignIn,
              "priority": body.priority, "internal_instructions": body.internal_instructions}
     if body.internal_deadline:
         extra["internal_deadline"] = body.internal_deadline
-    await transition(case, "ASSIGNED", user, f"Assigned to {acc['name']}", extra=extra)
+    previous_id = case.get("assigned_accountant_id")
+    if previous_id and previous_id != acc["id"]:
+        # Reassignment changes ownership only. The workflow state (stage, status, next-action
+        # owner, waiting reason) belongs to the case, not the accountant, so it is left alone.
+        await db.cases.update_one({"id": case_id},
+                                  {"$set": {**extra, "last_updated": now_iso()}})
+        await log_activity(
+            case_id,
+            f"Case reassigned from {case.get('assigned_accountant_name')} to {acc['name']}",
+            user, {"previous_accountant_id": previous_id,
+                   "previous_accountant_name": case.get("assigned_accountant_name"),
+                   "new_accountant_id": acc["id"], "new_accountant_name": acc["name"]})
+        await notify(previous_id, "Case reassigned",
+                     f"{case['client_name']} — {case['case_ref']} is now with {acc['name']}",
+                     case_id, "/work", "ASSIGNMENT")
+    elif previous_id == acc["id"]:
+        await db.cases.update_one({"id": case_id},
+                                  {"$set": {**extra, "last_updated": now_iso()}})
+        await log_activity(case_id, f"Assignment details updated for {acc['name']}", user, extra)
+    else:
+        await transition(case, "ASSIGNED", user, f"Assigned to {acc['name']}", extra=extra)
     await notify(acc["id"], "New case assigned",
                  f"{case['client_name']} — {case['case_ref']} ({case['tax_year']})",
                  case_id, f"/work/cases/{case_id}", "ASSIGNMENT")
