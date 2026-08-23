@@ -14,6 +14,7 @@ import AccountantDashboard from "@/pages/staff/AccountantDashboard";
 import { AdminAccountants, AdminCases, AdminDashboard } from "@/pages/staff/AdminPages";
 import CaseWorkspace from "@/pages/staff/CaseWorkspace";
 import SuperAdmin from "@/pages/staff/SuperAdmin";
+import AcceptInvite from "@/pages/AcceptInvite";
 
 function Guard({ roles, children }) {
   const { user, loading } = useAuth();
@@ -40,6 +41,8 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/invite/:token" element={<AcceptInvite />} />
+
           <Route path="/" element={<Landing />} />
 
           <Route path="/dashboard" element={<Guard roles={CLIENT}><ClientDashboard /></Guard>} />

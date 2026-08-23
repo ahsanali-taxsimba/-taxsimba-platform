@@ -15,8 +15,9 @@ export default function SuperAdmin() {
   const [payments, setPayments] = useState([]);
   const [lock, setLock] = useState(null);
   const [overview, setOverview] = useState(null);
-  const [form, setForm] = useState({ name: "", email: "", password: "", role: "ACCOUNTANT" });
+  const [form, setForm] = useState({ name: "", email: "", role: "ACCOUNTANT", specialisms: ["SELF_ASSESSMENT"], capacity: 15 });
   const [err, setErr] = useState("");
+  const [invite, setInvite] = useState(null);
 
   const load = () => {
     api.get("/users").then(({ data }) => setUsers(data));
@@ -31,11 +32,22 @@ export default function SuperAdmin() {
   useEffect(() => { load(); }, []);
 
   const create = async () => {
-    setErr("");
+    setErr(""); setInvite(null);
     try {
-      await api.post("/users", form);
-      setForm({ name: "", email: "", password: "", role: "ACCOUNTANT" });
+      const { data } = await api.post("/staff-invites", form);
+      setInvite(data);
+      setForm({ name: "", email: "", role: "ACCOUNTANT", specialisms: ["SELF_ASSESSMENT"], capacity: 15 });
       load();
+    } catch (e) {
+      setErr(e.response?.data?.detail || "Failed");
+    }
+  };
+
+  const resend = async (u) => {
+    setErr(""); setInvite(null);
+    try {
+      const { data } = await api.post(`/staff-invites/${u.id}/resend`);
+      setInvite({ ...data, user: u });
     } catch (e) {
       setErr(e.response?.data?.detail || "Failed");
     }
@@ -56,16 +68,33 @@ export default function SuperAdmin() {
 
         {["users", "accountants", "admins"].includes(tab) && (
           <>
-            <Panel title="Create user" testId="create-user-panel">
-              <div className="grid sm:grid-cols-5 gap-3">
+            <Panel title="Invite staff member" testId="create-user-panel">
+              <div className="grid sm:grid-cols-6 gap-3">
                 <input data-testid="new-user-name" placeholder="Full name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm" />
-                <input data-testid="new-user-email" placeholder="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm" />
-                <input data-testid="new-user-password" placeholder="Password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm" />
+                <input data-testid="new-user-email" placeholder="Work email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm" />
                 <select data-testid="new-user-role" value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })} className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm">
-                  {["CLIENT", "ACCOUNTANT", "ADMIN", "SUPER_ADMIN"].map((r) => <option key={r}>{r}</option>)}
+                  {["ACCOUNTANT", "ADMIN", "SUPER_ADMIN"].map((r) => <option key={r}>{r}</option>)}
                 </select>
-                <button data-testid="create-user-btn" onClick={create} className="rounded-lg bg-[#078A4B] text-white text-xs font-semibold px-4 py-2">Create user</button>
+                <select data-testid="new-user-specialism" value={form.specialisms.join(",")}
+                  onChange={(e) => setForm({ ...form, specialisms: e.target.value.split(",") })}
+                  className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm">
+                  <option value="SELF_ASSESSMENT">Self Assessment</option>
+                  <option value="MTD_IT">MTD for Income Tax</option>
+                  <option value="SELF_ASSESSMENT,MTD_IT">Both</option>
+                </select>
+                <input data-testid="new-user-capacity" type="number" placeholder="Capacity" value={form.capacity}
+                  onChange={(e) => setForm({ ...form, capacity: Number(e.target.value) })} className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm" />
+                <button data-testid="create-user-btn" onClick={create} className="rounded-lg bg-[#078A4B] text-white text-xs font-semibold px-4 py-2">Send invitation</button>
               </div>
+              <p className="text-xs text-[#626A65] mt-3">
+                The invitee sets their own password from a single-use link that expires in 72 hours.
+                No password is created or visible here.
+              </p>
+              {invite && (
+                <p data-testid="invite-link" className="text-xs text-[#006B3C] mt-3 break-all">
+                  Setup link (valid until {dt(invite.expires_at)}): {invite.setup_link}
+                </p>
+              )}
               {err && <p className="text-xs text-[#D64545] mt-2">{err}</p>}
             </Panel>
             <Panel title="Users" testId="users-panel">
@@ -80,11 +109,25 @@ export default function SuperAdmin() {
                       <td className="py-4 pr-4">{u.role}</td>
                       <td className="py-4 pr-4 text-[#626A65]">{d(u.created_at)}</td>
                       <td className="py-4">
-                        <button data-testid={`toggle-user-${u.email}`}
-                          onClick={async () => { await api.patch(`/users/${u.id}/active`, null, { params: { is_active: !u.is_active } }); load(); }}
-                          className="text-xs font-semibold" style={{ color: u.is_active ? "#16A05D" : "#D64545" }}>
-                          {u.is_active ? "Active" : "Inactive"}
-                        </button>
+                        {u.status === "PENDING" ? (
+                          <div className="flex items-center gap-3">
+                            <span className="text-xs font-semibold text-[#E6A23C]">Pending invite</span>
+                            <button data-testid={`resend-invite-${u.email}`} onClick={() => resend(u)}
+                              className="text-xs font-semibold text-[#006B3C]">Resend invite</button>
+                          </div>
+                        ) : (
+                          <button data-testid={`toggle-user-${u.email}`}
+                            onClick={async () => {
+                              const { data } = await api.patch(`/users/${u.id}/active`, null, { params: { is_active: !u.is_active } });
+                              if (data.active_cases_needing_reassignment) {
+                                window.alert(`${u.name} still has ${data.active_cases_needing_reassignment} active case(s). Please reassign them so they are not left unowned.`);
+                              }
+                              load();
+                            }}
+                            className="text-xs font-semibold" style={{ color: u.is_active ? "#16A05D" : "#D64545" }}>
+                            {u.is_active ? "Active" : "Inactive"}
+                          </button>
+                        )}
                       </td>
                     </tr>
                   ))}

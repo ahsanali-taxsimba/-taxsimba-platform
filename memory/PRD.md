@@ -286,3 +286,10 @@ Checks 1-7 PASS.
 backend/server.py: assign and unassign now reject COMPLETED cases (400, "reopen the case first"); request-from-client was already blocked by the transition rules; reopen stays ADMIN/SUPER_ADMIN only with a required reason and audited entry.
 frontend staff/CaseWorkspace.jsx: Assign/Reassign/Unassign and Request from Client hidden when the case is COMPLETED; Add Internal Note, Reopen Case and all history tabs remain.
 Checks 1-7 PASS. SA-1456 left COMPLETED with its submission and completion records intact (test note and test reopen audit entry removed).
+
+## 2026-06 Super Admin accountant invitation onboarding
+New backend/invites.py: single-use setup tokens (secrets.token_urlsafe, SHA-256 at rest, 72h expiry, revoked on reuse/resend).
+backend/server.py: POST /staff-invites (SUPER_ADMIN, creates PENDING user with no password + upserts the accountant profile with specialisms/capacity, returns setup link), POST /staff-invites/{id}/resend (invalidates the previous link), GET /auth/invite/{token}, POST /auth/invite/{token}/accept (invitee sets own password -> ACTIVE), login rejects pending/passwordless accounts, PATCH /users/{id}/active returns active_cases_needing_reassignment and syncs the accountant profile, GET /users hides test accounts unless include_test=true.
+frontend: new pages/AcceptInvite.jsx at route /invite/:token; SuperAdmin.jsx invite form (name, work email, role, specialism, capacity) showing the one-time link, Resend invite for pending users, reassignment warning on deactivate. POST /api/users left untouched.
+NOTE: no email delivery exists in this app, so the setup link is shown to the Super Admin to pass on (Resend integration would be needed to email it).
+Checks 1-10 PASS. Demo staff added during checks: Dana Osei (dana.osei@taxsimba.co.uk / Dana@12345) - see test_credentials.md.

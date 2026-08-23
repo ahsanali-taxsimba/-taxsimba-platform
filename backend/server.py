@@ -20,7 +20,8 @@ from auth import (ACCESS_COOKIE, ACCESS_TTL_MINUTES, REFRESH_COOKIE, REFRESH_TTL
                   rotate_refresh_token, verify_password)
 from db import clean, clean_many, db, mask_contact_many, scrub, scrub_many
 from helpcentre import DEFAULT_FAQS, FAQ_CATEGORIES
-from testdata import OPERATIONAL_ONLY, is_test_email
+from testdata import OPERATIONAL_ONLY, TEST_EMAIL_REGEX, is_test_email
+from invites import consume_invite, find_valid_invite, issue_invite
 from ratelimit import (clear_failures, client_ip, enforce_login_allowed, ensure_indexes,
                        record_failure)
 from seed import seed
@@ -104,6 +105,18 @@ class RegisterIn(BaseModel):
 
 class CreateUserIn(RegisterIn):
     role: str
+
+
+class StaffInviteIn(BaseModel):
+    name: str
+    email: str
+    role: str = "ACCOUNTANT"
+    specialisms: list[str] = ["SELF_ASSESSMENT"]
+    capacity: Optional[int] = None
+
+
+class AcceptInviteIn(BaseModel):
+    password: str
 
 
 class CaseIn(BaseModel):
@@ -302,9 +315,13 @@ async def login(body: LoginIn, request: Request, response: Response):
     ip = client_ip(request)
     await enforce_login_allowed(ip, email)
     user = await db.users.find_one({"email": email})
-    if not user or not verify_password(body.password, user["password_hash"]):
+    if not user or not user.get("password_hash") \
+            or not verify_password(body.password, user["password_hash"]):
         await record_failure(ip, email)
         raise HTTPException(status_code=401, detail="Invalid email or password")
+    if user.get("status") == "PENDING":
+        raise HTTPException(status_code=401,
+                            detail="Your account setup is not complete — use your invitation link")
     if not user.get("is_active", True):
         raise HTTPException(status_code=401, detail="Account disabled")
     await clear_failures(ip, email)
@@ -1580,6 +1597,7 @@ async def accountant_workload(user: dict = Depends(require_roles("ADMIN", "SUPER
 # ---------------------------------------------------------------- super admin
 @api.get("/users")
 async def list_users(role: Optional[str] = None, email: Optional[str] = None,
+                     include_test: bool = False,
                      user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
     """Staff directory lookup.
 
@@ -1592,6 +1610,11 @@ async def list_users(role: Optional[str] = None, email: Optional[str] = None,
         query["role"] = role
     if email:
         query["email"] = email.strip().lower()
+    if not include_test:
+        # Automated-test accounts stay in the database but leave the operational directory.
+        # Filtered in the query so they cannot consume the result cap and push genuine
+        # (older) accounts off the end of the list.
+        query["email"] = query.get("email") or {"$not": {"$regex": TEST_EMAIL_REGEX}}
     users = await db.users.find(query).sort("created_at", -1).to_list(500)
     return mask_contact_many(clean_many(users), user)
 
@@ -1650,6 +1673,96 @@ async def create_user(body: CreateUserIn, user: dict = Depends(require_roles("SU
 async def toggle_user(user_id: str, is_active: bool = Query(...),
                       user: dict = Depends(require_roles("SUPER_ADMIN"))):
     await db.users.update_one({"id": user_id}, {"$set": {"is_active": is_active}})
+    # Deactivation keeps every historical record; only the login and new assignments stop.
+    open_cases = 0
+    if not is_active:
+        open_cases = await db.cases.count_documents({
+            "assigned_accountant_id": user_id,
+            "status": {"$nin": ["COMPLETED", "SUBMITTED"]},
+            **OPERATIONAL_ONLY})
+        await db.accountant_profiles.update_one({"user_id": user_id},
+                                               {"$set": {"is_active": False}})
+        await log_activity(None, "Staff account deactivated", user,
+                           {"target_user_id": user_id, "active_cases": open_cases})
+    else:
+        await db.accountant_profiles.update_one({"user_id": user_id},
+                                               {"$set": {"is_active": True}})
+    return {"ok": True, "active_cases_needing_reassignment": open_cases}
+
+
+# ------------------------------------------------------------- staff invitations
+@api.post("/staff-invites")
+async def invite_staff(body: StaffInviteIn, request: Request,
+                       user: dict = Depends(require_roles("SUPER_ADMIN"))):
+    """Creates a pending staff account and a single-use setup link. No password is set here."""
+    if body.role not in ("ACCOUNTANT", "ADMIN", "SUPER_ADMIN"):
+        raise HTTPException(status_code=400, detail="Invalid role")
+    email = body.email.strip().lower()
+    if await db.users.find_one({"email": email}):
+        raise HTTPException(status_code=400, detail="Email already exists")
+    new = {"id": str(uuid.uuid4()), "email": email, "name": body.name.strip(),
+           "role": body.role, "password_hash": None, "phone": None,
+           "is_active": False, "status": "PENDING", "created_at": now_iso()}
+    await db.users.insert_one(dict(new))
+    if body.role == "ACCOUNTANT":
+        await db.accountant_profiles.update_one(
+            {"user_id": new["id"]},
+            {"$set": {"name": new["name"], "email": email,
+                      "specialisms": body.specialisms,
+                      "capacity": body.capacity if body.capacity is not None else 15,
+                      "is_active": False},
+             "$setOnInsert": {"id": str(uuid.uuid4()), "user_id": new["id"],
+                              "created_at": now_iso()}},
+            upsert=True)
+    invite = await issue_invite(new["id"], email, user["id"])
+    await log_activity(None, f"Staff invitation sent to {email}", user,
+                       {"target_user_id": new["id"], "role": body.role})
+    origin = request.headers.get("origin") or ""
+    return {"user": clean(new), "setup_link": f"{origin}/invite/{invite['token']}",
+            "expires_at": invite["expires_at"]}
+
+
+@api.post("/staff-invites/{user_id}/resend")
+async def resend_invite(user_id: str, request: Request,
+                        user: dict = Depends(require_roles("SUPER_ADMIN"))):
+    target = await db.users.find_one({"id": user_id})
+    if not target:
+        raise HTTPException(status_code=404, detail="User not found")
+    if target.get("status") != "PENDING":
+        raise HTTPException(status_code=400, detail="This account is already active")
+    invite = await issue_invite(user_id, target["email"], user["id"])
+    await log_activity(None, f"Staff invitation resent to {target['email']}", user,
+                       {"target_user_id": user_id})
+    origin = request.headers.get("origin") or ""
+    return {"setup_link": f"{origin}/invite/{invite['token']}",
+            "expires_at": invite["expires_at"]}
+
+
+@api.get("/auth/invite/{token}")
+async def check_invite(token: str):
+    invite = await find_valid_invite(token)
+    if not invite:
+        raise HTTPException(status_code=400, detail="This invitation is no longer valid")
+    target = await db.users.find_one({"id": invite["user_id"]})
+    return {"name": target["name"], "email": target["email"], "role": target["role"]}
+
+
+@api.post("/auth/invite/{token}/accept")
+async def accept_invite(token: str, body: AcceptInviteIn):
+    invite = await find_valid_invite(token)
+    if not invite:
+        raise HTTPException(status_code=400, detail="This invitation is no longer valid")
+    if len(body.password) < 8:
+        raise HTTPException(status_code=400, detail="Password must be at least 8 characters")
+    await db.users.update_one({"id": invite["user_id"]}, {"$set": {
+        "password_hash": hash_password(body.password), "is_active": True,
+        "status": "ACTIVE", "activated_at": now_iso()}})
+    await db.accountant_profiles.update_one({"user_id": invite["user_id"]},
+                                            {"$set": {"is_active": True}})
+    await consume_invite(invite["id"])
+    target = await db.users.find_one({"id": invite["user_id"]})
+    await log_activity(None, "Staff account activated via invitation", target,
+                       {"target_user_id": invite["user_id"]})
     return {"ok": True}
 
 
