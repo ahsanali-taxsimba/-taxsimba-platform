@@ -129,11 +129,16 @@ export default function MyTaxReturn() {
                     )}
                   </>
                 )}
-                <p className="text-sm text-[#626A65] mt-6">
-                  Any tax due is paid directly to HMRC. TaxSimba does not collect your tax payment.
+                <p data-testid="pay-submission-summary" className="text-sm text-[#161B18] mt-6">
+                  Submitted on <b>{d(cs.submission_date)}</b>
+                  {cs.submission_reference ? <> · HMRC / filing software reference <b>{cs.submission_reference}</b></> : null}
+                </p>
+                <p className="text-sm text-[#626A65] mt-3">
+                  Your tax return has been submitted to HMRC. It can take up to 72 hours for your HMRC
+                  online account to update. Any tax due is paid directly to HMRC, not to TaxSimba.
                 </p>
                 <div className="mt-4 flex flex-col sm:flex-row gap-3">
-                  <a data-testid="hmrc-signin-link" href="https://www.gov.uk/log-in-file-self-assessment-tax-return"
+                  <a data-testid="hmrc-signin-link" href="https://www.gov.uk/personal-tax-account"
                     target="_blank" rel="noopener noreferrer"
                     className="px-5 py-2.5 rounded-lg border border-[#E3E7E4] text-sm font-semibold text-center hover:bg-[#F1F8F4] transition-colors">
                     Sign in to HMRC
