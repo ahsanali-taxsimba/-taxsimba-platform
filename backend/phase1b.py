@@ -473,6 +473,7 @@ async def _fulfil(tx: dict):
             seq += 1
         case = {
             "id": str(uuid.uuid4()), "case_ref": f"MTD-{2000 + seq}",
+            "is_test": bool(client.get("is_test")),
             "client_id": tx["client_id"], "client_user_id": tx["user_id"],
             "client_name": client["name"], "service_type": tx["service_type"],
             "tax_year": tax_year, "assigned_accountant_id": None,

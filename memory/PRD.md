@@ -246,3 +246,10 @@ Root cause 2: case_ref was generated from cases.count_documents(), so deleted ca
 Root cause 3: frontend "Waiting for Client" tab sent bucket=awaiting_client which was not a known bucket, and unknown buckets were silently ignored.
 Files: backend/server.py (_next_case_ref counter-based unique refs, name search resolves via client record, profile rename propagates to cases.client_name, awaiting_client bucket alias, unknown bucket -> 400), backend/seed.py (unique index on case_ref), backend/scripts/fix_case_integrity.py (new: reissued 184 duplicate refs keeping the earliest case, resynced client names, seeded counter, created unique index, logged each repair in activity history), frontend CaseWorkspace.jsx (task cards show Case ref + tax year).
 All 6 targeted checks PASS. Accountant isolation re-verified: Accountant B gets nothing by name/ref/email and 403 on direct case/task access.
+
+## 2026-06 Accountant workspace cleanup + lock
+- backend/testdata.py (new): is_test_email() + OPERATIONAL_ONLY filter. Test addresses = test_*, ux_test_*, qa.*, @qa-taxsimba.example.com; clienta/clientb are genuine.
+- backend/scripts/mark_test_data.py (new, run once): flagged 869 automated-test cases and 1195 test clients with is_test (nothing deleted, audit history intact); 2 genuine demo cases marked operational.
+- backend/server.py: /cases and every accountant/admin stat + workload count exclude is_test unless ?include_test=true; new cases and client records inherit is_test from the client email; staff notification list drops notifications belonging to test cases.
+- Accountant A operational counts now: needs_my_action 1, awaiting_client 1, approved_ready 1, everything else 0 (SA-1456 Ahsan Ali 2025/26, SA-1428 Client B 2025/26).
+- Verified: case_ref unique index + counter (no write path mutates case_ref anywhere), internal working documents are staff-only (client list excludes, client download 403, staff 200, uploader+timestamp recorded), Accountant B blocked on search/case/tasks/documents/download/messages/task-complete (403), no client email/phone in accountant case payloads.

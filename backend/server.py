@@ -20,6 +20,7 @@ from auth import (ACCESS_COOKIE, ACCESS_TTL_MINUTES, REFRESH_COOKIE, REFRESH_TTL
                   rotate_refresh_token, verify_password)
 from db import clean, clean_many, db, mask_contact_many, scrub, scrub_many
 from helpcentre import DEFAULT_FAQS, FAQ_CATEGORIES
+from testdata import OPERATIONAL_ONLY, is_test_email
 from ratelimit import (clear_failures, client_ip, enforce_login_allowed, ensure_indexes,
                        record_failure)
 from seed import seed
@@ -286,7 +287,8 @@ async def register(body: RegisterIn, request: Request, response: Response):
     }
     await db.users.insert_one(dict(user))
     client = {"id": str(uuid.uuid4()), "user_id": user["id"], "name": body.name,
-              "email": email, "phone": body.phone, "created_at": now_iso()}
+              "email": email, "phone": body.phone, "is_test": is_test_email(email),
+              "created_at": now_iso()}
     count = await db.clients.count_documents({})
     client["client_ref"] = f"CL-{42 + count:04d}"
     await db.clients.insert_one(dict(client))
@@ -403,9 +405,12 @@ async def _decorate(cases: List[dict]):
 async def list_cases(status: Optional[str] = None, bucket: Optional[str] = None,
                      accountant_id: Optional[str] = None, priority: Optional[str] = None,
                      tax_year: Optional[str] = None, service_type: Optional[str] = None,
-                     q: Optional[str] = None,
+                     q: Optional[str] = None, include_test: bool = False,
                      user: dict = Depends(get_current_user)):
     query = {}
+    if not include_test:
+        # Automated-test cases stay in the database but never appear in operational views.
+        query.update(OPERATIONAL_ONLY)
     if service_type:
         query["service_type"] = service_type
     if user["role"] == "CLIENT":
@@ -512,6 +517,7 @@ async def create_case(body: CaseIn, user: dict = Depends(get_current_user)):
     stage, next_action, owner = STATUS_META["AWAITING_ASSIGNMENT"]
     case = {
         "id": str(uuid.uuid4()), "case_ref": await _next_case_ref(),
+        "is_test": is_test_email(client_user.get("email")),
         "client_id": client["id"] if client else None, "client_user_id": client_user_id,
         "client_name": client_user["name"], "service_type": body.service_type,
         "tax_year": body.tax_year, "assigned_accountant_id": None,
@@ -1198,7 +1204,13 @@ async def list_notifications(user: dict = Depends(get_current_user)):
         # case or a case they actually own.
         owned = await _owned_case_ids(user)
         query["$or"] = [{"case_id": None}, {"case_id": {"$in": owned}}]
-    items = await db.notifications.find(query).sort("created_at", -1).to_list(100)
+    items = await db.notifications.find(query).sort("created_at", -1).to_list(200)
+    if user["role"] in ("ACCOUNTANT", "ADMIN", "SUPER_ADMIN"):
+        # Notifications raised by automated-test cases must not clutter operational staff views.
+        test_ids = {c["id"] async for c in db.cases.find({"is_test": True}, {"id": 1})}
+        items = [i for i in items if i.get("case_id") not in test_ids][:100]
+    else:
+        items = items[:100]
     return scrub_many(clean_many(items), user)
 
 
@@ -1442,7 +1454,7 @@ async def delete_faq(faq_id: str, user: dict = Depends(require_roles("ADMIN", "S
 
 # ---------------------------------------------------------------- stats
 async def _count(query):
-    return await db.cases.count_documents(query)
+    return await db.cases.count_documents({**query, **OPERATIONAL_ONLY})
 
 
 @api.get("/stats/admin")
@@ -1568,7 +1580,8 @@ async def create_user(body: CreateUserIn, user: dict = Depends(require_roles("SU
     await db.users.insert_one(dict(new))
     if body.role == "CLIENT":
         client = {"id": str(uuid.uuid4()), "user_id": new["id"], "name": body.name,
-                  "email": new["email"], "phone": body.phone, "created_at": now_iso()}
+                  "email": new["email"], "phone": body.phone,
+                  "is_test": is_test_email(new["email"]), "created_at": now_iso()}
         count = await db.clients.count_documents({})
         client["client_ref"] = f"CL-{42 + count:04d}"
         await db.clients.insert_one(dict(client))
