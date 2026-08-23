@@ -863,6 +863,13 @@ async def record_submission(case_id: str, body: SubmissionIn,
                             user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
     """Records an out-of-band submission. Requires admin approval AND client approval."""
     case = await _get_case(case_id, user)
+    if case["status"] in ("SUBMITTED", "COMPLETED"):
+        # Idempotent: a double-click or repeated request returns the existing record rather
+        # than creating a second submission.
+        return await get_case(case_id, user)
+    if not body.submission_date.strip() or not body.submission_reference.strip():
+        raise HTTPException(status_code=400,
+                            detail="Submission date and submission reference are required")
     review = await db.reviews.find_one({"case_id": case_id, "outcome": "APPROVED"})
     approval = await db.client_approvals.find_one({"case_id": case_id})
     if not review or not case.get("approved_version_id"):
@@ -879,9 +886,12 @@ async def record_submission(case_id: str, body: SubmissionIn,
                    "these must be resolved before a submission can be recorded")
     await db.submission_records.update_one(
         {"case_id": case_id},
-        {"$set": {"status": "SUBMITTED", "submission_date": body.submission_date,
+        {"$set": {"status": "SUBMITTED", "case_id": case_id,
+                  "case_ref": case["case_ref"],
+                  "submission_date": body.submission_date,
                   "reference": body.submission_reference, "submitted_by": user["id"],
-                  "submitted_by_name": user["name"], "note": body.note,
+                  "submitted_by_name": user["name"], "submitted_by_role": user["role"],
+                  "note": body.note,
                   "provider": body.provider, "evidence_document_id": body.evidence_document_id,
                   "calculation_version_id": case.get("approved_version_id"),
                   "recorded_at": now_iso()}},

@@ -265,3 +265,8 @@ Root cause B: the client message/upload next-action takeover (added earlier) app
 Fixes in backend/server.py: admin-approve closes open "Admin changes required..." tasks with an audit entry (history preserved); client approval only advances to READY_FOR_SUBMISSION when no open items remain; the next-action takeover applies only to ASSIGNED/ACCOUNTANT_REVIEW/AWAITING_CLIENT/CHANGES_REQUIRED; record-submission blocks on ANY open item (was mandatory-only).
 SA-1456 repaired: stale admin-change task closed, stale document request resolved, next action restored to Submit return / ADMIN, SYSTEM audit entry added. Note: during checking a submission was accidentally recorded and was fully reverted (status, submission record, activity and notification rows) - SA-1456 is back at READY_FOR_SUBMISSION with submitted_at empty.
 Checks 1-5 PASS.
+
+## 2026-06 Record Submission hardening
+backend/server.py record_submission: idempotent (already SUBMITTED/COMPLETED returns the existing case, so double-click cannot duplicate), date+reference blank validation, submission record now stores case_id, case_ref, submitted_by, submitted_by_name, submitted_by_role, note, provider, recorded_at timestamp.
+Targeted check PASS: status SUBMITTED, date/ref saved, one audit entry (admin name + role + timestamp + note), one client notification to /my-return, repeated request returned the same record with no duplicate, documents/messages/notes/calculations unchanged.
+SA-1456 restored to READY_FOR_SUBMISSION after the check (submission record, activity entry and notification reverted).
