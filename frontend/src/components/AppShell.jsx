@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Bell, LayoutDashboard, FileText, FolderOpen, MessageSquare, CheckSquare, Route,
-  User, CreditCard, HelpCircle, Settings, Users, Briefcase, ShieldCheck, LogOut, Menu, Sparkles,
+  User, CreditCard, HelpCircle, Settings, Users, Briefcase, ShieldCheck, LogOut, Menu, X, Sparkles,
   AlertCircle, Layers, CalendarClock,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
@@ -78,28 +78,52 @@ export default function AppShell({ children, title, subtitle }) {
   return (
     <div className="min-h-screen bg-[#F7F8F7] flex">
       <aside
-        className={`${openNav ? "fixed inset-y-0 left-0 z-40 flex" : "hidden"} md:flex md:static w-64 shrink-0 flex-col bg-white border-r border-[#E3E7E4]`}
+        className={`${openNav ? "fixed inset-y-0 left-0 z-40 flex shadow-xl" : "hidden"} md:flex md:static w-[17rem] max-w-[85vw] md:w-64 shrink-0 flex-col bg-white border-r border-[#E3E7E4]`}
       >
-        <div className="px-6 py-6 border-b border-[#E3E7E4]">
-          <div className="text-xl font-extrabold text-[#006B3C] tracking-tight font-heading">TaxSimba</div>
-          <div className="text-[11px] uppercase tracking-widest text-[#626A65] mt-1">{user?.role?.replace("_", " ")}</div>
+        <div className="px-5 py-5 border-b border-[#E3E7E4] flex items-center gap-3">
+          <span className="h-9 w-9 rounded-xl bg-[#006B3C] text-white flex items-center justify-center font-extrabold text-sm shrink-0">
+            TS
+          </span>
+          <div className="min-w-0">
+            <div className="text-lg font-extrabold text-[#006B3C] tracking-tight font-heading leading-none">TaxSimba</div>
+            <div className="text-[10px] uppercase tracking-widest text-[#626A65] mt-1 truncate">{user?.role?.replace("_", " ")}</div>
+          </div>
+          <button className="md:hidden ml-auto text-[#626A65]" onClick={() => setOpenNav(false)}
+            data-testid="mobile-nav-close" aria-label="Close menu">
+            <X size={18} />
+          </button>
         </div>
         <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
-          {items.map(([label, path, Icon]) => {
+          {items.map(([label, path, Icon], i) => {
             const active = loc.pathname + loc.search === path || (loc.pathname === path && !loc.search);
+            const isMtd = path.includes("/mtd");
+            const prevMtd = i > 0 && items[i - 1][1].includes("/mtd");
             return (
-              <Link
-                key={label + path}
-                to={path}
-                data-testid={`nav-${label.toLowerCase().replace(/[^a-z]+/g, "-")}`}
-                onClick={() => setOpenNav(false)}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
-                  active ? "bg-[#EAF5EE] text-[#006B3C] font-semibold" : "text-[#161B18] hover:bg-[#F1F8F4]"
-                }`}
-              >
-                <Icon size={17} color={active ? "#006B3C" : "#626A65"} />
-                {label}
-              </Link>
+              <div key={label + path}>
+                {isMtd && !prevMtd && (
+                  <p className="px-3 pt-4 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-[#626A65]">
+                    Making Tax Digital
+                  </p>
+                )}
+                {!isMtd && prevMtd && (
+                  <p className="px-3 pt-4 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-[#626A65]">
+                    Self Assessment &amp; Practice
+                  </p>
+                )}
+                <Link
+                  to={path}
+                  data-testid={`nav-${label.toLowerCase().replace(/[^a-z]+/g, "-")}`}
+                  onClick={() => setOpenNav(false)}
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors duration-200 ${
+                    active
+                      ? "bg-[#EAF5EE] text-[#006B3C] font-semibold shadow-[inset_2px_0_0_0_#078A4B]"
+                      : "text-[#161B18] hover:bg-[#F1F8F4]"
+                  }`}
+                >
+                  <Icon size={17} color={active ? "#006B3C" : "#626A65"} />
+                  <span className="truncate">{label}</span>
+                </Link>
+              </div>
             );
           })}
         </nav>
@@ -113,14 +137,17 @@ export default function AppShell({ children, title, subtitle }) {
       </aside>
 
       <div className="flex-1 min-w-0">
-        <header className="bg-white border-b border-[#E3E7E4] px-5 md:px-10 py-5 flex items-start justify-between gap-4">
-          <div className="flex items-start gap-3">
-            <button className="md:hidden mt-1" onClick={() => setOpenNav(!openNav)} data-testid="mobile-nav-toggle">
+        <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-[#E3E7E4] px-5 md:px-10 py-4 md:py-5 flex items-start justify-between gap-4">
+          <div className="flex items-start gap-3 min-w-0">
+            <button className="md:hidden mt-1 shrink-0" onClick={() => setOpenNav(!openNav)} data-testid="mobile-nav-toggle" aria-label="Open menu">
               <Menu size={20} />
             </button>
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#161B18] font-heading">{title}</h1>
-              {subtitle && <p className="text-sm text-[#626A65] mt-1">{subtitle}</p>}
+            <div className="min-w-0">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-[#161B18] font-heading break-words">{title}</h1>
+              {subtitle && <p className="text-sm text-[#626A65] mt-1 break-words">{subtitle}</p>}
+              {user?.name && (
+                <p className="text-xs text-[#626A65] mt-1.5 md:hidden">Signed in as {user.name}</p>
+              )}
             </div>
           </div>
           <div className="relative">
@@ -170,7 +197,7 @@ export default function AppShell({ children, title, subtitle }) {
             )}
           </div>
         </header>
-        <main className="p-5 md:p-10 max-w-[1400px]">{children}</main>
+        <main className="p-5 md:p-10 max-w-[1400px] space-y-1">{children}</main>
       </div>
     </div>
   );
