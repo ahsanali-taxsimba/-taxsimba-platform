@@ -274,6 +274,8 @@ async def all_periods(bucket: Optional[str] = None, include_test: bool = False,
         out = [r for r in out if r["deadline_warning"] in ("DUE_14", "DUE_7", "DUE_3")]
     elif bucket == "overdue":
         out = [r for r in out if r["deadline_warning"] == "OVERDUE"]
+    elif bucket == "final_declaration":
+        out = [r for r in out if r["kind"] == "FINAL_DECLARATION"]
     elif bucket == "waiting_for_client":
         waiting = {d["mtd_period_id"] async for d in db.documents.find(
             {"status": "Requested", "mtd_period_id": {"$ne": None}}, {"mtd_period_id": 1})}
@@ -303,6 +305,9 @@ async def mtd_stats(user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN")))
         "submitted": sum(1 for r in rows if r["status"] == SUBMITTED),
         "due_14": sum(1 for r in decorated
                       if r["deadline_warning"] in ("DUE_14", "DUE_7", "DUE_3")),
+        "final_declarations": sum(1 for r in rows
+                                  if r["kind"] == "FINAL_DECLARATION"
+                                  and r["status"] != SUBMITTED),
         "overdue": sum(1 for r in decorated if r["deadline_warning"] == "OVERDUE"),
     }
 

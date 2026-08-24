@@ -12,6 +12,7 @@ const CARDS = [
   ["due_14", "Due Within 14 Days", "#E6A23C", "due_14"],
   ["overdue", "Overdue", "#D64545", "overdue"],
   ["submitted", "Submitted / Completed", "#006B3C", "submitted"],
+  ["final_declarations", "Final Declarations Open", "#7656C9", "final_declaration"],
   ["active_mtd_clients", "Active MTD Clients", "#626A65", null],
 ];
 
@@ -23,6 +24,7 @@ const EMPTY = {
   due_14: "No MTD quarters due within the next 14 days.",
   overdue: "No overdue MTD quarters.",
   submitted: "No MTD quarters submitted yet.",
+  final_declaration: "No Final Declarations on record yet.",
   "": "No MTD periods yet.",
 };
 
