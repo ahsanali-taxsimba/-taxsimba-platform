@@ -321,3 +321,12 @@ backend/phase1b.py: POST /cases/{id}/recommend-additional-work reuses the recomm
 frontend CaseWorkspace.jsx: Recommend Additional Work modal (accountant), admin Approve & send charge / Decline on the recommendation, receipt link on paid requests. MyServices.jsx: Payment received + receipt number + View / download receipt, pay button gone once paid.
 EMAIL DELIVERY NOT CONFIGURED - RECEIPT AVAILABLE IN PORTAL. The receipt notification event exists in the in-app notification architecture, so a future provider can email it.
 Checks 1-10 PASS. Verification rows removed afterwards.
+
+## 2026-06 Security hardening + scale readiness + staff MFA (tested, iteration_14: 28/28 PASS)
+NEW FILES: backend/security.py (TOTP helpers, per-step replay protection, bcrypt-hashed single-use recovery codes, single-use JWT 2FA challenge, check_password_strength), backend/protections.py (SecurityHeadersMiddleware, MongoDB-backed RateLimitMiddleware keyed per caller with IP fallback, validate_upload + safe_filename), frontend components/TwoFactorPanel.jsx, frontend pages/staff/StaffSecurity.jsx (route /staff/security).
+backend/server.py: /auth/login returns {two_factor_required, challenge} and NO session when 2FA is on; /auth/login/2fa; /auth/2fa/status|enrol|activate|disable (ADMIN/SUPER_ADMIN cannot disable); password policy on change-password and invite acceptance; password change revokes all other refresh tokens; ensure_query_indexes() indexes every hot collection on boot; _decorate/list_tasks/audit_log/all_payments batched (N+1 removed); /cases and /audit-log accept limit+skip; overview revenue aggregated in Mongo.
+.env additions: TOTP_FERNET_KEY, TOTP_ISSUER, API_RATE_LIMIT_PER_MINUTE=300, MAX_UPLOAD_MB=25. Deps: pyotp (backend), qrcode.react (frontend).
+Perf: audit endpoint 970ms -> ~150ms; cases/payments/tasks all ~110-160ms.
+Gotchas learned: HTTPException raised inside middleware returns 500 (must return JSONResponse); in-memory rate limiting does not work behind the ingress because requests spread across replicas (counter must live in Mongo).
+All demo accounts left with 2FA OFF so nobody is locked out. SA-1456 COMPLETED / SA-1428 Awaiting Client unchanged.
+STILL OUTSTANDING for production: no transactional email provider (invites/receipts are portal-only), live Stripe keys, production DNS/CORS validation.

@@ -38,12 +38,16 @@ export default function AccountantDashboard() {
   const [cases, setCases] = useState([]);
   const [q, setQ] = useState("");
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(0);
+  const PAGE = 50;
 
   useEffect(() => { api.get("/stats/accountant").then(({ data }) => setStats(data)); }, [tab]);
+  useEffect(() => { setPage(0); }, [tab, search]);
   useEffect(() => {
-    api.get("/cases", { params: search ? { bucket: tab, q: search } : { bucket: tab } })
-      .then(({ data }) => setCases(data));
-  }, [tab, search]);
+    api.get("/cases", { params: { bucket: tab, limit: PAGE, skip: page * PAGE,
+                                 ...(search ? { q: search } : {}) } })
+      .then(({ data }) => setCases((prev) => (page ? [...prev, ...data] : data)));
+  }, [tab, search, page]);
 
   return (
     <AppShell title="My Workload" subtitle="Cases assigned to you.">
@@ -84,6 +88,12 @@ export default function AccountantDashboard() {
             ))}
           </div>
           <CaseTable cases={cases} basePath="/work/cases" showAccountant={false} />
+          {cases.length >= PAGE * (page + 1) && (
+            <button data-testid="cases-load-more" onClick={() => setPage(page + 1)}
+              className="mt-5 px-5 py-2.5 rounded-lg border border-[#E3E7E4] text-sm font-semibold hover:bg-[#F1F8F4] transition-colors">
+              Load more cases
+            </button>
+          )}
         </Panel>
       </div>
     </AppShell>

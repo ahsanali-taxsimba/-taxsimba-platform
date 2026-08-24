@@ -17,6 +17,13 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     const { data } = await api.post("/auth/login", { email, password });
+    if (data.two_factor_required) return data; // no session until the code is verified
+    setUser(data.user);
+    return data.user;
+  };
+
+  const verifyTwoFactor = async (challenge, code) => {
+    const { data } = await api.post("/auth/login/2fa", { challenge, code });
     setUser(data.user);
     return data.user;
   };
@@ -42,7 +49,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, refresh }}>
+    <AuthContext.Provider value={{ user, loading, login, verifyTwoFactor, register, logout, refresh }}>
       {children}
     </AuthContext.Provider>
   );

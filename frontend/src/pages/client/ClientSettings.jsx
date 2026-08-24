@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AppShell from "@/components/AppShell";
 import { Panel } from "@/components/StatCard";
+import TwoFactorPanel from "@/components/TwoFactorPanel";
 import { api, apiError, d } from "@/lib/api";
 
 const PREFS = [
@@ -71,6 +72,7 @@ export default function ClientSettings() {
     <AppShell title="Settings" subtitle="Your login, notifications and privacy">
       <div className="space-y-6">
         <Panel title="Login & Security" testId="settings-security-panel">
+          <div className="mb-6"><TwoFactorPanel /></div>
           <div className="text-sm">
             Login email: <b data-testid="settings-email">{profile?.email || "—"}</b>
             {profile?.pending_email_change && (

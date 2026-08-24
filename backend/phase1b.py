@@ -785,9 +785,13 @@ async def all_payments(status: Optional[str] = None, kind: Optional[str] = None,
     if kind:
         query["kind"] = kind
     rows = await db.payment_transactions.find(query).sort("created_at", -1).to_list(500)
+    rows = clean_many(rows)
+    client_ids = list({r.get("client_id") for r in rows if r.get("client_id")})
+    clients = {c["id"]: c async for c in db.clients.find(
+        {"id": {"$in": client_ids}}, {"id": 1, "name": 1, "client_ref": 1, "is_test": 1})}
     out = []
-    for r in clean_many(rows):
-        c = await db.clients.find_one({"id": r.get("client_id")})
+    for r in rows:
+        c = clients.get(r.get("client_id"))
         if not include_test and (c is None or c.get("is_test")):
             # Automated-test transactions (including ones whose test client was already
             # cleaned away) stay in the database but out of the normal list.

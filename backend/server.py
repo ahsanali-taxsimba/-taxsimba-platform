@@ -20,6 +20,13 @@ from auth import (ACCESS_COOKIE, ACCESS_TTL_MINUTES, REFRESH_COOKIE, REFRESH_TTL
                   rotate_refresh_token, verify_password)
 from db import clean, clean_many, db, mask_contact_many, scrub, scrub_many
 from helpcentre import DEFAULT_FAQS, FAQ_CATEGORIES
+from protections import (RateLimitMiddleware, SecurityHeadersMiddleware, validate_upload)
+from protections import ensure_indexes as ensure_rate_indexes
+from security import (MFA_REQUIRED_ROLES, check_password_strength, consume_challenge,
+                      create_challenge, decrypt_secret, encrypt_secret,
+                      generate_recovery_codes, match_recovery_code, new_secret,
+                      verify_code)
+from security import ensure_indexes as ensure_mfa_indexes
 from testdata import OPERATIONAL_ONLY, TEST_EMAIL_REGEX, is_test_email
 from invites import consume_invite, find_valid_invite, issue_invite
 from ratelimit import (clear_failures, client_ip, enforce_login_allowed, ensure_indexes,
@@ -59,6 +66,8 @@ def _allowed_origins() -> List[str]:
 
 ALLOWED_ORIGINS = _allowed_origins()
 
+app.add_middleware(SecurityHeadersMiddleware)
+app.add_middleware(RateLimitMiddleware)
 app.add_middleware(
     CORSMiddleware, allow_origins=ALLOWED_ORIGINS, allow_credentials=True,
     allow_methods=["*"], allow_headers=["*"],
@@ -71,10 +80,44 @@ async def startup():
     await ensure_phase1b_data()
     await ensure_indexes()
     await _seed_faqs()
+    await ensure_mfa_indexes()
+    await ensure_rate_indexes()
+    await ensure_query_indexes()
     try:
         init_storage()
     except Exception as e:
         print(f"storage init failed: {e}")
+
+
+async def ensure_query_indexes():
+    """Indexes for every hot query path. Without these each list endpoint scans the whole
+    collection, which is what makes a large client base feel slow."""
+    plans = {
+        "cases": ["client_user_id", "assigned_accountant_id", "status", "is_test",
+                  "internal_deadline", "client_id"],
+        "documents": ["case_id", "client_user_id", "is_internal", "is_deleted"],
+        "tasks": ["case_id", "status", "owner_id", "client_user_id"],
+        "messages": ["case_id", "created_at"],
+        "notifications": ["user_id", "read_at", "created_at"],
+        "activity_logs": ["case_id", "created_at", "user_name"],
+        "payment_transactions": ["user_id", "client_id", "kind", "payment_status",
+                                 "session_id", "created_at"],
+        "clients": ["user_id", "is_test", "client_ref"],
+        "client_services": ["client_id", "service_type", "status"],
+        "calculation_versions": ["case_id"],
+        "document_requests": ["case_id", "status"],
+        "case_notes": ["case_id"],
+        "recommendations": ["case_id", "status", "type"],
+        "invoices": ["payment_request_id", "client_user_id", "case_id"],
+        "staff_invites": ["user_id", "token_hash"],
+        "users": ["role", "is_test", "created_at"],
+    }
+    for collection, fields in plans.items():
+        for field in fields:
+            try:
+                await db[collection].create_index(field)
+            except Exception as e:
+                print(f"index {collection}.{field} skipped: {e}")
 
 
 async def _seed_faqs():
@@ -325,7 +368,127 @@ async def login(body: LoginIn, request: Request, response: Response):
     if not user.get("is_active", True):
         raise HTTPException(status_code=401, detail="Account disabled")
     await clear_failures(ip, email)
+    if (user.get("totp") or {}).get("enabled"):
+        # No session is issued until the second factor is verified.
+        return {"two_factor_required": True, "challenge": create_challenge(user["id"]),
+                "expires_in": 300}
     return await _auth_response(response, user, request)
+
+
+class TwoFactorLoginIn(BaseModel):
+    challenge: str
+    code: str
+
+
+@api.post("/auth/login/2fa")
+async def login_2fa(body: TwoFactorLoginIn, request: Request, response: Response):
+    ip = client_ip(request)
+    user_id = await consume_challenge(body.challenge)
+    user = await db.users.find_one({"id": user_id})
+    totp = (user or {}).get("totp") or {}
+    if not user or not user.get("is_active", True) or not totp.get("enabled"):
+        raise HTTPException(status_code=401, detail="Invalid authentication")
+    await enforce_login_allowed(ip, user["email"])
+    ok, step = verify_code(decrypt_secret(totp["secret_enc"]), body.code, totp.get("last_step"))
+    if ok:
+        claimed = await db.users.update_one(
+            {"id": user["id"], "totp.last_step": totp.get("last_step")},
+            {"$set": {"totp.last_step": step}})
+        if not claimed.modified_count:
+            raise HTTPException(status_code=401, detail="That code has already been used")
+    else:
+        index = match_recovery_code(body.code, user.get("recovery_code_hashes"))
+        if index is None:
+            await record_failure(ip, user["email"])
+            raise HTTPException(status_code=401, detail="Invalid authentication code")
+        used = user["recovery_code_hashes"][index]
+        pulled = await db.users.update_one({"id": user["id"], "recovery_code_hashes": used},
+                                           {"$pull": {"recovery_code_hashes": used}})
+        if not pulled.modified_count:
+            raise HTTPException(status_code=401, detail="Invalid authentication code")
+        await db.activity_logs.insert_one({
+            "id": str(uuid.uuid4()), "case_id": None, "action": "Recovery code used to sign in",
+            "user_id": user["id"], "user_name": user["name"], "role": user["role"],
+            "meta": {}, "created_at": now_iso()})
+    await clear_failures(ip, user["email"])
+    return await _auth_response(response, user, request)
+
+
+@api.get("/auth/2fa/status")
+async def two_factor_status(user: dict = Depends(get_current_user)):
+    row = await db.users.find_one({"id": user["id"]}, {"totp": 1, "recovery_code_hashes": 1})
+    totp = (row or {}).get("totp") or {}
+    return {"enabled": bool(totp.get("enabled")),
+            "required": user["role"] in MFA_REQUIRED_ROLES,
+            "recovery_codes_remaining": len((row or {}).get("recovery_code_hashes") or [])}
+
+
+@api.post("/auth/2fa/enrol")
+async def enrol_2fa(request: Request, user: dict = Depends(get_current_user)):
+    _enforce_csrf(request)
+    row = await db.users.find_one({"id": user["id"]}, {"totp": 1})
+    if ((row or {}).get("totp") or {}).get("enabled"):
+        raise HTTPException(status_code=409, detail="Two-factor authentication is already on")
+    secret, uri = new_secret(user["email"])
+    await db.users.update_one({"id": user["id"]}, {"$set": {
+        "totp": {"enabled": False, "secret_enc": encrypt_secret(secret), "last_step": None}}})
+    return {"otpauth_uri": uri, "manual_secret": secret}
+
+
+class CodeIn(BaseModel):
+    code: str
+
+
+@api.post("/auth/2fa/activate")
+async def activate_2fa(body: CodeIn, request: Request, user: dict = Depends(get_current_user)):
+    _enforce_csrf(request)
+    row = await db.users.find_one({"id": user["id"]}, {"totp": 1})
+    totp = (row or {}).get("totp") or {}
+    if totp.get("enabled") or not totp.get("secret_enc"):
+        raise HTTPException(status_code=409, detail="Start the setup again")
+    ok, step = verify_code(decrypt_secret(totp["secret_enc"]), body.code, None)
+    if not ok:
+        raise HTTPException(status_code=400, detail="That code isn't right — please try again")
+    codes, hashes = generate_recovery_codes()
+    await db.users.update_one({"id": user["id"]}, {"$set": {
+        "totp.enabled": True, "totp.last_step": step, "totp.enabled_at": now_iso(),
+        "recovery_code_hashes": hashes, "recovery_codes_generated_at": now_iso()}})
+    await db.activity_logs.insert_one({
+        "id": str(uuid.uuid4()), "case_id": None, "action": "Two-factor authentication enabled",
+        "user_id": user["id"], "user_name": user["name"], "role": user["role"],
+        "meta": {}, "created_at": now_iso()})
+    return {"recovery_codes": codes}
+
+
+class Disable2FAIn(BaseModel):
+    password: str
+    code: str
+
+
+@api.post("/auth/2fa/disable")
+async def disable_2fa(body: Disable2FAIn, request: Request,
+                      user: dict = Depends(get_current_user)):
+    """Turning 2FA off needs the password AND a valid code, so a hijacked session cannot."""
+    _enforce_csrf(request)
+    if user["role"] in MFA_REQUIRED_ROLES:
+        raise HTTPException(status_code=403,
+                            detail="Two-factor authentication is required for this role")
+    row = await db.users.find_one({"id": user["id"]})
+    totp = (row or {}).get("totp") or {}
+    if not verify_password(body.password, row.get("password_hash") or ""):
+        raise HTTPException(status_code=401, detail="Password is incorrect")
+    ok = False
+    if totp.get("secret_enc"):
+        ok, _ = verify_code(decrypt_secret(totp["secret_enc"]), body.code, None)
+    if not ok and match_recovery_code(body.code, row.get("recovery_code_hashes")) is None:
+        raise HTTPException(status_code=401, detail="Invalid authentication code")
+    await db.users.update_one({"id": user["id"]},
+                             {"$unset": {"totp": "", "recovery_code_hashes": ""}})
+    await db.activity_logs.insert_one({
+        "id": str(uuid.uuid4()), "case_id": None, "action": "Two-factor authentication disabled",
+        "user_id": user["id"], "user_name": user["name"], "role": user["role"],
+        "meta": {}, "created_at": now_iso()})
+    return {"ok": True}
 
 
 @api.post("/auth/refresh")
@@ -407,13 +570,19 @@ def _days_left(case: dict):
 
 
 async def _decorate(cases: List[dict]):
-    out = []
-    for c in cases:
-        c = clean(c)
+    out = [clean(c) for c in cases]
+    # One query for every case's latest activity instead of one query per case.
+    ids = [c["id"] for c in out]
+    latest = {}
+    if ids:
+        pipeline = [{"$match": {"case_id": {"$in": ids}}},
+                    {"$sort": {"created_at": -1}},
+                    {"$group": {"_id": "$case_id", "doc": {"$first": "$$ROOT"}}}]
+        async for row in db.activity_logs.aggregate(pipeline):
+            latest[row["_id"]] = clean(row["doc"])
+    for c in out:
         c["days_left"] = _days_left(c)
-        last = await db.activity_logs.find_one({"case_id": c["id"]}, sort=[("created_at", -1)])
-        c["last_activity"] = clean(last) if last else None
-        out.append(c)
+        c["last_activity"] = latest.get(c["id"])
     return out
 
 
@@ -423,6 +592,7 @@ async def list_cases(status: Optional[str] = None, bucket: Optional[str] = None,
                      accountant_id: Optional[str] = None, priority: Optional[str] = None,
                      tax_year: Optional[str] = None, service_type: Optional[str] = None,
                      q: Optional[str] = None, include_test: bool = False,
+                     limit: int = 100, skip: int = 0,
                      user: dict = Depends(get_current_user)):
     query = {}
     if not include_test:
@@ -495,7 +665,7 @@ async def list_cases(status: Optional[str] = None, bucket: Optional[str] = None,
                         {"case_ref": {"$regex": q, "$options": "i"}},
                         {"client_user_id": {"$in": matched_users}}]
 
-    cases = await db.cases.find(query).sort("last_updated", -1).to_list(500)
+    cases = await db.cases.find(query).sort("last_updated", -1).skip(skip).to_list(limit)
     return scrub_many(await _decorate(cases), user)
 
 
@@ -1038,14 +1208,12 @@ async def list_tasks(case_id: Optional[str] = None, status: Optional[str] = None
         query["status"] = status
     tasks = await db.tasks.find(query).sort("created_at", -1).to_list(300)
     tasks = clean_many(tasks)
-    # Tax year comes from the parent case so a task card can never show a stale copy.
-    years = {}
+    # Tax year comes from the parent case; fetched in one query for the whole page.
+    ids = list({t.get("case_id") for t in tasks if t.get("case_id")})
+    years = {c["id"]: c.get("tax_year")
+             async for c in db.cases.find({"id": {"$in": ids}}, {"id": 1, "tax_year": 1})}
     for t in tasks:
-        cid = t.get("case_id")
-        if cid and cid not in years:
-            c = await db.cases.find_one({"id": cid}, {"tax_year": 1})
-            years[cid] = (c or {}).get("tax_year")
-        t["tax_year"] = years.get(cid)
+        t["tax_year"] = years.get(t.get("case_id"))
     return scrub_many(tasks, user)
 
 
@@ -1119,6 +1287,7 @@ async def upload_document(case_id: str = Form(...), document_type: str = Form("O
     ext = file.filename.split(".")[-1] if "." in file.filename else "bin"
     path = f"{APP_NAME}/uploads/{user['id']}/{uuid.uuid4()}.{ext}"
     data = await file.read()
+    clean_name = validate_upload(file.content_type, len(data), file.filename)
     result = put_object(path, data, file.content_type or "application/octet-stream")
     record = {
         "id": document_id or str(uuid.uuid4()), "case_id": case_id,
@@ -1420,8 +1589,12 @@ async def change_my_password(body: PasswordChangeIn, user: dict = Depends(get_cu
         raise HTTPException(status_code=400, detail="Your current password is not correct")
     if len(body.new_password) < 8:
         raise HTTPException(status_code=400, detail="Choose a password of at least 8 characters")
+    check_password_strength(body.new_password, user.get("email"), user.get("name"))
     await db.users.update_one({"id": user["id"]},
                              {"$set": {"password_hash": hash_password(body.new_password)}})
+    # A password change ends every other session, so a stolen session cannot survive it.
+    await db.refresh_tokens.update_many({"user_id": user["id"], "revoked_at": None},
+                                        {"$set": {"revoked_at": datetime.now(timezone.utc)}})
     await db.activity_logs.insert_one({
         "id": str(uuid.uuid4()), "case_id": None, "action": "Password changed",
         "user_id": user["id"], "user_name": user["name"], "role": user["role"],
@@ -1763,6 +1936,7 @@ async def accept_invite(token: str, body: AcceptInviteIn):
         raise HTTPException(status_code=400, detail="This invitation is no longer valid")
     if len(body.password) < 8:
         raise HTTPException(status_code=400, detail="Password must be at least 8 characters")
+    check_password_strength(body.password)
     await db.users.update_one({"id": invite["user_id"]}, {"$set": {
         "password_hash": hash_password(body.password), "is_active": True,
         "status": "ACTIVE", "activated_at": now_iso()}})
@@ -1790,6 +1964,7 @@ async def workflow_settings(user: dict = Depends(require_roles("ADMIN", "SUPER_A
 async def audit_log(case_ref: Optional[str] = None, user_name: Optional[str] = None,
                     action: Optional[str] = None, date_from: Optional[str] = None,
                     date_to: Optional[str] = None, include_test: bool = False,
+                    limit: int = 100, skip: int = 0,
                     user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
     """Genuine operational activity, newest first. Nothing is ever deleted -- automated-test
     activity is only filtered out, and can be included on request."""
@@ -1804,10 +1979,15 @@ async def audit_log(case_ref: Optional[str] = None, user_name: Optional[str] = N
             query["created_at"]["$gte"] = date_from
         if date_to:
             query["created_at"]["$lte"] = date_to + "T23:59:59"
-    logs = await db.activity_logs.find(query).sort("created_at", -1).to_list(1000)
+    # Audit and payment lists page through the data instead of loading everything.
+    logs = await db.activity_logs.find(query).sort("created_at", -1).skip(skip).to_list(limit + 200)
+    logs = clean_many(logs)
+    case_ids = list({l["case_id"] for l in logs if l.get("case_id")})
+    cases = {c["id"]: c async for c in db.cases.find(
+        {"id": {"$in": case_ids}}, {"id": 1, "case_ref": 1, "client_name": 1, "is_test": 1})}
     out = []
-    for l in clean_many(logs):
-        case = await db.cases.find_one({"id": l["case_id"]}) if l.get("case_id") else None
+    for l in logs:
+        case = cases.get(l.get("case_id"))
         if not include_test and l.get("case_id") and (case is None or case.get("is_test")):
             # Test-case activity, including activity whose test case has already been cleaned.
             continue
@@ -1816,7 +1996,7 @@ async def audit_log(case_ref: Optional[str] = None, user_name: Optional[str] = N
         if case_ref and (l["case_ref"] or "").lower() != case_ref.strip().lower():
             continue
         out.append(l)
-    return out[:300]
+    return out[:limit]
 
 
 SERVICE_LABELS_ALL = {"SELF_ASSESSMENT": "Self Assessment", "MTD_INCOME_TAX": "MTD for Income Tax"}
@@ -1893,8 +2073,11 @@ async def business_overview(user: dict = Depends(require_roles("SUPER_ADMIN"))):
     mtd_active = {c["client_id"] async for c in db.client_services.find(
         {"service_type": "MTD_INCOME_TAX", "status": "ACTIVE"}) if c["client_id"] in genuine_clients}
 
-    paid = [p for p in await db.payment_transactions.find({"payment_status": "paid"}).to_list(3000)
-            if p.get("user_id") in genuine_client_users]
+    paid_rows = await db.payment_transactions.aggregate([
+        {"$match": {"payment_status": "paid", "user_id": {"$in": list(genuine_client_users)}}},
+        {"$project": {"amount": 1, "created_at": 1, "service_type": 1, "kind": 1}},
+    ]).to_list(None)
+    paid = paid_rows
 
     def total(rows):
         return round(sum(r.get("amount", 0) for r in rows), 2)
@@ -1908,9 +2091,9 @@ async def business_overview(user: dict = Depends(require_roles("SUPER_ADMIN"))):
                                              "status": "COMPLETED"}),
         })
 
-    failed = [p for p in await db.payment_transactions.find(
-        {"payment_status": {"$in": ["failed", "expired"]}}).to_list(3000)
-        if p.get("user_id") in genuine_client_users]
+    failed = await db.payment_transactions.count_documents({
+        "payment_status": {"$in": ["failed", "expired"]},
+        "user_id": {"$in": list(genuine_client_users)}})
 
     return {
         "clients": {
@@ -1934,7 +2117,7 @@ async def business_overview(user: dict = Depends(require_roles("SUPER_ADMIN"))):
             "mtd": total([p for p in paid if p.get("service_type") == "MTD_INCOME_TAX"]),
             "package_upgrades": total([p for p in paid if p.get("kind") == "SA_UPGRADE"]),
             "successful_payments": len(paid),
-            "failed_payments": len(failed),
+            "failed_payments": failed,
             "note": "Revenue is summed from unique genuine successful payment transactions only. "
                     "Self Assessment and MTD are the service categories and add up to the total; "
                     "package upgrades are a subset of Self Assessment revenue, not additional "

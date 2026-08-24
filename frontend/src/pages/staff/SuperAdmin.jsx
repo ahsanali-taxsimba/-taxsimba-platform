@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AppShell from "@/components/AppShell";
 import { Empty, Panel } from "@/components/StatCard";
+import TwoFactorPanel from "@/components/TwoFactorPanel";
 import { api, d, dt } from "@/lib/api";
 
 const TABS = [["overview", "Business Overview"], ["users", "Users"], ["accountants", "Accountants"], ["admins", "Admins"], ["roles", "Roles"], ["services", "Services"], ["packages", "Packages & Pricing"], ["payments", "Payments"], ["workflow", "Workflow Settings"], ["audit", "Audit Log"]];
@@ -37,7 +38,7 @@ export default function SuperAdmin() {
   }).then(({ data }) => setPayments(data));
 
   const loadAudit = () => {
-    const params = { include_test: includeTest };
+    const params = { include_test: includeTest, limit: 100 };
     Object.entries(auditQ).forEach(([k, v]) => { if (v.trim()) params[k] = v.trim(); });
     return api.get("/audit-log", { params }).then(({ data }) => setAudit(data));
   };
@@ -110,6 +111,7 @@ export default function SuperAdmin() {
 
         {["users", "accountants", "admins"].includes(tab) && (
           <>
+            <div className="mb-6"><TwoFactorPanel /></div>
             <Panel title="Invite staff member" testId="create-user-panel">
               <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-3">
                 <input data-testid="new-user-name" placeholder="Full name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm" />
