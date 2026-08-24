@@ -427,11 +427,12 @@ export default function CaseWorkspace() {
                           <div className="text-xs text-[#626A65]" data-testid={`mtd-approval-${p.id}`}>
                             {p.approved_version ? `Client approved version ${p.approved_version}` : "Not yet approved by client"}
                           </div>
-                          {(p.published_versions || []).length > 1 && (
+                          {(p.published_versions || []).length > 0 && (
                             <ul className="mt-2 space-y-1 border-t border-[#E3E7E4] pt-2" data-testid={`mtd-history-${p.id}`}>
                               {[...(p.published_versions || [])].reverse().map((v) => (
                                 <li key={v.version} className="text-[11px] text-[#626A65]">
                                   v{v.version} · {money(v.income)} / {money(v.expenses)} / {money(v.net_profit)} · {v.published_by_name} · {dt(v.published_at)}
+                                  {v.superseded_at ? ` · superseded ${dt(v.superseded_at)} by ${v.superseded_by_name} (${v.superseded_reason})` : ""}
                                 </li>
                               ))}
                             </ul>
@@ -476,6 +477,13 @@ export default function CaseWorkspace() {
                           const reason = window.prompt("Reason for returning this period for changes");
                           if (reason && reason.trim()) act(() => api.post(`/mtd/periods/${p.id}/request-changes`, { reason }));
                         }}>Return for changes</button>
+                    )}
+                    {isAdmin && p.status === "APPROVED" && (
+                      <button data-testid={`mtd-reopen-btn-${p.id}`} className="text-xs font-semibold text-[#D64545]"
+                        onClick={() => {
+                          const reason = window.prompt("Reason for reopening this approved quarter for correction");
+                          if (reason && reason.trim()) act(() => api.post(`/mtd/periods/${p.id}/reopen`, { reason }));
+                        }}>Reopen for correction</button>
                     )}
                     {isAdmin && p.status === "APPROVED" && (
                       <button data-testid={`mtd-submit-btn-${p.id}`} className="text-xs font-semibold text-[#006B3C]"

@@ -114,6 +114,7 @@ async def ensure_periods(case: dict) -> int:
             "published": None, "published_version": 0, "published_versions": [],
             "changes_reason": None, "client_approved_at": None,
             "approved_version": None, "approved_snapshot": None,
+            "approval_history": [], "reopened_by_name": None, "reopened_at": None,
             "submission_reference": None, "submission_date": None,
             "submitted_by_name": None, "submitted_at": None,
             "created_at": now_iso(), "updated_at": now_iso(),
@@ -523,6 +524,56 @@ async def client_approve(period_id: str, body: Optional[ClientApproveIn] = None,
         await notify(admin["id"], "MTD period approved by client",
                      f"{case['client_name']} — {case['case_ref']} {row['label']}",
                      case["id"], f"/admin/cases/{case['id']}", "SUBMISSION")
+    return out
+
+
+@router.post("/periods/{period_id}/reopen")
+async def reopen_period(period_id: str, body: ReasonIn,
+                        user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    """Reopens a client-approved quarter for correction. A quarter that has already been
+    recorded as externally submitted stays locked. Nothing is deleted or overwritten."""
+    row, case = await _period(period_id, user)
+    if row["status"] == SUBMITTED:
+        raise HTTPException(status_code=400,
+                            detail="This period has already been submitted externally and is "
+                                   "locked. A separate correction process is required.")
+    if row["status"] != APPROVED:
+        raise HTTPException(status_code=400,
+                            detail="Only a quarter the client has approved can be reopened for "
+                                   "correction")
+    if not body.reason.strip():
+        raise HTTPException(status_code=400, detail="A reason is required")
+    # The published version and the approval that superseded it are kept as evidence.
+    history = [{**v, "superseded_at": now_iso(),
+                "superseded_reason": body.reason.strip(),
+                "superseded_by_name": user["name"],
+                "client_approved_at": row.get("client_approved_at")}
+               if v["version"] == row["approved_version"] else v
+               for v in (row.get("published_versions") or [])]
+    approvals = list(row.get("approval_history") or []) + [{
+        "version": row["approved_version"], "approved_at": row.get("client_approved_at"),
+        "snapshot": row.get("approved_snapshot"),
+        "reopened_at": now_iso(), "reopened_by_name": user["name"],
+        "reopened_by_role": user["role"], "reason": body.reason.strip(),
+    }]
+    out = await _advance(row, case, IN_PROGRESS,
+                         f"reopened for correction (approved version "
+                         f"{row['approved_version']} superseded)", user,
+                         extra={"published_versions": history,
+                                "approval_history": approvals,
+                                "approved_version": None, "approved_snapshot": None,
+                                "client_approved_at": None,
+                                "changes_reason": body.reason.strip(),
+                                "reopened_by_name": user["name"],
+                                "reopened_at": now_iso()},
+                         comments=body.reason)
+    if case.get("assigned_accountant_id"):
+        await notify(case["assigned_accountant_id"], "MTD period reopened for correction",
+                     f"{case['case_ref']} {row['label']}: {body.reason}", case["id"],
+                     f"/work/cases/{case['id']}", "CHANGES")
+    await notify(case["client_user_id"], f"MTD {row['label']} being corrected",
+                 "Your accountant is making a correction. Updated figures will be sent to you "
+                 "for approval.", case["id"], "/mtd", "INFO")
     return out
 
 
