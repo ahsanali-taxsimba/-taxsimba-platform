@@ -24,7 +24,8 @@ export default function CaseWorkspace() {
   const { id } = useParams();
   const { user } = useAuth();
   const isAdmin = ["ADMIN", "SUPER_ADMIN"].includes(user?.role);
-  const [tab, setTab] = useState("Overview");
+  const [tab, setTab] = useState(
+    new URLSearchParams(window.location.search).get("tab") || "Overview");
   const [cs, setCs] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [docs, setDocs] = useState([]);
