@@ -1429,7 +1429,11 @@ async def add_note(case_id: str, body: NoteIn,
 
 
 @api.get("/cases/{case_id}/activity")
-async def case_activity(case_id: str, user: dict = Depends(get_current_user)):
+async def case_activity(case_id: str,
+                        user: dict = Depends(require_roles("ACCOUNTANT", "ADMIN",
+                                                           "SUPER_ADMIN"))):
+    """Staff-only. The raw log carries internal comments and staff-only events, so a client
+    must never read it -- clients follow their case through their own journey screens."""
     await _get_case(case_id, user)
     logs = await db.activity_logs.find({"case_id": case_id}).sort("created_at", -1).to_list(500)
     return scrub_many(clean_many(logs), user)

@@ -161,11 +161,12 @@ def _decorate(row: dict, user: dict) -> dict:
            "next_action": action, "next_action_owner": owner,
            "disclaimer": DISCLAIMER if row.get("published") else None}
     if is_client:
-        # A client only ever sees published figures -- drafts stay staff-only.
-        out.pop("draft", None)
-        out.pop("draft_saved_by", None)
-        out.pop("draft_saved_at", None)
-        out.pop("changes_reason", None)
+        # A client only ever sees published figures -- drafts and staff-only review
+        # metadata stay internal.
+        for k in ("draft", "draft_saved_by", "draft_saved_at", "changes_reason",
+                  "published_versions", "approval_history", "reopened_by_name",
+                  "reopened_at", "is_test"):
+            out.pop(k, None)
     return out
 
 
