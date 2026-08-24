@@ -20,6 +20,7 @@ import SuperAdmin from "@/pages/staff/SuperAdmin";
 import AcceptInvite from "@/pages/AcceptInvite";
 import StaffSecurity from "@/pages/staff/StaffSecurity";
 import { AdminServiceIssues, ClientServiceIssues } from "@/pages/ServiceIssues";
+import { ServiceGuard } from "@/components/ServiceGuard";
 
 function Guard({ roles, children }) {
   const { user, loading } = useAuth();
@@ -51,18 +52,18 @@ export default function App() {
           <Route path="/" element={<Landing />} />
 
           <Route path="/dashboard" element={<Guard roles={CLIENT}><ClientDashboard /></Guard>} />
-          <Route path="/my-return" element={<Guard roles={CLIENT}><MyTaxReturn /></Guard>} />
+          <Route path="/my-return" element={<Guard roles={CLIENT}><ServiceGuard serviceType="SELF_ASSESSMENT"><MyTaxReturn /></ServiceGuard></Guard>} />
           <Route path="/documents" element={<Guard roles={CLIENT}><ClientDocuments /></Guard>} />
           <Route path="/messages" element={<Guard roles={CLIENT}><ClientMessages /></Guard>} />
           <Route path="/tasks" element={<Guard roles={CLIENT}><ClientTasks /></Guard>} />
-          <Route path="/journey" element={<Guard roles={CLIENT}><ClientJourneyPage /></Guard>} />
+          <Route path="/journey" element={<Guard roles={CLIENT}><ServiceGuard serviceType="SELF_ASSESSMENT"><ClientJourneyPage /></ServiceGuard></Guard>} />
           <Route path="/profile" element={<Guard roles={CLIENT}><ClientProfile /></Guard>} />
           <Route path="/subscription" element={<Guard roles={CLIENT}><MyServices /></Guard>} />
           <Route path="/payment/success" element={<Guard roles={CLIENT}><PaymentSuccess /></Guard>} />
           <Route path="/payment/cancel" element={<Guard roles={CLIENT}><PaymentCancel /></Guard>} />
           <Route path="/actions" element={<Guard roles={CLIENT}><ActionRequired /></Guard>} />
           <Route path="/recommendation/:offerId" element={<Guard roles={CLIENT}><RecommendationReview /></Guard>} />
-          <Route path="/mtd" element={<Guard roles={CLIENT}><MtdQuarters /></Guard>} />
+          <Route path="/mtd" element={<Guard roles={CLIENT}><ServiceGuard serviceType="MTD_INCOME_TAX"><MtdQuarters /></ServiceGuard></Guard>} />
           <Route path="/help" element={<Guard roles={CLIENT}><HelpCentre /></Guard>} />
           <Route path="/settings" element={<Guard roles={CLIENT}><ClientSettings /></Guard>} />
           <Route path="/service-issues" element={<Guard roles={CLIENT}><ClientServiceIssues /></Guard>} />

@@ -466,3 +466,9 @@ No application code changed. Ambiguities recorded in the handover: unscoped GET 
 - AppShell now reads both service states from GET /my-services: MTD nav appears automatically when MTD_INCOME_TAX is ACTIVE (no admin unlock); SA-only screens /my-return and /journey are hidden when SELF_ASSESSMENT is not ACTIVE. Shared areas (Documents, Messages, Tasks, Profile, My Services, Help, Settings, Report a Problem) remain common.
 - ClientDashboard: MTD-only client (no SA case, MTD ACTIVE) now sees an "Open MTD for Income Tax" card (mtd-portal-card) instead of SA wording; SA-only informational MTD card unchanged.
 - Files: frontend/src/components/AppShell.jsx, frontend/src/pages/client/ClientDashboard.jsx, memory/NODE_FRONTEND_API_MAP.md. No backend/workflow change. Verified SA-only client live; MTD-only and both-services verified by source (no MTD-active client exists). Nothing deployed.
+
+## 2026-06-24 — LIVE service-combination routing verification
+- Added scripts/qa_service_combos.py (temporary SA-only / MTD-only / SA+MTD clients; MTD activated via genuine paid SERVICE_ACTIVATION fulfilment, no manual unlock). Data removed after the run.
+- Added frontend/src/components/ServiceGuard.jsx: /my-return and /journey require an ACTIVE SELF_ASSESSMENT service; /mtd requires an ACTIVE MTD_INCOME_TAX service; otherwise redirect to /dashboard. Wired in App.js.
+- ClientDashboard subtitle no longer mentions Self Assessment for MTD-only clients.
+- Live preview results: SA-only PASS, MTD-only PASS (no SA nav, no SA pages even by direct URL, Q1-Q4 + Final Declaration visible), SA+MTD PASS (both areas separate under one login). Admin manual unlock required: NO.

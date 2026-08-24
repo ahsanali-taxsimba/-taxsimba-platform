@@ -37,7 +37,7 @@ export default function ClientDashboard() {
   return (
     <AppShell
       title={`Welcome back, ${clientName}`}
-      subtitle={cs ? `Your Self Assessment (${cs.tax_year}) is in progress.` : "No active Self Assessment yet."}
+      subtitle={cs ? `Your Self Assessment (${cs.tax_year}) is in progress.` : mtdActive ? "Your MTD for Income Tax service is active." : "No active Self Assessment yet."}
     >
       <div className="space-y-6">
         {!cs && mtdActive ? (
