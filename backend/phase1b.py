@@ -14,6 +14,7 @@ from pydantic import BaseModel
 from auth import get_current_user, require_roles
 from db import clean, clean_many, db, scrub, scrub_many
 from invoices import create_receipt, render_html
+from testdata import OPERATIONAL_ONLY
 from workflow import STATUS_META, log_activity, notify, now_iso
 
 stripe.api_key = os.environ.get("STRIPE_SECRET_KEY") or "sk_test_emergent"
@@ -625,6 +626,9 @@ async def create_payment_request(body: AdditionalWorkIn,
     case = await db.cases.find_one({"id": body.case_id})
     if not case:
         raise HTTPException(status_code=404, detail="Case not found")
+    if case["status"] == "COMPLETED":
+        raise HTTPException(status_code=400,
+                            detail="Completed cases are locked — reopen the case first")
     if not body.description.strip():
         raise HTTPException(status_code=400, detail="A description of the additional work is required")
     if body.amount <= 0:
@@ -904,10 +908,17 @@ async def case_recommendations(case_id: str,
 
 
 @router.get("/recommendations")
-async def list_recommendations(status: Optional[str] = None,
+async def list_recommendations(status: Optional[str] = None, include_test: bool = False,
                                user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
     q = {"status": status} if status else {}
-    return clean_many(await db.recommendations.find(q).sort("created_at", -1).to_list(300))
+    rows = clean_many(await db.recommendations.find(q).sort("created_at", -1).to_list(300))
+    if include_test:
+        return rows
+    # Same genuine-record rule as every other operational list; nothing is deleted.
+    case_ids = list({r.get("case_id") for r in rows if r.get("case_id")})
+    genuine = {c["id"] async for c in db.cases.find({"id": {"$in": case_ids}, **OPERATIONAL_ONLY},
+                                                    {"id": 1})}
+    return [r for r in rows if r.get("case_id") in genuine]
 
 
 class OfferIn(BaseModel):

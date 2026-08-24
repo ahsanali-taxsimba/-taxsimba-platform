@@ -1054,7 +1054,10 @@ async def record_submission(case_id: str, body: SubmissionIn,
                             user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
     """Records an out-of-band submission. Requires admin approval AND client approval."""
     case = await _get_case(case_id, user)
-    if case["status"] in ("SUBMITTED", "COMPLETED"):
+    if case["status"] == "COMPLETED":
+        raise HTTPException(status_code=400,
+                            detail="Completed cases are locked — reopen the case first")
+    if case["status"] == "SUBMITTED":
         # Idempotent: a double-click or repeated request returns the existing record rather
         # than creating a second submission.
         return await get_case(case_id, user)

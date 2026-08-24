@@ -330,3 +330,13 @@ Perf: audit endpoint 970ms -> ~150ms; cases/payments/tasks all ~110-160ms.
 Gotchas learned: HTTPException raised inside middleware returns 500 (must return JSONResponse); in-memory rate limiting does not work behind the ingress because requests spread across replicas (counter must live in Mongo).
 All demo accounts left with 2FA OFF so nobody is locked out. SA-1456 COMPLETED / SA-1428 Awaiting Client unchanged.
 STILL OUTSTANDING for production: no transactional email provider (invites/receipts are portal-only), live Stripe keys, production DNS/CORS validation.
+
+## 2026-06 Final pre-MTD platform lock (self-tested, no testing_agent per user instruction)
+3 genuine defects found and fixed:
+1. backend/phase1b.py GET /recommendations - had no operational filter, so all 300 historic QA/test recommendations showed by default in Admin -> Recommendations. Now filtered to genuine cases only (include_test=true still returns all 300; nothing deleted).
+2. backend/server.py POST /cases/{id}/record-submission - returned 200 on a COMPLETED case. Now 400 "Completed cases are locked - reopen the case first".
+3. backend/phase1b.py POST /payment-requests - allowed an Additional Work charge on a COMPLETED case. Now 400 with the same lock message; reopen (with recorded reason, audited) is required first.
+Verified by direct API checks: recs default 0 / include_test 300, accountant+client 403; record-submission 400 with submission record still 1; payment-requests 400; SA-1456 still COMPLETED with its original submission ref/date/completed_at.
+Inspection results: complaints/service-issue module MISSING (only client<->staff messaging + data_requests exist). Final Documents GAP - documents have no client-visible "final return copy" designation (is_internal docs get status "Final" but are staff-only). Email delivery still NOT CONFIGURED (no SMTP/Resend/SendGrid key); all notification events exist in-app and are provider-ready.
+Genuine counts: 2 clients, 2 cases (SA-1456 COMPLETED, SA-1428 AWAITING_CLIENT), 0 genuine recommendations, 0 open payment requests, 0 invoices, no duplicate case refs.
+Temporary lock-check rows removed; demo case states untouched.
