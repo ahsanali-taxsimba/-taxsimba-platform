@@ -199,5 +199,20 @@ All routes are `/api/...` (MTD routes `/api/mtd/...`). Common errors: **400** gu
 - `pages/AcceptInvite.jsx` — `/auth/invite/{token}*`.
 - `lib/api.js` — axios instance on `REACT_APP_BACKEND_URL`, refresh-on-401, `openDocument()` authenticated blob download (never a raw href).
 
-## 15. Migration rule
+## 15. Locked migration decisions (ambiguities resolved)
+These four points are decided and must be implemented as stated in the Node.js version.
+
+**15.1 Document retrieval — no unscoped global listing.**
+The legacy/unsafe unscoped `GET /documents` behaviour must NOT be carried over. Every document read in Node.js must be permission-scoped to a specific case, client, MTD period, or an explicitly authorised operational scope, and must be authorisation-checked per request. Cross-client access denied; staff-only/internal documents never returned to clients; client-visible only when explicitly marked. Test/QA documents must never appear in genuine operational queries (operational-only by default, explicit opt-in only for staff test views).
+
+**15.2 Submitted MTD periods stay locked.**
+Preserve current parity: an externally submitted/completed MTD quarter or Final Declaration is locked — no reopen, no figure edits, no re-approval. Do NOT build a submitted-amendment workflow during migration. Amendment of submitted periods is a future post-migration (Phase 2) feature only, requiring separate approval.
+
+**15.3 Deadline reminders — backend scheduler.**
+Node.js production reminders must be dispatched by a backend scheduler/background worker. They must not depend on a client (or staff member) opening the portal or on any browser/session event. Existing deadline rules, thresholds and dates are unchanged — this is an execution-architecture requirement only.
+
+**15.4 Transactional email capability.**
+Node.js production must support provider-configured transactional email in addition to in-app notifications, covering: staff/client invitations, document requests, approvals, deadline reminders, payment/service notices, and completion notices. Provider credentials and configuration must come from deployment environment variables only and must never be hard-coded or committed. No provider is chosen or integrated at this documentation stage.
+
+## 16. Migration rule
 Reproduce this behaviour first. Do not simplify, reinterpret, merge, rename or redesign workflow states, transitions, permissions, guards, data relationships, API behaviour or client/staff visibility rules until full behavioural parity is proven and a change is separately approved.

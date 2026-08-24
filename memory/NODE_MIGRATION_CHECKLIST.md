@@ -120,7 +120,29 @@ Setup: seed 4 roles (client, second client, assigned accountant, unassigned acco
 - [ ] Refresh-on-401 and the authenticated blob download still work (no raw protected hrefs).
 - [ ] Mobile: no horizontal scrolling; cards stack; actions reachable.
 
-## 18. Final gates
+## 18. Locked migration decisions (handover §15)
+Document scoping:
+- [ ] No endpoint returns documents without a case / client / MTD period / explicitly authorised operational scope.
+- [ ] Request without a scope parameter is rejected (400) rather than returning all documents.
+- [ ] Cross-client document access returns 403; staff-only documents never returned to a client.
+- [ ] Test/QA documents absent from every operational document query by default.
+
+Submitted MTD periods:
+- [ ] Reopen of a SUBMITTED quarter or Final Declaration returns 400.
+- [ ] Figure edit / re-approval / re-submission of a SUBMITTED period rejected.
+- [ ] No amendment endpoint exists (Phase 2 only).
+
+Deadline reminders:
+- [ ] Reminders are produced by a scheduler/background worker process.
+- [ ] Reminders fire with no user session active and no portal page open.
+- [ ] Deadline thresholds/dates identical to the Python reference.
+
+Transactional email:
+- [ ] Email dispatch layer exists alongside in-app notifications for invitations, document requests, approvals, deadline reminders, payment/service notices, completion notices.
+- [ ] All provider credentials/config read from deployment environment variables; none hard-coded or committed.
+- [ ] In-app notifications still work if email dispatch is unconfigured or fails.
+
+## 19. Final gates
 - [ ] Self Assessment behaviour demonstrably unchanged.
 - [ ] MTD Q1–Q4 + Final Declaration behaviour demonstrably unchanged.
 - [ ] No HMRC API/OAuth introduced.
