@@ -61,7 +61,7 @@ export default function AdminMtd() {
 
   return (
     <AppShell title="MTD Operations" subtitle="Making Tax Digital quarterly compliance — separate from Self Assessment.">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {CARDS.map(([key, label, tone, b]) => (
           <StatCard key={key} label={label} value={stats[key]} tone={tone}
             testId={`mtd-card-${key}`}

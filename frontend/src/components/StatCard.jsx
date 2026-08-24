@@ -15,7 +15,7 @@ export function StatCard({ label, value, onClick, tone = "#006B3C", testId, acti
     <button
       data-testid={testId}
       onClick={onClick}
-      className={`group text-left bg-white border rounded-xl p-5 w-full shadow-sm transition-[background-color,border-color,box-shadow] duration-200 ${
+      className={`group text-left bg-white border rounded-xl p-5 w-full min-h-[118px] flex flex-col justify-between shadow-sm transition-[background-color,border-color,box-shadow] duration-200 ${
         interactive ? "hover:border-[#078A4B]/40 hover:shadow-md cursor-pointer" : "cursor-default"
       } ${active ? "border-[#078A4B] ring-2 ring-[#078A4B]/20" : "border-[#E3E7E4]"}`}
     >

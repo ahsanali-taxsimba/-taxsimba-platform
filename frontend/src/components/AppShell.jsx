@@ -197,7 +197,7 @@ export default function AppShell({ children, title, subtitle }) {
             )}
           </div>
         </header>
-        <main className="p-5 md:p-10 max-w-[1400px] space-y-1">{children}</main>
+        <main className="p-5 md:p-10 max-w-[1400px] w-full">{children}</main>
       </div>
     </div>
   );
