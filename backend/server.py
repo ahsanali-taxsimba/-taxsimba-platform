@@ -729,7 +729,10 @@ async def create_case(body: CaseIn, user: dict = Depends(get_current_user)):
 async def get_case(case_id: str, user: dict = Depends(get_current_user)):
     case = await _get_case(case_id, user)
     case["days_left"] = _days_left(case)
-    submission = await db.submission_records.find_one({"case_id": case_id, "status": "SUBMITTED"})
+    # The record moves READY -> SUBMITTED -> COMPLETED when the case is completed, so both
+    # of the later states count as a genuine recorded submission.
+    submission = await db.submission_records.find_one(
+        {"case_id": case_id, "status": {"$in": ["SUBMITTED", "COMPLETED"]}})
     case["journey"] = journey(case["status"], has_submission=bool(submission))
     case["status_label"] = client_status(case["status"])
     case["has_submission_record"] = bool(submission)
