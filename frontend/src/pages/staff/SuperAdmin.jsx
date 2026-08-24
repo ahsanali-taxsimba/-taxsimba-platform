@@ -17,6 +17,7 @@ export default function SuperAdmin() {
   const [overview, setOverview] = useState(null);
   const [includeTest, setIncludeTest] = useState(false);
   const [payStatus, setPayStatus] = useState("");
+  const [payKind, setPayKind] = useState("");
   const [auditQ, setAuditQ] = useState({ case_ref: "", user_name: "", action: "", date_from: "", date_to: "" });
   const [form, setForm] = useState({ name: "", email: "", role: "ACCOUNTANT", specialisms: ["SELF_ASSESSMENT"], capacity: 15 });
   const [err, setErr] = useState("");
@@ -32,7 +33,7 @@ export default function SuperAdmin() {
   };
   // Payments and the audit log are filtered server-side; test history is opt-in.
   const loadPayments = () => api.get("/payments", {
-    params: { include_test: includeTest, ...(payStatus ? { status: payStatus } : {}) },
+    params: { include_test: includeTest, ...(payStatus ? { status: payStatus } : {}), ...(payKind ? { kind: payKind } : {}) },
   }).then(({ data }) => setPayments(data));
 
   const loadAudit = () => {
@@ -41,7 +42,7 @@ export default function SuperAdmin() {
     return api.get("/audit-log", { params }).then(({ data }) => setAudit(data));
   };
 
-  useEffect(() => { loadPayments(); loadAudit(); }, [includeTest, payStatus]); // eslint-disable-line
+  useEffect(() => { loadPayments(); loadAudit(); }, [includeTest, payStatus, payKind]); // eslint-disable-line
 
   useEffect(() => { load(); }, []);
   // The invite form follows the tab: accountant fields only apply to accountants.
@@ -289,6 +290,13 @@ export default function SuperAdmin() {
                 <option value="expired">Expired</option>
                 <option value="refunded">Refunded</option>
               </select>
+              <select data-testid="payment-kind-filter" value={payKind} onChange={(e) => setPayKind(e.target.value)}
+                className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm">
+                <option value="">All payment types</option>
+                <option value="ADDITIONAL_WORK">Additional Work</option>
+                <option value="SA_UPGRADE">Package upgrade</option>
+                <option value="SERVICE_ACTIVATION">Service activation</option>
+              </select>
               <label className="flex items-center gap-2 text-xs text-[#626A65]">
                 <input data-testid="include-test-payments" type="checkbox" checked={includeTest}
                   onChange={(e) => setIncludeTest(e.target.checked)} />
@@ -319,8 +327,12 @@ export default function SuperAdmin() {
                   <tr key={p.id} className="border-b border-[#E3E7E4]">
                     <td className="py-3 pr-4 text-[#626A65]">{dt(p.created_at)}</td>
                     <td className="py-3 pr-4">{p.client_name} <span className="text-xs text-[#626A65]">{p.client_ref}</span></td>
-                    <td className="py-3 pr-4">{p.kind === "SA_UPGRADE" ? "Package upgrade" : "Service activation"}</td>
-                    <td className="py-3 pr-4 text-[#626A65]">{p.previous_package ? `${p.previous_package} → ` : ""}{p.new_package}</td>
+                    <td className="py-3 pr-4">{p.kind === "SA_UPGRADE" ? "Package upgrade" : p.kind === "ADDITIONAL_WORK" ? "Additional work" : "Service activation"}</td>
+                    <td className="py-3 pr-4 text-[#626A65]">
+                      {p.kind === "ADDITIONAL_WORK"
+                        ? `${p.case_ref || ""} · ${p.description || ""} · by ${p.created_by_name || "—"}${p.due_date ? ` · due ${d(p.due_date)}` : ""}${p.paid_at ? ` · paid ${d(p.paid_at)}` : ""}${p.stripe_payment_intent_id ? ` · ${p.stripe_payment_intent_id}` : ""}`
+                        : `${p.previous_package ? `${p.previous_package} → ` : ""}${p.new_package || ""}`}
+                    </td>
                     <td className="py-3 pr-4 font-semibold">£{Number(p.amount).toFixed(2)}</td>
                     <td className="py-3" style={{ color: p.payment_status === "paid" ? "#16A05D" : "#626A65" }}>{p.payment_status}</td>
                   </tr>

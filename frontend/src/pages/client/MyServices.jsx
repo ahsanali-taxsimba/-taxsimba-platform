@@ -20,6 +20,7 @@ export default function MyServices() {
   const [upgrade, setUpgrade] = useState(null);
   const [offers, setOffers] = useState([]);
   const [payments, setPayments] = useState([]);
+  const [payReqs, setPayReqs] = useState([]);
   const [selected, setSelected] = useState(null);
   const activeCount = (data?.services || []).filter((s) => s.status === "ACTIVE").length;
   const [err, setErr] = useState("");
@@ -30,8 +31,19 @@ export default function MyServices() {
     api.get("/my-upgrade-options").then(({ data }) => setUpgrade(data)).catch(() => {});
     api.get("/my-offers").then(({ data }) => setOffers(data));
     api.get("/my-payments").then(({ data }) => setPayments(data));
+    api.get("/payment-requests").then(({ data }) => setPayReqs(data)).catch(() => {});
   };
   useEffect(() => { load(); }, []);
+
+  const payRequest = async (id) => {
+    setBusy(true); setErr("");
+    try {
+      const { data } = await api.post(`/payment-requests/${id}/checkout`, { origin_url: window.location.origin });
+      window.location.href = data.checkout_url;
+    } catch (e) {
+      setErr(apiError(e.response?.data?.detail)); setBusy(false);
+    }
+  };
 
   const startUpgrade = async (code) => {
     setBusy(true); setErr("");
@@ -200,6 +212,42 @@ export default function MyServices() {
           )}
         </Panel>
 
+        {payReqs.length > 0 && (
+          <Panel title="Additional work payment required" testId="additional-work-panel">
+            <p className="text-sm text-[#626A65] mb-5">
+              Additional work has been identified outside your current package. Please review the
+              details below.
+            </p>
+            <ul className="space-y-4">
+              {payReqs.map((p) => (
+                <li key={p.id} data-testid={`addwork-${p.id}`} className="border border-[#E3E7E4] rounded-lg p-5">
+                  <div className="text-sm font-semibold break-words">{p.description}</div>
+                  <div className="text-xs text-[#626A65] mt-1">
+                    {p.case_ref} · {p.tax_year}{p.due_date ? ` · due ${d(p.due_date)}` : ""}
+                  </div>
+                  <div className="mt-3 flex flex-wrap items-center gap-4">
+                    <span className="text-lg font-bold">{money(p.amount)}</span>
+                    <span className="text-sm font-semibold" style={{ color: PAY_TONE[p.payment_status] || "#626A65" }}>
+                      {PAY_LABEL[p.payment_status] || "Pending"}
+                    </span>
+                    {p.payment_status === "paid" ? (
+                      <span data-testid={`addwork-paid-${p.id}`} className="text-xs text-[#626A65]">
+                        Paid {dt(p.paid_at)}{p.stripe_payment_intent_id ? ` · reference ${p.stripe_payment_intent_id}` : ""}
+                      </span>
+                    ) : p.payment_status === "cancelled" ? null : (
+                      <button data-testid={`addwork-pay-${p.id}`} disabled={busy} onClick={() => payRequest(p.id)}
+                        className="px-5 py-2.5 rounded-lg bg-[#078A4B] text-white text-sm font-semibold hover:bg-[#006B3C] transition-colors disabled:opacity-50">
+                        Pay securely
+                      </button>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <p className="text-xs text-[#626A65] mt-4">VAT is shown at checkout. Payments are handled by our secure payment provider.</p>
+          </Panel>
+        )}
+
         <Panel title="Payment history" testId="payments-panel">
           {!payments.length && <Empty text="No payments yet." />}
           {payments.length > 0 && (
@@ -210,8 +258,8 @@ export default function MyServices() {
               <tbody>{payments.map((p) => (
                 <tr key={p.id} className="border-b border-[#E3E7E4]">
                   <td className="py-3 pr-4 text-[#626A65]">{d(p.created_at)}</td>
-                  <td className="py-3 pr-4">{p.kind === "SA_UPGRADE" ? "Package upgrade" : "Service activation"}</td>
-                  <td className="py-3 pr-4 text-[#626A65]">{p.previous_package ? `${p.previous_package} → ` : ""}{p.new_package}</td>
+                    <td className="py-3 pr-4">{p.kind === "SA_UPGRADE" ? "Package upgrade" : p.kind === "ADDITIONAL_WORK" ? "Additional work" : "Service activation"}</td>
+                    <td className="py-3 pr-4 text-[#626A65]">{p.kind === "ADDITIONAL_WORK" ? (p.description || "—") : `${p.previous_package ? `${p.previous_package} → ` : ""}${p.new_package || ""}`}</td>
                   <td className="py-3 pr-4 font-semibold">{money(p.amount)}</td>
                   <td className="py-3" style={{ color: PAY_TONE[p.payment_status] || "#626A65" }}>
                     {PAY_LABEL[p.payment_status] || "Pending"}

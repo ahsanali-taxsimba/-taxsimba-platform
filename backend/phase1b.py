@@ -398,6 +398,28 @@ async def _fulfil(tx: dict):
     user = await db.users.find_one({"id": tx["user_id"]})
     actor = {"id": user["id"], "name": user["name"], "role": "CLIENT"} if user else None
 
+    if tx["kind"] == "ADDITIONAL_WORK":
+        claimed = await db.payment_transactions.update_one(
+            {"id": tx["id"], "fulfilled": {"$ne": True}},
+            {"$set": {"fulfilled": True, "paid_at": now_iso(), "updated_at": now_iso()}})
+        if not claimed.modified_count:
+            return  # already confirmed -- never notify or audit the same payment twice
+        case = await db.cases.find_one({"id": tx.get("case_id")})
+        await log_activity(tx.get("case_id"),
+                           f"Additional work payment received — £{tx['amount']:.2f} "
+                           f"(ref {tx.get('stripe_payment_intent_id') or tx['session_id']})",
+                           actor, {"payment_request_id": tx["id"], "amount": tx["amount"]})
+        for uid in {(case or {}).get("assigned_accountant_id")} | {
+                u["id"] async for u in db.users.find({"role": {"$in": ["ADMIN", "SUPER_ADMIN"]}},
+                                                     {"id": 1})}:
+            if uid:
+                await notify(uid, "Additional work payment received",
+                             f"{(case or {}).get('client_name', 'Client')} paid "
+                             f"£{tx['amount']:.2f} for {tx.get('description', 'additional work')}",
+                             tx.get("case_id"),
+                             f"/work/cases/{tx.get('case_id')}", "PAYMENT")
+        return
+
     if tx["kind"] == "SA_UPGRADE":
         svc = await db.client_services.find_one({"client_id": tx["client_id"],
                                                  "service_type": SELF_ASSESSMENT})
@@ -565,22 +587,161 @@ async def my_payments(user: dict = Depends(require_roles("CLIENT"))):
     out = []
     for r in rows:
         r = clean(r)
-        if r.get("payment_status") in ("pending", "open", "unpaid") and not r.get("fulfilled") \
-                and (r.get("created_at") or "") < cutoff:
+        if r.get("kind") != "ADDITIONAL_WORK" \
+                and r.get("payment_status") in ("pending", "open", "unpaid") \
+                and not r.get("fulfilled") and (r.get("created_at") or "") < cutoff:
             r["payment_status"] = "cancelled"
         out.append({k: v for k, v in r.items()
                     if k in ("id", "kind", "service_type", "previous_package", "new_package",
-                             "amount", "currency", "payment_status", "created_at")})
+                             "amount", "currency", "payment_status", "created_at",
+                             "description", "case_ref")})
     return out
 
 
+# ---------------------------------------------------- additional work payment requests
+class AdditionalWorkIn(BaseModel):
+    case_id: str
+    description: str
+    amount: float
+    due_date: Optional[str] = None
+    internal_note: Optional[str] = None
+
+
+@router.post("/payment-requests")
+async def create_payment_request(body: AdditionalWorkIn,
+                                 user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    """Admin-raised charge for work outside the client's package. Reuses the existing Stripe
+    checkout, transaction record, notification and audit infrastructure."""
+    case = await db.cases.find_one({"id": body.case_id})
+    if not case:
+        raise HTTPException(status_code=404, detail="Case not found")
+    if not body.description.strip():
+        raise HTTPException(status_code=400, detail="A description of the additional work is required")
+    if body.amount <= 0:
+        raise HTTPException(status_code=400, detail="Amount must be greater than zero")
+    tx = {
+        "id": str(uuid.uuid4()), "session_id": None, "kind": "ADDITIONAL_WORK",
+        "user_id": case["client_user_id"], "client_id": case["client_id"],
+        "case_id": case["id"], "case_ref": case["case_ref"],
+        "service_type": case["service_type"], "tax_year": case.get("tax_year"),
+        "description": body.description.strip(), "internal_note": body.internal_note,
+        "due_date": body.due_date, "amount": round(float(body.amount), 2), "currency": "gbp",
+        "status": "sent", "payment_status": "pending", "fulfilled": False,
+        "created_by": user["id"], "created_by_name": user["name"], "created_by_role": user["role"],
+        "sent_at": now_iso(), "created_at": now_iso(), "updated_at": now_iso(),
+    }
+    await db.payment_transactions.insert_one(dict(tx))
+    await log_activity(case["id"], f"Additional work payment request sent — £{tx['amount']:.2f}",
+                       user, {"payment_request_id": tx["id"], "amount": tx["amount"],
+                              "description": tx["description"], "due_date": body.due_date})
+    await notify(case["client_user_id"], "Additional work payment required",
+                 f"{tx['description']} — £{tx['amount']:.2f}", case["id"], "/subscription",
+                 "PAYMENT")
+    return clean(tx)
+
+
+@router.get("/payment-requests")
+async def list_payment_requests(case_id: Optional[str] = None,
+                                user: dict = Depends(get_current_user)):
+    """Admin/accountant see requests for a case; a client only ever sees their own."""
+    query = {"kind": "ADDITIONAL_WORK"}
+    if user["role"] == "CLIENT":
+        query["user_id"] = user["id"]
+    elif user["role"] == "ACCOUNTANT":
+        if not case_id:
+            raise HTTPException(status_code=400, detail="case_id required")
+        case = await db.cases.find_one({"id": case_id})
+        if not case or case.get("assigned_accountant_id") != user["id"]:
+            raise HTTPException(status_code=403, detail="Case not assigned to you")
+    if case_id:
+        query["case_id"] = case_id
+    rows = await db.payment_transactions.find(query).sort("created_at", -1).to_list(100)
+    return [{k: v for k, v in clean(r).items() if k != "internal_note"
+             or user["role"] in ("ADMIN", "SUPER_ADMIN")} for r in rows]
+
+
+@router.post("/payment-requests/{request_id}/cancel")
+async def cancel_payment_request(request_id: str, body: Optional[dict] = None,
+                                 user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    req = await db.payment_transactions.find_one({"id": request_id, "kind": "ADDITIONAL_WORK"})
+    if not req:
+        raise HTTPException(status_code=404, detail="Payment request not found")
+    if req.get("payment_status") == "paid":
+        raise HTTPException(status_code=400, detail="A paid request cannot be cancelled or edited")
+    await db.payment_transactions.update_one(
+        {"id": request_id}, {"$set": {"status": "cancelled", "payment_status": "cancelled",
+                                      "cancelled_by_name": user["name"],
+                                      "cancelled_at": now_iso(), "updated_at": now_iso()}})
+    await log_activity(req.get("case_id"),
+                       f"Additional work payment request cancelled — £{req['amount']:.2f}", user,
+                       {"payment_request_id": request_id})
+    return {"ok": True}
+
+
+@router.post("/payment-requests/{request_id}/resend")
+async def resend_payment_request(request_id: str,
+                                 user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    req = await db.payment_transactions.find_one({"id": request_id, "kind": "ADDITIONAL_WORK"})
+    if not req:
+        raise HTTPException(status_code=404, detail="Payment request not found")
+    if req.get("payment_status") in ("paid", "cancelled"):
+        raise HTTPException(status_code=400, detail="This request is no longer outstanding")
+    await db.payment_transactions.update_one({"id": request_id},
+                                             {"$set": {"sent_at": now_iso(),
+                                                       "updated_at": now_iso()}})
+    await notify(req["user_id"], "Reminder: additional work payment required",
+                 f"{req['description']} — £{req['amount']:.2f}", req.get("case_id"),
+                 "/subscription", "PAYMENT")
+    await log_activity(req.get("case_id"), "Additional work payment request resent", user,
+                       {"payment_request_id": request_id})
+    return {"ok": True}
+
+
+class PayRequestIn(BaseModel):
+    origin_url: str
+
+
+@router.post("/payment-requests/{request_id}/checkout")
+async def payment_request_checkout(request_id: str, body: PayRequestIn,
+                                   user: dict = Depends(require_roles("CLIENT"))):
+    req = await db.payment_transactions.find_one({"id": request_id, "kind": "ADDITIONAL_WORK",
+                                                  "user_id": user["id"]})
+    if not req:
+        raise HTTPException(status_code=404, detail="Payment request not found")
+    if req.get("payment_status") == "paid":
+        raise HTTPException(status_code=400, detail="This request has already been paid")
+    if req.get("payment_status") == "cancelled":
+        raise HTTPException(status_code=400, detail="This request has been cancelled")
+    if req.get("session_id"):
+        # Repeated clicks reuse the open session instead of creating a second payable one.
+        try:
+            s = stripe.checkout.Session.retrieve(req["session_id"])
+            if s.status == "open" and s.url:
+                return {"checkout_url": s.url, "session_id": req["session_id"],
+                        "amount": req["amount"], "reused": True}
+        except Exception:
+            pass
+    session = _checkout(req["amount"], f"Additional work — {req['description'][:80]}",
+                        body.origin_url,
+                        {"kind": "ADDITIONAL_WORK", "client_id": req["client_id"],
+                         "user_id": user["id"], "request_id": request_id})
+    await db.payment_transactions.update_one({"id": request_id},
+                                             {"$set": {"session_id": session.id,
+                                                       "status": "initiated",
+                                                       "updated_at": now_iso()}})
+    return {"checkout_url": session.url, "session_id": session.id, "amount": req["amount"]}
+
+
 @router.get("/payments")
-async def all_payments(status: Optional[str] = None, include_test: bool = False,
+async def all_payments(status: Optional[str] = None, kind: Optional[str] = None,
+                       include_test: bool = False,
                        user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
     query = {}
     if status:
         # Existing statuses only -- Successful maps to the stored "paid".
         query["payment_status"] = {"successful": "paid"}.get(status, status)
+    if kind:
+        query["kind"] = kind
     rows = await db.payment_transactions.find(query).sort("created_at", -1).to_list(500)
     out = []
     for r in clean_many(rows):

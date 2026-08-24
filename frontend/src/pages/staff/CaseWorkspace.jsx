@@ -38,6 +38,7 @@ export default function CaseWorkspace() {
   const [err, setErr] = useState("");
   const [form, setForm] = useState({});
   const [checks, setChecks] = useState({});
+  const [payReqs, setPayReqs] = useState([]);
 
   const load = async () => {
     const { data } = await api.get(`/cases/${id}`);
@@ -51,6 +52,7 @@ export default function CaseWorkspace() {
     api.get(`/cases/${id}/reviews`).then((r) => setReviews(r.data));
     api.get(`/cases/${id}/recommendations`).then((r) => setRecs(r.data)).catch(() => {});
     api.get("/packages", { params: { service_type: "SELF_ASSESSMENT" } }).then((r) => setSaPackages(r.data));
+    api.get("/payment-requests", { params: { case_id: id } }).then((r) => setPayReqs(r.data)).catch(() => {});
     if (isAdmin) api.get("/accountants/workload").then((r) => setAccountants(r.data));
   };
   useEffect(() => { load(); }, [id]);
@@ -133,6 +135,9 @@ export default function CaseWorkspace() {
         </>
       )}
       {st !== "COMPLETED" && (
+        <button data-testid="request-additional-payment-btn" className={ghost} onClick={() => setModal("addpay")}>Request Additional Payment</button>
+      )}
+      {st !== "COMPLETED" && (
         <button data-testid="admin-request-btn" className={ghost} onClick={() => setModal("request")}>Request from Client</button>
       )}
       <button data-testid="add-note-btn" className={ghost} onClick={() => setModal("note")}>Add Internal Note</button>
@@ -188,6 +193,27 @@ export default function CaseWorkspace() {
                 <ul className="text-sm text-[#626A65] space-y-1">
                   {recs.map((r) => (
                     <li key={r.id}>{r.type === "MTD" ? "MTD" : `Package upgrade → ${r.recommended_package}`} · {r.reason} · <b>{r.status}</b> · {r.raised_by_name}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {payReqs.length > 0 && (
+              <div className="mt-6 border border-[#E3E7E4] rounded-lg p-5" data-testid="overview-payment-requests">
+                <div className="text-sm font-semibold mb-2">Additional work payment requests</div>
+                <ul className="text-sm space-y-2">
+                  {payReqs.map((p) => (
+                    <li key={p.id} data-testid={`case-payreq-${p.id}`} className="flex flex-wrap items-center gap-3">
+                      <span>{p.description} · <b>£{Number(p.amount).toFixed(2)}</b> · <b>{p.payment_status === "paid" ? "Paid" : p.payment_status}</b>
+                        {p.due_date ? ` · due ${d(p.due_date)}` : ""} · raised by {p.created_by_name}</span>
+                      {isAdmin && p.payment_status !== "paid" && p.payment_status !== "cancelled" && (
+                        <>
+                          <button data-testid={`payreq-resend-${p.id}`} className="text-xs font-semibold text-[#006B3C]"
+                            onClick={() => act(() => api.post(`/payment-requests/${p.id}/resend`))}>Resend</button>
+                          <button data-testid={`payreq-cancel-${p.id}`} className="text-xs font-semibold text-[#D64545]"
+                            onClick={() => window.confirm("Cancel this unpaid payment request? It stays in the audit history.") && act(() => api.post(`/payment-requests/${p.id}/cancel`))}>Cancel</button>
+                        </>
+                      )}
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -350,6 +376,38 @@ export default function CaseWorkspace() {
       {modal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50" onClick={() => setModal(null)}>
           <div className="bg-white rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-8" onClick={(e) => e.stopPropagation()} data-testid={`modal-${modal}`}>
+            {modal === "addpay" && (
+              <>
+                <h3 className="text-lg font-semibold mb-2">Request Additional Payment</h3>
+                <p className="text-xs text-[#626A65] mb-5">
+                  {cs.client_name} · {cs.case_ref} · {cs.tax_year}. VAT is applied by the existing
+                  TaxSimba payment configuration at checkout.
+                </p>
+                <div className="space-y-4">
+                  <textarea data-testid="addpay-description" rows={3} placeholder="Description of additional work (shown to the client)"
+                    className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    value={form.description || ""} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+                  <input data-testid="addpay-amount" type="number" min="0" step="0.01" placeholder="Amount (£)"
+                    className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    value={form.amount || ""} onChange={(e) => setForm({ ...form, amount: e.target.value })} />
+                  <input data-testid="addpay-due-date" type="date" className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    value={form.due_date || ""} onChange={(e) => setForm({ ...form, due_date: e.target.value })} />
+                  <textarea data-testid="addpay-note" rows={2} placeholder="Internal note (optional, not shown to the client)"
+                    className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    value={form.internal_note || ""} onChange={(e) => setForm({ ...form, internal_note: e.target.value })} />
+                  <button data-testid="addpay-send-btn" disabled={!form.description || !form.amount}
+                    className={`${primary} w-full disabled:opacity-50`}
+                    onClick={() => {
+                      if (!window.confirm(`Send a payment request of £${Number(form.amount).toFixed(2)} to ${cs.client_name} for: ${form.description}?`)) return;
+                      act(() => api.post("/payment-requests", {
+                        case_id: id, description: form.description, amount: Number(form.amount),
+                        due_date: form.due_date || null, internal_note: form.internal_note || null,
+                      }));
+                    }}>Send payment request</button>
+                  {err && <p className="text-sm text-[#D64545]">{err}</p>}
+                </div>
+              </>
+            )}
             {modal === "request" && (
               <>
                 <h3 className="text-lg font-semibold mb-5">Request from Client</h3>
