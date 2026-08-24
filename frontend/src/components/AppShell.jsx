@@ -114,7 +114,7 @@ export default function AppShell({ children, title, subtitle }) {
                 )}
                 {!isMtd && prevMtd && (
                   <p className="px-3 pt-4 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-[#626A65]">
-                    Self Assessment &amp; Practice
+                    {saActive ? "Self Assessment & Practice" : "Your Account"}
                   </p>
                 )}
                 <Link

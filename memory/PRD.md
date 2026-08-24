@@ -485,3 +485,8 @@ No application code changed. Ambiguities recorded in the handover: unscoped GET 
 - backend/server.py: /api/documents/upload falls back to the stored task_id/mtd_period_id on the existing document, so a client upload closes the MTD task and marks the request Uploaded.
 - Targeted check scripts/check_mtd_request_task.py: PASS (task created and linked, no duplicates on repeat, upload closes task, 5 periods intact). Self-cleaning.
 - Node handover (§15.6), migration checklist (§18) and frontend API map updated. Nothing deployed.
+
+## 2026-06-24 — MTD-only client navigation label fix
+- AppShell: the shared-nav section heading now reads "Your Account" instead of "Self Assessment & Practice" when SELF_ASSESSMENT is not ACTIVE (entitlement-driven from GET /my-services). SA-only route gating (/my-return, /journey) and MTD gating (/mtd) unchanged via ServiceGuard.
+- scripts/qa_service_combos.py now activates SA through activate_service (bootstrap no longer grants SA).
+- Live checks: MTD-only nav shows only Dashboard, Action Required, MTD for Income Tax, Documents, Messages, Tasks, Profile, My Services, Report a Problem, Help Centre, Settings; /my-return and /journey redirect to /dashboard; SA-only has no MTD nav and /mtd redirects; dual-service client has both sections and both routes work. No backend workflow change.

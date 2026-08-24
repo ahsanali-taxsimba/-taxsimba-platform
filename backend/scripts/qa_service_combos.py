@@ -11,7 +11,8 @@ load_dotenv("/app/backend/.env")
 
 from auth import hash_password  # noqa: E402
 from db import db  # noqa: E402
-from phase1b import _fulfil, bootstrap_client_services, MTD, SELF_ASSESSMENT  # noqa: E402
+from phase1b import (MTD, SELF_ASSESSMENT, _fulfil, activate_service,  # noqa: E402
+                     bootstrap_client_services)
 from workflow import STATUS_META, deadline_for_tax_year, now_iso  # noqa: E402
 
 PASSWORD = "QaCombo@12345"
@@ -68,12 +69,7 @@ async def setup():
     for email, name, kind in COMBOS:
         user, client = await make_user(email, name)
         if kind in ("sa", "both"):
-            await make_sa_case(user, client)
-        if kind == "mtd":
-            # No Self Assessment service for this client.
-            await db.client_services.update_one(
-                {"client_id": client["id"], "service_type": SELF_ASSESSMENT},
-                {"$set": {"status": "NOT_ACTIVE", "package_code": None}})
+            await activate_service(client, user, SELF_ASSESSMENT, "SMART")
         if kind in ("mtd", "both"):
             await activate_mtd(user, client)
         svcs = [(s["service_type"], s["status"]) async for s in
