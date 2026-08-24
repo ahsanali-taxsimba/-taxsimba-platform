@@ -575,11 +575,20 @@ async def my_payments(user: dict = Depends(require_roles("CLIENT"))):
 
 
 @router.get("/payments")
-async def all_payments(user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
-    rows = await db.payment_transactions.find({}).sort("created_at", -1).to_list(300)
+async def all_payments(status: Optional[str] = None, include_test: bool = False,
+                       user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    query = {}
+    if status:
+        # Existing statuses only -- Successful maps to the stored "paid".
+        query["payment_status"] = {"successful": "paid"}.get(status, status)
+    rows = await db.payment_transactions.find(query).sort("created_at", -1).to_list(500)
     out = []
     for r in clean_many(rows):
         c = await db.clients.find_one({"id": r.get("client_id")})
+        if not include_test and (c is None or c.get("is_test")):
+            # Automated-test transactions (including ones whose test client was already
+            # cleaned away) stay in the database but out of the normal list.
+            continue
         r["client_name"] = c["name"] if c else None
         r["client_ref"] = c.get("client_ref") if c else None
         out.append(r)

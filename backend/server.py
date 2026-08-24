@@ -1787,15 +1787,36 @@ async def workflow_settings(user: dict = Depends(require_roles("ADMIN", "SUPER_A
 
 
 @api.get("/audit-log")
-async def audit_log(user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
-    logs = await db.activity_logs.find({}).sort("created_at", -1).to_list(300)
+async def audit_log(case_ref: Optional[str] = None, user_name: Optional[str] = None,
+                    action: Optional[str] = None, date_from: Optional[str] = None,
+                    date_to: Optional[str] = None, include_test: bool = False,
+                    user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    """Genuine operational activity, newest first. Nothing is ever deleted -- automated-test
+    activity is only filtered out, and can be included on request."""
+    query = {}
+    if user_name:
+        query["user_name"] = {"$regex": user_name, "$options": "i"}
+    if action:
+        query["action"] = {"$regex": action, "$options": "i"}
+    if date_from or date_to:
+        query["created_at"] = {}
+        if date_from:
+            query["created_at"]["$gte"] = date_from
+        if date_to:
+            query["created_at"]["$lte"] = date_to + "T23:59:59"
+    logs = await db.activity_logs.find(query).sort("created_at", -1).to_list(1000)
     out = []
     for l in clean_many(logs):
-        case = await db.cases.find_one({"id": l["case_id"]})
+        case = await db.cases.find_one({"id": l["case_id"]}) if l.get("case_id") else None
+        if not include_test and l.get("case_id") and (case is None or case.get("is_test")):
+            # Test-case activity, including activity whose test case has already been cleaned.
+            continue
         l["case_ref"] = case["case_ref"] if case else None
         l["client_name"] = case["client_name"] if case else None
+        if case_ref and (l["case_ref"] or "").lower() != case_ref.strip().lower():
+            continue
         out.append(l)
-    return out
+    return out[:300]
 
 
 SERVICE_LABELS_ALL = {"SELF_ASSESSMENT": "Self Assessment", "MTD_INCOME_TAX": "MTD for Income Tax"}

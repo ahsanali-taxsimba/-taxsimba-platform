@@ -301,3 +301,10 @@ frontend SuperAdmin.jsx: invite role follows the tab (Accountants -> ACCOUNTANT 
 Corrected figures: 2 clients (2 new this month, 2 active SA, 0 MTD), 1 open case, 1 completed, 0 overdue; Amara 0/1, Ben 1/0, Accountant C 0/0; revenue this month/year GBP460 = SA 100 + MTD 360, upgrades GBP100 subset of SA, 2 successful payments, 0 failed.
 EMAIL DELIVERY NOT CONFIGURED - no SMTP/email provider exists in the project, so no delivery was added; the one-time link is shown to the Super Admin only.
 Checks 1-11 PASS.
+
+## 2026-06 Super Admin payments + audit log cleanup
+backend/phase1b.py GET /payments: newest first, status filter (successful->paid, failed, expired, refunded), hides transactions belonging to test clients or to clients already cleaned away; include_test=true restores them.
+backend/server.py GET /audit-log: newest first, hides activity on test cases (and on test cases already cleaned), keeps genuine SYSTEM events and case-less staff events; filters for case_ref, user_name, action, date_from/date_to; include_test=true restores test history.
+frontend SuperAdmin.jsx: payments status filter + "Include test activity" toggle (default OFF) shared with the audit log, audit search row, mobile payment cards, wrapped audit text; load() no longer overwrites the filtered results.
+Genuine payments after filtering: 2 (Client B GBP360 + GBP100, both paid = GBP460, reconciles with Business Overview). Audit default view: 33 genuine rows across SA-1456 (12) and SA-1428 (9) plus staff events; nothing deleted (include_test shows 173 payments / 300 audit rows).
+Checks 1-11 PASS.

@@ -15,6 +15,9 @@ export default function SuperAdmin() {
   const [payments, setPayments] = useState([]);
   const [lock, setLock] = useState(null);
   const [overview, setOverview] = useState(null);
+  const [includeTest, setIncludeTest] = useState(false);
+  const [payStatus, setPayStatus] = useState("");
+  const [auditQ, setAuditQ] = useState({ case_ref: "", user_name: "", action: "", date_from: "", date_to: "" });
   const [form, setForm] = useState({ name: "", email: "", role: "ACCOUNTANT", specialisms: ["SELF_ASSESSMENT"], capacity: 15 });
   const [err, setErr] = useState("");
   const [invite, setInvite] = useState(null);
@@ -23,12 +26,23 @@ export default function SuperAdmin() {
     api.get("/users").then(({ data }) => setUsers(data));
     api.get("/services").then(({ data }) => setServices(data));
     api.get("/workflow/settings").then(({ data }) => setWorkflow(data));
-    api.get("/audit-log").then(({ data }) => setAudit(data));
     api.get("/packages").then(({ data }) => setPackages(data));
-    api.get("/payments").then(({ data }) => setPayments(data));
     api.get("/settings/package-lock").then(({ data }) => setLock(data));
     api.get("/overview").then(({ data }) => setOverview(data));
   };
+  // Payments and the audit log are filtered server-side; test history is opt-in.
+  const loadPayments = () => api.get("/payments", {
+    params: { include_test: includeTest, ...(payStatus ? { status: payStatus } : {}) },
+  }).then(({ data }) => setPayments(data));
+
+  const loadAudit = () => {
+    const params = { include_test: includeTest };
+    Object.entries(auditQ).forEach(([k, v]) => { if (v.trim()) params[k] = v.trim(); });
+    return api.get("/audit-log", { params }).then(({ data }) => setAudit(data));
+  };
+
+  useEffect(() => { loadPayments(); loadAudit(); }, [includeTest, payStatus]); // eslint-disable-line
+
   useEffect(() => { load(); }, []);
   // The invite form follows the tab: accountant fields only apply to accountants.
   useEffect(() => {
@@ -266,9 +280,38 @@ export default function SuperAdmin() {
 
         {tab === "payments" && (
           <Panel title="Payments" testId="payments-admin-panel">
+            <div className="flex flex-wrap items-center gap-3 mb-5">
+              <select data-testid="payment-status-filter" value={payStatus} onChange={(e) => setPayStatus(e.target.value)}
+                className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm">
+                <option value="">All statuses</option>
+                <option value="successful">Successful</option>
+                <option value="failed">Failed</option>
+                <option value="expired">Expired</option>
+                <option value="refunded">Refunded</option>
+              </select>
+              <label className="flex items-center gap-2 text-xs text-[#626A65]">
+                <input data-testid="include-test-payments" type="checkbox" checked={includeTest}
+                  onChange={(e) => setIncludeTest(e.target.checked)} />
+                Include test activity
+              </label>
+            </div>
             {!payments.length && <Empty text="No payments recorded yet." />}
             {payments.length > 0 && (
-              <table className="w-full text-sm">
+              <>
+              <ul className="md:hidden space-y-3" data-testid="payment-cards">
+                {payments.map((p) => (
+                  <li key={p.id} className="border border-[#E3E7E4] rounded-lg p-4 text-sm">
+                    <div className="font-semibold">{p.client_name} <span className="text-xs text-[#626A65]">{p.client_ref}</span></div>
+                    <div className="text-xs text-[#626A65] mt-1">{dt(p.created_at)} · {p.kind === "SA_UPGRADE" ? "Package upgrade" : "Service activation"}</div>
+                    <div className="text-xs text-[#626A65] mt-1">{p.previous_package ? `${p.previous_package} → ` : ""}{p.new_package}</div>
+                    <div className="mt-2 flex items-center justify-between">
+                      <span className="font-semibold">£{Number(p.amount).toFixed(2)}</span>
+                      <span style={{ color: p.payment_status === "paid" ? "#16A05D" : "#626A65" }}>{p.payment_status}</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <table className="w-full text-sm hidden md:table">
                 <thead><tr className="text-left text-[11px] uppercase text-[#626A65] border-b border-[#E3E7E4]">
                   <th className="py-3 pr-4">Date</th><th className="py-3 pr-4">Client</th><th className="py-3 pr-4">Type</th>
                   <th className="py-3 pr-4">Change</th><th className="py-3 pr-4">Amount</th><th className="py-3">Status</th></tr></thead>
@@ -283,6 +326,7 @@ export default function SuperAdmin() {
                   </tr>
                 ))}</tbody>
               </table>
+              </>
             )}
           </Panel>
         )}
@@ -305,12 +349,31 @@ export default function SuperAdmin() {
 
         {tab === "audit" && (
           <Panel title="Audit log" testId="audit-panel">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-3 mb-5">
+              <input data-testid="audit-case-ref" placeholder="Case reference" value={auditQ.case_ref}
+                onChange={(e) => setAuditQ({ ...auditQ, case_ref: e.target.value })} className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm" />
+              <input data-testid="audit-user" placeholder="User or staff name" value={auditQ.user_name}
+                onChange={(e) => setAuditQ({ ...auditQ, user_name: e.target.value })} className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm" />
+              <input data-testid="audit-action" placeholder="Action" value={auditQ.action}
+                onChange={(e) => setAuditQ({ ...auditQ, action: e.target.value })} className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm" />
+              <input data-testid="audit-date-from" type="date" value={auditQ.date_from}
+                onChange={(e) => setAuditQ({ ...auditQ, date_from: e.target.value })} className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm" />
+              <input data-testid="audit-date-to" type="date" value={auditQ.date_to}
+                onChange={(e) => setAuditQ({ ...auditQ, date_to: e.target.value })} className="rounded-lg border border-[#E3E7E4] px-3 py-2 text-sm" />
+              <button data-testid="audit-search-btn" onClick={loadAudit}
+                className="rounded-lg bg-[#078A4B] text-white text-xs font-semibold px-4 py-2">Search</button>
+            </div>
+            <label className="flex items-center gap-2 text-xs text-[#626A65] mb-5">
+              <input data-testid="include-test-audit" type="checkbox" checked={includeTest}
+                onChange={(e) => setIncludeTest(e.target.checked)} />
+              Include test activity
+            </label>
             {!audit.length && <Empty text="No activity yet." />}
             <ul className="space-y-3">
               {audit.map((a) => (
-                <li key={a.id} className="border-b border-[#E3E7E4] pb-3 text-sm">
-                  <div className="font-semibold">{a.action}</div>
-                  <div className="text-xs text-[#626A65] mt-0.5">{a.user_name} ({a.role}) · {a.case_ref || "—"} {a.client_name ? `· ${a.client_name}` : ""} · {dt(a.created_at)}</div>
+                <li key={a.id} data-testid={`audit-row-${a.id}`} className="border-b border-[#E3E7E4] pb-3 text-sm">
+                  <div className="font-semibold break-words">{a.action}</div>
+                  <div className="text-xs text-[#626A65] mt-0.5 break-words">{a.user_name} ({a.role}) · {a.case_ref || "—"} {a.client_name ? `· ${a.client_name}` : ""} · {dt(a.created_at)}</div>
                 </li>
               ))}
             </ul>
