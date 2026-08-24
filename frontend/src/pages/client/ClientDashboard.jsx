@@ -13,6 +13,7 @@ export default function ClientDashboard() {
   const [cs, setCs] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [offers, setOffers] = useState([]);
+  const [mtdActive, setMtdActive] = useState(null);
 
   useEffect(() => {
     api.get("/cases").then(async ({ data }) => {
@@ -23,6 +24,10 @@ export default function ClientDashboard() {
     });
     api.get("/tasks", { params: { status: "OPEN", service_type: "SELF_ASSESSMENT" } }).then(({ data }) => setTasks(data));
     api.get("/my-offers").then(({ data }) => setOffers(data));
+    api.get("/my-services")
+      .then(({ data }) => setMtdActive(
+        (data.services || []).some((s) => s.service_type === "MTD_INCOME_TAX" && s.status === "ACTIVE")))
+      .catch(() => {});
   }, []);
   const clientName = (user?.name || "").trim();  const openTasks = tasks.length;
   const readyToApprove = cs && ["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"].includes(cs.status);
@@ -115,6 +120,20 @@ export default function ClientDashboard() {
             </Link>
           </div>
         ))}
+
+        {cs && mtdActive === false && (
+          <div data-testid="mtd-informational-card" className="bg-white border border-[#E3E7E4] rounded-xl p-6 sm:p-8">
+            <h2 className="text-base md:text-lg font-semibold text-[#161B18]">Making Tax Digital</h2>
+            <p className="text-sm text-[#626A65] mt-2 max-w-xl leading-relaxed">
+              You don't need to take any action for MTD right now.
+            </p>
+            <p className="text-sm text-[#626A65] mt-3 max-w-xl leading-relaxed">
+              Based on your current position, you may need to register for Making Tax Digital in a future tax year.
+              We'll review this for you and contact you if and when you need to take action.
+            </p>
+            <p className="text-xs font-semibold text-[#078A4B] mt-4">No action required at the moment.</p>
+          </div>
+        )}
 
         {cs && (
           <>

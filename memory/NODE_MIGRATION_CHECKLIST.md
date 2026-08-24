@@ -142,6 +142,12 @@ Transactional email:
 - [ ] All provider credentials/config read from deployment environment variables; none hard-coded or committed.
 - [ ] In-app notifications still work if email dispatch is unconfigured or fails.
 
+SA-only client MTD informational state:
+- [ ] SA client with no ACTIVE MTD service sees the informational "Making Tax Digital" card.
+- [ ] No MTD case, periods, deadlines, subscription or charge are created by viewing it.
+- [ ] Card disappears and the normal MTD journey shows once an MTD service is ACTIVE.
+- [ ] Accountant recommendation/upgrade pathway unchanged.
+
 ## 19. Final gates
 - [ ] Self Assessment behaviour demonstrably unchanged.
 - [ ] MTD Q1–Q4 + Final Declaration behaviour demonstrably unchanged.

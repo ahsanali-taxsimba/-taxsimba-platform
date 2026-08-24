@@ -214,5 +214,8 @@ Node.js production reminders must be dispatched by a backend scheduler/backgroun
 **15.4 Transactional email capability.**
 Node.js production must support provider-configured transactional email in addition to in-app notifications, covering: staff/client invitations, document requests, approvals, deadline reminders, payment/service notices, and completion notices. Provider credentials and configuration must come from deployment environment variables only and must never be hard-coded or committed. No provider is chosen or integrated at this documentation stage.
 
+**15.5 SA-only client MTD informational state.**
+A client with a Self Assessment case and **no ACTIVE `MTD_INCOME_TAX` service** sees a read-only "Making Tax Digital" informational card on the client dashboard (`pages/client/ClientDashboard.jsx`, `data-testid="mtd-informational-card"`), driven purely by `GET /my-services`. It creates no MTD case, no Q1–Q4/Final Declaration periods, no deadlines, no subscription and no charge, and must not state that MTD definitely applies next year. Once an MTD service becomes ACTIVE the card disappears and the normal MTD nav item, dashboard and journey apply. The accountant recommendation/upgrade pathway is unchanged.
+
 ## 16. Migration rule
 Reproduce this behaviour first. Do not simplify, reinterpret, merge, rename or redesign workflow states, transitions, permissions, guards, data relationships, API behaviour or client/staff visibility rules until full behavioural parity is proven and a change is separately approved.
