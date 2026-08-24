@@ -178,7 +178,7 @@ export function ClientDocuments() {
             <li key={doc.id} data-testid={`doc-card-${doc.id}`} className="border border-[#E3E7E4] rounded-lg p-4">
               <div className="font-semibold text-sm text-[#161B18] break-words">{doc.name}</div>
               <div className="text-xs text-[#626A65] mt-1">
-                {doc.document_type}{doc.tax_year ? ` · ${doc.tax_year}` : ""}
+                {doc.document_type}{doc.tax_year ? ` · ${doc.tax_year}` : ""}{doc.is_final ? ` · ${doc.case_ref || ""} · Final v${doc.final_version}` : ""}
               </div>
               <div className="text-xs text-[#626A65] mt-1">{who(doc)}{doc.upload_date ? ` · ${d(doc.upload_date)}` : ""}</div>
               <div className="flex items-center justify-between gap-3 mt-3">
@@ -208,7 +208,7 @@ export function ClientDocuments() {
               <tbody>
                 {docs.map((doc) => (
                   <tr key={doc.id} className="border-b border-[#E3E7E4]">
-                    <td className="py-4 pr-4 font-semibold">{doc.name}</td>
+                    <td className="py-4 pr-4 font-semibold">{doc.name}{doc.is_final && <span className="ml-2 text-[11px] text-[#006B3C]">Final v{doc.final_version} · {doc.case_ref}</span>}</td>
                     <td className="py-4 pr-4 text-[#626A65]">{doc.document_type}</td>
                     <td className="py-4 pr-4 text-[#626A65]">{doc.tax_year || "—"}</td>
                     <td className="py-4 pr-4 text-[#626A65]">{doc.uploader_name || "—"}</td>

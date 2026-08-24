@@ -16,6 +16,7 @@ import CaseWorkspace from "@/pages/staff/CaseWorkspace";
 import SuperAdmin from "@/pages/staff/SuperAdmin";
 import AcceptInvite from "@/pages/AcceptInvite";
 import StaffSecurity from "@/pages/staff/StaffSecurity";
+import { AdminServiceIssues, ClientServiceIssues } from "@/pages/ServiceIssues";
 
 function Guard({ roles, children }) {
   const { user, loading } = useAuth();
@@ -61,6 +62,8 @@ export default function App() {
           <Route path="/mtd" element={<Guard roles={CLIENT}><MtdDashboard /></Guard>} />
           <Route path="/help" element={<Guard roles={CLIENT}><HelpCentre /></Guard>} />
           <Route path="/settings" element={<Guard roles={CLIENT}><ClientSettings /></Guard>} />
+          <Route path="/service-issues" element={<Guard roles={CLIENT}><ClientServiceIssues /></Guard>} />
+          <Route path="/admin/service-issues" element={<Guard roles={ADMIN}><AdminServiceIssues /></Guard>} />
 
           <Route path="/work" element={<Guard roles={STAFF}><AccountantDashboard /></Guard>} />
           <Route path="/work/cases/:id" element={<Guard roles={["ACCOUNTANT", "ADMIN", "SUPER_ADMIN"]}><CaseWorkspace /></Guard>} />

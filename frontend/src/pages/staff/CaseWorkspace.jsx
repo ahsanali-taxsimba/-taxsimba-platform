@@ -4,7 +4,7 @@ import AppShell from "@/components/AppShell";
 import { Empty, Panel } from "@/components/StatCard";
 import { DocStatusBadge, PriorityBadge, StatusBadge } from "@/components/StatusBadge";
 import { useAuth } from "@/context/AuthContext";
-import { api, d, dt, money } from "@/lib/api";
+import { api, d, dt, money, openDocument } from "@/lib/api";
 
 const CHECKLIST = [
   ["client_information_reviewed", "Client information reviewed"],
@@ -39,6 +39,9 @@ export default function CaseWorkspace() {
   const [form, setForm] = useState({});
   const [checks, setChecks] = useState({});
   const [payReqs, setPayReqs] = useState([]);
+  const [finalDocs, setFinalDocs] = useState([]);
+  const [reopens, setReopens] = useState([]);
+  const [issues, setIssues] = useState([]);
 
   const load = async () => {
     const { data } = await api.get(`/cases/${id}`);
@@ -53,6 +56,9 @@ export default function CaseWorkspace() {
     api.get(`/cases/${id}/recommendations`).then((r) => setRecs(r.data)).catch(() => {});
     api.get("/packages", { params: { service_type: "SELF_ASSESSMENT" } }).then((r) => setSaPackages(r.data));
     api.get("/payment-requests", { params: { case_id: id } }).then((r) => setPayReqs(r.data)).catch(() => {});
+    api.get(`/cases/${id}/final-documents`).then((r) => setFinalDocs(r.data)).catch(() => {});
+    api.get(`/cases/${id}/reopen-history`).then((r) => setReopens(r.data)).catch(() => {});
+    api.get("/service-issues", { params: { case_id: id } }).then((r) => setIssues(r.data)).catch(() => {});
     if (isAdmin) api.get("/accountants/workload").then((r) => setAccountants(r.data));
   };
   useEffect(() => { load(); }, [id]);
@@ -244,6 +250,35 @@ export default function CaseWorkspace() {
                 </ul>
               </div>
             )}
+            {reopens.length > 0 && (
+              <div className="mt-6 border border-[#E3E7E4] rounded-lg p-5" data-testid="reopen-history">
+                <div className="text-sm font-semibold mb-2">Reopen history</div>
+                <ul className="text-sm text-[#626A65] space-y-2">
+                  {reopens.map((r, i) => (
+                    <li key={i} data-testid={`reopen-row-${i}`}>
+                      Reopened by <b className="text-[#161B18]">{r.reopened_by}</b> ({r.reopened_by_role}) · {dt(r.reopened_at)}
+                      <div>Reason: {r.reason || "—"}</div>
+                      <div>Previously completed: {r.previous_completed_at ? dt(r.previous_completed_at) : "—"}
+                        {" · "}Re-completed: {r.recompleted_at ? dt(r.recompleted_at) : "not yet"}</div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {issues.length > 0 && (
+              <div className="mt-6 border border-[#E3E7E4] rounded-lg p-5" data-testid="case-service-issues">
+                <div className="text-sm font-semibold mb-2">Client service issues</div>
+                <ul className="text-sm text-[#626A65] space-y-1">
+                  {issues.map((s) => (
+                    <li key={s.id} data-testid={`case-issue-${s.id}`}>
+                      {s.category} · <b>{s.status}</b> · raised {dt(s.created_at)}
+                      {isAdmin && s.subject ? ` · ${s.subject}` : ""}
+                    </li>
+                  ))}
+                </ul>
+                {isAdmin && <a href="/admin/service-issues" className="text-xs font-semibold text-[#006B3C] mt-2 inline-block" data-testid="case-issues-link">Manage service issues</a>}
+              </div>
+            )}
             <div className="mt-6 grid md:grid-cols-2 gap-6">
               <div className="rounded-lg bg-[#F1F8F4] p-5">
                 <div className="text-sm font-semibold mb-2">Missing items</div>
@@ -288,6 +323,38 @@ export default function CaseWorkspace() {
         )}
 
         {tab === "Documents" && (
+          <>
+          <Panel title="Final client documents" testId="tab-final-documents" className="mb-6"
+            action={isAdmin && ["READY_FOR_SUBMISSION", "SUBMITTED", "COMPLETED"].includes(cs.status) && (
+              <label className="px-4 py-2 rounded-lg bg-[#078A4B] text-white text-xs font-semibold cursor-pointer hover:bg-[#006B3C] transition-colors">
+                Publish final copy
+                <input data-testid="publish-final-input" type="file" className="hidden"
+                  onChange={async (e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    const fd = new FormData();
+                    fd.append("document_type", "Final tax return");
+                    fd.append("file", file);
+                    await act(() => api.post(`/cases/${id}/final-documents`, fd,
+                      { headers: { "Content-Type": "multipart/form-data" } }));
+                    e.target.value = "";
+                  }} />
+              </label>
+            )}>
+            {!finalDocs.length && <Empty text="No final client document published yet." />}
+            <ul className="space-y-3">
+              {finalDocs.map((f) => (
+                <li key={f.id} data-testid={`final-doc-${f.id}`} className="border border-[#E3E7E4] rounded-lg p-4 flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <div className="font-semibold text-sm break-words">{f.name} <span className="text-[11px] text-[#006B3C]">v{f.final_version}</span></div>
+                    <div className="text-xs text-[#626A65] mt-1">{f.tax_year} · {f.case_ref} · published {dt(f.published_at)} by {f.uploader_name}</div>
+                  </div>
+                  <button type="button" data-testid={`final-doc-view-${f.id}`} onClick={() => openDocument(f.id, f.name)}
+                    className="text-xs font-semibold text-[#078A4B] hover:underline">View</button>
+                </li>
+              ))}
+            </ul>
+          </Panel>
           <Panel title="Documents" testId="tab-documents">
             {!docs.length && <Empty text="No documents yet." />}
             <table className="w-full text-sm">
@@ -310,6 +377,7 @@ export default function CaseWorkspace() {
               ))}</tbody>
             </table>
           </Panel>
+          </>
         )}
 
         {tab === "Messages" && (

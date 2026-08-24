@@ -18,6 +18,7 @@ const CLIENT_NAV = [
   ["Your Tax Journey", "/journey", Route],
   ["Profile", "/profile", User],
   ["My Services", "/subscription", CreditCard],
+  ["Report a Problem", "/service-issues", AlertCircle],
   ["Help Centre", "/help", HelpCircle],
   ["Settings", "/settings", Settings],
 ];
@@ -32,6 +33,7 @@ const ADMIN_NAV = [
   ["All Cases", "/admin/cases", Briefcase],
   ["Admin Review", "/admin/cases?bucket=admin_review", ShieldCheck],
   ["Recommendations", "/admin/recommendations", Sparkles],
+  ["Service Issues", "/admin/service-issues", AlertCircle],
   ["Accountants", "/admin/accountants", Users],
 ];
 

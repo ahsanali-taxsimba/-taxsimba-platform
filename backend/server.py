@@ -1271,7 +1271,7 @@ async def list_documents(case_id: Optional[str] = None, filter: Optional[str] = 
     elif filter == "uploaded":
         query["status"] = {"$in": ["Uploaded", "Under Review", "Accepted", "Replacement Required"]}
     elif filter == "final":
-        query["status"] = "Final"
+        query["is_final"] = True
     query["is_deleted"] = {"$ne": True}
     docs = await db.documents.find(query).sort("created_at", -1).to_list(500)
     return scrub_many(clean_many(docs), user)
@@ -2127,6 +2127,185 @@ async def business_overview(user: dict = Depends(require_roles("SUPER_ADMIN"))):
                     "revenue. Automated-test transactions are excluded.",
         },
     }
+
+
+# ------------------------------------------------------- final client documents
+FINAL_STAGES = ("READY_FOR_SUBMISSION", "SUBMITTED", "COMPLETED")
+
+
+@api.post("/cases/{case_id}/final-documents")
+async def publish_final_document(case_id: str,
+                                 document_type: str = Form("Final tax return"),
+                                 file: UploadFile = File(...),
+                                 user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    """Publishes the final client copy. Each publish is a new immutable version, so a case
+    that is reopened and re-completed keeps every earlier final document as evidence."""
+    case = await _get_case(case_id, user)
+    if case["status"] not in FINAL_STAGES:
+        raise HTTPException(status_code=400,
+                            detail="The final client copy can only be published once the "
+                                   "return is approved and ready for submission")
+    data = await file.read()
+    validate_upload(file.content_type, len(data), file.filename)
+    ext = file.filename.split(".")[-1] if "." in file.filename else "bin"
+    result = put_object(f"{APP_NAME}/final/{case_id}/{uuid.uuid4()}.{ext}", data,
+                        file.content_type or "application/octet-stream")
+    version = await db.documents.count_documents({"case_id": case_id, "is_final": True}) + 1
+    record = {
+        "id": str(uuid.uuid4()), "case_id": case_id, "case_ref": case["case_ref"],
+        "client_user_id": case["client_user_id"], "tax_year": case["tax_year"],
+        "document_type": document_type, "name": file.filename, "status": "Final",
+        "storage_path": result["path"], "uploader_id": user["id"], "uploader_name": user["name"],
+        "content_type": file.content_type, "size": result.get("size", len(data)),
+        "is_internal": False, "is_final": True, "final_version": version, "is_deleted": False,
+        "published_at": now_iso(), "upload_date": now_iso(), "created_at": now_iso(),
+    }
+    await db.documents.insert_one(dict(record))
+    await log_activity(case_id,
+                       f"Final client document published: {file.filename} (version {version})",
+                       user)
+    await notify(case["client_user_id"], "Your final documents are available",
+                 f"{document_type} for {case['tax_year']} is ready to download.",
+                 case_id, "/documents", "INFO")
+    return clean(record)
+
+
+@api.get("/cases/{case_id}/final-documents")
+async def list_final_documents(case_id: str, user: dict = Depends(get_current_user)):
+    await _get_case(case_id, user)
+    rows = await db.documents.find({"case_id": case_id, "is_final": True,
+                                    "is_deleted": {"$ne": True}}).sort("final_version", -1).to_list(100)
+    return scrub_many(clean_many(rows), user)
+
+
+# ------------------------------------------------------- service issues / complaints
+ISSUE_STATUSES = ("OPEN", "IN_REVIEW", "RESOLVED")
+
+
+class ServiceIssueIn(BaseModel):
+    category: str
+    subject: str
+    description: str
+    case_id: Optional[str] = None
+
+
+class ServiceIssueUpdate(BaseModel):
+    status: str
+    resolution: Optional[str] = None
+
+
+def _issue_for_accountant(row: dict) -> dict:
+    """An accountant may see that an issue exists on their case, never manage it."""
+    return {k: row[k] for k in ("id", "case_id", "case_ref", "category", "status",
+                                "created_at", "resolved_at") if k in row}
+
+
+@api.post("/service-issues")
+async def create_service_issue(body: ServiceIssueIn,
+                               user: dict = Depends(require_roles("CLIENT"))):
+    if not body.subject.strip() or not body.description.strip():
+        raise HTTPException(status_code=400, detail="A subject and description are required")
+    case = None
+    if body.case_id:
+        case = await _get_case(body.case_id, user)
+    row = {
+        "id": str(uuid.uuid4()), "client_user_id": user["id"], "client_name": user["name"],
+        "case_id": body.case_id, "case_ref": case["case_ref"] if case else None,
+        "service_type": case["service_type"] if case else None,
+        "category": body.category, "subject": body.subject.strip(),
+        "description": body.description.strip(), "status": "OPEN",
+        "resolution": None, "resolved_at": None, "resolved_by_name": None,
+        "handled_by_name": None, "is_test": bool(user.get("is_test")),
+        "created_at": now_iso(), "updated_at": now_iso(),
+    }
+    await db.service_issues.insert_one(dict(row))
+    # Complaints are recorded alongside the case history but never change its workflow.
+    await log_activity(body.case_id, f"Service issue raised by client: {row['subject']}", user,
+                       meta={"service_issue_id": row["id"], "category": body.category})
+    async for admin in db.users.find({"role": {"$in": ["ADMIN", "SUPER_ADMIN"]},
+                                      "is_active": True}):
+        await notify(admin["id"], "Service issue raised",
+                     f"{user['name']}: {row['subject']}", body.case_id,
+                     "/admin/service-issues", "CHANGES")
+    return clean(row)
+
+
+@api.get("/service-issues")
+async def list_service_issues(status: Optional[str] = None, case_id: Optional[str] = None,
+                              include_test: bool = False,
+                              user: dict = Depends(get_current_user)):
+    query: dict = {}
+    if status:
+        query["status"] = status
+    if case_id:
+        query["case_id"] = case_id
+    if user["role"] == "CLIENT":
+        query["client_user_id"] = user["id"]
+    elif user["role"] == "ACCOUNTANT":
+        ids = [c["id"] async for c in db.cases.find({"assigned_accountant_id": user["id"]},
+                                                    {"id": 1})]
+        query["case_id"] = {"$in": ids} if not case_id else case_id
+        if case_id and case_id not in ids:
+            raise HTTPException(status_code=403, detail="Not allowed")
+    elif not include_test:
+        query.update(OPERATIONAL_ONLY)
+    rows = clean_many(await db.service_issues.find(query).sort("created_at", -1).to_list(300))
+    if user["role"] == "ACCOUNTANT":
+        return [_issue_for_accountant(r) for r in rows]
+    return rows
+
+
+@api.patch("/service-issues/{issue_id}")
+async def update_service_issue(issue_id: str, body: ServiceIssueUpdate,
+                               user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    row = await db.service_issues.find_one({"id": issue_id})
+    if not row:
+        raise HTTPException(status_code=404, detail="Service issue not found")
+    if body.status not in ISSUE_STATUSES:
+        raise HTTPException(status_code=400, detail="Invalid status")
+    if body.status == "RESOLVED" and not (body.resolution or "").strip():
+        raise HTTPException(status_code=400,
+                            detail="A resolution message for the client is required")
+    update = {"status": body.status, "updated_at": now_iso(),
+              "handled_by_name": user["name"]}
+    if body.resolution is not None:
+        update["resolution"] = body.resolution.strip() or None
+    if body.status == "RESOLVED":
+        update["resolved_at"] = now_iso()
+        update["resolved_by_name"] = user["name"]
+    await db.service_issues.update_one({"id": issue_id}, {"$set": update})
+    await log_activity(row.get("case_id"),
+                       f"Service issue '{row['subject']}' set to {body.status}", user,
+                       meta={"service_issue_id": issue_id}, comments=body.resolution)
+    await notify(row["client_user_id"],
+                 "Update on your service issue" if body.status != "RESOLVED"
+                 else "Your service issue has been resolved",
+                 row["subject"], row.get("case_id"), "/service-issues", "INFO")
+    return clean({**row, **update})
+
+
+# ------------------------------------------------------- reopen history (derived from audit)
+@api.get("/cases/{case_id}/reopen-history")
+async def reopen_history(case_id: str,
+                         user: dict = Depends(require_roles("ACCOUNTANT", "ADMIN",
+                                                            "SUPER_ADMIN"))):
+    """Derived from the existing activity log — no second source of truth is stored."""
+    await _get_case(case_id, user)
+    logs = await db.activity_logs.find({"case_id": case_id}).sort("created_at", 1).to_list(500)
+    completed_at = [l["created_at"] for l in logs if l.get("new_status") == "COMPLETED"]
+    out = []
+    for l in logs:
+        if l.get("previous_status") == "COMPLETED" and l.get("new_status") != "COMPLETED":
+            before = [c for c in completed_at if c <= l["created_at"]]
+            after = [c for c in completed_at if c > l["created_at"]]
+            out.append({
+                "reopened_by": l.get("user_name"), "reopened_by_role": l.get("role"),
+                "reopened_at": l["created_at"], "reason": l.get("comments"),
+                "action": l.get("action"), "new_status": l.get("new_status"),
+                "previous_completed_at": before[-1] if before else None,
+                "recompleted_at": after[0] if after else None,
+            })
+    return out
 
 
 @api.get("/")
