@@ -16,7 +16,7 @@ from db import clean, clean_many, db, scrub, scrub_many
 from invoices import create_receipt, render_html
 from mtd import ensure_periods
 from testdata import OPERATIONAL_ONLY
-from workflow import STATUS_META, log_activity, notify, now_iso
+from workflow import STATUS_META, deadline_for_tax_year, log_activity, notify, now_iso
 
 stripe.api_key = os.environ.get("STRIPE_SECRET_KEY") or "sk_test_emergent"
 STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
@@ -49,21 +49,112 @@ DEFAULT_LOCK_STATUSES = ["READY_FOR_ADMIN_REVIEW", "ADMIN_REVIEW", "ADMIN_APPROV
 
 
 async def bootstrap_client_services(client: dict, tax_year: str = "2024/25"):
-    """Every client gets a Self Assessment service plus a dormant MTD placeholder."""
-    if not await db.client_services.find_one({"client_id": client["id"],
-                                              "service_type": SELF_ASSESSMENT}):
+    """A new account owns nothing until a service is purchased/activated: both rows start NOT_ACTIVE."""
+    for service_type in (SELF_ASSESSMENT, MTD):
+        if not await db.client_services.find_one({"client_id": client["id"],
+                                                  "service_type": service_type}):
+            await db.client_services.insert_one({
+                "id": str(uuid.uuid4()), "client_id": client["id"],
+                "client_user_id": client["user_id"], "service_type": service_type,
+                "status": "NOT_ACTIVE", "package_code": None, "tax_year": None,
+                "activated_at": None, "package_history": [], "created_at": now_iso(),
+            })
+
+
+ACTIVATION_TAX_YEAR = {SELF_ASSESSMENT: "2025/26", MTD: "2026/27"}
+
+
+async def _next_service_case_ref(service_type: str) -> str:
+    """Unique case reference per service, derived from the highest reference ever issued."""
+    prefix, base, counter_id = ("SA", 1000, "case_ref") if service_type == SELF_ASSESSMENT \
+        else ("MTD", 2000, "case_ref_mtd")
+    while True:
+        counter = await db.counters.find_one_and_update(
+            {"id": counter_id}, {"$inc": {"value": 1}}, upsert=True, return_document=True)
+        seq = (counter or {}).get("value", 1)
+        if seq <= base:
+            highest = base
+            async for c in db.cases.find({"case_ref": {"$regex": rf"^{prefix}-\d+$"}},
+                                         {"case_ref": 1}):
+                try:
+                    highest = max(highest, int(c["case_ref"].split("-")[1]))
+                except (ValueError, IndexError):
+                    continue
+            await db.counters.update_one({"id": counter_id}, {"$set": {"value": highest}},
+                                         upsert=True)
+            continue
+        ref = f"{prefix}-{seq}"
+        if not await db.cases.find_one({"case_ref": ref}):
+            return ref
+
+
+async def activate_service(client: dict, user: Optional[dict], service_type: str,
+                           package_code: str, reason: str = "Service activation",
+                           payment_session: Optional[str] = None,
+                           amount: Optional[float] = None):
+    """Single source of truth for service activation. Idempotent: repeat payment/webhook
+    processing can never duplicate a client_service, case or MTD period."""
+    if service_type not in (SELF_ASSESSMENT, MTD):
+        raise HTTPException(status_code=400, detail="Unknown service type")
+    actor = {"id": user["id"], "name": user["name"], "role": user.get("role", "CLIENT")} \
+        if user else None
+    pkg = await db.packages.find_one({"service_type": service_type, "code": package_code})
+    existing = await db.client_services.find_one({"client_id": client["id"],
+                                                  "service_type": service_type})
+    already_active = bool(existing and existing.get("status") == "ACTIVE")
+    tax_year = (existing or {}).get("tax_year") or ACTIVATION_TAX_YEAR[service_type]
+    history = {"previous_package": (existing or {}).get("package_code"),
+               "new_package": package_code, "changed_at": now_iso(),
+               "changed_by": user["name"] if user else "System", "reason": reason,
+               "payment_session": payment_session, "amount_paid": amount}
+    if existing:
+        await db.client_services.update_one(
+            {"id": existing["id"]},
+            {"$set": {"status": "ACTIVE", "package_code": package_code, "tax_year": tax_year,
+                      "activated_at": existing.get("activated_at") or now_iso(),
+                      "updated_at": now_iso()},
+             "$push": {"package_history": history}})
+    else:
         await db.client_services.insert_one({
-            "id": str(uuid.uuid4()), "client_id": client["id"], "client_user_id": client["user_id"],
-            "service_type": SELF_ASSESSMENT, "status": "ACTIVE", "package_code": "SMART",
-            "tax_year": tax_year, "activated_at": now_iso(), "package_history": [],
-            "created_at": now_iso(),
-        })
-    if not await db.client_services.find_one({"client_id": client["id"], "service_type": MTD}):
-        await db.client_services.insert_one({
-            "id": str(uuid.uuid4()), "client_id": client["id"], "client_user_id": client["user_id"],
-            "service_type": MTD, "status": "NOT_ACTIVE", "package_code": None, "tax_year": None,
-            "activated_at": None, "package_history": [], "created_at": now_iso(),
-        })
+            "id": str(uuid.uuid4()), "client_id": client["id"],
+            "client_user_id": client.get("user_id"), "service_type": service_type,
+            "status": "ACTIVE", "package_code": package_code, "tax_year": tax_year,
+            "activated_at": now_iso(), "package_history": [history], "created_at": now_iso()})
+
+    case = await db.cases.find_one({"client_id": client["id"], "service_type": service_type},
+                                   sort=[("created_at", -1)])
+    created_case = False
+    if not case:
+        stage, next_action, owner = STATUS_META["AWAITING_ASSIGNMENT"]
+        case = {
+            "id": str(uuid.uuid4()), "case_ref": await _next_service_case_ref(service_type),
+            "is_test": bool(client.get("is_test")),
+            "client_id": client["id"], "client_user_id": client.get("user_id"),
+            "client_name": client["name"], "service_type": service_type, "tax_year": tax_year,
+            "assigned_accountant_id": None, "assigned_accountant_name": None,
+            "admin_reviewer_id": None, "admin_reviewer_name": None,
+            "status": "AWAITING_ASSIGNMENT", "current_stage": stage, "next_action": next_action,
+            "next_action_owner": owner, "priority": "MEDIUM", "internal_deadline": None,
+            "external_deadline": deadline_for_tax_year(tax_year), "internal_instructions": None,
+            "waiting_reason": None, "approved_version_id": None, "package_code": package_code,
+            "created_at": now_iso(), "last_updated": now_iso(),
+        }
+        await db.cases.insert_one(dict(case))
+        created_case = True
+
+    periods_created = await ensure_periods(case) if service_type == MTD else 0
+
+    if created_case:
+        label = SERVICE_LABELS.get(service_type, service_type)
+        paid = f", £{amount:.2f} paid" if amount else ""
+        await log_activity(case["id"],
+                           f"{label} activated ({pkg['name'] if pkg else package_code}{paid})",
+                           actor, new_status="AWAITING_ASSIGNMENT")
+        await _notify_admins(f"New {label} service activated — assign an accountant",
+                             f"{client['name']} — {case['case_ref']}", case["id"],
+                             f"/admin/cases/{case['id']}", "ASSIGNMENT")
+    return {"case": case, "created_case": created_case, "periods_created": periods_created,
+            "already_active": already_active}
 
 
 # ------------------------------------------------------------------ bootstrap
@@ -280,6 +371,12 @@ class OfferCheckoutIn(BaseModel):
     origin_url: str
 
 
+class ServiceCheckoutIn(BaseModel):
+    service_type: str
+    package_code: str
+    origin_url: str
+
+
 def _checkout(amount: float, label: str, origin_url: str, metadata: dict):
     session = stripe.checkout.Session.create(
         line_items=[{
@@ -387,6 +484,39 @@ async def offer_checkout(body: OfferCheckoutIn, user: dict = Depends(require_rol
     return {"checkout_url": session.url, "session_id": session.id, "amount": offer["amount_due"]}
 
 
+@router.post("/payments/service-checkout")
+async def service_checkout(body: ServiceCheckoutIn, user: dict = Depends(require_roles("CLIENT"))):
+    """Direct client purchase of a service — no accountant-created offer required."""
+    if body.service_type not in (SELF_ASSESSMENT, MTD):
+        raise HTTPException(status_code=400, detail="Unknown service type")
+    client = await _client_of(user)
+    svc = await db.client_services.find_one({"client_id": client["id"],
+                                             "service_type": body.service_type})
+    if svc and svc.get("status") == "ACTIVE":
+        raise HTTPException(status_code=400, detail="This service is already active")
+    pkg = await _package(body.service_type, body.package_code)
+    reuse = await _inflight({"client_id": client["id"], "kind": "SERVICE_ACTIVATION",
+                             "service_type": body.service_type})
+    if reuse:
+        return reuse
+    label = f"{SERVICE_LABELS.get(body.service_type, body.service_type)} — {pkg['name']}"
+    session = _checkout(pkg["price"], label, body.origin_url,
+                        {"kind": "SERVICE_ACTIVATION", "client_id": client["id"],
+                         "user_id": user["id"], "service_type": body.service_type,
+                         "to_package": pkg["code"]})
+    await db.payment_transactions.insert_one({
+        "id": str(uuid.uuid4()), "session_id": session.id, "user_id": user["id"],
+        "client_id": client["id"], "kind": "SERVICE_ACTIVATION",
+        "service_type": body.service_type, "offer_id": None,
+        "previous_package": None, "new_package": pkg["code"],
+        "amount": float(pkg["price"]), "currency": "gbp", "status": "initiated",
+        "payment_status": "pending", "fulfilled": False,
+        "created_at": now_iso(), "updated_at": now_iso(),
+    })
+    return {"checkout_url": session.url, "session_id": session.id, "amount": pkg["price"]}
+
+
+
 async def _notify_admins(title: str, bodytext: str, case_id: Optional[str] = None,
                          link: str = "/admin/recommendations", ntype: str = "INFO"):
     async for admin in db.users.find({"role": {"$in": ["ADMIN", "SUPER_ADMIN"]}}):
@@ -478,53 +608,9 @@ async def _fulfil(tx: dict):
                                                                "duplicate": True,
                                                                "updated_at": now_iso()}})
             return
-        pkg = await db.packages.find_one({"service_type": tx["service_type"], "code": tx["new_package"]})
-        tax_year = "2026/27"
-        existing = await db.client_services.find_one({"client_id": tx["client_id"],
-                                                      "service_type": tx["service_type"]})
-        history_entry = {"previous_package": existing.get("package_code") if existing else None,
-                         "new_package": tx["new_package"], "changed_at": now_iso(),
-                         "changed_by": user["name"] if user else "Client",
-                         "reason": "Service activation", "payment_session": tx["session_id"],
-                         "amount_paid": tx["amount"]}
-        if existing:
-            await db.client_services.update_one(
-                {"id": existing["id"]},
-                {"$set": {"status": "ACTIVE", "package_code": tx["new_package"],
-                          "tax_year": tax_year, "activated_at": now_iso()},
-                 "$push": {"package_history": history_entry}})
-        else:
-            await db.client_services.insert_one({
-                "id": str(uuid.uuid4()), "client_id": tx["client_id"],
-                "client_user_id": tx["user_id"], "service_type": tx["service_type"],
-                "status": "ACTIVE", "package_code": tx["new_package"], "tax_year": tax_year,
-                "activated_at": now_iso(), "package_history": [history_entry],
-                "created_at": now_iso()})
-        stage, next_action, owner = STATUS_META["AWAITING_ASSIGNMENT"]
-        seq = await db.cases.count_documents({"service_type": tx["service_type"]}) + 1
-        while await db.cases.find_one({"case_ref": f"MTD-{2000 + seq}"}):
-            seq += 1
-        case = {
-            "id": str(uuid.uuid4()), "case_ref": f"MTD-{2000 + seq}",
-            "is_test": bool(client.get("is_test")),
-            "client_id": tx["client_id"], "client_user_id": tx["user_id"],
-            "client_name": client["name"], "service_type": tx["service_type"],
-            "tax_year": tax_year, "assigned_accountant_id": None,
-            "assigned_accountant_name": None, "admin_reviewer_id": None,
-            "admin_reviewer_name": None, "status": "AWAITING_ASSIGNMENT",
-            "current_stage": stage, "next_action": next_action, "next_action_owner": owner,
-            "priority": "MEDIUM", "internal_deadline": None, "external_deadline": None,
-            "internal_instructions": None, "waiting_reason": None, "approved_version_id": None,
-            "package_code": tx["new_package"],
-            "created_at": now_iso(), "last_updated": now_iso(),
-        }
-        await db.cases.insert_one(dict(case))
-        if tx["service_type"] == MTD:
-            await ensure_periods(case)
-        await log_activity(case["id"],
-                           f"{SERVICE_LABELS.get(tx['service_type'], tx['service_type'])} activated "
-                           f"({pkg['name'] if pkg else tx['new_package']}, £{tx['amount']:.2f} paid)",
-                           actor, new_status="AWAITING_ASSIGNMENT")
+        # Single source of truth for activation (service + case + MTD periods).
+        await activate_service(clean(client), user, tx["service_type"], tx["new_package"],
+                               payment_session=tx["session_id"], amount=tx["amount"])
         if tx.get("offer_id"):
             await db.offers.update_one({"id": tx["offer_id"]},
                                        {"$set": {"status": "PAID", "paid_at": now_iso()}})
@@ -532,9 +618,6 @@ async def _fulfil(tx: dict):
             if offer and offer.get("recommendation_id"):
                 await db.recommendations.update_one({"id": offer["recommendation_id"]},
                                                     {"$set": {"status": "ACTIVATED"}})
-        await _notify_admins("New MTD service activated — assign an accountant",
-                             f"{client['name']} — {case['case_ref']}", case["id"],
-                             f"/admin/cases/{case['id']}", "ASSIGNMENT")
 
     await db.payment_transactions.update_one({"session_id": tx["session_id"]},
                                             {"$set": {"fulfilled": True, "updated_at": now_iso()}})

@@ -472,3 +472,10 @@ No application code changed. Ambiguities recorded in the handover: unscoped GET 
 - Added frontend/src/components/ServiceGuard.jsx: /my-return and /journey require an ACTIVE SELF_ASSESSMENT service; /mtd requires an ACTIVE MTD_INCOME_TAX service; otherwise redirect to /dashboard. Wired in App.js.
 - ClientDashboard subtitle no longer mentions Self Assessment for MTD-only clients.
 - Live preview results: SA-only PASS, MTD-only PASS (no SA nav, no SA pages even by direct URL, Q1-Q4 + Final Declaration visible), SA+MTD PASS (both areas separate under one login). Admin manual unlock required: NO.
+
+## 2026-06-24 — Central service activation (backend)
+- Removed automatic SELF_ASSESSMENT=ACTIVE at registration: bootstrap_client_services now creates both SA and MTD rows as NOT_ACTIVE.
+- New single source of truth activate_service(client, user, service_type, package_code, ...) in phase1b.py: activates/creates the client_service, creates/links the case (per-service reference allocator), ensures Q1-Q4 + Final Declaration for MTD, keeps the same client/user account, idempotent on replay.
+- _fulfil SERVICE_ACTIVATION now delegates to activate_service (no duplicated activation logic); recommendation -> admin approval -> offer route preserved.
+- Added POST /api/payments/service-checkout for direct client purchase of SA or MTD (no accountant offer needed); fulfilment uses the same central function. GET /api/my-services unchanged as the frontend source of truth.
+- Targeted check (scripts/check_activation.py, self-cleaning): SA-only PASS, MTD-only PASS, second service same account PASS, no duplicates on replay PASS.
