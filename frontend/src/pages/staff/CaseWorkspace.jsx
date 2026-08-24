@@ -424,6 +424,18 @@ export default function CaseWorkspace() {
                           <div className="font-semibold">Net {money(p.published.net_profit)}</div>
                           <div className="text-xs text-[#626A65]">Version {p.published.version} · published {dt(p.published.published_at)} by {p.published.published_by_name}</div>
                           <div className="text-xs text-[#626A65]" data-testid={`mtd-versions-${p.id}`}>{(p.published_versions || []).length} version(s) on record</div>
+                          <div className="text-xs text-[#626A65]" data-testid={`mtd-approval-${p.id}`}>
+                            {p.approved_version ? `Client approved version ${p.approved_version}` : "Not yet approved by client"}
+                          </div>
+                          {(p.published_versions || []).length > 1 && (
+                            <ul className="mt-2 space-y-1 border-t border-[#E3E7E4] pt-2" data-testid={`mtd-history-${p.id}`}>
+                              {[...(p.published_versions || [])].reverse().map((v) => (
+                                <li key={v.version} className="text-[11px] text-[#626A65]">
+                                  v{v.version} · {money(v.income)} / {money(v.expenses)} / {money(v.net_profit)} · {v.published_by_name} · {dt(v.published_at)}
+                                </li>
+                              ))}
+                            </ul>
+                          )}
                         </div>
                       ) : <p className="text-sm text-[#626A65] mt-2">Nothing published — the client sees no figures</p>}
                     </div>
@@ -452,7 +464,7 @@ export default function CaseWorkspace() {
                     )}
                     {p.status === "IN_PROGRESS" && (
                       <button data-testid={`mtd-review-btn-${p.id}`} className="text-xs font-semibold text-[#006B3C]"
-                        onClick={() => act(() => api.post(`/mtd/periods/${p.id}/submit-for-review`))}>Send for admin review</button>
+                        onClick={() => act(() => api.post(`/mtd/periods/${p.id}/submit-for-review`))}>Publish to client (sends for admin review)</button>
                     )}
                     {isAdmin && p.status === "ADMIN_REVIEW" && (
                       <button data-testid={`mtd-approve-btn-${p.id}`} className="text-xs font-semibold text-[#006B3C]"

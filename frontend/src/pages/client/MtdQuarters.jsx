@@ -93,7 +93,8 @@ function QuarterCard({ p, onApprove, busy }) {
             </div>
           )}
           <p className="mt-4 text-xs text-[#626A65]" data-testid={`mtd-version-${p.id}`}>
-            Prepared by {pub.prepared_by_name} · published {dt(pub.published_at)} · version {pub.version}
+            Published by {pub.prepared_by_name} · {dt(pub.published_at)} · version {pub.version}
+            {p.approved_version === pub.version ? " · you approved this version" : ""}
           </p>
           <p className="mt-3 text-xs text-[#626A65] leading-relaxed">{p.disclaimer}</p>
         </>
@@ -155,7 +156,7 @@ function QuarterCard({ p, onApprove, busy }) {
       {p.status === "AWAITING_CLIENT_APPROVAL" && (
         <button data-testid={`mtd-approve-${p.id}`} disabled={busy} onClick={() => onApprove(p)}
           className="mt-5 w-full sm:w-auto px-6 py-3 rounded-xl bg-[#078A4B] text-white text-sm font-semibold hover:bg-[#006B3C] transition-colors disabled:opacity-50">
-          {busy ? "Approving…" : "Approve these figures"}
+          {busy ? "Approving…" : `Approve these figures (version ${p.published?.version})`}
         </button>
       )}
     </div>
@@ -227,7 +228,7 @@ export default function MtdQuarters() {
   const approve = async (p) => {
     setErr(""); setBusy(p.id);
     try {
-      await api.post(`/mtd/periods/${p.id}/client-approve`);
+      await api.post(`/mtd/periods/${p.id}/client-approve`, { version: p.published?.version });
       await load();
     } catch (e) { setErr(apiError(e.response?.data?.detail)); }
     setBusy(null);

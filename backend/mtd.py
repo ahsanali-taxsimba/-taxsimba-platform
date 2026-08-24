@@ -113,6 +113,7 @@ async def ensure_periods(case: dict) -> int:
             # published, client-visible snapshots -- history is never overwritten
             "published": None, "published_version": 0, "published_versions": [],
             "changes_reason": None, "client_approved_at": None,
+            "approved_version": None, "approved_snapshot": None,
             "submission_reference": None, "submission_date": None,
             "submitted_by_name": None, "submitted_at": None,
             "created_at": now_iso(), "updated_at": now_iso(),
@@ -447,7 +448,8 @@ async def submit_for_review(period_id: str,
     row, case = await _period(period_id, user)
     if row["status"] != IN_PROGRESS or not row.get("draft"):
         raise HTTPException(status_code=400, detail="Enter the figures first")
-    out = await _advance(row, case, ADMIN_REVIEW, "sent for admin review", user)
+    out = await _advance(row, case, ADMIN_REVIEW,
+                         "published to client for release — sent for admin review", user)
     async for admin in db.users.find({"role": {"$in": ["ADMIN", "SUPER_ADMIN"]},
                                       "is_active": True}):
         await notify(admin["id"], "MTD period ready for review",
@@ -473,7 +475,8 @@ async def approve_and_publish(period_id: str,
     out = await _advance(row, case, AWAITING_CLIENT,
                          f"figures published to client (version {version})", user,
                          extra={"published": snapshot, "published_version": version,
-                                "published_versions": history, "client_approved_at": None})
+                                "published_versions": history, "client_approved_at": None,
+                                "approved_version": None, "approved_snapshot": None})
     await notify(case["client_user_id"], f"MTD {row['label']} ready to approve",
                  f"Your {row['label'].lower()} figures have been published for approval.",
                  case["id"], "/mtd", "REVIEW")
@@ -497,13 +500,24 @@ async def request_changes(period_id: str, body: ReasonIn,
     return out
 
 
+class ClientApproveIn(BaseModel):
+    version: int
+
+
 @router.post("/periods/{period_id}/client-approve")
-async def client_approve(period_id: str, user: dict = Depends(require_roles("CLIENT"))):
+async def client_approve(period_id: str, body: Optional[ClientApproveIn] = None,
+                         user: dict = Depends(require_roles("CLIENT"))):
     row, case = await _period(period_id, user)
     if row["status"] != AWAITING_CLIENT:
         raise HTTPException(status_code=400, detail="This period is not awaiting your approval")
+    if body and body.version != row["published_version"]:
+        raise HTTPException(status_code=409,
+                            detail="These figures have been updated since you opened them. "
+                                   "Please refresh and review the latest version.")
     out = await _advance(row, case, APPROVED, "approved by the client", user,
-                         extra={"client_approved_at": now_iso()})
+                         extra={"client_approved_at": now_iso(),
+                                "approved_version": row["published_version"],
+                                "approved_snapshot": row.get("published")})
     async for admin in db.users.find({"role": {"$in": ["ADMIN", "SUPER_ADMIN"]},
                                       "is_active": True}):
         await notify(admin["id"], "MTD period approved by client",
