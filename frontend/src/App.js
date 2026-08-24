@@ -5,13 +5,15 @@ import ClientDashboard from "@/pages/client/ClientDashboard";
 import MyTaxReturn from "@/pages/client/MyTaxReturn";
 import { ClientDocuments, ClientJourneyPage, ClientMessages, ClientTasks } from "@/pages/client/ClientPages";
 import MyServices, { PaymentCancel, PaymentSuccess } from "@/pages/client/MyServices";
-import { ActionRequired, MtdDashboard, RecommendationReview } from "@/pages/client/ClientActions";
+import { ActionRequired, RecommendationReview } from "@/pages/client/ClientActions";
+import MtdQuarters from "@/pages/client/MtdQuarters";
 import ClientProfile from "@/pages/client/ClientProfile";
 import ClientSettings from "@/pages/client/ClientSettings";
 import HelpCentre from "@/pages/client/HelpCentre";
 import AdminRecommendations from "@/pages/staff/AdminRecommendations";
 import AccountantDashboard from "@/pages/staff/AccountantDashboard";
 import { AdminAccountants, AdminCases, AdminDashboard } from "@/pages/staff/AdminPages";
+import AdminMtd from "@/pages/staff/AdminMtd";
 import CaseWorkspace from "@/pages/staff/CaseWorkspace";
 import SuperAdmin from "@/pages/staff/SuperAdmin";
 import AcceptInvite from "@/pages/AcceptInvite";
@@ -59,11 +61,12 @@ export default function App() {
           <Route path="/payment/cancel" element={<Guard roles={CLIENT}><PaymentCancel /></Guard>} />
           <Route path="/actions" element={<Guard roles={CLIENT}><ActionRequired /></Guard>} />
           <Route path="/recommendation/:offerId" element={<Guard roles={CLIENT}><RecommendationReview /></Guard>} />
-          <Route path="/mtd" element={<Guard roles={CLIENT}><MtdDashboard /></Guard>} />
+          <Route path="/mtd" element={<Guard roles={CLIENT}><MtdQuarters /></Guard>} />
           <Route path="/help" element={<Guard roles={CLIENT}><HelpCentre /></Guard>} />
           <Route path="/settings" element={<Guard roles={CLIENT}><ClientSettings /></Guard>} />
           <Route path="/service-issues" element={<Guard roles={CLIENT}><ClientServiceIssues /></Guard>} />
           <Route path="/admin/service-issues" element={<Guard roles={ADMIN}><AdminServiceIssues /></Guard>} />
+          <Route path="/admin/mtd" element={<Guard roles={ADMIN}><AdminMtd /></Guard>} />
 
           <Route path="/work" element={<Guard roles={STAFF}><AccountantDashboard /></Guard>} />
           <Route path="/work/cases/:id" element={<Guard roles={["ACCOUNTANT", "ADMIN", "SUPER_ADMIN"]}><CaseWorkspace /></Guard>} />

@@ -5,6 +5,7 @@ import { Empty, Panel } from "@/components/StatCard";
 import { DocStatusBadge, PriorityBadge, StatusBadge } from "@/components/StatusBadge";
 import { useAuth } from "@/context/AuthContext";
 import { api, d, dt, money, openDocument } from "@/lib/api";
+import { warningBadge } from "@/pages/staff/AdminMtd";
 
 const CHECKLIST = [
   ["client_information_reviewed", "Client information reviewed"],
@@ -386,40 +387,71 @@ export default function CaseWorkspace() {
         )}
 
         {tab === "MTD Periods" && (
-          <Panel title="MTD quarterly periods" testId="tab-mtd-periods">
+          <Panel title="MTD quarterly compliance" testId="tab-mtd-periods">
             {!mtdPeriods.length && <Empty text="No MTD periods generated yet." />}
             <ul className="space-y-3">
               {mtdPeriods.map((p) => (
                 <li key={p.id} data-testid={`staff-mtd-period-${p.id}`} className="border border-[#E3E7E4] rounded-lg p-5">
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
-                      <div className="font-semibold text-sm">{p.label}</div>
+                      <div className="font-semibold text-sm">{p.label}{p.kind === "FINAL_DECLARATION" ? " (year end)" : ""}</div>
                       <div className="text-xs text-[#626A65] mt-1">{d(p.period_start)} – {d(p.period_end)} · due {d(p.deadline)}</div>
                     </div>
-                    <span className="px-2 py-1 rounded-md text-[11px] font-semibold bg-[#F1F8F4] text-[#006B3C]">{p.stage_label}</span>
+                    <div className="flex items-center gap-2">
+                      {warningBadge(p)}
+                      <span className="px-2 py-1 rounded-md text-[11px] font-semibold bg-[#F1F8F4] text-[#006B3C]">{p.stage_label}</span>
+                    </div>
                   </div>
-                  <dl className="grid grid-cols-3 gap-4 mt-4 text-sm">
-                    <div><dt className="text-xs uppercase text-[#626A65]">Income</dt><dd className="mt-1 font-semibold">{p.income === null ? "—" : money(p.income)}</dd></div>
-                    <div><dt className="text-xs uppercase text-[#626A65]">Expenses</dt><dd className="mt-1 font-semibold">{p.expenses === null ? "—" : money(p.expenses)}</dd></div>
-                    <div><dt className="text-xs uppercase text-[#626A65]">Profit</dt><dd className="mt-1 font-semibold">{p.profit === null ? "—" : money(p.profit)}</dd></div>
-                  </dl>
+                  <div className="grid sm:grid-cols-2 gap-4 mt-4">
+                    <div className="rounded-lg bg-[#F9FAF9] p-4">
+                      <p className="text-[11px] uppercase text-[#626A65]">Draft (staff only)</p>
+                      {p.draft ? (
+                        <div className="text-sm mt-2 space-y-1">
+                          <div>Income {money(p.draft.income)} · Expenses {money(p.draft.expenses)}</div>
+                          <div className="font-semibold">Net {money(p.draft.net_profit)}</div>
+                          {p.draft.estimated_income_tax !== null && <div className="text-xs text-[#626A65]">Est. tax {money(p.draft.estimated_income_tax)}</div>}
+                          {p.draft.estimated_national_insurance !== null && <div className="text-xs text-[#626A65]">Est. NI {money(p.draft.estimated_national_insurance)}</div>}
+                          {p.draft.suggested_set_aside !== null && <div className="text-xs text-[#626A65]">Set aside {money(p.draft.suggested_set_aside)}</div>}
+                          <div className="text-xs text-[#626A65]">Saved by {p.draft_saved_by}</div>
+                        </div>
+                      ) : <p className="text-sm text-[#626A65] mt-2">No draft yet</p>}
+                    </div>
+                    <div className="rounded-lg bg-[#F1F8F4] p-4">
+                      <p className="text-[11px] uppercase text-[#626A65]">Published to client</p>
+                      {p.published ? (
+                        <div className="text-sm mt-2 space-y-1">
+                          <div>Income {money(p.published.income)} · Expenses {money(p.published.expenses)}</div>
+                          <div className="font-semibold">Net {money(p.published.net_profit)}</div>
+                          <div className="text-xs text-[#626A65]">Version {p.published.version} · published {dt(p.published.published_at)} by {p.published.published_by_name}</div>
+                          <div className="text-xs text-[#626A65]" data-testid={`mtd-versions-${p.id}`}>{(p.published_versions || []).length} version(s) on record</div>
+                        </div>
+                      ) : <p className="text-sm text-[#626A65] mt-2">Nothing published — the client sees no figures</p>}
+                    </div>
+                  </div>
                   <p className="text-xs text-[#626A65] mt-3">Next: {p.next_action} ({p.next_action_owner})</p>
                   {p.changes_reason && <p className="text-xs text-[#D64545] mt-1">Changes requested: {p.changes_reason}</p>}
                   {p.submission_reference && <p className="text-xs text-[#006B3C] mt-1">Submitted {d(p.submission_date)} · ref {p.submission_reference} · by {p.submitted_by_name}</p>}
                   <div className="flex flex-wrap gap-3 mt-4">
                     {["NOT_STARTED", "IN_PROGRESS"].includes(p.status) && (
                       <button data-testid={`mtd-figures-btn-${p.id}`} className="text-xs font-semibold text-[#006B3C]"
-                        onClick={() => { setForm({ period: p, income: p.income ?? "", expenses: p.expenses ?? "", note: p.figures_note || "" }); setModal("mtdfigures"); }}>
-                        Enter figures
+                        onClick={() => { setForm({ period: p, ...(p.draft || {}) }); setModal("mtdfigures"); }}>
+                        {p.draft ? "Edit draft figures" : "Enter figures"}
                       </button>
+                    )}
+                    {p.draft && (
+                      <button data-testid={`mtd-preview-btn-${p.id}`} className="text-xs font-semibold text-[#626A65]"
+                        onClick={async () => {
+                          const { data } = await api.get(`/mtd/periods/${p.id}/preview`);
+                          setForm({ preview: data }); setModal("mtdpreview");
+                        }}>Preview client view</button>
                     )}
                     {p.status === "IN_PROGRESS" && (
                       <button data-testid={`mtd-review-btn-${p.id}`} className="text-xs font-semibold text-[#006B3C]"
-                        onClick={() => act(() => api.post(`/mtd/periods/${p.id}/submit-for-review`))}>Send for internal review</button>
+                        onClick={() => act(() => api.post(`/mtd/periods/${p.id}/submit-for-review`))}>Send for admin review</button>
                     )}
                     {isAdmin && p.status === "ADMIN_REVIEW" && (
                       <button data-testid={`mtd-approve-btn-${p.id}`} className="text-xs font-semibold text-[#006B3C]"
-                        onClick={() => act(() => api.post(`/mtd/periods/${p.id}/admin-approve`))}>Approve and release to client</button>
+                        onClick={() => act(() => api.post(`/mtd/periods/${p.id}/admin-approve`))}>Approve &amp; publish to client</button>
                     )}
                     {isAdmin && ["ADMIN_REVIEW", "AWAITING_CLIENT_APPROVAL"].includes(p.status) && (
                       <button data-testid={`mtd-changes-btn-${p.id}`} className="text-xs font-semibold text-[#D64545]"
@@ -430,7 +462,7 @@ export default function CaseWorkspace() {
                     )}
                     {isAdmin && p.status === "APPROVED" && (
                       <button data-testid={`mtd-submit-btn-${p.id}`} className="text-xs font-semibold text-[#006B3C]"
-                        onClick={() => { setForm({ period: p, submission_reference: "", submission_date: "", provider: "", note: "" }); setModal("mtdsubmit"); }}>
+                        onClick={() => { setForm({ period: p, submission_reference: "", submission_date: "", provider: "", outcome: "" }); setModal("mtdsubmit"); }}>
                         Record external submission
                       </button>
                     )}
@@ -594,26 +626,49 @@ export default function CaseWorkspace() {
               <>
                 <h3 className="text-lg font-semibold mb-2">{form.period?.label} figures</h3>
                 <p className="text-xs text-[#626A65] mb-5">
-                  {cs.client_name} · {cs.case_ref} · {d(form.period?.period_start)} – {d(form.period?.period_end)}
+                  Staff-only draft. Tax and NI are never calculated — enter only figures you have
+                  confirmed. The client sees nothing until an admin publishes.
                 </p>
-                <div className="space-y-4">
-                  <input data-testid="mtd-income" type="number" min="0" step="0.01" placeholder="Income (£)"
+                <div className="space-y-3">
+                  {[["income", "Total income (£)"], ["expenses", "Allowable expenses (£)"],
+                    ["net_profit", "Net profit / loss (£) — leave blank to derive"],
+                    ["estimated_income_tax", "Estimated Income Tax (£) — optional"],
+                    ["estimated_national_insurance", "Estimated National Insurance (£) — optional"],
+                    ["suggested_set_aside", "Suggested amount to set aside (£) — optional"]].map(([k, label]) => (
+                    <input key={k} data-testid={`mtd-${k}`} type="number" step="0.01" placeholder={label}
+                      className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                      value={form[k] ?? ""} onChange={(e) => setForm({ ...form, [k]: e.target.value })} />
+                  ))}
+                  <textarea data-testid="mtd-client-note" rows={3} placeholder="Note for the client (optional)"
                     className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
-                    value={form.income} onChange={(e) => setForm({ ...form, income: e.target.value })} />
-                  <input data-testid="mtd-expenses" type="number" min="0" step="0.01" placeholder="Expenses (£)"
-                    className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
-                    value={form.expenses} onChange={(e) => setForm({ ...form, expenses: e.target.value })} />
-                  <textarea data-testid="mtd-note" rows={3} placeholder="Note for the client (optional)"
-                    className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
-                    value={form.note || ""} onChange={(e) => setForm({ ...form, note: e.target.value })} />
-                  <button data-testid="mtd-figures-save" disabled={form.income === "" || form.expenses === ""}
+                    value={form.client_note || ""} onChange={(e) => setForm({ ...form, client_note: e.target.value })} />
+                  <button data-testid="mtd-figures-save" disabled={form.income === "" || form.income == null || form.expenses === "" || form.expenses == null}
                     className={`${primary} w-full disabled:opacity-50`}
                     onClick={() => act(() => api.post(`/mtd/periods/${form.period.id}/figures`, {
                       income: Number(form.income), expenses: Number(form.expenses),
-                      note: form.note || null,
-                    }))}>Save figures</button>
+                      net_profit: form.net_profit === "" || form.net_profit == null ? null : Number(form.net_profit),
+                      estimated_income_tax: form.estimated_income_tax === "" || form.estimated_income_tax == null ? null : Number(form.estimated_income_tax),
+                      estimated_national_insurance: form.estimated_national_insurance === "" || form.estimated_national_insurance == null ? null : Number(form.estimated_national_insurance),
+                      suggested_set_aside: form.suggested_set_aside === "" || form.suggested_set_aside == null ? null : Number(form.suggested_set_aside),
+                      client_note: form.client_note || null,
+                    }))}>Save draft</button>
                   {err && <p className="text-sm text-[#D64545]">{err}</p>}
                 </div>
+              </>
+            )}
+            {modal === "mtdpreview" && form.preview && (
+              <>
+                <h3 className="text-lg font-semibold mb-1">Client view preview</h3>
+                <p className="text-xs text-[#626A65] mb-5">
+                  {form.preview.label} · {d(form.preview.period_start)} – {d(form.preview.period_end)} · would publish as version {form.preview.version}
+                </p>
+                <dl className="grid grid-cols-3 gap-3 text-sm" data-testid="mtd-preview-figures">
+                  <div><dt className="text-xs uppercase text-[#626A65]">Income</dt><dd className="mt-1 font-semibold">{money(form.preview.income)}</dd></div>
+                  <div><dt className="text-xs uppercase text-[#626A65]">Expenses</dt><dd className="mt-1 font-semibold">{money(form.preview.expenses)}</dd></div>
+                  <div><dt className="text-xs uppercase text-[#626A65]">Net</dt><dd className="mt-1 font-semibold">{money(form.preview.net_profit)}</dd></div>
+                </dl>
+                {form.preview.client_note && <p className="text-sm mt-4 break-words">{form.preview.client_note}</p>}
+                <p className="text-xs text-[#626A65] mt-4 leading-relaxed">{form.preview.disclaimer}</p>
               </>
             )}
             {modal === "mtdsubmit" && (
@@ -633,12 +688,17 @@ export default function CaseWorkspace() {
                   <input data-testid="mtd-sub-provider" placeholder="Filing software (optional)"
                     className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
                     value={form.provider || ""} onChange={(e) => setForm({ ...form, provider: e.target.value })} />
+                  <input data-testid="mtd-sub-outcome" placeholder="Outcome (optional)"
+                    className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    value={form.outcome || ""} onChange={(e) => setForm({ ...form, outcome: e.target.value })} />
+
                   <button data-testid="mtd-sub-save" disabled={!form.submission_reference || !form.submission_date}
                     className={`${primary} w-full disabled:opacity-50`}
                     onClick={() => act(() => api.post(`/mtd/periods/${form.period.id}/record-submission`, {
                       submission_reference: form.submission_reference,
                       submission_date: form.submission_date,
                       provider: form.provider || null,
+                      outcome: form.outcome || null,
                     }))}>Record submission</button>
                   {err && <p className="text-sm text-[#D64545]">{err}</p>}
                 </div>

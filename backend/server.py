@@ -1250,6 +1250,7 @@ async def complete_task(task_id: str, user: dict = Depends(get_current_user)):
 @api.get("/documents")
 async def list_documents(case_id: Optional[str] = None, filter: Optional[str] = None,
                          service_type: Optional[str] = None,
+                         mtd_period_id: Optional[str] = None,
                          user: dict = Depends(get_current_user)):
     query = {}
     if user["role"] == "CLIENT":
@@ -1267,6 +1268,9 @@ async def list_documents(case_id: Optional[str] = None, filter: Optional[str] = 
     if case_id:
         await _get_case(case_id, user)
         query["case_id"] = case_id
+    if mtd_period_id:
+        query["mtd_period_id"] = mtd_period_id
+
     if filter == "requested":
         query["status"] = "Requested"
     elif filter == "uploaded":
@@ -1282,6 +1286,7 @@ async def list_documents(case_id: Optional[str] = None, filter: Optional[str] = 
 async def upload_document(case_id: str = Form(...), document_type: str = Form("Other"),
                           document_id: Optional[str] = Form(None),
                           task_id: Optional[str] = Form(None),
+                          mtd_period_id: Optional[str] = Form(None),
                           is_internal: bool = Form(False),
                           file: UploadFile = File(...),
                           user: dict = Depends(get_current_user)):
@@ -1302,7 +1307,7 @@ async def upload_document(case_id: str = Form(...), document_type: str = Form("O
         "uploader_name": user["name"], "content_type": file.content_type,
         "size": result.get("size", len(data)), "is_internal": is_internal,
         "is_deleted": False, "upload_date": now_iso(), "created_at": now_iso(),
-        "task_id": task_id,
+        "task_id": task_id, "mtd_period_id": mtd_period_id,
     }
     existing = await db.documents.find_one({"id": record["id"]})
     if existing:
@@ -2142,7 +2147,15 @@ async def publish_final_document(case_id: str,
     """Publishes the final client copy. Each publish is a new immutable version, so a case
     that is reopened and re-completed keeps every earlier final document as evidence."""
     case = await _get_case(case_id, user)
-    if case["status"] not in FINAL_STAGES:
+    if case.get("service_type") == "MTD_INCOME_TAX":
+        # MTD has its own workflow: the final client copy follows the submitted Final Declaration.
+        final = await db.mtd_periods.find_one({"case_id": case_id,
+                                              "kind": "FINAL_DECLARATION"})
+        if not final or final.get("status") != "SUBMITTED":
+            raise HTTPException(status_code=400,
+                                detail="The Final Declaration must be submitted before the "
+                                       "final client copy can be published")
+    elif case["status"] not in FINAL_STAGES:
         raise HTTPException(status_code=400,
                             detail="The final client copy can only be published once the "
                                    "return is approved and ready for submission")

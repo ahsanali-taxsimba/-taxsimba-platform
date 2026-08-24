@@ -2,11 +2,13 @@
 
 Self Assessment is untouched. MTD reuses the existing case, permission, document, payment
 and audit architecture and adds its own period-level workflow: four quarterly updates plus a
-Final Declaration, each prepared by the accountant, reviewed by admin, approved by the client
-and then recorded as an external submission (TaxSimba never files to HMRC directly).
+Final Declaration, each prepared by the accountant (staff-only draft), reviewed and published
+by admin, approved by the client and then recorded as an external submission. TaxSimba never
+files to HMRC directly and never calculates tax — any tax/NI estimate shown to a client is
+typed in and confirmed by the accountant.
 """
 import uuid
-from datetime import date
+from datetime import date, datetime, timezone
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -14,13 +16,13 @@ from pydantic import BaseModel
 
 from auth import get_current_user, require_roles
 from db import clean, clean_many, db
+from testdata import OPERATIONAL_ONLY
 from workflow import log_activity, notify, now_iso
 
 router = APIRouter(prefix="/api/mtd")
 
 MTD = "MTD_INCOME_TAX"
 
-# period status machine -- deliberately separate from the Self Assessment case machine
 NOT_STARTED = "NOT_STARTED"
 IN_PROGRESS = "IN_PROGRESS"
 ADMIN_REVIEW = "ADMIN_REVIEW"
@@ -29,25 +31,39 @@ APPROVED = "APPROVED"
 SUBMITTED = "SUBMITTED"
 
 STAGE_LABEL = {
+    NOT_STARTED: "Preparing",
+    IN_PROGRESS: "Preparing",
+    ADMIN_REVIEW: "Under review",
+    AWAITING_CLIENT: "Awaiting your approval",
+    APPROVED: "Approved — ready to submit",
+    SUBMITTED: "Submitted",
+}
+STAFF_STAGE_LABEL = {
     NOT_STARTED: "Not started",
     IN_PROGRESS: "Accountant preparing",
-    ADMIN_REVIEW: "Internal review",
-    AWAITING_CLIENT: "Waiting for your approval",
-    APPROVED: "Approved — ready to submit",
+    ADMIN_REVIEW: "Awaiting admin review",
+    AWAITING_CLIENT: "Waiting for client approval",
+    APPROVED: "Ready for external submission",
     SUBMITTED: "Submitted",
 }
 NEXT_ACTION = {
     NOT_STARTED: ("Accountant to enter the quarterly figures", "ACCOUNTANT"),
-    IN_PROGRESS: ("Accountant to finish and send for internal review", "ACCOUNTANT"),
-    ADMIN_REVIEW: ("Admin to review the figures", "ADMIN"),
-    AWAITING_CLIENT: ("Client to approve the figures", "CLIENT"),
+    IN_PROGRESS: ("Accountant to finish and send for admin review", "ACCOUNTANT"),
+    ADMIN_REVIEW: ("Admin to review and publish the figures", "ADMIN"),
+    AWAITING_CLIENT: ("Client to approve the published figures", "CLIENT"),
     APPROVED: ("Admin to submit externally and record the reference", "ADMIN"),
     SUBMITTED: ("Nothing — this period is filed", "NONE"),
 }
+DISCLAIMER = ("These figures have been prepared by your accountant using the information "
+              "currently available. Your final tax position may change as further information "
+              "is added and at the end of the tax year.")
 
-# 6 Apr - 5 Jul, 6 Jul - 5 Oct, 6 Oct - 5 Jan, 6 Jan - 5 Apr. Deadline = period end + 1 month + 7 days.
+# 6 Apr - 5 Jul, 6 Jul - 5 Oct, 6 Oct - 5 Jan, 6 Jan - 5 Apr
 QUARTERS = [(1, (4, 6), (7, 5), 0), (2, (7, 6), (10, 5), 0),
             (3, (10, 6), (1, 5), 1), (4, (1, 6), (4, 5), 1)]
+
+FIGURE_FIELDS = ("income", "expenses", "net_profit", "estimated_income_tax",
+                 "estimated_national_insurance", "suggested_set_aside", "client_note")
 
 
 def _start_year(tax_year: str) -> int:
@@ -83,18 +99,19 @@ async def ensure_periods(case: dict) -> int:
         return 0
     created = 0
     for row in period_schedule(case["tax_year"]):
-        exists = await db.mtd_periods.find_one({"case_id": case["id"], "kind": row["kind"],
-                                                "quarter": row["quarter"]})
-        if exists:
+        if await db.mtd_periods.find_one({"case_id": case["id"], "kind": row["kind"],
+                                          "quarter": row["quarter"]}):
             continue
         await db.mtd_periods.insert_one({
             "id": str(uuid.uuid4()), "case_id": case["id"], "case_ref": case["case_ref"],
             "client_id": case["client_id"], "client_user_id": case["client_user_id"],
             "client_name": case.get("client_name"), "tax_year": case["tax_year"],
             "is_test": bool(case.get("is_test")), **row,
-            "status": NOT_STARTED, "income": None, "expenses": None, "profit": None,
-            "figures_note": None, "prepared_by_name": None, "prepared_at": None,
-            "admin_reviewed_by_name": None, "admin_reviewed_at": None,
+            "status": NOT_STARTED,
+            # staff-only working figures; never returned to a client
+            "draft": None, "draft_saved_by": None, "draft_saved_at": None,
+            # published, client-visible snapshots -- history is never overwritten
+            "published": None, "published_version": 0, "published_versions": [],
             "changes_reason": None, "client_approved_at": None,
             "submission_reference": None, "submission_date": None,
             "submitted_by_name": None, "submitted_at": None,
@@ -125,26 +142,52 @@ async def _period(period_id: str, user: dict):
     return clean(row), case
 
 
-def _decorate(row: dict) -> dict:
+def _warning(row: dict) -> dict:
+    if row["status"] == SUBMITTED:
+        return {"deadline_warning": None, "days_to_deadline": None}
+    days = (date.fromisoformat(row["deadline"]) - datetime.now(timezone.utc).date()).days
+    level = ("OVERDUE" if days < 0 else "DUE_3" if days <= 3 else "DUE_7" if days <= 7
+             else "DUE_14" if days <= 14 else None)
+    return {"deadline_warning": level, "days_to_deadline": days}
+
+
+def _decorate(row: dict, user: dict) -> dict:
     action, owner = NEXT_ACTION[row["status"]]
-    return {**row, "stage_label": STAGE_LABEL[row["status"]],
-            "next_action": action, "next_action_owner": owner}
+    is_client = user["role"] == "CLIENT"
+    out = {**row, **_warning(row),
+           "stage_label": (STAGE_LABEL if is_client else STAFF_STAGE_LABEL)[row["status"]],
+           "next_action": action, "next_action_owner": owner,
+           "disclaimer": DISCLAIMER if row.get("published") else None}
+    if is_client:
+        # A client only ever sees published figures -- drafts stay staff-only.
+        out.pop("draft", None)
+        out.pop("draft_saved_by", None)
+        out.pop("draft_saved_at", None)
+        out.pop("changes_reason", None)
+    return out
 
 
-async def _advance(row: dict, case: dict, status: str, action: str, user: dict,
+async def _advance(row: dict, case: dict, status: Optional[str], action: str, user: dict,
                    extra: Optional[dict] = None, comments: Optional[str] = None):
-    update = {"status": status, "updated_at": now_iso(), **(extra or {})}
+    update = {"updated_at": now_iso(), **(extra or {})}
+    if status:
+        update["status"] = status
     await db.mtd_periods.update_one({"id": row["id"]}, {"$set": update})
     await log_activity(case["id"], f"MTD {row['label']}: {action}", user,
-                       meta={"mtd_period_id": row["id"], "period_status": status},
+                       meta={"mtd_period_id": row["id"],
+                             "period_status": status or row["status"], "service": "MTD"},
                        comments=comments)
-    return _decorate({**row, **update})
+    return _decorate({**row, **update}, user)
 
 
 class FiguresIn(BaseModel):
     income: float
     expenses: float
-    note: Optional[str] = None
+    net_profit: Optional[float] = None
+    estimated_income_tax: Optional[float] = None
+    estimated_national_insurance: Optional[float] = None
+    suggested_set_aside: Optional[float] = None
+    client_note: Optional[str] = None
 
 
 class ReasonIn(BaseModel):
@@ -155,9 +198,29 @@ class SubmissionIn(BaseModel):
     submission_reference: str
     submission_date: str
     provider: Optional[str] = None
+    outcome: Optional[str] = None
     note: Optional[str] = None
 
 
+def _draft_from(body: FiguresIn, user: dict) -> dict:
+    """Net profit is derived from income minus expenses unless the accountant overrides it.
+    Tax and NI are never calculated -- they are only whatever the accountant typed in."""
+    return {
+        "income": round(body.income, 2), "expenses": round(body.expenses, 2),
+        "net_profit": round(body.net_profit if body.net_profit is not None
+                            else body.income - body.expenses, 2),
+        "estimated_income_tax": (None if body.estimated_income_tax is None
+                                 else round(body.estimated_income_tax, 2)),
+        "estimated_national_insurance": (None if body.estimated_national_insurance is None
+                                         else round(body.estimated_national_insurance, 2)),
+        "suggested_set_aside": (None if body.suggested_set_aside is None
+                                else round(body.suggested_set_aside, 2)),
+        "client_note": (body.client_note or "").strip() or None,
+        "prepared_by_name": user["name"],
+    }
+
+
+# ------------------------------------------------------------------ read
 @router.get("/cases/{case_id}/periods")
 async def list_periods(case_id: str, user: dict = Depends(get_current_user)):
     case = await _case(case_id, user)
@@ -167,7 +230,66 @@ async def list_periods(case_id: str, user: dict = Depends(get_current_user)):
         rows = await db.mtd_periods.find({"case_id": case_id}).to_list(20)
     rows = clean_many(rows)
     rows.sort(key=lambda r: (r["kind"] == "FINAL_DECLARATION", r["quarter"] or 0))
-    return [_decorate(r) for r in rows]
+    out = [_decorate(r, user) for r in rows]
+    if user["role"] == "CLIENT":
+        # One genuine in-app reminder per outstanding approval; notify() collapses repeats.
+        for r in out:
+            if r["status"] == AWAITING_CLIENT and (r["days_to_deadline"] or 99) <= 14:
+                await notify(user["id"], f"Action needed: approve your {r['label']}",
+                             f"Due {r['deadline']}. Please review and approve the figures.",
+                             case_id, "/mtd", "REVIEW")
+    return out
+
+
+@router.get("/periods")
+async def all_periods(bucket: Optional[str] = None, include_test: bool = False,
+                      user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    query: dict = {} if include_test else dict(OPERATIONAL_ONLY)
+    buckets = {
+        "not_started": {"status": NOT_STARTED}, "preparing": {"status": IN_PROGRESS},
+        "admin_review": {"status": ADMIN_REVIEW}, "client_action": {"status": AWAITING_CLIENT},
+        "ready_submission": {"status": APPROVED}, "submitted": {"status": SUBMITTED},
+    }
+    if bucket in buckets:
+        query.update(buckets[bucket])
+    rows = clean_many(await db.mtd_periods.find(query).sort("deadline", 1).to_list(500))
+    out = [_decorate(r, user) for r in rows]
+    if bucket == "due_14":
+        out = [r for r in out if r["deadline_warning"] in ("DUE_14", "DUE_7", "DUE_3")]
+    elif bucket == "overdue":
+        out = [r for r in out if r["deadline_warning"] == "OVERDUE"]
+    return out
+
+
+@router.get("/stats")
+async def mtd_stats(user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    """Operational MTD counts. Test/QA data is excluded by default, like every other view."""
+    rows = clean_many(await db.mtd_periods.find(dict(OPERATIONAL_ONLY)).to_list(2000))
+    decorated = [_decorate(r, user) for r in rows]
+    active_cases = {c["id"] async for c in db.cases.find(
+        {"service_type": MTD, **OPERATIONAL_ONLY}, {"id": 1})}
+    return {
+        "active_mtd_clients": len({r["client_id"] for r in rows if r["case_id"] in active_cases}),
+        "active_mtd_cases": len(active_cases),
+        "not_started": sum(1 for r in rows if r["status"] == NOT_STARTED),
+        "preparing": sum(1 for r in rows if r["status"] == IN_PROGRESS),
+        "admin_review": sum(1 for r in rows if r["status"] == ADMIN_REVIEW),
+        "client_action": sum(1 for r in rows if r["status"] == AWAITING_CLIENT),
+        "ready_submission": sum(1 for r in rows if r["status"] == APPROVED),
+        "submitted": sum(1 for r in rows if r["status"] == SUBMITTED),
+        "due_14": sum(1 for r in decorated
+                      if r["deadline_warning"] in ("DUE_14", "DUE_7", "DUE_3")),
+        "overdue": sum(1 for r in decorated if r["deadline_warning"] == "OVERDUE"),
+    }
+
+
+@router.get("/periods/{period_id}/documents")
+async def period_documents(period_id: str, user: dict = Depends(get_current_user)):
+    row, _ = await _period(period_id, user)
+    query = {"mtd_period_id": period_id, "is_deleted": {"$ne": True}}
+    if user["role"] == "CLIENT":
+        query["is_internal"] = False
+    return clean_many(await db.documents.find(query).sort("created_at", -1).to_list(200))
 
 
 @router.post("/cases/{case_id}/generate-periods")
@@ -180,10 +302,11 @@ async def generate_periods(case_id: str,
     return {"created": created}
 
 
+# ------------------------------------------------------------------ accountant preparation
 @router.post("/periods/{period_id}/figures")
-async def save_figures(period_id: str, body: FiguresIn,
-                       user: dict = Depends(require_roles("ACCOUNTANT", "ADMIN",
-                                                          "SUPER_ADMIN"))):
+async def save_draft(period_id: str, body: FiguresIn,
+                     user: dict = Depends(require_roles("ACCOUNTANT", "ADMIN",
+                                                        "SUPER_ADMIN"))):
     row, case = await _period(period_id, user)
     if row["status"] in (ADMIN_REVIEW, AWAITING_CLIENT, APPROVED, SUBMITTED):
         raise HTTPException(status_code=400,
@@ -191,13 +314,24 @@ async def save_figures(period_id: str, body: FiguresIn,
                                    "awaiting the client or already submitted")
     if body.income < 0 or body.expenses < 0:
         raise HTTPException(status_code=400, detail="Figures cannot be negative")
-    profit = round(body.income - body.expenses, 2)
-    return await _advance(row, case, IN_PROGRESS, "figures updated", user,
-                          extra={"income": round(body.income, 2),
-                                 "expenses": round(body.expenses, 2), "profit": profit,
-                                 "figures_note": body.note,
-                                 "prepared_by_name": user["name"], "prepared_at": now_iso(),
+    return await _advance(row, case, IN_PROGRESS, "draft figures saved", user,
+                          extra={"draft": _draft_from(body, user),
+                                 "draft_saved_by": user["name"], "draft_saved_at": now_iso(),
                                  "changes_reason": None})
+
+
+@router.get("/periods/{period_id}/preview")
+async def preview_client_view(period_id: str,
+                              user: dict = Depends(require_roles("ACCOUNTANT", "ADMIN",
+                                                                 "SUPER_ADMIN"))):
+    """Exactly what the client would see if this draft were published. Staff only."""
+    row, _ = await _period(period_id, user)
+    if not row.get("draft"):
+        raise HTTPException(status_code=400, detail="Enter the figures first")
+    return {"label": row["label"], "period_start": row["period_start"],
+            "period_end": row["period_end"], "deadline": row["deadline"],
+            "version": row["published_version"] + 1, "disclaimer": DISCLAIMER,
+            **row["draft"]}
 
 
 @router.post("/periods/{period_id}/submit-for-review")
@@ -205,9 +339,9 @@ async def submit_for_review(period_id: str,
                             user: dict = Depends(require_roles("ACCOUNTANT", "ADMIN",
                                                                "SUPER_ADMIN"))):
     row, case = await _period(period_id, user)
-    if row["status"] != IN_PROGRESS:
+    if row["status"] != IN_PROGRESS or not row.get("draft"):
         raise HTTPException(status_code=400, detail="Enter the figures first")
-    out = await _advance(row, case, ADMIN_REVIEW, "sent for internal review", user)
+    out = await _advance(row, case, ADMIN_REVIEW, "sent for admin review", user)
     async for admin in db.users.find({"role": {"$in": ["ADMIN", "SUPER_ADMIN"]},
                                       "is_active": True}):
         await notify(admin["id"], "MTD period ready for review",
@@ -216,17 +350,26 @@ async def submit_for_review(period_id: str,
     return out
 
 
+# ------------------------------------------------------------------ admin review and release
 @router.post("/periods/{period_id}/admin-approve")
-async def admin_approve(period_id: str,
-                        user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+async def approve_and_publish(period_id: str,
+                              user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    """Publishes a new immutable version to the client. Publishing does NOT submit the period."""
     row, case = await _period(period_id, user)
     if row["status"] != ADMIN_REVIEW:
-        raise HTTPException(status_code=400, detail="This period is not awaiting internal review")
-    out = await _advance(row, case, AWAITING_CLIENT, "approved internally, released to client",
-                         user, extra={"admin_reviewed_by_name": user["name"],
-                                      "admin_reviewed_at": now_iso()})
+        raise HTTPException(status_code=400, detail="This period is not awaiting admin review")
+    if not row.get("draft"):
+        raise HTTPException(status_code=400, detail="There are no prepared figures to publish")
+    version = row["published_version"] + 1
+    snapshot = {**row["draft"], "version": version,
+                "published_by_name": user["name"], "published_at": now_iso()}
+    history = list(row.get("published_versions") or []) + [snapshot]
+    out = await _advance(row, case, AWAITING_CLIENT,
+                         f"figures published to client (version {version})", user,
+                         extra={"published": snapshot, "published_version": version,
+                                "published_versions": history, "client_approved_at": None})
     await notify(case["client_user_id"], f"MTD {row['label']} ready to approve",
-                 f"Please review and approve your {row['label'].lower()} figures.",
+                 f"Your {row['label'].lower()} figures have been published for approval.",
                  case["id"], "/mtd", "REVIEW")
     return out
 
@@ -283,6 +426,7 @@ async def record_period_submission(period_id: str, body: SubmissionIn,
                          extra={"submission_reference": body.submission_reference.strip(),
                                 "submission_date": body.submission_date.strip(),
                                 "submission_provider": body.provider,
+                                "submission_outcome": body.outcome,
                                 "submitted_by_name": user["name"],
                                 "submitted_at": now_iso()},
                          comments=body.note)

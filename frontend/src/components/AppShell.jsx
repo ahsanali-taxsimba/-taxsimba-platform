@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Bell, LayoutDashboard, FileText, FolderOpen, MessageSquare, CheckSquare, Route,
   User, CreditCard, HelpCircle, Settings, Users, Briefcase, ShieldCheck, LogOut, Menu, Sparkles,
-  AlertCircle, Layers,
+  AlertCircle, Layers, CalendarClock,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { api, dt } from "@/lib/api";
@@ -34,6 +34,7 @@ const ADMIN_NAV = [
   ["Admin Review", "/admin/cases?bucket=admin_review", ShieldCheck],
   ["Recommendations", "/admin/recommendations", Sparkles],
   ["Service Issues", "/admin/service-issues", AlertCircle],
+  ["MTD Operations", "/admin/mtd", CalendarClock],
   ["Accountants", "/admin/accountants", Users],
 ];
 
