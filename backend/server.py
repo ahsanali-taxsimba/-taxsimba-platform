@@ -33,6 +33,7 @@ from ratelimit import (clear_failures, client_ip, enforce_login_allowed, ensure_
                        record_failure)
 from seed import seed
 from phase1b import bootstrap_client_services, ensure_phase1b_data, router as phase1b_router
+from mtd import router as mtd_router
 from storage import init_storage, put_object, get_object, APP_NAME
 from workflow import (ALLOWED_TRANSITIONS, STATUSES, STATUS_META, client_status,
                       deadline_for_tax_year, journey, log_activity, notify, now_iso,
@@ -2314,3 +2315,4 @@ async def root():
 
 app.include_router(api)
 app.include_router(phase1b_router)
+app.include_router(mtd_router)

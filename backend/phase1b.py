@@ -14,6 +14,7 @@ from pydantic import BaseModel
 from auth import get_current_user, require_roles
 from db import clean, clean_many, db, scrub, scrub_many
 from invoices import create_receipt, render_html
+from mtd import ensure_periods
 from testdata import OPERATIONAL_ONLY
 from workflow import STATUS_META, log_activity, notify, now_iso
 
@@ -518,6 +519,8 @@ async def _fulfil(tx: dict):
             "created_at": now_iso(), "last_updated": now_iso(),
         }
         await db.cases.insert_one(dict(case))
+        if tx["service_type"] == MTD:
+            await ensure_periods(case)
         await log_activity(case["id"],
                            f"{SERVICE_LABELS.get(tx['service_type'], tx['service_type'])} activated "
                            f"({pkg['name'] if pkg else tx['new_package']}, £{tx['amount']:.2f} paid)",

@@ -146,48 +146,83 @@ export function RecommendationReview() {
 
 export function MtdDashboard() {
   const [cases, setCases] = useState([]);
-  const [tasks, setTasks] = useState([]);
-  const [docs, setDocs] = useState([]);
+  const [periods, setPeriods] = useState({});
+  const [busy, setBusy] = useState(null);
+  const [err, setErr] = useState("");
 
-  useEffect(() => {
-    api.get("/cases", { params: { service_type: "MTD_INCOME_TAX" } }).then(({ data }) => setCases(data));
-    api.get("/tasks", { params: { service_type: "MTD_INCOME_TAX" } }).then(({ data }) => setTasks(data));
-    api.get("/documents", { params: { service_type: "MTD_INCOME_TAX" } }).then(({ data }) => setDocs(data));
-  }, []);
+  const load = async () => {
+    const { data } = await api.get("/cases", { params: { service_type: "MTD_INCOME_TAX" } });
+    setCases(data);
+    const all = {};
+    for (const c of data) {
+      try { all[c.id] = (await api.get(`/mtd/cases/${c.id}/periods`)).data; } catch (e) { all[c.id] = []; }
+    }
+    setPeriods(all);
+  };
+  useEffect(() => { load(); }, []);
+
+  const approve = async (p) => {
+    setErr(""); setBusy(p.id);
+    try {
+      await api.post(`/mtd/periods/${p.id}/client-approve`);
+      await load();
+    } catch (e) { setErr(apiError(e.response?.data?.detail)); }
+    setBusy(null);
+  };
 
   return (
     <AppShell title="MTD for Income Tax" subtitle="Your Making Tax Digital service — separate from your Self Assessment.">
       <div className="space-y-6">
-        <Panel title="MTD status" testId="mtd-status-panel">
-          {!cases.length && <Empty text="Your MTD service is being set up. Your accountant will be in touch." />}
-          <ul className="space-y-3">
-            {cases.map((c) => (
-              <li key={c.id} data-testid={`mtd-case-${c.case_ref}`} className="border border-[#E3E7E4] rounded-lg p-5 text-sm">
-                <div className="font-semibold">{c.case_ref} · {c.tax_year}</div>
-                <p className="text-[#626A65] mt-1">{c.current_stage} · {clientStatusLabel(c.status)}</p>
-                <p className="text-xs text-[#626A65] mt-1">Next: {c.next_action}</p>
-              </li>
-            ))}
-          </ul>
-        </Panel>
-        <Panel title="MTD tasks" testId="mtd-tasks-panel">
-          {!tasks.length && <Empty text="No MTD tasks for you right now." />}
-          <ul className="space-y-2 text-sm">
-            {tasks.map((t) => <li key={t.id} className="text-[#626A65]">{t.name} · {t.status}</li>)}
-          </ul>
-        </Panel>
-        <Panel title="MTD documents" testId="mtd-documents-panel">
-          {!docs.length && <Empty text="No MTD documents yet." />}
-          <ul className="space-y-2 text-sm">
-            {docs.map((x) => <li key={x.id} className="text-[#626A65]">{x.name} · {x.status}</li>)}
-          </ul>
-        </Panel>
-        <Panel title="Quarterly periods" testId="mtd-periods-panel">
-          <p className="text-sm text-[#626A65]">
-            Quarterly period tracking arrives with the full MTD workflow. Your accountant currently manages your
-            quarterly filings and will record each submission here.
-          </p>
-        </Panel>
+        {err && <p data-testid="mtd-error" className="text-sm text-[#D64545] font-semibold">{err}</p>}
+        {!cases.length && (
+          <Panel title="MTD status" testId="mtd-status-panel">
+            <Empty text="Your MTD service is being set up. Your accountant will be in touch." />
+          </Panel>
+        )}
+        {cases.map((c) => (
+          <Panel key={c.id} title={`${c.case_ref} · ${c.tax_year}`} testId={`mtd-case-${c.case_ref}`}>
+            <p className="text-sm text-[#626A65] mb-6">{c.current_stage} · {clientStatusLabel(c.status)}</p>
+            <ul className="space-y-3">
+              {(periods[c.id] || []).map((p) => (
+                <li key={p.id} data-testid={`mtd-period-${p.id}`}
+                  className={`border rounded-lg p-5 ${p.next_action_owner === "CLIENT" ? "border-[#078A4B] bg-[#F6FCF8]" : "border-[#E3E7E4]"}`}>
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <div className="font-semibold text-sm">{p.label}</div>
+                      <div className="text-xs text-[#626A65] mt-1">
+                        {d(p.period_start)} – {d(p.period_end)} · due {d(p.deadline)}
+                      </div>
+                    </div>
+                    <span data-testid={`mtd-period-status-${p.id}`}
+                      className={`px-2 py-1 rounded-md text-[11px] font-semibold ${p.status === "SUBMITTED" ? "bg-[#EAF5EE] text-[#006B3C]" : p.next_action_owner === "CLIENT" ? "bg-[#FFF4E5] text-[#8A5A00]" : "bg-[#F1F8F4] text-[#626A65]"}`}>
+                      {p.stage_label}
+                    </span>
+                  </div>
+                  {(p.income !== null || p.expenses !== null) && (
+                    <dl className="grid grid-cols-3 gap-4 mt-4 text-sm" data-testid={`mtd-figures-${p.id}`}>
+                      <div><dt className="text-xs uppercase text-[#626A65]">Income</dt><dd className="mt-1 font-semibold">{money(p.income)}</dd></div>
+                      <div><dt className="text-xs uppercase text-[#626A65]">Expenses</dt><dd className="mt-1 font-semibold">{money(p.expenses)}</dd></div>
+                      <div><dt className="text-xs uppercase text-[#626A65]">Profit</dt><dd className="mt-1 font-semibold">{money(p.profit)}</dd></div>
+                    </dl>
+                  )}
+                  {p.figures_note && <p className="text-sm text-[#626A65] mt-3 break-words">{p.figures_note}</p>}
+                  <p className="text-xs text-[#626A65] mt-3">Next: {p.next_action}</p>
+                  {p.submission_reference && (
+                    <p className="text-xs text-[#006B3C] mt-1" data-testid={`mtd-submission-${p.id}`}>
+                      Submitted {d(p.submission_date)} · reference {p.submission_reference}
+                    </p>
+                  )}
+                  {p.status === "AWAITING_CLIENT_APPROVAL" && (
+                    <button data-testid={`mtd-approve-${p.id}`} disabled={busy === p.id} onClick={() => approve(p)}
+                      className="mt-4 px-4 py-2 rounded-lg bg-[#078A4B] text-white text-xs font-semibold hover:bg-[#006B3C] transition-colors disabled:opacity-50">
+                      {busy === p.id ? "Approving…" : "Approve these figures"}
+                    </button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </Panel>
+        ))}
       </div>
     </AppShell>
   );
