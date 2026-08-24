@@ -1316,6 +1316,8 @@ async def upload_document(case_id: str = Form(...), document_type: str = Form("O
     if existing:
         record["created_at"] = existing.get("created_at", now_iso())
         record["request_id"] = existing.get("request_id")
+        record["task_id"] = task_id or existing.get("task_id")
+        record["mtd_period_id"] = mtd_period_id or existing.get("mtd_period_id")
         await db.documents.replace_one({"id": record["id"]}, dict(record))
         if existing.get("request_id"):
             await db.document_requests.update_one({"id": existing["request_id"]},
@@ -1332,10 +1334,9 @@ async def upload_document(case_id: str = Form(...), document_type: str = Form("O
             "next_action": "Review the document the client uploaded",
             "last_updated": now_iso()}}) if case["status"] in (
                 "ASSIGNED", "ACCOUNTANT_REVIEW", "AWAITING_CLIENT", "CHANGES_REQUIRED") else None
-    if task_id:
-        await complete_task(task_id, user)
+    if record.get("task_id"):
+        await complete_task(record["task_id"], user)
     return clean(record)
-
 
 @api.patch("/documents/{document_id}/status")
 async def set_document_status(document_id: str, status: str = Query(...),

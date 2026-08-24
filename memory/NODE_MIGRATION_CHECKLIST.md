@@ -148,6 +148,12 @@ SA-only client MTD informational state:
 - [ ] Card disappears and the normal MTD journey shows once an MTD service is ACTIVE.
 - [ ] Accountant recommendation/upgrade pathway unchanged.
 
+MTD document request tasks:
+- [ ] Requesting a document for an MTD period creates one CLIENT task carrying `mtd_period_id`.
+- [ ] Repeating the same open request creates no second task, request or placeholder.
+- [ ] Client upload against the placeholder closes the task and marks the request `Uploaded`.
+- [ ] The request appears in `GET /my-actions` for the client.
+
 ## 19. Final gates
 - [ ] Self Assessment behaviour demonstrably unchanged.
 - [ ] MTD Q1–Q4 + Final Declaration behaviour demonstrably unchanged.

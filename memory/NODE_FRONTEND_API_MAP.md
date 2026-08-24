@@ -146,7 +146,7 @@ Screen: `CaseWorkspace.jsx` (admin mode), `AdminPages.jsx → AdminAccountants`.
 | `/documents/{id}/status` | PATCH | ACCOUNTANT/ADMIN/SUPER_ADMIN | `?status=` (`Requested`, `Received`, `Accepted`, `Rejected`) | document | Audit; client notified on rejection/request |
 | `/documents/{id}/download` | GET | authorised only | — | file stream | Must be fetched authenticated (blob), never a raw href. Cross-client = 403 |
 | `/cases/{id}/request-from-client` | POST | ACCOUNTANT/ADMIN/SUPER_ADMIN | `{items[], note?}` | requests + tasks created | SA: `→ AWAITING_CLIENT` with `waiting_reason` | Audit; client notify |
-| `/mtd/periods/{period_id}/requests` | POST | ACCOUNTANT/ADMIN/SUPER_ADMIN | `{document_type, note?}` | request row (`status: "Requested"`) | Feeds MTD `waiting_for_client` bucket | Audit; client notify |
+| `/mtd/periods/{period_id}/requests` | POST | ACCOUNTANT/ADMIN/SUPER_ADMIN | `{document_type, note?, due_date?}` | request row + `Requested` placeholder + **CLIENT task** (shared `task_id`, carries `mtd_period_id`); idempotent on repeat | Feeds MTD `waiting_for_client` bucket and `GET /my-actions` | Audit; client notify |
 | `/mtd/periods/{period_id}/documents` | GET | scoped | — | period documents | Period-scoped |
 
 Staff-only: internal working documents (not `client_visible`), staff uploader identity details, rejection internals.

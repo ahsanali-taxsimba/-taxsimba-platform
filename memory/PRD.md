@@ -479,3 +479,9 @@ No application code changed. Ambiguities recorded in the handover: unscoped GET 
 - _fulfil SERVICE_ACTIVATION now delegates to activate_service (no duplicated activation logic); recommendation -> admin approval -> offer route preserved.
 - Added POST /api/payments/service-checkout for direct client purchase of SA or MTD (no accountant offer needed); fulfilment uses the same central function. GET /api/my-services unchanged as the frontend source of truth.
 - Targeted check (scripts/check_activation.py, self-cleaning): SA-only PASS, MTD-only PASS, second service same account PASS, no duplicates on replay PASS.
+
+## 2026-06-24 — MTD document request now creates a client task
+- backend/mtd.py: POST /api/mtd/periods/{id}/requests creates a CLIENT task (with mtd_period_id/label) linked to the document_request and Requested placeholder via one task_id; repeat requests reuse the open records.
+- backend/server.py: /api/documents/upload falls back to the stored task_id/mtd_period_id on the existing document, so a client upload closes the MTD task and marks the request Uploaded.
+- Targeted check scripts/check_mtd_request_task.py: PASS (task created and linked, no duplicates on repeat, upload closes task, 5 periods intact). Self-cleaning.
+- Node handover (§15.6), migration checklist (§18) and frontend API map updated. Nothing deployed.

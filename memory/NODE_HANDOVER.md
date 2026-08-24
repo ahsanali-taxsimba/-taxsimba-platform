@@ -219,5 +219,8 @@ A client with a Self Assessment case and **no ACTIVE `MTD_INCOME_TAX` service** 
 
 **Companion document:** `NODE_FRONTEND_API_MAP.md` — screen-by-screen frontend↔backend integration map for every Client/Accountant/Admin/Super Admin route, plus the FRONTEND COMPATIBILITY CONTRACT that the Node.js backend must preserve.
 
+**15.6 MTD document requests create a client task.**
+`POST /api/mtd/periods/{period_id}/requests` creates a CLIENT-owned task (`tasks` collection, `name: "{period label}: {document type}"`, carrying `mtd_period_id`/`mtd_period_label`) alongside the `document_requests` row and the `Requested` document placeholder, all sharing one `task_id`/`request_id`. Repeating the request for the same still-open item reuses the existing records (no duplicate task, request or placeholder). `POST /api/documents/upload` closes the task from the stored `task_id` on the document when the form does not supply one, and marks the request `Uploaded`. This makes MTD document requests appear in the client action feed (`GET /api/my-actions`) exactly as Self Assessment requests do; the MTD case workflow status is deliberately not changed.
+
 ## 16. Migration rule
 Reproduce this behaviour first. Do not simplify, reinterpret, merge, rename or redesign workflow states, transitions, permissions, guards, data relationships, API behaviour or client/staff visibility rules until full behavioural parity is proven and a change is separately approved.

@@ -331,10 +331,31 @@ async def request_quarter_document(period_id: str, body: QuarterRequestIn,
     row, case = await _period(period_id, user)
     if not body.document_type.strip():
         raise HTTPException(status_code=400, detail="A document type is required")
+    title = body.document_type.strip()
+    task_name = f"{row['label']}: {title}"
+    # Idempotency: a repeated request for the same still-open item reuses the existing records.
+    existing_task = await db.tasks.find_one({"case_id": case["id"], "name": task_name,
+                                             "owner_role": "CLIENT", "status": "OPEN"})
+    if existing_task:
+        placeholder = await db.documents.find_one({"task_id": existing_task["id"],
+                                                   "status": "Requested"})
+        if placeholder:
+            return clean(placeholder)
     req_id = str(uuid.uuid4())
+    task_id = existing_task["id"] if existing_task else str(uuid.uuid4())
+    if not existing_task:
+        # Client-facing task so the request appears in the client's action list, as SA does.
+        await db.tasks.insert_one({
+            "id": task_id, "case_id": case["id"], "case_ref": case["case_ref"],
+            "name": task_name, "description": body.note, "owner_role": "CLIENT",
+            "owner_id": case["client_user_id"], "due_date": body.due_date, "status": "OPEN",
+            "mandatory": False, "mtd_period_id": period_id, "mtd_period_label": row["label"],
+            "created_by": user["id"], "created_by_name": user["name"],
+            "created_at": now_iso(), "completed_date": None, "request_id": req_id,
+        })
     await db.document_requests.insert_one({
         "id": req_id, "case_id": case["id"], "client_user_id": case["client_user_id"],
-        "title": body.document_type.strip(), "description": body.note, "task_id": None,
+        "title": title, "description": body.note, "task_id": task_id,
         "mtd_period_id": period_id, "mtd_period_label": row["label"],
         "status": "Requested", "requested_by": user["id"], "requested_by_name": user["name"],
         "due_date": body.due_date, "created_at": now_iso(),
@@ -342,8 +363,8 @@ async def request_quarter_document(period_id: str, body: QuarterRequestIn,
     placeholder = {
         "id": str(uuid.uuid4()), "case_id": case["id"],
         "client_user_id": case["client_user_id"], "tax_year": case["tax_year"],
-        "document_type": body.document_type.strip(), "name": body.document_type.strip(),
-        "status": "Requested", "request_id": req_id, "task_id": None,
+        "document_type": title, "name": title,
+        "status": "Requested", "request_id": req_id, "task_id": task_id,
         "mtd_period_id": period_id, "mtd_period_label": row["label"],
         "note": body.note, "due_date": body.due_date,
         "requested_by_name": user["name"], "requested_at": now_iso(),
@@ -353,11 +374,10 @@ async def request_quarter_document(period_id: str, body: QuarterRequestIn,
     }
     await db.documents.insert_one(dict(placeholder))
     await log_activity(case["id"],
-                       f"MTD {row['label']}: document requested from client "
-                       f"({body.document_type.strip()})", user,
+                       f"MTD {row['label']}: document requested from client ({title})", user,
                        meta={"mtd_period_id": period_id, "service": "MTD"})
     await notify(case["client_user_id"], f"Document requested for {row['label']}",
-                 body.document_type.strip(), case["id"], "/mtd", "UPLOAD")
+                 title, case["id"], "/mtd", "UPLOAD")
     return clean(placeholder)
 
 
