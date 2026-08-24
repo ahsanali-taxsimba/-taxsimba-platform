@@ -461,3 +461,8 @@ No application code changed. Ambiguities recorded in the handover: unscoped GET 
 - Created /app/memory/NODE_FRONTEND_API_MAP.md: every client/accountant/admin/super-admin route mapped to endpoints, methods, payloads, response fields, enums, permissions, workflow transitions, audit/notification effects and client-visible vs staff-only rules, plus a final FRONTEND COMPATIBILITY CONTRACT.
 - Reference package for Node.js migration = source code + NODE_HANDOVER.md + NODE_MIGRATION_CHECKLIST.md + NODE_FRONTEND_API_MAP.md (frozen; do not alter the exported copy).
 - No application code, workflow, testing or deployment changes.
+
+## 2026-06-24 — Service-aware client navigation (MTD activation visibility)
+- AppShell now reads both service states from GET /my-services: MTD nav appears automatically when MTD_INCOME_TAX is ACTIVE (no admin unlock); SA-only screens /my-return and /journey are hidden when SELF_ASSESSMENT is not ACTIVE. Shared areas (Documents, Messages, Tasks, Profile, My Services, Help, Settings, Report a Problem) remain common.
+- ClientDashboard: MTD-only client (no SA case, MTD ACTIVE) now sees an "Open MTD for Income Tax" card (mtd-portal-card) instead of SA wording; SA-only informational MTD card unchanged.
+- Files: frontend/src/components/AppShell.jsx, frontend/src/pages/client/ClientDashboard.jsx, memory/NODE_FRONTEND_API_MAP.md. No backend/workflow change. Verified SA-only client live; MTD-only and both-services verified by source (no MTD-active client exists). Nothing deployed.

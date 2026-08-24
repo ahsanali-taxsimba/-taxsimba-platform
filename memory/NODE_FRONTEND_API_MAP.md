@@ -18,7 +18,7 @@ Conventions used below:
 | Item | Detail |
 |---|---|
 | Frontend transport | `src/lib/api.js` — axios instance on `REACT_APP_BACKEND_URL`, `withCredentials`, refresh-on-401 retry, `openDocument(id, name)` authenticated blob download (never a raw `<a href>` to a protected file) |
-| Shell | `components/AppShell.jsx` — all roles. Calls `GET /auth/me`, `GET /notifications`, `GET /notifications/unread-count` (20s poll), and for CLIENT `GET /my-services` to decide whether the "MTD for Income Tax" nav item is shown (only when an `MTD_INCOME_TAX` service has `status: "ACTIVE"`) |
+| Shell | `components/AppShell.jsx` — all roles. Calls `GET /auth/me`, `GET /notifications`, `GET /notifications/unread-count` (20s poll), and for CLIENT `GET /my-services` for **service-aware navigation**: the "MTD for Income Tax" item appears automatically when an `MTD_INCOME_TAX` service is `ACTIVE` (no admin unlock step), and the SA-only items `/my-return` and `/journey` are hidden when `SELF_ASSESSMENT` is not `ACTIVE`. Shared areas (Documents, Messages, Tasks, Profile, My Services, Help, Settings, Report a Problem) stay common. `/dashboard` shows an "Open MTD for Income Tax" card (`data-testid="mtd-portal-card"`) for MTD-only clients |
 | Route guard | `App.js` `<Guard roles={...}>` — client-side convenience only. **Every rule is re-enforced server-side**; the Node backend must not rely on the frontend guard |
 | Errors | Backend returns `{ "detail": ... }`; frontend renders via `apiError()`. Preserve `detail` shape and HTTP codes (400 rule violation, 401 session, 403 permission, 404 not found, 409 version mismatch, 429 rate limit/lockout) |
 

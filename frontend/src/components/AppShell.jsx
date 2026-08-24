@@ -49,12 +49,17 @@ export default function AppShell({ children, title, subtitle }) {
   const [openNotes, setOpenNotes] = useState(false);
   const [openNav, setOpenNav] = useState(false);
   const [mtdActive, setMtdActive] = useState(false);
+  const [saActive, setSaActive] = useState(true);
 
   useEffect(() => {
     if (user?.role !== "CLIENT") return;
     api.get("/my-services")
-      .then(({ data }) => setMtdActive(
-        (data.services || []).some((s) => s.service_type === "MTD_INCOME_TAX" && s.status === "ACTIVE")))
+      .then(({ data }) => {
+        const svcs = data.services || [];
+        const active = (t) => svcs.some((s) => s.service_type === t && s.status === "ACTIVE");
+        setMtdActive(active("MTD_INCOME_TAX"));
+        setSaActive(active("SELF_ASSESSMENT"));
+      })
       .catch(() => {});
   }, [user]);
 
@@ -71,6 +76,8 @@ export default function AppShell({ children, title, subtitle }) {
   if (user?.role === "SUPER_ADMIN") items = [...ADMIN_NAV, ...SUPER_NAV];
   if (user?.role === "CLIENT" && mtdActive) {
     items = [...CLIENT_NAV.slice(0, 2), ["MTD for Income Tax", "/mtd", Layers], ...CLIENT_NAV.slice(2)];
+    // MTD-only client: hide Self Assessment-specific screens they have no active service for.
+    if (!saActive) items = items.filter(([, path]) => !["/my-return", "/journey"].includes(path));
   }
 
   const unread = notes.filter((n) => !n.is_read).length;

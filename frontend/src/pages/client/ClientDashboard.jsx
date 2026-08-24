@@ -40,7 +40,18 @@ export default function ClientDashboard() {
       subtitle={cs ? `Your Self Assessment (${cs.tax_year}) is in progress.` : "No active Self Assessment yet."}
     >
       <div className="space-y-6">
-        {readyToApprove ? (
+        {!cs && mtdActive ? (
+          <div data-testid="mtd-portal-card" className="bg-white border border-[#16A05D] rounded-xl p-8">
+            <h2 className="text-lg md:text-xl font-semibold text-[#161B18]">Making Tax Digital for Income Tax</h2>
+            <p className="text-sm text-[#626A65] mt-2 max-w-xl">
+              Your MTD service is active. Your quarterly updates and Final Declaration are in your MTD area.
+            </p>
+            <Link to="/mtd" data-testid="open-mtd-portal-btn"
+              className="inline-flex mt-5 px-5 py-2.5 rounded-lg bg-[#078A4B] text-white text-sm font-semibold hover:bg-[#006B3C] transition-colors">
+              Open MTD for Income Tax
+            </Link>
+          </div>
+        ) : readyToApprove ? (
           <div data-testid="client-action-card" className="bg-white border border-[#16A05D] rounded-xl p-8">
             <div className="flex items-start gap-4">
               <FileCheck2 size={22} color="#16A05D" className="mt-1" />
