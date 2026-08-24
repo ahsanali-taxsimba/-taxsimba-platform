@@ -14,6 +14,7 @@ import AdminRecommendations from "@/pages/staff/AdminRecommendations";
 import AccountantDashboard from "@/pages/staff/AccountantDashboard";
 import { AdminAccountants, AdminCases, AdminDashboard } from "@/pages/staff/AdminPages";
 import AdminMtd from "@/pages/staff/AdminMtd";
+import AccountantMtd from "@/pages/staff/AccountantMtd";
 import CaseWorkspace from "@/pages/staff/CaseWorkspace";
 import SuperAdmin from "@/pages/staff/SuperAdmin";
 import AcceptInvite from "@/pages/AcceptInvite";
@@ -67,6 +68,7 @@ export default function App() {
           <Route path="/service-issues" element={<Guard roles={CLIENT}><ClientServiceIssues /></Guard>} />
           <Route path="/admin/service-issues" element={<Guard roles={ADMIN}><AdminServiceIssues /></Guard>} />
           <Route path="/admin/mtd" element={<Guard roles={ADMIN}><AdminMtd /></Guard>} />
+          <Route path="/work/mtd" element={<Guard roles={["ACCOUNTANT"]}><AccountantMtd /></Guard>} />
 
           <Route path="/work" element={<Guard roles={STAFF}><AccountantDashboard /></Guard>} />
           <Route path="/work/cases/:id" element={<Guard roles={["ACCOUNTANT", "ADMIN", "SUPER_ADMIN"]}><CaseWorkspace /></Guard>} />

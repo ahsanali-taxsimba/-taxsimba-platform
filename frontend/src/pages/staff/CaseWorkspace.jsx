@@ -438,6 +438,11 @@ export default function CaseWorkspace() {
                         {p.draft ? "Edit draft figures" : "Enter figures"}
                       </button>
                     )}
+                    <button data-testid={`mtd-request-doc-${p.id}`} className="text-xs font-semibold text-[#006B3C]"
+                      onClick={() => { setForm({ period: p, document_type: "Bank statement", note: "", due_date: "" }); setModal("mtdrequest"); }}>
+                      Request a document
+                    </button>
+
                     {p.draft && (
                       <button data-testid={`mtd-preview-btn-${p.id}`} className="text-xs font-semibold text-[#626A65]"
                         onClick={async () => {
@@ -652,6 +657,34 @@ export default function CaseWorkspace() {
                       suggested_set_aside: form.suggested_set_aside === "" || form.suggested_set_aside == null ? null : Number(form.suggested_set_aside),
                       client_note: form.client_note || null,
                     }))}>Save draft</button>
+                  {err && <p className="text-sm text-[#D64545]">{err}</p>}
+                </div>
+              </>
+            )}
+            {modal === "mtdrequest" && (
+              <>
+                <h3 className="text-lg font-semibold mb-2">Request a document</h3>
+                <p className="text-xs text-[#626A65] mb-5">
+                  This request is attached to {form.period?.label} only.
+                </p>
+                <div className="space-y-4">
+                  <select data-testid="mtd-req-type" value={form.document_type}
+                    onChange={(e) => setForm({ ...form, document_type: e.target.value })}
+                    className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm">
+                    {["Bank statement", "Sales records", "Expense receipts", "Rental statement",
+                      "Other document"].map((t) => <option key={t}>{t}</option>)}
+                  </select>
+                  <textarea data-testid="mtd-req-note" rows={3} placeholder="Instructions for the client (optional)"
+                    className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    value={form.note || ""} onChange={(e) => setForm({ ...form, note: e.target.value })} />
+                  <input data-testid="mtd-req-due" type="date"
+                    className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    value={form.due_date || ""} onChange={(e) => setForm({ ...form, due_date: e.target.value })} />
+                  <button data-testid="mtd-req-save" className={`${primary} w-full`}
+                    onClick={() => act(() => api.post(`/mtd/periods/${form.period.id}/requests`, {
+                      document_type: form.document_type, note: form.note || null,
+                      due_date: form.due_date || null,
+                    }))}>Send request</button>
                   {err && <p className="text-sm text-[#D64545]">{err}</p>}
                 </div>
               </>

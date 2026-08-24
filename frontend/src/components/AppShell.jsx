@@ -26,6 +26,7 @@ const CLIENT_NAV = [
 const ACCOUNTANT_NAV = [
   ["Dashboard", "/work", LayoutDashboard],
   ["My Cases", "/work?tab=in_progress", Briefcase],
+  ["MTD Workload", "/work/mtd", CalendarClock],
 ];
 
 const ADMIN_NAV = [

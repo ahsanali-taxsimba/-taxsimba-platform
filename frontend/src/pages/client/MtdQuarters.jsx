@@ -29,14 +29,15 @@ function QuarterCard({ p, onApprove, busy }) {
     .then(({ data }) => setDocs(data)).catch(() => {});
   useEffect(() => { loadDocs(); }, [p.id]);
 
-  const upload = async (e) => {
+  const upload = async (e, request) => {
     const file = e.target.files[0];
     if (!file) return;
     setErr("");
     const fd = new FormData();
     fd.append("case_id", p.case_id);
-    fd.append("document_type", "MTD supporting record");
+    fd.append("document_type", request ? request.document_type : "MTD supporting record");
     fd.append("mtd_period_id", p.id);
+    if (request) fd.append("document_id", request.id);
     fd.append("file", file);
     try {
       await api.post("/documents/upload", fd, { headers: { "Content-Type": "multipart/form-data" } });
@@ -44,6 +45,9 @@ function QuarterCard({ p, onApprove, busy }) {
     } catch (e2) { setErr(apiError(e2.response?.data?.detail)); }
     e.target.value = "";
   };
+
+  const requests = docs.filter((doc) => doc.status === "Requested");
+  const uploaded = docs.filter((doc) => doc.status !== "Requested");
 
   return (
     <div data-testid={`mtd-period-${p.id}`}
@@ -102,20 +106,45 @@ function QuarterCard({ p, onApprove, busy }) {
       )}
 
       <div className="mt-5 border-t border-[#E3E7E4] pt-4">
+        {requests.length > 0 && (
+          <ul className="mb-4 space-y-2" data-testid={`mtd-requests-${p.id}`}>
+            {requests.map((r) => (
+              <li key={r.id} data-testid={`mtd-request-${r.id}`}
+                className="rounded-xl border border-[#E6A23C]/50 bg-[#FFFBF3] p-4">
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <p className="text-sm font-semibold">{r.document_type}</p>
+                    <p className="text-xs text-[#8A5A00] mt-1">Requested for {p.label}</p>
+                    {r.note && <p className="text-sm text-[#626A65] mt-1.5 break-words">{r.note}</p>}
+                    <p className="text-xs text-[#626A65] mt-1">
+                      Requested by {r.requested_by_name} on {d(r.requested_at)}
+                      {r.due_date ? ` · due ${d(r.due_date)}` : ""}
+                    </p>
+                  </div>
+                  <label className="text-xs font-semibold text-[#078A4B] cursor-pointer shrink-0">
+                    Upload
+                    <input data-testid={`mtd-request-upload-${r.id}`} type="file" className="hidden"
+                      onChange={(e) => upload(e, r)} />
+                  </label>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
         <div className="flex flex-wrap items-center justify-between gap-3">
           <p className="text-xs text-[#626A65]">
-            Documents for this period{docs.length ? ` (${docs.length})` : ""}
+            Documents for this period{uploaded.length ? ` (${uploaded.length})` : ""}
           </p>
           <label className="text-xs font-semibold text-[#078A4B] cursor-pointer">
             Upload a record
-            <input data-testid={`mtd-upload-${p.id}`} type="file" className="hidden" onChange={upload} />
+            <input data-testid={`mtd-upload-${p.id}`} type="file" className="hidden" onChange={(e) => upload(e, null)} />
           </label>
         </div>
         {err && <p className="text-xs text-[#D64545] mt-2">{err}</p>}
         <ul className="mt-3 space-y-2">
-          {docs.map((doc) => (
+          {uploaded.map((doc) => (
             <li key={doc.id} data-testid={`mtd-doc-${doc.id}`} className="flex items-center justify-between gap-3 text-sm">
-              <span className="truncate">{doc.name}</span>
+              <span className="truncate">{doc.name} <span className="text-[11px] text-[#626A65]">{doc.status}</span></span>
               <button type="button" onClick={() => openDocument(doc.id, doc.name)}
                 className="text-xs font-semibold text-[#078A4B] shrink-0">View</button>
             </li>
@@ -133,22 +162,65 @@ function QuarterCard({ p, onApprove, busy }) {
   );
 }
 
+function YearSummary({ summary }) {
+  if (!summary) return null;
+  return (
+    <div className="rounded-2xl border border-[#E3E7E4] bg-white p-5 sm:p-6" data-testid="mtd-year-summary">
+      <h3 className="text-base md:text-lg font-semibold">Year summary · {summary.tax_year}</h3>
+      <p className="text-sm text-[#626A65] mt-1">
+        {summary.published_quarters} of 4 quarters published so far
+      </p>
+      <ul className="mt-5 space-y-3">
+        {summary.quarters.map((q) => (
+          <li key={q.quarter} data-testid={`year-q-${q.quarter}`}
+            className="rounded-xl border border-[#E3E7E4] p-4">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <p className="text-sm font-semibold">{q.label}</p>
+                <p className="text-xs text-[#626A65] mt-0.5">{d(q.period_start)} – {d(q.period_end)}</p>
+              </div>
+              <span className="px-2 py-1 rounded-md text-[11px] font-semibold bg-[#F1F8F4] text-[#626A65]">{q.stage_label}</span>
+            </div>
+            {q.income === null ? (
+              <p className="text-xs text-[#626A65] mt-3">Not published yet</p>
+            ) : (
+              <dl className="grid grid-cols-3 gap-3 mt-3 text-sm">
+                <div><dt className="text-[11px] uppercase text-[#626A65]">Income</dt><dd className="mt-1 font-semibold">{money(q.income)}</dd></div>
+                <div><dt className="text-[11px] uppercase text-[#626A65]">Expenses</dt><dd className="mt-1 font-semibold">{money(q.expenses)}</dd></div>
+                <div><dt className="text-[11px] uppercase text-[#626A65]">Net</dt><dd className="mt-1 font-semibold">{money(q.net_profit)}</dd></div>
+              </dl>
+            )}
+          </li>
+        ))}
+      </ul>
+      <dl className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5" data-testid="mtd-year-totals">
+        <Figure label="Year-to-date income" value={summary.totals.income} />
+        <Figure label="Year-to-date expenses" value={summary.totals.expenses} />
+        <Figure label="Year-to-date net profit / loss" value={summary.totals.net_profit} strong />
+      </dl>
+      <p className="mt-4 text-xs text-[#626A65] leading-relaxed">{summary.note}</p>
+    </div>
+  );
+}
+
 export default function MtdQuarters() {
   const [cases, setCases] = useState([]);
   const [periods, setPeriods] = useState({});
   const [finals, setFinals] = useState({});
+  const [summaries, setSummaries] = useState({});
   const [busy, setBusy] = useState(null);
   const [err, setErr] = useState("");
 
   const load = async () => {
     const { data } = await api.get("/cases", { params: { service_type: "MTD_INCOME_TAX" } });
     setCases(data);
-    const all = {}; const fin = {};
+    const all = {}; const fin = {}; const sum = {};
     for (const c of data) {
       try { all[c.id] = (await api.get(`/mtd/cases/${c.id}/periods`)).data; } catch { all[c.id] = []; }
       try { fin[c.id] = (await api.get(`/cases/${c.id}/final-documents`)).data; } catch { fin[c.id] = []; }
+      try { sum[c.id] = (await api.get(`/mtd/cases/${c.id}/year-summary`)).data; } catch { sum[c.id] = null; }
     }
-    setPeriods(all); setFinals(fin);
+    setPeriods(all); setFinals(fin); setSummaries(sum);
   };
   useEffect(() => { load(); }, []);
 
@@ -183,6 +255,7 @@ export default function MtdQuarters() {
               {quarters.map((p) => (
                 <QuarterCard key={p.id} p={{ ...p, case_id: c.id }} onApprove={approve} busy={busy === p.id} />
               ))}
+              <YearSummary summary={summaries[c.id]} />
               {final && (
                 <div className="pt-2">
                   <p className="text-xs uppercase tracking-wide text-[#626A65] mb-3">Year end</p>

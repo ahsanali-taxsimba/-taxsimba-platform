@@ -194,6 +194,12 @@ class ReasonIn(BaseModel):
     reason: str
 
 
+class QuarterRequestIn(BaseModel):
+    document_type: str
+    note: Optional[str] = None
+    due_date: Optional[str] = None
+
+
 class SubmissionIn(BaseModel):
     submission_reference: str
     submission_date: str
@@ -290,6 +296,106 @@ async def period_documents(period_id: str, user: dict = Depends(get_current_user
     if user["role"] == "CLIENT":
         query["is_internal"] = False
     return clean_many(await db.documents.find(query).sort("created_at", -1).to_list(200))
+
+
+@router.post("/periods/{period_id}/requests")
+async def request_quarter_document(period_id: str, body: QuarterRequestIn,
+                                   user: dict = Depends(require_roles("ACCOUNTANT", "ADMIN",
+                                                                      "SUPER_ADMIN"))):
+    """Requests one specific document for one specific quarter. Reuses the existing document
+    request architecture; the MTD case workflow status is deliberately not touched."""
+    row, case = await _period(period_id, user)
+    if not body.document_type.strip():
+        raise HTTPException(status_code=400, detail="A document type is required")
+    req_id = str(uuid.uuid4())
+    await db.document_requests.insert_one({
+        "id": req_id, "case_id": case["id"], "client_user_id": case["client_user_id"],
+        "title": body.document_type.strip(), "description": body.note, "task_id": None,
+        "mtd_period_id": period_id, "mtd_period_label": row["label"],
+        "status": "Requested", "requested_by": user["id"], "requested_by_name": user["name"],
+        "due_date": body.due_date, "created_at": now_iso(),
+    })
+    placeholder = {
+        "id": str(uuid.uuid4()), "case_id": case["id"],
+        "client_user_id": case["client_user_id"], "tax_year": case["tax_year"],
+        "document_type": body.document_type.strip(), "name": body.document_type.strip(),
+        "status": "Requested", "request_id": req_id, "task_id": None,
+        "mtd_period_id": period_id, "mtd_period_label": row["label"],
+        "note": body.note, "due_date": body.due_date,
+        "requested_by_name": user["name"], "requested_at": now_iso(),
+        "storage_path": None, "uploader_id": None, "uploader_name": None,
+        "content_type": None, "size": 0, "is_internal": False, "is_deleted": False,
+        "created_at": now_iso(), "upload_date": None,
+    }
+    await db.documents.insert_one(dict(placeholder))
+    await log_activity(case["id"],
+                       f"MTD {row['label']}: document requested from client "
+                       f"({body.document_type.strip()})", user,
+                       meta={"mtd_period_id": period_id, "service": "MTD"})
+    await notify(case["client_user_id"], f"Document requested for {row['label']}",
+                 body.document_type.strip(), case["id"], "/mtd", "UPLOAD")
+    return clean(placeholder)
+
+
+@router.get("/my-workload")
+async def accountant_workload(user: dict = Depends(require_roles("ACCOUNTANT"))):
+    """MTD-only workload for the signed-in accountant. Kept entirely separate from the
+    Self Assessment workload counters."""
+    cases = {c["id"]: c async for c in db.cases.find(
+        {"service_type": MTD, "assigned_accountant_id": user["id"], **OPERATIONAL_ONLY})}
+    rows = clean_many(await db.mtd_periods.find(
+        {"case_id": {"$in": list(cases)}}).sort("deadline", 1).to_list(500)) if cases else []
+    items = [_decorate(r, user) for r in rows]
+    for i in items:
+        i.pop("draft", None)
+    buckets = {
+        "needs_my_action": [i for i in items if i["next_action_owner"] == "ACCOUNTANT"],
+        "awaiting_admin_review": [i for i in items if i["status"] == ADMIN_REVIEW],
+        "awaiting_client_approval": [i for i in items if i["status"] == AWAITING_CLIENT],
+        "ready_submission": [i for i in items if i["status"] == APPROVED],
+        "submitted": [i for i in items if i["status"] == SUBMITTED],
+        "due_14": [i for i in items
+                   if i["deadline_warning"] in ("DUE_14", "DUE_7", "DUE_3")],
+        "overdue": [i for i in items if i["deadline_warning"] == "OVERDUE"],
+    }
+    waiting_ids = {d["mtd_period_id"] async for d in db.documents.find(
+        {"case_id": {"$in": list(cases)}, "status": "Requested",
+         "mtd_period_id": {"$ne": None}}, {"mtd_period_id": 1})}
+    buckets["waiting_for_client"] = [i for i in items if i["id"] in waiting_ids]
+    return {"counts": {k: len(v) for k, v in buckets.items()}, "buckets": buckets}
+
+
+@router.get("/cases/{case_id}/year-summary")
+async def year_summary(case_id: str, user: dict = Depends(get_current_user)):
+    """Year-to-date totals from PUBLISHED accountant-entered quarter figures only.
+    Drafts are never included and no tax or NI is ever calculated here."""
+    case = await _case(case_id, user)
+    rows = clean_many(await db.mtd_periods.find({"case_id": case_id}).to_list(20))
+    quarters = sorted([r for r in rows if r["kind"] == "QUARTER"],
+                      key=lambda r: r["quarter"])
+    out, totals = [], {"income": 0.0, "expenses": 0.0, "net_profit": 0.0}
+    published_count = 0
+    for r in quarters:
+        pub = r.get("published")
+        if pub:
+            published_count += 1
+            for k in totals:
+                totals[k] += float(pub.get(k) or 0)
+        out.append({"quarter": r["quarter"], "label": r["label"],
+                    "period_start": r["period_start"], "period_end": r["period_end"],
+                    "deadline": r["deadline"],
+                    "stage_label": (STAGE_LABEL if user["role"] == "CLIENT"
+                                    else STAFF_STAGE_LABEL)[r["status"]],
+                    "status": r["status"],
+                    "income": pub["income"] if pub else None,
+                    "expenses": pub["expenses"] if pub else None,
+                    "net_profit": pub["net_profit"] if pub else None})
+    return {"tax_year": case["tax_year"], "case_ref": case["case_ref"],
+            "quarters": out, "published_quarters": published_count,
+            "totals": {k: round(v, 2) for k, v in totals.items()},
+            "note": ("Year-to-date totals of the figures your accountant has prepared and "
+                     "published so far. This is accountant-prepared information, not your "
+                     "final tax liability.")}
 
 
 @router.post("/cases/{case_id}/generate-periods")
