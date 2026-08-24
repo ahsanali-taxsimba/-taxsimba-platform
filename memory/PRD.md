@@ -456,3 +456,8 @@ No application code changed. Ambiguities recorded in the handover: unscoped GET 
 - Informational only: creates no MTD case, no Q1-Q4/Final Declaration periods, no deadlines, no subscription, no charge. Replaced by the normal MTD nav/journey once MTD is ACTIVE. Recommendation/upgrade pathway untouched.
 - No backend, workflow or SA/MTD logic changes. Node handover docs (§15.5) and migration checklist (§18) updated.
 - Verified: card renders for clienta@example.com (SA-only, MTD NOT_ACTIVE); /api/cases still returns only SA-1456. Active-MTD suppression verified by source (no active MTD client exists). Nothing deployed.
+
+## 2026-06-24 — Frontend↔Node.js integration map (documentation only)
+- Created /app/memory/NODE_FRONTEND_API_MAP.md: every client/accountant/admin/super-admin route mapped to endpoints, methods, payloads, response fields, enums, permissions, workflow transitions, audit/notification effects and client-visible vs staff-only rules, plus a final FRONTEND COMPATIBILITY CONTRACT.
+- Reference package for Node.js migration = source code + NODE_HANDOVER.md + NODE_MIGRATION_CHECKLIST.md + NODE_FRONTEND_API_MAP.md (frozen; do not alter the exported copy).
+- No application code, workflow, testing or deployment changes.

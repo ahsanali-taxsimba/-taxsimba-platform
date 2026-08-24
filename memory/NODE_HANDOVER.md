@@ -217,5 +217,7 @@ Node.js production must support provider-configured transactional email in addit
 **15.5 SA-only client MTD informational state.**
 A client with a Self Assessment case and **no ACTIVE `MTD_INCOME_TAX` service** sees a read-only "Making Tax Digital" informational card on the client dashboard (`pages/client/ClientDashboard.jsx`, `data-testid="mtd-informational-card"`), driven purely by `GET /my-services`. It creates no MTD case, no Q1–Q4/Final Declaration periods, no deadlines, no subscription and no charge, and must not state that MTD definitely applies next year. Once an MTD service becomes ACTIVE the card disappears and the normal MTD nav item, dashboard and journey apply. The accountant recommendation/upgrade pathway is unchanged.
 
+**Companion document:** `NODE_FRONTEND_API_MAP.md` — screen-by-screen frontend↔backend integration map for every Client/Accountant/Admin/Super Admin route, plus the FRONTEND COMPATIBILITY CONTRACT that the Node.js backend must preserve.
+
 ## 16. Migration rule
 Reproduce this behaviour first. Do not simplify, reinterpret, merge, rename or redesign workflow states, transitions, permissions, guards, data relationships, API behaviour or client/staff visibility rules until full behavioural parity is proven and a change is separately approved.

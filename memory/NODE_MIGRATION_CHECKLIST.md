@@ -156,4 +156,9 @@ SA-only client MTD informational state:
 - [ ] All business rules enforced server-side (verified by calling the API directly, not through the UI).
 - [ ] All QA/disposable records removed after each proof run.
 
+## 20. Frontend compatibility contract (see `NODE_FRONTEND_API_MAP.md` §14)
+- [ ] Every API path, method, query/body field name and response field name matches the map exactly.
+- [ ] All SA/MTD/document/service/payment-request enums returned verbatim.
+- [ ] Every screen in the map loads with data using the unmodified React frontend.
+
 **Sign-off:** every box ticked with evidence = behavioural parity achieved. Only then may simplification or redesign be proposed, and only with separate approval.
