@@ -1,20 +1,30 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import AppShell from "@/components/AppShell";
-import { Empty, Panel, StatCard } from "@/components/StatCard";
+import { Panel, StatCard } from "@/components/StatCard";
 import { api, d } from "@/lib/api";
 
 const CARDS = [
-  ["active_mtd_clients", "Active MTD Clients", "#006B3C", null],
-  ["not_started", "Quarters Not Started", "#626A65", "not_started"],
-  ["preparing", "Accountant Preparing", "#078A4B", "preparing"],
-  ["admin_review", "Awaiting Admin Review", "#7656C9", "admin_review"],
-  ["client_action", "Waiting for Client", "#E6A23C", "client_action"],
+  ["admin_review", "Needs Admin Review", "#7656C9", "admin_review"],
+  ["waiting_for_client", "Waiting for Client", "#E6A23C", "waiting_for_client"],
+  ["client_action", "Awaiting Client Approval", "#16A05D", "client_action"],
   ["ready_submission", "Ready for Submission", "#16A05D", "ready_submission"],
-  ["submitted", "Submitted", "#006B3C", "submitted"],
   ["due_14", "Due Within 14 Days", "#E6A23C", "due_14"],
   ["overdue", "Overdue", "#D64545", "overdue"],
+  ["submitted", "Submitted / Completed", "#006B3C", "submitted"],
+  ["active_mtd_clients", "Active MTD Clients", "#626A65", null],
 ];
+
+const EMPTY = {
+  admin_review: "No MTD quarters currently need admin review.",
+  waiting_for_client: "No MTD quarters currently waiting for client action.",
+  client_action: "No MTD quarters currently awaiting client approval.",
+  ready_submission: "No MTD quarters currently ready for submission.",
+  due_14: "No MTD quarters due within the next 14 days.",
+  overdue: "No overdue MTD quarters.",
+  submitted: "No MTD quarters submitted yet.",
+  "": "No MTD periods yet.",
+};
 
 const WARN_TONE = {
   OVERDUE: "bg-[#FBEBEB] text-[#D64545]",
@@ -66,23 +76,38 @@ export default function AdminMtd() {
               Clear filter
             </button>
           )}>
-          {!rows.length && <Empty text="No MTD periods match this view." />}
+          {!rows.length && (
+            <p data-testid="mtd-op-empty" className="text-sm text-[#626A65] py-6 text-center">
+              {EMPTY[bucket] ?? EMPTY[""]}
+            </p>
+          )}
           <ul className="space-y-3">
             {rows.map((p) => (
               <li key={p.id} data-testid={`mtd-op-row-${p.id}`}
-                className="border border-[#E3E7E4] rounded-lg p-4 flex flex-wrap items-center justify-between gap-3 hover:bg-[#F9FCFA] cursor-pointer transition-colors"
-                onClick={() => nav(`/admin/cases/${p.case_id}`)}>
-                <div>
-                  <div className="font-semibold text-sm">{p.client_name} · {p.label}</div>
-                  <div className="text-xs text-[#626A65] mt-1">
-                    {p.case_ref} · {p.tax_year} · {d(p.period_start)} – {d(p.period_end)} · due {d(p.deadline)}
+                className="border border-[#E3E7E4] rounded-lg p-4 hover:bg-[#F9FCFA] cursor-pointer transition-colors"
+                onClick={() => nav(`/admin/cases/${p.case_id}?tab=MTD%20Periods`)}>
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <div className="font-semibold text-sm">{p.client_name} · {p.label}</div>
+                    <div className="text-xs text-[#626A65] mt-1">
+                      {p.case_ref} · {p.tax_year} · {d(p.period_start)} – {d(p.period_end)} · due {d(p.deadline)}
+                    </div>
+                    <div className="text-xs text-[#626A65] mt-1">
+                      Accountant: {p.assigned_accountant_name || "Unassigned"}
+                    </div>
+                    <div className="text-xs text-[#626A65] mt-1">
+                      Next: {p.next_action} ({p.next_action_owner})
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  {warningBadge(p)}
-                  <span className="px-2 py-1 rounded-md text-[11px] font-semibold bg-[#F1F8F4] text-[#006B3C]">
-                    {p.stage_label}
-                  </span>
+                  <div className="flex flex-wrap items-center gap-2">
+                    {warningBadge(p)}
+                    <span className="px-2 py-1 rounded-md text-[11px] font-semibold bg-[#F1F8F4] text-[#006B3C]">
+                      {p.stage_label}
+                    </span>
+                    <span data-testid={`mtd-op-open-${p.id}`} className="text-xs font-semibold text-[#078A4B]">
+                      Open MTD period
+                    </span>
+                  </div>
                 </div>
               </li>
             ))}

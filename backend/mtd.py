@@ -261,11 +261,23 @@ async def all_periods(bucket: Optional[str] = None, include_test: bool = False,
     if bucket in buckets:
         query.update(buckets[bucket])
     rows = clean_many(await db.mtd_periods.find(query).sort("deadline", 1).to_list(500))
-    out = [_decorate(r, user) for r in rows]
+    cases = {c["id"]: c async for c in db.cases.find(
+        {"service_type": MTD}, {"id": 1, "assigned_accountant_name": 1,
+                                "assigned_accountant_id": 1})}
+    out = []
+    for r in rows:
+        case = cases.get(r["case_id"], {})
+        out.append({**_decorate(r, user),
+                    "assigned_accountant_name": case.get("assigned_accountant_name"),
+                    "assigned_accountant_id": case.get("assigned_accountant_id")})
     if bucket == "due_14":
         out = [r for r in out if r["deadline_warning"] in ("DUE_14", "DUE_7", "DUE_3")]
     elif bucket == "overdue":
         out = [r for r in out if r["deadline_warning"] == "OVERDUE"]
+    elif bucket == "waiting_for_client":
+        waiting = {d["mtd_period_id"] async for d in db.documents.find(
+            {"status": "Requested", "mtd_period_id": {"$ne": None}}, {"mtd_period_id": 1})}
+        out = [r for r in out if r["id"] in waiting]
     return out
 
 
@@ -276,7 +288,11 @@ async def mtd_stats(user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN")))
     decorated = [_decorate(r, user) for r in rows]
     active_cases = {c["id"] async for c in db.cases.find(
         {"service_type": MTD, **OPERATIONAL_ONLY}, {"id": 1})}
+    waiting = {d["mtd_period_id"] async for d in db.documents.find(
+        {"status": "Requested", "mtd_period_id": {"$ne": None},
+         "case_id": {"$in": list(active_cases)}}, {"mtd_period_id": 1})}
     return {
+        "waiting_for_client": sum(1 for r in rows if r["id"] in waiting),
         "active_mtd_clients": len({r["client_id"] for r in rows if r["case_id"] in active_cases}),
         "active_mtd_cases": len(active_cases),
         "not_started": sum(1 for r in rows if r["status"] == NOT_STARTED),
