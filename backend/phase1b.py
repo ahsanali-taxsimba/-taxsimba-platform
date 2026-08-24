@@ -8,11 +8,12 @@ from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 import stripe
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from pydantic import BaseModel
 
 from auth import get_current_user, require_roles
 from db import clean, clean_many, db, scrub, scrub_many
+from invoices import create_receipt, render_html
 from workflow import STATUS_META, log_activity, notify, now_iso
 
 stripe.api_key = os.environ.get("STRIPE_SECRET_KEY") or "sk_test_emergent"
@@ -405,10 +406,18 @@ async def _fulfil(tx: dict):
         if not claimed.modified_count:
             return  # already confirmed -- never notify or audit the same payment twice
         case = await db.cases.find_one({"id": tx.get("case_id")})
+        receipt = await create_receipt({**tx, "paid_at": now_iso()})
+        ref = tx.get("stripe_payment_intent_id") or tx["session_id"]
         await log_activity(tx.get("case_id"),
                            f"Additional work payment received — £{tx['amount']:.2f} "
-                           f"(ref {tx.get('stripe_payment_intent_id') or tx['session_id']})",
-                           actor, {"payment_request_id": tx["id"], "amount": tx["amount"]})
+                           f"(ref {ref}, receipt {receipt['number'] if receipt else 'existing'})",
+                           actor, {"payment_request_id": tx["id"], "amount": tx["amount"],
+                                   "receipt_number": receipt["number"] if receipt else None})
+        if receipt:
+            await notify(tx["user_id"], "Payment received",
+                         f"Receipt {receipt['number']} for {tx.get('description')} — "
+                         f"£{tx['amount']:.2f}. Available in My Services.",
+                         tx.get("case_id"), "/subscription", "RECEIPT")
         for uid in {(case or {}).get("assigned_accountant_id")} | {
                 u["id"] async for u in db.users.find({"role": {"$in": ["ADMIN", "SUPER_ADMIN"]}},
                                                      {"id": 1})}:
@@ -605,6 +614,7 @@ class AdditionalWorkIn(BaseModel):
     amount: float
     due_date: Optional[str] = None
     internal_note: Optional[str] = None
+    recommendation_id: Optional[str] = None
 
 
 @router.post("/payment-requests")
@@ -631,6 +641,13 @@ async def create_payment_request(body: AdditionalWorkIn,
         "sent_at": now_iso(), "created_at": now_iso(), "updated_at": now_iso(),
     }
     await db.payment_transactions.insert_one(dict(tx))
+    if body.recommendation_id:
+        # The accountant's recommendation is approved by this send; history is preserved.
+        await db.recommendations.update_one(
+            {"id": body.recommendation_id, "type": "ADDITIONAL_WORK"},
+            {"$set": {"status": "APPROVED", "reviewed_by": user["name"],
+                      "reviewed_at": now_iso(), "final_amount": tx["amount"],
+                      "payment_request_id": tx["id"]}})
     await log_activity(case["id"], f"Additional work payment request sent — £{tx['amount']:.2f}",
                        user, {"payment_request_id": tx["id"], "amount": tx["amount"],
                               "description": tx["description"], "due_date": body.due_date})
@@ -656,8 +673,15 @@ async def list_payment_requests(case_id: Optional[str] = None,
     if case_id:
         query["case_id"] = case_id
     rows = await db.payment_transactions.find(query).sort("created_at", -1).to_list(100)
-    return [{k: v for k, v in clean(r).items() if k != "internal_note"
-             or user["role"] in ("ADMIN", "SUPER_ADMIN")} for r in rows]
+    out = []
+    for r in rows:
+        r = clean(r)
+        if user["role"] != "ADMIN" and user["role"] != "SUPER_ADMIN":
+            r.pop("internal_note", None)
+        receipt = await db.invoices.find_one({"payment_request_id": r["id"]})
+        r["receipt_number"] = (receipt or {}).get("number")
+        out.append(r)
+    return out
 
 
 @router.post("/payment-requests/{request_id}/cancel")
@@ -699,6 +723,24 @@ async def resend_payment_request(request_id: str,
 
 class PayRequestIn(BaseModel):
     origin_url: str
+
+
+@router.get("/payment-requests/{request_id}/receipt")
+async def payment_receipt(request_id: str, user: dict = Depends(get_current_user)):
+    """Paid receipt as a printable/downloadable document. Read-only for every role."""
+    receipt = await db.invoices.find_one({"payment_request_id": request_id})
+    if not receipt:
+        raise HTTPException(status_code=404, detail="No receipt for this payment")
+    if user["role"] == "CLIENT" and receipt.get("client_user_id") != user["id"]:
+        raise HTTPException(status_code=403, detail="Not your receipt")
+    if user["role"] == "ACCOUNTANT":
+        case = await db.cases.find_one({"id": receipt.get("case_id")})
+        if not case or case.get("assigned_accountant_id") != user["id"]:
+            raise HTTPException(status_code=403, detail="Case not assigned to you")
+    client = await db.clients.find_one({"id": receipt.get("client_id")})
+    html = render_html(receipt, (client or {}).get("name", "Client"))
+    return Response(content=html, media_type="text/html",
+                    headers={"Content-Disposition": f'inline; filename="{receipt["number"]}.html"'})
 
 
 @router.post("/payment-requests/{request_id}/checkout")
@@ -761,6 +803,7 @@ class RecommendIn(BaseModel):
     recommended_package: Optional[str] = None
     reason: str
     note: Optional[str] = None
+    suggested_amount: Optional[float] = None
 
 
 async def _accountant_case(case_id: str, user: dict):
@@ -775,7 +818,7 @@ async def _accountant_case(case_id: str, user: dict):
 async def _create_recommendation(case: dict, user: dict, rtype: str, body: RecommendIn):
     existing = await db.recommendations.find_one({
         "case_id": case["id"], "type": rtype, "status": {"$in": ["PENDING", "APPROVED"]}})
-    if existing:
+    if existing and rtype != "ADDITIONAL_WORK":
         raise HTTPException(
             status_code=409,
             detail=f"{'A package upgrade' if rtype == 'PACKAGE_UPGRADE' else 'An MTD'} "
@@ -795,6 +838,7 @@ async def _create_recommendation(case: dict, user: dict, rtype: str, body: Recom
         "client_user_id": case["client_user_id"], "client_name": case["client_name"],
         "service_type": SELF_ASSESSMENT if rtype == "PACKAGE_UPGRADE" else MTD,
         "recommended_package": body.recommended_package,
+        "suggested_amount": body.suggested_amount,
         "reason": body.reason, "note": body.note,
         "raised_by_id": user["id"], "raised_by_name": user["name"], "raised_by_role": user["role"],
         "status": "PENDING", "created_at": now_iso(),
@@ -808,13 +852,27 @@ async def _create_recommendation(case: dict, user: dict, rtype: str, body: Recom
             "created_at": now_iso(),
         })
     label = ("Package upgrade recommended: " + (body.recommended_package or "")
-             if rtype == "PACKAGE_UPGRADE" else "MTD service recommended")
+             if rtype == "PACKAGE_UPGRADE" else
+             "Additional work recommended" if rtype == "ADDITIONAL_WORK" else
+             "MTD service recommended")
     await log_activity(case["id"], label, user, comments=body.reason)
     await _notify_admins(
-        "Package upgrade recommended" if rtype == "PACKAGE_UPGRADE" else "MTD recommended",
+        "Package upgrade recommended" if rtype == "PACKAGE_UPGRADE" else
+        "Additional work recommended" if rtype == "ADDITIONAL_WORK" else "MTD recommended",
         f"{case['client_name']} — raised by {user['name']}: {body.reason}",
-        case["id"], "/admin/recommendations", "RECOMMENDATION")
+        case["id"],
+        f"/work/cases/{case['id']}" if rtype == "ADDITIONAL_WORK" else "/admin/recommendations",
+        "RECOMMENDATION")
     return clean(rec)
+
+
+@router.post("/cases/{case_id}/recommend-additional-work")
+async def recommend_additional_work(case_id: str, body: RecommendIn,
+                                    user: dict = Depends(require_roles("ACCOUNTANT", "ADMIN",
+                                                                       "SUPER_ADMIN"))):
+    """Internal recommendation only -- no checkout, no charge, no client visibility."""
+    case = await _accountant_case(case_id, user)
+    return scrub(await _create_recommendation(case, user, "ADDITIONAL_WORK", body), user)
 
 
 @router.post("/cases/{case_id}/recommend-package")

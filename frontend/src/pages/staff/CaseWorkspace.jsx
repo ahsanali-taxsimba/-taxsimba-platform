@@ -98,6 +98,7 @@ export default function CaseWorkspace() {
         <button data-testid="submit-admin-review-btn" className={primary} onClick={() => setModal("submit")}>Send to Admin for Review</button>
       )}
       <button data-testid="add-note-btn" className={ghost} onClick={() => setModal("note")}>Add Internal Note</button>
+      <button data-testid="recommend-additional-work-btn" className={ghost} onClick={() => setModal("recAddWork")}>Recommend Additional Work</button>
       <button data-testid="recommend-package-btn" className={ghost} onClick={() => setModal("recPackage")}>Recommend Package Upgrade</button>
       <button data-testid="recommend-mtd-btn" className={ghost} onClick={() => setModal("recMtd")}>Recommend MTD</button>
       <label className={`${ghost} cursor-pointer`}>
@@ -192,7 +193,27 @@ export default function CaseWorkspace() {
                 <div className="text-sm font-semibold mb-2">Service recommendations</div>
                 <ul className="text-sm text-[#626A65] space-y-1">
                   {recs.map((r) => (
-                    <li key={r.id}>{r.type === "MTD" ? "MTD" : `Package upgrade → ${r.recommended_package}`} · {r.reason} · <b>{r.status}</b> · {r.raised_by_name}</li>
+                    <li key={r.id} data-testid={`rec-${r.id}`} className="flex flex-wrap items-center gap-3">
+                      <span>
+                        {r.type === "MTD" ? "MTD" : r.type === "ADDITIONAL_WORK"
+                          ? `Additional work recommended by ${r.raised_by_name}${r.suggested_amount ? ` · suggested £${Number(r.suggested_amount).toFixed(2)}` : ""}`
+                          : `Package upgrade → ${r.recommended_package}`} · {r.reason} · <b>{r.status}</b>
+                        {r.final_amount ? ` · sent at £${Number(r.final_amount).toFixed(2)}` : ""}
+                      </span>
+                      {isAdmin && r.type === "ADDITIONAL_WORK" && r.status === "PENDING" && (
+                        <>
+                          <button data-testid={`rec-approve-${r.id}`} className="text-xs font-semibold text-[#006B3C]"
+                            onClick={() => { setForm({ description: r.reason, amount: r.suggested_amount || "", recommendation_id: r.id }); setModal("addpay"); }}>
+                            Approve &amp; send charge
+                          </button>
+                          <button data-testid={`rec-decline-${r.id}`} className="text-xs font-semibold text-[#D64545]"
+                            onClick={() => {
+                              const reason = window.prompt("Internal reason for declining (optional)") ?? null;
+                              act(() => api.post(`/recommendations/${r.id}/decline`, { reason: reason || "Declined" }));
+                            }}>Decline</button>
+                        </>
+                      )}
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -205,6 +226,11 @@ export default function CaseWorkspace() {
                     <li key={p.id} data-testid={`case-payreq-${p.id}`} className="flex flex-wrap items-center gap-3">
                       <span>{p.description} · <b>£{Number(p.amount).toFixed(2)}</b> · <b>{p.payment_status === "paid" ? "Paid" : p.payment_status}</b>
                         {p.due_date ? ` · due ${d(p.due_date)}` : ""} · raised by {p.created_by_name}</span>
+                      {p.payment_status === "paid" && p.receipt_number && (
+                        <a data-testid={`payreq-receipt-${p.id}`} target="_blank" rel="noopener noreferrer"
+                          href={`${process.env.REACT_APP_BACKEND_URL}/api/payment-requests/${p.id}/receipt`}
+                          className="text-xs font-semibold text-[#006B3C]">Receipt {p.receipt_number}</a>
+                      )}
                       {isAdmin && p.payment_status !== "paid" && p.payment_status !== "cancelled" && (
                         <>
                           <button data-testid={`payreq-resend-${p.id}`} className="text-xs font-semibold text-[#006B3C]"
@@ -376,6 +402,32 @@ export default function CaseWorkspace() {
       {modal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50" onClick={() => setModal(null)}>
           <div className="bg-white rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-8" onClick={(e) => e.stopPropagation()} data-testid={`modal-${modal}`}>
+            {modal === "recAddWork" && (
+              <>
+                <h3 className="text-lg font-semibold mb-2">Recommend Additional Work</h3>
+                <p className="text-xs text-[#626A65] mb-5">
+                  Internal only. Admin sets the final price and sends any charge — the client sees
+                  nothing until then.
+                </p>
+                <div className="space-y-4">
+                  <textarea data-testid="recwork-reason" rows={3} placeholder="Description / reason for the additional work"
+                    className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    value={form.reason || ""} onChange={(e) => setForm({ ...form, reason: e.target.value })} />
+                  <input data-testid="recwork-amount" type="number" min="0" step="0.01" placeholder="Suggested amount (£, optional)"
+                    className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    value={form.suggested_amount || ""} onChange={(e) => setForm({ ...form, suggested_amount: e.target.value })} />
+                  <textarea data-testid="recwork-note" rows={2} placeholder="Internal note (optional)"
+                    className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    value={form.note || ""} onChange={(e) => setForm({ ...form, note: e.target.value })} />
+                  <button data-testid="recwork-send-btn" disabled={!form.reason} className={`${primary} w-full disabled:opacity-50`}
+                    onClick={() => act(() => api.post(`/cases/${id}/recommend-additional-work`, {
+                      reason: form.reason, note: form.note || null,
+                      suggested_amount: form.suggested_amount ? Number(form.suggested_amount) : null,
+                    }))}>Send recommendation to Admin</button>
+                  {err && <p className="text-sm text-[#D64545]">{err}</p>}
+                </div>
+              </>
+            )}
             {modal === "addpay" && (
               <>
                 <h3 className="text-lg font-semibold mb-2">Request Additional Payment</h3>
@@ -402,6 +454,7 @@ export default function CaseWorkspace() {
                       act(() => api.post("/payment-requests", {
                         case_id: id, description: form.description, amount: Number(form.amount),
                         due_date: form.due_date || null, internal_note: form.internal_note || null,
+                        recommendation_id: form.recommendation_id || null,
                       }));
                     }}>Send payment request</button>
                   {err && <p className="text-sm text-[#D64545]">{err}</p>}

@@ -232,13 +232,21 @@ export default function MyServices() {
                     </span>
                     {p.payment_status === "paid" ? (
                       <span data-testid={`addwork-paid-${p.id}`} className="text-xs text-[#626A65]">
-                        Paid {dt(p.paid_at)}{p.stripe_payment_intent_id ? ` · reference ${p.stripe_payment_intent_id}` : ""}
+                        Payment received {dt(p.paid_at)}{p.receipt_number ? ` · receipt ${p.receipt_number}` : ""}
+                        {p.stripe_payment_intent_id ? ` · reference ${p.stripe_payment_intent_id}` : ""}
                       </span>
                     ) : p.payment_status === "cancelled" ? null : (
                       <button data-testid={`addwork-pay-${p.id}`} disabled={busy} onClick={() => payRequest(p.id)}
                         className="px-5 py-2.5 rounded-lg bg-[#078A4B] text-white text-sm font-semibold hover:bg-[#006B3C] transition-colors disabled:opacity-50">
                         Pay securely
                       </button>
+                    )}
+                    {p.payment_status === "paid" && p.receipt_number && (
+                      <a data-testid={`addwork-receipt-${p.id}`} target="_blank" rel="noopener noreferrer"
+                        href={`${process.env.REACT_APP_BACKEND_URL}/api/payment-requests/${p.id}/receipt`}
+                        className="px-4 py-2 rounded-lg border border-[#E3E7E4] text-sm font-semibold hover:bg-[#F1F8F4] transition-colors">
+                        View / download receipt
+                      </a>
                     )}
                   </div>
                 </li>
