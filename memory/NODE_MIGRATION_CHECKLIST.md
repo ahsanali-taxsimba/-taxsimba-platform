@@ -204,6 +204,14 @@ Period parity:
 - [ ] Request/upload/completion, assignment ownership, overdue escalation and wording behave identically for Q1, Q2, Q3, Q4 and the Final Declaration.
 - [ ] No quarter-specific branch exists in the MTD module (only Final Declaration wording and its own deadline differ).
 
+Final pre-export UAT parity (handover §15.12):
+- [ ] Upload with `document_id` rejects a different case/period with 400 and never moves the document.
+- [ ] `GET /my-actions` lists MTD request tasks with `mtd_period_label` and `link: "/mtd"`.
+- [ ] `net_profit` equals typed value or `income - expenses`; no published version is arithmetically inconsistent.
+- [ ] Every 400/403/409/422 rule in §15.12 reproduced.
+- [ ] Idempotency proven for activation, document requests, payment fulfilment, submission recording and notifications.
+- [ ] Version history, retained requests, reopen/reassign reasons and activity rows all preserved.
+
 ## 19. Final gates
 - [ ] Self Assessment behaviour demonstrably unchanged.
 - [ ] MTD Q1–Q4 + Final Declaration behaviour demonstrably unchanged.

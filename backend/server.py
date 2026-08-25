@@ -1314,10 +1314,18 @@ async def upload_document(case_id: str = Form(...), document_type: str = Form("O
     }
     existing = await db.documents.find_one({"id": record["id"]})
     if existing:
+        # A referenced document keeps its own case and MTD period — an upload can never
+        # move a document (or a request) from one period or case to another.
+        if existing["case_id"] != case_id or (
+                mtd_period_id and existing.get("mtd_period_id")
+                and mtd_period_id != existing["mtd_period_id"]):
+            raise HTTPException(
+                status_code=400,
+                detail="This document belongs to a different case or period")
         record["created_at"] = existing.get("created_at", now_iso())
         record["request_id"] = existing.get("request_id")
         record["task_id"] = task_id or existing.get("task_id")
-        record["mtd_period_id"] = mtd_period_id or existing.get("mtd_period_id")
+        record["mtd_period_id"] = existing.get("mtd_period_id") or mtd_period_id
         await db.documents.replace_one({"id": record["id"]}, dict(record))
         if existing.get("request_id"):
             await db.document_requests.update_one({"id": existing["request_id"]},
@@ -2033,7 +2041,9 @@ async def my_actions(user: dict = Depends(require_roles("CLIENT"))):
             "service_type": case["service_type"] if case else None,
             "service_name": SERVICE_LABELS_ALL.get(case["service_type"]) if case else None,
             "case_id": t["case_id"], "case_ref": t.get("case_ref"),
-            "due_date": t.get("due_date"), "status": t["status"], "link": "/tasks",
+            "due_date": t.get("due_date"), "status": t["status"],
+            "mtd_period_label": t.get("mtd_period_label"),
+            "link": "/mtd" if t.get("mtd_period_id") else "/tasks",
             "completed_date": t.get("completed_date"), "created_at": t["created_at"],
         }
         if t["status"] == "COMPLETED":

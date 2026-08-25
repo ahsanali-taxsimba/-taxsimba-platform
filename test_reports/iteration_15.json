@@ -1,0 +1,78 @@
+{
+  "summary": "Iteration 15 - Final pre-export UI verification (frontend only) of the TaxSimba MTD journey using the ring-fenced UI fixture client uat.ui@qa-taxsimba.example.com (case MTD-2019, Uma Iqbal, 2026/27). End-to-end browser pass across CLIENT, ACCOUNTANT and ADMIN screens executed with real controls: (1) Client login lands on /dashboard with greeting 'Welcome back, Uma Iqbal' and the MTD portal card + open-mtd-portal-btn testids; sidebar shows exactly the 11 expected items and NO 'My Tax Return' / 'Your Tax Journey'; direct navigation to /my-return and /journey both redirect to /dashboard (ServiceGuard working). (2) /mtd shows case reference MTD-2019, tax year 2026/27, the 'Your Making Tax Digital service' intro, the 5-step 'What happens next' list, the 6 April 2026 reassurance line, all four Quarters plus Final Declaration (Final Declaration correctly rendered in its own YEAR END section, NOT described as a quarter), five 'Getting started' badges on period cards with 'We're setting up your MTD service. An accountant will be assigned...' text, and 'No quarterly figures published yet.' in Year summary. (3) Admin at /admin/mtd sees MTD-2019 Q1 with 'Awaiting assignment' badge and 'Next: Assign an accountant (ADMIN)'; used real Assignment Centre (assign-accountant-btn -> select-accountant-<id> -> confirm-assign-btn) to assign Amara Boateng - UI updated to show ACCOUNTANT: Amara Boateng and next action 'Accountant to enter the quarterly figures (ACCOUNTANT)'. (4) Accountant used mtd-request-doc-<Q1> control to request a Bank statement scoped to Quarter 1 only, with note and due date - after send, Q1 shows Overdue-waiting-for-client, Q2-Q4 and Final Declaration untouched. (5) Client sees the request card inside mtd-requests-<Q1> only with the note 'Please upload your Q1 bank statement'; uploaded via mtd-request-upload-<request_id> - after reload the request card is gone, Q1 shows 'Preparing', '1 uploaded', file 'bank_statement_q1.pdf Uploaded' visible, generic mtd-upload-<Q1> input still present as a separate control. (6) Accountant entered Income 10000, Expenses 3000 via mtd-figures-btn; draft persists on reload; used mtd-review-btn to send for admin review - status moves to 'Awaiting admin review' with next action ADMIN. (7) Client at /mtd sees Q1 'Under review' with NO figures - draft not leaked. (8) Admin Return-for-changes (mtd-changes-btn -> window.prompt) with reason 'UI test: please increase expenses to 3500' - accountant sees the same reason on their side. (9) Accountant edits expenses to 3500 and resubmits; admin approves via mtd-approve-btn - client sees published figures and can Approve version 1. (10) Manual external submission recording: accountant UI has NO mtd-submit-btn testid (role gated correctly); admin has mtd-submit-btn - modal 'Record external submission' filled with reference EXT-UI-001 and date 2026-08-05, on save Q1 goes to 'Submitted' for all three roles, and the previous preparation controls (mtd-figures-btn, mtd-review-btn, mtd-approve-btn, mtd-approve for client) are no longer offered. (11) Dead-button sweep on client nav produced 0 console errors; mobile responsive spot check at 390x844 on client /dashboard, /mtd and admin /admin/mtd shows scrollWidth==clientWidth==390 so no horizontal overflow.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "CaseWorkspace MTD figures modal (mtd-figures-btn -> mtd-net_profit)",
+        "issue": "Stored net_profit is NOT recomputed when the accountant re-opens the draft and edits only Income or Expenses. On resubmission Income=10000 and Expenses=3500 were saved and published, but Net remained the previously-derived £7,000.00 instead of £6,500.00. The client's published card therefore shows Income £10,000.00, Allowable Expenses £3,500.00, Net Profit / Loss £7,000.00 (arithmetically inconsistent). The modal pre-fills the 'Net profit / loss (£) - leave blank to derive' field with the prior value, so the auto-derive fallback never runs on edit. The task explicitly asked us to confirm 'the client then sees the published figures (net 6500)' - actual net shown is 7000.",
+        "selector": "[data-testid=\"mtd-net_profit\"] / period card 'PUBLISHED TO CLIENT / Net'",
+        "priority": "HIGH"
+      },
+      {
+        "component": "ClientDashboard / ActionRequired page",
+        "issue": "When accountant has requested a Bank statement for Q1, /action-required does NOT list the specific request; it only shows a generic 'Open MTD for Income Tax' card. The per-request card only surfaces on /mtd. Spec expected 'Action Required lists the Quarter 1 Bank statement request'. Minor UX gap - client can still find and fulfil the request from /mtd (which we verified end-to-end).",
+        "selector": "/actions (Action Required screen)",
+        "priority": "MEDIUM"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "pass_fail_matrix": {
+    "client_login_greeting_uma_iqbal": "PASS",
+    "client_sidebar_11_expected_items_only": "PASS",
+    "no_my_tax_return_no_your_tax_journey": "PASS",
+    "my_return_redirects_to_dashboard": "PASS",
+    "journey_redirects_to_dashboard": "PASS",
+    "mtd_case_reference_MTD-2019_and_tax_year_2026_27": "PASS",
+    "mtd_intro_next_steps_reassurance_april_2026": "PASS",
+    "mtd_five_periods_present_final_declaration_not_a_quarter": "PASS",
+    "mtd_getting_started_badges_and_setup_copy_while_unassigned": "PASS",
+    "mtd_no_quarterly_figures_published_yet_summary": "PASS",
+    "admin_mtd_ops_awaiting_assignment_badge_and_admin_next_action": "PASS",
+    "admin_assign_accountant_via_ui_amara_boateng": "PASS",
+    "next_action_becomes_accountant_owned_after_assign": "PASS",
+    "accountant_request_bank_statement_scoped_to_quarter_1_only": "PASS",
+    "client_sees_request_inside_quarter_1_only": "PASS",
+    "action_required_page_lists_the_specific_request": "FAIL (only generic MTD card; per-request not surfaced on /actions)",
+    "client_request_specific_upload_completes_request_and_lists_file": "PASS",
+    "generic_upload_control_is_distinct_from_request_specific_upload": "PASS",
+    "accountant_enter_figures_10000_3000_persists_on_reload": "PASS",
+    "accountant_submit_for_review_flips_to_awaiting_admin_review": "PASS",
+    "client_cannot_see_figures_while_under_review": "PASS",
+    "admin_return_for_changes_reason_visible_to_accountant": "PASS",
+    "accountant_edits_expenses_3500_and_resubmits": "PASS (Expenses saved 3500)",
+    "net_recomputed_to_6500_on_edit": "FAIL - Net stayed at 7000; see ui_bugs #1",
+    "admin_approve_publishes_version_1": "PASS",
+    "admin_internal_reason_not_visible_to_client": "PASS",
+    "client_approve_moves_to_approved_no_edit_control": "PASS",
+    "client_ui_has_no_record_submission_control": "PASS",
+    "accountant_ui_has_no_record_submission_control": "PASS (mtd-submit-btn only rendered for ADMIN)",
+    "admin_record_external_submission_EXT-UI-001": "PASS",
+    "submitted_status_visible_for_all_three_roles": "PASS",
+    "preparation_controls_hidden_after_submission": "PASS (mtd-figures-btn / mtd-review-btn / mtd-approve-btn / client mtd-approve gone)",
+    "dead_button_sweep_client_nav_no_console_errors": "PASS (0 errors across 11 client routes)",
+    "mobile_390x844_no_horizontal_scroll_client_dash_mtd_admin_mtd": "PASS (scrollWidth == clientWidth == 390 on all three)"
+  },
+  "test_report_links": [".screenshots/client_mtd.png", ".screenshots/admin_mtd_ops.png", ".screenshots/assign_modal.png", ".screenshots/after_assign.png", ".screenshots/accountant_workspace.png", ".screenshots/request_modal.png", ".screenshots/client_mtd_request.png", ".screenshots/client_after_upload.png", ".screenshots/figures_modal.png", ".screenshots/after_figures_save.png", ".screenshots/review_modal.png", ".screenshots/admin_review_q1.png", ".screenshots/admin_after_return.png", ".screenshots/client_after_approve.png", ".screenshots/admin_submission_modal.png", ".screenshots/mobile_dashboard.png", ".screenshots/mobile_mtd.png", ".screenshots/mobile_admin_mtd.png"],
+  "action_items": [
+    "HIGH: Fix MTD figures modal so that when Income or Expenses is edited the stored net_profit is recomputed (or cleared so the API derives it). Two viable options: (a) recompute net on every input change in the modal, or (b) always send net=null on save and let the backend derive it (unless the user explicitly overrides). Current behaviour lets the accountant publish an arithmetically inconsistent Net (Income £10,000 - Expenses £3,500 = £6,500 but stored Net = £7,000). This is visible to the client on the approved and submitted card.",
+    "MEDIUM: Surface open MTD requests as line items on the client Action Required (/actions) page so the client sees 'Quarter 1 - Bank statement requested' there in addition to the /mtd portal. Right now /actions only shows a generic 'Open MTD for Income Tax' card when a request is outstanding.",
+    "State left on the ring-fenced fixture: MTD-2019 Quarter 1 is now Submitted (ref EXT-UI-001, date 05 Aug 2026), Amara Boateng assigned, one uploaded document 'bank_statement_q1.pdf'. If a follow-up test needs a clean MTD-2019, rerun /app/backend/scripts/final_uat.py to reseed the UI fixture."
+  ],
+  "critical_code_review_comments": [
+    "CaseWorkspace.jsx line 476 uses window.prompt for the Return-for-changes reason. It works, but it is not stylable and is blocked by any pop-up blockers or browser test tooling that disables synchronous prompts. Consider replacing with the same modal pattern used by 'Record external submission' (setModal + form). Same nit for 'Reopen for correction' on line 485.",
+    "MtdQuarters.jsx / MTD figures modal - fix scope: on edit, the modal pre-fills mtd-net_profit with the previously stored value. Since the field is only auto-derived when left blank, subsequent edits to Income or Expenses silently keep a stale net. Suggest an onChange handler on income/expenses that resets net_profit when the user has not manually overridden it.",
+    "ClientJourneyPage / MyTaxReturn correctly hidden by ServiceGuard for MTD-only clients (verified: direct /my-return and /journey both redirect to /dashboard). Good.",
+    "ADMIN vs ACCOUNTANT role gating on mtd-submit-btn is enforced client-side by isAdmin flag - confirmed no testid rendered for accountant. Backend gate is also in place per iter14 evidence. Good."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "not tested (frontend-only pass)", "frontend": "33/35 checks PASS (94%); 2 failures documented in ui_bugs (stale Net on edit, Action Required does not list per-request items)"},
+  "test_credentials": "Used /app/memory/test_credentials.md: uat.ui@qa-taxsimba.example.com / UatAuto@12345 (client), admin@taxsimba.co.uk / Admin@123, accountant.a@taxsimba.co.uk / Account@123. Did NOT touch uat.mtd@taxsimba-uat.example.com (MTD-2004), clienta@ or clientb@ (SA-1456, SA-1428), or Client A/B state.",
+  "seed_data_creation": "None. Only mutated the ring-fenced UI fixture MTD-2019. Left it in a Submitted state as documented in action_items.",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Both open UI issues are in the client's view of MTD figures. After the main agent fixes the net-recompute logic and adds the per-request line item on /actions, a targeted retest is enough: (a) as accountant, enter Q for the current draft on MTD-2019 Q2 (still Not started) with different Income/Expenses, save, reopen, change one field, save - verify Net auto-recomputes; (b) as accountant request a document for Q2, log back in as client and confirm /actions lists 'Quarter 2 - <doc type>'. If MTD-2019 Q1 needs to be reused fresh, reseed with /app/backend/scripts/final_uat.py.",
+  "rca of the issue": "Net-profit stale on edit: MtdQuarters/CaseWorkspace figures form uses a controlled input for mtd-net_profit that is pre-populated with the previously stored value. The backend only derives net when the payload's net_profit is null/blank, and the frontend never blanks it on subsequent edits. Root cause is a missing onChange dependency between income/expenses and net_profit in the figures modal. Fix: either (a) clear mtd-net_profit whenever income or expenses changes and the user has not manually typed a net override, or (b) always POST net_profit=null unless the user explicitly toggled a 'Override net' checkbox. Reproduction: as accountant open Q1 figures, save Income=10000 Expenses=3000; admin return-for-changes; accountant re-open figures modal, change Expenses to 3500, save - observe stored net=7000 in DRAFT and after admin-approve stays 7000 in published card, then propagates to client and to Submitted card."
+}

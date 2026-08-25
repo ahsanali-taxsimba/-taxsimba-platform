@@ -142,7 +142,7 @@ Screen: `CaseWorkspace.jsx` (admin mode), `AdminPages.jsx → AdminAccountants`.
 | Endpoint | Method | Role | Request/params | Response | Notes |
 |---|---|---|---|---|---|
 | `/documents` | GET | scoped | `case_id`, `mtd_period_id`, `filter=final`, `status` | `[{id, name, document_type, status, uploaded_by, uploaded_at, client_visible, mtd_period_id, case_id}]` | **Node.js: must always be scoped** to case / client / MTD period / explicit authorised scope; no unscoped global listing. Client sees own + client-visible only |
-| `/documents/upload` | POST | CLIENT (own case) / staff | multipart: `case_id`, `document_type`, `mtd_period_id?`, `document_id?` (fulfils a request), `file` | document | Chunk/size limits and type validation. Audit; notify counterparty |
+| `/documents/upload` | POST | CLIENT (own case) / staff | multipart: `case_id`, `document_type`, `mtd_period_id?`, `document_id?` (fulfils a request), `file` | document | Chunk/size limits and type validation. **400 if `document_id` belongs to another case or MTD period** — an upload can never move a document between periods. Audit; notify counterparty |
 | `/documents/{id}/status` | PATCH | ACCOUNTANT/ADMIN/SUPER_ADMIN | `?status=` (`Requested`, `Received`, `Accepted`, `Rejected`) | document | Audit; client notified on rejection/request |
 | `/documents/{id}/download` | GET | authorised only | — | file stream | Must be fetched authenticated (blob), never a raw href. Cross-client = 403 |
 | `/cases/{id}/request-from-client` | POST | ACCOUNTANT/ADMIN/SUPER_ADMIN | `{items[], note?}` | requests + tasks created | SA: `→ AWAITING_CLIENT` with `waiting_reason` | Audit; client notify |
@@ -163,7 +163,7 @@ Staff-only: internal working documents (not `client_visible`), staff uploader id
 | `/notifications` | GET | authenticated | — | `[{id, title, body, read, created_at, link?}]` | Own notifications only |
 | `/notifications/{id}/read`, `/notifications/read-all` | POST | authenticated | — | `{ok}` | |
 | `/notifications/unread-count` | GET | authenticated | — | `{count}` | 20s poll in `AppShell` |
-| `/my-actions` | GET | CLIENT | — | outstanding tasks, approvals, document requests, offers, payment requests | Powers `/actions` |
+| `/my-actions` | GET | CLIENT | — | outstanding tasks (with `mtd_period_label` and `link: "/mtd"` for MTD requests), approvals, document requests, offers, payment requests | Powers `/actions` |
 
 Deadlines: derived server-side from `tax_year` (SA: 31 January following year end) and MTD period rules. Flags: `OVERDUE`, `DUE_3`, `DUE_7`, `DUE_14` with `days_to_deadline`; suppressed once submitted. **Node.js: reminder dispatch must be scheduler/worker-driven, not triggered by a client opening the portal.**
 

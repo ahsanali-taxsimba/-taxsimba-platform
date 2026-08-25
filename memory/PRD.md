@@ -519,3 +519,10 @@ No application code changed. Ambiguities recorded in the handover: unscoped GET 
 ## 2026-06-24 — Client dashboard greeting from profile data
 - ClientDashboard now reads GET /my-profile for the greeting name (fallback /auth/me), so MTD-only, SA-only and dual-service clients all see their own real profile name, and a profile rename is reflected. No email/UTR in the greeting. No backend/workflow change.
 - Check scripts/check_client_name.py. API map updated for the greeting contract.
+
+## 2026-06-24 — FINAL PRE-EXPORT UAT (one controlled run)
+- Backend journey on disposable data (scripts/final_uat.py): 21/21 PASS covering activation, assignment, request/upload/completion, period isolation, figures, return-for-changes, publish/version history, client approval (409 stale), manual submission role policy + idempotency, submitted-period locking, prior-submission onboarding, additional payment, permissions, SA read-only regression, integrity/duplicates.
+- One controlled browser pass (testing_agent iteration_15): 33/35 then 35/35 after two fixes.
+- FIXED (genuine, found by final UAT): (1) /api/documents/upload could move a document to another case/period when document_id was supplied -> now 400 and the period is preserved (backend/server.py). (2) staff figures form kept a stale net_profit when income/expenses were edited -> net now recomputes (frontend/src/pages/staff/CaseWorkspace.jsx). (3) /api/my-actions now returns MTD request tasks with mtd_period_label and link /mtd so they appear on Action Required.
+- Disposable QA data removed; MTD-2004 untouched (ASSIGNED to Amara Boateng, 5 periods). Docs: handover §15.12, checklist, API map, test_credentials rewritten.
+- Production gaps unchanged and reported: transactional email NOT CONFIGURED, scheduled reminders NOT IMPLEMENTED, Stripe live NOT CONFIGURED, staff MFA implemented but NOT ROLLED OUT, HMRC API NOT IMPLEMENTED (by design), tax engine NOT IMPLEMENTED (by design), submitted-period amendment NOT IMPLEMENTED.

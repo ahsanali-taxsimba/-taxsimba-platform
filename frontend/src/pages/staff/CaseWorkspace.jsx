@@ -663,7 +663,18 @@ export default function CaseWorkspace() {
                     ["suggested_set_aside", "Suggested amount to set aside (£) — optional"]].map(([k, label]) => (
                     <input key={k} data-testid={`mtd-${k}`} type="number" step="0.01" placeholder={label}
                       className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
-                      value={form[k] ?? ""} onChange={(e) => setForm({ ...form, [k]: e.target.value })} />
+                      value={form[k] ?? ""} onChange={(e) => {
+                        const next = { ...form, [k]: e.target.value };
+                        // Net always follows income - expenses unless typed directly.
+                        if (k === "income" || k === "expenses") {
+                          const inc = Number(k === "income" ? e.target.value : form.income);
+                          const exp = Number(k === "expenses" ? e.target.value : form.expenses);
+                          next.net_profit = next.income !== "" && next.expenses !== ""
+                            && Number.isFinite(inc) && Number.isFinite(exp)
+                            ? String(Math.round((inc - exp) * 100) / 100) : "";
+                        }
+                        setForm(next);
+                      }} />
                   ))}
                   <textarea data-testid="mtd-client-note" rows={3} placeholder="Note for the client (optional)"
                     className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
