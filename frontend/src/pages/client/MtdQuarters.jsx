@@ -104,9 +104,11 @@ function QuarterCard({ p, onApprove, busy }) {
 
       {!pub && (
         <p data-testid={`mtd-preparing-${p.id}`} className="mt-5 text-sm text-[#626A65] leading-relaxed">
-          {p.kind === "FINAL_DECLARATION"
-            ? "Your accountant will prepare your year-end Final Declaration after the quarterly updates are complete."
-            : "Your accountant is preparing this quarter. Financial figures will appear here once they have been reviewed and published."}
+          {p.awaiting_assignment
+            ? "We're setting up your MTD service. An accountant will be assigned to manage your quarterly updates."
+            : p.kind === "FINAL_DECLARATION"
+              ? "Your accountant will prepare your year-end Final Declaration after the quarterly updates are complete."
+              : "Your accountant is preparing this quarter. Financial figures will appear here once they have been reviewed and published."}
         </p>
       )}
 

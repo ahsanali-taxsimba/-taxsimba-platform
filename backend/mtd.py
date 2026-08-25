@@ -183,6 +183,8 @@ def _decorate(row: dict, user: dict, case: Optional[dict] = None,
     # the period escalates as overdue but the client stays the action owner.
     overdue_waiting = bool(awaiting_docs and warn["deadline_warning"] == "OVERDUE"
                            and row["status"] in (NOT_STARTED, IN_PROGRESS))
+    awaiting_assignment = bool(case is not None and not case.get("assigned_accountant_id")
+                               and row["status"] == NOT_STARTED)
     if overdue_waiting:
         action, owner = ("Client to provide the outstanding records", "CLIENT")
     staff_label = ("Overdue — waiting for client" if overdue_waiting
@@ -191,6 +193,7 @@ def _decorate(row: dict, user: dict, case: Optional[dict] = None,
            "stage_label": (_client_stage(row, case, awaiting_docs) if is_client
                            else staff_label),
            "awaiting_documents": awaiting_docs,
+           "awaiting_assignment": awaiting_assignment,
            "overdue_waiting_for_client": overdue_waiting,
            "delay_attributed_to": "CLIENT" if overdue_waiting else None,
            "escalated_to_admin": overdue_waiting,
