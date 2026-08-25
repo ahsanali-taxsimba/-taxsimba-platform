@@ -14,6 +14,7 @@ export default function ClientDashboard() {
   const [tasks, setTasks] = useState([]);
   const [offers, setOffers] = useState([]);
   const [mtdActive, setMtdActive] = useState(null);
+  const [profileName, setProfileName] = useState("");
 
   useEffect(() => {
     api.get("/cases").then(async ({ data }) => {
@@ -24,19 +25,23 @@ export default function ClientDashboard() {
     });
     api.get("/tasks", { params: { status: "OPEN", service_type: "SELF_ASSESSMENT" } }).then(({ data }) => setTasks(data));
     api.get("/my-offers").then(({ data }) => setOffers(data));
+    api.get("/my-profile").then(({ data }) => setProfileName((data.name || "").trim()))
+      .catch(() => {});
     api.get("/my-services")
       .then(({ data }) => setMtdActive(
         (data.services || []).some((s) => s.service_type === "MTD_INCOME_TAX" && s.status === "ACTIVE")))
       .catch(() => {});
   }, []);
-  const clientName = (user?.name || "").trim();  const openTasks = tasks.length;
+  // Name comes from the authenticated profile record, never hard-coded.
+  const clientName = profileName || (user?.name || "").trim();
+  const openTasks = tasks.length;
   const readyToApprove = cs && ["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"].includes(cs.status);
   // Never claim a successful HMRC submission without an authorised submission record.
   const submitted = cs && ["SUBMITTED", "COMPLETED"].includes(cs.status) && cs.has_submission_record;
 
   return (
     <AppShell
-      title={`Welcome back, ${clientName}`}
+      title={clientName ? `Welcome back, ${clientName}` : "Welcome back"}
       subtitle={cs ? `Your Self Assessment (${cs.tax_year}) is in progress.` : mtdActive ? "Your MTD for Income Tax service is active." : "No active Self Assessment yet."}
     >
       <div className="space-y-6">

@@ -515,3 +515,7 @@ No application code changed. Ambiguities recorded in the handover: unscoped GET 
 - Logic is period-generic: no quarter-specific branch exists in backend/mtd.py; all behaviour is keyed on period_id.
 - scripts/check_request_completion.py (Q1) and scripts/check_period_parity.py (Q2, Q4, Final Declaration): PASS — request linked, request Uploaded, task COMPLETED, document visible, activity + accountant notification created, period leaves waiting-for-client and returns to ACCOUNTANT when no request remains. Disposable records removed; assignment state restored.
 - Docs: handover §15.10 and §15.11, checklist updated. Nothing deployed.
+
+## 2026-06-24 — Client dashboard greeting from profile data
+- ClientDashboard now reads GET /my-profile for the greeting name (fallback /auth/me), so MTD-only, SA-only and dual-service clients all see their own real profile name, and a profile rename is reflected. No email/UTR in the greeting. No backend/workflow change.
+- Check scripts/check_client_name.py. API map updated for the greeting contract.

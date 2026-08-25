@@ -84,7 +84,7 @@ Session model: access token ~15 min, refresh 7 days rotated, httpOnly/Secure/Sam
 
 | Endpoint | Method | Role | Request | Response / fields | Notes |
 |---|---|---|---|---|---|
-| `/my-profile` | GET | CLIENT | — | name, email, phone, address, `utr_masked`, `preferences` | UTR masked by default |
+| `/my-profile` | GET | CLIENT | — | name, email, phone, address, `utr_masked`, `preferences` | UTR masked by default. The client dashboard greeting ("Welcome back, {name}") is rendered from this `name` (falling back to `/auth/me`), never hard-coded, and shows no email/UTR |
 | `/my-profile/utr` | GET | CLIENT | — | `{utr}` | Own UTR reveal |
 | `/my-profile` | PATCH | CLIENT | `{name, phone, address...}` | updated profile | Audit |
 | `/my-profile/email-change` | POST | CLIENT | `{new_email}` | `{status}` | Requires verification; audit + staff notification |
