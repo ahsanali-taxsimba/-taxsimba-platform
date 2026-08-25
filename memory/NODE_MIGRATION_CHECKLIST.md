@@ -186,6 +186,12 @@ Overdue while waiting for the client:
 - [ ] All requests, tasks, placeholders and audit history remain intact.
 - [ ] `record-submission` still returns 400 until the period is APPROVED.
 
+Unassigned MTD periods:
+- [ ] With no accountant on the case, every NOT_STARTED period derives next action "Assign an accountant" owned by ADMIN and staff label "Awaiting assignment".
+- [ ] No ACCOUNTANT-owned next action appears before assignment.
+- [ ] After assignment the normal accountant next action is derived automatically with no record rewrite.
+- [ ] Deadline/overdue calculation is unaffected (a period can be overdue while awaiting assignment).
+
 ## 19. Final gates
 - [ ] Self Assessment behaviour demonstrably unchanged.
 - [ ] MTD Q1–Q4 + Final Declaration behaviour demonstrably unchanged.

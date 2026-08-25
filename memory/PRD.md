@@ -504,3 +504,8 @@ No application code changed. Ambiguities recorded in the handover: unscoped GET 
 - New bucket overdue_waiting_client on /api/mtd/periods and /api/mtd/my-workload, counter on /api/mtd/stats, standing (non-duplicated) admin/super-admin notification; accountant needs_my_action excludes it.
 - Client MTD card gains an explanatory overdue banner (MtdQuarters.jsx). No stored status change, no workflow prerequisite relaxed (record-submission still 400 until APPROVED).
 - Targeted checks scripts/check_overdue_waiting.py: 8/8 PASS (self-cleaning). Docs updated (handover §15.8, checklist, API map). Nothing deployed.
+
+## 2026-06-24 — Unassigned MTD periods are ADMIN-owned + admin subtitle wording
+- mtd._decorate: while the MTD case has no assigned accountant and the period is NOT_STARTED, derives stage_label "Awaiting assignment", next_action "Assign an accountant", next_action_owner ADMIN (no ACCOUNTANT action before assignment); reverts to the normal accountant action automatically after assignment. Deadline/overdue calculation untouched.
+- AdminPages subtitle now "All client cases across the practice." (presentation only, no count/logic change).
+- Targeted check scripts/check_unassigned_state.py on MTD-2004. Docs: handover §15.9 + checklist. Nothing deployed.

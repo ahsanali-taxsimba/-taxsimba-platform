@@ -25,7 +25,7 @@ export function AdminDashboard() {
   const nav = useNavigate();
   useEffect(() => { api.get("/stats/admin").then(({ data }) => setStats(data)); }, []);
   return (
-    <AppShell title="Operations Control Centre" subtitle="All Self Assessment cases across the practice.">
+    <AppShell title="Operations Control Centre" subtitle="All client cases across the practice.">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {CARDS.map(([key, label, tone]) => (
           <StatCard key={key} label={label} value={stats[key]} tone={tone} testId={`admin-card-${key}`}

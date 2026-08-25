@@ -185,10 +185,13 @@ def _decorate(row: dict, user: dict, case: Optional[dict] = None,
                            and row["status"] in (NOT_STARTED, IN_PROGRESS))
     awaiting_assignment = bool(case is not None and not case.get("assigned_accountant_id")
                                and row["status"] == NOT_STARTED)
+    staff_label = ("Overdue — waiting for client" if overdue_waiting
+                   else "Awaiting assignment" if awaiting_assignment
+                   else STAFF_STAGE_LABEL[row["status"]])
     if overdue_waiting:
         action, owner = ("Client to provide the outstanding records", "CLIENT")
-    staff_label = ("Overdue — waiting for client" if overdue_waiting
-                   else STAFF_STAGE_LABEL[row["status"]])
+    elif awaiting_assignment:
+        action, owner = ("Assign an accountant", "ADMIN")
     out = {**row, **warn,
            "stage_label": (_client_stage(row, case, awaiting_docs) if is_client
                            else staff_label),
