@@ -178,6 +178,14 @@ Mid-year MTD onboarding:
 - [ ] TaxSimba is never shown as the submitter for those periods and no completed quarter is inferred from a UTR.
 - [ ] Verified historical figures are included in year-to-date totals.
 
+Overdue while waiting for the client:
+- [ ] Deadline passing with an outstanding client request yields staff label "Overdue — waiting for client" and client label "Action required — overdue".
+- [ ] `next_action_owner` stays CLIENT and `delay_attributed_to` is CLIENT; the period is absent from the accountant's `needs_my_action`.
+- [ ] Period appears in `overdue_waiting_client` buckets (admin ops + accountant workload) and in `/mtd/stats`.
+- [ ] Admin/Super Admin escalation notification is raised once, not per page view.
+- [ ] All requests, tasks, placeholders and audit history remain intact.
+- [ ] `record-submission` still returns 400 until the period is APPROVED.
+
 ## 19. Final gates
 - [ ] Self Assessment behaviour demonstrably unchanged.
 - [ ] MTD Q1–Q4 + Final Declaration behaviour demonstrably unchanged.

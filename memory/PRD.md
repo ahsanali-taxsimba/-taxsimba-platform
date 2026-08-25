@@ -498,3 +498,9 @@ No application code changed. Ambiguities recorded in the handover: unscoped GET 
 - Part D: POST /api/mtd/periods/{id}/record-prior-submission (ADMIN/SUPER_ADMIN) records prior quarters as prior_to_taxsimba with provider/date/reference/verifier and optional verified_historical figures included in YTD totals; client label "Submitted before joining TaxSimba"; TaxSimba never shown as submitter.
 - Part E: NODE_HANDOVER.md §15.7, NODE_MIGRATION_CHECKLIST.md and NODE_FRONTEND_API_MAP.md updated.
 - Targeted checks scripts/check_polish.py: 17/17 PASS (self-cleaning). Nothing deployed.
+
+## 2026-06-24 — MTD overdue while waiting for the client
+- mtd.py: derived escalation when a deadline passes with an outstanding client document request and the period is NOT_STARTED/IN_PROGRESS — staff label "Overdue — waiting for client", client label "Action required — overdue", next_action_owner stays CLIENT, delay_attributed_to CLIENT, escalated_to_admin true.
+- New bucket overdue_waiting_client on /api/mtd/periods and /api/mtd/my-workload, counter on /api/mtd/stats, standing (non-duplicated) admin/super-admin notification; accountant needs_my_action excludes it.
+- Client MTD card gains an explanatory overdue banner (MtdQuarters.jsx). No stored status change, no workflow prerequisite relaxed (record-submission still 400 until APPROVED).
+- Targeted checks scripts/check_overdue_waiting.py: 8/8 PASS (self-cleaning). Docs updated (handover §15.8, checklist, API map). Nothing deployed.

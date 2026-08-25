@@ -7,6 +7,7 @@ const TONE = {
   "Getting started": "bg-[#F1F8F4] text-[#626A65]",
   Preparing: "bg-[#F1F8F4] text-[#626A65]",
   "Action required": "bg-[#FFF4E5] text-[#8A5A00]",
+  "Action required — overdue": "bg-[#FDECEC] text-[#B4231F]",
   "Under review": "bg-[#F1F8F4] text-[#626A65]",
   "Ready for your approval": "bg-[#FFF4E5] text-[#8A5A00]",
   Approved: "bg-[#EAF5EE] text-[#006B3C]",
@@ -136,6 +137,15 @@ function QuarterCard({ p, onApprove, busy }) {
           </p>
           <p className="mt-3 text-xs text-[#626A65] leading-relaxed">{p.disclaimer}</p>
         </>
+      )}
+
+      {p.overdue_waiting_for_client && (
+        <p className="mt-4 rounded-xl bg-[#FFF4E5] text-[#8A5A00] text-sm p-4"
+          data-testid={`mtd-overdue-waiting-${p.id}`}>
+          The deadline for this period has passed and we're still waiting for the records
+          requested above. Please upload them as soon as you can — your accountant cannot
+          finalise this period until they arrive.
+        </p>
       )}
 
       {p.prior_to_taxsimba && (

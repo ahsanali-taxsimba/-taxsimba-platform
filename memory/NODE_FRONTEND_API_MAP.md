@@ -280,7 +280,7 @@ Client stage labels (`STAGE_LABEL`): `Preparing`, `Under review`, `Awaiting your
 | `/mtd/periods/{id}/reopen` | POST | ADMIN/SUPER_ADMIN | `{reason}` | `APPROVED → IN_PROGRESS`, active approval cleared, history preserved | 400 blank reason / not APPROVED / **SUBMITTED locked**; 403 | Audit with reason; notify |
 | `/mtd/periods/{id}/record-submission` | POST | **ADMIN/SUPER_ADMIN only** | `{submission_reference, submission_date, provider?, outcome?, note?}` | `→ SUBMITTED` (locked) | 400 not APPROVED / already SUBMITTED / missing fields; **403 accountant and client** | Audit; notify client |
 | `/mtd/periods/{id}/record-prior-submission` | POST | ADMIN/SUPER_ADMIN | `{previous_provider, submission_date, submission_reference?, income?, expenses?, net_profit?, note?}` | period `SUBMITTED` with `prior_to_taxsimba: true`, `submitted_by_taxsimba: false`, optional `verified_historical` figures | 400 already submitted / missing provider or date | Audit; no client submission claim |
-| `/mtd/periods` | GET | ADMIN/SUPER_ADMIN | `?bucket=` (incl. `waiting_for_client`, `final_declaration`) | operations queue rows | — | — |
+| `/mtd/periods` | GET | ADMIN/SUPER_ADMIN | `?bucket=` (incl. `waiting_for_client`, `overdue_waiting_client`, `final_declaration`) | operations queue rows with `overdue_waiting_for_client`, `delay_attributed_to`, `escalated_to_admin` | — | — |
 | `/mtd/stats` | GET | ADMIN/SUPER_ADMIN | — | counts incl. `final_declarations` | — | — |
 | `/mtd/my-workload` | GET | ACCOUNTANT | — | assigned MTD periods by state/deadline | — | — |
 

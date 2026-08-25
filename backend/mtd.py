@@ -166,7 +166,8 @@ def _client_stage(row: dict, case: Optional[dict], awaiting_docs: bool) -> str:
     if row["status"] == ADMIN_REVIEW:
         return "Under review"
     if awaiting_docs:
-        return "Action required"
+        return ("Action required — overdue" if _warning(row)["deadline_warning"] == "OVERDUE"
+                else "Action required")
     if row["status"] == NOT_STARTED and case is not None \
             and not case.get("assigned_accountant_id"):
         return "Getting started"
@@ -177,10 +178,22 @@ def _decorate(row: dict, user: dict, case: Optional[dict] = None,
               awaiting_docs: bool = False) -> dict:
     action, owner = NEXT_ACTION[row["status"]]
     is_client = user["role"] == "CLIENT"
-    out = {**row, **_warning(row),
+    warn = _warning(row)
+    # A deadline that passes while the client still owes records is not the accountant's delay:
+    # the period escalates as overdue but the client stays the action owner.
+    overdue_waiting = bool(awaiting_docs and warn["deadline_warning"] == "OVERDUE"
+                           and row["status"] in (NOT_STARTED, IN_PROGRESS))
+    if overdue_waiting:
+        action, owner = ("Client to provide the outstanding records", "CLIENT")
+    staff_label = ("Overdue — waiting for client" if overdue_waiting
+                   else STAFF_STAGE_LABEL[row["status"]])
+    out = {**row, **warn,
            "stage_label": (_client_stage(row, case, awaiting_docs) if is_client
-                           else STAFF_STAGE_LABEL[row["status"]]),
+                           else staff_label),
            "awaiting_documents": awaiting_docs,
+           "overdue_waiting_for_client": overdue_waiting,
+           "delay_attributed_to": "CLIENT" if overdue_waiting else None,
+           "escalated_to_admin": overdue_waiting,
            "next_action": action, "next_action_owner": owner,
            "disclaimer": DISCLAIMER if row.get("published") else None}
     if is_client:
@@ -266,6 +279,18 @@ async def list_periods(case_id: str, user: dict = Depends(get_current_user)):
         {"case_id": case_id, "status": "Requested", "mtd_period_id": {"$ne": None}},
         {"mtd_period_id": 1})}
     out = [_decorate(r, user, case, r["id"] in open_requests) for r in rows]
+    escalated = [r for r in out if r["overdue_waiting_for_client"]]
+    if escalated:
+        # Visible escalation for oversight; notify() collapses repeats so one genuine
+        # overdue period produces one standing admin alert.
+        admin_ids = [u["id"] async for u in db.users.find(
+            {"role": {"$in": ["ADMIN", "SUPER_ADMIN"]}, "is_active": True}, {"id": 1})]
+        for r in escalated:
+            for uid in admin_ids:
+                await notify(uid, f"Overdue — waiting for client: {r['label']}",
+                             f"{case['case_ref']} ({case.get('client_name')}) — deadline "
+                             f"{r['deadline']} passed with records still outstanding.",
+                             case_id, "/admin/mtd?bucket=overdue_waiting_client", "DEADLINE")
     if user["role"] == "CLIENT":
         # One genuine in-app reminder per outstanding approval; notify() collapses repeats.
         for r in out:
@@ -288,25 +313,27 @@ async def all_periods(bucket: Optional[str] = None, include_test: bool = False,
     if bucket in buckets:
         query.update(buckets[bucket])
     rows = clean_many(await db.mtd_periods.find(query).sort("deadline", 1).to_list(500))
+    waiting_ids = {d["mtd_period_id"] async for d in db.documents.find(
+        {"status": "Requested", "mtd_period_id": {"$ne": None}}, {"mtd_period_id": 1})}
     cases = {c["id"]: c async for c in db.cases.find(
         {"service_type": MTD}, {"id": 1, "assigned_accountant_name": 1,
                                 "assigned_accountant_id": 1})}
     out = []
     for r in rows:
         case = cases.get(r["case_id"], {})
-        out.append({**_decorate(r, user),
+        out.append({**_decorate(r, user, case, r["id"] in waiting_ids),
                     "assigned_accountant_name": case.get("assigned_accountant_name"),
                     "assigned_accountant_id": case.get("assigned_accountant_id")})
     if bucket == "due_14":
         out = [r for r in out if r["deadline_warning"] in ("DUE_14", "DUE_7", "DUE_3")]
     elif bucket == "overdue":
         out = [r for r in out if r["deadline_warning"] == "OVERDUE"]
+    elif bucket == "overdue_waiting_client":
+        out = [r for r in out if r["overdue_waiting_for_client"]]
     elif bucket == "final_declaration":
         out = [r for r in out if r["kind"] == "FINAL_DECLARATION"]
     elif bucket == "waiting_for_client":
-        waiting = {d["mtd_period_id"] async for d in db.documents.find(
-            {"status": "Requested", "mtd_period_id": {"$ne": None}}, {"mtd_period_id": 1})}
-        out = [r for r in out if r["id"] in waiting]
+        out = [r for r in out if r["id"] in waiting_ids]
     return out
 
 
@@ -314,14 +341,15 @@ async def all_periods(bucket: Optional[str] = None, include_test: bool = False,
 async def mtd_stats(user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
     """Operational MTD counts. Test/QA data is excluded by default, like every other view."""
     rows = clean_many(await db.mtd_periods.find(dict(OPERATIONAL_ONLY)).to_list(2000))
-    decorated = [_decorate(r, user) for r in rows]
     active_cases = {c["id"] async for c in db.cases.find(
         {"service_type": MTD, **OPERATIONAL_ONLY}, {"id": 1})}
     waiting = {d["mtd_period_id"] async for d in db.documents.find(
         {"status": "Requested", "mtd_period_id": {"$ne": None},
          "case_id": {"$in": list(active_cases)}}, {"mtd_period_id": 1})}
+    decorated = [_decorate(r, user, None, r["id"] in waiting) for r in rows]
     return {
         "waiting_for_client": sum(1 for r in rows if r["id"] in waiting),
+        "overdue_waiting_client": sum(1 for r in decorated if r["overdue_waiting_for_client"]),
         "active_mtd_clients": len({r["client_id"] for r in rows if r["case_id"] in active_cases}),
         "active_mtd_cases": len(active_cases),
         "not_started": sum(1 for r in rows if r["status"] == NOT_STARTED),
@@ -415,7 +443,11 @@ async def accountant_workload(user: dict = Depends(require_roles("ACCOUNTANT")))
         {"service_type": MTD, "assigned_accountant_id": user["id"], **OPERATIONAL_ONLY})}
     rows = clean_many(await db.mtd_periods.find(
         {"case_id": {"$in": list(cases)}}).sort("deadline", 1).to_list(500)) if cases else []
-    items = [_decorate(r, user) for r in rows]
+    waiting_ids = {d["mtd_period_id"] async for d in db.documents.find(
+        {"case_id": {"$in": list(cases)}, "status": "Requested",
+         "mtd_period_id": {"$ne": None}}, {"mtd_period_id": 1})} if cases else set()
+    items = [_decorate(r, user, cases.get(r["case_id"], {}), r["id"] in waiting_ids)
+             for r in rows]
     for i in items:
         i.pop("draft", None)
     buckets = {
@@ -427,10 +459,8 @@ async def accountant_workload(user: dict = Depends(require_roles("ACCOUNTANT")))
         "due_14": [i for i in items
                    if i["deadline_warning"] in ("DUE_14", "DUE_7", "DUE_3")],
         "overdue": [i for i in items if i["deadline_warning"] == "OVERDUE"],
+        "overdue_waiting_client": [i for i in items if i["overdue_waiting_for_client"]],
     }
-    waiting_ids = {d["mtd_period_id"] async for d in db.documents.find(
-        {"case_id": {"$in": list(cases)}, "status": "Requested",
-         "mtd_period_id": {"$ne": None}}, {"mtd_period_id": 1})}
     buckets["waiting_for_client"] = [i for i in items if i["id"] in waiting_ids]
     return {"counts": {k: len(v) for k, v in buckets.items()}, "buckets": buckets}
 
