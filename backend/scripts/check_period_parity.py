@@ -32,7 +32,7 @@ async def main():
                                         "assigned_accountant_name": acct_user["name"]}})
 
     targets = []
-    for q in (2, 4):
+    for q in (2, 3, 4):
         targets.append(await db.mtd_periods.find_one({"case_id": case["id"], "quarter": q}))
     targets.append(await db.mtd_periods.find_one({"case_id": case["id"],
                                                   "kind": "FINAL_DECLARATION"}))
