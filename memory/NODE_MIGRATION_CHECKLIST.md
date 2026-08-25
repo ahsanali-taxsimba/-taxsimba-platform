@@ -192,6 +192,14 @@ Unassigned MTD periods:
 - [ ] After assignment the normal accountant next action is derived automatically with no record rewrite.
 - [ ] Deadline/overdue calculation is unaffected (a period can be overdue while awaiting assignment).
 
+Requested document completion:
+- [ ] Upload with `document_id` replaces the placeholder and keeps `mtd_period_id`, `request_id`, `task_id`.
+- [ ] The document_request becomes `Uploaded` and is retained (never deleted).
+- [ ] The client task becomes COMPLETED; activity/audit entry written; assigned accountant notified.
+- [ ] With no remaining open request, the period leaves waiting-for-client and next action returns to ACCOUNTANT.
+- [ ] With another request still open, the period stays waiting for the client.
+- [ ] A generic period upload (no `document_id`) never closes a specific request, and one upload closes only its own request.
+
 ## 19. Final gates
 - [ ] Self Assessment behaviour demonstrably unchanged.
 - [ ] MTD Q1–Q4 + Final Declaration behaviour demonstrably unchanged.
