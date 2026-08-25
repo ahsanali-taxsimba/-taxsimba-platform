@@ -509,3 +509,9 @@ No application code changed. Ambiguities recorded in the handover: unscoped GET 
 - mtd._decorate: while the MTD case has no assigned accountant and the period is NOT_STARTED, derives stage_label "Awaiting assignment", next_action "Assign an accountant", next_action_owner ADMIN (no ACCOUNTANT action before assignment); reverts to the normal accountant action automatically after assignment. Deadline/overdue calculation untouched.
 - AdminPages subtitle now "All client cases across the practice." (presentation only, no count/logic change).
 - Targeted check scripts/check_unassigned_state.py on MTD-2004. Docs: handover §15.9 + checklist. Nothing deployed.
+
+## 2026-06-24 — MTD period parity confirmed (request -> upload -> completion)
+- Root cause of the reported "request stays open": the client PDF was sent through the generic period upload (no document_id), which by design never closes a specific request. The request-card upload path works.
+- Logic is period-generic: no quarter-specific branch exists in backend/mtd.py; all behaviour is keyed on period_id.
+- scripts/check_request_completion.py (Q1) and scripts/check_period_parity.py (Q2, Q4, Final Declaration): PASS — request linked, request Uploaded, task COMPLETED, document visible, activity + accountant notification created, period leaves waiting-for-client and returns to ACCOUNTANT when no request remains. Disposable records removed; assignment state restored.
+- Docs: handover §15.10 and §15.11, checklist updated. Nothing deployed.

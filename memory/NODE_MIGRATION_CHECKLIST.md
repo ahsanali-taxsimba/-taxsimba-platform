@@ -200,6 +200,10 @@ Requested document completion:
 - [ ] With another request still open, the period stays waiting for the client.
 - [ ] A generic period upload (no `document_id`) never closes a specific request, and one upload closes only its own request.
 
+Period parity:
+- [ ] Request/upload/completion, assignment ownership, overdue escalation and wording behave identically for Q1, Q2, Q3, Q4 and the Final Declaration.
+- [ ] No quarter-specific branch exists in the MTD module (only Final Declaration wording and its own deadline differ).
+
 ## 19. Final gates
 - [ ] Self Assessment behaviour demonstrably unchanged.
 - [ ] MTD Q1–Q4 + Final Declaration behaviour demonstrably unchanged.
