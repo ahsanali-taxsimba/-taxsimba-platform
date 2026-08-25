@@ -176,10 +176,10 @@ Screens: `client/MyServices.jsx`, `client/ClientActions.jsx`, `staff/SuperAdmin.
 | Endpoint | Method | Role | Request | Response | Notes |
 |---|---|---|---|---|---|
 | `/packages` | GET | any authenticated | `?service_type=` | `[{id, code, name, price, service_type, features}]` | SA: SIMPLE/SMART/ELITE. MTD: MTD_ESSENTIAL/MTD_PLUS |
-| `/packages` | POST, `/packages/{id}/price` PATCH | SUPER_ADMIN | `{price}` etc. | package | Audit; respects package lock |
+| `/packages` | POST, `/packages/{id}` PATCH, `/packages/{id}/price` PATCH | SUPER_ADMIN | `{name?, price?, billing_type?, billing_frequency?, vat_treatment?, is_active?, effective_from?}` | package | Audit to `pricing_audit`; `GET /packages/{id}/price-history` (ADMIN/SUPER_ADMIN). Master price changes never alter existing customers |
 | `/settings/package-lock` | GET (ADMIN) / PATCH (SUPER_ADMIN) | | `{locked}` | lock state | Audit |
 | `/services` | GET | SUPER_ADMIN | — | service catalogue | |
-| `/my-services` | GET | CLIENT | — | `{services: [{service_type: "SELF_ASSESSMENT"\|"MTD_INCOME_TAX", status: "ACTIVE"\|"NOT_ACTIVE"\|..., package_code, package_name, price, started_at}]}` | Drives MTD nav, MTD dashboard vs SA-only informational MTD card |
+| `/my-services` | GET | CLIENT | — | `{services: [{service_type: "SELF_ASSESSMENT"\|"MTD_INCOME_TAX", status: "ACTIVE"\|"NOT_ACTIVE"\|..., package_code, package_name, agreed_price, package_price (= agreed), current_master_price, billing_type, billing_frequency, subscription_started_at, started_at}]}` | Drives MTD nav, MTD dashboard vs SA-only informational MTD card. `agreed_price` is frozen per customer |
 | `/clients/{client_user_id}/services` | GET | ADMIN/SUPER_ADMIN | — | that client's services | Staff view |
 | `/my-upgrade-options` | GET | CLIENT | — | available upgrade(s) + price difference | Every client starts on SMART; ELITE is the visible upgrade |
 | `/payments/upgrade-checkout` | POST | CLIENT | `{package_code, origin_url}` | `{url, session_id}` | Stripe test mode |
@@ -216,7 +216,7 @@ The accountant → admin approval → client offer pathway must be preserved exa
 
 | Endpoint | Method | Role | Request | Response | Notes |
 |---|---|---|---|---|---|
-| `/payment-requests` | POST | ADMIN/SUPER_ADMIN | `{case_id, description, amount, due_date?}` | request (`status: UNPAID`) | Audit; notify client |
+| `/payment-requests` | POST | ADMIN/SUPER_ADMIN | `{case_id, description, amount, due_date?, internal_note?, recommendation_id?, mtd_period_id?, vat_rate?}` | request (`request_status: SENT`, with `net_amount`, `vat_amount`, `approved_amount`, `suggested_amount`, `mtd_period_label`) | Audit; notify client |
 | `/payment-requests` | GET | CLIENT (own) / staff (`?case_id=`) | — | requests with `status` (`UNPAID`, `PAID`, `CANCELLED`) | |
 | `/payment-requests/{id}/checkout` | POST | CLIENT | `{origin_url}` | `{url, session_id}` | Stripe test |
 | `/payment-requests/{id}/cancel` | POST | ADMIN/SUPER_ADMIN | — | cancelled (stays in history) | Audit |
@@ -279,6 +279,7 @@ Client stage labels (`STAGE_LABEL`): `Preparing`, `Under review`, `Awaiting your
 | `/mtd/periods/{id}/client-approve` | POST | CLIENT (own) | `{version}` | `→ APPROVED`, `approved_version` stored | 400 wrong state; **409 version mismatch**; 403 other client | Audit; notify staff |
 | `/mtd/periods/{id}/reopen` | POST | ADMIN/SUPER_ADMIN | `{reason}` | `APPROVED → IN_PROGRESS`, active approval cleared, history preserved | 400 blank reason / not APPROVED / **SUBMITTED locked**; 403 | Audit with reason; notify |
 | `/mtd/periods/{id}/record-submission` | POST | **ADMIN/SUPER_ADMIN only** | `{submission_reference, submission_date, provider?, outcome?, note?}` | `→ SUBMITTED` (locked) | 400 not APPROVED / already SUBMITTED / missing fields; **403 accountant and client** | Audit; notify client |
+| `/mtd/periods/{id}/record-prior-submission` | POST | ADMIN/SUPER_ADMIN | `{previous_provider, submission_date, submission_reference?, income?, expenses?, net_profit?, note?}` | period `SUBMITTED` with `prior_to_taxsimba: true`, `submitted_by_taxsimba: false`, optional `verified_historical` figures | 400 already submitted / missing provider or date | Audit; no client submission claim |
 | `/mtd/periods` | GET | ADMIN/SUPER_ADMIN | `?bucket=` (incl. `waiting_for_client`, `final_declaration`) | operations queue rows | — | — |
 | `/mtd/stats` | GET | ADMIN/SUPER_ADMIN | — | counts incl. `final_declarations` | — | — |
 | `/mtd/my-workload` | GET | ACCOUNTANT | — | assigned MTD periods by state/deadline | — | — |

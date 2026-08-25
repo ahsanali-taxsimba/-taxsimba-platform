@@ -4,12 +4,49 @@ import { Empty, Panel } from "@/components/StatCard";
 import { api, apiError, d, dt, money, openDocument } from "@/lib/api";
 
 const TONE = {
+  "Getting started": "bg-[#F1F8F4] text-[#626A65]",
   Preparing: "bg-[#F1F8F4] text-[#626A65]",
+  "Action required": "bg-[#FFF4E5] text-[#8A5A00]",
   "Under review": "bg-[#F1F8F4] text-[#626A65]",
-  "Awaiting your approval": "bg-[#FFF4E5] text-[#8A5A00]",
-  "Approved — ready to submit": "bg-[#EAF5EE] text-[#006B3C]",
+  "Ready for your approval": "bg-[#FFF4E5] text-[#8A5A00]",
+  Approved: "bg-[#EAF5EE] text-[#006B3C]",
   Submitted: "bg-[#EAF5EE] text-[#006B3C]",
+  Completed: "bg-[#EAF5EE] text-[#006B3C]",
+  "Submitted before joining TaxSimba": "bg-[#F1F8F4] text-[#626A65]",
 };
+
+const NEXT_STEPS = [
+  "We prepare your quarterly figures.",
+  "If we need anything, it will appear under Action Required.",
+  "We review the figures before showing them to you.",
+  "You approve the figures.",
+  "We record when your accountant has filed the update externally.",
+];
+
+function ServiceIntro() {
+  return (
+    <div className="rounded-2xl border border-[#E3E7E4] bg-white p-5 sm:p-6" data-testid="mtd-intro-panel">
+      <h2 className="text-base md:text-lg font-semibold">Your Making Tax Digital service</h2>
+      <p className="text-sm text-[#626A65] mt-2 max-w-2xl leading-relaxed">
+        We'll manage your quarterly MTD updates throughout the year. Your accountant will let you
+        know whenever information or documents are required.
+      </p>
+      <p className="text-[11px] uppercase tracking-wide text-[#626A65] mt-6">What happens next</p>
+      <ol className="mt-2 space-y-1.5" data-testid="mtd-next-steps">
+        {NEXT_STEPS.map((s, i) => (
+          <li key={s} className="text-sm text-[#161B18] flex gap-3">
+            <span className="text-[#078A4B] font-semibold shrink-0">{i + 1}.</span>
+            <span>{s}</span>
+          </li>
+        ))}
+      </ol>
+      <p className="mt-5 text-sm text-[#006B3C] bg-[#F1F8F4] rounded-xl p-4" data-testid="mtd-reassurance">
+        Your Making Tax Digital reporting starts from 6 April 2026. Your accountant will manage
+        your quarterly updates for you.
+      </p>
+    </div>
+  );
+}
 
 function Figure({ label, value, strong }) {
   return (
@@ -66,8 +103,9 @@ function QuarterCard({ p, onApprove, busy }) {
 
       {!pub && (
         <p data-testid={`mtd-preparing-${p.id}`} className="mt-5 text-sm text-[#626A65] leading-relaxed">
-          Your accountant is preparing this quarter. Financial figures will appear here once they
-          have been reviewed and published.
+          {p.kind === "FINAL_DECLARATION"
+            ? "Your accountant will prepare your year-end Final Declaration after the quarterly updates are complete."
+            : "Your accountant is preparing this quarter. Financial figures will appear here once they have been reviewed and published."}
         </p>
       )}
 
@@ -100,7 +138,16 @@ function QuarterCard({ p, onApprove, busy }) {
         </>
       )}
 
-      {p.submission_reference && (
+      {p.prior_to_taxsimba && (
+        <p className="mt-4 text-sm text-[#626A65]" data-testid={`mtd-prior-${p.id}`}>
+          Submitted before joining TaxSimba
+          {p.previous_provider ? ` · filed with ${p.previous_provider}` : ""}
+          {p.submission_date ? ` on ${d(p.submission_date)}` : ""}
+          {p.submission_reference ? ` · reference ${p.submission_reference}` : ""}
+        </p>
+      )}
+
+      {p.submission_reference && !p.prior_to_taxsimba && (
         <p className="mt-4 text-sm font-semibold text-[#006B3C]" data-testid={`mtd-submission-${p.id}`}>
           Submitted {d(p.submission_date)} · reference {p.submission_reference}
         </p>
@@ -134,10 +181,11 @@ function QuarterCard({ p, onApprove, busy }) {
         )}
         <div className="flex flex-wrap items-center justify-between gap-3">
           <p className="text-xs text-[#626A65]">
-            Documents for this period{uploaded.length ? ` (${uploaded.length})` : ""}
+            {requests.length === 0 ? "No documents requested right now." : "Documents for this period"}
+            {uploaded.length ? ` · ${uploaded.length} uploaded` : ""}
           </p>
           <label className="text-xs font-semibold text-[#078A4B] cursor-pointer">
-            Upload a record
+            Upload documents
             <input data-testid={`mtd-upload-${p.id}`} type="file" className="hidden" onChange={(e) => upload(e, null)} />
           </label>
         </div>
@@ -169,7 +217,7 @@ function YearSummary({ summary }) {
     <div className="rounded-2xl border border-[#E3E7E4] bg-white p-5 sm:p-6" data-testid="mtd-year-summary">
       <h3 className="text-base md:text-lg font-semibold">Year summary · {summary.tax_year}</h3>
       <p className="text-sm text-[#626A65] mt-1">
-        {summary.published_quarters} of 4 quarters published so far
+        {summary.empty_message || `${summary.published_quarters} of 4 quarters published so far`}
       </p>
       <ul className="mt-5 space-y-3">
         {summary.quarters.map((q) => (
@@ -249,17 +297,27 @@ export default function MtdQuarters() {
           const final = rows.find((r) => r.kind === "FINAL_DECLARATION");
           return (
             <section key={c.id} data-testid={`mtd-case-${c.case_ref}`} className="space-y-4">
-              <div>
-                <h2 className="text-base md:text-lg font-semibold">{c.case_ref} · {c.tax_year}</h2>
-                <p className="text-sm text-[#626A65] mt-1">Making Tax Digital for Income Tax</p>
+              <div className="rounded-2xl border border-[#E3E7E4] bg-white p-5" data-testid={`mtd-case-header-${c.case_ref}`}>
+                <dl className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <dt className="text-[11px] uppercase tracking-wide text-[#626A65]">Case reference</dt>
+                    <dd className="text-base md:text-lg font-semibold mt-1">{c.case_ref}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-[11px] uppercase tracking-wide text-[#626A65]">Tax year</dt>
+                    <dd className="text-base md:text-lg font-semibold mt-1">{c.tax_year}</dd>
+                  </div>
+                </dl>
+                <p className="text-sm text-[#626A65] mt-3">Making Tax Digital for Income Tax</p>
               </div>
+              <ServiceIntro />
               {quarters.map((p) => (
                 <QuarterCard key={p.id} p={{ ...p, case_id: c.id }} onApprove={approve} busy={busy === p.id} />
               ))}
               <YearSummary summary={summaries[c.id]} />
               {final && (
                 <div className="pt-2">
-                  <p className="text-xs uppercase tracking-wide text-[#626A65] mb-3">Year end</p>
+                  <p className="text-xs uppercase tracking-wide text-[#626A65] mb-3">Year end · Final Declaration</p>
                   <QuarterCard p={{ ...final, case_id: c.id }} onApprove={approve} busy={busy === final.id} />
                 </div>
               )}

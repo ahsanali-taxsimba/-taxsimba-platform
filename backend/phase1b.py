@@ -112,6 +112,15 @@ async def activate_service(client: dict, user: Optional[dict], service_type: str
             {"id": existing["id"]},
             {"$set": {"status": "ACTIVE", "package_code": package_code, "tax_year": tax_year,
                       "activated_at": existing.get("activated_at") or now_iso(),
+                      # The price agreed at purchase is frozen for this customer.
+                      "agreed_price": existing.get("agreed_price") if already_active
+                      else (pkg or {}).get("price"),
+                      "billing_type": (pkg or {}).get("billing_type", "ONE_OFF"),
+                      "billing_frequency": (pkg or {}).get("billing_frequency",
+                                                           "Per tax year"),
+                      "subscription_started_at": existing.get("subscription_started_at")
+                      or now_iso(),
+                      "payment_session": payment_session or existing.get("payment_session"),
                       "updated_at": now_iso()},
              "$push": {"package_history": history}})
     else:
@@ -119,6 +128,10 @@ async def activate_service(client: dict, user: Optional[dict], service_type: str
             "id": str(uuid.uuid4()), "client_id": client["id"],
             "client_user_id": client.get("user_id"), "service_type": service_type,
             "status": "ACTIVE", "package_code": package_code, "tax_year": tax_year,
+            "agreed_price": (pkg or {}).get("price"),
+            "billing_type": (pkg or {}).get("billing_type", "ONE_OFF"),
+            "billing_frequency": (pkg or {}).get("billing_frequency", "Per tax year"),
+            "subscription_started_at": now_iso(), "payment_session": payment_session,
             "activated_at": now_iso(), "package_history": [history], "created_at": now_iso()})
 
     case = await db.cases.find_one({"client_id": client["id"], "service_type": service_type},
@@ -234,10 +247,24 @@ class PackageIn(BaseModel):
     price: float
     rank: int
     billing_frequency: str = "Per tax year"
+    billing_type: str = "ONE_OFF"
+    vat_treatment: str = "VAT_INCLUSIVE"
+    effective_from: Optional[str] = None
 
 
 class PriceIn(BaseModel):
     price: float
+    effective_from: Optional[str] = None
+
+
+class PackageUpdateIn(BaseModel):
+    name: Optional[str] = None
+    price: Optional[float] = None
+    billing_type: Optional[str] = None
+    billing_frequency: Optional[str] = None
+    vat_treatment: Optional[str] = None
+    is_active: Optional[bool] = None
+    effective_from: Optional[str] = None
 
 
 @router.get("/packages")
@@ -263,13 +290,47 @@ async def update_price(package_id: str, body: PriceIn,
     p = await db.packages.find_one({"id": package_id})
     if not p:
         raise HTTPException(status_code=404, detail="Package not found")
-    await db.packages.update_one({"id": package_id}, {"$set": {"price": body.price}})
+    await db.packages.update_one({"id": package_id},
+                                 {"$set": {"price": body.price,
+                                           "effective_from": body.effective_from,
+                                           "updated_at": now_iso()}})
     await db.pricing_audit.insert_one({
         "id": str(uuid.uuid4()), "package_id": package_id, "code": p["code"],
         "previous_price": p["price"], "new_price": body.price,
+        "effective_from": body.effective_from,
         "changed_by": user["name"], "role": user["role"], "created_at": now_iso(),
     })
     return {"ok": True}
+
+
+@router.patch("/packages/{package_id}")
+async def update_package(package_id: str, body: PackageUpdateIn,
+                         user: dict = Depends(require_roles("SUPER_ADMIN"))):
+    """Master catalogue maintenance. Changing a master package never alters an existing
+    customer's agreed price, billing frequency, start date or payment references."""
+    p = await db.packages.find_one({"id": package_id})
+    if not p:
+        raise HTTPException(status_code=404, detail="Package not found")
+    fields = {k: v for k, v in body.dict().items() if v is not None}
+    if not fields:
+        raise HTTPException(status_code=400, detail="Nothing to update")
+    await db.packages.update_one({"id": package_id},
+                                 {"$set": {**fields, "updated_at": now_iso()}})
+    if "price" in fields and fields["price"] != p.get("price"):
+        await db.pricing_audit.insert_one({
+            "id": str(uuid.uuid4()), "package_id": package_id, "code": p["code"],
+            "previous_price": p["price"], "new_price": fields["price"],
+            "effective_from": fields.get("effective_from"),
+            "changed_by": user["name"], "role": user["role"], "created_at": now_iso(),
+        })
+    return clean(await db.packages.find_one({"id": package_id}))
+
+
+@router.get("/packages/{package_id}/price-history")
+async def package_price_history(package_id: str,
+                                user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    return clean_many(await db.pricing_audit.find({"package_id": package_id})
+                      .sort("created_at", -1).to_list(200))
 
 
 @router.get("/settings/package-lock")
@@ -296,7 +357,14 @@ def _service_view(s: dict, pkg: Optional[dict]):
         "service_name": SERVICE_LABELS.get(s["service_type"], s["service_type"]),
         "status": s["status"], "package_code": s.get("package_code"),
         "package_name": pkg["name"] if pkg else None,
-        "package_price": pkg["price"] if pkg else None,
+        # The client's own agreed price is preserved; the master price can change later.
+        "package_price": s.get("agreed_price", pkg["price"] if pkg else None),
+        "agreed_price": s.get("agreed_price", pkg["price"] if pkg else None),
+        "current_master_price": pkg["price"] if pkg else None,
+        "billing_type": s.get("billing_type", (pkg or {}).get("billing_type", "ONE_OFF")),
+        "billing_frequency": s.get("billing_frequency",
+                                   (pkg or {}).get("billing_frequency", "Per tax year")),
+        "subscription_started_at": s.get("subscription_started_at") or s.get("activated_at"),
         "tax_year": s.get("tax_year"), "activated_at": s.get("activated_at"),
         "package_history": s.get("package_history", []),
     }
@@ -534,7 +602,8 @@ async def _fulfil(tx: dict):
     if tx["kind"] == "ADDITIONAL_WORK":
         claimed = await db.payment_transactions.update_one(
             {"id": tx["id"], "fulfilled": {"$ne": True}},
-            {"$set": {"fulfilled": True, "paid_at": now_iso(), "updated_at": now_iso()}})
+            {"$set": {"fulfilled": True, "request_status": "PAID", "paid_at": now_iso(),
+                      "updated_at": now_iso()}})
         if not claimed.modified_count:
             return  # already confirmed -- never notify or audit the same payment twice
         case = await db.cases.find_one({"id": tx.get("case_id")})
@@ -702,6 +771,8 @@ class AdditionalWorkIn(BaseModel):
     due_date: Optional[str] = None
     internal_note: Optional[str] = None
     recommendation_id: Optional[str] = None
+    mtd_period_id: Optional[str] = None
+    vat_rate: Optional[float] = None
 
 
 @router.post("/payment-requests")
@@ -719,20 +790,42 @@ async def create_payment_request(body: AdditionalWorkIn,
         raise HTTPException(status_code=400, detail="A description of the additional work is required")
     if body.amount <= 0:
         raise HTTPException(status_code=400, detail="Amount must be greater than zero")
+    total = round(float(body.amount), 2)
+    vat_rate = body.vat_rate
+    net = round(total / (1 + vat_rate / 100), 2) if vat_rate else total
     tx = {
         "id": str(uuid.uuid4()), "session_id": None, "kind": "ADDITIONAL_WORK",
         "user_id": case["client_user_id"], "client_id": case["client_id"],
         "case_id": case["id"], "case_ref": case["case_ref"],
+        "mtd_period_id": body.mtd_period_id,
         "service_type": case["service_type"], "tax_year": case.get("tax_year"),
         "description": body.description.strip(), "internal_note": body.internal_note,
-        "due_date": body.due_date, "amount": round(float(body.amount), 2), "currency": "gbp",
+        "due_date": body.due_date, "amount": total, "currency": "gbp",
+        "net_amount": net, "vat_rate": vat_rate,
+        "vat_amount": round(total - net, 2) if vat_rate else 0.0,
+        "request_status": "SENT",
+        "suggested_amount": None, "approved_amount": total,
+        "approved_by_name": user["name"], "approved_at": now_iso(),
         "status": "sent", "payment_status": "pending", "fulfilled": False,
         "created_by": user["id"], "created_by_name": user["name"], "created_by_role": user["role"],
         "sent_at": now_iso(), "created_at": now_iso(), "updated_at": now_iso(),
     }
+    if body.mtd_period_id:
+        period = await db.mtd_periods.find_one({"id": body.mtd_period_id})
+        if not period or period["case_id"] != case["id"]:
+            raise HTTPException(status_code=400, detail="MTD period does not belong to this case")
+        tx["mtd_period_label"] = period["label"]
     await db.payment_transactions.insert_one(dict(tx))
     if body.recommendation_id:
         # The accountant's recommendation is approved by this send; history is preserved.
+        rec = await db.recommendations.find_one({"id": body.recommendation_id,
+                                                 "type": "ADDITIONAL_WORK"})
+        if rec:
+            await db.payment_transactions.update_one(
+                {"id": tx["id"]},
+                {"$set": {"suggested_amount": rec.get("suggested_amount"),
+                          "requested_by_name": rec.get("created_by_name"),
+                          "recommendation_id": rec["id"]}})
         await db.recommendations.update_one(
             {"id": body.recommendation_id, "type": "ADDITIONAL_WORK"},
             {"$set": {"status": "APPROVED", "reviewed_by": user["name"],
@@ -768,6 +861,9 @@ async def list_payment_requests(case_id: Optional[str] = None,
         r = clean(r)
         if user["role"] != "ADMIN" and user["role"] != "SUPER_ADMIN":
             r.pop("internal_note", None)
+        r.setdefault("request_status",
+                     "PAID" if r.get("payment_status") == "paid"
+                     else "CANCELLED" if r.get("payment_status") == "cancelled" else "SENT")
         receipt = await db.invoices.find_one({"payment_request_id": r["id"]})
         r["receipt_number"] = (receipt or {}).get("number")
         out.append(r)
@@ -784,6 +880,7 @@ async def cancel_payment_request(request_id: str, body: Optional[dict] = None,
         raise HTTPException(status_code=400, detail="A paid request cannot be cancelled or edited")
     await db.payment_transactions.update_one(
         {"id": request_id}, {"$set": {"status": "cancelled", "payment_status": "cancelled",
+                                      "request_status": "CANCELLED",
                                       "cancelled_by_name": user["name"],
                                       "cancelled_at": now_iso(), "updated_at": now_iso()}})
     await log_activity(req.get("case_id"),

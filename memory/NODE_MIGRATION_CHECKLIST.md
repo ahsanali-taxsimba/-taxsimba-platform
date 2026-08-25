@@ -154,6 +154,30 @@ MTD document request tasks:
 - [ ] Client upload against the placeholder closes the task and marks the request `Uploaded`.
 - [ ] The request appears in `GET /my-actions` for the client.
 
+MTD client wording and case references:
+- [ ] Case reference is backend-generated and unique; staff never type one.
+- [ ] Client stage wording matches §15.7 exactly (Getting started / Preparing / Action required / Under review / Ready for your approval / Approved / Submitted / Submitted before joining TaxSimba).
+- [ ] An unassigned MTD case does not show "Preparing".
+- [ ] Final Declaration is never described as a quarter.
+- [ ] Year summary shows "No quarterly figures published yet." before any publish and keeps the disclaimer.
+
+Dynamic pricing:
+- [ ] Only SUPER_ADMIN can change master package name/price/billing type/VAT treatment/active/effective-from.
+- [ ] Every price change writes a `pricing_audit` row (old, new, by, at, effective date).
+- [ ] Changing a master price leaves every existing customer's `agreed_price`, billing frequency, start date and payment references untouched.
+- [ ] A new purchase is charged the current master price.
+
+Additional work charges:
+- [ ] ACCOUNTANT can recommend but has no endpoint that charges a client or marks a payment paid.
+- [ ] ADMIN/SUPER_ADMIN set the final amount and send; request carries client/case/optional MTD period, VAT breakdown and both suggested and approved amounts.
+- [ ] Client sees only sent requests, never internal recommendations or notes.
+- [ ] Successful payment is confirmed server-side and recorded exactly once (single receipt, audit entry, notifications) under duplicate callbacks.
+
+Mid-year MTD onboarding:
+- [ ] Prior quarters can be recorded as "Submitted before joining TaxSimba" with provider, date, reference and verifier.
+- [ ] TaxSimba is never shown as the submitter for those periods and no completed quarter is inferred from a UTR.
+- [ ] Verified historical figures are included in year-to-date totals.
+
 ## 19. Final gates
 - [ ] Self Assessment behaviour demonstrably unchanged.
 - [ ] MTD Q1–Q4 + Final Declaration behaviour demonstrably unchanged.

@@ -153,11 +153,34 @@ def _warning(row: dict) -> dict:
     return {"deadline_warning": level, "days_to_deadline": days}
 
 
-def _decorate(row: dict, user: dict) -> dict:
+def _client_stage(row: dict, case: Optional[dict], awaiting_docs: bool) -> str:
+    """Client-facing wording only — backend states are never changed by this."""
+    if row.get("prior_to_taxsimba"):
+        return "Submitted before joining TaxSimba"
+    if row["status"] == SUBMITTED:
+        return "Submitted"
+    if row["status"] == APPROVED:
+        return "Approved"
+    if row["status"] == AWAITING_CLIENT:
+        return "Ready for your approval"
+    if row["status"] == ADMIN_REVIEW:
+        return "Under review"
+    if awaiting_docs:
+        return "Action required"
+    if row["status"] == NOT_STARTED and case is not None \
+            and not case.get("assigned_accountant_id"):
+        return "Getting started"
+    return "Preparing"
+
+
+def _decorate(row: dict, user: dict, case: Optional[dict] = None,
+              awaiting_docs: bool = False) -> dict:
     action, owner = NEXT_ACTION[row["status"]]
     is_client = user["role"] == "CLIENT"
     out = {**row, **_warning(row),
-           "stage_label": (STAGE_LABEL if is_client else STAFF_STAGE_LABEL)[row["status"]],
+           "stage_label": (_client_stage(row, case, awaiting_docs) if is_client
+                           else STAFF_STAGE_LABEL[row["status"]]),
+           "awaiting_documents": awaiting_docs,
            "next_action": action, "next_action_owner": owner,
            "disclaimer": DISCLAIMER if row.get("published") else None}
     if is_client:
@@ -239,7 +262,10 @@ async def list_periods(case_id: str, user: dict = Depends(get_current_user)):
         rows = await db.mtd_periods.find({"case_id": case_id}).to_list(20)
     rows = clean_many(rows)
     rows.sort(key=lambda r: (r["kind"] == "FINAL_DECLARATION", r["quarter"] or 0))
-    out = [_decorate(r, user) for r in rows]
+    open_requests = {d["mtd_period_id"] async for d in db.documents.find(
+        {"case_id": case_id, "status": "Requested", "mtd_period_id": {"$ne": None}},
+        {"mtd_period_id": 1})}
+    out = [_decorate(r, user, case, r["id"] in open_requests) for r in rows]
     if user["role"] == "CLIENT":
         # One genuine in-app reminder per outstanding approval; notify() collapses repeats.
         for r in out:
@@ -428,18 +454,72 @@ async def year_summary(case_id: str, user: dict = Depends(get_current_user)):
         out.append({"quarter": r["quarter"], "label": r["label"],
                     "period_start": r["period_start"], "period_end": r["period_end"],
                     "deadline": r["deadline"],
-                    "stage_label": (STAGE_LABEL if user["role"] == "CLIENT"
-                                    else STAFF_STAGE_LABEL)[r["status"]],
+                    "stage_label": (_client_stage(r, case, False) if user["role"] == "CLIENT"
+                                    else STAFF_STAGE_LABEL[r["status"]]),
                     "status": r["status"],
+                    "prior_to_taxsimba": bool(r.get("prior_to_taxsimba")),
                     "income": pub["income"] if pub else None,
                     "expenses": pub["expenses"] if pub else None,
                     "net_profit": pub["net_profit"] if pub else None})
     return {"tax_year": case["tax_year"], "case_ref": case["case_ref"],
             "quarters": out, "published_quarters": published_count,
             "totals": {k: round(v, 2) for k, v in totals.items()},
+            "empty_message": (None if published_count else
+                              "No quarterly figures published yet."),
             "note": ("Year-to-date totals of the figures your accountant has prepared and "
                      "published so far. This is accountant-prepared information, not your "
                      "final tax liability.")}
+
+
+class PriorSubmissionIn(BaseModel):
+    previous_provider: str
+    submission_date: str
+    submission_reference: Optional[str] = None
+    income: Optional[float] = None
+    expenses: Optional[float] = None
+    net_profit: Optional[float] = None
+    note: Optional[str] = None
+
+
+@router.post("/periods/{period_id}/record-prior-submission")
+async def record_prior_submission(period_id: str, body: PriorSubmissionIn,
+                                  user: dict = Depends(require_roles("ADMIN", "SUPER_ADMIN"))):
+    """Mid-year onboarding: a quarter filed elsewhere before the client joined TaxSimba.
+    Recorded as verified history — TaxSimba never claims it made this submission."""
+    row, case = await _period(period_id, user)
+    if row["status"] == SUBMITTED:
+        raise HTTPException(status_code=400, detail="This period is already submitted and locked")
+    if not body.previous_provider.strip() or not body.submission_date.strip():
+        raise HTTPException(status_code=400,
+                            detail="The previous provider and submission date are required")
+    verified = None
+    if body.income is not None and body.expenses is not None:
+        verified = {
+            "income": round(body.income, 2), "expenses": round(body.expenses, 2),
+            "net_profit": round(body.net_profit if body.net_profit is not None
+                                else body.income - body.expenses, 2),
+            "estimated_income_tax": None, "estimated_national_insurance": None,
+            "suggested_set_aside": None,
+            "client_note": f"Filed by {body.previous_provider.strip()} before joining TaxSimba.",
+            "prepared_by_name": body.previous_provider.strip(),
+            "verified_historical": True, "version": 1,
+            "published_at": now_iso(), "published_by_name": user["name"],
+        }
+    extra = {"prior_to_taxsimba": True, "submitted_by_taxsimba": False,
+             "previous_provider": body.previous_provider.strip(),
+             "submission_reference": (body.submission_reference or "").strip() or None,
+             "submission_date": body.submission_date.strip(),
+             "submitted_by_name": None, "submitted_at": None,
+             "verified_by_name": user["name"], "verified_at": now_iso()}
+    if verified:
+        extra["published"] = verified
+        extra["published_version"] = 1
+        extra["published_versions"] = [verified]
+    out = await _advance(row, case, SUBMITTED,
+                         f"recorded as submitted before joining TaxSimba "
+                         f"({body.previous_provider.strip()})", user, extra=extra,
+                         comments=body.note)
+    return out
 
 
 @router.post("/cases/{case_id}/generate-periods")
