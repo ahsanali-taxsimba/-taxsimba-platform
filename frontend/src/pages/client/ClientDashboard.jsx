@@ -8,6 +8,7 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { useAuth } from "@/context/AuthContext";
 import { api, d } from "@/lib/api";
 import { useContent } from "@/lib/content";
+import { sharedServiceParams, useEntitlements } from "@/lib/services";
 
 export default function ClientDashboard() {
   const { user } = useAuth();
@@ -15,8 +16,9 @@ export default function ClientDashboard() {
   const [cs, setCs] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [offers, setOffers] = useState([]);
-  const [mtdActive, setMtdActive] = useState(null);
   const [profileName, setProfileName] = useState("");
+  const entitlements = useEntitlements();
+  const mtdActive = entitlements.loaded ? entitlements.mtd : null;
 
   useEffect(() => {
     api.get("/cases").then(async ({ data }) => {
@@ -25,15 +27,16 @@ export default function ClientDashboard() {
       const { data: full } = await api.get(`/cases/${sa[0].id}`);
       setCs(full);
     });
-    api.get("/tasks", { params: { status: "OPEN", service_type: "SELF_ASSESSMENT" } }).then(({ data }) => setTasks(data));
     api.get("/my-offers").then(({ data }) => setOffers(data));
     api.get("/my-profile").then(({ data }) => setProfileName((data.name || "").trim()))
       .catch(() => {});
-    api.get("/my-services")
-      .then(({ data }) => setMtdActive(
-        (data.services || []).some((s) => s.service_type === "MTD_INCOME_TAX" && s.status === "ACTIVE")))
-      .catch(() => {});
   }, []);
+
+  useEffect(() => {
+    if (!entitlements.loaded) return;
+    api.get("/tasks", { params: { status: "OPEN", ...sharedServiceParams(entitlements) } })
+      .then(({ data }) => setTasks(data));
+  }, [entitlements]);
   // Name comes from the authenticated profile record, never hard-coded.
   const clientName = profileName || (user?.name || "").trim();
   const openTasks = tasks.length;
@@ -134,6 +137,19 @@ export default function ClientDashboard() {
             </Link>
           </div>
         ))}
+
+        {cs && mtdActive === true && (
+          <div data-testid="mtd-service-card" className="bg-white border border-[#E3E7E4] rounded-xl p-6 sm:p-8">
+            <h2 className="text-base md:text-lg font-semibold text-[#161B18]">{t("client.dashboard.mtd_card.heading", "Making Tax Digital for Income Tax")}</h2>
+            <p className="text-sm text-[#626A65] mt-2 max-w-xl">
+              {t("client.dashboard.mtd_card.body", "Your MTD service is active. Your quarterly updates and Final Declaration are in your MTD area.")}
+            </p>
+            <Link to="/mtd" data-testid="open-mtd-service-btn"
+              className="inline-flex mt-5 px-5 py-2.5 rounded-lg bg-[#078A4B] text-white text-sm font-semibold hover:bg-[#006B3C] transition-colors">
+              Open MTD for Income Tax
+            </Link>
+          </div>
+        )}
 
         {cs && mtdActive === false && (
           <div data-testid="mtd-informational-card" className="bg-white border border-[#E3E7E4] rounded-xl p-6 sm:p-8">

@@ -5,6 +5,7 @@ import { Empty, Panel } from "@/components/StatCard";
 import { clientStatusLabel } from "@/components/StatusBadge";
 import { api, apiError, d, money } from "@/lib/api";
 import { useContent } from "@/lib/content";
+import { sharedServiceParams, useEntitlements } from "@/lib/services";
 
 export function ActionRequired() {
   const t = useContent();
@@ -67,6 +68,7 @@ export function RecommendationReview() {
   const [question, setQuestion] = useState("");
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
+  const entitlements = useEntitlements();
 
   useEffect(() => {
     api.get(`/my-offers/${offerId}`).then(({ data }) => setOffer(data)).catch(() => setErr("This recommendation is no longer available."));
@@ -81,7 +83,7 @@ export function RecommendationReview() {
   };
 
   const ask = async () => {
-    const { data: cases } = await api.get("/cases", { params: { service_type: "SELF_ASSESSMENT" } });
+    const { data: cases } = await api.get("/cases", { params: sharedServiceParams(entitlements) });
     if (!cases.length) return;
     await api.post("/messages", { case_id: cases[0].id, body: `Question about the ${offer.service_name} recommendation: ${question}` });
     setQuestion(""); setSent(true);

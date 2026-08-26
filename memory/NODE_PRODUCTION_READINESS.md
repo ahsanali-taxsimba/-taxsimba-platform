@@ -118,6 +118,9 @@ data would otherwise surface as a warning in the boot log).
   header, refresh rotation on 401, CORS behaviour, status codes and the `{detail: …}` error envelope
   (including pydantic-shaped 422 arrays) are all identical to Python — verified by the parity harness
   and the browser UAT.
+* `REACT_APP_SHOW_DEMO_ACCOUNTS` must be unset (or anything other than `true`) in every deployed
+  build. The seeded demo sign-ins are only rendered on the login page when it is `true`, so they can
+  never appear alongside `SEED_DEMO_DATA=false`, where those accounts do not exist.
 * Health check: `GET /api/` (returns `{"message": "TaxSimba API"}`, same as Python) through the proxy,
   plus one authenticated call such as `GET /api/cases` to prove Mongo — see §9 of
   `NODE_PRODUCTION_CUTOVER_PLAN.md`.
