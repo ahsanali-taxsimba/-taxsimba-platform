@@ -6,13 +6,16 @@ import { allowedOrigins } from "./config/env";
 import { col } from "./db/mongo";
 import { errorMiddleware, httpError } from "./http/errors";
 import { apiRateLimit, ensureRateIndexes, securityHeaders } from "./middleware/protections";
+import { adminRouter } from "./routes/admin";
 import { authRouter } from "./routes/auth";
 import { casesRouter } from "./routes/cases";
 import { collaborationRouter } from "./routes/collaboration";
 import { documentsRouter } from "./routes/documents";
 import { mtdRouter } from "./routes/mtd";
 import { paymentsRouter } from "./routes/payments";
+import { profileRouter } from "./routes/profile";
 import { recommendationsRouter } from "./routes/recommendations";
+import { seedFaqs } from "./domain/helpcentre";
 import { ensurePhase1bData } from "./domain/packages";
 import { ensureIndexes as ensureLoginIndexes } from "./services/loginLockout";
 import { ensureMfaIndexes } from "./services/security";
@@ -50,6 +53,8 @@ const QUERY_INDEXES: Record<string, string[]> = {
   document_requests: ["case_id", "status"],
   case_notes: ["case_id"],
   recommendations: ["case_id", "status", "type"],
+  service_issues: ["client_user_id", "case_id", "status", "is_test"],
+  faqs: ["category", "order", "is_active"],
   invoices: ["payment_request_id", "client_user_id", "case_id"],
   packages: ["service_type", "code", "rank"],
   offers: ["client_user_id", "status", "recommendation_id"],
@@ -77,6 +82,7 @@ export async function startup(): Promise<void> {
   await ensureRateIndexes();
   await ensureQueryIndexes();
   await ensurePhase1bData();
+  await seedFaqs();
 }
 
 export function createApp(): Express {
@@ -106,6 +112,12 @@ export function createApp(): Express {
   app.use("/api/mtd", mtdRouter);
   app.use("/api", paymentsRouter);
   app.use("/api", recommendationsRouter);
+  app.use("/api", adminRouter);
+  app.use("/api", profileRouter);
+
+  app.get("/api/", (_req, res) => {
+    res.json({ message: "TaxSimba API" });
+  });
 
   app.use("/api", (_req, _res, next) => next(httpError(404, "Not Found")));
   app.use(errorMiddleware);
