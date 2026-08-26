@@ -8,6 +8,8 @@ import { errorMiddleware, httpError } from "./http/errors";
 import { apiRateLimit, ensureRateIndexes, securityHeaders } from "./middleware/protections";
 import { authRouter } from "./routes/auth";
 import { casesRouter } from "./routes/cases";
+import { collaborationRouter } from "./routes/collaboration";
+import { documentsRouter } from "./routes/documents";
 import { ensureIndexes as ensureLoginIndexes } from "./services/loginLockout";
 import { ensureMfaIndexes } from "./services/security";
 
@@ -88,6 +90,8 @@ export function createApp(): Express {
 
   app.use("/api", authRouter);
   app.use("/api", casesRouter);
+  app.use("/api", documentsRouter);
+  app.use("/api", collaborationRouter);
 
   app.use("/api", (_req, _res, next) => next(httpError(404, "Not Found")));
   app.use(errorMiddleware);
