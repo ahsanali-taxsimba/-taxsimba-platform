@@ -464,7 +464,11 @@ export default function CaseWorkspace() {
                           </p>
                         ) : (
                           <p className="text-sm font-semibold">
-                            {q.catch_up_required ? "Catch-up work — not yet prepared by TaxSimba" : "Onboarding answer to review"}
+                            {p.status === "SUBMITTED"
+                              ? "Catch-up work — completed by TaxSimba"
+                              : q.catch_up_required
+                                ? "Catch-up work — not yet prepared by TaxSimba"
+                                : "Onboarding answer to review"}
                           </p>
                         )}
                         {q.answer && (
