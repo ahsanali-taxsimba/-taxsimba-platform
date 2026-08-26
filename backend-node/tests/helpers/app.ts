@@ -40,6 +40,37 @@ export async function dropTestDb(): Promise<void> {
   await close();
 }
 
+export interface TestUser {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  token: string;
+}
+
+/** Creates an active user of any role and returns an API bearer token for it. */
+export async function makeUser(role: string, name = role.toLowerCase()): Promise<TestUser> {
+  const { col } = await import("../../src/db/mongo");
+  const { createAccessToken } = await import("../../src/services/auth");
+  const { nowIso } = await import("../../src/domain/workflow");
+  const id = randomUUID();
+  const email = `${name}.${id.slice(0, 8)}@parity.taxsimba.local`;
+  await col("users").insertOne({
+    id,
+    email,
+    name,
+    role,
+    is_active: true,
+    is_test: false,
+    created_at: nowIso(),
+  });
+  return { id, name, email, role, token: createAccessToken(id, email) };
+}
+
+export function bearer(user: TestUser): Record<string, string> {
+  return { Authorization: `Bearer ${user.token}` };
+}
+
 /** Headers a browser would send, including the double-submit CSRF token. */
 export function browserHeaders(cookies: string[]): Record<string, string> {
   const jar = cookies.map((c) => c.split(";")[0]);

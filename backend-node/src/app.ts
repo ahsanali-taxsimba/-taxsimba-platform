@@ -7,6 +7,7 @@ import { col } from "./db/mongo";
 import { errorMiddleware, httpError } from "./http/errors";
 import { apiRateLimit, ensureRateIndexes, securityHeaders } from "./middleware/protections";
 import { authRouter } from "./routes/auth";
+import { casesRouter } from "./routes/cases";
 import { ensureIndexes as ensureLoginIndexes } from "./services/loginLockout";
 import { ensureMfaIndexes } from "./services/security";
 
@@ -86,6 +87,7 @@ export function createApp(): Express {
   app.use(express.json({ limit: "5mb" }));
 
   app.use("/api", authRouter);
+  app.use("/api", casesRouter);
 
   app.use("/api", (_req, _res, next) => next(httpError(404, "Not Found")));
   app.use(errorMiddleware);
