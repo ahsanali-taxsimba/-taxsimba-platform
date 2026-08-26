@@ -38,6 +38,14 @@ const ReviewIn = z.object({
   outcome: z.enum(["TAXSIMBA_CATCH_UP", "NEEDS_MORE_INFORMATION"]),
   note: z.string().nullish().default(null),
 });
+const EvidenceIn = z.object({
+  previous_provider: z.string().min(1),
+  submission_date: z.string().min(1),
+  submission_reference: z.string().nullish().default(null),
+  income: z.number().nullish().default(null),
+  expenses: z.number().nullish().default(null),
+  note: z.string().nullish().default(null),
+});
 
 const STAFF = ["ACCOUNTANT", "ADMIN", "SUPER_ADMIN"] as const;
 
@@ -286,6 +294,73 @@ mtdOnboardingRouter.post(
   }),
 );
 
+/**
+ * Evidence an accountant has gathered for a quarter the client says was filed elsewhere. This is a
+ * proposal for an admin to check: it never marks the period as submitted, which stays with the
+ * ADMIN/SUPER_ADMIN-only record-prior-submission route.
+ */
+mtdOnboardingRouter.post(
+  "/cases/:caseId/onboarding/quarters/:quarter/evidence",
+  auth(...STAFF),
+  handler(async (req, res) => {
+    const me = authed(req);
+    const body = parseBody(EvidenceIn, req.body);
+    const kase = await onboardingCase(req.params.caseId, me);
+    const quarter = Number(req.params.quarter);
+    const rows = await quarterRows(kase);
+    const row = rows.find((r) => Number(r.quarter) === quarter);
+    if (!row) throw httpError(404, "Quarter not found");
+    if (row.status === SUBMITTED) throw httpError(400, `${row.label} is already submitted`);
+
+    const saved = await record(kase.id);
+    const answers = (saved?.answers ?? []) as Doc[];
+    let answer = answers.find((a) => Number(a.quarter) === quarter);
+    if (!answer) {
+      answer = { quarter, status: ALREADY_SUBMITTED, staff_review_status: "PENDING_REVIEW" };
+      answers.push(answer);
+    }
+    const evidence = {
+      previous_provider: body.previous_provider.trim(),
+      submission_date: body.submission_date.trim(),
+      submission_reference: (body.submission_reference ?? "").trim() || null,
+      income: body.income ?? null,
+      expenses: body.expenses ?? null,
+      note: (body.note ?? "").trim() || null,
+      prepared_by_name: me.name,
+      prepared_by_role: me.role,
+      prepared_at: nowIso(),
+    };
+    Object.assign(answer, { staff_evidence: evidence, staff_review_status: "PENDING_REVIEW" });
+    await col("mtd_onboarding").updateOne(
+      { case_id: kase.id },
+      {
+        $set: { answers, updated_at: nowIso() },
+        $setOnInsert: { case_id: kase.id, created_at: nowIso() },
+      },
+      { upsert: true },
+    );
+    await logActivity(
+      kase.id,
+      `MTD onboarding: previous submission details for ${row.label} entered for admin review (${evidence.previous_provider})`,
+      me,
+      { mtd_period_id: row.id, service: "MTD" },
+      { comments: evidence.note },
+    );
+    for (const userId of await reviewers(kase)) {
+      if (userId === me.id) continue;
+      await notify(
+        userId,
+        `Check previous submission details: ${row.label}`,
+        `${me.name} entered previous submission details for ${row.label} on ${kase.case_ref} (${kase.client_name}). An admin must check the evidence before recording it.`,
+        kase.id,
+        `/work/cases/${kase.id}`,
+        "REVIEW",
+      );
+    }
+    res.json(view(kase, rows, await record(kase.id)));
+  }),
+);
+
 /** Closes the questionnaire loop once staff record a quarter as filed before joining. */
 export async function confirmPriorAnswer(kase: Doc, row: Doc, me: Doc): Promise<void> {
   const saved = await record(kase.id);
@@ -298,6 +373,9 @@ export async function confirmPriorAnswer(kase: Doc, row: Doc, me: Doc): Promise<
     staff_outcome: "PRIOR_SUBMISSION",
     reviewed_by_name: me.name,
     reviewed_at: nowIso(),
+    confirmed_by_name: me.name,
+    confirmed_by_role: me.role,
+    confirmed_at: nowIso(),
   });
   await col("mtd_onboarding").updateOne(
     { case_id: kase.id },

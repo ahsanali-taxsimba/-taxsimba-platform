@@ -483,6 +483,18 @@ export default function CaseWorkspace() {
                           </p>
                         )}
                         {q.answer?.note && <p className="text-xs text-[#626A65] mt-1">Client note: {q.answer.note}</p>}
+                        {q.answer?.staff_evidence && (
+                          <p className="text-xs text-[#626A65] mt-1" data-testid={`mtd-evidence-${p.id}`}>
+                            Details entered by {q.answer.staff_evidence.prepared_by_name} ({q.answer.staff_evidence.prepared_by_role}) on {dt(q.answer.staff_evidence.prepared_at)}
+                            {` · ${q.answer.staff_evidence.previous_provider}`}
+                            {q.answer.staff_evidence.submission_date ? ` · ${d(q.answer.staff_evidence.submission_date)}` : ""}
+                            {q.answer.staff_evidence.submission_reference ? ` · ref ${q.answer.staff_evidence.submission_reference}` : ""}
+                            {q.answer.staff_evidence.note ? ` · ${q.answer.staff_evidence.note}` : ""}
+                            {q.answer.confirmed_by_name
+                              ? ` · confirmed by ${q.answer.confirmed_by_name} (${q.answer.confirmed_by_role})`
+                              : " · awaiting admin confirmation"}
+                          </p>
+                        )}
                       </div>
                     );
                   })()}
@@ -542,21 +554,25 @@ export default function CaseWorkspace() {
                           setModal("addpay");
                         }}>Raise catch-up charge</button>
                     )}
-                    {isAdmin && p.kind === "QUARTER" && p.status !== "SUBMITTED" && (
-                      <button data-testid={`mtd-prior-btn-${p.id}`} className="text-xs font-semibold text-[#626A65]"
+                    {p.kind === "QUARTER" && p.status !== "SUBMITTED" && (
+                      <button data-testid={isAdmin ? `mtd-prior-btn-${p.id}` : `mtd-evidence-btn-${p.id}`}
+                        className="text-xs font-semibold text-[#626A65]"
                         onClick={() => {
                           const q = (onboarding?.quarters || []).find((x) => x.period_id === p.id);
+                          const ev = q?.answer?.staff_evidence;
                           setForm({
                             period: p,
-                            previous_provider: q?.answer?.previous_provider || "",
-                            submission_date: q?.answer?.submission_date || "",
-                            submission_reference: q?.answer?.submission_reference || "",
-                            income: q?.answer?.income ?? "",
-                            expenses: q?.answer?.expenses ?? "",
+                            quarter: q?.quarter ?? p.quarter,
+                            evidence_only: !isAdmin,
+                            previous_provider: ev?.previous_provider || q?.answer?.previous_provider || "",
+                            submission_date: ev?.submission_date || q?.answer?.submission_date || "",
+                            submission_reference: ev?.submission_reference || q?.answer?.submission_reference || "",
+                            income: ev?.income ?? q?.answer?.income ?? "",
+                            expenses: ev?.expenses ?? q?.answer?.expenses ?? "",
                             note: "",
                           });
                           setModal("mtdprior");
-                        }}>Record previous submission</button>
+                        }}>{isAdmin ? "Record previous submission" : "Enter previous submission details for admin review"}</button>
                     )}
                     {p.kind === "QUARTER" && p.status !== "SUBMITTED"
                       && (onboarding?.quarters || []).some((x) => x.period_id === p.id && x.answer
@@ -862,11 +878,13 @@ export default function CaseWorkspace() {
             )}
             {modal === "mtdprior" && (
               <>
-                <h3 className="text-lg font-semibold mb-2">Record previous submission</h3>
+                <h3 className="text-lg font-semibold mb-2">
+                  {form.evidence_only ? "Previous submission details for admin review" : "Record previous submission"}
+                </h3>
                 <p className="text-xs text-[#626A65] mb-5">
-                  {form.period?.label} · filed before the client joined TaxSimba. Only record this
-                  once you have checked the evidence — the quarter is then locked, stays out of the
-                  TaxSimba preparation workflow and is not charged as catch-up work.
+                  {form.evidence_only
+                    ? `${form.period?.label} · save the evidence you have gathered so an admin can check it. This does not mark the quarter as submitted.`
+                    : `${form.period?.label} · filed before the client joined TaxSimba. Only record this once you have checked the evidence — the quarter is then locked, stays out of the TaxSimba preparation workflow and is not charged as catch-up work.`}
                 </p>
                 <div className="space-y-4">
                   <input data-testid="mtd-prior-provider" placeholder="Previous accountant / software"
@@ -889,16 +907,24 @@ export default function CaseWorkspace() {
                   <textarea data-testid="mtd-prior-note" rows={2} placeholder="Internal note (optional)"
                     className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
                     value={form.note || ""} onChange={(e) => setForm({ ...form, note: e.target.value })} />
-                  <button data-testid="mtd-prior-save" disabled={!form.previous_provider || !form.submission_date}
+                  <button data-testid={form.evidence_only ? "mtd-evidence-save" : "mtd-prior-save"}
+                    disabled={!form.previous_provider || !form.submission_date}
                     className={`${primary} w-full disabled:opacity-50`}
-                    onClick={() => act(() => api.post(`/mtd/periods/${form.period.id}/record-prior-submission`, {
-                      previous_provider: form.previous_provider,
-                      submission_date: form.submission_date,
-                      submission_reference: form.submission_reference || null,
-                      income: form.income === "" || form.income == null ? null : Number(form.income),
-                      expenses: form.expenses === "" || form.expenses == null ? null : Number(form.expenses),
-                      note: form.note || null,
-                    }))}>Record as submitted before joining TaxSimba</button>
+                    onClick={() => act(() => api.post(
+                      form.evidence_only
+                        ? `/mtd/cases/${id}/onboarding/quarters/${form.quarter}/evidence`
+                        : `/mtd/periods/${form.period.id}/record-prior-submission`,
+                      {
+                        previous_provider: form.previous_provider,
+                        submission_date: form.submission_date,
+                        submission_reference: form.submission_reference || null,
+                        income: form.income === "" || form.income == null ? null : Number(form.income),
+                        expenses: form.expenses === "" || form.expenses == null ? null : Number(form.expenses),
+                        note: form.note || null,
+                      },
+                    ))}>
+                    {form.evidence_only ? "Save details for admin review" : "Record as submitted before joining TaxSimba"}
+                  </button>
                   {err && <p className="text-sm text-[#D64545]">{err}</p>}
                 </div>
               </>

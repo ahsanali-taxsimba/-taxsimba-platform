@@ -15,6 +15,15 @@ interface Answer {
   staff_review_status: string;
   staff_outcome: string | null;
   answered_by_name: string;
+  confirmed_by_name?: string | null;
+  confirmed_by_role?: string | null;
+  staff_evidence?: {
+    previous_provider: string;
+    submission_date: string;
+    submission_reference: string | null;
+    prepared_by_name: string;
+    prepared_by_role: string;
+  } | null;
 }
 interface Quarter {
   period_id: string;
@@ -213,6 +222,59 @@ describe("MTD mid-year onboarding questionnaire", () => {
     expect(q2.answer?.staff_outcome).toBe("TAXSIMBA_CATCH_UP");
     expect(q2.catch_up_required).toBe(true);
     expect(q2.status).toBe("NOT_STARTED");
+  });
+
+  it("lets an accountant enter prior-submission evidence but only an admin confirm it", async () => {
+    const caseId = await newCase();
+    await request(app)
+      .post(`/api/mtd/cases/${caseId}/onboarding`)
+      .set(bearer(client))
+      .send({ answers: [{ quarter: 1, status: "SUBMITTED_ELSEWHERE", previous_provider: "Old Firm" }] })
+      .expect(200);
+    const state = await onboarding(caseId);
+    const q1 = state.quarters[0];
+
+    const prepared = await request(app)
+      .post(`/api/mtd/cases/${caseId}/onboarding/quarters/1/evidence`)
+      .set(bearer(accountant))
+      .send({
+        previous_provider: "Old Firm",
+        submission_date: "2024-08-05",
+        submission_reference: "PRIOR-Q1",
+        note: "Confirmation email from the client's previous accountant",
+      })
+      .expect(200);
+    const afterEvidence = (prepared.body as Onboarding).quarters[0];
+    expect(afterEvidence.answer?.staff_evidence?.prepared_by_name).toBe(accountant.name);
+    expect(afterEvidence.answer?.staff_evidence?.prepared_by_role).toBe("ACCOUNTANT");
+    // Entering evidence is a proposal only — the period must not move.
+    expect(afterEvidence.status).not.toBe("SUBMITTED");
+    expect(afterEvidence.prior_to_taxsimba).toBe(false);
+
+    await request(app)
+      .post(`/api/mtd/periods/${q1.period_id}/record-prior-submission`)
+      .set(bearer(accountant))
+      .send({ previous_provider: "Old Firm", submission_date: "2024-08-05" })
+      .expect(403);
+
+    await request(app)
+      .post(`/api/mtd/periods/${q1.period_id}/record-prior-submission`)
+      .set(bearer(admin))
+      .send({ previous_provider: "Old Firm", submission_date: "2024-08-05", submission_reference: "PRIOR-Q1" })
+      .expect(200);
+    const confirmed = (await onboarding(caseId)).quarters[0];
+    expect(confirmed.prior_to_taxsimba).toBe(true);
+    expect(confirmed.answer?.confirmed_by_name).toBe(admin.name);
+    expect(confirmed.answer?.confirmed_by_role).toBe("ADMIN");
+    // Both the accountant who gathered the evidence and the admin who confirmed it stay on record.
+    expect(confirmed.answer?.staff_evidence?.prepared_by_name).toBe(accountant.name);
+
+    const activity = await request(app)
+      .get(`/api/cases/${caseId}/activity`)
+      .set(bearer(admin))
+      .expect(200);
+    const lines = (activity.body as { action: string }[]).map((a) => a.action);
+    expect(lines.some((a) => a.includes("entered for admin review"))).toBe(true);
   });
 
   it("refuses an answer for a quarter that is already submitted", async () => {
