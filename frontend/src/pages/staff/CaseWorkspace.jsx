@@ -471,7 +471,7 @@ export default function CaseWorkspace() {
                                 : "Onboarding answer to review"}
                           </p>
                         )}
-                        {q.answer && (
+                        {q.answer && p.status !== "SUBMITTED" && (
                           <p className="text-xs text-[#626A65] mt-1">
                             Client said: {said[q.answer.status]}
                             {q.answer.previous_provider ? ` · ${q.answer.previous_provider}` : ""}
@@ -482,7 +482,9 @@ export default function CaseWorkspace() {
                             {" · "}{q.answer.staff_review_status === "PENDING_REVIEW" ? "unverified, needs staff review" : `${q.answer.staff_outcome || "reviewed"} by ${q.answer.reviewed_by_name}`}
                           </p>
                         )}
-                        {q.answer?.note && <p className="text-xs text-[#626A65] mt-1">Client note: {q.answer.note}</p>}
+                        {q.answer?.note && p.status !== "SUBMITTED" && (
+                          <p className="text-xs text-[#626A65] mt-1">Client note: {q.answer.note}</p>
+                        )}
                         {q.answer?.staff_evidence && (
                           <p className="text-xs text-[#626A65] mt-1" data-testid={`mtd-evidence-${p.id}`}>
                             Details entered by {q.answer.staff_evidence.prepared_by_name} ({q.answer.staff_evidence.prepared_by_role}) on {dt(q.answer.staff_evidence.prepared_at)}
@@ -500,7 +502,12 @@ export default function CaseWorkspace() {
                   })()}
                   <p className="text-xs text-[#626A65] mt-3">Next: {p.next_action} ({p.next_action_owner})</p>
                   {p.changes_reason && <p className="text-xs text-[#D64545] mt-1">Changes requested: {p.changes_reason}</p>}
-                  {p.submission_reference && <p className="text-xs text-[#006B3C] mt-1">Submitted {d(p.submission_date)} · ref {p.submission_reference} · by {p.submitted_by_name}</p>}
+                  {p.submission_reference && (
+                    <p className="text-xs text-[#006B3C] mt-1">
+                      Submitted {d(p.submission_date)} · ref {p.submission_reference}
+                      {p.submitted_by_name ? ` · by ${p.submitted_by_name}` : ""}
+                    </p>
+                  )}
                   <div className="flex flex-wrap gap-3 mt-4">
                     {["NOT_STARTED", "IN_PROGRESS"].includes(p.status) && (
                       <button data-testid={`mtd-figures-btn-${p.id}`} className="text-xs font-semibold text-[#006B3C]"
