@@ -13,6 +13,7 @@ import { collaborationRouter } from "./routes/collaboration";
 import { contentRouter } from "./routes/content";
 import { documentsRouter } from "./routes/documents";
 import { mtdRouter } from "./routes/mtd";
+import { mtdOnboardingRouter } from "./routes/mtdOnboarding";
 import { paymentsRouter } from "./routes/payments";
 import { profileRouter } from "./routes/profile";
 import { recommendationsRouter } from "./routes/recommendations";
@@ -41,6 +42,7 @@ const QUERY_INDEXES: Record<string, string[]> = {
   ],
   documents: ["case_id", "client_user_id", "is_internal", "is_deleted", "mtd_period_id"],
   mtd_periods: ["case_id", "client_id", "status", "deadline", "is_test"],
+  mtd_onboarding: ["case_id"],
   tasks: ["case_id", "status", "owner_id", "client_user_id"],
   messages: ["case_id", "created_at"],
   notifications: ["user_id", "read_at", "created_at"],
@@ -124,6 +126,7 @@ export function createApp(): Express {
   app.use("/api", casesRouter);
   app.use("/api", documentsRouter);
   app.use("/api", collaborationRouter);
+  app.use("/api/mtd", mtdOnboardingRouter);
   app.use("/api/mtd", mtdRouter);
   app.use("/api", paymentsRouter);
   app.use("/api", recommendationsRouter);

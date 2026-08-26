@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import AppShell from "@/components/AppShell";
 import { Empty, Panel } from "@/components/StatCard";
 import { api, apiError, d, dt, money, openDocument } from "@/lib/api";
@@ -45,6 +45,194 @@ function ServiceIntro() {
       <p className="mt-5 text-sm text-[#006B3C] bg-[#F1F8F4] rounded-xl p-4" data-testid="mtd-reassurance">
         {t("client.mtd.intro.reassurance", "Your Making Tax Digital reporting starts from 6 April 2026. Your accountant will manage your quarterly updates for you.")}
       </p>
+    </div>
+  );
+}
+
+const ANSWER_OPTIONS = [
+  ["SUBMITTED_ELSEWHERE", "Yes — submitted previously"],
+  ["NOT_SUBMITTED", "No — TaxSimba needs to prepare/submit it"],
+  ["NOT_SURE", "Not sure"],
+];
+
+const REVIEW_LABEL = {
+  PENDING_REVIEW: "With your accountant to review",
+  REVIEWED: "Reviewed by your accountant",
+  CONFIRMED: "Confirmed by your accountant",
+};
+
+const field = "w-full rounded-xl border border-[#E3E7E4] px-3 py-2.5 text-sm";
+
+/**
+ * Asked once, when a client joins part way through the tax year: what happened to each quarter
+ * that had already ended. Answers are passed to staff to check — nothing here files, locks or
+ * charges for a quarter.
+ */
+function Onboarding({ caseId, onSaved }) {
+  const [state, setState] = useState(null);
+  const [answers, setAnswers] = useState({});
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState("");
+
+  const load = useCallback(() => api.get(`/mtd/cases/${caseId}/onboarding`)
+    .then(({ data }) => setState(data)).catch(() => setState(null)), [caseId]);
+  useEffect(() => { load(); }, [load]);
+
+  const eligible = (state?.quarters || []).filter((q) => q.eligible || q.answer);
+  if (!state || !eligible.length) return null;
+
+  const open = eligible.filter((q) => q.eligible && !q.answer);
+  const set = (quarter, patch) => setAnswers((prev) => ({ ...prev, [quarter]: { ...prev[quarter], ...patch } }));
+
+  const attach = async (q, e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setErr("");
+    const fd = new FormData();
+    fd.append("case_id", caseId);
+    fd.append("document_type", `${q.label} — evidence of previous submission`);
+    fd.append("mtd_period_id", q.period_id);
+    fd.append("file", file);
+    try {
+      const { data } = await api.post("/documents/upload", fd, { headers: { "Content-Type": "multipart/form-data" } });
+      set(q.quarter, { document_id: data.id, document_name: file.name });
+    } catch (e2) { setErr(apiError(e2.response?.data?.detail)); }
+    e.target.value = "";
+  };
+
+  const save = async () => {
+    setErr(""); setBusy(true);
+    const payload = open
+      .filter((q) => answers[q.quarter]?.status)
+      .map((q) => {
+        const a = answers[q.quarter];
+        const num = (v) => (v === "" || v == null ? null : Number(v));
+        return {
+          quarter: q.quarter,
+          status: a.status,
+          previous_provider: a.previous_provider || null,
+          submission_date: a.submission_date || null,
+          submission_reference: a.submission_reference || null,
+          income: a.status === "SUBMITTED_ELSEWHERE" ? num(a.income) : null,
+          expenses: a.status === "SUBMITTED_ELSEWHERE" ? num(a.expenses) : null,
+          document_id: a.document_id || null,
+          note: a.note || null,
+        };
+      });
+    try {
+      await api.post(`/mtd/cases/${caseId}/onboarding`, { answers: payload });
+      setAnswers({});
+      await load();
+      if (onSaved) await onSaved();
+    } catch (e) { setErr(apiError(e.response?.data?.detail)); }
+    setBusy(false);
+  };
+
+  const ready = open.some((q) => answers[q.quarter]?.status);
+
+  return (
+    <div className="rounded-2xl border border-[#E3E7E4] bg-white p-5 sm:p-6" data-testid="mtd-onboarding">
+      <h3 className="text-base md:text-lg font-semibold">Quarters before you joined TaxSimba</h3>
+      <p className="text-sm text-[#626A65] mt-2 max-w-2xl leading-relaxed">
+        You joined part way through the {state.tax_year} tax year. Tell us what happened to each
+        quarter that had already ended so your accountant knows what still needs doing. Your answers
+        are checked by your accountant before anything is recorded.
+      </p>
+      <ul className="mt-5 space-y-4">
+        {eligible.map((q) => {
+          const a = answers[q.quarter] || {};
+          const saved = q.answer;
+          return (
+            <li key={q.quarter} data-testid={`mtd-onboarding-q${q.quarter}`}
+              className="rounded-xl border border-[#E3E7E4] p-4">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <p className="text-sm font-semibold">{q.label}</p>
+                  <p className="text-xs text-[#626A65] mt-0.5">{d(q.period_start)} – {d(q.period_end)}</p>
+                </div>
+                {saved && (
+                  <span className="px-2 py-1 rounded-md text-[11px] font-semibold bg-[#F1F8F4] text-[#626A65]"
+                    data-testid={`mtd-onboarding-state-q${q.quarter}`}>
+                    {q.prior_to_taxsimba
+                      ? "Submitted previously / Prior to TaxSimba"
+                      : REVIEW_LABEL[saved.staff_review_status] || "With your accountant to review"}
+                  </span>
+                )}
+              </div>
+
+              {saved ? (
+                <p className="text-sm text-[#626A65] mt-3" data-testid={`mtd-onboarding-answer-q${q.quarter}`}>
+                  You told us: {(ANSWER_OPTIONS.find(([v]) => v === saved.status) || [])[1]}
+                  {saved.previous_provider ? ` · ${saved.previous_provider}` : ""}
+                  {saved.submission_date ? ` · ${d(saved.submission_date)}` : ""}
+                  {saved.submission_reference ? ` · reference ${saved.submission_reference}` : ""}
+                </p>
+              ) : (
+                <div className="mt-3 space-y-3">
+                  <p className="text-sm">Has this quarter already been submitted?</p>
+                  <div className="flex flex-col gap-2">
+                    {ANSWER_OPTIONS.map(([value, label]) => (
+                      <label key={value} className="flex items-center gap-2 text-sm">
+                        <input type="radio" name={`mtd-onboarding-${q.quarter}`} value={value}
+                          data-testid={`mtd-onboarding-${value}-q${q.quarter}`}
+                          checked={a.status === value} onChange={() => set(q.quarter, { status: value })} />
+                        {label}
+                      </label>
+                    ))}
+                  </div>
+                  {a.status === "SUBMITTED_ELSEWHERE" && (
+                    <div className="space-y-3" data-testid={`mtd-onboarding-details-q${q.quarter}`}>
+                      <input className={field} placeholder="Who filed it — previous accountant or software"
+                        data-testid={`mtd-onboarding-provider-q${q.quarter}`}
+                        value={a.previous_provider || ""} onChange={(e) => set(q.quarter, { previous_provider: e.target.value })} />
+                      <input className={field} type="date" data-testid={`mtd-onboarding-date-q${q.quarter}`}
+                        value={a.submission_date || ""} onChange={(e) => set(q.quarter, { submission_date: e.target.value })} />
+                      <input className={field} placeholder="Submission / reference number (if you have it)"
+                        data-testid={`mtd-onboarding-ref-q${q.quarter}`}
+                        value={a.submission_reference || ""} onChange={(e) => set(q.quarter, { submission_reference: e.target.value })} />
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <input className={field} type="number" step="0.01" placeholder="Income reported (optional)"
+                          data-testid={`mtd-onboarding-income-q${q.quarter}`}
+                          value={a.income || ""} onChange={(e) => set(q.quarter, { income: e.target.value })} />
+                        <input className={field} type="number" step="0.01" placeholder="Expenses reported (optional)"
+                          data-testid={`mtd-onboarding-expenses-q${q.quarter}`}
+                          value={a.expenses || ""} onChange={(e) => set(q.quarter, { expenses: e.target.value })} />
+                      </div>
+                      <label className="text-xs font-semibold text-[#078A4B] cursor-pointer inline-block">
+                        {a.document_name ? `Attached: ${a.document_name}` : "Attach supporting document (optional)"}
+                        <input type="file" className="hidden" data-testid={`mtd-onboarding-upload-q${q.quarter}`}
+                          onChange={(e) => attach(q, e)} />
+                      </label>
+                    </div>
+                  )}
+                  {a.status === "NOT_SUBMITTED" && (
+                    <p className="text-sm text-[#626A65]" data-testid={`mtd-onboarding-catchup-q${q.quarter}`}>
+                      We&apos;ll take this quarter on as catch-up work. Your accountant will confirm
+                      what is needed and any charge for it before starting.
+                    </p>
+                  )}
+                  {a.status === "NOT_SURE" && (
+                    <p className="text-sm text-[#626A65]" data-testid={`mtd-onboarding-unsure-q${q.quarter}`}>
+                      That&apos;s fine — your accountant will look into it with you before anything
+                      is prepared or recorded.
+                    </p>
+                  )}
+                  <textarea rows={2} className={field} placeholder="Anything else we should know (optional)"
+                    data-testid={`mtd-onboarding-note-q${q.quarter}`}
+                    value={a.note || ""} onChange={(e) => set(q.quarter, { note: e.target.value })} />
+                </div>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+      {err && <p className="text-sm text-[#D64545] mt-4" data-testid="mtd-onboarding-error">{err}</p>}
+      {open.length > 0 && (
+        <button type="button" data-testid="mtd-onboarding-save" disabled={!ready || busy} onClick={save}
+          className="mt-5 w-full sm:w-auto px-6 py-3 rounded-xl bg-[#078A4B] text-white text-sm font-semibold hover:bg-[#006B3C] transition-colors disabled:opacity-50">
+          {busy ? "Sending…" : "Send to my accountant"}
+        </button>
+      )}
     </div>
   );
 }
@@ -324,6 +512,7 @@ export default function MtdQuarters() {
                 <p className="text-sm text-[#626A65] mt-3">Making Tax Digital for Income Tax</p>
               </div>
               <ServiceIntro />
+              <Onboarding caseId={c.id} onSaved={load} />
               {quarters.map((p) => (
                 <QuarterCard key={p.id} p={{ ...p, case_id: c.id }} onApprove={approve} busy={busy === p.id} />
               ))}

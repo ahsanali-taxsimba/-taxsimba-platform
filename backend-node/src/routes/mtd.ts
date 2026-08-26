@@ -22,6 +22,7 @@ import {
   clientStage,
 } from "../domain/mtd";
 import { OPERATIONAL_ONLY } from "../domain/testdata";
+import { confirmPriorAnswer } from "./mtdOnboarding";
 import { logActivity, notify, nowIso } from "../domain/workflow";
 import { handler, httpError, parseBody } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
@@ -548,17 +549,17 @@ mtdRouter.post(
       extra.published_version = 1;
       extra.published_versions = [verified];
     }
-    res.json(
-      await advance(
-        row,
-        kase,
-        SUBMITTED,
-        `recorded as submitted before joining TaxSimba (${body.previous_provider.trim()})`,
-        me,
-        extra,
-        body.note ?? null,
-      ),
+    const out = await advance(
+      row,
+      kase,
+      SUBMITTED,
+      `recorded as submitted before joining TaxSimba (${body.previous_provider.trim()})`,
+      me,
+      extra,
+      body.note ?? null,
     );
+    await confirmPriorAnswer(kase, row, me);
+    res.json(out);
   }),
 );
 

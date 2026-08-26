@@ -46,6 +46,7 @@ export default function CaseWorkspace() {
   const [reopens, setReopens] = useState([]);
   const [issues, setIssues] = useState([]);
   const [mtdPeriods, setMtdPeriods] = useState([]);
+  const [onboarding, setOnboarding] = useState(null);
 
   const load = async () => {
     const { data } = await api.get(`/cases/${id}`);
@@ -65,6 +66,7 @@ export default function CaseWorkspace() {
     api.get("/service-issues", { params: { case_id: id } }).then((r) => setIssues(r.data)).catch(() => {});
     if (data.service_type === "MTD_INCOME_TAX") {
       api.get(`/mtd/cases/${id}/periods`).then((r) => setMtdPeriods(r.data)).catch(() => {});
+      api.get(`/mtd/cases/${id}/onboarding`).then((r) => setOnboarding(r.data)).catch(() => {});
     }
     if (isAdmin) api.get("/accountants/workload").then((r) => setAccountants(r.data));
   };
@@ -442,6 +444,44 @@ export default function CaseWorkspace() {
                       ) : <p className="text-sm text-[#626A65] mt-2">Nothing published — the client sees no figures</p>}
                     </div>
                   </div>
+                  {(() => {
+                    const q = (onboarding?.quarters || []).find((x) => x.period_id === p.id);
+                    if (!q || (!q.answer && !q.catch_up_required && !p.prior_to_taxsimba)) return null;
+                    const said = {
+                      SUBMITTED_ELSEWHERE: "already submitted elsewhere",
+                      NOT_SUBMITTED: "not submitted — TaxSimba to prepare it",
+                      NOT_SURE: "not sure",
+                    };
+                    return (
+                      <div className="mt-3 rounded-lg bg-[#FFFBF3] border border-[#E6A23C]/40 p-4"
+                        data-testid={`mtd-onboarding-${p.id}`}>
+                        {p.prior_to_taxsimba ? (
+                          <p className="text-sm font-semibold text-[#006B3C]" data-testid={`mtd-prior-badge-${p.id}`}>
+                            Submitted previously / Prior to TaxSimba
+                            {p.previous_provider ? ` · ${p.previous_provider}` : ""}
+                            {p.submission_date ? ` · ${d(p.submission_date)}` : ""}
+                            {p.submission_reference ? ` · ref ${p.submission_reference}` : ""}
+                          </p>
+                        ) : (
+                          <p className="text-sm font-semibold">
+                            {q.catch_up_required ? "Catch-up work — not yet prepared by TaxSimba" : "Onboarding answer to review"}
+                          </p>
+                        )}
+                        {q.answer && (
+                          <p className="text-xs text-[#626A65] mt-1">
+                            Client said: {said[q.answer.status]}
+                            {q.answer.previous_provider ? ` · ${q.answer.previous_provider}` : ""}
+                            {q.answer.submission_date ? ` · ${d(q.answer.submission_date)}` : ""}
+                            {q.answer.submission_reference ? ` · ref ${q.answer.submission_reference}` : ""}
+                            {q.answer.income != null ? ` · income ${money(q.answer.income)}` : ""}
+                            {q.answer.expenses != null ? ` · expenses ${money(q.answer.expenses)}` : ""}
+                            {" · "}{q.answer.staff_review_status === "PENDING_REVIEW" ? "unverified, needs staff review" : `${q.answer.staff_outcome || "reviewed"} by ${q.answer.reviewed_by_name}`}
+                          </p>
+                        )}
+                        {q.answer?.note && <p className="text-xs text-[#626A65] mt-1">Client note: {q.answer.note}</p>}
+                      </div>
+                    );
+                  })()}
                   <p className="text-xs text-[#626A65] mt-3">Next: {p.next_action} ({p.next_action_owner})</p>
                   {p.changes_reason && <p className="text-xs text-[#D64545] mt-1">Changes requested: {p.changes_reason}</p>}
                   {p.submission_reference && <p className="text-xs text-[#006B3C] mt-1">Submitted {d(p.submission_date)} · ref {p.submission_reference} · by {p.submitted_by_name}</p>}
@@ -485,6 +525,45 @@ export default function CaseWorkspace() {
                           const reason = window.prompt("Reason for reopening this approved quarter for correction");
                           if (reason && reason.trim()) act(() => api.post(`/mtd/periods/${p.id}/reopen`, { reason }));
                         }}>Reopen for correction</button>
+                    )}
+                    {isAdmin && p.kind === "QUARTER" && p.status !== "SUBMITTED"
+                      && (onboarding?.quarters || []).some((x) => x.period_id === p.id && x.catch_up_required) && (
+                      <button data-testid={`mtd-catchup-charge-${p.id}`} className="text-xs font-semibold text-[#006B3C]"
+                        onClick={() => {
+                          setForm({
+                            description: `Historical ${p.label} catch-up preparation`,
+                            amount: "",
+                            mtd_period_id: p.id,
+                          });
+                          setModal("addpay");
+                        }}>Raise catch-up charge</button>
+                    )}
+                    {isAdmin && p.kind === "QUARTER" && p.status !== "SUBMITTED" && (
+                      <button data-testid={`mtd-prior-btn-${p.id}`} className="text-xs font-semibold text-[#626A65]"
+                        onClick={() => {
+                          const q = (onboarding?.quarters || []).find((x) => x.period_id === p.id);
+                          setForm({
+                            period: p,
+                            previous_provider: q?.answer?.previous_provider || "",
+                            submission_date: q?.answer?.submission_date || "",
+                            submission_reference: q?.answer?.submission_reference || "",
+                            income: q?.answer?.income ?? "",
+                            expenses: q?.answer?.expenses ?? "",
+                            note: "",
+                          });
+                          setModal("mtdprior");
+                        }}>Record previous submission</button>
+                    )}
+                    {p.kind === "QUARTER" && p.status !== "SUBMITTED"
+                      && (onboarding?.quarters || []).some((x) => x.period_id === p.id && x.answer
+                        && x.answer.staff_review_status === "PENDING_REVIEW") && (
+                      <button data-testid={`mtd-catchup-btn-${p.id}`} className="text-xs font-semibold text-[#006B3C]"
+                        onClick={() => {
+                          const q = (onboarding?.quarters || []).find((x) => x.period_id === p.id);
+                          act(() => api.post(`/mtd/cases/${id}/onboarding/quarters/${q.quarter}/review`, {
+                            outcome: "TAXSIMBA_CATCH_UP",
+                          }));
+                        }}>Confirm TaxSimba catch-up work</button>
                     )}
                     {isAdmin && p.status === "APPROVED" && (
                       <button data-testid={`mtd-submit-btn-${p.id}`} className="text-xs font-semibold text-[#006B3C]"
@@ -631,6 +710,13 @@ export default function CaseWorkspace() {
                     value={form.amount || ""} onChange={(e) => setForm({ ...form, amount: e.target.value })} />
                   <input data-testid="addpay-due-date" type="date" className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
                     value={form.due_date || ""} onChange={(e) => setForm({ ...form, due_date: e.target.value })} />
+                  {cs.service_type === "MTD_INCOME_TAX" && (
+                    <select data-testid="addpay-mtd-period" className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                      value={form.mtd_period_id || ""} onChange={(e) => setForm({ ...form, mtd_period_id: e.target.value })}>
+                      <option value="">Not linked to a quarter</option>
+                      {mtdPeriods.map((p) => <option key={p.id} value={p.id}>{p.label}</option>)}
+                    </select>
+                  )}
                   <textarea data-testid="addpay-note" rows={2} placeholder="Internal note (optional, not shown to the client)"
                     className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
                     value={form.internal_note || ""} onChange={(e) => setForm({ ...form, internal_note: e.target.value })} />
@@ -642,6 +728,7 @@ export default function CaseWorkspace() {
                         case_id: id, description: form.description, amount: Number(form.amount),
                         due_date: form.due_date || null, internal_note: form.internal_note || null,
                         recommendation_id: form.recommendation_id || null,
+                        mtd_period_id: form.mtd_period_id || null,
                       }));
                     }}>Send payment request</button>
                   {err && <p className="text-sm text-[#D64545]">{err}</p>}
@@ -765,6 +852,49 @@ export default function CaseWorkspace() {
                       provider: form.provider || null,
                       outcome: form.outcome || null,
                     }))}>Record submission</button>
+                  {err && <p className="text-sm text-[#D64545]">{err}</p>}
+                </div>
+              </>
+            )}
+            {modal === "mtdprior" && (
+              <>
+                <h3 className="text-lg font-semibold mb-2">Record previous submission</h3>
+                <p className="text-xs text-[#626A65] mb-5">
+                  {form.period?.label} · filed before the client joined TaxSimba. Only record this
+                  once you have checked the evidence — the quarter is then locked, stays out of the
+                  TaxSimba preparation workflow and is not charged as catch-up work.
+                </p>
+                <div className="space-y-4">
+                  <input data-testid="mtd-prior-provider" placeholder="Previous accountant / software"
+                    className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    value={form.previous_provider || ""} onChange={(e) => setForm({ ...form, previous_provider: e.target.value })} />
+                  <input data-testid="mtd-prior-date" type="date"
+                    className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    value={form.submission_date || ""} onChange={(e) => setForm({ ...form, submission_date: e.target.value })} />
+                  <input data-testid="mtd-prior-ref" placeholder="External submission / reference number (optional)"
+                    className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    value={form.submission_reference || ""} onChange={(e) => setForm({ ...form, submission_reference: e.target.value })} />
+                  <div className="grid grid-cols-2 gap-3">
+                    <input data-testid="mtd-prior-income" type="number" step="0.01" placeholder="Historical income (optional)"
+                      className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                      value={form.income ?? ""} onChange={(e) => setForm({ ...form, income: e.target.value })} />
+                    <input data-testid="mtd-prior-expenses" type="number" step="0.01" placeholder="Historical expenses (optional)"
+                      className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                      value={form.expenses ?? ""} onChange={(e) => setForm({ ...form, expenses: e.target.value })} />
+                  </div>
+                  <textarea data-testid="mtd-prior-note" rows={2} placeholder="Internal note (optional)"
+                    className="w-full rounded-lg border border-[#E3E7E4] px-3 py-2.5 text-sm"
+                    value={form.note || ""} onChange={(e) => setForm({ ...form, note: e.target.value })} />
+                  <button data-testid="mtd-prior-save" disabled={!form.previous_provider || !form.submission_date}
+                    className={`${primary} w-full disabled:opacity-50`}
+                    onClick={() => act(() => api.post(`/mtd/periods/${form.period.id}/record-prior-submission`, {
+                      previous_provider: form.previous_provider,
+                      submission_date: form.submission_date,
+                      submission_reference: form.submission_reference || null,
+                      income: form.income === "" || form.income == null ? null : Number(form.income),
+                      expenses: form.expenses === "" || form.expenses == null ? null : Number(form.expenses),
+                      note: form.note || null,
+                    }))}>Record as submitted before joining TaxSimba</button>
                   {err && <p className="text-sm text-[#D64545]">{err}</p>}
                 </div>
               </>
