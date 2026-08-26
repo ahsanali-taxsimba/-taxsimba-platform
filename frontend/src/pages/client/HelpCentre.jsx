@@ -4,6 +4,7 @@ import { ChevronDown, MessageSquare, Mail, Route, Search } from "lucide-react";
 import AppShell from "@/components/AppShell";
 import { Empty, Panel } from "@/components/StatCard";
 import { api } from "@/lib/api";
+import { useContent } from "@/lib/content";
 
 const QUICK = [
   ["Message my accountant", "/messages", MessageSquare],
@@ -11,6 +12,7 @@ const QUICK = [
 ];
 
 export default function HelpCentre() {
+  const t = useContent();
   const [faqs, setFaqs] = useState([]);
   const [cats, setCats] = useState([]);
   const [q, setQ] = useState("");
@@ -36,7 +38,7 @@ export default function HelpCentre() {
   }, [faqs, q, cat]);
 
   return (
-    <AppShell title="Help Centre" subtitle="How can we help?">
+    <AppShell title={t("client.help.title", "Help Centre")} subtitle={t("client.help.subtitle", "How can we help?")}>
       <div className="space-y-6">
         <Panel testId="help-search-panel">
           <label className="relative block">

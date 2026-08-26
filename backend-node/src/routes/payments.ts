@@ -119,7 +119,7 @@ paymentsRouter.get(
     res.json(
       rows.map((p) => ({
         ...p,
-        description: content[`package.${String(p.code)}.description`] ?? null,
+        description: content[`package.${String(p.code)}.description`] || null,
         features: (content[`package.${String(p.code)}.features`] ?? "")
           .split("\n")
           .filter((line) => line.trim()),

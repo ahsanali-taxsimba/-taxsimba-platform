@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import AppShell from "@/components/AppShell";
 import { Empty, Panel } from "@/components/StatCard";
 import { api, apiError, d, dt, money, openDocument } from "@/lib/api";
+import { useContent } from "@/lib/content";
 
 const TONE = {
   "Getting started": "bg-[#F1F8F4] text-[#626A65]",
@@ -25,12 +26,12 @@ const NEXT_STEPS = [
 ];
 
 function ServiceIntro() {
+  const t = useContent();
   return (
     <div className="rounded-2xl border border-[#E3E7E4] bg-white p-5 sm:p-6" data-testid="mtd-intro-panel">
-      <h2 className="text-base md:text-lg font-semibold">Your Making Tax Digital service</h2>
+      <h2 className="text-base md:text-lg font-semibold">{t("client.mtd.intro.heading", "Your Making Tax Digital service")}</h2>
       <p className="text-sm text-[#626A65] mt-2 max-w-2xl leading-relaxed">
-        We'll manage your quarterly MTD updates throughout the year. Your accountant will let you
-        know whenever information or documents are required.
+        {t("client.mtd.intro.body", "We'll manage your quarterly MTD updates throughout the year. Your accountant will let you know whenever information or documents are required.")}
       </p>
       <p className="text-[11px] uppercase tracking-wide text-[#626A65] mt-6">What happens next</p>
       <ol className="mt-2 space-y-1.5" data-testid="mtd-next-steps">
@@ -42,8 +43,7 @@ function ServiceIntro() {
         ))}
       </ol>
       <p className="mt-5 text-sm text-[#006B3C] bg-[#F1F8F4] rounded-xl p-4" data-testid="mtd-reassurance">
-        Your Making Tax Digital reporting starts from 6 April 2026. Your accountant will manage
-        your quarterly updates for you.
+        {t("client.mtd.intro.reassurance", "Your Making Tax Digital reporting starts from 6 April 2026. Your accountant will manage your quarterly updates for you.")}
       </p>
     </div>
   );
@@ -265,6 +265,7 @@ function YearSummary({ summary }) {
 }
 
 export default function MtdQuarters() {
+  const t = useContent();
   const [cases, setCases] = useState([]);
   const [periods, setPeriods] = useState({});
   const [finals, setFinals] = useState({});
@@ -295,7 +296,7 @@ export default function MtdQuarters() {
   };
 
   return (
-    <AppShell title="MTD for Income Tax" subtitle="Your quarterly updates and Final Declaration.">
+    <AppShell title={t("client.mtd.title", "MTD for Income Tax")} subtitle={t("client.mtd.subtitle", "Your quarterly updates and Final Declaration.")}>
       <div className="space-y-8">
         {err && <p data-testid="mtd-error" className="text-sm text-[#D64545] font-semibold">{err}</p>}
         {!cases.length && (

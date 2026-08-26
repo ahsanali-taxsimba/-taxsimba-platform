@@ -4,6 +4,7 @@ import { Journey } from "@/components/Journey";
 import { Empty, Panel } from "@/components/StatCard";
 import { DocStatusBadge } from "@/components/StatusBadge";
 import { api, d, dt, openDocument } from "@/lib/api";
+import { useContent } from "@/lib/content";
 
 export function ClientJourneyPage() {
   const [cs, setCs] = useState(null);
@@ -108,6 +109,7 @@ export function ClientTasks() {
 }
 
 export function ClientDocuments() {
+  const t = useContent();
   const [docs, setDocs] = useState([]);
   const [filter, setFilter] = useState("all");
   const [cs, setCs] = useState(null);
@@ -145,7 +147,7 @@ export function ClientDocuments() {
   };
 
   return (
-    <AppShell title="Documents" subtitle="Requested items, your uploads and final documents.">
+    <AppShell title={t("client.documents.title", "Documents")} subtitle={t("client.documents.subtitle", "Requested items, your uploads and final documents.")}>
       <Panel
         title="Documents"
         testId="client-documents-panel"
@@ -170,7 +172,7 @@ export function ClientDocuments() {
             </button>
           ))}
         </div>
-        {!docs.length && <Empty text="Nothing here yet." />}
+        {!docs.length && <Empty text={t("client.documents.empty", "Nothing here yet.")} />}
 
         {/* Mobile: readable cards instead of four cramped columns */}
         <ul className="md:hidden space-y-3" data-testid="documents-cards">

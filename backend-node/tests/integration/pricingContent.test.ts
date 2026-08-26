@@ -215,13 +215,15 @@ describe("scheduled pricing and configurable content", () => {
     const res = await request(app).get("/api/content").set(bearer(client)).expect(200);
     for (const [key, def] of Object.entries(CONTENT_DEFAULTS)) {
       expect(res.body[key]).toBe(def.value);
-      expect(String(res.body[key]).trim()).not.toBe("");
+      // Screen wording always has a default; package marketing copy is opt-in and starts empty
+      // so that adopting the keys cannot add text to the current UI.
+      if (!key.startsWith("package.")) expect(String(res.body[key]).trim()).not.toBe("");
     }
-    expect(res.body["package.SIMPLE.features"].split("\n").length).toBeGreaterThan(1);
+    expect(res.body["package.SIMPLE.features"]).toBe("");
   });
 
   it("lets only a super admin edit wording, and audits every change", async () => {
-    const key = "client.dashboard.intro";
+    const key = "client.dashboard.up_to_date.body";
     const { CONTENT_DEFAULTS } = await import("../../src/domain/content");
 
     await request(app).put(`/api/content/${key}`).set(bearer(admin)).send({ value: "x" }).expect(403);
@@ -284,9 +286,10 @@ describe("scheduled pricing and configurable content", () => {
       .expect(200);
     const simple = rich.body.find((p: { code: string }) => p.code === "SIMPLE");
     expect(simple.features).toEqual(["Prepared by an accountant", "Secure upload"]);
-    expect(String(simple.description).length).toBeGreaterThan(10);
+    // Unconfigured marketing copy stays absent rather than introducing new text.
     const elite = rich.body.find((p: { code: string }) => p.code === "ELITE");
-    expect(elite.features.length).toBeGreaterThan(0);
+    expect(elite.description).toBeNull();
+    expect(elite.features).toEqual([]);
   });
 
   it("refuses unknown keys, technical strings, empty values and markup", async () => {
@@ -298,17 +301,17 @@ describe("scheduled pricing and configurable content", () => {
         .expect(404);
     }
     await request(app)
-      .put("/api/content/support.contact")
+      .put("/api/content/client.help.subtitle")
       .set(bearer(superAdmin))
       .send({ value: "   " })
       .expect(400);
     await request(app)
-      .put("/api/content/support.contact")
+      .put("/api/content/client.help.subtitle")
       .set(bearer(superAdmin))
       .send({ value: "<script>alert(1)</script>" })
       .expect(400);
     await request(app)
-      .put("/api/content/support.contact")
+      .put("/api/content/client.help.subtitle")
       .set(bearer(superAdmin))
       .send({ value: "a".repeat(4001) })
       .expect(400);
@@ -317,10 +320,11 @@ describe("scheduled pricing and configurable content", () => {
   it("never returns a blank value even if a stored override is emptied directly", async () => {
     const { col } = await import("../../src/db/mongo");
     const { CONTENT_DEFAULTS, contentValue } = await import("../../src/domain/content");
-    await col("content_strings").insertOne({ key: "documents.empty", value: "" });
-    expect(await contentValue("documents.empty")).toBe(CONTENT_DEFAULTS["documents.empty"].value);
+    const key = "client.documents.empty";
+    await col("content_strings").insertOne({ key, value: "" });
+    expect(await contentValue(key)).toBe(CONTENT_DEFAULTS[key].value);
     const res = await request(app).get("/api/content").set(bearer(admin)).expect(200);
-    expect(res.body["documents.empty"]).toBe(CONTENT_DEFAULTS["documents.empty"].value);
-    await col("content_strings").deleteOne({ key: "documents.empty" });
+    expect(res.body[key]).toBe(CONTENT_DEFAULTS[key].value);
+    await col("content_strings").deleteOne({ key });
   });
 });

@@ -25,10 +25,11 @@ export interface ContentDefault {
 export const CONTENT_GROUPS = [
   "Packages",
   "Client dashboard",
+  "Action Required",
   "Documents",
-  "Calculation & approval",
+  "Self Assessment",
   "MTD",
-  "Payments",
+  "Payments & services",
   "Support",
 ] as const;
 
@@ -38,191 +39,184 @@ export const CONTENT_GROUPS = [
  */
 export const CONTENT_DEFAULTS: Record<string, ContentDefault> = {
   // ---------------------------------------------------------------- packages
-  "package.SIMPLE.description": {
-    group: "Packages",
-    label: "Simple — description",
-    value:
-      "A straightforward Self Assessment for employed and simple self-employed income, prepared and checked by a qualified accountant.",
-  },
-  "package.SIMPLE.features": {
-    group: "Packages",
-    label: "Simple — features",
-    list: true,
-    value: [
-      "Self Assessment prepared by an accountant",
-      "Secure document upload",
-      "Review and approval before submission",
-      "Email and in-app updates",
-    ].join("\n"),
-  },
-  "package.SMART.description": {
-    group: "Packages",
-    label: "Smart — description",
-    value:
-      "For clients with several income sources who want their allowances and expenses reviewed in detail before filing.",
-  },
-  "package.SMART.features": {
-    group: "Packages",
-    label: "Smart — features",
-    list: true,
-    value: [
-      "Everything in Simple",
-      "Multiple income sources reviewed",
-      "Expenses and allowances check",
-      "Priority accountant messaging",
-    ].join("\n"),
-  },
-  "package.ELITE.description": {
-    group: "Packages",
-    label: "Elite — description",
-    value:
-      "Our most thorough Self Assessment service, including planning conversations and a full review of your position for the year.",
-  },
-  "package.ELITE.features": {
-    group: "Packages",
-    label: "Elite — features",
-    list: true,
-    value: [
-      "Everything in Smart",
-      "Full review of your tax position",
-      "Tax planning conversation",
-      "Priority turnaround",
-    ].join("\n"),
-  },
+  // Package marketing copy does not exist in the current UI. The defaults are therefore empty:
+  // nothing is rendered until a Super Admin writes copy, so adopting these keys cannot change
+  // the current screens.
+  "package.SIMPLE.description": { group: "Packages", label: "Simple \u2014 description", value: "" },
+  "package.SIMPLE.features": { group: "Packages", label: "Simple \u2014 features", list: true, value: "" },
+  "package.SMART.description": { group: "Packages", label: "Smart \u2014 description", value: "" },
+  "package.SMART.features": { group: "Packages", label: "Smart \u2014 features", list: true, value: "" },
+  "package.ELITE.description": { group: "Packages", label: "Elite \u2014 description", value: "" },
+  "package.ELITE.features": { group: "Packages", label: "Elite \u2014 features", list: true, value: "" },
   "package.MTD_ESSENTIAL.description": {
     group: "Packages",
-    label: "MTD Essential — description",
-    value:
-      "Quarterly Making Tax Digital for Income Tax support, covering your four quarterly updates and your Final Declaration.",
+    label: "MTD Essential \u2014 description",
+    value: "",
   },
   "package.MTD_ESSENTIAL.features": {
     group: "Packages",
-    label: "MTD Essential — features",
+    label: "MTD Essential \u2014 features",
     list: true,
-    value: [
-      "Four quarterly updates prepared",
-      "Final Declaration prepared",
-      "Deadline reminders",
-      "Secure document upload",
-    ].join("\n"),
+    value: "",
   },
-  "package.MTD_PLUS.description": {
-    group: "Packages",
-    label: "MTD Plus — description",
-    value:
-      "Making Tax Digital support with a closer review of each quarter and ongoing help with your record keeping.",
-  },
+  "package.MTD_PLUS.description": { group: "Packages", label: "MTD Plus \u2014 description", value: "" },
   "package.MTD_PLUS.features": {
     group: "Packages",
-    label: "MTD Plus — features",
+    label: "MTD Plus \u2014 features",
     list: true,
-    value: [
-      "Everything in MTD Essential",
-      "Detailed quarterly review",
-      "Bookkeeping guidance",
-      "Priority accountant messaging",
-    ].join("\n"),
+    value: "",
   },
   // -------------------------------------------------------- client dashboard
-  "client.dashboard.heading": {
+  "client.dashboard.mtd_card.heading": {
     group: "Client dashboard",
-    label: "Dashboard heading",
-    value: "Your tax overview",
-  },
-  "client.dashboard.intro": {
-    group: "Client dashboard",
-    label: "Dashboard introduction",
-    value:
-      "Everything your accountant needs from you appears here. We will tell you the moment something needs your attention.",
-  },
-  "client.actions.heading": {
-    group: "Client dashboard",
-    label: "Action Required heading",
-    value: "Action required",
-  },
-  "client.actions.empty": {
-    group: "Client dashboard",
-    label: "Action Required — nothing outstanding",
-    value: "Nothing needs your attention right now. We will let you know when it does.",
-  },
-  "client.actions.helper": {
-    group: "Client dashboard",
-    label: "Action Required helper text",
-    value: "Complete these items so your accountant can carry on with your return.",
-  },
-  // ---------------------------------------------------------------- documents
-  "documents.upload.heading": {
-    group: "Documents",
-    label: "Upload heading",
-    value: "Upload a document",
-  },
-  "documents.upload.helper": {
-    group: "Documents",
-    label: "Upload helper text",
-    value:
-      "Photos and scans are fine as long as the whole page is readable. Uploading against a request marks it as done automatically.",
-  },
-  "documents.empty": {
-    group: "Documents",
-    label: "No documents yet",
-    value: "You have not uploaded any documents yet.",
-  },
-  // ----------------------------------------------------- calculation/approval
-  "calculation.ready.heading": {
-    group: "Calculation & approval",
-    label: "Calculation ready heading",
-    value: "Your calculation is ready to review",
-  },
-  "calculation.ready.helper": {
-    group: "Calculation & approval",
-    label: "Calculation ready helper text",
-    value:
-      "Please read the figures carefully. Once you approve them, your accountant will file on your behalf.",
-  },
-  "approval.confirmation": {
-    group: "Calculation & approval",
-    label: "Approval confirmation wording",
-    value: "Thank you — your approval has been recorded and your accountant has been notified.",
-  },
-  // --------------------------------------------------------------------- MTD
-  "mtd.overview.heading": {
-    group: "MTD",
-    label: "MTD overview heading",
+    label: "MTD card heading",
     value: "Making Tax Digital for Income Tax",
   },
-  "mtd.overview.intro": {
-    group: "MTD",
-    label: "MTD overview introduction",
+  "client.dashboard.mtd_card.body": {
+    group: "Client dashboard",
+    label: "MTD card text",
     value:
-      "You have four quarterly updates and a Final Declaration each year. We will prepare each one and ask you to approve it before anything is filed.",
+      "Your MTD service is active. Your quarterly updates and Final Declaration are in your MTD area.",
   },
-  "mtd.quarter.helper": {
+  "client.dashboard.ready.heading": {
+    group: "Client dashboard",
+    label: "Ready to review heading",
+    value: "Your tax return is ready to review",
+  },
+  "client.dashboard.ready.body": {
+    group: "Client dashboard",
+    label: "Ready to review text",
+    value:
+      "Your accountant has prepared your return and it has been approved by our internal review team. Please review it and approve when you're happy.",
+  },
+  "client.dashboard.submitted.heading": {
+    group: "Client dashboard",
+    label: "Submitted heading",
+    value: "Your return has been submitted to HMRC",
+  },
+  "client.dashboard.submitted.body": {
+    group: "Client dashboard",
+    label: "Submitted text",
+    value:
+      "We've submitted your tax return and you'll find your submission reference and final documents on My Tax Return. There's nothing more for you to do.",
+  },
+  "client.dashboard.action_required.heading": {
+    group: "Client dashboard",
+    label: "Action required heading",
+    value: "Action required",
+  },
+  "client.dashboard.action_required.body": {
+    group: "Client dashboard",
+    label: "Action required text",
+    value:
+      "We still need some information from you. Your accountant needs the following items before they can continue preparing your tax return.",
+  },
+  "client.dashboard.up_to_date.heading": {
+    group: "Client dashboard",
+    label: "Up to date heading",
+    value: "You're all up to date",
+  },
+  "client.dashboard.up_to_date.body": {
+    group: "Client dashboard",
+    label: "Up to date text",
+    value:
+      "We have everything we need for now. Your accountant is reviewing your information and documents. We'll let you know if anything else is required.",
+  },
+  "client.dashboard.up_to_date.note": {
+    group: "Client dashboard",
+    label: "Up to date note",
+    value: "No action required from you right now.",
+  },
+  // ---------------------------------------------------------- action required
+  "client.actions.title": {
+    group: "Action Required",
+    label: "Page title",
+    value: "Action Required",
+  },
+  "client.actions.subtitle": {
+    group: "Action Required",
+    label: "Page subtitle",
+    value: "Everything waiting on you, across all your services.",
+  },
+  "client.actions.empty": {
+    group: "Action Required",
+    label: "Nothing outstanding",
+    value: "Nothing needs your attention right now.",
+  },
+  // ---------------------------------------------------------------- documents
+  "client.documents.title": { group: "Documents", label: "Page title", value: "Documents" },
+  "client.documents.subtitle": {
+    group: "Documents",
+    label: "Page subtitle",
+    value: "Requested items, your uploads and final documents.",
+  },
+  "client.documents.empty": {
+    group: "Documents",
+    label: "No documents yet",
+    value: "Nothing here yet.",
+  },
+  // ------------------------------------------------- Self Assessment / approval
+  "client.return.status.helper": {
+    group: "Self Assessment",
+    label: "Status helper text",
+    value:
+      "You review and approve your return. Your accountant then files it with HMRC and records the outcome here.",
+  },
+  "client.return.not_ready": {
+    group: "Self Assessment",
+    label: "Calculation not ready text",
+    value:
+      "Your tax return isn't ready to review yet. Once your accountant has prepared it and our internal review team has approved it, you'll be able to review and approve it here.",
+  },
+  "client.return.approve.helper": {
+    group: "Self Assessment",
+    label: "Approval helper text",
+    value:
+      "By approving, you confirm the information is complete and correct to the best of your knowledge.",
+  },
+  // --------------------------------------------------------------------- MTD
+  "client.mtd.title": { group: "MTD", label: "Page title", value: "MTD for Income Tax" },
+  "client.mtd.subtitle": {
     group: "MTD",
-    label: "Quarter helper text",
-    value: "Send us your figures and records for the quarter and we will do the rest.",
+    label: "Page subtitle",
+    value: "Your quarterly updates and Final Declaration.",
   },
-  // ---------------------------------------------------------------- payments
-  "payments.additional_work.helper": {
-    group: "Payments",
+  "client.mtd.intro.heading": {
+    group: "MTD",
+    label: "Service introduction heading",
+    value: "Your Making Tax Digital service",
+  },
+  "client.mtd.intro.body": {
+    group: "MTD",
+    label: "Service introduction text",
+    value:
+      "We'll manage your quarterly MTD updates throughout the year. Your accountant will let you know whenever information or documents are required.",
+  },
+  "client.mtd.intro.reassurance": {
+    group: "MTD",
+    label: "Service introduction reassurance",
+    value:
+      "Your Making Tax Digital reporting starts from 6 April 2026. Your accountant will manage your quarterly updates for you.",
+  },
+  // ------------------------------------------------------- payments & services
+  "client.services.additional_work.helper": {
+    group: "Payments & services",
     label: "Additional work helper text",
     value:
-      "Additional work is anything outside your package. Your accountant will always explain it and agree the amount with you before it is charged.",
+      "Additional work has been identified outside your current package. Please review the details below.",
   },
-  "payments.receipt.footer": {
-    group: "Payments",
-    label: "Receipt footer note",
-    value: "Thank you for your payment. Please keep this receipt for your records.",
+  "client.services.offer.default_message": {
+    group: "Payments & services",
+    label: "Recommendation default message",
+    value:
+      "Your accountant believes this service is right for you. Our team has reviewed and approved this recommendation.",
   },
   // ----------------------------------------------------------------- support
-  "support.contact": {
+  "client.help.title": { group: "Support", label: "Help Centre title", value: "Help Centre" },
+  "client.help.subtitle": {
     group: "Support",
-    label: "Support contact line",
-    value: "Need help? Message your accountant in the app and we will come straight back to you.",
-  },
-  "support.response_time": {
-    group: "Support",
-    label: "Expected response time",
-    value: "We usually reply the same working day.",
+    label: "Help Centre subtitle",
+    value: "How can we help?",
   },
 };
 
