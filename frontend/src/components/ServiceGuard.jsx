@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { api } from "@/lib/api";
+import { loadEntitlements, serviceAllowed } from "@/lib/services";
 
 // Client routes are only reachable when the matching service is ACTIVE on the client's record.
 export function ServiceGuard({ serviceType, children }) {
   const [state, setState] = useState("loading");
 
   useEffect(() => {
-    api.get("/my-services")
-      .then(({ data }) => setState((data.services || []).some(
-        (s) => s.service_type === serviceType && s.status === "ACTIVE") ? "allowed" : "blocked"))
-      .catch(() => setState("allowed"));
+    let live = true;
+    loadEntitlements().then((entitlements) => {
+      if (!live) return;
+      setState(serviceAllowed(entitlements, serviceType) ? "allowed" : "blocked");
+    });
+    return () => {
+      live = false;
+    };
   }, [serviceType]);
 
   if (state === "loading") {

@@ -4,18 +4,21 @@ import AppShell from "@/components/AppShell";
 import { Empty, Panel } from "@/components/StatCard";
 import { clientStatusLabel } from "@/components/StatusBadge";
 import { api, apiError, d, money } from "@/lib/api";
+import { useContent } from "@/lib/content";
+import { sharedServiceParams, useEntitlements } from "@/lib/services";
 
 export function ActionRequired() {
+  const t = useContent();
   const [data, setData] = useState({ outstanding: [], history: [] });
   const [shown, setShown] = useState(10);
   const load = () => api.get("/my-actions").then(({ data }) => setData(data));
   useEffect(() => { load(); }, []);
 
   return (
-    <AppShell title="Action Required" subtitle="Everything waiting on you, across all your services.">
+    <AppShell title={t("client.actions.title", "Action Required")} subtitle={t("client.actions.subtitle", "Everything waiting on you, across all your services.")}>
       <div className="space-y-6">
         <Panel title="Outstanding" testId="actions-outstanding-panel">
-          {!data.outstanding.length && <Empty text="Nothing needs your attention right now." />}
+          {!data.outstanding.length && <Empty text={t("client.actions.empty", "Nothing needs your attention right now.")} />}
           <ul className="space-y-3">
             {data.outstanding.map((a) => (
               <li key={a.id} data-testid={`action-${a.id}`} className="border border-[#E3E7E4] rounded-lg p-5 flex flex-wrap items-center justify-between gap-4">
@@ -65,6 +68,7 @@ export function RecommendationReview() {
   const [question, setQuestion] = useState("");
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
+  const entitlements = useEntitlements();
 
   useEffect(() => {
     api.get(`/my-offers/${offerId}`).then(({ data }) => setOffer(data)).catch(() => setErr("This recommendation is no longer available."));
@@ -79,7 +83,7 @@ export function RecommendationReview() {
   };
 
   const ask = async () => {
-    const { data: cases } = await api.get("/cases", { params: { service_type: "SELF_ASSESSMENT" } });
+    const { data: cases } = await api.get("/cases", { params: sharedServiceParams(entitlements) });
     if (!cases.length) return;
     await api.post("/messages", { case_id: cases[0].id, body: `Question about the ${offer.service_name} recommendation: ${question}` });
     setQuestion(""); setSent(true);

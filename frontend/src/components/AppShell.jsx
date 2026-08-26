@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { api, dt } from "@/lib/api";
+import { useEntitlements } from "@/lib/services";
 
 const CLIENT_NAV = [
   ["Dashboard", "/dashboard", LayoutDashboard],
@@ -48,20 +49,12 @@ export default function AppShell({ children, title, subtitle }) {
   const [notes, setNotes] = useState([]);
   const [openNotes, setOpenNotes] = useState(false);
   const [openNav, setOpenNav] = useState(false);
-  const [mtdActive, setMtdActive] = useState(false);
-  const [saActive, setSaActive] = useState(true);
-
-  useEffect(() => {
-    if (user?.role !== "CLIENT") return;
-    api.get("/my-services")
-      .then(({ data }) => {
-        const svcs = data.services || [];
-        const active = (t) => svcs.some((s) => s.service_type === t && s.status === "ACTIVE");
-        setMtdActive(active("MTD_INCOME_TAX"));
-        setSaActive(active("SELF_ASSESSMENT"));
-      })
-      .catch(() => {});
-  }, [user]);
+  const isClient = user?.role === "CLIENT";
+  const entitlements = useEntitlements(isClient);
+  const mtdActive = isClient && entitlements.mtd;
+  // Self Assessment screens stay visible until the entitlements are known, so the navigation
+  // never flickers for the client who does have the service.
+  const saActive = !isClient || !entitlements.loaded || entitlements.sa;
 
   const load = () => api.get("/notifications").then(({ data }) => setNotes(data)).catch(() => {});
   useEffect(() => {
@@ -74,10 +67,12 @@ export default function AppShell({ children, title, subtitle }) {
   if (user?.role === "ACCOUNTANT") items = ACCOUNTANT_NAV;
   if (user?.role === "ADMIN") items = ADMIN_NAV;
   if (user?.role === "SUPER_ADMIN") items = [...ADMIN_NAV, ...SUPER_NAV];
-  if (user?.role === "CLIENT" && mtdActive) {
+  if (isClient && mtdActive) {
     items = [...CLIENT_NAV.slice(0, 2), ["MTD for Income Tax", "/mtd", Layers], ...CLIENT_NAV.slice(2)];
-    // MTD-only client: hide Self Assessment-specific screens they have no active service for.
-    if (!saActive) items = items.filter(([, path]) => !["/my-return", "/journey"].includes(path));
+  }
+  // A client only ever navigates to the services they are entitled to.
+  if (isClient && !saActive) {
+    items = items.filter(([, path]) => !["/my-return", "/journey"].includes(path));
   }
 
   const unread = notes.filter((n) => !n.is_read).length;

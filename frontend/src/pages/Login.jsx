@@ -94,13 +94,16 @@ export default function Login() {
           </button>
         </form>
         )}
-        <div className="mt-6 bg-white border border-[#E3E7E4] rounded-xl p-5 text-xs text-[#626A65] space-y-1">
-          <div className="font-semibold text-[#161B18] mb-1">Demo accounts</div>
-          <div>Client: clienta@example.com / Client@123</div>
-          <div>Accountant: accountant.a@taxsimba.co.uk / Account@123</div>
-          <div>Admin: admin@taxsimba.co.uk / Admin@123</div>
-          <div>Super Admin: superadmin@taxsimba.co.uk / Super@123</div>
-        </div>
+        {/* Seeded demo sign-ins, shown only where the demo data is actually seeded. */}
+        {process.env.REACT_APP_SHOW_DEMO_ACCOUNTS === "true" && (
+          <div className="mt-6 bg-white border border-[#E3E7E4] rounded-xl p-5 text-xs text-[#626A65] space-y-1">
+            <div className="font-semibold text-[#161B18] mb-1">Demo accounts</div>
+            <div>Client: clienta@example.com / Client@123</div>
+            <div>Accountant: accountant.a@taxsimba.co.uk / Account@123</div>
+            <div>Admin: admin@taxsimba.co.uk / Admin@123</div>
+            <div>Super Admin: superadmin@taxsimba.co.uk / Super@123</div>
+          </div>
+        )}
       </div>
     </div>
   );

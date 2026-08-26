@@ -3,8 +3,10 @@ import AppShell from "@/components/AppShell";
 import { Empty, Panel } from "@/components/StatCard";
 import { StatusBadge } from "@/components/StatusBadge";
 import { api, d, money, openDocument } from "@/lib/api";
+import { useContent } from "@/lib/content";
 
 export default function MyTaxReturn() {
+  const t = useContent();
   const [cs, setCs] = useState(null);
   const [calc, setCalc] = useState(null);
   const [docs, setDocs] = useState([]);
@@ -63,16 +65,14 @@ export default function MyTaxReturn() {
             </p>
           )}
           <p className="text-xs text-[#626A65] mt-4">
-            You review and approve your return. Your accountant then files it with HMRC and records the
-            outcome here.
+            {t("client.return.status.helper", "You review and approve your return. Your accountant then files it with HMRC and records the outcome here.")}
           </p>
         </Panel>
 
         {!calc && (
           <Panel testId="no-calc-panel">
             <p className="text-sm text-[#626A65]">
-              Your tax return isn't ready to review yet. Once your accountant has prepared it and our internal
-              review team has approved it, you'll be able to review and approve it here.
+              {t("client.return.not_ready", "Your tax return isn't ready to review yet. Once your accountant has prepared it and our internal review team has approved it, you'll be able to review and approve it here.")}
             </p>
           </Panel>
         )}
@@ -178,7 +178,7 @@ export default function MyTaxReturn() {
               {["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"].includes(cs.status) ? (
                 <>
                   <p className="text-sm text-[#626A65] mb-5">
-                    By approving, you confirm the information is complete and correct to the best of your knowledge.
+                    {t("client.return.approve.helper", "By approving, you confirm the information is complete and correct to the best of your knowledge.")}
                   </p>
                   <div className="flex flex-col sm:flex-row gap-3">
                     <button data-testid="client-approve-btn" onClick={approve}
