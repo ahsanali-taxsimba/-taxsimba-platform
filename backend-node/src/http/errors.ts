@@ -36,6 +36,19 @@ function pydanticIssue(issue: ZodIssue): { type: string; msg: string } {
   return { type: issue.code, msg: issue.message };
 }
 
+/** Pydantic reports the offending value, which for a field error is the value at its path. */
+function inputAt(body: unknown, path: (string | number)[]): unknown {
+  let cursor: unknown = body ?? {};
+  for (const key of path) {
+    if (cursor && typeof cursor === "object") {
+      cursor = (cursor as Record<string, unknown>)[String(key)];
+    } else {
+      return undefined;
+    }
+  }
+  return cursor;
+}
+
 /** Mirrors FastAPI's 422 validation envelope so the frontend's apiError() renders the same. */
 export function parseBody<T extends ZodTypeAny>(schema: T, body: unknown): ReturnType<T["parse"]> {
   try {
@@ -50,7 +63,7 @@ export function parseBody<T extends ZodTypeAny>(schema: T, body: unknown): Retur
             type,
             loc: ["body", ...i.path.map((p) => String(p))],
             msg,
-            input: body ?? {},
+            input: type === "missing" ? (body ?? {}) : inputAt(body, i.path),
             url: `${PYDANTIC_DOCS}${type}`,
           };
         }),
@@ -58,6 +71,44 @@ export function parseBody<T extends ZodTypeAny>(schema: T, body: unknown): Retur
     }
     throw e;
   }
+}
+
+/** Python's json module wording for the parse failures Node's parser reports. */
+function jsonDecodeDetail(message: string): string {
+  if (/property name/i.test(message)) return "Expecting property name enclosed in double quotes";
+  if (/after property value|Expected ',' or/i.test(message)) return "Expecting ',' delimiter";
+  if (/after property name|Expected ':'/i.test(message)) return "Expecting ':' delimiter";
+  return "Expecting value";
+}
+
+/**
+ * A body that is not valid JSON must answer like FastAPI (422 json_invalid), not as an
+ * unhandled server error.
+ */
+export function jsonBodyErrorMiddleware(
+  err: unknown,
+  _req: Request,
+  _res: Response,
+  next: NextFunction,
+): void {
+  if (err instanceof SyntaxError && "body" in err) {
+    const raw = (err as SyntaxError & { body?: unknown }).body;
+    const position = /position (\d+)/.exec(err.message);
+    const loc = position ? Number(position[1]) : typeof raw === "string" ? raw.length : 0;
+    next(
+      new HttpError(422, [
+        {
+          type: "json_invalid",
+          loc: ["body", loc],
+          msg: "JSON decode error",
+          input: {},
+          ctx: { error: jsonDecodeDetail(err.message) },
+        },
+      ]),
+    );
+    return;
+  }
+  next(err);
 }
 
 export function errorMiddleware(

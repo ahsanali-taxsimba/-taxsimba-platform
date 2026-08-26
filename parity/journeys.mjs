@@ -28,6 +28,12 @@ export async function runJourneys(call) {
   await call("login with a wrong password", "POST", "/api/auth/login", {
     body: { email: "superadmin@taxsimba.co.uk", password: "definitely-wrong" },
   });
+  await call("login with a malformed JSON body", "POST", "/api/auth/login", {
+    raw: '{"email": ',
+  });
+  await call("login with operator-shaped values", "POST", "/api/auth/login", {
+    body: { email: { $ne: null }, password: { $ne: null } },
+  });
 
   const logins = {
     superadmin: ["superadmin@taxsimba.co.uk", "Super@123"],

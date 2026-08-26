@@ -123,7 +123,8 @@ async function record(base, steps) {
       res = await fetch(`${base}${path}`, {
         method,
         headers,
-        body: opts.body === undefined ? undefined : JSON.stringify(opts.body),
+        // `raw` sends bytes verbatim, so malformed-payload handling is compared too.
+        body: opts.raw ?? (opts.body === undefined ? undefined : JSON.stringify(opts.body)),
       });
       for (const raw of res.headers.getSetCookie?.() ?? []) {
         const [pair] = raw.split(";");

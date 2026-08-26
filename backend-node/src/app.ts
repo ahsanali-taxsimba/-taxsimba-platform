@@ -4,7 +4,7 @@ import express, { Express } from "express";
 
 import { allowedOrigins } from "./config/env";
 import { col } from "./db/mongo";
-import { errorMiddleware, httpError } from "./http/errors";
+import { errorMiddleware, httpError, jsonBodyErrorMiddleware } from "./http/errors";
 import { apiRateLimit, ensureRateIndexes, securityHeaders } from "./middleware/protections";
 import { adminRouter } from "./routes/admin";
 import { authRouter } from "./routes/auth";
@@ -118,6 +118,7 @@ export function createApp(): Express {
   // Stripe signature verification needs the exact bytes, so this route is not JSON-parsed.
   app.use("/api/stripe/webhook", express.raw({ type: "*/*" }));
   app.use(express.json({ limit: "5mb" }));
+  app.use(jsonBodyErrorMiddleware);
 
   app.use("/api", authRouter);
   app.use("/api", casesRouter);
