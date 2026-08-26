@@ -10,6 +10,7 @@ import { authRouter } from "./routes/auth";
 import { casesRouter } from "./routes/cases";
 import { collaborationRouter } from "./routes/collaboration";
 import { documentsRouter } from "./routes/documents";
+import { mtdRouter } from "./routes/mtd";
 import { ensureIndexes as ensureLoginIndexes } from "./services/loginLockout";
 import { ensureMfaIndexes } from "./services/security";
 
@@ -26,7 +27,8 @@ const QUERY_INDEXES: Record<string, string[]> = {
     "internal_deadline",
     "client_id",
   ],
-  documents: ["case_id", "client_user_id", "is_internal", "is_deleted"],
+  documents: ["case_id", "client_user_id", "is_internal", "is_deleted", "mtd_period_id"],
+  mtd_periods: ["case_id", "client_id", "status", "deadline", "is_test"],
   tasks: ["case_id", "status", "owner_id", "client_user_id"],
   messages: ["case_id", "created_at"],
   notifications: ["user_id", "read_at", "created_at"],
@@ -92,6 +94,7 @@ export function createApp(): Express {
   app.use("/api", casesRouter);
   app.use("/api", documentsRouter);
   app.use("/api", collaborationRouter);
+  app.use("/api/mtd", mtdRouter);
 
   app.use("/api", (_req, _res, next) => next(httpError(404, "Not Found")));
   app.use(errorMiddleware);
