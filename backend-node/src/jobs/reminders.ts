@@ -23,6 +23,7 @@ import { randomUUID } from "crypto";
 
 import { env, intEnv } from "../config/env";
 import { col, Doc } from "../db/mongo";
+import { applyDuePriceSchedules } from "../domain/pricing";
 import { OPERATIONAL_ONLY } from "../domain/testdata";
 import { notify } from "../domain/workflow";
 import { flushEmailQueue } from "../services/email";
@@ -34,6 +35,7 @@ export interface ReminderRun {
   mtd_records_due: number;
   mtd_overdue_escalation: number;
   emails_sent: number;
+  prices_applied: number;
 }
 
 function emptyRun(): ReminderRun {
@@ -44,6 +46,7 @@ function emptyRun(): ReminderRun {
     mtd_records_due: 0,
     mtd_overdue_escalation: 0,
     emails_sent: 0,
+    prices_applied: 0,
   };
 }
 
@@ -229,6 +232,8 @@ async function remindMtdPeriods(run: ReminderRun, now: Date): Promise<void> {
 /** One pass. Safe to call directly (tests, or an operator running it by hand). */
 export async function runReminders(now = new Date()): Promise<ReminderRun> {
   const run = emptyRun();
+  // Future-dated price changes fall due on the clock, not on traffic.
+  run.prices_applied = await applyDuePriceSchedules(now);
   await remindOpenClientTasks(run, now);
   await remindClientCaseActions(run, now);
   await remindMtdPeriods(run, now);

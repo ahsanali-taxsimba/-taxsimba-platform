@@ -18,6 +18,14 @@ import {
   servicesFor,
   notifyAdmins,
 } from "../domain/packages";
+import { contentMap } from "../domain/content";
+import {
+  applyDuePriceSchedules,
+  cancelScheduled,
+  futureDate,
+  pendingSchedule,
+  schedulePriceChange,
+} from "../domain/pricing";
 import { logActivity, notify, nowIso } from "../domain/workflow";
 import { handler, httpError, parseBody } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
@@ -42,6 +50,10 @@ const PackageIn = z.object({
 const PriceIn = z.object({
   price: z.number(),
   effective_from: z.string().nullish().default(null),
+});
+const ScheduleIn = z.object({
+  price: z.number(),
+  effective_from: z.string(),
 });
 const PackageUpdateIn = z.object({
   name: z.string().nullish().default(null),
@@ -91,10 +103,28 @@ paymentsRouter.get(
   "/packages",
   auth(),
   handler(async (req, res) => {
+    await applyDuePriceSchedules();
     const q: Doc = { is_active: true };
     const serviceType = queryString(req, "service_type");
     if (serviceType) q.service_type = serviceType;
-    res.json(cleanMany((await col("packages").find(q).sort({ rank: 1 }).limit(100).toArray()) as Doc[]));
+    const rows = cleanMany(
+      (await col("packages").find(q).sort({ rank: 1 }).limit(100).toArray()) as Doc[],
+    );
+    // Marketing copy is opt-in so the default response stays identical to the Python contract.
+    if (!queryBool(req, "include_content")) {
+      res.json(rows);
+      return;
+    }
+    const content = await contentMap();
+    res.json(
+      rows.map((p) => ({
+        ...p,
+        description: content[`package.${String(p.code)}.description`] ?? null,
+        features: (content[`package.${String(p.code)}.features`] ?? "")
+          .split("\n")
+          .filter((line) => line.trim()),
+      })),
+    );
   }),
 );
 
@@ -120,6 +150,14 @@ paymentsRouter.patch(
     const body = parseBody(PriceIn, req.body);
     const p = (await col("packages").findOne({ id: req.params.packageId })) as Doc | null;
     if (!p) throw httpError(404, "Package not found");
+    // A future effective date defers the change; new customers keep paying today's price
+    // until it falls due. Existing customers are unaffected either way.
+    const scheduled = futureDate(body.effective_from);
+    if (scheduled) {
+      await schedulePriceChange(p, body.price, scheduled, me);
+      res.json({ ok: true });
+      return;
+    }
     await col("packages").updateOne(
       { id: req.params.packageId },
       { $set: { price: body.price, effective_from: body.effective_from, updated_at: nowIso() } },
@@ -154,6 +192,17 @@ paymentsRouter.patch(
     const fields: Doc = {};
     for (const [k, v] of Object.entries(body)) if (v !== null && v !== undefined) fields[k] = v;
     if (!Object.keys(fields).length) throw httpError(400, "Nothing to update");
+    // A future-dated price is scheduled; the remaining catalogue fields apply immediately.
+    const deferred = "price" in fields ? futureDate(body.effective_from) : null;
+    if (deferred) {
+      await schedulePriceChange(p, fields.price as number, deferred, me);
+      delete fields.price;
+      delete fields.effective_from;
+    }
+    if (!Object.keys(fields).length) {
+      res.json(clean((await col("packages").findOne({ id: req.params.packageId })) as Doc));
+      return;
+    }
     await col("packages").updateOne(
       { id: req.params.packageId },
       { $set: { ...fields, updated_at: nowIso() } },
@@ -185,6 +234,45 @@ paymentsRouter.get(
       .limit(200)
       .toArray()) as Doc[];
     res.json(cleanMany(rows));
+  }),
+);
+
+/**
+ * Scheduled (future-dated) price changes. Additive endpoints — no existing response changes.
+ * A pending row becomes the master price automatically once its date passes.
+ */
+paymentsRouter.get(
+  "/packages/:packageId/price-schedule",
+  auth(...STAFF_ADMIN),
+  handler(async (req, res) => {
+    await applyDuePriceSchedules();
+    res.json(cleanMany(await pendingSchedule(req.params.packageId)));
+  }),
+);
+
+paymentsRouter.post(
+  "/packages/:packageId/price-schedule",
+  auth("SUPER_ADMIN"),
+  handler(async (req, res) => {
+    const me = authed(req);
+    const body = parseBody(ScheduleIn, req.body);
+    const p = (await col("packages").findOne({ id: req.params.packageId })) as Doc | null;
+    if (!p) throw httpError(404, "Package not found");
+    const when = futureDate(body.effective_from);
+    if (!when) throw httpError(400, "effective_from must be a valid future date");
+    res.json(clean(await schedulePriceChange(p, body.price, when, me)));
+  }),
+);
+
+paymentsRouter.delete(
+  "/packages/:packageId/price-schedule/:entryId",
+  auth("SUPER_ADMIN"),
+  handler(async (req, res) => {
+    const me = authed(req);
+    if (!(await cancelScheduled(req.params.entryId, me))) {
+      throw httpError(404, "No pending scheduled price change with that id");
+    }
+    res.json({ ok: true });
   }),
 );
 
@@ -240,6 +328,7 @@ paymentsRouter.get(
   "/my-upgrade-options",
   auth("CLIENT"),
   handler(async (req, res) => {
+    await applyDuePriceSchedules();
     const client = await clientOf(authed(req));
     const svc = (await col("client_services").findOne({
       client_id: client.id,

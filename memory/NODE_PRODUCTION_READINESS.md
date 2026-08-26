@@ -132,19 +132,30 @@ data would otherwise surface as a warning in the boot log).
 | Do new customers get the latest price? | Yes — activation and checkout read the current package row. |
 | Price history | Every price change writes an append-only `pricing_audit` row (`previous_price`, `new_price`, `effective_from`, `changed_by`, `role`, `created_at`), exposed read-only at `GET /api/packages/:id/price-history` to ADMIN/SUPER_ADMIN. Nothing deletes or rewrites it. |
 | Billing type / frequency / VAT treatment | Editable fields on the master package (`billing_type`, `billing_frequency`, `vat_treatment`); the values recorded on an existing `client_services` row are not rewritten. |
-| Effective date | **Stored and audited, not enforced.** `effective_from` is persisted on the package and on the audit row, but activation always reads the row's current `price`. There is no date-scheduled price engine: a future-dated change takes effect the moment it is saved. |
+| Effective date | **Enforced.** A past/absent `effective_from` still applies immediately; a future one is stored as a `PENDING` row in `package_price_schedule` and materialises onto the master package once its date passes (`src/domain/pricing.ts`). |
 
-Nothing about historical pricing integrity was weakened; no pricing code path was modified in this
-stage.
+Scheduled pricing:
 
-## 8. Content/wording audit (nothing changed)
+* `PATCH /api/packages/:id/price` and `PATCH /api/packages/:id` with a future `effective_from` schedule
+  the change instead of applying it; the response shape is unchanged.
+* Additive management routes: `GET /api/packages/:id/price-schedule` (ADMIN/SUPER_ADMIN),
+  `POST /api/packages/:id/price-schedule` and `DELETE /api/packages/:id/price-schedule/:entryId`
+  (SUPER_ADMIN). Past or unparseable dates are rejected with 400.
+* Due rows are applied on the clock by the reminder worker and lazily on any price-reading path
+  (`GET /api/packages`, `/my-upgrade-options`, `packageOr404`, `activateService`). Each row is claimed
+  with one atomic status update, so several instances applying concurrently cannot double-apply.
+* Applying writes the usual append-only `pricing_audit` row plus `source: "SCHEDULED"` and
+  `schedule_id`. Existing `client_services.agreed_price` values are never touched.
+
+Nothing about historical pricing integrity was weakened.
+
+## 8. Content/wording audit and the configurable layer
 
 Database/config driven today:
 
 * Package `name`, `price`, `rank`, `billing_type`, `billing_frequency`, `vat_treatment`, `is_active` —
   editable by Super Admin; the frontend renders `package_name` / `current_package.name` from the API.
-  There is **no package description/feature field** in either backend, so package marketing copy does
-  not exist as data.
+  Package descriptions and feature lists are now configurable through the content layer in §9.
 * Help Centre: 12 seeded FAQs (`src/domain/helpcentre.ts`) plus categories, fully CRUD-able by
   ADMIN/SUPER_ADMIN at `/api/faqs`. This is the only genuinely editable client-facing copy today.
 * Staff-authored per-case text: document request titles/notes, task titles and descriptions, messages,
@@ -162,23 +173,31 @@ Hard-coded (unchanged):
   invoice text, and ~147 `httpError(...)` messages across the route modules (all matching Python
   verbatim, which is what parity is measured against).
 
-So: package text is dynamic (name/price/billing only); client-facing wording overall is **not** fully
-dynamic.
+## 9. Configurable customer-facing content (`content_strings`)
 
-## 9. Future "Content & Pricing Settings" for Super Admin
+Implemented as the thin allow-listed layer described above (`src/domain/content.ts`,
+`src/routes/content.ts`).
 
-Assessment: **safe to add later, as a thin layer over what already exists** — not implemented now.
-
-* Already possible with zero new risk: package price/name/billing/VAT/active, FAQ content, package
-  change-lock statuses. These are all DB-backed, SUPER_ADMIN-gated and audited.
-* Would need new storage: a small `content_strings` collection keyed by a stable ID with a code default
-  fallback, used only for client-facing marketing/instruction copy. Renderers keep the hard-coded string
-  as the default so a missing/rolled-back override can never blank a screen.
-* Must stay out of scope for such an area: security and authentication messages, workflow/state names
-  and transitions, API field names, audit/pricing history, historical `agreed_price` values, permission
-  rules, and any status label the state machine keys on. Enforce with an allow-list of editable keys
-  server-side, not by hiding controls in the UI.
-* Every edit should write an audit row in the same style as `pricing_audit`.
+* Allow-list: `CONTENT_DEFAULTS` — package marketing descriptions and feature lists for all five
+  packages, plus client dashboard/action, document upload, calculation and approval, MTD overview and
+  payments/support headings, helper text and explanatory copy. A key that is not in the map cannot be
+  written: the route answers 404.
+* Deliberately **not** editable: security and authentication messages, validation errors, API field
+  names, workflow/state identifiers and status labels, permission rules, audit and pricing history.
+* Code defaults are always the fallback. A missing, reset or blank stored value resolves to the default,
+  so no screen can render empty. Values are plain text only — markup, `javascript:` and >4000 characters
+  are rejected.
+* Routes (all additive): `GET /api/content` (any signed-in user, effective values),
+  `GET /api/content/settings` (SUPER_ADMIN, default vs current vs overridden, grouped),
+  `PUT /api/content/:key` and `DELETE /api/content/:key` (SUPER_ADMIN),
+  `GET /api/content/:key/history` (ADMIN/SUPER_ADMIN).
+* Every write and reset appends a `content_audit` row (`previous_value`, `new_value`, `changed_by`,
+  `role`, `created_at`).
+* Package copy is served on the existing catalogue endpoint only when asked:
+  `GET /api/packages?include_content=1` adds `description` and `features`. Without the flag the response
+  is byte-identical to Python, which is why parity is unaffected.
+* The frontend is unchanged and keeps its own hard-coded strings; adopting a key is an independent,
+  optional change.
 
 ## 10. Verification for this stage
 
@@ -187,7 +206,12 @@ Targeted, on disposable Mongo only, no production data:
 * `tests/integration/email.test.ts` — 11 tests (email dispatch, dedupe, provider failure leaving the
   in-app notification intact, retry/backoff, preferences, invitations, test-address suppression,
   reminder dedupe/repeat/escalation, test-case exclusion).
-* Full Node suite: 140 tests.
+* `tests/integration/pricingContent.test.ts` — 9 tests (future price deferred then applied, idempotent
+  re-application, audit trail, new customer before/after the effective date with existing customers
+  frozen, cancellation, rejected past/invalid dates, immediate change unchanged, content defaults,
+  SUPER_ADMIN-only edits with audit and reset, refusal of unknown/technical keys and unsafe values,
+  never-blank guarantee, opt-in package copy).
+* Full Node suite: 149 tests.
 * `npm run typecheck`, `npm run lint`, `npm run build`.
 * Python-vs-Node parity harness rerun: 124 steps, 0 status mismatches, 0 shape diffs, with the one
   approved B4 document-scoping difference.

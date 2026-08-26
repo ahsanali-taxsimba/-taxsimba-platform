@@ -10,6 +10,7 @@ import { adminRouter } from "./routes/admin";
 import { authRouter } from "./routes/auth";
 import { casesRouter } from "./routes/cases";
 import { collaborationRouter } from "./routes/collaboration";
+import { contentRouter } from "./routes/content";
 import { documentsRouter } from "./routes/documents";
 import { mtdRouter } from "./routes/mtd";
 import { paymentsRouter } from "./routes/payments";
@@ -18,6 +19,8 @@ import { recommendationsRouter } from "./routes/recommendations";
 import { seedFaqs } from "./domain/helpcentre";
 import { ensurePhase1bData } from "./domain/packages";
 import { ensureCoreIndexes, seed } from "./domain/seed";
+import { ensureContentIndexes } from "./domain/content";
+import { ensurePricingIndexes } from "./domain/pricing";
 import { ensureEmailIndexes } from "./services/email";
 import { ensureReminderIndexes } from "./jobs/reminders";
 import { ensureIndexes as ensureLoginIndexes } from "./services/loginLockout";
@@ -92,6 +95,8 @@ export async function startup(): Promise<void> {
   await seedFaqs();
   await ensureEmailIndexes();
   await ensureReminderIndexes();
+  await ensurePricingIndexes();
+  await ensureContentIndexes();
 }
 
 export function createApp(): Express {
@@ -123,6 +128,7 @@ export function createApp(): Express {
   app.use("/api", recommendationsRouter);
   app.use("/api", adminRouter);
   app.use("/api", profileRouter);
+  app.use("/api", contentRouter);
 
   app.get("/api/", (_req, res) => {
     res.json({ message: "TaxSimba API" });

@@ -7,6 +7,7 @@ import { randomUUID } from "crypto";
 
 import { clean, col, Doc, update } from "../db/mongo";
 import { ensurePeriods } from "./mtd";
+import { applyDuePriceSchedules } from "./pricing";
 import { deadlineForTaxYear, logActivity, notify, nowIso, STATUS_META } from "./workflow";
 import { httpError } from "../http/errors";
 import {
@@ -147,6 +148,7 @@ export async function activateService(
   const paymentSession = opts.paymentSession ?? null;
   const amount = opts.amount ?? null;
   const actor = user ? { id: user.id, name: user.name, role: user.role ?? "CLIENT" } : null;
+  await applyDuePriceSchedules();
   const pkg = (await col("packages").findOne({
     service_type: serviceType,
     code: packageCode,
@@ -327,6 +329,8 @@ export async function lockState(
 }
 
 export async function packageOr404(serviceType: string, code: string | null): Promise<Doc> {
+  // Materialise any due scheduled price first, so a purchase always uses the live price.
+  await applyDuePriceSchedules();
   const p = (await col("packages").findOne({
     service_type: serviceType,
     code,
