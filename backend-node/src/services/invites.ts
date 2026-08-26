@@ -20,7 +20,7 @@ export async function issueInvite(
   userId: string,
   email: string,
   invitedBy: string,
-): Promise<{ token: string; expires_at: string }> {
+): Promise<{ id: string; token: string; expires_at: string }> {
   const now = new Date();
   await col("staff_invites").updateMany(
     { user_id: userId, used_at: null, revoked_at: null },
@@ -28,8 +28,9 @@ export async function issueInvite(
   );
   const token = randomBytes(32).toString("base64url");
   const expires = new Date(now.getTime() + INVITE_TTL_HOURS * 3600 * 1000);
+  const id = randomUUID();
   await col("staff_invites").insertOne({
-    id: randomUUID(),
+    id,
     user_id: userId,
     email,
     token_hash: hashToken(token),
@@ -39,7 +40,7 @@ export async function issueInvite(
     revoked_at: null,
     created_at: now.toISOString(),
   });
-  return { token, expires_at: expires.toISOString() };
+  return { id, token, expires_at: expires.toISOString() };
 }
 
 export async function findValidInvite(token: string): Promise<Doc | null> {

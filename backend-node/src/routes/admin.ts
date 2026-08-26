@@ -4,6 +4,7 @@ import { randomUUID } from "crypto";
 import { Request, Router } from "express";
 import { z } from "zod";
 
+import { env } from "../config/env";
 import { clean, cleanMany, col, Doc, maskContactMany } from "../db/mongo";
 import { FAQ_CATEGORIES } from "../domain/helpcentre";
 import { isTestEmail, OPERATIONAL_ONLY, TEST_EMAIL_REGEX } from "../domain/testdata";
@@ -17,6 +18,7 @@ import {
 import { handler, httpError, parseBody } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
 import { hashPassword } from "../services/auth";
+import { emailInvitation } from "../services/email";
 import { bootstrapClientServices } from "../services/clientServices";
 import { consumeInvite, findValidInvite, issueInvite } from "../services/invites";
 import { checkPasswordStrength } from "../services/security";
@@ -24,6 +26,15 @@ import { checkPasswordStrength } from "../services/security";
 export const adminRouter = Router();
 
 const STAFF_ADMIN = ["ADMIN", "SUPER_ADMIN"] as const;
+
+/**
+ * The response keeps using the caller's origin exactly as before. Email needs an absolute
+ * URL even when the call had no Origin header, so it falls back to the configured base URL.
+ */
+function inviteLink(req: Request, token: string): string {
+  const origin = req.get("origin") ?? (env("APP_BASE_URL") ?? "").replace(/\/$/, "");
+  return `${origin}/invite/${token}`;
+}
 
 const CreateUserIn = z.object({
   email: z.string().email(),
@@ -485,6 +496,14 @@ adminRouter.post(
       role: body.role,
     });
     const origin = req.get("origin") ?? "";
+    await emailInvitation({
+      to: email,
+      name: created.name as string,
+      role: body.role,
+      setupLink: inviteLink(req, invite.token),
+      expiresAt: invite.expires_at,
+      inviteId: invite.id,
+    });
     res.json({
       user: clean({ ...created }),
       setup_link: `${origin}/invite/${invite.token}`,
@@ -504,6 +523,14 @@ adminRouter.post(
     const invite = await issueInvite(req.params.userId, target.email, me.id);
     await logActivity(null, `Staff invitation resent to ${target.email}`, me, {
       target_user_id: req.params.userId,
+    });
+    await emailInvitation({
+      to: target.email as string,
+      name: target.name as string,
+      role: (target.role as string) ?? "ACCOUNTANT",
+      setupLink: inviteLink(req, invite.token),
+      expiresAt: invite.expires_at,
+      inviteId: invite.id,
     });
     const origin = req.get("origin") ?? "";
     res.json({ setup_link: `${origin}/invite/${invite.token}`, expires_at: invite.expires_at });

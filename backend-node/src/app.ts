@@ -17,7 +17,9 @@ import { profileRouter } from "./routes/profile";
 import { recommendationsRouter } from "./routes/recommendations";
 import { seedFaqs } from "./domain/helpcentre";
 import { ensurePhase1bData } from "./domain/packages";
-import { seed } from "./domain/seed";
+import { ensureCoreIndexes, seed } from "./domain/seed";
+import { ensureEmailIndexes } from "./services/email";
+import { ensureReminderIndexes } from "./jobs/reminders";
 import { ensureIndexes as ensureLoginIndexes } from "./services/loginLockout";
 import { ensureMfaIndexes } from "./services/security";
 
@@ -80,6 +82,7 @@ export async function ensureQueryIndexes(): Promise<void> {
 export async function startup(): Promise<void> {
   // Demo accounts and the SELF_ASSESSMENT service row, matching the Python bootstrap. Test
   // runs opt out so fixtures control the dataset.
+  await ensureCoreIndexes();
   if (process.env.SEED_DEMO_DATA !== "false") await seed();
   await ensureLoginIndexes();
   await ensureMfaIndexes();
@@ -87,6 +90,8 @@ export async function startup(): Promise<void> {
   await ensureQueryIndexes();
   await ensurePhase1bData();
   await seedFaqs();
+  await ensureEmailIndexes();
+  await ensureReminderIndexes();
 }
 
 export function createApp(): Express {

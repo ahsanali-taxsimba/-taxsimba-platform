@@ -28,7 +28,11 @@ function user(
   };
 }
 
-export async function seed(): Promise<void> {
+/**
+ * Uniqueness/idempotency indexes. These are correctness constraints, not demo scaffolding,
+ * so they are applied even when demo seeding is switched off in production.
+ */
+export async function ensureCoreIndexes(): Promise<void> {
   await col("users").createIndex({ email: 1 }, { unique: true });
   await col("cases").createIndex({ id: 1 });
   try {
@@ -38,6 +42,10 @@ export async function seed(): Promise<void> {
     console.warn(`case_ref unique index not applied: ${String(e)}`);
   }
   await col("services").createIndex({ code: 1 }, { unique: true });
+}
+
+export async function seed(): Promise<void> {
+  await ensureCoreIndexes();
 
   await col("services").updateOne(
     { code: "SELF_ASSESSMENT" },

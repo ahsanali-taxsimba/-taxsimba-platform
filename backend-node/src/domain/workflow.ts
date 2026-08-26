@@ -3,6 +3,7 @@ import { randomUUID } from "crypto";
 
 import { col, Doc } from "../db/mongo";
 import { httpError } from "../http/errors";
+import { emailNotification } from "../services/email";
 
 export const STATUSES = [
   "NEW",
@@ -246,7 +247,7 @@ export async function notify(
     );
     return;
   }
-  await col("notifications").insertOne({
+  const notification: Doc = {
     id: randomUUID(),
     user_id: userId,
     title,
@@ -256,7 +257,12 @@ export async function notify(
     type: ntype,
     is_read: false,
     created_at: nowIso(),
-  });
+  };
+  await col("notifications").insertOne({ ...notification });
+  // Email is a second delivery channel for the same event, keyed on the notification id so a
+  // collapsed repeat never produces a second message. Failures are swallowed inside
+  // emailNotification(): the in-app notification above is the system of record.
+  await emailNotification(notification);
 }
 
 /** Single controlled entry point for every status change, validated server-side. */
