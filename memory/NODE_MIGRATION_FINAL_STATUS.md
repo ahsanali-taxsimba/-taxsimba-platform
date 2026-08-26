@@ -12,9 +12,9 @@ Python-vs-Node parity harness and a browser UAT of the unchanged React frontend 
 
 | Check | Result |
 | --- | --- |
-| Node test suite (`npm test`, disposable Mongo) | 129 passed |
+| Node test suite (`npm test`, disposable Mongo) | 168 passed |
 | Typecheck / ESLint / build | clean |
-| Python-vs-Node parity harness | **124 steps compared, 0 status mismatches, 0 response-shape mismatches**, 1 intentional documented difference |
+| Python-vs-Node parity harness | **152 steps compared, 0 status mismatches, 0 response-shape mismatches**, 1 intentional documented difference |
 
 The harness (`parity/`) boots the frozen Python backend on :8001 and Node on :8002, each
 against its own disposable database, replays the same journey through both with a real cookie
@@ -27,7 +27,10 @@ Self Assessment case lifecycle (assign → review → calculation → checklist 
 approve → client approve → record submission → complete → reopen), MTD periods Q1–Q4 and Final
 Declaration (figures → publish → request changes → revision → approve → client approve → stale
 version 409 → external and prior submissions → year summary), documents and tasks, packages and
-services, payment requests and receipts, help centre, invites, profile and security.
+services, payment requests and receipts, help centre, invites, profile and security, and mid-year
+MTD onboarding (a client joining during Quarter 3: Q1 recorded as a prior/external submission with
+no charge and locked against rework, Q2 taken on as catch-up work charged as an additional-work
+request linked to that period, Q3 onwards through the normal workflow).
 
 ## 2. Browser UAT (unchanged React frontend against Node only)
 

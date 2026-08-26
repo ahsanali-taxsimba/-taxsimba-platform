@@ -286,6 +286,115 @@ export async function runJourneys(call) {
     },
   });
 
+  // ------------------------------- mid-year onboarding: the client joins during Quarter 3
+  // Q1 was filed elsewhere (recorded as prior/external history, no charge); Q2 was never filed
+  // and is taken on as chargeable catch-up work; Q3 onwards runs the normal MTD workflow.
+  const midYear = await call("admin opens an MTD case for a mid-year joiner", "POST", "/api/cases", {
+    ...as("admin"),
+    body: { client_user_id: state.clientUserId, tax_year: "2025/26", service_type: "MTD_INCOME_TAX" },
+  });
+  state.midCase = midYear.body?.id;
+  await call("admin assigns the mid-year case", "POST", `/api/cases/${state.midCase}/assign`, {
+    ...as("admin"),
+    body: { accountant_id: state.accountantId },
+  });
+  await call("mid-year schedule generated", "POST", `/api/mtd/cases/${state.midCase}/generate-periods`, as("admin"));
+  const midPeriods = await call("mid-year periods", "GET", `/api/mtd/cases/${state.midCase}/periods`, as("admin"));
+  const midRows = Array.isArray(midPeriods.body) ? midPeriods.body : [];
+  state.mq1 = midRows.find((r) => r.quarter === 1)?.id;
+  state.mq2 = midRows.find((r) => r.quarter === 2)?.id;
+  state.mq3 = midRows.find((r) => r.quarter === 3)?.id;
+
+  // Path A — Q1 already submitted by the previous provider.
+  await call("Q1 recorded as filed before joining", "POST", `/api/mtd/periods/${state.mq1}/record-prior-submission`, {
+    ...as("admin"),
+    body: {
+      previous_provider: "Previous accountant",
+      submission_date: "2025-08-05",
+      submission_reference: "PRIOR-Q1-2025",
+      income: 9000,
+      expenses: 2000,
+      note: "Confirmed during onboarding",
+    },
+  });
+  await call("prior Q1 cannot be recorded twice", "POST", `/api/mtd/periods/${state.mq1}/record-prior-submission`, {
+    ...as("admin"),
+    body: { previous_provider: "Previous accountant", submission_date: "2025-08-05" },
+  });
+  await call("prior Q1 cannot be reworked", "POST", `/api/mtd/periods/${state.mq1}/figures`, {
+    ...as("accountant"),
+    body: { income: 1, expenses: 0 },
+  });
+  await call("prior provider is required", "POST", `/api/mtd/periods/${state.mq3}/record-prior-submission`, {
+    ...as("admin"),
+    body: { previous_provider: "  ", submission_date: "2025-11-05" },
+  });
+  await call("accountant cannot record prior history", "POST", `/api/mtd/periods/${state.mq3}/record-prior-submission`, {
+    ...as("accountant"),
+    body: { previous_provider: "Previous accountant", submission_date: "2025-11-05" },
+  });
+
+  // Path B — Q2 was never filed: chargeable catch-up work, tracked separately from the package.
+  await call("catch-up charge for a period on another case is refused", "POST", "/api/payment-requests", {
+    ...as("admin"),
+    body: {
+      case_id: state.midCase,
+      description: "Catch-up work",
+      amount: 150,
+      mtd_period_id: state.q1,
+    },
+  });
+  const catchUp = await call("admin raises the Q2 catch-up charge", "POST", "/api/payment-requests", {
+    ...as("admin"),
+    body: {
+      case_id: state.midCase,
+      description: "Historical Quarter 2 catch-up preparation",
+      amount: 150,
+      due_date: "2025-12-01",
+      mtd_period_id: state.mq2,
+      vat_rate: 20,
+    },
+  });
+  state.catchUpId = catchUp.body?.id;
+  await call("catch-up charge is visible to the client", "GET", "/api/payment-requests", as("client"));
+  await call("catch-up charge listed for the case", "GET", `/api/payment-requests?case_id=${state.midCase}`, as("admin"));
+  await call("client services are unaffected by the catch-up charge", "GET", "/api/my-services", as("client"));
+
+  // Q2 catch-up prepared through the normal accountant -> admin -> client -> submission workflow.
+  await call("accountant prepares the catch-up quarter", "POST", `/api/mtd/periods/${state.mq2}/figures`, {
+    ...as("accountant"),
+    body: { income: 11000, expenses: 2500, client_note: "Historical Q2" },
+  });
+  await call("catch-up quarter sent for review", "POST", `/api/mtd/periods/${state.mq2}/submit-for-review`, as("accountant"));
+  await call("admin publishes the catch-up quarter", "POST", `/api/mtd/periods/${state.mq2}/admin-approve`, as("admin"));
+  await call("client approves the catch-up quarter", "POST", `/api/mtd/periods/${state.mq2}/client-approve`, {
+    ...as("client"),
+    body: { version: 1 },
+  });
+  await call("catch-up quarter submitted externally", "POST", `/api/mtd/periods/${state.mq2}/record-submission`, {
+    ...as("admin"),
+    body: {
+      submission_date: "2025-11-20",
+      submission_reference: "MTD-CATCHUP-Q2",
+      provider: "Approved MTD software",
+    },
+  });
+
+  // Q3 onwards — the ordinary managed workflow from the joining point.
+  await call("accountant prepares Q3", "POST", `/api/mtd/periods/${state.mq3}/figures`, {
+    ...as("accountant"),
+    body: { income: 13000, expenses: 3100, client_note: "First managed quarter" },
+  });
+  await call("Q3 sent for review", "POST", `/api/mtd/periods/${state.mq3}/submit-for-review`, as("accountant"));
+  await call("admin publishes Q3", "POST", `/api/mtd/periods/${state.mq3}/admin-approve`, as("admin"));
+  await call("client approves Q3", "POST", `/api/mtd/periods/${state.mq3}/client-approve`, {
+    ...as("client"),
+    body: { version: 1 },
+  });
+  await call("mid-year client period view", "GET", `/api/mtd/cases/${state.midCase}/periods`, as("client"));
+  await call("mid-year year summary", "GET", `/api/mtd/cases/${state.midCase}/year-summary`, as("client"));
+  await call("mid-year case activity", "GET", `/api/cases/${state.midCase}/activity`, as("admin"));
+
   // ------------------------------------------------------------ admin, audit and help centre
   await call("admin audit log", "GET", "/api/audit-log?limit=25", as("admin"));
   await call("audit log filtered by case", "GET", `/api/audit-log?case_ref=${saCase.body?.case_ref ?? ""}`, as("admin"));
