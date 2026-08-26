@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { ZodError, ZodTypeAny } from "zod";
+import { ZodError, ZodIssue, ZodTypeAny } from "zod";
 
 /** FastAPI-compatible error: the body is always {"detail": ...}. */
 export class HttpError extends Error {
@@ -25,6 +25,17 @@ export function handler(
   };
 }
 
+const PYDANTIC_DOCS = "https://errors.pydantic.dev/2.13/v/";
+
+/** Pydantic's wording for the issues zod reports, so error text matches the reference. */
+function pydanticIssue(issue: ZodIssue): { type: string; msg: string } {
+  if (issue.code === "invalid_type") {
+    if (issue.received === "undefined") return { type: "missing", msg: "Field required" };
+    return { type: `${issue.expected}_type`, msg: `Input should be a valid ${issue.expected}` };
+  }
+  return { type: issue.code, msg: issue.message };
+}
+
 /** Mirrors FastAPI's 422 validation envelope so the frontend's apiError() renders the same. */
 export function parseBody<T extends ZodTypeAny>(schema: T, body: unknown): ReturnType<T["parse"]> {
   try {
@@ -33,11 +44,16 @@ export function parseBody<T extends ZodTypeAny>(schema: T, body: unknown): Retur
     if (e instanceof ZodError) {
       throw new HttpError(
         422,
-        e.issues.map((i) => ({
-          loc: ["body", ...i.path.map((p) => String(p))],
-          msg: i.message,
-          type: i.code,
-        })),
+        e.issues.map((i) => {
+          const { type, msg } = pydanticIssue(i);
+          return {
+            type,
+            loc: ["body", ...i.path.map((p) => String(p))],
+            msg,
+            input: body ?? {},
+            url: `${PYDANTIC_DOCS}${type}`,
+          };
+        }),
       );
     }
     throw e;

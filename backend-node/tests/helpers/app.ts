@@ -25,6 +25,7 @@ export async function bootTestApp(): Promise<{ app: Express; dbName: string }> {
     STORAGE_DRIVER: "local",
     LOCAL_STORAGE_DIR: `/tmp/taxsimba-node-tests/${dbName}`,
     API_RATE_LIMIT_PER_MINUTE: "100000",
+    SEED_DEMO_DATA: "false",
   });
 
   const { connect } = await import("../../src/db/mongo");
