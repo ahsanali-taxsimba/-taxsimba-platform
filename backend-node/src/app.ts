@@ -11,6 +11,9 @@ import { casesRouter } from "./routes/cases";
 import { collaborationRouter } from "./routes/collaboration";
 import { documentsRouter } from "./routes/documents";
 import { mtdRouter } from "./routes/mtd";
+import { paymentsRouter } from "./routes/payments";
+import { recommendationsRouter } from "./routes/recommendations";
+import { ensurePhase1bData } from "./domain/packages";
 import { ensureIndexes as ensureLoginIndexes } from "./services/loginLockout";
 import { ensureMfaIndexes } from "./services/security";
 
@@ -48,6 +51,9 @@ const QUERY_INDEXES: Record<string, string[]> = {
   case_notes: ["case_id"],
   recommendations: ["case_id", "status", "type"],
   invoices: ["payment_request_id", "client_user_id", "case_id"],
+  packages: ["service_type", "code", "rank"],
+  offers: ["client_user_id", "status", "recommendation_id"],
+  pricing_audit: ["package_id", "created_at"],
   staff_invites: ["user_id", "token_hash"],
   users: ["role", "is_test", "created_at"],
 };
@@ -70,6 +76,7 @@ export async function startup(): Promise<void> {
   await ensureMfaIndexes();
   await ensureRateIndexes();
   await ensureQueryIndexes();
+  await ensurePhase1bData();
 }
 
 export function createApp(): Express {
@@ -88,6 +95,8 @@ export function createApp(): Express {
     }),
   );
   app.use(cookieParser());
+  // Stripe signature verification needs the exact bytes, so this route is not JSON-parsed.
+  app.use("/api/stripe/webhook", express.raw({ type: "*/*" }));
   app.use(express.json({ limit: "5mb" }));
 
   app.use("/api", authRouter);
@@ -95,6 +104,8 @@ export function createApp(): Express {
   app.use("/api", documentsRouter);
   app.use("/api", collaborationRouter);
   app.use("/api/mtd", mtdRouter);
+  app.use("/api", paymentsRouter);
+  app.use("/api", recommendationsRouter);
 
   app.use("/api", (_req, _res, next) => next(httpError(404, "Not Found")));
   app.use(errorMiddleware);

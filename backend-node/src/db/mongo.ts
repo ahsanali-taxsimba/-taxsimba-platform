@@ -1,4 +1,4 @@
-import { Db, MongoClient } from "mongodb";
+import { Db, Document, MongoClient, UpdateFilter } from "mongodb";
 
 import { required } from "../config/env";
 
@@ -29,6 +29,11 @@ export function db(): Db {
 
 export function col(name: string) {
   return db().collection(name);
+}
+
+/** The driver's typings reject `$push` against the loose document shape used here. */
+export function update(spec: Doc): UpdateFilter<Document> {
+  return spec as UpdateFilter<Document>;
 }
 
 /** Mongo `_id` and password hashes never leave the API. */

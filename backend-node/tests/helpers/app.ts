@@ -67,6 +67,29 @@ export async function makeUser(role: string, name = role.toLowerCase()): Promise
   return { id, name, email, role, token: createAccessToken(id, email) };
 }
 
+/** A CLIENT user together with the `clients` record and its NOT_ACTIVE service rows. */
+export async function makeClient(
+  name = "client",
+  opts: { isTest?: boolean } = {},
+): Promise<TestUser & { clientId: string }> {
+  const { col } = await import("../../src/db/mongo");
+  const { bootstrapClientServices } = await import("../../src/services/clientServices");
+  const { nowIso } = await import("../../src/domain/workflow");
+  const user = await makeUser("CLIENT", name);
+  const client = {
+    id: randomUUID(),
+    user_id: user.id,
+    name: user.name,
+    email: user.email,
+    client_ref: `CL-${Math.floor(1000 + Math.random() * 8999)}`,
+    is_test: Boolean(opts.isTest),
+    created_at: nowIso(),
+  };
+  await col("clients").insertOne({ ...client });
+  await bootstrapClientServices(client);
+  return { ...user, clientId: client.id };
+}
+
 export function bearer(user: TestUser): Record<string, string> {
   return { Authorization: `Bearer ${user.token}` };
 }
