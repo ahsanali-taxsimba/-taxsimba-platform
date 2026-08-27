@@ -1,0 +1,92 @@
+# Render Blueprint — STAGING ONLY (node-only-production branch).
+#
+# Nothing here is production: a separate MongoDB Atlas staging database, Stripe TEST keys,
+# email disabled, demo seeding off, and brand-new staging JWT/TOTP keys.
+#
+# Values marked `sync: false` are entered in the Render dashboard and never committed.
+services:
+  - type: web
+    name: taxsimba-staging-api
+    runtime: node
+    plan: starter # a paid plan is required for the persistent disk below
+    region: frankfurt
+    branch: node-only-production
+    rootDir: backend-node
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/
+    autoDeploy: false
+    disk:
+      name: taxsimba-staging-uploads
+      mountPath: /var/data/uploads
+      sizeGB: 1
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: PORT
+        value: "10000"
+      - key: DB_NAME
+        value: taxsimba_staging
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: COOKIE_SAMESITE
+        value: lax
+      - key: TOTP_ISSUER
+        value: TaxSimba Staging
+      - key: CORS_ORIGINS
+        value: https://taxsimba-staging-web.onrender.com
+      # Render terminates TLS in front of the service; trust the platform proxy range.
+      - key: TRUSTED_PROXY_CIDRS
+        value: 10.0.0.0/8
+      - key: STORAGE_DRIVER
+        value: local
+      - key: LOCAL_STORAGE_DIR
+        value: /var/data/uploads
+      - key: API_RATE_LIMIT_PER_MINUTE
+        value: "300"
+      - key: MAX_UPLOAD_MB
+        value: "25"
+      - key: APP_BASE_URL
+        value: https://taxsimba-staging-web.onrender.com
+      - key: EMAIL_DRIVER
+        value: none
+      - key: EMAIL_FROM
+        value: TaxSimba Staging <no-reply@staging.invalid>
+      - key: REMINDERS_ENABLED
+        value: "false"
+      - key: SEED_DEMO_DATA
+        value: "false"
+      # Entered in the dashboard — staging values only, never production secrets.
+      - key: MONGO_URL # MongoDB Atlas staging connection string
+        sync: false
+      - key: JWT_SECRET # NEW staging secret
+        sync: false
+      - key: TOTP_FERNET_KEY # NEW staging key (32 url-safe base64 bytes)
+        sync: false
+      - key: STRIPE_SECRET_KEY # sk_test_… only
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET # whsec_… for the staging test endpoint
+        sync: false
+
+  - type: web
+    name: taxsimba-staging-web
+    runtime: static
+    branch: node-only-production
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./build
+    autoDeploy: false
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      # Same-origin: this is the static site's own URL, and /api/* is rewritten to the API
+      # service below, so there is no CORS and no cross-site cookie. The client appends /api.
+      - key: REACT_APP_BACKEND_URL
+        value: https://taxsimba-staging-web.onrender.com
+    routes:
+      - type: rewrite
+        source: /api/*
+        destination: https://taxsimba-staging-api.onrender.com/api/*
+      - type: rewrite
+        source: /*
+        destination: /index.html
