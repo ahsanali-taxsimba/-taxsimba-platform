@@ -80,7 +80,10 @@ async function upsertUser(person: Person, password: string): Promise<Doc> {
     role: person.role,
     password_hash: hashPassword(password),
     is_active: true,
-    is_test: true,
+    // Operational, not is_test: the automated-test flag hides records from every default
+    // dashboard query, which would leave manual UAT testers looking at empty screens. The
+    // whole staging database is disposable, and cleanup deletes by @uat-taxsimba.test address.
+    is_test: false,
     created_at: nowIso(),
   };
   if (person.role === "CLIENT") {
@@ -102,7 +105,7 @@ async function upsertClientRecord(user: Doc): Promise<Doc> {
     email: user.email,
     phone: user.phone ?? null,
     utr: user.utr ?? null,
-    is_test: true,
+    is_test: false,
     created_at: nowIso(),
   };
   await col("clients").insertOne({ ...doc });
