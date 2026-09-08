@@ -24,6 +24,7 @@ import { ensureCoreIndexes, seed } from "./domain/seed";
 import { ensureContentIndexes } from "./domain/content";
 import { ensurePricingIndexes } from "./domain/pricing";
 import { ensureEmailIndexes } from "./services/email";
+import { ensureAuthTokenIndexes } from "./services/emailVerification";
 import { ensureReminderIndexes } from "./jobs/reminders";
 import { ensureIndexes as ensureLoginIndexes } from "./services/loginLockout";
 import { ensureMfaIndexes } from "./services/security";
@@ -97,6 +98,7 @@ export async function startup(): Promise<void> {
   await ensurePhase1bData();
   await seedFaqs();
   await ensureEmailIndexes();
+  await ensureAuthTokenIndexes();
   await ensureReminderIndexes();
   await ensurePricingIndexes();
   await ensureContentIndexes();

@@ -24,6 +24,11 @@ import {
   verifyPassword,
 } from "../services/auth";
 import { clearFailures, clientIp, enforceLoginAllowed, recordFailure } from "../services/loginLockout";
+import {
+  consumeEmailVerification,
+  resendEmailVerification,
+} from "../services/emailVerification";
+import { consumePasswordReset, issuePasswordReset } from "../services/passwordReset";
 import { createChallenge } from "../services/security";
 import { keysToCamel, keysToSnake } from "./caseMap";
 import { sendCompatSuccess } from "./envelope";
@@ -31,6 +36,14 @@ import { sendCompatSuccess } from "./envelope";
 const LoginIn = z.object({
   email: z.string().email(),
   password: z.string(),
+});
+const EmailOnlyIn = z.object({ email: z.string().email() });
+const VerifyEmailIn = z.object({ token: z.string().min(1) });
+const ResetPasswordIn = z.object({
+  token: z.string().min(1),
+  password: z.string().min(1),
+  confirm_password: z.string().nullish(),
+  confirmPassword: z.string().nullish(),
 });
 
 /** Split a display name into Toxel firstName / lastName without inventing identity fields. */
@@ -59,6 +72,7 @@ export function toToxelUser(user: Doc): Doc {
     roles: user.role,
     role: user.role,
     isActive: user.is_active !== false,
+    emailVerifiedAt: user.email_verified_at ?? null,
   };
 }
 
@@ -145,5 +159,61 @@ compatAuthRouter.get(
   handler(async (req, res) => {
     const me = authed(req);
     sendCompatSuccess(res, toToxelUser(me), "OK");
+  }),
+);
+
+compatAuthRouter.post(
+  "/auth/verify-email",
+  handler(async (req, res) => {
+    const snake = keysToSnake(req.body ?? {});
+    const token =
+      typeof req.query.token === "string" && req.query.token
+        ? req.query.token
+        : parseBody(VerifyEmailIn, snake).token;
+    const user = await consumeEmailVerification(token);
+    sendCompatSuccess(
+      res,
+      keysToCamel({ ok: true, email_verified_at: user.email_verified_at }),
+      "Email verified",
+    );
+  }),
+);
+
+compatAuthRouter.post(
+  "/auth/re-verify-email",
+  handler(async (req, res) => {
+    const body = parseBody(EmailOnlyIn, keysToSnake(req.body ?? {}));
+    await resendEmailVerification(body.email);
+    sendCompatSuccess(
+      res,
+      { ok: true },
+      "If an unverified account exists for that email, a verification link has been sent.",
+    );
+  }),
+);
+
+compatAuthRouter.post(
+  "/auth/forget-password",
+  handler(async (req, res) => {
+    const body = parseBody(EmailOnlyIn, keysToSnake(req.body ?? {}));
+    await issuePasswordReset(body.email);
+    sendCompatSuccess(
+      res,
+      { ok: true },
+      "If an account exists for that email, a password reset link has been sent.",
+    );
+  }),
+);
+
+compatAuthRouter.post(
+  "/auth/reset-password",
+  handler(async (req, res) => {
+    const body = parseBody(ResetPasswordIn, keysToSnake(req.body ?? {}));
+    const confirm = body.confirm_password ?? body.confirmPassword ?? null;
+    if (confirm != null && confirm !== body.password) {
+      throw httpError(400, "Passwords do not match");
+    }
+    await consumePasswordReset(body.token, body.password);
+    sendCompatSuccess(res, { ok: true }, "Password updated");
   }),
 );

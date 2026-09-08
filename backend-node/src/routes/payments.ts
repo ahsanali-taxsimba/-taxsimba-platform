@@ -29,6 +29,7 @@ import {
 import { logActivity, notify, nowIso } from "../domain/workflow";
 import { handler, httpError, parseBody } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
+import { isEmailVerified, requireVerifiedEmail } from "../services/emailVerification";
 import { createReceipt, renderHtml } from "../services/invoices";
 import { payments } from "../services/payments";
 
@@ -414,6 +415,7 @@ paymentsRouter.post(
   auth("CLIENT"),
   handler(async (req, res) => {
     const me = authed(req);
+    requireVerifiedEmail(me);
     const body = parseBody(UpgradeCheckoutIn, req.body);
     const client = await clientOf(me);
     const svc = (await col("client_services").findOne({
@@ -477,6 +479,7 @@ paymentsRouter.post(
   auth("CLIENT"),
   handler(async (req, res) => {
     const me = authed(req);
+    requireVerifiedEmail(me);
     const body = parseBody(OfferCheckoutIn, req.body);
     const offer = (await col("offers").findOne({
       id: body.offer_id,
@@ -526,6 +529,7 @@ paymentsRouter.post(
   auth("CLIENT"),
   handler(async (req, res) => {
     const me = authed(req);
+    requireVerifiedEmail(me);
     const body = parseBody(ServiceCheckoutIn, req.body);
     if (![SELF_ASSESSMENT, MTD].includes(body.service_type)) {
       throw httpError(400, "Unknown service type");
@@ -645,6 +649,9 @@ export async function fulfil(tx: Doc): Promise<void> {
   }
 
   if (tx.kind === "SA_UPGRADE") {
+    // Defence-in-depth: never mutate package entitlement for an unverified account.
+    // Payment stays paid+unfulfilled so status/webhook can retry after verification.
+    if (!isEmailVerified(user)) return;
     const svc = (await col("client_services").findOne({
       client_id: tx.client_id,
       service_type: SELF_ASSESSMENT,
@@ -715,6 +722,9 @@ export async function fulfil(tx: Doc): Promise<void> {
       );
       return;
     }
+    // Defence-in-depth: refuse SA/MTD activation for unverified users without
+    // rewriting activateService. Leave unfulfilled so retry after verify works.
+    if (!isEmailVerified(user)) return;
     // Single source of truth for activation (service + case + MTD periods).
     await activateService(clean(client) as Doc, user, tx.service_type, tx.new_package, {
       paymentSession: tx.session_id,
@@ -1133,6 +1143,7 @@ paymentsRouter.post(
   auth("CLIENT"),
   handler(async (req, res) => {
     const me = authed(req);
+    requireVerifiedEmail(me);
     const body = parseBody(PayRequestIn, req.body);
     const request = (await col("payment_transactions").findOne({
       id: req.params.requestId,

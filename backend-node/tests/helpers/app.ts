@@ -3,6 +3,7 @@
  * database. Never point TEST_MONGO_URL at production or the operational database.
  */
 import { randomUUID } from "crypto";
+import net from "net";
 
 import type { Express } from "express";
 
@@ -10,10 +11,38 @@ import { generateKey } from "../../src/services/fernet";
 
 export const ORIGIN = "https://app.test.taxsimba.local";
 
+/** Prefer TEST_MONGO_URL, then a reachable local mongod, else mongodb-memory-server. */
+async function resolveTestMongoUrl(): Promise<string> {
+  if (process.env.TEST_MONGO_URL) return process.env.TEST_MONGO_URL;
+  const local = "mongodb://127.0.0.1:27017";
+  const reachable = await new Promise<boolean>((resolve) => {
+    const socket = net.connect({ host: "127.0.0.1", port: 27017 });
+    const done = (ok: boolean) => {
+      socket.destroy();
+      resolve(ok);
+    };
+    socket.setTimeout(400);
+    socket.once("connect", () => done(true));
+    socket.once("timeout", () => done(false));
+    socket.once("error", () => done(false));
+  });
+  if (reachable) {
+    process.env.TEST_MONGO_URL = local;
+    return local;
+  }
+  const { MongoMemoryServer } = await import("mongodb-memory-server");
+  const mongo = await MongoMemoryServer.create();
+  process.env.TEST_MONGO_URL = mongo.getUri();
+  (globalThis as { __taxsimbaSharedMemoryMongo?: { stop: () => Promise<boolean> } }).__taxsimbaSharedMemoryMongo =
+    mongo;
+  return process.env.TEST_MONGO_URL;
+}
+
 export async function bootTestApp(): Promise<{ app: Express; dbName: string }> {
+  const mongoUrl = await resolveTestMongoUrl();
   const dbName = `taxsimba_test_${randomUUID().slice(0, 8)}`;
   Object.assign(process.env, {
-    MONGO_URL: process.env.TEST_MONGO_URL ?? "mongodb://127.0.0.1:27017",
+    MONGO_URL: mongoUrl,
     DB_NAME: dbName,
     JWT_SECRET: "test-jwt-secret-value",
     TOTP_FERNET_KEY: process.env.TOTP_FERNET_KEY ?? generateKey(),
@@ -26,6 +55,7 @@ export async function bootTestApp(): Promise<{ app: Express; dbName: string }> {
     LOCAL_STORAGE_DIR: `/tmp/taxsimba-node-tests/${dbName}`,
     API_RATE_LIMIT_PER_MINUTE: "100000",
     SEED_DEMO_DATA: "false",
+    EMAIL_DRIVER: process.env.EMAIL_DRIVER ?? "none",
   });
 
   const { connect } = await import("../../src/db/mongo");
@@ -50,12 +80,17 @@ export interface TestUser {
 }
 
 /** Creates an active user of any role and returns an API bearer token for it. */
-export async function makeUser(role: string, name = role.toLowerCase()): Promise<TestUser> {
+export async function makeUser(
+  role: string,
+  name = role.toLowerCase(),
+  opts: { emailVerified?: boolean } = {},
+): Promise<TestUser> {
   const { col } = await import("../../src/db/mongo");
   const { createAccessToken } = await import("../../src/services/auth");
   const { nowIso } = await import("../../src/domain/workflow");
   const id = randomUUID();
   const email = `${name}.${id.slice(0, 8)}@parity.taxsimba.local`;
+  const verified = opts.emailVerified !== false;
   await col("users").insertOne({
     id,
     email,
@@ -63,6 +98,7 @@ export async function makeUser(role: string, name = role.toLowerCase()): Promise
     role,
     is_active: true,
     is_test: false,
+    email_verified_at: verified ? nowIso() : null,
     created_at: nowIso(),
   });
   return { id, name, email, role, token: createAccessToken(id, email) };
@@ -71,12 +107,12 @@ export async function makeUser(role: string, name = role.toLowerCase()): Promise
 /** A CLIENT user together with the `clients` record and its NOT_ACTIVE service rows. */
 export async function makeClient(
   name = "client",
-  opts: { isTest?: boolean } = {},
+  opts: { isTest?: boolean; emailVerified?: boolean } = {},
 ): Promise<TestUser & { clientId: string }> {
   const { col } = await import("../../src/db/mongo");
   const { bootstrapClientServices } = await import("../../src/services/clientServices");
   const { nowIso } = await import("../../src/domain/workflow");
-  const user = await makeUser("CLIENT", name);
+  const user = await makeUser("CLIENT", name, { emailVerified: opts.emailVerified });
   const client = {
     id: randomUUID(),
     user_id: user.id,

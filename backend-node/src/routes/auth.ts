@@ -20,6 +20,12 @@ import {
 } from "../services/auth";
 import { clearFailures, clientIp, enforceLoginAllowed, recordFailure } from "../services/loginLockout";
 import {
+  consumeEmailVerification,
+  issueEmailVerification,
+  resendEmailVerification,
+} from "../services/emailVerification";
+import { consumePasswordReset, issuePasswordReset } from "../services/passwordReset";
+import {
   consumeChallenge,
   createChallenge,
   decryptSecret,
@@ -44,6 +50,14 @@ const LoginIn = z.object({ email, password: z.string() });
 const TwoFactorLoginIn = z.object({ challenge: z.string(), code: z.string() });
 const CodeIn = z.object({ code: z.string() });
 const Disable2FAIn = z.object({ password: z.string(), code: z.string() });
+const EmailOnlyIn = z.object({ email });
+const VerifyEmailIn = z.object({ token: z.string().min(1) });
+const ResetPasswordIn = z.object({
+  token: z.string().min(1),
+  password: z.string().min(1),
+  confirm_password: z.string().nullish(),
+  confirmPassword: z.string().nullish(),
+});
 
 export const authRouter = Router();
 
@@ -63,6 +77,7 @@ authRouter.post(
       password_hash: hashPassword(body.password),
       phone: body.phone ?? null,
       is_active: true,
+      email_verified_at: null,
       created_at: nowIso(),
     };
     await col("users").insertOne({ ...record });
@@ -79,7 +94,75 @@ authRouter.post(
     };
     await col("clients").insertOne({ ...client });
     await bootstrapClientServices(client);
+    // Issue verification after bootstrap; registration must not fail if mail/token issue fails.
+    try {
+      await issueEmailVerification(record);
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn(`email verification issue skipped on register: ${String(e)}`);
+    }
     res.json(await authResponse(req, res, record));
+  }),
+);
+
+/** Consume a one-time email verification token (body or query). */
+authRouter.post(
+  "/auth/verify-email",
+  handler(async (req, res) => {
+    const token =
+      typeof req.query.token === "string" && req.query.token
+        ? req.query.token
+        : parseBody(VerifyEmailIn, req.body).token;
+    const user = await consumeEmailVerification(token);
+    res.json({ ok: true, email_verified_at: user.email_verified_at });
+  }),
+);
+
+authRouter.get(
+  "/auth/verify-email",
+  handler(async (req, res) => {
+    const token = typeof req.query.token === "string" ? req.query.token : "";
+    const user = await consumeEmailVerification(token);
+    res.json({ ok: true, email_verified_at: user.email_verified_at });
+  }),
+);
+
+/** Resend verification. Always returns a generic success to avoid email enumeration. */
+authRouter.post(
+  "/auth/re-verify-email",
+  handler(async (req, res) => {
+    const body = parseBody(EmailOnlyIn, req.body);
+    await resendEmailVerification(body.email);
+    res.json({
+      ok: true,
+      message: "If an unverified account exists for that email, a verification link has been sent.",
+    });
+  }),
+);
+
+/** Forgot password. Always returns a generic success to avoid email enumeration. */
+authRouter.post(
+  "/auth/forget-password",
+  handler(async (req, res) => {
+    const body = parseBody(EmailOnlyIn, req.body);
+    await issuePasswordReset(body.email);
+    res.json({
+      ok: true,
+      message: "If an account exists for that email, a password reset link has been sent.",
+    });
+  }),
+);
+
+authRouter.post(
+  "/auth/reset-password",
+  handler(async (req, res) => {
+    const body = parseBody(ResetPasswordIn, req.body);
+    const confirm = body.confirm_password ?? body.confirmPassword ?? null;
+    if (confirm != null && confirm !== body.password) {
+      throw httpError(400, "Passwords do not match");
+    }
+    await consumePasswordReset(body.token, body.password);
+    res.json({ ok: true, message: "Password updated" });
   }),
 );
 
