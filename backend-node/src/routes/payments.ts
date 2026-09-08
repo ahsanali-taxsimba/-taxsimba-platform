@@ -581,9 +581,18 @@ paymentsRouter.post(
 );
 
 // ------------------------------------------------------------------ fulfilment
-/** Idempotent post-payment business logic. */
+/**
+ * Idempotent post-payment business logic.
+ *
+ * Callers (Stripe webhook / payments status) must only invoke this when the Checkout
+ * Session is genuinely paid. The payment_status and email-verify checks below are
+ * defence-in-depth for race/legacy/misuse paths — an unverified P0 user cannot create a
+ * paid Checkout Session in the first place (requireVerifiedEmail on every checkout start).
+ */
 export async function fulfil(tx: Doc): Promise<void> {
   if (tx.fulfilled) return;
+  // Never activate or mark fulfilled from unpaid/incomplete/expired transactions.
+  if (tx.payment_status !== "paid") return;
   const client = (await col("clients").findOne({ id: tx.client_id })) as Doc | null;
   const user = (await col("users").findOne({ id: tx.user_id })) as Doc | null;
   const actor = user ? { id: user.id, name: user.name, role: "CLIENT" } : null;
@@ -722,8 +731,10 @@ export async function fulfil(tx: Doc): Promise<void> {
       );
       return;
     }
-    // Defence-in-depth: refuse SA/MTD activation for unverified users without
-    // rewriting activateService. Leave unfulfilled so retry after verify works.
+    // Defence-in-depth only (race/legacy): refuse SA/MTD activation if email is still
+    // unverified. Primary P0 gate is requireVerifiedEmail on checkout session creation —
+    // unverified users must not reach a paid SERVICE_ACTIVATION tx via the normal path.
+    // Leave unfulfilled so a later webhook/status retry can complete after verify.
     if (!isEmailVerified(user)) return;
     // Single source of truth for activation (service + case + MTD periods).
     await activateService(clean(client) as Doc, user, tx.service_type, tx.new_package, {

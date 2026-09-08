@@ -1,5 +1,8 @@
 /**
- * K.2: email verify/reset + VERIFY-BEFORE-PURCHASE + fulfil defence-in-depth.
+ * K.2 acceptance: email verify/reset + VERIFY-BEFORE-PURCHASE + fulfil defence-in-depth.
+ *
+ * Primary rule: unverified users cannot create any paid Stripe Checkout Session.
+ * fulfil email / payment_status guards are recovery/legacy/race defence only.
  */
 import { randomUUID } from "crypto";
 
@@ -17,13 +20,10 @@ import {
 } from "../helpers/app";
 import { FakePaymentProvider, WEBHOOK_SIGNATURE } from "../helpers/payments";
 
-type Client = TestUser & { clientId: string };
-
-describe("K.2 verify / reset / checkout guards", () => {
+describe("K.2 acceptance — verify-before-purchase", () => {
   let app: Express;
   let provider: FakePaymentProvider;
   let admin: TestUser;
-  let memoryUri: string | null = null;
 
   function webhook(type: string, object: Record<string, unknown>) {
     return request(app)
@@ -42,12 +42,39 @@ describe("K.2 verify / reset / checkout guards", () => {
     });
   }
 
+  async function seedActiveSaFor(client: TestUser & { clientId: string }) {
+    const { col } = await import("../../src/db/mongo");
+    const { nowIso } = await import("../../src/domain/workflow");
+    await col("client_services").updateOne(
+      { client_id: client.clientId, service_type: "SELF_ASSESSMENT" },
+      {
+        $set: {
+          status: "ACTIVE",
+          package_code: "SIMPLE",
+          agreed_price: 99,
+          updated_at: nowIso(),
+        },
+      },
+    );
+    const caseId = randomUUID();
+    await col("cases").insertOne({
+      id: caseId,
+      client_id: client.clientId,
+      client_user_id: client.id,
+      client_name: client.name,
+      service_type: "SELF_ASSESSMENT",
+      status: "IN_PROGRESS",
+      case_ref: `SA-K2-${caseId.slice(0, 4)}`,
+      created_at: nowIso(),
+    });
+    return caseId;
+  }
+
   beforeAll(async () => {
     if (!process.env.TEST_MONGO_URL) {
       const { MongoMemoryServer } = await import("mongodb-memory-server");
       const mongo = await MongoMemoryServer.create();
-      memoryUri = mongo.getUri();
-      process.env.TEST_MONGO_URL = memoryUri;
+      process.env.TEST_MONGO_URL = mongo.getUri();
       (globalThis as { __taxsimbaMemoryMongoK2?: { stop: () => Promise<boolean> } }).__taxsimbaMemoryMongoK2 =
         mongo;
     }
@@ -67,7 +94,7 @@ describe("K.2 verify / reset / checkout guards", () => {
     if (mem) await mem.stop();
   });
 
-  it("register leaves email unverified and issues a consumable verify token", async () => {
+  it("register → SA+MTD NOT_ACTIVE; verify-email does not activate either service", async () => {
     const email = `k2reg.${randomUUID().slice(0, 8)}@example.com`;
     const res = await request(app)
       .post("/api/auth/register")
@@ -81,21 +108,27 @@ describe("K.2 verify / reset / checkout guards", () => {
     expect(res.body.user.email_verified_at).toBeNull();
 
     const { col } = await import("../../src/db/mongo");
-    const tokenRow = await col("email_verify_tokens").findOne({ email });
-    expect(tokenRow).toBeTruthy();
-    expect(tokenRow?.used_at).toBeNull();
+    const client = await col("clients").findOne({ email });
+    const before = await col("client_services").find({ client_id: client!.id }).toArray();
+    expect(before.map((s) => s.service_type).sort()).toEqual([
+      "MTD_INCOME_TAX",
+      "SELF_ASSESSMENT",
+    ]);
+    expect(before.every((s) => s.status === "NOT_ACTIVE")).toBe(true);
+    expect(before.every((s) => s.package_code == null)).toBe(true);
 
-    // Pull raw token via re-issue helper for consume (stored only hashed).
     const { issueEmailVerification } = await import("../../src/services/emailVerification");
     const user = await col("users").findOne({ email });
-    // Prior token still unused — issueEmailVerification revokes it and returns a fresh one.
     const issued = await issueEmailVerification(user!);
     await request(app)
       .post(`/api/auth/verify-email?token=${encodeURIComponent(issued.token)}`)
       .expect(200);
 
-    const after = await col("users").findOne({ email });
-    expect(after?.email_verified_at).toBeTruthy();
+    const afterUser = await col("users").findOne({ email });
+    expect(afterUser?.email_verified_at).toBeTruthy();
+    const after = await col("client_services").find({ client_id: client!.id }).toArray();
+    expect(after.every((s) => s.status === "NOT_ACTIVE")).toBe(true);
+    expect(await col("cases").countDocuments({ client_id: client!.id })).toBe(0);
   });
 
   it("compat verify / resend / forget / reset endpoints work with envelope", async () => {
@@ -154,10 +187,13 @@ describe("K.2 verify / reset / checkout guards", () => {
     expect(login.body.user.email).toBe(email);
   });
 
-  it("blocks all paid checkout starts for unverified clients", async () => {
-    const client = await makeClient("unverified-checkout", { emailVerified: false });
+  it("unverified service-checkout → 403 and no Stripe Checkout Session", async () => {
+    const client = await makeClient("unverified-svc", { emailVerified: false });
+    const before = provider.checkouts.length;
+    const { col } = await import("../../src/db/mongo");
+    const txBefore = await col("payment_transactions").countDocuments({ user_id: client.id });
 
-    const service = await request(app)
+    const res = await request(app)
       .post("/api/payments/service-checkout")
       .set(bearer(client))
       .send({
@@ -165,54 +201,29 @@ describe("K.2 verify / reset / checkout guards", () => {
         package_code: "SIMPLE",
         origin_url: "https://app.test.taxsimba.local",
       });
-    expect(service.status).toBe(403);
-    expect(service.body.detail).toMatch(/Email verification is required/i);
+    expect(res.status).toBe(403);
+    expect(res.body.detail).toMatch(/Email verification is required/i);
+    expect(provider.checkouts.length).toBe(before);
+    expect(await col("payment_transactions").countDocuments({ user_id: client.id })).toBe(txBefore);
+  });
 
-    // Seed an ACTIVE SA for upgrade/offer/AW paths that need an existing case.
-    const verified = await makeClient("verified-for-seed");
-    const buy = await request(app)
-      .post("/api/payments/service-checkout")
-      .set(bearer(verified))
-      .send({
-        service_type: "SELF_ASSESSMENT",
-        package_code: "SIMPLE",
-        origin_url: "https://app.test.taxsimba.local",
-      })
-      .expect(200);
-    await payAndConfirm(buy.body.session_id).expect(200);
+  it("unverified upgrade-checkout → 403 and no Stripe Checkout Session", async () => {
+    const client = await makeClient("unverified-upg", { emailVerified: false });
+    await seedActiveSaFor(client);
+    const before = provider.checkouts.length;
 
-    // Give unverified client an ACTIVE service row + case directly (bypass purchase).
-    const { col } = await import("../../src/db/mongo");
-    const { nowIso } = await import("../../src/domain/workflow");
-    await col("client_services").updateOne(
-      { client_id: client.clientId, service_type: "SELF_ASSESSMENT" },
-      {
-        $set: {
-          status: "ACTIVE",
-          package_code: "SIMPLE",
-          agreed_price: 99,
-          updated_at: nowIso(),
-        },
-      },
-    );
-    const caseId = randomUUID();
-    await col("cases").insertOne({
-      id: caseId,
-      client_id: client.clientId,
-      client_user_id: client.id,
-      client_name: client.name,
-      service_type: "SELF_ASSESSMENT",
-      status: "IN_PROGRESS",
-      case_ref: `SA-K2-${caseId.slice(0, 4)}`,
-      created_at: nowIso(),
-    });
-
-    const upgrade = await request(app)
+    const res = await request(app)
       .post("/api/payments/upgrade-checkout")
       .set(bearer(client))
       .send({ package_code: "SMART", origin_url: "https://app.test.taxsimba.local" });
-    expect(upgrade.status).toBe(403);
+    expect(res.status).toBe(403);
+    expect(provider.checkouts.length).toBe(before);
+  });
 
+  it("unverified offer-checkout → 403 and no Stripe Checkout Session", async () => {
+    const client = await makeClient("unverified-offer", { emailVerified: false });
+    const { col } = await import("../../src/db/mongo");
+    const { nowIso } = await import("../../src/domain/workflow");
     const offerId = randomUUID();
     await col("offers").insertOne({
       id: offerId,
@@ -225,12 +236,21 @@ describe("K.2 verify / reset / checkout guards", () => {
       status: "PENDING",
       created_at: nowIso(),
     });
-    const offer = await request(app)
+    const before = provider.checkouts.length;
+
+    const res = await request(app)
       .post("/api/payments/offer-checkout")
       .set(bearer(client))
       .send({ offer_id: offerId, origin_url: "https://app.test.taxsimba.local" });
-    expect(offer.status).toBe(403);
+    expect(res.status).toBe(403);
+    expect(provider.checkouts.length).toBe(before);
+  });
 
+  it("unverified ADDITIONAL_WORK checkout → 403 and no Stripe Checkout Session", async () => {
+    const client = await makeClient("unverified-aw", { emailVerified: false });
+    const caseId = await seedActiveSaFor(client);
+    const { col } = await import("../../src/db/mongo");
+    const { nowIso } = await import("../../src/domain/workflow");
     const awId = randomUUID();
     await col("payment_transactions").insertOne({
       id: awId,
@@ -246,20 +266,60 @@ describe("K.2 verify / reset / checkout guards", () => {
       created_at: nowIso(),
       updated_at: nowIso(),
     });
-    const aw = await request(app)
+    const before = provider.checkouts.length;
+
+    const res = await request(app)
       .post(`/api/payment-requests/${awId}/checkout`)
       .set(bearer(client))
       .send({ origin_url: "https://app.test.taxsimba.local" });
-    expect(aw.status).toBe(403);
+    expect(res.status).toBe(403);
+    expect(provider.checkouts.length).toBe(before);
+    const row = await col("payment_transactions").findOne({ id: awId });
+    expect(row?.session_id).toBeFalsy();
   });
 
-  it("fulfil refuses activateService for unverified users but still pays AW without activation", async () => {
-    const unverified = await makeClient("fulfil-unverified", { emailVerified: false });
+  it("direct fulfil of unpaid/incomplete SERVICE_ACTIVATION NEVER activates", async () => {
+    const client = await makeClient("unpaid-fulfil", { emailVerified: true });
     const { col } = await import("../../src/db/mongo");
     const { nowIso } = await import("../../src/domain/workflow");
     const { fulfil } = await import("../../src/routes/payments");
 
-    const sessionId = `cs_test_unverified_${randomUUID().slice(0, 8)}`;
+    for (const payment_status of ["pending", "unpaid", "expired", "initiated"]) {
+      const tx = {
+        id: randomUUID(),
+        session_id: `cs_unpaid_${payment_status}_${randomUUID().slice(0, 6)}`,
+        user_id: client.id,
+        client_id: client.clientId,
+        kind: "SERVICE_ACTIVATION",
+        service_type: "SELF_ASSESSMENT",
+        new_package: "SIMPLE",
+        amount: 99,
+        currency: "gbp",
+        status: "initiated",
+        payment_status,
+        fulfilled: false,
+        created_at: nowIso(),
+        updated_at: nowIso(),
+      };
+      await col("payment_transactions").insertOne({ ...tx });
+      await fulfil(tx);
+      const svc = await col("client_services").findOne({
+        client_id: client.clientId,
+        service_type: "SELF_ASSESSMENT",
+      });
+      expect(svc?.status).toBe("NOT_ACTIVE");
+      const stored = await col("payment_transactions").findOne({ session_id: tx.session_id });
+      expect(stored?.fulfilled).toBe(false);
+    }
+  });
+
+  it("paid SERVICE_ACTIVATION + unverified → NEVER activates; remains unfulfilled", async () => {
+    const unverified = await makeClient("paid-unverified", { emailVerified: false });
+    const { col } = await import("../../src/db/mongo");
+    const { nowIso } = await import("../../src/domain/workflow");
+    const { fulfil } = await import("../../src/routes/payments");
+
+    const sessionId = `cs_paid_unverified_${randomUUID().slice(0, 8)}`;
     const tx = {
       id: randomUUID(),
       session_id: sessionId,
@@ -286,44 +346,101 @@ describe("K.2 verify / reset / checkout guards", () => {
     expect(svc?.status).toBe("NOT_ACTIVE");
     const still = await col("payment_transactions").findOne({ session_id: sessionId });
     expect(still?.fulfilled).toBe(false);
+    expect(await col("cases").countDocuments({ client_id: unverified.clientId })).toBe(0);
+  });
 
-    // After verify, fulfil activates via existing spine.
-    await col("users").updateOne(
-      { id: unverified.id },
-      { $set: { email_verified_at: nowIso() } },
-    );
-    await fulfil(still!);
-    const active = await col("client_services").findOne({
-      client_id: unverified.clientId,
+  it("after verify, retry activates ONLY when transaction is genuinely paid", async () => {
+    const user = await makeClient("retry-after-verify", { emailVerified: false });
+    const { col } = await import("../../src/db/mongo");
+    const { nowIso } = await import("../../src/domain/workflow");
+    const { fulfil } = await import("../../src/routes/payments");
+
+    const unpaid = {
+      id: randomUUID(),
+      session_id: `cs_retry_unpaid_${randomUUID().slice(0, 8)}`,
+      user_id: user.id,
+      client_id: user.clientId,
+      kind: "SERVICE_ACTIVATION",
+      service_type: "SELF_ASSESSMENT",
+      new_package: "SIMPLE",
+      amount: 99,
+      currency: "gbp",
+      status: "initiated",
+      payment_status: "pending",
+      fulfilled: false,
+      created_at: nowIso(),
+      updated_at: nowIso(),
+    };
+    const paid = {
+      id: randomUUID(),
+      session_id: `cs_retry_paid_${randomUUID().slice(0, 8)}`,
+      user_id: user.id,
+      client_id: user.clientId,
+      kind: "SERVICE_ACTIVATION",
+      service_type: "SELF_ASSESSMENT",
+      new_package: "SIMPLE",
+      amount: 99,
+      currency: "gbp",
+      status: "completed",
+      payment_status: "paid",
+      fulfilled: false,
+      created_at: nowIso(),
+      updated_at: nowIso(),
+    };
+    await col("payment_transactions").insertOne({ ...unpaid });
+    await col("payment_transactions").insertOne({ ...paid });
+
+    await col("users").updateOne({ id: user.id }, { $set: { email_verified_at: nowIso() } });
+
+    await fulfil(unpaid);
+    let svc = await col("client_services").findOne({
+      client_id: user.clientId,
       service_type: "SELF_ASSESSMENT",
     });
-    expect(active?.status).toBe("ACTIVE");
-    expect(active?.package_code).toBe("SIMPLE");
-    const cases = await col("cases")
-      .find({ client_id: unverified.clientId, service_type: "SELF_ASSESSMENT" })
-      .toArray();
-    expect(cases.length).toBeGreaterThanOrEqual(1);
+    expect(svc?.status).toBe("NOT_ACTIVE");
+    expect((await col("payment_transactions").findOne({ id: unpaid.id }))?.fulfilled).toBe(false);
 
-    // ADDITIONAL_WORK: mark paid without activateService / new entitlement / new case count bump.
-    const verifiedAw = await makeClient("aw-verified");
-    await request(app)
+    await fulfil(paid);
+    svc = await col("client_services").findOne({
+      client_id: user.clientId,
+      service_type: "SELF_ASSESSMENT",
+    });
+    expect(svc?.status).toBe("ACTIVE");
+    expect(svc?.package_code).toBe("SIMPLE");
+    expect((await col("payment_transactions").findOne({ id: paid.id }))?.fulfilled).toBe(true);
+    expect(
+      await col("cases").countDocuments({
+        client_id: user.clientId,
+        service_type: "SELF_ASSESSMENT",
+      }),
+    ).toBe(1);
+  });
+
+  it("ADDITIONAL_WORK fulfil never activates SA/MTD or creates/duplicates a service case", async () => {
+    const client = await makeClient("aw-no-activate");
+    const buy = await request(app)
       .post("/api/payments/service-checkout")
-      .set(bearer(verifiedAw))
+      .set(bearer(client))
       .send({
         service_type: "SELF_ASSESSMENT",
         package_code: "SIMPLE",
         origin_url: "https://app.test.taxsimba.local",
       })
-      .expect(200)
-      .then(async (r) => payAndConfirm(r.body.session_id).expect(200));
+      .expect(200);
+    await payAndConfirm(buy.body.session_id).expect(200);
 
+    const { col } = await import("../../src/db/mongo");
     const kase = await col("cases").findOne({
-      client_id: verifiedAw.clientId,
+      client_id: client.clientId,
       service_type: "SELF_ASSESSMENT",
     });
-    const caseCountBefore = await col("cases").countDocuments({ client_id: verifiedAw.clientId });
+    const caseCountBefore = await col("cases").countDocuments({ client_id: client.clientId });
+    const saBefore = await col("client_services").findOne({
+      client_id: client.clientId,
+      service_type: "SELF_ASSESSMENT",
+    });
     const mtdBefore = await col("client_services").findOne({
-      client_id: verifiedAw.clientId,
+      client_id: client.clientId,
       service_type: "MTD_INCOME_TAX",
     });
 
@@ -334,7 +451,7 @@ describe("K.2 verify / reset / checkout guards", () => {
       .expect(200);
     const checkout = await request(app)
       .post(`/api/payment-requests/${aw.body.id}/checkout`)
-      .set(bearer(verifiedAw))
+      .set(bearer(client))
       .send({ origin_url: "https://app.test.taxsimba.local" })
       .expect(200);
     await payAndConfirm(checkout.body.session_id).expect(200);
@@ -344,15 +461,21 @@ describe("K.2 verify / reset / checkout guards", () => {
       kind: "ADDITIONAL_WORK",
       request_status: "PAID",
       fulfilled: true,
+      payment_status: "paid",
     });
-    const caseCountAfter = await col("cases").countDocuments({ client_id: verifiedAw.clientId });
-    expect(caseCountAfter).toBe(caseCountBefore);
+    expect(await col("cases").countDocuments({ client_id: client.clientId })).toBe(caseCountBefore);
+    const saAfter = await col("client_services").findOne({
+      client_id: client.clientId,
+      service_type: "SELF_ASSESSMENT",
+    });
     const mtdAfter = await col("client_services").findOne({
-      client_id: verifiedAw.clientId,
+      client_id: client.clientId,
       service_type: "MTD_INCOME_TAX",
     });
-    expect(mtdAfter?.status).toBe(mtdBefore?.status);
+    expect(saAfter?.status).toBe(saBefore?.status);
+    expect(saAfter?.package_code).toBe(saBefore?.package_code);
     expect(mtdAfter?.status).toBe("NOT_ACTIVE");
+    expect(mtdAfter?.status).toBe(mtdBefore?.status);
   });
 
   it("allows login while unverified", async () => {
