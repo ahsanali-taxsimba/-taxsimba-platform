@@ -15,8 +15,8 @@
 |---|---|---|
 | D1 | OTP | **Hide** for P0. Password is a usable core path (`Use password`). OTP is not required for login/session. No visible broken OTP. |
 | D2 | Google | **Hide** for P0. |
-| D3 | Additional payment requests | **In P0.** Admin creates AW request; client sees + pays; staff see status. Must **not** activate SA/MTD or duplicate cases. Reuse Node `ADDITIONAL_WORK` + Stripe Checkout. |
-| D4 | Email verification | **VERIFY-BEFORE-PURCHASE.** Login/pre-purchase dashboard allowed unverified. Paid checkout + activation require verified email **server-side**. Unverified → never ACTIVE entitlement. |
+| D3 | Additional payment requests | **In P0.** Admin creates AW request; client sees + pays; staff see status. Must **not** activate SA/MTD, create SA/MTD entitlement, or duplicate service cases. Reuse Node `ADDITIONAL_WORK` + Stripe Checkout. |
+| D4 | Email verification | **VERIFY-BEFORE-PURCHASE** for **all** paid Stripe Checkout Sessions in P0 (service purchase, upgrade, offer, and **ADDITIONAL_WORK**). Login/pre-purchase dashboard allowed unverified. Unverified → never start paid checkout; never ACTIVE SA/MTD entitlement. Enforced **server-side**. |
 | D5 | Case entitlement | CLIENT SA/MTD case create/access requires matching ACTIVE entitlement. Enforce server-side. Prefer activation-created cases. Staff workflows preserved without accidental duplicate service cases. |
 | D6 | Payment architecture | Stripe **Checkout Session only**. No Elements `subscription/create` for P0. Activation only via verified `fulfil` → `activateService` (+ `ensurePeriods` for MTD). |
 | D7 | Ownership SoT | `GET /api/my-services` ACTIVE rows. Four states: neither / SA / MTD / both. Never `isSubscriptionBuy`. |
@@ -62,14 +62,17 @@
 
 **VERIFY-BEFORE-PURCHASE enforcement (server):**
 
+Applies intentionally to **every** paid Stripe Checkout Session in P0 — including `SERVICE_ACTIVATION`, `SA_UPGRADE`, offer checkout, and **`ADDITIONAL_WORK` payment-request checkout**.
+
 | Checkpoint | Rule |
 |---|---|
 | Register | Create user + NOT_ACTIVE services; issue verification email; do **not** require verify to complete register |
 | Login | Allowed if password ok (even if unverified) |
 | Pre-purchase dashboard | Allowed unverified; show verification-required banner + resend |
-| `POST /payments/service-checkout`, upgrade-checkout, offer-checkout, payment-request checkout | **403/400 if `email_verified_at` missing** |
-| `fulfil` → `activateService` | Refuse activation if user email unverified (defence in depth) |
-| Unverified | Never set `client_services.status = ACTIVE` |
+| **Any** paid checkout start (`service-checkout`, `upgrade-checkout`, `offer-checkout`, `POST /payment-requests/:id/checkout`) | **403/400 if `email_verified_at` missing** — unverified user cannot start a paid checkout |
+| `fulfil` → `activateService` (service kinds only) | Refuse SA/MTD activation if user email unverified (defence in depth) |
+| `fulfil` for `ADDITIONAL_WORK` | May mark the AW payment paid/fulfilled after verified Stripe success; **must never** call `activateService`, set SA/MTD ACTIVE, or create a service case |
+| Unverified | Never set `client_services.status = ACTIVE` for SA or MTD |
 
 ---
 
@@ -79,7 +82,7 @@
 |---|---|---|---|---|---|---|---|---|
 | P1 | `EditProfile.jsx` | PUT `auth/update-account-settings` | name, surname, mobile, address, utr?, photo? | 200 | `PATCH /my-profile` `{ name, phone, address }` | ADAPTER + FE | Map name fields; **UTR optional — no block**; no client UTR write unless product later; photo = hide or GAP | `compat/profile`; `routes/profile.ts` |
 | P2 | Profile UTR reveal | — | — | utr | `GET /my-profile/utr` | FE CHANGE if needed | Reveal-only; missing UTR must not block dashboard/journey | profile pages; middleware |
-| P3 | Admin profile edit | PUT update-account-settings | staff fields | 200 | CLIENT-only my-profile | HIDE or BACKEND GAP | Prefer hide staff photo/UTR edit for P0 | admin profile sections |
+| P3 | Admin profile edit | PUT update-account-settings | staff fields | 200 | CLIENT-only my-profile | HIDE | Hide unsupported staff profile photo/UTR edit for P0 (not counted as a backend gap) | admin profile sections |
 
 ---
 
@@ -96,7 +99,7 @@
 | E7 | `checkout-success/page.jsx` | POST `client/subscription/checkout-success` | `{ sessionId }` | purchase info | `GET /payments/status/:sessionId` → `fulfil` | ADAPTER | Poll/fulfil only if Stripe paid; **never trust page alone**; FE must refresh my-services not set isSubscriptionBuy | `compat/payments`; `payments.fulfil`; FE checkout-success |
 | E8 | Upgrade UX | navigate planlist | — | upgrade | `GET /my-upgrade-options`, `POST /payments/upgrade-checkout` | FRONTEND CHANGE | Wire upgrade-only; no downgrade UI | `MySubscriptionsUI.jsx` |
 | E9 | Portal/cards/cancel | various | — | — | none | HIDE | Hide | MySubscriptionsUI, planlist cards |
-| E10 | Activation spine | (server) | paid session | ACTIVE + case (+ periods) | `fulfil` → `activateService` → `ensurePeriods` | PROTECTED | Adapters call only; no duplicate logic | `payments.ts`, `packages.ts`, `mtd.ts` |
+| E10 | Activation spine | (server) | paid **service** session | ACTIVE + case (+ periods) | `fulfil` → `activateService` → `ensurePeriods` | PROTECTED (+ additive verify guard) | Call existing spine only; additive verify-before-activation guard allowed; no parallel activation logic | `payments.ts`, `packages.ts`, `mtd.ts` |
 
 **Idempotency:** `tx.fulfilled`, business-key duplicates, `ensurePeriods` skip existing quarters — preserved.
 
@@ -106,17 +109,28 @@
 
 ## 5. Additional / custom payment requests (P0 IN SCOPE)
 
-Node already implements ADDITIONAL_WORK without service activation:
+Node already implements `ADDITIONAL_WORK` without service activation. P0 reuses that path.
+
+### Payment verification policy (ADDITIONAL_WORK included)
+
+| Rule | Requirement |
+|---|---|
+| VERIFY-BEFORE-PURCHASE | Unverified client **cannot** start `POST /payment-requests/:id/checkout` (same as service/upgrade/offer checkouts) |
+| Server enforcement | Verified email required **server-side** on AW checkout start |
+| No SA/MTD activation | AW `fulfil` **MUST NEVER** call `activateService` |
+| No entitlement | AW payment **MUST NEVER** set SA/MTD `client_services` to ACTIVE or create a new entitlement |
+| No duplicate service case | AW payment **MUST NEVER** create a new SA/MTD service case. AW requests attach to an **existing** case (`case_id` required by domain model). Fulfilment updates payment status on that existing case context only |
+| Same Stripe architecture | Checkout Session + existing webhook/`fulfil` — no second payment stack |
 
 | ID | Actor | Method / path (Node native preferred) | Request | Response | Class | Solution | Files |
 |---|---|---|---|---|---|---|---|
-| AW1 | Admin/Staff | `POST /api/payment-requests` | `{ case_id, description, amount, vat_rate?, due_date?, mtd_period_id?, recommendation_id?, internal_note? }` | request tx `kind=ADDITIONAL_WORK` | FRONTEND CHANGE + thin ADAPTER if path alias needed | Wire admin UI to **existing** Node route; optional compat alias `/admin/payment-requests` | `routes/payments.ts` (protected); **new admin FE page/section** |
+| AW1 | Admin/Staff | `POST /api/payment-requests` | `{ case_id, description, amount, vat_rate?, due_date?, mtd_period_id?, recommendation_id?, internal_note? }` | request tx `kind=ADDITIONAL_WORK` | FRONTEND CHANGE + thin ADAPTER if path alias needed | Wire admin UI to **existing** Node route; optional compat alias `/admin/payment-requests` | `routes/payments.ts` (protected domain; additive verify N/A on create); **new admin FE page/section** |
 | AW2 | Client | `GET /api/payment-requests` (scoped) / my-actions / my-payments | — | pending AW | FRONTEND CHANGE | Surface in client actions/billing | client actions / billing |
-| AW3 | Client | `POST /api/payment-requests/:id/checkout` `{ origin_url }` | `{ checkout_url, session_id, amount }` | ADAPTER optional | Same Checkout Session infra | `payments.ts` |
+| AW3 | Client | `POST /api/payment-requests/:id/checkout` `{ origin_url }` | `{ checkout_url, session_id, amount }` | ADAPTER optional | Same Checkout Session infra; **require verified email** | `payments.ts` |
 | AW4 | Staff | list/status via `GET /payment-requests`, `GET /payments` | filters | statuses | ADAPTER if admin legacy path | Show payment_status; no activateService | admin payments UI |
-| AW5 | Server | `fulfil` when `kind === ADDITIONAL_WORK` | paid tx | marks paid/fulfilled only | PROTECTED | **Must not** call `activateService` / create entitlement/case | `payments.ts` fulfil ADDITIONAL_WORK branch |
+| AW5 | Server | `fulfil` when `kind === ADDITIONAL_WORK` | paid tx | marks paid/fulfilled only | PROTECTED | **Must not** call `activateService` / create entitlement / create service case | `payments.ts` fulfil ADDITIONAL_WORK branch |
 
-**Tests required:** AW pay does not create SA/MTD ACTIVE; does not duplicate case; SERVICE_ACTIVATION still activates correctly.
+**Tests required:** unverified client blocked from AW checkout; AW pay does not create SA/MTD ACTIVE; does not create entitlement; does not duplicate/create service case; SERVICE_ACTIVATION still activates correctly.
 
 ---
 
@@ -125,7 +139,7 @@ Node already implements ADDITIONAL_WORK without service activation:
 | ID | FE | Method / path | Request | Expected | Node | Class | Solution | Files |
 |---|---|---|---|---|---|---|---|---|
 | G1 | `engagement-letter/page.jsx`, middleware | POST `client/accept-engagement-letter` | `{ signature, accepted }` | success | **none** | BACKEND GAP | Minimal record: user_id, service_type/case_id, agreement_version, status, accepted_at, audit | New `engagement` module |
-| G2 | middleware force after purchase | — | — | redirect until accepted | check status API | FE + GAP | After ACTIVE entitlement, require accept before journey continue; not before purchase | middleware; engagement page |
+| G2 | middleware force after purchase | — | — | redirect until accepted | status via G1 API | FRONTEND CHANGE | After ACTIVE entitlement, require accept before journey continue; not before purchase (uses G1 backend) | middleware; engagement page |
 | G3 | `submit-tax-info` | POST `client/submit-tax-info` | FormData / answers | success | `POST /mtd/cases/:id/onboarding` and/or profile | ADAPTER | Map questionnaire; no activation | `mtdOnboarding.ts` |
 
 ---
@@ -202,7 +216,26 @@ Launch journeys: client upload; staff request; view; case-linked; final docs whe
 
 ---
 
-## 12. Protected Node domain (do not rewrite)
+## 12. Protected Node domain
+
+### Meaning of PROTECTED
+
+**Protected** means: **do not rewrite, replace, duplicate, or move** existing Node business/domain logic into adapters or parallel modules.
+
+**Narrowly scoped additive security/validation guards ARE permitted** where this P0 baseline explicitly requires them. Examples:
+
+- email verification guard before any Stripe Checkout Session start (including ADDITIONAL_WORK)
+- verification defence-in-depth before SA/MTD `activateService`
+- CLIENT entitlement checks on case create/access routes
+- duplicate service-case prevention
+- role / privacy / contact-masking checks
+- input validation (Zod) on compat and native entry points
+
+These additions must **call and preserve** existing domain services (`activateService`, `ensurePeriods`, `fulfil`, workflow transitions, documents, collaboration, entitlements). They must **not** create parallel business logic.
+
+Case entitlement / duplicate prevention and verify-before-purchase gates are therefore **CRITICAL additive hardening**, not new backend product features and not a sixth BACKEND GAP.
+
+### Protected modules (call / extend-with-guards only)
 
 - `services/clientServices.ts` — `bootstrapClientServices`  
 - `domain/packages.ts` — `activateService`, `servicesFor`, `serviceView`  
@@ -210,7 +243,7 @@ Launch journeys: client upload; staff request; view; case-linked; final docs whe
 - `domain/mtd.ts` — `ensurePeriods`  
 - `routes/mtd.ts`, `routes/mtdOnboarding.ts`  
 - `domain/cases.ts`, `domain/workflow.ts`  
-- `routes/cases.ts` (may **add** entitlement/duplicate guards only)  
+- `routes/cases.ts` — additive entitlement/duplicate guards only  
 - `routes/documents.ts`, `services/storage.ts`  
 - `routes/collaboration.ts`  
 - `routes/recommendations.ts`  
@@ -219,18 +252,28 @@ Launch journeys: client upload; staff request; view; case-linked; final docs whe
 
 ---
 
-## 13. Classification counts (updated for product decisions)
+## 13. Classification counts (reconciled)
+
+### Genuine P0 BACKEND GAPs (exactly 5)
+
+1. Email verification (issue + consume token; `email_verified_at`)  
+2. Resend verification  
+3. Forgot password  
+4. Reset password  
+5. Engagement / client-care acceptance persistence  
+
+Staff profile edit is **HIDE**, not a backend gap. Case entitlement gating is **additive hardening** on protected domain, not a backend gap.
 
 | Class | Count | Notes |
 |---|---|---|
 | MATCH | **0** | Unchanged |
 | ADAPTER | **62** | +AW aliases / payment-request surface maps |
 | FRONTEND CHANGE | **16** | +AW admin/client UI wire; entitlement gate; Checkout-only; SUPER_ADMIN; hide OTP/Google; engagement middleware; checkout-success |
-| BACKEND GAP | **6** | email verify, resend, password forgot, password reset, engagement accept (+ optional staff profile hide instead of gap) |
-| HIDE/DEFER | **~35** | OTP, Google, portal/cards, notif delete, start-next-quarter, CMS/marketing, payment analytics |
-| CRITICAL hardening | **1 area** | Case entitlement + duplicate prevention on `POST /cases` / CLIENT access |
+| BACKEND GAP | **5** | verify, resend, forgot, reset, engagement accept — matches catalog A4, A5, A6, A7, G1 |
+| HIDE/DEFER | **~35** | OTP, Google, portal/cards, notif delete, start-next-quarter, CMS/marketing, payment analytics, staff profile edit |
+| CRITICAL hardening | **1 area** | Case entitlement + duplicate prevention (+ verify guards on checkout/`fulfil`) |
 
-**P0 issue total (actionable):** ~84 (0 + 62 + 16 + 6), excluding pure marketing CMS deferrals.
+**P0 issue total (actionable):** **83** (0 + 62 + 16 + 5), excluding pure marketing CMS deferrals and HIDE/DEFER items.
 
 ---
 
@@ -239,11 +282,11 @@ Launch journeys: client upload; staff request; view; case-linked; final docs whe
 | ID | Conflict | Resolution |
 |---|---|---|
 | N1 | OTP UI is default chooser (`isUsePassword=false`) but password path exists and is sufficient | **Hide OTP**; land on / encourage password path — product decision D1 |
-| N2 | VERIFY-BEFORE-PURCHASE vs no Node verify fields | **BACKEND GAP** — add `email_verified_at` + enforce on checkout/fulfil |
+| N2 | VERIFY-BEFORE-PURCHASE vs no Node verify fields | **BACKEND GAP** — add `email_verified_at` + enforce on **all** paid checkouts including ADDITIONAL_WORK; defence-in-depth before SA/MTD `activateService` |
 | N3 | Engagement required vs no Node store | **BACKEND GAP** — minimal acceptance record |
-| N4 | `POST /cases` has **no** ACTIVE entitlement check today (`cases.ts` L276–327) | **CRITICAL hardening** — server-side gate for CLIENT; duplicate prevention for staff |
+| N4 | `POST /cases` has **no** ACTIVE entitlement check today (`cases.ts` L276–327) | **CRITICAL additive hardening** on protected domain — not a sixth backend gap |
 | N5 | checkout-success sets `isSubscriptionBuy: true` client-side | FE must stop; activation only via `fulfil` |
-| N6 | AW fulfil already safe (no activateService) | Reuse; wire FE; add regression tests |
+| N6 | AW fulfil already safe (no activateService) | Reuse; wire FE; enforce verify-before-AW-checkout; regression tests for no entitlement/case side effects |
 | N7 | Toxel has no AW UI today | **FRONTEND CHANGE** to call existing Node AW APIs — in P0 per D3 |
 
 ---
