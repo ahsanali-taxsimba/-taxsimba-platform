@@ -111,28 +111,13 @@ const AdminTaxReturnDetails = () => {
     fetchProgressData();
     fetchChatData();
     fetchReviewData();
-    fetchFlagCounts();
+    // P0: flags CMS deferred — do not call get-flag-data on load
     fetchNotifications();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [taxReturnIdStr]);
 
   const fetchFlagCounts = async () => {
-    if (!taxReturnIdForPayload) return;
-    try {
-      const response = await clientAxios.post('/admin/get-flag-data', {
-        taxReturnId: taxReturnIdForPayload, // number
-        page: 1,
-        limit: 1
-      });
-
-      if (response.data.success) {
-        const flags = response.data.data.flags || [];
-        const openFlags = flags.filter((f: any) => f.status === 'open').length;
-        setFlagCounts({ open: openFlags, total: flags.length });
-      }
-    } catch (err) {
-      console.error('Error fetching flag counts:', err);
-    }
+    setFlagCounts({ open: 0, total: 0 });
   };
 
   const fetchChatData = async () => {
@@ -237,16 +222,11 @@ const AdminTaxReturnDetails = () => {
     if (!taxReturnIdStr) return;
 
     try {
-      const response = await clientAxios.post(
-        `/tax-returns/${encodeURIComponent(taxReturnIdStr)}/notifications`,
-        {
-          params: {
-            page: 1,
-            limit: 20,
-            unreadOnly: false
-          }
-        }
-      );
+      const response = await clientAxios.post(`/all-notifications`, {
+        page: 1,
+        limit: 20,
+        unreadOnly: false,
+      });
 
       console.log(response.data, "notifications response");
 
@@ -282,7 +262,7 @@ const AdminTaxReturnDetails = () => {
     if (!taxReturnIdStr) return;
 
     try {
-      const response = await clientAxios.patch(`/tax-returns/${encodeURIComponent(taxReturnIdStr)}/notifications/read-all`);
+      const response = await clientAxios.patch(`/notifications/mark-all-read`);
 
       if (response.data.success) {
         setNotifications(prev =>

@@ -247,12 +247,10 @@ const TaxReturnManagement = () => {
 
   const fetchNotifications = async () => {
     try {
-      const response = await clientAxios.post(`/tax-returns/${taxReturnId}/notifications`, {
-        params: {
-          page: 1,
-          limit: 20,
-          unreadOnly: false
-        }
+      const response = await clientAxios.post(`/all-notifications`, {
+        page: 1,
+        limit: 20,
+        unreadOnly: false,
       });
 
       console.log(response.data, "notifications response");
@@ -268,7 +266,7 @@ const TaxReturnManagement = () => {
   };
   const markAllNotificationsAsRead = async () => {
     try {
-      const response = await clientAxios.patch(`/tax-returns/${taxReturnId}/notifications/read-all`);
+      const response = await clientAxios.patch(`/notifications/mark-all-read`);
 
       if (response.data.success) {
         // Update local state to mark all as read
