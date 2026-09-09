@@ -17,7 +17,7 @@ import { validateUpload } from "../middleware/protections";
 import { getObject, putObject } from "../services/storage";
 import { keysToCamel } from "./caseMap";
 import { sendCompatSuccess } from "./envelope";
-import { toCaseId, withTaxReturnId } from "./ids";
+import { toCaseId } from "./ids";
 
 export const compatDocumentsRouter = Router();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -50,9 +50,12 @@ compatDocumentsRouter.post(
       .sort({ created_at: -1 })
       .limit(500)
       .toArray()) as Doc[];
-    const cleaned = scrubMany(cleanMany(docs), me).map((d) =>
-      withTaxReturnId({ ...d, tax_return_id: d.case_id, id: d.id }),
-    );
+    const cleaned = scrubMany(cleanMany(docs), me).map((d) => ({
+      ...d,
+      taxReturnId: d.case_id,
+      tax_return_id: d.case_id,
+      caseId: d.case_id,
+    }));
     sendCompatSuccess(res, { files: cleaned, documents: cleaned }, "OK");
   }),
 );
@@ -110,7 +113,13 @@ compatDocumentsRouter.post(
     }
     sendCompatSuccess(
       res,
-      withTaxReturnId({ ...clean(record), tax_return_id: caseId }),
+      {
+        ...clean(record),
+        tax_return_id: caseId,
+        case_id: caseId,
+        taxReturnId: caseId,
+        caseId,
+      },
       "Uploaded",
     );
   }),

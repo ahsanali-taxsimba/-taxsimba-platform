@@ -211,7 +211,7 @@ compatCasesRouter.post(
     }
     // Only transition to ASSIGNED when the whitelist allows it; reassignment keeps status.
     if ((ALLOWED_TRANSITIONS[String(kase.status)] ?? []).includes("ASSIGNED")) {
-      await transition(caseId, "ASSIGNED", me, null, extra);
+      await transition(kase, "ASSIGNED", me, `Assigned to ${acc.name}`, { extra });
     } else {
       await col("cases").updateOne(
         { id: caseId },
@@ -268,7 +268,7 @@ compatCasesRouter.post(
       if (!(ALLOWED_TRANSITIONS[String(kase.status)] ?? []).includes("ADMIN_APPROVED")) {
         throw httpError(400, `Cannot admin-approve from status ${kase.status}`);
       }
-      await transition(caseId, "ADMIN_APPROVED", me, body.note ?? null);
+      await transition(kase, "ADMIN_APPROVED", me, body.note ?? "Admin approved");
       const updated = await getCase(caseId, me);
       sendCompatSuccess(res, decorateCase(updated), "Approved");
       return;
@@ -289,9 +289,9 @@ compatCasesRouter.post(
       if (!(ALLOWED_TRANSITIONS[String(kase.status)] ?? []).includes("CHANGES_REQUIRED")) {
         throw httpError(400, `Cannot return case from status ${kase.status}`);
       }
-      await transition(caseId, "CHANGES_REQUIRED", me, reason, {
-        waiting_reason: reason,
-        internal_instructions: body.instructions ?? reason,
+      await transition(kase, "CHANGES_REQUIRED", me, reason, {
+        waitingReason: reason,
+        extra: { internal_instructions: body.instructions ?? reason },
       });
       const updated = await getCase(caseId, me);
       sendCompatSuccess(res, decorateCase(updated), "Returned");
@@ -306,7 +306,7 @@ compatCasesRouter.post(
           `Invalid workflow transition from ${kase.status} to ${requestedStatus}`,
         );
       }
-      await transition(caseId, requestedStatus, me, body.note ?? null);
+      await transition(kase, requestedStatus, me, body.note ?? `Moved to ${requestedStatus}`);
       const updated = await getCase(caseId, me);
       sendCompatSuccess(res, decorateCase(updated), "Updated");
       return;
