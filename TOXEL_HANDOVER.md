@@ -2,7 +2,7 @@
 
 **Verdict:** A. READY FOR TOXEL STAGING  
 **Branch:** `taxsimba-p0-integration` (base: `node-only-production`)  
-**Handover tip:** `b572172893e104490796479cc3c74cb33ff561be`  
+**Handover tip:** `0fe4446a67e2e8a8f364750f27af8791650e0c2a` (feature `b572172`)  
 **K.9 baseline:** `38549faa0d2b71da3fc8c98fd240222c279971b1`  
 **K.8 checkpoint:** `9d5251d`  
 **PR:** https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/2  
