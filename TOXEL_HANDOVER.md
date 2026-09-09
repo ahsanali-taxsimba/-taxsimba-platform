@@ -1,17 +1,31 @@
 # TOXEL HANDOVER — Ready for Toxel Staging
 
 **Verdict:** A. READY FOR TOXEL STAGING  
-**Handover tip:** `3f55537aeced5f2a7efb8fda1467ca62b89d880c`  
-**K.9 tip audited:** `38549faa0d2b71da3fc8c98fd240222c279971b1`  
+**Branch:** `taxsimba-p0-integration` (base: `node-only-production`)  
+**Handover tip:** `b572172893e104490796479cc3c74cb33ff561be`  
+**K.9 baseline:** `38549faa0d2b71da3fc8c98fd240222c279971b1`  
 **K.8 checkpoint:** `9d5251d`  
-**Branch:** `taxsimba-p0-integration` → base `node-only-production`  
 **PR:** https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/2  
 
-**This is not a production-ready declaration.** Staging handover only.
+**This is not a production-ready declaration.** Staging handover only. Do not merge protected branches from this gate.
 
 ---
 
-## Protected tips (unchanged)
+## Architecture (binding)
+
+TaxSimba is an **accountant-led** platform.
+
+### HMRC APIs — OUT OF SCOPE / NOT REQUIRED BY ARCHITECTURE
+
+- Do **not** build HMRC APIs, HMRC OAuth, HMRC submission endpoints, or require HMRC credentials.
+- Absence of HMRC integration is **not** deferred work, technical debt, failure, or a staging/production blocker.
+- **Self Assessment** filings are completed externally by accountants using third-party filing software.
+- **MTD** filings are completed externally by accountants using Xero / external filing software.
+- TaxSimba records **workflow status + submission date/reference** only (`record-submission` / external submission panel).
+
+---
+
+## Protected tips (must remain unchanged)
 
 | Branch | SHA |
 |---|---|
@@ -27,48 +41,46 @@
 /
 ├── backend-node/                 # Node SoT API + /api/compat adapters
 ├── tax_simba_frontend/           # Toxel client Next.js app
-├── tax_simba_admin_frontend/     # Toxel admin/staff Next.js app
+├── tax_simba_admin_frontend/     # Toxel admin / accountant / SUPER_ADMIN Next.js app
 ├── frontend/                     # Legacy CRA (Node-native UI; not Toxel launch FE)
-├── memory/                       # P0 contracts, K.x notes, this handover
-└── README.md / render.yaml
+├── memory/                       # P0 contracts + audit notes
+└── TOXEL_HANDOVER.md             # This document
 ```
 
 ---
 
 ## Frontend applications
 
-| App | Path | Role |
+| App | Path | Roles |
 |---|---|---|
-| Client | `tax_simba_frontend/` | CLIENT journeys (auth, planlist Checkout, dashboard, MTD, AW pay) |
-| Admin | `tax_simba_admin_frontend/` | ADMIN / SUPER_ADMIN / ACCOUNTANT staff UI |
+| Client | `tax_simba_frontend/` | CLIENT |
+| Admin | `tax_simba_admin_frontend/` | ADMIN, SUPER_ADMIN, ACCOUNTANT |
 
-Both must set `NEXT_PUBLIC_API_URL` to the **compat base with trailing slash**, e.g.:
+### `/api/compat` configuration (required)
+
+Both Next apps must set:
 
 ```text
-https://<staging-api-host>/api/compat/
+NEXT_PUBLIC_API_URL=https://<staging-api-host>/api/compat/
 ```
 
-Admin also uses the same base via `src/lib/axios-client.ts` (`baseURL: process.env.NEXT_PUBLIC_API_URL`).
+**Trailing slash is required** — FE concatenates paths (`auth/login`, `client/…`).
+
+Admin NextAuth may also use `BACKEND_URL` pointing at the same compat base for login.
+
+CORS: list exact client + admin origins in backend `CORS_ORIGINS` (no `*`).
 
 ---
 
 ## Node backend
 
-- Process: `backend-node/` Express app
-- Native API: `/api/*` (unchanged domain)
-- Toxel adapters: `/api/compat/*` (thin path/envelope maps → existing domain)
-- Stripe webhook (native): `POST /api/stripe/webhook` (not under `/api/compat`)
-
-### `/api/compat` configuration
-
-1. Deploy Node so `/api/compat` is publicly reachable from both Next apps.
-2. Set FE `NEXT_PUBLIC_API_URL=https://<host>/api/compat/` (**trailing slash required** — FE concatenates paths like `auth/login`).
-3. CORS: include exact client + admin staging origins in `CORS_ORIGINS` (no `*`).
-4. Auth: Bearer JWT from compat login / NextAuth `accessToken`.
+- Native API: `/api/*` (domain SoT — do not rewrite)
+- Toxel adapters: `/api/compat/*` (thin path/envelope/ID maps → existing domain)
+- Stripe webhook: `POST /api/stripe/webhook` (native, not under compat)
 
 ---
 
-## Environment variables required (staging)
+## Environment variables (staging)
 
 ### Backend (`backend-node/.env.example`)
 
@@ -83,174 +95,148 @@ Admin also uses the same base via `src/lib/axios-client.ts` (`baseURL: process.e
 `SMTP_*` or `RESEND_API_KEY`,  
 `REMINDERS_ENABLED`, `REMINDER_*`, `SEED_DEMO_DATA=false`
 
-### Client / Admin FE
+### Frontends
 
 | Var | Value |
 |---|---|
 | `NEXT_PUBLIC_API_URL` | `https://<api-host>/api/compat/` |
-| NextAuth secrets / URLs | per each app’s existing auth config |
+| NextAuth secrets / `NEXTAUTH_URL` | per each app |
 
 ---
 
 ## Database / migrations
 
-- MongoDB 6/7 dedicated **staging** database.
-- Indexes created at boot (`ensureCoreIndexes`); no separate migration runner.
-- Packages / services seeded via domain seed / boot as configured — do **not** restore production dumps for first staging.
+- MongoDB 6/7 dedicated **staging** DB (never production dump for first stand-up).
+- Indexes created at boot — no separate migration runner.
+- Packages / services come from domain seed/boot as configured.
 
 ---
 
-## Stripe / webhook
+## Stripe requirements
 
-- **Checkout Session only** for P0 (service, upgrade, additional work).
-- Webhook: `POST https://<api-host>/api/stripe/webhook`
-- Events: at least `checkout.session.completed` (and `checkout.session.expired` optional).
-- Activation only via verified `fulfil` → `activateService` (AW fulfil never activates SA/MTD).
-- VERIFY-BEFORE-PURCHASE enforced server-side on all paid checkouts.
-
----
-
-## Storage
-
-- `STORAGE_DRIVER=s3` with a private staging bucket, **or** `local` + persistent `LOCAL_STORAGE_DIR`.
-- Document download for Toxel uses authenticated `GET …/client/documents/:id/download` (Bearer).
+- Checkout Session only (service activation, SA upgrade, additional work).
+- Webhook: `POST https://<api-host>/api/stripe/webhook` — at least `checkout.session.completed`.
+- Activation only via verified `fulfil` → `activateService`.
+- AW fulfil **never** activates SA/MTD or creates a service case.
+- VERIFY-BEFORE-PURCHASE on all paid checkouts (server-enforced).
+- Unpaid/failed/incomplete never activates entitlement.
+- Replay/idempotent fulfil guarded by `fulfilled` / duplicate flags.
 
 ---
 
-## Build / run commands
+## Storage requirements
+
+- `STORAGE_DRIVER=s3` (private staging bucket) **or** `local` + persistent `LOCAL_STORAGE_DIR`.
+- Downloads use authenticated `GET …/client/documents/:id/download` (Bearer).
+- Ownership/assignment enforced via `getCase` before stream.
+
+---
+
+## Build / run
 
 ```bash
 # Backend
-cd backend-node
-npm ci
-npm run build
-npm start          # or: npm run dev
+cd backend-node && npm ci && npm run build && npm start
 
 # Client FE
-cd tax_simba_frontend
-npm ci
-npm run build && npm start   # or next dev
+cd tax_simba_frontend && npm ci && npm run build && npm start
 
 # Admin FE
-cd tax_simba_admin_frontend
-npm ci
-npm run build && npm start
+cd tax_simba_admin_frontend && npm ci && npm run build && npm start
 ```
-
----
 
 ## Test commands (evidence)
 
 ```bash
 cd backend-node
 npm run typecheck   # PASS
-npm test            # PASS — 28 files / 288 tests
+npm test            # PASS — 28 files / 291 tests
 ```
 
 | Metric | Result |
 |---|---|
 | Typecheck | **PASS** |
 | Test files | **28** |
-| Tests | **288** |
+| Tests | **291** |
 | Failures | **0** |
-| New handover suite | `tests/integration/handoverAudit.test.ts` (6) |
+| Handover suite | `tests/integration/handoverAudit.test.ts` (9) |
 
 ---
 
-## Role matrix
+## Role / test-user matrix
 
 | Capability | CLIENT | ACCOUNTANT | ADMIN | SUPER_ADMIN |
 |---|---|---|---|---|
 | Register / login / verify | ✓ | staff login | ✓ | ✓ |
-| Purchase SA/MTD (Checkout) | ✓ (verified email) | — | — | — |
+| Purchase SA/MTD (Checkout) | ✓ verified email | — | — | — |
 | Own cases / docs / messages | ✓ | assigned only | all operational | all |
-| Create AW payment request | — | — | ✓ | ✓ |
+| Progress status (whitelist) | — | assigned cases | ✓ | ✓ |
+| Record external submission | — | — | ✓ | ✓ |
+| Create AW request | — | — | ✓ | ✓ |
 | Pay AW | ✓ | — | — | — |
-| Contact reveal (full email/phone) | — | ✗ masked | ✗ masked | ✓ |
-| S6 CMS / fee CMS | — | — | HIDE 405 | HIDE 405 |
+| Contact reveal (audited) | — | ✗ | ✗ | ✓ |
 | Invite accountants | — | — | limited | ✓ |
+| S6 CMS / fee CMS | — | — | HIDE | HIDE |
 
 ---
 
-## Audit summary (journey-outward)
+## Intentionally unsupported (SAFE — UI hidden or 405)
 
-### Launch-critical fixes applied in this handover commit
-
-| Issue | Fix |
+| Item | Status |
 |---|---|
-| Admin case detail `POST /admin/tax-return/:id/files` missing | Compat staff detail payload `{ taxReturn, files }` |
-| AW panel dropped `case_id` query (`clientAxios.get` arity) | `get(url, true, { params })` |
-| `GET client/global-fee` missing | Compat from packages catalogue (display only) |
-| `POST client/tax-return-type` missing | Compat from packages (SA/MTD options) |
-| Elements PaymentModal still wired in TaxTracker | Removed; Elements paths HIDE 405 |
-| Start Next Quarter “Start Now” dead/broken | UI replaced with Auto-scheduled (T3 HIDE) |
-| Client draft review paths missing | Compat `client/drafts` GET + approve + feedback |
-| Auth’d document downloads via bare `<a href>` | FE fetch with Bearer |
-
-### Payments / entitlements (proven by existing K.2/K.3/K.8/K.9 + handover)
-
-- New service purchase → fulfil → single activation case (no duplicate entitlement).
-- Additional work pay → fulfil AW only; **no** SA/MTD activate / no new service case.
-- Package upgrade → upgrade-checkout spine.
-- Unverified checkout → blocked.
-- Replayed success → fulfil idempotent (`fulfilled` / duplicate guards).
-
----
-
-## Known safe deferred items (do **not** block Toxel staging)
-
-| Item | Why safe |
-|---|---|
-| OTP / Google login | UI gated / HIDE; password path works |
-| Card Elements / portal / cancel | Checkout-only; Elements 405 + UI removed from tracker |
-| S6 CMS (partners, tax-rates, api-keys, templates, admin global-fee) | Nav `p0Hide`; endpoints 405 |
-| Payment analytics / stats / export / by-user | 405; list + AW operational without them |
-| start-next-quarter | Periods on activation; Start Now hidden |
-| HMRC submission | Explicitly out of P0 |
-| Staff photo / UTR edit | Profile non-critical |
-| Non-AW VAT PDF invoice | AW HTML receipt only in P0 |
-| Marketing CMS (faqs/services/resources/reviews public) | Not on paid journey critical path |
-| Admin create-client via accountant endpoints | Staff invite/assign paths cover ops |
-| Yearly metrics / status-distribution | Dashboard extras; 405/HIDE |
-
-Any **reachable launch-critical** control that was BROKEN has been closed or UI-hidden. Remaining deferred items are intentionally HIDE or non-critical.
+| **HMRC APIs** | **OUT OF SCOPE / NOT REQUIRED** |
+| OTP / Google login | UI gated |
+| Card Elements / portal / cancel | HIDE + Checkout-only |
+| S6 CMS (partners, tax-rates, api-keys, templates, admin global-fee) | nav `p0Hide` / 405 |
+| Payment export / stats / by-user | deferred; Export button hidden |
+| Notification DELETE | 405; trash control hidden |
+| start-next-quarter | periods on activation; Start Now hidden |
+| Star-review CMS (`/reviews`) | nav `p0Hide` |
+| Audit log FE | nav `p0Hide` |
+| Case-detail flags / star-review tabs | removed from tabs |
+| Overview yearly-metrics charts | removed; stats cards remain |
+| Staff photo / UTR edit | non-critical |
+| Non-AW VAT PDF invoice | AW HTML receipt only |
+| Marketing CMS depth | not launch-critical for paid journey |
 
 ---
 
 ## Staging smoke-test checklist
 
-1. Register CLIENT → account only; SA+MTD NOT_ACTIVE.  
-2. Login unverified → dashboard allowed; checkout blocked until verify.  
-3. Verify email → planlist → SA Checkout → webhook/fulfil → ACTIVE + case.  
-4. Accept engagement letter → dashboard/case visible.  
+1. Register CLIENT → SA+MTD NOT_ACTIVE.  
+2. Login unverified → dashboard OK; paid checkout blocked.  
+3. Verify email → planlist → SA Checkout → webhook/fulfil → ACTIVE + one case.  
+4. Engagement letter → dashboard.  
 5. Apply / tax-return-form loads types + fee hint; apply prefers existing case.  
 6. Client upload docs; accountant request docs; messages both ways.  
-7. Admin/accountant open case detail (`manage-tax/[id]`) — loads taxReturn + files.  
-8. Admin create AW → client billing pay AW → paid; entitlements unchanged.  
-9. SA upgrade path from planlist when already ACTIVE.  
-10. SUPER_ADMIN reveal contact; ADMIN sees masked.  
-11. Confirm Start Next Quarter has no Start Now action.  
-12. Confirm no Elements payment modal on tax tracker.  
-13. Draft review: GET drafts + approve (when case/period in approval state).  
-14. Rollback tip known: K.8 `9d5251d` / K.9 `38549fa` if needed before this handover commit.
+7. Admin/accountant open case detail — taxReturn + files + progress steps load.  
+8. Advance status via progress control (whitelist only).  
+9. Admin create AW → client pays AW → entitlements unchanged.  
+10. SA upgrade when already ACTIVE.  
+11. SUPER_ADMIN Reveal contact (audited); ADMIN cannot.  
+12. When case `READY_FOR_SUBMISSION` → Record external submission (date + reference).  
+13. No Start Next Quarter Start Now; no Elements PaymentModal; no payment Export; no notif trash.  
+14. Document download with Bearer succeeds for owner/assignee only.
 
 ---
 
-## Rollback / checkpoint information
+## Rollback
 
-| Checkpoint | SHA | Notes |
-|---|---|---|
-| K.8 | `9d5251d` | AW FE + shared domain |
-| K.9 | `38549fa` | E2E gate + CRITICAL aliases |
-| This handover | `3f55537` | Launch-critical closes + `TOXEL_HANDOVER.md` |
+| Checkpoint | SHA |
+|---|---|
+| K.8 | `9d5251d` |
+| K.9 | `38549fa` |
+| Prior handover closes | `3f55537` / `e8b5239` |
+| This audit tip | `b572172893e104490796479cc3c74cb33ff561be` |
 
-Rollback: revert to `38549fa` (pre-handover fixes) or `9d5251d` (pre-K.9). Do **not** rewrite protected tips.
+Revert feature commits on `taxsimba-p0-integration` only. **Do not** rewrite protected tips.
 
 ---
 
-## Explicit non-goals (still binding)
+## Explicit non-goals
 
-- Do not start production cutover from this gate.  
-- Do not implement HMRC / S6 invent-backends to greenwash.  
-- Do not merge this PR until Toxel accepts staging handover.  
-- Do not start K.10 until staging acceptance.
+- Do not start staging/production from this agent.  
+- Do not merge without owner acceptance.  
+- Do not start K.10.  
+- Do not invent parallel payment/entitlement/CMS systems.  
+- Do not implement HMRC.
