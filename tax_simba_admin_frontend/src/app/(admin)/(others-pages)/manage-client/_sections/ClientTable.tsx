@@ -15,15 +15,48 @@ import { DropdownItem } from "@/components/ui/dropdown/DropdownItem";
 import clientAxios from "@/lib/axios-client";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import UserViewModal from "./UserViewModal";
-import { Eye, ChevronDown } from "lucide-react";
+import { Eye, ChevronDown, EyeOff } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { isSuperAdminRole } from "@/lib/roles";
+import { toast } from "react-toastify";
 
 export default function ClientTable(props: any) {
     const { clientData, fetchData, gridUpdate, setGridUpdate, isLoading, page, setPage, limit, setLimit } = props;
+    const { data: session } = useSession();
+    const canReveal = isSuperAdminRole(session?.user?.role);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [chosenId, setChosenData] = useState(null);
     const [openDropdownId, setOpenDropdownId] = useState<Array<number>>([]); // Tracks the open dropdown's id
     const [isViewModalOpen, setIsViewModalOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState<any>(null);
+    const [revealedById, setRevealedById] = useState<Record<string, { email?: string; phone?: string | null }>>({});
+
+    const revealContact = async (userId: string) => {
+        const reason = window.prompt(
+            "SUPER_ADMIN contact reveal requires a reason (audited):",
+        );
+        if (!reason || !reason.trim()) return;
+        try {
+            const res = await clientAxios.post(
+                `/admin/clients/${encodeURIComponent(userId)}/reveal-contact`,
+                { reason: reason.trim() },
+                true,
+            );
+            const data = res.data?.data;
+            if (data) {
+                setRevealedById((prev) => ({
+                    ...prev,
+                    [userId]: { email: data.email, phone: data.phone },
+                }));
+                toast.success("Contact revealed (audited)");
+            }
+        } catch (err: unknown) {
+            const msg =
+                (err as { response?: { data?: { message?: string } } })?.response?.data
+                    ?.message || "Reveal failed";
+            toast.error(msg);
+        }
+    };
 
     const openModal = (props: any) => {
         const { id } = props;
@@ -212,10 +245,22 @@ export default function ClientTable(props: any) {
                                             </div>
                                         </TableCell>
                                         <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                                            {order.email}
+                                            <div className="flex flex-col items-center gap-1">
+                                                <span>{revealedById[order.id]?.email || order.email}</span>
+                                                {canReveal && (
+                                                    <button
+                                                        type="button"
+                                                        data-testid={`reveal-contact-${order.id}`}
+                                                        className="inline-flex items-center gap-1 text-xs text-[#37a267] hover:underline"
+                                                        onClick={() => void revealContact(String(order.id))}
+                                                    >
+                                                        <EyeOff size={12} /> Reveal contact
+                                                    </button>
+                                                )}
+                                            </div>
                                         </TableCell>
                                         <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                                            {order.mobile}
+                                            {revealedById[order.id]?.phone || order.mobile}
                                         </TableCell>
 
                                         <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">

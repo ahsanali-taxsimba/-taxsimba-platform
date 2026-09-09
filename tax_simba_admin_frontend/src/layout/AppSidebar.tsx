@@ -79,6 +79,7 @@ const navItems: NavItem[] = [
     icon: <ListIcon />,
     name: "Reviews",
     path: "/reviews",
+    p0Hide: true, // star-review CMS deferred — case workflow reviews live on case detail
   },
   {
     icon: <UserCircleIcon />,
@@ -99,7 +100,8 @@ const navItems: NavItem[] = [
     icon: <ListIcon />,
     name: "Audit Logs",
     path: "/audit-logs",
-    adminOnly: true
+    adminOnly: true,
+    p0Hide: true, // deferred until compat audit-log adapter
   },
 ];
 

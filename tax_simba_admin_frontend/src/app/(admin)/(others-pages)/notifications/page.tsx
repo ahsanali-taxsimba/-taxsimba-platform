@@ -489,18 +489,7 @@ const GlobalNotificationsPage: React.FC = () => {
                             //  title="Read" 
                              />
                           )}
-                          {isAdminRole(userRole) && (
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                deleteNotification(notification.id);
-                              }}
-                              className="p-1 text-gray-400 hover:text-red-500 transition-colors"
-                              title="Delete notification"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </button>
-                          )}
+                          {/* P0 M4: notification DELETE deferred (405) — hide trash control */}
                           {notification.url && (
                             <ExternalLink className="w-4 h-4 text-gray-400" 
                             // title="Has link" 

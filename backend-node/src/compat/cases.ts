@@ -15,6 +15,7 @@ import { getCase } from "../domain/cases";
 import { MTD, SELF_ASSESSMENT } from "../domain/packages";
 import {
   ALLOWED_TRANSITIONS,
+  STATUSES,
   clientStatus,
   journey,
   transition,
@@ -134,15 +135,297 @@ compatCasesRouter.post(
       case_id: caseId,
       status: { $in: ["SUBMITTED", "COMPLETED"] },
     });
-    sendCompatSuccess(
-      res,
-      {
-        ...decorateCase(kase),
-        journey: journey(String(kase.status), !!submission),
-        statusLabel: clientStatus(String(kase.status)),
-      },
-      "OK",
+    sendCompatSuccess(res, await buildProgressPayload(kase, me, !!submission), "OK");
+  }),
+);
+
+/** Map Node case status → Toxel progress step keys used by admin/accountant FE. */
+function nodeToToxelStatus(status: string): string {
+  switch (String(status)) {
+    case "NEW":
+    case "ONBOARDING":
+    case "AWAITING_ASSIGNMENT":
+      return "pending_assignment";
+    case "ASSIGNED":
+      return "assigned";
+    case "ACCOUNTANT_REVIEW":
+    case "AWAITING_CLIENT":
+    case "IN_PREPARATION":
+    case "READY_FOR_ADMIN_REVIEW":
+    case "ADMIN_REVIEW":
+    case "CHANGES_REQUIRED":
+      return "preparation_started";
+    case "ADMIN_APPROVED":
+    case "AWAITING_CLIENT_APPROVAL":
+    case "CLIENT_APPROVED":
+    case "READY_FOR_SUBMISSION":
+      return "draft_ready";
+    case "SUBMISSION_IN_PROGRESS":
+    case "SUBMITTED":
+    case "SUBMISSION_ISSUE":
+      return "final_submitted";
+    case "COMPLETED":
+      return "completed";
+    default:
+      return "pending_assignment";
+  }
+}
+
+function toxelToPreferredNodeStatus(toxel: string, currentNodeStatus?: string): string | null {
+  const s = String(toxel || "").toLowerCase();
+  const current = String(currentNodeStatus || "");
+  const map: Record<string, string> = {
+    pending_payment: "AWAITING_ASSIGNMENT",
+    pending_assignment: "AWAITING_ASSIGNMENT",
+    assigned: "ASSIGNED",
+    preparation_started: "IN_PREPARATION",
+    draft_ready: "AWAITING_CLIENT_APPROVAL",
+    final_submitted: "SUBMITTED",
+    completed: "COMPLETED",
+  };
+  let preferred: string | null = map[s] ?? null;
+  if (!preferred) {
+    const upper = String(toxel || "").toUpperCase();
+    preferred = STATUSES.includes(upper) ? upper : null;
+  }
+  if (!preferred) return null;
+  // Whitelist-aware soft map: ASSIGNED cannot jump to IN_PREPARATION.
+  if (preferred === "IN_PREPARATION" && current === "ASSIGNED") {
+    return "ACCOUNTANT_REVIEW";
+  }
+  if (preferred === "AWAITING_CLIENT_APPROVAL" && current === "ADMIN_APPROVED") {
+    return "AWAITING_CLIENT_APPROVAL";
+  }
+  const allowed = ALLOWED_TRANSITIONS[current] ?? [];
+  if (allowed.includes(preferred)) return preferred;
+  // Prefer any allowed status that lands in the same Toxel bucket.
+  const bucket = nodeToToxelStatus(preferred);
+  const alt = allowed.find((st) => nodeToToxelStatus(st) === bucket);
+  return alt ?? preferred;
+}
+
+async function buildProgressPayload(kase: Doc, me: Doc, hasSubmission: boolean): Promise<Doc> {
+  const toxelStatus = nodeToToxelStatus(String(kase.status));
+  const stepsDef = [
+    { key: "pending_assignment", label: "Assignment Pending", order: 0 },
+    { key: "assigned", label: "Assigned", order: 1 },
+    { key: "preparation_started", label: "Preparation Started", order: 2 },
+    { key: "draft_ready", label: "Draft Ready", order: 3 },
+    // Accountant-led: external filing recorded in TaxSimba — not HMRC API.
+    { key: "final_submitted", label: "External Submission Recorded", order: 4 },
+    { key: "completed", label: "Completed", order: 5 },
+  ];
+  const currentOrder = stepsDef.find((s) => s.key === toxelStatus)?.order ?? 0;
+  const progressSteps = stepsDef.map((s) => ({
+    ...s,
+    completed: s.order < currentOrder,
+    current: s.key === toxelStatus,
+  }));
+  const completedCount = progressSteps.filter((s) => s.completed).length;
+  const progressPercentage = Math.round(
+    ((completedCount + (toxelStatus === "completed" ? 1 : 0.5)) / progressSteps.length) * 100,
+  );
+
+  const clientUser = (await col("users").findOne(
+    { id: kase.client_user_id },
+    { projection: { password_hash: 0, totp: 0, recovery_code_hashes: 0 } },
+  )) as Doc | null;
+  const nameParts = String(clientUser?.name ?? kase.client_name ?? "")
+    .trim()
+    .split(/\s+/);
+  const canUpdate =
+    me.role === "ADMIN" ||
+    me.role === "SUPER_ADMIN" ||
+    (me.role === "ACCOUNTANT" && kase.assigned_accountant_id === me.id);
+
+  let accountant: Doc | null = null;
+  if (kase.assigned_accountant_id) {
+    const acc = (await col("users").findOne(
+      { id: kase.assigned_accountant_id },
+      { projection: { id: 1, name: 1, email: 1, phone: 1 } },
+    )) as Doc | null;
+    accountant = acc
+      ? { name: acc.name, email: acc.email, mobile: acc.phone ?? "", avatar: null }
+      : { name: kase.assigned_accountant_name ?? "Accountant", email: null, mobile: "" };
+  }
+
+  const journeySteps = journey(String(kase.status), hasSubmission).map((j) =>
+    j.step === "HMRC Submission"
+      ? { ...j, step: "External Submission" }
+      : j,
+  );
+
+  return {
+    ...decorateCase(kase),
+    status: toxelStatus,
+    statusLabel: clientStatus(String(kase.status)),
+    nodeStatus: kase.status,
+    priority: String(kase.priority ?? "MEDIUM").toLowerCase(),
+    submissionDeadline: kase.external_deadline ?? kase.internal_deadline ?? null,
+    taxReturnId: kase.case_ref ?? kase.id,
+    taxYear: kase.tax_year,
+    progressPercentage: Math.min(100, Math.max(0, progressPercentage)),
+    createdAt: kase.created_at,
+    assignedAt: kase.assigned_at ?? null,
+    progressSteps,
+    journey: journeySteps,
+    meta: { canUpdate: Boolean(canUpdate) && toxelStatus !== "completed" },
+    client: {
+      id: clientUser?.id ?? kase.client_user_id,
+      name: nameParts[0] || "Client",
+      surname: nameParts.slice(1).join(" "),
+      email: null, // contacts never unmasked here — use reveal-contact
+    },
+    accountant,
+    adminNotes: kase.internal_instructions ?? null,
+    submissionReference: kase.submission_reference ?? null,
+  };
+}
+
+/** C6 — staff progress status write (Toxel path). Maps to whitelist transitions only. */
+async function handleProgressWrite(req: import("express").Request, res: import("express").Response) {
+  const me = authed(req);
+  const caseId = toCaseId(req.params.taxReturnId);
+  const kase = await getCase(caseId, me);
+  const body = (req.body ?? {}) as Record<string, unknown>;
+  const requested = String(body.status ?? body.action ?? "").trim();
+  if (!requested) throw httpError(400, "status is required");
+
+  const target = toxelToPreferredNodeStatus(requested, String(kase.status));
+  if (!target) throw httpError(400, `Unknown status ${requested}`);
+
+  if (target === String(kase.status)) {
+    const submission = await col("submission_records").findOne({
+      case_id: caseId,
+      status: { $in: ["SUBMITTED", "COMPLETED"] },
+    });
+    sendCompatSuccess(res, await buildProgressPayload(kase, me, !!submission), "OK");
+    return;
+  }
+
+  // SUBMITTED must go through record-submission (external filing reference).
+  if (target === "SUBMITTED") {
+    throw httpError(
+      400,
+      "Record an external submission reference before marking submitted (accountant-led filing)",
     );
+  }
+
+  if (!(ALLOWED_TRANSITIONS[String(kase.status)] ?? []).includes(target)) {
+    throw httpError(
+      400,
+      `Invalid workflow transition from ${kase.status} to ${target}`,
+    );
+  }
+  await transition(kase, target, me, `Status updated via progress (${requested})`);
+  const updated = await getCase(caseId, me);
+  const submission = await col("submission_records").findOne({
+    case_id: caseId,
+    status: { $in: ["SUBMITTED", "COMPLETED"] },
+  });
+  sendCompatSuccess(res, await buildProgressPayload(updated, me, !!submission), "Updated");
+}
+
+compatCasesRouter.post(
+  "/admin/tax-return/:taxReturnId/progress",
+  auth("ADMIN", "SUPER_ADMIN", "ACCOUNTANT"),
+  handler(handleProgressWrite),
+);
+
+compatCasesRouter.post(
+  "/accountant/tax-return/:taxReturnId/progress",
+  auth("ACCOUNTANT", "ADMIN", "SUPER_ADMIN"),
+  handler(handleProgressWrite),
+);
+
+/** External filing record (accountant-led) — calls native record-submission gates. */
+compatCasesRouter.post(
+  "/admin/tax-return/:taxReturnId/record-submission",
+  auth("ADMIN", "SUPER_ADMIN"),
+  handler(async (req, res) => {
+    const me = authed(req);
+    const caseId = toCaseId(req.params.taxReturnId);
+    const snake = keysToSnake(req.body ?? {}) as Record<string, unknown>;
+    const submissionDate = String(snake.submission_date ?? "").trim();
+    const submissionReference = String(snake.submission_reference ?? "").trim();
+    const provider = snake.provider != null ? String(snake.provider) : null;
+    const note = snake.note != null ? String(snake.note) : null;
+    if (!submissionDate || !submissionReference) {
+      throw httpError(400, "submissionDate and submissionReference are required");
+    }
+
+    // Reuse native route semantics via direct domain calls (same as routes/cases.ts).
+    const kase = await getCase(caseId, me);
+    if (kase.status === "COMPLETED") {
+      throw httpError(400, "Completed cases are locked — reopen the case first");
+    }
+    if (kase.status === "SUBMITTED") {
+      sendCompatSuccess(res, decorateCase(kase), "Already submitted");
+      return;
+    }
+    const review = await col("reviews").findOne({ case_id: caseId, outcome: "APPROVED" });
+    const approval = await col("client_approvals").findOne({ case_id: caseId });
+    if (!review || !kase.approved_version_id) {
+      throw httpError(400, "Admin approval is not complete");
+    }
+    if (!approval) throw httpError(400, "Client approval is not complete");
+    if (kase.status !== "READY_FOR_SUBMISSION") {
+      throw httpError(400, `Case must be READY_FOR_SUBMISSION (currently ${kase.status})`);
+    }
+    const blocking = await col("tasks").countDocuments({ case_id: caseId, status: "OPEN" });
+    if (blocking) {
+      throw httpError(400, `${blocking} open item(s) must be resolved before recording submission`);
+    }
+    const { randomUUID } = await import("crypto");
+    const { nowIso, notify } = await import("../domain/workflow");
+    await col("submission_records").updateOne(
+      { case_id: caseId },
+      {
+        $set: {
+          id: randomUUID(),
+          status: "SUBMITTED",
+          case_id: caseId,
+          case_ref: kase.case_ref,
+          submission_date: submissionDate,
+          reference: submissionReference,
+          submitted_by: me.id,
+          submitted_by_name: me.name,
+          submitted_by_role: me.role,
+          note,
+          provider,
+          calculation_version_id: kase.approved_version_id,
+          recorded_at: nowIso(),
+        },
+      },
+      { upsert: true },
+    );
+    await transition(
+      kase,
+      "SUBMITTED",
+      me,
+      `Submission recorded (ref ${submissionReference}${provider ? `, via ${provider}` : ""})`,
+      {
+        comments: note,
+        extra: {
+          submission_reference: submissionReference,
+          submission_date: submissionDate,
+          submission_provider: provider,
+          submitted_by_name: me.name,
+        },
+      },
+    );
+    if (kase.client_user_id) {
+      await notify(
+        kase.client_user_id as string,
+        "Tax return submitted",
+        `Submission reference ${submissionReference}`,
+        caseId,
+        "/dashboard",
+        "SUBMISSION",
+      );
+    }
+    const updated = await getCase(caseId, me);
+    sendCompatSuccess(res, decorateCase(updated), "Submission recorded");
   }),
 );
 
@@ -250,14 +533,20 @@ const ReviewIn = z.object({
 async function handleManageReview(req: import("express").Request, res: import("express").Response) {
   const me = authed(req);
   const snake = keysToSnake(req.body ?? {}) as Record<string, unknown>;
-  const taxReturnId = String(
+  // Prefer explicit case id; if reviewId is a reviews-doc id, resolve case_id from it.
+  let taxReturnId = String(
     req.params.taxReturnId ??
-      req.params.reviewId ??
       snake.tax_return_id ??
       snake.case_id ??
-      snake.id ??
+      snake.taxReturnId ??
+      snake.caseId ??
       "",
   ).trim();
+  if (!taxReturnId && req.params.reviewId) {
+    const reviewDoc = (await col("reviews").findOne({ id: req.params.reviewId })) as Doc | null;
+    if (reviewDoc?.case_id) taxReturnId = String(reviewDoc.case_id);
+    else taxReturnId = String(req.params.reviewId);
+  }
   if (!taxReturnId) throw httpError(400, "taxReturnId is required");
   const caseId = toCaseId(taxReturnId);
   const body = parseBody(ReviewIn, req.body ?? {});

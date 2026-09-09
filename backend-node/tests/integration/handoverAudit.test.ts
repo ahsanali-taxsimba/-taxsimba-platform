@@ -129,4 +129,48 @@ describe("Pre-Toxel handover launch-critical compat", () => {
       true,
     );
   });
+
+  it("progress GET returns toxel steps + meta.canUpdate", async () => {
+    const res = await request(app)
+      .post(`/api/compat/tax-return/${caseId}/progress`)
+      .set(bearer(admin))
+      .send({})
+      .expect(200);
+    expect(res.body.success).toBe(true);
+    expect(Array.isArray(res.body.data.progressSteps)).toBe(true);
+    expect(res.body.data.meta.canUpdate).toBe(true);
+    expect(res.body.data.progressSteps.some((s: { key: string }) => s.key === "final_submitted")).toBe(
+      true,
+    );
+  });
+
+  it("admin progress write maps preparation_started → whitelist transition", async () => {
+    // Ensure case is ASSIGNED first (from beforeAll assign).
+    const res = await request(app)
+      .post(`/api/compat/admin/tax-return/${caseId}/progress`)
+      .set(bearer(admin))
+      .send({ status: "preparation_started" })
+      .expect(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.data.nodeStatus).toBe("ACCOUNTANT_REVIEW");
+    expect(res.body.data.status).toBe("preparation_started");
+  });
+
+  it("SUPER_ADMIN reveal-contact works; ADMIN is forbidden", async () => {
+    const superAdmin = await makeUser("SUPER_ADMIN", "htsuper2");
+    const denied = await request(app)
+      .post(`/api/compat/admin/clients/${client.id}/reveal-contact`)
+      .set(bearer(admin))
+      .send({ reason: "ops check" })
+      .expect(403);
+    expect(denied.body.success).toBe(false);
+
+    const ok = await request(app)
+      .post(`/api/compat/admin/clients/${client.id}/reveal-contact`)
+      .set(bearer(superAdmin))
+      .send({ reason: "staging audit reveal" })
+      .expect(200);
+    expect(ok.body.success).toBe(true);
+    expect(ok.body.data.email).toBeTruthy();
+  });
 });

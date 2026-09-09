@@ -30,6 +30,7 @@ import { getNotificationIcon } from '@/utils/getNotification';
 import BellButton from '@/components/NotficationData/BellButton';
 import DownloadCertificate from '@/components/TaxReturnModal/DownloadCertificateModal';
 import AdditionalWorkPanel from '../_sections/AdditionalWorkPanel';
+import ExternalSubmissionPanel from '../_sections/ExternalSubmissionPanel';
 
 const AdminTaxReturnDetails = () => {
   const router = useRouter();
@@ -84,12 +85,11 @@ const AdminTaxReturnDetails = () => {
       if (response.data.success) {
         return response.data;
       } else {
-        setError('Failed to load email template');
+        // Email templates are S6 HIDE — compose without template.
         return { success: false };
       }
     } catch (err) {
       console.error('Error fetching email template:', err);
-      setError('Error loading email template');
       return { success: false };
     }
   };
@@ -100,7 +100,8 @@ const AdminTaxReturnDetails = () => {
       const response = await clientAxios.post(`/admin/get-review/${encodeURIComponent(taxReturnIdStr)}`);
       console.log(response.data.data, "response==>")
       if (response.data.success) {
-        setReviews(response.data.data);
+        const payload = response.data.data;
+        setReviews(Array.isArray(payload) ? payload : payload?.reviews ?? []);
       }
     } catch (err) {
       console.error('Error fetching review data:', err);
@@ -182,7 +183,8 @@ const AdminTaxReturnDetails = () => {
     }
   };
    const postProgressData = (newStatus: string) => {
-      clientAxios.post(`/admin/tax-return/${taxReturnIdNum}/progress`, {
+      if (!taxReturnIdStr) return;
+      clientAxios.post(`/admin/tax-return/${encodeURIComponent(taxReturnIdStr)}/progress`, {
         status: newStatus
       })
         .then(async (response) => {
@@ -695,7 +697,7 @@ const AdminTaxReturnDetails = () => {
           <div className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             <div className="border-b border-gray-200 min-w-max">
               <nav className="-mb-px flex space-x-4 sm:space-x-8 px-4 sm:px-6">
-              {['overview', 'documents', 'files_by_category', 'communication', 'notifications', 'reviews', 'flags'].map((tab) => (
+              {['overview', 'documents', 'files_by_category', 'communication', 'notifications'].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
@@ -753,6 +755,16 @@ const AdminTaxReturnDetails = () => {
                 </div>
 
                 <AdditionalWorkPanel taxReturnId={taxReturnIdStr} userRole={userData?.role} />
+                <div className="mt-6">
+                  <ExternalSubmissionPanel
+                    taxReturnId={taxReturnIdStr}
+                    nodeStatus={progressData?.nodeStatus ?? taxReturn?.status}
+                    onRecorded={async () => {
+                      await fetchProgressData();
+                      await fetchTaxReturnData();
+                    }}
+                  />
+                </div>
               </div>
             )}
 

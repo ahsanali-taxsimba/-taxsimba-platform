@@ -195,7 +195,8 @@ const TaxReturnManagement = () => {
   };
 
   const postProgressData = (newStatus: string) => {
-    clientAxios.post(`/accountant/tax-return/${taxReturnId}/progress`, {
+    if (!taxReturnId) return;
+    clientAxios.post(`/accountant/tax-return/${encodeURIComponent(String(taxReturnId))}/progress`, {
       status: newStatus
     })
       .then(async (response) => {
