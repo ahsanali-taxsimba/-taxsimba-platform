@@ -796,15 +796,38 @@ const AdminTaxReturnDetails = () => {
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm space-x-2">
                            
-                            <a
-                              href={file.downloadUrl || file.cloudinaryUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
+                            <button
+                              type="button"
                               className="text-green-600 hover:text-green-800"
+                              onClick={async () => {
+                                try {
+                                  let url = file.downloadUrl || file.cloudinaryUrl;
+                                  if (!url) return;
+                                  if (!/^https?:\/\//i.test(url)) {
+                                    const res = await clientAxios.get(
+                                      `/${String(url).replace(/^\//, "")}`,
+                                      true,
+                                      { responseType: "blob" },
+                                    );
+                                    const blobUrl = URL.createObjectURL(res.data);
+                                    const a = document.createElement("a");
+                                    a.href = blobUrl;
+                                    a.download = file.filename || "document";
+                                    document.body.appendChild(a);
+                                    a.click();
+                                    a.remove();
+                                    URL.revokeObjectURL(blobUrl);
+                                  } else {
+                                    window.open(url, "_blank", "noopener,noreferrer");
+                                  }
+                                } catch (err) {
+                                  console.error("Download failed", err);
+                                }
+                              }}
                             >
                               <Download className="h-4 w-4 inline mr-1" />
                               Download
-                            </a>
+                            </button>
                           </td>
                         </tr>
                       ))}

@@ -351,3 +351,18 @@ compatPaymentsRouter.post(
     );
   }),
 );
+
+/** E6 HIDE — Card Elements / PaymentIntent paths are out of P0 (Checkout Session only). */
+for (const path of [
+  "/client/create-payment-intent",
+  "/client/confirm-payment",
+  "/client/subscription/create",
+] as const) {
+  compatPaymentsRouter.all(
+    path,
+    auth("CLIENT"),
+    handler(async () => {
+      throw httpError(405, "Card Elements checkout is deferred in P0 — use Stripe Checkout Session");
+    }),
+  );
+}

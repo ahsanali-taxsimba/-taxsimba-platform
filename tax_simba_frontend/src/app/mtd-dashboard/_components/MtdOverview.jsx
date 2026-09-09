@@ -723,15 +723,12 @@ export default function MtdOverview({ session, userData, overviewData, onOvervie
                                                 </div>
                                                 <div className="d-flex justify-content-between align-items-center mt-2">
                                                     <span className="fw-bold text-danger lh-1" style={{ fontSize: "13px" }}>
-                                                        Action<br/>Required
+                                                        Upcoming<br/>quarter
                                                     </span>
-                                                    <button 
-                                                        className="btn text-white fw-bold px-3 py-2"
-                                                        style={{ background: "#37a267", borderRadius: "6px", fontSize: "13px" }}
-                                                        onClick={() => setShowStartNextQuarterModal(true)}
-                                                    >
-                                                        Start Now
-                                                    </button>
+                                                    {/* P0 T3 HIDE: Start Next Quarter deferred — periods created on activation */}
+                                                    <span className="text-muted fw-semibold" style={{ fontSize: "12px" }}>
+                                                        Auto-scheduled
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>

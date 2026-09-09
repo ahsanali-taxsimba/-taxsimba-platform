@@ -332,7 +332,10 @@ async function staffUpload(
     uploader_name: me.name,
     content_type: f.mimetype,
     size: stored.size ?? f.size,
-    is_internal: kind === "draft",
+    // Draft return PDFs are client-visible for review (Toxel draft-approve journey).
+    // Staff working notes stay out of this upload path.
+    is_internal: false,
+    is_draft: kind === "draft",
     is_final: kind === "final",
     is_deleted: false,
     upload_date: nowIso(),
@@ -411,3 +414,221 @@ for (const prefix of ["/admin/assignments", "/accountant/assignments"] as const)
     }),
   );
 }
+
+/**
+ * Client draft review — thin maps onto case client-approve / MTD period client-approve.
+ * Reject / request-changes notify staff via message (no invented workflow status).
+ */
+async function draftDocumentsForCase(caseId: string, me: Doc): Promise<Doc[]> {
+  const docs = (await col("documents")
+    .find({
+      case_id: caseId,
+      is_deleted: { $ne: true },
+      $or: [{ is_draft: true }, { document_type: "Draft return" }],
+    })
+    .sort({ created_at: -1 })
+    .limit(50)
+    .toArray()) as Doc[];
+  return scrubMany(cleanMany(docs), me).map((d) => ({
+    id: d.id,
+    filename: d.name ?? "draft",
+    fileSize: Number(d.size ?? 0),
+    mimeType: d.content_type ?? "application/octet-stream",
+    uploadedAt: d.upload_date ?? d.created_at ?? null,
+    downloadUrl: `client/documents/${d.id}/download`,
+    documentType: d.document_type,
+  }));
+}
+
+compatDocumentsRouter.get(
+  "/client/drafts/:taxReturnId",
+  auth("CLIENT"),
+  handler(async (req, res) => {
+    const me = authed(req);
+    const caseId = toCaseId(req.params.taxReturnId);
+    const kase = await getCase(caseId, me);
+    const draftDocuments = await draftDocumentsForCase(caseId, me);
+    const nameParts = String(kase.client_name ?? "").trim().split(/\s+/);
+    sendCompatSuccess(
+      res,
+      {
+        taxReturn: {
+          id: kase.id,
+          taxReturnId: kase.case_ref ?? kase.id,
+          taxYear: kase.tax_year,
+          status: kase.status,
+          accountantNotes: kase.internal_instructions ?? null,
+          client: { name: nameParts[0] || "", surname: nameParts.slice(1).join(" ") },
+        },
+        documents: { draftDocuments },
+      },
+      "OK",
+    );
+  }),
+);
+
+compatDocumentsRouter.post(
+  "/client/drafts/:taxReturnId/approve",
+  auth("CLIENT"),
+  handler(async (req, res) => {
+    const me = authed(req);
+    const caseId = toCaseId(req.params.taxReturnId);
+    const kase = await getCase(caseId, me);
+    const notes =
+      (typeof req.body?.approvalNotes === "string" && req.body.approvalNotes) ||
+      (typeof req.body?.approval_notes === "string" && req.body.approval_notes) ||
+      "";
+
+    const { MTD, AWAITING_CLIENT, APPROVED, advance } = await import("../domain/mtd");
+    const { notify, nowIso, transition, logActivity } = await import("../domain/workflow");
+    const { notifyAdmins } = await import("../domain/packages");
+
+    if (String(kase.service_type) === MTD) {
+      const period = (await col("mtd_periods").findOne({
+        case_id: caseId,
+        status: AWAITING_CLIENT,
+      })) as Doc | null;
+      if (!period) throw httpError(400, "No MTD period is awaiting your approval");
+      const out = await advance(period, kase, APPROVED, "approved by the client", me, {
+        client_approved_at: nowIso(),
+        approved_version: period.published_version,
+        approved_snapshot: period.published,
+        client_notes: notes || null,
+      });
+      for (const admin of await col("users")
+        .find({ role: { $in: ["ADMIN", "SUPER_ADMIN"] }, is_active: true })
+        .toArray()) {
+        await notify(
+          admin.id as string,
+          "MTD period approved by client",
+          `${kase.client_name} — ${kase.case_ref}`,
+          caseId,
+          `/admin/cases/${caseId}`,
+          "SUBMISSION",
+        );
+      }
+      sendCompatSuccess(res, keysToCamel(out as Doc), "Draft approved");
+      return;
+    }
+
+    // SA — same gates as native POST /cases/:caseId/client-approve.
+    if (!["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"].includes(String(kase.status))) {
+      throw httpError(400, "Return is not ready for your approval");
+    }
+    const { randomUUID } = await import("crypto");
+    const calc = await col("calculation_versions").findOne({ id: kase.approved_version_id });
+    await col("client_approvals").insertOne({
+      id: randomUUID(),
+      case_id: caseId,
+      client_user_id: me.id,
+      client_name: me.name,
+      calculation_version_id: kase.approved_version_id,
+      version: calc ? calc.version : null,
+      confirmation:
+        "I confirm the information is complete and correct to the best of my knowledge.",
+      notes: notes || null,
+      approved_at: nowIso(),
+    });
+    await transition(kase, "CLIENT_APPROVED", me, `Client approved V${calc ? calc.version : ""}`, {
+      extra: { client_approved_at: nowIso() },
+      comments: notes || undefined,
+    });
+    const blocking = await col("tasks").countDocuments({ case_id: caseId, status: "OPEN" });
+    if (!blocking) {
+      await transition(kase, "READY_FOR_SUBMISSION", me, "Case ready for submission");
+      await col("submission_records").insertOne({
+        id: randomUUID(),
+        case_id: caseId,
+        status: "READY",
+        calculation_version_id: kase.approved_version_id,
+        reference: null,
+        created_at: nowIso(),
+      });
+    }
+    if (kase.assigned_accountant_id) {
+      await notify(
+        kase.assigned_accountant_id as string,
+        "Client approved the return",
+        `${kase.client_name} approved their tax return.`,
+        caseId,
+        `/work/cases/${caseId}`,
+        "APPROVAL",
+      );
+    }
+    await notifyAdmins(
+      "Ready for submission",
+      `${kase.client_name} — ${kase.case_ref}`,
+      caseId,
+      `/admin/cases/${caseId}`,
+      "SUBMISSION",
+    );
+    await logActivity(caseId, "Client approved draft via compat", me);
+    sendCompatSuccess(res, { ok: true, caseId, status: "CLIENT_APPROVED" }, "Draft approved");
+  }),
+);
+
+async function clientDraftFeedback(
+  req: import("express").Request,
+  res: import("express").Response,
+  kind: "reject" | "request_changes",
+) {
+  const me = authed(req);
+  const caseId = toCaseId(req.params.taxReturnId);
+  const kase = await getCase(caseId, me);
+  const body = (req.body ?? {}) as Record<string, unknown>;
+  let text = "";
+  if (kind === "reject") {
+    text = String(body.rejectionReason ?? body.rejection_reason ?? "").trim();
+    if (!text) throw httpError(400, "A rejection reason is required");
+  } else {
+    const arr = body.changeRequests ?? body.change_requests;
+    if (Array.isArray(arr)) text = arr.map((x) => String(x)).filter(Boolean).join("\n");
+    else text = String(body.notes ?? body.message ?? "").trim();
+    if (!text) throw httpError(400, "Please detail the changes requested");
+  }
+  const { randomUUID } = await import("crypto");
+  const { notify, logActivity, nowIso } = await import("../domain/workflow");
+  const recipient =
+    (kase.assigned_accountant_id as string | null) ||
+    (kase.admin_reviewer_id as string | null) ||
+    null;
+  await col("messages").insertOne({
+    id: randomUUID(),
+    case_id: caseId,
+    sender_id: me.id,
+    sender_name: me.name,
+    sender_role: me.role,
+    recipient_id: recipient,
+    body: `[${kind === "reject" ? "Draft rejected" : "Changes requested"}]\n${text}`,
+    is_read: false,
+    created_at: nowIso(),
+  });
+  await logActivity(
+    caseId,
+    kind === "reject" ? `Client rejected draft: ${text}` : `Client requested draft changes: ${text}`,
+    me,
+  );
+  if (recipient) {
+    await notify(
+      recipient,
+      kind === "reject" ? "Client rejected draft" : "Client requested draft changes",
+      text.slice(0, 200),
+      caseId,
+      `/work/cases/${caseId}`,
+      "CHANGES",
+    );
+  }
+  sendCompatSuccess(res, { ok: true, caseId, kind }, "Feedback sent");
+}
+
+compatDocumentsRouter.post(
+  "/client/drafts/:taxReturnId/reject",
+  auth("CLIENT"),
+  handler(async (req, res) => clientDraftFeedback(req, res, "reject")),
+);
+
+compatDocumentsRouter.post(
+  "/client/drafts/:taxReturnId/request-changes",
+  auth("CLIENT"),
+  handler(async (req, res) => clientDraftFeedback(req, res, "request_changes")),
+);

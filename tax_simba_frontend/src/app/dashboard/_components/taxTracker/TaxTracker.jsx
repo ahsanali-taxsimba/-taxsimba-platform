@@ -12,7 +12,7 @@ import DraftFeedback from "./DraftFeedback";
 import ChatBox from "./ChatBox";
 import axios from "axios";
 import { CheckCircle, Clock, FileText, User } from "lucide-react";
-import PaymentModal from "@/app/tax-return-form/_component/PaymentModal";
+// P0: Stripe Checkout only — Elements PaymentModal removed from tracker.
 import { getFileIcon } from "@/utils/commonHelper";
 import { FaCheck, FaClock } from "react-icons/fa";
 
@@ -76,10 +76,6 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
   console.log("TaxTracker serverSession", serverSession?.accessToken);
   const pathname = usePathname();
   const { data: sessionData, status } = useSession();
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const [showPaymentStatus, setShowPaymentStatus] = useState(false);
-  const [submissionComplete, setSubmissionComplete] = useState(false);
-  const [createdTaxReturn, setCreatedTaxReturn] = useState(null);
   const [taxReturns, setTaxReturns] = useState([]);
   const [loading, setLoading] = useState(true);
   const [openIdx, setOpenIdx] = useState(null);
@@ -103,20 +99,6 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
   )) || [];
   // for files display inside each item
 
-  const handlePaymentStatusUpdate = (statusData) => {
-
-    // If payment is completed, you can update UI accordingly
-    if (statusData.taxReturn.paymentStatus === 'completed') {
-      setSubmissionComplete(true);
-      setShowPaymentModal(false);
-      setIsRefresh(!isRefresh)
-      // Show payment status checker
-      setShowPaymentStatus(true);
-      setSubmissionComplete(true);
-
-      // toast.success('Payment completed successfully! Your tax return has been submitted.');
-    }
-  };
   console.log("pendingReturns", pendingReturns);
   const [showAllMap, setShowAllMap] = useState({});
 
@@ -130,12 +112,6 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
     const realData = (data && data.length > 0) ? data : [];
     setTaxReturns(realData);
     setLoading(false);
-  };
-
-  const handleClosePaymentModal = () => {
-    setShowPaymentModal(false);
-    // Show payment status since tax return is created
-    setShowPaymentStatus(true);
   };
 
   const fetchDetailIfNeeded = async (id) => {
@@ -238,15 +214,9 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
     }
   }, [status, access_token]);
 
-  const handlePayment = (data) => {
-    const itemData = {
-      id: data?.taxReturn?.id,
-      taxReturnId: data?.taxReturn?.taxReturnId,
-      typeName: data?.taxReturn?.taxType,
-      totalFee: data?.taxReturn?.totalFee || taxPrice || 120.00
-    }
-    setCreatedTaxReturn(itemData)
-    setShowPaymentModal(true);
+  const handlePayment = (_data) => {
+    // P0: Elements checkout removed — purchases go through /planlist Stripe Checkout.
+    toast.error("Please complete purchase from Plans (Stripe Checkout).");
   };
 
 
@@ -536,15 +506,6 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
       </div>
       {/* Chat Box */}
       <ChatBox show={showChat} handleClose={() => setShowChat(false)} ids={emailIds} token={serverSession?.accessToken} id={sessionData?.user?.id} />
-
-      <PaymentModal
-        isOpen={showPaymentModal}
-        onClose={handleClosePaymentModal}
-        taxReturnData={createdTaxReturn}
-        // amount={createdTaxReturn.totalFee}
-        amount={taxPrice?.toFixed(2) || 120.00}
-        onPaymentSuccess={handlePaymentStatusUpdate}
-      />
     </>
   );
 };

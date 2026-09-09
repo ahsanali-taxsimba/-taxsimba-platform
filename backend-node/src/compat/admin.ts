@@ -617,15 +617,154 @@ compatAdminRouter.post(
   }),
 );
 
+/** Staff case detail — shared shape for admin + accountant manage-tax pages. */
+async function staffCaseDetailPayload(me: Doc, taxReturnId: string): Promise<Doc> {
+  const { getCase } = await import("../domain/cases");
+  const { toCaseId } = await import("./ids");
+  const { clientStatus } = await import("../domain/workflow");
+  const caseId = toCaseId(taxReturnId);
+  const kase = await getCase(caseId, me);
+
+  const clientUser = (await col("users").findOne(
+    { id: kase.client_user_id },
+    { projection: { password_hash: 0, totp: 0, recovery_code_hashes: 0 } },
+  )) as Doc | null;
+  const maskedClient = clientUser
+    ? (maskContactsForViewer([clean(clientUser) as Doc], me)[0] as Doc)
+    : null;
+  const nameParts = String(maskedClient?.name ?? kase.client_name ?? "")
+    .trim()
+    .split(/\s+/);
+  const serviceType = String(kase.service_type ?? "SELF_ASSESSMENT");
+  const typeName =
+    serviceType === "MTD_INCOME_TAX" || serviceType === "MTD"
+      ? "Making Tax Digital"
+      : "Self Assessment";
+  const typeCode =
+    serviceType === "MTD_INCOME_TAX" || serviceType === "MTD" ? "MTD" : "SA";
+
+  let accountant: Doc | null = null;
+  if (kase.assigned_accountant_id) {
+    const acc = (await col("users").findOne(
+      { id: kase.assigned_accountant_id },
+      { projection: { id: 1, name: 1, email: 1 } },
+    )) as Doc | null;
+    if (acc) {
+      accountant = { id: acc.id, name: acc.name, email: acc.email };
+    } else if (kase.assigned_accountant_name) {
+      accountant = {
+        id: kase.assigned_accountant_id,
+        name: kase.assigned_accountant_name,
+        email: null,
+      };
+    }
+  }
+
+  const docs = (await col("documents")
+    .find({ case_id: caseId, is_deleted: { $ne: true } })
+    .sort({ created_at: -1 })
+    .limit(500)
+    .toArray()) as Doc[];
+  const cleanedDocs = scrubMany(cleanMany(docs), me);
+  const allFiles = cleanedDocs.map((d) => {
+    const requested = d.status === "Requested";
+    const category = String(d.document_type ?? "Other");
+    return {
+      id: d.id,
+      filename: d.name ?? "document",
+      documentType: category,
+      cloudinaryUrl: null,
+      cloudinaryPublicId: null,
+      fileSize: Number(d.size ?? 0),
+      mimeType: d.content_type ?? "application/octet-stream",
+      uploadStatus: requested ? "pending" : "completed",
+      isRequired: requested || Boolean(d.request_id),
+      uploadedBy: d.uploader_id ?? null,
+      uploadedAt: d.upload_date ?? d.created_at ?? null,
+      updatedAt: d.updated_at ?? d.created_at ?? null,
+      thumbnailUrl: null,
+      previewUrl: null,
+      downloadUrl: `client/documents/${d.id}/download`,
+      isInternal: Boolean(d.is_internal),
+      isFinal: Boolean(d.is_final),
+    };
+  });
+  const totalSize = allFiles.reduce((sum, f) => sum + Number(f.fileSize || 0), 0);
+  const requiredFiles = allFiles.filter((f) => f.isRequired).length;
+  const completedFiles = allFiles.filter((f) => f.uploadStatus === "completed").length;
+  const pendingFiles = allFiles.filter((f) => f.uploadStatus !== "completed").length;
+  const categories: Record<string, Doc[]> = {};
+  for (const f of allFiles) {
+    const key = String(f.documentType || "Other");
+    if (!categories[key]) categories[key] = [];
+    categories[key].push(f);
+  }
+
+  const taxYearRaw = String(kase.tax_year ?? "");
+  const taxYearNum = parseInt(taxYearRaw.split("/")[0] || taxYearRaw, 10);
+
+  const taxReturn = withTaxReturnId({
+    id: kase.id,
+    taxReturnId: kase.case_ref ?? kase.id,
+    taxYear: Number.isFinite(taxYearNum) ? taxYearNum : taxYearRaw,
+    status: String(kase.status ?? "").toLowerCase(),
+    statusLabel: clientStatus(String(kase.status)),
+    serviceType,
+    client: {
+      id: maskedClient?.id ?? kase.client_user_id,
+      name: nameParts[0] || "Client",
+      surname: nameParts.slice(1).join(" "),
+      email: maskedClient?.email ?? null,
+      phone: maskedClient?.phone ?? null,
+    },
+    type: { typeName, typeCode },
+    accountant,
+    caseRef: kase.case_ref,
+    assignedAccountantId: kase.assigned_accountant_id ?? null,
+    internalDeadline: kase.internal_deadline ?? null,
+    externalDeadline: kase.external_deadline ?? null,
+  });
+
+  const files = {
+    totalFiles: allFiles.length,
+    totalSize,
+    requiredFiles,
+    completedFiles,
+    pendingFiles,
+    completionPercentage:
+      requiredFiles > 0
+        ? Math.round(
+            (allFiles.filter((f) => f.isRequired && f.uploadStatus === "completed").length /
+              requiredFiles) *
+              100,
+          )
+        : allFiles.length
+          ? Math.round((completedFiles / allFiles.length) * 100)
+          : 0,
+    categories,
+    allFiles,
+  };
+
+  return { taxReturn, files };
+}
+
+compatAdminRouter.post(
+  "/admin/tax-return/:taxReturnId/files",
+  auth(...STAFF_ADMIN, "ACCOUNTANT"),
+  handler(async (req, res) => {
+    const me = authed(req);
+    const payload = await staffCaseDetailPayload(me, req.params.taxReturnId);
+    sendCompatSuccess(res, payload, "OK");
+  }),
+);
+
 compatAdminRouter.post(
   "/accountant/tax-return/files/:taxReturnId",
   auth("ACCOUNTANT", "ADMIN", "SUPER_ADMIN"),
   handler(async (req, res) => {
     const me = authed(req);
-    const { getCase } = await import("../domain/cases");
-    const { toCaseId } = await import("./ids");
-    const kase = await getCase(toCaseId(req.params.taxReturnId), me);
-    sendCompatSuccess(res, withTaxReturnId(kase as Doc), "OK");
+    const payload = await staffCaseDetailPayload(me, req.params.taxReturnId);
+    sendCompatSuccess(res, payload, "OK");
   }),
 );
 

@@ -123,14 +123,38 @@ export default function DraftReviewModal({ show, onHide, session, taxReturnId, o
                                             </small>
                                         </div>
                                     </div>
-                                    <a 
-                                        href={doc.downloadUrl} 
-                                        target="_blank" 
-                                        rel="noopener noreferrer" 
+                                    <button
+                                        type="button"
                                         className="btn btn-sm btn-outline-primary d-flex align-items-center gap-2"
+                                        onClick={async () => {
+                                            try {
+                                                let fileUrl = doc.downloadUrl;
+                                                if (!fileUrl) throw new Error("Missing download URL");
+                                                const headers = {
+                                                    Authorization: `Bearer ${session.accessToken}`,
+                                                };
+                                                if (!/^https?:\/\//i.test(fileUrl)) {
+                                                    const apiBase = process.env.NEXT_PUBLIC_API_URL || "";
+                                                    fileUrl = `${apiBase}${String(fileUrl).replace(/^\//, "")}`;
+                                                }
+                                                const fileRes = await fetch(fileUrl, { headers });
+                                                if (!fileRes.ok) throw new Error("Download failed");
+                                                const blob = await fileRes.blob();
+                                                const blobUrl = URL.createObjectURL(blob);
+                                                const a = document.createElement("a");
+                                                a.href = blobUrl;
+                                                a.download = doc.filename || "draft.pdf";
+                                                document.body.appendChild(a);
+                                                a.click();
+                                                a.remove();
+                                                URL.revokeObjectURL(blobUrl);
+                                            } catch (err) {
+                                                toast.error(err?.message || "Download failed");
+                                            }
+                                        }}
                                     >
                                         <FaDownload /> Download
-                                    </a>
+                                    </button>
                                 </div>
                             ))}
                         </div>

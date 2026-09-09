@@ -159,8 +159,15 @@ const DraftFeedback = ({ state, item }) => {
       .slice()
       .sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt))[0];
 
-    const fileUrl = latest.downloadUrl;
+    let fileUrl = latest.downloadUrl;
     if (!fileUrl) throw new Error("Draft document URL is missing.");
+
+    // Relative compat paths need Bearer auth against NEXT_PUBLIC_API_URL.
+    const headers = { Authorization: `Bearer ${access_token}` };
+    if (!/^https?:\/\//i.test(fileUrl)) {
+      const apiBase = process.env.NEXT_PUBLIC_API_URL || "";
+      fileUrl = `${apiBase}${String(fileUrl).replace(/^\//, "")}`;
+    }
 
     // Get file details and download
     let filename = safeFilename(latest.filename || "draft");
@@ -170,7 +177,7 @@ const DraftFeedback = ({ state, item }) => {
     }
 
     // Fetch the actual file from the URL
-    const fileRes = await fetch(fileUrl);
+    const fileRes = await fetch(fileUrl, { headers });
     if (!fileRes.ok) {
       throw new Error(`Failed to fetch draft file (${fileRes.status})`);
     }

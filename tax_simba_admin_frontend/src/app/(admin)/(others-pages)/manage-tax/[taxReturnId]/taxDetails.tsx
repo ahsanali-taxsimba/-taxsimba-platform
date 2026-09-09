@@ -889,6 +889,29 @@ const AdminTaxReturnDetails = () => {
                               target="_blank"
                               rel="noopener noreferrer"
                               className="text-green-600 hover:text-green-800"
+                              onClick={async (e) => {
+                                const url = file.downloadUrl || file.cloudinaryUrl;
+                                if (url && !/^https?:\/\//i.test(url)) {
+                                  e.preventDefault();
+                                  try {
+                                    const res = await clientAxios.get(
+                                      `/${String(url).replace(/^\//, "")}`,
+                                      true,
+                                      { responseType: "blob" },
+                                    );
+                                    const blobUrl = URL.createObjectURL(res.data);
+                                    const a = document.createElement("a");
+                                    a.href = blobUrl;
+                                    a.download = file.filename || "document";
+                                    document.body.appendChild(a);
+                                    a.click();
+                                    a.remove();
+                                    URL.revokeObjectURL(blobUrl);
+                                  } catch (err) {
+                                    console.error("Download failed", err);
+                                  }
+                                }
+                              }}
                             >
                               <Download className="h-4 w-4 inline mr-1" />
                               Download

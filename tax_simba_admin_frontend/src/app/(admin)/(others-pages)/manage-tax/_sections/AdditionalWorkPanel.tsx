@@ -41,7 +41,7 @@ export default function AdditionalWorkPanel({ taxReturnId, userRole }: Props) {
     if (!taxReturnId) return;
     setLoading(true);
     try {
-      const res = await clientAxios.get("/admin/payment-requests", {
+      const res = await clientAxios.get("/admin/payment-requests", true, {
         params: { case_id: taxReturnId, taxReturnId },
       });
       setRows(res.data?.data?.paymentRequests ?? []);
