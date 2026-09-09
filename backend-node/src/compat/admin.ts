@@ -447,6 +447,14 @@ compatAdminRouter.get(
   }),
 );
 
+compatAdminRouter.get(
+  "/admin/payments/by-user",
+  auth(...STAFF_ADMIN),
+  handler(async () => {
+    throw httpError(405, "Payments by-user aggregation is deferred in P0");
+  }),
+);
+
 /** Deferred S4 extras — explicit HIDE rather than inventing analytics. */
 compatAdminRouter.get(
   "/admin/payments/stats",

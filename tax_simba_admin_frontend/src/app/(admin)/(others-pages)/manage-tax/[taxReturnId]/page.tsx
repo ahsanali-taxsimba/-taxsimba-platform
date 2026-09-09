@@ -29,6 +29,7 @@ import AdminFlags from '@/components/FlagModal/AdminFlag';
 import { getNotificationIcon } from '@/utils/getNotification';
 import BellButton from '@/components/NotficationData/BellButton';
 import DownloadCertificate from '@/components/TaxReturnModal/DownloadCertificateModal';
+import AdditionalWorkPanel from '../_sections/AdditionalWorkPanel';
 
 const AdminTaxReturnDetails = () => {
   const router = useRouter();
@@ -750,6 +751,8 @@ const AdminTaxReturnDetails = () => {
                     ))}
                   </div>
                 </div>
+
+                <AdditionalWorkPanel taxReturnId={taxReturnIdStr} userRole={userData?.role} />
               </div>
             )}
 

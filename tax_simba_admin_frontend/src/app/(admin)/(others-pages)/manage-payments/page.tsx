@@ -180,51 +180,82 @@ const ManagePaymentsPage: React.FC = () => {
 
       // Build query parameters
       const params = new URLSearchParams();
-      if (selectedStatus !== 'all') params.append('status', selectedStatus);
+      if (selectedStatus !== 'all') {
+        params.append('status', selectedStatus === 'completed' ? 'paid' : selectedStatus);
+      }
       if (selectedMethod !== 'all') params.append('paymentMethod', selectedMethod);
       params.append('dateRange', dateRange);
 
-      // Offsets
-      const userOffset = (userPaymentsPage - 1) * itemsPerPage;
-      const recentOffset = (recentPaymentsPage - 1) * itemsPerPage;
+      // P0: list is SoT (includes ADDITIONAL_WORK). stats/by-user/export deferred (405).
+      const paymentsResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/admin/payments?${params}&limit=1000&offset=0`,
+        { headers: getAuthHeaders() },
+      );
 
-      // Fetch data from all endpoints
-      const [statsResponse, paymentsResponse, userPaymentsResponse] = await Promise.all([
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/payments/stats?${params}`, {
-          headers: getAuthHeaders()
-        }),
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/payments?${params}&limit=1000&offset=0`, {
-          headers: getAuthHeaders()
-        }),
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/payments/by-user?${params}&limit=${itemsPerPage}&offset=${userOffset}`, {
-          headers: getAuthHeaders()
-        })
-      ]);
-
-      if (!statsResponse.ok || !paymentsResponse.ok || !userPaymentsResponse.ok) {
+      if (!paymentsResponse.ok) {
         throw new Error('Failed to fetch payment data');
       }
 
-      const [statsData, paymentsData, userPaymentsData] = await Promise.all([
-        statsResponse.json(),
-        paymentsResponse.json(),
-        userPaymentsResponse.json()
-      ]);
-
-      // Set the data from API responses
-      if (statsData.success) {
-        setStats(statsData.data);
-      }
+      const paymentsData = await paymentsResponse.json();
 
       if (paymentsData.success) {
-        const filteredSubs = paymentsData.data.payments.filter((p: any) => p.type === 'subscription');
-        setPayments(filteredSubs);
-        setRecentPaymentsTotal(filteredSubs.length || 0);
-      }
+        const raw = paymentsData.data.payments || [];
+        const mapped: Payment[] = raw.map((p: any) => {
+          const statusRaw = String(p.paymentStatus || p.status || 'pending');
+          const status =
+            statusRaw === 'paid' ? 'completed' : (statusRaw as Payment['status']);
+          const kind = p.kind || p.type || 'SERVICE_ACTIVATION';
+          const planName =
+            kind === 'ADDITIONAL_WORK'
+              ? 'Additional work'
+              : kind === 'SA_UPGRADE'
+                ? 'Package upgrade'
+                : 'Service activation';
+          return {
+            id: p.id,
+            clientId: p.clientId,
+            amount: Number(p.amount || 0),
+            paymentMethod: 'stripe_checkout',
+            status,
+            currency: p.currency || 'gbp',
+            paymentDate: p.createdAt,
+            refundAmount: 0,
+            createdAt: p.createdAt,
+            updatedAt: p.createdAt,
+            type: kind === 'ADDITIONAL_WORK' ? 'one-time' : 'subscription',
+            client: {
+              id: p.clientId,
+              name: p.clientName || 'Client',
+              surname: '',
+              email: '',
+            },
+            plan: { id: p.id, name: planName },
+            taxReturn: p.caseId
+              ? { id: p.caseId, taxReturnId: String(p.caseId), taxYear: 0 }
+              : undefined,
+            metadata: { kind, clientRef: p.clientRef },
+          } as Payment;
+        });
+        setPayments(mapped);
+        setRecentPaymentsTotal(mapped.length || 0);
 
-      if (userPaymentsData.success) {
-        setUserPayments(userPaymentsData.data.userPayments);
-        setUserPaymentsTotal(userPaymentsData.data.pagination?.total || 0);
+        const completed = mapped.filter((p) => p.status === 'completed').length;
+        const pending = mapped.filter((p) => p.status === 'pending').length;
+        setStats({
+          totalRevenue: mapped
+            .filter((p) => p.status === 'completed')
+            .reduce((s, p) => s + Number(p.amount || 0), 0),
+          totalPayments: mapped.length,
+          completedPayments: completed,
+          pendingPayments: pending,
+          failedPayments: mapped.filter((p) => p.status === 'failed').length,
+          refundedAmount: 0,
+          statusBreakdown: {},
+          methodBreakdown: {},
+          monthlyRevenue: [],
+        });
+        setUserPayments([]);
+        setUserPaymentsTotal(0);
       }
 
       setIsLoading(false);
@@ -476,7 +507,7 @@ const ManagePaymentsPage: React.FC = () => {
             <thead>
               <tr className="bg-gray-50">
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Client</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subscription</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Method</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
@@ -542,7 +573,8 @@ const ManagePaymentsPage: React.FC = () => {
         />
       </div>
 
-      {/* User Payment Summary */}
+      {/* User Payment Summary — deferred in P0 (by-user endpoint HIDE) */}
+      {userPayments.length > 0 && (
       <div className="bg-white rounded-2xl border border-gray-200 p-6">
         <h2 className="text-xl font-bold text-gray-900 mb-6">Payments by User</h2>
         <div className="overflow-x-auto">
@@ -605,6 +637,7 @@ const ManagePaymentsPage: React.FC = () => {
           onPageChange={setUserPaymentsPage}
         />
       </div>
+      )}
 
 
 

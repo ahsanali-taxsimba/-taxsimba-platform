@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import BillingHistoryUI from "./BillingHistoryUI";
+import AdditionalWorkClientPanel from "./AdditionalWorkClientPanel";
 
 export default function BillingHistoryClient() {
     const { data: session } = useSession();
@@ -42,10 +43,11 @@ export default function BillingHistoryClient() {
                     responseType: 'blob'
                 }
             );
-            const url = window.URL.createObjectURL(new Blob([res.data]));
+            const url = window.URL.createObjectURL(new Blob([res.data], { type: res.headers['content-type'] || 'text/html' }));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', `VAT-Invoice-${transactionId}.pdf`);
+            const isHtml = (res.headers['content-type'] || '').includes('html');
+            link.setAttribute('download', isHtml ? `Receipt-${transactionId}.html` : `VAT-Invoice-${transactionId}.pdf`);
             document.body.appendChild(link);
             link.click();
             link.remove();
@@ -55,9 +57,14 @@ export default function BillingHistoryClient() {
         }
     };
 
-    return <BillingHistoryUI
-        transactions={transactions}
-        loading={loading}
-        onDownloadInvoice={handleDownloadInvoice}
-    />;
+    return (
+        <>
+            <AdditionalWorkClientPanel />
+            <BillingHistoryUI
+                transactions={transactions}
+                loading={loading}
+                onDownloadInvoice={handleDownloadInvoice}
+            />
+        </>
+    );
 }
