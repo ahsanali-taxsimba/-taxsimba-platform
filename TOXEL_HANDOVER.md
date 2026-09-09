@@ -227,7 +227,7 @@ npm test            # PASS — 28 files / 291 tests
 | K.8 | `9d5251d` |
 | K.9 | `38549fa` |
 | Prior handover closes | `3f55537` / `e8b5239` |
-| This audit tip | `b572172893e104490796479cc3c74cb33ff561be` |
+| This audit tip | `0fe4446` (feature `b572172`) |
 
 Revert feature commits on `taxsimba-p0-integration` only. **Do not** rewrite protected tips.
 
