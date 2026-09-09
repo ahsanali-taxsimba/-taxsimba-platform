@@ -1,7 +1,7 @@
 # TOXEL HANDOVER — Ready for Toxel Staging
 
 **Verdict:** A. READY FOR TOXEL STAGING  
-**Gate tip (this document):** commit SHA will match the handover commit on `taxsimba-p0-integration`  
+**Handover tip:** `3f55537aeced5f2a7efb8fda1467ca62b89d880c`  
 **K.9 tip audited:** `38549faa0d2b71da3fc8c98fd240222c279971b1`  
 **K.8 checkpoint:** `9d5251d`  
 **Branch:** `taxsimba-p0-integration` → base `node-only-production`  
@@ -242,7 +242,7 @@ Any **reachable launch-critical** control that was BROKEN has been closed or UI-
 |---|---|---|
 | K.8 | `9d5251d` | AW FE + shared domain |
 | K.9 | `38549fa` | E2E gate + CRITICAL aliases |
-| This handover | *(push tip)* | Launch-critical closes + `TOXEL_HANDOVER.md` |
+| This handover | `3f55537` | Launch-critical closes + `TOXEL_HANDOVER.md` |
 
 Rollback: revert to `38549fa` (pre-handover fixes) or `9d5251d` (pre-K.9). Do **not** rewrite protected tips.
 

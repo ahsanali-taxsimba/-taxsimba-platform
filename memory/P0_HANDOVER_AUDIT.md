@@ -1,6 +1,7 @@
 # P0 Pre-Toxel Handover Audit
 
 **Verdict: A. READY FOR TOXEL STAGING**  
+**Handover tip:** `3f55537aeced5f2a7efb8fda1467ca62b89d880c`  
 **Base tip audited:** `38549faa0d2b71da3fc8c98fd240222c279971b1` (K.9)  
 **K.8 checkpoint:** `9d5251d`
 
