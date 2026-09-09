@@ -308,3 +308,162 @@ compatAuthRouter.post(
     sendCompatSuccess(res, { ok: true }, "Password updated");
   }),
 );
+
+/** A8 — change password (maps Toxel auth/change-password → native my-profile/change-password semantics). */
+compatAuthRouter.post(
+  "/auth/change-password",
+  auth(),
+  handler(async (req, res) => {
+    const me = authed(req);
+    const snake = keysToSnake(req.body ?? {}) as Record<string, unknown>;
+    const current = String(snake.current_password ?? "");
+    const next = String(snake.new_password ?? "");
+    const confirm = snake.confirm_new_password ?? snake.confirm_password ?? null;
+    if (!current || !next) throw httpError(400, "currentPassword and newPassword are required");
+    if (confirm != null && String(confirm) !== next) {
+      throw httpError(400, "Passwords do not match");
+    }
+    const full = (await col("users").findOne({ id: me.id })) as Doc | null;
+    if (!full || !verifyPassword(current, full.password_hash)) {
+      throw httpError(400, "Your current password is not correct");
+    }
+    if (next.length < 8) throw httpError(400, "Choose a password of at least 8 characters");
+    const { checkPasswordStrength } = await import("../services/security");
+    checkPasswordStrength(next, me.email ?? "", me.name ?? "");
+    await col("users").updateOne(
+      { id: me.id },
+      { $set: { password_hash: hashPassword(next) } },
+    );
+    await col("refresh_tokens").updateMany(
+      { user_id: me.id, revoked_at: null },
+      { $set: { revoked_at: new Date() } },
+    );
+    await col("activity_logs").insertOne({
+      id: randomUUID(),
+      case_id: null,
+      action: "Password changed",
+      user_id: me.id,
+      user_name: me.name,
+      role: me.role,
+      meta: {},
+      created_at: nowIso(),
+    });
+    sendCompatSuccess(res, { ok: true }, "Password changed");
+  }),
+);
+
+/**
+ * P1 — update account settings.
+ * CLIENT: maps onto native my-profile fields (name/phone/address).
+ * Staff: name/phone only (staff photo/UTR edit remains HIDE per baseline P3).
+ */
+compatAuthRouter.put(
+  "/auth/update-account-settings",
+  auth(),
+  handler(async (req, res) => {
+    const me = authed(req);
+    const snake = keysToSnake(req.body ?? {}) as Record<string, unknown>;
+    const first = typeof snake.first_name === "string" ? snake.first_name.trim() : "";
+    const last = typeof snake.last_name === "string" ? snake.last_name.trim() : "";
+    const surname = typeof snake.surname === "string" ? snake.surname.trim() : "";
+    const nameFromParts = [first, last || surname].filter(Boolean).join(" ").trim();
+    const name =
+      (typeof snake.name === "string" && snake.name.trim()) || nameFromParts || null;
+    const phone =
+      typeof snake.phone === "string"
+        ? snake.phone
+        : typeof snake.mobile === "string"
+          ? snake.mobile
+          : undefined;
+    const address = typeof snake.address === "string" ? snake.address : undefined;
+
+    if (name) await col("users").updateOne({ id: me.id }, { $set: { name } });
+    if (me.role === "CLIENT") {
+      const updates: Doc = {};
+      if (phone !== undefined) updates.phone = phone;
+      if (address !== undefined) updates.address = address;
+      if (name) updates.name = name;
+      if (Object.keys(updates).length) {
+        await col("clients").updateOne({ user_id: me.id }, { $set: updates });
+      }
+      if (name) {
+        await col("cases").updateMany(
+          { client_user_id: me.id },
+          { $set: { client_name: name } },
+        );
+      }
+    } else if (phone !== undefined) {
+      await col("users").updateOne({ id: me.id }, { $set: { phone } });
+    }
+    const fresh = clean(
+      ((await col("users").findOne({ id: me.id })) ?? me) as Doc,
+    ) as Doc;
+    const { firstName, lastName } = splitDisplayName(String(fresh.name ?? ""));
+    sendCompatSuccess(
+      res,
+      keysToCamel({
+        ...toToxelUser(fresh),
+        first_name: firstName,
+        last_name: lastName,
+        phone: fresh.phone ?? null,
+      }),
+      "Updated",
+    );
+  }),
+);
+
+/** Some Toxel clients POST the same profile update path. */
+compatAuthRouter.post(
+  "/auth/update-account-settings",
+  auth(),
+  handler(async (req, res) => {
+    // Reuse PUT handler by forwarding — express doesn't allow easy reuse; duplicate thin call.
+    const me = authed(req);
+    const snake = keysToSnake(req.body ?? {}) as Record<string, unknown>;
+    const first = typeof snake.first_name === "string" ? snake.first_name.trim() : "";
+    const last = typeof snake.last_name === "string" ? snake.last_name.trim() : "";
+    const surname = typeof snake.surname === "string" ? snake.surname.trim() : "";
+    const nameFromParts = [first, last || surname].filter(Boolean).join(" ").trim();
+    const name =
+      (typeof snake.name === "string" && snake.name.trim()) || nameFromParts || null;
+    const phone =
+      typeof snake.phone === "string"
+        ? snake.phone
+        : typeof snake.mobile === "string"
+          ? snake.mobile
+          : undefined;
+    const address = typeof snake.address === "string" ? snake.address : undefined;
+    if (name) await col("users").updateOne({ id: me.id }, { $set: { name } });
+    if (me.role === "CLIENT") {
+      const updates: Doc = {};
+      if (phone !== undefined) updates.phone = phone;
+      if (address !== undefined) updates.address = address;
+      if (name) updates.name = name;
+      if (Object.keys(updates).length) {
+        await col("clients").updateOne({ user_id: me.id }, { $set: updates });
+      }
+      if (name) {
+        await col("cases").updateMany(
+          { client_user_id: me.id },
+          { $set: { client_name: name } },
+        );
+      }
+    } else if (phone !== undefined) {
+      await col("users").updateOne({ id: me.id }, { $set: { phone } });
+    }
+    const fresh = clean(
+      ((await col("users").findOne({ id: me.id })) ?? me) as Doc,
+    ) as Doc;
+    const { firstName, lastName } = splitDisplayName(String(fresh.name ?? ""));
+    sendCompatSuccess(
+      res,
+      keysToCamel({
+        ...toToxelUser(fresh),
+        first_name: firstName,
+        last_name: lastName,
+        phone: fresh.phone ?? null,
+      }),
+      "Updated",
+    );
+  }),
+);

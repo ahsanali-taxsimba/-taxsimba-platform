@@ -72,7 +72,7 @@ compatMessagesRouter.post(
 );
 
 const SendIn = z.object({
-  body: z.string().min(1),
+  body: z.string().optional(),
   tax_return_id: z.string().optional(),
   taxReturnId: z.string().optional(),
   case_id: z.string().optional(),
@@ -134,3 +134,96 @@ compatMessagesRouter.post(
     );
   }),
 );
+
+/** Staff aliases for the same send + log paths (admin/accountant FE). */
+async function staffCommunicationLog(
+  req: import("express").Request,
+  res: import("express").Response,
+) {
+  const me = authed(req);
+  const caseId = toCaseId(req.params.taxReturnId);
+  await getCase(caseId, me);
+  const msgs = (await col("messages")
+    .find({ case_id: caseId })
+    .sort({ created_at: 1 })
+    .limit(500)
+    .toArray()) as Doc[];
+  sendCompatSuccess(
+    res,
+    {
+      taxReturnId: caseId,
+      caseId,
+      messages: scrubMany(cleanMany(msgs), me).map((m) =>
+        withTaxReturnId({ ...m, tax_return_id: caseId }),
+      ),
+    },
+    "OK",
+  );
+}
+
+async function staffSendToClient(
+  req: import("express").Request,
+  res: import("express").Response,
+) {
+  const me = authed(req);
+  const body = parseBody(SendIn, keysToSnake(req.body ?? {}));
+  const taxReturnId =
+    body.tax_return_id ??
+    body.taxReturnId ??
+    body.case_id ??
+    body.caseId ??
+    req.params.taxReturnId ??
+    null;
+  if (!taxReturnId) throw httpError(400, "taxReturnId is required");
+  const caseId = toCaseId(String(taxReturnId));
+  const text = (body.body || body.message || "").trim();
+  if (!text) throw httpError(400, "message body is required");
+  const kase = await getCase(caseId, me);
+  const recipient = body.recipient_id ?? body.recipientId ?? kase.client_user_id;
+  const msg: Doc = {
+    id: randomUUID(),
+    case_id: caseId,
+    sender_id: me.id,
+    sender_name: me.name,
+    sender_role: me.role,
+    recipient_id: recipient ?? null,
+    body: text,
+    is_read: false,
+    created_at: nowIso(),
+  };
+  await col("messages").insertOne({ ...msg });
+  await logActivity(caseId, "Message sent", me);
+  if (recipient) {
+    await notify(
+      String(recipient),
+      `New message from ${me.name}`,
+      text.slice(0, 120),
+      caseId,
+      "/messages",
+      "MESSAGE",
+    );
+  }
+  sendCompatSuccess(
+    res,
+    withTaxReturnId({ ...clean(msg), tax_return_id: caseId }),
+    "Sent",
+  );
+}
+
+for (const prefix of ["/admin", "/accountant"] as const) {
+  compatMessagesRouter.get(
+    `${prefix}/communication-log/:taxReturnId`,
+    auth("ADMIN", "SUPER_ADMIN", "ACCOUNTANT"),
+    handler(staffCommunicationLog),
+  );
+  compatMessagesRouter.post(
+    `${prefix}/communication-log/:taxReturnId`,
+    auth("ADMIN", "SUPER_ADMIN", "ACCOUNTANT"),
+    handler(staffCommunicationLog),
+  );
+  compatMessagesRouter.post(
+    `${prefix}/send-to-client`,
+    auth("ADMIN", "SUPER_ADMIN", "ACCOUNTANT"),
+    handler(staffSendToClient),
+  );
+}

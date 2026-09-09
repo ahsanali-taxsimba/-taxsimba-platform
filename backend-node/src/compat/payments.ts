@@ -204,3 +204,150 @@ compatPaymentsRouter.post(
     );
   }),
 );
+
+/** E8 — SA package upgrade options (thin map onto native my-upgrade-options). */
+compatPaymentsRouter.get(
+  "/client/subscription/upgrade-options",
+  auth("CLIENT"),
+  handler(async (req, res) => {
+    const { applyDuePriceSchedules } = await import("../domain/pricing");
+    const { clientOf, SELF_ASSESSMENT, lockState } = await import("../domain/packages");
+    await applyDuePriceSchedules();
+    const me = authed(req);
+    const client = await clientOf(me);
+    const svc = (await col("client_services").findOne({
+      client_id: client.id,
+      service_type: SELF_ASSESSMENT,
+    })) as Doc | null;
+    if (!svc) throw httpError(404, "No Self Assessment service");
+    const current = (await col("packages").findOne({
+      service_type: SELF_ASSESSMENT,
+      code: svc.package_code ?? null,
+    })) as Doc | null;
+    const [locked, caseStatus] = await lockState(client.id);
+    const options: Doc[] = [];
+    if (current) {
+      const rows = (await col("packages")
+        .find({ service_type: SELF_ASSESSMENT, is_active: true, rank: { $gt: current.rank } })
+        .sort({ rank: 1 })
+        .toArray()) as Doc[];
+      for (const p of rows) {
+        const due = Math.round(Math.max(Number(p.price) - Number(current.price), 0) * 100) / 100;
+        options.push({
+          code: p.code,
+          name: p.name,
+          upgrade_price: p.price,
+          current_package_credit: current.price,
+          additional_amount_payable: due,
+          total_due_now: due,
+          plan_id: p.id,
+        });
+      }
+    }
+    sendCompatSuccess(
+      res,
+      keysToCamel({
+        current_package: current
+          ? { code: current.code, name: current.name, price: current.price }
+          : null,
+        is_highest: Boolean(current) && !options.length,
+        locked,
+        lock_reason: locked ? `Your return has reached ${caseStatus}` : null,
+        options,
+      }),
+      "OK",
+    );
+  }),
+);
+
+/**
+ * E8 — SA upgrade Checkout Session (VERIFY-BEFORE-PURCHASE via requireVerifiedEmail).
+ * Same payment_transactions / fulfil spine as native upgrade-checkout.
+ */
+compatPaymentsRouter.post(
+  "/client/subscription/upgrade-checkout",
+  auth("CLIENT"),
+  handler(async (req, res) => {
+    const me = authed(req);
+    requireVerifiedEmail(me);
+    const {
+      clientOf,
+      SELF_ASSESSMENT,
+      packageOr404,
+      lockState,
+    } = await import("../domain/packages");
+    const body = parseBody(
+      z.object({
+        package_code: z.string().min(1),
+        plan_id: z.string().nullish(),
+        origin_url: z.string().nullish(),
+      }),
+      keysToSnake(req.body ?? {}),
+    );
+    let packageCode = body.package_code;
+    if (!packageCode && body.plan_id) {
+      const pkg = (await col("packages").findOne({ id: body.plan_id })) as Doc | null;
+      if (pkg) packageCode = String(pkg.code);
+    }
+    if (!packageCode) throw httpError(400, "package_code is required");
+    const client = await clientOf(me);
+    const svc = (await col("client_services").findOne({
+      client_id: client.id,
+      service_type: SELF_ASSESSMENT,
+    })) as Doc | null;
+    if (!svc || svc.status !== "ACTIVE") {
+      throw httpError(400, "No active Self Assessment service");
+    }
+    const current = await packageOr404(SELF_ASSESSMENT, svc.package_code);
+    const target = await packageOr404(SELF_ASSESSMENT, packageCode);
+    if (target.rank <= current.rank) {
+      throw httpError(400, "Downgrades are not permitted once a package is active");
+    }
+    const [locked, caseStatus] = await lockState(client.id);
+    if (locked) throw httpError(400, `Package changes are locked at this stage (${caseStatus})`);
+    const amount = Math.round(Math.max(Number(target.price) - Number(current.price), 0) * 100) / 100;
+    if (amount <= 0) throw httpError(400, "No additional amount payable");
+    const origin =
+      (body.origin_url && String(body.origin_url)) ||
+      req.header("origin") ||
+      "https://taxsimba.co.uk";
+    const session = await payments().createCheckout(
+      amount,
+      `Self Assessment upgrade — ${current.name} to ${target.name}`,
+      origin,
+      {
+        kind: "SA_UPGRADE",
+        client_id: client.id as string,
+        user_id: me.id as string,
+        from_package: String(current.code),
+        to_package: String(target.code),
+      },
+    );
+    await col("payment_transactions").insertOne({
+      id: randomUUID(),
+      session_id: session.id,
+      user_id: me.id,
+      client_id: client.id,
+      kind: "SA_UPGRADE",
+      service_type: SELF_ASSESSMENT,
+      previous_package: current.code,
+      new_package: target.code,
+      amount,
+      currency: "gbp",
+      status: "initiated",
+      payment_status: "pending",
+      fulfilled: false,
+      created_at: nowIso(),
+      updated_at: nowIso(),
+    });
+    sendCompatSuccess(
+      res,
+      keysToCamel({
+        checkout_url: session.url,
+        session_id: session.id,
+        amount,
+      }),
+      "Checkout session created",
+    );
+  }),
+);

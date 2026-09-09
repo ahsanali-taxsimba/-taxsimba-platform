@@ -48,14 +48,36 @@ export default function PlanCheckoutPage() {
     setPaying(true);
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api/';
-      const response = await axios.post(
-        `${apiUrl}client/subscription/checkout-session`,
-        {
-          planId,
-          originUrl: typeof window !== 'undefined' ? window.location.origin : undefined,
-        },
-        { headers: { Authorization: `Bearer ${session.accessToken}` } },
-      );
+      const headers = { Authorization: `Bearer ${session.accessToken}` };
+      const payload = {
+        planId,
+        packageCode: plan?.code || plan?.packageCode,
+        originUrl: typeof window !== 'undefined' ? window.location.origin : undefined,
+      };
+      // P0 K.9 E8: try activation checkout first; if already ACTIVE SA, use upgrade-checkout.
+      let response;
+      try {
+        response = await axios.post(
+          `${apiUrl}client/subscription/checkout-session`,
+          payload,
+          { headers },
+        );
+      } catch (err) {
+        const msg = err?.response?.data?.message || '';
+        if (String(msg).toLowerCase().includes('already active')) {
+          response = await axios.post(
+            `${apiUrl}client/subscription/upgrade-checkout`,
+            {
+              planId,
+              packageCode: plan?.code || plan?.packageCode || planId,
+              originUrl: payload.originUrl,
+            },
+            { headers },
+          );
+        } else {
+          throw err;
+        }
+      }
       const checkoutUrl = response.data?.data?.checkoutUrl;
       if (checkoutUrl) {
         window.location.href = checkoutUrl;
