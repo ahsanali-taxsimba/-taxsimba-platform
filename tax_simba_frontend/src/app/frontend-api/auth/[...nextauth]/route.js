@@ -33,6 +33,10 @@ export const authOptions = {
               hasActiveService:
                 user.data.hasActiveService ?? user.data.user?.hasActiveService ?? false,
               ownership: user.data.ownership ?? user.data.user?.ownership ?? "neither",
+              isEngagementLetterAccepted:
+                user.data.isEngagementLetterAccepted ??
+                user.data.user?.isEngagementLetterAccepted ??
+                false,
               // Deprecated — never SoT
               isSubscriptionBuy: false,
             };
@@ -60,6 +64,9 @@ export const authOptions = {
           token.hasActiveService = session.hasActiveService;
         }
         if (session.ownership !== undefined) token.ownership = session.ownership;
+        if (session.isEngagementLetterAccepted !== undefined) {
+          token.isEngagementLetterAccepted = session.isEngagementLetterAccepted;
+        }
         if (token.user) {
           token.user = {
             ...token.user,
@@ -88,6 +95,7 @@ export const authOptions = {
         token.hasActiveMtd = user.hasActiveMtd ?? false;
         token.hasActiveService = user.hasActiveService ?? false;
         token.ownership = user.ownership ?? "neither";
+        token.isEngagementLetterAccepted = user.isEngagementLetterAccepted ?? false;
       }
 
       return token;
@@ -101,12 +109,17 @@ export const authOptions = {
         hasActiveMtd: token.hasActiveMtd ?? false,
         hasActiveService: token.hasActiveService ?? false,
         ownership: token.ownership ?? "neither",
+        isEngagementLetterAccepted:
+          token.isEngagementLetterAccepted ??
+          token.user?.isEngagementLetterAccepted ??
+          false,
         isSubscriptionBuy: false,
       };
       session.hasActiveSa = token.hasActiveSa ?? false;
       session.hasActiveMtd = token.hasActiveMtd ?? false;
       session.hasActiveService = token.hasActiveService ?? false;
       session.ownership = token.ownership ?? "neither";
+      session.isEngagementLetterAccepted = session.user.isEngagementLetterAccepted;
       return session;
     },
   },

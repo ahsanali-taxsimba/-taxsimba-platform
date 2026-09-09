@@ -11,6 +11,7 @@ import { clean, col, Doc } from "../db/mongo";
 import { handler, httpError } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
 import { compatAuthRouter } from "./authBridge";
+import { compatEngagementRouter } from "./engagement";
 import { compatEntitlementsRouter } from "./entitlements";
 import { compatPackagesRouter } from "./packages";
 import { compatPaymentsRouter } from "./payments";
@@ -25,6 +26,7 @@ compatRouter.use(compatAuthRouter);
 compatRouter.use(compatPackagesRouter);
 compatRouter.use(compatEntitlementsRouter);
 compatRouter.use(compatPaymentsRouter);
+compatRouter.use(compatEngagementRouter);
 
 /** Health / envelope success probe. */
 compatRouter.get(

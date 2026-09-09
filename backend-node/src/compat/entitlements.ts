@@ -14,6 +14,7 @@ import {
   activeSubscriptionsFromServices,
   ownershipForUser,
 } from "./ownership";
+import { engagementStatusForUser } from "../services/engagement";
 
 export const compatEntitlementsRouter = Router();
 
@@ -47,6 +48,7 @@ compatEntitlementsRouter.post(
   handler(async (req, res) => {
     const me = authed(req);
     const snap = await ownershipForUser(me);
+    const engagement = await engagementStatusForUser(me);
     const active = activeSubscriptionsFromServices(snap.services);
     let phone: string | null = (me.phone as string) ?? null;
     let address: string | null = null;
@@ -65,6 +67,9 @@ compatEntitlementsRouter.post(
         has_active_sa: snap.hasActiveSa,
         has_active_mtd: snap.hasActiveMtd,
         has_active_service: snap.hasActiveService,
+        is_engagement_letter_accepted: engagement.isEngagementLetterAccepted,
+        engagement_accepted_at: engagement.engagementAcceptedAt,
+        agreement_version: engagement.agreementVersion,
         // Deprecated — never a source of truth (baseline D7 / N5).
         is_subscription_buy: false,
         subscription: active[0] ?? null,

@@ -6,9 +6,10 @@ import { getToken } from 'next-auth/jwt';
 import { NextResponse } from 'next/server';
 
 /**
- * P0 K.3 — Ownership SoT is ACTIVE SA/MTD entitlements on the JWT
+ * P0 K.3/K.4 — Ownership SoT is ACTIVE SA/MTD entitlements on the JWT
  * (populated from GET my-services via compat login / session refresh).
  * Never trust isSubscriptionBuy as source of truth (baseline D7 / X3 / E1).
+ * After ACTIVE entitlement, engagement acceptance is required before dashboard (G2).
  */
 function ownershipFromToken(token) {
   const user = token?.user || {};
@@ -88,7 +89,9 @@ export async function middleware(req) {
 
   if (token) {
     const { hasActiveService, hasActiveSa, hasActiveMtd, ownership } = ownershipFromToken(token);
-    const hasSignedLetter = token?.user?.isEngagementLetterAccepted === true;
+    const hasSignedLetter =
+      token?.isEngagementLetterAccepted === true ||
+      token?.user?.isEngagementLetterAccepted === true;
     const hasSubmittedTaxInfo = token?.user?.isTaxInfoSubmitted === true;
 
     if (pathname === '/login'

@@ -37,6 +37,7 @@ import {
 import { clearFailures, clientIp, enforceLoginAllowed, recordFailure } from "../services/loginLockout";
 import { consumePasswordReset, issuePasswordReset } from "../services/passwordReset";
 import { createChallenge } from "../services/security";
+import { engagementStatusForUser } from "../services/engagement";
 import { keysToCamel, keysToSnake } from "./caseMap";
 import { sendCompatSuccess } from "./envelope";
 import { ownershipForUser } from "./ownership";
@@ -113,6 +114,7 @@ export async function compatAuthPayload(
       ? native.access_token
       : createAccessToken(user.id, user.email as string);
   const ownership = await ownershipForUser(user);
+  const engagement = await engagementStatusForUser(user);
   return {
     accessToken,
     user: {
@@ -121,11 +123,15 @@ export async function compatAuthPayload(
       hasActiveMtd: ownership.hasActiveMtd,
       hasActiveService: ownership.hasActiveService,
       ownership: ownership.ownership,
+      isEngagementLetterAccepted: engagement.isEngagementLetterAccepted,
+      engagementAcceptedAt: engagement.engagementAcceptedAt,
     },
     ownership: ownership.ownership,
     hasActiveSa: ownership.hasActiveSa,
     hasActiveMtd: ownership.hasActiveMtd,
     hasActiveService: ownership.hasActiveService,
+    isEngagementLetterAccepted: engagement.isEngagementLetterAccepted,
+    engagementAcceptedAt: engagement.engagementAcceptedAt,
     // Explicitly false — NOT a source of truth for entitlements (baseline D7 / D8).
     isSubscriptionBuy: false,
   };

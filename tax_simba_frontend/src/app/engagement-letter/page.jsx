@@ -167,8 +167,14 @@ export default function EngagementLetterPage() {
             );
             await updateSession({ isEngagementLetterAccepted: true });
 
-            // Check role for redirection or modal
-            if (session?.user?.userRole === 'MTD') {
+            // Prefer ownership SoT (K.3) over legacy userRole === 'MTD'.
+            const ownership = session?.user?.ownership || session?.ownership;
+            const isMtdPath =
+              ownership === 'mtd' ||
+              ownership === 'both' ||
+              session?.user?.hasActiveMtd === true;
+
+            if (isMtdPath && ownership !== 'sa') {
                 setShowTaxModal(true);
                 setLoading(false);
             } else {
