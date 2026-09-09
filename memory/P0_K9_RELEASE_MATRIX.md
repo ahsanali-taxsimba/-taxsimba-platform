@@ -1,7 +1,7 @@
 # P0 K.9 Release Matrix
 
 **Branch:** `taxsimba-p0-integration`  
-**K.9 tip:** (see latest commit on branch)  
+**K.9 tip:** `e22df10`  
 **K.8 checkpoint:** `9d5251d`  
 **SoT:** Node `backend-node/` + Toxel FE on integration branch  
 **Protected tips (must remain unchanged):**  
