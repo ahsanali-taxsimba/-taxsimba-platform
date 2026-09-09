@@ -70,6 +70,7 @@ compatEntitlementsRouter.post(
         is_engagement_letter_accepted: engagement.isEngagementLetterAccepted,
         engagement_accepted_at: engagement.engagementAcceptedAt,
         agreement_version: engagement.agreementVersion,
+        required_agreement_version: engagement.requiredAgreementVersion,
         // Deprecated — never a source of truth (baseline D7 / N5).
         is_subscription_buy: false,
         subscription: active[0] ?? null,
