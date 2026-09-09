@@ -3,13 +3,13 @@ import type { Express } from "express";
 import request from "supertest";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
-import { bearer, bootTestApp, dropTestDb, makeUser, TestUser } from "../helpers/app";
+import { bearer, bootTestApp, dropTestDb, makeClient, makeUser, activateClientService, TestUser } from "../helpers/app";
 
 let app: Express;
 let admin: TestUser;
 let accountant: TestUser;
 let other: TestUser;
-let client: TestUser;
+let client: TestUser & { clientId: string };
 
 const CHECKLIST = {
   client_information_reviewed: true,
@@ -21,11 +21,17 @@ const CHECKLIST = {
   return_ready: true,
 };
 
+let taxYearSeq = 1990;
+
 async function newCase(): Promise<string> {
+  // Skip years reserved by activation (2025/26) and explicit suite creates (2023/24, 2024/25).
+  while ([2023, 2024, 2025].includes(taxYearSeq)) taxYearSeq++;
+  const start = taxYearSeq++;
+  const taxYear = `${start}/${String(start + 1).slice(-2)}`;
   const res = await request(app)
     .post("/api/cases")
     .set(bearer(admin))
-    .send({ client_user_id: client.id, tax_year: "2024/25" });
+    .send({ client_user_id: client.id, tax_year: taxYear });
   expect(res.status).toBe(200);
   return res.body.id as string;
 }
@@ -63,7 +69,9 @@ beforeAll(async () => {
   admin = await makeUser("ADMIN");
   accountant = await makeUser("ACCOUNTANT");
   other = await makeUser("ACCOUNTANT", "other");
-  client = await makeUser("CLIENT");
+  client = await makeClient("client");
+  // K.5: CLIENT access/approve requires ACTIVE SA entitlement.
+  await activateClientService(client, "SELF_ASSESSMENT");
 }, 30000);
 
 afterAll(async () => {
@@ -72,25 +80,32 @@ afterAll(async () => {
 
 describe("case creation", () => {
   it("issues sequential SA- references and lands in AWAITING_ASSIGNMENT", async () => {
+    // Use distinct tax years so C7 duplicate prevention does not block sequential refs.
     const first = await request(app)
       .post("/api/cases")
       .set(bearer(admin))
-      .send({ client_user_id: client.id, tax_year: "2024/25" })
+      .send({ client_user_id: client.id, tax_year: "2023/24" })
       .expect(200);
     expect(first.body.case_ref).toMatch(/^SA-\d{4,}$/);
     expect(first.body.status).toBe("AWAITING_ASSIGNMENT");
     expect(first.body.next_action_owner).toBe("ADMIN");
-    // 31 January following the end of the 2024/25 tax year.
-    expect(first.body.external_deadline).toBe("2026-01-31T23:59:00+00:00");
+    expect(first.body.external_deadline).toBe("2025-01-31T23:59:00+00:00");
     expect(first.body._id).toBeUndefined();
 
     const second = await request(app)
       .post("/api/cases")
       .set(bearer(admin))
-      .send({ client_user_id: client.id })
+      .send({ client_user_id: client.id, tax_year: "2024/25" })
       .expect(200);
     const seq = (ref: string) => parseInt(ref.split("-")[1], 10);
     expect(seq(second.body.case_ref)).toBe(seq(first.body.case_ref) + 1);
+
+    // Duplicate open case for same client+service+tax_year is rejected.
+    await request(app)
+      .post("/api/cases")
+      .set(bearer(admin))
+      .send({ client_user_id: client.id, tax_year: "2024/25" })
+      .expect(409);
   });
 
   it("rejects a staff create without a client and an unknown client", async () => {
@@ -232,7 +247,7 @@ describe("client information requests", () => {
       .set(bearer(client))
       .expect(200);
     expect(tasks.body).toHaveLength(1);
-    expect(tasks.body[0].tax_year).toBe("2024/25");
+    expect(tasks.body[0].tax_year).toBe(detail.body.tax_year);
 
     // Completing the client's last open task returns the case to the accountant.
     await request(app)
@@ -293,7 +308,9 @@ describe("calculations and review", () => {
       .expect(200);
     expect(v1.body.version).toBe(1);
     expect(v2.body.version).toBe(2);
-    expect(v2.body.payment_deadline).toBe("31 January 2026");
+    const caseDetail = await request(app).get(`/api/cases/${caseId}`).set(bearer(admin)).expect(200);
+    const startYear = parseInt(String(caseDetail.body.tax_year).split("/")[0], 10);
+    expect(v2.body.payment_deadline).toBe(`31 January ${startYear + 2}`);
 
     const staffView = await request(app)
       .get(`/api/cases/${caseId}/calculations`)
