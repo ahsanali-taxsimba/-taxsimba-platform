@@ -11,8 +11,12 @@ import { clean, col, Doc } from "../db/mongo";
 import { handler, httpError } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
 import { compatAuthRouter } from "./authBridge";
+import { compatCasesRouter } from "./cases";
+import { compatDocumentsRouter } from "./documents";
 import { compatEngagementRouter } from "./engagement";
 import { compatEntitlementsRouter } from "./entitlements";
+import { compatMessagesRouter } from "./messages";
+import { compatNotificationsRouter } from "./notifications";
 import { compatPackagesRouter } from "./packages";
 import { compatPaymentsRouter } from "./payments";
 import { keysToCamel, keysToSnake } from "./caseMap";
@@ -27,6 +31,10 @@ compatRouter.use(compatPackagesRouter);
 compatRouter.use(compatEntitlementsRouter);
 compatRouter.use(compatPaymentsRouter);
 compatRouter.use(compatEngagementRouter);
+compatRouter.use(compatCasesRouter);
+compatRouter.use(compatDocumentsRouter);
+compatRouter.use(compatMessagesRouter);
+compatRouter.use(compatNotificationsRouter);
 
 /** Health / envelope success probe. */
 compatRouter.get(

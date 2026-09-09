@@ -131,6 +131,28 @@ export function bearer(user: TestUser): Record<string, string> {
   return { Authorization: `Bearer ${user.token}` };
 }
 
+/**
+ * Activate SA or MTD via the protected activateService spine (preferred case factory).
+ * Returns the fulfilment case id. Used by K.5+ fixtures instead of unpaid CLIENT POST /cases.
+ */
+export async function activateClientService(
+  client: TestUser & { clientId: string },
+  serviceType: "SELF_ASSESSMENT" | "MTD_INCOME_TAX",
+  packageCode?: string,
+): Promise<{ caseId: string }> {
+  const { col } = await import("../../src/db/mongo");
+  const { activateService } = await import("../../src/domain/packages");
+  const code =
+    packageCode ?? (serviceType === "SELF_ASSESSMENT" ? "SIMPLE" : "MTD_ESSENTIAL");
+  const clientDoc = await col("clients").findOne({ id: client.clientId });
+  const userDoc = await col("users").findOne({ id: client.id });
+  if (!clientDoc || !userDoc) throw new Error("activateClientService: missing client/user");
+  const result = await activateService(clientDoc, userDoc, serviceType, code, {
+    reason: "test activation",
+  });
+  return { caseId: String(result.case.id) };
+}
+
 /** Headers a browser would send, including the double-submit CSRF token. */
 export function browserHeaders(cookies: string[]): Record<string, string> {
   const jar = cookies.map((c) => c.split(";")[0]);

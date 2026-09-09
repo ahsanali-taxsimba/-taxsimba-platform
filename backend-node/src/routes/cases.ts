@@ -4,6 +4,11 @@ import { Request, Response, Router } from "express";
 import { z } from "zod";
 
 import { clean, cleanMany, col, Doc, scrub, scrubMany } from "../db/mongo";
+import {
+  assertClientCanAccessService,
+  activeServiceTypesForClient,
+  findOpenServiceCase,
+} from "../domain/caseEntitlement";
 import { daysLeft, decorate, getCase, ownedCaseIds } from "../domain/cases";
 import { isTestEmail, OPERATIONAL_ONLY } from "../domain/testdata";
 import {
@@ -189,8 +194,23 @@ casesRouter.get(
     }
     const serviceType = str(req, "service_type");
     if (serviceType) query.service_type = serviceType;
-    if (me.role === "CLIENT") query.client_user_id = me.id;
-    else if (me.role === "ACCOUNTANT") query.assigned_accountant_id = me.id;
+    if (me.role === "CLIENT") {
+      query.client_user_id = me.id;
+      // K.5: CLIENT list is limited to ACTIVE service entitlements (never unpaid services).
+      const activeTypes = await activeServiceTypesForClient(me);
+      if (!activeTypes.length) {
+        res.json([]);
+        return;
+      }
+      if (serviceType) {
+        if (!activeTypes.includes(serviceType)) {
+          res.json([]);
+          return;
+        }
+      } else {
+        query.service_type = { $in: activeTypes };
+      }
+    } else if (me.role === "ACCOUNTANT") query.assigned_accountant_id = me.id;
 
     const status = str(req, "status");
     if (status) query.status = { $in: status.split(",") };
@@ -288,6 +308,26 @@ casesRouter.post(
     const clientUser = await col("users").findOne({ id: clientUserId, role: "CLIENT" });
     if (!clientUser) throw httpError(404, "Client not found");
     const client = await col("clients").findOne({ user_id: clientUserId });
+
+    // K.5 / N4: CLIENT create requires matching ACTIVE entitlement (staff create preserved).
+    if (me.role === "CLIENT") {
+      await assertClientCanAccessService(me, body.service_type);
+    }
+
+    // K.5 / C7: no second open service case for client + service_type + tax_year.
+    const existingOpen = await findOpenServiceCase({
+      clientUserId,
+      clientId: client ? (client.id as string) : null,
+      serviceType: body.service_type,
+      taxYear: body.tax_year,
+    });
+    if (existingOpen) {
+      throw httpError(
+        409,
+        "An open service case already exists for this client, service type and tax year",
+      );
+    }
+
     const [stage, nextAction, owner] = STATUS_META.AWAITING_ASSIGNMENT;
     const kase: Doc = {
       id: randomUUID(),

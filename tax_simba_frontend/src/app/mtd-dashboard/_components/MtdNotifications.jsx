@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import {
-    FaBell, FaCheckDouble, FaCheck, FaTrash, FaSearch, FaCloudUploadAlt,
+    FaBell, FaCheckDouble, FaCheck, FaSearch, FaCloudUploadAlt,
     FaFileInvoice, FaUserTie, FaExclamationCircle, FaChevronLeft, FaChevronRight
 } from "react-icons/fa";
 import toast from "react-hot-toast";
@@ -87,21 +87,7 @@ export default function MtdNotifications({ session }) {
         }
     };
 
-    const handleDelete = async (notificationId) => {
-        if (!confirm("Are you sure you want to delete this notification?")) return;
-        try {
-            await axios.delete(
-                `${process.env.NEXT_PUBLIC_API_URL}notifications/${notificationId}`,
-                { headers: { Authorization: `Bearer ${session.accessToken}` } }
-            );
-            setNotifications(prev => prev.filter(n => n.id !== notificationId));
-            toast.success("Notification deleted");
-            fetchNotifications(); // Refresh page to keep list complete
-        } catch (err) {
-            console.error("Error deleting notification:", err);
-            toast.error("Failed to delete notification.");
-        }
-    };
+    // P0 M4: notification delete is HIDE/DEFER — control removed; no backend delete API.
 
     const filterTypes = [
         { id: "all", label: "All" },
@@ -296,14 +282,6 @@ export default function MtdNotifications({ session }) {
                                             <FaCheck size={12} className="text-success" />
                                         </button>
                                     )}
-                                    <button 
-                                        className="btn btn-sm btn-light border d-flex align-items-center justify-content-center text-danger"
-                                        style={{ width: "32px", height: "32px", borderRadius: "50%", padding: 0 }}
-                                        onClick={() => handleDelete(notif.id)}
-                                        title="Delete notification"
-                                    >
-                                        <FaTrash size={12} />
-                                    </button>
                                 </div>
                             </div>
                         );
