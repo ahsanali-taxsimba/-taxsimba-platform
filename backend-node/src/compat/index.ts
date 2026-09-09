@@ -11,6 +11,7 @@ import { clean, col, Doc } from "../db/mongo";
 import { handler, httpError } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
 import { compatAuthRouter } from "./authBridge";
+import { compatAdminRouter } from "./admin";
 import { compatCasesRouter } from "./cases";
 import { compatDocumentsRouter } from "./documents";
 import { compatEngagementRouter } from "./engagement";
@@ -37,6 +38,7 @@ compatRouter.use(compatDocumentsRouter);
 compatRouter.use(compatMessagesRouter);
 compatRouter.use(compatNotificationsRouter);
 compatRouter.use(compatMtdRouter);
+compatRouter.use(compatAdminRouter);
 
 /** Health / envelope success probe. */
 compatRouter.get(

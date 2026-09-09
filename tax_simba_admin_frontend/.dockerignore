@@ -1,0 +1,15 @@
+node_modules
+.next
+out
+build
+npm-debug.log
+.DS_Store
+# .env
+.env.development
+# .env.production (allowed for build)
+!.env.production
+.env.local
+.git
+.gitignore
+Dockerfile
+Dockerfile.dev

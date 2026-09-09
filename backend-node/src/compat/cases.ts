@@ -156,6 +156,7 @@ const AssignIn = z.object({
   priority: z.string().default("MEDIUM"),
   internal_deadline: z.string().nullish().optional(),
   internalDeadline: z.string().nullish().optional(),
+  deadline: z.string().nullish().optional(),
   notes: z.string().nullish().optional(),
   internal_instructions: z.string().nullish().optional(),
 });
@@ -194,7 +195,8 @@ compatCasesRouter.post(
       assigned_by: me.id,
       assigned_by_name: me.name,
       priority: body.priority ?? "MEDIUM",
-      internal_deadline: body.internalDeadline ?? body.internal_deadline ?? null,
+      internal_deadline:
+        body.internalDeadline ?? body.internal_deadline ?? body.deadline ?? null,
       internal_instructions: body.notes ?? body.internal_instructions ?? null,
       created_at: nowIso(),
     });
@@ -203,8 +205,9 @@ compatCasesRouter.post(
       assigned_accountant_name: acc.name,
       priority: body.priority ?? "MEDIUM",
     };
-    if (body.internalDeadline ?? body.internal_deadline) {
-      extra.internal_deadline = body.internalDeadline ?? body.internal_deadline;
+    const deadline = body.internalDeadline ?? body.internal_deadline ?? body.deadline;
+    if (deadline) {
+      extra.internal_deadline = deadline;
     }
     if (body.notes ?? body.internal_instructions) {
       extra.internal_instructions = body.notes ?? body.internal_instructions;
@@ -244,98 +247,125 @@ const ReviewIn = z.object({
  * C6 — progress/manage-review: only whitelist transitions / existing approve|return actions.
  * Unknown free-form status updates are rejected.
  */
+async function handleManageReview(req: import("express").Request, res: import("express").Response) {
+  const me = authed(req);
+  const snake = keysToSnake(req.body ?? {}) as Record<string, unknown>;
+  const taxReturnId = String(
+    req.params.taxReturnId ??
+      req.params.reviewId ??
+      snake.tax_return_id ??
+      snake.case_id ??
+      snake.id ??
+      "",
+  ).trim();
+  if (!taxReturnId) throw httpError(400, "taxReturnId is required");
+  const caseId = toCaseId(taxReturnId);
+  const body = parseBody(ReviewIn, req.body ?? {});
+  const action = String(body.action ?? "").toLowerCase();
+  const requestedStatus = String(body.status ?? "").toUpperCase();
+
+  if (action === "approve" || action === "admin-approve" || action === "admin_approve") {
+    if (!["ADMIN", "SUPER_ADMIN"].includes(String(me.role))) {
+      throw httpError(403, "Insufficient permissions");
+    }
+    const kase = await getCase(caseId, me);
+    if (!(ALLOWED_TRANSITIONS[String(kase.status)] ?? []).includes("ADMIN_APPROVED")) {
+      throw httpError(400, `Cannot admin-approve from status ${kase.status}`);
+    }
+    await transition(kase, "ADMIN_APPROVED", me, body.note ?? "Admin approved");
+    const updated = await getCase(caseId, me);
+    sendCompatSuccess(res, decorateCase(updated), "Approved");
+    return;
+  }
+
+  if (
+    action === "return" ||
+    action === "reject" ||
+    action === "admin-return" ||
+    action === "admin_return"
+  ) {
+    if (!["ADMIN", "SUPER_ADMIN"].includes(String(me.role))) {
+      throw httpError(403, "Insufficient permissions");
+    }
+    const reason = String(body.reason ?? body.note ?? "").trim();
+    if (!reason) throw httpError(400, "reason is required");
+    const kase = await getCase(caseId, me);
+    if (!(ALLOWED_TRANSITIONS[String(kase.status)] ?? []).includes("CHANGES_REQUIRED")) {
+      throw httpError(400, `Cannot return case from status ${kase.status}`);
+    }
+    await transition(kase, "CHANGES_REQUIRED", me, reason, {
+      waitingReason: reason,
+      extra: { internal_instructions: body.instructions ?? reason },
+    });
+    const updated = await getCase(caseId, me);
+    sendCompatSuccess(res, decorateCase(updated), "Returned");
+    return;
+  }
+
+  if (requestedStatus) {
+    const kase = await getCase(caseId, me);
+    if (!(ALLOWED_TRANSITIONS[String(kase.status)] ?? []).includes(requestedStatus)) {
+      throw httpError(
+        400,
+        `Invalid workflow transition from ${kase.status} to ${requestedStatus}`,
+      );
+    }
+    await transition(kase, requestedStatus, me, body.note ?? `Moved to ${requestedStatus}`);
+    const updated = await getCase(caseId, me);
+    sendCompatSuccess(res, decorateCase(updated), "Updated");
+    return;
+  }
+
+  throw httpError(400, "Unknown review action — only whitelist transitions are allowed");
+}
+
 compatCasesRouter.post(
   "/admin/manage-review",
   auth("ADMIN", "SUPER_ADMIN", "ACCOUNTANT"),
-  handler(async (req, res) => {
-    const me = authed(req);
-    const snake = keysToSnake(req.body ?? {}) as Record<string, unknown>;
-    const taxReturnId = String(
-      snake.tax_return_id ?? snake.case_id ?? snake.id ?? "",
-    ).trim();
-    if (!taxReturnId) throw httpError(400, "taxReturnId is required");
-    const caseId = toCaseId(taxReturnId);
-    const body = parseBody(ReviewIn, req.body ?? {});
-    const action = String(body.action ?? "").toLowerCase();
-    const requestedStatus = String(body.status ?? "").toUpperCase();
-
-    if (action === "approve" || action === "admin-approve" || action === "admin_approve") {
-      if (!["ADMIN", "SUPER_ADMIN"].includes(String(me.role))) {
-        throw httpError(403, "Insufficient permissions");
-      }
-      // Delegate to native admin-approve semantics via transition whitelist only.
-      const kase = await getCase(caseId, me);
-      if (!(ALLOWED_TRANSITIONS[String(kase.status)] ?? []).includes("ADMIN_APPROVED")) {
-        throw httpError(400, `Cannot admin-approve from status ${kase.status}`);
-      }
-      await transition(kase, "ADMIN_APPROVED", me, body.note ?? "Admin approved");
-      const updated = await getCase(caseId, me);
-      sendCompatSuccess(res, decorateCase(updated), "Approved");
-      return;
-    }
-
-    if (
-      action === "return" ||
-      action === "reject" ||
-      action === "admin-return" ||
-      action === "admin_return"
-    ) {
-      if (!["ADMIN", "SUPER_ADMIN"].includes(String(me.role))) {
-        throw httpError(403, "Insufficient permissions");
-      }
-      const reason = String(body.reason ?? body.note ?? "").trim();
-      if (!reason) throw httpError(400, "reason is required");
-      const kase = await getCase(caseId, me);
-      if (!(ALLOWED_TRANSITIONS[String(kase.status)] ?? []).includes("CHANGES_REQUIRED")) {
-        throw httpError(400, `Cannot return case from status ${kase.status}`);
-      }
-      await transition(kase, "CHANGES_REQUIRED", me, reason, {
-        waitingReason: reason,
-        extra: { internal_instructions: body.instructions ?? reason },
-      });
-      const updated = await getCase(caseId, me);
-      sendCompatSuccess(res, decorateCase(updated), "Returned");
-      return;
-    }
-
-    if (requestedStatus) {
-      const kase = await getCase(caseId, me);
-      if (!(ALLOWED_TRANSITIONS[String(kase.status)] ?? []).includes(requestedStatus)) {
-        throw httpError(
-          400,
-          `Invalid workflow transition from ${kase.status} to ${requestedStatus}`,
-        );
-      }
-      await transition(kase, requestedStatus, me, body.note ?? `Moved to ${requestedStatus}`);
-      const updated = await getCase(caseId, me);
-      sendCompatSuccess(res, decorateCase(updated), "Updated");
-      return;
-    }
-
-    throw httpError(400, "Unknown review action — only whitelist transitions are allowed");
-  }),
+  handler(handleManageReview),
 );
+
+compatCasesRouter.post(
+  "/admin/manage-review/:reviewId",
+  auth("ADMIN", "SUPER_ADMIN", "ACCOUNTANT"),
+  handler(handleManageReview),
+);
+
+async function handleGetReview(req: import("express").Request, res: import("express").Response) {
+  const me = authed(req);
+  const caseId = toCaseId(req.params.taxReturnId);
+  const kase = await getCase(caseId, me);
+  const reviews = await col("reviews")
+    .find({ case_id: caseId })
+    .sort({ submitted_at: -1 })
+    .limit(50)
+    .toArray();
+  sendCompatSuccess(
+    res,
+    {
+      case: decorateCase(kase),
+      reviews: keysToCamel(reviews),
+      allowedTransitions: ALLOWED_TRANSITIONS[String(kase.status)] ?? [],
+    },
+    "OK",
+  );
+}
 
 compatCasesRouter.get(
   "/admin/get-review/:taxReturnId",
   auth("ADMIN", "SUPER_ADMIN", "ACCOUNTANT"),
-  handler(async (req, res) => {
-    const me = authed(req);
-    const caseId = toCaseId(req.params.taxReturnId);
-    const kase = await getCase(caseId, me);
-    const reviews = await col("reviews")
-      .find({ case_id: caseId })
-      .sort({ submitted_at: -1 })
-      .limit(50)
-      .toArray();
-    sendCompatSuccess(
-      res,
-      {
-        case: decorateCase(kase),
-        reviews: keysToCamel(reviews),
-        allowedTransitions: ALLOWED_TRANSITIONS[String(kase.status)] ?? [],
-      },
-      "OK",
-    );
-  }),
+  handler(handleGetReview),
+);
+
+/** FE uses POST for get-review. */
+compatCasesRouter.post(
+  "/admin/get-review/:taxReturnId",
+  auth("ADMIN", "SUPER_ADMIN", "ACCOUNTANT"),
+  handler(handleGetReview),
+);
+
+compatCasesRouter.post(
+  "/accountant/get-review/:taxReturnId",
+  auth("ACCOUNTANT", "ADMIN", "SUPER_ADMIN"),
+  handler(handleGetReview),
 );
