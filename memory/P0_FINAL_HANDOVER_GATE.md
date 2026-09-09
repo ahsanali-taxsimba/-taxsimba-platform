@@ -2,7 +2,7 @@
 
 **Readiness:** 2) READY FOR TOXEL STAGING (not PRODUCTION READY)  
 **Branch:** `taxsimba-p0-integration`  
-**Freeze tip:** `5ce01ecc9a460eafd81d0322622b94a8d4658703`  
+**Freeze tip:** `2866f257875aa0123ad7fefcfcecbf9af3c0f61b`  
 **Gate feature tip:** `308111e1bc4549db7b9eee771067c9f50b05d2e7`  
 **Regression:** typecheck PASS; **29 files / 299 tests / 0 failures**  
 **New suite:** `tests/integration/finalHandoverGate.test.ts`  
