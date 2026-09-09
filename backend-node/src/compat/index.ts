@@ -11,6 +11,9 @@ import { clean, col, Doc } from "../db/mongo";
 import { handler, httpError } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
 import { compatAuthRouter } from "./authBridge";
+import { compatEntitlementsRouter } from "./entitlements";
+import { compatPackagesRouter } from "./packages";
+import { compatPaymentsRouter } from "./payments";
 import { keysToCamel, keysToSnake } from "./caseMap";
 import { compatErrorMiddleware, sendCompatSuccess } from "./envelope";
 import { idsReferToSameCase, toCaseId, toTaxReturnId, withTaxReturnId } from "./ids";
@@ -19,6 +22,9 @@ import { maskContactsForViewer } from "./privacy";
 export const compatRouter = Router();
 
 compatRouter.use(compatAuthRouter);
+compatRouter.use(compatPackagesRouter);
+compatRouter.use(compatEntitlementsRouter);
+compatRouter.use(compatPaymentsRouter);
 
 /** Health / envelope success probe. */
 compatRouter.get(

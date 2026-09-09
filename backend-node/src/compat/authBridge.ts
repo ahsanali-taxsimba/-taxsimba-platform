@@ -9,29 +9,37 @@
  * native `/api/auth/*` routes.
  */
 
+import { randomUUID } from "crypto";
+
 import { Router } from "express";
 import { z } from "zod";
 
 import { clean, col, Doc } from "../db/mongo";
+import { isTestEmail } from "../domain/testdata";
+import { nowIso } from "../domain/workflow";
 import { handler, httpError, parseBody } from "../http/errors";
 import { authResponse, clearSessionCookies, isBrowser } from "../http/session";
 import { auth, user as authed } from "../middleware/auth";
 import { enforceCsrf } from "../middleware/csrf";
 import {
   createAccessToken,
+  hashPassword,
   REFRESH_COOKIE,
   revokeRefreshToken,
   verifyPassword,
 } from "../services/auth";
-import { clearFailures, clientIp, enforceLoginAllowed, recordFailure } from "../services/loginLockout";
+import { bootstrapClientServices } from "../services/clientServices";
 import {
   consumeEmailVerification,
+  issueEmailVerification,
   resendEmailVerification,
 } from "../services/emailVerification";
+import { clearFailures, clientIp, enforceLoginAllowed, recordFailure } from "../services/loginLockout";
 import { consumePasswordReset, issuePasswordReset } from "../services/passwordReset";
 import { createChallenge } from "../services/security";
 import { keysToCamel, keysToSnake } from "./caseMap";
 import { sendCompatSuccess } from "./envelope";
+import { ownershipForUser } from "./ownership";
 
 const LoginIn = z.object({
   email: z.string().email(),
@@ -44,6 +52,20 @@ const ResetPasswordIn = z.object({
   password: z.string().min(1),
   confirm_password: z.string().nullish(),
   confirmPassword: z.string().nullish(),
+});
+const RegisterIn = z.object({
+  email: z.string().email(),
+  password: z.string().min(1),
+  name: z.string().nullish(),
+  surname: z.string().nullish(),
+  first_name: z.string().nullish(),
+  last_name: z.string().nullish(),
+  mobile: z.string().nullish(),
+  phone: z.string().nullish(),
+  confirm_password: z.string().nullish(),
+  confirmPassword: z.string().nullish(),
+  user_role: z.string().nullish(),
+  userRole: z.string().nullish(),
 });
 
 /** Split a display name into Toxel firstName / lastName without inventing identity fields. */
@@ -86,21 +108,81 @@ export async function compatAuthPayload(
   user: Doc,
 ): Promise<Doc> {
   const native = await authResponse(req, res, user);
-  // Ensure a Bearer token is present even when the caller looks like a browser (Origin header).
-  // NextAuth authorize runs server-side; Toxel stores accessToken in the JWT. Cookies remain set.
   const accessToken =
     typeof native.access_token === "string"
       ? native.access_token
       : createAccessToken(user.id, user.email as string);
+  const ownership = await ownershipForUser(user);
   return {
     accessToken,
-    user: toToxelUser(clean({ ...user }) as Doc),
+    user: {
+      ...toToxelUser(clean({ ...user }) as Doc),
+      hasActiveSa: ownership.hasActiveSa,
+      hasActiveMtd: ownership.hasActiveMtd,
+      hasActiveService: ownership.hasActiveService,
+      ownership: ownership.ownership,
+    },
+    ownership: ownership.ownership,
+    hasActiveSa: ownership.hasActiveSa,
+    hasActiveMtd: ownership.hasActiveMtd,
+    hasActiveService: ownership.hasActiveService,
     // Explicitly false — NOT a source of truth for entitlements (baseline D7 / D8).
     isSubscriptionBuy: false,
   };
 }
 
 export const compatAuthRouter = Router();
+
+/** Toxel register (A1): map name/surname/mobile → native register + NOT_ACTIVE bootstrap. */
+compatAuthRouter.post(
+  "/auth/register",
+  handler(async (req, res) => {
+    const body = parseBody(RegisterIn, keysToSnake(req.body ?? {}));
+    const address = body.email.toLowerCase();
+    if (await col("users").findOne({ email: address })) {
+      throw httpError(400, "Email already registered");
+    }
+    const first =
+      (body.first_name ?? body.name ?? "").toString().trim() ||
+      "";
+    const last = (body.last_name ?? body.surname ?? "").toString().trim();
+    const displayName = [first, last].filter(Boolean).join(" ") || address;
+    const phone = body.phone ?? body.mobile ?? null;
+    const record: Doc = {
+      id: randomUUID(),
+      email: address,
+      name: displayName,
+      role: "CLIENT",
+      password_hash: hashPassword(body.password),
+      phone,
+      is_active: true,
+      email_verified_at: null,
+      created_at: nowIso(),
+    };
+    await col("users").insertOne({ ...record });
+    const count = await col("clients").countDocuments({});
+    const client: Doc = {
+      id: randomUUID(),
+      user_id: record.id,
+      name: displayName,
+      email: address,
+      phone,
+      is_test: isTestEmail(address),
+      created_at: nowIso(),
+      client_ref: `CL-${String(42 + count).padStart(4, "0")}`,
+    };
+    await col("clients").insertOne({ ...client });
+    await bootstrapClientServices(client);
+    try {
+      await issueEmailVerification(record);
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn(`compat register verify issue skipped: ${String(e)}`);
+    }
+    const data = await compatAuthPayload(req, res, record);
+    sendCompatSuccess(res, data, "Registration successful");
+  }),
+);
 
 compatAuthRouter.post(
   "/auth/login",
