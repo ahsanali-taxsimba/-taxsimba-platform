@@ -22,7 +22,7 @@ import DraftReviewModal from "./DraftReviewModal";
 import FinalCertificateModal from "./FinalCertificateModal";
 import NewTaxReturnModal from "./NewTaxReturnModal";
 import UploadCurrentTaxDocumentModal from "./UploadCurrentTaxDocumentModal";
-import StartNextQuarterModal from "./StartNextQuarterModal";
+// P0 T3 HIDE: StartNextQuarterModal deferred — periods are created on activation.
 import MtdMessages from "./MtdMessages";
 import ReviewBox from "@/components/re-used/ReviewBox";
 import { formatQuarterDisplay } from "@/utils/commonHelper";
@@ -33,7 +33,6 @@ export default function MtdOverview({ session, userData, overviewData, onOvervie
     const [showDraftModal, setShowDraftModal] = useState(false);
     const [showFinalModal, setShowFinalModal] = useState(false);
     const [showNewReturnModal, setShowNewReturnModal] = useState(false);
-    const [showStartNextQuarterModal, setShowStartNextQuarterModal] = useState(false);
     const [showUploadModal, setShowUploadModal] = useState(false);
     const [showChatModal, setShowChatModal] = useState(false);
     const [selectedUploadType, setSelectedUploadType] = useState("general");
@@ -198,14 +197,10 @@ export default function MtdOverview({ session, userData, overviewData, onOvervie
     
     const previousTaxReturn = overview?.previousTaxReturn;
 
-    const nextQuarter = overview?.nextQuarter;
-    const isWaitingForNextQuarter = !!nextQuarter;
-    
-    let nextDaysRemaining = null;
-    if (nextQuarter) {
-        const diffTime = Math.max(0, new Date(nextQuarter.dueDate) - new Date());
-        nextDaysRemaining = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    }
+    // P0 T3 HIDE: never enter the "start next quarter" waiting UI.
+    const nextQuarter = null;
+    const isWaitingForNextQuarter = false;
+    const nextDaysRemaining = null;
 
     return (
         <div>
@@ -1232,16 +1227,6 @@ export default function MtdOverview({ session, userData, overviewData, onOvervie
                             onHide={() => setShowNewReturnModal(false)}
                             session={session}
                             onSuccess={fetchOverview}
-                        />
-                    )}
-
-                    {showStartNextQuarterModal && nextQuarter && (
-                        <StartNextQuarterModal 
-                            show={showStartNextQuarterModal}
-                            onHide={() => setShowStartNextQuarterModal(false)}
-                            session={session}
-                            onSuccess={fetchOverview}
-                            nextQuarter={nextQuarter}
                         />
                     )}
 

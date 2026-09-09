@@ -115,6 +115,7 @@ export async function compatAuthPayload(
       : createAccessToken(user.id, user.email as string);
   const ownership = await ownershipForUser(user);
   const engagement = await engagementStatusForUser(user);
+  const isTaxInfoSubmitted = Boolean(user.mtd_tax_info_submitted_at);
   return {
     accessToken,
     user: {
@@ -125,6 +126,7 @@ export async function compatAuthPayload(
       ownership: ownership.ownership,
       isEngagementLetterAccepted: engagement.isEngagementLetterAccepted,
       engagementAcceptedAt: engagement.engagementAcceptedAt,
+      isTaxInfoSubmitted,
     },
     ownership: ownership.ownership,
     hasActiveSa: ownership.hasActiveSa,
@@ -132,6 +134,7 @@ export async function compatAuthPayload(
     hasActiveService: ownership.hasActiveService,
     isEngagementLetterAccepted: engagement.isEngagementLetterAccepted,
     engagementAcceptedAt: engagement.engagementAcceptedAt,
+    isTaxInfoSubmitted,
     // Explicitly false — NOT a source of truth for entitlements (baseline D7 / D8).
     isSubscriptionBuy: false,
   };

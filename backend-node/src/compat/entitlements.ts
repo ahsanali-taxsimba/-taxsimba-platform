@@ -71,6 +71,7 @@ compatEntitlementsRouter.post(
         engagement_accepted_at: engagement.engagementAcceptedAt,
         agreement_version: engagement.agreementVersion,
         required_agreement_version: engagement.requiredAgreementVersion,
+        is_tax_info_submitted: Boolean(me.mtd_tax_info_submitted_at),
         // Deprecated — never a source of truth (baseline D7 / N5).
         is_subscription_buy: false,
         subscription: active[0] ?? null,

@@ -16,6 +16,7 @@ import { compatDocumentsRouter } from "./documents";
 import { compatEngagementRouter } from "./engagement";
 import { compatEntitlementsRouter } from "./entitlements";
 import { compatMessagesRouter } from "./messages";
+import { compatMtdRouter } from "./mtd";
 import { compatNotificationsRouter } from "./notifications";
 import { compatPackagesRouter } from "./packages";
 import { compatPaymentsRouter } from "./payments";
@@ -35,6 +36,7 @@ compatRouter.use(compatCasesRouter);
 compatRouter.use(compatDocumentsRouter);
 compatRouter.use(compatMessagesRouter);
 compatRouter.use(compatNotificationsRouter);
+compatRouter.use(compatMtdRouter);
 
 /** Health / envelope success probe. */
 compatRouter.get(
