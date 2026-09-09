@@ -3,7 +3,8 @@
 **Verdict:** A. READY FOR TOXEL STAGING  
 **Readiness class:** **2) READY FOR TOXEL STAGING** — **not** PRODUCTION READY  
 **Branch:** `taxsimba-p0-integration` (base: `node-only-production`)  
-**Final freeze tip:** `308111e1bc4549db7b9eee771067c9f50b05d2e7`  
+**Final freeze tip (branch HEAD):** `5ce01ecc9a460eafd81d0322622b94a8d4658703`  
+**Gate feature tip:** `308111e1bc4549db7b9eee771067c9f50b05d2e7`  
 **K.9 baseline:** `38549faa0d2b71da3fc8c98fd240222c279971b1`  
 **K.8 checkpoint:** `9d5251d`  
 **PR:** https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/2  
@@ -160,7 +161,8 @@ cd tax_simba_admin_frontend && npm ci && npm run build
 | K.8 | `9d5251d` |
 | K.9 | `38549fa` |
 | Prior audit feature | `b572172` |
-| This freeze | `308111e1bc4549db7b9eee771067c9f50b05d2e7` |
+| Gate feature | `308111e1bc4549db7b9eee771067c9f50b05d2e7` |
+| This freeze (docs + tip stamp) | `5ce01ecc9a460eafd81d0322622b94a8d4658703` |
 
 ---
 
