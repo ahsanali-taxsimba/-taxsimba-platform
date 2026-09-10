@@ -795,7 +795,7 @@ const AdminTaxReturnDetails = () => {
                               className="text-green-600 hover:text-green-800"
                               onClick={async () => {
                                 try {
-                                  let url = file.downloadUrl || file.cloudinaryUrl;
+                                  const url = file.downloadUrl || file.cloudinaryUrl;
                                   if (!url) return;
                                   if (!/^https?:\/\//i.test(url)) {
                                     const res = await clientAxios.get(

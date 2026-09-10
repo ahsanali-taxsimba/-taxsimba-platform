@@ -102,6 +102,8 @@ See prior sections and `backend-node/.env.example`:
 
 ## Build / run / test
 
+Frontend `package-lock.json` files are committed; use `npm ci` for reproducible installs.
+
 ```bash
 cd backend-node && npm ci && npm run typecheck && npm test && npm run build && npm start
 cd tax_simba_frontend && npm ci && npm run build

@@ -45,3 +45,16 @@ Trailing slash **required**.
 ```text
 POST /api/stripe/webhook
 ```
+
+---
+
+## Frontend install / build
+
+Committed `package-lock.json` files are present for both frontends. Use `npm ci` (not an ad-hoc install):
+
+```bash
+cd tax_simba_frontend && npm ci && npm run build
+cd ../tax_simba_admin_frontend && npm ci && npm run build
+```
+
+See **`TOXEL_HANDOVER.md`** for the full backend + frontend command set.
