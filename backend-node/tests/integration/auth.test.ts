@@ -49,6 +49,11 @@ describe("registration", () => {
       "SELF_ASSESSMENT",
     ]);
     expect(services.every((s) => s.status === "NOT_ACTIVE")).toBe(true);
+    expect(res.body.user.email_verified_at).toBeNull();
+    const userRow = await col("users").findOne({ email: CLIENT.email });
+    expect(userRow?.email_verified_at).toBeNull();
+    const verifyTok = await col("email_verify_tokens").findOne({ email: CLIENT.email });
+    expect(verifyTok).toBeTruthy();
   });
 
   it("rejects a duplicate email with 400", async () => {

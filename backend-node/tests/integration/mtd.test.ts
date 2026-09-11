@@ -3,7 +3,15 @@ import type { Express } from "express";
 import request from "supertest";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
-import { bearer, bootTestApp, dropTestDb, makeUser, TestUser } from "../helpers/app";
+import {
+  activateClientService,
+  bearer,
+  bootTestApp,
+  dropTestDb,
+  makeClient,
+  makeUser,
+  TestUser,
+} from "../helpers/app";
 
 interface Period {
   id: string;
@@ -25,14 +33,28 @@ describe("MTD income tax periods", () => {
   let admin: TestUser;
   let accountant: TestUser;
   let otherAccountant: TestUser;
-  let client: TestUser;
-  let otherClient: TestUser;
+  let client: TestUser & { clientId: string };
+  let otherClient: TestUser & { clientId: string };
+  let taxYearSeq = 1990;
 
-  async function mtdCase(owner: TestUser = client, assign = true): Promise<string> {
+  async function mtdCase(
+    owner: TestUser & { clientId: string } = client,
+    assign = true,
+    taxYear?: string,
+  ): Promise<string> {
+    let year = taxYear;
+    if (!year) {
+      const start = taxYearSeq++;
+      year = `${start}/${String(start + 1).slice(-2)}`;
+    }
     const res = await request(app)
       .post("/api/cases")
-      .set(bearer(owner))
-      .send({ tax_year: "2024/25", service_type: "MTD_INCOME_TAX" })
+      .set(bearer(admin))
+      .send({
+        client_user_id: owner.id,
+        tax_year: year,
+        service_type: "MTD_INCOME_TAX",
+      })
       .expect(200);
     const caseId = res.body.id as string;
     if (assign) {
@@ -83,8 +105,10 @@ describe("MTD income tax periods", () => {
     admin = await makeUser("ADMIN");
     accountant = await makeUser("ACCOUNTANT", "mtd-accountant-a");
     otherAccountant = await makeUser("ACCOUNTANT", "mtd-accountant-b");
-    client = await makeUser("CLIENT", "mtd-client-a");
-    otherClient = await makeUser("CLIENT", "mtd-client-b");
+    client = await makeClient("mtd-client-a");
+    otherClient = await makeClient("mtd-client-b");
+    // K.5: CLIENT MTD access requires ACTIVE entitlement (activation also seeds periods).
+    await activateClientService(client, "MTD_INCOME_TAX");
   });
 
   afterAll(async () => {
@@ -93,7 +117,7 @@ describe("MTD income tax periods", () => {
 
   // ------------------------------------------------------------------ schedule
   it("generates four quarters plus the Final Declaration with HMRC dates", async () => {
-    const caseId = await mtdCase();
+    const caseId = await mtdCase(client, true, "2024/25");
     const rows = await periods(caseId);
     expect(rows.map((r) => r.label)).toEqual([
       "Quarter 1",
@@ -142,8 +166,12 @@ describe("MTD income tax periods", () => {
   it("rejects MTD endpoints on a Self Assessment case", async () => {
     const res = await request(app)
       .post("/api/cases")
-      .set(bearer(client))
-      .send({ tax_year: "2024/25" })
+      .set(bearer(admin))
+      .send({
+        client_user_id: client.id,
+        tax_year: "2019/20",
+        service_type: "SELF_ASSESSMENT",
+      })
       .expect(200);
     await request(app)
       .get(`/api/mtd/cases/${res.body.id}/periods`)

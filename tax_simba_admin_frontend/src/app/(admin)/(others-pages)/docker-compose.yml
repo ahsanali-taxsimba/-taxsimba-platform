@@ -1,0 +1,109 @@
+version: '3.9'
+
+services:
+  # ─── MySQL Database ───────────────────────────────────────────────────────
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: tax_be
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: taxsimba
+      MYSQL_PASSWORD: password
+    ports:
+      - "3307:3306" # host:3307 → container:3306 (avoids conflict with host MySQL)
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-utaxsimba", "-ppassword" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── Backend (Node/Express) ───────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    restart: unless-stopped
+    ports:
+      - "3003:3003"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    env_file:
+      - ./backend/.env
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # ─── User-facing Frontend (Next.js) ─────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend/tax_simba_frontend
+      dockerfile: Dockerfile.dev
+    restart: unless-stopped
+    ports:
+      - "3001:3000" # host:container — Next.js always listens on 3000
+    volumes:
+      - ./frontend/tax_simba_frontend:/app
+      - /app/node_modules
+      - frontend_next:/app/.next
+    environment:
+      # NEXT_PUBLIC_* vars are embedded in browser JS — use subdomain-based public URLs
+      - NEXT_PUBLIC_API_URL=https://taxsimba.toxsl.in/api/
+      - NEXT_PUBLIC_NODE_JS_URL=https://taxsimba.toxsl.in
+      # Server-side API URL (used in NextAuth authorize — runs inside Docker, not in browser)
+      - API_URL=http://backend:3003/api
+      # NextAuth — secret must match what route.js + middleware.js expect
+      - NEXTAUTH_SECRET=7411c7729ca14c89a8177ac51fd258c3b4adb38963b8b7741ae01ffeee0991cd
+      - NEXTAUTH_SECRET_FRONTEND=7411c7729ca14c89a8177ac51fd258c3b4adb38963b8b7741ae01ffeee0991cd
+      # NEXTAUTH_URL must include the full auth basePath
+      - NEXTAUTH_URL=https://taxsimba.toxsl.in/frontend-api/auth
+      - NEXT_PUBLIC_BASE_URL=https://taxsimba.toxsl.in
+      - NODE_ENV=development
+      - NEXT_TELEMETRY_DISABLED=1
+    depends_on:
+      - backend
+
+  # ─── Admin Frontend (Next.js) ───────────────────────────────────────────
+  admin:
+    build:
+      context: ./frontend/tax_simba_admin_frontend
+      dockerfile: Dockerfile.dev
+    restart: unless-stopped
+    ports:
+      - "3002:3000" # host:container
+    volumes:
+      - ./frontend/tax_simba_admin_frontend:/app
+      - /app/node_modules
+      - admin_next:/app/.next
+    environment:
+      - NEXT_PUBLIC_API_URL=https://taxsimba.toxsl.in/api
+      - API_URL=http://backend:3003/api
+      - BACKEND_URL=http://backend:3003/api
+      - NEXTAUTH_SECRET=NqESx91o79oAaTz/Bc80OyFZga3E1TPV+kc3cj2Rtf4=
+      - NEXTAUTH_URL=https://taxsimba.toxsl.in/admin
+      - NEXT_PUBLIC_BASE_URL=https://taxsimba.toxsl.in/admin
+      - NODE_ENV=development
+      - NEXT_TELEMETRY_DISABLED=1
+    depends_on:
+      - backend
+
+  # ─── Nginx Reverse Proxy ─────────────────────────────────────────────────
+  nginx:
+    image: nginx:stable-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80" # all traffic — subdomain routing inside nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+      - frontend
+      - admin
+
+volumes:
+  db_data:
+  frontend_next:
+  admin_next:

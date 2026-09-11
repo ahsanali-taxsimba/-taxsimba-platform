@@ -1,0 +1,55 @@
+{
+    "uk": {
+        "year": "2026-2027",
+        "personal_allowance": "£12,570 (Frozen until 2031)",
+        "bands": [
+            {
+                "name": "Basic Rate (20%)",
+                "range": "£12,571 – £50,270"
+            },
+            {
+                "name": "Higher Rate (40%)",
+                "range": "£50,271 – £125,140"
+            },
+            {
+                "name": "Additional Rate (45%)",
+                "range": "Above £125,140"
+            }
+        ],
+        "dividends": {
+            "basic": "10.75%",
+            "higher": "35.75%",
+            "additional": "39.35%"
+        },
+        "nics": {
+            "employees_class_1": "8% on £12,570 – £50,270",
+            "self_employed_class_4": "6% on £12,570 – £50,270"
+        }
+    },
+    "kenya": {
+        "year": "2026-2027",
+        "personal_relief": "KES 2,400 per month (KES 28,800 per year)",
+        "bands": [
+            {
+                "rate": "10%",
+                "range": "First KES 288,000 (KES 24,000/mo)"
+            },
+            {
+                "rate": "25%",
+                "range": "Next KES 100,000 (KES 8,333/mo)"
+            },
+            {
+                "rate": "30%",
+                "range": "Next KES 5,612,000 (KES 32,334 – 500,000/mo)"
+            },
+            {
+                "rate": "32.5%",
+                "range": "Next KES 3,600,000 (KES 500,001 – 800,000/mo)"
+            },
+            {
+                "rate": "35%",
+                "range": "Above KES 9,600,000 (Above KES 800,000/mo)"
+            }
+        ]
+    }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "my-next15-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-brands-svg-icons": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@google-cloud/translate": "^9.2.1",
+    "@smastrom/react-rating": "^1.5.0",
+    "@stripe/react-stripe-js": "^3.8.0",
+    "@stripe/stripe-js": "^7.6.1",
+    "@tailwindcss/postcss": "^4.2.0",
+    "axios": "^1.9.0",
+    "bootstrap": "^5.3.7",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.34.3",
+    "isotope-layout": "^3.0.6",
+    "jspdf": "^3.0.3",
+    "lucide-react": "^0.552.0",
+    "mitt": "^3.0.1",
+    "next": "15.5.22",
+    "next-auth": "^4.24.11",
+    "openai": "^6.27.0",
+    "pm2": "^6.0.14",
+    "react": "19.2.8",
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "19.2.8",
+    "react-hot-toast": "^2.5.2",
+    "react-icons": "^5.5.0",
+    "react-markdown": "^10.1.0",
+    "react-rating": "^2.0.5",
+    "react-redux": "^9.2.0",
+    "react-spinners": "^0.17.0",
+    "react-star-ratings": "^2.3.0",
+    "react-toastify": "^11.1.0",
+    "sweetalert2": "^11.26.24",
+    "swiper": "^11.2.8",
+    "tailwind-merge": "^3.5.0",
+    "tailwindcss": "^4.2.0"
+  },
+  "optionalDependencies": {
+    "@tailwindcss/oxide-linux-x64-gnu": "4.0.0",
+    "lightningcss-linux-x64-gnu": "1.28.2"
+  }
+}

@@ -29,7 +29,17 @@ import {
 import { logActivity, notify, nowIso } from "../domain/workflow";
 import { handler, httpError, parseBody } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
-import { createReceipt, renderHtml } from "../services/invoices";
+import {
+  cancelAdditionalWorkRequest,
+  createAdditionalWorkRequest,
+  getAdditionalWorkReceiptHtml,
+  listMyPayments,
+  listPaymentRequests,
+  resendAdditionalWorkRequest,
+  startAdditionalWorkCheckout,
+} from "../domain/additionalWork";
+import { isEmailVerified, requireVerifiedEmail } from "../services/emailVerification";
+import { createReceipt } from "../services/invoices";
 import { payments } from "../services/payments";
 
 export const paymentsRouter = Router();
@@ -414,6 +424,7 @@ paymentsRouter.post(
   auth("CLIENT"),
   handler(async (req, res) => {
     const me = authed(req);
+    requireVerifiedEmail(me);
     const body = parseBody(UpgradeCheckoutIn, req.body);
     const client = await clientOf(me);
     const svc = (await col("client_services").findOne({
@@ -477,6 +488,7 @@ paymentsRouter.post(
   auth("CLIENT"),
   handler(async (req, res) => {
     const me = authed(req);
+    requireVerifiedEmail(me);
     const body = parseBody(OfferCheckoutIn, req.body);
     const offer = (await col("offers").findOne({
       id: body.offer_id,
@@ -526,6 +538,7 @@ paymentsRouter.post(
   auth("CLIENT"),
   handler(async (req, res) => {
     const me = authed(req);
+    requireVerifiedEmail(me);
     const body = parseBody(ServiceCheckoutIn, req.body);
     if (![SELF_ASSESSMENT, MTD].includes(body.service_type)) {
       throw httpError(400, "Unknown service type");
@@ -577,9 +590,18 @@ paymentsRouter.post(
 );
 
 // ------------------------------------------------------------------ fulfilment
-/** Idempotent post-payment business logic. */
+/**
+ * Idempotent post-payment business logic.
+ *
+ * Callers (Stripe webhook / payments status) must only invoke this when the Checkout
+ * Session is genuinely paid. The payment_status and email-verify checks below are
+ * defence-in-depth for race/legacy/misuse paths — an unverified P0 user cannot create a
+ * paid Checkout Session in the first place (requireVerifiedEmail on every checkout start).
+ */
 export async function fulfil(tx: Doc): Promise<void> {
   if (tx.fulfilled) return;
+  // Never activate or mark fulfilled from unpaid/incomplete/expired transactions.
+  if (tx.payment_status !== "paid") return;
   const client = (await col("clients").findOne({ id: tx.client_id })) as Doc | null;
   const user = (await col("users").findOne({ id: tx.user_id })) as Doc | null;
   const actor = user ? { id: user.id, name: user.name, role: "CLIENT" } : null;
@@ -645,6 +667,9 @@ export async function fulfil(tx: Doc): Promise<void> {
   }
 
   if (tx.kind === "SA_UPGRADE") {
+    // Defence-in-depth: never mutate package entitlement for an unverified account.
+    // Payment stays paid+unfulfilled so status/webhook can retry after verification.
+    if (!isEmailVerified(user)) return;
     const svc = (await col("client_services").findOne({
       client_id: tx.client_id,
       service_type: SELF_ASSESSMENT,
@@ -715,6 +740,11 @@ export async function fulfil(tx: Doc): Promise<void> {
       );
       return;
     }
+    // Defence-in-depth only (race/legacy): refuse SA/MTD activation if email is still
+    // unverified. Primary P0 gate is requireVerifiedEmail on checkout session creation —
+    // unverified users must not reach a paid SERVICE_ACTIVATION tx via the normal path.
+    // Leave unfulfilled so a later webhook/status retry can complete after verify.
+    if (!isEmailVerified(user)) return;
     // Single source of truth for activation (service + case + MTD periods).
     await activateService(clean(client) as Doc, user, tx.service_type, tx.new_package, {
       paymentSession: tx.session_id,
@@ -828,47 +858,12 @@ paymentsRouter.post(
   }),
 );
 
-const MY_PAYMENT_FIELDS = [
-  "id",
-  "kind",
-  "service_type",
-  "previous_package",
-  "new_package",
-  "amount",
-  "currency",
-  "payment_status",
-  "created_at",
-  "description",
-  "case_ref",
-];
-
 paymentsRouter.get(
   "/my-payments",
   auth("CLIENT"),
   handler(async (req, res) => {
     const me = authed(req);
-    const rows = (await col("payment_transactions")
-      .find({ user_id: me.id })
-      .sort({ created_at: -1 })
-      .limit(100)
-      .toArray()) as Doc[];
-    // A checkout that was never completed must not sit as "Pending" forever. Anything still
-    // unresolved after 24 hours is reported as cancelled; confirmed payments are untouched.
-    const cutoff = new Date(Date.now() - 24 * 3600 * 1000).toISOString();
-    const out = cleanMany(rows).map((r) => {
-      if (
-        r.kind !== "ADDITIONAL_WORK" &&
-        ["pending", "open", "unpaid"].includes(r.payment_status) &&
-        !r.fulfilled &&
-        String(r.created_at ?? "") < cutoff
-      ) {
-        r.payment_status = "cancelled";
-      }
-      const view: Doc = {};
-      for (const k of MY_PAYMENT_FIELDS) if (k in r) view[k] = r[k];
-      return view;
-    });
-    res.json(out);
+    res.json(await listMyPayments(me));
   }),
 );
 
@@ -876,6 +871,7 @@ paymentsRouter.get(
 /**
  * Admin-raised charge for work outside the client's package. Reuses the existing Stripe
  * checkout, transaction record, notification and audit infrastructure.
+ * Domain logic lives in domain/additionalWork.ts (shared with compat aliases).
  */
 paymentsRouter.post(
   "/payment-requests",
@@ -883,111 +879,7 @@ paymentsRouter.post(
   handler(async (req, res) => {
     const me = authed(req);
     const body = parseBody(AdditionalWorkIn, req.body);
-    const kase = (await col("cases").findOne({ id: body.case_id })) as Doc | null;
-    if (!kase) throw httpError(404, "Case not found");
-    if (kase.status === "COMPLETED") {
-      throw httpError(400, "Completed cases are locked — reopen the case first");
-    }
-    if (!body.description.trim()) {
-      throw httpError(400, "A description of the additional work is required");
-    }
-    if (body.amount <= 0) throw httpError(400, "Amount must be greater than zero");
-    const total = round2(body.amount);
-    const vatRate = body.vat_rate ?? null;
-    const net = vatRate ? round2(total / (1 + vatRate / 100)) : total;
-    const tx: Doc = {
-      id: randomUUID(),
-      session_id: null,
-      kind: "ADDITIONAL_WORK",
-      user_id: kase.client_user_id,
-      client_id: kase.client_id,
-      case_id: kase.id,
-      case_ref: kase.case_ref,
-      mtd_period_id: body.mtd_period_id,
-      service_type: kase.service_type,
-      tax_year: kase.tax_year ?? null,
-      description: body.description.trim(),
-      internal_note: body.internal_note,
-      due_date: body.due_date,
-      amount: total,
-      currency: "gbp",
-      net_amount: net,
-      vat_rate: vatRate,
-      vat_amount: vatRate ? round2(total - net) : 0.0,
-      request_status: "SENT",
-      suggested_amount: null,
-      approved_amount: total,
-      approved_by_name: me.name,
-      approved_at: nowIso(),
-      status: "sent",
-      payment_status: "pending",
-      fulfilled: false,
-      created_by: me.id,
-      created_by_name: me.name,
-      created_by_role: me.role,
-      sent_at: nowIso(),
-      created_at: nowIso(),
-      updated_at: nowIso(),
-    };
-    if (body.mtd_period_id) {
-      const period = (await col("mtd_periods").findOne({ id: body.mtd_period_id })) as Doc | null;
-      if (!period || period.case_id !== kase.id) {
-        throw httpError(400, "MTD period does not belong to this case");
-      }
-      tx.mtd_period_label = period.label;
-    }
-    await col("payment_transactions").insertOne({ ...tx });
-    if (body.recommendation_id) {
-      // The accountant's recommendation is approved by this send; history is preserved.
-      const rec = (await col("recommendations").findOne({
-        id: body.recommendation_id,
-        type: "ADDITIONAL_WORK",
-      })) as Doc | null;
-      if (rec) {
-        await col("payment_transactions").updateOne(
-          { id: tx.id },
-          {
-            $set: {
-              suggested_amount: rec.suggested_amount ?? null,
-              requested_by_name: rec.created_by_name ?? null,
-              recommendation_id: rec.id,
-            },
-          },
-        );
-      }
-      await col("recommendations").updateOne(
-        { id: body.recommendation_id, type: "ADDITIONAL_WORK" },
-        {
-          $set: {
-            status: "APPROVED",
-            reviewed_by: me.name,
-            reviewed_at: nowIso(),
-            final_amount: tx.amount,
-            payment_request_id: tx.id,
-          },
-        },
-      );
-    }
-    await logActivity(
-      kase.id,
-      `Additional work payment request sent — £${Number(tx.amount).toFixed(2)}`,
-      me,
-      {
-        payment_request_id: tx.id,
-        amount: tx.amount,
-        description: tx.description,
-        due_date: body.due_date,
-      },
-    );
-    await notify(
-      kase.client_user_id,
-      "Additional work payment required",
-      `${tx.description} — £${Number(tx.amount).toFixed(2)}`,
-      kase.id,
-      "/subscription",
-      "PAYMENT",
-    );
-    res.json(clean(tx));
+    res.json(await createAdditionalWorkRequest(me, body));
   }),
 );
 
@@ -997,40 +889,7 @@ paymentsRouter.get(
   auth(),
   handler(async (req, res) => {
     const me = authed(req);
-    const caseId = queryString(req, "case_id");
-    const query: Doc = { kind: "ADDITIONAL_WORK" };
-    if (me.role === "CLIENT") {
-      query.user_id = me.id;
-    } else if (me.role === "ACCOUNTANT") {
-      if (!caseId) throw httpError(400, "case_id required");
-      const kase = (await col("cases").findOne({ id: caseId })) as Doc | null;
-      if (!kase || kase.assigned_accountant_id !== me.id) {
-        throw httpError(403, "Case not assigned to you");
-      }
-    }
-    if (caseId) query.case_id = caseId;
-    const rows = (await col("payment_transactions")
-      .find(query)
-      .sort({ created_at: -1 })
-      .limit(100)
-      .toArray()) as Doc[];
-    const out: Doc[] = [];
-    for (const raw of cleanMany(rows)) {
-      const r = raw;
-      if (me.role !== "ADMIN" && me.role !== "SUPER_ADMIN") delete r.internal_note;
-      if (r.request_status === undefined) {
-        r.request_status =
-          r.payment_status === "paid"
-            ? "PAID"
-            : r.payment_status === "cancelled"
-              ? "CANCELLED"
-              : "SENT";
-      }
-      const receipt = (await col("invoices").findOne({ payment_request_id: r.id })) as Doc | null;
-      r.receipt_number = receipt?.number ?? null;
-      out.push(r);
-    }
-    res.json(out);
+    res.json(await listPaymentRequests(me, queryString(req, "case_id") ?? null));
   }),
 );
 
@@ -1039,33 +898,7 @@ paymentsRouter.post(
   auth(...STAFF_ADMIN),
   handler(async (req, res) => {
     const me = authed(req);
-    const request = (await col("payment_transactions").findOne({
-      id: req.params.requestId,
-      kind: "ADDITIONAL_WORK",
-    })) as Doc | null;
-    if (!request) throw httpError(404, "Payment request not found");
-    if (request.payment_status === "paid") {
-      throw httpError(400, "A paid request cannot be cancelled or edited");
-    }
-    await col("payment_transactions").updateOne(
-      { id: req.params.requestId },
-      {
-        $set: {
-          status: "cancelled",
-          payment_status: "cancelled",
-          request_status: "CANCELLED",
-          cancelled_by_name: me.name,
-          cancelled_at: nowIso(),
-          updated_at: nowIso(),
-        },
-      },
-    );
-    await logActivity(
-      request.case_id ?? null,
-      `Additional work payment request cancelled — £${Number(request.amount).toFixed(2)}`,
-      me,
-      { payment_request_id: req.params.requestId },
-    );
+    await cancelAdditionalWorkRequest(me, req.params.requestId);
     res.json({ ok: true });
   }),
 );
@@ -1075,29 +908,7 @@ paymentsRouter.post(
   auth(...STAFF_ADMIN),
   handler(async (req, res) => {
     const me = authed(req);
-    const request = (await col("payment_transactions").findOne({
-      id: req.params.requestId,
-      kind: "ADDITIONAL_WORK",
-    })) as Doc | null;
-    if (!request) throw httpError(404, "Payment request not found");
-    if (["paid", "cancelled"].includes(request.payment_status)) {
-      throw httpError(400, "This request is no longer outstanding");
-    }
-    await col("payment_transactions").updateOne(
-      { id: req.params.requestId },
-      { $set: { sent_at: nowIso(), updated_at: nowIso() } },
-    );
-    await notify(
-      request.user_id,
-      "Reminder: additional work payment required",
-      `${request.description} — £${Number(request.amount).toFixed(2)}`,
-      request.case_id ?? null,
-      "/subscription",
-      "PAYMENT",
-    );
-    await logActivity(request.case_id ?? null, "Additional work payment request resent", me, {
-      payment_request_id: req.params.requestId,
-    });
+    await resendAdditionalWorkRequest(me, req.params.requestId);
     res.json({ ok: true });
   }),
 );
@@ -1108,23 +919,10 @@ paymentsRouter.get(
   auth(),
   handler(async (req, res) => {
     const me = authed(req);
-    const receipt = (await col("invoices").findOne({
-      payment_request_id: req.params.requestId,
-    })) as Doc | null;
-    if (!receipt) throw httpError(404, "No receipt for this payment");
-    if (me.role === "CLIENT" && receipt.client_user_id !== me.id) {
-      throw httpError(403, "Not your receipt");
-    }
-    if (me.role === "ACCOUNTANT") {
-      const kase = (await col("cases").findOne({ id: receipt.case_id ?? null })) as Doc | null;
-      if (!kase || kase.assigned_accountant_id !== me.id) {
-        throw httpError(403, "Case not assigned to you");
-      }
-    }
-    const client = (await col("clients").findOne({ id: receipt.client_id ?? null })) as Doc | null;
+    const { html, number } = await getAdditionalWorkReceiptHtml(me, req.params.requestId);
     res.setHeader("Content-Type", "text/html");
-    res.setHeader("Content-Disposition", `inline; filename="${receipt.number}.html"`);
-    res.send(renderHtml(receipt, client?.name ?? "Client"));
+    res.setHeader("Content-Disposition", `inline; filename="${number}.html"`);
+    res.send(html);
   }),
 );
 
@@ -1134,47 +932,7 @@ paymentsRouter.post(
   handler(async (req, res) => {
     const me = authed(req);
     const body = parseBody(PayRequestIn, req.body);
-    const request = (await col("payment_transactions").findOne({
-      id: req.params.requestId,
-      kind: "ADDITIONAL_WORK",
-      user_id: me.id,
-    })) as Doc | null;
-    if (!request) throw httpError(404, "Payment request not found");
-    if (request.payment_status === "paid") throw httpError(400, "This request has already been paid");
-    if (request.payment_status === "cancelled") throw httpError(400, "This request has been cancelled");
-    if (request.session_id) {
-      // Repeated clicks reuse the open session instead of creating a second payable one.
-      try {
-        const s = await payments().retrieveSession(request.session_id);
-        if (s.status === "open" && s.url) {
-          res.json({
-            checkout_url: s.url,
-            session_id: request.session_id,
-            amount: request.amount,
-            reused: true,
-          });
-          return;
-        }
-      } catch {
-        // fall through and create a fresh session
-      }
-    }
-    const session = await payments().createCheckout(
-      request.amount,
-      `Additional work — ${String(request.description).slice(0, 80)}`,
-      body.origin_url,
-      {
-        kind: "ADDITIONAL_WORK",
-        client_id: request.client_id,
-        user_id: me.id,
-        request_id: req.params.requestId,
-      },
-    );
-    await col("payment_transactions").updateOne(
-      { id: req.params.requestId },
-      { $set: { session_id: session.id, status: "initiated", updated_at: nowIso() } },
-    );
-    res.json({ checkout_url: session.url, session_id: session.id, amount: request.amount });
+    res.json(await startAdditionalWorkCheckout(me, req.params.requestId, body.origin_url));
   }),
 );
 

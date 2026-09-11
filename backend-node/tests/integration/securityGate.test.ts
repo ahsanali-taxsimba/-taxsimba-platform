@@ -7,7 +7,15 @@ import type { Express } from "express";
 import request from "supertest";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
-import { bearer, bootTestApp, dropTestDb, makeClient, makeUser, TestUser } from "../helpers/app";
+import {
+  activateClientService,
+  bearer,
+  bootTestApp,
+  dropTestDb,
+  makeClient,
+  makeUser,
+  TestUser,
+} from "../helpers/app";
 
 const PDF = Buffer.from("%PDF-1.4 security gate\n");
 
@@ -32,13 +40,8 @@ describe("security gate", () => {
     client = await makeClient("client-owner");
     intruder = await makeClient("client-intruder");
 
-    caseId = (
-      await request(app)
-        .post("/api/cases")
-        .set(bearer(client))
-        .send({ tax_year: "2024/25" })
-        .expect(200)
-    ).body.id;
+    // K.5: CLIENT needs ACTIVE SA before case access; use activation fulfilment case.
+    ({ caseId } = await activateClientService(client, "SELF_ASSESSMENT"));
     await request(app)
       .post(`/api/cases/${caseId}/assign`)
       .set(bearer(admin))
@@ -170,25 +173,19 @@ describe("security gate", () => {
   });
 
   it("refuses another client's MTD period and figures", async () => {
-    const mtdCase = (
-      await request(app)
-        .post("/api/cases")
-        .set(bearer(client))
-        .send({ tax_year: "2026/27", service_type: "MTD_INCOME_TAX" })
-        .expect(200)
-    ).body;
+    const { caseId: mtdCaseId } = await activateClientService(client, "MTD_INCOME_TAX");
     await request(app)
-      .post(`/api/mtd/cases/${mtdCase.id}/generate-periods`)
+      .post(`/api/mtd/cases/${mtdCaseId}/generate-periods`)
       .set(bearer(admin))
       .send({})
       .expect(200);
     const periods = (
-      await request(app).get(`/api/mtd/cases/${mtdCase.id}/periods`).set(bearer(admin)).expect(200)
+      await request(app).get(`/api/mtd/cases/${mtdCaseId}/periods`).set(bearer(admin)).expect(200)
     ).body;
     expect(periods.length).toBe(5);
 
     await request(app)
-      .get(`/api/mtd/cases/${mtdCase.id}/periods`)
+      .get(`/api/mtd/cases/${mtdCaseId}/periods`)
       .set(bearer(intruder))
       .expect(403);
     await request(app)
