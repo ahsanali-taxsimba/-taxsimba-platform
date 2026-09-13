@@ -278,7 +278,7 @@ Current P0 payment flow is **Stripe Checkout Session**.
 - `GET /api/my-services` is the entitlement source of truth.
 - SA and MTD cases remain isolated by entitlement.
 - Engagement / client-care acceptance is required after activation before the operational journey.
-- Missing UTR must **not** block dashboard access.
+- Missing UTR must **not** block dashboard access. UTR (and UTR confirmation upload) are optional during engagement / onboarding and may be provided later or requested by the accountant.
 - Accountant sees **assigned cases only**.
 - Admin operational access remains masked where required.
 - Super Admin full-contact reveal is restricted and audited.
