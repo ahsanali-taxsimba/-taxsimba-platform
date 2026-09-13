@@ -352,6 +352,35 @@ describe("K.4 engagement acceptance", () => {
     expect(accountOk.body.data.isEngagementLetterAccepted).toBe(true);
   });
 
+  it("missing UTR does not block engagement acceptance or dashboard SoT flags", async () => {
+    // Product rule: UTR is optional; client may provide later / accountant may request it.
+    const client = await makeClient("k4no-utr");
+    const { col } = await import("../../src/db/mongo");
+    await col("clients").updateOne({ id: client.clientId }, { $set: { utr: null } });
+    await col("users").updateOne({ id: client.id }, { $unset: { utr: "" } });
+
+    await activatePackage(client, "SIMPLE");
+    expect((await accept(client)).status).toBe(200);
+
+    const clientDoc = await col("clients").findOne({ id: client.clientId });
+    expect(clientDoc?.utr ?? null).toBeNull();
+
+    const status = await request(app)
+      .get("/api/compat/client/engagement-letter-status")
+      .set(bearer(client))
+      .expect(200);
+    expect(status.body.data.isEngagementLetterAccepted).toBe(true);
+
+    const account = await request(app)
+      .post("/api/compat/auth/get-account-details")
+      .set(bearer(client))
+      .expect(200);
+    expect(account.body.data.hasActiveService).toBe(true);
+    expect(account.body.data.isEngagementLetterAccepted).toBe(true);
+    // Dashboard entitlement SoT must be available without a UTR on record.
+    expect(account.body.data.hasActiveSa === true || account.body.data.ownership === "sa" || account.body.data.ownership === "both").toBe(true);
+  });
+
   it("persists acceptance and exposes it on login; same-version re-accept is idempotent", async () => {
     const email = `k4login.${randomUUID().slice(0, 8)}@example.com`;
     const password = "Tr0ubl3-Kettle-Marsh";

@@ -170,6 +170,32 @@ describe("K.6 MTD aggregate adapters", () => {
     expect(sa?.status).toBe("NOT_ACTIVE");
   });
 
+  it("submit-tax-info succeeds without UTR (UTR optional for dashboard path)", async () => {
+    const client = await makeClient("k6no-utr");
+    await activateClientService(client, "MTD_INCOME_TAX");
+    const { col } = await import("../../src/db/mongo");
+    await col("clients").updateOne({ id: client.clientId }, { $set: { utr: null } });
+
+    const res = await request(app)
+      .post("/api/compat/client/submit-tax-info")
+      .set(bearer(client))
+      .field("businessName", "No UTR Biz")
+      .field("submittedQuarters", JSON.stringify([]))
+      .attach("documents", PDF, { filename: "id.pdf", contentType: "application/pdf" })
+      .expect(200);
+    expect(res.body.data.isTaxInfoSubmitted).toBe(true);
+
+    const clientDoc = await col("clients").findOne({ id: client.clientId });
+    expect(clientDoc?.utr ?? null).toBeNull();
+
+    const account = await request(app)
+      .post("/api/compat/auth/get-account-details")
+      .set(bearer(client))
+      .expect(200);
+    expect(account.body.data.isTaxInfoSubmitted).toBe(true);
+    expect(account.body.data.hasActiveMtd === true || account.body.data.ownership === "mtd" || account.body.data.ownership === "both").toBe(true);
+  });
+
   it("ensurePeriods remains idempotent via overview (no duplicate periods)", async () => {
     const a = await request(app)
       .get("/api/compat/mtd/dashboard-overview")

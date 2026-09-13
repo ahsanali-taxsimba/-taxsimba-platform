@@ -278,8 +278,12 @@ export default function EngagementLetterPage() {
         if (modalStep === 1 && !formData.businessType) return toast.error("Please select a business type.");
         if (modalStep === 2 && !formData.businessName) return toast.error("Please enter your business name.");
         if (modalStep === 3) {
-            const cleanedUtr = formData.utr.replace(/\s+/g, '');
-            if (!/^\d{10}$/.test(cleanedUtr)) return toast.error("Please enter a valid 10-digit UTR.");
+            // UTR is optional — missing UTR must not block dashboard access.
+            // If provided, it must be a valid 10-digit value; otherwise skip for later / accountant request.
+            const cleanedUtr = String(formData.utr || "").replace(/\s+/g, "");
+            if (cleanedUtr && !/^\d{10}$/.test(cleanedUtr)) {
+                return toast.error("Please enter a valid 10-digit UTR, or leave blank to provide later.");
+            }
         }
         if (modalStep === 4 && !formData.govGatewayStatus) return toast.error("Please select an option.");
         if (modalStep === 5 && !formData.isRegisteredForMTD) return toast.error("Please select an option.");
@@ -300,7 +304,7 @@ export default function EngagementLetterPage() {
         if (modalStep === 18 && !formData.recordKeepingMethod) return toast.error("Please select a record keeping method.");
         if (modalStep === 19) {
             if (!files.governmentId) return toast.error("Government ID is required.");
-            if (!files.utrConfirmation) return toast.error("UTR Confirmation is required.");
+            // UTR confirmation upload is optional — can be provided later or requested by accountant.
         }
 
         setValidated(false);
@@ -701,9 +705,12 @@ export default function EngagementLetterPage() {
 
                         {modalStep === 3 && (
                             <div className="tx-fade-in">
-                                <label className="tx-label">What is your Unique Taxpayer Reference (UTR)? <span>*</span></label>
+                                <label className="tx-label">What is your Unique Taxpayer Reference (UTR)? <span style={{ fontWeight: 400, opacity: 0.8 }}>(Optional)</span></label>
+                                <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.65)', marginBottom: 12 }}>
+                                    You can leave this blank and provide it later, or your accountant can request it.
+                                </p>
                                 <div className="tx-form-group">
-                                    <input className={`tx-input ${validated && !formData.utr ? 'error' : ''}`} value={formData.utr} onChange={(e) => setFormData({ ...formData, utr: e.target.value })} placeholder="Enter 10-digit UTR Number" maxLength={10} />
+                                    <input className="tx-input" value={formData.utr} onChange={(e) => setFormData({ ...formData, utr: e.target.value })} placeholder="Enter 10-digit UTR Number (optional)" maxLength={10} />
                                 </div>
                                 <button className="tx-btn-next" onClick={handleNextStep}>Continue</button>
                                 <button style={{ width: '100%', padding: 12, background: 'transparent', border: 'none', color: '#fff', marginTop: 8, cursor: 'pointer', fontSize: 13 }} onClick={handlePrevStep}>← Go Back</button>
@@ -946,7 +953,10 @@ export default function EngagementLetterPage() {
                                     {files.governmentId && <div style={{ fontSize: 11, color: '#b3ed97', marginTop: 4 }}>✓ {files.governmentId.name}</div>}
                                 </div>
                                 <div className="tx-form-group" style={{ marginBottom: 16 }}>
-                                    <label className="tx-label">UTR Confirmation Letter/Document <span style={{color: '#ff4d4d'}}>*</span></label>
+                                    <label className="tx-label">UTR Confirmation Letter/Document <span style={{ fontWeight: 400, opacity: 0.8 }}>(Optional)</span></label>
+                                    <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)', marginBottom: 8 }}>
+                                        Optional now — you can upload later, or your accountant can request it.
+                                    </p>
                                     <input type="file" className="tx-input" onChange={(e) => handleFileChange(e, 'utrConfirmation')} accept=".pdf,.jpg,.jpeg,.png" style={{ background: '#fff', color: '#000', padding: '10px' }} />
                                     {files.utrConfirmation && <div style={{ fontSize: 11, color: '#b3ed97', marginTop: 4 }}>✓ {files.utrConfirmation.name}</div>}
                                 </div>
