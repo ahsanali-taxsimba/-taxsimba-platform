@@ -116,7 +116,7 @@ const Services = async () => {
                   "@id": "https://taxsimba.co.uk/services#webpage",
                   "url": "https://taxsimba.co.uk/services",
                   "name": "Tax Services in the UK | Self Assessment & More | TaxSimba",
-                  "description": "Fast, simple & affordable tax filing in the UK. Expert tax services including CIS returns, self-employed returns, rental income, and more. Only £120 per return.",
+                  "description": "Fast, simple & affordable tax filing in the UK. Expert tax services including CIS returns, self-employed returns, rental income, and more. Transparent fixed fees per return.",
                   "isPartOf": {
                     "@type": "WebSite",
                     "url": "https://taxsimba.co.uk",
@@ -318,7 +318,7 @@ const Services = async () => {
                   "@type": "Product",
                   "@id": "https://taxsimba.co.uk/services#product",
                   "name": "Tax Return Filing Service",
-                  "description": "Professional tax filing services with transparent pricing at £120 per return. Fast, hassle-free, and paper-free tax filing with dedicated tax professionals.",
+                  "description": "Professional tax filing services with transparent pricing with transparent fixed fees per return. Fast, hassle-free, and paper-free tax filing with dedicated tax professionals.",
                   "brand": {
                     "@id": "https://taxsimba.co.uk/#organization"
                   },

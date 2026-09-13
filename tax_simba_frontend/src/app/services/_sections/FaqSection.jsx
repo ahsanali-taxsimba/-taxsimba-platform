@@ -31,7 +31,7 @@ function FaqSection() {
                                     <Accordion.Item eventKey="1">
                                         <Accordion.Header>Can I try TaxSimba before paying?</Accordion.Header>
                                         <Accordion.Body>
-                                            Yes — you can use our free MTD Eligibility Checker without creating an account, to find out whether Making Tax Digital applies to you. Once you&apos;re ready to file, our fixed-fee service starts at £120 per return with no hidden charges.
+                                            Yes — you can use our free MTD Eligibility Checker without creating an account, to find out whether Making Tax Digital applies to you. Once you&apos;re ready to file, our fixed-fee packages are shown with live prices on the pricing page.
                                         </Accordion.Body>
                                     </Accordion.Item>
                                     <Accordion.Item eventKey="2">

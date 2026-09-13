@@ -3,7 +3,7 @@ import GetStarted from "./GetStarted";
 import TaxReturnFormButton from "./TaxReturnFormButton";
 import { TranslatedHeading, TranslatedHeadingTwo, TranslatedHeadingFour, TranslatedHeadingFive, TranslatedParagraph, TranslatedButton, TranslatedSpan,TranslatedText } from "@/components/TranslatedContent";
 import { faArrowRight, faCircleCheck ,faCheck } from "@fortawesome/free-solid-svg-icons";
-export default function GlobalBannerSection({title="Self Assessment Tax Returns for £120"}){
+export default function GlobalBannerSection({title="Self Assessment Tax Returns"}){
     return (
         <section className="banner_main">
     <div className="back_round">

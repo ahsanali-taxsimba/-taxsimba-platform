@@ -14,7 +14,7 @@ function page() {
                         <Col lg={6}>
                             <div className="bread-crum-inr-box text-lg-start text-center">
                                 <h2 className="text-capitalize mb-3">Simple tax advice today...</h2>
-                                <p>Get professional tax advice from a <span className="text-orange">qualified accountant for £139.</span></p>
+                                <p>Get professional tax advice from a <span className="text-orange">qualified accountant.</span></p>
                             </div>
                         </Col>
                         <Col lg={6} className="mt-lg-0 mt-5">

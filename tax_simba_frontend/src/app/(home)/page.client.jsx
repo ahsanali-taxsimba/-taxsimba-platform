@@ -242,6 +242,14 @@ const PageClient = () => {
   };
   const [subscriptionPlans, setSubscriptionPlans] = useState([]);
   const [loadingPlans, setLoadingPlans] = useState(true);
+  const fromPrice = (() => {
+    const prices = subscriptionPlans
+      .map((p) => Number(p.price))
+      .filter((n) => Number.isFinite(n) && n >= 0);
+    if (!prices.length) return null;
+    const min = Math.min(...prices);
+    return Number.isInteger(min) ? `£${min}` : `£${min.toFixed(2)}`;
+  })();
   const [currentPlanId, setCurrentPlanId] = useState(null);
   const [currentPlanStatus, setCurrentPlanStatus] = useState(null);
   const [currentPlanEndDate, setCurrentPlanEndDate] = useState(null);
@@ -328,7 +336,7 @@ const PageClient = () => {
                 <h1>
                   <span>Tax return? Done.</span> <br />
                 </h1>
-                <h2>Expert filing for <span>£119.</span></h2>
+                <h2>Expert filing{fromPrice ? <> for <span>{fromPrice}.</span></> : "."}</h2>
                 <p className="mb-0">Managed by an expert accountant. Simple, fast, and accurate.</p>
                 <div className="banner-btn d-flex align-items-center gap-2 flex-wrap mt-4">
                   <Link href="/register" className="glowing-button">
@@ -494,7 +502,7 @@ const PageClient = () => {
                     <tr>
                       <td data-label="Feature">All-Inclusive Fixed Fee</td>
                       <td data-label="Taxsimba" className="brand-col text-center price">
-                        £119
+                        {fromPrice || "Fixed fee"}
                       </td>
                       <td data-label="Taxfix" className="text-center price">£169</td>
                     </tr>

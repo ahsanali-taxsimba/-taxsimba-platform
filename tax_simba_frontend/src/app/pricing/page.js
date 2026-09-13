@@ -8,7 +8,7 @@ export function generateMetadata() {
 
   return {
     title: "UK Tax Return Pricing | Fixed Fee Self Assessment | TaxSimba",
-    description: "View TaxSimba's transparent, fixed-fee UK tax return packages starting at £119. Dedicated accountants, HMRC-compliant filing, and zero hidden costs.",
+    description: "View TaxSimba's transparent, fixed-fee UK tax return packages with transparent fixed fees. Dedicated accountants, HMRC-compliant filing, and zero hidden costs.",
     robots: "index, follow",
     alternates: {
       canonical: canonicalUrl
@@ -18,7 +18,7 @@ export function generateMetadata() {
       type: "website",
       siteName: "TaxSimba",
       title: "UK Tax Return Pricing | Fixed Fee Self Assessment | TaxSimba",
-      description: "View TaxSimba's transparent, fixed-fee UK tax return packages starting at £119. Dedicated accountants, HMRC-compliant filing, and zero hidden costs.",
+      description: "View TaxSimba's transparent, fixed-fee UK tax return packages with transparent fixed fees. Dedicated accountants, HMRC-compliant filing, and zero hidden costs.",
       url: canonicalUrl,
       images: [
         {
@@ -33,7 +33,7 @@ export function generateMetadata() {
       card: "summary_large_image",
       site: "@TaxSimba",
       title: "UK Tax Return Pricing | Fixed Fee Self Assessment | TaxSimba",
-      description: "View TaxSimba's transparent, fixed-fee UK tax return packages starting at £119. Dedicated accountants, HMRC-compliant filing, and zero hidden costs.",
+      description: "View TaxSimba's transparent, fixed-fee UK tax return packages with transparent fixed fees. Dedicated accountants, HMRC-compliant filing, and zero hidden costs.",
       images: [
         {
           url: ogImageUrl,

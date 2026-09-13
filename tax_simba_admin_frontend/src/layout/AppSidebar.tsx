@@ -91,6 +91,7 @@ const navItems: NavItem[] = [
     name: "Payment Management",
     subItems: [
       { name: "Transaction History", path: "/manage-payments", pro: false, adminOnly: true },
+      { name: "Package Pricing", path: "/package-pricing", pro: false, adminOnly: true },
       { name: "Api Key", path: "/key-management", pro: false, adminOnly: true, p0Hide: true },
       { name: "Transaction Fee Settings", path: "/fee-settings", pro: false, adminOnly: true, p0Hide: true },
 

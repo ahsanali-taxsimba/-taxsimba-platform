@@ -1,11 +1,21 @@
+'use client';
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import { IoCheckmarkOutline } from 'react-icons/io5'
 import { GoArrowUpRight } from 'react-icons/go'
 import { FaStar } from 'react-icons/fa'
 import Link from 'next/link'
+import {
+  TranslatedHeading,
+  TranslatedParagraph,
+  TranslatedSpan,
+  TranslatedStrong,
+} from "@/components/TranslatedContent";
+import { useCatalogueFromPrice, formatGbpWhole } from "@/hooks/useCatalogueFromPrice";
 
 const NewGlobalBanner = () => {
+  const fromPrice = useCatalogueFromPrice("taxSimba");
+  const priceLabel = formatGbpWhole(fromPrice);
   return (
 
     <section className='newSiteBanner banner_main'>
@@ -16,8 +26,12 @@ const NewGlobalBanner = () => {
               Stress Free Self Assessment Tax Returns. Filed Correctly. On Time.
             </TranslatedHeading>
             <TranslatedParagraph>
-              Trusted UK tax advisers prepare and submit your Self Assessment tax return online for just
-              <span className="neon-text">£120</span> - HMRC-compliant with no hidden fees.
+              Trusted UK tax advisers prepare and submit your Self Assessment tax return online
+              {priceLabel ? (
+                <> for just <span className="neon-text">{priceLabel}</span> - HMRC-compliant with no hidden fees.</>
+              ) : (
+                <> with transparent fixed fees - HMRC-compliant with no hidden fees.</>
+              )}
             </TranslatedParagraph>
             <ul className='ul'>
               <li>

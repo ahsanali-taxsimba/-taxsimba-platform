@@ -24,6 +24,7 @@ export const authConfig = {
     "/manage-accountant",
     "/manage-client",
     "/manage-payments",
+    "/package-pricing",
   ],
 
   // Default redirect paths

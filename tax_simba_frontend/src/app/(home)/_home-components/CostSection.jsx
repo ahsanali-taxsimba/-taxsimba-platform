@@ -5,7 +5,10 @@ import { TranslatedHeading, TranslatedHeadingTwo, TranslatedParagraph, Translate
 import { useTranslate } from "@/hooks/useTranslate";
 import { text } from '@fortawesome/fontawesome-svg-core';
 import GetStartedButton from '@/components/re-used/GetStartedButton';
+import { useCatalogueFromPrice, formatGbpWhole } from "@/hooks/useCatalogueFromPrice";
 export default function CostSection() {
+  const fromPrice = useCatalogueFromPrice("taxSimba");
+  const priceLabel = formatGbpWhole(fromPrice);
   const items = [
     { spanText: "HMRC submission" },
     { spanText: "Expert review" },
@@ -17,7 +20,11 @@ export default function CostSection() {
           <div className="col-md-7">
             <div className="cost_inner">
               <TranslatedHeadingTwo>What's the cost ?</TranslatedHeadingTwo>
-              <TranslatedParagraph strongpref="Each tax return costs a " strong="fixed £120" strongSuf=", all-inclusive."></TranslatedParagraph>
+              {priceLabel ? (
+                <TranslatedParagraph strongpref="Each tax return costs a " strong={`fixed ${priceLabel}`} strongSuf=", all-inclusive."></TranslatedParagraph>
+              ) : (
+                <TranslatedParagraph>Each tax return has a fixed, all-inclusive fee — see live pricing on our plans.</TranslatedParagraph>
+              )}
 
               <ul>
                 {items.map((items, index) => {

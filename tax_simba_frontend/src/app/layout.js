@@ -28,7 +28,7 @@ const isStaging = process.env.NEXT_PUBLIC_IS_STAGING === "true" || process.env.N
 
 export const metadata = {
   title: "TaxSimba — UK Tax Returns & Self Assessment Filing",
-  description: "Fast, affordable UK self-assessment tax returns from £120. Expert accountants, HMRC submission, and dedicated support. Get started with TaxSimba today.",
+  description: "Fast, affordable UK self-assessment tax returns . Expert accountants, HMRC submission, and dedicated support. Get started with TaxSimba today.",
   ...(isStaging ? { robots: { index: false, follow: false } } : {}),
 };
 

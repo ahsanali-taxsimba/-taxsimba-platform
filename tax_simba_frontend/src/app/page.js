@@ -154,7 +154,7 @@ export default function Home() {
                 "@type": "Product",
                 "@id": "https://taxsimba.co.uk/#product",
                 "name": "Self Assessment Tax Return Service",
-                "description": "Fixed £120 all-inclusive tax return filing service including HMRC submission, expert review, and email/chat support",
+                "description": "Fixed all-inclusive tax return filing service including HMRC submission, expert review, and email/chat support",
                 "brand": {
                   "@id": "https://taxsimba.co.uk/#organization"
                 },
@@ -210,14 +210,14 @@ export default function Home() {
                 "@type": "WebPage",
                 "@id": "https://taxsimba.co.uk/#webpage",
                 "url": "https://taxsimba.co.uk",
-                "name": "Self Assessment Tax Returns for £120 | TaxSimba",
+                "name": "Self Assessment Tax Returns | TaxSimba",
                 "isPartOf": {
                   "@id": "https://taxsimba.co.uk/#website"
                 },
                 "about": {
                   "@id": "https://taxsimba.co.uk/#organization"
                 },
-                "description": "Simple, fast, and affordable self-assessment tax returns for £120. Get professional tax return filing in the UK from certified experts.",
+                "description": "Simple, fast, and affordable self-assessment tax returns with transparent fixed fees. Get professional tax return filing in the UK from certified experts.",
                 "breadcrumb": {
                   "@id": "https://taxsimba.co.uk/#breadcrumb"
                 }
@@ -319,7 +319,7 @@ export default function Home() {
                   "closes": "18:00"
                 }
               ],
-              "priceRange": "£120",
+              "priceRange": "GBP",
               "currenciesAccepted": "GBP",
               "paymentAccepted": "Credit Card, Debit Card, Online Payment",
               "areaServed": {
@@ -378,7 +378,7 @@ export default function Home() {
               "sameAs": [
                 "https://taxsimba.co.uk"
               ],
-              "slogan": "Self Assessment Tax Returns for £120 - Simple, Fast, Affordable",
+              "slogan": "Self Assessment Tax Returns - Simple, Fast, Affordable",
               "knowsAbout": [
                 "Self Assessment Tax Returns",
                 "HMRC Tax Filing",
@@ -428,7 +428,7 @@ export default function Home() {
               "url": "https://taxsimba.co.uk",
               "telephone": "+44-2080874308",
               "email": "contact@taxsimba.com",
-              "priceRange": "£120",
+              "priceRange": "GBP",
 
               "image": [
                 "https://taxsimba.co.uk/images/logo.png",
