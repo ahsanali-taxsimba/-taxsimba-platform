@@ -290,8 +290,10 @@ compatDocumentsRouter.post(
     }
     await notify(
       kase.client_user_id as string,
-      "Action required: documents requested",
-      message || `${created.length} document(s) requested`,
+      "Documents needed for your tax return",
+      "Your TaxSimba accountant has requested the following:\n\n" +
+        (message || `${created.length} document(s) requested`) +
+        "\n\nPlease upload it securely through your TaxSimba account so we can keep your tax return moving.",
       caseId,
       "/documents",
       "DOCUMENT",
@@ -352,8 +354,10 @@ async function staffUpload(
   if (kind === "final") {
     await notify(
       kase.client_user_id as string,
-      "Final documents available",
-      `${kase.case_ref} — final certificate uploaded`,
+      "Your final tax documents are ready",
+      `Your final certificate is now available` +
+        (kase.case_ref ? ` for ${kase.case_ref}` : "") +
+        ".\n\nFor your security, please sign in to TaxSimba to download it.",
       caseId,
       "/documents",
       "DOCUMENT",

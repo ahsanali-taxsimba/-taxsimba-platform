@@ -637,7 +637,8 @@ casesRouter.post(
     await notify(
       kase.client_user_id,
       `Action required: ${body.title}`,
-      body.description || "Your accountant needs information from you.",
+      body.description ||
+        "Your accountant needs some information from you before we can continue with your tax service.",
       caseId,
       `/tasks?task=${taskId}`,
       "TASK",
@@ -851,7 +852,9 @@ casesRouter.post(
     await notify(
       kase.client_user_id,
       "Your tax return is ready to review",
-      "Your Self Assessment calculation has been approved and is ready for your review.",
+      "Your accountant has completed your Self Assessment calculation and it's ready for you to review.\n\n" +
+        "Please check the figures carefully and approve them when you're happy to proceed." +
+        (kase.tax_year ? `\n\nTax year: ${kase.tax_year}` : ""),
       caseId,
       "/my-return",
       "APPROVAL",
@@ -1070,7 +1073,9 @@ casesRouter.post(
     await notify(
       kase.client_user_id,
       "Your tax return has been submitted",
-      `Submission reference ${body.submission_reference}`,
+      "Your Self Assessment has been recorded as submitted.\n\n" +
+        `Submission reference: ${body.submission_reference}\n\n` +
+        "You can view the latest status and available documents securely in your TaxSimba account.",
       caseId,
       "/my-return",
       "SUBMISSION",
@@ -1113,7 +1118,10 @@ casesRouter.post(
     await notify(
       kase.client_user_id,
       "Your Self Assessment is complete",
-      "Your case has been completed by TaxSimba.",
+      "Your Self Assessment journey with TaxSimba is now complete.\n\n" +
+        "Thank you for choosing TaxSimba.\n\n" +
+        "You can continue to access your case information and available documents from your account." +
+        (kase.tax_year ? `\n\nTax year: ${kase.tax_year}` : ""),
       caseId,
       "/my-return",
       "INFO",

@@ -79,12 +79,16 @@ export async function issueEmailVerification(
     to: String(user.email),
     recipientName: String(user.name ?? "there"),
     kind: "EMAIL_VERIFICATION",
-    title: "Verify your TaxSimba email",
+    subject: "Verify your email address | TaxSimba",
+    title: "Confirm your email address",
     body:
-      "Thanks for creating a TaxSimba account. Please verify your email address before purchasing " +
-      "a service. This link expires soon and can only be used once.",
+      "Welcome to TaxSimba.\n\n" +
+      "Please verify your email address to securely activate your account and continue setting up your tax service.\n\n" +
+      "If you didn't create a TaxSimba account, you can safely ignore this email.\n\n" +
+      "Never share your TaxSimba password or verification link with anyone.",
     link,
-    callToAction: "Verify email",
+    callToAction: "Verify my email",
+    preheader: "Confirm your email address to activate your TaxSimba account",
     dedupeKey: `email-verify:${id}`,
     userId: user.id as string,
   });

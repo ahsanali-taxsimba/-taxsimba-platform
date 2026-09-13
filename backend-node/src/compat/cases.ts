@@ -417,8 +417,10 @@ compatCasesRouter.post(
     if (kase.client_user_id) {
       await notify(
         kase.client_user_id as string,
-        "Tax return submitted",
-        `Submission reference ${submissionReference}`,
+        "Your tax return has been submitted",
+        "Your Self Assessment has been recorded as submitted.\n\n" +
+          `Submission reference: ${submissionReference}\n\n` +
+          "You can view the latest status and available documents securely in your TaxSimba account.",
         caseId,
         "/dashboard",
         "SUBMISSION",

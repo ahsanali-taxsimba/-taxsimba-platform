@@ -128,8 +128,11 @@ export async function createAdditionalWorkRequest(
   );
   await notify(
     kase.client_user_id,
-    "Additional work payment required",
-    `${tx.description} — £${Number(tx.amount).toFixed(2)}`,
+    "Action required: additional work for your TaxSimba service",
+    "We've identified additional work required for your tax service.\n\n" +
+      `${tx.description}\nAmount: £${Number(tx.amount).toFixed(2)}\n\n` +
+      "Please review the request and make payment securely through your TaxSimba account.\n\n" +
+      "We won't proceed with the additional charge until payment has been completed.",
     kase.id,
     "/subscription",
     "PAYMENT",
@@ -218,8 +221,10 @@ export async function resendAdditionalWorkRequest(me: Doc, requestId: string): P
   );
   await notify(
     request.user_id,
-    "Reminder: additional work payment required",
-    `${request.description} — £${Number(request.amount).toFixed(2)}`,
+    "Reminder: additional work awaiting payment",
+    "A payment request for additional work is still awaiting payment.\n\n" +
+      `${request.description}\nAmount: £${Number(request.amount).toFixed(2)}\n\n` +
+      "If you've already completed the payment, no further action is required.",
     request.case_id ?? null,
     "/subscription",
     "PAYMENT",

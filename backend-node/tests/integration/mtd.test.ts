@@ -292,7 +292,7 @@ describe("MTD income tax periods", () => {
     const clientRow = (await periods(caseId, client))[0];
     expect(clientRow.stage_label).toBe("Ready for your approval");
     const notes = await request(app).get("/api/notifications").set(bearer(client)).expect(200);
-    expect(notes.body.some((n: { title: string }) => n.title.includes("ready to approve"))).toBe(
+    expect(notes.body.some((n: { title: string }) => n.title.includes("ready to review"))).toBe(
       true,
     );
     // publishing does not submit the period

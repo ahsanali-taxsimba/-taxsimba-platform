@@ -637,9 +637,12 @@ export async function fulfil(tx: Doc): Promise<void> {
     if (receipt) {
       await notify(
         tx.user_id,
-        "Payment received",
-        `Receipt ${receipt.number} for ${tx.description} — £${Number(tx.amount).toFixed(2)}. ` +
-          "Available in My Services.",
+        "Payment received | TaxSimba",
+        "Thank you. We've received your payment successfully.\n\n" +
+          `${tx.description}\nAmount paid: £${Number(tx.amount).toFixed(2)}\n` +
+          `Receipt: ${receipt.number}\n\n` +
+          "Your receipt is available securely in your TaxSimba account.\n\n" +
+          "We'll continue with the additional work and keep you updated on progress.",
         tx.case_id ?? null,
         "/subscription",
         "RECEIPT",

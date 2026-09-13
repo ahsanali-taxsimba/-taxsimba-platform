@@ -121,7 +121,9 @@ compatMessagesRouter.post(
       await notify(
         String(recipient),
         `New message from ${me.name}`,
-        text.slice(0, 120),
+        "You have received a new message regarding your TaxSimba service.\n\n" +
+          (text.slice(0, 120) ? `${text.slice(0, 120)}\n\n` : "") +
+          "For your privacy, please use your TaxSimba account to view and respond to messages relating to your tax affairs.",
         caseId,
         link,
         "MESSAGE",
@@ -197,7 +199,9 @@ async function staffSendToClient(
     await notify(
       String(recipient),
       `New message from ${me.name}`,
-      text.slice(0, 120),
+      "You have received a new message regarding your TaxSimba service.\n\n" +
+        (text.slice(0, 120) ? `${text.slice(0, 120)}\n\n` : "") +
+        "For your privacy, please use your TaxSimba account to view and respond to messages relating to your tax affairs.",
       caseId,
       "/messages",
       "MESSAGE",

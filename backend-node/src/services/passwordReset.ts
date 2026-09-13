@@ -57,12 +57,15 @@ export async function issuePasswordReset(
     to: address,
     recipientName: String(user.name ?? "there"),
     kind: "PASSWORD_RESET",
-    title: "Reset your TaxSimba password",
+    subject: "Reset your TaxSimba password",
+    title: "Reset your password",
     body:
-      "We received a request to reset your TaxSimba password. If you made this request, use the " +
-      "link below. If you did not, you can ignore this email.",
+      "We received a request to reset the password for your TaxSimba account.\n\n" +
+      "If you didn't request a password reset, no action is required. Your existing password will remain unchanged.\n\n" +
+      "TaxSimba will never ask you to send your password by email.",
     link,
-    callToAction: "Reset password",
+    callToAction: "Reset my password",
+    preheader: "Reset the password for your TaxSimba account",
     dedupeKey: `password-reset:${id}`,
     userId: user.id as string,
   });
