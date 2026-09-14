@@ -575,23 +575,23 @@ const PageClient = () => {
 
 
       {/* CTA Section Start */}
-      <section className="cta-main bottom-cta mobile-cta ptb-80">
+      <section className="cta-main bottom-cta-main mobile-cta ptb-80">
         <Container>
           <div className="cta-inner">
             <Row>
               <Col lg={12}>
                 <div className="cta-cont text-center">
                   <div className="stop-stressing-content text-center">
-                    <h2 className="text-lt-theme">
-                      <span>Accountant-led</span> tax returns, made simple.
+                    <h2 className="text-dark">
+                      Accountant-led tax returns, made simple.
                     </h2>
-                    <p className="mt-1 mb-0">
+                    <p className="text-dark mt-1 mb-0">
                       From the moment you sign up, your TaxSimba accountant handles the professional work. You provide your information, we prepare your return, and you review it before submission.
                     </p>
                     <ul className="banner-bottom-list list-unstyled d-flex align-items-center flex-wrap gap-3 justify-content-center mt-3 mb-0">
-                      <li className="text-white"><FaCheckCircle className="me-2" />Dedicated accountant</li>
-                      <li className="text-white"><FaCheckCircle className="me-2" />Professional preparation</li>
-                      <li className="text-white"><FaCheckCircle className="me-2" />You approve before filing</li>
+                      <li className="text-dark"><FaCheckCircle className="me-2 text-success" />Dedicated accountant</li>
+                      <li className="text-dark"><FaCheckCircle className="me-2 text-success" />Professional preparation</li>
+                      <li className="text-dark"><FaCheckCircle className="me-2 text-success" />You approve before filing</li>
                     </ul>
                     <div className="d-flex align-items-center justify-content-center gap-2 flex-wrap mt-4">
                       <Link href="/register" className="common-btn">
