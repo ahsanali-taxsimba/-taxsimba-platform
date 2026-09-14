@@ -107,7 +107,7 @@ export const articles = [
 <p>Sam is a sole trader who also lets a flat. HMRC confirms Sam is signed up for MTD for Income Tax. Sam logs into HMRC online services, checks both income sources, and decides not to learn every MTD software screen alone. Sam appoints TaxSimba so an accountant-led team can manage the MTD workflow while Sam supplies bank exports, invoices and rental statements.</p>
 
 <h2>Common mistake</h2>
-<p>Putting the letter aside because “I already do Self Assessment.” MTD adds digital record-keeping and quarterly updates for the income types in scope. Leaving everything until January makes catch-up harder and can block year-end filing until quarterlies are done.</p>
+<p>Putting the letter aside because “I already do Self Assessment.” MTD adds digital record-keeping and quarterly updates for the income types in scope. Leaving everything until January makes catch-up harder — and you need to send the required quarterly updates before you can submit your tax return.</p>
 
 <h3>If you think you were signed up incorrectly</h3>
 <p>Contact HMRC Self Assessment if you believe you are exempt or should not be in MTD. Do not ignore the message while you wait — check the official guidance and get advice if your income mix is complicated.</p>
@@ -162,7 +162,7 @@ export const articles = [
     ],
     curated: true,
     content: `
-<p><strong>Short answer:</strong> For Making Tax Digital for Income Tax, “qualifying income” is your total income from self-employment and property for a tax year — usually before expenses (turnover). The £50,000 figure is the first threshold: if your qualifying income for 2024 to 2025 was over £50,000, you should have started MTD from 6 April 2026. Later phases use £30,000 and £20,000.</p>
+<p><strong>Short answer:</strong> For Making Tax Digital for Income Tax, “qualifying income” is your gross income from self-employment and property for a tax year — before expenses (turnover). The £50,000 figure is the first threshold: if your qualifying income for 2024 to 2025 was over £50,000, you should have started MTD from 6 April 2026. Later phases use £30,000 and £20,000.</p>
 
 <h2>What counts as qualifying income</h2>
 <p>HMRC adds up income from:</p>
@@ -259,7 +259,7 @@ export const articles = [
 <p><strong>Short answer:</strong> An MTD quarterly update is a summary of totals for your self-employment and/or property income and expense categories — created from your digital records and sent to HMRC through compatible software (or by an agent). It is <em>not</em> your full year-end tax return, and HMRC does not receive every individual invoice.</p>
 
 <h2>What actually gets sent</h2>
-<p>Your software adds up digital records for each business and produces totals using the same broad income and expense categories used in Self Assessment. Each update covers from the start of the tax year to the end of that update period (cumulative), so later updates can reflect corrections to earlier records without always resending old periods as separate “amendments” in the old sense.</p>
+<p>Your software adds up digital records for each business and produces totals using the same broad income and expense categories used in Self Assessment. Each quarterly update covers from the start of the tax year to the end of that update period, so it shows year-to-date totals. If you need to correct something, update your digital records in the software so later updates reflect the right figures, following HMRC’s process.</p>
 <p>You do not need to make accounting or tax adjustments before sending a quarterly update. If you had no income or expenses in a period, you still need to send the update.</p>
 
 <h2>When they are due (standard update periods)</h2>
