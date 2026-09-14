@@ -558,7 +558,7 @@ export default function MtdClient() {
                                 <Card.Body className="taxes-card-inner-body">
                                     <Card.Title className="taxes-card-heading">Fewer Mistakes</Card.Title>
                                     <Card.Text className="taxes-card-description">
-                                        Automatic calculations help prevent errors in your Self Assessment.
+                                        Your TaxSimba accountant helps prepare and review figures before filing.
                                     </Card.Text>
                                     <div className="taxes-percentage-group">
                                         <span className="taxes-percentage-value">-90%</span>
@@ -572,7 +572,7 @@ export default function MtdClient() {
                                 <Card.Body className="taxes-card-inner-body">
                                     <Card.Title className="taxes-card-heading">Faster Tax Submission</Card.Title>
                                     <Card.Text className="taxes-card-description">
-                                        Submit directly to HMRC in minutes.
+                                        Your accountant manages submissions using HMRC-compatible software.
                                     </Card.Text>
                                     <div className="taxes-percentage-group">
                                         <span className="taxes-percentage-value">-70%</span>

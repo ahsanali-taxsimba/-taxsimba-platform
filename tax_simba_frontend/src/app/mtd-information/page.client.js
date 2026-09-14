@@ -212,7 +212,7 @@ function page() {
                                 <h6 className="banner_span">HMRC <span> Compliance 2026</span></h6>
                                 {/* <h2 className="text-capitalize mb-3"> <span>Making Tax Digital</span> is coming</h2> */}
                                 <h1 className="text-capitalize mb-3 fs-2"> <span>Making Tax Digital</span> is here</h1>
-                                <p>HMRC rules apply from April 2026. Stay ahead of the curve with simplified digital accounting tailored for the UK.</p>
+                                <p>HMRC rules apply from April 2026. TaxSimba’s accountants help sole traders and landlords manage Making Tax Digital without DIY software stress.</p>
                                 <div className='mtd-banner-btn d-flex align-items-center justify-content-lg-start justify-content-center gap-2 mt-4 pt-2'>
                                     <Link href={status === "authenticated" ? "/dashboard" : "/register?role=MTD"} className="common-btn glowing-button justify-content-center">Get Started</Link>
                                     <Link href="/check-mtd" className="common-btn-outline ">Check if I need MTD</Link>
@@ -417,7 +417,7 @@ function page() {
                                                         <>
                                                             <h6 className="fw-bold mb-1 text-dark">You must comply with MTD</h6>
                                                             <p className="mb-3 text-muted">
-                                                                Comply with MTD from April 2026—TaxSimba manages it automatically.
+                                                                Comply with MTD from April 2026 — TaxSimba’s accountants can help manage the process for you.
                                                             </p>
                                                         </>
                                                     )}
@@ -425,7 +425,7 @@ function page() {
                                                         <>
                                                             <h6 className="fw-bold mb-1 text-dark">You must comply with MTD</h6>
                                                             <p className="mb-3 text-muted">
-                                                                Comply with MTD from April 2027—TaxSimba manages it automatically.
+                                                                Comply with MTD from April 2027 — TaxSimba’s accountants can help manage the process for you.
                                                             </p>
                                                         </>
                                                     )}
@@ -578,8 +578,8 @@ function page() {
                                     </span>
                                     <h4>Submit tax return online</h4>
                                     <p>Finalise your annual tax position
-                                        using MTD-compatible software
-                                        like ours.</p>
+                                        using HMRC-compatible software
+                                        managed by your accountant.</p>
                                 </div>
                             </div>
                         </Col>
@@ -807,14 +807,14 @@ function page() {
                         <Row className="g-0">
                             <Col className="p-0" lg={6} md={12} sm={12} xs={12}>
                                 <div className="easy-content-inner">
-                                    <h2>Powerful Tools to <span>Simplify Your Digital Tax Journey</span></h2>
+                                    <h2>Accountant-Led MTD, <span>Made Simple</span></h2>
                                     <ul className="easy-list">
-                                        <li><MdOutlineCheckCircle />Connect Your Bank</li>
-                                        <li><MdOutlineCheckCircle />Track Income & Expenses</li>
-                                        <li><MdOutlineCheckCircle />Add Records Manually</li>
-                                        <li><MdOutlineCheckCircle />Send Updates to HMRC</li>
-                                        <li><MdOutlineCheckCircle />Clear Reports</li>
-                                        <li><MdOutlineCheckCircle />Smart Insights</li>
+                                        <li><MdOutlineCheckCircle />Dedicated accountant support</li>
+                                        <li><MdOutlineCheckCircle />We help organise your MTD records</li>
+                                        <li><MdOutlineCheckCircle />Quarterly updates managed for you</li>
+                                        <li><MdOutlineCheckCircle />Compatible software handled by our team</li>
+                                        <li><MdOutlineCheckCircle />Deadlines tracked throughout the year</li>
+                                        <li><MdOutlineCheckCircle />Support through your MTD journey</li>
 
                                     </ul>
                                     {/* <Link href="/mtd-information" className="common-btn mt-4 d-inline-block">
@@ -838,27 +838,31 @@ function page() {
                         <Col lg={6} className='mb-lg-0 mb-0'>
                             <div className="why-choose-right-box pe-lg-5 pe-0">
                                 <h2 className='text-white'>
-                                    A simpler way to   <span> handle MTD </span>
+                                    A Simpler Way To   <span> Handle MTD </span>
                                 </h2>
                                 <p className='text-white'>
-                                    We've built TaxSimba specifically for the 2026 transition,
-                                    focusing on clarity and ease of use for non-accountants.
+                                    You don’t need to manage complicated MTD software yourself. TaxSimba is an accountant-led service designed to help sole traders and landlords stay on top of their Making Tax Digital obligations.
                                 </p>
                                 <ul className="list-unstyled simple-mtd-box mt-4">
                                     <li className='d-flex align-items-center gap-2 text-white'>
 
                                         <span> <FaCheck /></span>
-                                        Track income and expenses in real-time
+                                        Send your records to your TaxSimba accountant
                                     </li>
                                     <li className='d-flex align-items-center gap-2 text-white'>
 
                                         <span> <FaCheck /></span>
-                                        Auto-organised for quarterly submissions
+                                        We prepare and manage your quarterly requirements
+                                    </li>
+                                    <li className='d-flex align-items-center gap-2 text-white'>
+
+                                        <span> <FaCheck /></span>
+                                        Submissions handled using compatible software
                                     </li>
                                     <li className='d-flex align-items-center gap-2 text-white mb-0'>
 
                                         <span> <FaCheck /></span>
-                                        Direct secure submission to HMRC
+                                        We keep you updated on what we need from you
                                     </li>
                                 </ul>
                             </div>
@@ -908,19 +912,19 @@ function page() {
                                     <ul className="comparison-list">
                                         <li>
                                             <FaCheck className="icon check-icon" />
-                                            Real-time digital records
+                                            Dedicated accountant support
                                         </li>
                                         <li>
                                             <FaCheck className="icon check-icon" />
-                                            Snap receipts with your phone
+                                            Quarterly updates managed for you
                                         </li>
                                         <li>
                                             <FaCheck className="icon check-icon" />
-                                            Quarterly automation
+                                            Compatible software handled by our team
                                         </li>
                                         <li className='mb-0'>
                                             <FaCheck className="icon check-icon" />
-                                            Fully HMRC-recognised software
+                                            Clear guidance on what we need from you
                                         </li>
                                     </ul>
                                 </div>
@@ -942,7 +946,7 @@ function page() {
                                         <h2 className="text-lt-theme">
                                             Make Tax Digital.   <span>  Make It Easy. </span>
                                         </h2>
-                                        <p className='text-white mb-0'>Real-time records, receipt capture, and HMRC submissions in one place.{subscriptionPlans.length > 0 && <> From {getCurrencySymbol(subscriptionPlans[0].currency)}{subscriptionPlans[0].price}/month.</>}</p>
+                                        <p className='text-white mb-0'>Accountant-led Making Tax Digital support — we help organise your records and manage quarterly requirements for you.{subscriptionPlans.length > 0 && <> From {getCurrencySymbol(subscriptionPlans[0].currency)}{subscriptionPlans[0].price}/month.</>}</p>
                                         <div className="d-flex align-items-center justify-content-center gap-2 flex-wrap mt-4">
                                             <Link href={status === "authenticated" ? "/dashboard" : "/register?role=MTD"} className="common-btn">
                                                 Get Started <MdKeyboardDoubleArrowRight className="mtd-btn-icon" />
