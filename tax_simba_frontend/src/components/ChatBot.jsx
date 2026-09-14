@@ -54,11 +54,32 @@ const HUMAN_AGENTS = [
 
 const NOTIFICATION_SOUND_URL = 'https://assets.mixkit.co/active_storage/sfx/2358/2358-preview.mp3';
 
+/** Map page path → registration journey. Default SA so SA PPC is never forced to MTD. */
+function journeyFromPathname(pathname) {
+    const path = (pathname || '/').toLowerCase();
+    if (
+        path === '/mtd' ||
+        path.startsWith('/mtd/') ||
+        path === '/mtd-information' ||
+        path.startsWith('/mtd-information/') ||
+        path === '/mtd-dashboard' ||
+        path.startsWith('/mtd-dashboard/') ||
+        path === '/check-mtd' ||
+        path.startsWith('/check-mtd/') ||
+        path === '/making-tax-digital' ||
+        path.startsWith('/making-tax-digital/')
+    ) {
+        return 'MTD';
+    }
+    return 'SA';
+}
+
 export default function ChatBot() {
     const { data: session } = useSession();
     const prevSessionRef = useRef(session);
     const pathname = usePathname();
     const router = useRouter();
+    const chatJourney = journeyFromPathname(pathname);
     const [isOpen, setIsOpen] = useState(false);
     const [showNudge, setShowNudge] = useState(false);
     const [isMuted, setIsMuted] = useState(false);
@@ -191,10 +212,12 @@ export default function ChatBot() {
 
     const getSignupLink = (content) => {
         const match = content.match(/\[([^\]]+)\]\(([^)]*\/register([^)]*))\)/);
-        if (match && match[3]) {
-            return `/register${match[3]}`;
+        if (match) {
+            // Prefer query from the message link when present (journey-enforced by the API).
+            if (match[3]) return `/register${match[3]}`;
+            return chatJourney === 'MTD' ? '/register?role=MTD' : '/register';
         }
-        return '/register';
+        return chatJourney === 'MTD' ? '/register?role=MTD' : '/register';
     };
 
     const extractCalculatorLink = (content) => {
@@ -285,7 +308,10 @@ export default function ChatBot() {
             const response = await fetch('/frontend-api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ messages: [...messages.map(({ role, content }) => ({ role, content })), { role: userMessage.role, content: userMessage.content }] }),
+                body: JSON.stringify({
+                    journey: chatJourney,
+                    messages: [...messages.map(({ role, content }) => ({ role, content })), { role: userMessage.role, content: userMessage.content }],
+                }),
             });
 
             const data = await response.json();

@@ -132,14 +132,6 @@ export default function Home() {
                         "@type": "Service",
                         "name": "Self Assessment Tax Return Filing",
                         "description": "Complete HMRC submission with professional review by certified accountants"
-                      },
-                      "price": "120",
-                      "priceCurrency": "GBP",
-                      "priceSpecification": {
-                        "@type": "UnitPriceSpecification",
-                        "price": "120",
-                        "priceCurrency": "GBP",
-                        "valueAddedTaxIncluded": true
                       }
                     }
                   ]
@@ -160,8 +152,6 @@ export default function Home() {
                 },
                 "offers": {
                   "@type": "Offer",
-                  "price": "120",
-                  "priceCurrency": "GBP",
                   "availability": "https://schema.org/InStock",
                   "url": "https://taxsimba.co.uk/tax-return-form",
                   "priceValidUntil": "2027-04-05",
@@ -399,8 +389,6 @@ export default function Home() {
                     "name": "Self Assessment Tax Return Filing",
                     "description": "Complete HMRC submission with professional review, email/chat support"
                   },
-                  "price": "120",
-                  "priceCurrency": "GBP",
                   "availability": "https://schema.org/InStock",
                   "url": "https://taxsimba.co.uk/tax-return-form",
                   "priceValidUntil": "2026-01-31"
@@ -577,8 +565,6 @@ export default function Home() {
                     "name": "Self-Assessment Tax Return Filing",
                     "description": "Complete HMRC tax return submission with expert review"
                   },
-                  "price": "120",
-                  "priceCurrency": "GBP",
                   "availability": "https://schema.org/InStock",
                   "validFrom": "2025-01-01",
                   "priceValidUntil": "2027-04-05"

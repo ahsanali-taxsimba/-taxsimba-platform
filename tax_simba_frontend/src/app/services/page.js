@@ -171,9 +171,7 @@ const Services = async () => {
                           "name": "CIS Tax Returns",
                           "description": "Construction Industry Scheme (CIS) tax return services for contractors and subcontractors",
                           "url": "https://taxsimba.co.uk/services/cis-tax-returns"
-                        },
-                        "price": "120",
-                        "priceCurrency": "GBP"
+                        }
                       },
                       {
                         "@type": "Offer",
@@ -182,9 +180,7 @@ const Services = async () => {
                           "name": "Self-Employed Tax Return Services UK",
                           "description": "Comprehensive tax return services for self-employed individuals and freelancers in the UK",
                           "url": "https://taxsimba.co.uk/services/self-employed-tax-return-services-uk"
-                        },
-                        "price": "120",
-                        "priceCurrency": "GBP"
+                        }
                       },
                       {
                         "@type": "Offer",
@@ -193,9 +189,7 @@ const Services = async () => {
                           "name": "Rental Income Tax Returns",
                           "description": "Tax return services for landlords and property owners with rental income",
                           "url": "https://taxsimba.co.uk/services/rental-income-tax-returns"
-                        },
-                        "price": "120",
-                        "priceCurrency": "GBP"
+                        }
                       },
                       {
                         "@type": "Offer",
@@ -204,9 +198,7 @@ const Services = async () => {
                           "name": "Private Client Tax Returns",
                           "description": "Personalized tax return services for private clients with various income sources",
                           "url": "https://taxsimba.co.uk/services/private-client-tax-returns"
-                        },
-                        "price": "120",
-                        "priceCurrency": "GBP"
+                        }
                       },
                       {
                         "@type": "Offer",
@@ -215,9 +207,7 @@ const Services = async () => {
                           "name": "Capital Gains Tax Returns & Advice",
                           "description": "Expert capital gains tax return filing and advisory services",
                           "url": "https://taxsimba.co.uk/services/capital-gains-tax-returns-advice"
-                        },
-                        "price": "120",
-                        "priceCurrency": "GBP"
+                        }
                       },
                       {
                         "@type": "Offer",
@@ -226,9 +216,7 @@ const Services = async () => {
                           "name": "High Net Worth Individuals Tax Returns",
                           "description": "Specialized tax return services for high net worth individuals with complex financial portfolios",
                           "url": "https://taxsimba.co.uk/services/high-net-worth-individuals-tax-returns"
-                        },
-                        "price": "120",
-                        "priceCurrency": "GBP"
+                        }
                       },
                       {
                         "@type": "Offer",
@@ -237,9 +225,7 @@ const Services = async () => {
                           "name": "Non-Resident Landlord Taxes & Expat Tax Services UK",
                           "description": "Tax services for non-resident landlords and UK expats with UK-based income",
                           "url": "https://taxsimba.co.uk/services/non-resident-landlord-taxes-expat-tax-services-uk"
-                        },
-                        "price": "120",
-                        "priceCurrency": "GBP"
+                        }
                       }
                     ]
                   }
@@ -324,8 +310,6 @@ const Services = async () => {
                   },
                   "offers": {
                     "@type": "Offer",
-                    "price": "120",
-                    "priceCurrency": "GBP",
                     "availability": "https://schema.org/InStock",
                     "url": "https://taxsimba.co.uk/services",
                     "itemCondition": "https://schema.org/NewCondition"

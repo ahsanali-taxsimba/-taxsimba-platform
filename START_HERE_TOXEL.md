@@ -57,7 +57,7 @@ Latest verified status:
 
 - Backend build: **PASS**
 - Backend typecheck: **PASS**
-- Backend tests: **PASS** — 29 files / 299 tests / 0 failures
+- Backend tests: **PASS** — **31 files / 305 tests / 0 failures**
 - Client clean install/build: **PASS**
 - Admin clean install/build: **PASS**
 - Client API contract mapping: **PASS**
@@ -66,6 +66,7 @@ Latest verified status:
 - Super Admin security contract: **PASS**
 - Stripe Checkout / fulfilment / webhook contract: **PASS**
 - SA / MTD entitlement isolation: **PASS**
+- Super Admin package pricing UI (`/admin/package-pricing`): **PASS**
 - No genuine code blocker found for Toxel staging
 
 Earlier build blockers already resolved:
@@ -111,6 +112,25 @@ STRIPE_SECRET_KEY
 STRIPE_WEBHOOK_SECRET
 STORAGE_DRIVER
 APP_BASE_URL
+SEED_DEMO_DATA
+EMAIL_DRIVER
+EMAIL_FROM
+```
+
+**`SEED_DEMO_DATA` must be explicitly set to `false` in staging and production.**  
+If unset or any value other than the string `false`, startup seeds demo data. Staging handoff expects:
+
+```text
+SEED_DEMO_DATA=false
+```
+
+**`APP_BASE_URL`** = the **client public origin** (customer-facing site), e.g. `https://staging-app.example.com`.  
+Used for links in transactional emails (verification, password reset, CTAs). It is **not** the admin origin and **not** the API host.
+
+**`CORS_ORIGINS`** must list **both** frontend origins (comma-separated), with no wildcard `*`:
+
+```text
+CORS_ORIGINS=https://<CLIENT-ORIGIN>,https://<ADMIN-ORIGIN>
 ```
 
 If `STORAGE_DRIVER=s3` also configure:
@@ -135,7 +155,37 @@ If staff MFA is enabled:
 TOTP_FERNET_KEY
 ```
 
-If email delivery is enabled: required SMTP/Resend variables for the configured email driver.
+### Email environment variables (required for the chosen driver)
+
+Always set:
+
+```text
+EMAIL_DRIVER
+EMAIL_FROM
+EMAIL_REPLY_TO
+EMAIL_MAX_ATTEMPTS
+APP_BASE_URL
+```
+
+| `EMAIL_DRIVER` | Additional required variables |
+| --- | --- |
+| `none` (default) | none — delivery disabled; in-app notifications still work |
+| `log` | none — messages logged only |
+| `smtp` | `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASSWORD` |
+| `resend` | `RESEND_API_KEY` |
+
+`EMAIL_FROM` is required whenever delivery is attempted (`smtp` / `resend`).  
+`EMAIL_REPLY_TO` is optional.  
+`EMAIL_MAX_ATTEMPTS` defaults to `5` if unset.
+
+Optional reminder worker (enable on exactly one instance if used):
+
+```text
+REMINDERS_ENABLED
+REMINDER_INTERVAL_MINUTES
+REMINDER_REPEAT_DAYS
+REMINDER_DEADLINE_DAYS
+```
 
 Do **not** put real secret values in this document or in git.
 
@@ -227,7 +277,20 @@ Set `BACKEND_URL` to the same compat API base for staff NextAuth login:
 https://<STAGING-API-HOST>/api/compat/
 ```
 
-`NEXTAUTH_URL`: set to the public URL of the deployed admin frontend.
+**Admin `NEXTAUTH_URL` must include `/admin`.**  
+The admin app is deployed with Next.js `basePath: '/admin'`, so the public auth base must be the admin origin **including** that path, e.g.:
+
+```text
+NEXTAUTH_URL=https://<ADMIN-HOST>/admin
+```
+
+### Package pricing (admin UI)
+
+- Public route (with basePath): **`/admin/package-pricing`**
+- Source of truth: live catalogue `packages.price` via native APIs
+- **SUPER_ADMIN** can edit prices and schedule future price changes
+- **ADMIN** can open the page **read-only** (API writes return 403)
+- Checkout amounts use `packages.price`; existing customers keep frozen `agreed_price`
 
 Optional where used:
 
@@ -242,9 +305,9 @@ Client and admin frontends both default to Next.js port **3000** locally, so the
 
 ---
 
-## 7. API BASE / STRIPE WEBHOOK
+## 7. API BASE / STRIPE WEBHOOK / NATIVE PACKAGES
 
-Backend compat API mount:
+Backend compat API mount (used by both frontends for day-to-day APIs):
 
 ```text
 /api/compat
@@ -258,6 +321,27 @@ https://<STAGING-API-HOST>/api/compat/
 
 Trailing slash **REQUIRED**.
 
+**Native package-pricing APIs are also required** (used by `/admin/package-pricing`).  
+Staging reverse-proxy / ingress must expose **both**:
+
+```text
+/api/compat/*
+/api/packages*
+```
+
+Examples of native routes the admin pricing UI calls:
+
+```text
+GET    /api/packages
+PATCH  /api/packages/:packageId/price
+GET    /api/packages/:packageId/price-history
+GET    /api/packages/:packageId/price-schedule
+POST   /api/packages/:packageId/price-schedule
+DELETE /api/packages/:packageId/price-schedule/:entryId
+```
+
+Do **not** assume `/api/compat/` alone is enough for Super Admin package pricing.
+
 Stripe webhook:
 
 ```text
@@ -266,6 +350,8 @@ POST /api/stripe/webhook
 
 Do **NOT** configure Stripe Elements as the main P0 payment flow.  
 Current P0 payment flow is **Stripe Checkout Session**.
+
+**Do not claim Stripe wallet / BNPL methods** (Apple Pay, Google Pay, Klarna, Clearpay/Afterpay, etc.) unless those payment methods are actually enabled and configured in the Stripe account / Checkout settings for this environment. P0 must only be described as Stripe Checkout Session unless wallets/BNPL are verified live.
 
 ---
 
@@ -285,6 +371,8 @@ Current P0 payment flow is **Stripe Checkout Session**.
 - Additional-work payments must **not** incorrectly activate SA or MTD.
 - External tax submission is recorded in the platform.
 - **HMRC APIs are NOT required** and are **OUT OF SCOPE** for this staging release.
+- Customer / SEO surfaces must not hard-code package catalogue prices; live cards and checkout use `packages.price`.
+- Chatbot registration exit must preserve journey: SA pages → `/register`; MTD pages → `/register?role=MTD` (must not force MTD onto SA PPC traffic).
 
 ---
 
@@ -314,7 +402,8 @@ Toxel should verify these after deployment:
 20. Confirm Q1–Q4 + Final Declaration structure exists as expected  
 21. Confirm SA and MTD remain isolated  
 22. Record external submission when workflow reaches the permitted status  
-23. Confirm no HMRC API call is required  
+23. Confirm no HMRC API call is required
+24. SUPER_ADMIN can open `/admin/package-pricing`, edit/schedule; ADMIN sees read-only  
 
 ---
 
@@ -371,9 +460,16 @@ These are **not** current staging blockers.
 - [ ] trailing slash present
 - [ ] client `API_URL` set
 - [ ] admin `BACKEND_URL` set
-- [ ] `NEXTAUTH_URL` set for both frontends
-- [ ] backend env vars configured
+- [ ] client `NEXTAUTH_URL` = client public origin
+- [ ] admin `NEXTAUTH_URL` includes `/admin`
+- [ ] backend `APP_BASE_URL` = client public origin
+- [ ] `CORS_ORIGINS` includes **both** client and admin origins
+- [ ] `SEED_DEMO_DATA=false`
+- [ ] email env vars set for chosen `EMAIL_DRIVER` (`EMAIL_FROM`, plus SMTP_* or `RESEND_API_KEY`)
+- [ ] proxy exposes `/api/compat/*` **and** `/api/packages*`
 - [ ] Stripe webhook configured at `/api/stripe/webhook`
+- [ ] Stripe wallets / BNPL **not** claimed unless actually enabled
+- [ ] `/admin/package-pricing` reachable; SUPER_ADMIN edit, ADMIN read-only
 - [ ] client / admin on separate hosts / services
 - [ ] smoke test completed
 - [ ] exact evidence captured for any failure before code changes

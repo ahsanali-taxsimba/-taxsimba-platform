@@ -37,10 +37,11 @@ Do you currently need to file a tax return for the last year?
 ---next---
 Our specialist-led system handles all these checks for you.
 ---next---
-You can set up your account here and we'll confirm your exact status: [Sign Up]({{BASE_URL}}/register?role=MTD)
+You can set up your account here and we'll confirm your exact status: [Sign Up]({{SIGNUP_URL}})
 
 STRICT RULES:
-- BRANDING: NEVER use the word "SimbaX". ALWAYS use the term "our MTD platform".
+- BRANDING: NEVER use the word "SimbaX". ALWAYS use the term "{{PLATFORM_PHRASE}}" when referring to our product for this journey.
+- JOURNEY CONTEXT: {{JOURNEY_LABEL}}. Preserve this journey for all signup / registration links. Do NOT send SA visitors to MTD registration (?role=MTD), and do NOT send MTD visitors to plain /register without ?role=MTD.
 - DELIMITER: Use "---next---" between every thought block.
 - DETAILED BUT GRANULAR: Each bubble should be 2-3 detailed sentences max.
 - PACKAGE VISIBILITY: If a user asks about "plans", "pricing", "packages", or "costs", you MUST direct them to the appropriate package page. For MTD, use: [MTD Packages]({{BASE_URL}}/mtd-information). For non-MTD, use: [Taxsimba Pricing]({{BASE_URL}}/pricing)
@@ -57,13 +58,14 @@ STRICT RULES:
   5. **Keep Digital Records**: Record all business or property transactions digitally as they happen throughout the tax year.
   6. **Submit Quarterly Updates**: Submit a summary of income and expenses to HMRC every 3 months (due August, November, February, and May).
   7. **Final Declaration**: Finalize your annual tax position and submit the Final Declaration by January 31 following the end of the tax year.
-- PROACTIVE MTD PITCH: For MTD-related queries or if MTD applies to them (e.g. over £30k qualifying income), you MUST proactively mention that we offer 'MTD Packages' to manage the transition smoothly and share the link WITHOUT waiting for them to ask about pricing: [MTD Packages]({{BASE_URL}}/mtd-information)
+- PROACTIVE SERVICE PITCH: {{PROACTIVE_PITCH}}
 - TAXSIMBA PITCH: For all other tax/Self Assessment queries, mention that we offer 'Taxsimba Packages' for standard expert-reviewed filing and share the link: [Taxsimba Pricing]({{BASE_URL}}/pricing)
 - CONVERSION (THE BRIDGE PATTERN): For specific tax topics (like Crypto, CIS, or Rental), follow this EXACT sequence in your final bubbles:
     1. Provide the matching calculator link as the primary tool.
     2. ---next---
     3. In the VERY NEXT bubble, strongly urge the user to sign up for our MTD platform or Taxsimba (for Self Assessment).
-- EXIT STRATEGY: Your absolute final message bubble MUST always be a firm, professional push to [Sign Up]({{BASE_URL}}/register?role=MTD) to get started.
+- EXIT STRATEGY: Your absolute final message bubble MUST always be a firm, professional push to [Sign Up]({{SIGNUP_URL}}) to get started ({{EXIT_HINT}}).
+- SIGNUP URL LOCK: Every signup / register / "get started" markdown link MUST use exactly: {{SIGNUP_URL}}
 
 STRICT LINK FORMAT: [Name](URL)
 {{BASE_URL}} is the site base URL.
@@ -96,14 +98,38 @@ Available Calculators (Link ONLY within your CTA if highly relevant):
 
 {{TAX_DATA}}`;
 
+/** Only MTD when the client explicitly marks the journey; default SA (protects SA PPC). */
+function resolveJourney(raw) {
+    return String(raw || '').trim().toUpperCase() === 'MTD' ? 'MTD' : 'SA';
+}
+
+/** Force every /register link in the model reply onto the journey-correct signup URL. */
+function enforceSignupLinks(reply, signupUrl) {
+    return reply
+        .replace(/\]\((https?:\/\/[^)\s]+)\/register(?:\?[^)\s]*)?\)/gi, `](${signupUrl})`)
+        .replace(/\]\(\/register(?:\?[^)\s]*)?\)/gi, `](${signupUrl})`);
+}
+
 export async function POST(req) {
     try {
-        const { messages } = await req.json();
+        const body = await req.json();
+        const { messages } = body;
+        const journey = resolveJourney(body.journey || body.service);
+        const isMtd = journey === 'MTD';
 
         // Dynamically get the base URL from the request headers
         const host = req.headers.get('host');
         const protocol = req.headers.get('x-forwarded-proto') || 'http';
         const baseUrl = `${protocol}://${host}`;
+        const signupUrl = isMtd ? `${baseUrl}/register?role=MTD` : `${baseUrl}/register`;
+        const platformPhrase = isMtd ? 'our MTD platform' : 'Taxsimba Self Assessment';
+        const journeyLabel = isMtd ? 'Making Tax Digital (MTD)' : 'Self Assessment (SA)';
+        const exitHint = isMtd
+            ? 'MTD journey — use /register?role=MTD only'
+            : 'SA journey — use /register without ?role=MTD';
+        const proactivePitch = isMtd
+            ? `For MTD-related queries or if MTD applies to them (e.g. over £30k qualifying income), you MUST proactively mention that we offer 'MTD Packages' to manage the transition smoothly and share the link WITHOUT waiting for them to ask about pricing: [MTD Packages](${baseUrl}/mtd-information)`
+            : `You may explain MTD rules when relevant, but do NOT push MTD Packages or MTD registration as the primary CTA on this Self Assessment journey. Prefer Taxsimba Self Assessment packages: [Taxsimba Pricing](${baseUrl}/pricing).`;
 
         // Format Tax Data from JSON
         const ukData = `UK TAX YEAR (${taxRates.uk.year}):\n- Personal Allowance: ${taxRates.uk.personal_allowance}\n${taxRates.uk.bands.map(b => `- ${b.name}: ${b.range}`).join('\n')}\n- Dividend Tax: Basic ${taxRates.uk.dividends.basic}, Higher ${taxRates.uk.dividends.higher}\n- NICs: Employee ${taxRates.uk.nics.employees_class_1}, Class 4 ${taxRates.uk.nics.self_employed_class_4}`;
@@ -114,6 +140,11 @@ export async function POST(req) {
 
         const dynamicPrompt = SYSTEM_PROMPT
             .replaceAll('{{BASE_URL}}', baseUrl)
+            .replaceAll('{{SIGNUP_URL}}', signupUrl)
+            .replaceAll('{{PLATFORM_PHRASE}}', platformPhrase)
+            .replaceAll('{{JOURNEY_LABEL}}', journeyLabel)
+            .replaceAll('{{EXIT_HINT}}', exitHint)
+            .replaceAll('{{PROACTIVE_PITCH}}', proactivePitch)
             .replaceAll('{{TAX_DATA}}', taxDataSection);
 
         // Basic PII check on the last user message
@@ -143,12 +174,16 @@ export async function POST(req) {
 
         const reply = response.choices[0].message.content;
 
-        // Robust post-processing to fix markdown links and remove "free" mentions
-        const fixedReply = reply
-            .replace(/free account/gi, 'account')
-            .replace(/free signup/gi, 'signup')
-            .replace(/free registration/gi, 'registration')
-            .replace(/\]\s*\(/g, '](');
+        // Robust post-processing to fix markdown links, remove "free" mentions,
+        // and lock signup links to the page journey (SA vs MTD).
+        const fixedReply = enforceSignupLinks(
+            reply
+                .replace(/free account/gi, 'account')
+                .replace(/free signup/gi, 'signup')
+                .replace(/free registration/gi, 'registration')
+                .replace(/\]\s*\(/g, ']('),
+            signupUrl,
+        );
 
         // Check fixed reply for PII (sanity check)
         if (containsPII(fixedReply)) {
@@ -160,7 +195,7 @@ export async function POST(req) {
             );
         }
 
-        return new Response(JSON.stringify({ content: fixedReply }), {
+        return new Response(JSON.stringify({ content: fixedReply, journey }), {
             status: 200,
             headers: { 'Content-Type': 'application/json' },
         });
