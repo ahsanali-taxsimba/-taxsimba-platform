@@ -1,5 +1,6 @@
 import { clean, col, Doc } from "../db/mongo";
 import { httpError } from "../http/errors";
+import { assertClientCanAccessService } from "./caseEntitlement";
 
 export async function clientRecord(user: Doc): Promise<Doc | null> {
   return (await col("clients").findOne({ user_id: user.id })) as Doc | null;
@@ -32,6 +33,8 @@ export async function getCase(caseId: string, user: Doc): Promise<Doc> {
     const owns =
       found.client_user_id === user.id || (client !== null && found.client_id === client.id);
     if (!owns) throw httpError(403, "Not your case");
+    // K.5 / D5: ownership alone is insufficient — matching ACTIVE entitlement required.
+    await assertClientCanAccessService(user, String(found.service_type));
   }
   if (user.role === "ACCOUNTANT" && found.assigned_accountant_id !== user.id) {
     throw httpError(403, "Case not assigned to you");

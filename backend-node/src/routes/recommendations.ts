@@ -271,8 +271,8 @@ async function approveAndOffer(rec: Doc, body: z.infer<typeof OfferIn>, user: Do
   );
   await notify(
     rec.client_user_id,
-    "Additional service recommended",
-    "Your accountant has recommended a service for you to review.",
+    "A TaxSimba service has been recommended for you",
+    "Your accountant has recommended an additional TaxSimba service for you to review.",
     rec.case_id,
     `/recommendation/${offer.id}`,
     "RECOMMENDATION",
