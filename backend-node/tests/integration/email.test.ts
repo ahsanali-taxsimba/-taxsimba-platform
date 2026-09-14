@@ -286,7 +286,7 @@ describe("transactional email and reminders", () => {
     });
     const run = await runReminders();
     expect(
-      await col("notifications").countDocuments({ title: "Still needed: Test-only task" }),
+      await col("notifications").countDocuments({ title: "Action needed: Test-only task" }),
     ).toBe(0);
     expect(run.client_task).toBe(0);
   });

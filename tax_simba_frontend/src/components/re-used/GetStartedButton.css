@@ -1,0 +1,188 @@
+/* GetStartedButton Component Styles */
+
+.get-started-btn {
+  /* Layout & Display */
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  
+  /* Dimensions - matching basic_btn */
+  height: 50px;
+  padding: 13px 5px 13px 30px;
+  
+  /* Typography */
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  color: #000;
+  text-decoration: none;
+  
+  /* Visual Styling */
+  background-color: #fff; /* Light purple/lavender */
+  border: none;
+  border-radius: 200px;
+  
+  /* Transitions */
+  transition: all 300ms ease-in-out;
+  cursor: pointer;
+  
+  /* Remove default button styles */
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.get-started-btn__text {
+  flex: 1;
+  white-space: nowrap;
+}
+
+.get-started-btn__icon-wrapper {
+  /* Circle background for arrow */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--theme-color); /* Dark green */
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: transform 300ms ease-in-out;
+}
+
+.get-started-btn__arrow {
+  width: 20px;
+  height: 20px;
+  transition: transform 300ms ease-in-out;
+}
+
+/* Hover Effects */
+/* .get-started-btn:hover {
+  background-color: #d4d3f3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+} */
+
+.get-started-btn:hover .get-started-btn__arrow {
+  transform: rotate(360deg); /* Rotate arrow on hover */
+}
+
+/* Active/Click State */
+.get-started-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Focus State for Accessibility */
+.get-started-btn:focus {
+  outline: 2px solid #1B5E20;
+  outline-offset: 2px;
+}
+
+/* Pro-Blue Variant */
+.get-started-btn--pro-blue {
+  background-color: var(--theme-color); /* Blue background */
+  color: #fff; /* White text */
+}
+
+.get-started-btn--pro-blue .get-started-btn__icon-wrapper {
+  background-color: #fff; /* White circle */
+}
+
+.get-started-btn--pro-blue .get-started-btn__arrow {
+  stroke: var(--theme-color); /* Blue arrow */
+}
+
+.get-started-btn--pro-blue .get-started-btn__arrow path {
+  stroke: var(--theme-color); /* Blue arrow path */
+}
+
+/* Pro-Blue Variant Hover */
+.get-started-btn--pro-blue:hover {
+  background-color: var(--theme-color); /* Darker blue on hover */
+}
+
+.get-started-btn--pro-blue:focus {
+  outline-color: var(--theme-color); /* Blue outline for focus */
+}
+
+/* Disabled State */
+.get-started-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Responsive Styles - matching basic_btn breakpoints */
+
+/* Tablets and smaller desktops (max-width: 1199px) */
+@media (max-width: 1199px) {
+  .get-started-btn {
+    font-size: 16px;
+    height: 44px;
+    line-height: 26px;
+    padding: 9px 4px 9px 20px;
+    gap: 15px;
+  }
+  
+  .get-started-btn__icon-wrapper {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .get-started-btn__arrow {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Mobile landscape and tablets (max-width: 767px) */
+@media (max-width: 767px) {
+  .get-started-btn {
+    font-size: 14px;
+    height: 40px;
+    line-height: 24px;
+    padding: 8px 4px 8px 20px;
+    gap: 12px;
+  }
+  
+  .get-started-btn__icon-wrapper {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .get-started-btn__arrow {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Mobile portrait (max-width: 575px) */
+@media (max-width: 575px) {
+  .get-started-btn {
+    font-size: 14px;
+    height: 40px;
+    padding: 10px 5px 10px 15px;
+    gap: 10px;
+  }
+  
+  .get-started-btn__icon-wrapper {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .get-started-btn__arrow {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* Extra small devices (max-width: 420px) */
+@media (max-width: 420px) {
+  .get-started-btn {
+    width: 100%; /* Full width on very small screens if needed */
+    justify-content: space-between;
+  }
+}

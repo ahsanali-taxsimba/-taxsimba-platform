@@ -164,8 +164,8 @@ mtdRouter.get(
         if (r.status === AWAITING_CLIENT && (r.days_to_deadline ?? 99) <= 14) {
           await notify(
             me.id,
-            `Action needed: approve your ${r.label}`,
-            `Due ${r.deadline}. Please review and approve the figures.`,
+            `Action required: approve your ${r.label}`,
+            `Your ${r.label} is awaiting approval and is due on ${r.deadline}. Please review the figures when you can.`,
             caseId,
             "/mtd",
             "REVIEW",
@@ -389,7 +389,8 @@ mtdRouter.post(
     await notify(
       kase.client_user_id,
       `Document requested for ${row.label}`,
-      title,
+      `Your accountant needs the following for your MTD period:\n\n${title}\n\n` +
+        "Please provide it securely through your TaxSimba account.",
       kase.id,
       "/mtd",
       "UPLOAD",
@@ -686,8 +687,9 @@ mtdRouter.post(
     );
     await notify(
       kase.client_user_id,
-      `MTD ${row.label} ready to approve`,
-      `Your ${String(row.label).toLowerCase()} figures have been published for approval.`,
+      `Your MTD ${row.label} figures are ready to review`,
+      `Your accountant has prepared your figures for ${row.label}.\n\n` +
+        "Please review the figures and approve them when you're happy for your accountant to proceed.",
       kase.id,
       "/mtd",
       "REVIEW",
@@ -843,8 +845,9 @@ mtdRouter.post(
     }
     await notify(
       kase.client_user_id,
-      `MTD ${row.label} being corrected`,
-      "Your accountant is making a correction. Updated figures will be sent to you for approval.",
+      `We're updating your MTD ${row.label} figures`,
+      `Your accountant is making a correction to your ${row.label} figures.\n\n` +
+        "There's nothing you need to do right now. Once the updated figures are ready, we'll let you know so you can review them again.",
       kase.id,
       "/mtd",
       "INFO",
@@ -887,7 +890,9 @@ mtdRouter.post(
     await notify(
       kase.client_user_id,
       `MTD ${row.label} submitted`,
-      `Submission reference ${body.submission_reference.trim()}`,
+      `Your ${row.label} update has been recorded as submitted.\n\n` +
+        `Submission reference: ${body.submission_reference.trim()}\n\n` +
+        "You can view its status at any time from your TaxSimba account.",
       kase.id,
       "/mtd",
       "SUBMISSION",
