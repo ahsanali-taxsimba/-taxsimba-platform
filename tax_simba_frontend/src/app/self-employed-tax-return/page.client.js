@@ -153,11 +153,15 @@ export default function SelfEmployedTaxReturnClient() {
       <SeoSources
         sources={[
           {
-            label: "GOV.UK — Using Making Tax Digital for Income Tax",
-            url: "https://www.gov.uk/guidance/using-making-tax-digital-for-income-tax",
+            label: "GOV.UK — Use Making Tax Digital for Income Tax",
+            url: "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax",
           },
           {
-            label: "GOV.UK — Self-employed expenses",
+            label: "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+            url: "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          },
+          {
+            label: "GOV.UK — Expenses if you're self-employed",
             url: "https://www.gov.uk/expenses-if-youre-self-employed",
           },
         ]}

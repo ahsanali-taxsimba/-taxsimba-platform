@@ -69,12 +69,16 @@ export const articles = [
     ],
     sources: [
       {
-        label: "GOV.UK — Using Making Tax Digital for Income Tax",
-        url: "https://www.gov.uk/guidance/using-making-tax-digital-for-income-tax",
+        label: "GOV.UK — Check what to do if HMRC has signed you up for Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/check-what-to-do-if-hmrc-has-signed-you-up-for-making-tax-digital-for-income-tax",
       },
       {
-        label: "GOV.UK — Check if Making Tax Digital for Income Tax applies to you",
-        url: "https://www.gov.uk/guidance/check-if-making-tax-digital-for-income-tax-applies-to-you",
+        label: "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      },
+      {
+        label: "GOV.UK — Use Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax",
       },
     ],
     curated: true,
@@ -86,7 +90,7 @@ export const articles = [
 <p>In practice, it means HMRC expects digital record-keeping and regular digital submissions for the income types covered by MTD, instead of relying only on a once-a-year paper-style Self Assessment process.</p>
 
 <h2>Who does MTD for Income Tax affect?</h2>
-<p>MTD for Income Tax is being phased in for people with qualifying income from self-employment and/or property. HMRC uses income thresholds and start dates set out in official guidance. Paye salary, pensions, dividends and savings interest are generally treated differently and are not used in the same way as qualifying self-employment or property income when checking MTD thresholds.</p>
+<p>MTD for Income Tax is being phased in for people with qualifying income from self-employment and/or property. HMRC uses income thresholds and start dates set out in official guidance. PAYE salary, pensions, dividends and savings interest are generally treated differently and are not used in the same way as qualifying self-employment or property income when checking MTD thresholds.</p>
 <p>If you are unsure whether you are in scope, use HMRC’s official checker and, if needed, ask an accountant to review your income mix.</p>
 
 <h2>Example</h2>
@@ -261,8 +265,12 @@ export const articles = [
     ],
     sources: [
       {
-        label: "GOV.UK — Making Tax Digital for Income Tax",
-        url: "https://www.gov.uk/guidance/using-making-tax-digital-for-income-tax",
+        label: "GOV.UK — Use Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax",
+      },
+      {
+        label: "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
       },
     ],
     curated: true,

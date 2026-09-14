@@ -180,12 +180,16 @@ export default function RentalIncomeTaxClient() {
       <SeoSources
         sources={[
           {
-            label: "GOV.UK — Using Making Tax Digital for Income Tax",
-            url: "https://www.gov.uk/guidance/using-making-tax-digital-for-income-tax",
+            label: "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+            url: "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
           },
           {
-            label: "GOV.UK — Income Tax when you rent out a property",
-            url: "https://www.gov.uk/tax-uk-income-live-abroad/renting-out-your-property",
+            label: "GOV.UK — Income Tax when you rent out a property: working out your rental income",
+            url: "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+          },
+          {
+            label: "GOV.UK — Work out your qualifying income for Making Tax Digital for Income Tax",
+            url: "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
           },
         ]}
       />

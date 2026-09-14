@@ -121,3 +121,32 @@ export function breadcrumbJsonLd(items) {
     })),
   };
 }
+
+/**
+ * Conservative Service schema for commercial SEO pages.
+ * Do not invent aggregateRating, awards, or credentials.
+ */
+export function serviceJsonLd({
+  name,
+  description,
+  path,
+  serviceType = "Tax preparation service",
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name,
+    description,
+    serviceType,
+    url: absoluteUrl(path),
+    provider: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: getSiteBaseUrl(),
+    },
+    areaServed: {
+      "@type": "Country",
+      name: "United Kingdom",
+    },
+  };
+}
