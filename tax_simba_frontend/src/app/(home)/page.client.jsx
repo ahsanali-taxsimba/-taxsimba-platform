@@ -36,17 +36,25 @@ const PageClient = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
+        const { getFeaturedArticles, mergeArticlesWithApi } = await import("@/data/articles");
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api/';
-        const response = await axios.get(`${apiUrl}resources/blogs?limit=3&type=TaxSimba`);
+        const response = await axios.get(`${apiUrl}resources/blogs?limit=6&type=TaxSimba`);
+        let apiArticles = [];
         if (response.data && Array.isArray(response.data.data?.articles)) {
-          setBlogs(response.data.data.articles.slice(0, 3));
-          setTotalBlogs(response.data.data.pagination?.total || response.data.data.articles.length);
+          apiArticles = response.data.data.articles;
         } else if (response.data && Array.isArray(response.data.data)) {
-          setBlogs(response.data.data.slice(0, 3));
-          setTotalBlogs(response.data.data.length);
+          apiArticles = response.data.data;
         }
+        const merged = mergeArticlesWithApi(apiArticles);
+        const featured = merged.length > 0 ? merged.slice(0, 3) : getFeaturedArticles(3);
+        setBlogs(featured);
+        setTotalBlogs(merged.length || featured.length);
       } catch (error) {
         console.error("Error fetching blogs:", error);
+        const { getFeaturedArticles } = await import("@/data/articles");
+        const featured = getFeaturedArticles(3);
+        setBlogs(featured);
+        setTotalBlogs(featured.length);
       } finally {
         setLoadingBlogs(false);
       }
@@ -1248,14 +1256,17 @@ const PageClient = () => {
               </Col>
             ) : blogs.length > 0 ? (
               blogs.map((blog, idx) => (
-                <Col lg={4} className="mb-4" key={blog.id || idx}>
+                <Col lg={4} className="mb-4" key={blog.id || blog.slug || idx}>
                   <div className="blog-card">
-                    <Link href={blog.slug ? `/blogs/${blog.slug}` : "/blog-details"}>
+                    <Link href={blog.slug ? `/blogs/${blog.slug}` : "/blogs"}>
                       <div className="blog-img">
-                        <img src={blog.featuredImage || `/images/blog_${(idx % 3) + 1}.png`} alt={blog.title || "img"} />
+                        <img
+                          src={blog.featuredImage || `/images/blog_${(idx % 3) + 1}.png`}
+                          alt={blog.featuredImageAlt || blog.title || "TaxSimba guide"}
+                        />
                       </div>
                       <div className="blog-card-content mt-3">
-                        <h4>{blog.title}</h4>
+                        <h3 className="h4">{blog.title}</h3>
                         <p>{(() => {
                           const wordCount = (blog.excerpt || "").split(/\s+/).filter(Boolean).length;
                           return Math.max(1, Math.ceil(wordCount / 200));

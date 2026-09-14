@@ -55,6 +55,15 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/blog-details',
+        destination: '/blogs/understanding-self-assessment-uk',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
