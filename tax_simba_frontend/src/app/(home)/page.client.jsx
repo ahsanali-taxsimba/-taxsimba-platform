@@ -583,8 +583,16 @@ const PageClient = () => {
                 <div className="cta-cont text-center">
                   <div className="stop-stressing-content text-center">
                     <h2 className="text-lt-theme">
-                      <span>  Share your details. </span> Choose your plan. <br className="d-lg-block d-none" /> Connect with your dedicated accountant.
+                      <span>Accountant-led</span> tax returns, made simple.
                     </h2>
+                    <p className="mt-1 mb-0">
+                      From the moment you sign up, your TaxSimba accountant handles the professional work. You provide your information, we prepare your return, and you review it before submission.
+                    </p>
+                    <ul className="banner-bottom-list list-unstyled d-flex align-items-center flex-wrap gap-3 justify-content-center mt-3 mb-0">
+                      <li className="text-white"><FaCheckCircle className="me-2" />Dedicated accountant</li>
+                      <li className="text-white"><FaCheckCircle className="me-2" />Professional preparation</li>
+                      <li className="text-white"><FaCheckCircle className="me-2" />You approve before filing</li>
+                    </ul>
                     <div className="d-flex align-items-center justify-content-center gap-2 flex-wrap mt-4">
                       <Link href="/register" className="common-btn">
                         Get Started <MdKeyboardDoubleArrowRight className="mtd-btn-icon" />
