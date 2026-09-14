@@ -179,8 +179,8 @@ export default function SelfAssessmentClient() {
         links={[
           { href: "/self-assessment-guide", label: "Self Assessment guide" },
           { href: "/making-tax-digital", label: "Making Tax Digital accountant" },
-          { href: "/self-employed-tax-return", label: "MTD for sole traders" },
-          { href: "/rental-income-tax", label: "MTD for landlords" },
+          { href: "/blogs/self-assessment-deadline", label: "Self Assessment deadline 2027" },
+          { href: "/blogs/self-assessment-documents-checklist", label: "Self Assessment documents checklist" },
           { href: "/blogs/understanding-self-assessment-uk", label: "Understanding Self Assessment" },
           { href: "/pricing", label: "Packages & pricing" },
         ]}

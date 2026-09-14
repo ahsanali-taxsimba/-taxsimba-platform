@@ -184,7 +184,9 @@ export default function MakingTaxDigitalClient() {
           { href: "/check-mtd", label: "Check if MTD applies to you" },
           { href: "/rental-income-tax", label: "MTD for landlords" },
           { href: "/self-employed-tax-return", label: "MTD for sole traders" },
-          { href: "/blogs/hmrc-signed-me-up-for-making-tax-digital", label: "HMRC signed me up for MTD — what do I do?" },
+          { href: "/blogs/hmrc-signed-me-up-for-making-tax-digital", label: "HMRC signed me up for MTD — what do I do next?" },
+          { href: "/blogs/mtd-qualifying-income", label: "MTD qualifying income explained" },
+          { href: "/blogs/mtd-quarterly-updates", label: "MTD quarterly updates explained" },
           { href: "/blogs", label: "All tax guides" },
         ]}
       />
