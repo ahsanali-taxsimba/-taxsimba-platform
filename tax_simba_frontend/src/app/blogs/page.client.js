@@ -7,7 +7,7 @@ import WhyReadBlogSection from "./_sections/WhyReadBlogSection";
 import Link from "next/link";
 import fetchJSON from "@/lib/fetchJSON";
 
-import { staticBlogs } from "@/data/staticBlogs";
+import { getPublishedArticles, mergeArticlesWithApi } from "@/data/articles";
 
 export default function BlogPageClient({
     articles = [],
@@ -17,8 +17,8 @@ export default function BlogPageClient({
     apiUrl,
     resourceData = {},
 }) {
-    // If no articles provided, use static blogs
-    const initialItems = articles.length > 0 ? articles : staticBlogs;
+    // If no articles provided, use curated registry
+    const initialItems = articles.length > 0 ? articles : getPublishedArticles();
     const [items, setItems] = useState(initialItems);
     const [pageInfo, setPageInfo] = useState(pagination);
     const [currentPage, setCurrentPage] = useState(pageInfo?.page || initialPage);
@@ -40,9 +40,11 @@ export default function BlogPageClient({
                 limit: limit
             };
 
-            // If API returns no articles, fall back to static blogs on first page
+            // If API returns no articles, fall back to curated/static blogs on first page
             if (newArticles.length === 0 && page === 1) {
-                setItems(staticBlogs);
+                setItems(getPublishedArticles());
+            } else if (page === 1) {
+                setItems(mergeArticlesWithApi(newArticles));
             } else {
                 setItems(newArticles);
             }
@@ -54,7 +56,7 @@ export default function BlogPageClient({
             console.error("Failed to load blogs", err);
             // Fallback to static blogs on error if we are on page 1
             if (page === 1) {
-                setItems(staticBlogs);
+                setItems(getPublishedArticles());
             }
         } finally {
             setLoading(false);
@@ -82,13 +84,13 @@ export default function BlogPageClient({
                     <Row className="align-items-center">
                         <Col lg={6}>
                             <div className="bread-crum-inr-box text-lg-start text-center">
-                                <h2 className="text-capitalize mb-3">Expert Tax Insights</h2>
-                                <p className="mb-0">Stay updated with the latest tax news, tips, and guidance from Taxsimba's team of experts.</p>
+                                <h1 className="text-capitalize mb-3">UK Tax Guides &amp; Blog</h1>
+                                <p className="mb-0">Practical guidance on Self Assessment, Making Tax Digital, landlords and sole traders — written to help you take the next step with TaxSimba.</p>
                             </div>
                         </Col>
                         <Col lg={6}>
                             <div className="breadcrum-img text-center">
-                                <img src="/images/blog-bread.png" alt="Breadcrumb Image" className="img-fluid" />
+                                <img src="/images/blog-bread.png" alt="TaxSimba UK tax guides and blog" className="img-fluid" />
                             </div>
                         </Col>
                     </Row>
@@ -99,7 +101,7 @@ export default function BlogPageClient({
             <section className="blog-sec ptb-80">
                 <Container>
                     <div className="common-title mb-lg-5 mb-4">
-                        <h2>Our Latest Articles</h2>
+                        <h2>Latest guides</h2>
                     </div>
                     <Row>
                         {loading ? (
@@ -115,12 +117,15 @@ export default function BlogPageClient({
                                 return (
                                     <Col lg={4} className="mb-4" key={article?.id || article?.slug}>
                                         <div className="blog-card">
-                                            <Link href={article?.slug ? `/blogs/${article.slug}` : "/blog-details"}>
+                                            <Link href={article?.slug ? `/blogs/${article.slug}` : "/blogs"}>
                                                 <div className="blog-img">
-                                                    <img src={article?.featuredImage || "/images/tax_blog_default.png"} alt={article?.title || "img"} />
+                                                    <img
+                                                        src={article?.featuredImage || "/images/tax_blog_default.png"}
+                                                        alt={article?.featuredImageAlt || article?.title || "TaxSimba guide"}
+                                                    />
                                                 </div>
                                                 <div className="blog-card-content mt-3">
-                                                    <h4>{article?.title || "Untitled"}</h4>
+                                                    <h3 className="h4">{article?.title || "Untitled"}</h3>
                                                     <p>{readTime} min read</p>
                                                 </div>
                                             </Link>
@@ -131,12 +136,12 @@ export default function BlogPageClient({
                         ) : (
                             <Col lg={4} className="mb-4">
                                 <div className="blog-card">
-                                    <Link href="/blog-details">
+                                    <Link href="/blogs">
                                         <div className="blog-img">
-                                            <img src="/images/tax_blog_default.png" alt="img" />
+                                            <img src="/images/tax_blog_default.png" alt="TaxSimba tax guides" />
                                         </div>
                                         <div className="blog-card-content mt-3">
-                                            <h4>No articles available yet.</h4>
+                                            <h3 className="h4">No articles available yet.</h3>
                                             <p>Check back soon</p>
                                         </div>
                                     </Link>

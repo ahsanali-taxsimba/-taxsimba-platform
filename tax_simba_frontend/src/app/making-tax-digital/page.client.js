@@ -1,313 +1,206 @@
 "use client";
-import React from 'react';
-import { Accordion, Col, Row } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
-import { MdOutlineCheckCircle, MdOutlineKeyboardDoubleArrowRight } from 'react-icons/md';
 
-const MakingTaxDigitalClient = () => {
-    return (
-        <>
+import Link from "next/link";
+import { Accordion, Col, Container, Row } from "react-bootstrap";
+import { MdOutlineCheckCircle } from "react-icons/md";
+import {
+  SeoBreadcrumbHero,
+  SeoCtaBand,
+  SeoLinkList,
+  SeoSources,
+} from "@/components/seo/SeoLandingBits";
 
+const faqs = [
+  {
+    q: "Is TaxSimba DIY MTD software?",
+    a: "No. TaxSimba is an accountant-led service. Our platform supports the customer and accountant workflow; you are not left to become a tax-software expert on your own.",
+  },
+  {
+    q: "Can an accountant act as my agent for MTD?",
+    a: "Yes. Many people appoint an agent so an accountant can help manage Making Tax Digital obligations. You still need to provide complete and accurate records.",
+  },
+  {
+    q: "Does MTD replace Self Assessment completely?",
+    a: "MTD for Income Tax changes how qualifying income is recorded and reported during the year. You should still expect year-end obligations. Check GOV.UK for the rules that apply to you.",
+  },
+];
 
-            <section className="breadcrum-sec-top py-80">
-                <Container>
-                    <Row className="align-items-center">
-                        <Col lg={6}>
-                            <div className="bread-crum-inr-box text-lg-start text-center">
-                                <h2 className="text-capitalize mb-3">Self Assessment Tax Returns</h2>
-                                <p className="mb-0">File your HMRC Self Assessment easily with Taxsimba's smart tax platform Stay compliant, minimize errors, and avoid overpaying tax.</p>
-                            </div>
-                        </Col>
-                        <Col lg={6} className="mt-lg-0 mt-5">
-                            <div className="breadcrum-img text-center">
-                                <img src="/images/breadcrum-img.png" alt="Breadcrumb Image" className="img-fluid" />
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
-            </section>
+export default function MakingTaxDigitalClient() {
+  return (
+    <>
+      <SeoBreadcrumbHero
+        title="Making Tax Digital accountant"
+        subtitle="Accountant-led MTD support for sole traders and landlords who want the process managed — without learning to be a software specialist."
+        imageSrc="/images/breadcrum-img.png"
+        imageAlt="Making Tax Digital accountant support from TaxSimba"
+      />
 
+      <section className="feature-bussiness-sec pd-100">
+        <Container>
+          <div className="common-title mb-4">
+            <h2>Immediate answer</h2>
+          </div>
+          <p className="mb-4" style={{ maxWidth: 820 }}>
+            If you want a <strong>Making Tax Digital accountant</strong>, look for an accountant-led service that can help with digital records, quarterly updates and the wider Income Tax process — not a promise of “set and forget” automation. TaxSimba’s MTD service is managed by accountants using a secure online workflow.
+          </p>
 
-            <section className='feature-bussiness-sec pd-100 bg-grey'>
-                <Container>
-                    <div className="feature-bussiness-inner">
-                        <Row className="align-items-center mb-5">
-                            <Col lg={7}>
-                                <div className='feature-bussiness-left common-title pe-5'>
-                                    <div className="feature-text-box connect-box-card">
-                                        <h2><span>Self Assessment</span> made simple with <span>Taxsimba</span></h2>
-                                        <p className='mb-0'>Our platform is designed to take the stress out of filing your Self Assessment. Instead of navigating complicated HMRC forms, Taxsimba asks you simple questions and handles all the complex tax calculations behind the scenes. We automatically identify allowable expenses so you never pay more tax than you need to. With our direct HMRC connection, you can submit your return straight from our software with a single click. From sole traders and landlords to high earners, Taxsimba provides the guidance and confidence you need to file accurately, avoid penalties, and get back to what you do best.
-                                        </p>
-                                    </div>
-                                </div>
-                            </Col>
-                            <Col lg={5}>
-                                <div className="feature-bussiness-right">
-                                    <img src="/images/auth.jpg" alt="" className='img-fluid' />
-                                </div>
-                            </Col>
-                        </Row>
+          <Row className="g-4">
+            <Col md={6}>
+              <div className="connect-box-card h-100 p-4">
+                <h2 className="h4">What MTD means in practice</h2>
+                <p className="mb-0">
+                  Making Tax Digital for Income Tax requires many people with qualifying self-employment and/or property income to keep digital records and send quarterly updates to HMRC. Exact thresholds and start dates are set by HMRC — always check current GOV.UK guidance.
+                </p>
+              </div>
+            </Col>
+            <Col md={6}>
+              <div className="connect-box-card h-100 p-4">
+                <h2 className="h4">Who this page is for</h2>
+                <ul className="mb-0">
+                  <li>Sole traders told MTD applies to them</li>
+                  <li>Landlords with qualifying property income</li>
+                  <li>People searching for an accountant to handle MTD</li>
+                  <li>Clients who do not want DIY MTD software alone</li>
+                </ul>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
 
-                        <Row>
-                            <Col lg={3} className="mb-lg-0 mb-4">
-                                <div className='feature-bussiness-bottom-box h-100'>
-                                    <div className="feature-bottom-text">
-                                        <h4>Smart Tax Estimator</h4>
-                                        <p>See your estimated tax bill update in real-time as you enter your income and expenses. No more surprise tax bills in January.</p>
-                                    </div>
-                                </div>
-                            </Col>
-                            <Col lg={3} className="mb-lg-0 mb-4">
-                                <div className='feature-bussiness-bottom-box h-100'>
-                                    <div className="feature-bottom-text">
-                                        <h4>Maximized Deductions</h4>
-                                        <p>Ensure you claim every allowable expense you're entitled to with built-in guidance on what can and cannot be deducted.</p>
-                                    </div>
-                                </div>
-                            </Col>
-                            <Col lg={3} className="mb-lg-0 mb-4">
-                                <div className='feature-bussiness-bottom-box h-100'>
-                                    <div className="feature-bottom-text">
-                                        <h4>Direct Submission</h4>
-                                        <p>File your Self Assessment tax return straight to HMRC electronically from within Taxsimba without needing to visit the HMRC portal.</p>
-                                    </div>
-                                </div>
-                            </Col>
-                            <Col lg={3} className="mb-lg-0 mb-4">
-                                <div className='feature-bussiness-bottom-box h-100'>
-                                    <div className="feature-bottom-text">
-                                        <h4>Expert Review Checks</h4>
-                                        <p>Our system runs automated diagnostic checks on your return before submission to help prevent common mistakes and HMRC inquiries.</p>
-                                    </div>
-                                </div>
-                            </Col>
-                        </Row>
-                    </div>
+      <section className="ptb-80 bg-grey">
+        <Container>
+          <div className="common-title mb-4">
+            <h2>How TaxSimba’s accountant-led MTD service works</h2>
+          </div>
+          <Row className="g-4">
+            {[
+              {
+                t: "1. You share your situation",
+                d: "Tell us about your self-employment and/or property income and provide the records an accountant needs.",
+              },
+              {
+                t: "2. Accountants manage the workflow",
+                d: "Our team helps organise digital records and MTD steps through TaxSimba’s platform — you are not left to interpret HMRC software alone.",
+              },
+              {
+                t: "3. Quarterly rhythm, not a January scramble",
+                d: "MTD is built around regular updates. We help you stay on that rhythm, then handle year-end steps as part of the managed service model.",
+              },
+              {
+                t: "4. Clear responsibilities",
+                d: "You remain responsible for complete, accurate information. We do not claim guaranteed compliance, guaranteed no penalties, or “HMRC approved accountant” status.",
+              },
+            ].map((item) => (
+              <Col md={6} key={item.t}>
+                <div className="p-4 h-100 bg-white rounded-3">
+                  <h3 className="h5">{item.t}</h3>
+                  <p className="mb-0">{item.d}</p>
+                </div>
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </section>
 
-                </Container>
-            </section>
+      <section className="ptb-80">
+        <Container>
+          <div className="common-title mb-4">
+            <h2>Example</h2>
+          </div>
+          <p style={{ maxWidth: 820 }}>
+            Alex runs a freelance design business and also lets a flat. HMRC confirms MTD for Income Tax applies. Instead of buying and learning multiple tools alone, Alex registers with TaxSimba for MTD support, uploads bank and income records, and works with an accountant-led process for quarterly updates.
+          </p>
 
+          <div className="common-title mt-5 mb-3">
+            <h2>Common mistake</h2>
+          </div>
+          <p style={{ maxWidth: 820 }}>
+            Waiting until the Self Assessment deadline to “sort MTD later.” Quarterly updates are part of the MTD design. Starting early with clear records is usually easier than reconstructing a year of activity at once.
+          </p>
 
-            <section className="tax-problems-sec pd-100">
-                <Container>
-                    <div className="common-title text-center mb-5">
-                        <h2>Features That Make <span>Self Assessment Easy</span></h2>
-                        <p>Everything you need to complete and file your self assessment tax return accurately and on time.</p>
-                    </div>
-                    <Row>
-                        <Col lg={4} md={6} sm={12} xs={12}>
-                            <div className="tax-problems-box">
-                                <span className="tax-problem-icon">
-                                    <img src="/images/tax.png" alt="img" />
-                                </span>
-                                <h3>Automated Tax Calculations</h3>
-                                <p>Taxsimba automatically calculates your tax liability in real-time as you log your income and expenses.</p>
-                            </div>
-                        </Col>
+          <div className="common-title mt-5 mb-3">
+            <h2>What you should do next</h2>
+          </div>
+          <ul>
+            <li>Confirm whether MTD applies using HMRC/GOV.UK guidance or our <Link href="/check-mtd">MTD checker</Link>.</li>
+            <li>Gather income, expense and property records.</li>
+            <li>Decide whether you want accountant-led support.</li>
+            <li>Review <Link href="/mtd-information">MTD packages</Link> and register for MTD if TaxSimba is the right fit.</li>
+          </ul>
+        </Container>
+      </section>
 
-                        <Col lg={4} md={6} sm={12} xs={12}>
-                            <div className="tax-problems-box">
-                                <span className="tax-problem-icon">
-                                    <img src="/images/tax.png" alt="img" />
-                                </span>
-                                <h3>Direct HMRC Submission</h3>
-                                <p>Submit your Self Assessment directly to HMRC from our platform. We are formally recognised by HMRC.</p>
-                            </div>
-                        </Col>
+      <section className="ptb-80 bg-grey">
+        <Container>
+          <div className="common-title mb-4 text-center">
+            <h2>Why people choose an MTD accountant</h2>
+          </div>
+          <Row className="g-3">
+            {[
+              "Help interpreting what HMRC expects",
+              "Support keeping digital records usable",
+              "Managed quarterly update rhythm",
+              "Human review instead of DIY guesswork",
+            ].map((text) => (
+              <Col md={6} key={text}>
+                <div className="d-flex align-items-start gap-2">
+                  <MdOutlineCheckCircle className="text-success mt-1" size={22} />
+                  <p className="mb-0">{text}</p>
+                </div>
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </section>
 
-                        <Col lg={4} md={6} sm={12} xs={12}>
-                            <div className="tax-problems-box">
-                                <span className="tax-problem-icon">
-                                    <img src="/images/tax.png" alt="img" />
-                                </span>
-                                <h3>Smart Expense Tracking</h3>
-                                <p>Log all your business expenses digitally so you never miss a tax deduction and keep proof organized.</p>
-                            </div>
-                        </Col>
+      <section className="faq-section ptb-80">
+        <Container>
+          <div className="common-title mb-4 text-center">
+            <h2>MTD accountant FAQs</h2>
+          </div>
+          <Accordion>
+            {faqs.map((item, idx) => (
+              <Accordion.Item eventKey={String(idx)} key={item.q}>
+                <Accordion.Header>{item.q}</Accordion.Header>
+                <Accordion.Body>{item.a}</Accordion.Body>
+              </Accordion.Item>
+            ))}
+          </Accordion>
+        </Container>
+      </section>
 
-                        <Col lg={4} md={6} sm={12} xs={12}>
-                            <div className="tax-problems-box">
-                                <span className="tax-problem-icon">
-                                    <img src="/images/tax.png" alt="img" />
-                                </span>
-                                <h3>Error Checking</h3>
-                                <p>Our system runs automatic checks to identify potential anomalies or missing data before you submit to HMRC.</p>
-                            </div>
-                        </Col>
+      <SeoCtaBand
+        title="Ready for accountant-led MTD support?"
+        text="Register for TaxSimba’s Making Tax Digital service and we’ll help you take the next step."
+        href="/register?role=MTD"
+        label="Get started with MTD"
+      />
 
-                        <Col lg={4} md={6} sm={12} xs={12}>
-                            <div className="tax-problems-box">
-                                <span className="tax-problem-icon">
-                                    <img src="/images/tax.png" alt="img" />
-                                </span>
-                                <h3>Deadline Reminders</h3>
-                                <p>Get automated email and dashboard reminders near the 31 January deadline so you never face late penalties.</p>
-                            </div>
-                        </Col>
+      <SeoLinkList
+        heading="Related pages"
+        links={[
+          { href: "/mtd-information", label: "MTD information and packages" },
+          { href: "/check-mtd", label: "Check if MTD applies to you" },
+          { href: "/rental-income-tax", label: "MTD for landlords" },
+          { href: "/self-employed-tax-return", label: "MTD for sole traders" },
+          { href: "/blogs/hmrc-signed-me-up-for-making-tax-digital", label: "HMRC signed me up for MTD — what do I do?" },
+          { href: "/blogs", label: "All tax guides" },
+        ]}
+      />
 
-                        <Col lg={4} md={6} sm={12} xs={12}>
-                            <div className="tax-problems-box">
-                                <span className="tax-problem-icon">
-                                    <img src="/images/tax.png" alt="img" />
-                                </span>
-                                <h3>Comprehensive Reporting</h3>
-                                <p>Generate detailed income, expense, and tax liability reports to understand your overall financial position.</p>
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
-            </section>
-
-            <section className="who-needs-sec mx-3 pd-100">
-                <Container>
-                    <div className="common-title text-center mb-5">
-                        <h2>Who Needs to File a <span>Self Assessment?</span></h2>
-                        <p>You must send a tax return if, in the last tax year (6 April to 5 April), any of the following applied:</p>
-                    </div>
-                    <Row className="justify-content-center">
-                        <Col lg={3} md={6} sm={12} xs={12} className="mb-4">
-                            <div className="need-to-box h-100 text-center">
-                                <div className="need-to-icon mb-3">
-                                    <img src="/images/tax.png" alt="img" />
-                                </div>
-                                <h3 className='mb-2'>Self-Employed</h3>
-                                <p>You worked for yourself as a sole trader and earned more than £1,000 before taking off allowable expenses.</p>
-                            </div>
-                        </Col>
-                        <Col lg={3} md={6} sm={12} xs={12} className="mb-4">
-                            <div className="need-to-box h-100 text-center">
-                                <div className="need-to-icon mb-3">
-                                    <img src="/images/tax.png" alt="img" />
-                                </div>
-                                <h3 className='mb-2'>Partnerships</h3>
-                                <p>You were a partner in a business partnership, regardless of the income amount earned.</p>
-                            </div>
-                        </Col>
-                        <Col lg={3} md={6} sm={12} xs={12} className="mb-4">
-                            <div className="need-to-box h-100 text-center">
-                                <div className="need-to-icon mb-3">
-                                    <img src="/images/tax.png" alt="img" />
-                                </div>
-                                <h3 className='mb-2'>High Earners</h3>
-                                <p>Your total taxable income was more than £100,000, or you claimed Child Benefit and income was over £50,000.</p>
-                            </div>
-                        </Col>
-                        <Col lg={3} md={6} sm={12} xs={12} className="mb-4">
-                            <div className="need-to-box h-100 text-center">
-                                <div className="need-to-icon mb-3">
-                                    <img src="/images/tax.png" alt="img" />
-                                </div>
-                                <h3 className='mb-2'>Untaxed Income</h3>
-                                <p>You received untaxed income from properties, tips, foreign investments, savings, or dividends.</p>
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
-            </section>
-
-
-
-            <section className="easy-sec pd-100">
-                <Container>
-                    <div className="easy-content-main">
-                        <Row>
-                            <Col lg={6} md={7} sm={12} xs={12}>
-                                <div className="easy-content-inner">
-                                    <h2>Easy and stress-free <br /><span>tax adviser.</span></h2>
-
-                                    <ul className="easy-list">
-                                        <li><MdOutlineCheckCircle />Simple Tax Solutions</li>
-                                        <li><MdOutlineCheckCircle />Smart Financial Guidance</li>
-                                        <li><MdOutlineCheckCircle />Stress-Free Tax Filing</li>
-                                        <li><MdOutlineCheckCircle />Stay Fully Compliant</li>
-                                    </ul>
-
-
-                                    <button className="common-btn mt-4">
-                                        Speak to Our Adviser
-
-                                    </button>
-
-                                </div>
-                            </Col>
-                            <Col lg={6} md={5} sm={12} xs={12}>
-                                <div className="easy-img">
-                                    <img src="/images/easy-rt.png" alt="img" />
-                                </div>
-                            </Col>
-                        </Row>
-                    </div>
-                </Container>
-            </section>
-
-
-            <section className="faq-sec-main faq-home mx-3 pd-100">
-                <Container>
-                    <Row>
-                        <Col lg={4} md={12} sm={12} xs={12}>
-                            <div className="common-title mb-0">
-                                <h2><span>Self Assessment</span> FAQs</h2>
-                            </div>
-                        </Col>
-
-                        <Col lg={8} md={12} sm={12} xs={12}>
-                            <div className="faq-outer">
-                                <Accordion defaultActiveKey="0">
-                                    <Accordion.Item eventKey="0">
-                                        <Accordion.Header>When is the Self Assessment deadline?</Accordion.Header>
-                                        <Accordion.Body>
-                                            The deadline for online tax returns is typically midnight on 31 January following the end of the tax year. The tax year ends on 5 April.
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-
-                                    <Accordion.Item eventKey="1">
-                                        <Accordion.Header>Can Taxsimba submit my return to HMRC directly?</Accordion.Header>
-                                        <Accordion.Body>
-                                            Yes, Taxsimba is HMRC recognized and fully supports direct digital submission of your Self Assessment tax return.
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-
-                                    <Accordion.Item eventKey="2">
-                                        <Accordion.Header>Do I need to be an accountant to use Taxsimba for Self Assessment?</Accordion.Header>
-                                        <Accordion.Body>
-                                            Not at all. Taxsimba is designed specifically for non-accountants. It asks you simple questions and automatically calculates your tax dynamically.
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-
-                                    <Accordion.Item eventKey="3">
-                                        <Accordion.Header>What if I make a mistake on my return?</Accordion.Header>
-                                        <Accordion.Body>
-                                            Taxsimba has built-in error checking to catch common mistakes before you submit. If you've already submitted, you normally have up to 12 months from the 31 January deadline to amend your return.
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-
-                                    <Accordion.Item eventKey="4">
-                                        <Accordion.Header>Can I claim expenses through Taxsimba?</Accordion.Header>
-                                        <Accordion.Body>
-                                            Yes, you can easily log and categorize allowable business expenses throughout the year to ensure your tax bill is accurate.
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-                                </Accordion>
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
-            </section>
-
-            <section className="stop-stressing-sec pd-100">
-                <Container>
-                    <div className="stop-stressing-content text-center">
-                        <h2>Start your <span>tax return</span> today</h2>
-                        <p>Complete your Self Assessment the simple way.</p>
-                        <button className="common-btn">
-                            Start Your Free Trial Today <MdOutlineKeyboardDoubleArrowRight className='ms-1' />
-                        </button>
-
-                    </div>
-                </Container>
-            </section>
-        </>
-    );
-};
-
-export default MakingTaxDigitalClient;
+      <SeoSources
+        sources={[
+          {
+            label: "GOV.UK — Using Making Tax Digital for Income Tax",
+            url: "https://www.gov.uk/guidance/using-making-tax-digital-for-income-tax",
+          },
+          {
+            label: "GOV.UK — Check if Making Tax Digital for Income Tax applies to you",
+            url: "https://www.gov.uk/guidance/check-if-making-tax-digital-for-income-tax-applies-to-you",
+          },
+        ]}
+      />
+    </>
+  );
+}

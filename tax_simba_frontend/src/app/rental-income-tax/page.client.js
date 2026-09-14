@@ -1,311 +1,194 @@
 "use client";
-import { Accordion, Col, Row } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
-import { MdOutlineCheckCircle, MdOutlineKeyboardDoubleArrowRight } from 'react-icons/md';
 
-const RentalIncomeTaxClient = () => {
-    return (
-        <>
+import Link from "next/link";
+import { Accordion, Col, Container, Row } from "react-bootstrap";
+import {
+  SeoBreadcrumbHero,
+  SeoCtaBand,
+  SeoLinkList,
+  SeoSources,
+} from "@/components/seo/SeoLandingBits";
 
+const faqs = [
+  {
+    q: "Does every landlord need MTD?",
+    a: "No. MTD for Income Tax is being phased in based on HMRC’s rules for qualifying income and start dates. Check GOV.UK for whether you are in scope.",
+  },
+  {
+    q: "What counts as property income for MTD?",
+    a: "HMRC uses the idea of qualifying income from property (and/or self-employment). The official definition and thresholds are on GOV.UK — do not rely on informal estimates alone.",
+  },
+  {
+    q: "Can TaxSimba help if I also have self-employment income?",
+    a: "Yes. Many clients have mixed income. Tell us about both property and trading activity so the MTD workflow covers what applies to you.",
+  },
+];
 
+export default function RentalIncomeTaxClient() {
+  return (
+    <>
+      <SeoBreadcrumbHero
+        title="MTD for landlords"
+        subtitle="Making Tax Digital for Income Tax help for UK landlords who want accountant-led support with digital records and quarterly updates."
+        imageSrc="/images/breadcrum-img.png"
+        imageAlt="Making Tax Digital guidance for UK landlords"
+      />
 
-            <section className="breadcrum-sec-top py-80">
-                <Container>
-                    <Row className="align-items-center">
-                        <Col lg={6}>
-                            <div className="bread-crum-inr-box text-lg-start text-center">
-                                <h2 className="text-capitalize mb-3">Self Assessment Tax Returns</h2>
-                                <p className="mb-0">File your HMRC Self Assessment easily with Taxsimba's smart tax platform Stay compliant, minimize errors, and avoid overpaying tax.</p>
-                            </div>
-                        </Col>
-                        <Col lg={6} className="mt-lg-0 mt-5">
-                            <div className="breadcrum-img text-center">
-                                <img src="/images/breadcrum-img.png" alt="Breadcrumb Image" className="img-fluid" />
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
-            </section>
-            <section className='feature-bussiness-sec pd-100 bg-grey'>
-                <Container>
-                    <div className="feature-bussiness-inner">
-                        <Row className="align-items-center mb-5">
-                            <Col lg={7}>
-                                <div className='feature-bussiness-left common-title pe-5'>
-                                    <div className="feature-text-box connect-box-card">
-                                        <h2><span>Self Assessment</span> made simple with <span>Taxsimba</span></h2>
-                                        <p className='mb-0'>Our platform is designed to take the stress out of filing your Self Assessment. Instead of navigating complicated HMRC forms, Taxsimba asks you simple questions and handles all the complex tax calculations behind the scenes. We automatically identify allowable expenses so you never pay more tax than you need to. With our direct HMRC connection, you can submit your return straight from our software with a single click. From sole traders and landlords to high earners, Taxsimba provides the guidance and confidence you need to file accurately, avoid penalties, and get back to what you do best.
-                                        </p>
-                                    </div>
-                                </div>
-                            </Col>
-                            <Col lg={5}>
-                                <div className="feature-bussiness-right">
-                                    <img src="/images/auth.jpg" alt="" className='img-fluid' />
-                                </div>
-                            </Col>
-                        </Row>
+      <section className="ptb-80">
+        <Container>
+          <div className="common-title mb-3">
+            <h2>Immediate answer</h2>
+          </div>
+          <p style={{ maxWidth: 820 }}>
+            If you are a landlord looking for <strong>MTD help</strong>, the core duties are digital record-keeping for qualifying property income and sending quarterly updates to HMRC when you are in scope. An accountant-led service like TaxSimba can manage that process with you — you still need to supply accurate letting records.
+          </p>
 
-                        <Row>
-                            <Col lg={3} className="mb-lg-0 mb-4">
-                                <div className='feature-bussiness-bottom-box h-100'>
-                                    <div className="feature-bottom-text">
-                                        <h4>Smart Tax Estimator</h4>
-                                        <p>See your estimated tax bill update in real-time as you enter your income and expenses. No more surprise tax bills in January.</p>
-                                    </div>
-                                </div>
-                            </Col>
-                            <Col lg={3} className="mb-lg-0 mb-4">
-                                <div className='feature-bussiness-bottom-box h-100'>
-                                    <div className="feature-bottom-text">
-                                        <h4>Maximized Deductions</h4>
-                                        <p>Ensure you claim every allowable expense you're entitled to with built-in guidance on what can and cannot be deducted.</p>
-                                    </div>
-                                </div>
-                            </Col>
-                            <Col lg={3} className="mb-lg-0 mb-4">
-                                <div className='feature-bussiness-bottom-box h-100'>
-                                    <div className="feature-bottom-text">
-                                        <h4>Direct Submission</h4>
-                                        <p>File your Self Assessment tax return straight to HMRC electronically from within Taxsimba without needing to visit the HMRC portal.</p>
-                                    </div>
-                                </div>
-                            </Col>
-                            <Col lg={3} className="mb-lg-0 mb-4">
-                                <div className='feature-bussiness-bottom-box h-100'>
-                                    <div className="feature-bottom-text">
-                                        <h4>Expert Review Checks</h4>
-                                        <p>Our system runs automated diagnostic checks on your return before submission to help prevent common mistakes and HMRC inquiries.</p>
-                                    </div>
-                                </div>
-                            </Col>
-                        </Row>
-                    </div>
+          <Row className="g-4 mt-2">
+            <Col lg={6}>
+              <div className="connect-box-card p-4 h-100">
+                <h2 className="h4">What the rule means for landlords</h2>
+                <p className="mb-0">
+                  Making Tax Digital for Income Tax is not only a “business owner” topic. Property income can bring landlords into scope. That usually means keeping digital records of rents and allowable property expenses, then reporting through compatible software or an authorised agent on a quarterly rhythm.
+                </p>
+              </div>
+            </Col>
+            <Col lg={6}>
+              <div className="connect-box-card p-4 h-100">
+                <h2 className="h4">Who it can affect</h2>
+                <ul className="mb-0">
+                  <li>Individual landlords with qualifying property income</li>
+                  <li>Landlords who also trade as sole traders</li>
+                  <li>People who received an HMRC MTD notice</li>
+                  <li>Hosts with taxable property-style letting income (check your facts against GOV.UK)</li>
+                </ul>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
 
-                </Container>
-            </section>
+      <section className="ptb-80 bg-grey">
+        <Container>
+          <div className="common-title mb-4">
+            <h2>Landlord scenarios we commonly see</h2>
+          </div>
+          <Row className="g-4">
+            {[
+              {
+                t: "Single buy-to-let",
+                d: "One property, straightforward rents and expenses — still needs organised digital records if MTD applies.",
+              },
+              {
+                t: "Portfolio landlord",
+                d: "Multiple properties increase the value of consistent digital bookkeeping and accountant oversight.",
+              },
+              {
+                t: "Landlord + side trade",
+                d: "Property income plus self-employment can both feed into MTD qualifying income checks.",
+              },
+              {
+                t: "First HMRC letter",
+                d: "You have been told MTD applies and need a clear next-step plan rather than software jargon.",
+              },
+            ].map((item) => (
+              <Col md={6} key={item.t}>
+                <div className="bg-white p-4 h-100 rounded-3">
+                  <h3 className="h5">{item.t}</h3>
+                  <p className="mb-0">{item.d}</p>
+                </div>
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </section>
 
+      <section className="ptb-80">
+        <Container>
+          <div className="common-title mb-3">
+            <h2>Example</h2>
+          </div>
+          <p style={{ maxWidth: 820 }}>
+            Jordan lets two flats. Rental income sits above the relevant HMRC threshold for their start date. Jordan keeps rent statements and repair invoices, appoints TaxSimba for MTD support, and works with an accountant-led process for quarterly updates instead of rebuilding everything each January.
+          </p>
 
-            <section className="tax-problems-sec pd-100">
-                <Container>
-                    <div className="common-title text-center mb-5">
-                        <h2>Features That Make <span>Self Assessment Easy</span></h2>
-                        <p>Everything you need to complete and file your self assessment tax return accurately and on time.</p>
-                    </div>
-                    <Row>
-                        <Col lg={4} md={6} sm={12} xs={12}>
-                            <div className="tax-problems-box">
-                                <span className="tax-problem-icon">
-                                    <img src="/images/tax.png" alt="img" />
-                                </span>
-                                <h3>Automated Tax Calculations</h3>
-                                <p>Taxsimba automatically calculates your tax liability in real-time as you log your income and expenses.</p>
-                            </div>
-                        </Col>
+          <div className="common-title mt-5 mb-3">
+            <h2>Common mistake</h2>
+          </div>
+          <p style={{ maxWidth: 820 }}>
+            Treating MTD as “just another Self Assessment reminder.” Quarterly updates and digital records are part of the design. Leaving property paperwork in email threads and paper folders until year end makes MTD harder than it needs to be.
+          </p>
 
-                        <Col lg={4} md={6} sm={12} xs={12}>
-                            <div className="tax-problems-box">
-                                <span className="tax-problem-icon">
-                                    <img src="/images/tax.png" alt="img" />
-                                </span>
-                                <h3>Direct HMRC Submission</h3>
-                                <p>Submit your Self Assessment directly to HMRC from our platform. We are formally recognised by HMRC.</p>
-                            </div>
-                        </Col>
+          <div className="common-title mt-5 mb-3">
+            <h2>What landlords should do next</h2>
+          </div>
+          <ol>
+            <li>Check whether MTD applies using GOV.UK and our <Link href="/check-mtd">MTD checker</Link>.</li>
+            <li>List each property and how rent is received.</li>
+            <li>Collect expense evidence (repairs, agent fees, insurance, and similar allowable costs).</li>
+            <li>Decide whether you want an accountant/agent to help.</li>
+            <li>Review <Link href="/making-tax-digital">TaxSimba’s MTD accountant service</Link> and register if it fits.</li>
+          </ol>
+        </Container>
+      </section>
 
-                        <Col lg={4} md={6} sm={12} xs={12}>
-                            <div className="tax-problems-box">
-                                <span className="tax-problem-icon">
-                                    <img src="/images/tax.png" alt="img" />
-                                </span>
-                                <h3>Smart Expense Tracking</h3>
-                                <p>Log all your business expenses digitally so you never miss a tax deduction and keep proof organized.</p>
-                            </div>
-                        </Col>
+      <section className="ptb-80 bg-grey">
+        <Container>
+          <div className="common-title mb-3">
+            <h2>How TaxSimba helps landlords with MTD</h2>
+          </div>
+          <p style={{ maxWidth: 820 }}>
+            TaxSimba is accountant-led. We help you organise property income information, manage the MTD workflow, and keep quarterly reporting on track. We do not describe ourselves as DIY landlord accounting software or promise guaranteed outcomes.
+          </p>
+        </Container>
+      </section>
 
-                        <Col lg={4} md={6} sm={12} xs={12}>
-                            <div className="tax-problems-box">
-                                <span className="tax-problem-icon">
-                                    <img src="/images/tax.png" alt="img" />
-                                </span>
-                                <h3>Error Checking</h3>
-                                <p>Our system runs automatic checks to identify potential anomalies or missing data before you submit to HMRC.</p>
-                            </div>
-                        </Col>
+      <section className="faq-section ptb-80">
+        <Container>
+          <div className="common-title mb-4 text-center">
+            <h2>Landlord MTD FAQs</h2>
+          </div>
+          <Accordion>
+            {faqs.map((item, idx) => (
+              <Accordion.Item eventKey={String(idx)} key={item.q}>
+                <Accordion.Header>{item.q}</Accordion.Header>
+                <Accordion.Body>{item.a}</Accordion.Body>
+              </Accordion.Item>
+            ))}
+          </Accordion>
+        </Container>
+      </section>
 
-                        <Col lg={4} md={6} sm={12} xs={12}>
-                            <div className="tax-problems-box">
-                                <span className="tax-problem-icon">
-                                    <img src="/images/tax.png" alt="img" />
-                                </span>
-                                <h3>Deadline Reminders</h3>
-                                <p>Get automated email and dashboard reminders near the 31 January deadline so you never face late penalties.</p>
-                            </div>
-                        </Col>
+      <SeoCtaBand
+        title="Get landlord MTD support"
+        text="Register for TaxSimba’s Making Tax Digital service and work with an accountant-led team."
+        href="/register?role=MTD"
+        label="Register for MTD"
+      />
 
-                        <Col lg={4} md={6} sm={12} xs={12}>
-                            <div className="tax-problems-box">
-                                <span className="tax-problem-icon">
-                                    <img src="/images/tax.png" alt="img" />
-                                </span>
-                                <h3>Comprehensive Reporting</h3>
-                                <p>Generate detailed income, expense, and tax liability reports to understand your overall financial position.</p>
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
-            </section>
+      <SeoLinkList
+        heading="Related pages"
+        links={[
+          { href: "/making-tax-digital", label: "Making Tax Digital accountant overview" },
+          { href: "/mtd-information", label: "MTD packages" },
+          { href: "/self-employed-tax-return", label: "MTD for sole traders" },
+          { href: "/rental-income-service", label: "Rental income Self Assessment service" },
+          { href: "/blogs/hmrc-signed-me-up-for-making-tax-digital", label: "HMRC signed me up for MTD" },
+          { href: "/self-assessment", label: "Online Self Assessment accountant" },
+        ]}
+      />
 
-            <section className="who-needs-sec mx-3 pd-100">
-                <Container>
-                    <div className="common-title text-center mb-5">
-                        <h2>Who Needs to File a <span>Self Assessment?</span></h2>
-                        <p>You must send a tax return if, in the last tax year (6 April to 5 April), any of the following applied:</p>
-                    </div>
-                    <Row className="justify-content-center">
-                        <Col lg={3} md={6} sm={12} xs={12} className="mb-4">
-                            <div className="need-to-box h-100 text-center">
-                                <div className="need-to-icon mb-3">
-                                    <img src="/images/tax.png" alt="img" />
-                                </div>
-                                <h3 className='mb-2'>Self-Employed</h3>
-                                <p>You worked for yourself as a sole trader and earned more than £1,000 before taking off allowable expenses.</p>
-                            </div>
-                        </Col>
-                        <Col lg={3} md={6} sm={12} xs={12} className="mb-4">
-                            <div className="need-to-box h-100 text-center">
-                                <div className="need-to-icon mb-3">
-                                    <img src="/images/tax.png" alt="img" />
-                                </div>
-                                <h3 className='mb-2'>Partnerships</h3>
-                                <p>You were a partner in a business partnership, regardless of the income amount earned.</p>
-                            </div>
-                        </Col>
-                        <Col lg={3} md={6} sm={12} xs={12} className="mb-4">
-                            <div className="need-to-box h-100 text-center">
-                                <div className="need-to-icon mb-3">
-                                    <img src="/images/tax.png" alt="img" />
-                                </div>
-                                <h3 className='mb-2'>High Earners</h3>
-                                <p>Your total taxable income was more than £100,000, or you claimed Child Benefit and income was over £50,000.</p>
-                            </div>
-                        </Col>
-                        <Col lg={3} md={6} sm={12} xs={12} className="mb-4">
-                            <div className="need-to-box h-100 text-center">
-                                <div className="need-to-icon mb-3">
-                                    <img src="/images/tax.png" alt="img" />
-                                </div>
-                                <h3 className='mb-2'>Untaxed Income</h3>
-                                <p>You received untaxed income from properties, tips, foreign investments, savings, or dividends.</p>
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
-            </section>
-
-
-
-            <section className="easy-sec pd-100">
-                <Container>
-                    <div className="easy-content-main">
-                        <Row>
-                            <Col lg={6} md={7} sm={12} xs={12}>
-                                <div className="easy-content-inner">
-                                    <h2>Easy and stress-free <br /><span>tax adviser.</span></h2>
-
-                                    <ul className="easy-list">
-                                        <li><MdOutlineCheckCircle />Simple Tax Solutions</li>
-                                        <li><MdOutlineCheckCircle />Smart Financial Guidance</li>
-                                        <li><MdOutlineCheckCircle />Stress-Free Tax Filing</li>
-                                        <li><MdOutlineCheckCircle />Stay Fully Compliant</li>
-                                    </ul>
-
-
-                                    <button className="common-btn mt-4">
-                                        Speak to Our Adviser
-
-                                    </button>
-
-                                </div>
-                            </Col>
-                            <Col lg={6} md={5} sm={12} xs={12}>
-                                <div className="easy-img">
-                                    <img src="/images/easy-rt.png" alt="img" />
-                                </div>
-                            </Col>
-                        </Row>
-                    </div>
-                </Container>
-            </section>
-
-
-            <section className="faq-sec-main faq-home mx-3 pd-100">
-                <Container>
-                    <Row>
-                        <Col lg={4} md={12} sm={12} xs={12}>
-                            <div className="common-title mb-0">
-                                <h2><span>Self Assessment</span> FAQs</h2>
-                            </div>
-                        </Col>
-
-                        <Col lg={8} md={12} sm={12} xs={12}>
-                            <div className="faq-outer">
-                                <Accordion defaultActiveKey="0">
-                                    <Accordion.Item eventKey="0">
-                                        <Accordion.Header>When is the Self Assessment deadline?</Accordion.Header>
-                                        <Accordion.Body>
-                                            The deadline for online tax returns is typically midnight on 31 January following the end of the tax year. The tax year ends on 5 April.
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-
-                                    <Accordion.Item eventKey="1">
-                                        <Accordion.Header>Can Taxsimba submit my return to HMRC directly?</Accordion.Header>
-                                        <Accordion.Body>
-                                            Yes, Taxsimba is HMRC recognized and fully supports direct digital submission of your Self Assessment tax return.
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-
-                                    <Accordion.Item eventKey="2">
-                                        <Accordion.Header>Do I need to be an accountant to use Taxsimba for Self Assessment?</Accordion.Header>
-                                        <Accordion.Body>
-                                            Not at all. Taxsimba is designed specifically for non-accountants. It asks you simple questions and automatically calculates your tax dynamically.
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-
-                                    <Accordion.Item eventKey="3">
-                                        <Accordion.Header>What if I make a mistake on my return?</Accordion.Header>
-                                        <Accordion.Body>
-                                            Taxsimba has built-in error checking to catch common mistakes before you submit. If you've already submitted, you normally have up to 12 months from the 31 January deadline to amend your return.
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-
-                                    <Accordion.Item eventKey="4">
-                                        <Accordion.Header>Can I claim expenses through Taxsimba?</Accordion.Header>
-                                        <Accordion.Body>
-                                            Yes, you can easily log and categorize allowable business expenses throughout the year to ensure your tax bill is accurate.
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-                                </Accordion>
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
-            </section>
-
-            <section className="stop-stressing-sec pd-100">
-                <Container>
-                    <div className="stop-stressing-content text-center">
-                        <h2>Start your <span>tax return</span> today</h2>
-                        <p>Complete your Self Assessment the simple way.</p>
-                        <button className="common-btn">
-                            Start Your Free Trial Today <MdOutlineKeyboardDoubleArrowRight className='ms-1' />
-                        </button>
-
-                    </div>
-                </Container>
-            </section>
-        </>
-    );
-};
-
-export default RentalIncomeTaxClient;
+      <SeoSources
+        sources={[
+          {
+            label: "GOV.UK — Using Making Tax Digital for Income Tax",
+            url: "https://www.gov.uk/guidance/using-making-tax-digital-for-income-tax",
+          },
+          {
+            label: "GOV.UK — Income Tax when you rent out a property",
+            url: "https://www.gov.uk/tax-uk-income-live-abroad/renting-out-your-property",
+          },
+        ]}
+      />
+    </>
+  );
+}

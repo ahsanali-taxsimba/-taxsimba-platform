@@ -132,6 +132,15 @@ const Footer = () => {
                   <li>
                     <TranslatedNextLink href="/check-mtd"><span><FaAngleRight /></span>Check if I need MTD</TranslatedNextLink>
                   </li>
+                  <li>
+                    <TranslatedNextLink href="/blogs"><span><FaAngleRight /></span>Guides &amp; Blog</TranslatedNextLink>
+                  </li>
+                  <li>
+                    <TranslatedNextLink href="/making-tax-digital"><span><FaAngleRight /></span>Making Tax Digital Accountant</TranslatedNextLink>
+                  </li>
+                  <li>
+                    <TranslatedNextLink href="/self-assessment"><span><FaAngleRight /></span>Self Assessment Accountant</TranslatedNextLink>
+                  </li>
                 </ul>
               </div>
             </div>

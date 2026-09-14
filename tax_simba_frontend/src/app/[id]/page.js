@@ -66,80 +66,78 @@ const Page = async ({ params }) => {
           <Row>
             <Col lg={4} className="mb-4">
               <div className="blog-card">
-                <Link href="/blog-details">
+                <Link href="/blogs/hmrc-signed-me-up-for-making-tax-digital">
                   <div className="blog-img">
-                    <img src="/images/blog.png" alt="img" />
+                    <img src="/images/blog.png" alt="Making Tax Digital guide thumbnail" />
                   </div>
                   <div className="blog-card-content mt-3">
-                    <h4>What is Making Tax Digital?</h4>
-                    <p>A simple explanation of what it means for you.</p>
-
+                    <h4>HMRC signed me up for Making Tax Digital</h4>
+                    <p>What that notice means and what to do next.</p>
                   </div>
                 </Link>
               </div>
             </Col>
             <Col lg={4} className="mb-4">
               <div className="blog-card">
-                <Link href="/blog-details">
+                <Link href="/blogs/top-tax-saving-tips-uk">
                   <div className="blog-img">
-                    <img src="/images/blog.png" alt="img" />
+                    <img src="/images/blog.png" alt="UK tax tips guide thumbnail" />
                   </div>
                   <div className="blog-card-content mt-3">
-                    <h4>Tax tips for small businesses.</h4>
-                    <p>Easy tips to avoid mistakes.</p>
-
+                    <h4>Tax tips for small businesses</h4>
+                    <p>Practical steps to avoid common mistakes.</p>
                   </div>
                 </Link>
               </div>
             </Col>
             <Col lg={4} className="mb-4">
               <div className="blog-card">
-                <Link href="/blog-details">
+                <Link href="/rental-income-tax">
                   <div className="blog-img">
-                    <img src="/images/blog.png" alt="img" />
+                    <img src="/images/blog.png" alt="Landlord MTD and rental income thumbnail" />
                   </div>
                   <div className="blog-card-content mt-3">
-                    <h4>Help for landlords.</h4>
-                    <p>Simple guide for managing rental income.</p>
+                    <h4>Help for landlords</h4>
+                    <p>MTD and rental income support for property landlords.</p>
                   </div>
                 </Link>
               </div>
             </Col>
             <Col lg={4} className="mb-4">
               <div className="blog-card">
-                <Link href="/blog-details">
+                <Link href="/blogs/understanding-self-assessment-uk">
                   <div className="blog-img">
-                    <img src="/images/blog.png" alt="img" />
+                    <img src="/images/blog.png" alt="Self Assessment guide thumbnail" />
                   </div>
                   <div className="blog-card-content mt-3">
-                    <h4>Benefits of Automated Bookkeeping</h4>
-                    <p>Discover how Tax Simba saves you hours by automating your records.</p>
+                    <h4>Understanding Self Assessment</h4>
+                    <p>A plain-English guide to filing your UK tax return.</p>
                   </div>
                 </Link>
               </div>
             </Col>
             <Col lg={4} className="mb-4">
               <div className="blog-card">
-                <Link href="/blog-details">
+                <Link href="/making-tax-digital">
                   <div className="blog-img">
-                    <img src="/images/blog.png" alt="img" />
+                    <img src="/images/blog.png" alt="Making Tax Digital accountant thumbnail" />
                   </div>
                   <div className="blog-card-content mt-3">
-                    <h4>Quarterly HMRC Update Checklist</h4>
-                    <p>A step-by-step guide to staying compliant with quarterly filings.</p>
+                    <h4>Making Tax Digital accountant</h4>
+                    <p>Accountant-led MTD support without becoming a software expert.</p>
                   </div>
                 </Link>
               </div>
             </Col>
             <Col lg={4} className="mb-4">
               <div className="blog-card">
-                <Link href="/blog-details">
+                <Link href="/blogs">
                   <div className="blog-img">
-                    <img src="/images/blog.png" alt="img" />
+                    <img src="/images/blog.png" alt="TaxSimba guides and blog thumbnail" />
                   </div>
                   <div className="blog-card-content mt-3">
-                    <h4>The Future of Digital Tax in the UK</h4>
-                    <p>Staying ahead of government regulations and digital deadlines.</p>
+                    <h4>More UK tax guides</h4>
+                    <p>Browse TaxSimba’s Guides & Blog for practical tax help.</p>
                   </div>
                 </Link>
               </div>

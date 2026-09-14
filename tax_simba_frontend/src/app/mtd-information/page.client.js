@@ -218,15 +218,15 @@ function page() {
                                     <Link href="/check-mtd" className="common-btn-outline ">Check if I need MTD</Link>
                                 </div>
                                 <ul className='list-unstyled d-flex align-item-center gap-3 w-100 mt-4 pt-3 justify-content-lg-start justify-content-center'>
-                                    <li className='text-white '><img src="/images/check-icon.png" alt="img" className='me-2' />HMRC Recognised</li>
-                                    <li className='text-white '><img src="/images/secure-icon.png" alt="img" className='me-2' />UK Cloud Secure</li>
+                                    <li className='text-white '><img src="/images/check-icon.png" alt="" className='me-2' aria-hidden="true" />HMRC-compatible process</li>
+                                    <li className='text-white '><img src="/images/secure-icon.png" alt="" className='me-2' aria-hidden="true" />UK Cloud Secure</li>
                                 </ul>
 
                             </div>
                         </Col>
                         <Col lg={6} className="mt-lg-0 mt-5">
                             <div className="breadcrum-image-mtd breadcrum-img text-center">
-                                <img src="/images/mtd-banner-img.png" alt="Breadcrumb Image" className="img-fluid" />
+                                <img src="/images/mtd-banner-img.png" alt="Making Tax Digital for Income Tax overview" className="img-fluid" />
                             </div>
                         </Col>
                     </Row>
@@ -606,10 +606,10 @@ function page() {
                             <span className="pulsing-dot"></span>
                             MAKING TAX DIGITAL EXPERTS
                         </div>
-                        <h1 className="fw-bold mb-3 display-4 text-white">
+                        <h2 className="fw-bold mb-3 display-4 text-white">
                             Stay HMRC Compliant <br />
                             <span className="text-lt-theme text-glow">Without The Stress</span>
-                        </h1>
+                        </h2>
                         <p className="opacity-75 mx-auto mb-4 text-white" style={{ maxWidth: '650px', fontSize: '18px', lineHeight: '1.6' }}>
                             We handle your Making Tax Digital (MTD) filing from start to finish so you can focus on growing your business.
                         </p>
