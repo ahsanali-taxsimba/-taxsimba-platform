@@ -735,7 +735,7 @@ const PageClient = () => {
                     1
                   </span>
                   <h4>Sign up</h4>
-                  <p>Sign up and get started in minutes.</p>
+                  <p>Create your account and choose your plan.</p>
 
                 </div>
 
@@ -750,8 +750,8 @@ const PageClient = () => {
                   <span className="start-count">
                     2
                   </span>
-                  <h4>Add Details</h4>
-                  <p>Enter your income and expenses.</p>
+                  <h4>Share your details</h4>
+                  <p>Provide the information your accountant needs.</p>
 
                 </div>
 
@@ -766,8 +766,8 @@ const PageClient = () => {
                   <span className="start-count">
                     3
                   </span>
-                  <h4>Expert Review</h4>
-                  <p>We assign an accountant to prepare your return.</p>
+                  <h4>Accountant prepares</h4>
+                  <p>Your dedicated accountant prepares your return.</p>
                 </div>
               </div>
             </Col>
@@ -780,8 +780,8 @@ const PageClient = () => {
                   <span className="start-count">
                     4
                   </span>
-                  <h4>Submit to HMRC</h4>
-                  <p>Send your return securely and receive confirmation.</p>
+                  <h4>You approve, we file</h4>
+                  <p>Review and approve it, then we submit securely to HMRC.</p>
                 </div>
               </div>
             </Col>
@@ -800,14 +800,13 @@ const PageClient = () => {
             <Col lg={7}>
               <div className="assessment-left-box pe-lg-5 pe-0">
                 <div className="main-title mb-4 p-0">
-                  <h2 className='text-start'><span>Tax returns in minutes.</span><br className="d-lg-block d-none" /> No expert knowledge <br className="d-lg-block d-none" /> required.</h2>
-                  <p className="text-white mt-lg-4 mt-2">TaxSimba replaces complex forms with simple, guided questions. We build
-                    your return, you just hit submit.</p>
+                  <h2 className='text-start'><span>Tax returns handled by your accountant.</span><br className="d-lg-block d-none" /> No expert knowledge <br className="d-lg-block d-none" /> required from you.</h2>
+                  <p className="text-white mt-lg-4 mt-2">Share your details through simple questions. Your TaxSimba accountant prepares your return, and you approve it before filing.</p>
                 </div>
                 <ul className="assessment-list list-unstyled">
                   <li><span className="me-2"><FaCheckCircle /></span><b>Zero Jargon</b> No confusing tax language. Ever.</li>
                   <li><span className="me-2"><FaCheckCircle /></span><b>Guided Support</b> Simple, step-by-step onboarding.</li>
-                  <li><span className="me-2"><FaCheckCircle /></span><b>Direct Filing</b> Secure submission straight to HMRC.</li>
+                  <li><span className="me-2"><FaCheckCircle /></span><b>HMRC filing</b> Secure submission once you&apos;ve approved your return.</li>
                 </ul>
               </div>
             </Col>
@@ -1327,7 +1326,7 @@ const PageClient = () => {
                   <h2>Are you ready for <span>Making Tax Digital?</span></h2>
                   <ul className="easy-list">
                     <li><MdOutlineCheckCircle />Keep digital records of your income and expenses.</li>
-                    <li><MdOutlineCheckCircle />Submit quarterly updates to HMRC.</li>
+                    <li><MdOutlineCheckCircle />Your accountant helps manage quarterly updates to HMRC.</li>
                     <li><MdOutlineCheckCircle />Stay compliant and avoid unexpected penalties.</li>
                   </ul>
                   <Link href="/mtd-information" className="common-btn mt-4 d-inline-block">

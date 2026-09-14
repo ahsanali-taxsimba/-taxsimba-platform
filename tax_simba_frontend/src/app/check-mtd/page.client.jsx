@@ -294,38 +294,41 @@ export default function MtdClient() {
                                                 <Alert className="position-relative border-warning bg-opacity-10 bg-warning text-dark pt-3 pb-4 px-3 rounded-4 shadow-sm mb-0">
                                                     {resultType === "warning-2026" && (
                                                         <>
-                                                            <h6 className="fw-bold mb-1 text-dark">You must comply with MTD</h6>
+                                                            <h6 className="fw-bold mb-1 text-dark">You may need to use Making Tax Digital</h6>
                                                             <p className="mb-3 text-muted">
-                                                                Comply with MTD from April 2026—TaxSimba manages it automatically.
+                                                                Based on your answers, MTD may apply from April 2026. TaxSimba is accountant-led — your accountant helps manage the process so you do not have to handle Making Tax Digital alone.
                                                             </p>
                                                         </>
                                                     )}
                                                     {resultType === "warning-2027" && (
                                                         <>
-                                                            <h6 className="fw-bold mb-1 text-dark">You must comply with MTD</h6>
+                                                            <h6 className="fw-bold mb-1 text-dark">You may need to use Making Tax Digital</h6>
                                                             <p className="mb-3 text-muted">
-                                                                Comply with MTD from April 2027—TaxSimba manages it automatically.
+                                                                Based on your answers, MTD may apply from April 2027. TaxSimba is accountant-led — your accountant helps manage the process so you do not have to handle Making Tax Digital alone.
                                                             </p>
                                                         </>
                                                     )}
                                                     {resultType === "warning-2028" && (
                                                         <>
-                                                            <h6 className="fw-bold mb-1 text-dark">MTD is planned for you</h6>
+                                                            <h6 className="fw-bold mb-1 text-dark">You may need to use Making Tax Digital</h6>
                                                             <p className="mb-3 text-muted">
-                                                                MTD is planned to apply to you from April 2028, or you can join voluntarily.
+                                                                Based on your answers, MTD is planned to apply from April 2028 (or you can join earlier). TaxSimba is accountant-led — your accountant helps manage the process so you do not have to handle Making Tax Digital alone.
                                                             </p>
                                                         </>
                                                     )}
 
                                                     <Link
-                                                        href="#pricing-section"
+                                                        href="/register?role=MTD"
                                                         className="common-btn d-inline-block w-100"
-                                                        onClick={(e) => {
-                                                            e.preventDefault();
-                                                            document.getElementById("pricing-section")?.scrollIntoView({ behavior: "smooth" });
-                                                        }}
                                                     >
-                                                        Start Using TaxSimba
+                                                        Start MTD with an accountant
+                                                    </Link>
+                                                    <Link
+                                                        href="/making-tax-digital"
+                                                        className="d-inline-block w-100 text-center mt-2 text-decoration-underline"
+                                                        style={{ fontSize: "0.95rem" }}
+                                                    >
+                                                        View Making Tax Digital service
                                                     </Link>
 
                                                     <Link
@@ -343,13 +346,13 @@ export default function MtdClient() {
                                         {resultType === "green" && (
                                             <div className="alert-msg-box m-3 show">
                                                 <Alert className="position-relative border-success bg-opacity-10 bg-success text-success pt-3 pb-4 px-3 rounded-4 shadow-sm mb-0">
-                                                    <h6 className="fw-bold mb-1 text-success">MTD doesn&apos;t apply to you yet</h6>
+                                                    <h6 className="fw-bold mb-1 text-success">MTD doesn&apos;t appear to apply to you yet</h6>
                                                     <p className="mb-3 text-success">
-                                                        You don&apos;t need to worry about MTD right now. But you still need to file your Self Assessment!
+                                                        You may not need Making Tax Digital right now. If you still need to file a tax return, TaxSimba’s accountants can prepare your Self Assessment for you.
                                                     </p>
 
-                                                    <Link href="/login" className="common-btn d-inline-block w-100">
-                                                        Start Using TaxSimba
+                                                    <Link href="/self-assessment" className="common-btn d-inline-block w-100">
+                                                        Need help with your tax return?
                                                     </Link>
 
                                                     <Link

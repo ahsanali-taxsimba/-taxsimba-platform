@@ -94,7 +94,7 @@ const Footer = () => {
                   <img src="/images/logo.svg" alt="Logo" />
                 </Link>
                 <TranslatedParagraph>
-                  Cloud-native income tax & bookkeeping compliance for UK professionals. Securely bridging the gap between digital records and HMRC.
+                  Accountant-led Self Assessment and Making Tax Digital support for UK taxpayers.
                 </TranslatedParagraph>
 
                 <ul className="social mt-4">

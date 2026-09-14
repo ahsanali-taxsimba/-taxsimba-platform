@@ -36,6 +36,9 @@ export default function SelfAssessmentClient() {
         subtitle="Accountant-led online Self Assessment for sole traders, landlords and freelancers — you provide the information, your accountant prepares the return, and you review before filing where that step applies."
         imageSrc="/images/breadcrum-img.png"
         imageAlt="Online Self Assessment accountant support from TaxSimba"
+        processLine="Share your details → Accountant prepares → You approve → We file"
+        primaryCta={{ href: "/register", label: "Start Self Assessment" }}
+        secondaryCta={{ href: "/pricing", label: "View packages" }}
       />
 
       <section className="feature-bussiness-sec pd-100">

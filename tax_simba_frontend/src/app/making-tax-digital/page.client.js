@@ -30,9 +30,11 @@ export default function MakingTaxDigitalClient() {
     <>
       <SeoBreadcrumbHero
         title="Making Tax Digital accountant"
-        subtitle="Accountant-led MTD support for sole traders and landlords who want the process managed — without learning to be a software specialist."
+        subtitle="Accountant-led MTD support for sole traders and landlords. TaxSimba accountants help manage the Making Tax Digital process using compatible software — you are not left to operate MTD software alone."
         imageSrc="/images/breadcrum-img.png"
         imageAlt="Making Tax Digital accountant support from TaxSimba"
+        primaryCta={{ href: "/register?role=MTD", label: "Get MTD support" }}
+        secondaryCta={{ href: "/check-mtd", label: "Check if I need MTD" }}
       />
 
       <section className="feature-bussiness-sec pd-100">
@@ -174,7 +176,7 @@ export default function MakingTaxDigitalClient() {
         title="Ready for accountant-led MTD support?"
         text="Register for TaxSimba’s Making Tax Digital service and we’ll help you take the next step."
         href="/register?role=MTD"
-        label="Get started with MTD"
+        label="Get MTD support"
       />
 
       <SeoLinkList

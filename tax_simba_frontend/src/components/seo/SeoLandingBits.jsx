@@ -11,6 +11,9 @@ export function SeoBreadcrumbHero({
   subtitle,
   imageSrc = "/images/breadcrum-img.png",
   imageAlt = "TaxSimba",
+  primaryCta,
+  secondaryCta,
+  processLine,
 }) {
   return (
     <section className="breadcrum-sec-top py-80">
@@ -20,6 +23,23 @@ export function SeoBreadcrumbHero({
             <div className="bread-crum-inr-box text-lg-start text-center">
               <h1 className="text-capitalize mb-3">{title}</h1>
               {subtitle ? <p className="mb-0">{subtitle}</p> : null}
+              {processLine ? (
+                <p className="mt-3 mb-0 small opacity-75">{processLine}</p>
+              ) : null}
+              {(primaryCta || secondaryCta) ? (
+                <div className="d-flex align-items-center justify-content-lg-start justify-content-center gap-2 flex-wrap mt-4">
+                  {primaryCta ? (
+                    <Link href={primaryCta.href} className="common-btn">
+                      {primaryCta.label} <GoArrowUpRight className="ms-1" />
+                    </Link>
+                  ) : null}
+                  {secondaryCta ? (
+                    <Link href={secondaryCta.href} className="common-btn-outline">
+                      {secondaryCta.label}
+                    </Link>
+                  ) : null}
+                </div>
+              ) : null}
             </div>
           </Col>
           <Col lg={6} className="mt-lg-0 mt-5">
