@@ -348,11 +348,18 @@ export default function MtdClient() {
                                                 <Alert className="position-relative border-success bg-opacity-10 bg-success text-success pt-3 pb-4 px-3 rounded-4 shadow-sm mb-0">
                                                     <h6 className="fw-bold mb-1 text-success">MTD doesn&apos;t appear to apply to you yet</h6>
                                                     <p className="mb-3 text-success">
-                                                        You may not need Making Tax Digital right now. If you still need to file a tax return, TaxSimba’s accountants can prepare your Self Assessment for you.
+                                                        Based on your answers and current MTD income thresholds, Making Tax Digital does not appear to apply at this stage. Thresholds and start dates can change — this is not a permanent exemption. If you still need to file a tax return, TaxSimba’s accountants can prepare your Self Assessment for you.
                                                     </p>
 
-                                                    <Link href="/self-assessment" className="common-btn d-inline-block w-100">
-                                                        Need help with your tax return?
+                                                    <Link href="/register" className="common-btn d-inline-block w-100">
+                                                        Start Self Assessment
+                                                    </Link>
+                                                    <Link
+                                                        href="/self-assessment"
+                                                        className="d-inline-block w-100 text-center mt-2 text-decoration-underline"
+                                                        style={{ fontSize: "0.95rem" }}
+                                                    >
+                                                        View Self Assessment service
                                                     </Link>
 
                                                     <Link
