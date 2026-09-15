@@ -2415,6 +2415,383 @@ export const articles = [
 `,
   },
 
+  {
+    id: "seo-sa-side-hustle",
+    slug: "self-assessment-side-hustle",
+    title: "Do I Need Self Assessment for a Side Hustle?",
+    excerpt:
+      "A side hustle can trigger Self Assessment even if you already pay tax through PAYE. Here is how HMRC looks at the £1,000 trading threshold, what counts as income, and when to register.",
+    metaTitle: "Do I Need Self Assessment for a Side Hustle? | TaxSimba",
+    metaDescription:
+      "Find out when a UK side hustle means Self Assessment, how the £1,000 trading threshold works, what to do if you also have PAYE income, and when to register with HMRC.",
+    category: "Self Assessment",
+    audience: "sole-traders-employees",
+    tags: ["self-assessment", "side-hustle", "self-employed", "trading-allowance", "paye"],
+    publishedAt: "2026-09-15T15:23:30.000Z",
+    reviewedAt: "2026-09-15T15:23:30.000Z",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
+    featuredImage: "/images/blog_2.png",
+    featuredImageAlt: "Freelancer reviewing invoices and notes for a UK side hustle tax return",
+    ctaType: "SA",
+    relatedSlugs: [
+      "trading-allowance-1000-hmrc",
+      "self-assessment-for-sole-traders-2025-26",
+      "self-assessment-register-by-5-october-2026",
+      "self-assessment-documents-checklist",
+      "understanding-self-assessment-uk",
+    ],
+    relatedPages: [
+      { href: "/self-assessment", label: "Self Assessment accountant service" },
+      { href: "/self-employed-tax-return", label: "Self-employed tax return support" },
+      { href: "/register", label: "Start Self Assessment with TaxSimba" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Who must send a tax return",
+        url: "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      },
+      {
+        label: "GOV.UK — Register as a sole trader",
+        url: "https://www.gov.uk/become-sole-trader/register-sole-trader",
+      },
+      {
+        label: "GOV.UK — Tax-free allowances on property and trading income",
+        url: "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      },
+    ],
+    curated: true,
+    content: `
+<p>Often, yes — if your side hustle is self-employed trading and your <strong>gross</strong> income from it is more than <strong>£1,000</strong> in a tax year (6 April to 5 April). GOV.UK lists that as a reason you must send a Self Assessment tax return. Having a PAYE job does not cancel the need to report the side income.</p>
+
+<h2>What HMRC means by “more than £1,000”</h2>
+<p>The figure is usually your <strong>turnover before expenses</strong>, not profit. If you invoice £1,400 for weekend design work and spend £500 on software, you are still over £1,000 for registration purposes. Expenses may reduce taxable profit later; they do not push you back under the “who must send a return” test once gross income is over the limit.</p>
+<p>Example only: you earn £38,000 from employment (taxed through PAYE) and £1,250 from selling handmade goods online before costs. That £1,250 is enough for GOV.UK’s self-employed filing trigger, even if profit after materials is under £1,000.</p>
+
+<h2>When a small side hustle may not need a return</h2>
+<p>If your annual gross trading income from one or more trades is <strong>£1,000 or less</strong>, GOV.UK’s trading-allowance guidance says you may not have to tell HMRC — unless another rule applies. You may still need to register if, for example, you want to pay voluntary Class 2 National Insurance, claim Tax-Free Childcare based on self-employment, or claim Maternity Allowance on that basis. Use HMRC’s “check if you need to send a tax return” tool when you are unsure.</p>
+
+<h2>Other side income that is not “trading”</h2>
+<p>Not every extra pound is a trade. Rent from a spare room or buy-to-let, tips, untaxed dividends, foreign income or capital gains can each create their own Self Assessment reasons. A side hustle that is clearly self-employment sits under the sole-trader rules; property income is different. If you are mainly letting, read <a href="/blogs/self-assessment-for-landlords-2025-26">Self Assessment for landlords</a> instead of treating it as trading.</p>
+
+<h2>Common mistake</h2>
+<p>Waiting until January to decide. If you need a return and have not sent one before (or skipped the previous year), GOV.UK expects you to tell HMRC by <strong>5 October</strong> after the tax year ends. That is separate from the 31 January filing and payment date. See <a href="/blogs/self-assessment-register-by-5-october-2026">register by 5 October</a>.</p>
+
+<h2>Practical next steps</h2>
+<ol>
+  <li>Add up gross side income for the tax year, not just what landed in your personal account after costs.</li>
+  <li>Keep invoices, platform statements and expense receipts from day one — even while the hustle is small.</li>
+  <li>If you are over £1,000, register as a sole trader through Self Assessment and diary the filing deadline.</li>
+  <li>If you are near the line, read <a href="/blogs/trading-allowance-1000-hmrc">the £1,000 trading allowance</a> before assuming nothing needs reporting.</li>
+</ol>
+
+<p>TaxSimba’s <a href="/self-assessment">Self Assessment service</a> is accountant-led: we help gather the side income and employment picture and file correctly. We do not promise a particular tax bill or that every small activity is exempt. If you are ready for help, <a href="/register">start Self Assessment with TaxSimba</a>.</p>
+`,
+  },
+
+  {
+    id: "seo-sa-trading-allowance-1000",
+    slug: "trading-allowance-1000-hmrc",
+    title: "Trading Allowance £1,000: Do I Still Need to Tell HMRC?",
+    excerpt:
+      "The £1,000 trading allowance can make small amounts of trading income tax-free, but it is not a blanket “ignore HMRC” rule. Here is when you can stay silent, when you must register, and when claiming the allowance on a return is better than expenses.",
+    metaTitle: "Trading Allowance £1,000: Do I Need to Tell HMRC? | TaxSimba",
+    metaDescription:
+      "How the UK £1,000 trading allowance works, when gross income under £1,000 means you may not need Self Assessment, and when you must still register or file a return.",
+    category: "Self Assessment",
+    audience: "sole-traders-side-hustles",
+    tags: ["trading-allowance", "self-assessment", "hmrc", "sole-trader", "side-hustle"],
+    publishedAt: "2026-09-15T15:23:30.000Z",
+    reviewedAt: "2026-09-15T15:23:30.000Z",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
+    featuredImage: "/images/blog-category-sa.png",
+    featuredImageAlt: "Organised tax records for claiming the UK trading allowance",
+    ctaType: "SA",
+    relatedSlugs: [
+      "self-assessment-side-hustle",
+      "self-assessment-for-sole-traders-2025-26",
+      "self-assessment-documents-checklist",
+      "top-tax-saving-tips-uk",
+      "understanding-self-assessment-uk",
+    ],
+    relatedPages: [
+      { href: "/self-assessment", label: "Self Assessment accountant service" },
+      { href: "/self-employed-tax-return", label: "Self-employed tax return support" },
+      { href: "/register", label: "Start Self Assessment with TaxSimba" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Tax-free allowances on property and trading income",
+        url: "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      },
+      {
+        label: "GOV.UK — Register as a sole trader",
+        url: "https://www.gov.uk/become-sole-trader/register-sole-trader",
+      },
+      {
+        label: "GOV.UK — Who must send a tax return",
+        url: "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      },
+    ],
+    curated: true,
+    content: `
+<p>Sometimes you do not. GOV.UK says that if your <strong>annual gross trading income</strong> from one or more trades is <strong>£1,000 or less</strong>, you may not have to tell HMRC. That £1,000 figure is also the maximum trading allowance you can use as tax-free relief when the rules allow it. The catch: several situations still force a Self Assessment return, and once your gross income is over £1,000 you must register.</p>
+
+<h2>Two different uses of the £1,000 figure</h2>
+<ul>
+  <li><strong>Registration / “do I need a return?”</strong> — Sole traders who earn more than £1,000 before reliefs generally must register for Self Assessment.</li>
+  <li><strong>Trading allowance on a return</strong> — If you already file, you can often deduct up to £1,000 from gross trading income instead of claiming actual expenses. You cannot claim both the full allowance and those expenses on the same income.</li>
+</ul>
+<p>There is a separate £1,000 <strong>property</strong> allowance for property income. Trading and property each have their own £1,000 pot if you have both.</p>
+
+<h2>When you must still tell HMRC under £1,000</h2>
+<p>GOV.UK’s allowance guidance says you must register and declare the income if, for example, you:</p>
+<ul>
+  <li>want to claim loss relief on a return</li>
+  <li>want to pay voluntary Class 2 National Insurance</li>
+  <li>want Tax-Free Childcare based on self-employment income</li>
+  <li>want Maternity Allowance based on self-employment</li>
+</ul>
+<p>Those are policy choices about benefits and National Insurance, not optional “nice to have” paperwork. If any apply, do not rely on the silent under-£1,000 path.</p>
+
+<h2>If you earn more than £1,000</h2>
+<p>You must register for Self Assessment (GOV.UK ties this to the 5 October date after the tax year for people who need to tell HMRC). On the return you can usually either:</p>
+<ul>
+  <li>deduct the £1,000 trading allowance from gross income, or</li>
+  <li>claim actual allowable expenses (and capital allowances where relevant) instead</li>
+</ul>
+<p>Illustrative only: gross freelance income £3,200; receipts £400. Claiming the £1,000 allowance leaves £2,200 taxable trading income. Claiming £400 expenses leaves £2,800. The allowance wins here — but if expenses were £1,500, claiming expenses would usually be better. Work both ways before you tick a box.</p>
+
+<h2>What this means if you already file Self Assessment</h2>
+<p>Being in Self Assessment for another reason (employment benefits, property, high income) does not stop you using the trading allowance on trading income, where the rules allow it. It does mean you report the activity on the return rather than staying invisible under the small-income exemption.</p>
+
+<h2>Common mistake</h2>
+<p>Mixing up <strong>profit</strong> with <strong>gross income</strong>. The registration test and the allowance both start from gross trading receipts. A loss-making hustle with £2,000 of sales is still over £1,000 for “must register” purposes.</p>
+
+<p>For side-hustle context see <a href="/blogs/self-assessment-side-hustle">Do I need Self Assessment for a side hustle?</a>. TaxSimba’s <a href="/self-assessment">Self Assessment accountants</a> can help choose between the allowance and expenses on a live return. We do not guarantee which option saves more tax in your case. <a href="/register">Start Self Assessment with TaxSimba</a> when you want that review done properly.</p>
+`,
+  },
+
+  {
+    id: "seo-sa-amend-tax-return",
+    slug: "amend-self-assessment-tax-return",
+    title: "How to Amend a Self Assessment Tax Return",
+    excerpt:
+      "Spotted a mistake after filing? You can usually correct a Self Assessment return within 12 months of the deadline. Here is the online process, the 72-hour wait, and what to do if the amendment window has closed.",
+    metaTitle: "How to Amend a Self Assessment Tax Return | TaxSimba",
+    metaDescription:
+      "How to amend a UK Self Assessment tax return online, the 12-month correction window, the 72-hour wait after filing, and what to do if you miss the amendment deadline.",
+    category: "Self Assessment",
+    audience: "self-assessment",
+    tags: ["self-assessment", "amend", "correction", "hmrc", "tax-return"],
+    publishedAt: "2026-09-15T15:23:30.000Z",
+    reviewedAt: "2026-09-15T15:23:30.000Z",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
+    featuredImage: "/images/blog_3.png",
+    featuredImageAlt: "UK taxpayer correcting figures on a Self Assessment tax return",
+    ctaType: "SA",
+    relatedSlugs: [
+      "self-assessment-deadline",
+      "self-assessment-documents-checklist",
+      "late-self-assessment-penalties",
+      "payments-on-account-explained",
+      "cannot-pay-self-assessment-tax-bill",
+    ],
+    relatedPages: [
+      { href: "/self-assessment", label: "Self Assessment accountant service" },
+      { href: "/register", label: "Start Self Assessment with TaxSimba" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — If you need to change your return",
+        url: "https://www.gov.uk/self-assessment-tax-returns/corrections",
+      },
+      {
+        label: "GOV.UK — Self Assessment deadlines",
+        url: "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      },
+    ],
+    curated: true,
+    content: `
+<p>GOV.UK lets you change a Self Assessment tax return after you have filed it — for example if you missed income, overstated expenses or used the wrong box. For most people the clean route is an <strong>online amendment within 12 months of the Self Assessment deadline</strong> for that year.</p>
+
+<h2>How long you have</h2>
+<p>You can correct a return within <strong>12 months of the Self Assessment deadline</strong>, online or by sending another paper return. That window is tied to the normal filing deadline for the year, not to the day you happened to submit early. Example: for a return whose online deadline was 31 January 2026, the usual amendment cut-off is 31 January 2027. Always check GOV.UK for the year you are correcting.</p>
+
+<h2>Online amendments (HMRC account)</h2>
+<p>GOV.UK says you must wait <strong>3 days (72 hours)</strong> after filing before you can update the return online. Then:</p>
+<ol>
+  <li>Sign in to your HMRC account</li>
+  <li>Open your Self Assessment account</li>
+  <li>Choose More Self Assessment details → At a glance → Tax return options</li>
+  <li>Select the tax year, open the return, correct it and file again</li>
+</ol>
+<p>If you filed through commercial software, contact the software provider first; GOV.UK says to contact HMRC if the software cannot make corrections.</p>
+
+<h2>Paper amendments</h2>
+<p>If you need to amend on paper, GOV.UK tells you to mark “amendment” on each page and include your name and Unique Taxpayer Reference (UTR), then send the corrected pages to the address on your Self Assessment paperwork.</p>
+
+<h2>If the 12-month window has passed</h2>
+<p>You cannot use the normal online or paper amendment route. GOV.UK says you must <strong>write to HMRC</strong> explaining what is wrong. That is a slower, more formal path — get your figures and evidence straight before you write. An amendment is not the same as a voluntary disclosure for income you never reported at all; older undeclared rental income, for example, may belong on a different HMRC process (see <a href="/blogs/undeclared-rental-income-hmrc">undeclared rental income</a>).</p>
+
+<h2>After you amend</h2>
+<p>Your tax calculation can change. You may owe more (with a new payment date and possible interest) or be due a refund. Pay any extra on time; if you cannot, read <a href="/blogs/cannot-pay-self-assessment-tax-bill">I cannot pay my Self Assessment tax bill</a> rather than ignoring the revised balance.</p>
+
+<h2>Common mistake</h2>
+<p>Amending only the final tax figure “to make it look right” without fixing the income and expense boxes that drive the calculation. Correct the source figures and let HMRC’s calculation rebuild.</p>
+
+<p>TaxSimba’s <a href="/self-assessment">Self Assessment service</a> can help rebuild a correct return and decide whether an amendment or another HMRC route fits. We cannot promise HMRC will accept every correction without follow-up questions. <a href="/register">Start Self Assessment with TaxSimba</a> if you want an accountant to handle the change with you.</p>
+`,
+  },
+
+  {
+    id: "seo-mtd-itsa-vs-vat",
+    slug: "mtd-income-tax-vs-mtd-vat",
+    title: "MTD for Income Tax vs MTD for VAT: What’s the Difference?",
+    excerpt:
+      "Making Tax Digital for VAT and Making Tax Digital for Income Tax are separate regimes. Being compliant with one does not enrol you in the other. Here is who each applies to, what you send, and how to check your Income Tax position.",
+    metaTitle: "MTD for Income Tax vs MTD for VAT Explained | TaxSimba",
+    metaDescription:
+      "Clear comparison of Making Tax Digital for Income Tax and Making Tax Digital for VAT: who each covers, what you file, software, and why VAT compliance does not equal Income Tax MTD.",
+    category: "Making Tax Digital",
+    audience: "sole-traders-landlords-vat",
+    tags: ["mtd", "vat", "income-tax", "making-tax-digital", "hmrc"],
+    publishedAt: "2026-09-15T15:23:30.000Z",
+    reviewedAt: "2026-09-15T15:23:30.000Z",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
+    featuredImage: "/images/feels-img.png",
+    featuredImageAlt: "Digital tax records illustrating Making Tax Digital for Income Tax and VAT",
+    ctaType: "CHECK",
+    relatedSlugs: [
+      "making-tax-digital-explained",
+      "mtd-qualifying-income",
+      "can-i-use-spreadsheets-for-mtd",
+      "mtd-for-sole-traders-2026-27",
+      "does-mtd-replace-self-assessment",
+    ],
+    relatedPages: [
+      { href: "/check-mtd", label: "Check if MTD applies" },
+      { href: "/making-tax-digital", label: "Making Tax Digital accountant service" },
+      { href: "/mtd-information", label: "MTD information" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Making Tax Digital for VAT",
+        url: "https://www.gov.uk/government/collections/making-tax-digital-for-vat",
+      },
+      {
+        label: "GOV.UK — Choose software for Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax",
+      },
+      {
+        label: "GOV.UK — Use Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax",
+      },
+    ],
+    curated: true,
+    content: `
+<p><strong>They are not the same thing.</strong> Making Tax Digital (MTD) for VAT and MTD for Income Tax are separate HMRC programmes with different people in scope, different submissions and separate software sign-up. Filing VAT digitally does not automatically put you into MTD for Income Tax.</p>
+
+<h2>Side-by-side</h2>
+<ul>
+  <li><strong>MTD for VAT</strong> — Aimed at <strong>VAT-registered</strong> businesses. GOV.UK says all VAT-registered businesses should now be signed up; new registrations are enrolled automatically unless exempt. You keep specified VAT records digitally and submit VAT Returns through compatible software.</li>
+  <li><strong>MTD for Income Tax</strong> — Aimed at <strong>sole traders and landlords</strong> whose qualifying income brings them into scope on HMRC’s phased timetable (from 6 April 2026 for higher qualifying income). You keep digital income and expense records and send <strong>quarterly updates</strong> plus a year-end tax return through compatible software.</li>
+</ul>
+
+<h2>What you actually send</h2>
+<p>VAT returns report output tax, input tax and your net VAT position for your VAT period. Income Tax quarterly updates summarise self-employment and/or property income and expenses for fixed update periods — GOV.UK is clear those updates are <strong>not</strong> full tax returns. Your Income Tax return still pulls in other income (such as employment, savings or dividends) at year end through the software.</p>
+
+<h2>Software and sign-up are separate</h2>
+<p>GOV.UK’s Income Tax software guidance notes that if you are VAT-registered you may already use software for VAT, and you should check whether the same product also works for Making Tax Digital for Income Tax — or use a different compatible product. Authorising software for one tax does not replace authorising it for the other. Use HMRC’s Income Tax software finder for ITSA-compatible options, and the VAT software lists/tools for VAT.</p>
+
+<h2>Who should worry about which</h2>
+<ul>
+  <li>VAT-registered limited company with no personal self-employment or property in scope → MTD for VAT matters; MTD for Income Tax usually does not apply to the company itself in the same way.</li>
+  <li>Sole trader above the Income Tax qualifying threshold, not VAT-registered → MTD for Income Tax can apply without any VAT MTD duty.</li>
+  <li>Landlord or sole trader who is also VAT-registered → both regimes can apply at once, with different deadlines and penalty systems.</li>
+</ul>
+
+<h2>Common mistake</h2>
+<p>Assuming “I’m already on Making Tax Digital” because VAT Returns go through software. For Income Tax you still need to check qualifying income, sign up when required, and send quarterly Income Tax updates. Start with <a href="/check-mtd">Check if MTD applies</a> and <a href="/blogs/mtd-qualifying-income">qualifying income explained</a>.</p>
+
+<p>TaxSimba’s <a href="/making-tax-digital">Making Tax Digital service</a> is accountant-led support for Income Tax MTD obligations. We do not claim that using TaxSimba replaces your own HMRC VAT registration duties. If you only need to know whether Income Tax MTD applies, use <a href="/check-mtd">the MTD checker</a> first.</p>
+`,
+  },
+
+  {
+    id: "seo-mtd-spreadsheets",
+    slug: "can-i-use-spreadsheets-for-mtd",
+    title: "Can I Use Spreadsheets for Making Tax Digital?",
+    excerpt:
+      "Yes — but usually not by emailing HMRC a spreadsheet. GOV.UK allows software that connects to existing spreadsheet records (often called bridging software), or full accounting software that keeps the digital records for you.",
+    metaTitle: "Can I Use Spreadsheets for Making Tax Digital? | TaxSimba",
+    metaDescription:
+      "How spreadsheets fit Making Tax Digital for Income Tax: bridging software vs full record-keeping software, what HMRC expects, and how an accountant-led service can help.",
+    category: "Making Tax Digital",
+    audience: "sole-traders-landlords",
+    tags: ["mtd", "spreadsheets", "bridging-software", "digital-records", "hmrc"],
+    publishedAt: "2026-09-15T15:23:30.000Z",
+    reviewedAt: "2026-09-15T15:23:30.000Z",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
+    featuredImage: "/images/blog-category-mtd.png",
+    featuredImageAlt: "Digital bookkeeping graphic for Making Tax Digital spreadsheet and software choices",
+    ctaType: "MTD",
+    relatedSlugs: [
+      "mtd-digital-records",
+      "mtd-income-tax-vs-mtd-vat",
+      "mtd-accountant-or-agent",
+      "mtd-quarterly-updates",
+      "making-tax-digital-explained",
+    ],
+    relatedPages: [
+      { href: "/making-tax-digital", label: "Making Tax Digital accountant service" },
+      { href: "/mtd-information", label: "MTD information" },
+      { href: "/register?role=MTD", label: "Get MTD support with TaxSimba" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Choose the right software for Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax",
+      },
+      {
+        label: "GOV.UK — Find software that works with Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/find-software-that-works-with-making-tax-digital-for-income-tax",
+      },
+      {
+        label: "GOV.UK — Get your software ready",
+        url: "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/get-your-software-ready",
+      },
+    ],
+    curated: true,
+    content: `
+<p>You can keep using spreadsheets for day-to-day records, but under Making Tax Digital for Income Tax you still need <strong>compatible software</strong> to create or connect digital records and to send quarterly updates and your tax return to HMRC. Uploading a standalone Excel file through a personal email is not the process GOV.UK describes.</p>
+
+<h2>Two software shapes GOV.UK describes</h2>
+<p>In “Choose the right software for Making Tax Digital for Income Tax”, GOV.UK says you can get software that either:</p>
+<ul>
+  <li>creates and stores digital records for you, or</li>
+  <li>connects to existing records, such as those held in spreadsheets</li>
+</ul>
+<p>The second type is sometimes called <strong>bridging software</strong>. GOV.UK’s example: if you use spreadsheets for income and expenses, bridging software can connect to them and make submissions to HMRC. Full accounting products may replace the spreadsheet entirely.</p>
+
+<h2>What “compatible” actually means</h2>
+<p>Whatever you choose must support your income sources (self-employment, UK property, foreign property as relevant), let you send quarterly updates and the tax return, and work with your accounting period (tax-year quarters or calendar update periods). Use HMRC’s software finder rather than assuming a VAT-only product covers Income Tax MTD.</p>
+
+<h2>What this means if you love Excel</h2>
+<p>You do not have to abandon every workbook overnight. You do need a product that HMRC’s finder treats as compatible, then you must <strong>authorise</strong> that software to connect to HMRC before the first quarterly update. GOV.UK’s “get your software ready” steps cover authorisation and checking your accounting period — you cannot change the period after the first update has gone.</p>
+
+<h2>Common mistake</h2>
+<p>Leaving spreadsheet tidy-up until the week of the first deadline. Bridging tools still need clean columns, consistent dates and complete income sources. Messy books create messy quarterly updates. Pair this page with <a href="/blogs/mtd-digital-records">MTD digital records</a> and <a href="/blogs/mtd-quarterly-updates">what quarterly updates contain</a>.</p>
+
+<h2>Accountant-led option</h2>
+<p>Many people prefer an agent to operate the software and submissions. That is allowed: GOV.UK’s software guidance says you or an agent on your behalf use commercial software for records and filings. TaxSimba’s <a href="/making-tax-digital">Making Tax Digital service</a> is built around accountant-led support, not a claim that TaxSimba is HMRC or that we submit through a public “TaxSimba HMRC API” of our own. For eligibility first, use <a href="/check-mtd">Check if MTD applies</a>; when you want help running the digital process, <a href="/register?role=MTD">get MTD support with TaxSimba</a>.</p>
+`,
+  },
+
 ];
 
 export function getPublishedArticles() {
