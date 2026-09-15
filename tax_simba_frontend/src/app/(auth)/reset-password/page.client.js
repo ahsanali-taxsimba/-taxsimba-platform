@@ -19,6 +19,7 @@ import toast from 'react-hot-toast';
 import { TranslatedHeading, TranslatedHeadingTwo, TranslatedHeadingThree, TranslatedHeadingFour, TranslatedHeadingFive, TranslatedParagraph, TranslatedButton, TranslatedSpan, TranslatedNextLink, TranslatedInput } from "@/components/TranslatedContent";
 import TranslatedText from "@/components/TranslatedText";
 import { IoIosMail, IoMdMail } from 'react-icons/io';
+import { getSafeErrorMessage } from "@/lib/toastMessage";
 
 export default function ResetPasswordPage() {
   const searchParams = useSearchParams()
@@ -97,7 +98,7 @@ export default function ResetPasswordPage() {
       else {
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message)
+      toast.error(getSafeErrorMessage(error));
     }
   }
 

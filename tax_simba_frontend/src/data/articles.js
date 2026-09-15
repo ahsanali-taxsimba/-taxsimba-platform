@@ -136,7 +136,7 @@ export const articles = [
     reviewedAt: "2026-09-15T11:58:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_3.png",
+    featuredImage: "/images/feels-img.png",
     featuredImageAlt: "UK taxpayer reviewing an HMRC Making Tax Digital signup notice",
     ctaType: "MTD",
     relatedSlugs: [
@@ -215,7 +215,7 @@ export const articles = [
     reviewedAt: "2026-09-15T11:58:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_2.png",
+    featuredImage: "/images/feels-img.png",
     featuredImageAlt: "Calculator and notes used to work out MTD qualifying income",
     ctaType: "MTD",
     relatedSlugs: [
@@ -304,7 +304,7 @@ export const articles = [
     reviewedAt: "2026-09-15T11:58:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_1.png",
+    featuredImage: "/images/feels-img.png",
     featuredImageAlt: "Calendar marking Making Tax Digital quarterly update deadlines",
     ctaType: "MTD",
     relatedSlugs: [
@@ -465,7 +465,7 @@ export const articles = [
     reviewedAt: "2026-09-15T11:58:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_2.png",
+    featuredImage: "/images/blog-category-sa.png",
     featuredImageAlt: "Organised folders of Self Assessment tax return documents",
     ctaType: "SA",
     relatedSlugs: [
@@ -634,7 +634,7 @@ export const articles = [
     reviewedAt: "2026-09-14T12:00:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_2.png",
+    featuredImage: "/images/blog_3.png",
     featuredImageAlt: "Tax tips for UK small businesses and sole traders",
     ctaType: "SA",
     relatedSlugs: [
@@ -698,7 +698,7 @@ export const articles = [
     reviewedAt: "2026-09-14T13:00:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_3.png",
+    featuredImage: "/images/feels-img.png",
     featuredImageAlt: "Making Tax Digital for Income Tax overview",
     ctaType: "MTD",
     relatedSlugs: [
@@ -769,7 +769,7 @@ export const articles = [
     reviewedAt: "2026-09-15T11:58:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_3.png",
+    featuredImage: "/images/feels-img.png",
     featuredImageAlt: "UK taxpayer meeting an accountant about Making Tax Digital",
     ctaType: "MTD",
     relatedSlugs: [
@@ -857,7 +857,7 @@ export const articles = [
     reviewedAt: "2026-09-15T11:58:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_2.png",
+    featuredImage: "/images/feels-img.png",
     featuredImageAlt: "Digital invoices and bank records prepared for Making Tax Digital",
     ctaType: "MTD",
     relatedSlugs: [
@@ -945,7 +945,7 @@ export const articles = [
     reviewedAt: "2026-09-15T11:58:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_1.png",
+    featuredImage: "/images/feels-img.png",
     featuredImageAlt: "Calendar showing a missed Making Tax Digital quarterly deadline",
     ctaType: "MTD",
     relatedSlugs: [
@@ -1018,7 +1018,7 @@ export const articles = [
     reviewedAt: "2026-09-15T11:58:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_2.png",
+    featuredImage: "/images/blog-category-sa.png",
     featuredImageAlt: "Self Assessment bill showing payments on account",
     ctaType: "SA",
     relatedSlugs: [
@@ -1102,7 +1102,7 @@ export const articles = [
     reviewedAt: "2026-09-15T11:58:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_1.png",
+    featuredImage: "/images/blog_3.png",
     featuredImageAlt: "Warning letter about a late Self Assessment tax return",
     ctaType: "SA",
     relatedSlugs: [
@@ -1192,7 +1192,7 @@ export const articles = [
     reviewedAt: "2026-09-15T11:58:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_1.png",
+    featuredImage: "/images/feels-img.png",
     featuredImageAlt: "Calendar highlighting the 7 November 2026 Making Tax Digital deadline",
     ctaType: "MTD",
     relatedSlugs: [
@@ -1284,7 +1284,7 @@ export const articles = [
     reviewedAt: "2026-09-15T11:58:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_2.png",
+    featuredImage: "/images/blog-category-landlord.png",
     featuredImageAlt: "UK rental property paperwork prepared for Making Tax Digital",
     ctaType: "MTD",
     relatedSlugs: [
@@ -1363,7 +1363,7 @@ export const articles = [
     reviewedAt: "2026-09-15T11:58:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_3.png",
+    featuredImage: "/images/feels-img.png",
     featuredImageAlt: "Self-employed trader reviewing invoices for Making Tax Digital",
     ctaType: "MTD",
     relatedSlugs: [
@@ -1440,7 +1440,7 @@ export const articles = [
     reviewedAt: "2026-09-15T11:58:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_3.png",
+    featuredImage: "/images/feels-img.png",
     featuredImageAlt: "Taxpayer reviewing an HMRC Making Tax Digital signup letter carefully",
     ctaType: "CHECK",
     relatedSlugs: [
@@ -1519,7 +1519,7 @@ export const articles = [
     reviewedAt: "2026-09-15T11:58:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_2.png",
+    featuredImage: "/images/feels-img.png",
     featuredImageAlt: "Planning calendar for Making Tax Digital from April 2027",
     ctaType: "CHECK",
     relatedSlugs: [
@@ -1595,7 +1595,7 @@ export const articles = [
     reviewedAt: "2026-09-15T11:58:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_3.png",
+    featuredImage: "/images/feels-img.png",
     featuredImageAlt: "Comparing Making Tax Digital quarterly updates with a Self Assessment tax return",
     ctaType: "MTD",
     relatedSlugs: [
@@ -1678,7 +1678,7 @@ export const articles = [
     reviewedAt: "2026-09-15T11:58:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_2.png",
+    featuredImage: "/images/feels-img.png",
     featuredImageAlt: "GOV.UK exemption guidance notes for Making Tax Digital for Income Tax",
     ctaType: "CHECK",
     relatedSlugs: [
@@ -1760,7 +1760,7 @@ export const articles = [
     reviewedAt: "2026-09-15T11:58:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_1.png",
+    featuredImage: "/images/blog-category-landlord.png",
     featuredImageAlt: "Landlord gathering rental statements for a Self Assessment tax return",
     ctaType: "SA",
     relatedSlugs: [
@@ -1912,7 +1912,7 @@ export const articles = [
     reviewedAt: "2026-09-15T11:58:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_1.png",
+    featuredImage: "/images/expert-img.png",
     featuredImageAlt: "Calendar highlighting the 5 October 2026 Self Assessment registration date",
     ctaType: "SA",
     deadlineSwitch: {
@@ -2017,7 +2017,7 @@ export const articles = [
     reviewedAt: "2026-09-15T13:08:29.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_2.png",
+    featuredImage: "/images/blog-category-sa.png",
     featuredImageAlt: "Taxpayer reviewing a Self Assessment bill they cannot pay in full",
     ctaType: "SA",
     relatedSlugs: [
@@ -2106,7 +2106,7 @@ export const articles = [
     reviewedAt: "2026-09-15T13:08:29.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_1.png",
+    featuredImage: "/images/blog-category-sa.png",
     featuredImageAlt: "Self Assessment statement with payments on account highlighted",
     ctaType: "SA",
     relatedSlugs: [
@@ -2185,7 +2185,7 @@ export const articles = [
     reviewedAt: "2026-09-15T13:08:29.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_3.png",
+    featuredImage: "/images/blog-category-landlord.png",
     featuredImageAlt: "Landlord reviewing buy-to-let mortgage interest paperwork for tax",
     ctaType: "SA",
     relatedSlugs: [
@@ -2264,7 +2264,7 @@ export const articles = [
     reviewedAt: "2026-09-15T13:08:29.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_2.png",
+    featuredImage: "/images/blog-category-cis.png",
     featuredImageAlt: "Construction subcontractor checking CIS payment and deduction statements",
     ctaType: "SA",
     relatedSlugs: [
@@ -2338,7 +2338,7 @@ export const articles = [
     reviewedAt: "2026-09-15T13:08:29.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
-    featuredImage: "/images/blog_1.png",
+    featuredImage: "/images/blog-category-landlord.png",
     featuredImageAlt: "Landlord reviewing rental records after realising income was not declared",
     ctaType: "SA",
     ctaLabel: "Get accountant help with your rental tax",

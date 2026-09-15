@@ -18,6 +18,7 @@ import { FaLock, FaPhone, FaUser } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { IoMdMail } from "react-icons/io";
 import CheckYourInbox from "./_sections/CheckYourInbox";
+import { getSafeErrorMessage, getSafeSuccessMessage } from "@/lib/toastMessage";
 export default function RegisterPage() {
   const [isView, setIsView] = useState({
     pass: false,
@@ -210,24 +211,22 @@ export default function RegisterPage() {
         const { response, error } = await RegisterApi(formData);
         if (response) {
           if (response.status == 200 || response.status == 201) {
-            toast.success(response.data.message);
-            const planId = searchParams.get('plan');
+            toast.success(
+              getSafeSuccessMessage(response.data, "Registration successful"),
+            );
             // Registration never grants ACTIVE entitlement (D8). Always continue verify / planlist path.
-            if (planId) {
-              setValid(true);
-            } else {
-              setValid(true);
-            }
+            setValid(true);
           }
         }
         if (error) {
-          // if(error) {
-          setApiErrorMsg(error?.response?.data?.message);
-          toast.error(error?.response?.data?.message);
-          // }
+          const message = getSafeErrorMessage(error);
+          setApiErrorMsg(message);
+          toast.error(message);
         }
       } catch (error) {
-        return null;
+        const message = getSafeErrorMessage(error);
+        setApiErrorMsg(message);
+        toast.error(message);
       }
     } else {
       setErrors(newErrors);

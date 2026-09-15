@@ -4644,21 +4644,79 @@ img.icon-globe {
 }
 
 .registration_login_full .form_row input,
-.profile_modal_body .form_row input {
+.registration_login_full .form_row select,
+.registration_login_full .form_row textarea,
+.profile_modal_body .form_row input,
+.profile_modal_body .form_row select,
+.profile_modal_body .form_row textarea {
   height: 56px;
   padding: 15px 30px 15px 45px;
   background-position: center left 14.9px;
   background-repeat: no-repeat;
   border-radius: 6px;
   background-color: #f4f6f5 !important;
+  color: #1f2937 !important;
+  -webkit-text-fill-color: #1f2937 !important;
+  caret-color: #1f2937;
   font-size: 14px;
   line-height: 26px;
 }
 
 .registration_login_full .form_row input::placeholder,
-.profile_modal_body .form_row input::placeholder {
-  color: #000 !important;
+.registration_login_full .form_row textarea::placeholder,
+.profile_modal_body .form_row input::placeholder,
+.profile_modal_body .form_row textarea::placeholder {
+  color: #4b5563 !important;
+  -webkit-text-fill-color: #4b5563 !important;
+  opacity: 1;
   font-size: 14px;
+}
+
+.registration_login_full .form_row input:focus,
+.registration_login_full .form_row select:focus,
+.registration_login_full .form_row textarea:focus,
+.profile_modal_body .form_row input:focus,
+.profile_modal_body .form_row select:focus,
+.profile_modal_body .form_row textarea:focus {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+  background-color: #ffffff !important;
+  border-color: #37a267;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(55, 162, 103, 0.2);
+}
+
+.registration_login_full .form_row input:disabled,
+.registration_login_full .form_row select:disabled,
+.profile_modal_body .form_row input:disabled {
+  color: #6b7280 !important;
+  -webkit-text-fill-color: #6b7280 !important;
+  background-color: #e5e7eb !important;
+  opacity: 1;
+}
+
+.registration_login_full .form_row input:-webkit-autofill,
+.registration_login_full .form_row input:-webkit-autofill:hover,
+.registration_login_full .form_row input:-webkit-autofill:focus,
+.profile_modal_body .form_row input:-webkit-autofill,
+.profile_modal_body .form_row input:-webkit-autofill:hover,
+.profile_modal_body .form_row input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #1f2937 !important;
+  caret-color: #1f2937;
+  box-shadow: 0 0 0 1000px #f4f6f5 inset !important;
+  transition: background-color 99999s ease-out;
+}
+
+.registration_login_full .form_row select,
+.profile_modal_body .form_row select {
+  appearance: auto;
+  color: #1f2937 !important;
+}
+
+.registration_login_full .form_row select option,
+.profile_modal_body .form_row select option {
+  color: #1f2937;
+  background-color: #ffffff;
 }
 
 .form_row {
@@ -11568,10 +11626,14 @@ input:focus,
 
 .sign_in_form_part .email_field {
   background-color: #37a2671c !important;
+  color: #1f2937 !important;
+  -webkit-text-fill-color: #1f2937 !important;
 }
 
 .sign_in_form_part .email_field::placeholder {
-  color: #000 !important;
+  color: #4b5563 !important;
+  -webkit-text-fill-color: #4b5563 !important;
+  opacity: 1;
 }
 
 .register_img img {
