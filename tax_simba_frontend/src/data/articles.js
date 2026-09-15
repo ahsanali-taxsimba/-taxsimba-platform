@@ -111,6 +111,7 @@ export function withResolvedArticleContent(article, now = new Date()) {
  *  featuredImage: string,
  *  featuredImageAlt: string,
  *  ctaType: CtaType,
+ *  ctaLabel?: string,
  *  relatedSlugs: string[],
  *  relatedPages: Array<{href: string, label: string}>,
  *  sources: Array<{label: string, url: string}>,
@@ -1024,6 +1025,7 @@ export const articles = [
       "self-assessment-deadline",
       "self-assessment-documents-checklist",
       "late-self-assessment-penalties",
+      "reduce-self-assessment-payments-on-account",
       "understanding-self-assessment-uk",
     ],
     relatedPages: [
@@ -1074,7 +1076,7 @@ export const articles = [
 <p>So £4,200 could be due on one January date even though nothing “mysterious” has happened. If the following year’s final bill is only £3,000, the excess paid on account is typically settled through the balancing calculation. It is not lost.</p>
 
 <h2>Reducing payments on account</h2>
-<p>If you expect to owe less than last year, you can ask HMRC to reduce payments on account (online or by post) using a realistic estimate. Do not reduce them casually: GOV.UK is clear that if you reduce them and your bill turns out higher than expected, you can be charged interest on the difference.</p>
+<p>If you expect to owe less than last year, you can ask HMRC to reduce payments on account (online or by post) using a realistic estimate. Do not reduce them casually: GOV.UK is clear that if you reduce them and your bill turns out higher than expected, you can be charged interest on the difference. For the how-to steps, see <a href="/blogs/reduce-self-assessment-payments-on-account">how to reduce Self Assessment payments on account</a>.</p>
 
 <h2>Filing dates vs this article</h2>
 <p>Filing deadlines are covered in the <a href="/blogs/self-assessment-deadline">Self Assessment deadline guide</a>. This page is about the advance-payment rhythm that often surprises people after a larger SA bill.</p>
@@ -1106,6 +1108,7 @@ export const articles = [
     relatedSlugs: [
       "self-assessment-deadline",
       "payments-on-account-explained",
+      "cannot-pay-self-assessment-tax-bill",
       "self-assessment-documents-checklist",
       "understanding-self-assessment-uk",
     ],
@@ -1764,7 +1767,8 @@ export const articles = [
       "self-assessment-documents-checklist",
       "self-assessment-deadline",
       "self-assessment-for-sole-traders-2025-26",
-      "payments-on-account-explained",
+      "landlord-mortgage-interest-tax-relief",
+      "undeclared-rental-income-hmrc",
       "mtd-for-landlords-2026-27",
     ],
     relatedPages: [
@@ -1842,6 +1846,7 @@ export const articles = [
       "self-assessment-documents-checklist",
       "self-assessment-deadline",
       "self-assessment-for-landlords-2025-26",
+      "cis-deductions-self-assessment",
       "payments-on-account-explained",
       "mtd-for-sole-traders-2026-27",
     ],
@@ -1996,6 +2001,420 @@ export const articles = [
 `,
   },
 
+  {
+    id: "seo-sa-cannot-pay-tax-bill",
+    slug: "cannot-pay-self-assessment-tax-bill",
+    title: "I Cannot Pay My Self Assessment Tax Bill — What Should I Do?",
+    excerpt:
+      "If you cannot pay your Self Assessment bill in full, GOV.UK sets out payment plans for overdue tax and Budget Payment Plans for upcoming bills. Here is how to tell which path fits and what to do next.",
+    metaTitle: "Cannot Pay Self Assessment Tax Bill — What To Do | TaxSimba",
+    metaDescription:
+      "Cannot pay your Self Assessment tax bill? How HMRC payment plans and Budget Payment Plans work, what you need ready, and practical next steps if cash is tight.",
+    category: "Self Assessment",
+    audience: "self-assessment",
+    tags: ["self-assessment", "cannot-pay", "time-to-pay", "payment-plan", "hmrc"],
+    publishedAt: "2026-09-15T12:40:00.000Z",
+    reviewedAt: "2026-09-15T13:20:00.000Z",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
+    featuredImage: "/images/blog_2.png",
+    featuredImageAlt: "Taxpayer reviewing a Self Assessment bill they cannot pay in full",
+    ctaType: "SA",
+    relatedSlugs: [
+      "late-self-assessment-penalties",
+      "payments-on-account-explained",
+      "reduce-self-assessment-payments-on-account",
+      "self-assessment-deadline",
+    ],
+    relatedPages: [
+      { href: "/self-assessment", label: "Self Assessment accountant service" },
+      { href: "/register", label: "Start Self Assessment with TaxSimba" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — If you cannot pay your tax bill on time",
+        url: "https://www.gov.uk/difficulties-paying-hmrc",
+      },
+      {
+        label: "GOV.UK — Setting up a payment plan",
+        url: "https://www.gov.uk/difficulties-paying-hmrc/pay-in-instalments",
+      },
+      {
+        label: "GOV.UK — Pay weekly or monthly (Budget Payment Plan)",
+        url: "https://www.gov.uk/pay-self-assessment-tax-bill/pay-weekly-monthly",
+      },
+      {
+        label: "GOV.UK — Pay your Self Assessment tax bill",
+        url: "https://www.gov.uk/pay-self-assessment-tax-bill",
+      },
+    ],
+    curated: true,
+    content: `
+<p>Self Assessment payment dates do not move just because cash is tight. Balancing payments and the first payment on account are usually due by midnight on 31 January, with the second payment on account due by midnight on 31 July. If you cannot clear the balance in one go, GOV.UK still expects you to act early rather than hope the bill disappears.</p>
+
+<h2>First, work out which problem you have</h2>
+<p>There are two common situations, and they are not the same tool on GOV.UK:</p>
+<ul>
+  <li><strong>The bill is overdue, or you cannot pay what you already owe.</strong> You may be able to set up a payment plan (often called a Time to Pay arrangement) to pay an overdue Self Assessment debt in monthly instalments, if HMRC agrees it is affordable.</li>
+  <li><strong>You are not overdue yet, but January or July will be hard.</strong> If you are up to date with your last Self Assessment bill, you may be able to set up a Budget Payment Plan: weekly or monthly Direct Debit payments towards your <em>next</em> bill so less is left at the deadline.</li>
+</ul>
+<p>GOV.UK also has a checker for which regular-payment option may be available. Use that before you guess.</p>
+
+<h2>If you cannot pay an overdue Self Assessment bill</h2>
+<p>HMRC’s “cannot pay on time” guidance says you may be able to pay in instalments. HMRC will check whether a plan is affordable. If you cannot agree a plan, they can still ask you to pay the full amount.</p>
+<p>To set up a plan online you will usually need:</p>
+<ul>
+  <li>your Self Assessment payment reference (your 10-digit UTR followed by the letter K)</li>
+  <li>UK bank details you are authorised to use for Direct Debit</li>
+  <li>a clear picture of income and spending</li>
+</ul>
+<p>If you cannot set a plan up online, contact HMRC and be ready to say whether you can pay in full, how much you can repay each month, what other tax you owe, what you earn and spend, and what savings or investments you hold. GOV.UK is clear that HMRC will expect you to use savings or assets to reduce the debt where you can. Independent debt advice documents such as a Standard Financial Statement can help evidence affordability.</p>
+
+<h2>If the bill is still ahead of you</h2>
+<p>A Budget Payment Plan is for people who are up to date on the last Self Assessment bill and want to drip-feed money towards the next one. You choose weekly or monthly amounts in your HMRC account under Direct Debit. You can pause payments for up to six months if you need to. If the plan does not cover the whole bill, you still pay the difference by the usual deadline. If you overpay, you can ask for a refund.</p>
+
+<h2>What not to do</h2>
+<p>Do not ignore letters or your online balance. Late payment can attract interest, and unpaid tax can attract late payment penalties on top. Filing on time still matters even while you arrange payment. Late filing penalties are a separate problem covered in <a href="/blogs/late-self-assessment-penalties">late Self Assessment penalties</a>.</p>
+<p>Also check whether part of what looks “unpayable” is actually a payment on account that should be reduced because this year’s income is lower. That is a different process: <a href="/blogs/reduce-self-assessment-payments-on-account">how to reduce payments on account</a>.</p>
+
+<h2>Practical sequence that usually helps</h2>
+<ol>
+  <li>Sign in and read the current balance and due dates, not just the paper letter.</li>
+  <li>Separate balancing payment, payments on account, interest and penalties in your head (or on paper).</li>
+  <li>Use GOV.UK’s payment-plan tools for overdue tax, or a Budget Payment Plan if you are still ahead of the deadline and up to date.</li>
+  <li>Pay something you can afford through an official channel if a full plan is not ready yet, using the correct payment reference.</li>
+  <li>Keep filing and record-keeping moving so the next bill is based on accurate figures.</li>
+</ol>
+
+<p>If the underlying return still needs preparing, TaxSimba’s <a href="/self-assessment">Self Assessment service</a> is accountant-led from the records you supply. We cannot promise that HMRC will accept a particular payment plan, waive interest, or cancel penalties. Payment arrangements are between you and HMRC on GOV.UK’s terms.</p>
+`,
+  },
+
+  {
+    id: "seo-sa-reduce-payments-on-account",
+    slug: "reduce-self-assessment-payments-on-account",
+    title: "How to Reduce Self Assessment Payments on Account",
+    excerpt:
+      "If this year’s Self Assessment tax will be lower than last year’s bill, you can ask HMRC to reduce payments on account. Here is when that makes sense, how to claim, and the interest risk if you cut them too far.",
+    metaTitle: "Reduce Self Assessment Payments on Account | TaxSimba",
+    metaDescription:
+      "How to reduce Self Assessment payments on account online or with SA303, when a claim is allowed, claim timing, and interest risk if you underestimate.",
+    category: "Self Assessment",
+    audience: "self-assessment",
+    tags: ["self-assessment", "payments-on-account", "SA303", "reduce", "hmrc"],
+    publishedAt: "2026-09-15T12:45:00.000Z",
+    reviewedAt: "2026-09-15T13:20:00.000Z",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
+    featuredImage: "/images/blog_1.png",
+    featuredImageAlt: "Self Assessment statement with payments on account highlighted",
+    ctaType: "SA",
+    relatedSlugs: [
+      "payments-on-account-explained",
+      "cannot-pay-self-assessment-tax-bill",
+      "self-assessment-deadline",
+      "self-assessment-for-sole-traders-2025-26",
+    ],
+    relatedPages: [
+      { href: "/self-assessment", label: "Self Assessment accountant service" },
+      { href: "/register", label: "Start Self Assessment with TaxSimba" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Payments on account",
+        url: "https://www.gov.uk/understand-self-assessment-bill/payments-on-account",
+      },
+      {
+        label: "GOV.UK — Claim to reduce payments on account",
+        url: "https://www.gov.uk/guidance/claim-to-reduce-payments-on-account",
+      },
+      {
+        label: "GOV.UK — Understand your Self Assessment bill",
+        url: "https://www.gov.uk/understand-self-assessment-bill",
+      },
+    ],
+    curated: true,
+    content: `
+<p>This page is about <strong>asking HMRC to lower the advance instalments</strong>, not about what payments on account are in general. If you need the basics first, start with <a href="/blogs/payments-on-account-explained">payments on account explained</a>, then come back here.</p>
+
+<h2>When a reduction claim makes sense</h2>
+<p>GOV.UK’s claim guidance says you can apply to reduce the amounts you have been asked to pay if:</p>
+<ul>
+  <li>your business profits or other income goes down</li>
+  <li>the tax relief you are entitled to goes up</li>
+  <li>tax deducted at source is more than in the previous tax year</li>
+</ul>
+<p>In plain terms: you need a realistic reason to expect this year’s Self Assessment liability to be lower than the figure HMRC used when it set the two instalments (usually half of last year’s tax, due by midnight on 31 January and 31 July).</p>
+
+<h2>How to claim</h2>
+<p>You can reduce payments on account:</p>
+<ul>
+  <li><strong>Online</strong> in your HMRC account (GOV.UK’s payments-on-account page lists the “Reduce payments on account” path after you open your latest Self Assessment return), or</li>
+  <li><strong>By post</strong> using form SA303, printed and sent to HMRC</li>
+</ul>
+<p>You will need to give HMRC the amount you expect to make so it can recalculate the instalments. For a postal claim, GOV.UK also asks for the name and address of your HMRC office (from the top of your statement) and either your Self Assessment Unique Taxpayer Reference or an employer reference.</p>
+<p>GOV.UK’s claim page says you must claim by 31 January after the end of the tax year. Its worked example is: claim by 31 January 2025 for the year 2023 to 2024. Check the live guidance for the year you are adjusting before you leave it late.</p>
+
+<h2>Interest risk if you cut them too far</h2>
+<p>If you reduce payments on account and the final bill is higher than expected, GOV.UK says you can be charged interest on the difference. That is why casual “I’ll just set them to zero” reductions are a bad idea. Use a careful estimate of the tax you expect to owe, not a hopeful guess.</p>
+
+<p>Illustrative only: last year’s Self Assessment tax was £8,000, so instalments were set at £4,000 and £4,000. Mid-year your trade clearly looks closer to a £5,000 bill. Asking HMRC to reduce each instalment toward £2,500 can ease cashflow. If the year later settles at £7,000 instead, interest can apply on the underpaid advance amount. The numbers are examples, not advice for your return.</p>
+
+<h2>Do not confuse this with a payment plan</h2>
+<p>Reducing payments on account changes how much HMRC asks for in advance. It is not the same as a Time to Pay arrangement or Budget Payment Plan if you cannot pay a bill that is already due. Those options sit in <a href="/blogs/cannot-pay-self-assessment-tax-bill">I cannot pay my Self Assessment tax bill</a>.</p>
+
+<h2>Getting the estimate right</h2>
+<p>A reduction claim is only as good as the forecast behind it. Pull year-to-date sales, rental statements, CIS deductions, payroll figures and known reliefs before you submit a number to HMRC. If an accountant prepares your return, ask them to sense-check the estimate rather than filing a reduction blind.</p>
+<p>TaxSimba’s <a href="/self-assessment">Self Assessment service</a> can help prepare the return that feeds these figures. We do not guarantee HMRC will accept a particular reduction amount, and we do not promise you will avoid interest if the estimate is wrong. Re-check the current GOV.UK claim page before you submit.</p>
+`,
+  },
+
+  {
+    id: "seo-landlord-mortgage-interest-relief",
+    slug: "landlord-mortgage-interest-tax-relief",
+    title: "Landlord Mortgage Interest Tax Relief: How Finance Costs Work Now",
+    excerpt:
+      "Residential landlords no longer deduct mortgage interest straight from rental profit in the old way. Here is how the basic-rate finance-cost tax reduction works, what counts as a finance cost, and what records to keep.",
+    metaTitle: "Landlord Mortgage Interest Tax Relief Explained | TaxSimba",
+    metaDescription:
+      "How residential landlord mortgage interest and finance costs get basic-rate tax relief now, what costs are restricted, and how the rules differ from older deductions.",
+    category: "Self Assessment",
+    audience: "landlords",
+    tags: ["landlords", "mortgage-interest", "finance-costs", "rental-income", "self-assessment"],
+    publishedAt: "2026-09-15T12:50:00.000Z",
+    reviewedAt: "2026-09-15T13:20:00.000Z",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
+    featuredImage: "/images/blog_3.png",
+    featuredImageAlt: "Landlord reviewing buy-to-let mortgage interest paperwork for tax",
+    ctaType: "SA",
+    relatedSlugs: [
+      "self-assessment-for-landlords-2025-26",
+      "undeclared-rental-income-hmrc",
+      "mtd-for-landlords-2026-27",
+      "self-assessment-documents-checklist",
+    ],
+    relatedPages: [
+      { href: "/rental-income-tax", label: "Rental income tax for landlords" },
+      { href: "/register", label: "Start Self Assessment with TaxSimba" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Tax relief for residential landlords: how it's worked out",
+        url: "https://www.gov.uk/guidance/changes-to-tax-relief-for-residential-landlords-how-its-worked-out-including-case-studies",
+      },
+      {
+        label: "GOV.UK — Work out your rental income when you let property",
+        url: "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+      },
+      {
+        label: "GOV.UK — Renting out a property: paying tax",
+        url: "https://www.gov.uk/renting-out-a-property/paying-tax",
+      },
+    ],
+    curated: true,
+    content: `
+<p>If you still think residential mortgage interest comes off rental profit pound for pound, the rules have moved on. For individual landlords of residential property, finance-cost relief is restricted to a <strong>basic-rate Income Tax reduction</strong>. GOV.UK’s transition finished from 6 April 2020, so the older style of full deduction from profit no longer applies for those residential finance costs.</p>
+
+<h2>What this page covers (and what it does not)</h2>
+<p>This is the finance-cost / mortgage-interest treatment for residential lets. It is not a full landlord Self Assessment checklist (see <a href="/blogs/self-assessment-for-landlords-2025-26">Self Assessment for landlords 2025/26</a>) and not the Making Tax Digital landlord guide (<a href="/blogs/mtd-for-landlords-2026-27">MTD for landlords 2026/27</a>).</p>
+
+<h2>How the tax reduction works</h2>
+<p>GOV.UK explains that the reduction is the basic rate value (currently 20%) of the <strong>lower</strong> of:</p>
+<ul>
+  <li>finance costs not deducted from rental income in the tax year (plus any finance costs brought forward)</li>
+  <li>property business profits for the year (after using brought-forward losses)</li>
+  <li>adjusted total income that exceeds your personal allowance (after losses and reliefs, excluding savings and dividends income)</li>
+</ul>
+<p>The tax reduction cannot be used to create a tax refund. If the limiting figure is property profits or adjusted total income rather than finance costs, unused finance costs can be carried forward for later years’ basic-rate reductions.</p>
+
+<h2>What counts as a finance cost</h2>
+<p>On GOV.UK’s rental-income guidance, restricted finance costs include interest on mortgages, loans (including loans to buy furnishings), and overdrafts, plus related incidental costs of getting or repaying finance. If a loan covers both residential and commercial property, or mixes trade and residential use, you need a reasonable split. Only the residential share is restricted in this way.</p>
+<p>GOV.UK also notes that UK and non-UK resident companies are outside this individual restriction and continue to get relief for interest in the usual way for companies. This article is aimed at individual landlords.</p>
+
+<h2>Why higher-rate landlords feel it more</h2>
+<p>Because residential finance costs no longer reduce taxable property profit in full, your total income for rate-band purposes can look higher even when cash interest has not changed. Relief then comes as a 20% tax reducer, not as a deduction at your higher or additional rate.</p>
+<p>Illustrative only (adapted from GOV.UK’s published case-study style; GOV.UK’s own examples use older personal allowance and band figures for teaching, so treat them as mechanics, not current thresholds): a landlord with other income plus rental receipts can be pushed into a higher band once finance costs stop wiping profit down. The 20% reducer then covers only part of the cash interest. Your accountant needs the full interest figure either way.</p>
+
+<h2>Records worth keeping</h2>
+<ul>
+  <li>Mortgage or loan interest statements for the tax year (interest element, not the full repayment)</li>
+  <li>Arrangement or exit fees tied to the finance</li>
+  <li>Notes if borrowing was increased or split across properties</li>
+  <li>Any unused finance costs brought forward from earlier years</li>
+</ul>
+
+<p>If you want help preparing the property pages that include this relief, start from TaxSimba’s <a href="/rental-income-tax">rental income tax</a> service page and <a href="/register">register</a> for accountant-led Self Assessment support. We do not invent allowable finance costs or guarantee a particular tax bill. Confirm current GOV.UK wording for your lets before you file.</p>
+`,
+  },
+
+  {
+    id: "seo-cis-deductions-self-assessment",
+    slug: "cis-deductions-self-assessment",
+    title: "CIS Deductions on Your Self Assessment Return: How Subcontractors Reclaim Tax",
+    excerpt:
+      "CIS deductions are advance payments towards your tax, not a final bill. Sole trader and partner subcontractors reclaim them through Self Assessment using contractor payment and deduction statements.",
+    metaTitle: "CIS Deductions on Self Assessment — How to Reclaim | TaxSimba",
+    metaDescription:
+      "How CIS subcontractors report gross pay and CIS deductions on a Self Assessment return, what statements to keep, refunds, and how company reclaim differs.",
+    category: "Self Assessment",
+    audience: "sole-traders",
+    tags: ["CIS", "self-assessment", "subcontractor", "construction", "refund"],
+    publishedAt: "2026-09-15T12:55:00.000Z",
+    reviewedAt: "2026-09-15T13:20:00.000Z",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
+    featuredImage: "/images/blog_2.png",
+    featuredImageAlt: "Construction subcontractor checking CIS payment and deduction statements",
+    ctaType: "SA",
+    relatedSlugs: [
+      "self-assessment-for-sole-traders-2025-26",
+      "self-assessment-documents-checklist",
+      "payments-on-account-explained",
+      "mtd-for-sole-traders-2026-27",
+    ],
+    relatedPages: [
+      { href: "/self-employed-tax-return", label: "Self-employed tax return support" },
+      { href: "/register", label: "Start Self Assessment with TaxSimba" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — CIS subcontractors: pay tax and claim back deductions",
+        url: "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/pay-tax-and-claim-back-deductions",
+      },
+      {
+        label: "GOV.UK — What you must do as a CIS subcontractor",
+        url: "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor",
+      },
+      {
+        label: "GOV.UK — Claim repayment of subcontractor deductions (CIS40)",
+        url: "https://www.gov.uk/government/publications/construction-industry-scheme-individuals-repayment-claim-cis40",
+      },
+    ],
+    curated: true,
+    content: `
+<p>If contractors take CIS deductions from your pay, those amounts are <strong>advance payments towards your Income Tax and National Insurance</strong>, not a separate final tax. For sole traders and partners, the usual reclaim or set-off happens when you file your Self Assessment return.</p>
+
+<h2>What to put on the return</h2>
+<p>GOV.UK’s CIS subcontractor guidance says that at the end of the tax year you send your Self Assessment return as usual and record:</p>
+<ul>
+  <li>your total pay <strong>before</strong> deductions were taken, as income</li>
+  <li>the total deductions contractors have taken, as CIS deductions</li>
+</ul>
+<p>HMRC then works out how much tax you owe and takes off the CIS deductions. If anything is still due, you pay by 31 January following the end of the tax year. If the deductions exceed what you owe, HMRC can refund the excess.</p>
+<p>Keep the monthly payment and deduction statements your contractors give you. Without those totals, the CIS credit on the return is guesswork.</p>
+
+<h2>This is not the general sole-trader checklist</h2>
+<p>Wider sole-trader prep for 2025/26 sits in <a href="/blogs/self-assessment-for-sole-traders-2025-26">Self Assessment for sole traders</a>. This page stays on CIS credit and reclaim mechanics.</p>
+
+<h2>In-year repayments vs waiting for the return</h2>
+<p>If you need a repayment of CIS deductions during the current tax year (rather than waiting for the year-end return), HMRC publishes form CIS40 for individuals. GOV.UK’s CIS40 page says to use your tax return instead once you are claiming after the end of the tax year. If you stop trading mid-year, GOV.UK also points sole traders and partners to an in-year claim route for deductions already taken.</p>
+
+<h2>Limited companies are different</h2>
+<p>Company subcontractors do not reclaim CIS through a personal Self Assessment return in the same way. GOV.UK directs companies to set CIS deductions against PAYE liabilities through FPS and EPS payroll submissions. Do not try to clear company CIS through a Corporation Tax return. This article is aimed at sole traders and partners using Self Assessment.</p>
+
+<h2>Gross payment status</h2>
+<p>If you have gross payment status, contractors should not take the usual CIS deductions in advance. The reclaim story on this page mainly matters when deductions have actually been taken (commonly 20% if you are registered, or 30% if you are not).</p>
+
+<p>Illustrative only: a sole trader receives £40,000 gross from contractors in a year and sees £8,000 of CIS deductions on the statements. The Self Assessment trade pages still start from the £40,000 income figure, with the £8,000 entered as CIS deductions so it credits the bill. Whether that creates a balancing payment or a refund depends on the rest of the year’s tax, not on CIS alone.</p>
+
+<p>If you want an accountant to prepare the Self Assessment pages that include CIS, use TaxSimba’s <a href="/self-employed-tax-return">self-employed tax return</a> service and <a href="/register">register</a>. Bring every payment and deduction statement you have. We do not guarantee a refund amount, and we do not replace HMRC’s CIS registration process.</p>
+`,
+  },
+
+  {
+    id: "seo-undeclared-rental-income-hmrc",
+    slug: "undeclared-rental-income-hmrc",
+    title: "I Haven’t Declared Rental Income to HMRC — What Should I Do?",
+    excerpt:
+      "If rental income was never told to HMRC, ignoring it is not a fix. Here is what GOV.UK’s Let Property Campaign covers, how notification and disclosure work at a high level, and how ongoing Self Assessment fits afterwards.",
+    metaTitle: "Undeclared Rental Income to HMRC — What To Do | TaxSimba",
+    metaDescription:
+      "What to do if rental income was not declared to HMRC: Let Property Campaign overview, 90-day disclosure timing, records needed, and getting future returns right.",
+    category: "Self Assessment",
+    audience: "landlords",
+    tags: ["landlords", "undeclared-rental-income", "let-property-campaign", "disclosure", "hmrc"],
+    publishedAt: "2026-09-15T13:00:00.000Z",
+    reviewedAt: "2026-09-15T13:20:00.000Z",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
+    featuredImage: "/images/blog_1.png",
+    featuredImageAlt: "Landlord reviewing rental records after realising income was not declared",
+    ctaType: "SA",
+    ctaLabel: "Get accountant help with your rental tax",
+    relatedSlugs: [
+      "self-assessment-for-landlords-2025-26",
+      "landlord-mortgage-interest-tax-relief",
+      "self-assessment-register-by-5-october-2026",
+      "mtd-for-landlords-2026-27",
+    ],
+    relatedPages: [
+      { href: "/rental-income-tax", label: "Rental income tax for landlords" },
+      { href: "/register", label: "Get accountant help with your rental tax" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Let Property Campaign: your guide to making a disclosure",
+        url: "https://www.gov.uk/government/publications/let-property-campaign-your-guide-to-making-a-disclosure/let-property-campaign-your-guide-to-making-a-disclosure",
+      },
+      {
+        label: "GOV.UK — Make a voluntary disclosure to HMRC",
+        url: "https://www.gov.uk/government/publications/hmrc-your-guide-to-making-a-disclosure/your-guide-to-making-a-disclosure",
+      },
+      {
+        label: "GOV.UK — Work out your rental income when you let property",
+        url: "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+      },
+      {
+        label: "GOV.UK — Register for Self Assessment",
+        url: "https://www.gov.uk/register-for-self-assessment",
+      },
+    ],
+    curated: true,
+    content: `
+<p>Realising rental income never reached HMRC is unsettling. Waiting and hoping is not a solution. GOV.UK asks landlords with unpaid tax on letting income to tell HMRC and put the figures right. This guide summarises the official Let Property Campaign path at a high level. It is general information, not personal tax or legal advice, and it does not assume why the income was missed.</p>
+
+<h2>What to do first</h2>
+<ol>
+  <li>Stop guessing. Read HMRC’s current Let Property Campaign guide on GOV.UK and check whether that route applies to you.</li>
+  <li>Gather what records you still have: rent received, agent statements, bank entries, repair invoices, and finance-cost paperwork.</li>
+  <li>Separate <strong>older undeclared years</strong> from <strong>current or very recent years</strong> that may still belong on a normal Self Assessment return or amendment rather than inside a disclosure pack.</li>
+  <li>If the calculations span several years or the paperwork is incomplete, consider professional help before you send figures to HMRC.</li>
+</ol>
+
+<h2>What the Let Property Campaign is</h2>
+<p>HMRC describes the Let Property Campaign as a way for landlords who owe tax from letting residential property in the UK or abroad to get their tax affairs up to date. GOV.UK says individual landlords can use it for situations such as a single let, a portfolio, a room in a main home above the Rent a Room threshold, holiday lettings, inherited property that is let, and some non-resident landlords of UK property.</p>
+<p>It does not cover landlords disclosing only non-residential property such as a shop or garage, or disclosures on behalf of a company or trust. Those situations need a different route.</p>
+
+<h2>Notification, disclosure and payment (high level)</h2>
+<p>GOV.UK’s process has clear stages:</p>
+<ul>
+  <li><strong>Notify</strong> HMRC that you intend to make a disclosure as soon as you become aware you owe tax on letting income. At this stage you do not need to supply the full income figures.</li>
+  <li>HMRC then gives you a disclosure reference number and a payment reference number.</li>
+  <li><strong>Disclose</strong> the undeclared letting income within <strong>90 days</strong> of the date on your notification acknowledgement, and pay what you owe (or agree payment arrangements with HMRC by that same deadline if you cannot pay in full).</li>
+</ul>
+<p>GOV.UK warns that if disclosure and payment (or agreed arrangements) are not completed by that deadline, you will not be able to make a disclosure under the campaign’s terms. Always use the dates on your own acknowledgement letter.</p>
+
+<h2>Current or prior-year income may sit on a tax return instead</h2>
+<p>HMRC’s campaign guide draws an important line: income in the current tax year should not go in the disclosure. If you are not already in Self Assessment, register now and report that income on the return HMRC issues after the year ends. Income for the year before the current tax year is also generally handled through a tax return or, if you already filed, through an amendment within the usual amendment window. Put simply, not every missed rent figure belongs in the multi-year disclosure form.</p>
+
+<h2>Records and incomplete paperwork</h2>
+<p>Start with bank statements, tenancy agreements, agent reports and invoices. If records are incomplete, GOV.UK says you should make your best estimate, keep your workings, and be ready to explain them. Ask your bank for copy statements early if they are missing. This is also the moment to start keeping proper property records going forward.</p>
+
+<h2>Tax, interest and penalties (carefully)</h2>
+<p>Any extra tax included in a disclosure is late, so GOV.UK says interest runs from the date the tax was due until it is paid. Penalties can also apply where returns were wrong or HMRC was not told about a tax liability. HMRC asks you to consider whether errors happened despite taking reasonable care, through carelessness, or deliberately. Those categories affect how many years may need to be covered and how penalties are approached. This article will not label your situation or promise any penalty outcome.</p>
+<p>GOV.UK notes that voluntary disclosure is usually treated more favourably than waiting until HMRC finds the income another way, and that waiting can lead to higher penalties and more serious enforcement outcomes. That is HMRC’s published warning, not a prediction about you.</p>
+
+<h2>Why multiple years get complicated</h2>
+<p>Each year can have different rent, expenses, finance-cost rules, rate bands and other income. Losses in one year may only set against later rental profits. Joint ownership means each person usually needs their own figures and, where relevant, their own disclosure. Mixing years that belong on ordinary returns with years that belong in a disclosure makes the pack easy to get wrong.</p>
+
+<h2>After you bring older years up to date</h2>
+<p>Once past liabilities are addressed, future rental profit still needs correct reporting. That usually means staying in Self Assessment while it applies, keeping records, and watching Making Tax Digital for Income Tax if your property income brings you into scope. Practical prep for a normal year is in <a href="/blogs/self-assessment-for-landlords-2025-26">Self Assessment for landlords 2025/26</a>; MTD timing is in <a href="/blogs/mtd-for-landlords-2026-27">MTD for landlords 2026/27</a>.</p>
+
+<p>TaxSimba provides accountant-led help with ongoing rental Self Assessment and related landlord tax compliance through our <a href="/rental-income-tax">rental income tax</a> service. We do not claim to run a specialist Let Property Campaign disclosure product on this page. If you need help getting future returns right after you have dealt with HMRC’s disclosure process, <a href="/register">get accountant help with your rental tax</a>. Recheck the live GOV.UK campaign guide before you act, because process details can change.</p>
+`,
+  },
+
 ];
 
 export function getPublishedArticles() {
@@ -2023,7 +2442,9 @@ export function getRelatedArticles(article, limit = 3) {
 
 export function getCtaForArticle(article) {
   if (!article) return ARTICLE_CTA.SA;
-  return ARTICLE_CTA[article.ctaType] || ARTICLE_CTA.SA;
+  const base = ARTICLE_CTA[article.ctaType] || ARTICLE_CTA.SA;
+  if (article.ctaLabel) return { ...base, label: article.ctaLabel };
+  return base;
 }
 
 export function normalizeApiArticle(raw = {}) {
