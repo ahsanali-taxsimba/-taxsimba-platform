@@ -10,9 +10,10 @@
 export const ARTICLE_CTA = {
   SA: { href: "/register", label: "Start Self Assessment with TaxSimba" },
   MTD: { href: "/register?role=MTD", label: "Get MTD support with TaxSimba" },
+  CHECK: { href: "/check-mtd", label: "Check if MTD applies" },
 };
 
-/** @typedef {'SA'|'MTD'|'BOTH'} CtaType */
+/** @typedef {'SA'|'MTD'|'CHECK'|'BOTH'} CtaType */
 
 /**
  * @type {Array<{
@@ -60,6 +61,7 @@ export const articles = [
     featuredImageAlt: "UK taxpayer reviewing an HMRC Making Tax Digital signup notice",
     ctaType: "MTD",
     relatedSlugs: [
+      "hmrc-mtd-signup-wrong",
       "mtd-qualifying-income",
       "mtd-quarterly-updates",
       "mtd-accountant-or-agent",
@@ -112,7 +114,7 @@ export const articles = [
 <p>Putting the letter aside because “I already do Self Assessment.” MTD adds digital record-keeping and quarterly updates for the income types in scope. Leaving everything until January makes catch-up harder — and you need to send the required quarterly updates before you can submit your tax return.</p>
 
 <h3>If you think you were signed up incorrectly</h3>
-<p>Contact HMRC Self Assessment if you believe you are exempt or should not be in MTD. Do not ignore the message while you wait — check the official guidance and get advice if your income mix is complicated.</p>
+<p>If your question is “HMRC has put me into MTD, but I think that is wrong,” use the dedicated guide on <a href="/blogs/hmrc-mtd-signup-wrong">disputing an MTD signup</a>. Contact HMRC if you believe you are exempt or should not be in scope — and do not ignore the message while you wait.</p>
 
 <h2>How TaxSimba can help</h2>
 <p>TaxSimba is an <strong>accountant-led</strong> Making Tax Digital service. If you have just been signed up and want the process managed, our accountants use TaxSimba’s platform to help you organise records, stay on the quarterly rhythm, and handle the MTD workflow without expecting you to become an HMRC software expert.</p>
@@ -142,6 +144,7 @@ export const articles = [
     featuredImageAlt: "Calculator and notes used to work out MTD qualifying income",
     ctaType: "MTD",
     relatedSlugs: [
+      "mtd-30000-threshold-2027",
       "hmrc-signed-me-up-for-making-tax-digital",
       "mtd-quarterly-updates",
       "mtd-accountant-or-agent",
@@ -235,6 +238,7 @@ export const articles = [
     featuredImageAlt: "Calendar marking Making Tax Digital quarterly update deadlines",
     ctaType: "MTD",
     relatedSlugs: [
+      "mtd-quarterly-deadline-7-november-2026",
       "mtd-qualifying-income",
       "hmrc-signed-me-up-for-making-tax-digital",
       "mtd-digital-records",
@@ -641,6 +645,8 @@ export const articles = [
     featuredImageAlt: "Making Tax Digital for Income Tax overview",
     ctaType: "MTD",
     relatedSlugs: [
+      "mtd-for-sole-traders-2026-27",
+      "mtd-for-landlords-2026-27",
       "hmrc-signed-me-up-for-making-tax-digital",
       "mtd-qualifying-income",
       "mtd-quarterly-updates",
@@ -801,6 +807,8 @@ export const articles = [
     featuredImageAlt: "Digital invoices and bank records prepared for Making Tax Digital",
     ctaType: "MTD",
     relatedSlugs: [
+      "mtd-for-sole-traders-2026-27",
+      "mtd-for-landlords-2026-27",
       "mtd-quarterly-updates",
       "missed-mtd-quarterly-update",
       "mtd-qualifying-income",
@@ -890,6 +898,7 @@ export const articles = [
     featuredImageAlt: "Calendar showing a missed Making Tax Digital quarterly deadline",
     ctaType: "MTD",
     relatedSlugs: [
+      "mtd-quarterly-deadline-7-november-2026",
       "mtd-quarterly-updates",
       "mtd-digital-records",
       "hmrc-signed-me-up-for-making-tax-digital",
@@ -1121,6 +1130,405 @@ export const articles = [
 `,
   },
 
+  {
+    id: "seo-mtd-deadline-7-nov-2026",
+    slug: "mtd-quarterly-deadline-7-november-2026",
+    title: "MTD Quarterly Deadline: What You Need to Do Before 7 November 2026",
+    excerpt:
+      "The next Making Tax Digital quarterly update for many people in 2026 to 2027 is due by 7 November 2026. Here is what that deadline covers and what to do before it.",
+    metaTitle: "MTD Deadline 7 November 2026 — What To Do | TaxSimba",
+    metaDescription:
+      "Action checklist for the Making Tax Digital quarterly update due by 7 November 2026: which period it covers, what to send, and how to catch up if records are behind.",
+    category: "Making Tax Digital",
+    audience: "sole-traders-landlords",
+    tags: ["mtd", "deadline", "7-november-2026", "quarterly-updates"],
+    publishedAt: "2026-09-15T16:00:00.000Z",
+    reviewedAt: "2026-09-15T16:00:00.000Z",
+    authorName: "TaxSimba Tax Team",
+    reviewerName: "TaxSimba Tax Team",
+    featuredImage: "/images/blog_1.png",
+    featuredImageAlt: "Calendar highlighting the 7 November 2026 Making Tax Digital deadline",
+    ctaType: "MTD",
+    relatedSlugs: [
+      "mtd-quarterly-updates",
+      "missed-mtd-quarterly-update",
+      "mtd-digital-records",
+      "mtd-accountant-or-agent",
+      "hmrc-signed-me-up-for-making-tax-digital",
+    ],
+    relatedPages: [
+      { href: "/making-tax-digital", label: "Making Tax Digital accountant service" },
+      { href: "/mtd-information", label: "MTD packages" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Send quarterly updates (Making Tax Digital for Income Tax)",
+        url: "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+      },
+      {
+        label: "GOV.UK — Use Making Tax Digital for Income Tax (first-year dates)",
+        url: "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/before-you-use-this-guide",
+      },
+      {
+        label: "GOV.UK — Penalties for Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/penalties-for-making-tax-digital-for-income-tax",
+      },
+    ],
+    curated: true,
+    content: `
+<!-- deadline-notice:active-until-2026-11-07 -->
+<p><strong>Deadline in focus:</strong> if you use standard or calendar update periods for Making Tax Digital for Income Tax in 2026 to 2027, the second quarterly update is due by <strong>7 November 2026</strong>. You can send it any time after the update period ends — you do not have to wait until the deadline day.</p>
+<!-- /deadline-notice -->
+
+<p>This page is a time-bound action guide for that date. For the evergreen explanation of what a quarterly update contains, use <a href="/blogs/mtd-quarterly-updates">MTD quarterly updates explained</a>. If the date has already passed, switch to <a href="/blogs/missed-mtd-quarterly-update">what to do after a missed update</a>.</p>
+
+<h2>Which period does the 7 November update cover?</h2>
+<p>GOV.UK sets the same send-by date for both period types:</p>
+<ul>
+  <li><strong>Standard update periods</strong> (tax year aligned): totals from <strong>6 April to 5 October</strong> — send by 7 November</li>
+  <li><strong>Calendar update periods</strong> (1 April–31 March accounting): totals from <strong>1 April to 30 September</strong> — send by 7 November</li>
+</ul>
+<p>Each update is cumulative from the start of the tax year to the end of that period. Your software should show the exact window that applies to you.</p>
+
+<h2>Before 7 November — a practical checklist</h2>
+<ol>
+  <li><strong>Confirm you are in MTD</strong> for the income sources involved (self-employment, property, or both).</li>
+  <li><strong>Bring digital records up to date</strong> through the end of the update period — amounts, dates and categories in compatible software (or with your agent).</li>
+  <li><strong>Check joint property choices</strong> if relevant: for jointly let property, GOV.UK allows income-and-expenses or income-only in quarterly updates (expenses must be sorted later if you omit them).</li>
+  <li><strong>Send the update</strong> through compatible software, or ask your accountant/agent to send it.</li>
+  <li><strong>Diary the next dates</strong> — typically 7 February 2027 and 7 May 2027 for later 2026 to 2027 updates when periods align.</li>
+</ol>
+
+<h2>Penalties for this particular deadline</h2>
+<p>For the <strong>2026 to 2027</strong> tax year, HMRC will not apply penalty points for late quarterly updates. That soft landing does <em>not</em> make the update optional: you still need to send quarterly updates before you can submit your tax return. Late tax returns and late payment of tax can still attract penalties. Re-check <a href="https://www.gov.uk/guidance/penalties-for-making-tax-digital-for-income-tax" target="_blank" rel="noopener noreferrer">GOV.UK MTD penalties</a> for the year you are in.</p>
+
+<!-- after-deadline-note:replace-active-notice-after-2026-11-07
+<p><strong>This 7 November 2026 deadline has passed.</strong> If you still need to send the update, follow the catch-up steps in our <a href="/blogs/missed-mtd-quarterly-update">missed quarterly update guide</a>.</p>
+-->
+
+<h2>If records are a mess this week</h2>
+<p>Prioritise getting usable totals into software from bank exports, invoices and (for landlords) agent statements covering the period. Guessing figures just to clear a screen is a poor fix. If you want the workflow handled rather than DIY catch-up alone, TaxSimba’s <a href="/making-tax-digital">Making Tax Digital service</a> is accountant-led — you still supply the evidence.</p>
+
+<p>General information only — not personal tax advice. Confirm dates in your software and on current GOV.UK guidance.</p>
+`,
+  },
+  {
+    id: "seo-mtd-landlords-2026-27",
+    slug: "mtd-for-landlords-2026-27",
+    title: "MTD for Landlords: What Landlords Need to Do in 2026/27",
+    excerpt:
+      "If Making Tax Digital for Income Tax applies to your property income in 2026 to 2027, here is what landlords actually need to do — digital records, quarterly updates, and joint-let points.",
+    metaTitle: "MTD for Landlords 2026/27 — What To Do | TaxSimba",
+    metaDescription:
+      "Landlord-focused Making Tax Digital requirements for 2026 to 2027: UK property business records, quarterly updates, jointly let property, and when to use accountant support.",
+    category: "Making Tax Digital",
+    audience: "landlords",
+    tags: ["mtd", "landlords", "property", "2026-27"],
+    publishedAt: "2026-09-15T15:45:00.000Z",
+    reviewedAt: "2026-09-15T15:45:00.000Z",
+    authorName: "TaxSimba Tax Team",
+    reviewerName: "TaxSimba Tax Team",
+    featuredImage: "/images/blog_2.png",
+    featuredImageAlt: "UK rental property paperwork prepared for Making Tax Digital",
+    ctaType: "MTD",
+    relatedSlugs: [
+      "mtd-digital-records",
+      "mtd-quarterly-updates",
+      "mtd-qualifying-income",
+      "mtd-accountant-or-agent",
+      "mtd-for-sole-traders-2026-27",
+    ],
+    relatedPages: [
+      { href: "/rental-income-tax", label: "MTD accountant support for landlords" },
+      { href: "/making-tax-digital", label: "Making Tax Digital overview" },
+      { href: "/check-mtd", label: "MTD checker" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Create digital records (Making Tax Digital for Income Tax)",
+        url: "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      },
+      {
+        label: "GOV.UK — Send quarterly updates",
+        url: "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+      },
+      {
+        label: "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      },
+      {
+        label: "GOV.UK — Work out your qualifying income",
+        url: "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+      },
+    ],
+    curated: true,
+    content: `
+<p>Landlords in Making Tax Digital for Income Tax for 2026 to 2027 are not filing a new “property-only tax return” every quarter. You (or your agent) keep <strong>digital records</strong> of property income and expenses in compatible software and send <strong>quarterly summary updates</strong> to HMRC — then still submit a tax return after the year ends.</p>
+
+<p>This guide is about the landlord obligations themselves. If you already know you need managed help, the commercial service page is <a href="/rental-income-tax">MTD for landlords</a>.</p>
+
+<h2>Are you in for 2026/27?</h2>
+<p>Broadly, MTD for Income Tax applies if you are a Self Assessment landlord (or sole trader, or both) and your <strong>qualifying income</strong> — gross self-employment and property turnover before expenses — is over the relevant threshold for the look-back year. For the April 2026 start, that was more than <strong>£50,000</strong> on the 2024 to 2025 return. Later cohorts use £30,000 (from April 2027) and £20,000 (from April 2028). Confirm with GOV.UK and our <a href="/check-mtd">MTD checker</a> rather than using profit after costs.</p>
+
+<h2>What landlords must keep digitally</h2>
+<p>GOV.UK expects digital records of UK property income (rent, certain premiums/inducements) and property expenses (repairs, maintenance, and other allowable categories your software supports). You still keep supporting documents such as agent statements and invoices.</p>
+<p><strong>Useful nuance:</strong> UK rental properties are generally treated as one <strong>UK property business</strong>. You do not create a separate MTD “set” for each flat in the UK — the software rolls them together (including your share of jointly let UK property). Foreign property has separate record rules; check GOV.UK if you have overseas lets.</p>
+
+<p>Example entry: rent received <strong>£1,250</strong> on <strong>1 September 2026</strong>, categorised as property income; a boiler repair of <strong>£240</strong> on <strong>12 June 2026</strong> as repairs and maintenance. The agent statement and invoice stay on file.</p>
+
+<h2>Quarterly updates for property</h2>
+<p>Every three months, software totals those digital records and sends category summaries. HMRC does not receive every individual receipt. Deadlines for many people in 2026 to 2027 include 7 August, 7 November, 7 February and 7 May (following tax year). Details: <a href="/blogs/mtd-quarterly-updates">what quarterly updates include</a>.</p>
+<p>For jointly let property, GOV.UK lets you include income and expenses, or income only, in quarterly updates — if you omit expenses you must report them later by resending the fourth update before the tax return.</p>
+
+<h2>Landlord-specific traps</h2>
+<ul>
+  <li>Treating profit after mortgage interest as the MTD threshold test</li>
+  <li>Leaving agent statements in an email inbox until January</li>
+  <li>Mixing personal and rental spending with no labels</li>
+  <li>Assuming “I only have two buy-to-lets” means two separate UK MTD property businesses (usually it does not)</li>
+</ul>
+
+<h2>Where TaxSimba fits (without replacing the service page)</h2>
+<p>TaxSimba is an accountant-led MTD service, not DIY landlord software. For product and packages aimed at landlords, start at <a href="/rental-income-tax">rental income / MTD for landlords</a>. This article exists to answer “what do I have to do?” — not to replace that commercial page.</p>
+
+<p>Rules and exemptions can change; confirm on GOV.UK for your situation. General information only — not personal tax advice.</p>
+`,
+  },
+  {
+    id: "seo-mtd-sole-traders-2026-27",
+    slug: "mtd-for-sole-traders-2026-27",
+    title: "MTD for Sole Traders: What You Need to Do in 2026/27",
+    excerpt:
+      "Sole traders in Making Tax Digital for Income Tax in 2026 to 2027 need digital business records and quarterly updates. Here is the practical checklist — without the sales brochure.",
+    metaTitle: "MTD for Sole Traders 2026/27 — Checklist | TaxSimba",
+    metaDescription:
+      "What sole traders must do under Making Tax Digital for Income Tax in 2026 to 2027: digital records, separate businesses, quarterly updates, and how accountant-led support fits.",
+    category: "Making Tax Digital",
+    audience: "sole-traders",
+    tags: ["mtd", "sole-trader", "self-employed", "2026-27"],
+    publishedAt: "2026-09-15T15:30:00.000Z",
+    reviewedAt: "2026-09-15T15:30:00.000Z",
+    authorName: "TaxSimba Tax Team",
+    reviewerName: "TaxSimba Tax Team",
+    featuredImage: "/images/blog_3.png",
+    featuredImageAlt: "Self-employed trader reviewing invoices for Making Tax Digital",
+    ctaType: "MTD",
+    relatedSlugs: [
+      "mtd-digital-records",
+      "mtd-quarterly-updates",
+      "mtd-qualifying-income",
+      "mtd-accountant-or-agent",
+      "mtd-for-landlords-2026-27",
+    ],
+    relatedPages: [
+      { href: "/self-employed-tax-return", label: "MTD accountant support for sole traders" },
+      { href: "/making-tax-digital", label: "Making Tax Digital overview" },
+      { href: "/check-mtd", label: "MTD checker" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Create digital records (Making Tax Digital for Income Tax)",
+        url: "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      },
+      {
+        label: "GOV.UK — Send quarterly updates",
+        url: "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+      },
+      {
+        label: "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      },
+      {
+        label: "GOV.UK — Work out your qualifying income",
+        url: "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+      },
+    ],
+    curated: true,
+    content: `
+<p>If Making Tax Digital for Income Tax applies to you as a sole trader in 2026 to 2027, three duties sit on top of ordinary Self Assessment: keep <strong>digital records</strong> of business income and expenses, send <strong>quarterly updates</strong> through compatible software (or an agent), and still submit your <strong>tax return</strong> after year-end.</p>
+
+<p>Looking for the managed service rather than the rules? That commercial page is <a href="/self-employed-tax-return">MTD for sole traders</a>. Keep reading for the obligations themselves.</p>
+
+<h2>When sole traders are in scope</h2>
+<p>You need MTD for Income Tax when you are registered for Self Assessment, have self-employment (and/or property) income, and your qualifying income — <strong>turnover before expenses</strong> — is above the threshold for the relevant look-back year. The first wave (from 6 April 2026) used more than £50,000 on the 2024 to 2025 return. April 2027 brings in more than £30,000 on 2025 to 2026; April 2028 brings in more than £20,000 on 2026 to 2027. Work through GOV.UK or the <a href="/check-mtd">MTD checker</a> before assuming profit after costs keeps you out.</p>
+
+<h2>Digital records for a trade</h2>
+<p>Record sales, fees and allowable expenses with amount, date and category in software that works with MTD. Supporting invoices and bank exports still matter. If you run <strong>more than one sole-trader business</strong>, GOV.UK expects separate digital records — and separate quarterly updates — for each (for example electrician work and a separate tutoring trade).</p>
+<p>Day-to-day tip: categorise as you go. A January reconstruction from vague bank descriptions is exactly what MTD is designed to avoid. More detail: <a href="/blogs/mtd-digital-records">MTD digital records</a>.</p>
+
+<h2>Quarterly rhythm without the jargon</h2>
+<p>Software totals your digital records into category summaries every three months. Those summaries are not full tax returns, and HMRC does not see every receipt. Typical deadlines when periods align include 7 August, 7 November, 7 February and 7 May. For 2026 to 2027, late quarterly updates do not attract penalty points — but updates are still required before the return can be submitted.</p>
+
+<h2>Sole trader checklist for 2026/27</h2>
+<ol>
+  <li>Confirm scope (threshold + Self Assessment status).</li>
+  <li>Authorise compatible software or an agent.</li>
+  <li>Keep digital records from the start of the relevant tax year (catch up if you joined late).</li>
+  <li>Send each quarterly update on time for every trade in MTD.</li>
+  <li>At year-end, use the software route to adjustments, other income, reliefs and the tax return.</li>
+</ol>
+
+<p>TaxSimba offers accountant-led MTD support for self-employed clients who do not want DIY-only software. Compare that offering on <a href="/self-employed-tax-return">the sole trader MTD page</a> — this article stays on “what HMRC expects,” not package selling.</p>
+
+<p>General information only — not personal tax advice. Always check current GOV.UK guidance for your trades.</p>
+`,
+  },
+  {
+    id: "seo-hmrc-mtd-signup-wrong",
+    slug: "hmrc-mtd-signup-wrong",
+    title: "HMRC Says I Need Making Tax Digital, But I Think They’re Wrong — What Should I Do?",
+    excerpt:
+      "Think HMRC has put you into Making Tax Digital incorrectly? Here is how to check qualifying income, exemptions and ceased sources — and how to contact HMRC without ignoring the signup.",
+    metaTitle: "HMRC MTD Signup Looks Wrong — What To Do | TaxSimba",
+    metaDescription:
+      "Steps if you believe HMRC signed you up for Making Tax Digital incorrectly: check qualifying income, ceased income, exemptions, and how to contact HMRC while staying compliant.",
+    category: "Making Tax Digital",
+    audience: "sole-traders-landlords",
+    tags: ["mtd", "hmrc", "dispute", "exemption", "signed-up"],
+    publishedAt: "2026-09-15T15:15:00.000Z",
+    reviewedAt: "2026-09-15T15:15:00.000Z",
+    authorName: "TaxSimba Tax Team",
+    reviewerName: "TaxSimba Tax Team",
+    featuredImage: "/images/blog_3.png",
+    featuredImageAlt: "Taxpayer reviewing an HMRC Making Tax Digital signup letter carefully",
+    ctaType: "CHECK",
+    relatedSlugs: [
+      "hmrc-signed-me-up-for-making-tax-digital",
+      "mtd-qualifying-income",
+      "mtd-accountant-or-agent",
+      "mtd-digital-records",
+    ],
+    relatedPages: [
+      { href: "/check-mtd", label: "MTD checker" },
+      { href: "/making-tax-digital", label: "Making Tax Digital accountant service" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Check what to do if HMRC has signed you up for Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/check-what-to-do-if-hmrc-has-signed-you-up-for-making-tax-digital-for-income-tax",
+      },
+      {
+        label: "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      },
+      {
+        label: "GOV.UK — Work out your qualifying income for Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+      },
+      {
+        label: "GOV.UK — Apply for an exemption from Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/apply-for-an-exemption-from-making-tax-digital-for-income-tax",
+      },
+    ],
+    curated: true,
+    content: `
+<p>This is not the “I’ve been signed up — what are the next setup steps?” guide. That sits at <a href="/blogs/hmrc-signed-me-up-for-making-tax-digital">HMRC signed me up for MTD</a>. This page is for a narrower problem: <strong>HMRC says you need Making Tax Digital, and you think that is wrong.</strong></p>
+
+<h2>First principle: do not ignore the notice</h2>
+<p>Even while you challenge the position, GOV.UK expects you to engage with the signup message — sign in, check the income sources HMRC holds, and follow the published steps. Leaving the letter unopened does not pause obligations if HMRC’s records still show you in scope.</p>
+
+<h2>Common reasons the signup can look wrong</h2>
+<ul>
+  <li><strong>Qualifying income mix-up</strong> — thresholds use gross self-employment and property turnover before expenses, not profit. PAYE salary, pensions and dividends generally do not count toward the MTD total. See <a href="/blogs/mtd-qualifying-income">qualifying income explained</a>.</li>
+  <li><strong>All trading/property income ceased</strong> — if every self-employment and property source stopped before 6 April 2026, GOV.UK says you should not need MTD for Income Tax, but you must tell HMRC and still file any required Self Assessment return. If sources ceased on or after 6 April 2026, you may still need a final stretch of MTD reporting.</li>
+  <li><strong>Exemption</strong> — for example digital exclusion. Exemptions are specific; many need an application to HMRC (see GOV.UK’s <a href="https://www.gov.uk/guidance/apply-for-an-exemption-from-making-tax-digital-for-income-tax" target="_blank" rel="noopener noreferrer">apply for an exemption</a> guidance). Unfamiliarity with software alone is not treated as digital exclusion.</li>
+  <li><strong>Stale HMRC data</strong> — when HMRC signs you up it uses information it already holds. Changes since your last return may be missing until you update them in the service.</li>
+</ul>
+
+<h2>A calm dispute sequence</h2>
+<ol>
+  <li><strong>Re-check the look-back figures</strong> on the Self Assessment return HMRC used (for the April 2026 wave, typically 2024 to 2025 qualifying income over £50,000).</li>
+  <li><strong>Use official checkers</strong> — HMRC’s tool on GOV.UK, and TaxSimba’s <a href="/check-mtd">MTD checker</a> as a prompt — then compare to GOV.UK text, not forums.</li>
+  <li><strong>Update ceased or new income sources</strong> in HMRC online services where the signup flow asks you to confirm records.</li>
+  <li><strong>Contact HMRC</strong> if you still disagree. GOV.UK directs people who think they do not need the service to Self Assessment general enquiries (agents use the agent helpline). Ask about exemptions if that is your basis.</li>
+  <li><strong>Keep evidence</strong> — copies of returns, cessation dates, exemption applications, and HMRC correspondence.</li>
+</ol>
+
+<h2>What if HMRC is right after all?</h2>
+<p>Then treat the signup as real and move to digital records and quarterly updates (yourself or via an agent). The setup walkthrough is in the <a href="/blogs/hmrc-signed-me-up-for-making-tax-digital">signed-up next-steps article</a>. If you want accountant-led help once the dispute is settled, see the <a href="/making-tax-digital">Making Tax Digital service</a> — TaxSimba does not claim to overturn HMRC decisions for you.</p>
+
+<p>General information only — not personal tax advice. Only HMRC can confirm your exemption or remove an incorrect obligation.</p>
+`,
+  },
+  {
+    id: "seo-mtd-30000-threshold-2027",
+    slug: "mtd-30000-threshold-2027",
+    title: "Making Tax Digital £30,000 Rule: Who Needs to Prepare for April 2027?",
+    excerpt:
+      "From 6 April 2027, sole traders and landlords with qualifying income over £30,000 for 2025 to 2026 need Making Tax Digital for Income Tax. Here is how to prepare — without confusing turnover with profit.",
+    metaTitle: "MTD £30,000 Rule — Prepare for April 2027 | TaxSimba",
+    metaDescription:
+      "Who falls into Making Tax Digital from April 2027 under the £30,000 qualifying income rule, how turnover differs from profit, and a practical preparation checklist.",
+    category: "Making Tax Digital",
+    audience: "sole-traders-landlords",
+    tags: ["mtd", "30000", "april-2027", "qualifying-income", "preparation"],
+    publishedAt: "2026-09-15T15:00:00.000Z",
+    reviewedAt: "2026-09-15T15:00:00.000Z",
+    authorName: "TaxSimba Tax Team",
+    reviewerName: "TaxSimba Tax Team",
+    featuredImage: "/images/blog_2.png",
+    featuredImageAlt: "Planning calendar for Making Tax Digital from April 2027",
+    ctaType: "CHECK",
+    relatedSlugs: [
+      "mtd-qualifying-income",
+      "mtd-digital-records",
+      "mtd-quarterly-updates",
+      "mtd-accountant-or-agent",
+      "making-tax-digital-explained",
+    ],
+    relatedPages: [
+      { href: "/check-mtd", label: "MTD checker" },
+      { href: "/making-tax-digital", label: "Making Tax Digital accountant service" },
+      { href: "/mtd-information", label: "MTD packages" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      },
+      {
+        label: "GOV.UK — Work out your qualifying income for Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+      },
+      {
+        label: "GOV.UK — Use Making Tax Digital for Income Tax (before you use this guide)",
+        url: "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/before-you-use-this-guide",
+      },
+    ],
+    curated: true,
+    content: `
+<p>If your self-employment and property <strong>qualifying income for 2025 to 2026</strong> is more than <strong>£30,000</strong>, current GOV.UK guidance says you need to use Making Tax Digital for Income Tax from <strong>6 April 2027</strong>. This article is for that next cohort — people preparing ahead — not a full reprint of every qualifying-income edge case (that lives in <a href="/blogs/mtd-qualifying-income">MTD qualifying income explained</a>).</p>
+
+<h2>Turnover, not profit</h2>
+<p>Qualifying income is total income from self-employment and property <strong>before expenses</strong> (turnover), taken from the Self Assessment return for the look-back year. A sole trader with £34,000 sales and £12,000 profit is still over £30,000 for threshold purposes. Adding PAYE salary or pension income into the total is usually the wrong test — those sources generally do not count toward MTD qualifying income.</p>
+<p>HMRC’s own example style: £25,000 property income + £27,000 self-employment income = £52,000 qualifying income. The same logic applies at the £30,000 line; only the threshold and the look-back year change.</p>
+
+<h2>How the phases sit together</h2>
+<ul>
+  <li><strong>Over £50,000</strong> for 2024 to 2025 → from 6 April 2026</li>
+  <li><strong>Over £30,000</strong> for 2025 to 2026 → from 6 April 2027</li>
+  <li><strong>Over £20,000</strong> for 2026 to 2027 → from 6 April 2028</li>
+</ul>
+<p>If you are already in the £50,000 wave, you do not “wait for 2027.” If you are under £50,000 but heading over £30,000 on the 2025 to 2026 return, April 2027 is your planning horizon.</p>
+
+<h2>Preparation checklist before April 2027</h2>
+<ol>
+  <li><strong>Estimate 2025 to 2026 qualifying income early</strong> — gross self-employment + property totals, not net profit.</li>
+  <li><strong>Confirm with GOV.UK / HMRC’s checker</strong> and use TaxSimba’s <a href="/check-mtd">MTD checker</a> as a practical prompt.</li>
+  <li><strong>Decide DIY software vs an agent</strong> before the rush; authorisation and software choice take time.</li>
+  <li><strong>Practise cleaner digital habits now</strong> — monthly bank exports, labelled expenses, rental statements filed as you go. See <a href="/blogs/mtd-digital-records">digital records</a>.</li>
+  <li><strong>Know the quarterly rhythm</strong> you will inherit from April 2027 — summaries every three months, then a software-based tax return. Overview: <a href="/blogs/mtd-quarterly-updates">quarterly updates</a>.</li>
+</ol>
+
+<h2>Who this is not aimed at</h2>
+<p>People already mandated from April 2026 should follow current-year guides (including deadline and catch-up pieces), not treat 2027 as their start date. Partnership MTD timing is separate — GOV.UK says that timeline will be set later.</p>
+
+<p>If you confirm you are in the April 2027 cohort and want accountant-led support rather than DIY-only software, browse the <a href="/making-tax-digital">Making Tax Digital service</a> and <a href="/mtd-information">MTD information</a> pages. We do not invent thresholds or promise to keep you under £30,000.</p>
+
+<p>Thresholds and dates follow current GOV.UK guidance and can be updated by HMRC — re-check before you rely on any summary. General information only — not personal tax advice.</p>
+`,
+  },
+
 ];
 
 export function getPublishedArticles() {
@@ -1169,7 +1577,7 @@ export function normalizeApiArticle(raw = {}) {
     reviewerName: raw.reviewerName || "TaxSimba Tax Team",
     featuredImage: raw.featuredImage || "/images/tax_blog_default.png",
     featuredImageAlt: raw.featuredImageAlt || raw.title || "TaxSimba guide",
-    ctaType: raw.ctaType === "MTD" ? "MTD" : "SA",
+    ctaType: raw.ctaType === "MTD" ? "MTD" : raw.ctaType === "CHECK" ? "CHECK" : "SA",
     relatedSlugs: raw.relatedSlugs || [],
     relatedPages: raw.relatedPages || [],
     sources: raw.sources || [],
