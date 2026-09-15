@@ -328,8 +328,10 @@ documentsRouter.post(
     );
     await notify(
       kase.client_user_id,
-      "Your final documents are available",
-      `${documentType} for ${kase.tax_year} is ready to download.`,
+      "Your final tax documents are ready",
+      `Your final ${documentType} is now available` +
+        (kase.tax_year ? ` for ${kase.tax_year}` : "") +
+        ".\n\nFor your security, please sign in to TaxSimba to download it.",
       caseId,
       "/documents",
       "INFO",

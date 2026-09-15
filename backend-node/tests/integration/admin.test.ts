@@ -705,7 +705,9 @@ describe("admin, audit, help centre and invitations", () => {
 
   // --------------------------------------------------------- service issues
   it("scopes service issues by role and only lets admins resolve them", async () => {
+    const { activateClientService } = await import("../helpers/app");
     const issueClient = await makeClient("issueclient");
+    await activateClientService(issueClient, "SELF_ASSESSMENT");
     const kase = await makeCase(issueClient, accountant);
     const other = await makeClient("otherclient");
 

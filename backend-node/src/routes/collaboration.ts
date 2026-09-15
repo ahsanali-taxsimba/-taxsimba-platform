@@ -78,7 +78,9 @@ collaborationRouter.post(
       await notify(
         recipient,
         `New message from ${me.name}`,
-        body.body.slice(0, 120),
+        "You have received a new message regarding your TaxSimba service.\n\n" +
+          (body.body.slice(0, 120) ? `${body.body.slice(0, 120)}\n\n` : "") +
+          "For your privacy, please use your TaxSimba account to view and respond to messages relating to your tax affairs.",
         body.case_id,
         link,
         "MESSAGE",
