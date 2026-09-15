@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { Alert, Card, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
+import { Alert, Accordion, Card, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
 import { FaArrowDown, FaDollarSign, FaStar, FaChevronRight, FaQuoteLeft } from "react-icons/fa";
 import { MdKeyboardDoubleArrowRight, MdOutlineCheckCircle, MdOutlinePrivacyTip } from "react-icons/md";
 import Button from 'react-bootstrap/Button';
@@ -373,6 +373,53 @@ export default function MtdClient() {
                                             </div>
                                         )}
                                     </div>
+                                    {resultType && (
+                                        <div className="mtd-result-faqs px-3 pb-3">
+                                            <h6 className="fw-bold mb-2">Quick answers about this result</h6>
+                                            <Accordion>
+                                                {(
+                                                    resultType === "green"
+                                                        ? [
+                                                            {
+                                                                q: "Is this official HMRC advice?",
+                                                                a: "No. This checker gives guidance based on your answers and current published MTD thresholds. Always confirm your position against GOV.UK or with an accountant.",
+                                                            },
+                                                            {
+                                                                q: "MTD may not apply yet — what should I do next?",
+                                                                a: "If you still need to file a Self Assessment tax return, TaxSimba’s accountants can prepare it for you. Thresholds and start dates can change, so re-check if your income changes.",
+                                                            },
+                                                            {
+                                                                q: "Do I have to buy DIY MTD software?",
+                                                                a: "No. If MTD later applies, TaxSimba offers an accountant-led MTD service so you are not left to operate MTD software alone.",
+                                                            },
+                                                        ]
+                                                        : [
+                                                            {
+                                                                q: "Is this official HMRC advice?",
+                                                                a: "No. This checker gives guidance based on your answers and current published MTD thresholds. Always confirm your position against GOV.UK or with an accountant.",
+                                                            },
+                                                            {
+                                                                q: "Do I have to run MTD software myself?",
+                                                                a: "No. TaxSimba is accountant-led. You provide records; your accountant helps manage the Making Tax Digital process. You are not expected to become an MTD software expert alone.",
+                                                            },
+                                                            {
+                                                                q: "What happens if I register for MTD support?",
+                                                                a: "You create an account for the MTD journey, share your information, and work with a TaxSimba accountant on digital records and quarterly updates. Exact package details are shown with live prices when you choose a plan.",
+                                                            },
+                                                            {
+                                                                q: "What if I’m still unsure after this result?",
+                                                                a: "Treat this as guidance only. Review current GOV.UK MTD rules for your income types, or start an MTD registration and discuss your situation with your accountant.",
+                                                            },
+                                                        ]
+                                                ).map((item, idx) => (
+                                                    <Accordion.Item eventKey={String(idx)} key={item.q}>
+                                                        <Accordion.Header>{item.q}</Accordion.Header>
+                                                        <Accordion.Body>{item.a}</Accordion.Body>
+                                                    </Accordion.Item>
+                                                ))}
+                                            </Accordion>
+                                        </div>
+                                    )}
                                 </div>
                             </Col>
                         </Row>

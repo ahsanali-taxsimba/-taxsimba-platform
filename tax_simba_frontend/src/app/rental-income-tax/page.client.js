@@ -12,15 +12,23 @@ import {
 const faqs = [
   {
     q: "Does every landlord need MTD?",
-    a: "No. MTD for Income Tax is being phased in based on HMRC’s rules for qualifying income and start dates. Check GOV.UK for whether you are in scope.",
+    a: "No. MTD for Income Tax is being phased in based on HMRC’s rules for qualifying income and start dates. Check GOV.UK and our MTD checker for whether you appear to be in scope.",
   },
   {
     q: "What counts as property income for MTD?",
     a: "HMRC uses the idea of qualifying income from property (and/or self-employment). The official definition and thresholds are on GOV.UK — do not rely on informal estimates alone.",
   },
   {
+    q: "What records should landlords keep?",
+    a: "Keep clear digital records of rents received and allowable property expenses, with supporting evidence such as statements and invoices. Your accountant will tell you what is needed for your situation.",
+  },
+  {
     q: "Can TaxSimba help if I also have self-employment income?",
     a: "Yes. Many clients have mixed income. Tell us about both property and trading activity so the MTD workflow covers what applies to you.",
+  },
+  {
+    q: "Self Assessment only or MTD — how do I choose?",
+    a: "If MTD for Income Tax applies, you need the MTD journey (digital records and quarterly updates). If you only need an annual Self Assessment return prepared, start with our Self Assessment accountant service. Use the MTD checker if you are unsure.",
   },
 ];
 

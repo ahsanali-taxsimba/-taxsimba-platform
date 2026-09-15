@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import Link from 'next/link';
 import { Accordion, Col, Row } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import { MdOutlineCheckCircle, MdOutlineKeyboardDoubleArrowRight } from 'react-icons/md';
@@ -14,7 +15,7 @@ const TaxForFreelancersClient = () => {
                         <Col lg={6}>
                             <div className="bread-crum-inr-box text-lg-start text-center">
                                 <h2 className="text-capitalize mb-3">Self Assessment Tax Returns</h2>
-                                <p className="mb-0">File your HMRC Self Assessment easily with Taxsimba's smart tax platform Stay compliant, minimize errors, and avoid overpaying tax.</p>
+                                <p className="mb-0">Accountant-led Self Assessment — you provide the information, your accountant prepares the return, and you review before filing where that step applies.</p>
                             </div>
                         </Col>
                         <Col lg={6} className="mt-lg-0 mt-5">
@@ -34,7 +35,7 @@ const TaxForFreelancersClient = () => {
                                 <div className='feature-bussiness-left common-title pe-5'>
                                     <div className="feature-text-box connect-box-card">
                                         <h2><span>Self Assessment</span> made simple with <span>Taxsimba</span></h2>
-                                        <p className='mb-0'>Our platform is designed to take the stress out of filing your Self Assessment. Instead of navigating complicated HMRC forms, Taxsimba asks you simple questions and handles all the complex tax calculations behind the scenes. We automatically identify allowable expenses so you never pay more tax than you need to. With our direct HMRC connection, you can submit your return straight from our software with a single click. From sole traders and landlords to high earners, Taxsimba provides the guidance and confidence you need to file accurately, avoid penalties, and get back to what you do best.
+                                        <p className='mb-0'>TaxSimba is an accountant-led Self Assessment service. You share your income, expenses and supporting documents through a guided workflow. A TaxSimba accountant prepares and reviews your return. You review and approve before filing where that step applies. We do not position TaxSimba as DIY tax software or as automatic filing without accountant involvement.
                                         </p>
                                     </div>
                                 </div>
@@ -50,32 +51,32 @@ const TaxForFreelancersClient = () => {
                             <Col lg={3} className="mb-lg-0 mb-4">
                                 <div className='feature-bussiness-bottom-box h-100'>
                                     <div className="feature-bottom-text">
-                                        <h4>Smart Tax Estimator</h4>
-                                        <p>See your estimated tax bill update in real-time as you enter your income and expenses. No more surprise tax bills in January.</p>
+                                        <h4>Working Figures</h4>
+                                        <p>Work through income and expenses with your accountant so you understand the figures before you approve the return.</p>
                                     </div>
                                 </div>
                             </Col>
                             <Col lg={3} className="mb-lg-0 mb-4">
                                 <div className='feature-bussiness-bottom-box h-100'>
                                     <div className="feature-bottom-text">
-                                        <h4>Maximized Deductions</h4>
-                                        <p>Ensure you claim every allowable expense you're entitled to with built-in guidance on what can and cannot be deducted.</p>
+                                        <h4>Allowable Expenses Support</h4>
+                                        <p>Share expense records so your accountant can consider allowable costs when preparing your return. Outcomes depend on your facts and HMRC rules.</p>
                                     </div>
                                 </div>
                             </Col>
                             <Col lg={3} className="mb-lg-0 mb-4">
                                 <div className='feature-bussiness-bottom-box h-100'>
                                     <div className="feature-bottom-text">
-                                        <h4>Direct Submission</h4>
-                                        <p>File your Self Assessment tax return straight to HMRC electronically from within Taxsimba without needing to visit the HMRC portal.</p>
+                                        <h4>Accountant-Led Filing</h4>
+                                        <p>After you approve the prepared return where required, filing is handled as part of TaxSimba’s accountant-led service.</p>
                                     </div>
                                 </div>
                             </Col>
                             <Col lg={3} className="mb-lg-0 mb-4">
                                 <div className='feature-bussiness-bottom-box h-100'>
                                     <div className="feature-bottom-text">
-                                        <h4>Expert Review Checks</h4>
-                                        <p>Our system runs automated diagnostic checks on your return before submission to help prevent common mistakes and HMRC inquiries.</p>
+                                        <h4>Human Accountant Review</h4>
+                                        <p>A TaxSimba accountant reviews your return before you approve. You remain responsible for the accuracy of information you provide.</p>
                                     </div>
                                 </div>
                             </Col>
@@ -98,8 +99,8 @@ const TaxForFreelancersClient = () => {
                                 <span className="tax-problem-icon">
                                     <img src="/images/tax.png" alt="img" />
                                 </span>
-                                <h3>Automated Tax Calculations</h3>
-                                <p>Taxsimba automatically calculates your tax liability in real-time as you log your income and expenses.</p>
+                                <h3>Accountant-Prepared Figures</h3>
+                                <p>Your accountant prepares the figures for your return using the information and documents you provide.</p>
                             </div>
                         </Col>
 
@@ -108,8 +109,8 @@ const TaxForFreelancersClient = () => {
                                 <span className="tax-problem-icon">
                                     <img src="/images/tax.png" alt="img" />
                                 </span>
-                                <h3>Direct HMRC Submission</h3>
-                                <p>Submit your Self Assessment directly to HMRC from our platform. We are formally recognised by HMRC.</p>
+                                <h3>Accountant-Led Filing</h3>
+                                <p>After you review and approve where required, filing is handled as part of TaxSimba’s accountant-led service.</p>
                             </div>
                         </Col>
 
@@ -118,8 +119,8 @@ const TaxForFreelancersClient = () => {
                                 <span className="tax-problem-icon">
                                     <img src="/images/tax.png" alt="img" />
                                 </span>
-                                <h3>Smart Expense Tracking</h3>
-                                <p>Log all your business expenses digitally so you never miss a tax deduction and keep proof organized.</p>
+                                <h3>Organised Expense Records</h3>
+                                <p>Upload and organise expense evidence so your accountant can consider allowable costs when preparing your return.</p>
                             </div>
                         </Col>
 
@@ -128,8 +129,8 @@ const TaxForFreelancersClient = () => {
                                 <span className="tax-problem-icon">
                                     <img src="/images/tax.png" alt="img" />
                                 </span>
-                                <h3>Error Checking</h3>
-                                <p>Our system runs automatic checks to identify potential anomalies or missing data before you submit to HMRC.</p>
+                                <h3>Accountant Review</h3>
+                                <p>Your accountant reviews the prepared return and may ask follow-up questions before you approve.</p>
                             </div>
                         </Col>
 
@@ -139,7 +140,7 @@ const TaxForFreelancersClient = () => {
                                     <img src="/images/tax.png" alt="img" />
                                 </span>
                                 <h3>Deadline Reminders</h3>
-                                <p>Get automated email and dashboard reminders near the 31 January deadline so you never face late penalties.</p>
+                                <p>Keep the 31 January online filing deadline in mind. Your TaxSimba workflow helps you progress in good time — we do not guarantee penalty outcomes.</p>
                             </div>
                         </Col>
 
@@ -148,8 +149,8 @@ const TaxForFreelancersClient = () => {
                                 <span className="tax-problem-icon">
                                     <img src="/images/tax.png" alt="img" />
                                 </span>
-                                <h3>Comprehensive Reporting</h3>
-                                <p>Generate detailed income, expense, and tax liability reports to understand your overall financial position.</p>
+                                <h3>Clear Return Summary</h3>
+                                <p>Review the prepared figures and supporting summary with your accountant before you approve filing.</p>
                             </div>
                         </Col>
                     </Row>
@@ -254,35 +255,35 @@ const TaxForFreelancersClient = () => {
                                     <Accordion.Item eventKey="0">
                                         <Accordion.Header>When is the Self Assessment deadline?</Accordion.Header>
                                         <Accordion.Body>
-                                            The deadline for online tax returns is typically midnight on 31 January following the end of the tax year. The tax year ends on 5 April.
+                                            The online Self Assessment deadline is usually midnight on 31 January following the end of the tax year (the tax year ends on 5 April). Always check current GOV.UK dates for your situation.
                                         </Accordion.Body>
                                     </Accordion.Item>
 
                                     <Accordion.Item eventKey="1">
-                                        <Accordion.Header>Can Taxsimba submit my return to HMRC directly?</Accordion.Header>
+                                        <Accordion.Header>How does TaxSimba file my Self Assessment return?</Accordion.Header>
                                         <Accordion.Body>
-                                            Yes, Taxsimba is HMRC recognized and fully supports direct digital submission of your Self Assessment tax return.
+                                            You provide your information and documents. A TaxSimba accountant prepares and reviews your return. You review and approve where that step applies, then filing is handled as part of the accountant-led service — not as DIY one-click software submission by you alone.
                                         </Accordion.Body>
                                     </Accordion.Item>
 
                                     <Accordion.Item eventKey="2">
-                                        <Accordion.Header>Do I need to be an accountant to use Taxsimba for Self Assessment?</Accordion.Header>
+                                        <Accordion.Header>Do I need to be an accountant to use TaxSimba?</Accordion.Header>
                                         <Accordion.Body>
-                                            Not at all. Taxsimba is designed specifically for non-accountants. It asks you simple questions and automatically calculates your tax dynamically.
+                                            No. TaxSimba is built for people who want accountant help. You answer questions and upload documents; your accountant prepares the return. You remain responsible for the accuracy of information you provide.
                                         </Accordion.Body>
                                     </Accordion.Item>
 
                                     <Accordion.Item eventKey="3">
-                                        <Accordion.Header>What if I make a mistake on my return?</Accordion.Header>
+                                        <Accordion.Header>What if something looks wrong on my return?</Accordion.Header>
                                         <Accordion.Body>
-                                            Taxsimba has built-in error checking to catch common mistakes before you submit. If you've already submitted, you normally have up to 12 months from the 31 January deadline to amend your return.
+                                            Raise it with your accountant before you approve. After filing, HMRC usually allows amendments within published time limits — your accountant can advise on the next step for your case.
                                         </Accordion.Body>
                                     </Accordion.Item>
 
                                     <Accordion.Item eventKey="4">
-                                        <Accordion.Header>Can I claim expenses through Taxsimba?</Accordion.Header>
+                                        <Accordion.Header>Can I claim expenses with TaxSimba?</Accordion.Header>
                                         <Accordion.Body>
-                                            Yes, you can easily log and categorize allowable business expenses throughout the year to ensure your tax bill is accurate.
+                                            Yes. Share your expense information and supporting records with your accountant so allowable expenses can be considered when your return is prepared. We do not promise a particular tax outcome.
                                         </Accordion.Body>
                                     </Accordion.Item>
                                 </Accordion>
@@ -295,11 +296,11 @@ const TaxForFreelancersClient = () => {
             <section className="stop-stressing-sec pd-100">
                 <Container>
                     <div className="stop-stressing-content text-center">
-                        <h2>Start your <span>tax return</span> today</h2>
-                        <p>Complete your Self Assessment the simple way.</p>
-                        <button className="common-btn">
-                            Start Your Free Trial Today <MdOutlineKeyboardDoubleArrowRight className='ms-1' />
-                        </button>
+                        <h2>Start accountant-led <span>Self Assessment</span></h2>
+                        <p>Provide your information, your accountant prepares, you review and approve before filing where that step applies.</p>
+                        <Link href="/register" className="common-btn">
+                            Start Self Assessment <MdOutlineKeyboardDoubleArrowRight className='ms-1' />
+                        </Link>
 
                     </div>
                 </Container>

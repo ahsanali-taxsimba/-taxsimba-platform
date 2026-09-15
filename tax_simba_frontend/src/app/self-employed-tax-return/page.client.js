@@ -19,8 +19,16 @@ const faqs = [
     a: "MTD changes how qualifying income is recorded and updated during the year. Year-end obligations still matter. Follow current HMRC guidance for your case.",
   },
   {
-    q: "What’s different from landlord MTD content?",
-    a: "Sole traders focus on trading income, business expenses and self-employment records. Landlords focus on property income. The MTD idea is related, but the day-to-day records differ.",
+    q: "What trading records do you need from me?",
+    a: "Typically income evidence, expense records and supporting documents for your trade. Your accountant will request what is needed for your Self Assessment or MTD workflow.",
+  },
+  {
+    q: "I’m a freelancer or CIS contractor — can TaxSimba still help?",
+    a: "Yes, where your situation fits TaxSimba’s Self Assessment or MTD services. Tell us about your income type during registration so the right journey is used.",
+  },
+  {
+    q: "What’s the difference between DIY software and TaxSimba?",
+    a: "DIY software leaves you to operate the tools yourself. TaxSimba is accountant-led: you provide information, your accountant prepares and reviews the work, and you approve where that step applies.",
   },
 ];
 

@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Spinner } from 'react-bootstrap';
+import { Accordion, Container, Row, Col, Spinner } from 'react-bootstrap';
+import Link from 'next/link';
 import { MdCheckCircle, MdOutlineCheckCircle } from "react-icons/md";
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -280,6 +281,54 @@ const PricingClient = () => {
                 </Container>
             </section>
 
+            <section className="pricing-faq-section py-5" style={{ background: '#001a12' }}>
+                <Container>
+                    <div className="text-center mb-4">
+                        <h2 className="text-white mb-2" style={{ fontWeight: 800 }}>Pricing FAQs</h2>
+                        <p className="text-white-50 mb-0" style={{ maxWidth: 640, margin: '0 auto' }}>
+                            Clear answers before you choose a Self Assessment or Making Tax Digital package.
+                        </p>
+                    </div>
+                    <Accordion defaultActiveKey="0" className="pricing-faq-accordion mx-auto" style={{ maxWidth: 820 }}>
+                        {[
+                            {
+                                q: "What’s the difference between Self Assessment packages?",
+                                a: "Self Assessment packages are organised around the complexity of your return. Live package names, inclusions and prices are shown above from our current catalogue — choose the option that matches your income types.",
+                            },
+                            {
+                                q: "What’s included in MTD packages versus Self Assessment?",
+                                a: "Self Assessment packages focus on preparing your annual return with accountant review. Making Tax Digital packages support the ongoing MTD workflow (digital records and quarterly updates) with accountant oversight. See the live cards above for what each package includes.",
+                            },
+                            {
+                                q: "Are prices fixed, and are there extras?",
+                                a: "Prices shown are the live package prices from our system. If your circumstances need work outside a chosen package, your accountant will explain options before you proceed — we do not invent surprise fees in this FAQ.",
+                            },
+                            {
+                                q: "When do I pay?",
+                                a: "You select a package during registration or from this page, then complete payment as part of starting the service. Exact checkout steps are shown when you choose a plan.",
+                            },
+                            {
+                                q: "Can I change package later?",
+                                a: "Where upgrades are available in your account, you can move to a higher package. Package rules for your service are confirmed in your account after signup.",
+                            },
+                        ].map((item, idx) => (
+                            <Accordion.Item eventKey={String(idx)} key={item.q}>
+                                <Accordion.Header>{item.q}</Accordion.Header>
+                                <Accordion.Body>{item.a}</Accordion.Body>
+                            </Accordion.Item>
+                        ))}
+                    </Accordion>
+                    <div className="text-center mt-4 d-flex flex-wrap justify-content-center gap-3">
+                        <Link href="/register" className="get-started-btn-bottom text-decoration-none">
+                            Start Self Assessment
+                        </Link>
+                        <Link href="/register?role=MTD" className="get-started-btn-bottom text-decoration-none" style={{ background: 'transparent', border: '1px solid #14ab71' }}>
+                            Get MTD support
+                        </Link>
+                    </div>
+                </Container>
+            </section>
+
             <section className="cta-bottom-modern">
                 <Container>
                     <div className="cta-content-center text-center">
@@ -445,6 +494,22 @@ const PricingClient = () => {
                 :global(.cancel-subscription-button:hover) {
                     background: #effaf5 !important;
                     transform: scale(1.02);
+                }
+                .pricing-faq-section :global(.accordion-item) {
+                    background: #ffffff;
+                    border: 1px solid rgba(255,255,255,0.12);
+                    overflow: hidden;
+                }
+                .pricing-faq-section :global(.accordion-button) {
+                    font-weight: 600;
+                    color: #002117;
+                    white-space: normal;
+                    text-align: left;
+                }
+                .pricing-faq-section :global(.accordion-body) {
+                    color: #333333;
+                    overflow-wrap: anywhere;
+                    word-break: break-word;
                 }
                 .cta-bottom-modern {
                     background: #002117;

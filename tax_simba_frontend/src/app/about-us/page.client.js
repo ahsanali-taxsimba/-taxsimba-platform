@@ -16,10 +16,9 @@ const AboutUsClient = () => {
           <Row className="align-items-center">
             <Col lg={7}>
               <div className="bread-crum-inr-box text-lg-start text-center">
-                <h1 className="text-capitalize mb-3 fs-2">Redefining Tax Management. One Click at a Time.</h1>
-                <p className="mb-0">Our team is here to make tax filing smart, accessible,
-                  hassle-free and effortless. Get solutions backed by certified
-                  experts and data-driven technology.</p>
+                <h1 className="text-capitalize mb-3 fs-2">Accountant-led UK tax support, made clearer.</h1>
+                <p className="mb-0">Our team helps make Self Assessment and Making Tax Digital more manageable —
+                  with certified accountants supported by a secure online workflow.</p>
               </div>
             </Col>
             <Col lg={5} className="mt-lg-0 mt-5">
@@ -61,32 +60,32 @@ const AboutUsClient = () => {
                 <Col lg={3} className="mb-lg-0 mb-4">
                   <div className='feature-bussiness-bottom-box h-100'>
                     <div className="feature-bottom-text">
-                      <h4>Smart Tax Estimator</h4>
-                      <p>See your estimated tax bill update in real-time as you enter your income and expenses. No more surprise tax bills in January.</p>
+                      <h4>Working Figures</h4>
+                      <p>Work through income and expenses with your accountant so you understand the figures before you approve the return.</p>
                     </div>
                   </div>
                 </Col>
                 <Col lg={3} className="mb-lg-0 mb-4">
                   <div className='feature-bussiness-bottom-box h-100'>
                     <div className="feature-bottom-text">
-                      <h4>Maximized Deductions</h4>
-                      <p>Ensure you claim every allowable expense you're entitled to with built-in guidance on what can and cannot be deducted.</p>
+                      <h4>Allowable Expenses Support</h4>
+                      <p>Share expense records so your accountant can consider allowable costs when preparing your return.</p>
                     </div>
                   </div>
                 </Col>
                 <Col lg={3} className="mb-lg-0 mb-4">
                   <div className='feature-bussiness-bottom-box h-100'>
                     <div className="feature-bottom-text">
-                      <h4>Direct Submission</h4>
-                      <p>File your Self Assessment tax return straight to HMRC electronically from within Taxsimba without needing to visit the HMRC portal.</p>
+                      <h4>Accountant-Led Filing</h4>
+                      <p>After you review and approve where required, filing is handled as part of TaxSimba’s accountant-led service.</p>
                     </div>
                   </div>
                 </Col>
                 <Col lg={3} className="mb-lg-0 mb-4">
                   <div className='feature-bussiness-bottom-box h-100'>
                     <div className="feature-bottom-text">
-                      <h4>Expert Review Checks</h4>
-                      <p>Our system runs automated diagnostic checks on your return before submission to help prevent common mistakes and HMRC inquiries.</p>
+                      <h4>Human Accountant Review</h4>
+                      <p>A TaxSimba accountant reviews your return before you approve. You remain responsible for the accuracy of information you provide.</p>
                     </div>
                   </div>
                 </Col>

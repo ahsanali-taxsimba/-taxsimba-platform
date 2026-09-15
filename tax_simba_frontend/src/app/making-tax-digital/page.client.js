@@ -12,16 +12,32 @@ import {
 
 const faqs = [
   {
-    q: "Is TaxSimba DIY MTD software?",
-    a: "No. TaxSimba is an accountant-led service. Our platform supports the customer and accountant workflow; you are not left to become a tax-software expert on your own.",
+    q: "Is TaxSimba DIY Making Tax Digital software?",
+    a: "No. TaxSimba is an accountant-led MTD service. Our platform supports the customer and accountant workflow; you are not left to become an MTD software expert on your own.",
   },
   {
-    q: "Can an accountant act as my agent for MTD?",
-    a: "Yes. Many people appoint an agent so an accountant can help manage Making Tax Digital obligations. You still need to provide complete and accurate records.",
+    q: "Can TaxSimba help manage MTD as my accountant or agent?",
+    a: "Yes. Many people appoint an accountant or agent to help manage Making Tax Digital obligations. You still need to provide complete and accurate records; your TaxSimba accountant helps manage the MTD process with you.",
   },
   {
     q: "Does MTD replace Self Assessment completely?",
     a: "MTD for Income Tax changes how qualifying income is recorded and reported during the year. You should still expect year-end obligations. Check GOV.UK for the rules that apply to you.",
+  },
+  {
+    q: "What is included in TaxSimba’s MTD service?",
+    a: "Support organising digital records, help with the quarterly update rhythm, and accountant oversight of the MTD workflow through TaxSimba’s platform. Exact package contents are listed with live prices on the pricing and MTD information pages.",
+  },
+  {
+    q: "What do I still have to do?",
+    a: "You provide complete, accurate income and expense information and respond to accountant questions. We do not claim guaranteed compliance, guaranteed no penalties, or that you can ignore HMRC obligations.",
+  },
+  {
+    q: "How do packages and pricing work?",
+    a: "MTD packages and live prices are shown on the pricing page and MTD information page. Choose the option that fits your situation when you register for MTD support.",
+  },
+  {
+    q: "What if I am not sure I need MTD?",
+    a: "Use our free MTD checker for a guidance-only indication, and confirm against current GOV.UK rules. If you still need Self Assessment help, see our Self Assessment accountant service.",
   },
 ];
 

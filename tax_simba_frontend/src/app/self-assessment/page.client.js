@@ -11,20 +11,32 @@ import {
 
 const faqs = [
   {
-    q: "Is TaxSimba automated tax software?",
-    a: "No. TaxSimba is an accountant-led Self Assessment service. Software supports the workflow; your accountant prepares and reviews the return.",
+    q: "Is TaxSimba DIY tax software or an accountant service?",
+    a: "TaxSimba is an accountant-led Self Assessment service. Software supports the client and accountant workflow; your accountant prepares and reviews the return. It is not DIY filing software you operate alone.",
   },
   {
-    q: "Do I still need to approve the return?",
-    a: "Yes. Where the process applies, you review the prepared return and approve before filing. You remain responsible for the accuracy of information you provide.",
+    q: "What do I provide, and what does the accountant do?",
+    a: "You provide your income, expense and supporting information through TaxSimba. Your accountant prepares and reviews the Self Assessment return. You remain responsible for the accuracy of what you supply.",
+  },
+  {
+    q: "Do I approve before anything is filed with HMRC?",
+    a: "Yes. Where the process applies, you review the prepared return and approve before filing. TaxSimba does not describe filing as automatic submission without your review and accountant involvement.",
   },
   {
     q: "Who is this suitable for?",
-    a: "Sole traders, landlords, freelancers and other individuals who need help filing UK Self Assessment and prefer an accountant to prepare the return rather than DIY software alone.",
+    a: "Sole traders, landlords, freelancers and other individuals who need help with UK Self Assessment and prefer an accountant to prepare the return rather than navigating every HMRC screen alone.",
   },
   {
-    q: "What about Making Tax Digital?",
-    a: "If you also need MTD for Income Tax help, TaxSimba offers an accountant-led MTD service. See Making Tax Digital Accountant for that journey.",
+    q: "How much does it cost, and what is included?",
+    a: "Self Assessment packages and live prices are shown on the pricing page. Choose the package that matches your situation before or during registration.",
+  },
+  {
+    q: "What if I also need Making Tax Digital?",
+    a: "If MTD for Income Tax also applies, TaxSimba offers a separate accountant-led MTD service. You can check eligibility on the MTD checker, or see the Making Tax Digital accountant page for that journey.",
+  },
+  {
+    q: "What happens after I register?",
+    a: "You create your account, choose your package, and share the information your accountant needs. Your accountant prepares the return; you review and approve where that step applies; then filing is handled as part of the managed service.",
   },
 ];
 

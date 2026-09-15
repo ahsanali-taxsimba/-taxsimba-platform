@@ -1,7 +1,8 @@
 "use client";
+import AccountantLedPublicFaqs from "@/components/seo/AccountantLedPublicFaqs";
 import Link from 'next/link';
 import React from 'react';
-import { Accordion, Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import { MdKeyboardDoubleArrowRight, MdOutlineCheckCircle } from 'react-icons/md';
 
 function Page() {
@@ -146,62 +147,9 @@ function Page() {
             {/* CTA Section End */}
 
             {/* FAQ Section Start */}
-            <section className="faq-section ptb-80">
-                <Container>
-                    <Row>
-                        <Col lg={5} md={12} sm={12} xs={12} className="mb-lg-0 mb-4">
-                            <div className="common-title mb-lg-0 mb-4 px-0">
-                                <h2 className="text-start">Your Complete <span>Compliance Guide</span></h2>
-                            </div>
-
-                            <div className="faq-img">
-                                <img src="/images/faq-img.png" className="img-fluid" alt="faq-img" />
-                            </div>
-                        </Col>
-
-                        <Col lg={7} md={12} sm={12} xs={12}>
-
-                            <div className="faq-outer">
-                                <Accordion defaultActiveKey="0">
-                                    <Accordion.Item eventKey="0">
-                                        <Accordion.Header>What is TaxSimba?  </Accordion.Header>
-                                        <Accordion.Body>
-                                            TaxSimba is an advanced UK tax management platform specifically engineered to simplify the transition into the Making Tax Digital (MTD) era for self-employed individuals and landlords. By replacing the intimidating and complex traditional government tax forms with a streamlined, question-based interface, the software allows users to navigate their financial obligations in a fraction of the usual time. The platform's core strength lies in its intelligent automation, which handles all necessary tax calculations behind the scenes to significantly reduce the risk of human error during Self Assessment.
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-                                    <Accordion.Item eventKey="1">
-                                        <Accordion.Header>Can I try TaxSimba before paying?</Accordion.Header>
-                                        <Accordion.Body>
-                                            Yes, you can try TaxSimba before committing to a purchase. The platform is designed with a "try-before-you-buy" philosophy that allows you to explore the interface and use the essential diagnostic tools entirely for free. Specifically, the MTD Eligibility Checker is accessible without any payment, enabling you to determine your tax obligations in under a minute at no cost. You are generally able to set up your profile, navigate the dashboard, and begin answering the simplified tax questions to see exactly how much time the automation saves you
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-                                    <Accordion.Item eventKey="2">
-                                        <Accordion.Header>Is my data safe?</Accordion.Header>
-                                        <Accordion.Body>
-                                            Security is a fundamental pillar of the TaxSimba platform, which utilizes industry-standard encryption and security protocols to ensure your financial information remains completely protected. All data transmitted between your device and the servers is secured using 256-bit SSL encryption, the same level of security employed by major banks and financial institutions. Furthermore, as an HMRC-recognized software provider, the platform must adhere to rigorous data handling standards and privacy regulations, including GDPR, to maintain its integration credentials.
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-                                    <Accordion.Item eventKey="3">
-                                        <Accordion.Header>Can I cancel anytime?</Accordion.Header>
-                                        <Accordion.Body>
-                                            TaxSimba offers a flexible and transparent cancellation policy that puts you in full control of your account without any long-term contractual obligations. Since the platform operates on a commitment-free basis, you are welcome to stop using the service at any time by simply navigating to your account settings or managing your subscription status. If you are using the pay-per-submission model, there is no ongoing commitment to cancel, as you only pay for the specific filings you complete.
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-                                    <Accordion.Item eventKey="4">
-                                        <Accordion.Header>Does TaxSimba work on mobile?</Accordion.Header>
-                                        <Accordion.Body>
-                                            TaxSimba is fully optimized for mobile use, ensuring that you can manage your tax obligations and check your eligibility from any smartphone or tablet without needing to download a dedicated app. The platform utilizes a responsive web design that automatically adjusts the layout and interface to fit your screen size, maintaining the same high-end cinematic aesthetic and functionality found on the desktop version. This mobile-first approach allows you to answer tax questions, upload documents, and monitor your submission status on the go, providing the flexibility to handle your Self Assessment or Making Tax Digital requirements whenever it is most convenient for you.
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-                                </Accordion>
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
-            </section>
+            <AccountantLedPublicFaqs />
             {/* FAQ Section End */}
-
-        </>
+</>
     )
 }
 
