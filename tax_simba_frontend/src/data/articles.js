@@ -15,39 +15,80 @@ export const ARTICLE_CTA = {
 
 /** @typedef {'SA'|'MTD'|'CHECK'|'BOTH'} CtaType */
 
-/**
- * Resolve date-window markers in curated article HTML.
- * Markers:
- *   <!--deadline:until-2026-11-07-->...<!--/deadline:until-2026-11-07-->
- *   <!--deadline:from-2026-11-08-->...<!--/deadline:from-2026-11-08-->
- * Inclusive of 7 November 2026 (Europe/London calendar date).
- */
-export function resolveDeadlineSensitiveHtml(html, now = new Date()) {
-  if (!html || !html.includes("<!--deadline:")) return html;
-  const londonDate = new Intl.DateTimeFormat("en-CA", {
+/** Europe/London calendar date as YYYY-MM-DD. */
+export function getLondonCalendarDate(now = new Date()) {
+  return new Intl.DateTimeFormat("en-CA", {
     timeZone: "Europe/London",
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
   }).format(now);
-  const keep =
-    londonDate <= "2026-11-07" ? "until-2026-11-07" : "from-2026-11-08";
-  const drop =
-    keep === "until-2026-11-07" ? "from-2026-11-08" : "until-2026-11-07";
-  let out = html.replace(
-    new RegExp("<!--deadline:" + drop + "-->[\\s\\S]*?<!--/deadline:" + drop + "-->", "g"),
-    "",
-  );
-  out = out.replace(new RegExp("<!--/?deadline:" + keep + "-->", "g"), "");
+}
+
+/**
+ * Resolve date-window markers in curated article HTML.
+ * Markers (any calendar boundary):
+ *   <!--deadline:until-YYYY-MM-DD-->...<!--/deadline:until-YYYY-MM-DD-->
+ *   <!--deadline:from-YYYY-MM-DD-->...<!--/deadline:from-YYYY-MM-DD-->
+ * "until" is inclusive; "from" is inclusive of that calendar day (Europe/London).
+ */
+export function resolveDeadlineSensitiveHtml(html, now = new Date()) {
+  if (!html || !html.includes("<!--deadline:")) return html;
+  const londonDate = getLondonCalendarDate(now);
+  const keys = new Set();
+  for (const match of html.matchAll(
+    /<!--deadline:((?:until|from)-\d{4}-\d{2}-\d{2})-->/g,
+  )) {
+    keys.add(match[1]);
+  }
+  let out = html;
+  for (const key of keys) {
+    const parsed = key.match(/^(until|from)-(\d{4}-\d{2}-\d{2})$/);
+    if (!parsed) continue;
+    const [, kind, date] = parsed;
+    const keep = kind === "until" ? londonDate <= date : londonDate >= date;
+    if (!keep) {
+      out = out.replace(
+        new RegExp(
+          "<!--deadline:" + key + "-->[\\s\\S]*?<!--/deadline:" + key + "-->",
+          "g",
+        ),
+        "",
+      );
+    } else {
+      out = out.replace(new RegExp("<!--/?deadline:" + key + "-->", "g"), "");
+    }
+  }
   return out;
 }
 
+/**
+ * Apply deadline-sensitive HTML and optional title/meta packs.
+ * deadlineSwitch: { untilDate: "YYYY-MM-DD", before: {...}, after: {...} }
+ * "before" applies while London date <= untilDate; "after" from the next day.
+ */
 export function withResolvedArticleContent(article, now = new Date()) {
   if (!article) return article;
-  return {
+  const londonDate = getLondonCalendarDate(now);
+  let resolved = {
     ...article,
     content: resolveDeadlineSensitiveHtml(article.content || "", now),
   };
+  const switcher = article.deadlineSwitch;
+  if (switcher?.untilDate && (switcher.before || switcher.after)) {
+    const pack =
+      londonDate <= switcher.untilDate ? switcher.before : switcher.after;
+    if (pack) {
+      resolved = {
+        ...resolved,
+        ...(pack.title ? { title: pack.title } : {}),
+        ...(pack.metaTitle ? { metaTitle: pack.metaTitle } : {}),
+        ...(pack.metaDescription ? { metaDescription: pack.metaDescription } : {}),
+        ...(pack.excerpt ? { excerpt: pack.excerpt } : {}),
+      };
+    }
+  }
+  return resolved;
 }
 
 
@@ -73,6 +114,7 @@ export function withResolvedArticleContent(article, now = new Date()) {
  *  relatedSlugs: string[],
  *  relatedPages: Array<{href: string, label: string}>,
  *  sources: Array<{label: string, url: string}>,
+ *  deadlineSwitch?: { untilDate: string, before?: object, after?: object },
  *  curated?: boolean,
  * }>}
  */
@@ -91,18 +133,18 @@ export const articles = [
     tags: ["mtd", "hmrc", "income-tax", "signed-up"],
     publishedAt: "2026-09-14T14:00:00.000Z",
     reviewedAt: "2026-09-14T14:00:00.000Z",
-    authorName: "TaxSimba Tax Team",
-    reviewerName: "TaxSimba Tax Team",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
     featuredImage: "/images/blog_3.png",
     featuredImageAlt: "UK taxpayer reviewing an HMRC Making Tax Digital signup notice",
     ctaType: "MTD",
     relatedSlugs: [
       "hmrc-mtd-signup-wrong",
+      "mtd-exemptions",
       "mtd-qualifying-income",
       "mtd-quarterly-updates",
       "mtd-accountant-or-agent",
-      "mtd-digital-records",
-      "making-tax-digital-explained",
+      "does-mtd-replace-self-assessment",
     ],
     relatedPages: [
       { href: "/making-tax-digital", label: "Making Tax Digital accountant service" },
@@ -174,8 +216,8 @@ export const articles = [
     tags: ["mtd", "qualifying-income", "thresholds"],
     publishedAt: "2026-09-14T13:30:00.000Z",
     reviewedAt: "2026-09-14T13:30:00.000Z",
-    authorName: "TaxSimba Tax Team",
-    reviewerName: "TaxSimba Tax Team",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
     featuredImage: "/images/blog_2.png",
     featuredImageAlt: "Calculator and notes used to work out MTD qualifying income",
     ctaType: "MTD",
@@ -268,8 +310,8 @@ export const articles = [
     tags: ["mtd", "quarterly-updates", "deadlines"],
     publishedAt: "2026-09-14T13:00:00.000Z",
     reviewedAt: "2026-09-14T13:00:00.000Z",
-    authorName: "TaxSimba Tax Team",
-    reviewerName: "TaxSimba Tax Team",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
     featuredImage: "/images/blog_1.png",
     featuredImageAlt: "Calendar marking Making Tax Digital quarterly update deadlines",
     ctaType: "MTD",
@@ -352,16 +394,17 @@ export const articles = [
     tags: ["self-assessment", "deadlines", "31-january"],
     publishedAt: "2026-09-14T12:30:00.000Z",
     reviewedAt: "2026-09-14T12:30:00.000Z",
-    authorName: "TaxSimba Tax Team",
-    reviewerName: "TaxSimba Tax Team",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
     featuredImage: "/images/blog_1.png",
     featuredImageAlt: "Calendar highlighting the 31 January Self Assessment deadline",
     ctaType: "SA",
     relatedSlugs: [
+      "self-assessment-register-by-5-october-2026",
       "self-assessment-documents-checklist",
       "payments-on-account-explained",
       "late-self-assessment-penalties",
-      "understanding-self-assessment-uk",
+      "self-assessment-for-sole-traders-2025-26",
     ],
     relatedPages: [
       { href: "/self-assessment", label: "Online Self Assessment accountant" },
@@ -438,16 +481,17 @@ export const articles = [
     tags: ["self-assessment", "documents", "checklist", "records"],
     publishedAt: "2026-09-14T12:00:00.000Z",
     reviewedAt: "2026-09-14T12:00:00.000Z",
-    authorName: "TaxSimba Tax Team",
-    reviewerName: "TaxSimba Tax Team",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
     featuredImage: "/images/blog_2.png",
     featuredImageAlt: "Organised folders of Self Assessment tax return documents",
     ctaType: "SA",
     relatedSlugs: [
+      "self-assessment-for-landlords-2025-26",
+      "self-assessment-for-sole-traders-2025-26",
       "self-assessment-deadline",
+      "self-assessment-register-by-5-october-2026",
       "payments-on-account-explained",
-      "late-self-assessment-penalties",
-      "understanding-self-assessment-uk",
     ],
     relatedPages: [
       { href: "/self-assessment", label: "Online Self Assessment accountant" },
@@ -547,8 +591,8 @@ export const articles = [
     tags: ["self-assessment", "hmrc", "deadlines"],
     publishedAt: "2024-03-20T10:00:00.000Z",
     reviewedAt: "2026-09-14T12:00:00.000Z",
-    authorName: "TaxSimba Tax Team",
-    reviewerName: "TaxSimba Tax Team",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
     featuredImage: "/images/blog_1.png",
     featuredImageAlt: "UK Self Assessment tax return guidance",
     ctaType: "SA",
@@ -611,8 +655,8 @@ export const articles = [
     tags: ["expenses", "sole-trader", "self-assessment"],
     publishedAt: "2024-04-15T09:00:00.000Z",
     reviewedAt: "2026-09-14T12:00:00.000Z",
-    authorName: "TaxSimba Tax Team",
-    reviewerName: "TaxSimba Tax Team",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
     featuredImage: "/images/blog_2.png",
     featuredImageAlt: "Tax tips for UK small businesses and sole traders",
     ctaType: "SA",
@@ -675,17 +719,17 @@ export const articles = [
     tags: ["mtd", "landlords", "sole-traders"],
     publishedAt: "2024-05-02T11:30:00.000Z",
     reviewedAt: "2026-09-14T13:00:00.000Z",
-    authorName: "TaxSimba Tax Team",
-    reviewerName: "TaxSimba Tax Team",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
     featuredImage: "/images/blog_3.png",
     featuredImageAlt: "Making Tax Digital for Income Tax overview",
     ctaType: "MTD",
     relatedSlugs: [
+      "does-mtd-replace-self-assessment",
+      "mtd-exemptions",
       "mtd-for-sole-traders-2026-27",
       "mtd-for-landlords-2026-27",
-      "hmrc-signed-me-up-for-making-tax-digital",
       "mtd-qualifying-income",
-      "mtd-quarterly-updates",
     ],
     relatedPages: [
       { href: "/making-tax-digital", label: "Making Tax Digital accountant" },
@@ -746,8 +790,8 @@ export const articles = [
     tags: ["mtd", "accountant", "agent", "sole-trader", "landlord"],
     publishedAt: "2026-09-15T10:00:00.000Z",
     reviewedAt: "2026-09-15T15:00:00.000Z",
-    authorName: "TaxSimba Tax Team",
-    reviewerName: "TaxSimba Tax Team",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
     featuredImage: "/images/blog_3.png",
     featuredImageAlt: "UK taxpayer meeting an accountant about Making Tax Digital",
     ctaType: "MTD",
@@ -837,8 +881,8 @@ export const articles = [
     tags: ["mtd", "digital-records", "record-keeping", "landlords", "sole-traders"],
     publishedAt: "2026-09-15T09:30:00.000Z",
     reviewedAt: "2026-09-15T15:00:00.000Z",
-    authorName: "TaxSimba Tax Team",
-    reviewerName: "TaxSimba Tax Team",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
     featuredImage: "/images/blog_2.png",
     featuredImageAlt: "Digital invoices and bank records prepared for Making Tax Digital",
     ctaType: "MTD",
@@ -928,8 +972,8 @@ export const articles = [
     tags: ["mtd", "missed-deadline", "catch-up", "penalties"],
     publishedAt: "2026-09-15T09:00:00.000Z",
     reviewedAt: "2026-09-15T15:00:00.000Z",
-    authorName: "TaxSimba Tax Team",
-    reviewerName: "TaxSimba Tax Team",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
     featuredImage: "/images/blog_1.png",
     featuredImageAlt: "Calendar showing a missed Making Tax Digital quarterly deadline",
     ctaType: "MTD",
@@ -1004,8 +1048,8 @@ export const articles = [
     tags: ["self-assessment", "payments-on-account", "hmrc", "deadlines"],
     publishedAt: "2026-09-15T08:30:00.000Z",
     reviewedAt: "2026-09-15T15:00:00.000Z",
-    authorName: "TaxSimba Tax Team",
-    reviewerName: "TaxSimba Tax Team",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
     featuredImage: "/images/blog_2.png",
     featuredImageAlt: "Self Assessment bill showing payments on account",
     ctaType: "SA",
@@ -1088,8 +1132,8 @@ export const articles = [
     tags: ["self-assessment", "penalties", "late-filing", "hmrc", "mtd"],
     publishedAt: "2026-09-15T08:00:00.000Z",
     reviewedAt: "2026-09-15T15:00:00.000Z",
-    authorName: "TaxSimba Tax Team",
-    reviewerName: "TaxSimba Tax Team",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
     featuredImage: "/images/blog_1.png",
     featuredImageAlt: "Warning letter about a late Self Assessment tax return",
     ctaType: "SA",
@@ -1180,8 +1224,8 @@ export const articles = [
     tags: ["mtd", "deadline", "7-november-2026", "quarterly-updates"],
     publishedAt: "2026-09-15T16:00:00.000Z",
     reviewedAt: "2026-09-15T18:00:00.000Z",
-    authorName: "TaxSimba Tax Team",
-    reviewerName: "TaxSimba Tax Team",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
     featuredImage: "/images/blog_1.png",
     featuredImageAlt: "Calendar highlighting the 7 November 2026 Making Tax Digital deadline",
     ctaType: "MTD",
@@ -1272,8 +1316,8 @@ export const articles = [
     tags: ["mtd", "landlords", "property", "2026-27"],
     publishedAt: "2026-09-15T15:45:00.000Z",
     reviewedAt: "2026-09-15T18:00:00.000Z",
-    authorName: "TaxSimba Tax Team",
-    reviewerName: "TaxSimba Tax Team",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
     featuredImage: "/images/blog_2.png",
     featuredImageAlt: "UK rental property paperwork prepared for Making Tax Digital",
     ctaType: "MTD",
@@ -1356,8 +1400,8 @@ export const articles = [
     tags: ["mtd", "sole-trader", "self-employed", "2026-27"],
     publishedAt: "2026-09-15T15:30:00.000Z",
     reviewedAt: "2026-09-15T18:00:00.000Z",
-    authorName: "TaxSimba Tax Team",
-    reviewerName: "TaxSimba Tax Team",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
     featuredImage: "/images/blog_3.png",
     featuredImageAlt: "Self-employed trader reviewing invoices for Making Tax Digital",
     ctaType: "MTD",
@@ -1436,13 +1480,14 @@ export const articles = [
     tags: ["mtd", "hmrc", "dispute", "exemption", "signed-up"],
     publishedAt: "2026-09-15T15:15:00.000Z",
     reviewedAt: "2026-09-15T18:00:00.000Z",
-    authorName: "TaxSimba Tax Team",
-    reviewerName: "TaxSimba Tax Team",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
     featuredImage: "/images/blog_3.png",
     featuredImageAlt: "Taxpayer reviewing an HMRC Making Tax Digital signup letter carefully",
     ctaType: "CHECK",
     relatedSlugs: [
       "hmrc-signed-me-up-for-making-tax-digital",
+      "mtd-exemptions",
       "mtd-qualifying-income",
       "mtd-accountant-or-agent",
       "mtd-digital-records",
@@ -1515,8 +1560,8 @@ export const articles = [
     tags: ["mtd", "30000", "april-2027", "qualifying-income", "preparation"],
     publishedAt: "2026-09-15T15:00:00.000Z",
     reviewedAt: "2026-09-15T15:00:00.000Z",
-    authorName: "TaxSimba Tax Team",
-    reviewerName: "TaxSimba Tax Team",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
     featuredImage: "/images/blog_2.png",
     featuredImageAlt: "Planning calendar for Making Tax Digital from April 2027",
     ctaType: "CHECK",
@@ -1580,6 +1625,441 @@ export const articles = [
 `,
   },
 
+  {
+    id: "seo-does-mtd-replace-self-assessment",
+    slug: "does-mtd-replace-self-assessment",
+    title: "Does Making Tax Digital Replace Self Assessment?",
+    excerpt:
+      "No — Making Tax Digital for Income Tax is a new way to do Self Assessment, not a replacement for the tax-year return. Here is what still happens at year end.",
+    metaTitle: "Does Making Tax Digital Replace Self Assessment? | TaxSimba",
+    metaDescription:
+      "Clear answer: Making Tax Digital for Income Tax does not scrap your Self Assessment tax return. What quarterly updates do, what still happens by 31 January, and how an accountant can help.",
+    category: "Making Tax Digital",
+    audience: "sole-traders-landlords",
+    tags: ["mtd", "self-assessment", "tax-return", "quarterly-updates"],
+    publishedAt: "2026-09-15T11:30:00.000Z",
+    reviewedAt: "2026-09-15T11:30:00.000Z",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
+    featuredImage: "/images/blog_3.png",
+    featuredImageAlt: "Comparing Making Tax Digital quarterly updates with a Self Assessment tax return",
+    ctaType: "MTD",
+    relatedSlugs: [
+      "making-tax-digital-explained",
+      "mtd-quarterly-updates",
+      "self-assessment-deadline",
+      "mtd-accountant-or-agent",
+      "understanding-self-assessment-uk",
+    ],
+    relatedPages: [
+      { href: "/making-tax-digital", label: "Making Tax Digital accountant service" },
+      { href: "/self-assessment", label: "Self Assessment accountant service" },
+      { href: "/check-mtd", label: "Check if MTD applies" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Use Making Tax Digital for Income Tax (before you use this guide)",
+        url: "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/before-you-use-this-guide",
+      },
+      {
+        label: "GOV.UK — Submit your tax return (Making Tax Digital for Income Tax)",
+        url: "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/submit-your-tax-return",
+      },
+      {
+        label: "GOV.UK — Send quarterly updates",
+        url: "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+      },
+    ],
+    curated: true,
+    content: `
+<p><strong>Short answer:</strong> no. Making Tax Digital for Income Tax does not replace Self Assessment. GOV.UK describes it as a <strong>new way for sole traders and landlords to do Self Assessment</strong> — digital records and quarterly updates during the year, then a tax return after the tax year ends.</p>
+
+<p>If you only needed the overview of MTD itself, see <a href="/blogs/making-tax-digital-explained">Making Tax Digital explained</a>. This page answers one confusion: “If I’m sending quarterly updates, do I still do a return?”</p>
+
+<h2>What stays the same</h2>
+<p>Under MTD for Income Tax you still:</p>
+<ul>
+  <li><strong>Submit one tax return every tax year</strong></li>
+  <li><strong>Pay your tax bill</strong> on the same broad payment dates you know from Self Assessment</li>
+</ul>
+<p>GOV.UK is explicit that both still need to be done by <strong>31 January</strong> following the end of the tax year (online). Making Tax Digital does not invent a new “instead of January” filing system that cancels the return.</p>
+
+<h2>What is new</h2>
+<p>On top of that year-end process you (or your agent) must:</p>
+<ul>
+  <li>keep <strong>digital records</strong> of self-employment and/or property income and expenses in compatible software</li>
+  <li>send <strong>quarterly updates</strong> — category summaries built from those records, not mini tax returns</li>
+  <li>use that software route to finish adjustments, other income and the <strong>tax return</strong> itself for MTD years</li>
+</ul>
+<p>Quarterly updates are cumulative totals for the year so far. They do not finalise your tax. HMRC still uses the year-end submission to generate your Self Assessment bill. Details of what those updates contain sit in <a href="/blogs/mtd-quarterly-updates">MTD quarterly updates explained</a>.</p>
+
+<h2>How the year actually looks</h2>
+<p>Take someone mandated from April 2026 with standard update periods. During 2026 to 2027 they send quarterly updates (typical send-by dates include 7 August, 7 November, 7 February and 7 May). After the year ends they still prepare and submit the tax return through compatible software — for that first MTD year, by <strong>31 January 2028</strong>. Payment rules remain Self Assessment payment rules; GOV.UK says MTD does not change how you pay tax or the payment due dates.</p>
+<p>For the tax year <em>before</em> you start MTD, you still submit a normal Self Assessment return in the way you always have.</p>
+
+<h2>Where people get tripped up</h2>
+<ul>
+  <li>Treating a quarterly update as “I’ve filed for the year”</li>
+  <li>Assuming predicted tax figures in software are the final bill</li>
+  <li>Forgetting other income (savings, dividends, partnership share) still has to sit on the return</li>
+  <li>Mixing MTD years with classic Self Assessment years and expecting the same filing path</li>
+</ul>
+
+<h2>How TaxSimba fits</h2>
+<p>TaxSimba is accountant-led support for Making Tax Digital and Self Assessment — not DIY tax software that “replaces” HMRC’s process. If MTD applies and you want the quarterly rhythm handled with an accountant, start at the <a href="/making-tax-digital">Making Tax Digital service</a>. If you mainly need a classic Self Assessment return prepared from your documents, use the <a href="/self-assessment">Self Assessment service</a>.</p>
+
+<p>General information only — not personal tax advice. Confirm current wording on GOV.UK.</p>
+`,
+  },
+
+  {
+    id: "seo-mtd-exemptions",
+    slug: "mtd-exemptions",
+    title: "Making Tax Digital Exemptions: Who Does Not Have to Use MTD?",
+    excerpt:
+      "Some people are automatically exempt from Making Tax Digital for Income Tax; others need to apply. Here is who may not have to use MTD — and what happens while HMRC considers an application.",
+    metaTitle: "MTD Exemptions — Who Does Not Have to Use MTD? | TaxSimba",
+    metaDescription:
+      "Who can be exempt from Making Tax Digital for Income Tax: automatic exclusions, digital exclusion, temporary exemptions, applying to HMRC, and continuing MTD while you wait.",
+    category: "Making Tax Digital",
+    audience: "sole-traders-landlords",
+    tags: ["mtd", "exemptions", "digital-exclusion", "hmrc"],
+    publishedAt: "2026-09-15T11:28:00.000Z",
+    reviewedAt: "2026-09-15T11:28:00.000Z",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
+    featuredImage: "/images/blog_2.png",
+    featuredImageAlt: "GOV.UK exemption guidance notes for Making Tax Digital for Income Tax",
+    ctaType: "CHECK",
+    relatedSlugs: [
+      "hmrc-mtd-signup-wrong",
+      "mtd-qualifying-income",
+      "hmrc-signed-me-up-for-making-tax-digital",
+      "does-mtd-replace-self-assessment",
+      "mtd-30000-threshold-2027",
+    ],
+    relatedPages: [
+      { href: "/check-mtd", label: "Check if MTD applies" },
+      { href: "/making-tax-digital", label: "Making Tax Digital accountant service" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Find out if you can get an exemption from Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/find-out-if-you-can-get-an-exemption-from-making-tax-digital-for-income-tax",
+      },
+      {
+        label: "GOV.UK — Apply for an exemption from Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/apply-for-an-exemption-from-making-tax-digital-for-income-tax",
+      },
+      {
+        label: "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      },
+    ],
+    curated: true,
+    content: `
+<p>If Making Tax Digital for Income Tax feels unworkable for you, the useful question is not “can I skip it because software is annoying?” — it is <strong>whether an HMRC exemption or exclusion actually applies</strong>. Exempt people still report income and gains on a Self Assessment tax return as normal; they just do not have to use the MTD digital-records and quarterly-update route.</p>
+
+<p>This page owns “who can be exempt?” If your issue is “HMRC signed me up and I think that is wrong,” use <a href="/blogs/hmrc-mtd-signup-wrong">that dispute guide</a> instead.</p>
+
+<h2>Two shapes of exemption</h2>
+<p>GOV.UK groups exemptions as:</p>
+<ul>
+  <li><strong>Automatic</strong> — HMRC grants them from information it already holds; you do not submit an application</li>
+  <li><strong>Applied for</strong> — you (or an authorised agent/friend/family member) must contact HMRC and explain why</li>
+</ul>
+<p>They can also be <strong>permanent</strong> (unless circumstances change) or <strong>temporary</strong> (often until April 2027 at the earliest).</p>
+
+<h2>Automatic examples (not a full catalogue)</h2>
+<p>Current GOV.UK guidance includes, among others:</p>
+<ul>
+  <li><strong>Qualifying income of £20,000 or less</strong> — automatically exempt from MTD for Income Tax</li>
+  <li><strong>No National Insurance number</strong> before the start of the tax year — automatically exempt and cannot sign up</li>
+  <li><strong>Partnerships</strong> — partnerships do not currently need to use MTD for Income Tax (HMRC will set that timeline later)</li>
+  <li><strong>Certain role-based cases</strong> — for example some trust returns (SA900), non-resident company SA700 filings, and acting only as a personal representative of someone who has died (your own trade/property income is assessed separately)</li>
+  <li><strong>Specific 2024 to 2025 return markers</strong> — some supplementary pages and claims trigger automatic temporary or longer exemptions (averaging relief, qualifying care relief, certain SA107/SA109 cases, ministers of religion, Blind Person’s Allowance, and others). The full list belongs on GOV.UK, not in a blog paraphrase</li>
+</ul>
+<p>If you are near a threshold rather than an exemption, start with <a href="/blogs/mtd-qualifying-income">qualifying income</a> and the <a href="/check-mtd">MTD checker</a>.</p>
+
+<h2>Digital exclusion — what it is and is not</h2>
+<p>Being <strong>digitally excluded</strong> means it is not reasonable for you to use compatible software to keep digital records and send quarterly updates or the tax return. GOV.UK examples include age, health or disability that stops you using a computer/tablet/smartphone for this; certain religious beliefs incompatible with digital records <em>and</em> no personal/business use of those devices; or no workable internet access at home or business (and no suitable alternative).</p>
+<p>HMRC says it will <strong>not</strong> accept an application if your only reason is that you previously filed on paper, you are unfamiliar with accountancy software, you have few digital records each year, or MTD will take extra time or cost. Disliking software is not digital exclusion.</p>
+<p>If an agent already keeps digital records and submits for you with compatible software, speak to them first — you may not need a digitally excluded exemption.</p>
+
+<h2>Applying, waiting, and changing circumstances</h2>
+<p>Applications go by phone or letter to Self Assessment general enquiries (agents use the agent line), with the subject titles GOV.UK publishes for digitally excluded or other exemption applications. HMRC aims to respond within 28 calendar days.</p>
+<p><strong>Already signed up and applying because circumstances changed?</strong> GOV.UK says you should <strong>continue using Making Tax Digital for Income Tax while you wait</strong> for a decision. An application is not a pause.</p>
+<p>If your circumstances later change after an exemption, you may need to apply again or start using MTD when HMRC says you must. Previously digitally excluded from MTD for VAT still needs a separate Income Tax confirmation with HMRC — it does not transfer silently.</p>
+
+<h2>Practical next step</h2>
+<p>Read GOV.UK’s exemption pages for your exact case, then use the <a href="/check-mtd">MTD checker</a> as a planning prompt. If you are not exempt and want accountant-led help rather than DIY software alone, see the <a href="/making-tax-digital">Making Tax Digital service</a>. TaxSimba does not grant exemptions and does not claim HMRC approval.</p>
+
+<p>General information only — not personal tax advice. Only HMRC can confirm an exemption.</p>
+`,
+  },
+
+  {
+    id: "seo-sa-landlords-2025-26",
+    slug: "self-assessment-for-landlords-2025-26",
+    title: "Self Assessment for Landlords: What You Need for Your 2025/26 Tax Return",
+    excerpt:
+      "A practical Self Assessment preparation list for UK landlords covering the 2025 to 2026 tax year — rental figures, expenses, joint ownership, and filing deadlines.",
+    metaTitle: "Self Assessment for Landlords 2025/26 — What You Need | TaxSimba",
+    metaDescription:
+      "What UK landlords need for the 2025/26 Self Assessment tax return: rental income records, allowable expenses, jointly owned property, accountant prep, and current deadlines.",
+    category: "Self Assessment",
+    audience: "landlords",
+    tags: ["self-assessment", "landlords", "rental-income", "2025-26"],
+    publishedAt: "2026-09-15T11:26:00.000Z",
+    reviewedAt: "2026-09-15T11:26:00.000Z",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
+    featuredImage: "/images/blog_1.png",
+    featuredImageAlt: "Landlord gathering rental statements for a Self Assessment tax return",
+    ctaType: "SA",
+    relatedSlugs: [
+      "self-assessment-documents-checklist",
+      "self-assessment-deadline",
+      "self-assessment-for-sole-traders-2025-26",
+      "payments-on-account-explained",
+      "mtd-for-landlords-2026-27",
+    ],
+    relatedPages: [
+      { href: "/self-assessment", label: "Self Assessment accountant service" },
+      { href: "/register", label: "Start Self Assessment with TaxSimba" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Work out your rental income when you let property",
+        url: "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+      },
+      {
+        label: "GOV.UK — Self Assessment tax returns: Deadlines",
+        url: "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      },
+      {
+        label: "GOV.UK — Check how to register for Self Assessment",
+        url: "https://www.gov.uk/register-for-self-assessment",
+      },
+    ],
+    curated: true,
+    content: `
+<p>This guide is for landlords preparing a <strong>Self Assessment tax return for 2025 to 2026</strong> (6 April 2025 to 5 April 2026). It stays on classic Self Assessment preparation — not Making Tax Digital for landlords. MTD obligations for property sit in <a href="/blogs/mtd-for-landlords-2026-27">MTD for landlords 2026/27</a>.</p>
+
+<h2>What “good enough” records look like</h2>
+<p>You pay tax on <strong>rental profit</strong>: rental income minus allowable expenses (and any allowances that apply). Gather:</p>
+<ul>
+  <li><strong>Rent received</strong> — including payments for furniture use and services you charge for (cleaning of communal areas, heating, and similar)</li>
+  <li><strong>Letting agent statements</strong> for the full tax year, not just December’s summary</li>
+  <li><strong>Bank statements</strong> that show rent and property spending</li>
+  <li><strong>Invoices and receipts</strong> for repairs, insurance, ground rent, service charges, accountant fees, advertising for tenants, and other wholly-and-exclusively property costs</li>
+  <li><strong>Finance costs</strong> paperwork (interest on mortgages/loans) — residential finance-cost relief is restricted; your accountant needs the figures even when relief is limited</li>
+  <li><strong>Mileage or vehicle logs</strong> if you claim property-business motoring</li>
+</ul>
+<p>GOV.UK expects records kept for at least five years after the 31 January deadline for the year. A broader document list is in the <a href="/blogs/self-assessment-documents-checklist">Self Assessment documents checklist</a>.</p>
+
+<h2>Jointly owned property</h2>
+<p>You are taxed on <strong>your share</strong> of the rental income. Married couples and civil partners living together are usually taxed 50/50 unless they have declared beneficial interests differently. For other joint owners, shares usually follow ownership unless you agree a different income allocation. Tell your accountant the ownership split and whose name is on the agent statements.</p>
+
+<h2>What else an accountant often needs</h2>
+<ul>
+  <li>Whether you use (or want) the £1,000 property allowance instead of expenses</li>
+  <li>Rent-a-Room figures if you let a room in your home</li>
+  <li>Capital improvements vs repairs (extensions and upgrades are usually capital, not revenue deductions)</li>
+  <li>Other income on the same return — employment, dividends, savings interest, capital gains</li>
+  <li>Whether payments on account from last year need adjusting</li>
+</ul>
+
+<h2>Approval, filing and deadlines for this return</h2>
+<p>Online filing and payment for 2025 to 2026 are due by <strong>11:59pm on 31 January 2027</strong>. Paper returns (if you still use one) must reach HMRC by <strong>31 October 2026</strong>. If you need to tell HMRC you require a return for this year and you have not filed before (or you registered before but did not need a 2024 to 2025 return), that notification date is <strong>5 October 2026</strong> — see <a href="/blogs/self-assessment-register-by-5-october-2026">the 5 October registration guide</a>.</p>
+<p>With TaxSimba’s <a href="/self-assessment">Self Assessment service</a>, you upload documents, an accountant prepares the return, and you approve before filing where that step applies. We do not invent allowable expenses or guarantee a particular tax bill.</p>
+
+<p>General information only — not personal tax advice. Confirm allowances and reliefs on current GOV.UK pages for your lets.</p>
+`,
+  },
+
+  {
+    id: "seo-sa-sole-traders-2025-26",
+    slug: "self-assessment-for-sole-traders-2025-26",
+    title: "Self Assessment for Sole Traders: What You Need for Your 2025/26 Tax Return",
+    excerpt:
+      "What self-employed sole traders should gather for the 2025 to 2026 Self Assessment return — sales, expenses, other income, filing steps and deadlines.",
+    metaTitle: "Self Assessment for Sole Traders 2025/26 — Checklist | TaxSimba",
+    metaDescription:
+      "Sole trader Self Assessment prep for 2025/26: income and expense records, other income, accountant workflow, a worked example, and current filing deadlines.",
+    category: "Self Assessment",
+    audience: "sole-traders",
+    tags: ["self-assessment", "sole-trader", "self-employed", "2025-26"],
+    publishedAt: "2026-09-15T11:24:00.000Z",
+    reviewedAt: "2026-09-15T11:24:00.000Z",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
+    featuredImage: "/images/blog_2.png",
+    featuredImageAlt: "Sole trader sorting invoices for a 2025/26 Self Assessment return",
+    ctaType: "SA",
+    relatedSlugs: [
+      "self-assessment-documents-checklist",
+      "self-assessment-deadline",
+      "self-assessment-for-landlords-2025-26",
+      "payments-on-account-explained",
+      "mtd-for-sole-traders-2026-27",
+    ],
+    relatedPages: [
+      { href: "/self-assessment", label: "Self Assessment accountant service" },
+      { href: "/register", label: "Start Self Assessment with TaxSimba" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Self Assessment tax returns: Deadlines",
+        url: "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      },
+      {
+        label: "GOV.UK — Check how to register for Self Assessment",
+        url: "https://www.gov.uk/register-for-self-assessment",
+      },
+      {
+        label: "GOV.UK — Payments on account",
+        url: "https://www.gov.uk/understand-self-assessment-bill/payments-on-account",
+      },
+    ],
+    curated: true,
+    content: `
+<p>If you traded as a sole trader in <strong>2025 to 2026</strong>, your Self Assessment return needs a clear picture of sales, allowable expenses and anything else taxable that year. This page is Self Assessment preparation — not the Making Tax Digital sole-trader checklist (that is <a href="/blogs/mtd-for-sole-traders-2026-27">MTD for sole traders 2026/27</a>), and not a generic document dump (see the <a href="/blogs/self-assessment-documents-checklist">documents checklist</a> for the wide list).</p>
+
+<h2>Income and sales evidence</h2>
+<ul>
+  <li>Invoices or sales reports for the tax year (6 April 2025 to 5 April 2026)</li>
+  <li>Bank statements for the business account (or highlighted personal-account business lines)</li>
+  <li>Platform payouts (marketplaces, card readers) reconciled to invoices</li>
+  <li>CIS statements if you are a subcontractor</li>
+  <li>Any tips, grants or other trading receipts</li>
+</ul>
+
+<h2>Business expenses worth sorting early</h2>
+<p>Group costs the way your accountant will ask for them: stock or materials, subcontractors, premises, vehicle/travel, office costs, professional fees, insurance, phone/internet used for the trade, and capital purchases that may need capital allowances. Private spending mixed into the same account needs a clear split — “I’ll remember in January” is how allowable claims get lost.</p>
+
+<h2>A concrete prep example</h2>
+<p>Maya is a freelance photographer. For 2025 to 2026 she has invoices totalling <strong>£42,600</strong>, equipment hire and props of <strong>£3,150</strong>, software subscriptions of <strong>£480</strong>, train travel to shoots of <strong>£920</strong>, and a new camera body costing <strong>£1,800</strong> that may need capital-allowance treatment rather than a simple expense. She exports bank CSV files and keeps PDF invoices in one folder labelled by month. That pack is enough for an accountant to draft the trade pages without reconstructing the year from memory.</p>
+
+<h2>Other income and the rest of the return</h2>
+<p>Sole-trader profit is rarely the whole story. Note employment income, taxable benefits, dividends, savings interest, rental income, pension contributions, and student loan indicators. Payments on account from the previous year also affect what you pay by 31 January — see <a href="/blogs/payments-on-account-explained">payments on account explained</a>.</p>
+
+<h2>Accountant workflow, approval and deadlines</h2>
+<p>Online return and balancing payment for 2025 to 2026: <strong>31 January 2027</strong>. Paper deadline: <strong>31 October 2026</strong>. If you still need to register or reactivate Self Assessment for this year, check the <a href="/blogs/self-assessment-register-by-5-october-2026">5 October 2026 notification date</a>.</p>
+<p>TaxSimba’s <a href="/self-assessment">Self Assessment service</a> is accountant-led: you supply the records, an accountant prepares the return, you approve, then it is filed. We do not sell DIY filing software or promise a fixed tax saving.</p>
+
+<p>General information only — not personal tax advice.</p>
+`,
+  },
+
+  {
+    id: "seo-sa-register-5-oct-2026",
+    slug: "self-assessment-register-by-5-october-2026",
+    title: "Do I Need to Register for Self Assessment by 5 October 2026?",
+    excerpt:
+      "5 October 2026 is the date to tell HMRC you need a Self Assessment tax return for 2025 to 2026 if you are new to filing or need to reactivate — not the same as the 31 January filing deadline.",
+    metaTitle: "Register for Self Assessment by 5 October 2026? | TaxSimba",
+    metaDescription:
+      "Who must tell HMRC by 5 October 2026 about a 2025/26 Self Assessment return, how that differs from 31 January filing, and what to do if you miss the date.",
+    category: "Self Assessment",
+    audience: "sole-traders-landlords",
+    tags: ["self-assessment", "register", "5-october-2026", "deadline"],
+    publishedAt: "2026-09-15T11:22:00.000Z",
+    reviewedAt: "2026-09-15T11:22:00.000Z",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
+    featuredImage: "/images/blog_1.png",
+    featuredImageAlt: "Calendar highlighting the 5 October 2026 Self Assessment registration date",
+    ctaType: "SA",
+    deadlineSwitch: {
+      untilDate: "2026-10-05",
+      before: {
+        title: "Do I Need to Register for Self Assessment by 5 October 2026?",
+        metaTitle: "Register for Self Assessment by 5 October 2026? | TaxSimba",
+        metaDescription:
+          "Who must tell HMRC by 5 October 2026 about a 2025/26 Self Assessment return, how that differs from 31 January filing, and what to do if you miss the date.",
+        excerpt:
+          "5 October 2026 is the date to tell HMRC you need a Self Assessment tax return for 2025 to 2026 if you are new to filing or need to reactivate — not the same as the 31 January filing deadline.",
+      },
+      after: {
+        title: "Missed the 5 October Self Assessment Registration Date? Here’s What to Do",
+        metaTitle: "Missed 5 October Self Assessment Registration? | TaxSimba",
+        metaDescription:
+          "If you missed telling HMRC by 5 October 2026 that you need a 2025/26 Self Assessment return, here is what GOV.UK says about penalties, revised filing deadlines and paying by 31 January 2027.",
+        excerpt:
+          "The 5 October 2026 Self Assessment notification date has passed. Here is what to do if you still need to register or reactivate for 2025 to 2026.",
+      },
+    },
+    relatedSlugs: [
+      "self-assessment-deadline",
+      "late-self-assessment-penalties",
+      "self-assessment-documents-checklist",
+      "self-assessment-for-sole-traders-2025-26",
+      "self-assessment-for-landlords-2025-26",
+    ],
+    relatedPages: [
+      { href: "/self-assessment", label: "Self Assessment accountant service" },
+      { href: "/register", label: "Start Self Assessment with TaxSimba" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Check how to register for Self Assessment",
+        url: "https://www.gov.uk/register-for-self-assessment",
+      },
+      {
+        label: "GOV.UK — Self Assessment tax returns: Deadlines",
+        url: "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      },
+      {
+        label: "GOV.UK — Self Assessment tax returns: Registering",
+        url: "https://www.gov.uk/self-assessment-tax-returns/registering",
+      },
+    ],
+    curated: true,
+    content: `
+<!--deadline:until-2026-10-05-->
+<p><strong>Not everyone</strong> must “register by 5 October.” GOV.UK’s rule is narrower: you must <strong>tell HMRC by 5 October 2026</strong> if you need to complete a tax return for the previous tax year (2025 to 2026: 6 April 2025 to 5 April 2026) and you have either:</p>
+<ul>
+  <li>not sent a tax return before, or</li>
+  <li>registered before but did not need to send a tax return for <strong>2024 to 2025</strong></li>
+</ul>
+<p>You tell HMRC by registering for Self Assessment (or by following the reactivation path inside that service if you already had an account). Check whether you need a return before you register.</p>
+<!--/deadline:until-2026-10-05-->
+<!--deadline:from-2026-10-06-->
+<p><strong>The 5 October 2026 notification date has passed.</strong> GOV.UK required people to tell HMRC by that date if they needed a tax return for 2025 to 2026 and had either never sent a return, or had registered before but did not need a return for 2024 to 2025. If that described you and you have not told HMRC yet, register or reactivate now — waiting does not remove the need to file or pay.</p>
+<!--/deadline:from-2026-10-06-->
+
+<h2>What 5 October is — and is not</h2>
+<p>5 October is a <strong>tell HMRC / registration (or reactivation) date</strong> for people in those two situations. It is <strong>not</strong> the deadline for submitting the tax return or paying the bill.</p>
+<ul>
+  <li><strong>Online return and payment:</strong> 11:59pm on <strong>31 January 2027</strong></li>
+  <li><strong>Paper return:</strong> 11:59pm on <strong>31 October 2026</strong></li>
+</ul>
+<p>People who already file Self Assessment every year are not suddenly given a new universal “re-register by 5 October” duty. Use GOV.UK’s “check how to register” flow if you are unsure which path applies — including reactivation if you skipped 2024 to 2025.</p>
+
+<!--deadline:until-2026-10-05-->
+<h2>If you miss 5 October 2026</h2>
+<p>GOV.UK warns you could get a penalty if you tell HMRC after 5 October 2026. If you register after that date, HMRC will send a letter or email with a <strong>different deadline to send your tax return</strong> — three months from the date on that letter or email. You must still pay any tax owed by <strong>11:59pm on 31 January 2027</strong> or you can get a payment penalty. More on late filing generally: <a href="/blogs/late-self-assessment-penalties">late Self Assessment penalties</a>.</p>
+<!--/deadline:until-2026-10-05-->
+<!--deadline:from-2026-10-06-->
+<h2>If you are registering after 5 October 2026</h2>
+<p>GOV.UK says you could get a penalty for telling HMRC late. After a late registration, HMRC will send a letter or email with a <strong>revised deadline to send your tax return</strong> — three months from the date on that letter or email. You must still pay any tax owed by <strong>11:59pm on 31 January 2027</strong> or you can get a payment penalty. Practical catch-up reading: <a href="/blogs/late-self-assessment-penalties">late Self Assessment penalties</a>.</p>
+<!--/deadline:from-2026-10-06-->
+
+<h2>Practical next steps</h2>
+<ol>
+  <li>Confirm you actually need a 2025 to 2026 return (GOV.UK’s “check if you need to send a tax return” tool).</li>
+  <li>Use <a href="https://www.gov.uk/register-for-self-assessment" target="_blank" rel="noopener noreferrer">Check how to register for Self Assessment</a> on GOV.UK — including reactivation where relevant.</li>
+  <li>Gather records early so the January filing date is not a scramble — <a href="/blogs/self-assessment-documents-checklist">documents checklist</a>.</li>
+  <li>Diary <strong>31 January 2027</strong> for online filing and payment.</li>
+</ol>
+
+<p>If you want an accountant to prepare the return once you are registered, TaxSimba’s <a href="/self-assessment">Self Assessment service</a> is accountant-led from your documents. We cannot register you with HMRC in place of the GOV.UK process, and we do not guarantee penalty cancellation.</p>
+
+<p>General information only — not personal tax advice. Re-check GOV.UK for the wording that applies to you.</p>
+`,
+  },
+
 ];
 
 export function getPublishedArticles() {
@@ -1624,8 +2104,8 @@ export function normalizeApiArticle(raw = {}) {
     tags: raw.tags || [],
     publishedAt: raw.publishedAt || raw.createdAt || new Date().toISOString(),
     reviewedAt: raw.reviewedAt || raw.updatedAt || raw.publishedAt,
-    authorName: raw.authorName || raw.author || "TaxSimba Tax Team",
-    reviewerName: raw.reviewerName || "TaxSimba Tax Team",
+    authorName: raw.authorName || raw.author || "TaxSimba",
+    reviewerName: raw.reviewerName || "TaxSimba",
     featuredImage: raw.featuredImage || "/images/tax_blog_default.png",
     featuredImageAlt: raw.featuredImageAlt || raw.title || "TaxSimba guide",
     ctaType: raw.ctaType === "MTD" ? "MTD" : raw.ctaType === "CHECK" ? "CHECK" : "SA",

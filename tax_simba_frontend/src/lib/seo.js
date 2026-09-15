@@ -93,6 +93,7 @@ export function articleJsonLd(article) {
     publisher: {
       "@type": "Organization",
       name: SITE_NAME,
+      url: getSiteBaseUrl(),
       logo: {
         "@type": "ImageObject",
         url: absoluteUrl("/images/logo.svg"),

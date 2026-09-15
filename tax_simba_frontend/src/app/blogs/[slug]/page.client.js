@@ -29,8 +29,7 @@ function readingMinutes(text = "") {
 export default function BlogDetailsClientPage({ blogDetails }) {
   const blog = blogDetails?.blog;
   const cta = getCtaForArticle(blog);
-  const published = formatDate(blog?.publishedAt);
-  const reviewed = formatDate(blog?.reviewedAt);
+  const reviewed = formatDate(blog?.reviewedAt || blog?.publishedAt);
 
   return (
     <div className="container">
@@ -59,9 +58,8 @@ export default function BlogDetailsClientPage({ blogDetails }) {
           ) : null}
           <TranslatedHeading className="blog-title">{blog?.title}</TranslatedHeading>
           <TranslatedParagraph className="blog-meta">
-            By {blog?.authorName || "TaxSimba Tax Team"}
-            {published ? ` · Published ${published}` : ""}
-            {reviewed && reviewed !== published ? ` · Reviewed ${reviewed}` : ""}
+            By {blog?.authorName || "TaxSimba"}
+            {reviewed ? ` · Reviewed ${reviewed}` : ""}
             {` · ${readingMinutes(blog?.content || blog?.excerpt)} min read`}
           </TranslatedParagraph>
           <div className="get_started_centered">
@@ -104,7 +102,6 @@ export default function BlogDetailsClientPage({ blogDetails }) {
               </ul>
               <p className="small opacity-75 mb-0">
                 This article is general information for UK taxpayers, not personal tax advice.
-                {blog?.reviewerName ? ` Reviewed by ${blog.reviewerName}.` : ""}
               </p>
             </div>
           ) : null}
