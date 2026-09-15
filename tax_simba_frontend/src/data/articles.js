@@ -2268,12 +2268,16 @@ export const articles = [
     featuredImageAlt: "Construction subcontractor checking CIS payment and deduction statements",
     ctaType: "SA",
     relatedSlugs: [
+      "cis-tax-refunds-subcontractors",
+      "cis-20-vs-30-percent-deductions",
+      "cis-payment-deduction-statements",
+      "cis-allowable-expenses-subcontractors",
+      "cis-gross-payment-status",
       "self-assessment-for-sole-traders-2025-26",
       "self-assessment-documents-checklist",
-      "payments-on-account-explained",
-      "mtd-for-sole-traders-2026-27",
     ],
     relatedPages: [
+      { href: "/self-assessment", label: "Self Assessment accountant service" },
       { href: "/self-employed-tax-return", label: "Self-employed tax return support" },
       { href: "/register", label: "Start Self Assessment with TaxSimba" },
     ],
@@ -2789,6 +2793,410 @@ export const articles = [
 
 <h2>Accountant-led option</h2>
 <p>Many people prefer an agent to operate the software and submissions. That is allowed: GOV.UK’s software guidance says you or an agent on your behalf use commercial software for records and filings. TaxSimba’s <a href="/making-tax-digital">Making Tax Digital service</a> is built around accountant-led support, not a claim that TaxSimba is HMRC or that we submit through a public “TaxSimba HMRC API” of our own. For eligibility first, use <a href="/check-mtd">Check if MTD applies</a>; when you want help running the digital process, <a href="/register?role=MTD">get MTD support with TaxSimba</a>.</p>
+`,
+  },
+
+  {
+    id: "seo-cis-tax-refunds",
+    slug: "cis-tax-refunds-subcontractors",
+    title: "CIS Tax Refunds: How Subcontractors Claim Back CIS Deductions",
+    excerpt:
+      "CIS deductions are advance payments towards your tax and National Insurance. Here is when a refund can arise for sole traders and partners, what evidence you need, and how limited companies reclaim differently.",
+    metaTitle: "CIS Tax Refunds for Subcontractors Explained | TaxSimba",
+    metaDescription:
+      "How CIS subcontractors claim tax back when deductions exceed their final bill, what payment statements prove, sole trader vs limited company routes, and how Self Assessment fits in.",
+    category: "Self Assessment",
+    audience: "cis-subcontractors",
+    tags: ["CIS", "tax-refund", "subcontractor", "self-assessment", "construction"],
+    publishedAt: "2026-09-15T15:51:14.000Z",
+    reviewedAt: "2026-09-15T15:51:14.000Z",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
+    featuredImage: "/images/blog-category-cis.png",
+    featuredImageAlt: "Construction subcontractor reviewing CIS deduction statements for a tax refund",
+    ctaType: "SA",
+    relatedSlugs: [
+      "cis-deductions-self-assessment",
+      "cis-payment-deduction-statements",
+      "cis-20-vs-30-percent-deductions",
+      "cis-allowable-expenses-subcontractors",
+      "cis-gross-payment-status",
+    ],
+    relatedPages: [
+      { href: "/self-assessment", label: "Self Assessment accountant service" },
+      { href: "/register", label: "Start Self Assessment with TaxSimba" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — CIS subcontractors: pay tax and claim back deductions",
+        url: "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/pay-tax-and-claim-back-deductions",
+      },
+      {
+        label: "GOV.UK — What you must do as a CIS subcontractor",
+        url: "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor",
+      },
+      {
+        label: "GOV.UK — Claim repayment of subcontractor deductions (CIS40)",
+        url: "https://www.gov.uk/government/publications/construction-industry-scheme-individuals-repayment-claim-cis40",
+      },
+    ],
+    curated: true,
+    content: `
+<p>A “CIS tax refund” usually means HMRC owes you money because contractors deducted more under the Construction Industry Scheme than your final Income Tax and National Insurance bill for the year. The deductions themselves are <strong>not</strong> a separate final tax — GOV.UK treats them as advance payments towards what you eventually owe.</p>
+
+<h2>Why a refund can happen</h2>
+<p>Contractors typically take 20% (if you are registered and can be verified) or 30% (if not) from labour payments. Your actual Self Assessment liability depends on total profit after allowable expenses, other income, allowances and reliefs. If CIS already covered more than that liability, the excess can come back as a repayment after the return is processed — or reduce what you still have to pay.</p>
+<p>Illustrative only: £36,000 gross CIS labour in a year, £7,200 deducted at 20%, and after expenses your Self Assessment bill is £4,900. The £7,200 credits the bill; around £2,300 may be repayable once HMRC has matched the figures. Real outcomes depend on the whole return.</p>
+
+<h2>Sole traders and partners: Self Assessment is the main route</h2>
+<p>GOV.UK says sole traders and partners report total pay <strong>before</strong> CIS deductions as income, and report the deductions so HMRC can credit them. After the tax year ends, that usually happens on the Self Assessment return. For the form-level walkthrough, use <a href="/blogs/cis-deductions-self-assessment">CIS deductions on your Self Assessment return</a>.</p>
+<p>If you need money back <strong>during</strong> the tax year rather than waiting for the return, HMRC publishes form <strong>CIS40</strong> for individuals. GOV.UK’s CIS40 guidance says to use the tax return instead once you are claiming after the year ends.</p>
+
+<h2>Limited companies are not on this Self Assessment path</h2>
+<p>Company subcontractors do not reclaim CIS through a personal Self Assessment return in the same way. GOV.UK directs companies to set CIS deductions against PAYE liabilities through payroll submissions (FPS/EPS). Do not try to clear company CIS on a personal return or by copying a sole-trader process. If you trade through a company, get payroll/CIS advice for that structure.</p>
+
+<h2>Evidence that actually matters</h2>
+<p>Keep every <a href="/blogs/cis-payment-deduction-statements">payment and deduction statement</a>. Those figures are what you (or your accountant) total for the return. Bank “net” receipts alone are not enough — you need gross, materials, and deduction amounts. If statements are missing, chase the contractor first; HMRC’s CIS system also holds what contractors reported, but your own paperwork still matters.</p>
+
+<h2>Common mistakes</h2>
+<ul>
+  <li>Treating the 20% or 30% deduction as your final tax rate — see <a href="/blogs/cis-20-vs-30-percent-deductions">20% vs 30% CIS deductions</a>.</li>
+  <li>Entering only net pay as turnover, which understates income and muddles the CIS credit.</li>
+  <li>Ignoring expenses that reduce profit — and therefore can increase a refund. See <a href="/blogs/cis-allowable-expenses-subcontractors">CIS allowable expenses</a>.</li>
+  <li>Assuming gross payment status people get “refunds” of deductions that were never taken — they usually do not. See <a href="/blogs/cis-gross-payment-status">CIS gross payment status</a>.</li>
+</ul>
+
+<p>TaxSimba’s <a href="/self-assessment">Self Assessment service</a> is accountant-led help for sole traders and partners who need CIS credited correctly on the return. We do not guarantee a refund amount or a payment date. <a href="/register">Start Self Assessment with TaxSimba</a> if you want that preparation handled.</p>
+`,
+  },
+
+  {
+    id: "seo-cis-20-vs-30",
+    slug: "cis-20-vs-30-percent-deductions",
+    title: "20% vs 30% CIS Deductions: Why Am I Paying More?",
+    excerpt:
+      "Under CIS, contractors usually deduct 20% if you are registered and verified, or 30% if not. Neither figure is your final tax rate — here is what each rate means and what to check if 30% keeps appearing.",
+    metaTitle: "CIS 20% vs 30% Deductions Explained | TaxSimba",
+    metaDescription:
+      "Why CIS subcontractors see 20% or 30% deductions, how verification and registration affect the rate, what gross payment status changes, and what to do if the wrong rate is applied.",
+    category: "Self Assessment",
+    audience: "cis-subcontractors",
+    tags: ["CIS", "20%", "30%", "verification", "subcontractor"],
+    publishedAt: "2026-09-15T15:51:14.000Z",
+    reviewedAt: "2026-09-15T15:51:14.000Z",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
+    featuredImage: "/images/blog-category-cis.png",
+    featuredImageAlt: "Construction worker checking payslips showing different CIS deduction rates",
+    ctaType: "SA",
+    relatedSlugs: [
+      "cis-tax-refunds-subcontractors",
+      "cis-deductions-self-assessment",
+      "cis-gross-payment-status",
+      "cis-payment-deduction-statements",
+      "cis-allowable-expenses-subcontractors",
+    ],
+    relatedPages: [
+      { href: "/self-assessment", label: "Self Assessment accountant service" },
+      { href: "/register", label: "Start Self Assessment with TaxSimba" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — CIS subcontractors: overview",
+        url: "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor",
+      },
+      {
+        label: "GOV.UK — CIS subcontractors: get paid",
+        url: "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid",
+      },
+      {
+        label: "GOV.UK — CIS subcontractors: gross payment status",
+        url: "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/how-to-get-gross-payment-status",
+      },
+    ],
+    curated: true,
+    content: `
+<p>If your contractor takes <strong>30%</strong> instead of <strong>20%</strong>, it usually means you are not registered for CIS in a way the contractor can verify — or verification failed. GOV.UK is clear: registered and verifiable subcontractors are deducted at the standard 20%; if either condition fails, the higher 30% rate applies. Neither percentage is your final Income Tax rate.</p>
+
+<h2>What the two rates actually are</h2>
+<ul>
+  <li><strong>20%</strong> — net payment status where you are registered for CIS and the contractor can verify you with HMRC.</li>
+  <li><strong>30%</strong> — higher rate where you are not registered, or the contractor cannot verify you.</li>
+  <li><strong>0% CIS deduction</strong> — only where you hold <a href="/blogs/cis-gross-payment-status">gross payment status</a> (you still pay tax later through Self Assessment or Corporation Tax as applicable).</li>
+</ul>
+<p>Deductions are calculated on the labour element after materials that the contractor is satisfied relate to the job (and excluding VAT). A higher rate hurts cash flow now; it does not permanently “set” your tax at 30%.</p>
+
+<h2>Why 30% shows up in practice</h2>
+<ul>
+  <li>You never registered as a CIS subcontractor</li>
+  <li>The contractor used wrong name, Unique Taxpayer Reference (UTR) or National Insurance details</li>
+  <li>Verification failed or timed out and the contractor defaulted to the higher rate</li>
+  <li>You changed from sole trader to company (or the reverse) and the contractor still holds old details</li>
+</ul>
+
+<h2>What to do if you think the rate is wrong</h2>
+<ol>
+  <li>Confirm you are registered for CIS with HMRC for the correct business structure.</li>
+  <li>Give the contractor the exact details HMRC holds and ask them to verify again before the next payment.</li>
+  <li>Check the <a href="/blogs/cis-payment-deduction-statements">payment and deduction statement</a> — it should show the deduction taken for that tax month.</li>
+  <li>Keep working: even at 30%, the money still counts as an advance towards your eventual bill when claimed correctly — see <a href="/blogs/cis-tax-refunds-subcontractors">CIS tax refunds</a> and <a href="/blogs/cis-deductions-self-assessment">CIS on Self Assessment</a>.</li>
+</ol>
+
+<h2>Gross payment status is a different lever</h2>
+<p>If cash flow is the real problem and you meet HMRC’s tests, gross payment status means contractors pay you without CIS deductions. That is not automatic, and it does not remove the duty to pay tax. It also does not decide whether you are employed or self-employed.</p>
+
+<h2>Common mistake</h2>
+<p>Assuming “I’m a basic-rate taxpayer so CIS should be 20% of my tax band.” CIS rates are scheme deduction rates tied to registration and verification, not to your Income Tax band.</p>
+
+<p>If you want help sorting CIS credits on a Self Assessment return after a year of mixed 20%/30% statements, TaxSimba’s <a href="/self-assessment">Self Assessment service</a> can prepare that return with an accountant. We cannot force a contractor to re-verify you, and we do not guarantee HMRC will change a past deduction rate. <a href="/register">Start Self Assessment with TaxSimba</a>.</p>
+`,
+  },
+
+  {
+    id: "seo-cis-statements",
+    slug: "cis-payment-deduction-statements",
+    title: "CIS Payment and Deduction Statements: What Subcontractors Need to Keep",
+    excerpt:
+      "Contractors must give you a payment and deduction statement when CIS is taken. Here is what it should show, when it is due, why you need it for Self Assessment, and what to do if it never arrives.",
+    metaTitle: "CIS Payment and Deduction Statements Guide | TaxSimba",
+    metaDescription:
+      "What a CIS payment and deduction statement must include, the 14-day rule after each tax month, how to check the figures, and what to do if your contractor does not provide one.",
+    category: "Self Assessment",
+    audience: "cis-subcontractors",
+    tags: ["CIS", "payment-statement", "deduction-statement", "records", "subcontractor"],
+    publishedAt: "2026-09-15T15:51:14.000Z",
+    reviewedAt: "2026-09-15T15:51:14.000Z",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
+    featuredImage: "/images/blog-category-cis.png",
+    featuredImageAlt: "CIS payment and deduction statement paperwork for a construction subcontractor",
+    ctaType: "SA",
+    relatedSlugs: [
+      "cis-tax-refunds-subcontractors",
+      "cis-deductions-self-assessment",
+      "cis-20-vs-30-percent-deductions",
+      "cis-allowable-expenses-subcontractors",
+      "self-assessment-documents-checklist",
+    ],
+    relatedPages: [
+      { href: "/self-assessment", label: "Self Assessment accountant service" },
+      { href: "/register", label: "Start Self Assessment with TaxSimba" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — CIS subcontractors: get paid",
+        url: "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid",
+      },
+      {
+        label: "GOV.UK — Construction Industry Scheme guide (CIS 340)",
+        url: "https://www.gov.uk/government/publications/construction-industry-scheme-cis-340/construction-industry-scheme-a-guide-for-contractors-and-subcontractors-cis-340",
+      },
+      {
+        label: "HMRC — Payment and deduction statement (CISR12160)",
+        url: "https://www.gov.uk/hmrc-internal-manuals/construction-industry-scheme-reform/cisr12160",
+      },
+    ],
+    curated: true,
+    content: `
+<p>A CIS <strong>payment and deduction statement</strong> is your written proof of what a contractor paid you and how much CIS they took. Without it, reclaiming deductions on Self Assessment becomes guesswork. GOV.UK and HMRC’s CIS guidance require contractors to give this statement when a deduction has been made.</p>
+
+<h2>When you should receive it</h2>
+<p>A CIS tax month runs from the <strong>6th of one month to the 5th of the next</strong>. The contractor must give you the statement within <strong>14 days after the end of that tax month</strong> — so typically by the 19th. They may issue one statement covering the whole month or one per payment, as long as you get at least the required monthly evidence where deductions were taken.</p>
+<p>HMRC notes there is no obligation to issue a statement where payment was made gross (no deduction), though some contractors still do as good practice.</p>
+
+<h2>What it should show</h2>
+<p>Statements can look different, but CIS 340 expects details such as:</p>
+<ul>
+  <li>contractor name and employer tax reference</li>
+  <li>tax month end date (or payment date if single-payment statements)</li>
+  <li>your name and Unique Taxpayer Reference (UTR)</li>
+  <li>verification number if higher-rate (30%) deductions were made because you could not be verified</li>
+  <li>gross amount of payments</li>
+  <li>cost of materials that reduced the amount subject to deduction</li>
+  <li>amount of the CIS deduction</li>
+</ul>
+
+<h2>Why it matters for your tax return</h2>
+<p>On Self Assessment you report income before CIS and claim the deductions as a credit. The monthly statements are how you build those year totals. They also help you spot a wrong <a href="/blogs/cis-20-vs-30-percent-deductions">20% vs 30%</a> rate early. For reclaim mechanics see <a href="/blogs/cis-deductions-self-assessment">CIS deductions on Self Assessment</a> and <a href="/blogs/cis-tax-refunds-subcontractors">CIS tax refunds</a>.</p>
+
+<h2>If the statement never arrives</h2>
+<ol>
+  <li>Ask the contractor in writing for the missing tax month(s).</li>
+  <li>Cross-check bank receipts and your own job records so you know what “should” appear.</li>
+  <li>Keep chasing — HMRC’s guidance puts the duty on the contractor to provide the statement when deductions were made.</li>
+  <li>Tell your accountant which months are missing before the return is filed; do not invent figures.</li>
+</ol>
+
+<h2>Practical filing habit</h2>
+<p>Save PDFs or photos in folders by tax month (6th–5th), not by calendar month alone. One missing January statement can wipe hundreds of pounds of CIS credit if nobody notices until January filing season. Pair this with the wider <a href="/blogs/self-assessment-documents-checklist">Self Assessment documents checklist</a>.</p>
+
+<p>TaxSimba’s <a href="/self-assessment">Self Assessment accountants</a> will ask for a complete set of statements before preparing a CIS-heavy return. We cannot issue statements for a contractor, and we do not guarantee HMRC will accept incomplete evidence. <a href="/register">Start Self Assessment with TaxSimba</a> when you want help turning the paperwork into a correct return.</p>
+`,
+  },
+
+  {
+    id: "seo-cis-expenses",
+    slug: "cis-allowable-expenses-subcontractors",
+    title: "CIS Allowable Expenses for Subcontractors: What Can You Claim?",
+    excerpt:
+      "Self-employed CIS subcontractors claim the same style of allowable business expenses as other sole traders — tools, travel, protective kit and more — with strict limits on everyday clothes, commuting and mixed private use.",
+    metaTitle: "CIS Allowable Expenses for Subcontractors | TaxSimba",
+    metaDescription:
+      "Which business costs CIS subcontractors can usually claim on Self Assessment, what HMRC excludes, how private use works, and how expenses interact with CIS deductions and refunds.",
+    category: "Self Assessment",
+    audience: "cis-subcontractors",
+    tags: ["CIS", "allowable-expenses", "subcontractor", "self-employed", "self-assessment"],
+    publishedAt: "2026-09-15T15:51:14.000Z",
+    reviewedAt: "2026-09-15T15:51:14.000Z",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
+    featuredImage: "/images/blog-category-cis.png",
+    featuredImageAlt: "Construction tools and protective equipment representing CIS allowable expenses",
+    ctaType: "SA",
+    relatedSlugs: [
+      "cis-tax-refunds-subcontractors",
+      "cis-deductions-self-assessment",
+      "cis-payment-deduction-statements",
+      "self-assessment-for-sole-traders-2025-26",
+      "top-tax-saving-tips-uk",
+    ],
+    relatedPages: [
+      { href: "/self-assessment", label: "Self Assessment accountant service" },
+      { href: "/register", label: "Start Self Assessment with TaxSimba" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Expenses if you’re self-employed",
+        url: "https://www.gov.uk/expenses-if-youre-self-employed",
+      },
+      {
+        label: "GOV.UK — Clothing expenses",
+        url: "https://www.gov.uk/expenses-if-youre-self-employed/clothing",
+      },
+      {
+        label: "GOV.UK — Car, van and travel expenses",
+        url: "https://www.gov.uk/expenses-if-youre-self-employed/vehicles-travel",
+      },
+      {
+        label: "GOV.UK — Office, property and equipment",
+        url: "https://www.gov.uk/expenses-if-youre-self-employed/office-property-equipment",
+      },
+    ],
+    curated: true,
+    content: `
+<p>There is no separate “CIS expenses” code list. If you are a <strong>self-employed</strong> subcontractor (sole trader or partner), you use the normal Self Assessment rules for allowable business costs. CIS only changes how contractors pay you; it does not invent new deductions. Company subcontractors claim through the company, not this personal Self Assessment checklist.</p>
+
+<h2>The basic test</h2>
+<p>GOV.UK’s self-employed expenses guide says you can only claim costs that are for the business. Keep receipts and records. You do not send every receipt with the return, but HMRC can ask later.</p>
+
+<h2>Costs construction subcontractors often look at</h2>
+<ul>
+  <li><strong>Tools and equipment</strong> — small tools and short-life items may be allowable expenses; longer-term plant and machinery often sit under capital allowances (rules depend on cash basis vs traditional accounting).</li>
+  <li><strong>Protective / work clothing</strong> — GOV.UK allows uniforms and protective clothing needed for the work. Everyday jeans, trainers or ordinary coats are not allowable even if you wear them on site.</li>
+  <li><strong>Travel between jobs</strong> — fuel, parking, public transport and similar for business journeys can qualify. Travel between home and a regular place of work generally does not.</li>
+  <li><strong>Vehicle costs</strong> — insurance, repairs, fuel and related running costs for business use, or simplified mileage flat rates where you choose that method. Private miles need a fair split.</li>
+  <li><strong>Phone and admin</strong> — business calls, software, stationery; split private use on a home broadband or mobile contract.</li>
+  <li><strong>Insurance and professional costs</strong> — public liability, tools cover, and accountancy fees for the business where they relate to the trade.</li>
+  <li><strong>Materials</strong> — goods you buy to use on jobs can be business costs; remember materials also affect how CIS deductions are calculated on the contractor’s side.</li>
+</ul>
+
+<h2>What usually does not qualify</h2>
+<ul>
+  <li>Ordinary clothing</li>
+  <li>Home-to-work commuting</li>
+  <li>Parking fines or penalties</li>
+  <li>Private holidays, personal phone use, or family costs parked through the business</li>
+</ul>
+
+<h2>How expenses interact with CIS</h2>
+<p>Expenses reduce taxable profit. Lower profit can mean a larger CIS repayment when deductions already taken exceed the final bill — see <a href="/blogs/cis-tax-refunds-subcontractors">CIS tax refunds</a>. They do not change the 20%/30% withheld on each payslip. Keep <a href="/blogs/cis-payment-deduction-statements">payment statements</a> separate from expense folders so income and costs do not get mixed.</p>
+
+<h2>Worked sketch (illustrative only)</h2>
+<p>Gross CIS labour £48,000; CIS deducted £9,600; allowable expenses £11,000. Taxable trading profit starts near £37,000 before other adjustments. The £9,600 still credits the Self Assessment bill. Skipping the £11,000 expenses would inflate profit and shrink any refund — without changing what contractors already withheld.</p>
+
+<p>TaxSimba’s <a href="/self-assessment">Self Assessment service</a> helps sole-trader subcontractors sort allowable costs and CIS credits with an accountant. We do not promise every receipt will be accepted, and we do not sell “maximised CIS refund” schemes. <a href="/register">Start Self Assessment with TaxSimba</a>.</p>
+`,
+  },
+
+  {
+    id: "seo-cis-gross-payment-status",
+    slug: "cis-gross-payment-status",
+    title: "CIS Gross Payment Status: What It Means and Who Can Apply",
+    excerpt:
+      "Gross payment status means CIS contractors pay you without deducting 20% or 30% up front. You still owe tax. Here is what HMRC currently tests, how to apply, and when gross status helps cash flow.",
+    metaTitle: "CIS Gross Payment Status Explained | TaxSimba",
+    metaDescription:
+      "What CIS gross payment status means, current HMRC turnover and compliance tests for sole traders, partnerships and companies, how to apply, and why tax is still due.",
+    category: "Self Assessment",
+    audience: "cis-subcontractors",
+    tags: ["CIS", "gross-payment-status", "GPS", "subcontractor", "construction"],
+    publishedAt: "2026-09-15T15:51:14.000Z",
+    reviewedAt: "2026-09-15T15:51:14.000Z",
+    authorName: "TaxSimba",
+    reviewerName: "TaxSimba",
+    featuredImage: "/images/blog-category-cis.png",
+    featuredImageAlt: "Self-employed construction subcontractor managing cash flow under CIS gross payment status",
+    ctaType: "SA",
+    relatedSlugs: [
+      "cis-20-vs-30-percent-deductions",
+      "cis-tax-refunds-subcontractors",
+      "cis-deductions-self-assessment",
+      "cis-payment-deduction-statements",
+      "cis-allowable-expenses-subcontractors",
+    ],
+    relatedPages: [
+      { href: "/self-assessment", label: "Self Assessment accountant service" },
+      { href: "/register", label: "Start Self Assessment with TaxSimba" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — How to get gross payment status",
+        url: "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/how-to-get-gross-payment-status",
+      },
+      {
+        label: "GOV.UK — CIS subcontractors overview",
+        url: "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor",
+      },
+      {
+        label: "GOV.UK — CIS subcontractors: get paid",
+        url: "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid",
+      },
+    ],
+    curated: true,
+    content: `
+<p><strong>Gross payment status</strong> means CIS contractors pay you in full for qualifying contract payments, without taking the usual 20% or 30% CIS deduction. GOV.UK is explicit: you still pay your Income Tax and National Insurance (or Corporation Tax for companies) yourself through the normal year-end process.</p>
+
+<h2>What changes — and what does not</h2>
+<ul>
+  <li><strong>Changes:</strong> cash arrives without CIS withheld; monthly deduction statements for CIS deductions are generally not required when nothing was deducted.</li>
+  <li><strong>Does not change:</strong> the need to register and report income correctly; employment vs self-employment status (gross status alone does not decide that); the duty to budget for tax.</li>
+</ul>
+
+<h2>Who can apply — current GOV.UK tests</h2>
+<p>HMRC looks at whether your business:</p>
+<ul>
+  <li>has paid tax and National Insurance on time in the past (compliance test)</li>
+  <li>does construction work (or provides labour for it) in the UK (business test)</li>
+  <li>is run through a bank account</li>
+</ul>
+<p>HMRC also looks at turnover for the last 12 months, ignoring VAT and the cost of materials. GOV.UK currently states the turnover must be at least:</p>
+<ul>
+  <li><strong>£30,000</strong> if you are a sole trader</li>
+  <li><strong>£30,000 for each partner</strong>, or at least <strong>£100,000</strong> for the partnership as a whole</li>
+  <li><strong>£30,000 for each company director</strong>, or at least <strong>£100,000</strong> for the company as a whole</li>
+</ul>
+<p>Recheck the live GOV.UK page before you apply — thresholds and tests can be updated.</p>
+
+<h2>How to apply</h2>
+<p>GOV.UK lets you apply online or by post. Applying for gross payment status also registers you for CIS if you are not already registered. Keep bank evidence and compliance history tidy before you submit.</p>
+
+<h2>Paying tax with gross status</h2>
+<p>Sole traders and partners still declare income on Self Assessment. Company owners use the Corporation Tax return for company profits. Without CIS deductions sitting on account, you must actively set money aside — otherwise January (or company payment dates) becomes a cash shock. Compare that with people on net payment status who may later see <a href="/blogs/cis-tax-refunds-subcontractors">CIS refunds</a> when deductions exceed the final bill.</p>
+
+<h2>When gross status may not suit you</h2>
+<p>If your compliance history is uneven, turnover is below the test, or you prefer contractors to withhold something towards tax, staying on 20% net payment status can be simpler. Gross status is a cash-flow tool, not a badge that reduces the tax you ultimately owe.</p>
+
+<p>TaxSimba helps self-employed subcontractors through our <a href="/self-assessment">Self Assessment service</a> once income needs reporting — including after a move to gross payment status. We do not process HMRC gross-status applications as a standalone product on this page, and we do not guarantee approval. <a href="/register">Start Self Assessment with TaxSimba</a> when you want accountant-led filing support.</p>
 `,
   },
 
