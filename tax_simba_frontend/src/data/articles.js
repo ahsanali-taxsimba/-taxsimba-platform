@@ -62,6 +62,8 @@ export const articles = [
     relatedSlugs: [
       "mtd-qualifying-income",
       "mtd-quarterly-updates",
+      "mtd-accountant-or-agent",
+      "mtd-digital-records",
       "making-tax-digital-explained",
     ],
     relatedPages: [
@@ -142,6 +144,8 @@ export const articles = [
     relatedSlugs: [
       "hmrc-signed-me-up-for-making-tax-digital",
       "mtd-quarterly-updates",
+      "mtd-accountant-or-agent",
+      "mtd-digital-records",
       "making-tax-digital-explained",
     ],
     relatedPages: [
@@ -233,6 +237,8 @@ export const articles = [
     relatedSlugs: [
       "mtd-qualifying-income",
       "hmrc-signed-me-up-for-making-tax-digital",
+      "mtd-digital-records",
+      "missed-mtd-quarterly-update",
       "making-tax-digital-explained",
     ],
     relatedPages: [
@@ -313,8 +319,9 @@ export const articles = [
     ctaType: "SA",
     relatedSlugs: [
       "self-assessment-documents-checklist",
+      "payments-on-account-explained",
+      "late-self-assessment-penalties",
       "understanding-self-assessment-uk",
-      "hmrc-signed-me-up-for-making-tax-digital",
     ],
     relatedPages: [
       { href: "/self-assessment", label: "Online Self Assessment accountant" },
@@ -398,8 +405,9 @@ export const articles = [
     ctaType: "SA",
     relatedSlugs: [
       "self-assessment-deadline",
+      "payments-on-account-explained",
+      "late-self-assessment-penalties",
       "understanding-self-assessment-uk",
-      "top-tax-saving-tips-uk",
     ],
     relatedPages: [
       { href: "/self-assessment", label: "Online Self Assessment accountant" },
@@ -682,6 +690,436 @@ export const articles = [
 <p>General information only — not personal tax advice.</p>
 `,
   },
+  {
+    id: "seo-mtd-accountant-or-agent",
+    slug: "mtd-accountant-or-agent",
+    title: "Can an Accountant Handle Making Tax Digital for Me?",
+    excerpt:
+      "Yes — you can appoint an accountant or agent for Making Tax Digital for Income Tax. Here is what they can do, what you still need to provide, and how an accountant-led service differs from DIY software.",
+    metaTitle: "Can an Accountant Handle Making Tax Digital for Me? | TaxSimba",
+    metaDescription:
+      "Can an accountant or agent handle Making Tax Digital for Income Tax? What agents can do, what records you still supply, and how TaxSimba’s accountant-led MTD support works.",
+    category: "Making Tax Digital",
+    audience: "sole-traders-landlords",
+    tags: ["mtd", "accountant", "agent", "sole-trader", "landlord"],
+    publishedAt: "2026-09-15T10:00:00.000Z",
+    reviewedAt: "2026-09-15T10:00:00.000Z",
+    authorName: "TaxSimba Tax Team",
+    reviewerName: "TaxSimba Tax Team",
+    featuredImage: "/images/blog_3.png",
+    featuredImageAlt: "UK taxpayer meeting an accountant about Making Tax Digital",
+    ctaType: "MTD",
+    relatedSlugs: [
+      "hmrc-signed-me-up-for-making-tax-digital",
+      "mtd-qualifying-income",
+      "mtd-quarterly-updates",
+      "mtd-digital-records",
+      "making-tax-digital-explained",
+    ],
+    relatedPages: [
+      { href: "/making-tax-digital", label: "Making Tax Digital accountant service" },
+      { href: "/check-mtd", label: "Check if MTD applies to you" },
+      { href: "/mtd-information", label: "MTD packages" },
+      { href: "/rental-income-tax", label: "MTD for landlords" },
+      { href: "/self-employed-tax-return", label: "MTD for sole traders" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Use Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax",
+      },
+      {
+        label: "GOV.UK — Sign up your client for Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/sign-up-your-client-for-making-tax-digital-for-income-tax",
+      },
+      {
+        label: "GOV.UK — Choose the right software for Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax",
+      },
+      {
+        label: "GOV.UK — Create digital records",
+        url: "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      },
+    ],
+    curated: true,
+    content: `
+<p><strong>Yes.</strong> For Making Tax Digital (MTD) for Income Tax, you or your agent can use compatible software to keep digital records and send quarterly updates. Many sole traders and landlords appoint an accountant so they are not left to operate MTD software alone.</p>
+
+<p>That does <em>not</em> mean you can ignore the rules. You remain responsible for giving complete, accurate information. An accountant helps manage the process — they do not invent figures for you.</p>
+
+<h2>What an accountant or agent can typically handle</h2>
+<p>HMRC’s MTD guidance is written for you <em>or</em> your agent. In practice, an authorised agent can help with steps such as:</p>
+<ul>
+  <li>getting you into MTD where signup is needed</li>
+  <li>connecting compatible software to HMRC</li>
+  <li>helping create and maintain digital records from the information you supply</li>
+  <li>preparing and sending quarterly updates</li>
+  <li>supporting the year-end tax return / final declaration steps that still apply</li>
+</ul>
+<p>Agents work through HMRC’s agent services processes and software authorisation. The exact permissions depend on how you authorise them — your accountant should explain what they will do for you.</p>
+
+<h2>What you still have to do</h2>
+<p>Even with accountant-led support, you usually still need to:</p>
+<ul>
+  <li>provide bank exports, invoices, rental statements and expense evidence</li>
+  <li>confirm income sources (self-employment, property, or both)</li>
+  <li>answer clarifying questions when something is unclear</li>
+  <li>review and approve work where your service process requires it</li>
+</ul>
+<p>If records arrive late or incomplete, quarterly updates get harder — for you and for whoever is helping.</p>
+
+<h2>Accountant-led service vs DIY MTD software</h2>
+<p><strong>DIY software</strong> means you operate the tools: categorise transactions, drive quarterly submissions, and interpret HMRC screens yourself.</p>
+<p><strong>An accountant-led service</strong> (including TaxSimba) means you supply information through a client workflow; accountants use compatible software and professional processes to help manage MTD. You are not expected to become an MTD software specialist overnight.</p>
+<p>TaxSimba is not positioning itself as standalone DIY filing software you run unsupervised.</p>
+
+<h2>A practical example</h2>
+<p>Maya lets two flats and also does freelance design. HMRC confirms she needs MTD. She does not want to learn every software screen. She registers for TaxSimba’s MTD support, uploads rent schedules and design invoices, and works with an accountant-led process for digital records and quarterly updates — while still checking anything she is asked to approve.</p>
+
+<h2>When DIY might still be enough</h2>
+<p>If your affairs are simple, you are comfortable with software, and you will keep records up to date every week, DIY-compatible software can work. If you have mixed income, several properties, or you have just been signed up and feel stuck, accountant help is often the calmer route.</p>
+
+<h2>Not sure you even need MTD?</h2>
+<p>Start with GOV.UK’s eligibility guidance and our free <a href="/check-mtd">MTD checker</a>. Then read <a href="/blogs/mtd-qualifying-income">MTD qualifying income</a> if the £50,000 / later thresholds are unclear.</p>
+
+<h2>Next step with TaxSimba</h2>
+<p>If you want an accountant to help manage Making Tax Digital rather than DIY software alone, see our <a href="/making-tax-digital">Making Tax Digital accountant service</a> and register for MTD support. Package details are on the <a href="/mtd-information">MTD information</a> and <a href="/pricing">pricing</a> pages.</p>
+
+<p>General information only — not personal tax advice. Authorisation and software options should match current GOV.UK guidance for your situation.</p>
+`,
+  },
+  {
+    id: "seo-mtd-digital-records",
+    slug: "mtd-digital-records",
+    title: "Making Tax Digital Digital Records — What You Actually Need to Keep",
+    excerpt:
+      "MTD for Income Tax requires digital records of self-employment and property income and expenses. Here is what that means day to day — without the jargon.",
+    metaTitle: "MTD Digital Records — What You Need to Keep | TaxSimba",
+    metaDescription:
+      "What digital records Making Tax Digital for Income Tax actually requires for sole traders and landlords, how digital links work, and how an accountant-led service can help.",
+    category: "Making Tax Digital",
+    audience: "sole-traders-landlords",
+    tags: ["mtd", "digital-records", "record-keeping", "landlords", "sole-traders"],
+    publishedAt: "2026-09-15T09:30:00.000Z",
+    reviewedAt: "2026-09-15T09:30:00.000Z",
+    authorName: "TaxSimba Tax Team",
+    reviewerName: "TaxSimba Tax Team",
+    featuredImage: "/images/blog_2.png",
+    featuredImageAlt: "Digital invoices and bank records prepared for Making Tax Digital",
+    ctaType: "MTD",
+    relatedSlugs: [
+      "mtd-quarterly-updates",
+      "missed-mtd-quarterly-update",
+      "mtd-qualifying-income",
+      "mtd-accountant-or-agent",
+      "hmrc-signed-me-up-for-making-tax-digital",
+    ],
+    relatedPages: [
+      { href: "/making-tax-digital", label: "Making Tax Digital accountant service" },
+      { href: "/check-mtd", label: "MTD checker" },
+      { href: "/self-employed-tax-return", label: "MTD for sole traders" },
+      { href: "/rental-income-tax", label: "MTD for landlords" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Create digital records (Making Tax Digital for Income Tax)",
+        url: "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      },
+      {
+        label: "GOV.UK — Choose the right software for Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax",
+      },
+      {
+        label: "GOV.UK — Send quarterly updates",
+        url: "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+      },
+    ],
+    curated: true,
+    content: `
+<p><strong>In plain English:</strong> If Making Tax Digital for Income Tax applies, you (or your agent) must create and store <strong>digital records</strong> of your self-employment and/or property income and expenses using software that works with MTD. Those records feed your quarterly updates. A shoebox of paper receipts with a January tidy-up is not the design.</p>
+
+<h2>What “digital records” means</h2>
+<p>According to GOV.UK, you or your agent need to create and store digital records of relevant self-employment and property income and expenses in compatible software. The software is also used to send quarterly updates and submit the tax return.</p>
+<p>You should still keep underlying evidence (invoices, statements, receipts) in a way that supports those digital entries — MTD does not mean “delete everything except the software totals”.</p>
+
+<h2>What to record in practice</h2>
+<p>Day to day, most people need a clear digital trail for:</p>
+<ul>
+  <li><strong>Money in</strong> — sales, fees, rent received, and other taxable business or property income in scope</li>
+  <li><strong>Money out</strong> — allowable expenses categorised in a way your software and accountant can use</li>
+  <li><strong>Dates and amounts</strong> — close to the transaction date where possible, so quarterly totals are not guesswork</li>
+</ul>
+<p>If you have more than one business or property income source in MTD, keep the records clear enough that each source can be updated correctly.</p>
+
+<h2>One product or several — and “digital links”</h2>
+<p>Some people use one software product for records and submissions. Others use more than one. If you use more than one product, GOV.UK expects them to be <strong>digitally linked</strong> — not copy-and-paste between systems. Cutting and pasting figures between tools is not treated as a compliant digital link.</p>
+<p>If that sounds fiddly, it is a strong reason many people prefer an accountant/agent to help choose and run the workflow.</p>
+
+<h2>When you should start</h2>
+<p>GOV.UK explains that you need digital records from the start of the relevant tax year for MTD, and that if you join part-way through the year you may need to catch up records from the start of the year so your first quarterly update is complete. Create records as close to each transaction as you reasonably can.</p>
+
+<h2>Example</h2>
+<p>Jordan is a landlord with two buy-to-lets above the relevant MTD threshold. Instead of saving rent emails in a personal inbox, Jordan exports agent statements monthly, stores repair invoices digitally, and works with TaxSimba’s accountant-led MTD service so records stay usable for quarterly updates — rather than rebuilding a year of property activity in one weekend.</p>
+
+<h2>Common mistake</h2>
+<p>Mixing personal and business spending in one account with no labels, then expecting software (or an accountant) to reconstruct everything from vague bank descriptions. MTD rewards cleaner habits throughout the year. Quarterly updates summarise totals from your digital records — they are not a place to invent missing detail.</p>
+<p>For what those updates contain and when they are due, see <a href="/blogs/mtd-quarterly-updates">MTD quarterly updates explained</a>. This article is about the records underneath.</p>
+
+<h2>How TaxSimba helps without turning you into the bookkeeper</h2>
+<p>On TaxSimba’s <a href="/making-tax-digital">accountant-led MTD service</a>, you provide the information and documents. Accountants help organise the MTD record-keeping workflow using compatible software. We do not claim you can skip providing evidence, and we do not describe TaxSimba as DIY accounting software.</p>
+<p>Unsure whether MTD applies? Use the <a href="/check-mtd">MTD checker</a> and confirm against GOV.UK.</p>
+
+<p>General information only — not personal tax advice. Always follow current GOV.UK digital-records guidance for your income types.</p>
+`,
+  },
+  {
+    id: "seo-mtd-missed-quarterly",
+    slug: "missed-mtd-quarterly-update",
+    title: "I Missed an MTD Quarterly Update — What Happens Next?",
+    excerpt:
+      "Missed a Making Tax Digital quarterly update? Stay calm. Here is what HMRC’s current guidance says, how to catch up, and how an accountant-led service can help you get back on track.",
+    metaTitle: "Missed an MTD Quarterly Update — What To Do Next | TaxSimba",
+    metaDescription:
+      "What to do if you miss a Making Tax Digital quarterly update: catch-up steps, 2026 to 2027 penalty-point position, and how accountant-led TaxSimba MTD support can help.",
+    category: "Making Tax Digital",
+    audience: "sole-traders-landlords",
+    tags: ["mtd", "quarterly-updates", "late", "penalties", "catch-up"],
+    publishedAt: "2026-09-15T09:00:00.000Z",
+    reviewedAt: "2026-09-15T09:00:00.000Z",
+    authorName: "TaxSimba Tax Team",
+    reviewerName: "TaxSimba Tax Team",
+    featuredImage: "/images/blog_1.png",
+    featuredImageAlt: "Calendar with a missed Making Tax Digital quarterly deadline",
+    ctaType: "MTD",
+    relatedSlugs: [
+      "mtd-quarterly-updates",
+      "mtd-digital-records",
+      "hmrc-signed-me-up-for-making-tax-digital",
+      "mtd-accountant-or-agent",
+    ],
+    relatedPages: [
+      { href: "/making-tax-digital", label: "Making Tax Digital accountant service" },
+      { href: "/check-mtd", label: "Check if MTD applies" },
+      { href: "/mtd-information", label: "MTD packages" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Send quarterly updates (Making Tax Digital for Income Tax)",
+        url: "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+      },
+      {
+        label: "GOV.UK — Sign up your client for Making Tax Digital for Income Tax",
+        url: "https://www.gov.uk/guidance/sign-up-your-client-for-making-tax-digital-for-income-tax",
+      },
+      {
+        label: "GOV.UK — Create digital records",
+        url: "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      },
+    ],
+    curated: true,
+    content: `
+<p><strong>First:</strong> missing a quarterly update is a problem to fix — not a reason to freeze. Get the digital records up to date, send the overdue update through compatible software (or your agent), then protect the next deadline. Do not wait until Self Assessment season and hope it disappears.</p>
+
+<h2>What a quarterly update is (quick reminder)</h2>
+<p>Every three months, compatible software totals your digital records for each relevant self-employment and property business and sends those summaries to HMRC. Updates are cumulative from the start of the tax year to the end of the update period. They are <em>not</em> full tax returns, and HMRC does not receive every individual receipt.</p>
+<p>Standard update deadlines (when your periods align with the tax year) include <strong>7 August</strong>, <strong>7 November</strong>, <strong>7 February</strong> and <strong>7 May</strong> (following tax year). Your software shows the dates that apply to you. For the full “what gets sent” detail, use our <a href="/blogs/mtd-quarterly-updates">quarterly updates guide</a> — this page is about catch-up.</p>
+
+<h2>What if you are late?</h2>
+<p>GOV.UK explains that late quarterly updates can sit in a points-based late submission penalty system, and that reaching a penalty point threshold can lead to a financial penalty. <strong>For the 2026 to 2027 tax year, HMRC has said it will not apply penalty points for late quarterly updates.</strong> You still need to send the updates — including before you can submit your tax return — and other penalties (for example late tax returns or late payment of tax) can still apply.</p>
+<p>Rules can change in later years. Always re-check GOV.UK for the year you are in rather than relying on social media summaries.</p>
+
+<h2>A calm catch-up sequence</h2>
+<ol>
+  <li><strong>Confirm you are actually in MTD</strong> for the income sources involved (GOV.UK / HMRC messages / our <a href="/check-mtd">checker</a> as a prompt).</li>
+  <li><strong>List what is missing</strong> — which update period, which business or property source.</li>
+  <li><strong>Repair the digital records</strong> from the start of the tax year where catch-up is required, using invoices, bank exports and rental statements.</li>
+  <li><strong>Send the overdue quarterly update</strong> through compatible software or ask your accountant/agent to send it.</li>
+  <li><strong>Diary the next deadline</strong> so the same miss does not repeat.</li>
+</ol>
+
+<h2>Example</h2>
+<p>Sam was signed up for MTD, ignored the first quarterly reminder, and panicked in October. Sam gathered bank CSVs and property statements, appointed TaxSimba for accountant-led MTD support, caught up digital records, sent the overdue update, and set reminders for the next quarter — without pretending the missed deadline “didn’t count”.</p>
+
+<h2>What not to do</h2>
+<ul>
+  <li>Ignore HMRC messages because “Self Assessment is in January anyway”</li>
+  <li>Guess totals without records just to clear a screen</li>
+  <li>Assume the 2026 to 2027 quarterly penalty-point easement means updates are optional</li>
+</ul>
+
+<h2>Get help without the drama</h2>
+<p>If you want a steady hand rather than DIY catch-up alone, TaxSimba’s <a href="/making-tax-digital">accountant-led MTD service</a> helps you organise records and get quarterly reporting moving again. You still provide the underlying information. See also <a href="/blogs/mtd-digital-records">what digital records you need to keep</a> and <a href="/blogs/mtd-accountant-or-agent">how an accountant can handle MTD</a>.</p>
+
+<p>General information only — not personal tax advice. Penalty and deadline rules should be confirmed on GOV.UK for your tax year.</p>
+`,
+  },
+  {
+    id: "seo-sa-payments-on-account",
+    slug: "payments-on-account-explained",
+    title: "Payments on Account Explained — Why Is HMRC Asking for More?",
+    excerpt:
+      "Payments on account are advance payments towards next year’s Self Assessment bill. Here is why HMRC asks for them, when they are due, and when they might not apply.",
+    metaTitle: "Payments on Account Explained — Self Assessment | TaxSimba",
+    metaDescription:
+      "Why HMRC asks for Self Assessment payments on account, how the 31 January and 31 July instalments work, when you may not need them, and how to ask for a reduction.",
+    category: "Self Assessment",
+    audience: "self-assessment",
+    tags: ["self-assessment", "payments-on-account", "hmrc", "deadlines"],
+    publishedAt: "2026-09-15T08:30:00.000Z",
+    reviewedAt: "2026-09-15T08:30:00.000Z",
+    authorName: "TaxSimba Tax Team",
+    reviewerName: "TaxSimba Tax Team",
+    featuredImage: "/images/blog_2.png",
+    featuredImageAlt: "Self Assessment bill showing payments on account",
+    ctaType: "SA",
+    relatedSlugs: [
+      "self-assessment-deadline",
+      "self-assessment-documents-checklist",
+      "late-self-assessment-penalties",
+      "understanding-self-assessment-uk",
+    ],
+    relatedPages: [
+      { href: "/self-assessment", label: "Online Self Assessment accountant" },
+      { href: "/pricing", label: "Self Assessment packages" },
+      { href: "/self-assessment-guide", label: "Self Assessment guide" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Understand your Self Assessment bill: payments on account",
+        url: "https://www.gov.uk/understand-self-assessment-bill/payments-on-account",
+      },
+      {
+        label: "GOV.UK — Understand your Self Assessment bill",
+        url: "https://www.gov.uk/understand-self-assessment-bill",
+      },
+      {
+        label: "GOV.UK — Self Assessment tax returns: deadlines",
+        url: "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      },
+      {
+        label: "GOV.UK — Pay your Self Assessment tax bill",
+        url: "https://www.gov.uk/pay-self-assessment-tax-bill",
+      },
+    ],
+    curated: true,
+    content: `
+<p><strong>Why the bill feels bigger:</strong> Payments on account are not a random extra charge. They are HMRC’s way of collecting Income Tax (and Class 4 National Insurance, where relevant) <em>in advance</em> towards your <strong>next</strong> Self Assessment bill, based on what you owed last year.</p>
+
+<h2>How payments on account work</h2>
+<p>GOV.UK explains that you can spread the cost of your tax by paying in two instalments. <strong>Each payment is usually half of the tax you owed last year.</strong> They are due by midnight on:</p>
+<ul>
+  <li><strong>31 January</strong></li>
+  <li><strong>31 July</strong></li>
+</ul>
+<p>On 31 January you may also have a balancing payment for the year you have just filed, alongside the first payment on account towards the following year. That is why January can look like “two bills at once” even when nothing mysterious has happened.</p>
+
+<h2>When you might not need them</h2>
+<p>According to GOV.UK, you must make the two payments unless either:</p>
+<ul>
+  <li>the tax you owed last year was less than <strong>£1,000</strong>, or</li>
+  <li>last year you paid more than <strong>80%</strong> of the tax you owed outside Self Assessment (for example through your tax code, or because tax was already deducted at source on some income)</li>
+</ul>
+<p>If your circumstances change and you expect to owe less, you can ask HMRC to reduce payments on account (online or by post), using a realistic estimate. Do not reduce them casually — if you understate without good reason, you can create interest or other consequences later.</p>
+
+<h2>Worked example</h2>
+<p>Alex owed £4,000 through Self Assessment for last year (after subtracting tax already paid another way). HMRC asks for payments on account of about £2,000 by 31 January and £2,000 by 31 July towards the next year. In January Alex may also pay any balancing amount still due for the year just reported. If next year’s final bill is only £3,000, the extra paid on account is typically settled through the balancing calculation — it is not “lost”.</p>
+
+<h2>Payments on account vs the filing deadline</h2>
+<p>Filing your return and paying what you owe are related but not identical. Our <a href="/blogs/self-assessment-deadline">Self Assessment deadline guide</a> covers filing dates. This article is about the advance-payment rhythm that often surprises people after their first larger SA bill.</p>
+
+<h2>What to do if you cannot pay</h2>
+<p>Contact HMRC early, check GOV.UK payment options, and do not ignore the statement. Late payment can attract interest and late payment penalties on unpaid tax. Filing on time still matters even while you sort payment.</p>
+
+<h2>How TaxSimba can help</h2>
+<p>TaxSimba’s <a href="/self-assessment">accountant-led Self Assessment service</a> helps you prepare an accurate return from the information you provide, so your bill and any payments on account are based on clearer figures — not January guesswork. We do not promise lower tax bills or guarantee a particular payment outcome.</p>
+
+<p>General information only — not personal tax advice. Always check your HMRC statement and current GOV.UK guidance.</p>
+`,
+  },
+  {
+    id: "seo-sa-late-penalties",
+    slug: "late-self-assessment-penalties",
+    title: "Late Self Assessment Filing — Penalties and What To Do Now",
+    excerpt:
+      "Missed the Self Assessment deadline? Here are the late filing and late payment penalties HMRC currently publishes — and the practical steps to take now.",
+    metaTitle: "Late Self Assessment Penalties — What To Do Now | TaxSimba",
+    metaDescription:
+      "Self Assessment late filing penalties (£100, daily penalties, 6 and 12 month charges), late payment penalties, and what to do if your return or payment is late.",
+    category: "Self Assessment",
+    audience: "self-assessment",
+    tags: ["self-assessment", "penalties", "late-filing", "hmrc"],
+    publishedAt: "2026-09-15T08:00:00.000Z",
+    reviewedAt: "2026-09-15T08:00:00.000Z",
+    authorName: "TaxSimba Tax Team",
+    reviewerName: "TaxSimba Tax Team",
+    featuredImage: "/images/blog_1.png",
+    featuredImageAlt: "Warning letter about a late Self Assessment tax return",
+    ctaType: "SA",
+    relatedSlugs: [
+      "self-assessment-deadline",
+      "payments-on-account-explained",
+      "self-assessment-documents-checklist",
+      "understanding-self-assessment-uk",
+    ],
+    relatedPages: [
+      { href: "/self-assessment", label: "Online Self Assessment accountant" },
+      { href: "/pricing", label: "Self Assessment packages" },
+      { href: "/self-assessment-guide", label: "Self Assessment guide" },
+    ],
+    sources: [
+      {
+        label: "GOV.UK — Self Assessment tax returns: penalties",
+        url: "https://www.gov.uk/self-assessment-tax-returns/penalties",
+      },
+      {
+        label: "GOV.UK — Self Assessment tax returns: deadlines",
+        url: "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      },
+      {
+        label: "GOV.UK — Pay your Self Assessment tax bill",
+        url: "https://www.gov.uk/pay-self-assessment-tax-bill",
+      },
+    ],
+    curated: true,
+    content: `
+<p><strong>Do this now:</strong> if you still need to file, gather your records and submit the return as soon as you can. Penalties for late filing and late payment can stack. Ignoring the problem usually makes it more expensive — not less.</p>
+
+<h2>Late filing penalties (as published on GOV.UK)</h2>
+<p>If you need to send a Self Assessment tax return and you send it late, GOV.UK sets out that you can get:</p>
+<ul>
+  <li>an initial <strong>£100</strong> penalty</li>
+  <li>after 3 months, daily penalties of <strong>£10 per day</strong>, up to a maximum of <strong>£900</strong></li>
+  <li>after 6 months, a further penalty of <strong>5% of the tax due or £300</strong>, whichever is greater</li>
+  <li>after 12 months, another <strong>5% or £300</strong> charge, whichever is greater</li>
+</ul>
+<p>Partnership returns can create penalties for each partner when the partnership return is late. GOV.UK also notes a separate “failure to notify” risk if you register late after 5 October and do not pay your bill by 31 January — check the penalties page for the wording that applies to you.</p>
+
+<h2>Late payment is separate</h2>
+<p>Paying late can bring penalties of <strong>5%</strong> of the unpaid tax at 30 days, 6 months and 12 months, plus interest. Filing on time but leaving the bill unpaid is still a problem. See GOV.UK’s payment guidance if you need options.</p>
+
+<h2>Filing deadline vs this article</h2>
+<p>For the key January dates and how to prepare before the deadline, use <a href="/blogs/self-assessment-deadline">Self Assessment deadline 2027</a>. This page is for people who are already late — or about to be — and need the penalty picture and recovery steps.</p>
+
+<h2>Practical recovery plan</h2>
+<ol>
+  <li><strong>File the return</strong> with the best complete information you can support. Waiting for perfect paperwork while daily penalties run is often the costlier choice.</li>
+  <li><strong>Pay what you can</strong> and use HMRC’s published payment routes if you need time.</li>
+  <li><strong>Read any penalty notice carefully</strong> — deadlines to pay the penalty, and appeal rights, matter.</li>
+  <li><strong>Consider whether you have a reasonable excuse</strong> if you disagree with a penalty. GOV.UK explains that you can appeal if you have a reasonable excuse; “I was busy” is rarely enough on its own.</li>
+  <li><strong>Fix next year</strong> — document checklist, earlier start, accountant help if last January was chaos.</li>
+</ol>
+
+<h2>Example</h2>
+<p>Lee meant to file in January, then got ill and missed the online deadline. Lee still filed in March, paid the tax due, and used GOV.UK information to understand the £100 late filing penalty and whether any further charges applied. Lee also booked accountant-led help with TaxSimba for the following year so the same scramble did not repeat.</p>
+
+<h2>How TaxSimba can help</h2>
+<p>If you need a return prepared properly rather than guessing alone, TaxSimba’s <a href="/self-assessment">accountant-led Self Assessment service</a> works like this: you provide information and documents, an accountant prepares and reviews the return, and you approve before filing where that step applies. We do not guarantee penalty cancellation or claim HMRC will waive charges.</p>
+<p>For the paperwork side, see the <a href="/blogs/self-assessment-documents-checklist">documents checklist</a>. For advance payments that often sit beside a January bill, see <a href="/blogs/payments-on-account-explained">payments on account explained</a>.</p>
+
+<p>General information only — not personal tax advice. Penalty amounts and appeal rules should be confirmed on current GOV.UK pages.</p>
+`,
+  },
+
 ];
 
 export function getPublishedArticles() {
