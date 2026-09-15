@@ -3,6 +3,7 @@ import {
   getRelatedArticles,
   mergeArticlesWithApi,
   normalizeApiArticle,
+  withResolvedArticleContent,
 } from "@/data/articles";
 import fetchJSON from "@/lib/fetchJSON";
 
@@ -51,8 +52,9 @@ export async function getMergedBlogList({ page = 1, limit = 9 } = {}) {
 export async function getBlogBySlug(slug) {
   const curated = getArticleBySlug(slug);
   if (curated) {
+    const blog = withResolvedArticleContent(curated);
     return {
-      blog: curated,
+      blog,
       recentBlogs: getRelatedArticles(curated, 4),
     };
   }

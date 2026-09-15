@@ -16,6 +16,42 @@ export const ARTICLE_CTA = {
 /** @typedef {'SA'|'MTD'|'CHECK'|'BOTH'} CtaType */
 
 /**
+ * Resolve date-window markers in curated article HTML.
+ * Markers:
+ *   <!--deadline:until-2026-11-07-->...<!--/deadline:until-2026-11-07-->
+ *   <!--deadline:from-2026-11-08-->...<!--/deadline:from-2026-11-08-->
+ * Inclusive of 7 November 2026 (Europe/London calendar date).
+ */
+export function resolveDeadlineSensitiveHtml(html, now = new Date()) {
+  if (!html || !html.includes("<!--deadline:")) return html;
+  const londonDate = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/London",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(now);
+  const keep =
+    londonDate <= "2026-11-07" ? "until-2026-11-07" : "from-2026-11-08";
+  const drop =
+    keep === "until-2026-11-07" ? "from-2026-11-08" : "until-2026-11-07";
+  let out = html.replace(
+    new RegExp("<!--deadline:" + drop + "-->[\\s\\S]*?<!--/deadline:" + drop + "-->", "g"),
+    "",
+  );
+  out = out.replace(new RegExp("<!--/?deadline:" + keep + "-->", "g"), "");
+  return out;
+}
+
+export function withResolvedArticleContent(article, now = new Date()) {
+  if (!article) return article;
+  return {
+    ...article,
+    content: resolveDeadlineSensitiveHtml(article.content || "", now),
+  };
+}
+
+
+/**
  * @type {Array<{
  *  id: string,
  *  slug: string,
@@ -1143,7 +1179,7 @@ export const articles = [
     audience: "sole-traders-landlords",
     tags: ["mtd", "deadline", "7-november-2026", "quarterly-updates"],
     publishedAt: "2026-09-15T16:00:00.000Z",
-    reviewedAt: "2026-09-15T16:00:00.000Z",
+    reviewedAt: "2026-09-15T18:00:00.000Z",
     authorName: "TaxSimba Tax Team",
     reviewerName: "TaxSimba Tax Team",
     featuredImage: "/images/blog_1.png",
@@ -1176,13 +1212,16 @@ export const articles = [
     ],
     curated: true,
     content: `
-<!-- deadline-notice:active-until-2026-11-07 -->
+<!--deadline:until-2026-11-07-->
 <p><strong>Deadline in focus:</strong> if you use standard or calendar update periods for Making Tax Digital for Income Tax in 2026 to 2027, the second quarterly update is due by <strong>7 November 2026</strong>. You can send it any time after the update period ends — you do not have to wait until the deadline day.</p>
-<!-- /deadline-notice -->
+<!--/deadline:until-2026-11-07-->
+<!--deadline:from-2026-11-08-->
+<p><strong>Update after 7 November 2026:</strong> that Making Tax Digital quarterly deadline has passed. If you still need to send the update that was due by 7 November 2026, use the <a href="/blogs/missed-mtd-quarterly-update">missed quarterly update guide</a> for catch-up steps. Below is what that specific deadline covered, so you can check you sent the right period.</p>
+<!--/deadline:from-2026-11-08-->
 
-<p>This page is a time-bound action guide for that date. For the evergreen explanation of what a quarterly update contains, use <a href="/blogs/mtd-quarterly-updates">MTD quarterly updates explained</a>. If the date has already passed, switch to <a href="/blogs/missed-mtd-quarterly-update">what to do after a missed update</a>.</p>
+<p>This page is only about the <strong>7 November 2026</strong> quarterly deadline — not a full explainer of every MTD update. For what quarterly updates contain in general, see <a href="/blogs/mtd-quarterly-updates">MTD quarterly updates explained</a>.</p>
 
-<h2>Which period does the 7 November update cover?</h2>
+<h2>Which period did the 7 November update cover?</h2>
 <p>GOV.UK sets the same send-by date for both period types:</p>
 <ul>
   <li><strong>Standard update periods</strong> (tax year aligned): totals from <strong>6 April to 5 October</strong> — send by 7 November</li>
@@ -1190,7 +1229,12 @@ export const articles = [
 </ul>
 <p>Each update is cumulative from the start of the tax year to the end of that period. Your software should show the exact window that applies to you.</p>
 
-<h2>Before 7 November — a practical checklist</h2>
+<!--deadline:until-2026-11-07-->
+<h2>Before 7 November — checklist</h2>
+<!--/deadline:until-2026-11-07-->
+<!--deadline:from-2026-11-08-->
+<h2>Checklist for the 7 November 2026 update</h2>
+<!--/deadline:from-2026-11-08-->
 <ol>
   <li><strong>Confirm you are in MTD</strong> for the income sources involved (self-employment, property, or both).</li>
   <li><strong>Bring digital records up to date</strong> through the end of the update period — amounts, dates and categories in compatible software (or with your agent).</li>
@@ -1202,12 +1246,14 @@ export const articles = [
 <h2>Penalties for this particular deadline</h2>
 <p>For the <strong>2026 to 2027</strong> tax year, HMRC will not apply penalty points for late quarterly updates. That soft landing does <em>not</em> make the update optional: you still need to send quarterly updates before you can submit your tax return. Late tax returns and late payment of tax can still attract penalties. Re-check <a href="https://www.gov.uk/guidance/penalties-for-making-tax-digital-for-income-tax" target="_blank" rel="noopener noreferrer">GOV.UK MTD penalties</a> for the year you are in.</p>
 
-<!-- after-deadline-note:replace-active-notice-after-2026-11-07
-<p><strong>This 7 November 2026 deadline has passed.</strong> If you still need to send the update, follow the catch-up steps in our <a href="/blogs/missed-mtd-quarterly-update">missed quarterly update guide</a>.</p>
--->
-
-<h2>If records are a mess this week</h2>
-<p>Prioritise getting usable totals into software from bank exports, invoices and (for landlords) agent statements covering the period. Guessing figures just to clear a screen is a poor fix. If you want the workflow handled rather than DIY catch-up alone, TaxSimba’s <a href="/making-tax-digital">Making Tax Digital service</a> is accountant-led — you still supply the evidence.</p>
+<!--deadline:until-2026-11-07-->
+<h2>If records are behind this week</h2>
+<p>Prioritise usable totals from bank exports, invoices and (for landlords) agent statements covering the period. Guessing figures just to clear a screen is a poor fix. If you want the workflow handled rather than DIY catch-up alone, TaxSimba’s <a href="/making-tax-digital">Making Tax Digital service</a> is accountant-led — you still supply the evidence.</p>
+<!--/deadline:until-2026-11-07-->
+<!--deadline:from-2026-11-08-->
+<h2>If you still have not sent it</h2>
+<p>Follow the catch-up sequence in the <a href="/blogs/missed-mtd-quarterly-update">missed quarterly update guide</a>. TaxSimba’s <a href="/making-tax-digital">Making Tax Digital service</a> is accountant-led if you want help organising records — you still supply the evidence.</p>
+<!--/deadline:from-2026-11-08-->
 
 <p>General information only — not personal tax advice. Confirm dates in your software and on current GOV.UK guidance.</p>
 `,
@@ -1225,7 +1271,7 @@ export const articles = [
     audience: "landlords",
     tags: ["mtd", "landlords", "property", "2026-27"],
     publishedAt: "2026-09-15T15:45:00.000Z",
-    reviewedAt: "2026-09-15T15:45:00.000Z",
+    reviewedAt: "2026-09-15T18:00:00.000Z",
     authorName: "TaxSimba Tax Team",
     reviewerName: "TaxSimba Tax Team",
     featuredImage: "/images/blog_2.png",
@@ -1267,8 +1313,9 @@ export const articles = [
 
 <p>This guide is about the landlord obligations themselves. If you already know you need managed help, the commercial service page is <a href="/rental-income-tax">MTD for landlords</a>.</p>
 
-<h2>Are you in for 2026/27?</h2>
-<p>Broadly, MTD for Income Tax applies if you are a Self Assessment landlord (or sole trader, or both) and your <strong>qualifying income</strong> — gross self-employment and property turnover before expenses — is over the relevant threshold for the look-back year. For the April 2026 start, that was more than <strong>£50,000</strong> on the 2024 to 2025 return. Later cohorts use £30,000 (from April 2027) and £20,000 (from April 2028). Confirm with GOV.UK and our <a href="/check-mtd">MTD checker</a> rather than using profit after costs.</p>
+<h2>Does MTD apply to your property income?</h2>
+<p>MTD for Income Tax can apply if you are on Self Assessment with property income (alone or with a trade) and your <strong>qualifying income</strong> — gross self-employment and property turnover <em>before</em> expenses — sits above the look-back threshold. The April 2026 wave used more than <strong>£50,000</strong> on the 2024 to 2025 return; later waves use £30,000 (from April 2027) and £20,000 (from April 2028). Check GOV.UK or the <a href="/check-mtd">MTD checker</a>; do not use profit after mortgage interest as the test.</p>
+<p>For jointly owned property, only <strong>your share</strong> of the relevant property income counts toward that qualifying-income total. GOV.UK’s example style: a property generating £50,000 of income owned equally with one other person gives you £25,000 toward your threshold (before adding any self-employment turnover).</p>
 
 <h2>What landlords must keep digitally</h2>
 <p>GOV.UK expects digital records of UK property income (rent, certain premiums/inducements) and property expenses (repairs, maintenance, and other allowable categories your software supports). You still keep supporting documents such as agent statements and invoices.</p>
@@ -1283,13 +1330,14 @@ export const articles = [
 <h2>Landlord-specific traps</h2>
 <ul>
   <li>Treating profit after mortgage interest as the MTD threshold test</li>
+  <li>Counting a joint property’s full rent toward your threshold instead of your share</li>
   <li>Leaving agent statements in an email inbox until January</li>
   <li>Mixing personal and rental spending with no labels</li>
   <li>Assuming “I only have two buy-to-lets” means two separate UK MTD property businesses (usually it does not)</li>
 </ul>
 
-<h2>Where TaxSimba fits (without replacing the service page)</h2>
-<p>TaxSimba is an accountant-led MTD service, not DIY landlord software. For product and packages aimed at landlords, start at <a href="/rental-income-tax">rental income / MTD for landlords</a>. This article exists to answer “what do I have to do?” — not to replace that commercial page.</p>
+<h2>Where TaxSimba fits</h2>
+<p>TaxSimba is an accountant-led MTD service, not DIY landlord software. For product and packages aimed at landlords, start at <a href="/rental-income-tax">rental income / MTD for landlords</a>. This article answers “what do I have to do?” — it does not replace that commercial page.</p>
 
 <p>Rules and exemptions can change; confirm on GOV.UK for your situation. General information only — not personal tax advice.</p>
 `,
@@ -1307,7 +1355,7 @@ export const articles = [
     audience: "sole-traders",
     tags: ["mtd", "sole-trader", "self-employed", "2026-27"],
     publishedAt: "2026-09-15T15:30:00.000Z",
-    reviewedAt: "2026-09-15T15:30:00.000Z",
+    reviewedAt: "2026-09-15T18:00:00.000Z",
     authorName: "TaxSimba Tax Team",
     reviewerName: "TaxSimba Tax Team",
     featuredImage: "/images/blog_3.png",
@@ -1347,14 +1395,15 @@ export const articles = [
     content: `
 <p>If Making Tax Digital for Income Tax applies to you as a sole trader in 2026 to 2027, three duties sit on top of ordinary Self Assessment: keep <strong>digital records</strong> of business income and expenses, send <strong>quarterly updates</strong> through compatible software (or an agent), and still submit your <strong>tax return</strong> after year-end.</p>
 
-<p>Looking for the managed service rather than the rules? That commercial page is <a href="/self-employed-tax-return">MTD for sole traders</a>. Keep reading for the obligations themselves.</p>
+<p>Looking for the managed service rather than the rules? That commercial page is <a href="/self-employed-tax-return">MTD for sole traders</a>.</p>
 
-<h2>When sole traders are in scope</h2>
-<p>You need MTD for Income Tax when you are registered for Self Assessment, have self-employment (and/or property) income, and your qualifying income — <strong>turnover before expenses</strong> — is above the threshold for the relevant look-back year. The first wave (from 6 April 2026) used more than £50,000 on the 2024 to 2025 return. April 2027 brings in more than £30,000 on 2025 to 2026; April 2028 brings in more than £20,000 on 2026 to 2027. Work through GOV.UK or the <a href="/check-mtd">MTD checker</a> before assuming profit after costs keeps you out.</p>
+<h2>When a sole trader is in scope</h2>
+<p>You need MTD when you are Self Assessment-registered with self-employment income (and sometimes property too) and your qualifying income — <strong>turnover before expenses</strong> — clears the look-back threshold. From 6 April 2026 that meant more than £50,000 on the 2024 to 2025 return; from 6 April 2027 it is more than £30,000 on 2025 to 2026; from 6 April 2028 it is more than £20,000 on 2026 to 2027. Profit after costs is the wrong figure for this test. Use GOV.UK or the <a href="/check-mtd">MTD checker</a> if you are unsure.</p>
 
 <h2>Digital records for a trade</h2>
 <p>Record sales, fees and allowable expenses with amount, date and category in software that works with MTD. Supporting invoices and bank exports still matter. If you run <strong>more than one sole-trader business</strong>, GOV.UK expects separate digital records — and separate quarterly updates — for each (for example electrician work and a separate tutoring trade).</p>
-<p>Day-to-day tip: categorise as you go. A January reconstruction from vague bank descriptions is exactly what MTD is designed to avoid. More detail: <a href="/blogs/mtd-digital-records">MTD digital records</a>.</p>
+<p><strong>Example:</strong> a freelance designer invoices a client <strong>£1,800</strong> on <strong>14 September 2026</strong> (category: turnover/sales) and pays <strong>£45</strong> for design software on <strong>3 September 2026</strong> (category: office costs, or the nearest match your software uses). Both sit in the digital records with the invoice and receipt kept as evidence — not reconstructed from a vague bank line in January.</p>
+<p>More on the record trail: <a href="/blogs/mtd-digital-records">MTD digital records</a>.</p>
 
 <h2>Quarterly rhythm without the jargon</h2>
 <p>Software totals your digital records into category summaries every three months. Those summaries are not full tax returns, and HMRC does not see every receipt. Typical deadlines when periods align include 7 August, 7 November, 7 February and 7 May. For 2026 to 2027, late quarterly updates do not attract penalty points — but updates are still required before the return can be submitted.</p>
@@ -1368,7 +1417,7 @@ export const articles = [
   <li>At year-end, use the software route to adjustments, other income, reliefs and the tax return.</li>
 </ol>
 
-<p>TaxSimba offers accountant-led MTD support for self-employed clients who do not want DIY-only software. Compare that offering on <a href="/self-employed-tax-return">the sole trader MTD page</a> — this article stays on “what HMRC expects,” not package selling.</p>
+<p>TaxSimba offers accountant-led MTD support for self-employed clients who do not want DIY-only software. Compare that offering on <a href="/self-employed-tax-return">the sole trader MTD page</a> — this article stays on what HMRC expects, not package selling.</p>
 
 <p>General information only — not personal tax advice. Always check current GOV.UK guidance for your trades.</p>
 `,
@@ -1386,7 +1435,7 @@ export const articles = [
     audience: "sole-traders-landlords",
     tags: ["mtd", "hmrc", "dispute", "exemption", "signed-up"],
     publishedAt: "2026-09-15T15:15:00.000Z",
-    reviewedAt: "2026-09-15T15:15:00.000Z",
+    reviewedAt: "2026-09-15T18:00:00.000Z",
     authorName: "TaxSimba Tax Team",
     reviewerName: "TaxSimba Tax Team",
     featuredImage: "/images/blog_3.png",
@@ -1426,11 +1475,13 @@ export const articles = [
 
 <h2>First principle: do not ignore the notice</h2>
 <p>Even while you challenge the position, GOV.UK expects you to engage with the signup message — sign in, check the income sources HMRC holds, and follow the published steps. Leaving the letter unopened does not pause obligations if HMRC’s records still show you in scope.</p>
+<p>If you are already signed up and you apply for an exemption because your circumstances have changed, GOV.UK is clear that you should <strong>continue using Making Tax Digital for Income Tax while you wait</strong> for HMRC’s decision. An exemption application is not a pause button.</p>
 
 <h2>Common reasons the signup can look wrong</h2>
 <ul>
   <li><strong>Qualifying income mix-up</strong> — thresholds use gross self-employment and property turnover before expenses, not profit. PAYE salary, pensions and dividends generally do not count toward the MTD total. See <a href="/blogs/mtd-qualifying-income">qualifying income explained</a>.</li>
-  <li><strong>All trading/property income ceased</strong> — if every self-employment and property source stopped before 6 April 2026, GOV.UK says you should not need MTD for Income Tax, but you must tell HMRC and still file any required Self Assessment return. If sources ceased on or after 6 April 2026, you may still need a final stretch of MTD reporting.</li>
+  <li><strong>All trading/property income ceased before 6 April 2026</strong> — GOV.UK says you should not need MTD for Income Tax, but you must update HMRC (and still file any required Self Assessment return for 2025 to 2026).</li>
+  <li><strong>All sources ceased on or after 6 April 2026</strong> — you still need compatible software to send a quarterly update covering up to the date those sources ceased, and to submit your 2026 to 2027 tax return. You should not need MTD after that.</li>
   <li><strong>Exemption</strong> — for example digital exclusion. Exemptions are specific; many need an application to HMRC (see GOV.UK’s <a href="https://www.gov.uk/guidance/apply-for-an-exemption-from-making-tax-digital-for-income-tax" target="_blank" rel="noopener noreferrer">apply for an exemption</a> guidance). Unfamiliarity with software alone is not treated as digital exclusion.</li>
   <li><strong>Stale HMRC data</strong> — when HMRC signs you up it uses information it already holds. Changes since your last return may be missing until you update them in the service.</li>
 </ul>

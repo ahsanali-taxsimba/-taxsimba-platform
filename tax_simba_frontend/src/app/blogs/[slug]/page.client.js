@@ -8,7 +8,7 @@ import {
   TranslatedParagraph,
 } from "@/components/TranslatedContent";
 import GetStartedButton from "@/components/re-used/GetStartedButton";
-import { getCtaForArticle } from "@/data/articles";
+import { getCtaForArticle, resolveDeadlineSensitiveHtml } from "@/data/articles";
 
 function formatDate(dateString) {
   if (!dateString) return "";
@@ -72,7 +72,10 @@ export default function BlogDetailsClientPage({ blogDetails }) {
 
       <div className="blog-layout">
         <div>
-          <TranslatedRichText className="blog-content" html={blog?.content || ""} />
+          <TranslatedRichText
+            className="blog-content"
+            html={resolveDeadlineSensitiveHtml(blog?.content || "")}
+          />
 
           {Array.isArray(blog?.relatedPages) && blog.relatedPages.length > 0 ? (
             <div className="mt-5 mb-4">
