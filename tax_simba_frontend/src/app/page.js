@@ -420,7 +420,7 @@ export default function Home() {
 
               "image": [
                 "https://taxsimba.co.uk/images/logo.png",
-                "https://taxsimba.co.uk/images/office-photo.jpg"
+                "https://taxsimba.co.uk/images/who-img.png"
               ],
 
               "logo": {
