@@ -392,6 +392,7 @@ export const articles = [
       "payments-on-account-explained",
       "late-self-assessment-penalties",
       "self-assessment-for-sole-traders-2025-26",
+      "amend-self-assessment-tax-return",
     ],
     relatedPages: [
       { href: "/self-assessment", label: "Online Self Assessment accountant" },
@@ -439,6 +440,7 @@ export const articles = [
 
 <h2>Common mistake</h2>
 <p>Waiting for a perfect final bank export on 30 January. If something is missing, you still need a plan: file on time with best available figures only where HMRC rules allow, or get advice quickly. Do not simply ghost the deadline.</p>
+<p>If you later spot a genuine mistake on a return you already filed, that is usually an <a href="/blogs/amend-self-assessment-tax-return">amendment</a> problem, not a second “deadline” — act within HMRC’s correction window.</p>
 
 <h2>Getting ready</h2>
 <ol>
@@ -474,6 +476,7 @@ export const articles = [
       "self-assessment-deadline",
       "self-assessment-register-by-5-october-2026",
       "payments-on-account-explained",
+      "amend-self-assessment-tax-return",
     ],
     relatedPages: [
       { href: "/self-assessment", label: "Online Self Assessment accountant" },
@@ -544,6 +547,7 @@ export const articles = [
 
 <h2>Common mistake</h2>
 <p>Keeping only the “big” invoices and losing small recurring costs (software, phone, insurance). Those small items add up, and without evidence they are hard to support if HMRC asks questions.</p>
+<p>If you already filed and then find missing documents that change the figures, use HMRC’s <a href="/blogs/amend-self-assessment-tax-return">amendment process</a> rather than hoping the gap never matters.</p>
 
 <h2>Build your pack</h2>
 <ol>
@@ -1110,6 +1114,7 @@ export const articles = [
       "payments-on-account-explained",
       "cannot-pay-self-assessment-tax-bill",
       "self-assessment-documents-checklist",
+      "amend-self-assessment-tax-return",
       "understanding-self-assessment-uk",
     ],
     relatedPages: [
@@ -1172,7 +1177,7 @@ export const articles = [
   <li>Consider a reasonable excuse appeal only where it genuinely fits. “I was busy” is rarely enough on its own.</li>
   <li>Prevent a repeat with earlier document gathering, or accountant help for the next cycle.</li>
 </ol>
-<p>If you need a return prepared properly rather than guessing alone, TaxSimba’s <a href="/self-assessment">Self Assessment service</a> works from documents you provide. An accountant prepares and reviews, and you approve before filing where that step applies. We do not guarantee penalty cancellation. Related reading: <a href="/blogs/self-assessment-documents-checklist">documents checklist</a> and <a href="/blogs/payments-on-account-explained">payments on account</a>.</p>
+<p>If you need a return prepared properly rather than guessing alone, TaxSimba’s <a href="/self-assessment">Self Assessment service</a> works from documents you provide. An accountant prepares and reviews, and you approve before filing where that step applies. We do not guarantee penalty cancellation. Related reading: <a href="/blogs/self-assessment-documents-checklist">documents checklist</a>, <a href="/blogs/payments-on-account-explained">payments on account</a>, and <a href="/blogs/amend-self-assessment-tax-return">how to amend a return</a> if the figures themselves need correcting after you file.</p>
 `,
   },
 
@@ -1189,7 +1194,7 @@ export const articles = [
     audience: "sole-traders-landlords",
     tags: ["mtd", "deadline", "7-november-2026", "quarterly-updates"],
     publishedAt: "2026-09-15T16:00:00.000Z",
-    reviewedAt: "2026-09-15T11:58:00.000Z",
+    reviewedAt: "2026-09-15T17:15:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
     featuredImage: "/images/feels-img.png",
@@ -1281,7 +1286,7 @@ export const articles = [
     audience: "landlords",
     tags: ["mtd", "landlords", "property", "2026-27"],
     publishedAt: "2026-09-15T15:45:00.000Z",
-    reviewedAt: "2026-09-15T11:58:00.000Z",
+    reviewedAt: "2026-09-15T17:15:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
     featuredImage: "/images/blog-category-landlord.png",
@@ -1360,7 +1365,7 @@ export const articles = [
     audience: "sole-traders",
     tags: ["mtd", "sole-trader", "self-employed", "2026-27"],
     publishedAt: "2026-09-15T15:30:00.000Z",
-    reviewedAt: "2026-09-15T11:58:00.000Z",
+    reviewedAt: "2026-09-15T17:15:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
     featuredImage: "/images/feels-img.png",
@@ -1437,7 +1442,7 @@ export const articles = [
     audience: "sole-traders-landlords",
     tags: ["mtd", "hmrc", "dispute", "exemption", "signed-up"],
     publishedAt: "2026-09-15T15:15:00.000Z",
-    reviewedAt: "2026-09-15T11:58:00.000Z",
+    reviewedAt: "2026-09-15T17:15:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
     featuredImage: "/images/feels-img.png",
@@ -1516,7 +1521,7 @@ export const articles = [
     audience: "sole-traders-landlords",
     tags: ["mtd", "30000", "april-2027", "qualifying-income", "preparation"],
     publishedAt: "2026-09-15T15:00:00.000Z",
-    reviewedAt: "2026-09-15T11:58:00.000Z",
+    reviewedAt: "2026-09-15T17:15:00.000Z",
     authorName: "TaxSimba",
     reviewerName: "TaxSimba",
     featuredImage: "/images/feels-img.png",
@@ -2322,6 +2327,8 @@ export const articles = [
 
 <p>Illustrative only: a sole trader receives £40,000 gross from contractors in a year and sees £8,000 of CIS deductions on the statements. The Self Assessment trade pages still start from the £40,000 income figure, with the £8,000 entered as CIS deductions so it credits the bill. Whether that creates a balancing payment or a refund depends on the rest of the year’s tax, not on CIS alone.</p>
 
+<p>CIS registration and reclaim do not, on their own, decide whether Making Tax Digital for Income Tax applies. MTD looks at qualifying self-employment and property income against HMRC’s phased thresholds. If you are unsure whether digital records and quarterly updates also apply to you, <a href="/check-mtd">check if MTD applies</a> before you assume CIS cash-flow is the only change.</p>
+
 <p>If you want an accountant to prepare the Self Assessment pages that include CIS, use TaxSimba’s <a href="/self-employed-tax-return">self-employed tax return</a> service and <a href="/register">register</a>. Bring every payment and deduction statement you have. We do not guarantee a refund amount, and we do not replace HMRC’s CIS registration process.</p>
 `,
   },
@@ -2866,6 +2873,8 @@ export const articles = [
   <li>Assuming gross payment status people get “refunds” of deductions that were never taken — they usually do not. See <a href="/blogs/cis-gross-payment-status">CIS gross payment status</a>.</li>
 </ul>
 
+<p>A CIS refund question is still a Self Assessment question. Being under CIS does not automatically put you into Making Tax Digital for Income Tax; that depends on qualifying income thresholds and HMRC’s timetable. Use the free <a href="/check-mtd">MTD checker</a> if your gross self-employment turnover is high enough that digital reporting may also apply.</p>
+
 <p>TaxSimba’s <a href="/self-assessment">Self Assessment service</a> is accountant-led help for sole traders and partners who need CIS credited correctly on the return. We do not guarantee a refund amount or a payment date. <a href="/register">Start Self Assessment with TaxSimba</a> if you want that preparation handled.</p>
 `,
   },
@@ -2948,6 +2957,8 @@ export const articles = [
 <h2>Common mistake</h2>
 <p>Assuming “I’m a basic-rate taxpayer so CIS should be 20% of my tax band.” CIS rates are scheme deduction rates tied to registration and verification, not to your Income Tax band.</p>
 
+<p>Separately, do not treat a 20% or 30% CIS deduction as proof you are “already digital” for Making Tax Digital. CIS is about how contractors pay you; MTD for Income Tax is about digital records and quarterly updates when qualifying income crosses HMRC’s thresholds. If that might apply, start with <a href="/check-mtd">Check if MTD applies</a> rather than guessing from your deduction rate.</p>
+
 <p>If you want help sorting CIS credits on a Self Assessment return after a year of mixed 20%/30% statements, TaxSimba’s <a href="/self-assessment">Self Assessment service</a> can prepare that return with an accountant. We cannot force a contractor to re-verify you, and we do not guarantee HMRC will change a past deduction rate. <a href="/register">Start Self Assessment with TaxSimba</a>.</p>
 `,
   },
@@ -3029,6 +3040,7 @@ export const articles = [
 
 <h2>Practical filing habit</h2>
 <p>Save PDFs or photos in folders by tax month (6th–5th), not by calendar month alone. One missing January statement can wipe hundreds of pounds of CIS credit if nobody notices until January filing season. Pair this with the wider <a href="/blogs/self-assessment-documents-checklist">Self Assessment documents checklist</a>.</p>
+<p>Those statements also help you total gross CIS labour for the year. If that gross self-employment income (with any property income) may sit above Making Tax Digital thresholds, keep the same figures tidy for eligibility checks — <a href="/check-mtd">check if MTD applies</a> — without treating CIS paperwork as an MTD filing by itself.</p>
 
 <p>TaxSimba’s <a href="/self-assessment">Self Assessment accountants</a> will ask for a complete set of statements before preparing a CIS-heavy return. We cannot issue statements for a contractor, and we do not guarantee HMRC will accept incomplete evidence. <a href="/register">Start Self Assessment with TaxSimba</a> when you want help turning the paperwork into a correct return.</p>
 `,
@@ -3110,6 +3122,7 @@ export const articles = [
 
 <h2>How expenses interact with CIS</h2>
 <p>Expenses reduce taxable profit. Lower profit can mean a larger CIS repayment when deductions already taken exceed the final bill — see <a href="/blogs/cis-tax-refunds-subcontractors">CIS tax refunds</a>. They do not change the 20%/30% withheld on each payslip. Keep <a href="/blogs/cis-payment-deduction-statements">payment statements</a> separate from expense folders so income and costs do not get mixed.</p>
+<p>Also remember: Making Tax Digital qualifying-income tests generally look at turnover before expenses, not at the profit left after tools and travel. Claiming CIS expenses correctly still matters for Self Assessment, but it does not “expense you out” of MTD if gross income is above the threshold. Confirm with <a href="/check-mtd">Check if MTD applies</a> when your construction turnover is substantial, and read TaxSimba’s <a href="/making-tax-digital">Making Tax Digital overview</a> only if you are genuinely in scope.</p>
 
 <h2>Worked sketch (illustrative only)</h2>
 <p>Gross CIS labour £48,000; CIS deducted £9,600; allowable expenses £11,000. Taxable trading profit starts near £37,000 before other adjustments. The £9,600 still credits the Self Assessment bill. Skipping the £11,000 expenses would inflate profit and shrink any refund — without changing what contractors already withheld.</p>
@@ -3195,6 +3208,8 @@ export const articles = [
 
 <h2>When gross status may not suit you</h2>
 <p>If your compliance history is uneven, turnover is below the test, or you prefer contractors to withhold something towards tax, staying on 20% net payment status can be simpler. Gross status is a cash-flow tool, not a badge that reduces the tax you ultimately owe.</p>
+
+<p>Gross payment status also does not decide Making Tax Digital eligibility. You can be paid gross under CIS and still need digital records and quarterly updates if qualifying income brings you into MTD — or be outside MTD while still on CIS deductions. Separate the two: use <a href="/check-mtd">Check if MTD applies</a> for the digital-reporting question, and keep Self Assessment (or company filing) for the tax bill itself.</p>
 
 <p>TaxSimba helps self-employed subcontractors through our <a href="/self-assessment">Self Assessment service</a> once income needs reporting — including after a move to gross payment status. We do not process HMRC gross-status applications as a standalone product on this page, and we do not guarantee approval. <a href="/register">Start Self Assessment with TaxSimba</a> when you want accountant-led filing support.</p>
 `,
