@@ -7,7 +7,7 @@ import axios from "axios";
 import { MdCheckCircle } from "react-icons/md";
 import { FaChevronRight } from "react-icons/fa";
 import { getCurrencySymbol } from "@/utils/commonHelper";
-import { useCatalogueFromPrice } from "@/hooks/useCatalogueFromPrice";
+import { useCatalogueFromPrice, formatIntervalSuffix } from "@/hooks/useCatalogueFromPrice";
 import { trackPrimaryCtaClick } from "@/lib/ppcAnalytics";
 import {
   PpcHero,
@@ -52,11 +52,20 @@ const faqs = [
   },
 ];
 
+function intervalLabel(interval) {
+  if (!interval || typeof interval !== "string") return null;
+  const key = interval.toLowerCase();
+  if (key === "year" || key === "yearly" || key === "annual") return "year";
+  if (key === "month" || key === "monthly") return "month";
+  return key;
+}
+
 function SaPlanCard({ plan, onSelect }) {
+  const period = intervalLabel(plan.interval);
   return (
     <Col lg={4} md={6} sm={12} className="mb-4">
       <div
-        className={`${
+        className={`ppc-sa-plan-card ${
           plan.isPopular ? "popular-card home-plan-card plan-card-white" : "home-plan-card plan-card-white"
         } position-relative h-100`}
       >
@@ -69,6 +78,7 @@ function SaPlanCard({ plan, onSelect }) {
             <span className="price-new">
               {getCurrencySymbol(plan.currency)}
               {plan.price}
+              {period ? <span className="plan-interval-txt">/{period}</span> : null}
             </span>
           </div>
           {plan.description ? (
@@ -100,7 +110,7 @@ function SaPlanCard({ plan, onSelect }) {
 
 export default function PpcSelfAssessmentClient() {
   const router = useRouter();
-  const fromPrice = useCatalogueFromPrice("taxSimba");
+  const { fromPrice, interval } = useCatalogueFromPrice("taxSimba");
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
@@ -160,6 +170,7 @@ export default function PpcSelfAssessmentClient() {
         primaryHref={PRIMARY_HREF}
         primaryLabel={PRIMARY_LABEL}
         fromPrice={fromPrice}
+        fromPriceSuffix={formatIntervalSuffix(interval)}
       />
 
       <PpcTrustStrip
@@ -258,3 +269,4 @@ export default function PpcSelfAssessmentClient() {
     </div>
   );
 }
+

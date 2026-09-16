@@ -14,7 +14,7 @@ import {
 import { useCatalogueFromPrice, formatGbpWhole } from "@/hooks/useCatalogueFromPrice";
 
 const NewGlobalBanner = () => {
-  const fromPrice = useCatalogueFromPrice("taxSimba");
+  const { fromPrice } = useCatalogueFromPrice("taxSimba");
   const priceLabel = formatGbpWhole(fromPrice);
   return (
 

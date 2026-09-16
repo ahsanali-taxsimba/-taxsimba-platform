@@ -7,7 +7,7 @@ import { text } from '@fortawesome/fontawesome-svg-core';
 import GetStartedButton from '@/components/re-used/GetStartedButton';
 import { useCatalogueFromPrice, formatGbpWhole } from "@/hooks/useCatalogueFromPrice";
 export default function CostSection() {
-  const fromPrice = useCatalogueFromPrice("taxSimba");
+  const { fromPrice } = useCatalogueFromPrice("taxSimba");
   const priceLabel = formatGbpWhole(fromPrice);
   const items = [
     { spanText: "HMRC submission" },

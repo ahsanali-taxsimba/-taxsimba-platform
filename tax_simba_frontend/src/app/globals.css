@@ -16059,17 +16059,136 @@ t
   box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.25);
 }
 
+/* Prefer one fixed bottom surface: hide sticky CTA while cookie consent is open */
 body.cookie-consent-visible .ppc-sticky-cta {
-  bottom: 110px;
+  display: none !important;
+}
+
+/* Lift chat above sticky CTA when sticky is active (mobile only) */
+@media (max-width: 767.98px) {
+  body:has(.ppc-sticky-cta) .chatbot-container {
+    bottom: 88px;
+  }
+  body.cookie-consent-visible:has(.ppc-sticky-cta) .chatbot-container {
+    /* sticky is hidden; only clear the cookie banner */
+    bottom: 118px;
+  }
 }
 
 @media screen and (max-width: 430px) {
-  body.cookie-consent-visible .ppc-sticky-cta {
+  body:has(.ppc-sticky-cta) .chatbot-container {
+    bottom: 92px;
+  }
+  body.cookie-consent-visible:has(.ppc-sticky-cta) .chatbot-container {
     bottom: 118px;
   }
-  body.cookie-consent-visible .chatbot-container {
-    bottom: 190px;
-  }
+}
+
+/* SA package cards — complete selectable packages (styles normally live in pricing styled-jsx) */
+.ppc-sa .ppc-sa-plan-card.plan-card-white {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 28px 22px;
+  height: 100%;
+  box-shadow: 0 10px 28px rgba(0, 26, 18, 0.12);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(0, 26, 18, 0.08);
+  color: #001a12;
+}
+
+.ppc-sa .ppc-sa-plan-card.popular-card.plan-card-white {
+  border: 2px solid #14ab71;
+  box-shadow: 0 12px 32px rgba(20, 171, 113, 0.2);
+}
+
+.ppc-sa .ppc-sa-plan-card .plan-name-main {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #001a12 !important;
+  margin-bottom: 12px;
+}
+
+.ppc-sa .ppc-sa-plan-card .price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.ppc-sa .ppc-sa-plan-card .price-new {
+  font-size: 1.5rem;
+  color: #14ab71 !important;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.ppc-sa .ppc-sa-plan-card .plan-interval-txt {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #4a5568 !important;
+}
+
+.ppc-sa .ppc-sa-plan-card .plan-desc-text {
+  font-size: 0.95rem;
+  color: #4a5568 !important;
+  margin-bottom: 1rem;
+  line-height: 1.45;
+  min-height: 2.8em;
+}
+
+.ppc-sa .ppc-sa-plan-card .plan-feature-list-modern {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.25rem 0;
+  flex-grow: 1;
+}
+
+.ppc-sa .ppc-sa-plan-card .plan-feature-list-modern li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  color: #333333 !important;
+  font-weight: 500;
+}
+
+.ppc-sa .ppc-sa-plan-card .check-icon-modern {
+  color: #14ab71;
+  font-size: 1.2rem;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.ppc-sa .ppc-sa-plan-card .select-plan-button-modern {
+  background: #14ab71 !important;
+  color: #ffffff !important;
+  padding: 14px 24px !important;
+  border-radius: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  width: 100% !important;
+  border: none !important;
+  cursor: pointer;
+}
+
+.ppc-sa .ppc-sa-plan-card.popular-card .select-plan-button-modern {
+  background: #0f8f5c !important;
+}
+
+.ppc-sa .ppc-sa-plan-card .plan-card-action {
+  margin-top: auto;
+}
+
+.ppc-sa .ppc-section.bg-light {
+  background: #f4f7f5 !important;
 }
 
 .ppc-footer .ppc-legal-links a {

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Container } from "react-bootstrap";
 import axios from "axios";
 import MtdPricingSection from "@/components/MtdPricingSection";
-import { useCatalogueFromPrice } from "@/hooks/useCatalogueFromPrice";
+import { useCatalogueFromPrice, formatIntervalSuffix } from "@/hooks/useCatalogueFromPrice";
 import { trackPrimaryCtaClick } from "@/lib/ppcAnalytics";
 import {
   PpcHero,
@@ -52,7 +52,7 @@ const faqs = [
 
 export default function PpcMakingTaxDigitalClient() {
   const router = useRouter();
-  const fromPrice = useCatalogueFromPrice("mtd");
+  const { fromPrice, interval } = useCatalogueFromPrice("mtd");
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
@@ -110,6 +110,7 @@ export default function PpcMakingTaxDigitalClient() {
         primaryHref={PRIMARY_HREF}
         primaryLabel={PRIMARY_LABEL}
         fromPrice={fromPrice}
+        fromPriceSuffix={formatIntervalSuffix(interval)}
         secondaryHref="/check-mtd"
         secondaryLabel="Not sure if MTD applies? Check if I need MTD"
       />
@@ -208,3 +209,4 @@ export default function PpcMakingTaxDigitalClient() {
     </div>
   );
 }
+
