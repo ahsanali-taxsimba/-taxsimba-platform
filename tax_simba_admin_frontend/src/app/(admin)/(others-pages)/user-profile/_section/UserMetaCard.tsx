@@ -117,7 +117,6 @@ export default function UserMetaCard() {
     // closeModal();
   } catch (error: any) {
     console.error(' Failed to update profile:', error);
-    const { toast } = await import('react-toastify');
     const message =
       error?.response?.data?.message ||
       (error?.response == null
