@@ -16070,8 +16070,8 @@ body.cookie-consent-visible .ppc-sticky-cta {
     bottom: 88px;
   }
   body.cookie-consent-visible:has(.ppc-sticky-cta) .chatbot-container {
-    /* sticky is hidden; only clear the cookie banner */
-    bottom: 118px;
+    /* sticky is hidden; clear full cookie banner height + gap */
+    bottom: 152px;
   }
 }
 
@@ -16079,14 +16079,17 @@ body.cookie-consent-visible .ppc-sticky-cta {
   body:has(.ppc-sticky-cta) .chatbot-container {
     bottom: 92px;
   }
-  body.cookie-consent-visible:has(.ppc-sticky-cta) .chatbot-container {
-    bottom: 118px;
+  body.cookie-consent-visible:has(.ppc-sticky-cta) .chatbot-container,
+  body.cookie-consent-visible .chatbot-container {
+    bottom: 152px;
   }
 }
 
 /* SA package cards — complete selectable packages (styles normally live in pricing styled-jsx) */
-.ppc-sa .ppc-sa-plan-card.plan-card-white {
-  background: #ffffff;
+.ppc-sa .ppc-sa-plan-card.plan-card-white,
+.ppc-sa .ppc-sa-plan-card.popular-card.plan-card-white {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
   border-radius: 20px;
   padding: 28px 22px;
   height: 100%;
@@ -16094,7 +16097,7 @@ body.cookie-consent-visible .ppc-sticky-cta {
   display: flex;
   flex-direction: column;
   border: 1px solid rgba(0, 26, 18, 0.08);
-  color: #001a12;
+  color: #001a12 !important;
 }
 
 .ppc-sa .ppc-sa-plan-card.popular-card.plan-card-white {
@@ -16102,7 +16105,10 @@ body.cookie-consent-visible .ppc-sticky-cta {
   box-shadow: 0 12px 32px rgba(20, 171, 113, 0.2);
 }
 
-.ppc-sa .ppc-sa-plan-card .plan-name-main {
+.ppc-sa .ppc-sa-plan-card .plan-name-main,
+.ppc-sa .ppc-sa-plan-card.popular-card .plan-name-main,
+.ppc-sa .ppc-sa-plan-card.popular-card h3,
+.ppc-sa .ppc-sa-plan-card.popular-card h4 {
   font-size: 1.35rem;
   font-weight: 800;
   color: #001a12 !important;
@@ -16117,7 +16123,8 @@ body.cookie-consent-visible .ppc-sticky-cta {
   flex-wrap: wrap;
 }
 
-.ppc-sa .ppc-sa-plan-card .price-new {
+.ppc-sa .ppc-sa-plan-card .price-new,
+.ppc-sa .ppc-sa-plan-card.popular-card .price-new {
   font-size: 1.5rem;
   color: #14ab71 !important;
   font-weight: 800;
@@ -16126,13 +16133,16 @@ body.cookie-consent-visible .ppc-sticky-cta {
   gap: 4px;
 }
 
-.ppc-sa .ppc-sa-plan-card .plan-interval-txt {
+.ppc-sa .ppc-sa-plan-card .plan-interval-txt,
+.ppc-sa .ppc-sa-plan-card.popular-card .plan-interval-txt {
   font-size: 0.95rem;
   font-weight: 600;
   color: #4a5568 !important;
 }
 
-.ppc-sa .ppc-sa-plan-card .plan-desc-text {
+.ppc-sa .ppc-sa-plan-card .plan-desc-text,
+.ppc-sa .ppc-sa-plan-card.popular-card .plan-desc-text,
+.ppc-sa .ppc-sa-plan-card.popular-card p {
   font-size: 0.95rem;
   color: #4a5568 !important;
   margin-bottom: 1rem;
@@ -16147,7 +16157,8 @@ body.cookie-consent-visible .ppc-sticky-cta {
   flex-grow: 1;
 }
 
-.ppc-sa .ppc-sa-plan-card .plan-feature-list-modern li {
+.ppc-sa .ppc-sa-plan-card .plan-feature-list-modern li,
+.ppc-sa .ppc-sa-plan-card.popular-card .plan-feature-list-modern li {
   display: flex;
   align-items: flex-start;
   gap: 10px;
@@ -16157,14 +16168,17 @@ body.cookie-consent-visible .ppc-sticky-cta {
   font-weight: 500;
 }
 
-.ppc-sa .ppc-sa-plan-card .check-icon-modern {
-  color: #14ab71;
+.ppc-sa .ppc-sa-plan-card .check-icon-modern,
+.ppc-sa .ppc-sa-plan-card.popular-card .check-icon-modern,
+.ppc-sa .ppc-sa-plan-card.popular-card .plan-feature-list-modern li svg {
+  color: #14ab71 !important;
   font-size: 1.2rem;
   margin-top: 2px;
   flex-shrink: 0;
 }
 
-.ppc-sa .ppc-sa-plan-card .select-plan-button-modern {
+.ppc-sa .ppc-sa-plan-card .select-plan-button-modern,
+.ppc-sa .ppc-sa-plan-card.popular-card .select-plan-button-modern {
   background: #14ab71 !important;
   color: #ffffff !important;
   padding: 14px 24px !important;
