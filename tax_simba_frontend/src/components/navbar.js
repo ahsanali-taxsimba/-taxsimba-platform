@@ -297,7 +297,7 @@ const Navbar = () => {
               <div className="d-flex align-items-center gap-2 gap-md-3">
                 {status !== "authenticated" ? (
                   <>
-                    <TranslatedLink href="/login" className="common-light-outline-btn d-none d-sm-inline-block">
+                    <TranslatedLink href="/login" className="common-light-outline-btn">
                       Login
                     </TranslatedLink>
                     <Link
