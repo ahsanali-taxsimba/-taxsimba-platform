@@ -105,14 +105,14 @@ export default function PpcMakingTaxDigitalClient() {
       <PpcHero
         service="MTD"
         landingPage={LANDING}
-        title="Making Tax Digital accountant support"
-        subtitle="Accountant-led help with Making Tax Digital for Income Tax. TaxSimba helps you manage digital records and quarterly MTD requirements — with a real accountant, not DIY-only software."
+        title="Making Tax Digital, managed with an accountant"
+        subtitle="TaxSimba helps you manage digital records and quarterly MTD requirements with accountant support — not DIY-only software."
         primaryHref={PRIMARY_HREF}
         primaryLabel={PRIMARY_LABEL}
         fromPrice={fromPrice}
         fromPriceSuffix={formatIntervalSuffix(interval)}
         secondaryHref="/check-mtd"
-        secondaryLabel="Not sure if MTD applies? Check if I need MTD"
+        secondaryLabel="Not sure if MTD applies to you? Check if I need MTD"
       />
 
       <PpcTrustStrip
@@ -125,22 +125,23 @@ export default function PpcMakingTaxDigitalClient() {
       />
 
       <PpcHowItWorks
+        title="How MTD works with TaxSimba"
         steps={[
           {
             title: "Share your records",
             text: "Provide the income and expense information your accountant needs.",
           },
           {
-            title: "Accountant-led workflow",
-            text: "Your TaxSimba accountant helps manage the MTD process on the platform.",
+            title: "Accountant support",
+            text: "Your TaxSimba accountant helps manage the MTD process with you.",
           },
           {
-            title: "Quarterly rhythm",
+            title: "Quarterly updates",
             text: "Stay on top of digital records and quarterly updates with accountant oversight.",
           },
           {
-            title: "Clear responsibilities",
-            text: "You supply accurate information; we do not hide customer responsibilities behind automation claims.",
+            title: "Your responsibilities",
+            text: "You supply accurate information; TaxSimba does not replace your HMRC obligations.",
           },
         ]}
       />

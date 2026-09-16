@@ -24,6 +24,7 @@ export function PpcHero({
   fromPriceSuffix,
   secondaryHref,
   secondaryLabel,
+  showGoogleRating = true,
 }) {
   const searchParams = useSearchParams();
 
@@ -59,6 +60,14 @@ export function PpcHero({
               >
                 {primaryLabel} <GoArrowUpRight className="ms-1" />
               </Link>
+              {showGoogleRating ? (
+                <p className="ppc-google-rating mb-0" aria-label="Rated 4.9 out of 5 on Google">
+                  <span className="ppc-google-stars" aria-hidden="true">
+                    ★★★★★
+                  </span>
+                  <span className="ppc-google-score">4.9 on Google</span>
+                </p>
+              ) : null}
               {secondaryHref && secondaryLabel ? (
                 <Link href={secondaryHref} className="ppc-secondary-link small">
                   {secondaryLabel}
