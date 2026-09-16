@@ -534,9 +534,11 @@ profileRouter.patch(
     await notify(
       row.client_user_id as string,
       body.status !== "RESOLVED"
-        ? "Update on your service issue"
-        : "Your service issue has been resolved",
-      row.subject as string,
+        ? "Update on your TaxSimba service"
+        : "Your TaxSimba service issue has been resolved",
+      body.status !== "RESOLVED"
+        ? `There's an update on your service issue:\n\n${row.subject}`
+        : `Your service issue has been resolved:\n\n${row.subject}`,
       row.case_id ?? null,
       "/service-issues",
       "INFO",

@@ -8,7 +8,15 @@ import type { Express } from "express";
 import request from "supertest";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
-import { bearer, bootTestApp, dropTestDb, makeClient, makeUser, TestUser } from "../helpers/app";
+import {
+  activateClientService,
+  bearer,
+  bootTestApp,
+  dropTestDb,
+  makeClient,
+  makeUser,
+  TestUser,
+} from "../helpers/app";
 
 const PHONE = "07700900123";
 
@@ -66,16 +74,11 @@ describe("client contact masking across roles", () => {
     await col("users").updateOne({ id: client.id }, { $set: { phone: PHONE } });
     await col("clients").updateOne({ user_id: client.id }, { $set: { phone: PHONE } });
 
-    for (const service_type of ["SELF_ASSESSMENT", "MTD_INCOME_TAX"]) {
-      const res = await request(app)
-        .post("/api/cases")
-        .set(bearer(client))
-        .send({ tax_year: "2024/25", service_type })
-        .expect(200);
-      if (service_type === "SELF_ASSESSMENT") saCase = res.body.id;
-      else mtdCase = res.body.id;
+    ({ caseId: saCase } = await activateClientService(client, "SELF_ASSESSMENT"));
+    ({ caseId: mtdCase } = await activateClientService(client, "MTD_INCOME_TAX"));
+    for (const caseId of [saCase, mtdCase]) {
       await request(app)
-        .post(`/api/cases/${res.body.id}/assign`)
+        .post(`/api/cases/${caseId}/assign`)
         .set(bearer(admin))
         .send({ accountant_id: accountant.id })
         .expect(200);
