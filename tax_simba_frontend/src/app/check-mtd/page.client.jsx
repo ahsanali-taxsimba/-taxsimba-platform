@@ -163,7 +163,7 @@ export default function MtdClient() {
                 </Container>
             </section>
 
-            <section className="eligibility-sec eligibility-sec-mtd ptb-80">
+            <section className="eligibility-sec eligibility-sec-mtd ptb-80" id="eligibility-checker">
                 <Container>
                     <div className="eligibility-inr-box">
                         <Row className="align-items-center">
@@ -443,16 +443,16 @@ export default function MtdClient() {
                             <span className="pulsing-dot"></span>
                             MAKING TAX DIGITAL EXPERTS
                         </div>
-                        <h1 className="fw-bold mb-3 display-4 text-white">
-                            Stay HMRC Compliant <br />
+                        <h2 className="fw-bold mb-3 display-4 text-white">
+                            Stay on top of MTD <br />
                             <span className="text-lt-theme text-glow">Without The Stress</span>
-                        </h1>
+                        </h2>
                         <p className="opacity-75 mx-auto mb-4 text-white" style={{ maxWidth: '650px', fontSize: '18px', lineHeight: '1.6' }}>
-                            We handle your Making Tax Digital (MTD) filing from start to finish so you can focus on growing your business.
+                            TaxSimba’s accountants manage the Making Tax Digital workflow with you — you provide the required information and records; we handle the tax process steps on the platform.
                         </p>
 
                         <div className="d-flex justify-content-center gap-md-5 gap-3 flex-wrap opacity-75 mt-4 text-white">
-                            {["HMRC Compliant", "UK Accountant Support", "Secure & Confidential", "Cancel Anytime"].map((text, i) => (
+                            {["Built for HMRC MTD rules", "UK Accountant Support", "Secure document exchange", "Cancel Anytime"].map((text, i) => (
                                 <motion.div
                                     key={i}
                                     initial={{ opacity: 0 }}
@@ -495,25 +495,14 @@ export default function MtdClient() {
                         )}
                     </motion.div>
 
-                    {/* Stats Section */}
+                    {/* Trust signals — factual positioning only (no unverified ratings/stats) */}
                     <div className="mt-5 pt-3">
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            transition={{ duration: 0.2 }}
-                            viewport={{ once: true }}
-                            className="d-flex justify-content-center gap-1 mb-4"
-                        >
-                            {[1, 2, 3, 4, 5].map(i => <Star key={i} size={16} fill="#b3ed97" color="#b3ed97" />)}
-                            <span className="ms-3 small opacity-75 text-white">Rated 4.9/5 by UK business owners</span>
-                        </motion.div>
-
                         <Row className="justify-content-center g-4 text-center">
                             {[
-                                { label: "Happy Clients", val: "1,000+" },
-                                { label: "HMRC Compliant", val: "100%" },
-                                { label: "Accounting Experience", val: "10+ Years" },
-                                { label: "Average Rating", val: "4.9/5" }
+                                { label: "Service model", val: "Accountant-led" },
+                                { label: "Focus", val: "UK MTD & SA" },
+                                { label: "Records", val: "You provide them" },
+                                { label: "Support", val: "UK-based team" },
                             ].map((stat, i) => (
                                 <Col key={i} lg={2} md={4} xs={6}>
                                     <motion.div
@@ -543,7 +532,7 @@ export default function MtdClient() {
                     <Container>
                         <div className="d-flex flex-wrap justify-content-center gap-md-5 gap-3 opacity-60 extra-small py-3 text-white">
                             <div className="d-flex align-items-center gap-2">
-                                <Lock size={14} className="text-lt-theme" /> Your data is 100% secure and never shared.
+                                <Lock size={14} className="text-lt-theme" /> Secure document exchange for your tax records.
                             </div>
                             <div className="d-flex align-items-center gap-2">
                                 <ShieldCheck size={14} className="text-lt-theme" /> Proud to support UK sole traders and small businesses.
@@ -570,7 +559,7 @@ export default function MtdClient() {
                                             How TaxSimba Works <span> step by step </span>
                                         </h2>
                                         <p className="mt-1">
-                                            See what happens after you purchase your MTD package and how our dedicated accountants manage your submission from start to finish.
+                                            See what happens after you choose an MTD package and how our accountants manage the tax workflow with the information and records you provide.
                                         </p>
                                         <div className="d-flex align-items-center justify-content-center gap-2 flex-wrap mt-4">
                                             <button className="common-btn" onClick={handleShow}>
@@ -590,7 +579,7 @@ export default function MtdClient() {
                     <Row className="justify-content-center text-center">
                         <Col lg={12}>
                             <div className="taxes-header-wrapper">
-                                <h1 className="taxes-main-title">File Taxes Faster. Save Time. Reduce Stress.</h1>
+                                <h2 className="taxes-main-title">File Taxes Faster. Save Time. Reduce Stress.</h2>
                             </div>
                         </Col>
                     </Row>

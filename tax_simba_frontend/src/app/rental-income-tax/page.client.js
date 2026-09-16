@@ -37,9 +37,16 @@ export default function RentalIncomeTaxClient() {
     <>
       <SeoBreadcrumbHero
         title="MTD for landlords"
-        subtitle="Making Tax Digital for Income Tax help for UK landlords who want accountant-led support with digital records and quarterly updates."
+        subtitle="Accountant-led Making Tax Digital support for UK landlords who need digital records and quarterly updates — not every landlord is necessarily in scope for MTD."
         imageSrc="/images/breadcrum-img.png"
         imageAlt="Making Tax Digital guidance for UK landlords"
+        primaryCta={{ href: "/register?role=MTD", label: "Get landlord MTD support" }}
+        secondaryCta={{ href: "/check-mtd", label: "Check if I need MTD" }}
+        altLink={{
+          prefix: "Only need an annual Self Assessment return?",
+          href: "/register",
+          label: "Start Self Assessment instead",
+        }}
       />
 
       <section className="ptb-80">

@@ -95,7 +95,9 @@ const PricingClient = () => {
     const { data: session, status } = useSession();
     const router = useRouter();
     const [subscriptionPlans, setSubscriptionPlans] = useState([]);
+    const [mtdPlans, setMtdPlans] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [loadingMtd, setLoadingMtd] = useState(false);
     const [error, setError] = useState(null);
     const [currentPlanId, setCurrentPlanId] = useState(null);
 
@@ -124,17 +126,43 @@ const PricingClient = () => {
         const fetchPlans = async () => {
             try {
                 const userRole = session?.user?.userRole || session?.user?.role;
-                const category = userRole === 'MTD' ? 'mtd' : 'taxSimba';
                 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-                const response = await axios.get(`${apiUrl}subscription-plans?category=${category}`);
-                if (response.data && Array.isArray(response.data.data)) {
-                    setSubscriptionPlans(response.data.data);
+                const loggedOut = status !== "authenticated";
+
+                if (userRole === 'MTD') {
+                    const response = await axios.get(`${apiUrl}subscription-plans?category=mtd`);
+                    if (response.data && Array.isArray(response.data.data)) {
+                        setSubscriptionPlans(response.data.data);
+                    } else {
+                        setError("No plans found at the moment.");
+                    }
+                } else if (loggedOut) {
+                    setLoadingMtd(true);
+                    const [saRes, mtdRes] = await Promise.all([
+                        axios.get(`${apiUrl}subscription-plans?category=taxSimba`),
+                        axios.get(`${apiUrl}subscription-plans?category=mtd`),
+                    ]);
+                    if (saRes.data && Array.isArray(saRes.data.data)) {
+                        setSubscriptionPlans(saRes.data.data);
+                    } else {
+                        setError("No plans found at the moment.");
+                    }
+                    if (mtdRes.data && Array.isArray(mtdRes.data.data)) {
+                        setMtdPlans(mtdRes.data.data);
+                    }
+                    setLoadingMtd(false);
                 } else {
-                    setError("No plans found at the moment.");
+                    const response = await axios.get(`${apiUrl}subscription-plans?category=taxSimba`);
+                    if (response.data && Array.isArray(response.data.data)) {
+                        setSubscriptionPlans(response.data.data);
+                    } else {
+                        setError("No plans found at the moment.");
+                    }
                 }
             } catch (err) {
                 console.error("Error fetching plans:", err);
                 setError("Unable to connect to service. Please try again.");
+                setLoadingMtd(false);
             } finally {
                 setLoading(false);
             }
@@ -146,18 +174,20 @@ const PricingClient = () => {
         }
     }, [session, status]);
 
-    const handleSelectPlan = (planId) => {
+    const handleSelectPlan = (planId, _isExpired, options = {}) => {
+        const registerRole = options.role === 'MTD' ? 'MTD' : 'SA';
         if (currentPlanId === planId && currentPlanStatus?.toLowerCase() !== 'canceled') {
             router.push("/dashboard/my-subscriptions");
         } else if (status === "authenticated") {
             router.push(`/planlist/${planId}`);
         } else {
-            router.push(`/register`);
+            router.push(registerRole === 'MTD' ? '/register?role=MTD' : '/register');
         }
     };
 
     const userRole = session?.user?.userRole || session?.user?.role;
     const isMTD = userRole === 'MTD';
+    const isLoggedOut = status !== "authenticated";
 
     if (isMTD && !loading) {
         return (
@@ -214,7 +244,7 @@ const PricingClient = () => {
                                 currentPlanId={currentPlanId}
                                 currentPlanStatus={currentPlanStatus}
                                 currentPlanEndDate={currentPlanEndDate}
-                                onSelectPlan={handleSelectPlan}
+                                onSelectPlan={(planId) => handleSelectPlan(planId, false, { role: 'MTD' })}
                                 isExpired={currentPlanStatus?.toLowerCase() === 'expired'}
                                 isCanceled={currentPlanStatus?.toLowerCase() === 'canceled'}
                             />
@@ -225,7 +255,7 @@ const PricingClient = () => {
                         <Container>
                             <div className="d-flex flex-wrap justify-content-center gap-md-5 gap-3 opacity-60 extra-small text-white">
                                 <div className="d-flex align-items-center gap-2">
-                                    <Lock size={14} className="text-lt-theme" /> Your data is 100% secure and never shared.
+                                    <Lock size={14} className="text-lt-theme" /> Secure document exchange for your tax records.
                                 </div>
                                 <div className="d-flex align-items-center gap-2">
                                     <ShieldCheck size={14} className="text-lt-theme" /> Proud to support UK sole traders and small businesses.
@@ -250,11 +280,21 @@ const PricingClient = () => {
                             Find The Right Package <span>For Your Tax Return</span>
                         </TranslatedHeading>
                         <TranslatedParagraph className="hero-sub-text">
-                            Built for landlords, sole traders, and those with multiple income streams.
+                            Built for landlords, sole traders, and those with multiple income streams. Self Assessment packages below — Making Tax Digital packages further down if you need MTD support.
                         </TranslatedParagraph>
+                        {isLoggedOut ? (
+                            <div className="mt-4 d-flex flex-wrap justify-content-center gap-3">
+                                <a href="#sa-pricing" className="get-started-btn-bottom text-decoration-none">
+                                    Self Assessment packages
+                                </a>
+                                <a href="#mtd-pricing" className="get-started-btn-bottom text-decoration-none" style={{ background: 'transparent', border: '1px solid #14ab71' }}>
+                                    Making Tax Digital packages
+                                </a>
+                            </div>
+                        ) : null}
                     </div>
 
-                    <div className="plans-display-section mt-5">
+                    <div id="sa-pricing" className="plans-display-section mt-5">
                         <Row className="justify-content-center">
                             {loading ? (
                                 <Col xs={12} className="text-center py-5">
@@ -273,13 +313,43 @@ const PricingClient = () => {
                                 </Col>
                             ) : (
                                 subscriptionPlans.map((plan) => (
-                                    <PlanCard key={plan.id} plan={plan} currentPlanId={currentPlanId} currentPlanStatus={currentPlanStatus} currentPlanEndDate={currentPlanEndDate} onSelect={handleSelectPlan} />
+                                    <PlanCard key={plan.id} plan={plan} currentPlanId={currentPlanId} currentPlanStatus={currentPlanStatus} currentPlanEndDate={currentPlanEndDate} onSelect={(planId) => handleSelectPlan(planId, false, { role: 'SA' })} />
                                 ))
                             )}
                         </Row>
                     </div>
                 </Container>
             </section>
+
+            {isLoggedOut ? (
+                <section id="mtd-pricing" className="mtd-luxury-section ptb-80 position-relative overflow-hidden">
+                    <Container className="position-relative z-1">
+                        <div className="text-center mb-5">
+                            <h2 className="fw-bold mb-3 text-white">Making Tax Digital packages</h2>
+                            <p className="opacity-75 mx-auto text-white" style={{ maxWidth: 640 }}>
+                                Need digital records and quarterly updates? Choose an MTD package — registration opens the MTD journey, not Self Assessment alone.
+                            </p>
+                        </div>
+                        {loadingMtd ? (
+                            <div className="text-center py-4">
+                                <Spinner animation="border" variant="light" />
+                            </div>
+                        ) : mtdPlans.length > 0 ? (
+                            <MtdPricingSection
+                                subscriptionPlans={mtdPlans}
+                                currentPlanId={null}
+                                onSelectPlan={(planId) => handleSelectPlan(planId, false, { role: 'MTD' })}
+                            />
+                        ) : (
+                            <div className="text-center">
+                                <Link href="/register?role=MTD" className="get-started-btn-bottom text-decoration-none">
+                                    Get MTD support
+                                </Link>
+                            </div>
+                        )}
+                    </Container>
+                </section>
+            ) : null}
 
             <section className="pricing-faq-section py-5" style={{ background: '#001a12' }}>
                 <Container>
@@ -334,8 +404,9 @@ const PricingClient = () => {
                     <div className="cta-content-center text-center">
                         <h2 className="cta-title">Share Your Details. Choose Your Plan.</h2>
                         <h3 className="cta-subtitle">Connect With Your Dedicated Accountant.</h3>
-                        <div className="mt-4">
-                            <button className="get-started-btn-bottom" onClick={() => router.push('/register')}>Get Started »</button>
+                        <div className="mt-4 d-flex flex-wrap justify-content-center gap-3">
+                            <Link href="/register" className="get-started-btn-bottom text-decoration-none">Start Self Assessment »</Link>
+                            <Link href="/register?role=MTD" className="get-started-btn-bottom text-decoration-none" style={{ background: 'transparent', border: '1px solid #14ab71' }}>Get MTD support »</Link>
                         </div>
                     </div>
                 </Container>

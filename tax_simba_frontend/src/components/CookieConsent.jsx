@@ -11,14 +11,19 @@ export default function CookieConsent() {
     const consent = localStorage.getItem("cookie_consent");
     if (!consent) {
       setShowConsent(true);
+      document.body.classList.add("cookie-consent-visible");
     }
 
     // Listen for events to reopen the cookie settings
-    const handleOpenSettings = () => setShowConsent(true);
+    const handleOpenSettings = () => {
+      setShowConsent(true);
+      document.body.classList.add("cookie-consent-visible");
+    };
     window.addEventListener("openCookieSettings", handleOpenSettings);
 
     return () => {
       window.removeEventListener("openCookieSettings", handleOpenSettings);
+      document.body.classList.remove("cookie-consent-visible");
     };
   }, []);
 
@@ -26,12 +31,14 @@ export default function CookieConsent() {
     localStorage.setItem("cookie_consent", "accepted");
     // Logic to enable non-essential tracking/cookies would go here
     setShowConsent(false);
+    document.body.classList.remove("cookie-consent-visible");
   };
 
   const handleRejectAll = () => {
     localStorage.setItem("cookie_consent", "rejected");
     // Logic to ensure only essential cookies are active would go here
     setShowConsent(false);
+    document.body.classList.remove("cookie-consent-visible");
   };
 
   if (!showConsent) return null;
@@ -47,7 +54,7 @@ export default function CookieConsent() {
             </span>
           </p>
         </div>
-        <div className="d-flex flex-row gap-3 flex-shrink-0 mt-3 mt-lg-0">
+        <div className="d-flex flex-row gap-3 flex-shrink-0 mt-3 mt-lg-0 cookie-consent-actions">
           <button 
             onClick={handleRejectAll} 
             className="btn btn-outline-light px-4 py-2 text-nowrap rounded-pill"

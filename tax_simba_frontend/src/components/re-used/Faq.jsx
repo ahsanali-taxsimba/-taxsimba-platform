@@ -10,8 +10,10 @@ import { Container } from 'react-bootstrap';
 import { Col, Row } from 'react-bootstrap';
 import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 import Link from 'next/link';
+import { getPublicGetStartedHref } from '@/utils/commercialRouting';
 const Faq = () => {
   const pathname = usePathname();
+  const askNowHref = getPublicGetStartedHref(pathname);
 
 
   const [faqs, setFaqs] = useState([]);
@@ -160,7 +162,7 @@ const Faq = () => {
                       One question or a quick check, we’ve got you.
                     </p>
                     <div className="d-flex align-items-center justify-content-center gap-2 flex-wrap mt-4">
-                      <Link href="/register" className="common-btn">
+                      <Link href={askNowHref} className="common-btn">
                         Ask Now <MdKeyboardDoubleArrowRight className="mtd-btn-icon" />
                       </Link>
                     </div>

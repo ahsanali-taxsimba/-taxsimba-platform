@@ -37,9 +37,16 @@ export default function SelfEmployedTaxReturnClient() {
     <>
       <SeoBreadcrumbHero
         title="MTD for sole traders"
-        subtitle="Accountant-led Making Tax Digital support for self-employed people who need digital records and quarterly updates without DIY software pressure."
+        subtitle="Accountant-led Making Tax Digital support for self-employed people who need digital records and quarterly updates — not every sole trader is necessarily in scope for MTD."
         imageSrc="/images/breadcrum-img.png"
         imageAlt="Making Tax Digital guidance for UK sole traders"
+        primaryCta={{ href: "/register?role=MTD", label: "Get sole trader MTD support" }}
+        secondaryCta={{ href: "/check-mtd", label: "Check if I need MTD" }}
+        altLink={{
+          prefix: "Only need an annual Self Assessment return?",
+          href: "/register",
+          label: "Start Self Assessment instead",
+        }}
       />
 
       <section className="ptb-80">

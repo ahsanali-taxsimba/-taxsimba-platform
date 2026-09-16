@@ -15895,3 +15895,33 @@ t
     color: #0dcaf0 !important;
 }
 
+/* Compact cookie + lift chat on narrow viewports so hero CTAs stay reachable */
+@media screen and (max-width: 430px) {
+  .cookie-consent-banner {
+    padding: 10px 12px !important;
+  }
+  .cookie-consent-banner .container {
+    gap: 0.5rem !important;
+  }
+  .cookie-consent-banner .cookie-consent-text {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .cookie-consent-banner .cookie-consent-actions {
+    margin-top: 0.35rem !important;
+    gap: 0.5rem !important;
+  }
+  .cookie-consent-banner .btn {
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+  }
+  body.cookie-consent-visible .chatbot-container {
+    bottom: 118px;
+  }
+  body.cookie-consent-visible .bread-crum-inr-box .hero-cta-group {
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 2;
+  }
+}
+

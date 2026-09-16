@@ -9,6 +9,7 @@ import { useTranslate } from "@/hooks/useTranslate";
 import fetchJSON from "@/lib/fetchJSON";
 import emitter from "@/utils/eventBus";
 import { getBackendBaseUrl } from "@/utils/commonHelper";
+import { getPublicGetStartedHref } from "@/utils/commercialRouting";
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSession } from "next-auth/react";
@@ -272,6 +273,8 @@ const Navbar = () => {
     { href: "/contact-us", label: "Support" },
   ];
 
+  const getStartedHref = getPublicGetStartedHref(pathname);
+
   return (
     <>
       {status !== "authenticated" && (
@@ -386,7 +389,7 @@ const Navbar = () => {
                   (status !== "authenticated") ? (
                     <>
                       <TranslatedLink href="/login" className="common-light-outline-btn d-lg-block d-none">Login</TranslatedLink>
-                      <Link href="/register" className="common-btn d-lg-block d-none">Get Started</Link>
+                      <Link href={getStartedHref} className="common-btn d-lg-block d-none">Get Started</Link>
                     </>
                   ) : <>
                     <div className={`dropdown prof_drop d-lg-block d-none ${dropdownOpen ? "show" : ""}`}>
@@ -611,7 +614,7 @@ const Navbar = () => {
                         <Link href="/login" className="p-0 text-dark me-2">Log in</Link>
                       </div>
                       <div className="mobile-mtd-btn">
-                        <Link href="/register" className="common-btn d-inline-block">Get Started</Link>
+                        <Link href={getStartedHref} className="common-btn d-inline-block">Get Started</Link>
                       </div>
                       <div className="trigger_mobile_menu" onClick={handleShow}>
                         <span></span> <span></span> <span></span>

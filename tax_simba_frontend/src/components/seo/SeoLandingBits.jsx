@@ -14,6 +14,8 @@ export function SeoBreadcrumbHero({
   primaryCta,
   secondaryCta,
   processLine,
+  /** Low-emphasis alternate path (e.g. SA) — not a third equal hero CTA */
+  altLink,
 }) {
   return (
     <section className="breadcrum-sec-top py-80">
@@ -27,7 +29,7 @@ export function SeoBreadcrumbHero({
                 <p className="mt-3 mb-0 small opacity-75">{processLine}</p>
               ) : null}
               {(primaryCta || secondaryCta) ? (
-                <div className="d-flex align-items-center justify-content-lg-start justify-content-center gap-2 flex-wrap mt-4">
+                <div className="d-flex align-items-center justify-content-lg-start justify-content-center gap-2 flex-wrap mt-4 hero-cta-group">
                   {primaryCta ? (
                     <Link href={primaryCta.href} className="common-btn">
                       {primaryCta.label} <GoArrowUpRight className="ms-1" />
@@ -39,6 +41,14 @@ export function SeoBreadcrumbHero({
                     </Link>
                   ) : null}
                 </div>
+              ) : null}
+              {altLink?.href && altLink?.label ? (
+                <p className="mt-3 mb-0 small opacity-75">
+                  {altLink.prefix ? <>{altLink.prefix} </> : null}
+                  <Link href={altLink.href} className="text-decoration-underline">
+                    {altLink.label}
+                  </Link>
+                </p>
               ) : null}
             </div>
           </Col>
