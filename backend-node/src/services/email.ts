@@ -156,52 +156,150 @@ function escapeHtml(value: string): string {
 }
 
 /**
- * One house layout for every message. The wording itself is the notification wording that
- * already exists, so email says exactly what the in-app notification says.
+ * Shared TaxSimba transactional email layout.
+ *
+ * Brand tokens are taken from the live client product (`tax_simba_frontend`):
+ *   primary  #37a267  (--theme-color)
+ *   accent   #b3ed97  (--theme-lt-color)
+ *   deep     #32915c / #2e8a56 (existing green gradient stops)
+ *   text     #222222 / #151515
+ *   logo     {APP_BASE_URL}/images/logo.svg (same asset as navbar/footer)
+ *   legal    /privacy-policy, /terms-and-conditions, /contact-us
+ *
+ * `title` is the on-page heading. Optional `subject` overrides the email subject line
+ * without changing how callers pass heading/body copy.
  */
 export function renderEmail(params: {
   recipientName?: string | null;
+  /** Email subject line; defaults to `title` when omitted. */
+  subject?: string | null;
   title: string;
   body: string;
   link?: string | null;
   callToAction?: string | null;
+  preheader?: string | null;
 }): { subject: string; text: string; html: string } {
-  const base = appUrl();
-  const href = params.link ? (params.link.startsWith("http") ? params.link : `${base}${params.link}`) : null;
+  const base = appUrl() || "https://taxsimba.co.uk";
+  const href = params.link
+    ? params.link.startsWith("http")
+      ? params.link
+      : `${base}${params.link}`
+    : null;
   const cta = params.callToAction ?? "Open TaxSimba";
+  const subject = (params.subject ?? params.title).trim();
   const greeting = params.recipientName ? `Hello ${params.recipientName},` : "Hello,";
-  const textLines = [greeting, "", params.body];
+  const year = new Date().getFullYear();
+  const privacyUrl = `${base}/privacy-policy`;
+  const termsUrl = `${base}/terms-and-conditions`;
+  const contactUrl = `${base}/contact-us`;
+  const logoUrl = `${base}/images/logo.svg`;
+
+  const bodyParagraphs = params.body
+    .split(/\n+/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+
+  const textLines: string[] = [greeting, ""];
+  for (let i = 0; i < bodyParagraphs.length; i += 1) {
+    if (i > 0) textLines.push("");
+    textLines.push(bodyParagraphs[i]);
+  }
   if (href) textLines.push("", `${cta}: ${href}`);
-  textLines.push("", "TaxSimba", "This is an automated message — please do not reply.");
-  const htmlLink = href
-    ? `<p style="margin:24px 0"><a href="${escapeHtml(href)}" style="background:#0F7B4F;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:600">${escapeHtml(cta)}</a></p>`
+  textLines.push(
+    "",
+    "TaxSimba",
+    "Simple tax. Expert support.",
+    "",
+    "This is a service notification about your TaxSimba account.",
+    `Privacy Policy: ${privacyUrl}`,
+    `Terms & Conditions: ${termsUrl}`,
+    `Contact Support: ${contactUrl}`,
+    "",
+    "Please do not send passwords, payment card details, or sensitive tax documents by email. Use your secure TaxSimba account instead.",
+    "",
+    `© ${year} TaxSimba Group Limited. All rights reserved.`,
+  );
+
+  const htmlBody = bodyParagraphs
+    .map(
+      (p) =>
+        `<p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#222222">${escapeHtml(p)}</p>`,
+    )
+    .join("");
+
+  const htmlCta = href
+    ? [
+        `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:8px 0 28px">`,
+        `<tr><td align="center" bgcolor="#37a267" style="border-radius:50px;background-color:#37a267">`,
+        `<a href="${escapeHtml(href)}" style="display:inline-block;padding:14px 28px;font-family:Geist,Inter,Segoe UI,Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:#ffffff;text-decoration:none;border-radius:50px">${escapeHtml(cta)}</a>`,
+        `</td></tr></table>`,
+      ].join("")
     : "";
+
+  const preheader = params.preheader
+    ? `<div style="display:none;font-size:1px;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all">${escapeHtml(params.preheader)}</div>`
+    : "";
+
   const html = [
-    `<div style="font-family:Segoe UI,Helvetica,Arial,sans-serif;color:#1B2A22;max-width:560px">`,
-    `<h2 style="font-size:18px;margin:0 0 12px">${escapeHtml(params.title)}</h2>`,
-    `<p style="margin:0 0 8px">${escapeHtml(greeting)}</p>`,
-    `<p style="margin:0 0 8px;line-height:1.5">${escapeHtml(params.body)}</p>`,
-    htmlLink,
-    `<p style="font-size:12px;color:#6B7A72;margin-top:32px">TaxSimba — automated message, please do not reply.</p>`,
-    `</div>`,
+    `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>${escapeHtml(subject)}</title></head>`,
+    `<body style="margin:0;padding:0;background-color:#f4f7f5;font-family:Geist,Inter,Segoe UI,Helvetica,Arial,sans-serif;color:#222222">`,
+    preheader,
+    `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f4f7f5;padding:24px 12px">`,
+    `<tr><td align="center">`,
+    `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background-color:#ffffff;border-radius:16px;overflow:hidden;border:1px solid #e3ebe6">`,
+    // Header
+    `<tr><td style="padding:24px 32px;background:linear-gradient(135deg,#37a267 0%,#32915c 50%,#2e8a56 100%);background-color:#37a267">`,
+    `<img src="${escapeHtml(logoUrl)}" width="160" height="29" alt="TaxSimba" style="display:block;border:0;height:auto;max-width:160px"/>`,
+    `</td></tr>`,
+    // Accent strip
+    `<tr><td style="height:4px;background-color:#b3ed97;font-size:0;line-height:0">&nbsp;</td></tr>`,
+    // Body
+    `<tr><td style="padding:32px">`,
+    `<p style="margin:0 0 8px;font-size:15px;line-height:1.5;color:#222222">${escapeHtml(greeting)}</p>`,
+    `<h1 style="margin:0 0 16px;font-size:22px;line-height:1.3;font-weight:700;color:#151515">${escapeHtml(params.title)}</h1>`,
+    htmlBody,
+    htmlCta,
+    `</td></tr>`,
+    // Footer
+    `<tr><td style="padding:24px 32px;background-color:#f7faf8;border-top:1px solid #e3ebe6">`,
+    `<p style="margin:0 0 4px;font-size:14px;font-weight:700;color:#37a267">TaxSimba</p>`,
+    `<p style="margin:0 0 16px;font-size:13px;line-height:1.5;color:#5a6b62">Simple tax. Expert support.</p>`,
+    `<p style="margin:0 0 12px;font-size:12px;line-height:1.5;color:#5a6b62">This is a service notification about your TaxSimba account.</p>`,
+    `<p style="margin:0 0 12px;font-size:12px;line-height:1.5">`,
+    `<a href="${escapeHtml(privacyUrl)}" style="color:#37a267;text-decoration:underline">Privacy Policy</a>`,
+    `<span style="color:#9aaba2"> · </span>`,
+    `<a href="${escapeHtml(termsUrl)}" style="color:#37a267;text-decoration:underline">Terms &amp; Conditions</a>`,
+    `<span style="color:#9aaba2"> · </span>`,
+    `<a href="${escapeHtml(contactUrl)}" style="color:#37a267;text-decoration:underline">Contact Support</a>`,
+    `</p>`,
+    `<p style="margin:0 0 12px;font-size:12px;line-height:1.5;color:#5a6b62">Please do not send passwords, payment card details, or sensitive tax documents by email. Use your secure TaxSimba account instead.</p>`,
+    `<p style="margin:0;font-size:12px;line-height:1.5;color:#5a6b62">&copy; ${year} TaxSimba Group Limited. All rights reserved.</p>`,
+    `</td></tr>`,
+    `</table>`,
+    `</td></tr></table>`,
+    `</body></html>`,
   ].join("");
-  return { subject: params.title, text: textLines.join("\n"), html };
+
+  return { subject, text: textLines.join("\n"), html };
 }
 
 export interface QueueParams {
   to: string;
   recipientName?: string | null;
   kind: string;
+  /** On-page heading inside the email card. */
   title: string;
   body: string;
+  /** Optional subject-line override; defaults to `title`. */
+  subject?: string | null;
   link?: string | null;
   callToAction?: string | null;
+  preheader?: string | null;
   /** Stable identity of the underlying event; the same key is never delivered twice. */
   dedupeKey: string;
   userId?: string | null;
   caseId?: string | null;
 }
-
 function hashKey(key: string): string {
   return createHash("sha256").update(key).digest("hex");
 }
@@ -280,19 +378,115 @@ async function emailAllowed(user: Doc, ntype: string): Promise<boolean> {
  * Email counterpart of an in-app notification. The notification id is the dedupe key, so the
  * collapsing already performed by `notify()` carries through to email unchanged.
  */
+/** Presentation helpers for notification-driven emails (subject stays notification.title). */
+function emailHeadingFor(notification: Doc): string {
+  const type = String(notification.type ?? "INFO");
+  const title = String(notification.title ?? "");
+  const link = String(notification.link ?? "");
+  if (type === "MESSAGE") return "You have a new TaxSimba message";
+  if (type === "DOCUMENT") {
+    if (/final documents/i.test(title)) return "Your documents are ready";
+    return "We need a document from you";
+  }
+  if (type === "TASK") {
+    if (/still needed/i.test(title) || /action needed:/i.test(title)) return "Action needed on your TaxSimba account";
+    if (/waiting for information/i.test(title)) return "We're waiting for information from you";
+    return "We need some information from you";
+  }
+  if (type === "PAYMENT") {
+    if (/reminder/i.test(title)) return "Your payment request is still outstanding";
+    return "Additional work requires your approval";
+  }
+  if (type === "RECEIPT") return "Payment received";
+  if (type === "DEADLINE") return "Your MTD deadline is approaching";
+  if (type === "APPROVAL") {
+    if (/mtd/i.test(title) || link.includes("/mtd")) return "Your MTD figures need approval";
+    return "Your tax calculation is ready";
+  }
+  if (type === "REVIEW") {
+    if (/ready to approve/i.test(title) || /figures are ready/i.test(title)) return "Your MTD figures are ready for approval";
+    if (/approve your/i.test(title)) return "Your MTD figures need approval";
+    return "Please review your TaxSimba account";
+  }
+  if (type === "SUBMISSION") {
+    if (/mtd/i.test(title) || link.includes("/mtd")) return "Your MTD update has been submitted";
+    return "Submission confirmed";
+  }
+  if (type === "UPLOAD") return "We need a document for your MTD period";
+  if (type === "RECOMMENDATION") return "A service has been recommended";
+  if (type === "INFO") {
+    if (/being corrected|updating your mtd/i.test(title)) return "Your accountant is making an update";
+    if (/self assessment is complete|is complete/i.test(title)) return "Your tax return is complete";
+    if (/final documents/i.test(title)) return "Your documents are ready";
+    if (/service issue has been resolved/i.test(title)) return "Your service issue has been resolved";
+    if (/update on your service issue|update on your taxsimba service/i.test(title)) return "Update on your TaxSimba service";
+    return "Update from TaxSimba";
+  }
+  return title || "Update from TaxSimba";
+}
+
+function emailCtaFor(notification: Doc): string {
+  const type = String(notification.type ?? "INFO");
+  const title = String(notification.title ?? "");
+  const link = String(notification.link ?? "");
+  if (type === "MESSAGE") return "View message securely";
+  if (type === "DOCUMENT") {
+    if (/final documents/i.test(title)) return "View my documents";
+    return "Upload document";
+  }
+  if (type === "TASK") {
+    if (/still needed|action needed:/i.test(title)) return "Complete task";
+    if (/waiting for information/i.test(title)) return "View outstanding items";
+    return "View request";
+  }
+  if (type === "PAYMENT") {
+    if (/reminder/i.test(title)) return "Review payment request";
+    return "Review & pay securely";
+  }
+  if (type === "RECEIPT") return "View receipt";
+  if (type === "DEADLINE") return "Review my MTD account";
+  if (type === "APPROVAL") {
+    if (/mtd/i.test(title) || link.includes("/mtd")) return "Review figures";
+    return "Review my tax return";
+  }
+  if (type === "REVIEW") {
+    if (link.includes("/mtd")) return "Review MTD figures";
+    return "Review tax return";
+  }
+  if (type === "SUBMISSION") {
+    if (/mtd/i.test(title) || link.includes("/mtd")) return "View MTD status";
+    return "View my tax return";
+  }
+  if (type === "UPLOAD") return "Open MTD";
+  if (type === "RECOMMENDATION") return "Review recommendation";
+  if (type === "INFO") {
+    if (/being corrected|updating your mtd/i.test(title) || link.includes("/mtd")) return "View MTD status";
+    if (/complete/i.test(title)) return "View my account";
+    if (/final documents/i.test(title) || link.includes("/documents")) return "View my documents";
+    if (/service issue/i.test(title)) return "View service issue";
+    return "Open TaxSimba";
+  }
+  return "Open TaxSimba";
+}
+
 export async function emailNotification(notification: Doc): Promise<void> {
   try {
     if (!emailEnabled()) return;
     const user = (await col("users").findOne({ id: notification.user_id })) as Doc | null;
     if (!user || user.is_active === false || !user.email) return;
     if (!(await emailAllowed(user, notification.type ?? "INFO"))) return;
+    const subject = String(notification.title ?? "Update from TaxSimba");
+    const heading = emailHeadingFor(notification);
     await queueEmail({
       to: user.email,
       recipientName: user.name,
       kind: `NOTIFICATION_${notification.type ?? "INFO"}`,
-      title: notification.title,
-      body: notification.body,
+      subject,
+      title: heading,
+      body: String(notification.body ?? ""),
       link: notification.link ?? null,
+      callToAction: emailCtaFor(notification),
+      preheader: subject,
       dedupeKey: `notification:${notification.id}`,
       userId: user.id,
       caseId: notification.case_id ?? null,
@@ -317,12 +511,14 @@ export async function emailInvitation(params: {
     to: params.to,
     recipientName: params.name,
     kind: "INVITATION",
-    title: staff ? "Your TaxSimba staff account" : "Your TaxSimba account",
-    body:
-      `An account has been created for you on TaxSimba. Use the link below to set your password ` +
-      `and sign in. For security the link expires on ${params.expiresAt} and can only be used once.`,
+    subject: "Your TaxSimba account is ready",
+    title: "Set up your TaxSimba account",
+    body: staff
+      ? `A TaxSimba staff account has been created for you.\n\nUse the secure link below to set your password and access your account.\n\nFor security, this link expires on ${params.expiresAt} and can only be used once.`
+      : `An account has been created for you on TaxSimba.\n\nUse the secure link below to set your password and access your account.\n\nFor security, this link expires on ${params.expiresAt} and can only be used once.`,
     link: params.setupLink,
-    callToAction: "Set your password",
+    callToAction: "Set my password",
+    preheader: "Your TaxSimba account is ready to set up",
     // Keyed on the invitation, so a reissued invitation sends a fresh email and a repeated
     // call for the same invitation does not.
     dedupeKey: `invite:${params.inviteId}`,

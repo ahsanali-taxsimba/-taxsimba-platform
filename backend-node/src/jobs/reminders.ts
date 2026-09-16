@@ -120,8 +120,8 @@ async function remindOpenClientTasks(run: ReminderRun, now: Date): Promise<void>
     const when = task.due_date ? ` It was due on ${String(task.due_date).slice(0, 10)}.` : "";
     await notify(
       owner.id,
-      `Still needed: ${task.name}`,
-      `${kase.case_ref}: we are waiting for this before your return can move forward.${when}`,
+      `Action needed: ${task.name}`,
+      `${kase.case_ref}: we still need this information before we can continue with your tax return.${when}`,
       kase.id,
       "/actions",
       "TASK",
@@ -147,11 +147,13 @@ async function remindClientCaseActions(run: ReminderRun, now: Date): Promise<voi
     await notify(
       client.id,
       approval
-        ? `Your ${kase.tax_year ?? ""} return is waiting for your approval`.replace("  ", " ")
-        : "We are still waiting for your information",
+        ? (kase.tax_year
+            ? `Action required: review your ${kase.tax_year} tax return`
+            : "Action required: review your tax return")
+        : "We're waiting for information from you",
       approval
-        ? `${kase.case_ref}: please review the figures and approve them so we can submit.`
-        : `${kase.case_ref}: ${kase.next_action ?? "there are outstanding items on your case"}.`,
+        ? `${kase.case_ref}: your figures are ready. Please review and approve them when you're happy to proceed.`
+        : `${kase.case_ref}: ${kase.next_action || "there are outstanding items on your case"}.`,
       kase.id,
       approval ? "/my-return" : "/actions",
       approval ? "APPROVAL" : "TASK",
@@ -184,8 +186,8 @@ async function remindMtdPeriods(run: ReminderRun, now: Date): Promise<void> {
         if (await claimReminder(`mtd_approval:${period.id}`, now)) {
           await notify(
             client.id,
-            `Action needed: approve your ${period.label}`,
-            `Due ${period.deadline}. Please review and approve the figures.`,
+            `Action required: approve your ${period.label}`,
+            `Your ${period.label} is awaiting approval and is due on ${period.deadline}. Please review the figures when you can.`,
             kase.id,
             "/mtd",
             "APPROVAL",
@@ -200,8 +202,10 @@ async function remindMtdPeriods(run: ReminderRun, now: Date): Promise<void> {
       if (await claimReminder(`mtd_records:${period.id}`, now)) {
         await notify(
           client.id,
-          `${period.label} records due soon`,
-          `Your ${period.label} is due on ${period.deadline}. Please send anything still outstanding.`,
+          `${period.label} deadline approaching | TaxSimba`,
+          `Your ${period.label} deadline is ${period.deadline}.\n\n` +
+            "Please provide any outstanding records or information as soon as possible so your accountant has enough time to prepare your update.\n\n" +
+            "If you've already provided everything requested, no further action is needed right now.",
           kase.id,
           "/mtd",
           "DEADLINE",

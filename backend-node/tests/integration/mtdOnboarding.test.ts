@@ -6,7 +6,15 @@ import type { Express } from "express";
 import request from "supertest";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
-import { bearer, bootTestApp, dropTestDb, makeUser, TestUser } from "../helpers/app";
+import {
+  activateClientService,
+  bearer,
+  bootTestApp,
+  dropTestDb,
+  makeClient,
+  makeUser,
+  TestUser,
+} from "../helpers/app";
 
 interface Answer {
   quarter: number;
@@ -46,14 +54,23 @@ describe("MTD mid-year onboarding questionnaire", () => {
   let app: Express;
   let admin: TestUser;
   let accountant: TestUser;
-  let client: TestUser;
-  let otherClient: TestUser;
+  let client: TestUser & { clientId: string };
+  let otherClient: TestUser & { clientId: string };
+  // Past tax years so all four quarters are eligible relative to join date.
+  // Start well below activation year (2026/27) to avoid duplicate open-case 409s.
+  let taxYearSeq = 1990;
 
   async function newCase(): Promise<string> {
+    const start = taxYearSeq++;
+    const taxYear = `${start}/${String(start + 1).slice(-2)}`;
     const res = await request(app)
       .post("/api/cases")
-      .set(bearer(client))
-      .send({ tax_year: "2024/25", service_type: "MTD_INCOME_TAX" })
+      .set(bearer(admin))
+      .send({
+        client_user_id: client.id,
+        tax_year: taxYear,
+        service_type: "MTD_INCOME_TAX",
+      })
       .expect(200);
     const caseId = res.body.id as string;
     await request(app)
@@ -78,8 +95,10 @@ describe("MTD mid-year onboarding questionnaire", () => {
     ({ app } = await bootTestApp());
     admin = await makeUser("ADMIN", "admin");
     accountant = await makeUser("ACCOUNTANT", "accountant");
-    client = await makeUser("CLIENT", "client");
-    otherClient = await makeUser("CLIENT", "otherclient");
+    client = await makeClient("client");
+    otherClient = await makeClient("otherclient");
+    // K.5: CLIENT MTD access requires ACTIVE entitlement.
+    await activateClientService(client, "MTD_INCOME_TAX");
   });
 
   afterAll(dropTestDb);
