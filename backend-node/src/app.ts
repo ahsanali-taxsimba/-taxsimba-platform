@@ -17,12 +17,15 @@ import { mtdOnboardingRouter } from "./routes/mtdOnboarding";
 import { paymentsRouter } from "./routes/payments";
 import { profileRouter } from "./routes/profile";
 import { recommendationsRouter } from "./routes/recommendations";
+import { compatRouter } from "./compat";
 import { seedFaqs } from "./domain/helpcentre";
 import { ensurePhase1bData } from "./domain/packages";
 import { ensureCoreIndexes, seed } from "./domain/seed";
 import { ensureContentIndexes } from "./domain/content";
 import { ensurePricingIndexes } from "./domain/pricing";
 import { ensureEmailIndexes } from "./services/email";
+import { ensureAuthTokenIndexes } from "./services/emailVerification";
+import { ensureEngagementIndexes } from "./services/engagement";
 import { ensureReminderIndexes } from "./jobs/reminders";
 import { ensureIndexes as ensureLoginIndexes } from "./services/loginLockout";
 import { ensureMfaIndexes } from "./services/security";
@@ -96,6 +99,8 @@ export async function startup(): Promise<void> {
   await ensurePhase1bData();
   await seedFaqs();
   await ensureEmailIndexes();
+  await ensureAuthTokenIndexes();
+  await ensureEngagementIndexes();
   await ensureReminderIndexes();
   await ensurePricingIndexes();
   await ensureContentIndexes();
@@ -133,6 +138,11 @@ export function createApp(): Express {
   app.use("/api", adminRouter);
   app.use("/api", profileRouter);
   app.use("/api", contentRouter);
+
+  // Toxel compatibility layer (K.1+). Native routes above are unchanged.
+  // Compat has its own error middleware; unhandled compat errors must not fall through
+  // to the native {"detail"} handler without an envelope.
+  app.use("/api/compat", compatRouter);
 
   app.get("/api/", (_req, res) => {
     res.json({ message: "TaxSimba API" });

@@ -3,7 +3,15 @@ import type { Express } from "express";
 import request from "supertest";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
-import { bearer, bootTestApp, dropTestDb, makeUser, TestUser } from "../helpers/app";
+import {
+  activateClientService,
+  bearer,
+  bootTestApp,
+  dropTestDb,
+  makeClient,
+  makeUser,
+  TestUser,
+} from "../helpers/app";
 
 const PDF = Buffer.from("%PDF-1.4 parity test\n");
 
@@ -12,14 +20,17 @@ describe("documents, messages and notifications", () => {
   let admin: TestUser;
   let accountant: TestUser;
   let otherAccountant: TestUser;
-  let client: TestUser;
-  let otherClient: TestUser;
+  let client: TestUser & { clientId: string };
+  let otherClient: TestUser & { clientId: string };
+  let taxYearSeq = 1990;
 
-  async function newCase(owner: TestUser = client): Promise<string> {
+  async function newCase(owner: TestUser & { clientId: string } = client): Promise<string> {
+    const start = taxYearSeq++;
+    const taxYear = `${start}/${String(start + 1).slice(-2)}`;
     const res = await request(app)
       .post("/api/cases")
-      .set(bearer(owner))
-      .send({ tax_year: "2024/25" })
+      .set(bearer(admin))
+      .send({ client_user_id: owner.id, tax_year: taxYear })
       .expect(200);
     return res.body.id as string;
   }
@@ -39,8 +50,10 @@ describe("documents, messages and notifications", () => {
     admin = await makeUser("ADMIN");
     accountant = await makeUser("ACCOUNTANT", "accountant-a");
     otherAccountant = await makeUser("ACCOUNTANT", "accountant-b");
-    client = await makeUser("CLIENT", "client-a");
-    otherClient = await makeUser("CLIENT", "client-b");
+    client = await makeClient("client-a");
+    otherClient = await makeClient("client-b");
+    // K.5: CLIENT case access requires ACTIVE SA entitlement.
+    await activateClientService(client, "SELF_ASSESSMENT");
   });
 
   afterAll(async () => {
@@ -355,23 +368,19 @@ describe("documents, messages and notifications", () => {
 
   // ------------------------------------------------------------------ notifications
   it("marks notifications read and counts only unread ones", async () => {
-    const fresh = await makeUser("CLIENT", "client-notify");
-    const created = await request(app)
-      .post("/api/cases")
-      .set(bearer(fresh))
-      .send({ tax_year: "2024/25" })
-      .expect(200);
+    const fresh = await makeClient("client-notify");
+    const { caseId } = await activateClientService(fresh, "SELF_ASSESSMENT");
     await request(app)
-      .post(`/api/cases/${created.body.id}/assign`)
+      .post(`/api/cases/${caseId}/assign`)
       .set(bearer(admin))
       .send({ accountant_id: accountant.id })
       .expect(200);
     await request(app)
-      .post(`/api/cases/${created.body.id}/start-review`)
+      .post(`/api/cases/${caseId}/start-review`)
       .set(bearer(accountant))
       .expect(200);
     await request(app)
-      .post(`/api/cases/${created.body.id}/request-from-client`)
+      .post(`/api/cases/${caseId}/request-from-client`)
       .set(bearer(accountant))
       .send({ title: "Send your bank statements" })
       .expect(200);
