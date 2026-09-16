@@ -165,8 +165,7 @@ export default function PpcSelfAssessmentClient() {
         service="SA"
         landingPage={LANDING}
         title="Accountant-led online Self Assessment"
-        subtitle="For UK sole traders, landlords and freelancers. You provide your information and documents — a TaxSimba accountant prepares your return, you review and approve, then filing follows the TaxSimba workflow."
-        processLine="Share your details → Accountant prepares → You approve → We file"
+        subtitle="Send us your information and documents. Your TaxSimba accountant prepares your return for you to review before filing."
         primaryHref={PRIMARY_HREF}
         primaryLabel={PRIMARY_LABEL}
         fromPrice={fromPrice}

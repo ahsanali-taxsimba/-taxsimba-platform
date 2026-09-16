@@ -88,6 +88,8 @@ const Footer = () => {
   }
 
   if (isPpcPath(pathname)) {
+    // PPC LPs: legal footer only — no floating chat (keeps one dominant CTA journey).
+    // ChatBot remains on organic/auth footers above/below.
     return (
       <footer className="footer ppc-footer">
         <div className="footer_bottom text-center py-4">
@@ -114,7 +116,6 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        <ChatBot />
       </footer>
     );
   }

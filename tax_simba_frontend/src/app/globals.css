@@ -16052,7 +16052,7 @@ t
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1040; /* below cookie (999999) and chat (1000000) */
+  z-index: 1040; /* below cookie (999999) */
   padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
   background: rgba(0, 26, 18, 0.96);
   border-top: 1px solid rgba(255, 255, 255, 0.12);
@@ -16064,24 +16064,48 @@ body.cookie-consent-visible .ppc-sticky-cta {
   display: none !important;
 }
 
-/* Lift chat above sticky CTA when sticky is active (mobile only) */
-@media (max-width: 767.98px) {
-  body:has(.ppc-sticky-cta) .chatbot-container {
-    bottom: 88px;
-  }
-  body.cookie-consent-visible:has(.ppc-sticky-cta) .chatbot-container {
-    /* sticky is hidden; clear full cookie banner height + gap */
-    bottom: 152px;
-  }
-}
-
 @media screen and (max-width: 430px) {
-  body:has(.ppc-sticky-cta) .chatbot-container {
-    bottom: 92px;
+  .ppc-hero {
+    padding-top: 1.75rem !important;
+    padding-bottom: 1.5rem !important;
   }
-  body.cookie-consent-visible:has(.ppc-sticky-cta) .chatbot-container,
-  body.cookie-consent-visible .chatbot-container {
-    bottom: 152px;
+  .ppc-hero-sub {
+    font-size: 0.98rem;
+    line-height: 1.45;
+    max-width: 22rem;
+  }
+  .ppc-from-price {
+    font-size: 1.05rem;
+    margin-bottom: 1rem !important;
+  }
+  .ppc-trust {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+  .ppc-trust-item {
+    font-size: 0.82rem;
+    gap: 0.25rem;
+  }
+  .ppc-section {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+  .ppc-sa .ppc-sa-plan-card.plan-card-white,
+  .ppc-sa .ppc-sa-plan-card.popular-card.plan-card-white {
+    padding: 22px 18px;
+  }
+  .ppc-sa .ppc-sa-plan-card .plan-name-main,
+  .ppc-sa .ppc-sa-plan-card.popular-card .plan-name-main {
+    font-size: 1.2rem;
+  }
+  .ppc-sa .ppc-sa-plan-card .price-new,
+  .ppc-sa .ppc-sa-plan-card.popular-card .price-new {
+    font-size: 1.35rem;
+  }
+  .ppc-sa .ppc-sa-plan-card .plan-desc-text,
+  .ppc-sa .ppc-sa-plan-card.popular-card .plan-desc-text {
+    font-size: 0.9rem;
+    min-height: 0;
   }
 }
 

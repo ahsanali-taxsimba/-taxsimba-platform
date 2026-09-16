@@ -106,7 +106,7 @@ export default function PpcMakingTaxDigitalClient() {
         service="MTD"
         landingPage={LANDING}
         title="Making Tax Digital accountant support"
-        subtitle="Accountant-led help with Making Tax Digital for Income Tax — digital records and quarterly updates managed with you. You are not just buying DIY bookkeeping software."
+        subtitle="Accountant-led help with Making Tax Digital for Income Tax. TaxSimba helps you manage digital records and quarterly MTD requirements — with a real accountant, not DIY-only software."
         primaryHref={PRIMARY_HREF}
         primaryLabel={PRIMARY_LABEL}
         fromPrice={fromPrice}
