@@ -345,7 +345,7 @@ const PageClient = () => {
                 </div>
 
                 <ul className='banner-bottom-list  list-unstyled d-flex align-item-center flex-wrap gap-3 w-100 mt-4 pt-3 justify-content-lg-start justify-content-center'>
-                  <li className='text-white '><img src="/images/check-icon.png" alt="img" className='me-2' />HMRC Recognised</li>
+                  <li className='text-white '><img src="/images/check-icon.png" alt="img" className='me-2' />Accountant Led</li>
                   <li className='text-white '><img src="/images/locks.png" alt="img" className='me-2' />GDPR Compliant</li>
                   <li className='text-white '><img src="/images/phone.png" alt="img" className='me-2' />UK-Based Support</li>
 
