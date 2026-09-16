@@ -9,7 +9,7 @@ import { useTranslate } from "@/hooks/useTranslate";
 import fetchJSON from "@/lib/fetchJSON";
 import emitter from "@/utils/eventBus";
 import { getBackendBaseUrl } from "@/utils/commonHelper";
-import { getPublicGetStartedHref } from "@/utils/commercialRouting";
+import { getPublicGetStartedHref, shouldShowMtdAnnouncementBar } from "@/utils/commercialRouting";
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSession } from "next-auth/react";
@@ -274,10 +274,11 @@ const Navbar = () => {
   ];
 
   const getStartedHref = getPublicGetStartedHref(pathname);
+  const showMtdAnnouncement = shouldShowMtdAnnouncementBar(pathname);
 
   return (
     <>
-      {status !== "authenticated" && (
+      {status !== "authenticated" && showMtdAnnouncement && (
         <div className={`top-hdr-bar ${!showTopBar ? 'closed' : ''}`}>
           <Container fluid>
             <div className="top_bar_inner">

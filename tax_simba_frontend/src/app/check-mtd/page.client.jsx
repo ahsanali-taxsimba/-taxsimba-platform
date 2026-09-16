@@ -592,10 +592,6 @@ export default function MtdClient() {
                                     <Card.Text className="taxes-card-description">
                                         Answer simple questions instead of complicated tax forms.
                                     </Card.Text>
-                                    <div className="taxes-percentage-group">
-                                        <span className="taxes-percentage-value">-80%</span>
-                                        <FaArrowDown className="taxes-down-arrow-icon" />
-                                    </div>
                                 </Card.Body>
                             </div>
                         </Col>
@@ -606,10 +602,6 @@ export default function MtdClient() {
                                     <Card.Text className="taxes-card-description">
                                         Your TaxSimba accountant helps prepare and review figures before filing.
                                     </Card.Text>
-                                    <div className="taxes-percentage-group">
-                                        <span className="taxes-percentage-value">-90%</span>
-                                        <FaArrowDown className="taxes-down-arrow-icon" />
-                                    </div>
                                 </Card.Body>
                             </div>
                         </Col>
@@ -620,10 +612,6 @@ export default function MtdClient() {
                                     <Card.Text className="taxes-card-description">
                                         Your accountant manages submissions using HMRC-compatible software.
                                     </Card.Text>
-                                    <div className="taxes-percentage-group">
-                                        <span className="taxes-percentage-value">-70%</span>
-                                        <FaArrowDown className="taxes-down-arrow-icon" />
-                                    </div>
                                 </Card.Body>
                             </div>
                         </Col>
