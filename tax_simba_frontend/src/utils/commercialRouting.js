@@ -46,6 +46,10 @@ export function getPublicGetStartedHref(pathname) {
   const path = normalizePath(pathname);
 
   if (path === "/lp/self-assessment") return "/register";
+  if (path === "/lp/sole-trader-tax-return") return "/register";
+  if (path === "/lp/landlord-tax-return") return "/register";
+  if (path === "/lp/cis-tax-return") return "/register";
+  if (path === "/lp/first-tax-return") return "/register";
   if (path === "/lp/making-tax-digital") return "/register?role=MTD";
 
   if (path === "/check-mtd") {
@@ -74,6 +78,18 @@ export function getPpcPrimaryCta(pathname) {
   if (path === "/lp/self-assessment") {
     return { href: "/register", label: "Start Self Assessment" };
   }
+  if (path === "/lp/sole-trader-tax-return") {
+    return { href: "/register", label: "Start My Tax Return" };
+  }
+  if (path === "/lp/landlord-tax-return") {
+    return { href: "/register", label: "Start My Landlord Tax Return" };
+  }
+  if (path === "/lp/cis-tax-return") {
+    return { href: "/register", label: "Start My CIS Tax Return" };
+  }
+  if (path === "/lp/first-tax-return") {
+    return { href: "/register", label: "Start My First Tax Return" };
+  }
   return { href: getPublicGetStartedHref(pathname), label: "Get Started" };
 }
 
@@ -96,6 +112,14 @@ export function isSaCommercialPath(pathname) {
   if (!pathname) return false;
   const path = normalizePath(pathname);
   if (path === "/lp/self-assessment") return true;
+  if (
+    path === "/lp/sole-trader-tax-return" ||
+    path === "/lp/landlord-tax-return" ||
+    path === "/lp/cis-tax-return" ||
+    path === "/lp/first-tax-return"
+  ) {
+    return true;
+  }
   if (SA_SERVICE_PATHS.includes(path)) return true;
   if (path.startsWith("/blogs/")) {
     const slug = path.slice("/blogs/".length).split("/")[0];

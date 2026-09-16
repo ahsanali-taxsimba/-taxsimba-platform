@@ -16263,6 +16263,77 @@ body.cookie-consent-visible .ppc-sticky-cta {
   background: #f4f7f5 !important;
 }
 
+/* Phase 2 shared sections */
+.ppc-concern {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.15rem 1.25rem;
+}
+
+.ppc-concern h3 {
+  color: #fff;
+  font-weight: 700;
+}
+
+.ppc-concern p {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.ppc-useful-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ppc-useful-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.ppc-useful-list-light li {
+  color: #001a12;
+}
+
+.ppc-landing .bg-light .ppc-useful-list-light li,
+.ppc-landing .bg-light .ppc-section-title {
+  color: #001a12;
+}
+
+.ppc-audience-tag {
+  display: inline-block;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid rgba(0, 26, 18, 0.12);
+  color: #001a12;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.ppc-mtd-note {
+  max-width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+}
+
+@media screen and (max-width: 430px) {
+  .ppc-concern {
+    padding: 1rem;
+  }
+  .ppc-audience-tag {
+    font-size: 0.82rem;
+    padding: 0.35rem 0.7rem;
+  }
+}
+
+
 .ppc-footer .ppc-legal-links a {
   color: inherit;
   text-decoration: underline;

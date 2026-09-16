@@ -227,3 +227,84 @@ export function PpcPlansEmpty({ pricingHref = "/pricing" }) {
     </div>
   );
 }
+
+/** Short concern cards — max ~4 buying questions. */
+export function PpcConcerns({ title = "Common questions", items = [] }) {
+  if (!items.length) return null;
+  return (
+    <section className="ppc-section py-5">
+      <Container>
+        <h2 className="ppc-section-title text-center mb-4">{title}</h2>
+        <Row className="g-3 justify-content-center">
+          {items.map((item) => (
+            <Col md={6} key={item.q}>
+              <div className="ppc-concern h-100">
+                <h3 className="h6 mb-2">{item.q}</h3>
+                <p className="mb-0 small opacity-90">{item.a}</p>
+              </div>
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    </section>
+  );
+}
+
+/** Compact useful list section (expenses, checklist, occupations). */
+export function PpcUsefulSection({
+  title,
+  intro,
+  items = [],
+  note,
+  variant = "dark",
+}) {
+  if (!title || !items.length) return null;
+  const light = variant === "light";
+  return (
+    <section className={`ppc-section py-5 ${light ? "bg-light" : ""}`}>
+      <Container>
+        <Row className="justify-content-center">
+          <Col lg={8}>
+            <h2 className={`ppc-section-title text-center mb-3 ${light ? "" : ""}`}>{title}</h2>
+            {intro ? (
+              <p className={`text-center mb-4 ${light ? "text-muted" : "opacity-75"}`}>{intro}</p>
+            ) : null}
+            <ul className={`ppc-useful-list mb-0 ${light ? "ppc-useful-list-light" : ""}`}>
+              {items.map((item) => (
+                <li key={item}>
+                  <MdCheckCircle className="me-2 text-success" aria-hidden="true" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            {note ? (
+              <p className={`mt-4 mb-0 small text-center ${light ? "text-muted" : "opacity-75"}`}>
+                {note}
+              </p>
+            ) : null}
+          </Col>
+        </Row>
+      </Container>
+    </section>
+  );
+}
+
+/** Compact chip/list of audience labels (e.g. CIS trades). */
+export function PpcAudienceTags({ title, items = [] }) {
+  if (!items.length) return null;
+  return (
+    <section className="ppc-section py-5 bg-light">
+      <Container>
+        <h2 className="ppc-section-title text-center mb-4">{title}</h2>
+        <div className="ppc-audience-tags d-flex flex-wrap justify-content-center gap-2">
+          {items.map((item) => (
+            <span key={item} className="ppc-audience-tag">
+              {item}
+            </span>
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
