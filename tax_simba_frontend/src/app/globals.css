@@ -16105,6 +16105,13 @@ body.cookie-consent-visible .ppc-sticky-cta {
     font-size: 1.05rem;
     margin-bottom: 1rem !important;
   }
+  .ppc-google-rating {
+    font-size: 0.82rem;
+    margin-top: 0.5rem;
+  }
+  .ppc-google-stars {
+    font-size: 0.85rem;
+  }
   .ppc-trust {
     padding-top: 1rem !important;
     padding-bottom: 1rem !important;
