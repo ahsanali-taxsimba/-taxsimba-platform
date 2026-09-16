@@ -6,6 +6,7 @@ import { useRouter, useParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import toast from 'react-hot-toast';
 import { getCurrencySymbol } from '@/utils/commonHelper';
+import { getPpcContext, trackCheckoutStarted } from '@/lib/ppcAnalytics';
 
 /**
  * P0 K.3 — Stripe Checkout Session only.
@@ -80,6 +81,15 @@ export default function PlanCheckoutPage() {
       }
       const checkoutUrl = response.data?.data?.checkoutUrl;
       if (checkoutUrl) {
+        const ctx = getPpcContext();
+        const role = session?.user?.userRole || session?.user?.role || ctx?.service;
+        trackCheckoutStarted({
+          service: role === 'MTD' || ctx?.service === 'MTD' ? 'MTD' : 'SA',
+          planId: planId || undefined,
+          planName: plan?.name || undefined,
+          value: plan?.price != null ? Number(plan.price) : undefined,
+          currency: plan?.currency || 'GBP',
+        });
         window.location.href = checkoutUrl;
         return;
       }

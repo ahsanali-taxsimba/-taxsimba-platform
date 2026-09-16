@@ -28,16 +28,25 @@ function normalizePath(pathname) {
   return pathname.split("?")[0].replace(/\/$/, "") || "/";
 }
 
+export function isPpcPath(pathname) {
+  const path = normalizePath(pathname);
+  return path === "/lp" || path.startsWith("/lp/");
+}
+
 /**
  * Context-aware public "Get Started" / Ask Now destination.
  * - SA / default → /register
  * - MTD commercial + MTD-owned articles → /register?role=MTD
  * - Eligibility (/check-mtd, CHECK articles) → stay on checker journey (not SA)
+ * - PPC LPs → matching service register route
  */
 export function getPublicGetStartedHref(pathname) {
   if (!pathname) return "/register";
 
   const path = normalizePath(pathname);
+
+  if (path === "/lp/self-assessment") return "/register";
+  if (path === "/lp/making-tax-digital") return "/register?role=MTD";
 
   if (path === "/check-mtd") {
     return "/check-mtd#eligibility-checker";
@@ -57,10 +66,22 @@ export function getPublicGetStartedHref(pathname) {
   return "/register";
 }
 
+export function getPpcPrimaryCta(pathname) {
+  const path = normalizePath(pathname);
+  if (path === "/lp/making-tax-digital") {
+    return { href: "/register?role=MTD", label: "Get MTD Support" };
+  }
+  if (path === "/lp/self-assessment") {
+    return { href: "/register", label: "Start Self Assessment" };
+  }
+  return { href: getPublicGetStartedHref(pathname), label: "Get Started" };
+}
+
 /** True when the current path should treat registration as MTD-scoped. */
 export function isMtdCommercialPath(pathname) {
   if (!pathname) return false;
   const path = normalizePath(pathname);
+  if (path === "/lp/making-tax-digital") return true;
   if (MTD_SERVICE_PATHS.includes(path) || path === "/check-mtd") return true;
   if (path.startsWith("/blogs/")) {
     const slug = path.slice("/blogs/".length).split("/")[0];
@@ -74,6 +95,7 @@ export function isMtdCommercialPath(pathname) {
 export function isSaCommercialPath(pathname) {
   if (!pathname) return false;
   const path = normalizePath(pathname);
+  if (path === "/lp/self-assessment") return true;
   if (SA_SERVICE_PATHS.includes(path)) return true;
   if (path.startsWith("/blogs/")) {
     const slug = path.slice("/blogs/".length).split("/")[0];
@@ -85,10 +107,10 @@ export function isSaCommercialPath(pathname) {
 
 /**
  * Whether the global top announcement bar should show the MTD checker message.
- * Hidden on SA-owned pages so they are not dominated by an unrelated MTD sales push.
- * Shown on MTD / eligibility / neutral contexts (home, pricing, etc.).
+ * Hidden on SA-owned pages and all PPC LPs (minimal chrome).
  */
 export function shouldShowMtdAnnouncementBar(pathname) {
+  if (isPpcPath(pathname)) return false;
   if (isSaCommercialPath(pathname)) return false;
   return true;
 }

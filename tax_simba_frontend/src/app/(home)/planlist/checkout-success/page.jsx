@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Spinner, Container, Card, Button } from "react-bootstrap";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { getPpcContext, trackPurchaseConfirmed } from "@/lib/ppcAnalytics";
 
 /**
  * Checkout Success — P0 K.3
@@ -47,6 +48,28 @@ const CheckoutSuccess = () => {
           { headers: { Authorization: `Bearer ${session.accessToken}` } }
         );
         setPurchaseInfo(response.data?.data || {});
+
+        // Purchase conversion ONLY after confirmed checkout-success finalisation.
+        const info = response.data?.data || {};
+        const ctx = getPpcContext();
+        const plan = info.plan || {};
+        trackPurchaseConfirmed({
+          sessionId,
+          service:
+            plan.category === "mtd" ||
+            plan.userRole === "MTD" ||
+            ctx?.service === "MTD"
+              ? "MTD"
+              : "SA",
+          planId: plan.id || plan.planId || undefined,
+          planName: plan.name || undefined,
+          value:
+            plan.price != null && Number.isFinite(Number(plan.price))
+              ? Number(plan.price)
+              : undefined,
+          currency: plan.currency || "GBP",
+          transactionId: info.transactionId || info.paymentId || sessionId,
+        });
 
         // Refresh ownership from server — never invent client-side entitlement.
         let ownershipPatch = {

@@ -18,6 +18,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import ChatBot from "./ChatBot";
+import { isPpcPath } from "@/utils/commercialRouting";
 const Footer = () => {
   const pathname = usePathname();
   const { data: resourceCategories, loading: resourcesLoading } = useResourceCategories();
@@ -58,12 +59,15 @@ const Footer = () => {
       }
     };
 
-    fetchServices();
+    // PPC pages do not need services mega-lists.
+    if (!isPpcPath(pathname)) {
+      fetchServices();
+    }
 
     return () => {
       isMounted = false;
     };
-  }, [apiGet]);
+  }, [apiGet, pathname]);
 
   if (pathname === "/login"
     || pathname === "/forgot-password"
@@ -81,6 +85,38 @@ const Footer = () => {
         <ChatBot />
       </footer>
     )
+  }
+
+  if (isPpcPath(pathname)) {
+    return (
+      <footer className="footer ppc-footer">
+        <div className="footer_bottom text-center py-4">
+          <div className="container">
+            <p className="mb-3 small">
+              © {new Date().getFullYear()}{" "}
+              <Link href="/" className="fw-bold">
+                TaxSimba
+              </Link>
+            </p>
+            <ul className="list-inline mb-0 ppc-legal-links">
+              <li className="list-inline-item mx-2">
+                <Link href="/privacy-policy">Privacy Policy</Link>
+              </li>
+              <li className="list-inline-item mx-2">
+                <Link href="/terms-and-conditions">Terms and Conditions</Link>
+              </li>
+              <li className="list-inline-item mx-2">
+                <Link href="/cookie-policy">Cookie Policy</Link>
+              </li>
+              <li className="list-inline-item mx-2">
+                <Link href="/data-policy">Data Policy</Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <ChatBot />
+      </footer>
+    );
   }
 
   return (

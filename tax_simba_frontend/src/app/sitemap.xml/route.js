@@ -114,6 +114,8 @@ export async function GET() {
 
   const byPath = new Map();
   for (const item of [...staticUrls, ...dynamicUrls]) {
+    // PPC conversion LPs are noindex and must never enter the sitemap.
+    if (item.path === "/lp" || item.path.startsWith("/lp/")) continue;
     byPath.set(item.path, item);
   }
 

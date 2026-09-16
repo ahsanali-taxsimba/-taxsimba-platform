@@ -9,7 +9,13 @@ import { useTranslate } from "@/hooks/useTranslate";
 import fetchJSON from "@/lib/fetchJSON";
 import emitter from "@/utils/eventBus";
 import { getBackendBaseUrl } from "@/utils/commonHelper";
-import { getPublicGetStartedHref, shouldShowMtdAnnouncementBar } from "@/utils/commercialRouting";
+import {
+  getPublicGetStartedHref,
+  getPpcPrimaryCta,
+  isPpcPath,
+  shouldShowMtdAnnouncementBar,
+} from "@/utils/commercialRouting";
+import { trackPrimaryCtaClick } from "@/lib/ppcAnalytics";
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSession } from "next-auth/react";
@@ -275,6 +281,51 @@ const Navbar = () => {
 
   const getStartedHref = getPublicGetStartedHref(pathname);
   const showMtdAnnouncement = shouldShowMtdAnnouncementBar(pathname);
+
+  // PPC landing pages: minimal chrome only (logo, login, one dominant CTA).
+  if (isPpcPath(pathname)) {
+    const ppcCta = getPpcPrimaryCta(pathname);
+    const service = pathname.includes("making-tax-digital") ? "MTD" : "SA";
+    return (
+      <header className="site-header ppc-site-header">
+        <div className="header-outer">
+          <div className="container-fluid">
+            <div className="inner_top_header ppc-minimal-header">
+              <Link className="logo" href="/">
+                <img src="/images/logo.svg" alt="TaxSimba" />
+              </Link>
+              <div className="d-flex align-items-center gap-2 gap-md-3">
+                {status !== "authenticated" ? (
+                  <>
+                    <TranslatedLink href="/login" className="common-light-outline-btn d-none d-sm-inline-block">
+                      Login
+                    </TranslatedLink>
+                    <Link
+                      href={ppcCta.href}
+                      className="common-btn"
+                      onClick={() =>
+                        trackPrimaryCtaClick({
+                          service,
+                          landingPage: pathname,
+                          ctaId: "header_primary",
+                        })
+                      }
+                    >
+                      {ppcCta.label}
+                    </Link>
+                  </>
+                ) : (
+                  <TranslatedLink href={isMTD ? "/mtd-dashboard" : "/dashboard"} className="common-btn">
+                    Dashboard
+                  </TranslatedLink>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+    );
+  }
 
   return (
     <>

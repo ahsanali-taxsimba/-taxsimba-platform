@@ -19,6 +19,11 @@ import { FcGoogle } from "react-icons/fc";
 import { IoMdMail } from "react-icons/io";
 import CheckYourInbox from "./_sections/CheckYourInbox";
 import { getSafeErrorMessage, getSafeSuccessMessage } from "@/lib/toastMessage";
+import {
+  getPpcContext,
+  trackRegistrationCompleted,
+  trackRegistrationStarted,
+} from "@/lib/ppcAnalytics";
 export default function RegisterPage() {
   const [isView, setIsView] = useState({
     pass: false,
@@ -80,6 +85,19 @@ export default function RegisterPage() {
       }));
     }
   }, [rolePlaceholder]);
+
+  useEffect(() => {
+    const ctx = getPpcContext();
+    const role = (rolePlaceholder || "").toUpperCase();
+    const service =
+      role === "MTD" || ctx?.service === "MTD" ? "MTD" : ctx?.service || "SA";
+    trackRegistrationStarted({
+      service,
+      planId: searchParams.get("plan") || undefined,
+    });
+    // Once per register page mount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleChange = (e) => {
     setApiErrorMsg("");
@@ -215,6 +233,13 @@ export default function RegisterPage() {
               getSafeSuccessMessage(response.data, "Registration successful"),
             );
             // Registration never grants ACTIVE entitlement (D8). Always continue verify / planlist path.
+            const ctx = getPpcContext();
+            const role = (formData.userRole || rolePlaceholder || "").toUpperCase();
+            trackRegistrationCompleted({
+              service:
+                role === "MTD" || ctx?.service === "MTD" ? "MTD" : ctx?.service || "SA",
+              planId: searchParams.get("plan") || undefined,
+            });
             setValid(true);
           }
         }
