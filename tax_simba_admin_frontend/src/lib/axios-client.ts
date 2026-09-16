@@ -25,8 +25,6 @@ const getAuthHeaders = async () => {
         
         return {
           'Authorization': token,
-          'X-User-Role': session.user.role || '',
-          'X-User-ID': session.user.id || '',
         };
       }
     } catch (error) {

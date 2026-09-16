@@ -6,6 +6,7 @@ import ProfileEditModal from './ProfileEditModal';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import clientAxios from '@/lib/axios-client';
+import { toast } from 'react-toastify';
 
 export default function EditProfileButton({ profileData }: { profileData?: any }) {
   const { data: session, update } = useSession();
@@ -57,16 +58,27 @@ export default function EditProfileButton({ profileData }: { profileData?: any }
           bio: formData.bio,
           specialization: formData.specialization,
           experience: formData.experience,
-          image: updatedUser.profilePhoto,
+          image: updatedUser?.profilePhoto,
         },
       });
 
+      toast.success("Profile updated successfully.");
       setShowModal(false);
       router.refresh();
 
-    } catch (err) {
+    } catch (err: any) {
       console.error("Failed to update profile:", err);
-      throw err; 
+      const message =
+        err?.response?.data?.message ||
+        (err?.response == null
+          ? "Unable to reach the server. Please check your connection and try again."
+          : "Failed to update profile. Please try again.");
+      toast.error(
+        typeof message === "string" && message.trim()
+          ? message
+          : "Failed to update profile. Please try again.",
+      );
+      throw err;
     }
   };
 

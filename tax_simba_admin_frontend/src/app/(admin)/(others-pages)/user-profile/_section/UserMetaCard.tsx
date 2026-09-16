@@ -8,6 +8,7 @@ import Label from "@/components/form/Label";
 import Input from "@/components/form/input/InputField";
 import Button from "@/components/ui/button/Button";
 import clientAxios from "@/lib/axios-client";
+import { toast } from "react-toastify";
 
 
 export default function UserMetaCard() {
@@ -114,8 +115,15 @@ export default function UserMetaCard() {
             );
     console.log(' Profile updated:', response.data);
     // closeModal();
-  } catch (error) {
+  } catch (error: any) {
     console.error(' Failed to update profile:', error);
+    const { toast } = await import('react-toastify');
+    const message =
+      error?.response?.data?.message ||
+      (error?.response == null
+        ? "Unable to reach the server. Please check your connection and try again."
+        : "Failed to update profile. Please try again.");
+    toast.error(typeof message === "string" && message.trim() ? message : "Failed to update profile. Please try again.");
   }
 };
 
