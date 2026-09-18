@@ -78,18 +78,47 @@ export default function ClientTable(props: any) {
         }
     };
 
-    // Handle the status change
+    // Handle the status change — backend expects "active" | "inactive" (SUPER_ADMIN only)
     const onStatusChange = async (status?: number, id?: any) => {
         try {
-            const response = await clientAxios.put(`/admin/clients/${id}/status`, { status }, true);
+            const canonical = status === 1 ? "active" : "inactive";
+            const response = await clientAxios.put(
+                `/admin/clients/${id}/status`,
+                { status: canonical },
+                true,
+            );
             if (response) {
-                setOpenDropdownId([]); // Close the dropdown after status change
+                setOpenDropdownId([]);
                 fetchData();
                 setGridUpdate(!gridUpdate);
             }
         } catch (error) {
             console.log(error);
+            toast.error(
+                (error as { response?: { data?: { message?: string } } })?.response?.data
+                    ?.message || "Failed to update status.",
+            );
         }
+    };
+
+    const clientRows = Array.isArray(clientData?.data?.clients)
+        ? clientData.data.clients
+        : [];
+
+    const displayName = (order: any) => {
+        if (order.firstName || order.lastName) {
+            return `${order.firstName || ""} ${order.lastName || ""}`.trim();
+        }
+        return String(order.name || "").trim() || "—";
+    };
+
+    const isClientActive = (order: any) => {
+        if (typeof order.isActive === "boolean") return order.isActive;
+        if (typeof order.is_active === "boolean") return order.is_active;
+        const s = String(order.status ?? "").toLowerCase();
+        if (s === "active" || s === "1") return true;
+        if (s === "inactive" || s === "0") return false;
+        return order.status == 1;
     };
 
     // Toggle the dropdown for specific row
@@ -225,7 +254,7 @@ export default function ClientTable(props: any) {
                                     <SkeletonRow key={`skeleton-${index}`} />
                                 ))
                             ) : (
-                                clientData?.data?.users?.map((order: any) => (
+                                clientRows.map((order: any) => (
                                     <TableRow key={order.id} className="hover:bg-gray-50/50 dark:hover:bg-white/[0.02] transition-colors group">
                                         <TableCell className="px-5 py-4 sm:px-6 text-center text-nowrap">
                                             <div className="flex items-center gap-3">
@@ -234,12 +263,12 @@ export default function ClientTable(props: any) {
                                                         width={40}
                                                         height={40}
                                                         src={"/images/logo/favicon.ico"}
-                                                        alt={order.firstName}
+                                                        alt={displayName(order)}
                                                     />
                                                 </div>
                                                 <div>
                                                     <span className="block font-medium text-gray-800 text-theme-sm dark:text-white/90 text-nowrap">
-                                                        {`${order.firstName} ${order.lastName}`}
+                                                        {displayName(order)}
                                                     </span>
                                                 </div>
                                             </div>
@@ -260,14 +289,14 @@ export default function ClientTable(props: any) {
                                             </div>
                                         </TableCell>
                                         <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                                            {revealedById[order.id]?.phone || order.mobile}
+                                            {revealedById[order.id]?.phone || order.mobile || order.phone || "—"}
                                         </TableCell>
 
                                         <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                                            {order.username}
+                                            {order.username || "—"}
                                         </TableCell>
                                         <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                                            {order.userRole || "-"}
+                                            {order.userRole || order.role || "-"}
                                         </TableCell>
                                         <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400 text-nowrap">
                                             {order.subscription?.plan?.name || order.subscription?.amount || "-"}
@@ -276,12 +305,12 @@ export default function ClientTable(props: any) {
                                             <div className="relative inline-block">
                                                 <Badge
                                                     size="md"
-                                                    color={order.status == 1 ? "success" : "error"}
+                                                    color={isClientActive(order) ? "success" : "error"}
                                                     endIcon={<ChevronDown size={14} />}
                                                     onClick={() => toggleDropdown(order.id)}
                                                     dynamicClassName={"cursor-pointer"}
                                                 >
-                                                    {order.status == 1 ? "Active" : "Inactive"}
+                                                    {isClientActive(order) ? "Active" : "Inactive"}
                                                 </Badge>
                                                 {openDropdownId.find((item: number) => item == order.id) && (
                                                     <Dropdown
@@ -332,7 +361,12 @@ export default function ClientTable(props: any) {
             </div>
             <Pagination
                 current={page}
-                total={clientData?.data?.pagination?.totalUsers || 0}
+                total={
+                    clientData?.data?.pagination?.totalUsers ||
+                    clientData?.data?.pagination?.total ||
+                    clientRows.length ||
+                    0
+                }
                 onPageChange={setPage}
             />
             <ConfirmationModal

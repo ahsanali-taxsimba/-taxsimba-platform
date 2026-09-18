@@ -355,60 +355,117 @@ compatAuthRouter.post(
 /**
  * P1 — update account settings.
  * CLIENT: maps onto native my-profile fields (name/phone/address).
- * Staff: name/phone only (staff photo/UTR edit remains HIDE per baseline P3).
+ * Staff: name/phone/address on users (staff photo/UTR edit remains HIDE per baseline P3).
  */
+function normalizePhoneInput(raw: unknown): string | undefined {
+  if (typeof raw !== "string") return undefined;
+  return raw;
+}
+
+function assertPhoneValid(phone: string): void {
+  const trimmed = phone.trim();
+  if (!trimmed) return;
+  if (trimmed.length > 20) {
+    throw httpError(400, "Phone number must be at most 20 characters");
+  }
+  const digits = trimmed.replace(/\D/g, "");
+  if (digits.length < 7 || digits.length > 15) {
+    throw httpError(400, "Enter a valid phone number (7–15 digits)");
+  }
+  if (!/^[+]?[\d\s().-]{7,20}$/.test(trimmed)) {
+    throw httpError(400, "Enter a valid phone number");
+  }
+}
+
+async function applyAccountSettingsUpdate(
+  req: import("express").Request,
+  res: import("express").Response,
+): Promise<void> {
+  const me = authed(req);
+  const body = req.body;
+  if (body == null || typeof body !== "object" || Array.isArray(body)) {
+    throw httpError(400, "Request body is required");
+  }
+  // Multipart without a parser yields an empty body — do not report success.
+  if (Object.keys(body as object).length === 0) {
+    throw httpError(400, "No profile fields to update");
+  }
+
+  const snake = keysToSnake(body) as Record<string, unknown>;
+  const first = typeof snake.first_name === "string" ? snake.first_name.trim() : "";
+  const last = typeof snake.last_name === "string" ? snake.last_name.trim() : "";
+  const surname = typeof snake.surname === "string" ? snake.surname.trim() : "";
+  const nameFromParts = [first, last || surname].filter(Boolean).join(" ").trim();
+  const name =
+    (typeof snake.name === "string" && snake.name.trim()) || nameFromParts || null;
+  const phoneRaw =
+    normalizePhoneInput(snake.phone) !== undefined
+      ? normalizePhoneInput(snake.phone)
+      : normalizePhoneInput(snake.mobile);
+  const phone = phoneRaw !== undefined ? String(phoneRaw) : undefined;
+  const address = typeof snake.address === "string" ? snake.address : undefined;
+
+  if (phone !== undefined) assertPhoneValid(phone);
+
+  const hasChange =
+    Boolean(name) || phone !== undefined || address !== undefined;
+  if (!hasChange) {
+    throw httpError(400, "No profile fields to update");
+  }
+
+  const userPatch: Doc = { updated_at: nowIso() };
+  if (name) userPatch.name = name;
+  if (phone !== undefined) userPatch.phone = phone.trim() || null;
+  if (address !== undefined && me.role !== "CLIENT") {
+    userPatch.address = address.trim() || null;
+  }
+  if (Object.keys(userPatch).length > 1) {
+    await col("users").updateOne({ id: me.id }, { $set: userPatch });
+  }
+
+  if (me.role === "CLIENT") {
+    const updates: Doc = {};
+    if (phone !== undefined) updates.phone = phone.trim() || null;
+    if (address !== undefined) updates.address = address.trim() || null;
+    if (name) updates.name = name;
+    if (Object.keys(updates).length) {
+      await col("clients").updateOne({ user_id: me.id }, { $set: updates });
+    }
+    if (name) {
+      await col("cases").updateMany(
+        { client_user_id: me.id },
+        { $set: { client_name: name } },
+      );
+    }
+  }
+
+  const fresh = clean(
+    ((await col("users").findOne({ id: me.id })) ?? me) as Doc,
+  ) as Doc;
+  let addressOut: string | null = (fresh.address as string) ?? null;
+  if (me.role === "CLIENT") {
+    const client = (await col("clients").findOne({ user_id: me.id })) as Doc | null;
+    addressOut = (client?.address as string) ?? addressOut;
+  }
+  const { firstName, lastName } = splitDisplayName(String(fresh.name ?? ""));
+  sendCompatSuccess(
+    res,
+    keysToCamel({
+      ...toToxelUser(fresh),
+      first_name: firstName,
+      last_name: lastName,
+      phone: fresh.phone ?? null,
+      address: addressOut,
+    }),
+    "Updated",
+  );
+}
+
 compatAuthRouter.put(
   "/auth/update-account-settings",
   auth(),
   handler(async (req, res) => {
-    const me = authed(req);
-    const snake = keysToSnake(req.body ?? {}) as Record<string, unknown>;
-    const first = typeof snake.first_name === "string" ? snake.first_name.trim() : "";
-    const last = typeof snake.last_name === "string" ? snake.last_name.trim() : "";
-    const surname = typeof snake.surname === "string" ? snake.surname.trim() : "";
-    const nameFromParts = [first, last || surname].filter(Boolean).join(" ").trim();
-    const name =
-      (typeof snake.name === "string" && snake.name.trim()) || nameFromParts || null;
-    const phone =
-      typeof snake.phone === "string"
-        ? snake.phone
-        : typeof snake.mobile === "string"
-          ? snake.mobile
-          : undefined;
-    const address = typeof snake.address === "string" ? snake.address : undefined;
-
-    if (name) await col("users").updateOne({ id: me.id }, { $set: { name } });
-    if (me.role === "CLIENT") {
-      const updates: Doc = {};
-      if (phone !== undefined) updates.phone = phone;
-      if (address !== undefined) updates.address = address;
-      if (name) updates.name = name;
-      if (Object.keys(updates).length) {
-        await col("clients").updateOne({ user_id: me.id }, { $set: updates });
-      }
-      if (name) {
-        await col("cases").updateMany(
-          { client_user_id: me.id },
-          { $set: { client_name: name } },
-        );
-      }
-    } else if (phone !== undefined) {
-      await col("users").updateOne({ id: me.id }, { $set: { phone } });
-    }
-    const fresh = clean(
-      ((await col("users").findOne({ id: me.id })) ?? me) as Doc,
-    ) as Doc;
-    const { firstName, lastName } = splitDisplayName(String(fresh.name ?? ""));
-    sendCompatSuccess(
-      res,
-      keysToCamel({
-        ...toToxelUser(fresh),
-        first_name: firstName,
-        last_name: lastName,
-        phone: fresh.phone ?? null,
-      }),
-      "Updated",
-    );
+    await applyAccountSettingsUpdate(req, res);
   }),
 );
 
@@ -417,53 +474,6 @@ compatAuthRouter.post(
   "/auth/update-account-settings",
   auth(),
   handler(async (req, res) => {
-    // Reuse PUT handler by forwarding — express doesn't allow easy reuse; duplicate thin call.
-    const me = authed(req);
-    const snake = keysToSnake(req.body ?? {}) as Record<string, unknown>;
-    const first = typeof snake.first_name === "string" ? snake.first_name.trim() : "";
-    const last = typeof snake.last_name === "string" ? snake.last_name.trim() : "";
-    const surname = typeof snake.surname === "string" ? snake.surname.trim() : "";
-    const nameFromParts = [first, last || surname].filter(Boolean).join(" ").trim();
-    const name =
-      (typeof snake.name === "string" && snake.name.trim()) || nameFromParts || null;
-    const phone =
-      typeof snake.phone === "string"
-        ? snake.phone
-        : typeof snake.mobile === "string"
-          ? snake.mobile
-          : undefined;
-    const address = typeof snake.address === "string" ? snake.address : undefined;
-    if (name) await col("users").updateOne({ id: me.id }, { $set: { name } });
-    if (me.role === "CLIENT") {
-      const updates: Doc = {};
-      if (phone !== undefined) updates.phone = phone;
-      if (address !== undefined) updates.address = address;
-      if (name) updates.name = name;
-      if (Object.keys(updates).length) {
-        await col("clients").updateOne({ user_id: me.id }, { $set: updates });
-      }
-      if (name) {
-        await col("cases").updateMany(
-          { client_user_id: me.id },
-          { $set: { client_name: name } },
-        );
-      }
-    } else if (phone !== undefined) {
-      await col("users").updateOne({ id: me.id }, { $set: { phone } });
-    }
-    const fresh = clean(
-      ((await col("users").findOne({ id: me.id })) ?? me) as Doc,
-    ) as Doc;
-    const { firstName, lastName } = splitDisplayName(String(fresh.name ?? ""));
-    sendCompatSuccess(
-      res,
-      keysToCamel({
-        ...toToxelUser(fresh),
-        first_name: firstName,
-        last_name: lastName,
-        phone: fresh.phone ?? null,
-      }),
-      "Updated",
-    );
+    await applyAccountSettingsUpdate(req, res);
   }),
 );

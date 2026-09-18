@@ -103,6 +103,15 @@ describe("K.3 compat entitlements + checkout adapters", () => {
     expect(res.body.data[0].category).toBe("taxSimba");
   });
 
+  it("lists subscription-plans for unauthenticated guests (public catalogue)", async () => {
+    const res = await request(app)
+      .get("/api/compat/subscription-plans?category=taxSimba")
+      .expect(200);
+    expect(res.body.success).toBe(true);
+    expect(Array.isArray(res.body.data)).toBe(true);
+    expect(res.body.data.length).toBeGreaterThan(0);
+  });
+
   it("verified user creates Checkout Session for the selected mapped package", async () => {
     const client = await makeClient("k3mapped");
     const { col } = await import("../../src/db/mongo");

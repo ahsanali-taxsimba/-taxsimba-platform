@@ -1,6 +1,7 @@
 "use client";
 
 import clientAxios from "@/lib/axios-client";
+import { mapTaxReturnListPayload } from "@/lib/mapTaxReturnList";
 import { Accountant, TaxReturnData } from "@/utils/interface";
 import { useEffect, useState } from "react";
 import { Modal } from "@/components/ui/modal";
@@ -67,7 +68,7 @@ const AssignAccountantModal: React.FC<{
 
       console.log('Assignment response:', res.data);
       const response = await clientAxios.post('/admin/tax-return/files', {});
-      setTaxReturns(response.data?.data ?? []);
+      setTaxReturns(mapTaxReturnListPayload(response.data?.data));
       
       onClose();
       // Reset form

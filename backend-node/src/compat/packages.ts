@@ -42,7 +42,8 @@ function mapPackage(p: Doc, content: Record<string, string>): Doc {
 
 compatPackagesRouter.get(
   "/subscription-plans",
-  auth(),
+  // Public marketing catalogue — active packages only, mapPackage marketing fields.
+  // Mutations and native /api/packages* remain Super Admin protected.
   handler(async (req, res) => {
     await applyDuePriceSchedules();
     const category =

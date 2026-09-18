@@ -186,10 +186,17 @@ compatAdminRouter.post(
     const body = (req.body ?? {}) as Record<string, unknown>;
     const status = String(body.status ?? "").toLowerCase();
     const active =
-      status === "active" || status === "true" || body.isActive === true || body.is_active === true;
+      status === "active" ||
+      status === "true" ||
+      status === "1" ||
+      body.status === 1 ||
+      body.isActive === true ||
+      body.is_active === true;
     const inactive =
       status === "inactive" ||
       status === "false" ||
+      status === "0" ||
+      body.status === 0 ||
       body.isActive === false ||
       body.is_active === false;
     if (!active && !inactive) throw httpError(400, "status must be active or inactive");
@@ -480,14 +487,33 @@ compatAdminRouter.post(
     const page = Math.max(1, Number(body.page ?? 1) || 1);
     const limit = Math.min(100, Math.max(1, Number(body.limit ?? 50) || 50));
     const category = body.category ? String(body.category) : null;
+    const needle = String(body.search ?? "")
+      .trim()
+      .toLowerCase();
     const query: Doc = {};
     if (category) query.category = category;
-    // Staff list includes inactive for management.
-    const all = cleanMany(
+    // Staff list includes inactive for management; hard-deleted rows are gone.
+    let all = cleanMany(
       (await col("faqs").find(query).sort({ order: 1 }).limit(500).toArray()) as Doc[],
     );
+    if (needle) {
+      all = all.filter(
+        (f) =>
+          String(f.question ?? "")
+            .toLowerCase()
+            .includes(needle) ||
+          String(f.answer ?? "")
+            .toLowerCase()
+            .includes(needle) ||
+          (f.is_active === false ? "inactive" : "active").includes(needle),
+      );
+    }
     const total = all.length;
-    const faqs = all.slice((page - 1) * limit, page * limit);
+    const faqs = all.slice((page - 1) * limit, page * limit).map((f) => ({
+      ...f,
+      // FE historically reads `status` boolean; keep is_active + status alias.
+      status: f.is_active !== false,
+    }));
     sendCompatSuccess(
       res,
       {
@@ -520,7 +546,12 @@ compatAdminRouter.post(
       updated_at: nowIso(),
     };
     await col("faqs").insertOne({ ...doc });
-    sendCompatSuccess(res, keysToCamel(doc), "Created", 201);
+    sendCompatSuccess(
+      res,
+      keysToCamel({ ...doc, status: true }),
+      "Created",
+      201,
+    );
   }),
 );
 
@@ -547,17 +578,33 @@ compatAdminRouter.put(
   auth(...STAFF_ADMIN),
   handler(async (req, res) => {
     const body = (req.body ?? {}) as Record<string, unknown>;
+    const statusRaw = body.status;
     const active =
       body.isActive === true ||
       body.is_active === true ||
-      String(body.status ?? "").toLowerCase() === "active";
+      statusRaw === true ||
+      String(statusRaw ?? "").toLowerCase() === "active" ||
+      String(statusRaw ?? "").toLowerCase() === "true" ||
+      statusRaw === 1 ||
+      statusRaw === "1";
+    const inactiveExplicit =
+      body.isActive === false ||
+      body.is_active === false ||
+      statusRaw === false ||
+      String(statusRaw ?? "").toLowerCase() === "inactive" ||
+      String(statusRaw ?? "").toLowerCase() === "false" ||
+      statusRaw === 0 ||
+      statusRaw === "0";
+    if (!active && !inactiveExplicit) {
+      throw httpError(400, "status must be active or inactive");
+    }
     const existing = (await col("faqs").findOne({ id: req.params.faqId })) as Doc | null;
     if (!existing) throw httpError(404, "FAQ not found");
     await col("faqs").updateOne(
       { id: existing.id },
       { $set: { is_active: active, updated_at: nowIso() } },
     );
-    sendCompatSuccess(res, { ok: true, id: existing.id, isActive: active }, "OK");
+    sendCompatSuccess(res, { ok: true, id: existing.id, isActive: active, status: active }, "OK");
   }),
 );
 
@@ -567,10 +614,8 @@ compatAdminRouter.delete(
   handler(async (req, res) => {
     const existing = (await col("faqs").findOne({ id: req.params.faqId })) as Doc | null;
     if (!existing) throw httpError(404, "FAQ not found");
-    await col("faqs").updateOne(
-      { id: existing.id },
-      { $set: { is_active: false, updated_at: nowIso() } },
-    );
+    // Hard delete so admin list no longer shows the row (soft-delete looked like Inactive).
+    await col("faqs").deleteOne({ id: existing.id });
     sendCompatSuccess(res, { ok: true, id: existing.id }, "Deleted");
   }),
 );

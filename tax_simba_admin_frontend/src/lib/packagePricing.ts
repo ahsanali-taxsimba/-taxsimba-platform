@@ -3,9 +3,11 @@
  *
  * Calls the existing native `/api/packages*` Super Admin pricing endpoints
  * (not CMS / global-fee). Admin FE's NEXT_PUBLIC_API_URL points at `/api/compat/`,
- * so we use absolute `/api/...` paths so axios hits the native mount on the same host.
+ * so paths must be rewritten to the native `/api/packages*` mount — axios would
+ * otherwise concatenate into `/api/compat/api/packages`.
  */
 import { clientAxios } from "@/lib/axios-client";
+import { nativeApiUrl } from "@/lib/nativeApiUrl";
 
 export type PackageRow = {
   id: string;
@@ -80,7 +82,7 @@ async function nativeDelete<T>(path: string): Promise<T> {
 }
 
 export async function listPackages(): Promise<PackageRow[]> {
-  const rows = await nativeGet<PackageRow[]>("/api/packages");
+  const rows = await nativeGet<PackageRow[]>(nativeApiUrl("/api/packages"));
   return Array.isArray(rows) ? rows : [];
 }
 
@@ -91,16 +93,20 @@ export async function updatePackagePrice(
 ): Promise<{ ok: boolean }> {
   const body: { price: number; effective_from?: string | null } = { price };
   if (effectiveFrom) body.effective_from = effectiveFrom;
-  return nativePatch(`/api/packages/${packageId}/price`, body);
+  return nativePatch(nativeApiUrl(`/api/packages/${packageId}/price`), body);
 }
 
 export async function listPriceHistory(packageId: string): Promise<PriceHistoryRow[]> {
-  const rows = await nativeGet<PriceHistoryRow[]>(`/api/packages/${packageId}/price-history`);
+  const rows = await nativeGet<PriceHistoryRow[]>(
+    nativeApiUrl(`/api/packages/${packageId}/price-history`),
+  );
   return Array.isArray(rows) ? rows : [];
 }
 
 export async function listPriceSchedule(packageId: string): Promise<PriceScheduleRow[]> {
-  const rows = await nativeGet<PriceScheduleRow[]>(`/api/packages/${packageId}/price-schedule`);
+  const rows = await nativeGet<PriceScheduleRow[]>(
+    nativeApiUrl(`/api/packages/${packageId}/price-schedule`),
+  );
   return Array.isArray(rows) ? rows : [];
 }
 
@@ -109,7 +115,7 @@ export async function createPriceSchedule(
   price: number,
   effectiveFrom: string,
 ): Promise<PriceScheduleRow> {
-  return nativePost(`/api/packages/${packageId}/price-schedule`, {
+  return nativePost(nativeApiUrl(`/api/packages/${packageId}/price-schedule`), {
     price,
     effective_from: effectiveFrom,
   });
@@ -119,5 +125,5 @@ export async function cancelPriceSchedule(
   packageId: string,
   entryId: string,
 ): Promise<{ ok: boolean }> {
-  return nativeDelete(`/api/packages/${packageId}/price-schedule/${entryId}`);
+  return nativeDelete(nativeApiUrl(`/api/packages/${packageId}/price-schedule/${entryId}`));
 }

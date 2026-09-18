@@ -96,25 +96,44 @@ export default function UserMetaCard() {
 
   const handleSave = async () => {
       try {
-          const form = new FormData();
           const fullName = `${formData.firstName} ${formData.lastName}`.trim();
-          form.append('name', fullName);
-          form.append('mobile', formData.phone);
-          if (formData.profileImageFile) {
-              form.append('profilePhoto', formData.profileImageFile);
+          const phone = String(formData.phone || "").trim();
+          if (phone) {
+            const digits = phone.replace(/\D/g, "");
+            if (phone.length > 20 || digits.length < 7 || digits.length > 15) {
+              toast.error("Enter a valid phone number (7–15 digits, max 20 characters).");
+              return;
             }
-            const response = await clientAxios.put(
+          }
+          // JSON body — backend uses express.json only (FormData fields were ignored).
+          const response = await clientAxios.put(
                 '/auth/update-account-settings',
-                form,
-                true,
                 {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                }
+                  name: fullName,
+                  mobile: phone,
+                  phone,
+                },
+                true,
             );
-    console.log(' Profile updated:', response.data);
-    // closeModal();
+    if (!response?.data?.success) {
+      toast.error(response?.data?.message || "Failed to update profile. Please try again.");
+      return;
+    }
+    toast.success("Profile updated successfully.");
+    closeModal();
+    // Refresh displayed values from response
+    const data = response.data.data;
+    if (data) {
+      setUserData((prev: any) => ({
+        ...prev,
+        name: data.name ?? fullName,
+        mobile: data.mobile ?? data.phone ?? phone,
+      }));
+      setFormData((prev) => ({
+        ...prev,
+        phone: data.mobile ?? data.phone ?? phone,
+      }));
+    }
   } catch (error: any) {
     console.error(' Failed to update profile:', error);
     const message =
