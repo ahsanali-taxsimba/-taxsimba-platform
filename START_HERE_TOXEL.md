@@ -178,6 +178,16 @@ APP_BASE_URL
 `EMAIL_REPLY_TO` is optional.  
 `EMAIL_MAX_ATTEMPTS` defaults to `5` if unset.
 
+**Registration email verification (staging):** set `EMAIL_DRIVER` to `smtp` or `resend` (not `none`), configure the matching provider credentials, set `EMAIL_FROM`, and set `APP_BASE_URL` to the **client** public origin. With `EMAIL_DRIVER=none`, registration still succeeds but **no verification email is sent** (by design until email is configured).
+
+**Contact Us form** (`POST /api/compat/contact-us`) also requires a working email driver. Optional inbox override:
+
+```text
+CONTACT_TO
+```
+
+If `CONTACT_TO` is unset, the backend uses `EMAIL_REPLY_TO`, then the address inside `EMAIL_FROM`.
+
 Optional reminder worker (enable on exactly one instance if used):
 
 ```text
@@ -283,6 +293,26 @@ The admin app is deployed with Next.js `basePath: '/admin'`, so the public auth 
 ```text
 NEXTAUTH_URL=https://<ADMIN-HOST>/admin
 ```
+
+**Local / LAN staging example format only (do not copy a fixed IP):**
+
+```text
+NEXTAUTH_URL=http://<ADMIN-HOST>:3001/admin
+```
+
+If admin `NEXTAUTH_URL` is mistakenly set to the **client** origin (for example port `3000`), logout will redirect to the client host and produce a 404. Admin logout uses a path callback (`/admin/auth/signin`); NextAuth resolves it against `NEXTAUTH_URL`.
+
+### Admin entry URLs (expected behaviour)
+
+The admin app is served under `basePath: '/admin'`.
+
+| URL | Expected result |
+| --- | --- |
+| `http://<ADMIN-HOST>:3001/` | Outside the app basePath → Next.js error/404 (not a defect) |
+| `http://<ADMIN-HOST>:3001/admin` | Admin landing (`/admin/home`) with Sign In link |
+| `http://<ADMIN-HOST>:3001/admin/auth/signin` | Admin Sign In |
+
+Use `/admin` or `/admin/auth/signin` as the staging entry. Do not expect bare host root `/` on the admin port to redirect into the app.
 
 ### Package pricing (admin UI)
 
@@ -466,6 +496,8 @@ These are **not** current staging blockers.
 - [ ] `CORS_ORIGINS` includes **both** client and admin origins
 - [ ] `SEED_DEMO_DATA=false`
 - [ ] email env vars set for chosen `EMAIL_DRIVER` (`EMAIL_FROM`, plus SMTP_* or `RESEND_API_KEY`)
+- [ ] admin entry uses `/admin` or `/admin/auth/signin` (not bare `:3001/`)
+- [ ] admin `NEXTAUTH_URL` is the **admin** host including `/admin` (never the client port)
 - [ ] proxy exposes `/api/compat/*` **and** `/api/packages*`
 - [ ] Stripe webhook configured at `/api/stripe/webhook`
 - [ ] Stripe wallets / BNPL **not** claimed unless actually enabled

@@ -133,9 +133,9 @@ export default function SignInPartial() {
                         </svg>
                       </span> Back </Link>
                     </div>
-                    <h3 className="mb-2 mt-lg-0 mt-5 fw-bold text-capitalize">Registration</h3>
+                    <h3 className="mb-2 mt-lg-0 mt-5 fw-bold text-capitalize">Admin Sign In</h3>
                     <p className="text-center text-muted mb-4">
-                      Complete your registration to create  a  secure account.
+                      Sign in with your TaxSimba admin credentials to continue.
                     </p>
                     <form onSubmit={handleSubmit}>
                       <div className="space-y-6">

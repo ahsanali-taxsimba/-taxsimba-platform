@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Modal } from '@/components/ui/modal';
 import Button from '@/components/ui/button/Button';
 import clientAxios from '@/lib/axios-client';
+import { mapTaxReturnListPayload } from '@/lib/mapTaxReturnList';
 import DatePicker from '@/components/form/date-picker';
 
 interface Accountant {
@@ -81,7 +82,7 @@ const AssignAccountantModal: React.FC<AssignAccountantModalProps> = ({
 
       console.log(' Assignment response:', res.data);
       const response = await clientAxios.post('/admin/tax-return/files', {});
-      setTaxReturns(response.data?.data ?? []);
+      setTaxReturns(mapTaxReturnListPayload(response.data?.data));
 
       onClose();
       // fetchTaxReturns();

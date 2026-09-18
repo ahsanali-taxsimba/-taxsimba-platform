@@ -53,14 +53,56 @@ const FaqManagement: React.FC = () => {
     answer: ''
   });
 
+  const mapFaqRow = (raw: any): Faq => {
+    const isActive =
+      typeof raw?.isActive === 'boolean'
+        ? raw.isActive
+        : typeof raw?.is_active === 'boolean'
+          ? raw.is_active
+          : typeof raw?.status === 'boolean'
+            ? raw.status
+            : String(raw?.status ?? '').toLowerCase() === 'active';
+    return {
+      id: raw.id,
+      question: raw.question ?? '',
+      answer: raw.answer ?? '',
+      status: isActive,
+      createdAt: raw.createdAt ?? raw.created_at,
+      updatedAt: raw.updatedAt ?? raw.updated_at,
+    };
+  };
+
+  const mapPagination = (raw: any, fallbackPage = 1): PaginationData => ({
+    totalItems: Number(raw?.totalItems ?? raw?.total ?? 0) || 0,
+    totalPages: Number(raw?.totalPages ?? raw?.pages ?? 1) || 1,
+    currentPage: Number(raw?.currentPage ?? raw?.page ?? fallbackPage) || fallbackPage,
+    pageSize: Number(raw?.pageSize ?? raw?.limit ?? pagination.pageSize) || pagination.pageSize,
+  });
+
+  const sortFaqsLocal = (rows: Faq[]) => {
+    const dir = sortOrder === 'ASC' ? 1 : -1;
+    return [...rows].sort((a, b) => {
+      if (sortBy === 'question') {
+        return a.question.localeCompare(b.question) * dir;
+      }
+      if (sortBy === 'status') {
+        return (Number(a.status) - Number(b.status)) * dir;
+      }
+      const at = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+      const bt = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+      return (at - bt) * dir;
+    });
+  };
+
   // Fetch FAQs
   const fetchFaqs = async (page = 1, search = '') => {
     try {
       setLoading(true);
       setError(null);
 
+      const needle = (search || searchTerm).trim().toLowerCase();
       const response = await clientAxios.post('/admin/faqs', {
-        search: search || searchTerm,
+        search: needle,
         page,
         limit: pagination.pageSize,
         sortBy,
@@ -68,8 +110,28 @@ const FaqManagement: React.FC = () => {
       });
 
       if (response.data?.success) {
-        setFaqs(response.data.data.faqs || []);
-        setPagination(response.data.data.pagination);
+        let rows = (response.data.data.faqs || []).map(mapFaqRow);
+        if (needle) {
+          rows = rows.filter(
+            (f: Faq) =>
+              f.question.toLowerCase().includes(needle) ||
+              f.answer.toLowerCase().includes(needle) ||
+              (f.status ? 'active' : 'inactive').includes(needle),
+          );
+        }
+        rows = sortFaqsLocal(rows);
+        setFaqs(rows);
+        const mapped = mapPagination(response.data.data.pagination, page);
+        if (needle) {
+          setPagination({
+            ...mapped,
+            totalItems: rows.length,
+            totalPages: Math.max(1, Math.ceil(rows.length / pagination.pageSize)),
+            currentPage: page,
+          });
+        } else {
+          setPagination(mapped);
+        }
       }
     } catch (err: any) {
       console.error('Error fetching FAQs:', err);
@@ -95,7 +157,7 @@ const FaqManagement: React.FC = () => {
       if (response.data?.success) {
         setShowCreateModal(false);
         setFormData({ question: '', answer: '' });
-        await fetchFaqs(pagination.currentPage);
+        await fetchFaqs(1);
       }
     } catch (err: any) {
       console.error('Error creating FAQ:', err);
@@ -120,7 +182,7 @@ const FaqManagement: React.FC = () => {
 
       const response = await clientAxios.put(`/admin/faqs/update/${selectedFaq.id}`, {
         ...formData,
-        status: selectedFaq.status
+        isActive: selectedFaq.status,
       });
 
       if (response.data?.success) {
@@ -157,6 +219,7 @@ const FaqManagement: React.FC = () => {
       const response = await clientAxios.delete(`/admin/faqs/delete/${faqToDelete}`);
 
       if (response.data?.success) {
+        setFaqs((prev) => prev.filter((f) => f.id !== faqToDelete));
         await fetchFaqs(pagination.currentPage);
       }
     } catch (err: any) {
@@ -169,17 +232,22 @@ const FaqManagement: React.FC = () => {
     }
   };
 
-  // Toggle FAQ status
+  // Toggle FAQ status — backend expects isActive boolean or status "active"|"inactive"
   const handleToggleStatus = async (faqId: number, currentStatus: boolean) => {
     try {
       setSaving(true);
       setError(null);
 
+      const next = !currentStatus;
       const response = await clientAxios.put(`/admin/faqs/${faqId}/status`, {
-        status: !currentStatus
+        isActive: next,
+        status: next ? 'active' : 'inactive',
       });
 
       if (response.data?.success) {
+        setFaqs((prev) =>
+          prev.map((f) => (f.id === faqId ? { ...f, status: next } : f)),
+        );
         await fetchFaqs(pagination.currentPage);
       }
     } catch (err: any) {
@@ -403,9 +471,8 @@ const FaqManagement: React.FC = () => {
                       className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-md"
                       title="Delete FAQ"
                     >
-                      <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" clipRule="evenodd" />
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
                       </svg>
                     </button>
                   </div>

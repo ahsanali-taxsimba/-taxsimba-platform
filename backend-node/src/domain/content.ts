@@ -42,27 +42,61 @@ export const CONTENT_DEFAULTS: Record<string, ContentDefault> = {
   // Package marketing copy does not exist in the current UI. The defaults are therefore empty:
   // nothing is rendered until a Super Admin writes copy, so adopting these keys cannot change
   // the current screens.
-  "package.SIMPLE.description": { group: "Packages", label: "Simple \u2014 description", value: "" },
-  "package.SIMPLE.features": { group: "Packages", label: "Simple \u2014 features", list: true, value: "" },
-  "package.SMART.description": { group: "Packages", label: "Smart \u2014 description", value: "" },
-  "package.SMART.features": { group: "Packages", label: "Smart \u2014 features", list: true, value: "" },
-  "package.ELITE.description": { group: "Packages", label: "Elite \u2014 description", value: "" },
-  "package.ELITE.features": { group: "Packages", label: "Elite \u2014 features", list: true, value: "" },
+  "package.SIMPLE.description": { group: "Packages", label: "Tax Simba Simple \u2014 description", value: "" },
+  "package.SIMPLE.features": { group: "Packages", label: "Tax Simba Simple \u2014 features", list: true, value: "" },
+  "package.SMART.description": { group: "Packages", label: "Tax Simba Smart \u2014 description", value: "" },
+  "package.SMART.features": { group: "Packages", label: "Tax Simba Smart \u2014 features", list: true, value: "" },
+  "package.ELITE.description": { group: "Packages", label: "Tax Simba Elite \u2014 description", value: "" },
+  "package.ELITE.features": { group: "Packages", label: "Tax Simba Elite \u2014 features", list: true, value: "" },
+  "package.MTD_COMPLY.description": {
+    group: "Packages",
+    label: "Simbian Comply \u2014 description",
+    value: "",
+  },
+  "package.MTD_COMPLY.features": {
+    group: "Packages",
+    label: "Simbian Comply \u2014 features",
+    list: true,
+    value: "",
+  },
+  "package.MTD_GROWTH.description": {
+    group: "Packages",
+    label: "Simbian Growth \u2014 description",
+    value: "",
+  },
+  "package.MTD_GROWTH.features": {
+    group: "Packages",
+    label: "Simbian Growth \u2014 features",
+    list: true,
+    value: "",
+  },
+  "package.MTD_ELITE.description": {
+    group: "Packages",
+    label: "Simbian Elite \u2014 description",
+    value: "",
+  },
+  "package.MTD_ELITE.features": {
+    group: "Packages",
+    label: "Simbian Elite \u2014 features",
+    list: true,
+    value: "",
+  },
+  // Legacy keys retained so historical Super Admin overrides still resolve.
   "package.MTD_ESSENTIAL.description": {
     group: "Packages",
-    label: "MTD Essential \u2014 description",
+    label: "MTD Essential (legacy) \u2014 description",
     value: "",
   },
   "package.MTD_ESSENTIAL.features": {
     group: "Packages",
-    label: "MTD Essential \u2014 features",
+    label: "MTD Essential (legacy) \u2014 features",
     list: true,
     value: "",
   },
-  "package.MTD_PLUS.description": { group: "Packages", label: "MTD Plus \u2014 description", value: "" },
+  "package.MTD_PLUS.description": { group: "Packages", label: "MTD Plus (legacy) \u2014 description", value: "" },
   "package.MTD_PLUS.features": {
     group: "Packages",
-    label: "MTD Plus \u2014 features",
+    label: "MTD Plus (legacy) \u2014 features",
     list: true,
     value: "",
   },

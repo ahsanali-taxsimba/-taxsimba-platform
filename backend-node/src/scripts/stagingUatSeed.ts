@@ -45,7 +45,7 @@ const CLIENTS: Person[] = [
   { email: "uat.q3joiner@uat-taxsimba.test", name: "UAT Q3 Joiner", role: "CLIENT", services: [MTD] },
 ];
 
-const PACKAGE: Record<string, string> = { [SA]: "SMART", [MTD]: "MTD_ESSENTIAL" };
+const PACKAGE: Record<string, string> = { [SA]: "SMART", [MTD]: "MTD_COMPLY" };
 
 function requireEnv(name: string): string {
   const value = process.env[name];

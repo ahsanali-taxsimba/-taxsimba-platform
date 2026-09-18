@@ -12,6 +12,7 @@
 import { randomUUID } from "crypto";
 
 import { Router } from "express";
+import multer from "multer";
 import { z } from "zod";
 
 import { clean, col, Doc } from "../db/mongo";
@@ -21,6 +22,7 @@ import { handler, httpError, parseBody } from "../http/errors";
 import { authResponse, clearSessionCookies, isBrowser } from "../http/session";
 import { auth, user as authed } from "../middleware/auth";
 import { enforceCsrf } from "../middleware/csrf";
+import { safeFilename, validateUpload } from "../middleware/protections";
 import {
   createAccessToken,
   hashPassword,
@@ -38,9 +40,23 @@ import { clearFailures, clientIp, enforceLoginAllowed, recordFailure } from "../
 import { consumePasswordReset, issuePasswordReset } from "../services/passwordReset";
 import { createChallenge } from "../services/security";
 import { engagementStatusForUser } from "../services/engagement";
+import { getObject, putObject } from "../services/storage";
 import { keysToCamel, keysToSnake } from "./caseMap";
 import { sendCompatSuccess } from "./envelope";
 import { ownershipForUser } from "./ownership";
+
+const PROFILE_IMAGE_TYPES = new Set(["image/jpeg", "image/png", "image/jpg"]);
+const PROFILE_IMAGE_MAX_BYTES = 5 * 1024 * 1024;
+
+const profileUpload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: PROFILE_IMAGE_MAX_BYTES, files: 1 },
+});
+
+/** Public relative path clients append to NEXT_PUBLIC_API_URL. */
+function profilePhotoPublicPath(userId: string): string {
+  return `auth/profile-photo/${userId}`;
+}
 
 const LoginIn = z.object({
   email: z.string().email(),
@@ -84,6 +100,7 @@ export function splitDisplayName(name: string | null | undefined): {
 /** Map a Node user row into the Toxel NextAuth-shaped user object. */
 export function toToxelUser(user: Doc): Doc {
   const { firstName, lastName } = splitDisplayName(String(user.name ?? ""));
+  const hasPhoto = Boolean(user.profile_photo || user.profile_photo_storage);
   return {
     id: user.id,
     email: user.email,
@@ -91,7 +108,8 @@ export function toToxelUser(user: Doc): Doc {
     firstName,
     lastName,
     mobile: user.phone ?? null,
-    profilePhoto: user.profile_photo ?? null,
+    // Stable serve URL (storage key stays server-side in profile_photo / profile_photo_storage).
+    profilePhoto: hasPhoto ? profilePhotoPublicPath(String(user.id)) : null,
     roles: user.role,
     role: user.role,
     isActive: user.is_active !== false,
@@ -355,60 +373,172 @@ compatAuthRouter.post(
 /**
  * P1 — update account settings.
  * CLIENT: maps onto native my-profile fields (name/phone/address).
- * Staff: name/phone only (staff photo/UTR edit remains HIDE per baseline P3).
+ * Staff: name/phone/address on users (staff photo/UTR edit remains HIDE per baseline P3).
  */
+function normalizePhoneInput(raw: unknown): string | undefined {
+  if (typeof raw !== "string") return undefined;
+  return raw;
+}
+
+function assertPhoneValid(phone: string): void {
+  const trimmed = phone.trim();
+  if (!trimmed) return;
+  if (trimmed.length > 20) {
+    throw httpError(400, "Phone number must be at most 20 characters");
+  }
+  const digits = trimmed.replace(/\D/g, "");
+  if (digits.length < 7 || digits.length > 15) {
+    throw httpError(400, "Enter a valid phone number (7–15 digits)");
+  }
+  if (!/^[+]?[\d\s().-]{7,20}$/.test(trimmed)) {
+    throw httpError(400, "Enter a valid phone number");
+  }
+}
+
+async function persistProfilePhoto(
+  me: Doc,
+  file: Express.Multer.File,
+): Promise<string> {
+  const mime = (file.mimetype || "").split(";")[0].trim().toLowerCase();
+  if (!PROFILE_IMAGE_TYPES.has(mime)) {
+    throw httpError(415, "Profile image must be JPG or PNG");
+  }
+  if (!file.buffer?.length) throw httpError(400, "The file appears to be empty");
+  if (file.size > PROFILE_IMAGE_MAX_BYTES) {
+    throw httpError(413, "Profile image must be 5MB or smaller");
+  }
+  // Reuse document upload sanitiser for filename; type already constrained above.
+  validateUpload(mime === "image/jpg" ? "image/jpeg" : mime, file.size, file.originalname);
+  const ext = mime === "image/png" ? "png" : "jpg";
+  const storagePath = `taxsimba/profiles/${me.id}/${randomUUID()}_${safeFilename(file.originalname) || `avatar.${ext}`}`;
+  await putObject(storagePath, file.buffer, mime === "image/jpg" ? "image/jpeg" : mime);
+  await col("users").updateOne(
+    { id: me.id },
+    {
+      $set: {
+        profile_photo: storagePath,
+        profile_photo_storage: storagePath,
+        profile_photo_content_type: mime === "image/jpg" ? "image/jpeg" : mime,
+        updated_at: nowIso(),
+      },
+    },
+  );
+  return profilePhotoPublicPath(String(me.id));
+}
+
+async function applyAccountSettingsUpdate(
+  req: import("express").Request,
+  res: import("express").Response,
+): Promise<void> {
+  const me = authed(req);
+  const body = req.body;
+  const uploaded = (req as import("express").Request & { file?: Express.Multer.File }).file;
+  if (body == null || typeof body !== "object" || Array.isArray(body)) {
+    throw httpError(400, "Request body is required");
+  }
+  // Multipart without a parser yields an empty body — do not report success.
+  if (Object.keys(body as object).length === 0 && !uploaded) {
+    throw httpError(400, "No profile fields to update");
+  }
+
+  const snake = keysToSnake(body) as Record<string, unknown>;
+  const first = typeof snake.first_name === "string" ? snake.first_name.trim() : "";
+  const last = typeof snake.last_name === "string" ? snake.last_name.trim() : "";
+  const surname = typeof snake.surname === "string" ? snake.surname.trim() : "";
+  const nameFromParts = [first, last || surname].filter(Boolean).join(" ").trim();
+  const name =
+    (typeof snake.name === "string" && snake.name.trim()) || nameFromParts || null;
+  const phoneRaw =
+    normalizePhoneInput(snake.phone) !== undefined
+      ? normalizePhoneInput(snake.phone)
+      : normalizePhoneInput(snake.mobile);
+  const phone = phoneRaw !== undefined ? String(phoneRaw) : undefined;
+  const address = typeof snake.address === "string" ? snake.address : undefined;
+
+  if (phone !== undefined) assertPhoneValid(phone);
+
+  const hasChange =
+    Boolean(name) || phone !== undefined || address !== undefined || Boolean(uploaded);
+  if (!hasChange) {
+    throw httpError(400, "No profile fields to update");
+  }
+
+  if (uploaded) {
+    await persistProfilePhoto(me, uploaded);
+  }
+
+  const userPatch: Doc = { updated_at: nowIso() };
+  if (name) userPatch.name = name;
+  if (phone !== undefined) userPatch.phone = phone.trim() || null;
+  if (address !== undefined && me.role !== "CLIENT") {
+    userPatch.address = address.trim() || null;
+  }
+  if (Object.keys(userPatch).length > 1) {
+    await col("users").updateOne({ id: me.id }, { $set: userPatch });
+  }
+
+  if (me.role === "CLIENT") {
+    const updates: Doc = {};
+    if (phone !== undefined) updates.phone = phone.trim() || null;
+    if (address !== undefined) updates.address = address.trim() || null;
+    if (name) updates.name = name;
+    if (Object.keys(updates).length) {
+      await col("clients").updateOne({ user_id: me.id }, { $set: updates });
+    }
+    if (name) {
+      await col("cases").updateMany(
+        { client_user_id: me.id },
+        { $set: { client_name: name } },
+      );
+    }
+  }
+
+  const fresh = clean(
+    ((await col("users").findOne({ id: me.id })) ?? me) as Doc,
+  ) as Doc;
+  let addressOut: string | null = (fresh.address as string) ?? null;
+  if (me.role === "CLIENT") {
+    const client = (await col("clients").findOne({ user_id: me.id })) as Doc | null;
+    addressOut = (client?.address as string) ?? addressOut;
+  }
+  const { firstName, lastName } = splitDisplayName(String(fresh.name ?? ""));
+  sendCompatSuccess(
+    res,
+    keysToCamel({
+      ...toToxelUser(fresh),
+      first_name: firstName,
+      last_name: lastName,
+      phone: fresh.phone ?? null,
+      address: addressOut,
+    }),
+    "Updated",
+  );
+}
+
+function profileUploadMiddleware(
+  req: import("express").Request,
+  res: import("express").Response,
+  next: import("express").NextFunction,
+): void {
+  profileUpload.single("profilePhoto")(req, res, (err: unknown) => {
+    if (err) {
+      const message =
+        err instanceof Error && /File too large/i.test(err.message)
+          ? "Profile image must be 5MB or smaller"
+          : "Invalid profile image upload";
+      next(httpError(400, message));
+      return;
+    }
+    next();
+  });
+}
+
 compatAuthRouter.put(
   "/auth/update-account-settings",
   auth(),
+  profileUploadMiddleware,
   handler(async (req, res) => {
-    const me = authed(req);
-    const snake = keysToSnake(req.body ?? {}) as Record<string, unknown>;
-    const first = typeof snake.first_name === "string" ? snake.first_name.trim() : "";
-    const last = typeof snake.last_name === "string" ? snake.last_name.trim() : "";
-    const surname = typeof snake.surname === "string" ? snake.surname.trim() : "";
-    const nameFromParts = [first, last || surname].filter(Boolean).join(" ").trim();
-    const name =
-      (typeof snake.name === "string" && snake.name.trim()) || nameFromParts || null;
-    const phone =
-      typeof snake.phone === "string"
-        ? snake.phone
-        : typeof snake.mobile === "string"
-          ? snake.mobile
-          : undefined;
-    const address = typeof snake.address === "string" ? snake.address : undefined;
-
-    if (name) await col("users").updateOne({ id: me.id }, { $set: { name } });
-    if (me.role === "CLIENT") {
-      const updates: Doc = {};
-      if (phone !== undefined) updates.phone = phone;
-      if (address !== undefined) updates.address = address;
-      if (name) updates.name = name;
-      if (Object.keys(updates).length) {
-        await col("clients").updateOne({ user_id: me.id }, { $set: updates });
-      }
-      if (name) {
-        await col("cases").updateMany(
-          { client_user_id: me.id },
-          { $set: { client_name: name } },
-        );
-      }
-    } else if (phone !== undefined) {
-      await col("users").updateOne({ id: me.id }, { $set: { phone } });
-    }
-    const fresh = clean(
-      ((await col("users").findOne({ id: me.id })) ?? me) as Doc,
-    ) as Doc;
-    const { firstName, lastName } = splitDisplayName(String(fresh.name ?? ""));
-    sendCompatSuccess(
-      res,
-      keysToCamel({
-        ...toToxelUser(fresh),
-        first_name: firstName,
-        last_name: lastName,
-        phone: fresh.phone ?? null,
-      }),
-      "Updated",
-    );
+    await applyAccountSettingsUpdate(req, res);
   }),
 );
 
@@ -416,54 +546,31 @@ compatAuthRouter.put(
 compatAuthRouter.post(
   "/auth/update-account-settings",
   auth(),
+  profileUploadMiddleware,
   handler(async (req, res) => {
-    // Reuse PUT handler by forwarding — express doesn't allow easy reuse; duplicate thin call.
+    await applyAccountSettingsUpdate(req, res);
+  }),
+);
+
+/** Serve stored profile photo for the owner (or staff viewing). */
+compatAuthRouter.get(
+  "/auth/profile-photo/:userId",
+  auth(),
+  handler(async (req, res) => {
     const me = authed(req);
-    const snake = keysToSnake(req.body ?? {}) as Record<string, unknown>;
-    const first = typeof snake.first_name === "string" ? snake.first_name.trim() : "";
-    const last = typeof snake.last_name === "string" ? snake.last_name.trim() : "";
-    const surname = typeof snake.surname === "string" ? snake.surname.trim() : "";
-    const nameFromParts = [first, last || surname].filter(Boolean).join(" ").trim();
-    const name =
-      (typeof snake.name === "string" && snake.name.trim()) || nameFromParts || null;
-    const phone =
-      typeof snake.phone === "string"
-        ? snake.phone
-        : typeof snake.mobile === "string"
-          ? snake.mobile
-          : undefined;
-    const address = typeof snake.address === "string" ? snake.address : undefined;
-    if (name) await col("users").updateOne({ id: me.id }, { $set: { name } });
-    if (me.role === "CLIENT") {
-      const updates: Doc = {};
-      if (phone !== undefined) updates.phone = phone;
-      if (address !== undefined) updates.address = address;
-      if (name) updates.name = name;
-      if (Object.keys(updates).length) {
-        await col("clients").updateOne({ user_id: me.id }, { $set: updates });
-      }
-      if (name) {
-        await col("cases").updateMany(
-          { client_user_id: me.id },
-          { $set: { client_name: name } },
-        );
-      }
-    } else if (phone !== undefined) {
-      await col("users").updateOne({ id: me.id }, { $set: { phone } });
+    const userId = req.params.userId;
+    const isSelf = me.id === userId;
+    const isStaff = ["ADMIN", "SUPER_ADMIN", "ACCOUNTANT"].includes(String(me.role));
+    if (!isSelf && !isStaff) throw httpError(403, "Not allowed");
+    const user = (await col("users").findOne({ id: userId })) as Doc | null;
+    if (!user) throw httpError(404, "User not found");
+    const storagePath = String(user.profile_photo_storage ?? user.profile_photo ?? "");
+    if (!storagePath || storagePath.startsWith("auth/")) {
+      throw httpError(404, "Profile photo not found");
     }
-    const fresh = clean(
-      ((await col("users").findOne({ id: me.id })) ?? me) as Doc,
-    ) as Doc;
-    const { firstName, lastName } = splitDisplayName(String(fresh.name ?? ""));
-    sendCompatSuccess(
-      res,
-      keysToCamel({
-        ...toToxelUser(fresh),
-        first_name: firstName,
-        last_name: lastName,
-        phone: fresh.phone ?? null,
-      }),
-      "Updated",
-    );
+    const { data, contentType } = await getObject(storagePath);
+    res.setHeader("Content-Type", contentType || "image/jpeg");
+    res.setHeader("Cache-Control", "private, max-age=300");
+    res.send(data);
   }),
 );

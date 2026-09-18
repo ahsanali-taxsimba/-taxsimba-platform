@@ -16,6 +16,7 @@ import {
 import PageBreadcrumb from '@/components/common/PageBreadCrumb';
 import Badge from "@/components/ui/badge/Badge";
 import clientAxios from '@/lib/axios-client';
+import { mapTaxReturnListPayload } from '@/lib/mapTaxReturnList';
 import { useRouter } from 'next/navigation';
 import { TaxReturnData } from '@/utils/interface';
 import AssignAccountantModal from './_sections/AssignAccountantModal';
@@ -46,10 +47,11 @@ const AdminTaxReturnManagement: React.FC = () => {
     setIsLoading(true);
     try {
       const res = await clientAxios.post('/admin/tax-return/files', {});
-      const responseData = res.data?.data ?? [];
-      setTaxReturns(responseData);
+      // Canonical compat shape: { success, data: { files, taxReturns }, message }
+      setTaxReturns(mapTaxReturnListPayload(res.data?.data));
     } catch (error) {
       console.error('Error fetching tax returns:', error);
+      setTaxReturns([]);
     } finally {
       setIsLoading(false);
     }

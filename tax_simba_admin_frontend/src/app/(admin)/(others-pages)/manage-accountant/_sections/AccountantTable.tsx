@@ -154,10 +154,15 @@ console.log('openDropdownId', openDropdownId)
     const onStatusChange = async (status?: number, id?: any) => {
         console.log("status ", status, " id ", id)
         try {
-            const response = await clientAxios.post(`/admin/accountants/${id}/status`, { status }, true)
+            const canonical = status === 1 ? "active" : "inactive";
+            const response = await clientAxios.post(
+                `/admin/accountants/${id}/status`,
+                { status: canonical },
+                true,
+            )
             console.log("response ", response?.data)
             if (response) {
-                toast.success(response.data?.message || "Status updated successfully.");
+                toast.success(response.data?.message || "Accountant status updated successfully.");
                 setOpenDropdownId([]);
                 if (typeof fetchData === "function") fetchData();
                 if (typeof setGridUpdate === "function") setGridUpdate(!gridUpdate);
@@ -180,6 +185,15 @@ console.log('openDropdownId', openDropdownId)
     useEffect(() => {
         console.log("updating...")
     }, [gridUpdate])
+
+    const isAccountantActive = (order: any) => {
+        if (typeof order.isActive === "boolean") return order.isActive;
+        if (typeof order.is_active === "boolean") return order.is_active;
+        const s = String(order.status ?? "").toLowerCase();
+        if (s === "active" || s === "1") return true;
+        if (s === "inactive" || s === "0" || s === "pending") return false;
+        return order.status == 1;
+    };
 
     // Skeleton Row Component
     const SkeletonRow = () => (
@@ -292,14 +306,14 @@ console.log('openDropdownId', openDropdownId)
                                             {order.email}
                                         </TableCell>
                                         <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                                            {order.mobile}
+                                            {order.mobile || order.phone || "—"}
                                         </TableCell>
                                         <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
                                             <div className="relative inline-block">
                                                 <Badge
                                                     size="md"
                                                     color={
-                                                        order.status == 1
+                                                        isAccountantActive(order)
                                                             ? "success"
                                                             :
                                                             // order.status === "Pending"
@@ -311,7 +325,7 @@ console.log('openDropdownId', openDropdownId)
                                                     onClick={() => toggleDropdown(order.id)}
                                                     dynamicClassName={"cursor-pointer"}
                                                 >
-                                                    {order.status == 1 ? "Active" : "Inactive"}
+                                                    {isAccountantActive(order) ? "Active" : "Inactive"}
                                                 </Badge>
                                                  {openDropdownId.find((item:number)=> item == order.id) && (
                                                     <Dropdown

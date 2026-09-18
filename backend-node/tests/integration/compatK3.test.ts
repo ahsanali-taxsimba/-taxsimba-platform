@@ -103,6 +103,15 @@ describe("K.3 compat entitlements + checkout adapters", () => {
     expect(res.body.data[0].category).toBe("taxSimba");
   });
 
+  it("lists subscription-plans for unauthenticated guests (public catalogue)", async () => {
+    const res = await request(app)
+      .get("/api/compat/subscription-plans?category=taxSimba")
+      .expect(200);
+    expect(res.body.success).toBe(true);
+    expect(Array.isArray(res.body.data)).toBe(true);
+    expect(res.body.data.length).toBeGreaterThan(0);
+  });
+
   it("verified user creates Checkout Session for the selected mapped package", async () => {
     const client = await makeClient("k3mapped");
     const { col } = await import("../../src/db/mongo");
@@ -266,7 +275,7 @@ describe("K.3 compat entitlements + checkout adapters", () => {
     const buyBob = await request(app)
       .post("/api/compat/client/subscription/checkout-session")
       .set(bearer(bob))
-      .send({ planId: "MTD_ESSENTIAL", originUrl: "https://app.test.taxsimba.local" })
+      .send({ planId: "MTD_COMPLY", originUrl: "https://app.test.taxsimba.local" })
       .expect(200);
     await payAndConfirm(buyBob.body.data.sessionId).expect(200);
     await request(app)
@@ -286,7 +295,7 @@ describe("K.3 compat entitlements + checkout adapters", () => {
     expect(aliceList.body.data.subscriptions[0].plan.code).toBe("SIMPLE");
     expect(
       aliceList.body.data.subscriptions.every(
-        (s: { plan: { code: string } }) => s.plan.code !== "MTD_ESSENTIAL",
+        (s: { plan: { code: string } }) => s.plan.code !== "MTD_COMPLY",
       ),
     ).toBe(true);
 
@@ -298,7 +307,7 @@ describe("K.3 compat entitlements + checkout adapters", () => {
     expect(bobList.body.data.hasActiveMtd).toBe(true);
     expect(bobList.body.data.hasActiveSa).toBe(false);
     expect(bobList.body.data.subscriptions).toHaveLength(1);
-    expect(bobList.body.data.subscriptions[0].plan.code).toBe("MTD_ESSENTIAL");
+    expect(bobList.body.data.subscriptions[0].plan.code).toBe("MTD_COMPLY");
     expect(
       bobList.body.data.subscriptions.every(
         (s: { plan: { code: string } }) => s.plan.code !== "SIMPLE",

@@ -32,16 +32,9 @@ axiosInstance.interceptors.request.use(
           else if ((session.user as any)?.token) {
             config.headers.Authorization = `Bearer ${(session.user as any).token}`;
           }
-          
-          // Add user role to headers for API authorization
-          if ((session.user as any)?.role) {
-            config.headers['X-User-Role'] = (session.user as any).role;
-          }
-          
-          // Add user ID to headers if needed
-          if ((session.user as any)?.id) {
-            config.headers['X-User-ID'] = (session.user as any).id;
-          }
+
+          // Do not send X-User-Role / X-User-ID. Authorization is Bearer-only;
+          // client-supplied role/id headers must never influence permissions.
         }
         
       } catch (error) {

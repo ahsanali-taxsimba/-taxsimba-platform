@@ -56,6 +56,8 @@ compatEntitlementsRouter.post(
       const client = (await col("clients").findOne({ user_id: me.id })) as Doc | null;
       phone = (client?.phone as string) ?? phone;
       address = (client?.address as string) ?? null;
+    } else {
+      address = (me.address as string) ?? null;
     }
     sendCompatSuccess(
       res,

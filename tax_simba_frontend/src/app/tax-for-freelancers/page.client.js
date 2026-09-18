@@ -109,7 +109,7 @@ const TaxForFreelancersClient = () => {
                                     <img src="/images/tax.png" alt="img" />
                                 </span>
                                 <h3>Direct HMRC Submission</h3>
-                                <p>Submit your Self Assessment directly to HMRC from our platform. We are formally recognised by HMRC.</p>
+                                <p>Submit your Self Assessment directly to HMRC from our platform. We are Accountant Led.</p>
                             </div>
                         </Col>
 
@@ -261,7 +261,7 @@ const TaxForFreelancersClient = () => {
                                     <Accordion.Item eventKey="1">
                                         <Accordion.Header>Can Taxsimba submit my return to HMRC directly?</Accordion.Header>
                                         <Accordion.Body>
-                                            Yes, Taxsimba is HMRC recognized and fully supports direct digital submission of your Self Assessment tax return.
+                                            Yes, Taxsimba is Accountant Led and fully supports direct digital submission of your Self Assessment tax return.
                                         </Accordion.Body>
                                     </Accordion.Item>
 

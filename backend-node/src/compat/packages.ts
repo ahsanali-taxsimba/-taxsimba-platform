@@ -36,13 +36,14 @@ function mapPackage(p: Doc, content: Record<string, string>): Doc {
     priceId: p.id,
     stripePriceId: null,
     currency: "GBP",
-    vatPercentage: 0,
+    vatPercentage: p.vat_treatment === "EXCLUSIVE" ? 20 : 0,
   };
 }
 
 compatPackagesRouter.get(
   "/subscription-plans",
-  auth(),
+  // Public marketing catalogue — active packages only, mapPackage marketing fields.
+  // Mutations and native /api/packages* remain Super Admin protected.
   handler(async (req, res) => {
     await applyDuePriceSchedules();
     const category =

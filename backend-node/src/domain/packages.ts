@@ -23,44 +23,83 @@ export const DEFAULT_PACKAGES: Doc[] = [
   {
     service_type: SELF_ASSESSMENT,
     code: "SIMPLE",
-    name: "Simple",
+    name: "Tax Simba Simple",
     price: 119.0,
     rank: 1,
     billing_frequency: "Per tax year",
+    billing_type: "ONE_OFF",
+    vat_treatment: "INCLUSIVE",
   },
   {
     service_type: SELF_ASSESSMENT,
     code: "SMART",
-    name: "Smart",
+    name: "Tax Simba Smart",
     price: 149.0,
     rank: 2,
     billing_frequency: "Per tax year",
+    billing_type: "ONE_OFF",
+    vat_treatment: "INCLUSIVE",
   },
   {
     service_type: SELF_ASSESSMENT,
     code: "ELITE",
-    name: "Elite",
-    price: 249.0,
+    name: "Tax Simba Elite",
+    price: 299.0,
     rank: 3,
     billing_frequency: "Per tax year",
+    billing_type: "ONE_OFF",
+    vat_treatment: "INCLUSIVE",
   },
   {
     service_type: MTD,
-    code: "MTD_ESSENTIAL",
-    name: "MTD Essential",
-    price: 240.0,
+    code: "MTD_COMPLY",
+    name: "Simbian Comply",
+    price: 29.99,
     rank: 1,
-    billing_frequency: "Quarterly billing",
+    billing_frequency: "Monthly",
+    billing_type: "RECURRING",
+    vat_treatment: "EXCLUSIVE",
   },
   {
     service_type: MTD,
-    code: "MTD_PLUS",
-    name: "MTD Plus",
-    price: 360.0,
+    code: "MTD_GROWTH",
+    name: "Simbian Growth",
+    price: 59.99,
     rank: 2,
-    billing_frequency: "Quarterly billing",
+    billing_frequency: "Monthly",
+    billing_type: "RECURRING",
+    vat_treatment: "EXCLUSIVE",
+  },
+  {
+    service_type: MTD,
+    code: "MTD_ELITE",
+    name: "Simbian Elite",
+    price: 89.99,
+    rank: 3,
+    billing_frequency: "Monthly",
+    billing_type: "RECURRING",
+    vat_treatment: "EXCLUSIVE",
   },
 ];
+
+/** Legacy MTD catalogue codes superseded by Simbian Comply/Growth/Elite. */
+export const LEGACY_MTD_PACKAGE_CODES = ["MTD_ESSENTIAL", "MTD_PLUS"] as const;
+
+/**
+ * Known seed-price drift values that may safely be realigned to the founder-approved
+ * catalogue without clobbering intentional Super Admin live price edits.
+ */
+const SEED_PRICE_DRIFT: Record<string, number[]> = {
+  ELITE: [249, 299],
+  MTD_ESSENTIAL: [240],
+  MTD_PLUS: [360],
+  // Staging mis-seeds that used legacy Essential/Plus amounts on Simbian codes.
+  MTD_COMPLY: [240, 29.99],
+  MTD_GROWTH: [360, 59.99],
+  MTD_ELITE: [360, 240, 89.99],
+  SIMPLE: [119],
+  SMART: [149],
+};
 
 // Configurable late-stage lock: client-initiated package changes are disabled from these statuses.
 export const DEFAULT_LOCK_STATUSES = [
@@ -277,12 +316,50 @@ export async function activateService(
 /** Seeds the package catalogue and the package-change lock setting. Idempotent. */
 export async function ensurePhase1bData(): Promise<void> {
   for (const p of DEFAULT_PACKAGES) {
+    const existing = (await col("packages").findOne({
+      service_type: p.service_type,
+      code: p.code,
+    })) as Doc | null;
+    if (!existing) {
+      await col("packages").insertOne({
+        ...p,
+        id: randomUUID(),
+        is_active: true,
+        created_at: nowIso(),
+      });
+      continue;
+    }
+    // Align founder catalogue for new installs / known seed drift only.
+    // Do not overwrite a Super Admin live price that already differs from seed history.
+    const driftPrices = SEED_PRICE_DRIFT[String(p.code)] ?? [Number(p.price)];
+    const currentPrice = Number(existing.price);
+    const patch: Doc = {
+      name: p.name,
+      rank: p.rank,
+      billing_frequency: p.billing_frequency,
+      billing_type: p.billing_type,
+      vat_treatment: p.vat_treatment,
+      is_active: true,
+      updated_at: nowIso(),
+    };
+    if (
+      !Number.isFinite(currentPrice) ||
+      driftPrices.includes(currentPrice) ||
+      currentPrice === Number(p.price)
+    ) {
+      patch.price = p.price;
+    }
+    await col("packages").updateOne({ id: existing.id }, { $set: patch });
+  }
+
+  // Soft-deactivate superseded MTD catalogue codes (historical agreed_price rows stay intact).
+  for (const code of LEGACY_MTD_PACKAGE_CODES) {
     await col("packages").updateOne(
-      { service_type: p.service_type, code: p.code },
-      { $setOnInsert: { ...p, id: randomUUID(), is_active: true, created_at: nowIso() } },
-      { upsert: true },
+      { service_type: MTD, code },
+      { $set: { is_active: false, updated_at: nowIso() } },
     );
   }
+
   await col("settings").updateOne(
     { key: "package_change_lock" },
     { $setOnInsert: { key: "package_change_lock", locked_statuses: DEFAULT_LOCK_STATUSES } },
