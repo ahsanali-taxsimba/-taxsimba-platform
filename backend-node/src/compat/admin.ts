@@ -209,7 +209,11 @@ compatAdminRouter.post(
       { id: user.id },
       { $set: { is_active: active, updated_at: nowIso() } },
     );
-    sendCompatSuccess(res, { ok: true, id: user.id, isActive: active }, "OK");
+    sendCompatSuccess(
+      res,
+      { ok: true, id: user.id, isActive: active },
+      "Accountant status updated successfully.",
+    );
   }),
 );
 
@@ -261,17 +265,28 @@ compatAdminRouter.post(
     sendCompatSuccess(
       res,
       {
-        clients: masked.map((u) => ({
-          id: u.id,
-          name: u.name,
-          email: u.email,
-          phone: u.phone ?? null,
-          contactMasked: Boolean(u.contact_masked),
-          isActive: u.is_active !== false,
-          status: u.is_active === false ? "inactive" : "active",
-          role: u.role,
-          createdAt: u.created_at,
-        })),
+        clients: masked.map((u) => {
+          const emailVerified = Boolean(u.email_verified_at);
+          const isActive = u.is_active !== false;
+          let lifecycle = "INACTIVE";
+          if (isActive && emailVerified) lifecycle = "ACTIVE";
+          else if (isActive && !emailVerified) lifecycle = "PENDING_VERIFICATION";
+          return {
+            id: u.id,
+            name: u.name,
+            email: u.email,
+            phone: u.phone ?? null,
+            contactMasked: Boolean(u.contact_masked),
+            isActive,
+            emailVerified,
+            emailVerifiedAt: u.email_verified_at ?? null,
+            // Canonical display lifecycle — distinct from SA/MTD entitlement.
+            lifecycle,
+            status: lifecycle === "ACTIVE" ? "active" : lifecycle === "PENDING_VERIFICATION" ? "pending_verification" : "inactive",
+            role: u.role,
+            createdAt: u.created_at,
+          };
+        }),
       },
       "OK",
     );

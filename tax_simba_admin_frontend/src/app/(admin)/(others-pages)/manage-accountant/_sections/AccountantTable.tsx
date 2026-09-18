@@ -162,7 +162,7 @@ console.log('openDropdownId', openDropdownId)
             )
             console.log("response ", response?.data)
             if (response) {
-                toast.success(response.data?.message || "Status updated successfully.");
+                toast.success(response.data?.message || "Accountant status updated successfully.");
                 setOpenDropdownId([]);
                 if (typeof fetchData === "function") fetchData();
                 if (typeof setGridUpdate === "function") setGridUpdate(!gridUpdate);

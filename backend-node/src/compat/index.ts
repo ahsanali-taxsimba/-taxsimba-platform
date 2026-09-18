@@ -23,6 +23,7 @@ import { compatPackagesRouter } from "./packages";
 import { compatPaymentsRouter } from "./payments";
 import { compatAwRouter } from "./aw";
 import { compatContactRouter } from "./contact";
+import { compatContentPublicRouter } from "./contentPublic";
 import { keysToCamel, keysToSnake } from "./caseMap";
 import { compatErrorMiddleware, sendCompatSuccess } from "./envelope";
 import { idsReferToSameCase, toCaseId, toTaxReturnId, withTaxReturnId } from "./ids";
@@ -43,6 +44,7 @@ compatRouter.use(compatNotificationsRouter);
 compatRouter.use(compatMtdRouter);
 compatRouter.use(compatAdminRouter);
 compatRouter.use(compatContactRouter);
+compatRouter.use(compatContentPublicRouter);
 
 /** Health / envelope success probe. */
 compatRouter.get(

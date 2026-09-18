@@ -40,26 +40,39 @@ export default function EditProfileButton({ profileData }: { profileData?: any }
       throw new Error("Invalid phone");
     }
 
-    // JSON body — backend update-account-settings uses express.json (no multipart parser).
-    const payload: Record<string, string> = {
-      name: fullName,
-      mobile: formData.phone.trim(),
-      phone: formData.phone.trim(),
-      address: formData.address.trim(),
-    };
-
+    // Multipart when a new profile image is selected; otherwise JSON (express.json path).
     try {
-      const response = await clientAxios.put(
-        "/auth/update-account-settings",
-        payload,
-        true,
-      );
+      const hasPhoto = Boolean(formData.profilePhoto);
+      let response;
+      if (hasPhoto) {
+        const multipart = new FormData();
+        multipart.append("name", fullName);
+        multipart.append("mobile", formData.phone.trim());
+        multipart.append("phone", formData.phone.trim());
+        multipart.append("address", formData.address.trim());
+        multipart.append("profilePhoto", formData.profilePhoto as File);
+        response = await clientAxios.put("/auth/update-account-settings", multipart, true);
+      } else {
+        const payload: Record<string, string> = {
+          name: fullName,
+          mobile: formData.phone.trim(),
+          phone: formData.phone.trim(),
+          address: formData.address.trim(),
+        };
+        response = await clientAxios.put("/auth/update-account-settings", payload, true);
+      }
 
       if (!response?.data?.success) {
         throw new Error(response?.data?.message || "Profile update failed");
       }
 
       const updatedUser = response.data.data;
+
+      const photoUrl = updatedUser?.profilePhoto
+        ? updatedUser.profilePhoto.startsWith("http")
+          ? updatedUser.profilePhoto
+          : `${process.env.NEXT_PUBLIC_API_URL}${updatedUser.profilePhoto}`
+        : session?.user?.image;
 
       await update({
         ...session,
@@ -72,7 +85,7 @@ export default function EditProfileButton({ profileData }: { profileData?: any }
           bio: formData.bio,
           specialization: formData.specialization,
           experience: formData.experience,
-          image: updatedUser?.profilePhoto,
+          image: photoUrl,
         },
       });
 

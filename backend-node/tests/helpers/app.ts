@@ -143,7 +143,7 @@ export async function activateClientService(
   const { col } = await import("../../src/db/mongo");
   const { activateService } = await import("../../src/domain/packages");
   const code =
-    packageCode ?? (serviceType === "SELF_ASSESSMENT" ? "SIMPLE" : "MTD_ESSENTIAL");
+    packageCode ?? (serviceType === "SELF_ASSESSMENT" ? "SIMPLE" : "MTD_COMPLY");
   const clientDoc = await col("clients").findOne({ id: client.clientId });
   const userDoc = await col("users").findOne({ id: client.id });
   if (!clientDoc || !userDoc) throw new Error("activateClientService: missing client/user");

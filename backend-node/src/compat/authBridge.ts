@@ -12,6 +12,7 @@
 import { randomUUID } from "crypto";
 
 import { Router } from "express";
+import multer from "multer";
 import { z } from "zod";
 
 import { clean, col, Doc } from "../db/mongo";
@@ -21,6 +22,7 @@ import { handler, httpError, parseBody } from "../http/errors";
 import { authResponse, clearSessionCookies, isBrowser } from "../http/session";
 import { auth, user as authed } from "../middleware/auth";
 import { enforceCsrf } from "../middleware/csrf";
+import { safeFilename, validateUpload } from "../middleware/protections";
 import {
   createAccessToken,
   hashPassword,
@@ -38,9 +40,23 @@ import { clearFailures, clientIp, enforceLoginAllowed, recordFailure } from "../
 import { consumePasswordReset, issuePasswordReset } from "../services/passwordReset";
 import { createChallenge } from "../services/security";
 import { engagementStatusForUser } from "../services/engagement";
+import { getObject, putObject } from "../services/storage";
 import { keysToCamel, keysToSnake } from "./caseMap";
 import { sendCompatSuccess } from "./envelope";
 import { ownershipForUser } from "./ownership";
+
+const PROFILE_IMAGE_TYPES = new Set(["image/jpeg", "image/png", "image/jpg"]);
+const PROFILE_IMAGE_MAX_BYTES = 5 * 1024 * 1024;
+
+const profileUpload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: PROFILE_IMAGE_MAX_BYTES, files: 1 },
+});
+
+/** Public relative path clients append to NEXT_PUBLIC_API_URL. */
+function profilePhotoPublicPath(userId: string): string {
+  return `auth/profile-photo/${userId}`;
+}
 
 const LoginIn = z.object({
   email: z.string().email(),
@@ -84,6 +100,7 @@ export function splitDisplayName(name: string | null | undefined): {
 /** Map a Node user row into the Toxel NextAuth-shaped user object. */
 export function toToxelUser(user: Doc): Doc {
   const { firstName, lastName } = splitDisplayName(String(user.name ?? ""));
+  const hasPhoto = Boolean(user.profile_photo || user.profile_photo_storage);
   return {
     id: user.id,
     email: user.email,
@@ -91,7 +108,8 @@ export function toToxelUser(user: Doc): Doc {
     firstName,
     lastName,
     mobile: user.phone ?? null,
-    profilePhoto: user.profile_photo ?? null,
+    // Stable serve URL (storage key stays server-side in profile_photo / profile_photo_storage).
+    profilePhoto: hasPhoto ? profilePhotoPublicPath(String(user.id)) : null,
     roles: user.role,
     role: user.role,
     isActive: user.is_active !== false,
@@ -377,17 +395,49 @@ function assertPhoneValid(phone: string): void {
   }
 }
 
+async function persistProfilePhoto(
+  me: Doc,
+  file: Express.Multer.File,
+): Promise<string> {
+  const mime = (file.mimetype || "").split(";")[0].trim().toLowerCase();
+  if (!PROFILE_IMAGE_TYPES.has(mime)) {
+    throw httpError(415, "Profile image must be JPG or PNG");
+  }
+  if (!file.buffer?.length) throw httpError(400, "The file appears to be empty");
+  if (file.size > PROFILE_IMAGE_MAX_BYTES) {
+    throw httpError(413, "Profile image must be 5MB or smaller");
+  }
+  // Reuse document upload sanitiser for filename; type already constrained above.
+  validateUpload(mime === "image/jpg" ? "image/jpeg" : mime, file.size, file.originalname);
+  const ext = mime === "image/png" ? "png" : "jpg";
+  const storagePath = `taxsimba/profiles/${me.id}/${randomUUID()}_${safeFilename(file.originalname) || `avatar.${ext}`}`;
+  await putObject(storagePath, file.buffer, mime === "image/jpg" ? "image/jpeg" : mime);
+  await col("users").updateOne(
+    { id: me.id },
+    {
+      $set: {
+        profile_photo: storagePath,
+        profile_photo_storage: storagePath,
+        profile_photo_content_type: mime === "image/jpg" ? "image/jpeg" : mime,
+        updated_at: nowIso(),
+      },
+    },
+  );
+  return profilePhotoPublicPath(String(me.id));
+}
+
 async function applyAccountSettingsUpdate(
   req: import("express").Request,
   res: import("express").Response,
 ): Promise<void> {
   const me = authed(req);
   const body = req.body;
+  const uploaded = (req as import("express").Request & { file?: Express.Multer.File }).file;
   if (body == null || typeof body !== "object" || Array.isArray(body)) {
     throw httpError(400, "Request body is required");
   }
   // Multipart without a parser yields an empty body — do not report success.
-  if (Object.keys(body as object).length === 0) {
+  if (Object.keys(body as object).length === 0 && !uploaded) {
     throw httpError(400, "No profile fields to update");
   }
 
@@ -408,9 +458,13 @@ async function applyAccountSettingsUpdate(
   if (phone !== undefined) assertPhoneValid(phone);
 
   const hasChange =
-    Boolean(name) || phone !== undefined || address !== undefined;
+    Boolean(name) || phone !== undefined || address !== undefined || Boolean(uploaded);
   if (!hasChange) {
     throw httpError(400, "No profile fields to update");
+  }
+
+  if (uploaded) {
+    await persistProfilePhoto(me, uploaded);
   }
 
   const userPatch: Doc = { updated_at: nowIso() };
@@ -461,9 +515,28 @@ async function applyAccountSettingsUpdate(
   );
 }
 
+function profileUploadMiddleware(
+  req: import("express").Request,
+  res: import("express").Response,
+  next: import("express").NextFunction,
+): void {
+  profileUpload.single("profilePhoto")(req, res, (err: unknown) => {
+    if (err) {
+      const message =
+        err instanceof Error && /File too large/i.test(err.message)
+          ? "Profile image must be 5MB or smaller"
+          : "Invalid profile image upload";
+      next(httpError(400, message));
+      return;
+    }
+    next();
+  });
+}
+
 compatAuthRouter.put(
   "/auth/update-account-settings",
   auth(),
+  profileUploadMiddleware,
   handler(async (req, res) => {
     await applyAccountSettingsUpdate(req, res);
   }),
@@ -473,7 +546,31 @@ compatAuthRouter.put(
 compatAuthRouter.post(
   "/auth/update-account-settings",
   auth(),
+  profileUploadMiddleware,
   handler(async (req, res) => {
     await applyAccountSettingsUpdate(req, res);
+  }),
+);
+
+/** Serve stored profile photo for the owner (or staff viewing). */
+compatAuthRouter.get(
+  "/auth/profile-photo/:userId",
+  auth(),
+  handler(async (req, res) => {
+    const me = authed(req);
+    const userId = req.params.userId;
+    const isSelf = me.id === userId;
+    const isStaff = ["ADMIN", "SUPER_ADMIN", "ACCOUNTANT"].includes(String(me.role));
+    if (!isSelf && !isStaff) throw httpError(403, "Not allowed");
+    const user = (await col("users").findOne({ id: userId })) as Doc | null;
+    if (!user) throw httpError(404, "User not found");
+    const storagePath = String(user.profile_photo_storage ?? user.profile_photo ?? "");
+    if (!storagePath || storagePath.startsWith("auth/")) {
+      throw httpError(404, "Profile photo not found");
+    }
+    const { data, contentType } = await getObject(storagePath);
+    res.setHeader("Content-Type", contentType || "image/jpeg");
+    res.setHeader("Cache-Control", "private, max-age=300");
+    res.send(data);
   }),
 );

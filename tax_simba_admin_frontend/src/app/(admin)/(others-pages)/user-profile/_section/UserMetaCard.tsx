@@ -52,16 +52,25 @@ export default function UserMetaCard() {
         if (response?.data?.success && response.data.data) {
           const data = response.data.data;
           const [firstName = '', lastName = ''] = data.name?.split(' ') || [];
+          const photoRel = data.profilePhoto as string | null | undefined;
+          const photoAbs = photoRel
+            ? photoRel.startsWith("http")
+              ? photoRel
+              : `${process.env.NEXT_PUBLIC_API_URL}${photoRel}`
+            : "";
 
-          setUserData(data);
+          setUserData({
+            ...data,
+            profilePhoto: photoAbs || data.profilePhoto,
+          });
           setFormData((prev) => ({
             ...prev,
             firstName,
             lastName,
             email: data.email,
             phone: data.mobile,
-            profilePhoto: data.profilePhoto,
-            profilePreview: `${process.env.NEXT_PUBLIC_API_URL}${data.profilePhoto}`,
+            profilePhoto: photoRel || "",
+            profilePreview: photoAbs,
           }));
         }
       } catch (error) {
@@ -105,16 +114,29 @@ export default function UserMetaCard() {
               return;
             }
           }
-          // JSON body — backend uses express.json only (FormData fields were ignored).
-          const response = await clientAxios.put(
-                '/auth/update-account-settings',
-                {
-                  name: fullName,
-                  mobile: phone,
-                  phone,
-                },
-                true,
+          let response;
+          if (formData.profileImageFile) {
+            const multipart = new FormData();
+            multipart.append("name", fullName);
+            multipart.append("mobile", phone);
+            multipart.append("phone", phone);
+            multipart.append("profilePhoto", formData.profileImageFile);
+            response = await clientAxios.put(
+              "/auth/update-account-settings",
+              multipart,
+              true,
             );
+          } else {
+            response = await clientAxios.put(
+              "/auth/update-account-settings",
+              {
+                name: fullName,
+                mobile: phone,
+                phone,
+              },
+              true,
+            );
+          }
     if (!response?.data?.success) {
       toast.error(response?.data?.message || "Failed to update profile. Please try again.");
       return;
@@ -124,14 +146,24 @@ export default function UserMetaCard() {
     // Refresh displayed values from response
     const data = response.data.data;
     if (data) {
+      const photoRel = data.profilePhoto as string | null | undefined;
+      const photoAbs = photoRel
+        ? photoRel.startsWith("http")
+          ? photoRel
+          : `${process.env.NEXT_PUBLIC_API_URL}${photoRel}`
+        : userData?.profilePhoto;
       setUserData((prev: any) => ({
         ...prev,
         name: data.name ?? fullName,
         mobile: data.mobile ?? data.phone ?? phone,
+        profilePhoto: photoAbs ?? prev?.profilePhoto,
       }));
       setFormData((prev) => ({
         ...prev,
         phone: data.mobile ?? data.phone ?? phone,
+        profilePhoto: photoRel ?? prev.profilePhoto,
+        profilePreview: photoAbs ?? prev.profilePreview,
+        profileImageFile: null,
       }));
     }
   } catch (error: any) {

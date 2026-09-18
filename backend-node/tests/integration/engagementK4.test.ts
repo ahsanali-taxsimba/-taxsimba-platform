@@ -134,7 +134,7 @@ describe("K.4 engagement acceptance", () => {
 
   it("MTD-only acceptance isolates to MTD context and does not invent SA", async () => {
     const client = await makeClient("k4mtd");
-    await activatePackage(client, "MTD_ESSENTIAL");
+    await activatePackage(client, "MTD_COMPLY");
     const res = await accept(client, "data:image/png;base64,bXRk");
     expect(res.status).toBe(200);
     expect(res.body.data.serviceTypes).toEqual(["MTD_INCOME_TAX"]);
@@ -160,7 +160,7 @@ describe("K.4 engagement acceptance", () => {
     const before = await col("engagement_acceptances").findOne({ user_id: client.id });
     expect(before?.service_types).toEqual(["SELF_ASSESSMENT"]);
 
-    await activatePackage(client, "MTD_ESSENTIAL");
+    await activatePackage(client, "MTD_COMPLY");
     const status = await request(app)
       .get("/api/compat/client/engagement-letter-status")
       .set(bearer(client))

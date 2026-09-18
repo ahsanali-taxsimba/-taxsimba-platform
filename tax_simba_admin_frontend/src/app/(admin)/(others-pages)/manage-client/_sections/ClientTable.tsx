@@ -19,6 +19,11 @@ import { Eye, ChevronDown, EyeOff } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { isSuperAdminRole } from "@/lib/roles";
 import { toast } from "react-toastify";
+import {
+    clientLifecycle,
+    lifecycleBadgeColor,
+    lifecycleLabel,
+} from "@/lib/clientLifecycle";
 
 export default function ClientTable(props: any) {
     const { clientData, fetchData, gridUpdate, setGridUpdate, isLoading, page, setPage, limit, setLimit } = props;
@@ -112,14 +117,7 @@ export default function ClientTable(props: any) {
         return String(order.name || "").trim() || "—";
     };
 
-    const isClientActive = (order: any) => {
-        if (typeof order.isActive === "boolean") return order.isActive;
-        if (typeof order.is_active === "boolean") return order.is_active;
-        const s = String(order.status ?? "").toLowerCase();
-        if (s === "active" || s === "1") return true;
-        if (s === "inactive" || s === "0") return false;
-        return order.status == 1;
-    };
+    const rowLifecycle = (order: any) => clientLifecycle(order);
 
     // Toggle the dropdown for specific row
     const toggleDropdown = (id: number) => {
@@ -305,12 +303,12 @@ export default function ClientTable(props: any) {
                                             <div className="relative inline-block">
                                                 <Badge
                                                     size="md"
-                                                    color={isClientActive(order) ? "success" : "error"}
+                                                    color={lifecycleBadgeColor(rowLifecycle(order))}
                                                     endIcon={<ChevronDown size={14} />}
                                                     onClick={() => toggleDropdown(order.id)}
                                                     dynamicClassName={"cursor-pointer"}
                                                 >
-                                                    {isClientActive(order) ? "Active" : "Inactive"}
+                                                    {lifecycleLabel(rowLifecycle(order))}
                                                 </Badge>
                                                 {openDropdownId.find((item: number) => item == order.id) && (
                                                     <Dropdown

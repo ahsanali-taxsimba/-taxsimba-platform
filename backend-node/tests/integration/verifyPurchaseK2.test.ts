@@ -230,7 +230,7 @@ describe("K.2 acceptance — verify-before-purchase", () => {
       client_id: client.clientId,
       client_user_id: client.id,
       service_type: "MTD_INCOME_TAX",
-      package_code: "MTD_ESSENTIAL",
+      package_code: "MTD_COMPLY",
       package_name: "MTD Essential",
       amount_due: 240,
       status: "PENDING",

@@ -36,7 +36,7 @@ function mapPackage(p: Doc, content: Record<string, string>): Doc {
     priceId: p.id,
     stripePriceId: null,
     currency: "GBP",
-    vatPercentage: 0,
+    vatPercentage: p.vat_treatment === "EXCLUSIVE" ? 20 : 0,
   };
 }
 

@@ -12,6 +12,23 @@ const baseAxios: AxiosInstance = axios.create({
   },
 });
 
+function requestHeaders(
+  authHeaders: Record<string, string>,
+  config: AxiosRequestConfig | undefined,
+  data: unknown,
+) {
+  const headers: Record<string, string> = {
+    ...authHeaders,
+    ...(config?.headers as Record<string, string> | undefined),
+  };
+  // Let the browser set multipart boundary — do not force application/json.
+  if (typeof FormData !== "undefined" && data instanceof FormData) {
+    delete headers["Content-Type"];
+    delete headers["content-type"];
+  }
+  return headers;
+}
+
 // Helper function to get auth headers
 const getAuthHeaders = async () => {
   if (typeof window !== 'undefined') {
@@ -119,7 +136,7 @@ export const clientAxios = {
       const headers = auth ? await getAuthHeaders() : {};
       const requestConfig = {
         ...config,
-        headers: { ...headers, ...config?.headers },
+        headers: requestHeaders(headers, config, data),
       };
       
       logRequest('POST', url, data, auth);
@@ -138,7 +155,7 @@ export const clientAxios = {
       const headers = auth ? await getAuthHeaders() : {};
       const requestConfig = {
         ...config,
-        headers: { ...headers, ...config?.headers },
+        headers: requestHeaders(headers, config, data),
       };
       
       logRequest('PUT', url, data, auth);
@@ -157,7 +174,7 @@ export const clientAxios = {
       const headers = auth ? await getAuthHeaders() : {};
       const requestConfig = {
         ...config,
-        headers: { ...headers, ...config?.headers },
+        headers: requestHeaders(headers, config, data),
       };
       
       logRequest('PATCH', url, data, auth);
