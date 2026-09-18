@@ -13,14 +13,20 @@ const baseAxios: AxiosInstance = axios.create({
 });
 
 function requestHeaders(
-  authHeaders: Record<string, string>,
+  authHeaders: Record<string, string | undefined>,
   config: AxiosRequestConfig | undefined,
   data: unknown,
 ) {
-  const headers: Record<string, string> = {
-    ...authHeaders,
-    ...(config?.headers as Record<string, string> | undefined),
-  };
+  const headers: Record<string, string> = {};
+  for (const [k, v] of Object.entries(authHeaders || {})) {
+    if (typeof v === "string") headers[k] = v;
+  }
+  const extra = config?.headers as Record<string, string | undefined> | undefined;
+  if (extra) {
+    for (const [k, v] of Object.entries(extra)) {
+      if (typeof v === "string") headers[k] = v;
+    }
+  }
   // Let the browser set multipart boundary — do not force application/json.
   if (typeof FormData !== "undefined" && data instanceof FormData) {
     delete headers["Content-Type"];

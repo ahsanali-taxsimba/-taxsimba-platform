@@ -296,7 +296,7 @@ describe("phase 1B packages, payments and recommendations", () => {
     expect(options.body.is_highest).toBe(false);
     expect(options.body.options).toEqual([
       expect.objectContaining({ code: "SMART", additional_amount_payable: 30 }),
-      expect.objectContaining({ code: "ELITE", additional_amount_payable: 130 }),
+      expect.objectContaining({ code: "ELITE", additional_amount_payable: 180 }),
     ]);
 
     const checkout = await request(app)
@@ -304,7 +304,7 @@ describe("phase 1B packages, payments and recommendations", () => {
       .set(bearer(client))
       .send({ package_code: "ELITE", origin_url: "https://app.test.taxsimba.local" })
       .expect(200);
-    expect(checkout.body.amount).toBe(130);
+    expect(checkout.body.amount).toBe(180);
     await payAndConfirm(checkout.body.session_id).expect(200);
 
     const sa = (await services(client)).find((s) => s.service_type === "SELF_ASSESSMENT")!;
@@ -313,7 +313,7 @@ describe("phase 1B packages, payments and recommendations", () => {
       previous_package: "SIMPLE",
       new_package: "ELITE",
       reason: "Client upgrade",
-      amount_paid: 130,
+      amount_paid: 180,
     });
 
     const downgrade = await request(app)
@@ -578,13 +578,13 @@ describe("phase 1B packages, payments and recommendations", () => {
     const offer = await request(app)
       .post(`/api/recommendations/${rec.body.id}/approve`)
       .set(bearer(admin))
-      .send({ package_code: "MTD_COMPLY", credit: 40, message: "Recommended for you" })
+      .send({ package_code: "MTD_COMPLY", credit: 5, message: "Recommended for you" })
       .expect(200);
     expect(offer.body).toMatchObject({
       package_code: "MTD_COMPLY",
       price: 29.99,
-      credit: 40,
-      amount_due: 200,
+      credit: 5,
+      amount_due: 24.99,
       status: "PENDING",
     });
 
@@ -597,7 +597,7 @@ describe("phase 1B packages, payments and recommendations", () => {
       .set(bearer(client))
       .send({ offer_id: offer.body.id, origin_url: "https://app.test.taxsimba.local" })
       .expect(200);
-    expect(checkout.body.amount).toBe(200);
+    expect(checkout.body.amount).toBe(24.99);
     await payAndConfirm(checkout.body.session_id).expect(200);
 
     const mtd = (await services(client)).find((s) => s.service_type === "MTD_INCOME_TAX")!;
