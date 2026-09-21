@@ -6,6 +6,7 @@ import { z } from "zod";
 import { clean, cleanMany, col, Doc, scrub, scrubMany } from "../db/mongo";
 import {
   assertClientCanAccessService,
+  assertClientEligibleForCaseCreation,
   activeServiceTypesForClient,
   findOpenServiceCase,
 } from "../domain/caseEntitlement";
@@ -309,7 +310,9 @@ casesRouter.post(
     if (!clientUser) throw httpError(404, "Client not found");
     const client = await col("clients").findOne({ user_id: clientUserId });
 
-    // K.5 / N4: CLIENT create requires matching ACTIVE entitlement (staff create preserved).
+    // TS-UAT-032: creation (CLIENT or staff) requires verified email + ACTIVE entitlement.
+    // Access gating alone is not enough — staff cannot bypass lifecycle prerequisites.
+    await assertClientEligibleForCaseCreation(clientUser as Doc, body.service_type);
     if (me.role === "CLIENT") {
       await assertClientCanAccessService(me, body.service_type);
     }

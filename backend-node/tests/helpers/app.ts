@@ -134,22 +134,49 @@ export function bearer(user: TestUser): Record<string, string> {
 /**
  * Activate SA or MTD via the protected activateService spine (preferred case factory).
  * Returns the fulfilment case id. Used by K.5+ fixtures instead of unpaid CLIENT POST /cases.
+ *
+ * When `opts.allowUnverifiedCase` is true, temporarily stamps email_verified_at so a case
+ * can be minted for AW/fixture paths that intentionally keep the client unverified for
+ * checkout gating tests (TS-UAT-032 still blocks unverified case mint without this opt-in).
  */
 export async function activateClientService(
   client: TestUser & { clientId: string },
   serviceType: "SELF_ASSESSMENT" | "MTD_INCOME_TAX",
   packageCode?: string,
+  opts: { allowUnverifiedCase?: boolean } = {},
 ): Promise<{ caseId: string }> {
   const { col } = await import("../../src/db/mongo");
   const { activateService } = await import("../../src/domain/packages");
+  const { nowIso } = await import("../../src/domain/workflow");
   const code =
     packageCode ?? (serviceType === "SELF_ASSESSMENT" ? "SIMPLE" : "MTD_COMPLY");
   const clientDoc = await col("clients").findOne({ id: client.clientId });
-  const userDoc = await col("users").findOne({ id: client.id });
+  let userDoc = await col("users").findOne({ id: client.id });
   if (!clientDoc || !userDoc) throw new Error("activateClientService: missing client/user");
-  const result = await activateService(clientDoc, userDoc, serviceType, code, {
+
+  let clearedVerification = false;
+  if (opts.allowUnverifiedCase && !userDoc.email_verified_at) {
+    await col("users").updateOne(
+      { id: client.id },
+      { $set: { email_verified_at: nowIso() } },
+    );
+    userDoc = await col("users").findOne({ id: client.id });
+    clearedVerification = true;
+  }
+
+  const result = await activateService(clientDoc, userDoc!, serviceType, code, {
     reason: "test activation",
   });
+
+  if (clearedVerification) {
+    await col("users").updateOne({ id: client.id }, { $set: { email_verified_at: null } });
+  }
+
+  if (!result.case?.id) {
+    throw new Error(
+      "activateClientService: activation did not create a case (client must be email-verified)",
+    );
+  }
   return { caseId: String(result.case.id) };
 }
 

@@ -10,6 +10,7 @@ import { ensurePeriods } from "./mtd";
 import { applyDuePriceSchedules } from "./pricing";
 import { deadlineForTaxYear, logActivity, notify, nowIso, STATUS_META } from "./workflow";
 import { httpError } from "../http/errors";
+import { isEmailVerified } from "../services/emailVerification";
 import {
   bootstrapClientServices,
   MTD,
@@ -165,7 +166,8 @@ async function nextServiceCaseRef(serviceType: string): Promise<string> {
 }
 
 export interface ActivationResult {
-  case: Doc;
+  /** Null when entitlement activated but no actionable case (e.g. unverified client). */
+  case: Doc | null;
   created_case: boolean;
   periods_created: number;
   already_active: boolean;
@@ -252,7 +254,16 @@ export async function activateService(
     { sort: { created_at: -1 } },
   )) as Doc | null;
   let createdCase = false;
-  if (!kase) {
+  // TS-UAT-032: never create an actionable tax case for an unverified client.
+  // Entitlement activation above may still proceed (checkout already gates verify);
+  // seed/admin bypasses must not mint cases for unverified accounts.
+  const clientUser =
+    user ??
+    (client.user_id
+      ? ((await col("users").findOne({ id: client.user_id })) as Doc | null)
+      : null);
+  const mayCreateCase = isEmailVerified(clientUser);
+  if (!kase && mayCreateCase) {
     const [stage, nextAction, owner] = STATUS_META.AWAITING_ASSIGNMENT;
     kase = {
       id: randomUUID(),
@@ -285,9 +296,9 @@ export async function activateService(
     createdCase = true;
   }
 
-  const periodsCreated = serviceType === MTD ? await ensurePeriods(kase) : 0;
+  const periodsCreated = kase && serviceType === MTD ? await ensurePeriods(kase) : 0;
 
-  if (createdCase) {
+  if (createdCase && kase) {
     const label = SERVICE_LABELS[serviceType] ?? serviceType;
     const paid = amount ? `, £${amount.toFixed(2)} paid` : "";
     await logActivity(
@@ -306,7 +317,7 @@ export async function activateService(
     );
   }
   return {
-    case: clean(kase) as Doc,
+    case: kase ? (clean(kase) as Doc) : null,
     created_case: createdCase,
     periods_created: periodsCreated,
     already_active: alreadyActive,

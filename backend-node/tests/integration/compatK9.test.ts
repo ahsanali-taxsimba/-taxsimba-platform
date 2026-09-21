@@ -194,7 +194,9 @@ describe("K.9 CRITICAL E2E gate via /api/compat", () => {
         .send({ planId: "SIMPLE", originUrl: "https://app.test.taxsimba.local" })
         .expect(403);
 
-      const { caseId } = await activateClientService(unverified, "SELF_ASSESSMENT");
+      const { caseId } = await activateClientService(unverified, "SELF_ASSESSMENT", undefined, {
+        allowUnverifiedCase: true,
+      });
       // activateClientService bypasses checkout for fixture; still unpaid verify for AW.
       const aw = await request(app)
         .post("/api/compat/admin/payment-requests")

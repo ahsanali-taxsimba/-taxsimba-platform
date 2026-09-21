@@ -128,8 +128,15 @@ const UserViewModal: React.FC<UserViewModalProps> = ({ isOpen, onClose, user }) 
 
     const InfoItem = ({ label, value }: { label: string; value: any }) => (
         <div className="flex flex-col gap-0.5">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">{label}</span>
-            <span className="text-sm font-bold text-gray-900 dark:text-white/90">{value || "N/A"}</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
+                {label}
+            </span>
+            <span
+                className="text-sm font-bold text-slate-900 dark:text-slate-900"
+                data-testid={`client-detail-${label.toLowerCase().replace(/\s+/g, "-")}`}
+            >
+                {value || "N/A"}
+            </span>
         </div>
     );
 
@@ -212,9 +219,18 @@ const UserViewModal: React.FC<UserViewModalProps> = ({ isOpen, onClose, user }) 
                         >
                             <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-0.5">Client Information</p>
                             <div className="grid grid-cols-2 gap-y-5 gap-x-4">
-                                <InfoItem label="Username" value={user.username} />
+                                <InfoItem
+                                    label="Username"
+                                    value={
+                                        user.username ||
+                                        (user.email ? String(user.email).split("@")[0] : null)
+                                    }
+                                />
                                 <InfoItem label="Mobile" value={user.mobile || user.phone} />
-                                <InfoItem label="Location" value={user.location} />
+                                <InfoItem
+                                    label="Location"
+                                    value={user.location || fullAddress || user.address}
+                                />
                                 <InfoItem label="Status" value={lifecycleLabel(lifecycle)} />
                                 <InfoItem
                                     label="Email verified"
@@ -225,7 +241,14 @@ const UserViewModal: React.FC<UserViewModalProps> = ({ isOpen, onClose, user }) 
                                     }
                                 />
                                 <div className="col-span-2">
-                                    <InfoItem label="Created At" value={user.createdAt ? new Date(user.createdAt).toLocaleDateString("en-GB") : "N/A"} />
+                                    <InfoItem
+                                        label="Created At"
+                                        value={
+                                            user.createdAt
+                                                ? new Date(user.createdAt).toLocaleDateString("en-GB")
+                                                : "N/A"
+                                        }
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -247,7 +270,7 @@ const UserViewModal: React.FC<UserViewModalProps> = ({ isOpen, onClose, user }) 
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-sm text-gray-500 font-medium">Role Level</span>
-                                    <span className="text-sm font-bold text-gray-900">{user.userRole || "Standard"}</span>
+                                    <span className="text-sm font-bold text-slate-900">{user.userRole || "Standard"}</span>
                                 </div>
                             </div>
                         </div>
@@ -303,7 +326,7 @@ const UserViewModal: React.FC<UserViewModalProps> = ({ isOpen, onClose, user }) 
                                     <MapPin size={18} />
                                 </div>
                                 <div>
-                                    <p className="text-sm font-bold text-gray-900 leading-relaxed">
+                                    <p className="text-sm font-bold text-slate-900 leading-relaxed">
                                         {fullAddress || "No residential address provided."}
                                     </p>
                                 </div>

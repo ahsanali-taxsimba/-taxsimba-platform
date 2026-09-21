@@ -69,7 +69,14 @@ async function upsertUser(person: Person, password: string): Promise<Doc> {
   if (existing) {
     await col("users").updateOne(
       { id: existing.id },
-      { $set: { password_hash: hashPassword(password), is_active: true, status: "ACTIVE" } },
+      {
+        $set: {
+          password_hash: hashPassword(password),
+          is_active: true,
+          status: "ACTIVE",
+          email_verified_at: existing.email_verified_at ?? nowIso(),
+        },
+      },
     );
     return (await col("users").findOne({ id: existing.id })) as Doc;
   }
@@ -84,6 +91,9 @@ async function upsertUser(person: Person, password: string): Promise<Doc> {
     // dashboard query, which would leave manual UAT testers looking at empty screens. The
     // whole staging database is disposable, and cleanup deletes by @uat-taxsimba.test address.
     is_test: false,
+    // TS-UAT-032: seed must not mint cases for unverified clients — mark verified.
+    email_verified_at: nowIso(),
+    status: "ACTIVE",
     created_at: nowIso(),
   };
   if (person.role === "CLIENT") {

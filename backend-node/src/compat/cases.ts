@@ -9,10 +9,11 @@ import { z } from "zod";
 import { clean, col, Doc } from "../db/mongo";
 import {
   assertClientCanAccessService,
+  assertClientEligibleForCaseCreation,
   preferExistingServiceCase,
 } from "../domain/caseEntitlement";
 import { getCase } from "../domain/cases";
-import { MTD, SELF_ASSESSMENT } from "../domain/packages";
+import { activateService, clientOf, MTD, SELF_ASSESSMENT, servicesFor } from "../domain/packages";
 import {
   ALLOWED_TRANSITIONS,
   STATUSES,
@@ -58,7 +59,7 @@ function decorateCase(kase: Doc): Doc {
   });
 }
 
-/** Prefer activation-created case; CLIENT must be ACTIVE for service_type. */
+/** Prefer activation case; on submitted application create case if entitled+verified and none exists. */
 compatCasesRouter.post(
   "/client/apply-tax-return",
   auth("CLIENT"),
@@ -71,20 +72,39 @@ compatCasesRouter.post(
     const serviceType = serviceTypeFromBody(keysToSnake(body) as Record<string, unknown>);
     await assertClientCanAccessService(me, serviceType);
 
-    const existing = await preferExistingServiceCase(me, serviceType);
+    let existing = await preferExistingServiceCase(me, serviceType);
+    let createdFromApplication = false;
     if (!existing) {
-      throw httpError(
-        400,
-        "No service case found. Complete purchase activation before applying a tax return.",
+      // TS-UAT-032: application submit may create the case only when verified + ACTIVE entitled.
+      await assertClientEligibleForCaseCreation(me, serviceType);
+      const client = await clientOf(me);
+      const services = await servicesFor(client);
+      const svc = services.find(
+        (s) => s.service_type === serviceType && s.status === "ACTIVE",
       );
+      const packageCode = String(svc?.package_code ?? "").trim();
+      if (!packageCode) {
+        throw httpError(400, "No active package found for this service");
+      }
+      const result = await activateService(client, me, serviceType, packageCode, {
+        reason: "Tax return application submitted",
+      });
+      if (!result.case?.id) {
+        throw httpError(
+          403,
+          "Unable to create a tax case. Complete email verification and purchase before applying.",
+        );
+      }
+      existing = result.case;
+      createdFromApplication = true;
     }
-    // Prefer fulfilment spine — do not create a second case here.
     const kase = await getCase(String(existing.id), me);
     sendCompatSuccess(
       res,
       {
         taxReturn: decorateCase(kase),
-        preferredExisting: true,
+        preferredExisting: !createdFromApplication,
+        createdFromApplication,
       },
       "Tax return ready",
       201,

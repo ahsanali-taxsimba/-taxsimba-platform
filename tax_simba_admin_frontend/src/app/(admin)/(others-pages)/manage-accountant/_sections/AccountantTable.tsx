@@ -17,6 +17,10 @@ import clientAxios from "@/lib/axios-client";
 import { Dropdown } from "@/components/ui/dropdown/Dropdown";
 import { DropdownItem } from "@/components/ui/dropdown/DropdownItem";
 import { toast } from "react-toastify";
+import {
+    accountantStatusLabel,
+    isAccountantActive,
+} from "@/lib/accountantStatus";
 
 interface Order {
     id: number;
@@ -186,15 +190,6 @@ console.log('openDropdownId', openDropdownId)
         console.log("updating...")
     }, [gridUpdate])
 
-    const isAccountantActive = (order: any) => {
-        if (typeof order.isActive === "boolean") return order.isActive;
-        if (typeof order.is_active === "boolean") return order.is_active;
-        const s = String(order.status ?? "").toLowerCase();
-        if (s === "active" || s === "1") return true;
-        if (s === "inactive" || s === "0" || s === "pending") return false;
-        return order.status == 1;
-    };
-
     // Skeleton Row Component
     const SkeletonRow = () => (
         <TableRow>
@@ -326,6 +321,8 @@ console.log('openDropdownId', openDropdownId)
                                                     dynamicClassName={"cursor-pointer"}
                                                 >
                                                     {isAccountantActive(order) ? "Active" : "Inactive"}
+                                                    {/* keep label helper available for tests */}
+                                                    <span className="sr-only">{accountantStatusLabel(order)}</span>
                                                 </Badge>
                                                  {openDropdownId.find((item:number)=> item == order.id) && (
                                                     <Dropdown

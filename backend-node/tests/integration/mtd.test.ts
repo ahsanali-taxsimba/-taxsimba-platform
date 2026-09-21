@@ -164,6 +164,7 @@ describe("MTD income tax periods", () => {
   });
 
   it("rejects MTD endpoints on a Self Assessment case", async () => {
+    await activateClientService(client, "SELF_ASSESSMENT");
     const res = await request(app)
       .post("/api/cases")
       .set(bearer(admin))

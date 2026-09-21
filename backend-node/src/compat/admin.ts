@@ -32,6 +32,125 @@ function inviteOrigin(req: { get: (h: string) => string | undefined }): string {
   return (req.get("origin") ?? (env("APP_BASE_URL") ?? "").replace(/\/$/, "")).replace(/\/$/, "");
 }
 
+/** Split "First Last..." into name + surname for Toxel FE columns. */
+function splitPersonName(full: unknown): { name: string; surname: string } {
+  const parts = String(full ?? "")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+  if (!parts.length) return { name: "", surname: "" };
+  if (parts.length === 1) return { name: parts[0], surname: "" };
+  return { name: parts[0], surname: parts.slice(1).join(" ") };
+}
+
+function phoneDigits(value: string): string {
+  return value.replace(/\D/g, "");
+}
+
+/** Validate accountant create/update field payload (TS-UAT-031/034). */
+function parseAccountantProfileFields(body: Record<string, unknown>, opts: { requireAll: boolean }) {
+  const rawName = String(body.name ?? "").trim();
+  const rawSurname = String(body.surname ?? body.last_name ?? body.lastName ?? "").trim();
+  const email = String(body.email ?? "").trim().toLowerCase();
+  const phone = String(body.phone ?? body.mobile ?? "").trim();
+  const qualification = String(body.qualification ?? "").trim();
+  const experienceRaw = String(body.experience ?? "").trim();
+
+  if (opts.requireAll || rawName !== undefined) {
+    if (opts.requireAll && !rawName) throw httpError(400, "First Name is required");
+  }
+  if (opts.requireAll) {
+    if (!rawSurname) throw httpError(400, "Last Name is required");
+  }
+  if (opts.requireAll || email) {
+    if (opts.requireAll && !email) throw httpError(400, "Email is required");
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      throw httpError(400, "Please enter a valid email address");
+    }
+  }
+  if (opts.requireAll) {
+    if (!phone) throw httpError(400, "Phone is required");
+  }
+  if (phone) {
+    if (!/^[\d\s+\-()]+$/.test(phone)) {
+      throw httpError(
+        400,
+        "Phone can only contain digits, spaces, +, -, and parentheses",
+      );
+    }
+    const digits = phoneDigits(phone);
+    if (digits.length < 7 || digits.length > 15) {
+      throw httpError(400, "Phone must contain 7–15 digits");
+    }
+    if (phone.length > 20) throw httpError(400, "Phone must be at most 20 characters");
+  }
+  if (qualification) {
+    if (qualification.length < 2 || qualification.length > 120) {
+      throw httpError(400, "Qualification must be between 2 and 120 characters");
+    }
+  }
+  let experience: string | null = experienceRaw || null;
+  if (experienceRaw) {
+    const asNum = Number(experienceRaw);
+    if (!Number.isFinite(asNum) || asNum < 0 || asNum > 60) {
+      throw httpError(400, "Experience must be a number of years between 0 and 60");
+    }
+    experience = String(Math.round(asNum));
+  }
+
+  const displayName = rawSurname ? `${rawName} ${rawSurname}`.trim() : rawName;
+  return {
+    name: rawName,
+    surname: rawSurname,
+    displayName,
+    email,
+    phone: phone || null,
+    qualification: qualification || null,
+    experience,
+  };
+}
+
+async function loadAccountantProfile(userId: string): Promise<Doc | null> {
+  return (await col("accountant_profiles").findOne({ user_id: userId })) as Doc | null;
+}
+
+/** Canonical list/details DTO — one status SoT (isActive + status string). */
+async function serializeAccountant(u: Doc): Promise<Doc> {
+  const profile = await loadAccountantProfile(String(u.id));
+  const { name, surname } = u.surname
+    ? { name: String(u.name ?? ""), surname: String(u.surname ?? "") }
+    : splitPersonName(u.name);
+  // Single SoT: boolean is_active (status endpoint flips this). Do not use status==1.
+  const active = u.is_active !== false;
+  const phone = u.phone ?? null;
+  const qualification = profile?.qualification ?? u.qualification ?? null;
+  const experience = profile?.experience ?? u.experience ?? null;
+  const onboardedAt = profile?.onboarded_at ?? profile?.created_at ?? u.created_at ?? null;
+  return {
+    id: u.id,
+    name,
+    surname,
+    email: u.email,
+    phone,
+    mobile: phone,
+    isActive: active,
+    // Canonical string only — do not emit numeric status==1.
+    status: active ? "active" : "inactive",
+    role: u.role,
+    createdAt: u.created_at,
+    onboardedAt,
+    qualification,
+    experience,
+    Accountant: {
+      qualification,
+      experience,
+      onboardedAt,
+      employeeId: profile?.employee_id ?? null,
+      isAvailable: profile?.is_active !== false,
+    },
+  };
+}
+
 // ---------------------------------------------------------------- S2 accountants
 compatAdminRouter.post(
   "/admin/accountants",
@@ -60,22 +179,11 @@ compatAdminRouter.post(
     }
     // Accountants are staff — masking still applied via viewer rules (no-op for non-CLIENT).
     const masked = maskContactsForViewer(users, me);
-    sendCompatSuccess(
-      res,
-      {
-        accountants: masked.map((u) => ({
-          id: u.id,
-          name: u.name,
-          email: u.email,
-          phone: u.phone ?? null,
-          isActive: u.is_active !== false,
-          status: u.is_active === false ? "inactive" : u.status ?? "active",
-          role: u.role,
-          createdAt: u.created_at,
-        })),
-      },
-      "OK",
-    );
+    const accountants = [];
+    for (const u of masked) {
+      accountants.push(await serializeAccountant(u));
+    }
+    sendCompatSuccess(res, { accountants }, "OK");
   }),
 );
 
@@ -85,23 +193,32 @@ compatAdminRouter.post(
   handler(async (req, res) => {
     const me = authed(req);
     const body = keysToSnake(req.body ?? {}) as Record<string, unknown>;
-    const name = String(body.name ?? "").trim();
-    const email = String(body.email ?? "").trim().toLowerCase();
-    if (!name || !email) throw httpError(400, "name and email are required");
-    const role = String(body.role ?? "ACCOUNTANT");
+    // Accept camelCase mobile/qualification before snake conversion gaps.
+    const merged: Record<string, unknown> = {
+      ...body,
+      ...(req.body as Record<string, unknown>),
+    };
+    const fields = parseAccountantProfileFields(merged, { requireAll: false });
+    if (!fields.name || !fields.email) {
+      throw httpError(400, "First Name and Email are required");
+    }
+    const role = String(merged.role ?? body.role ?? "ACCOUNTANT");
     if (!["ACCOUNTANT", "ADMIN"].includes(role)) {
       throw httpError(400, "Only ACCOUNTANT or ADMIN invites are supported here");
     }
-    if (await col("users").findOne({ email })) throw httpError(400, "Email already exists");
+    if (await col("users").findOne({ email: fields.email })) {
+      throw httpError(400, "Email already exists");
+    }
     const { randomUUID } = await import("crypto");
     const { logActivity } = await import("../domain/workflow");
     const created: Doc = {
       id: randomUUID(),
-      email,
-      name,
+      email: fields.email,
+      name: fields.displayName,
+      surname: fields.surname,
       role,
       password_hash: null,
-      phone: null,
+      phone: fields.phone,
       is_active: false,
       status: "PENDING",
       created_at: nowIso(),
@@ -112,12 +229,18 @@ compatAdminRouter.post(
         { user_id: created.id },
         {
           $set: {
-            name,
-            email,
-            specialisms: Array.isArray(body.specialisms)
-              ? body.specialisms
-              : ["SELF_ASSESSMENT"],
-            capacity: typeof body.capacity === "number" ? body.capacity : 15,
+            name: fields.displayName,
+            email: fields.email,
+            phone: fields.phone,
+            qualification: fields.qualification,
+            experience: fields.experience,
+            onboarded_at: nowIso(),
+            specialisms: Array.isArray(merged.specialisms)
+              ? merged.specialisms
+              : Array.isArray(body.specialisms)
+                ? body.specialisms
+                : ["SELF_ASSESSMENT"],
+            capacity: typeof merged.capacity === "number" ? merged.capacity : 15,
             is_active: false,
           },
           $setOnInsert: { id: randomUUID(), user_id: created.id, created_at: nowIso() },
@@ -125,16 +248,16 @@ compatAdminRouter.post(
         { upsert: true },
       );
     }
-    const invite = await issueInvite(String(created.id), email, String(me.id));
-    await logActivity(null, `Staff invitation sent to ${email}`, me, {
+    const invite = await issueInvite(String(created.id), fields.email, String(me.id));
+    await logActivity(null, `Staff invitation sent to ${fields.email}`, me, {
       target_user_id: created.id,
       role,
     });
     const link = `${inviteOrigin(req)}/invite/${invite.token}`;
     try {
       await emailInvitation({
-        to: email,
-        name,
+        to: fields.email,
+        name: fields.displayName,
         role,
         setupLink: link,
         expiresAt: invite.expires_at,
@@ -143,18 +266,18 @@ compatAdminRouter.post(
     } catch {
       // Email optional in tests.
     }
+    const dto = await serializeAccountant(created);
     sendCompatSuccess(
       res,
       {
+        ...dto,
         ok: true,
         inviteId: invite.id,
         userId: created.id,
-        email,
-        role,
         inviteLink: link,
         expiresAt: invite.expires_at,
       },
-      "Invitation created",
+      "Accountant added successfully.",
       201,
     );
   }),
@@ -165,17 +288,64 @@ compatAdminRouter.put(
   auth("SUPER_ADMIN"),
   handler(async (req, res) => {
     const body = keysToSnake(req.body ?? {}) as Record<string, unknown>;
+    const merged: Record<string, unknown> = {
+      ...body,
+      ...(req.body as Record<string, unknown>),
+    };
     const user = (await col("users").findOne({
       id: req.params.userId,
       role: { $in: ["ACCOUNTANT", "ADMIN"] },
     })) as Doc | null;
     if (!user) throw httpError(404, "Accountant not found");
-    const patch: Doc = { updated_at: nowIso() };
-    if (typeof body.name === "string" && body.name.trim()) patch.name = body.name.trim();
-    if (typeof body.phone === "string") patch.phone = body.phone;
+
+    const fields = parseAccountantProfileFields(
+      {
+        name: merged.name ?? splitPersonName(user.name).name,
+        surname: merged.surname ?? user.surname ?? splitPersonName(user.name).surname,
+        email: merged.email ?? user.email,
+        phone: merged.phone ?? merged.mobile ?? user.phone ?? "",
+        qualification: merged.qualification ?? "",
+        experience: merged.experience ?? "",
+      },
+      { requireAll: true },
+    );
+
+    const patch: Doc = {
+      updated_at: nowIso(),
+      name: fields.displayName,
+      surname: fields.surname,
+      phone: fields.phone,
+    };
     await col("users").updateOne({ id: user.id }, { $set: patch });
-    const updated = await col("users").findOne({ id: user.id });
-    sendCompatSuccess(res, keysToCamel(clean(updated as Doc)), "Updated");
+    await col("accountant_profiles").updateOne(
+      { user_id: user.id },
+      {
+        $set: {
+          name: fields.displayName,
+          phone: fields.phone,
+          qualification: fields.qualification,
+          experience: fields.experience,
+          updated_at: nowIso(),
+        },
+        $setOnInsert: {
+          id: (await import("crypto")).randomUUID(),
+          user_id: user.id,
+          email: user.email,
+          created_at: nowIso(),
+          onboarded_at: nowIso(),
+          specialisms: ["SELF_ASSESSMENT"],
+          capacity: 15,
+          is_active: user.is_active !== false,
+        },
+      },
+      { upsert: true },
+    );
+    const updated = (await col("users").findOne({ id: user.id })) as Doc;
+    sendCompatSuccess(
+      res,
+      await serializeAccountant(updated),
+      "Accountant details updated successfully.",
+    );
   }),
 );
 
@@ -274,8 +444,15 @@ compatAdminRouter.post(
           return {
             id: u.id,
             name: u.name,
+            username:
+              u.username ??
+              (u.email ? String(u.email).split("@")[0] : null) ??
+              null,
             email: u.email,
             phone: u.phone ?? null,
+            mobile: u.phone ?? null,
+            location: u.location ?? u.address ?? null,
+            address: u.address ?? null,
             contactMasked: Boolean(u.contact_masked),
             isActive,
             emailVerified,
@@ -284,6 +461,7 @@ compatAdminRouter.post(
             lifecycle,
             status: lifecycle === "ACTIVE" ? "active" : lifecycle === "PENDING_VERIFICATION" ? "pending_verification" : "inactive",
             role: u.role,
+            userRole: u.role,
             createdAt: u.created_at,
           };
         }),
