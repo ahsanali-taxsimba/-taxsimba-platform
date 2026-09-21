@@ -118,8 +118,8 @@ describe("K.9 CRITICAL E2E gate via /api/compat", () => {
         service_type: "MTD_INCOME_TAX",
       });
       expect(mtd?.status).toBe("NOT_ACTIVE");
-      const casesBeforeAw = await col("cases").countDocuments({ client_id: client!.id });
-      expect(casesBeforeAw).toBeGreaterThanOrEqual(1);
+      // TS-UAT-032: purchase activates entitlement only — no case yet.
+      expect(await col("cases").countDocuments({ client_id: client!.id })).toBe(0);
 
       await request(app)
         .post("/api/compat/client/accept-engagement-letter")
@@ -142,6 +142,8 @@ describe("K.9 CRITICAL E2E gate via /api/compat", () => {
         applied.body.data?.taxReturnId ||
         applied.body.data?.id;
       expect(caseId).toBeTruthy();
+      const casesBeforeAw = await col("cases").countDocuments({ client_id: client!.id });
+      expect(casesBeforeAw).toBe(1);
 
       const aw = await request(app)
         .post("/api/compat/admin/payment-requests")

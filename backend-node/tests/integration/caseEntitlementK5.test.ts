@@ -127,7 +127,7 @@ describe("K.5 case entitlement + adapters", () => {
   });
 
   it("duplicate open service case creation is prevented", async () => {
-    // Activation already created SA case for saOnly at ACTIVATION tax year.
+    // Activation already created SA entitlement + application case for saOnly.
     const existing = await request(app)
       .get(`/api/cases/${saCaseId}`)
       .set(bearer(saOnly))
@@ -147,6 +147,7 @@ describe("K.5 case entitlement + adapters", () => {
         client_user_id: saOnly.id,
         service_type: "SELF_ASSESSMENT",
         tax_year: existing.body.tax_year,
+        manual_creation_reason: "Duplicate check — should still 409",
       })
       .expect(409);
   });

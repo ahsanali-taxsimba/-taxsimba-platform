@@ -116,7 +116,8 @@ describe("K.4 engagement acceptance", () => {
     expect(res.body.data.serviceTypes).toEqual(["SELF_ASSESSMENT"]);
     expect(res.body.data.serviceTypes).not.toContain("MTD_INCOME_TAX");
     expect(Array.isArray(res.body.data.caseIds)).toBe(true);
-    expect(res.body.data.caseIds.length).toBeGreaterThanOrEqual(1);
+    // TS-UAT-032: engagement after purchase may have zero cases until application submit.
+    expect(res.body.data.caseIds.length).toBe(0);
 
     const { col } = await import("../../src/db/mongo");
     const row = await col("engagement_acceptances").findOne({ user_id: client.id });

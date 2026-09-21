@@ -30,7 +30,7 @@ describe("documents, messages and notifications", () => {
     const res = await request(app)
       .post("/api/cases")
       .set(bearer(admin))
-      .send({ client_user_id: owner.id, tax_year: taxYear })
+      .send({ client_user_id: owner.id, tax_year: taxYear, manual_creation_reason: "Test fixture" })
       .expect(200);
     return res.body.id as string;
   }

@@ -748,7 +748,7 @@ export async function fulfil(tx: Doc): Promise<void> {
     // unverified users must not reach a paid SERVICE_ACTIVATION tx via the normal path.
     // Leave unfulfilled so a later webhook/status retry can complete after verify.
     if (!isEmailVerified(user)) return;
-    // Single source of truth for activation (service + case + MTD periods).
+    // Entitlement only (TS-UAT-032) — case/MTD periods mint on application submit.
     await activateService(clean(client) as Doc, user, tx.service_type, tx.new_package, {
       paymentSession: tx.session_id,
       amount: tx.amount,

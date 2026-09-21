@@ -13,7 +13,13 @@ import {
   preferExistingServiceCase,
 } from "../domain/caseEntitlement";
 import { getCase } from "../domain/cases";
-import { activateService, clientOf, MTD, SELF_ASSESSMENT, servicesFor } from "../domain/packages";
+import {
+  createCaseAfterApplicationSubmitted,
+  clientOf,
+  MTD,
+  SELF_ASSESSMENT,
+  servicesFor,
+} from "../domain/packages";
 import {
   ALLOWED_TRANSITIONS,
   STATUSES,
@@ -59,7 +65,10 @@ function decorateCase(kase: Doc): Doc {
   });
 }
 
-/** Prefer activation case; on submitted application create case if entitled+verified and none exists. */
+/**
+ * Prefer existing case; on first successful application submit create exactly one case
+ * when verified + ACTIVE entitled (TS-UAT-032). Never activates entitlement here.
+ */
 compatCasesRouter.post(
   "/client/apply-tax-return",
   auth("CLIENT"),
@@ -75,28 +84,21 @@ compatCasesRouter.post(
     let existing = await preferExistingServiceCase(me, serviceType);
     let createdFromApplication = false;
     if (!existing) {
-      // TS-UAT-032: application submit may create the case only when verified + ACTIVE entitled.
+      // TS-UAT-032: case mint only after verified + ACTIVE entitlement + this submission.
       await assertClientEligibleForCaseCreation(me, serviceType);
       const client = await clientOf(me);
       const services = await servicesFor(client);
       const svc = services.find(
         (s) => s.service_type === serviceType && s.status === "ACTIVE",
       );
-      const packageCode = String(svc?.package_code ?? "").trim();
-      if (!packageCode) {
+      if (!svc?.package_code) {
         throw httpError(400, "No active package found for this service");
       }
-      const result = await activateService(client, me, serviceType, packageCode, {
+      const result = await createCaseAfterApplicationSubmitted(client, me, serviceType, {
         reason: "Tax return application submitted",
       });
-      if (!result.case?.id) {
-        throw httpError(
-          403,
-          "Unable to create a tax case. Complete email verification and purchase before applying.",
-        );
-      }
       existing = result.case;
-      createdFromApplication = true;
+      createdFromApplication = result.created_case;
     }
     const kase = await getCase(String(existing.id), me);
     sendCompatSuccess(

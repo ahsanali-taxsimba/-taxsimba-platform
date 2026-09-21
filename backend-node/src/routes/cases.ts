@@ -35,6 +35,8 @@ const CaseIn = z.object({
   client_user_id: z.string().nullish().default(null),
   tax_year: z.string().default("2024/25"),
   service_type: z.string().default("SELF_ASSESSMENT"),
+  /** Required for staff/admin manual create (audited override of client application gate). */
+  manual_creation_reason: z.string().nullish().default(null),
 });
 const AssignIn = z.object({
   accountant_id: z.string(),
@@ -310,11 +312,20 @@ casesRouter.post(
     if (!clientUser) throw httpError(404, "Client not found");
     const client = await col("clients").findOne({ user_id: clientUserId });
 
-    // TS-UAT-032: creation (CLIENT or staff) requires verified email + ACTIVE entitlement.
-    // Access gating alone is not enough — staff cannot bypass lifecycle prerequisites.
+    // TS-UAT-032: creation requires verified email + ACTIVE entitlement.
+    // Staff may only create without a prior client application when an explicit
+    // audited manual_creation_reason is supplied.
     await assertClientEligibleForCaseCreation(clientUser as Doc, body.service_type);
     if (me.role === "CLIENT") {
       await assertClientCanAccessService(me, body.service_type);
+    } else {
+      const reason = String(body.manual_creation_reason ?? "").trim();
+      if (reason.length < 8) {
+        throw httpError(
+          400,
+          "manual_creation_reason is required for staff case creation (min 8 characters)",
+        );
+      }
     }
 
     // K.5 / C7: no second open service case for client + service_type + tax_year.
@@ -331,6 +342,8 @@ casesRouter.post(
       );
     }
 
+    const staffReason =
+      me.role === "CLIENT" ? null : String(body.manual_creation_reason ?? "").trim();
     const [stage, nextAction, owner] = STATUS_META.AWAITING_ASSIGNMENT;
     const kase: Doc = {
       id: randomUUID(),
@@ -355,13 +368,22 @@ casesRouter.post(
       internal_instructions: null,
       waiting_reason: null,
       approved_version_id: null,
+      created_from: staffReason ? "STAFF_MANUAL" : "CLIENT_API",
+      manual_creation_reason: staffReason,
       created_at: nowIso(),
       last_updated: nowIso(),
     };
     await col("cases").insertOne({ ...kase });
-    await logActivity(kase.id, "Case created", me);
+    await logActivity(
+      kase.id,
+      staffReason ? `Case created (staff override): ${staffReason}` : "Case created",
+      me,
+      staffReason ? { manual_creation_reason: staffReason } : null,
+    );
     await notifyAdmins(
-      "New case awaiting assignment",
+      staffReason
+        ? "New case awaiting assignment (staff manual create)"
+        : "New case awaiting assignment",
       `${kase.client_name} — ${kase.case_ref}`,
       kase.id,
       `/admin/cases/${kase.id}`,

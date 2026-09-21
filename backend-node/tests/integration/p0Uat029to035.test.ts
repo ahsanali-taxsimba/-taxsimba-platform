@@ -227,16 +227,31 @@ describe("P0 UAT 029–035 corrections", () => {
 
   it("032: valid entitled verified workflow can create/access a case", async () => {
     const client = await makeClient("uat032ok");
-    const { caseId } = await activateClientService(client, "SELF_ASSESSMENT");
-    expect(caseId).toBeTruthy();
-    await request(app).get(`/api/cases/${caseId}`).set(bearer(client)).expect(200);
+    // Entitlement alone does not mint a case.
+    const { activateService } = await import("../../src/domain/packages");
+    const { col } = await import("../../src/db/mongo");
+    const clientDoc = await col("clients").findOne({ id: client.clientId });
+    const userDoc = await col("users").findOne({ id: client.id });
+    const activated = await activateService(
+      clientDoc!,
+      userDoc!,
+      "SELF_ASSESSMENT",
+      "SIMPLE",
+      { reason: "entitle only" },
+    );
+    expect(activated.created_case).toBe(false);
+    expect(activated.case).toBeNull();
 
-    // Application path against existing activation case
-    await request(app)
+    // Application submit creates the case.
+    const applied = await request(app)
       .post("/api/compat/client/apply-tax-return")
       .set(bearer(client))
       .field("category", "taxSimba")
       .expect(201);
+    const caseId =
+      applied.body.data.taxReturn.id || applied.body.data.taxReturn.tax_return_id;
+    expect(caseId).toBeTruthy();
+    await request(app).get(`/api/cases/${caseId}`).set(bearer(client)).expect(200);
   });
 
   it("035: clients list exposes username/mobile/location/lifecycle mapping fields", async () => {

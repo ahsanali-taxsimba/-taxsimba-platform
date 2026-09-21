@@ -47,6 +47,28 @@ describe("phase 1B packages, payments and recommendations", () => {
     return res.body.session_id as string;
   }
 
+  /** Purchase + application submit (TS-UAT-032) so a Tax Manager case exists. */
+  async function buyAndApply(
+    client: Client,
+    serviceType: string,
+    packageCode: string,
+  ): Promise<string> {
+    await buy(client, serviceType, packageCode);
+    const category = serviceType === "MTD_INCOME_TAX" ? "mtd" : "taxSimba";
+    await request(app)
+      .post("/api/compat/client/apply-tax-return")
+      .set(bearer(client))
+      .field("category", category)
+      .expect(201);
+    const { col } = await import("../../src/db/mongo");
+    const kase = await col("cases").findOne({
+      client_id: client.clientId,
+      service_type: serviceType,
+    });
+    if (!kase?.id) throw new Error("buyAndApply: expected case after application");
+    return String(kase.id);
+  }
+
   async function services(client: Client) {
     const res = await request(app).get("/api/my-services").set(bearer(client)).expect(200);
     return res.body.services as Record<string, any>[];
@@ -149,7 +171,7 @@ describe("phase 1B packages, payments and recommendations", () => {
     expect(rows.every((s) => s.package_code === null)).toBe(true);
   });
 
-  it("activates an MTD service on confirmed payment and generates the five periods", async () => {
+  it("activates an MTD service on confirmed payment without creating a case", async () => {
     const client = await makeClient("mtdbuyer");
     const sessionId = await buy(client, "MTD_INCOME_TAX", "MTD_COMPLY");
     expect(provider.last().amount).toBe(29.99);
@@ -163,12 +185,34 @@ describe("phase 1B packages, payments and recommendations", () => {
       tax_year: "2026/27",
       billing_frequency: "Monthly",
     });
-    expect(mtd.cases).toHaveLength(1);
-    expect(mtd.cases[0].case_ref).toMatch(/^MTD-\d+$/);
-    expect(mtd.cases[0].status).toBe("AWAITING_ASSIGNMENT");
+    // TS-UAT-032: purchase activates entitlement only — no Tax Manager case yet.
+    expect(mtd.cases).toHaveLength(0);
+
+    const notifications = await request(app)
+      .get("/api/notifications")
+      .set(bearer(admin))
+      .expect(200);
+    expect(
+      notifications.body.some(
+        (n: { title: string }) =>
+          /assign an accountant/i.test(n.title) && /MTD/i.test(n.title),
+      ),
+    ).toBe(false);
+
+    // Application submit creates exactly one case + periods + assignment notification.
+    await request(app)
+      .post("/api/compat/client/apply-tax-return")
+      .set(bearer(client))
+      .field("category", "mtd")
+      .expect(201);
+
+    const afterApply = (await services(client)).find((s) => s.service_type === "MTD_INCOME_TAX")!;
+    expect(afterApply.cases).toHaveLength(1);
+    expect(afterApply.cases[0].case_ref).toMatch(/^MTD-\d+$/);
+    expect(afterApply.cases[0].status).toBe("AWAITING_ASSIGNMENT");
 
     const periods = await request(app)
-      .get(`/api/mtd/cases/${mtd.cases[0].id}/periods`)
+      .get(`/api/mtd/cases/${afterApply.cases[0].id}/periods`)
       .set(bearer(admin))
       .expect(200);
     expect(periods.body.map((p: { label: string }) => p.label)).toEqual([
@@ -179,13 +223,14 @@ describe("phase 1B packages, payments and recommendations", () => {
       "Final Declaration",
     ]);
 
-    const notifications = await request(app)
+    const notificationsAfter = await request(app)
       .get("/api/notifications")
       .set(bearer(admin))
       .expect(200);
     expect(
-      notifications.body.some(
-        (n: { title: string }) => n.title === "New MTD for Income Tax service activated — assign an accountant",
+      notificationsAfter.body.some(
+        (n: { title: string }) =>
+          n.title === "New MTD for Income Tax application submitted — assign an accountant",
       ),
     ).toBe(true);
 
@@ -195,7 +240,7 @@ describe("phase 1B packages, payments and recommendations", () => {
     const mtdAfter = after.find((s) => s.service_type === "MTD_INCOME_TAX")!;
     expect(mtdAfter.cases).toHaveLength(1);
     const periodsAfter = await request(app)
-      .get(`/api/mtd/cases/${mtd.cases[0].id}/periods`)
+      .get(`/api/mtd/cases/${afterApply.cases[0].id}/periods`)
       .set(bearer(admin))
       .expect(200);
     expect(periodsAfter.body).toHaveLength(5);
@@ -326,7 +371,7 @@ describe("phase 1B packages, payments and recommendations", () => {
 
   it("locks client package changes once the return reaches a late stage", async () => {
     const client = await makeClient("locked");
-    await buy(client, "SELF_ASSESSMENT", "SIMPLE");
+    await buyAndApply(client, "SELF_ASSESSMENT", "SIMPLE");
     const { col } = await import("../../src/db/mongo");
     const kase = await col("cases").findOne({
       client_id: client.clientId,
@@ -396,7 +441,7 @@ describe("phase 1B packages, payments and recommendations", () => {
   // ---------------------------------------------------------------- additional work
   it("runs the additional-work payment request through to a receipt exactly once", async () => {
     const client = await makeClient("extrawork");
-    await buy(client, "SELF_ASSESSMENT", "SMART");
+    await buyAndApply(client, "SELF_ASSESSMENT", "SMART");
     const { col } = await import("../../src/db/mongo");
     const kase = (await col("cases").findOne({
       client_id: client.clientId,
@@ -494,7 +539,7 @@ describe("phase 1B packages, payments and recommendations", () => {
 
   it("cancels and resends outstanding requests only", async () => {
     const client = await makeClient("outstanding");
-    await buy(client, "SELF_ASSESSMENT", "SIMPLE");
+    await buyAndApply(client, "SELF_ASSESSMENT", "SIMPLE");
     const { col } = await import("../../src/db/mongo");
     const kase = (await col("cases").findOne({
       client_id: client.clientId,
@@ -546,7 +591,7 @@ describe("phase 1B packages, payments and recommendations", () => {
   // ---------------------------------------------------------------- recommendations
   it("raises, approves and sells an MTD recommendation without duplicating it", async () => {
     const client = await makeClient("recommended");
-    await buy(client, "SELF_ASSESSMENT", "SMART");
+    await buyAndApply(client, "SELF_ASSESSMENT", "SMART");
     const { col } = await import("../../src/db/mongo");
     const kase = (await col("cases").findOne({
       client_id: client.clientId,
@@ -602,7 +647,8 @@ describe("phase 1B packages, payments and recommendations", () => {
 
     const mtd = (await services(client)).find((s) => s.service_type === "MTD_INCOME_TAX")!;
     expect(mtd.status).toBe("ACTIVE");
-    expect(mtd.cases).toHaveLength(1);
+    // Offer payment activates entitlement only (TS-UAT-032) — no case until application.
+    expect(mtd.cases).toHaveLength(0);
     const recAfter = await col("recommendations").findOne({ id: rec.body.id });
     expect(recAfter!.status).toBe("ACTIVATED");
     const offerAfter = await col("offers").findOne({ id: offer.body.id });
@@ -618,7 +664,7 @@ describe("phase 1B packages, payments and recommendations", () => {
 
   it("only recommends higher packages and keeps rejections internal", async () => {
     const client = await makeClient("upsell");
-    await buy(client, "SELF_ASSESSMENT", "ELITE");
+    await buyAndApply(client, "SELF_ASSESSMENT", "ELITE");
     const { col } = await import("../../src/db/mongo");
     const kase = (await col("cases").findOne({
       client_id: client.clientId,
@@ -698,9 +744,9 @@ describe("phase 1B packages, payments and recommendations", () => {
 
   it("scopes recommendation reads by role and hides test cases from the admin queue", async () => {
     const client = await makeClient("scoped");
-    await buy(client, "SELF_ASSESSMENT", "SIMPLE");
+    await buyAndApply(client, "SELF_ASSESSMENT", "SIMPLE");
     const testClient = await makeClient("scopedqa", { isTest: true });
-    await buy(testClient, "SELF_ASSESSMENT", "SIMPLE");
+    await buyAndApply(testClient, "SELF_ASSESSMENT", "SIMPLE");
     const { col } = await import("../../src/db/mongo");
     const kase = (await col("cases").findOne({
       client_id: client.clientId,

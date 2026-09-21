@@ -166,16 +166,31 @@ async function nextServiceCaseRef(serviceType: string): Promise<string> {
 }
 
 export interface ActivationResult {
-  /** Null when entitlement activated but no actionable case (e.g. unverified client). */
+  /**
+   * Existing fulfilment case if one already exists for this client+service.
+   * Purchase/activation never mints a case (TS-UAT-032) — use
+   * `createCaseAfterApplicationSubmitted` after a successful application.
+   */
   case: Doc | null;
+  /** Always false from activateService — entitlement only. */
   created_case: boolean;
   periods_created: number;
   already_active: boolean;
 }
 
+export interface ApplicationCaseResult {
+  case: Doc;
+  created_case: boolean;
+  periods_created: number;
+}
+
 /**
- * Single source of truth for service activation. Idempotent: repeat payment/webhook
- * processing can never duplicate a client_service, case or MTD period.
+ * Single source of truth for service *entitlement* activation. Idempotent: repeat
+ * payment/webhook processing never duplicates a client_service.
+ *
+ * TS-UAT-032: does NOT create an actionable Tax Manager case or assignment
+ * notification. Cases are created only after a submitted application/questionnaire
+ * via `createCaseAfterApplicationSubmitted`.
  */
 export async function activateService(
   client: Doc,
@@ -188,7 +203,6 @@ export async function activateService(
   const reason = opts.reason ?? "Service activation";
   const paymentSession = opts.paymentSession ?? null;
   const amount = opts.amount ?? null;
-  const actor = user ? { id: user.id, name: user.name, role: user.role ?? "CLIENT" } : null;
   await applyDuePriceSchedules();
   const pkg = (await col("packages").findOne({
     service_type: serviceType,
@@ -249,78 +263,133 @@ export async function activateService(
     });
   }
 
-  let kase = (await col("cases").findOne(
+  // Surface any pre-existing case (e.g. prior application) but never mint one here.
+  const kase = (await col("cases").findOne(
     { client_id: client.id, service_type: serviceType },
     { sort: { created_at: -1 } },
   )) as Doc | null;
-  let createdCase = false;
-  // TS-UAT-032: never create an actionable tax case for an unverified client.
-  // Entitlement activation above may still proceed (checkout already gates verify);
-  // seed/admin bypasses must not mint cases for unverified accounts.
-  const clientUser =
-    user ??
-    (client.user_id
-      ? ((await col("users").findOne({ id: client.user_id })) as Doc | null)
-      : null);
-  const mayCreateCase = isEmailVerified(clientUser);
-  if (!kase && mayCreateCase) {
-    const [stage, nextAction, owner] = STATUS_META.AWAITING_ASSIGNMENT;
-    kase = {
-      id: randomUUID(),
-      case_ref: await nextServiceCaseRef(serviceType),
-      is_test: Boolean(client.is_test),
-      client_id: client.id,
-      client_user_id: client.user_id ?? null,
-      client_name: client.name,
-      service_type: serviceType,
-      tax_year: taxYear,
-      assigned_accountant_id: null,
-      assigned_accountant_name: null,
-      admin_reviewer_id: null,
-      admin_reviewer_name: null,
-      status: "AWAITING_ASSIGNMENT",
-      current_stage: stage,
-      next_action: nextAction,
-      next_action_owner: owner,
-      priority: "MEDIUM",
-      internal_deadline: null,
-      external_deadline: deadlineForTaxYear(taxYear),
-      internal_instructions: null,
-      waiting_reason: null,
-      approved_version_id: null,
-      package_code: packageCode,
-      created_at: nowIso(),
-      last_updated: nowIso(),
-    };
-    await col("cases").insertOne({ ...kase });
-    createdCase = true;
-  }
 
-  const periodsCreated = kase && serviceType === MTD ? await ensurePeriods(kase) : 0;
-
-  if (createdCase && kase) {
-    const label = SERVICE_LABELS[serviceType] ?? serviceType;
-    const paid = amount ? `, £${amount.toFixed(2)} paid` : "";
-    await logActivity(
-      kase.id,
-      `${label} activated (${pkg ? pkg.name : packageCode}${paid})`,
-      actor,
-      null,
-      { newStatus: "AWAITING_ASSIGNMENT" },
-    );
-    await notifyAdmins(
-      `New ${label} service activated — assign an accountant`,
-      `${client.name} — ${kase.case_ref}`,
-      kase.id,
-      `/admin/cases/${kase.id}`,
-      "ASSIGNMENT",
-    );
-  }
   return {
     case: kase ? (clean(kase) as Doc) : null,
-    created_case: createdCase,
-    periods_created: periodsCreated,
+    created_case: false,
+    periods_created: 0,
     already_active: alreadyActive,
+  };
+}
+
+/**
+ * TS-UAT-032 — create exactly one actionable case after a successful application/
+ * questionnaire submit. Requires verified email + ACTIVE entitlement. Idempotent:
+ * retries return the existing case and do not re-notify.
+ */
+export async function createCaseAfterApplicationSubmitted(
+  client: Doc,
+  user: Doc,
+  serviceType: string,
+  opts: { reason?: string; taxYear?: string | null } = {},
+): Promise<ApplicationCaseResult> {
+  if (![SELF_ASSESSMENT, MTD].includes(serviceType)) {
+    throw httpError(400, "Unknown service type");
+  }
+  if (user.role !== "CLIENT") {
+    throw httpError(400, "Cases can only be created for CLIENT accounts");
+  }
+  if (!isEmailVerified(user)) {
+    throw httpError(
+      403,
+      "Email verification is required before a tax case can be created",
+    );
+  }
+
+  const svc = (await col("client_services").findOne({
+    client_id: client.id,
+    service_type: serviceType,
+    status: "ACTIVE",
+  })) as Doc | null;
+  if (!svc) {
+    throw httpError(
+      403,
+      `An active purchased ${serviceType} entitlement is required before a tax case can be created`,
+    );
+  }
+
+  const existing = (await col("cases").findOne(
+    { client_id: client.id, service_type: serviceType },
+    { sort: { created_at: -1 } },
+  )) as Doc | null;
+  if (existing) {
+    return {
+      case: clean(existing) as Doc,
+      created_case: false,
+      periods_created: 0,
+    };
+  }
+
+  const packageCode = String(svc.package_code ?? "").trim();
+  const taxYear =
+    opts.taxYear ??
+    (svc.tax_year as string | undefined) ??
+    ACTIVATION_TAX_YEAR[serviceType];
+  const pkg = packageCode
+    ? ((await col("packages").findOne({
+        service_type: serviceType,
+        code: packageCode,
+      })) as Doc | null)
+    : null;
+  const [stage, nextAction, owner] = STATUS_META.AWAITING_ASSIGNMENT;
+  const actor = { id: user.id, name: user.name, role: user.role ?? "CLIENT" };
+  const kase: Doc = {
+    id: randomUUID(),
+    case_ref: await nextServiceCaseRef(serviceType),
+    is_test: Boolean(client.is_test),
+    client_id: client.id,
+    client_user_id: client.user_id ?? user.id,
+    client_name: client.name,
+    service_type: serviceType,
+    tax_year: taxYear,
+    assigned_accountant_id: null,
+    assigned_accountant_name: null,
+    admin_reviewer_id: null,
+    admin_reviewer_name: null,
+    status: "AWAITING_ASSIGNMENT",
+    current_stage: stage,
+    next_action: nextAction,
+    next_action_owner: owner,
+    priority: "MEDIUM",
+    internal_deadline: null,
+    external_deadline: deadlineForTaxYear(taxYear),
+    internal_instructions: null,
+    waiting_reason: null,
+    approved_version_id: null,
+    package_code: packageCode || null,
+    created_from: "APPLICATION",
+    created_at: nowIso(),
+    last_updated: nowIso(),
+  };
+  await col("cases").insertOne({ ...kase });
+
+  const periodsCreated = serviceType === MTD ? await ensurePeriods(kase) : 0;
+  const label = SERVICE_LABELS[serviceType] ?? serviceType;
+  const reason = opts.reason ?? "Tax return application submitted";
+  await logActivity(
+    kase.id,
+    `${label} case created (${pkg ? pkg.name : packageCode || "package"}) — ${reason}`,
+    actor,
+    { created_from: "APPLICATION" },
+    { newStatus: "AWAITING_ASSIGNMENT" },
+  );
+  await notifyAdmins(
+    `New ${label} application submitted — assign an accountant`,
+    `${client.name} — ${kase.case_ref}`,
+    kase.id,
+    `/admin/cases/${kase.id}`,
+    "ASSIGNMENT",
+  );
+
+  return {
+    case: clean(kase) as Doc,
+    created_case: true,
+    periods_created: periodsCreated,
   };
 }
 
