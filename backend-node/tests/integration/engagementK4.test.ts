@@ -116,7 +116,8 @@ describe("K.4 engagement acceptance", () => {
     expect(res.body.data.serviceTypes).toEqual(["SELF_ASSESSMENT"]);
     expect(res.body.data.serviceTypes).not.toContain("MTD_INCOME_TAX");
     expect(Array.isArray(res.body.data.caseIds)).toBe(true);
-    expect(res.body.data.caseIds.length).toBeGreaterThanOrEqual(1);
+    // TS-UAT-032: engagement after purchase may have zero cases until application submit.
+    expect(res.body.data.caseIds.length).toBe(0);
 
     const { col } = await import("../../src/db/mongo");
     const row = await col("engagement_acceptances").findOne({ user_id: client.id });
@@ -134,7 +135,7 @@ describe("K.4 engagement acceptance", () => {
 
   it("MTD-only acceptance isolates to MTD context and does not invent SA", async () => {
     const client = await makeClient("k4mtd");
-    await activatePackage(client, "MTD_ESSENTIAL");
+    await activatePackage(client, "MTD_COMPLY");
     const res = await accept(client, "data:image/png;base64,bXRk");
     expect(res.status).toBe(200);
     expect(res.body.data.serviceTypes).toEqual(["MTD_INCOME_TAX"]);
@@ -160,7 +161,7 @@ describe("K.4 engagement acceptance", () => {
     const before = await col("engagement_acceptances").findOne({ user_id: client.id });
     expect(before?.service_types).toEqual(["SELF_ASSESSMENT"]);
 
-    await activatePackage(client, "MTD_ESSENTIAL");
+    await activatePackage(client, "MTD_COMPLY");
     const status = await request(app)
       .get("/api/compat/client/engagement-letter-status")
       .set(bearer(client))

@@ -54,6 +54,7 @@ describe("MTD income tax periods", () => {
         client_user_id: owner.id,
         tax_year: year,
         service_type: "MTD_INCOME_TAX",
+        manual_creation_reason: "Test fixture — manual MTD case",
       })
       .expect(200);
     const caseId = res.body.id as string;
@@ -164,6 +165,7 @@ describe("MTD income tax periods", () => {
   });
 
   it("rejects MTD endpoints on a Self Assessment case", async () => {
+    await activateClientService(client, "SELF_ASSESSMENT");
     const res = await request(app)
       .post("/api/cases")
       .set(bearer(admin))
@@ -171,6 +173,7 @@ describe("MTD income tax periods", () => {
         client_user_id: client.id,
         tax_year: "2019/20",
         service_type: "SELF_ASSESSMENT",
+        manual_creation_reason: "Test fixture — manual SA case",
       })
       .expect(200);
     await request(app)

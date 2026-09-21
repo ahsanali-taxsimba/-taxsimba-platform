@@ -70,6 +70,7 @@ describe("MTD mid-year onboarding questionnaire", () => {
         client_user_id: client.id,
         tax_year: taxYear,
         service_type: "MTD_INCOME_TAX",
+        manual_creation_reason: "Test fixture — MTD onboarding",
       })
       .expect(200);
     const caseId = res.body.id as string;

@@ -218,7 +218,7 @@ function page() {
                                     <Link href="/check-mtd" className="common-btn-outline ">Check if I need MTD</Link>
                                 </div>
                                 <ul className='list-unstyled d-flex align-item-center gap-3 w-100 mt-4 pt-3 justify-content-lg-start justify-content-center'>
-                                    <li className='text-white '><img src="/images/check-icon.png" alt="img" className='me-2' />HMRC Recognised</li>
+                                    <li className='text-white '><img src="/images/check-icon.png" alt="img" className='me-2' />Accountant Led</li>
                                     <li className='text-white '><img src="/images/secure-icon.png" alt="img" className='me-2' />UK Cloud Secure</li>
                                 </ul>
 
@@ -920,7 +920,7 @@ function page() {
                                         </li>
                                         <li className='mb-0'>
                                             <FaCheck className="icon check-icon" />
-                                            Fully HMRC-recognised software
+                                            Accountant Led
                                         </li>
                                     </ul>
                                 </div>

@@ -4,9 +4,9 @@
  * NEVER run this against production. It refuses to run unless STAGING_UAT_SEED=yes and the
  * database name contains "staging" or "uat".
  *
- * Accounts and service activation are created through the same domain functions the
- * application uses (activateService), and every mid-year MTD fixture is produced by calling
- * the real HTTP API as the relevant role, so nothing here bypasses workflow or permissions.
+ * Accounts and service entitlement are created through activateService; actionable cases
+ * are minted via createCaseAfterApplicationSubmitted (the same post-application path
+ * production uses). Mid-year MTD fixtures are produced by calling the real HTTP API.
  *
  * Usage (from backend-node, against a running staging API):
  *   MONGO_URL=... DB_NAME=taxsimba_staging BASE_URL=https://staging-api.example.com \
@@ -17,7 +17,7 @@ import { randomUUID } from "crypto";
 import { config } from "dotenv";
 
 import { close, col, connect, Doc } from "../db/mongo";
-import { activateService, ensurePhase1bData } from "../domain/packages";
+import { activateService, createCaseAfterApplicationSubmitted, ensurePhase1bData } from "../domain/packages";
 import { MTD } from "../domain/mtd";
 import { ensureCoreIndexes } from "../domain/seed";
 import { nowIso } from "../domain/workflow";
@@ -45,7 +45,7 @@ const CLIENTS: Person[] = [
   { email: "uat.q3joiner@uat-taxsimba.test", name: "UAT Q3 Joiner", role: "CLIENT", services: [MTD] },
 ];
 
-const PACKAGE: Record<string, string> = { [SA]: "SMART", [MTD]: "MTD_ESSENTIAL" };
+const PACKAGE: Record<string, string> = { [SA]: "SMART", [MTD]: "MTD_COMPLY" };
 
 function requireEnv(name: string): string {
   const value = process.env[name];
@@ -69,7 +69,14 @@ async function upsertUser(person: Person, password: string): Promise<Doc> {
   if (existing) {
     await col("users").updateOne(
       { id: existing.id },
-      { $set: { password_hash: hashPassword(password), is_active: true, status: "ACTIVE" } },
+      {
+        $set: {
+          password_hash: hashPassword(password),
+          is_active: true,
+          status: "ACTIVE",
+          email_verified_at: existing.email_verified_at ?? nowIso(),
+        },
+      },
     );
     return (await col("users").findOne({ id: existing.id })) as Doc;
   }
@@ -84,6 +91,9 @@ async function upsertUser(person: Person, password: string): Promise<Doc> {
     // dashboard query, which would leave manual UAT testers looking at empty screens. The
     // whole staging database is disposable, and cleanup deletes by @uat-taxsimba.test address.
     is_test: false,
+    // TS-UAT-032: seed must not mint cases for unverified clients — mark verified.
+    email_verified_at: nowIso(),
+    status: "ACTIVE",
     created_at: nowIso(),
   };
   if (person.role === "CLIENT") {
@@ -275,11 +285,15 @@ async function main(): Promise<void> {
     const user = await upsertUser(person, password);
     const client = await upsertClientRecord(user);
     for (const serviceType of person.services ?? []) {
-      const result = await activateService(client, null, serviceType, PACKAGE[serviceType], {
-        reason: "Staging UAT seed",
+      await activateService(client, user, serviceType, PACKAGE[serviceType], {
+        reason: "Staging UAT seed entitlement",
+      });
+      // Explicit application-path case mint (not purchase-time) — mirrors production lifecycle.
+      const created = await createCaseAfterApplicationSubmitted(client, user, serviceType, {
+        reason: "Staging UAT seed application",
       });
       if (person.email.startsWith("uat.q3joiner") && serviceType === MTD) {
-        q3CaseId = String(result.case?.id ?? "");
+        q3CaseId = String(created.case?.id ?? "");
       }
     }
   }

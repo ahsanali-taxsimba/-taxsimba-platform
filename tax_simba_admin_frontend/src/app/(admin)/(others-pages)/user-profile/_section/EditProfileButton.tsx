@@ -6,12 +6,21 @@ import ProfileEditModal from './ProfileEditModal';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import clientAxios from '@/lib/axios-client';
+import { toast } from 'react-toastify';
+
+function isValidStaffPhone(phone: string): boolean {
+  const trimmed = phone.trim();
+  if (!trimmed) return true; // optional clear/omit
+  if (trimmed.length > 20) return false;
+  const digits = trimmed.replace(/\D/g, "");
+  if (digits.length < 7 || digits.length > 15) return false;
+  return /^[+]?[\d\s().-]{7,20}$/.test(trimmed);
+}
 
 export default function EditProfileButton({ profileData }: { profileData?: any }) {
   const { data: session, update } = useSession();
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
-  const userSessiondata = session?.user;
 
   const handleSave = async (formData: {
     firstName: string;
@@ -26,47 +35,77 @@ export default function EditProfileButton({ profileData }: { profileData?: any }
   }) => {
     const fullName = `${formData.firstName} ${formData.lastName}`.trim();
 
-    const form = new FormData();
-    form.append("name", fullName);
-    form.append("mobile", formData.phone);
+    if (!isValidStaffPhone(formData.phone)) {
+      toast.error("Enter a valid phone number (7–15 digits, max 20 characters).");
+      throw new Error("Invalid phone");
+    }
 
-    if (formData.address) form.append("address", formData.address);
-    if (formData.bio) form.append("bio", formData.bio);
-    if (formData.specialization) form.append("specialization", formData.specialization);
-    if (formData.experience) form.append("experience", formData.experience);
-    if (formData.profilePhoto) form.append("profilePhoto", formData.profilePhoto);
-
+    // Multipart when a new profile image is selected; otherwise JSON (express.json path).
     try {
-      const response = await clientAxios.put(
-        "/auth/update-account-settings",
-        form,
-        true,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
+      const hasPhoto = Boolean(formData.profilePhoto);
+      let response;
+      if (hasPhoto) {
+        const multipart = new FormData();
+        multipart.append("name", fullName);
+        multipart.append("mobile", formData.phone.trim());
+        multipart.append("phone", formData.phone.trim());
+        multipart.append("address", formData.address.trim());
+        multipart.append("profilePhoto", formData.profilePhoto as File);
+        response = await clientAxios.put("/auth/update-account-settings", multipart, true);
+      } else {
+        const payload: Record<string, string> = {
+          name: fullName,
+          mobile: formData.phone.trim(),
+          phone: formData.phone.trim(),
+          address: formData.address.trim(),
+        };
+        response = await clientAxios.put("/auth/update-account-settings", payload, true);
+      }
+
+      if (!response?.data?.success) {
+        throw new Error(response?.data?.message || "Profile update failed");
+      }
 
       const updatedUser = response.data.data;
+
+      const photoUrl = updatedUser?.profilePhoto
+        ? updatedUser.profilePhoto.startsWith("http")
+          ? updatedUser.profilePhoto
+          : `${process.env.NEXT_PUBLIC_API_URL}${updatedUser.profilePhoto}`
+        : session?.user?.image;
 
       await update({
         ...session,
         user: {
           ...session?.user,
-          name: fullName,
-          email: formData.email,       
-          mobile: formData.phone,
-          address: formData.address,
+          name: updatedUser?.name || fullName,
+          email: formData.email,
+          mobile: updatedUser?.mobile ?? updatedUser?.phone ?? formData.phone,
+          address: updatedUser?.address ?? formData.address,
           bio: formData.bio,
           specialization: formData.specialization,
           experience: formData.experience,
-          image: updatedUser.profilePhoto,
+          image: photoUrl,
         },
       });
 
+      toast.success("Profile updated successfully.");
       setShowModal(false);
       router.refresh();
 
-    } catch (err) {
+    } catch (err: any) {
       console.error("Failed to update profile:", err);
-      throw err; 
+      const message =
+        err?.response?.data?.message ||
+        (err?.response == null
+          ? "Unable to reach the server. Please check your connection and try again."
+          : "Failed to update profile. Please try again.");
+      toast.error(
+        typeof message === "string" && message.trim()
+          ? message
+          : "Failed to update profile. Please try again.",
+      );
+      throw err;
     }
   };
 

@@ -36,7 +36,9 @@ describe("K.8 additional-work payment-request adapters", () => {
     client = await makeClient("k8client", { emailVerified: true });
     unverified = await makeClient("k8unverified", { emailVerified: false });
     ({ caseId } = await activateClientService(client, "SELF_ASSESSMENT"));
-    await activateClientService(unverified, "SELF_ASSESSMENT");
+    await activateClientService(unverified, "SELF_ASSESSMENT", undefined, {
+      allowUnverifiedCase: true,
+    });
   }, 60000);
 
   afterAll(async () => {

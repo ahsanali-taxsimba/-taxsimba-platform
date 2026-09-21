@@ -4,16 +4,18 @@ import React, { useEffect, useState } from 'react';
 import { Modal } from '@/components/ui/modal';
 import Button from '@/components/ui/button/Button';
 import clientAxios from '@/lib/axios-client';
+import { mapTaxReturnListPayload } from '@/lib/mapTaxReturnList';
 import DatePicker from '@/components/form/date-picker';
+import { toast } from 'react-toastify';
 
 interface Accountant {
-  id: number;
+  id: string;
   name: string;
   email: string;
 }
 
 interface AssignAccountantModalProps {
-  fileId: number | null;
+  fileId: string | number | null;
   isOpen: boolean;
   onClose: () => void;
   setTaxReturns: React.Dispatch<React.SetStateAction<any>>;
@@ -23,11 +25,11 @@ const AssignAccountantModal: React.FC<AssignAccountantModalProps> = ({
   fileId,
   isOpen,
   onClose,
-  setTaxReturns
-  // fetchTaxReturns,
+  setTaxReturns,
 }) => {
   const [accountants, setAccountants] = useState<Accountant[]>([]);
-  const [selectedAccountant, setSelectedAccountant] = useState<number | null>(null);
+  const [selectedAccountant, setSelectedAccountant] = useState<string>('');
+  const [selectionError, setSelectionError] = useState('');
   const [notes, setNotes] = useState('');
   const [priority, setPriority] = useState('medium');
   const [deadline, setDeadline] = useState('');
@@ -37,6 +39,8 @@ const AssignAccountantModal: React.FC<AssignAccountantModalProps> = ({
 
   useEffect(() => {
     if (isOpen) {
+      setSelectedAccountant('');
+      setSelectionError('');
       fetchAccountants();
     }
   }, [isOpen]);
@@ -50,6 +54,7 @@ const AssignAccountantModal: React.FC<AssignAccountantModalProps> = ({
     } catch (error) {
       console.error('Failed to fetch accountants', error);
       setAccountants([]);
+      toast.error('Failed to load accountants.');
     } finally {
       setLoading(false);
     }
@@ -57,7 +62,16 @@ const AssignAccountantModal: React.FC<AssignAccountantModalProps> = ({
 
   const handleAssign = async () => {
     setDeadlineError('');
-    if (!selectedAccountant || !fileId) return;
+    setSelectionError('');
+    if (!selectedAccountant) {
+      setSelectionError('Please select an accountant.');
+      toast.error('Please select an accountant.');
+      return;
+    }
+    if (!fileId) {
+      toast.error('Missing tax return to assign.');
+      return;
+    }
 
     if (deadline) {
       const selected = new Date(deadline);
@@ -71,23 +85,21 @@ const AssignAccountantModal: React.FC<AssignAccountantModalProps> = ({
 
     setSubmitting(true);
     try {
-      const res = await clientAxios.post('/admin/assign', {
+      await clientAxios.post('/admin/assign', {
         taxReturnId: fileId,
         accountantId: selectedAccountant,
         notes,
         priority,
-        deadline: deadline || null
+        deadline: deadline || null,
       });
 
-      console.log(' Assignment response:', res.data);
       const response = await clientAxios.post('/admin/tax-return/files', {});
-      setTaxReturns(response.data?.data ?? []);
-
+      setTaxReturns(mapTaxReturnListPayload(response.data?.data));
+      toast.success('Case assigned to accountant successfully.');
       onClose();
-      // fetchTaxReturns();
-    } catch (err) {
+    } catch (err: any) {
       console.error(' Assignment failed:', err);
-      alert('Failed to assign.');
+      toast.error(err?.response?.data?.message || 'Failed to assign accountant.');
     } finally {
       setSubmitting(false);
     }
@@ -104,31 +116,42 @@ const AssignAccountantModal: React.FC<AssignAccountantModalProps> = ({
       </h4>
 
       {loading ? (
-        <p>Loading accountants...</p>
+        <p className="text-slate-800 dark:text-slate-100">Loading accountants...</p>
       ) : (
         <>
-          {/* Accountant Dropdown */}
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Select Accountant</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
+              Select Accountant
+            </label>
             <select
-              className="w-full border rounded px-3 py-2 text-sm"
-              value={selectedAccountant || ''}
-              onChange={(e) => setSelectedAccountant(Number(e.target.value))}
+              className="w-full border rounded px-3 py-2 text-sm text-slate-900 bg-white dark:bg-slate-900 dark:text-slate-100 dark:border-slate-600"
+              value={selectedAccountant}
+              onChange={(e) => {
+                setSelectedAccountant(String(e.target.value));
+                setSelectionError('');
+              }}
+              data-testid="assign-accountant-select"
             >
               <option value="">-- Choose an accountant --</option>
               {accountants.map((acc) => (
-                <option key={acc.id} value={acc.id}>
+                <option key={acc.id} value={String(acc.id)}>
                   {acc.name} ({acc.email})
                 </option>
               ))}
             </select>
+            {selectionError && (
+              <p className="text-red-500 text-xs mt-1" data-testid="assign-accountant-error">
+                {selectionError}
+              </p>
+            )}
           </div>
 
-          {/* Notes */}
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Notes (optional)</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
+              Notes (optional)
+            </label>
             <textarea
-              className="w-full border rounded px-3 py-2 text-sm"
+              className="w-full border rounded px-3 py-2 text-sm text-slate-900 bg-white dark:bg-slate-900 dark:text-slate-100"
               rows={3}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
@@ -136,11 +159,12 @@ const AssignAccountantModal: React.FC<AssignAccountantModalProps> = ({
             />
           </div>
 
-          {/* Priority */}
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Priority</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
+              Priority
+            </label>
             <select
-              className="w-full border rounded px-3 py-2 text-sm"
+              className="w-full border rounded px-3 py-2 text-sm text-slate-900 bg-white dark:bg-slate-900 dark:text-slate-100"
               value={priority}
               onChange={(e) => setPriority(e.target.value)}
             >
@@ -150,7 +174,6 @@ const AssignAccountantModal: React.FC<AssignAccountantModalProps> = ({
             </select>
           </div>
 
-          {/* Deadline */}
           <div className="mb-6">
             <DatePicker
               id="deadline-picker"
@@ -161,7 +184,6 @@ const AssignAccountantModal: React.FC<AssignAccountantModalProps> = ({
                 setDeadlineError('');
                 if (selectedDates && selectedDates.length > 0) {
                   const date = selectedDates[0];
-                  // format as YYYY-MM-DD safely
                   const y = date.getFullYear();
                   const m = String(date.getMonth() + 1).padStart(2, '0');
                   const d = String(date.getDate()).padStart(2, '0');
@@ -175,12 +197,16 @@ const AssignAccountantModal: React.FC<AssignAccountantModalProps> = ({
             {deadlineError && <p className="text-red-500 text-xs mt-1">{deadlineError}</p>}
           </div>
 
-          {/* Actions */}
           <div className="flex justify-end gap-3">
             <Button size="sm" variant="outline" onClick={onClose} disabled={submitting}>
               Cancel
             </Button>
-            <Button size="sm" className="bg-[#37a267] hover:bg-[#37a267]" onClick={handleAssign} disabled={!selectedAccountant || submitting}>
+            <Button
+              size="sm"
+              className="bg-[#37a267] hover:bg-[#37a267]"
+              onClick={handleAssign}
+              disabled={submitting}
+            >
               {submitting ? 'Assigning...' : 'Assign'}
             </Button>
           </div>

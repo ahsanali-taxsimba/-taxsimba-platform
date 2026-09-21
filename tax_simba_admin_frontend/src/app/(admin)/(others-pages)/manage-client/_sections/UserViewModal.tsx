@@ -1,24 +1,19 @@
 "use client";
 import React from "react";
 import { Modal } from "@/components/ui/modal";
-import { 
-    User as UserIcon, 
-    Mail, 
-    Phone, 
-    Calendar, 
-    Shield, 
-    MapPin, 
-    Hash, 
-    Building2, 
-    ClipboardCheck, 
-    LayoutGrid,
-    Clock,
-    UserCheck,
-    CreditCard,
-    FileText,
+import {
+    Mail,
+    Shield,
+    MapPin,
     CheckCircle,
-    XCircle
+    XCircle,
+    AlertCircle,
 } from "lucide-react";
+import {
+    clientLifecycle,
+    lifecycleLabel,
+    type ClientLifecycle,
+} from "@/lib/clientLifecycle";
 
 interface UserViewModalProps {
     isOpen: boolean;
@@ -29,9 +24,15 @@ interface UserViewModalProps {
         email: string;
         firstName: string;
         lastName: string;
+        name?: string;
         mobile: string;
+        phone?: string;
         userRole: string;
-        status: number;
+        status: number | string;
+        lifecycle?: string;
+        isActive?: boolean;
+        emailVerified?: boolean;
+        email_verified_at?: string | null;
         createdAt: string;
         dob?: string;
         nino?: string;
@@ -72,10 +73,43 @@ interface UserViewModalProps {
     } | null;
 }
 
+function lifecycleChrome(lifecycle: ClientLifecycle) {
+    if (lifecycle === "ACTIVE") {
+        return {
+            className: "bg-green-100/10 text-green-400 border-green-500/20",
+            shadow: "0 0 12px rgba(55,162,103,0.35)",
+            Icon: CheckCircle,
+        };
+    }
+    if (lifecycle === "PENDING_VERIFICATION") {
+        return {
+            className: "bg-amber-100/10 text-amber-300 border-amber-500/20",
+            shadow: "0 0 12px rgba(245,158,11,0.35)",
+            Icon: AlertCircle,
+        };
+    }
+    return {
+        className: "bg-red-100/10 text-red-400 border-red-500/20",
+        shadow: "0 0 12px rgba(239,68,68,0.35)",
+        Icon: XCircle,
+    };
+}
+
 const UserViewModal: React.FC<UserViewModalProps> = ({ isOpen, onClose, user }) => {
     if (!user) return null;
 
     const isMTDUser = user.userRole === "MTD";
+    const lifecycle = clientLifecycle(user);
+    const chrome = lifecycleChrome(lifecycle);
+    const StatusIcon = chrome.Icon;
+    const displayFirst =
+        user.firstName ||
+        (user.name ? String(user.name).split(/\s+/)[0] : "") ||
+        "";
+    const displayLast =
+        user.lastName ||
+        (user.name ? String(user.name).split(/\s+/).slice(1).join(" ") : "") ||
+        "";
 
     const formatIncomeSources = (sources: any) => {
         if (!sources) return "N/A";
@@ -94,8 +128,15 @@ const UserViewModal: React.FC<UserViewModalProps> = ({ isOpen, onClose, user }) 
 
     const InfoItem = ({ label, value }: { label: string; value: any }) => (
         <div className="flex flex-col gap-0.5">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">{label}</span>
-            <span className="text-sm font-bold text-gray-900 dark:text-white/90">{value || "N/A"}</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
+                {label}
+            </span>
+            <span
+                className="text-sm font-bold text-slate-900 dark:text-slate-900"
+                data-testid={`client-detail-${label.toLowerCase().replace(/\s+/g, "-")}`}
+            >
+                {value || "N/A"}
+            </span>
         </div>
     );
 
@@ -106,14 +147,12 @@ const UserViewModal: React.FC<UserViewModalProps> = ({ isOpen, onClose, user }) 
             className="max-w-2xl p-0 overflow-hidden border-0 rounded-3xl shadow-2xl"
         >
             <div className="relative overflow-hidden bg-white dark:bg-gray-950">
-                {/* Premium Dark Gradient Header */}
                 <div
                     className="relative px-8 py-7 pr-16 flex justify-between items-center overflow-hidden"
                     style={{
                         background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #1a3a2a 100%)',
                     }}
                 >
-                    {/* Background glow orb */}
                     <div
                         className="absolute -top-8 -right-8 w-48 h-48 rounded-full opacity-20 pointer-events-none"
                         style={{ background: 'radial-gradient(circle, #37a267 0%, transparent 70%)' }}
@@ -125,21 +164,15 @@ const UserViewModal: React.FC<UserViewModalProps> = ({ isOpen, onClose, user }) 
                         <h2 className="text-2xl font-extrabold text-white tracking-tight">Client Details</h2>
                     </div>
 
-                    {/* Glowing Status Badge */}
                     <div
-                        className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold border backdrop-blur-sm ${
-                            user.status === 1 
-                            ? "bg-green-100/10 text-green-400 border-green-500/20" 
-                            : "bg-red-100/10 text-red-400 border-red-500/20"
-                        }`}
-                        style={{ boxShadow: user.status === 1 ? '0 0 12px rgba(55,162,103,0.35)' : '0 0 12px rgba(239,68,68,0.35)' }}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold border backdrop-blur-sm ${chrome.className}`}
+                        style={{ boxShadow: chrome.shadow }}
                     >
-                        {user.status === 1 ? <CheckCircle className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
-                        <span className="capitalize">{user.status === 1 ? "Active" : "Inactive"}</span>
+                        <StatusIcon className="w-4 h-4" />
+                        <span className="capitalize">{lifecycleLabel(lifecycle)}</span>
                     </div>
                 </div>
 
-                {/* Identity Hero Strip */}
                 <div
                     className="px-8 py-5 flex items-center justify-between border-b dark:border-white/[0.05]"
                     style={{ background: 'linear-gradient(90deg, #f0fdf4 0%, #eff6ff 100%)' }}
@@ -149,11 +182,11 @@ const UserViewModal: React.FC<UserViewModalProps> = ({ isOpen, onClose, user }) 
                             className="w-16 h-16 rounded-2xl flex items-center justify-center text-white font-black text-2xl flex-shrink-0 shadow-lg"
                             style={{ background: 'linear-gradient(135deg, #37a267, #1e3a5f)' }}
                         >
-                            {user.firstName?.charAt(0)}{user.lastName?.charAt(0)}
+                            {displayFirst?.charAt(0)}{displayLast?.charAt(0)}
                         </div>
                         <div>
                             <h3 className="text-2xl font-black tracking-tight" style={{ color: '#1e3a5f' }}>
-                                {user.firstName} {user.lastName}
+                                {displayFirst} {displayLast}
                             </h3>
                             <p className="text-sm font-medium text-gray-500 flex items-center gap-1.5 mt-0.5">
                                 <Mail className="w-3.5 h-3.5" />
@@ -178,29 +211,50 @@ const UserViewModal: React.FC<UserViewModalProps> = ({ isOpen, onClose, user }) 
                     </div>
                 </div>
 
-                {/* Main Body */}
                 <div className="p-8 space-y-6 max-h-[60vh] overflow-y-auto custom-scrollbar">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* Basic Info Card */}
-                        <div 
-                            className="rounded-2xl p-5 border flex flex-col gap-4" 
+                        <div
+                            className="rounded-2xl p-5 border flex flex-col gap-4"
                             style={{ background: '#f8fafc', borderColor: '#e2e8f0' }}
                         >
                             <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-0.5">Client Information</p>
                             <div className="grid grid-cols-2 gap-y-5 gap-x-4">
-                                <InfoItem label="Username" value={user.username} />
-                                <InfoItem label="Mobile" value={user.mobile} />
-                                <InfoItem label="Location" value={user.location} />
-                                <InfoItem label="Status" value={user.status === 1 ? "Active" : "Inactive"} />
+                                <InfoItem
+                                    label="Username"
+                                    value={
+                                        user.username ||
+                                        (user.email ? String(user.email).split("@")[0] : null)
+                                    }
+                                />
+                                <InfoItem label="Mobile" value={user.mobile || user.phone} />
+                                <InfoItem
+                                    label="Location"
+                                    value={user.location || fullAddress || user.address}
+                                />
+                                <InfoItem label="Status" value={lifecycleLabel(lifecycle)} />
+                                <InfoItem
+                                    label="Email verified"
+                                    value={
+                                        user.emailVerified === true || Boolean(user.email_verified_at)
+                                            ? "Yes"
+                                            : "No"
+                                    }
+                                />
                                 <div className="col-span-2">
-                                    <InfoItem label="Created At" value={user.createdAt ? new Date(user.createdAt).toLocaleDateString("en-GB") : "N/A"} />
+                                    <InfoItem
+                                        label="Created At"
+                                        value={
+                                            user.createdAt
+                                                ? new Date(user.createdAt).toLocaleDateString("en-GB")
+                                                : "N/A"
+                                        }
+                                    />
                                 </div>
                             </div>
                         </div>
 
-                        {/* Subscription Card */}
-                        <div 
-                            className="rounded-2xl p-5 border flex flex-col gap-4" 
+                        <div
+                            className="rounded-2xl p-5 border flex flex-col gap-4"
                             style={{ background: '#f8fafc', borderColor: '#e2e8f0' }}
                         >
                             <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-0.5">Account Details</p>
@@ -216,15 +270,14 @@ const UserViewModal: React.FC<UserViewModalProps> = ({ isOpen, onClose, user }) 
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-sm text-gray-500 font-medium">Role Level</span>
-                                    <span className="text-sm font-bold text-gray-900">{user.userRole || "Standard"}</span>
+                                    <span className="text-sm font-bold text-slate-900">{user.userRole || "Standard"}</span>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Tax Info (MTD Only) */}
                         {isMTDUser && (
-                            <div 
-                                className="col-span-full rounded-2xl p-6 border grid grid-cols-2 md:grid-cols-4 gap-6" 
+                            <div
+                                className="col-span-full rounded-2xl p-6 border grid grid-cols-2 md:grid-cols-4 gap-6"
                                 style={{ background: '#f8fafc', borderColor: '#e2e8f0' }}
                             >
                                 <div className="col-span-full border-b pb-2 mb-1">
@@ -263,9 +316,8 @@ const UserViewModal: React.FC<UserViewModalProps> = ({ isOpen, onClose, user }) 
                             </div>
                         )}
 
-                        {/* Address Card */}
-                        <div 
-                            className="col-span-full rounded-2xl p-5 border flex flex-col gap-3" 
+                        <div
+                            className="col-span-full rounded-2xl p-5 border flex flex-col gap-3"
                             style={{ background: '#f8fafc', borderColor: '#e2e8f0' }}
                         >
                             <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">Registered Address</p>
@@ -274,7 +326,7 @@ const UserViewModal: React.FC<UserViewModalProps> = ({ isOpen, onClose, user }) 
                                     <MapPin size={18} />
                                 </div>
                                 <div>
-                                    <p className="text-sm font-bold text-gray-900 leading-relaxed">
+                                    <p className="text-sm font-bold text-slate-900 leading-relaxed">
                                         {fullAddress || "No residential address provided."}
                                     </p>
                                 </div>
@@ -283,7 +335,6 @@ const UserViewModal: React.FC<UserViewModalProps> = ({ isOpen, onClose, user }) 
                     </div>
                 </div>
 
-                {/* Footer Section */}
                 <div className="p-6 border-t dark:border-white/[0.05] bg-gray-50/50 dark:bg-black/20 flex justify-center">
                     <button
                         onClick={onClose}
@@ -298,5 +349,3 @@ const UserViewModal: React.FC<UserViewModalProps> = ({ isOpen, onClose, user }) 
 };
 
 export default UserViewModal;
-
-

@@ -5,6 +5,7 @@
  */
 import { col, Doc } from "../db/mongo";
 import { httpError } from "../http/errors";
+import { isEmailVerified } from "../services/emailVerification";
 import { MTD, SELF_ASSESSMENT, clientOf, servicesFor } from "./packages";
 
 export const ENTITLED_SERVICE_TYPES = [SELF_ASSESSMENT, MTD] as const;
@@ -34,7 +35,7 @@ export async function clientHasActiveService(
 
 /**
  * CLIENT must hold ACTIVE entitlement for the case's service_type.
- * Staff roles are not gated by client entitlement.
+ * Staff roles are not gated by client entitlement for *access*.
  */
 export async function assertClientCanAccessService(
   user: Doc,
@@ -51,6 +52,49 @@ export async function assertClientCanAccessService(
       `An active ${serviceType} service is required to access or create this case`,
     );
   }
+}
+
+/**
+ * TS-UAT-032 — Case *creation* (not mere access) requires:
+ * - verified email on the target CLIENT
+ * - ACTIVE purchased entitlement for service_type
+ *
+ * Applies to CLIENT self-create, staff/admin create, and activation case insert.
+ * Registration alone never satisfies this.
+ */
+export async function assertClientEligibleForCaseCreation(
+  clientUser: Doc,
+  serviceType: string,
+): Promise<void> {
+  if (clientUser.role !== "CLIENT") {
+    throw httpError(400, "Cases can only be created for CLIENT accounts");
+  }
+  if (!isEmailVerified(clientUser)) {
+    throw httpError(
+      403,
+      "Email verification is required before a tax case can be created",
+    );
+  }
+  if (!isEntitledServiceType(serviceType)) {
+    throw httpError(403, "Unknown or unsupported service type for case creation");
+  }
+  const ok = await clientHasActiveService(clientUser, serviceType);
+  if (!ok) {
+    throw httpError(
+      403,
+      `An active purchased ${serviceType} entitlement is required before a tax case can be created`,
+    );
+  }
+}
+
+/** Load CLIENT user by id; 404 if missing. */
+export async function loadClientUser(clientUserId: string): Promise<Doc> {
+  const clientUser = (await col("users").findOne({
+    id: clientUserId,
+    role: "CLIENT",
+  })) as Doc | null;
+  if (!clientUser) throw httpError(404, "Client not found");
+  return clientUser;
 }
 
 /** ACTIVE service_types the CLIENT may see/list. */

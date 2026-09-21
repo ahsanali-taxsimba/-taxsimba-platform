@@ -28,6 +28,7 @@ import { useSession } from 'next-auth/react';
 import AdminFlags from '@/components/FlagModal/AdminFlag';
 import { getNotificationIcon } from '@/utils/getNotification';
 import BellButton from '@/components/NotficationData/BellButton';
+import { toast } from 'react-toastify';
 import DownloadCertificate from '@/components/TaxReturnModal/DownloadCertificateModal';
 
 const AdminTaxReturnDetails = () => {
@@ -64,7 +65,7 @@ const AdminTaxReturnDetails = () => {
 
   // Assignment modal states
   const [accountants, setAccountants] = useState<Accountant[]>([]);
-  const [selectedAccountant, setSelectedAccountant] = useState<number | null>(null);
+  const [selectedAccountant, setSelectedAccountant] = useState<string>('');
   const [assignmentNotes, setAssignmentNotes] = useState('');
   const [assignmentPriority, setAssignmentPriority] = useState('medium');
   const [assignmentDeadline, setAssignmentDeadline] = useState('');
@@ -406,7 +407,11 @@ const AdminTaxReturnDetails = () => {
 
   const handleAssignAccountant = async () => {
     setAssignmentDeadlineError('');
-    if (!selectedAccountant || !taxReturn) return;
+    if (!selectedAccountant) {
+      toast.error('Please select an accountant.');
+      return;
+    }
+    if (!taxReturn) return;
 
     if (assignmentDeadline) {
       const selected = new Date(assignmentDeadline);
@@ -433,8 +438,9 @@ const AdminTaxReturnDetails = () => {
       await fetchTaxReturnData();
       await fetchProgressData();
 
+      toast.success('Case assigned to accountant successfully.');
       setShowAssignModal(false);
-      setSelectedAccountant(null);
+      setSelectedAccountant('');
       setAssignmentNotes('');
       setAssignmentPriority('medium');
       setAssignmentDeadline('');
@@ -448,7 +454,7 @@ const AdminTaxReturnDetails = () => {
       }, ...prev]);
     } catch (err) {
       console.error('Assignment failed:', err);
-      alert('Failed to assign tax return.');
+      toast.error((err as any)?.response?.data?.message || 'Failed to assign tax return.');
     } finally {
       setSubmitting(false);
     }
@@ -1411,7 +1417,7 @@ const AdminTaxReturnDetails = () => {
                 <select
                   className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   value={selectedAccountant || ''}
-                  onChange={(e) => setSelectedAccountant(Number(e.target.value))}
+                  onChange={(e) => setSelectedAccountant(String(e.target.value))}
                 >
                   <option value="">-- Choose an accountant --</option>
                   {accountants.map((acc) => (

@@ -9,10 +9,17 @@ import { z } from "zod";
 import { clean, col, Doc } from "../db/mongo";
 import {
   assertClientCanAccessService,
+  assertClientEligibleForCaseCreation,
   preferExistingServiceCase,
 } from "../domain/caseEntitlement";
 import { getCase } from "../domain/cases";
-import { MTD, SELF_ASSESSMENT } from "../domain/packages";
+import {
+  createCaseAfterApplicationSubmitted,
+  clientOf,
+  MTD,
+  SELF_ASSESSMENT,
+  servicesFor,
+} from "../domain/packages";
 import {
   ALLOWED_TRANSITIONS,
   STATUSES,
@@ -58,7 +65,10 @@ function decorateCase(kase: Doc): Doc {
   });
 }
 
-/** Prefer activation-created case; CLIENT must be ACTIVE for service_type. */
+/**
+ * Prefer existing case; on first successful application submit create exactly one case
+ * when verified + ACTIVE entitled (TS-UAT-032). Never activates entitlement here.
+ */
 compatCasesRouter.post(
   "/client/apply-tax-return",
   auth("CLIENT"),
@@ -71,20 +81,32 @@ compatCasesRouter.post(
     const serviceType = serviceTypeFromBody(keysToSnake(body) as Record<string, unknown>);
     await assertClientCanAccessService(me, serviceType);
 
-    const existing = await preferExistingServiceCase(me, serviceType);
+    let existing = await preferExistingServiceCase(me, serviceType);
+    let createdFromApplication = false;
     if (!existing) {
-      throw httpError(
-        400,
-        "No service case found. Complete purchase activation before applying a tax return.",
+      // TS-UAT-032: case mint only after verified + ACTIVE entitlement + this submission.
+      await assertClientEligibleForCaseCreation(me, serviceType);
+      const client = await clientOf(me);
+      const services = await servicesFor(client);
+      const svc = services.find(
+        (s) => s.service_type === serviceType && s.status === "ACTIVE",
       );
+      if (!svc?.package_code) {
+        throw httpError(400, "No active package found for this service");
+      }
+      const result = await createCaseAfterApplicationSubmitted(client, me, serviceType, {
+        reason: "Tax return application submitted",
+      });
+      existing = result.case;
+      createdFromApplication = result.created_case;
     }
-    // Prefer fulfilment spine — do not create a second case here.
     const kase = await getCase(String(existing.id), me);
     sendCompatSuccess(
       res,
       {
         taxReturn: decorateCase(kase),
-        preferredExisting: true,
+        preferredExisting: !createdFromApplication,
+        createdFromApplication,
       },
       "Tax return ready",
       201,

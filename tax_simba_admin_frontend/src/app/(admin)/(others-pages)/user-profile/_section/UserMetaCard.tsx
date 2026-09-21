@@ -8,6 +8,7 @@ import Label from "@/components/form/Label";
 import Input from "@/components/form/input/InputField";
 import Button from "@/components/ui/button/Button";
 import clientAxios from "@/lib/axios-client";
+import { toast } from "react-toastify";
 
 
 export default function UserMetaCard() {
@@ -51,16 +52,25 @@ export default function UserMetaCard() {
         if (response?.data?.success && response.data.data) {
           const data = response.data.data;
           const [firstName = '', lastName = ''] = data.name?.split(' ') || [];
+          const photoRel = data.profilePhoto as string | null | undefined;
+          const photoAbs = photoRel
+            ? photoRel.startsWith("http")
+              ? photoRel
+              : `${process.env.NEXT_PUBLIC_API_URL}${photoRel}`
+            : "";
 
-          setUserData(data);
+          setUserData({
+            ...data,
+            profilePhoto: photoAbs || data.profilePhoto,
+          });
           setFormData((prev) => ({
             ...prev,
             firstName,
             lastName,
             email: data.email,
             phone: data.mobile,
-            profilePhoto: data.profilePhoto,
-            profilePreview: `${process.env.NEXT_PUBLIC_API_URL}${data.profilePhoto}`,
+            profilePhoto: photoRel || "",
+            profilePreview: photoAbs,
           }));
         }
       } catch (error) {
@@ -95,27 +105,75 @@ export default function UserMetaCard() {
 
   const handleSave = async () => {
       try {
-          const form = new FormData();
           const fullName = `${formData.firstName} ${formData.lastName}`.trim();
-          form.append('name', fullName);
-          form.append('mobile', formData.phone);
-          if (formData.profileImageFile) {
-              form.append('profilePhoto', formData.profileImageFile);
+          const phone = String(formData.phone || "").trim();
+          if (phone) {
+            const digits = phone.replace(/\D/g, "");
+            if (phone.length > 20 || digits.length < 7 || digits.length > 15) {
+              toast.error("Enter a valid phone number (7–15 digits, max 20 characters).");
+              return;
             }
-            const response = await clientAxios.put(
-                '/auth/update-account-settings',
-                form,
-                true,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                }
+          }
+          let response;
+          if (formData.profileImageFile) {
+            const multipart = new FormData();
+            multipart.append("name", fullName);
+            multipart.append("mobile", phone);
+            multipart.append("phone", phone);
+            multipart.append("profilePhoto", formData.profileImageFile);
+            response = await clientAxios.put(
+              "/auth/update-account-settings",
+              multipart,
+              true,
             );
-    console.log(' Profile updated:', response.data);
-    // closeModal();
-  } catch (error) {
+          } else {
+            response = await clientAxios.put(
+              "/auth/update-account-settings",
+              {
+                name: fullName,
+                mobile: phone,
+                phone,
+              },
+              true,
+            );
+          }
+    if (!response?.data?.success) {
+      toast.error(response?.data?.message || "Failed to update profile. Please try again.");
+      return;
+    }
+    toast.success("Profile updated successfully.");
+    closeModal();
+    // Refresh displayed values from response
+    const data = response.data.data;
+    if (data) {
+      const photoRel = data.profilePhoto as string | null | undefined;
+      const photoAbs = photoRel
+        ? photoRel.startsWith("http")
+          ? photoRel
+          : `${process.env.NEXT_PUBLIC_API_URL}${photoRel}`
+        : userData?.profilePhoto;
+      setUserData((prev: any) => ({
+        ...prev,
+        name: data.name ?? fullName,
+        mobile: data.mobile ?? data.phone ?? phone,
+        profilePhoto: photoAbs ?? prev?.profilePhoto,
+      }));
+      setFormData((prev) => ({
+        ...prev,
+        phone: data.mobile ?? data.phone ?? phone,
+        profilePhoto: photoRel ?? prev.profilePhoto,
+        profilePreview: photoAbs ?? prev.profilePreview,
+        profileImageFile: null,
+      }));
+    }
+  } catch (error: any) {
     console.error(' Failed to update profile:', error);
+    const message =
+      error?.response?.data?.message ||
+      (error?.response == null
+        ? "Unable to reach the server. Please check your connection and try again."
+        : "Failed to update profile. Please try again.");
+    toast.error(typeof message === "string" && message.trim() ? message : "Failed to update profile. Please try again.");
   }
 };
 

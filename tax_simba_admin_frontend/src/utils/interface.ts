@@ -203,7 +203,7 @@ export interface FilesData {
 }
 
 export interface Accountant {
-  id: number;
+  id: string | number;
   name: string;
   email: string;
 }

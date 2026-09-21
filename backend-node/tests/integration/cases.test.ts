@@ -31,7 +31,11 @@ async function newCase(): Promise<string> {
   const res = await request(app)
     .post("/api/cases")
     .set(bearer(admin))
-    .send({ client_user_id: client.id, tax_year: taxYear });
+    .send({
+      client_user_id: client.id,
+      tax_year: taxYear,
+      manual_creation_reason: "Test fixture — workflow case",
+    });
   expect(res.status).toBe(200);
   return res.body.id as string;
 }
@@ -84,7 +88,11 @@ describe("case creation", () => {
     const first = await request(app)
       .post("/api/cases")
       .set(bearer(admin))
-      .send({ client_user_id: client.id, tax_year: "2023/24" })
+      .send({
+        client_user_id: client.id,
+        tax_year: "2023/24",
+        manual_creation_reason: "Test fixture — sequential refs",
+      })
       .expect(200);
     expect(first.body.case_ref).toMatch(/^SA-\d{4,}$/);
     expect(first.body.status).toBe("AWAITING_ASSIGNMENT");
@@ -95,7 +103,11 @@ describe("case creation", () => {
     const second = await request(app)
       .post("/api/cases")
       .set(bearer(admin))
-      .send({ client_user_id: client.id, tax_year: "2024/25" })
+      .send({
+        client_user_id: client.id,
+        tax_year: "2024/25",
+        manual_creation_reason: "Test fixture — sequential refs",
+      })
       .expect(200);
     const seq = (ref: string) => parseInt(ref.split("-")[1], 10);
     expect(seq(second.body.case_ref)).toBe(seq(first.body.case_ref) + 1);
@@ -104,17 +116,36 @@ describe("case creation", () => {
     await request(app)
       .post("/api/cases")
       .set(bearer(admin))
-      .send({ client_user_id: client.id, tax_year: "2024/25" })
+      .send({
+        client_user_id: client.id,
+        tax_year: "2024/25",
+        manual_creation_reason: "Test fixture — duplicate should 409",
+      })
       .expect(409);
   });
 
   it("rejects a staff create without a client and an unknown client", async () => {
-    await request(app).post("/api/cases").set(bearer(admin)).send({}).expect(400);
     await request(app)
       .post("/api/cases")
       .set(bearer(admin))
-      .send({ client_user_id: "nope" })
+      .send({ manual_creation_reason: "Missing client still invalid" })
+      .expect(400);
+    await request(app)
+      .post("/api/cases")
+      .set(bearer(admin))
+      .send({
+        client_user_id: "nope",
+        manual_creation_reason: "Unknown client still invalid",
+      })
       .expect(404);
+  });
+
+  it("rejects staff create without manual_creation_reason", async () => {
+    await request(app)
+      .post("/api/cases")
+      .set(bearer(admin))
+      .send({ client_user_id: client.id, tax_year: "2022/23" })
+      .expect(400);
   });
 });
 

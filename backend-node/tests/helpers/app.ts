@@ -132,25 +132,64 @@ export function bearer(user: TestUser): Record<string, string> {
 }
 
 /**
- * Activate SA or MTD via the protected activateService spine (preferred case factory).
- * Returns the fulfilment case id. Used by K.5+ fixtures instead of unpaid CLIENT POST /cases.
+ * Activate SA or MTD entitlement via activateService, then mint the fulfilment case
+ * through the same application-submit path production uses (TS-UAT-032).
+ * Returns the fulfilment case id.
+ *
+ * When `opts.allowUnverifiedCase` is true, temporarily stamps email_verified_at so a case
+ * can be minted for AW/fixture paths that intentionally keep the client unverified for
+ * checkout gating tests.
  */
 export async function activateClientService(
   client: TestUser & { clientId: string },
   serviceType: "SELF_ASSESSMENT" | "MTD_INCOME_TAX",
   packageCode?: string,
+  opts: { allowUnverifiedCase?: boolean } = {},
 ): Promise<{ caseId: string }> {
   const { col } = await import("../../src/db/mongo");
-  const { activateService } = await import("../../src/domain/packages");
+  const {
+    activateService,
+    createCaseAfterApplicationSubmitted,
+  } = await import("../../src/domain/packages");
+  const { nowIso } = await import("../../src/domain/workflow");
   const code =
-    packageCode ?? (serviceType === "SELF_ASSESSMENT" ? "SIMPLE" : "MTD_ESSENTIAL");
+    packageCode ?? (serviceType === "SELF_ASSESSMENT" ? "SIMPLE" : "MTD_COMPLY");
   const clientDoc = await col("clients").findOne({ id: client.clientId });
-  const userDoc = await col("users").findOne({ id: client.id });
+  let userDoc = await col("users").findOne({ id: client.id });
   if (!clientDoc || !userDoc) throw new Error("activateClientService: missing client/user");
-  const result = await activateService(clientDoc, userDoc, serviceType, code, {
+
+  let clearedVerification = false;
+  if (opts.allowUnverifiedCase && !userDoc.email_verified_at) {
+    await col("users").updateOne(
+      { id: client.id },
+      { $set: { email_verified_at: nowIso() } },
+    );
+    userDoc = await col("users").findOne({ id: client.id });
+    clearedVerification = true;
+  }
+
+  await activateService(clientDoc, userDoc!, serviceType, code, {
     reason: "test activation",
   });
-  return { caseId: String(result.case.id) };
+
+  // Follow production lifecycle: entitlement first, then application case mint.
+  const created = await createCaseAfterApplicationSubmitted(
+    clientDoc,
+    userDoc!,
+    serviceType,
+    { reason: "test application submit" },
+  );
+
+  if (clearedVerification) {
+    await col("users").updateOne({ id: client.id }, { $set: { email_verified_at: null } });
+  }
+
+  if (!created.case?.id) {
+    throw new Error(
+      "activateClientService: application path did not create a case (client must be email-verified + entitled)",
+    );
+  }
+  return { caseId: String(created.case.id) };
 }
 
 /** Headers a browser would send, including the double-submit CSRF token. */

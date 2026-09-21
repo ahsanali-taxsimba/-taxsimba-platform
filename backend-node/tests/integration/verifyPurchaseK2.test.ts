@@ -230,7 +230,7 @@ describe("K.2 acceptance — verify-before-purchase", () => {
       client_id: client.clientId,
       client_user_id: client.id,
       service_type: "MTD_INCOME_TAX",
-      package_code: "MTD_ESSENTIAL",
+      package_code: "MTD_COMPLY",
       package_name: "MTD Essential",
       amount_due: 240,
       status: "PENDING",
@@ -408,12 +408,13 @@ describe("K.2 acceptance — verify-before-purchase", () => {
     expect(svc?.status).toBe("ACTIVE");
     expect(svc?.package_code).toBe("SIMPLE");
     expect((await col("payment_transactions").findOne({ id: paid.id }))?.fulfilled).toBe(true);
+    // TS-UAT-032: paid activation entitles only — no Tax Manager case yet.
     expect(
       await col("cases").countDocuments({
         client_id: user.clientId,
         service_type: "SELF_ASSESSMENT",
       }),
-    ).toBe(1);
+    ).toBe(0);
   });
 
   it("ADDITIONAL_WORK fulfil never activates SA/MTD or creates/duplicates a service case", async () => {
@@ -429,11 +430,19 @@ describe("K.2 acceptance — verify-before-purchase", () => {
       .expect(200);
     await payAndConfirm(buy.body.session_id).expect(200);
 
+    // Application creates the case AW attaches to (purchase alone does not).
+    await request(app)
+      .post("/api/compat/client/apply-tax-return")
+      .set(bearer(client))
+      .field("category", "taxSimba")
+      .expect(201);
+
     const { col } = await import("../../src/db/mongo");
     const kase = await col("cases").findOne({
       client_id: client.clientId,
       service_type: "SELF_ASSESSMENT",
     });
+    expect(kase).toBeTruthy();
     const caseCountBefore = await col("cases").countDocuments({ client_id: client.clientId });
     const saBefore = await col("client_services").findOne({
       client_id: client.clientId,

@@ -143,7 +143,7 @@ describe("P0 SUPER_ADMIN pricing → plans → checkout → agreed_price freeze"
       .get("/api/packages?service_type=MTD_INCOME_TAX")
       .set(bearer(admin))
       .expect(200);
-    const mtd = list.body.find((p: { code: string }) => p.code === "MTD_ESSENTIAL") as {
+    const mtd = list.body.find((p: { code: string }) => p.code === "MTD_COMPLY") as {
       id: string;
       price: number;
     };
@@ -170,7 +170,7 @@ describe("P0 SUPER_ADMIN pricing → plans → checkout → agreed_price freeze"
       .get("/api/packages?service_type=MTD_INCOME_TAX")
       .set(bearer(admin))
       .expect(200);
-    expect(still.body.find((p: { code: string }) => p.code === "MTD_ESSENTIAL").price).toBe(
+    expect(still.body.find((p: { code: string }) => p.code === "MTD_COMPLY").price).toBe(
       original,
     );
 

@@ -166,6 +166,13 @@ describe("FINAL PRE-TOXEL HANDOVER GATE", () => {
         .send({ signature: "Final Gate", accepted: true })
         .expect(200);
 
+      // TS-UAT-032: case appears only after tax-return application submit.
+      await request(app)
+        .post("/api/compat/client/apply-tax-return")
+        .set("Authorization", `Bearer ${token}`)
+        .field("category", "taxSimba")
+        .expect(201);
+
       const cases = await request(app)
         .post("/api/compat/client/all-tax-returns")
         .set("Authorization", `Bearer ${token}`)

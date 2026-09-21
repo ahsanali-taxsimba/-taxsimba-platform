@@ -1,20 +1,25 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useModal } from "@/hooks/useModal";
-import ComponentCard from "@/components/common/ComponentCard";
 import Button from "@/components/ui/button/Button";
 import { Modal } from "@/components/ui/modal";
 import Label from "@/components/form/Label";
 import Input from "@/components/form/input/InputField";
 import { PencilIcon, PlusIcon } from "@/icons";
-import { useSession } from "next-auth/react";
-import axiosInstance from "@/lib/axiosInstance";
-import axios from "axios";
 import clientAxios from "@/lib/axios-client";
 import Badge from "@/components/ui/badge/Badge";
 import { toast } from "react-toastify";
 
 type FormDataKeys = "name" | "surname" | "email" | "mobile" | "qualification" | "experience";
+
+const FIELD_LABELS: Record<FormDataKeys, string> = {
+    name: "First Name",
+    surname: "Last Name",
+    email: "Email",
+    mobile: "Phone",
+    qualification: "Qualification",
+    experience: "Experience",
+};
 
 export default function FormAddEditModal(props: any) {
     const { formType = "add", getFormData, fetchData, gridUpdate, setGridUpdate } = props;
@@ -25,36 +30,31 @@ export default function FormAddEditModal(props: any) {
         email: "",
         mobile: "",
         qualification: "",
-        experience: ""
+        experience: "",
     });
     useEffect(() => {
         setFormData(() => ({
             name: getFormData?.name || "",
             surname: getFormData?.surname || "",
             email: getFormData?.email || "",
-            mobile: getFormData?.mobile || "",
-            qualification: getFormData?.Accountant?.qualification || getFormData?.qualification || "",
-            experience: getFormData?.Accountant?.experience || getFormData?.experience || ""
+            mobile: getFormData?.mobile || getFormData?.phone || "",
+            qualification:
+                getFormData?.Accountant?.qualification || getFormData?.qualification || "",
+            experience: getFormData?.Accountant?.experience || getFormData?.experience || "",
         }));
     }, [formType, getFormData]);
-    console.log("formType211", { formType, getFormData, formData })
-    const [formDataError, setFormDataError] = useState<{
-        name: string | null;
-        surname: string | null;
-        email: string | null;
-        mobile: string | null;
-        qualification: string | null;
-        experience: string | null;
-    }>({
+
+    const [formDataError, setFormDataError] = useState<Record<FormDataKeys, string | null>>({
         name: null,
         surname: null,
         email: null,
         mobile: null,
         qualification: null,
-        experience: null
+        experience: null,
     });
+
     const handleCloseModal = () => {
-        closeModal()
+        closeModal();
         if (formType == "add") {
             setFormData({
                 name: "",
@@ -62,8 +62,8 @@ export default function FormAddEditModal(props: any) {
                 email: "",
                 mobile: "",
                 qualification: "",
-                experience: ""
-            })
+                experience: "",
+            });
         }
         setFormDataError({
             name: null,
@@ -71,139 +71,166 @@ export default function FormAddEditModal(props: any) {
             email: null,
             mobile: null,
             qualification: null,
-            experience: null
-        })
-    }
-    const handleInputChange = (
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        const { name: eventName, value } = e.target;
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const mobileRegex = /^[\d\s\+\-\(\)]+$/;
-        const digitCount = value.replace(/\D/g, '').length;
+            experience: null,
+        });
+    };
 
-        let error: string | null = null;
+    const validateField = (eventName: FormDataKeys, value: string): string | null => {
+        const label = FIELD_LABELS[eventName];
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const mobileRegex = /^[\d\s+\-()]+$/;
+        const digitCount = value.replace(/\D/g, "").length;
 
         if (value.trim() === "") {
-            // surname is mandatory only in edit/update mode
-            const isMandatory = (eventName === "name" || eventName === "surname" || eventName === "email" || eventName === "mobile");
-
-            if (isMandatory) {
-                error = `${eventName} is required`;
+            if (
+                eventName === "name" ||
+                eventName === "surname" ||
+                eventName === "email" ||
+                eventName === "mobile"
+            ) {
+                return `${label} is required`;
             }
-        } else if (eventName === "email") {
-            if (!emailRegex.test(value)) {
-                error = "Please enter a valid email address";
-            }
-        } else if (eventName === "mobile") {
+            return null;
+        }
+        if (eventName === "email" && !emailRegex.test(value)) {
+            return "Please enter a valid email address";
+        }
+        if (eventName === "mobile") {
             if (!mobileRegex.test(value)) {
-                error = "Mobile number can only contain digits, spaces, +, -, and parentheses";
-            } else if (digitCount < 10) {
-                error = "Mobile number must contain at least 10 digits";
+                return "Phone can only contain digits, spaces, +, -, and parentheses";
+            }
+            if (digitCount < 7 || digitCount > 15) {
+                return "Phone must contain 7–15 digits";
+            }
+            if (value.length > 20) {
+                return "Phone must be at most 20 characters";
             }
         }
+        if (eventName === "qualification") {
+            if (value.trim().length < 2 || value.trim().length > 120) {
+                return "Qualification must be between 2 and 120 characters";
+            }
+        }
+        if (eventName === "experience") {
+            const asNum = Number(value);
+            if (!Number.isFinite(asNum) || asNum < 0 || asNum > 60) {
+                return "Experience must be a number of years between 0 and 60";
+            }
+        }
+        return null;
+    };
 
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name: eventName, value } = e.target;
+        const key = eventName as FormDataKeys;
         setFormDataError((prev) => ({
             ...prev,
-            [eventName]: error
+            [key]: validateField(key, value),
         }));
-
         setFormData((prev) => ({
             ...prev,
-            [eventName]: value
+            [key]: value,
         }));
     };
-    const { data: session } = useSession()
+
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async () => {
         setLoading(true);
-        // Reset errors before submission
-        setFormDataError({
-            name: null,
-            surname: null,
-            email: null,
-            mobile: null,
-            qualification: null,
-            experience: null
-        });
-
-        let hasError = false;
-        const newErrors: any = {
-            name: null,
-            surname: null,
-            email: null,
-            mobile: null,
-            qualification: null,
-            experience: null
+        const newErrors: Record<FormDataKeys, string | null> = {
+            name: validateField("name", formData.name),
+            surname: validateField("surname", formData.surname),
+            email: validateField("email", formData.email),
+            mobile: validateField("mobile", formData.mobile),
+            qualification: formData.qualification
+                ? validateField("qualification", formData.qualification)
+                : null,
+            experience: formData.experience
+                ? validateField("experience", formData.experience)
+                : null,
         };
-
-        if (!formData.name?.trim()) { newErrors.name = "name is required"; hasError = true; }
-        if (!formData.surname?.trim()) { newErrors.surname = "surname is required"; hasError = true; }
-
-        if (!formData.email?.trim()) {
-            newErrors.email = "email is required";
-            hasError = true;
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-            newErrors.email = "Please enter a valid email address";
-            hasError = true;
-        }
-
-        if (!formData.mobile?.trim()) {
-            newErrors.mobile = "mobile is required";
-            hasError = true;
-        } else {
-            const digitCount = formData.mobile.replace(/\D/g, '').length;
-            if (!/^[\d\s\+\-\(\)]+$/.test(formData.mobile)) {
-                newErrors.mobile = "Mobile number can only contain digits, spaces, +, -, and parentheses";
-                hasError = true;
-            } else if (digitCount < 10) {
-                newErrors.mobile = "Mobile number must contain at least 10 digits";
-                hasError = true;
-            }
-        }
-
+        const hasError = Object.values(newErrors).some(Boolean);
         if (hasError) {
             setFormDataError(newErrors);
             setLoading(false);
+            toast.error("Please correct the highlighted fields.");
             return;
         }
 
         try {
             let response;
+            const payload = {
+                name: formData.name.trim(),
+                surname: formData.surname.trim(),
+                email: formData.email.trim(),
+                mobile: formData.mobile.trim(),
+                phone: formData.mobile.trim(),
+                qualification: formData.qualification.trim(),
+                experience: formData.experience.trim(),
+            };
             if (formType == "add") {
-                response = await clientAxios.post(`/admin/accountants/create`, formData, true)
+                response = await clientAxios.post(`/admin/accountants/create`, payload, true);
             } else {
-                response = await clientAxios.put(`/admin/accountants/update/${getFormData?.id}`, formData, true)
+                response = await clientAxios.put(
+                    `/admin/accountants/update/${getFormData?.id}`,
+                    payload,
+                    true,
+                );
             }
 
-            if (response) {
-                handleCloseModal();
-                toast.success(response.data?.message || (formType === "add" ? "Accountant added successfully" : "Accountant updated successfully"));
+            if (!response?.data?.success) {
+                toast.error(response?.data?.message || "Failed to save accountant.");
+                return;
+            }
 
-                // Safely refresh background data
-                if (typeof fetchData === "function") {
-                    try { fetchData(); } catch (e) { console.error("Fetch Data Error:", e); }
+            const saved = response.data?.data ?? {};
+            const missing: string[] = [];
+            if (payload.surname && !saved.surname && formType === "add") missing.push("Last Name");
+            if (payload.mobile && !(saved.mobile || saved.phone)) missing.push("Phone");
+            if (payload.qualification && !(saved.qualification || saved.Accountant?.qualification)) {
+                missing.push("Qualification");
+            }
+            if (payload.experience && !(saved.experience || saved.Accountant?.experience)) {
+                missing.push("Experience");
+            }
+            if (missing.length) {
+                toast.error(
+                    `Save incomplete — these fields were not persisted: ${missing.join(", ")}`,
+                );
+                return;
+            }
+
+            handleCloseModal();
+            toast.success(
+                response.data?.message ||
+                    (formType === "add"
+                        ? "Accountant added successfully."
+                        : "Accountant details updated successfully."),
+            );
+
+            if (typeof fetchData === "function") {
+                try {
+                    fetchData();
+                } catch (e) {
+                    console.error("Fetch Data Error:", e);
                 }
-                if (typeof setGridUpdate === "function") {
-                    try { setGridUpdate(!gridUpdate); } catch (e) { console.error("Grid Update Error:", e); }
+            }
+            if (typeof setGridUpdate === "function") {
+                try {
+                    setGridUpdate(!gridUpdate);
+                } catch (e) {
+                    console.error("Grid Update Error:", e);
                 }
             }
         } catch (err: any) {
             console.error("API Error:", err);
             const errorResponse = err.response?.data;
-
             if (errorResponse?.error?.details && Array.isArray(errorResponse.error.details)) {
-                const newErrors: any = {};
+                const mapped: any = {};
                 errorResponse.error.details.forEach((detail: any) => {
-                    if (detail.field) {
-                        newErrors[detail.field] = detail.message;
-                    }
+                    if (detail.field) mapped[detail.field] = detail.message;
                 });
-                setFormDataError((prev) => ({
-                    ...prev,
-                    ...newErrors
-                }));
+                setFormDataError((prev) => ({ ...prev, ...mapped }));
                 toast.error(errorResponse.message || "Validation failed");
             } else if (errorResponse?.message) {
                 toast.error(errorResponse.message);
@@ -214,18 +241,29 @@ export default function FormAddEditModal(props: any) {
             setLoading(false);
         }
     };
+
     return (
         <>
-            {
-                formType == "add" ?
-                    <Button size="sm" className="refresh-btn bg-green w-full sm:w-auto" onClick={openModal} startIcon={<PlusIcon />} >
-                        Add Accountant
-                    </Button>
-                    :
-                    <Badge variant="light" color="primary" startIcon={<PencilIcon />} onClick={openModal} dynamicClassName={"cursor-pointer"}>
-                        Edit
-                    </Badge>
-            }
+            {formType == "add" ? (
+                <Button
+                    size="sm"
+                    className="refresh-btn bg-green w-full sm:w-auto"
+                    onClick={openModal}
+                    startIcon={<PlusIcon />}
+                >
+                    Add Accountant
+                </Button>
+            ) : (
+                <Badge
+                    variant="light"
+                    color="primary"
+                    startIcon={<PencilIcon />}
+                    onClick={openModal}
+                    dynamicClassName={"cursor-pointer"}
+                >
+                    Edit
+                </Badge>
+            )}
             <Modal
                 isOpen={isOpen}
                 onClose={handleCloseModal}
@@ -238,42 +276,112 @@ export default function FormAddEditModal(props: any) {
 
                     <div className="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2 mt-8 text-start">
                         <div className="col-span-1">
-                            <Label className="text-left">First Name <span className="text-error-500">*</span></Label>
-                            <Input type="text" placeholder="Emirhan" name="name" defaultValue={formData?.name} hint={formDataError?.name} error={formDataError?.name ? true : false} onChange={handleInputChange} />
+                            <Label className="text-left">
+                                First Name <span className="text-error-500">*</span>
+                            </Label>
+                            <Input
+                                type="text"
+                                placeholder="Emirhan"
+                                name="name"
+                                defaultValue={formData?.name}
+                                hint={formDataError?.name}
+                                error={!!formDataError?.name}
+                                onChange={handleInputChange}
+                            />
                         </div>
 
                         <div className="col-span-1">
-                            <Label className="text-left">Last Name <span className="text-error-500">*</span></Label>
-                            <Input type="text" placeholder="Boruch" name="surname" defaultValue={formData?.surname} hint={formDataError?.surname} error={formDataError?.surname ? true : false} onChange={handleInputChange} />
+                            <Label className="text-left">
+                                Last Name <span className="text-error-500">*</span>
+                            </Label>
+                            <Input
+                                type="text"
+                                placeholder="Boruch"
+                                name="surname"
+                                defaultValue={formData?.surname}
+                                hint={formDataError?.surname}
+                                error={!!formDataError?.surname}
+                                onChange={handleInputChange}
+                            />
                         </div>
 
                         <div className="col-span-1">
-                            <Label className="text-left">Email <span className="text-error-500">*</span></Label>
-                            <Input type="email" placeholder="emirhanboruch55@gmail.com" name="email" defaultValue={formData?.email} hint={formDataError?.email} error={formDataError?.email ? true : false} onChange={handleInputChange} />
+                            <Label className="text-left">
+                                Email <span className="text-error-500">*</span>
+                            </Label>
+                            <Input
+                                type="email"
+                                placeholder="emirhanboruch55@gmail.com"
+                                name="email"
+                                defaultValue={formData?.email}
+                                hint={formDataError?.email}
+                                error={!!formDataError?.email}
+                                onChange={handleInputChange}
+                            />
                         </div>
 
                         <div className="col-span-1">
-                            <Label className="text-left">Phone <span className="text-error-500">*</span></Label>
-                            <Input type="text" placeholder="+09 363 398 46" name="mobile" defaultValue={formData?.mobile} hint={formDataError?.mobile} error={formDataError?.mobile ? true : false} onChange={handleInputChange} />
+                            <Label className="text-left">
+                                Phone <span className="text-error-500">*</span>
+                            </Label>
+                            <Input
+                                type="text"
+                                placeholder="+09 363 398 46"
+                                name="mobile"
+                                defaultValue={formData?.mobile}
+                                hint={formDataError?.mobile}
+                                error={!!formDataError?.mobile}
+                                onChange={handleInputChange}
+                            />
                         </div>
 
                         <div className="col-span-1">
                             <Label className="text-left">Qualification</Label>
-                            <Input type="text" placeholder="Your Degree" name="qualification" defaultValue={formData?.qualification} hint={formDataError?.qualification} error={formDataError?.qualification ? true : false} onChange={handleInputChange} />
+                            <Input
+                                type="text"
+                                placeholder="Your Degree"
+                                name="qualification"
+                                defaultValue={formData?.qualification}
+                                hint={formDataError?.qualification}
+                                error={!!formDataError?.qualification}
+                                onChange={handleInputChange}
+                            />
                         </div>
 
                         <div className="col-span-1">
                             <Label className="text-left">Experience</Label>
-                            <Input type="text" placeholder="Your Experience" name="experience" defaultValue={formData?.experience} hint={formDataError?.experience} error={formDataError?.experience ? true : false} onChange={handleInputChange} />
+                            <Input
+                                type="text"
+                                placeholder="Years of experience"
+                                name="experience"
+                                defaultValue={formData?.experience}
+                                hint={formDataError?.experience}
+                                error={!!formDataError?.experience}
+                                onChange={handleInputChange}
+                            />
                         </div>
                     </div>
 
                     <div className="flex items-center justify-end w-full gap-3 mt-10">
-                        <Button size="sm" variant="outline" className="!rounded-2xl !px-6" onClick={handleCloseModal}>
+                        <Button
+                            size="sm"
+                            variant="outline"
+                            className="!rounded-2xl !px-6"
+                            onClick={handleCloseModal}
+                        >
                             Close
                         </Button>
-                        <Button size="sm" disabled={loading} className="!px-6 !bg-[#37a267] hover:!bg-[#37a267]/90 !rounded-2xl border-none" onClick={handleSubmit}>
-                            {loading ? "Processing..." : (formType == "add" ? `Add` : `Save Changes`)}
+                        <Button
+                            size="sm"
+                            disabled={loading}
+                            className="!px-6 !bg-[#37a267] hover:!bg-[#37a267]/90 !rounded-2xl border-none"
+                            onClick={handleSubmit}
+                        >
+                            {loading
+                                ? "Processing..."
+                                : formType == "add"
+                                  ? `Add`
+                                  : `Save Changes`}
                         </Button>
                     </div>
                 </div>

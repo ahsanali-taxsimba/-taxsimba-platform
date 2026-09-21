@@ -10,6 +10,7 @@ import { ensurePeriods } from "./mtd";
 import { applyDuePriceSchedules } from "./pricing";
 import { deadlineForTaxYear, logActivity, notify, nowIso, STATUS_META } from "./workflow";
 import { httpError } from "../http/errors";
+import { isEmailVerified } from "../services/emailVerification";
 import {
   bootstrapClientServices,
   MTD,
@@ -23,44 +24,83 @@ export const DEFAULT_PACKAGES: Doc[] = [
   {
     service_type: SELF_ASSESSMENT,
     code: "SIMPLE",
-    name: "Simple",
+    name: "Tax Simba Simple",
     price: 119.0,
     rank: 1,
     billing_frequency: "Per tax year",
+    billing_type: "ONE_OFF",
+    vat_treatment: "INCLUSIVE",
   },
   {
     service_type: SELF_ASSESSMENT,
     code: "SMART",
-    name: "Smart",
+    name: "Tax Simba Smart",
     price: 149.0,
     rank: 2,
     billing_frequency: "Per tax year",
+    billing_type: "ONE_OFF",
+    vat_treatment: "INCLUSIVE",
   },
   {
     service_type: SELF_ASSESSMENT,
     code: "ELITE",
-    name: "Elite",
-    price: 249.0,
+    name: "Tax Simba Elite",
+    price: 299.0,
     rank: 3,
     billing_frequency: "Per tax year",
+    billing_type: "ONE_OFF",
+    vat_treatment: "INCLUSIVE",
   },
   {
     service_type: MTD,
-    code: "MTD_ESSENTIAL",
-    name: "MTD Essential",
-    price: 240.0,
+    code: "MTD_COMPLY",
+    name: "Simbian Comply",
+    price: 29.99,
     rank: 1,
-    billing_frequency: "Quarterly billing",
+    billing_frequency: "Monthly",
+    billing_type: "RECURRING",
+    vat_treatment: "EXCLUSIVE",
   },
   {
     service_type: MTD,
-    code: "MTD_PLUS",
-    name: "MTD Plus",
-    price: 360.0,
+    code: "MTD_GROWTH",
+    name: "Simbian Growth",
+    price: 59.99,
     rank: 2,
-    billing_frequency: "Quarterly billing",
+    billing_frequency: "Monthly",
+    billing_type: "RECURRING",
+    vat_treatment: "EXCLUSIVE",
+  },
+  {
+    service_type: MTD,
+    code: "MTD_ELITE",
+    name: "Simbian Elite",
+    price: 89.99,
+    rank: 3,
+    billing_frequency: "Monthly",
+    billing_type: "RECURRING",
+    vat_treatment: "EXCLUSIVE",
   },
 ];
+
+/** Legacy MTD catalogue codes superseded by Simbian Comply/Growth/Elite. */
+export const LEGACY_MTD_PACKAGE_CODES = ["MTD_ESSENTIAL", "MTD_PLUS"] as const;
+
+/**
+ * Known seed-price drift values that may safely be realigned to the founder-approved
+ * catalogue without clobbering intentional Super Admin live price edits.
+ */
+const SEED_PRICE_DRIFT: Record<string, number[]> = {
+  ELITE: [249, 299],
+  MTD_ESSENTIAL: [240],
+  MTD_PLUS: [360],
+  // Staging mis-seeds that used legacy Essential/Plus amounts on Simbian codes.
+  MTD_COMPLY: [240, 29.99],
+  MTD_GROWTH: [360, 59.99],
+  MTD_ELITE: [360, 240, 89.99],
+  SIMPLE: [119],
+  SMART: [149],
+};
 
 // Configurable late-stage lock: client-initiated package changes are disabled from these statuses.
 export const DEFAULT_LOCK_STATUSES = [
@@ -126,15 +166,31 @@ async function nextServiceCaseRef(serviceType: string): Promise<string> {
 }
 
 export interface ActivationResult {
-  case: Doc;
+  /**
+   * Existing fulfilment case if one already exists for this client+service.
+   * Purchase/activation never mints a case (TS-UAT-032) — use
+   * `createCaseAfterApplicationSubmitted` after a successful application.
+   */
+  case: Doc | null;
+  /** Always false from activateService — entitlement only. */
   created_case: boolean;
   periods_created: number;
   already_active: boolean;
 }
 
+export interface ApplicationCaseResult {
+  case: Doc;
+  created_case: boolean;
+  periods_created: number;
+}
+
 /**
- * Single source of truth for service activation. Idempotent: repeat payment/webhook
- * processing can never duplicate a client_service, case or MTD period.
+ * Single source of truth for service *entitlement* activation. Idempotent: repeat
+ * payment/webhook processing never duplicates a client_service.
+ *
+ * TS-UAT-032: does NOT create an actionable Tax Manager case or assignment
+ * notification. Cases are created only after a submitted application/questionnaire
+ * via `createCaseAfterApplicationSubmitted`.
  */
 export async function activateService(
   client: Doc,
@@ -147,7 +203,6 @@ export async function activateService(
   const reason = opts.reason ?? "Service activation";
   const paymentSession = opts.paymentSession ?? null;
   const amount = opts.amount ?? null;
-  const actor = user ? { id: user.id, name: user.name, role: user.role ?? "CLIENT" } : null;
   await applyDuePriceSchedules();
   const pkg = (await col("packages").findOne({
     service_type: serviceType,
@@ -208,81 +263,183 @@ export async function activateService(
     });
   }
 
-  let kase = (await col("cases").findOne(
+  // Surface any pre-existing case (e.g. prior application) but never mint one here.
+  const kase = (await col("cases").findOne(
     { client_id: client.id, service_type: serviceType },
     { sort: { created_at: -1 } },
   )) as Doc | null;
-  let createdCase = false;
-  if (!kase) {
-    const [stage, nextAction, owner] = STATUS_META.AWAITING_ASSIGNMENT;
-    kase = {
-      id: randomUUID(),
-      case_ref: await nextServiceCaseRef(serviceType),
-      is_test: Boolean(client.is_test),
-      client_id: client.id,
-      client_user_id: client.user_id ?? null,
-      client_name: client.name,
-      service_type: serviceType,
-      tax_year: taxYear,
-      assigned_accountant_id: null,
-      assigned_accountant_name: null,
-      admin_reviewer_id: null,
-      admin_reviewer_name: null,
-      status: "AWAITING_ASSIGNMENT",
-      current_stage: stage,
-      next_action: nextAction,
-      next_action_owner: owner,
-      priority: "MEDIUM",
-      internal_deadline: null,
-      external_deadline: deadlineForTaxYear(taxYear),
-      internal_instructions: null,
-      waiting_reason: null,
-      approved_version_id: null,
-      package_code: packageCode,
-      created_at: nowIso(),
-      last_updated: nowIso(),
-    };
-    await col("cases").insertOne({ ...kase });
-    createdCase = true;
+
+  return {
+    case: kase ? (clean(kase) as Doc) : null,
+    created_case: false,
+    periods_created: 0,
+    already_active: alreadyActive,
+  };
+}
+
+/**
+ * TS-UAT-032 — create exactly one actionable case after a successful application/
+ * questionnaire submit. Requires verified email + ACTIVE entitlement. Idempotent:
+ * retries return the existing case and do not re-notify.
+ */
+export async function createCaseAfterApplicationSubmitted(
+  client: Doc,
+  user: Doc,
+  serviceType: string,
+  opts: { reason?: string; taxYear?: string | null } = {},
+): Promise<ApplicationCaseResult> {
+  if (![SELF_ASSESSMENT, MTD].includes(serviceType)) {
+    throw httpError(400, "Unknown service type");
   }
+  if (user.role !== "CLIENT") {
+    throw httpError(400, "Cases can only be created for CLIENT accounts");
+  }
+  if (!isEmailVerified(user)) {
+    throw httpError(
+      403,
+      "Email verification is required before a tax case can be created",
+    );
+  }
+
+  const svc = (await col("client_services").findOne({
+    client_id: client.id,
+    service_type: serviceType,
+    status: "ACTIVE",
+  })) as Doc | null;
+  if (!svc) {
+    throw httpError(
+      403,
+      `An active purchased ${serviceType} entitlement is required before a tax case can be created`,
+    );
+  }
+
+  const existing = (await col("cases").findOne(
+    { client_id: client.id, service_type: serviceType },
+    { sort: { created_at: -1 } },
+  )) as Doc | null;
+  if (existing) {
+    return {
+      case: clean(existing) as Doc,
+      created_case: false,
+      periods_created: 0,
+    };
+  }
+
+  const packageCode = String(svc.package_code ?? "").trim();
+  const taxYear =
+    opts.taxYear ??
+    (svc.tax_year as string | undefined) ??
+    ACTIVATION_TAX_YEAR[serviceType];
+  const pkg = packageCode
+    ? ((await col("packages").findOne({
+        service_type: serviceType,
+        code: packageCode,
+      })) as Doc | null)
+    : null;
+  const [stage, nextAction, owner] = STATUS_META.AWAITING_ASSIGNMENT;
+  const actor = { id: user.id, name: user.name, role: user.role ?? "CLIENT" };
+  const kase: Doc = {
+    id: randomUUID(),
+    case_ref: await nextServiceCaseRef(serviceType),
+    is_test: Boolean(client.is_test),
+    client_id: client.id,
+    client_user_id: client.user_id ?? user.id,
+    client_name: client.name,
+    service_type: serviceType,
+    tax_year: taxYear,
+    assigned_accountant_id: null,
+    assigned_accountant_name: null,
+    admin_reviewer_id: null,
+    admin_reviewer_name: null,
+    status: "AWAITING_ASSIGNMENT",
+    current_stage: stage,
+    next_action: nextAction,
+    next_action_owner: owner,
+    priority: "MEDIUM",
+    internal_deadline: null,
+    external_deadline: deadlineForTaxYear(taxYear),
+    internal_instructions: null,
+    waiting_reason: null,
+    approved_version_id: null,
+    package_code: packageCode || null,
+    created_from: "APPLICATION",
+    created_at: nowIso(),
+    last_updated: nowIso(),
+  };
+  await col("cases").insertOne({ ...kase });
 
   const periodsCreated = serviceType === MTD ? await ensurePeriods(kase) : 0;
+  const label = SERVICE_LABELS[serviceType] ?? serviceType;
+  const reason = opts.reason ?? "Tax return application submitted";
+  await logActivity(
+    kase.id,
+    `${label} case created (${pkg ? pkg.name : packageCode || "package"}) — ${reason}`,
+    actor,
+    { created_from: "APPLICATION" },
+    { newStatus: "AWAITING_ASSIGNMENT" },
+  );
+  await notifyAdmins(
+    `New ${label} application submitted — assign an accountant`,
+    `${client.name} — ${kase.case_ref}`,
+    kase.id,
+    `/admin/cases/${kase.id}`,
+    "ASSIGNMENT",
+  );
 
-  if (createdCase) {
-    const label = SERVICE_LABELS[serviceType] ?? serviceType;
-    const paid = amount ? `, £${amount.toFixed(2)} paid` : "";
-    await logActivity(
-      kase.id,
-      `${label} activated (${pkg ? pkg.name : packageCode}${paid})`,
-      actor,
-      null,
-      { newStatus: "AWAITING_ASSIGNMENT" },
-    );
-    await notifyAdmins(
-      `New ${label} service activated — assign an accountant`,
-      `${client.name} — ${kase.case_ref}`,
-      kase.id,
-      `/admin/cases/${kase.id}`,
-      "ASSIGNMENT",
-    );
-  }
   return {
     case: clean(kase) as Doc,
-    created_case: createdCase,
+    created_case: true,
     periods_created: periodsCreated,
-    already_active: alreadyActive,
   };
 }
 
 /** Seeds the package catalogue and the package-change lock setting. Idempotent. */
 export async function ensurePhase1bData(): Promise<void> {
   for (const p of DEFAULT_PACKAGES) {
+    const existing = (await col("packages").findOne({
+      service_type: p.service_type,
+      code: p.code,
+    })) as Doc | null;
+    if (!existing) {
+      await col("packages").insertOne({
+        ...p,
+        id: randomUUID(),
+        is_active: true,
+        created_at: nowIso(),
+      });
+      continue;
+    }
+    // Align founder catalogue for new installs / known seed drift only.
+    // Do not overwrite a Super Admin live price that already differs from seed history.
+    const driftPrices = SEED_PRICE_DRIFT[String(p.code)] ?? [Number(p.price)];
+    const currentPrice = Number(existing.price);
+    const patch: Doc = {
+      name: p.name,
+      rank: p.rank,
+      billing_frequency: p.billing_frequency,
+      billing_type: p.billing_type,
+      vat_treatment: p.vat_treatment,
+      is_active: true,
+      updated_at: nowIso(),
+    };
+    if (
+      !Number.isFinite(currentPrice) ||
+      driftPrices.includes(currentPrice) ||
+      currentPrice === Number(p.price)
+    ) {
+      patch.price = p.price;
+    }
+    await col("packages").updateOne({ id: existing.id }, { $set: patch });
+  }
+
+  // Soft-deactivate superseded MTD catalogue codes (historical agreed_price rows stay intact).
+  for (const code of LEGACY_MTD_PACKAGE_CODES) {
     await col("packages").updateOne(
-      { service_type: p.service_type, code: p.code },
-      { $setOnInsert: { ...p, id: randomUUID(), is_active: true, created_at: nowIso() } },
-      { upsert: true },
+      { service_type: MTD, code },
+      { $set: { is_active: false, updated_at: nowIso() } },
     );
   }
+
   await col("settings").updateOne(
     { key: "package_change_lock" },
     { $setOnInsert: { key: "package_change_lock", locked_statuses: DEFAULT_LOCK_STATUSES } },
