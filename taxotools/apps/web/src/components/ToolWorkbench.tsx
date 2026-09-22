@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { m, AnimatePresence } from "framer-motion";
+import { m } from "framer-motion";
 import { FadeIn, SlideUp, MotionButton } from "@/motion";
 import { staggerContainer, staggerItem, reducedMotionVariants } from "@/motion/config";
 import { usePrefersReducedMotion } from "@/motion/hooks/usePrefersReducedMotion";
