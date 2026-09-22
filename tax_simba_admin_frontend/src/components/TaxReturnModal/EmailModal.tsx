@@ -13,7 +13,8 @@ interface EmailTemplate {
 }
 
 interface Client {
-  id: number;
+  /** UUID string (legacy numeric IDs tolerated as string). */
+  id: string;
   name: string;
   email: string;
 }
