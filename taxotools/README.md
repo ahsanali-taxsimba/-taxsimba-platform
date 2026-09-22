@@ -168,3 +168,8 @@ API: `GET|POST /api/sites/:siteId/tools/:toolId`
 cd taxotools
 npm test
 ```
+
+## Animations
+
+Framer Motion system for page transitions, cards, tables, charts, and overlays.
+See [`docs/ANIMATIONS.md`](docs/ANIMATIONS.md).

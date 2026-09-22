@@ -2,6 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { m } from "framer-motion";
+import { MotionButton, SlideUp, RankTrackingChart } from "@/motion";
+import { staggerContainer, staggerItem, reducedMotionVariants } from "@/motion/config";
+import { usePrefersReducedMotion } from "@/motion/hooks/usePrefersReducedMotion";
 
 type Keyword = {
   id: string;
@@ -20,6 +24,7 @@ export function KeywordsPanel({
   initial: Keyword[];
 }) {
   const router = useRouter();
+  const reduce = usePrefersReducedMotion();
   const [phrases, setPhrases] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -47,12 +52,12 @@ export function KeywordsPanel({
     router.refresh();
   }
 
-  async function action(action: "cluster" | "rank-check" | "gap") {
+  async function runKeywordAction(next: "cluster" | "rank-check" | "gap") {
     setBusy(true);
     const res = await fetch(`/api/sites/${siteId}/keywords`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action, competitorDomain: "semrush.com" }),
+      body: JSON.stringify({ action: next, competitorDomain: "semrush.com" }),
     });
     const data = await res.json();
     setBusy(false);
@@ -61,62 +66,74 @@ export function KeywordsPanel({
       return;
     }
     setMessage(
-      action === "gap"
+      next === "gap"
         ? `Gap: ${data.gap.missing.length} missing vs competitor`
-        : action === "cluster"
+        : next === "cluster"
           ? `Created ${data.clusters.length} clusters`
           : "Rank check queued",
     );
     router.refresh();
   }
 
+  const chartPoints = initial.slice(0, 8).map((kw) => ({
+    label: kw.phrase.slice(0, 8),
+    value: kw.ranks[0]?.position
+      ? 41 - kw.ranks[0].position
+      : kw.volume
+        ? Math.min(40, kw.volume / 500)
+        : 10,
+  }));
+
   return (
     <div className="space-y-6">
-      <div className="rounded-xl border border-ink-100 bg-white p-5">
-        <label className="text-sm font-medium">Add keywords (comma or newline)</label>
-        <textarea
-          className="mt-2 w-full rounded-lg border border-ink-100 px-3 py-2 text-sm outline-none ring-accent focus:ring-2"
-          rows={3}
-          value={phrases}
-          onChange={(e) => setPhrases(e.target.value)}
-          placeholder="seo tools, ai overview tracking"
-        />
-        <div className="mt-3 flex flex-wrap gap-2">
-          <button
-            type="button"
-            disabled={busy}
-            onClick={addKeywords}
-            className="rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-white hover:bg-accent-dark disabled:opacity-60"
-          >
-            Add keywords
-          </button>
-          <button
-            type="button"
-            disabled={busy}
-            onClick={() => action("rank-check")}
-            className="rounded-lg border border-ink-100 px-3 py-2 text-sm"
-          >
-            Run rank check
-          </button>
-          <button
-            type="button"
-            disabled={busy}
-            onClick={() => action("cluster")}
-            className="rounded-lg border border-ink-100 px-3 py-2 text-sm"
-          >
-            Auto-cluster
-          </button>
-          <button
-            type="button"
-            disabled={busy}
-            onClick={() => action("gap")}
-            className="rounded-lg border border-ink-100 px-3 py-2 text-sm"
-          >
-            Keyword gap
-          </button>
+      {chartPoints.length > 0 && (
+        <SlideUp>
+          <RankTrackingChart points={chartPoints} />
+        </SlideUp>
+      )}
+
+      <SlideUp delay={0.05}>
+        <div className="rounded-xl border border-ink-100 bg-white p-5">
+          <label className="text-sm font-medium">Add keywords (comma or newline)</label>
+          <textarea
+            className="mt-2 w-full rounded-lg border border-ink-100 px-3 py-2 text-sm outline-none ring-accent focus:ring-2"
+            rows={3}
+            value={phrases}
+            onChange={(e) => setPhrases(e.target.value)}
+            placeholder="seo tools, ai overview tracking"
+          />
+          <div className="mt-3 flex flex-wrap gap-2">
+            <MotionButton type="button" disabled={busy} onClick={addKeywords}>
+              Add keywords
+            </MotionButton>
+            <MotionButton
+              type="button"
+              variant="outline"
+              disabled={busy}
+              onClick={() => runKeywordAction("rank-check")}
+            >
+              Run rank check
+            </MotionButton>
+            <MotionButton
+              type="button"
+              variant="outline"
+              disabled={busy}
+              onClick={() => runKeywordAction("cluster")}
+            >
+              Auto-cluster
+            </MotionButton>
+            <MotionButton
+              type="button"
+              variant="outline"
+              disabled={busy}
+              onClick={() => runKeywordAction("gap")}
+            >
+              Keyword gap
+            </MotionButton>
+          </div>
+          {message && <p className="mt-3 text-sm text-accent-dark">{message}</p>}
         </div>
-        {message && <p className="mt-3 text-sm text-accent-dark">{message}</p>}
-      </div>
+      </SlideUp>
 
       <div className="overflow-hidden rounded-xl border border-ink-100 bg-white">
         <table className="w-full text-left text-sm">
@@ -130,18 +147,26 @@ export function KeywordsPanel({
               <th className="px-4 py-3">AIO</th>
             </tr>
           </thead>
-          <tbody>
+          <m.tbody
+            variants={reduce ? reducedMotionVariants : staggerContainer}
+            initial="hidden"
+            animate="visible"
+          >
             {initial.map((kw) => (
-              <tr key={kw.id} className="border-b border-ink-50">
+              <m.tr
+                key={kw.id}
+                variants={reduce ? reducedMotionVariants : staggerItem}
+                className="border-b border-ink-50"
+              >
                 <td className="px-4 py-3 font-medium">{kw.phrase}</td>
                 <td className="px-4 py-3">{kw.volume ?? "—"}</td>
                 <td className="px-4 py-3">{kw.difficulty ?? "—"}</td>
                 <td className="px-4 py-3 text-xs">{kw.intent ?? "—"}</td>
                 <td className="px-4 py-3">{kw.ranks[0]?.position ?? "—"}</td>
                 <td className="px-4 py-3">{kw.ranks[0]?.hasAiOverview ? "Yes" : "—"}</td>
-              </tr>
+              </m.tr>
             ))}
-          </tbody>
+          </m.tbody>
         </table>
       </div>
     </div>

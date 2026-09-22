@@ -2,6 +2,10 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { m, AnimatePresence } from "framer-motion";
+import { FadeIn, SlideUp, MotionButton } from "@/motion";
+import { staggerContainer, staggerItem, reducedMotionVariants } from "@/motion/config";
+import { usePrefersReducedMotion } from "@/motion/hooks/usePrefersReducedMotion";
 
 function rowsFromResult(result: Record<string, unknown> | null): unknown[] {
   if (!result) return [];
@@ -48,6 +52,7 @@ export function ToolWorkbench({
   description: string;
 }) {
   const router = useRouter();
+  const reduce = usePrefersReducedMotion();
   const [result, setResult] = useState<Record<string, unknown> | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -141,11 +146,12 @@ export function ToolWorkbench({
 
   return (
     <div className="space-y-6">
-      <div>
+      <FadeIn>
         <h1 className="font-display text-3xl font-semibold">{toolName}</h1>
         <p className="mt-1 text-ink-500">{description}</p>
-      </div>
+      </FadeIn>
 
+      <SlideUp>
       <div className="rounded-xl border border-ink-100 bg-white p-5">
         <div className="flex flex-wrap gap-3">
           {needsQuery && (
@@ -164,7 +170,7 @@ export function ToolWorkbench({
               onChange={(e) => setCompetitor(e.target.value)}
             />
           )}
-          <button
+          <MotionButton
             type="button"
             disabled={busy}
             onClick={() =>
@@ -179,10 +185,9 @@ export function ToolWorkbench({
                 topic: query || undefined,
               })
             }
-            className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
           >
             {busy ? "Running…" : "Run tool"}
-          </button>
+          </MotionButton>
           {toolId === "position-tracking" && (
             <button
               type="button"
@@ -216,8 +221,10 @@ export function ToolWorkbench({
         </div>
         {error && <p className="mt-3 text-sm text-danger">{error}</p>}
       </div>
+      </SlideUp>
 
       {result && (
+        <SlideUp>
         <div className="rounded-xl border border-ink-100 bg-white p-4 text-sm text-ink-500">
           <p className="font-medium text-ink-800">Result summary</p>
           <pre className="mt-2 max-h-40 overflow-auto rounded-lg bg-ink-50 p-3 text-xs text-ink-700">
@@ -230,6 +237,7 @@ export function ToolWorkbench({
             ).slice(0, 1200)}
           </pre>
         </div>
+        </SlideUp>
       )}
 
       {rows.length > 0 && (
@@ -244,20 +252,25 @@ export function ToolWorkbench({
                 ))}
               </tr>
             </thead>
-            <tbody>
+            <m.tbody
+              key={toolId + String(rows.length)}
+              variants={reduce ? reducedMotionVariants : staggerContainer}
+              initial="hidden"
+              animate="visible"
+            >
               {rows.slice(0, 50).map((row, idx) => {
                 const obj = row as Record<string, unknown>;
                 return (
-                  <tr key={idx} className="border-b border-ink-50">
+                  <m.tr key={idx} variants={reduce ? reducedMotionVariants : staggerItem} className="border-b border-ink-50">
                     {columns.map((c) => (
                       <td key={c} className="max-w-[240px] truncate px-3 py-2">
                         {formatCell(obj[c])}
                       </td>
                     ))}
-                  </tr>
+                  </m.tr>
                 );
               })}
-            </tbody>
+            </m.tbody>
           </table>
         </div>
       )}

@@ -1,10 +1,10 @@
-import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { requireUser } from "@/lib/auth";
 import { getSiteForUser } from "@/server/services/tenant.service";
 import { siteHealthSummary } from "@/server/services/crawl.service";
 import { aeoShareOfVoice } from "@/server/services/aeo.service";
 import { TOOLKIT_GROUPS } from "@taxotools/shared";
+import { SiteOverviewMotion } from "@/components/SiteOverviewMotion";
 
 export default async function SiteOverviewPage({
   params,
@@ -30,70 +30,26 @@ export default async function SiteOverviewPage({
     aeoShareOfVoice(user.id, siteId),
   ]);
 
+  const sovAvg = sov.length
+    ? `${Math.round((sov.reduce((a, s) => a + s.shareOfVoice, 0) / sov.length) * 100)}%`
+    : "—";
+
   return (
-    <div className="animate-rise space-y-8">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p className="text-sm text-ink-500">
-            <Link href="/app/sites" className="hover:text-accent-dark">
-              Sites
-            </Link>{" "}
-            / {site.domain}
-          </p>
-          <h1 className="font-display text-3xl font-semibold text-ink-950">{site.name}</h1>
-          <p className="text-ink-500">{site.url}</p>
-        </div>
-        <Link
-          href={`/app/sites/${siteId}/tools`}
-          className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white hover:bg-accent-dark"
-        >
-          Open full toolkit
-        </Link>
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Metric label="Health score" value={health.healthScore ?? "—"} />
-        <Metric label="Keywords" value={site._count.keywords} />
-        <Metric label="Pages" value={site._count.pages} />
-        <Metric
-          label="AI SOV (avg)"
-          value={
-            sov.length
-              ? `${Math.round((sov.reduce((a, s) => a + s.shareOfVoice, 0) / sov.length) * 100)}%`
-              : "—"
-          }
-        />
-      </div>
-
-      {TOOLKIT_GROUPS.map((group) => (
-        <section key={group.id} className="space-y-3">
-          <div>
-            <h2 className="font-display text-xl font-semibold">{group.name}</h2>
-            <p className="text-sm text-ink-500">{group.description}</p>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            {group.tools.map((tool) => (
-              <Link
-                key={tool.id}
-                href={`/app/sites/${siteId}/tools/${tool.path}`}
-                className="rounded-xl border border-ink-100 bg-white p-4 transition hover:border-accent"
-              >
-                <p className="font-medium text-ink-900">{tool.name}</p>
-                <p className="mt-1 text-xs text-ink-500">Open tool →</p>
-              </Link>
-            ))}
-          </div>
-        </section>
-      ))}
-    </div>
-  );
-}
-
-function Metric({ label, value }: { label: string; value: string | number }) {
-  return (
-    <div className="rounded-xl border border-ink-100 bg-white p-5">
-      <p className="text-xs uppercase tracking-wide text-ink-500">{label}</p>
-      <p className="mt-2 font-display text-3xl font-semibold">{value}</p>
-    </div>
+    <SiteOverviewMotion
+      siteId={siteId}
+      siteName={site.name}
+      domain={site.domain}
+      url={site.url}
+      healthScore={health.healthScore}
+      keywordCount={site._count.keywords}
+      pageCount={site._count.pages}
+      sovAvg={sovAvg}
+      groups={TOOLKIT_GROUPS.map((g) => ({
+        id: g.id,
+        name: g.name,
+        description: g.description,
+        tools: g.tools.map((t) => ({ id: t.id, name: t.name, path: t.path })),
+      }))}
+    />
   );
 }
