@@ -136,6 +136,21 @@ Limits are stored on `Plan` and mirrored in `@taxotools/shared` `PLAN_LIMITS`:
 
 ---
 
+## Semrush-parity toolkits
+
+Taxotools ships **30 tools** across four toolkits (see `@taxotools/shared` `TOOLKIT_GROUPS`):
+
+1. **SEO Toolkit** — Keyword Research, Keyword Magic, Keyword Gap, Organic Research, Position Tracking, SERP Features, Backlink Analytics/Audit, Link Building, Site Audit, On-Page Checker, SEO Content Template, SEO Writing Assistant, Log File Analyzer
+2. **Content Marketing** — Topic Research, Content Audit, Marketing Calendar, Post Tracking, AI Writing Assistant, Content Templates
+3. **Advertising** — Advertising Research, Keyword CPC & Competition, PLA Research, AdClarity, Ads Launch Assistant
+4. **AEO / GEO** — AI Visibility, Citation Tracking, Google AI Overviews, Programmatic SEO, Bulk AI Content
+
+Open any site → **Open full toolkit**, or use `/app/toolkits`.
+
+API: `GET|POST /api/sites/:siteId/tools/:toolId`
+
+---
+
 ## Scaling next steps
 
 1. Replace stub SERP/crawl/AEO providers with vendor SDKs behind `packages/integrations`.  

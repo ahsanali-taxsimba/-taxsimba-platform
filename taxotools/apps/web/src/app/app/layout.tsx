@@ -1,12 +1,11 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { requireUser, getAccountContext, clearSessionCookie } from "@/lib/auth";
-import { listSitesForUser } from "@/server/services/tenant.service";
-import { usageSummary } from "@/server/services/usage.service";
 
 const nav = [
   { href: "/app", label: "Overview" },
   { href: "/app/sites", label: "Sites" },
+  { href: "/app/toolkits", label: "Toolkits" },
   { href: "/app/settings", label: "Settings" },
   { href: "/app/billing", label: "Billing" },
 ];

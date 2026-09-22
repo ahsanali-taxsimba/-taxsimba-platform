@@ -215,6 +215,22 @@ model Site {
   competitors        Competitor[]
   localProfiles      LocalProfile[]
   socialPosts        SocialPost[]
+  organicSnapshots   OrganicSnapshot[]
+  onPageChecks       OnPageCheck[]
+  seoTemplates       SeoContentTemplate[]
+  writingSessions    WritingAssistantSession[]
+  logAnalyses        LogFileAnalysis[]
+  topicIdeas         TopicIdea[]
+  calendarEvents     MarketingCalendarEvent[]
+  trackedPosts       TrackedPost[]
+  contentTemplates   ContentTemplate[]
+  adKeywords         AdKeyword[]
+  adCopies           AdCopy[]
+  plaProducts        PlaProduct[]
+  displayAds         DisplayAd[]
+  backlinkAuditItems BacklinkAuditItem[]
+  linkProspects      LinkBuildingProspect[]
+  programmaticJobs   ProgrammaticSeoJob[]
 
   @@unique([workspaceId, domain])
   @@index([workspaceId])
@@ -872,4 +888,284 @@ model BackgroundJob {
 
   @@index([queue, status])
   @@index([createdAt])
+}
+
+// ─── Semrush-parity SEO extensions ────────────────────────────────────────────
+
+model OrganicSnapshot {
+  id            String   @id @default(cuid())
+  siteId        String
+  competitorDomain String?
+  keyword       String
+  position      Int?
+  url           String?
+  trafficShare  Float?
+  volume        Int?
+  checkedAt     DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, checkedAt])
+  @@index([siteId, competitorDomain])
+}
+
+model OnPageCheck {
+  id            String   @id @default(cuid())
+  siteId        String
+  url           String
+  targetKeyword String
+  score         Float?
+  ideasJson     Json?
+  createdAt     DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, createdAt])
+}
+
+model SeoContentTemplate {
+  id            String   @id @default(cuid())
+  siteId        String
+  targetKeyword String
+  titleIdeas    Json?
+  outlineJson   Json?
+  semanticsJson Json?
+  readabilityTarget Int?
+  createdAt     DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId])
+}
+
+model WritingAssistantSession {
+  id            String   @id @default(cuid())
+  siteId        String
+  title         String?
+  targetKeyword String?
+  draftText     String?  @db.Text
+  score         Float?
+  suggestions   Json?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, updatedAt])
+}
+
+model LogFileAnalysis {
+  id           String    @id @default(cuid())
+  siteId       String
+  status       JobStatus @default(QUEUED)
+  fileName     String?
+  linesParsed  Int       @default(0)
+  botHits      Int       @default(0)
+  errorHits    Int       @default(0)
+  summaryJson  Json?
+  createdAt    DateTime  @default(now())
+  finishedAt   DateTime?
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  hits LogHit[]
+
+  @@index([siteId, createdAt])
+}
+
+model LogHit {
+  id          String   @id @default(cuid())
+  analysisId  String
+  path        String
+  statusCode  Int?
+  botName     String?
+  hits        Int      @default(1)
+  isError     Boolean  @default(false)
+
+  analysis LogFileAnalysis @relation(fields: [analysisId], references: [id], onDelete: Cascade)
+
+  @@index([analysisId])
+}
+
+model BacklinkAuditItem {
+  id          String   @id @default(cuid())
+  siteId      String
+  sourceUrl   String
+  targetUrl   String
+  toxicScore  Float?
+  reason      String?
+  action      String   @default("review")
+  createdAt   DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, toxicScore])
+}
+
+model LinkBuildingProspect {
+  id          String   @id @default(cuid())
+  siteId      String
+  domain      String
+  pageUrl     String?
+  contactEmail String?
+  authority   Float?
+  status      OutreachStatus @default(PROSPECT)
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, status])
+}
+
+// ─── Content marketing ────────────────────────────────────────────────────────
+
+model TopicIdea {
+  id            String   @id @default(cuid())
+  siteId        String
+  topic         String
+  headline      String?
+  difficulty    Float?
+  volume        Int?
+  contentType   String?
+  relatedJson   Json?
+  createdAt     DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId])
+}
+
+model MarketingCalendarEvent {
+  id          String   @id @default(cuid())
+  siteId      String
+  title       String
+  channel     String   @default("blog")
+  status      String   @default("planned")
+  scheduledAt DateTime
+  url         String?
+  notes       String?
+  createdAt   DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, scheduledAt])
+}
+
+model TrackedPost {
+  id          String   @id @default(cuid())
+  siteId      String
+  url         String
+  title       String?
+  publishedAt DateTime?
+  backlinks   Int      @default(0)
+  shares      Int      @default(0)
+  organicTraffic Int   @default(0)
+  lastCheckedAt DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@unique([siteId, url])
+}
+
+model ContentTemplate {
+  id          String   @id @default(cuid())
+  siteId      String
+  name        String
+  type        String   @default("article")
+  structureJson Json?
+  createdAt   DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId])
+}
+
+// ─── Advertising / PPC ────────────────────────────────────────────────────────
+
+model AdKeyword {
+  id            String   @id @default(cuid())
+  siteId        String
+  phrase        String
+  competitorDomain String?
+  cpcCents      Int?
+  competition   Float?
+  volume        Int?
+  adPosition    Float?
+  trafficPct    Float?
+  intent        SearchIntent?
+  createdAt     DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, phrase])
+}
+
+model AdCopy {
+  id            String   @id @default(cuid())
+  siteId        String
+  competitorDomain String?
+  title         String
+  description   String?
+  displayUrl    String?
+  visibleUrl    String?
+  firstSeenAt   DateTime @default(now())
+  lastSeenAt    DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId])
+}
+
+model PlaProduct {
+  id            String   @id @default(cuid())
+  siteId        String
+  competitorDomain String?
+  title         String
+  priceCents    Int?
+  currency      String   @default("USD")
+  keyword       String?
+  position      Int?
+  landingUrl    String?
+  imageUrl      String?
+  checkedAt     DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, keyword])
+}
+
+model DisplayAd {
+  id            String   @id @default(cuid())
+  siteId        String
+  advertiser    String
+  channel       String   @default("display")
+  creativeUrl   String?
+  landingUrl    String?
+  impressionsEst Int?
+  shareOfVoice  Float?
+  market        String   @default("US")
+  firstSeenAt   DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, channel])
+}
+
+model ProgrammaticSeoJob {
+  id           String    @id @default(cuid())
+  siteId       String
+  name         String
+  template     String
+  variablesJson Json
+  status       JobStatus @default(QUEUED)
+  pagesQueued  Int       @default(0)
+  pagesDone    Int       @default(0)
+  outputJson   Json?
+  createdAt    DateTime  @default(now())
+  finishedAt   DateTime?
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, status])
 }
