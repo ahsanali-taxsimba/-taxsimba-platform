@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import StarRatings from 'react-star-ratings';
 import { TranslatedHeading, TranslatedParagraph } from '@/components/TranslatedContent';
 import { Col, Container, Row } from 'react-bootstrap';
-import { getBackendBaseUrl } from "@/utils/commonHelper";
+import ProtectedMediaImage from "@/components/ProtectedMediaImage";
 
 const TestimonialsClient = () => {
 
@@ -200,15 +200,14 @@ const TestimonialsClient = () => {
                 </div>
                 <div className="reviewer">
                   <figure className="avatar">
-                    <img
+                    <ProtectedMediaImage
                       className="avatar"
                       src={
-                        testimonial?.client?.profilePhoto
-                          ? testimonial?.client?.profilePhoto.startsWith('https')
-                            ? testimonial?.client?.profilePhoto
-                            : `${getBackendBaseUrl()}${testimonial?.client?.profilePhoto}`
-                          : testimonial?.profile_img || "/images/user.png"
+                        testimonial?.client?.profilePhoto ||
+                        testimonial?.profile_img ||
+                        ""
                       }
+                      fallbackSrc="/images/user.png"
                       alt={testimonial?.client?.name || testimonial?.name || "profile"}
                     />
                   </figure>

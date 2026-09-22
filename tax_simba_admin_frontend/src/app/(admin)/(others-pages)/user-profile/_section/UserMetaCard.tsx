@@ -9,6 +9,7 @@ import Input from "@/components/form/input/InputField";
 import Button from "@/components/ui/button/Button";
 import clientAxios from "@/lib/axios-client";
 import { toast } from "react-toastify";
+import ProtectedMediaImage from "@/components/ProtectedMediaImage";
 
 
 export default function UserMetaCard() {
@@ -52,16 +53,11 @@ export default function UserMetaCard() {
         if (response?.data?.success && response.data.data) {
           const data = response.data.data;
           const [firstName = '', lastName = ''] = data.name?.split(' ') || [];
-          const photoRel = data.profilePhoto as string | null | undefined;
-          const photoAbs = photoRel
-            ? photoRel.startsWith("http")
-              ? photoRel
-              : `${process.env.NEXT_PUBLIC_API_URL}${photoRel}`
-            : "";
+          const photoRel = (data.profilePhoto as string | null | undefined) || "";
 
           setUserData({
             ...data,
-            profilePhoto: photoAbs || data.profilePhoto,
+            profilePhoto: photoRel,
           });
           setFormData((prev) => ({
             ...prev,
@@ -69,8 +65,8 @@ export default function UserMetaCard() {
             lastName,
             email: data.email,
             phone: data.mobile,
-            profilePhoto: photoRel || "",
-            profilePreview: photoAbs,
+            profilePhoto: photoRel,
+            profilePreview: photoRel,
           }));
         }
       } catch (error) {
@@ -147,22 +143,17 @@ export default function UserMetaCard() {
     const data = response.data.data;
     if (data) {
       const photoRel = data.profilePhoto as string | null | undefined;
-      const photoAbs = photoRel
-        ? photoRel.startsWith("http")
-          ? photoRel
-          : `${process.env.NEXT_PUBLIC_API_URL}${photoRel}`
-        : userData?.profilePhoto;
       setUserData((prev: any) => ({
         ...prev,
         name: data.name ?? fullName,
         mobile: data.mobile ?? data.phone ?? phone,
-        profilePhoto: photoAbs ?? prev?.profilePhoto,
+        profilePhoto: photoRel ?? prev?.profilePhoto,
       }));
       setFormData((prev) => ({
         ...prev,
         phone: data.mobile ?? data.phone ?? phone,
         profilePhoto: photoRel ?? prev.profilePhoto,
-        profilePreview: photoAbs ?? prev.profilePreview,
+        profilePreview: photoRel ?? prev.profilePreview,
         profileImageFile: null,
       }));
     }
@@ -184,10 +175,11 @@ export default function UserMetaCard() {
         <div className="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
           <div className="flex flex-col items-center w-full gap-6 xl:flex-row">
             <div className="w-20 h-20 overflow-hidden border border-gray-200 rounded-full dark:border-gray-800">
-              <Image
+              <ProtectedMediaImage
                 width={80}
                 height={80}
-                src={userData?.profilePhoto || "/images/logo/favicon.ico"}
+                src={userData?.profilePhoto || ""}
+                fallbackSrc="/images/logo/favicon.ico"
                 alt="user"
               />
             </div>

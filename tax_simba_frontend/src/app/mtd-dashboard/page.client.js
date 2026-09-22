@@ -18,7 +18,8 @@ import { FaEnvelope, FaIdCard, FaPhoneSquareAlt, FaCalendarAlt, FaClock, FaHourg
 import { FaMapLocationDot, FaPencil } from "react-icons/fa6";
 import toast from "react-hot-toast";
 
-import { getBackendBaseUrl, formatQuarterDisplay } from "@/utils/commonHelper";
+import { formatQuarterDisplay } from "@/utils/commonHelper";
+import ProtectedMediaImage from "@/components/ProtectedMediaImage";
 
 export default function MtdDashboardClient({ serverSession }) {
     const { data: session, status } = useSession();
@@ -477,15 +478,9 @@ export default function MtdDashboardClient({ serverSession }) {
                     <div className="profile_head_left">
                         <div style={{ position: 'relative', display: 'inline-block' }}>
                             <figure className="mtd-profile-figure">
-                                <Image
-                                    src={
-                                        userData?.profilePhoto
-                                            ? userData.profilePhoto.startsWith("http")
-                                                ? userData.profilePhoto
-                                                : `${getBackendBaseUrl()}${userData.profilePhoto}`
-                                            : "/images/user.png"
-                                    }
-                                    onError={(e) => { e.currentTarget.src = "/images/user.png"; console.error("Image failed to load"); }}
+                                <ProtectedMediaImage
+                                    src={userData?.profilePhoto || ""}
+                                    fallbackSrc="/images/user.png"
                                     alt="profile image"
                                     width={200}
                                     height={200}

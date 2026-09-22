@@ -6,7 +6,7 @@ import { Navigation } from "swiper/modules";
 
 import { Rating, RoundedStar } from "@smastrom/react-rating";
 import Image from 'next/image';
-import { getBackendBaseUrl } from "@/utils/commonHelper";
+import ProtectedMediaImage from "@/components/ProtectedMediaImage";
 import { TranslatedHeading, TranslatedHeadingTwo, TranslatedHeadingFour, TranslatedHeadingFive, TranslatedParagraph, TranslatedButton, TranslatedSpan, TranslatedText, TranslatedNestedParagraph } from "@/components/TranslatedContent";
 const HomeTestimonials = () => {
   // SwiperCore.use([Navigation]);
@@ -143,14 +143,9 @@ const HomeTestimonials = () => {
                         </span>
                         <TranslatedNestedParagraph>"{res?.message}"</TranslatedNestedParagraph>
                         <div className="reviewer">
-                          <Image
-                            src={
-                              res?.client?.profilePhoto
-                                ? res?.client?.profilePhoto.startsWith('https')
-                                  ? res?.client?.profilePhoto
-                                  : `${getBackendBaseUrl()}${res?.client?.profilePhoto}`
-                                : `/images/user.png`
-                            }
+                          <ProtectedMediaImage
+                            src={res?.client?.profilePhoto || ""}
+                            fallbackSrc="/images/user.png"
                             height={50}
                             width={50}
                             alt="profile image"

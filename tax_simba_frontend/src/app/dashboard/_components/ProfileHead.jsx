@@ -5,7 +5,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import React, { useState } from 'react'
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { getBackendBaseUrl } from "@/utils/commonHelper";
+import ProtectedMediaImage from "@/components/ProtectedMediaImage";
 
 const ProfileHead = ({ userData }) => {
     const { data: sessionData } = useSession()
@@ -63,13 +63,9 @@ const ProfileHead = ({ userData }) => {
             <div className="profile_head">
                 <div className="profile_head_left">
                     <figure>
-                        <Image
-                            src={
-                                userData.profilePhoto
-                                    ? `${getBackendBaseUrl()}${userData.profilePhoto}`
-                                    : "/images/user.png"
-                            }
-                            onError={() => console.error("Image failed to load")}
+                        <ProtectedMediaImage
+                            src={userData.profilePhoto || ""}
+                            fallbackSrc="/images/user.png"
                             alt="profile image"
                             width={250}
                             height={200}

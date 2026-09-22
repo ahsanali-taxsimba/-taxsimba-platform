@@ -20,7 +20,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { MdOutlinePhoneIphone } from "react-icons/md";
 import { FaMapLocationDot } from "react-icons/fa6";
 
-import { getBackendBaseUrl } from "@/utils/commonHelper";
+import ProtectedMediaImage from "@/components/ProtectedMediaImage";
 
 export default function DashboardClient({ serverSession }) {
   const { data: session } = useSession()
@@ -176,15 +176,9 @@ export default function DashboardClient({ serverSession }) {
           <div className="profile_head_left">
             <figure>
 
-              <Image
-                src={
-                  userData?.profilePhoto
-                    ? userData.profilePhoto.startsWith('https')
-                      ? userData.profilePhoto
-                      : `${getBackendBaseUrl()}${userData.profilePhoto}`
-                    : "/images/user.png"
-                }
-                onError={() => console.error("Image failed to load")}
+              <ProtectedMediaImage
+                src={userData?.profilePhoto || ""}
+                fallbackSrc="/images/user.png"
                 alt="profile image"
                 width={200}
                 height={200}

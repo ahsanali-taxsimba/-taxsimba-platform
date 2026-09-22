@@ -8,7 +8,7 @@ import { formatSlugToHref, useResourceCategories } from "@/hooks/useResourceCate
 import { useTranslate } from "@/hooks/useTranslate";
 import fetchJSON from "@/lib/fetchJSON";
 import emitter from "@/utils/eventBus";
-import { getBackendBaseUrl } from "@/utils/commonHelper";
+import ProtectedMediaImage from "@/components/ProtectedMediaImage";
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSession } from "next-auth/react";
@@ -392,15 +392,9 @@ const Navbar = () => {
                         onClick={() => setDropdownOpen(!dropdownOpen)}
                       >
                         <span className="prof_thumb_image">
-                          <Image
-                            src={
-                              userData?.profilePhoto
-                                ? userData.profilePhoto.startsWith('https')
-                                  ? userData.profilePhoto
-                                  : `${getBackendBaseUrl()}${userData.profilePhoto}`
-                                : "/images/user.png"
-                            }
-                            onError={() => console.error("Image failed to load")}
+                          <ProtectedMediaImage
+                            src={userData?.profilePhoto || ""}
+                            fallbackSrc="/images/user.png"
                             alt="profile image"
                             width={200}
                             height={200}
@@ -616,14 +610,9 @@ const Navbar = () => {
                       <div className="user-profile-mobile" onClick={handleShowOne} style={{ cursor: 'pointer' }}>
                         <div className="d-flex align-items-center gap-2">
                           <span className="prof_thumb_image" style={{ width: '35px', height: '35px', borderRadius: '50%', overflow: 'hidden' }}>
-                            <Image
-                              src={
-                                userData?.profilePhoto
-                                  ? userData.profilePhoto.startsWith('https')
-                                    ? userData.profilePhoto
-                                    : `${getBackendBaseUrl()}${userData.profilePhoto}`
-                                  : "/images/user.png"
-                              }
+                            <ProtectedMediaImage
+                              src={userData?.profilePhoto || ""}
+                              fallbackSrc="/images/user.png"
                               alt="profile image"
                               width={35}
                               height={35}

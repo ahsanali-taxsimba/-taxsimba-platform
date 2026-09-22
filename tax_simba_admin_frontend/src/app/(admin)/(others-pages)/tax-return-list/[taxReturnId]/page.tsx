@@ -28,6 +28,7 @@ import RequestDocumentsModal from '@/components/FlagModal/RequiredDocument';
 import { getNotificationIcon } from '@/utils/getNotification';
 import BellButton from '@/components/NotficationData/BellButton';
 import DownloadCertificate from '@/components/TaxReturnModal/DownloadCertificateModal';
+import { toast } from 'react-toastify';
 
 
 
@@ -100,39 +101,52 @@ const TaxReturnManagement = () => {
   };
 
   const handleEmailSend = async (emailData: any) => {
-    try {
-      console.log('Sending email with data:', emailData);
+    const caseId = String(taxReturnId || taxReturn?.id || "").trim();
+    const message = String(emailData?.htmlContent || emailData?.message || "").trim();
+    if (!caseId || caseId === "NaN" || caseId === "undefined") {
+      toast.error("Tax return ID is missing.");
+      throw new Error("Tax return ID is missing");
+    }
+    if (!message) {
+      toast.error("Message is required.");
+      throw new Error("Message is required");
+    }
 
-      const response = await clientAxios.post('/accountant/send-to-client', {
-        clientId: taxReturn?.client?.id,
-        emailData: {
-          subject: emailData.subject,
-          message: emailData.htmlContent,
-          htmlContent: emailData.htmlContent,
-          documentList: emailData.documentList || '',
-          taxReturnId: taxReturnId,
-          templateId: emailData.templateId
-        }
+    try {
+      const response = await clientAxios.post("/accountant/send-to-client", {
+        taxReturnId: caseId,
+        message,
+        body: message,
+        recipientId: taxReturn?.client?.id != null ? String(taxReturn.client.id) : undefined,
       });
 
       if (response.data.success) {
+        toast.success("Message sent to client successfully.");
         setShowEmailModal(false);
         fetchChatData();
-        setNotifications(prev => [{
-          id: Date.now(),
-          type: 'sent',
-          message: 'Email sent to client successfully',
-          time: 'Just now',
-          read: false
-        }, ...prev]);
-
+        setNotifications((prev) => [
+          {
+            id: Date.now(),
+            type: "sent",
+            message: "Email sent to client successfully",
+            time: "Just now",
+            read: false,
+          },
+          ...prev,
+        ]);
         await fetchChatData();
       } else {
-        setError('Failed to send email');
+        toast.error(response.data?.message || "Failed to send message");
+        throw new Error(response.data?.message || "Failed to send message");
       }
-    } catch (err) {
-      console.error('Error sending email:', err);
-      setError('Error sending email');
+    } catch (err: any) {
+      console.error("Error sending email:", err);
+      if (!err?.message?.includes("required") && !err?.message?.includes("Failed to send")) {
+        toast.error(
+          err?.response?.data?.message || "Error sending message to client",
+        );
+      }
+      throw err;
     }
   };
 
@@ -878,7 +892,7 @@ const TaxReturnManagement = () => {
         isOpen={showEmailModal}
         onClose={() => setShowEmailModal(false)}
         onSend={handleEmailSend}
-        taxReturn={taxReturn ? { ...taxReturn, taxYear: String(taxReturn.taxYear), client: { ...(taxReturn.client ?? {}), id: Number(taxReturn.client?.id ?? 0), name: taxReturn.client?.name ?? '', email: taxReturn.client?.email ?? '' } } : null}
+        taxReturn={taxReturn ? { ...taxReturn, taxYear: String(taxReturn.taxYear), client: { ...(taxReturn.client ?? {}), id: String(taxReturn.client?.id ?? ""), name: taxReturn.client?.name ?? '', email: taxReturn.client?.email ?? '' } } : null}
         fetchEmailTemplate={fetchEmailTemplate}
       />
       <FlagModal

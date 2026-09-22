@@ -6,7 +6,7 @@ import Image from "next/image";
 import Sidebar from "./Sidebar";
 import { useEffect, useRef, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { getBackendBaseUrl } from "@/utils/commonHelper";
+import ProtectedMediaImage from "@/components/ProtectedMediaImage";
 import toast from "react-hot-toast";
 import { Logout } from "../../lib/api";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -139,15 +139,9 @@ export default function DashboardLayoutClient({ serverSession, children }) {
                 <div className="profile_head">
                     <div className="profile_head_left">
                         <figure>
-                            <Image
-                                src={
-                                    userData?.profilePhoto
-                                        ? userData.profilePhoto.startsWith("https")
-                                            ? userData.profilePhoto
-                                            : `${getBackendBaseUrl()}${userData.profilePhoto}`
-                                        : "/images/user.png"
-                                }
-                                onError={() => console.error("Image failed to load")}
+                            <ProtectedMediaImage
+                                src={userData?.profilePhoto || ""}
+                                fallbackSrc="/images/user.png"
                                 alt="profile image"
                                 width={220}
                                 height={200}

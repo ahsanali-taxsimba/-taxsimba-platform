@@ -43,8 +43,7 @@ const AdminTaxReturnDetails = () => {
   const taxReturnIdStr = Array.isArray(params?.taxReturnId)
     ? params?.taxReturnId?.[0] ?? ''
     : params?.taxReturnId ?? '';
-  const taxReturnIdNum = taxReturnIdStr ? Number(taxReturnIdStr) : NaN;
-  const taxReturnIdForPayload = Number.isFinite(taxReturnIdNum) ? taxReturnIdNum : undefined;
+  // Keep case/tax-return IDs as strings (UUID). Never Number()-coerce.
 
   const [taxReturn, setTaxReturn] = useState<TaxReturn | null>(null);
   const [files, setFiles] = useState<FilesData | null>(null);
@@ -375,37 +374,51 @@ const AdminTaxReturnDetails = () => {
   };
 
   const handleEmailSend = async (emailData: any) => {
-    try {
-      console.log('Sending email with data:', emailData);
+    const caseId = String(taxReturnIdStr || taxReturn?.id || "").trim();
+    const message = String(emailData?.htmlContent || emailData?.message || "").trim();
+    if (!caseId || caseId === "NaN" || caseId === "undefined") {
+      toast.error("Tax return ID is missing.");
+      throw new Error("Tax return ID is missing");
+    }
+    if (!message) {
+      toast.error("Message is required.");
+      throw new Error("Message is required");
+    }
 
-      const response = await clientAxios.post('/admin/send-to-client', {
-        clientId: taxReturn?.client?.id,
-        emailData: {
-          subject: emailData.subject,
-          message: emailData.htmlContent,
-          htmlContent: emailData.htmlContent,
-          documentList: emailData.documentList || '',
-          taxReturnId: taxReturnIdForPayload, // send number when available
-          templateId: emailData.templateId
-        }
+    try {
+      const response = await clientAxios.post("/admin/send-to-client", {
+        taxReturnId: caseId,
+        message,
+        body: message,
+        recipientId: taxReturn?.client?.id != null ? String(taxReturn.client.id) : undefined,
       });
 
       if (response.data.success) {
+        toast.success("Message sent to client successfully.");
         setShowEmailModal(false);
         fetchChatData();
-        setNotifications(prev => [{
-          id: Date.now(),
-          type: 'sent',
-          message: 'Email sent to client successfully',
-          time: 'Just now',
-          read: false
-        }, ...prev]);
+        setNotifications((prev) => [
+          {
+            id: Date.now(),
+            type: "sent",
+            message: "Email sent to client successfully",
+            time: "Just now",
+            read: false,
+          },
+          ...prev,
+        ]);
       } else {
-        setError('Failed to send email');
+        toast.error(response.data?.message || "Failed to send message");
+        throw new Error(response.data?.message || "Failed to send message");
       }
-    } catch (err) {
-      console.error('Error sending email:', err);
-      setError('Error sending email');
+    } catch (err: any) {
+      console.error("Error sending email:", err);
+      if (!err?.message?.includes("required") && !err?.message?.includes("Failed to send")) {
+        toast.error(
+          err?.response?.data?.message || "Error sending message to client",
+        );
+      }
+      throw err;
     }
   };
 
@@ -1424,7 +1437,10 @@ const AdminTaxReturnDetails = () => {
             ? {
                 ...taxReturn,
                 taxYear: String(taxReturn.taxYear),
-                client: { ...taxReturn.client, id: Number(taxReturn.client.id) },
+                client: {
+                  ...taxReturn.client,
+                  id: String(taxReturn.client.id),
+                },
               }
             : null
         }
@@ -1449,7 +1465,7 @@ const AdminTaxReturnDetails = () => {
               <DownloadCertificate
                 isOpen={showFinalCertificateModal}
                 onClose={() => setShowFinalCertificateModal(false)}
-                taxReturnId={taxReturnIdNum ? taxReturnIdStr : ''}
+                taxReturnId={String(taxReturnIdStr || "")}
                 onUploadSuccess={() => {
                   setShowFinalCertificateModal(false);
                   fetchTaxReturnData();
@@ -1459,7 +1475,7 @@ const AdminTaxReturnDetails = () => {
                 postProgressData={postProgressData}
                 setShowFinalCertificateModal={setShowFinalCertificateModal}
               />
-            )}
+      )}
     </div>
   );
 };

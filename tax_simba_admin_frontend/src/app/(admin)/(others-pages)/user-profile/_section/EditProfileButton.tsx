@@ -69,9 +69,7 @@ export default function EditProfileButton({ profileData }: { profileData?: any }
       const updatedUser = response.data.data;
 
       const photoUrl = updatedUser?.profilePhoto
-        ? updatedUser.profilePhoto.startsWith("http")
-          ? updatedUser.profilePhoto
-          : `${process.env.NEXT_PUBLIC_API_URL}${updatedUser.profilePhoto}`
+        ? updatedUser.profilePhoto
         : session?.user?.image;
 
       await update({
@@ -86,6 +84,7 @@ export default function EditProfileButton({ profileData }: { profileData?: any }
           specialization: formData.specialization,
           experience: formData.experience,
           image: photoUrl,
+          profilePhoto: photoUrl,
         },
       });
 

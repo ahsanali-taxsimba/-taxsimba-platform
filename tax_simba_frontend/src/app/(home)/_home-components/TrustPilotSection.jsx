@@ -9,7 +9,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from "swiper/modules";
 import SelfAssesmentFormSection from './SelfAssesmentFormSection';
 import { useSession } from 'next-auth/react';
-import { getBackendBaseUrl } from "@/utils/commonHelper";
+import ProtectedMediaImage from "@/components/ProtectedMediaImage";
 
 const TrustPilotSection = () => {
     const prevRef = useRef(null);
@@ -150,14 +150,9 @@ const TrustPilotSection = () => {
                                                 </span>
                                                 <TranslatedNestedParagraph>"{res?.message}"</TranslatedNestedParagraph>
                                                 <div className="reviewer">
-                                                    <Image
-                                                        src={
-                                                            res?.client?.profilePhoto
-                                                                ? res?.client?.profilePhoto.startsWith('https')
-                                                                    ? res?.client?.profilePhoto
-                                                                    : `${getBackendBaseUrl()}${res?.client?.profilePhoto}`
-                                                                : `/images/user.png`
-                                                        }
+                                                    <ProtectedMediaImage
+                                                        src={res?.client?.profilePhoto || ""}
+                                                        fallbackSrc="/images/user.png"
                                                         height={50}
                                                         width={50}
                                                         alt="profile image"

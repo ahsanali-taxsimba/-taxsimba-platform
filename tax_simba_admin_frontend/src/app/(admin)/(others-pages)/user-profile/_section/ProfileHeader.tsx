@@ -1,6 +1,6 @@
 import { User, Edit, Star } from 'lucide-react';
-import Image from 'next/image';
 import EditProfileButton from './EditProfileButton';
+import ProtectedMediaImage from '@/components/ProtectedMediaImage';
 
 interface ProfileData {
   name: string;
@@ -22,15 +22,13 @@ export default function ProfileHeader({ profileData }: ProfileHeaderProps) {
         <div className="flex items-center lg:justify-start justify-center space-x-6 flex-wrap lg:flex-nowrap gap-3">
           <div className="w-24 h-24 min-w-24 bg-white rounded-full flex items-center justify-center overflow-hidden me-0">
             {profileData?.profilePhoto ? (
-              <Image
-                src={profileData.profilePhoto.startsWith('http')
-                  ? profileData.profilePhoto
-                  : `${process.env.NEXT_PUBLIC_API_URL}${profileData?.profilePhoto}`
-                }
+              <ProtectedMediaImage
+                src={profileData.profilePhoto}
                 alt={profileData.name}
                 width={96}
                 height={96}
                 className="rounded-full object-cover"
+                fallbackSrc="/images/logo/favicon.ico"
               />
             ) : (
               <User className="h-12 w-12 text-blue-600" />

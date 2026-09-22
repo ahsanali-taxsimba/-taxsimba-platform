@@ -43,9 +43,10 @@ export const getCurrencySymbol = (currencyCode) => {
 };
 
 /**
- * Dynamically resolves the backend base URL.
- * Falls back to extracting the protocol and host from NEXT_PUBLIC_API_URL if NEXT_PUBLIC_NODE_JS_URL is not defined.
- * @returns {string} The base URL of the backend (e.g. 'http://localhost:3000' or 'https://api.example.com').
+ * Host-only backend origin (protocol + host).
+ * Do NOT use this for protected compat media paths such as `auth/profile-photo/:id`
+ * — those must be resolved via `resolveCompatMediaUrl` / ProtectedMediaImage so
+ * `/api/compat` is preserved and Bearer auth is applied.
  */
 export const getBackendBaseUrl = () => {
     if (typeof process !== "undefined" && process.env) {
