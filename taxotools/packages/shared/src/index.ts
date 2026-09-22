@@ -101,20 +101,36 @@ export function isUnlimited(limit: number): boolean {
   return limit < 0;
 }
 
-/** Semrush-parity + Taxotools differentiators */
-export const TOOLKIT_GROUPS = [
+type ToolkitTool = { id: string; name: string; path: string };
+type ToolkitGroup = {
+  id: string;
+  name: string;
+  description: string;
+  tools: ToolkitTool[];
+};
+
+/**
+ * Full Semrush-parity toolkit catalog for Taxotools navigation & APIs.
+ * Mirrors Semrush: SEO, AI Visibility, Traffic & Market, Content, Local,
+ * Social, Advertising, AI PR — plus Taxotools AEO/GEO extras.
+ */
+export const TOOLKIT_GROUPS: ToolkitGroup[] = [
   {
     id: "seo",
     name: "SEO Toolkit",
-    description: "Keyword, rank, technical, backlink, and on-page SEO",
+    description: "Keywords, ranks, technical SEO, and backlinks",
     tools: [
+      { id: "domain-overview", name: "Domain Overview", path: "domain-overview" },
       { id: "keyword-research", name: "Keyword Research", path: "keyword-research" },
       { id: "keyword-magic", name: "Keyword Magic Tool", path: "keyword-magic" },
+      { id: "keyword-strategy-builder", name: "Keyword Strategy Builder", path: "keyword-strategy-builder" },
       { id: "keyword-gap", name: "Keyword Gap", path: "keyword-gap" },
       { id: "organic-research", name: "Organic Research", path: "organic-research" },
+      { id: "organic-rankings", name: "Organic Rankings", path: "organic-rankings" },
       { id: "position-tracking", name: "Position Tracking", path: "position-tracking" },
       { id: "serp-features", name: "SERP Features Tracking", path: "serp-features" },
       { id: "backlink-analytics", name: "Backlink Analytics", path: "backlink-analytics" },
+      { id: "backlink-gap", name: "Backlink Gap", path: "backlink-gap" },
       { id: "backlink-audit", name: "Backlink Audit", path: "backlink-audit" },
       { id: "link-building", name: "Link Building Tool", path: "link-building" },
       { id: "site-audit", name: "Site Audit", path: "site-audit" },
@@ -125,11 +141,41 @@ export const TOOLKIT_GROUPS = [
     ],
   },
   {
+    id: "aeo",
+    name: "AI Visibility Toolkit",
+    description: "AEO/GEO — AI search presence, citations, and share of voice",
+    tools: [
+      { id: "ai-visibility", name: "AI Visibility Scanner", path: "ai-visibility" },
+      { id: "ai-citations", name: "AI Citation Tracking", path: "ai-citations" },
+      { id: "geo-overviews", name: "Google AI Overviews (GEO)", path: "geo-overviews" },
+      { id: "ai-sentiment", name: "AI Brand Sentiment", path: "ai-sentiment" },
+      { id: "ai-competitors", name: "AI Competitor Mentions", path: "ai-competitors" },
+      { id: "programmatic-seo", name: "Programmatic SEO", path: "programmatic-seo" },
+      { id: "bulk-ai-content", name: "Bulk AI Content Generation", path: "bulk-ai-content" },
+    ],
+  },
+  {
+    id: "traffic-market",
+    name: "Traffic & Market Toolkit",
+    description: "Traffic analytics, market trends, and audience insights",
+    tools: [
+      { id: "traffic-analytics", name: "Traffic Analytics", path: "traffic-analytics" },
+      { id: "market-overview", name: "Market Overview", path: "market-overview" },
+      { id: "audience-insights", name: "Audience Insights", path: "audience-insights" },
+      { id: "top-pages", name: "Top Pages", path: "top-pages" },
+      { id: "eyeon", name: "EyeOn / Trends Watch", path: "eyeon" },
+      { id: "competitive-research", name: "Competitive Research", path: "competitive-research" },
+    ],
+  },
+  {
     id: "content",
-    name: "Content Marketing Toolkit",
-    description: "Topics, audits, calendar, and AI writing",
+    name: "Content Toolkit",
+    description: "Topics, audits, briefs, calendar, and AI writing",
     tools: [
       { id: "topic-research", name: "Topic Research", path: "topic-research" },
+      { id: "topic-finder", name: "Topic Finder", path: "topic-finder" },
+      { id: "seo-brief-generator", name: "SEO Brief Generator", path: "seo-brief-generator" },
+      { id: "ai-article-generator", name: "AI Article Generator", path: "ai-article-generator" },
       { id: "content-audit", name: "Content Audit", path: "content-audit" },
       { id: "marketing-calendar", name: "Marketing Calendar", path: "marketing-calendar" },
       { id: "post-tracking", name: "Post Tracking", path: "post-tracking" },
@@ -138,30 +184,67 @@ export const TOOLKIT_GROUPS = [
     ],
   },
   {
+    id: "local",
+    name: "Local Toolkit",
+    description: "GBP, maps, listings, reviews, and local ranks",
+    tools: [
+      { id: "gbp-optimization", name: "GBP Optimization", path: "gbp-optimization" },
+      { id: "listing-management", name: "Listing Management", path: "listing-management" },
+      { id: "review-management", name: "Review Management", path: "review-management" },
+      { id: "map-rank-tracker", name: "Map Rank Tracker", path: "map-rank-tracker" },
+      { id: "local-heatmaps", name: "Local Heatmaps", path: "local-heatmaps" },
+      { id: "nap-consistency", name: "NAP Consistency", path: "nap-consistency" },
+    ],
+  },
+  {
+    id: "social",
+    name: "Social Toolkit",
+    description: "Scheduling, tracking, listening, and influencers",
+    tools: [
+      { id: "social-poster", name: "Social Poster", path: "social-poster" },
+      { id: "social-tracker", name: "Social Tracker", path: "social-tracker" },
+      { id: "social-analytics", name: "Social Analytics", path: "social-analytics" },
+      { id: "social-content-ai", name: "Social Content AI", path: "social-content-ai" },
+      { id: "influencer-analytics", name: "Influencer Analytics", path: "influencer-analytics" },
+      { id: "social-listening", name: "Social Listening", path: "social-listening" },
+    ],
+  },
+  {
     id: "advertising",
     name: "Advertising Toolkit",
-    description: "PPC research, CPC intelligence, PLA / Shopping ads",
+    description: "PPC research, PLA, display ads, and launch assistant",
     tools: [
       { id: "advertising-research", name: "Advertising Research", path: "advertising-research" },
       { id: "keyword-cpc", name: "Keyword CPC & Competition", path: "keyword-cpc" },
       { id: "pla-research", name: "PLA Research", path: "pla-research" },
       { id: "adclarity", name: "AdClarity (Display/Video/Social)", path: "adclarity" },
       { id: "ads-launch-assistant", name: "Ads Launch Assistant", path: "ads-launch-assistant" },
+      { id: "ad-builder", name: "Ad Builder", path: "ad-builder" },
     ],
   },
   {
-    id: "aeo",
-    name: "AEO / GEO Toolkit",
-    description: "AI search visibility, citations, share of voice",
+    id: "ai-pr",
+    name: "AI PR Toolkit",
+    description: "Media database, monitoring, and AI-cited coverage",
     tools: [
-      { id: "ai-visibility", name: "AI Visibility Scanner", path: "ai-visibility" },
-      { id: "ai-citations", name: "AI Citation Tracking", path: "ai-citations" },
-      { id: "geo-overviews", name: "Google AI Overviews (GEO)", path: "geo-overviews" },
-      { id: "programmatic-seo", name: "Programmatic SEO", path: "programmatic-seo" },
-      { id: "bulk-ai-content", name: "Bulk AI Content Generation", path: "bulk-ai-content" },
+      { id: "media-database", name: "Media Database", path: "media-database" },
+      { id: "media-monitoring", name: "Media Monitoring", path: "media-monitoring" },
+      { id: "ai-cited-media", name: "AI-Cited Media", path: "ai-cited-media" },
+      { id: "pr-outreach", name: "PR Outreach", path: "pr-outreach" },
     ],
   },
-] as const;
+  {
+    id: "reports",
+    name: "Reports & Agency",
+    description: "White-label reports, schedules, and client access",
+    tools: [
+      { id: "my-reports", name: "My Reports", path: "my-reports" },
+      { id: "white-label-reports", name: "White-label Reports", path: "white-label-reports" },
+      { id: "scheduled-reports", name: "Scheduled Reports", path: "scheduled-reports" },
+      { id: "client-portal", name: "Client Portal", path: "client-portal" },
+    ],
+  },
+];
 
 export type ToolkitId = (typeof TOOLKIT_GROUPS)[number]["id"];
 export type ToolId = (typeof TOOLKIT_GROUPS)[number]["tools"][number]["id"];

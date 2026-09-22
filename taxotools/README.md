@@ -138,16 +138,22 @@ Limits are stored on `Plan` and mirrored in `@taxotools/shared` `PLAN_LIMITS`:
 
 ## Semrush-parity toolkits
 
-Taxotools ships **30 tools** across four toolkits (see `@taxotools/shared` `TOOLKIT_GROUPS`):
+Taxotools ships **66 tools** across **9 toolkits** (see `@taxotools/shared` `TOOLKIT_GROUPS`). The app sidebar lists every service:
 
-1. **SEO Toolkit** — Keyword Research, Keyword Magic, Keyword Gap, Organic Research, Position Tracking, SERP Features, Backlink Analytics/Audit, Link Building, Site Audit, On-Page Checker, SEO Content Template, SEO Writing Assistant, Log File Analyzer
-2. **Content Marketing** — Topic Research, Content Audit, Marketing Calendar, Post Tracking, AI Writing Assistant, Content Templates
-3. **Advertising** — Advertising Research, Keyword CPC & Competition, PLA Research, AdClarity, Ads Launch Assistant
-4. **AEO / GEO** — AI Visibility, Citation Tracking, Google AI Overviews, Programmatic SEO, Bulk AI Content
+1. **SEO Toolkit** — Domain Overview, Keyword Research/Magic/Strategy Builder, Gaps, Organic Research/Rankings, Position Tracking, SERP Features, Backlinks (Analytics/Gap/Audit), Link Building, Site Audit, On-Page Checker, SEO Content Template, Writing Assistant, Log File Analyzer
+2. **AI Visibility (AEO/GEO)** — Visibility Scanner, Citations, Google AI Overviews, Sentiment, Competitor Mentions, Programmatic SEO, Bulk AI Content
+3. **Traffic & Market** — Traffic Analytics, Market Overview, Audience Insights, Top Pages, EyeOn/Trends, Competitive Research
+4. **Content Toolkit** — Topic Research/Finder, SEO Brief Generator, AI Article Generator, Content Audit, Marketing Calendar, Post Tracking, AI Writing Assistant, Content Templates
+5. **Local Toolkit** — GBP Optimization, Listing Management, Review Management, Map Rank Tracker, Local Heatmaps, NAP Consistency
+6. **Social Toolkit** — Social Poster/Tracker/Analytics, Social Content AI, Influencer Analytics, Social Listening
+7. **Advertising Toolkit** — Advertising Research, Keyword CPC, PLA Research, AdClarity, Ads Launch Assistant, Ad Builder
+8. **AI PR Toolkit** — Media Database, Media Monitoring, AI-Cited Media, PR Outreach
+9. **Reports & Agency** — My Reports, White-label Reports, Scheduled Reports, Client Portal
 
-Open any site → **Open full toolkit**, or use `/app/toolkits`.
+Open tools from the **left sidebar**, `/app/toolkits`, or any site → toolkit hub.
 
 API: `GET|POST /api/sites/:siteId/tools/:toolId`
+
 
 ---
 

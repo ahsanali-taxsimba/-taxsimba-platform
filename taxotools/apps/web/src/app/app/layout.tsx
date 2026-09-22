@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { requireUser, getAccountContext, clearSessionCookie } from "@/lib/auth";
+import { listSitesForUser } from "@/server/services/tenant.service";
 import { AppChrome } from "@/components/AppChrome";
 
 async function signOut() {
@@ -15,10 +16,20 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   } catch {
     redirect("/login");
   }
-  const account = await getAccountContext(user.id);
+  const [account, sites] = await Promise.all([
+    getAccountContext(user.id),
+    listSitesForUser(user.id),
+  ]);
+  const primary = sites[0];
 
   return (
-    <AppChrome accountName={account?.name} email={user.email} signOutAction={signOut}>
+    <AppChrome
+      accountName={account?.name}
+      email={user.email}
+      primarySiteId={primary?.id}
+      primarySiteDomain={primary?.domain}
+      signOutAction={signOut}
+    >
       {children}
     </AppChrome>
   );
