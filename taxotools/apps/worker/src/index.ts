@@ -1,0 +1,161 @@
+import { Worker, type ConnectionOptions } from "bullmq";
+import IORedis from "ioredis";
+import { JOB_QUEUES } from "@taxotools/shared";
+import { prisma } from "@taxotools/database";
+import { processCrawl } from "./jobs/crawl";
+import { processRankCheck } from "./jobs/rank";
+import { processAIContent } from "./jobs/ai-content";
+import { processAeoScan } from "./jobs/aeo";
+import { processReport } from "./jobs/report";
+import { pollDbJobs } from "./db-poller";
+
+const redisUrl = process.env.REDIS_URL || "redis://localhost:6380";
+
+async function markJob(
+  backgroundJobId: string | undefined,
+  status: "RUNNING" | "COMPLETED" | "FAILED",
+  extra: { result?: unknown; errorMessage?: string } = {},
+) {
+  if (!backgroundJobId) return;
+  await prisma.backgroundJob.update({
+    where: { id: backgroundJobId },
+    data: {
+      status,
+      ...(status === "RUNNING" ? { startedAt: new Date(), attempts: { increment: 1 } } : {}),
+      ...(status === "COMPLETED"
+        ? { finishedAt: new Date(), result: extra.result as object | undefined }
+        : {}),
+      ...(status === "FAILED"
+        ? { finishedAt: new Date(), errorMessage: extra.errorMessage }
+        : {}),
+    },
+  });
+}
+
+function createWorkers(connection: IORedis) {
+  const concurrency = Number(process.env.WORKER_CONCURRENCY || 5);
+  const conn = connection as unknown as ConnectionOptions;
+
+  new Worker(
+    JOB_QUEUES.CRAWL,
+    async (job) => {
+      await markJob(job.data.backgroundJobId, "RUNNING");
+      try {
+        const result = await processCrawl(job.data);
+        await markJob(job.data.backgroundJobId, "COMPLETED", { result });
+        return result;
+      } catch (e) {
+        await markJob(job.data.backgroundJobId, "FAILED", {
+          errorMessage: e instanceof Error ? e.message : "crawl failed",
+        });
+        throw e;
+      }
+    },
+    { connection: conn, concurrency },
+  );
+
+  new Worker(
+    JOB_QUEUES.RANK,
+    async (job) => {
+      await markJob(job.data.backgroundJobId, "RUNNING");
+      try {
+        const result = await processRankCheck(job.data);
+        await markJob(job.data.backgroundJobId, "COMPLETED", { result });
+        return result;
+      } catch (e) {
+        await markJob(job.data.backgroundJobId, "FAILED", {
+          errorMessage: e instanceof Error ? e.message : "rank failed",
+        });
+        throw e;
+      }
+    },
+    { connection: conn, concurrency },
+  );
+
+  new Worker(
+    JOB_QUEUES.AI_CONTENT,
+    async (job) => {
+      await markJob(job.data.backgroundJobId, "RUNNING");
+      try {
+        const result = await processAIContent(job.data);
+        await markJob(job.data.backgroundJobId, "COMPLETED", { result });
+        return result;
+      } catch (e) {
+        await markJob(job.data.backgroundJobId, "FAILED", {
+          errorMessage: e instanceof Error ? e.message : "ai failed",
+        });
+        throw e;
+      }
+    },
+    { connection: conn, concurrency },
+  );
+
+  new Worker(
+    JOB_QUEUES.AEO_SCAN,
+    async (job) => {
+      await markJob(job.data.backgroundJobId, "RUNNING");
+      try {
+        const result = await processAeoScan(job.data);
+        await markJob(job.data.backgroundJobId, "COMPLETED", { result });
+        return result;
+      } catch (e) {
+        await markJob(job.data.backgroundJobId, "FAILED", {
+          errorMessage: e instanceof Error ? e.message : "aeo failed",
+        });
+        throw e;
+      }
+    },
+    { connection: conn, concurrency },
+  );
+
+  new Worker(
+    JOB_QUEUES.REPORT,
+    async (job) => {
+      await markJob(job.data.backgroundJobId, "RUNNING");
+      try {
+        const result = await processReport(job.data);
+        await markJob(job.data.backgroundJobId, "COMPLETED", { result });
+        return result;
+      } catch (e) {
+        await markJob(job.data.backgroundJobId, "FAILED", {
+          errorMessage: e instanceof Error ? e.message : "report failed",
+        });
+        throw e;
+      }
+    },
+    { connection: conn, concurrency },
+  );
+}
+
+async function main() {
+  console.log("[taxotools-worker] starting…");
+
+  const connection = new IORedis(redisUrl, {
+    maxRetriesPerRequest: null,
+    enableReadyCheck: false,
+    lazyConnect: true,
+  });
+
+  try {
+    await connection.connect();
+    createWorkers(connection);
+    console.log("[taxotools-worker] BullMQ workers online");
+  } catch (err) {
+    console.warn(
+      "[taxotools-worker] Redis unavailable — falling back to DB poller only",
+      err instanceof Error ? err.message : err,
+    );
+  }
+
+  // Always poll BackgroundJob for resilience when Redis is down
+  setInterval(() => {
+    pollDbJobs().catch((e) => console.error("[db-poller]", e));
+  }, 5000);
+
+  console.log("[taxotools-worker] ready");
+}
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

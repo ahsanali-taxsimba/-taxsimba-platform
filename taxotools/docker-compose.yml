@@ -1,0 +1,54 @@
+# Taxotools infrastructure — isolated ports to avoid clashing with other projects
+# Postgres: 5433 | Redis: 6380 | MinIO: 9010/9011
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: taxotools-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: taxotools
+      POSTGRES_PASSWORD: taxotools
+      POSTGRES_DB: taxotools
+    ports:
+      - "5433:5432"
+    volumes:
+      - taxotools_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U taxotools -d taxotools"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: taxotools-redis
+    restart: unless-stopped
+    ports:
+      - "6380:6379"
+    volumes:
+      - taxotools_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  minio:
+    image: minio/minio:latest
+    container_name: taxotools-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: taxotools
+      MINIO_ROOT_PASSWORD: taxotools_secret
+    ports:
+      - "9010:9000"
+      - "9011:9001"
+    volumes:
+      - taxotools_minio_data:/data
+
+volumes:
+  taxotools_pg_data:
+  taxotools_redis_data:
+  taxotools_minio_data:
