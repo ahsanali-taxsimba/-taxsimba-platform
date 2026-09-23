@@ -420,7 +420,7 @@ export async function summarizeCrawlerMaster(
   siteId: string,
   extra: Record<string, unknown> = {},
 ) {
-  const [config, runs, extracts] = await Promise.all([
+  const [config, runs, extracts, extractCount] = await Promise.all([
     prisma.crawlerMasterConfig.findUnique({ where: { siteId } }),
     prisma.crawlerMasterRun.findMany({
       where: { siteId },
@@ -432,11 +432,17 @@ export async function summarizeCrawlerMaster(
       orderBy: { createdAt: "desc" },
       take: 40,
     }),
+    prisma.crawlerExtractRecord.count({ where: { siteId } }),
   ]);
 
+  const byModuleRows = await prisma.crawlerExtractRecord.groupBy({
+    by: ["module"],
+    where: { siteId },
+    _count: { _all: true },
+  });
   const byModule: Record<string, number> = {};
-  for (const e of extracts) {
-    byModule[e.module] = (byModule[e.module] || 0) + 1;
+  for (const row of byModuleRows) {
+    byModule[row.module] = row._count._all;
   }
 
   return {
@@ -448,7 +454,7 @@ export async function summarizeCrawlerMaster(
       respectRobots: config?.respectRobots ?? true,
       storeFormat: config?.storeFormat || "jsonl",
       runs: runs.length,
-      extracts: extracts.length,
+      extracts: extractCount,
       lastRunAt: config?.lastRunAt,
       nextRunAt: config?.nextRunAt,
       byModule,
