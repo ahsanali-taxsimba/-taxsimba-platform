@@ -17,6 +17,13 @@ type Summary = {
   init?: Record<string, unknown>;
   pages?: Array<Record<string, unknown>>;
   alerts?: Array<{ rule: string; message: string; severity: string }>;
+  providerResults?: Array<{
+    provider: string;
+    mode: string;
+    links: number;
+    error?: string | null;
+  }>;
+  providers?: Array<{ id: string; displayName: string; configured: boolean }>;
   content?: string;
   filename?: string;
   error?: string;
@@ -36,7 +43,7 @@ export function BacklinksEnginePanel({ siteId }: { siteId: string }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         action,
-        sourceApis: ["ahrefs", "semrush", "majestic"],
+        sourceApis: ["crawlgraph", "openpagerank"],
         crawlMode: "external",
         refreshInterval: "24h",
         enableDisavow: true,
@@ -89,8 +96,9 @@ export function BacklinksEnginePanel({ siteId }: { siteId: string }) {
           </button>
         </div>
         <p className="mt-2 text-xs text-ink-500">
-          Sources: ahrefs, semrush, majestic · crawl=external · score=(authority×relevance)−(spam×risk)
-          · toxic: spam&gt;70 || risk&gt;0.6 · high-value: authority&gt;40 && relevance&gt;0.7
+          Sources: crawlgraph + openpagerank (live when keys set; stub fallback) ·
+          crawl=external · score=(authority×relevance)−(spam×risk) · toxic: spam&gt;70 ||
+          risk&gt;0.6
         </p>
         {error && <p className="mt-2 text-sm text-danger">{error}</p>}
       </FadeIn>
@@ -110,6 +118,14 @@ export function BacklinksEnginePanel({ siteId }: { siteId: string }) {
               </div>
             ))}
           </div>
+          {data?.providerResults && data.providerResults.length > 0 && (
+            <p className="mt-3 text-sm text-ink-500">
+              Providers:{" "}
+              {data.providerResults
+                .map((p) => `${p.provider}=${p.mode}(${p.links})`)
+                .join(" · ")}
+            </p>
+          )}
         </SlideUp>
       )}
 

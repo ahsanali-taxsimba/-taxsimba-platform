@@ -2,14 +2,23 @@ import { describe, expect, it } from "vitest";
 import {
   BACKLINK_ENGINE_DEFAULTS,
   BACKLINK_SOURCE_APIS,
+  BACKLINK_LIVE_PROVIDERS,
   computeBacklinkScore,
   classifyBacklink,
   findTool,
 } from "@taxotools/shared";
 
 describe("seo.backlinks.init engine", () => {
-  it("matches CLI defaults", () => {
-    expect([...BACKLINK_SOURCE_APIS]).toEqual(["ahrefs", "semrush", "majestic"]);
+  it("matches CLI defaults with free providers first", () => {
+    expect([...BACKLINK_LIVE_PROVIDERS]).toEqual(["crawlgraph", "openpagerank"]);
+    expect([...BACKLINK_SOURCE_APIS]).toEqual([
+      "crawlgraph",
+      "openpagerank",
+      "ahrefs",
+      "semrush",
+      "majestic",
+    ]);
+    expect(BACKLINK_ENGINE_DEFAULTS.sourceApis).toEqual(["crawlgraph", "openpagerank"]);
     expect(BACKLINK_ENGINE_DEFAULTS.crawlMode).toBe("external");
     expect(BACKLINK_ENGINE_DEFAULTS.refreshInterval).toBe("24h");
     expect(BACKLINK_ENGINE_DEFAULTS.scoreFormula).toBe("(authority*relevance)-(spam*risk)");

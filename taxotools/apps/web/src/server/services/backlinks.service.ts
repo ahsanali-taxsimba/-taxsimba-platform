@@ -7,6 +7,7 @@ import {
   JOB_QUEUES,
   type BacklinkSourceApi,
 } from "@taxotools/shared";
+import { fetchBacklinksFromProviders } from "@taxotools/integrations";
 import { getSiteForUser } from "@/server/services/tenant.service";
 import { enqueueJob } from "@/server/queue";
 
@@ -18,7 +19,7 @@ type RawLink = {
   relevance: number;
   spam: number;
   risk: number;
-  sourceApi: BacklinkSourceApi;
+  sourceApi: string;
   competitorDomain?: string | null;
   relNofollow?: boolean;
 };
@@ -31,80 +32,11 @@ function hostnameOf(url: string) {
   }
 }
 
-function hash(s: string) {
-  return [...s].reduce((a, c) => a + c.charCodeAt(0), 0);
-}
-
 function toPrismaClass(c: ReturnType<typeof classifyBacklink>): BacklinkClassification {
   if (c === "toxic") return "TOXIC";
   if (c === "high_value") return "HIGH_VALUE";
   if (c === "lost") return "LOST";
   return "NORMAL";
-}
-
-/** Stub providers — replace with Ahrefs / Semrush / Majestic SDKs */
-function fetchFromProvider(
-  api: BacklinkSourceApi,
-  siteDomain: string,
-  siteUrl: string,
-  competitors: string[],
-): RawLink[] {
-  const seeds = [
-    { host: "forbes.com", auth: 92, spam: 2, rel: 0.82 },
-    { host: "hubspot.com", auth: 91, spam: 5, rel: 0.78 },
-    { host: "searchenginejournal.com", auth: 88, spam: 8, rel: 0.91 },
-    { host: "moz.com", auth: 91, spam: 6, rel: 0.85 },
-    { host: "techcrunch.com", auth: 89, spam: 4, rel: 0.55 },
-    { host: "medium.com", auth: 94, spam: 18, rel: 0.42 },
-    { host: "spam-directory.biz", auth: 12, spam: 88, rel: 0.05 },
-    { host: "cheap-pbn.network", auth: 8, spam: 95, rel: 0.02 },
-    { host: "guestpost-farm.ru", auth: 15, spam: 76, rel: 0.12 },
-    { host: "niche-blog.io", auth: 46, spam: 14, rel: 0.74 },
-    { host: "local-chamber.org", auth: 38, spam: 9, rel: 0.68 },
-    { host: "industry-wiki.net", auth: 52, spam: 11, rel: 0.8 },
-  ];
-
-  const offset = hash(api + siteDomain) % 5;
-  const picks = seeds.slice(offset).concat(seeds.slice(0, offset)).slice(0, 8);
-
-  const links: RawLink[] = picks.map((p, i) => {
-    const risk = Math.min(1, p.spam / 100 + (p.rel < 0.2 ? 0.35 : 0.05) + (api === "majestic" ? 0.02 : 0));
-    return {
-      sourceUrl: `https://${p.host}/article/${api}-${siteDomain.replace(/\./g, "-")}-${i}`,
-      targetUrl: i % 3 === 0 ? siteUrl : `${siteUrl}/blog`,
-      anchorText:
-        i % 4 === 0
-          ? siteDomain
-          : i % 4 === 1
-            ? "click here"
-            : i % 4 === 2
-              ? "seo tools"
-              : "best platform",
-      authority: p.auth + (hash(api) % 3),
-      relevance: p.rel,
-      spam: p.spam,
-      risk: Math.round(risk * 100) / 100,
-      sourceApi: api,
-      relNofollow: p.spam > 50,
-    };
-  });
-
-  // Competitor monitoring samples
-  for (const comp of competitors.slice(0, 2)) {
-    links.push({
-      sourceUrl: `https://outreach-mag.com/mentions/${comp}`,
-      targetUrl: `https://${comp}/`,
-      anchorText: comp.split(".")[0],
-      authority: 55 + (hash(comp) % 30),
-      relevance: 0.6 + (hash(comp) % 30) / 100,
-      spam: 10 + (hash(comp + api) % 20),
-      risk: 0.15,
-      sourceApi: api,
-      competitorDomain: comp,
-    });
-  }
-
-  return links;
 }
 
 export async function initBacklinkEngine(
@@ -233,10 +165,25 @@ export async function refreshBacklinks(userId: string, siteId: string) {
     where: { siteId, competitorDomain: null },
   });
 
-  const raw: RawLink[] = [];
-  for (const api of apis) {
-    raw.push(...fetchFromProvider(api, site.domain, site.url, competitors));
-  }
+  const fetched = await fetchBacklinksFromProviders(apis, {
+    domain: site.domain,
+    siteUrl: site.url,
+    competitors,
+    limit: 50,
+  });
+
+  const raw: RawLink[] = fetched.links.map((l) => ({
+    sourceUrl: l.sourceUrl,
+    targetUrl: l.targetUrl,
+    anchorText: l.anchorText,
+    authority: l.authority,
+    relevance: l.relevance,
+    spam: l.spam,
+    risk: l.risk,
+    sourceApi: l.sourceApi,
+    competitorDomain: l.competitorDomain,
+    relNofollow: l.relNofollow,
+  }));
 
   let upserted = 0;
   for (const link of raw) {
@@ -350,7 +297,19 @@ export async function refreshBacklinks(userId: string, siteId: string) {
     payload: { siteId, upserted, alerts: alerts.length },
   });
 
-  return summarizeBacklinks(siteId, { upserted, alerts, disavowQueued });
+  return summarizeBacklinks(siteId, {
+    upserted,
+    alerts,
+    disavowQueued,
+    providers: fetched.providers,
+    providerResults: fetched.results.map((r) => ({
+      provider: r.provider,
+      mode: r.mode,
+      links: r.links.length,
+      error: r.error || null,
+      metrics: r.metrics || null,
+    })),
+  });
 }
 
 async function evaluateAlerts(

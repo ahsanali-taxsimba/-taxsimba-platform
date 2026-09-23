@@ -161,12 +161,18 @@ API: `GET|POST /api/sites/:siteId/tools/:toolId`
 
 ## Scaling next steps
 
-1. Replace stub SERP/crawl/AEO providers with vendor SDKs behind `packages/integrations`.  
+1. Expand `packages/integrations` beyond CrawlGraph + Open PageRank (SERP, crawl, LLM, AEO).  
 2. Shard workers by queue; move heavy crawls to a dedicated fleet.  
 3. Add ClickHouse/BigQuery for rank time-series at Agency scale.  
 4. Public REST API with hashed `ApiKey` + rate limits.  
 5. Stripe Customer Portal + usage-based metered items for AI credits.  
-6. SSO (SAML/OIDC) for Enterprise on Auth.js.  
+6. SSO (SAML/OIDC) for Enterprise on Auth.js.
+
+### Backlink providers
+
+Default sources are **CrawlGraph** (referring domains) + **Open PageRank** (authority enrichment).
+Set `CRAWLGRAPH_API_KEY` and/or `OPENPAGERANK_API_KEY` for live data; without keys the engine
+falls back to deterministic stubs so demos keep working.  
 
 ---
 

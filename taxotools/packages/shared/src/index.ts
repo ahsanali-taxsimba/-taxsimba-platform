@@ -380,11 +380,20 @@ export function findTool(toolId: string) {
 export const ALL_TOOL_IDS = TOOLKIT_GROUPS.flatMap((g) => g.tools.map((t) => t.id));
 
 /** seo.backlinks.init defaults — multi-source external crawl engine */
-export const BACKLINK_SOURCE_APIS = ["ahrefs", "semrush", "majestic"] as const;
+export const BACKLINK_SOURCE_APIS = [
+  "crawlgraph",
+  "openpagerank",
+  "ahrefs",
+  "semrush",
+  "majestic",
+] as const;
 export type BacklinkSourceApi = (typeof BACKLINK_SOURCE_APIS)[number];
 
+/** Free / freemium providers preferred when keys are present */
+export const BACKLINK_LIVE_PROVIDERS = ["crawlgraph", "openpagerank"] as const;
+
 export const BACKLINK_ENGINE_DEFAULTS = {
-  sourceApis: [...BACKLINK_SOURCE_APIS] as BacklinkSourceApi[],
+  sourceApis: [...BACKLINK_LIVE_PROVIDERS] as BacklinkSourceApi[],
   crawlMode: "external" as const,
   refreshInterval: "24h",
   refreshIntervalHours: 24,

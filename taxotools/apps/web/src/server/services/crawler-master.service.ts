@@ -474,7 +474,9 @@ export async function executeCrawlerMasterRun(
   try {
     if (modules.includes("backlinks") && queues.includes("crawl.api.backlinks")) {
       moduleResults.backlinks = await initBacklinkEngine(userId, siteId, {
-        sourceApis: providers.filter((p) => ["ahrefs", "semrush", "majestic"].includes(p)),
+        sourceApis: providers.filter((p) =>
+          ["crawlgraph", "openpagerank", "ahrefs", "semrush", "majestic"].includes(p),
+        ),
       });
       const msg = "[verbose] worker=backlink_api refreshed backlinks table";
       logs.push(msg);
