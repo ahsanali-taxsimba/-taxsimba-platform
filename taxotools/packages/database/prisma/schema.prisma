@@ -258,6 +258,9 @@ model Site {
   crawlerMaster      CrawlerMasterConfig?
   crawlerMasterRuns  CrawlerMasterRun[]
   crawlerExtracts    CrawlerExtractRecord[]
+  crawlerProject     CrawlerProject?
+  serpSnapshots      SerpSnapshot[]
+  crawlerLogs        CrawlerLog[]
 
   @@unique([workspaceId, domain])
   @@index([workspaceId])
@@ -1527,12 +1530,33 @@ model DisavowEntry {
 }
 
 // ─── seo.crawler.master.init ──────────────────────────────────────────────────
+// DB schema: projects, crawler_configs, crawl_jobs, backlinks,
+//            serp_snapshots, raw_documents, crawler_logs
+
+model CrawlerProject {
+  id          String   @id @default(cuid())
+  siteId      String   @unique
+  name        String
+  domain      String
+  status      String   @default("active")
+  metadata    Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@map("projects")
+}
 
 model CrawlerMasterConfig {
   id               String   @id @default(cuid())
   siteId           String   @unique
+  enableModules    Json     @default("[]")
   modules          Json
   providers        Json
+  queues           Json     @default("[]")
+  workers          Json     @default("[]")
+  dbSchema         Json     @default("[]")
   crawlModes       Json
   frequency        String   @default("6h")
   frequencyHours   Int      @default(6)
@@ -1551,6 +1575,8 @@ model CrawlerMasterConfig {
   updatedAt        DateTime @updatedAt
 
   site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@map("crawler_configs")
 }
 
 model CrawlerMasterRun {
@@ -1560,6 +1586,8 @@ model CrawlerMasterRun {
   status          JobStatus @default(QUEUED)
   modules         Json
   providers       Json
+  queuesDispatched Json?
+  workersInvoked  Json?
   maxDepth        Int       @default(12)
   parallelThreads Int       @default(32)
   pagesCrawled    Int       @default(0)
@@ -1578,6 +1606,7 @@ model CrawlerMasterRun {
 
   @@index([siteId, createdAt])
   @@index([siteId, status])
+  @@map("crawl_jobs")
 }
 
 model CrawlerExtractRecord {
@@ -1588,6 +1617,8 @@ model CrawlerExtractRecord {
   depth       Int      @default(0)
   module      String
   provider    String?
+  queue       String?
+  worker      String?
   links       Json?
   anchors     Json?
   metadata    Json?
@@ -1605,4 +1636,41 @@ model CrawlerExtractRecord {
   @@index([siteId, module])
   @@index([runId])
   @@index([siteId, createdAt])
+  @@map("raw_documents")
+}
+
+model SerpSnapshot {
+  id           String   @id @default(cuid())
+  siteId       String
+  query        String
+  provider     String
+  device       String   @default("desktop")
+  location     String?
+  resultsJson  Json
+  featuresJson Json?
+  createdAt    DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, query])
+  @@index([siteId, createdAt])
+  @@map("serp_snapshots")
+}
+
+model CrawlerLog {
+  id        String   @id @default(cuid())
+  siteId    String
+  runId     String?
+  queue     String?
+  worker    String?
+  level     String   @default("info")
+  message   String
+  meta      Json?
+  createdAt DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, createdAt])
+  @@index([siteId, level])
+  @@map("crawler_logs")
 }

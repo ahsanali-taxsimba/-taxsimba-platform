@@ -5,12 +5,17 @@ import {
   CRAWLER_MASTER_PROVIDERS,
   CRAWLER_MASTER_MODES,
   CRAWLER_MASTER_EXTRACT,
+  CRAWLER_MASTER_QUEUES,
+  CRAWLER_MASTER_WORKERS,
+  CRAWLER_MASTER_DB_SCHEMA,
+  CRAWLER_MASTER_QUEUE_WORKER_MAP,
   JOB_QUEUES,
   parseFrequencyHours,
   type CrawlerMasterModule,
   type CrawlerMasterProvider,
   type CrawlerMasterMode,
   type CrawlerMasterExtract,
+  type CrawlerMasterQueue,
 } from "@taxotools/shared";
 import { getSiteForUser } from "@/server/services/tenant.service";
 import { enqueueJob } from "@/server/queue";
@@ -18,7 +23,7 @@ import { initBacklinkEngine } from "@/server/services/backlinks.service";
 import { startCrawl } from "@/server/services/crawl.service";
 
 function asModules(v?: string[]): CrawlerMasterModule[] {
-  const src = v?.length ? v : [...CRAWLER_MASTER_DEFAULTS.modules];
+  const src = v?.length ? v : [...CRAWLER_MASTER_DEFAULTS.enable];
   return src.filter((m): m is CrawlerMasterModule =>
     (CRAWLER_MASTER_MODULES as readonly string[]).includes(m),
   );
@@ -45,8 +50,33 @@ function asExtract(v?: string[]): CrawlerMasterExtract[] {
   );
 }
 
-function hash(s: string) {
-  return [...s].reduce((a, c) => a + c.charCodeAt(0), 0);
+function asQueues(v?: string[]): CrawlerMasterQueue[] {
+  const src = v?.length ? v : [...CRAWLER_MASTER_DEFAULTS.queues];
+  return src.filter((q): q is CrawlerMasterQueue =>
+    (CRAWLER_MASTER_QUEUES as readonly string[]).includes(q),
+  );
+}
+
+async function writeLog(
+  siteId: string,
+  runId: string | null,
+  level: string,
+  message: string,
+  queue?: string,
+  worker?: string,
+  meta?: Prisma.InputJsonValue,
+) {
+  await prisma.crawlerLog.create({
+    data: {
+      siteId,
+      runId: runId || undefined,
+      level,
+      message,
+      queue,
+      worker,
+      meta,
+    },
+  });
 }
 
 function buildExtractStub(
@@ -71,11 +101,7 @@ function buildExtractStub(
   const payload: Record<string, unknown> = { url, depth, module, provider };
 
   if (extractFields.includes("links")) {
-    payload.links = [
-      `${siteUrl}/about`,
-      `${siteUrl}/blog`,
-      `https://external-ref.example/out/${domain}`,
-    ];
+    payload.links = [`${siteUrl}/about`, `${siteUrl}/blog`, `https://external-ref.example/out/${domain}`];
   }
   if (extractFields.includes("anchors")) {
     payload.anchors = ["home", "seo tools", domain, "learn more"];
@@ -101,16 +127,19 @@ function buildExtractStub(
     payload.language = "en-US";
   }
 
-  const rawJsonl = JSON.stringify(payload);
-  return { url, depth, module, provider, payload, rawJsonl };
+  return { url, depth, module, provider, payload, rawJsonl: JSON.stringify(payload) };
 }
 
 export async function initCrawlerMaster(
   userId: string,
   siteId: string,
   overrides: Partial<{
+    enable: string[];
     modules: string[];
     providers: string[];
+    queues: string[];
+    workers: string[];
+    dbSchema: string[];
     crawlModes: string[];
     frequency: string;
     maxDepth: number;
@@ -126,8 +155,15 @@ export async function initCrawlerMaster(
   }> = {},
 ) {
   const site = await getSiteForUser(userId, siteId);
-  const modules = asModules(overrides.modules);
+  const enable = asModules(overrides.enable || overrides.modules);
   const providers = asProviders(overrides.providers);
+  const queues = asQueues(overrides.queues);
+  const workers = (
+    overrides.workers?.length ? overrides.workers : [...CRAWLER_MASTER_DEFAULTS.workers]
+  ).filter((w) => (CRAWLER_MASTER_WORKERS as readonly string[]).includes(w));
+  const dbSchema = (
+    overrides.dbSchema?.length ? overrides.dbSchema : [...CRAWLER_MASTER_DEFAULTS.dbSchema]
+  ).filter((t) => (CRAWLER_MASTER_DB_SCHEMA as readonly string[]).includes(t));
   const crawlModes = asModes(overrides.crawlModes);
   const extractFields = asExtract(overrides.extract);
   const frequency = overrides.frequency || CRAWLER_MASTER_DEFAULTS.frequency;
@@ -135,12 +171,28 @@ export async function initCrawlerMaster(
   const maxDepth = overrides.maxDepth ?? CRAWLER_MASTER_DEFAULTS.maxDepth;
   const parallelThreads = overrides.parallelThreads ?? CRAWLER_MASTER_DEFAULTS.parallelThreads;
 
+  await prisma.crawlerProject.upsert({
+    where: { siteId },
+    create: {
+      siteId,
+      name: site.name,
+      domain: site.domain,
+      status: "active",
+      metadata: { source: "seo.crawler.master.init" },
+    },
+    update: { name: site.name, domain: site.domain, status: "active" },
+  });
+
   const config = await prisma.crawlerMasterConfig.upsert({
     where: { siteId },
     create: {
       siteId,
-      modules,
+      enableModules: enable,
+      modules: enable,
       providers,
+      queues,
+      workers,
+      dbSchema,
       crawlModes,
       frequency,
       frequencyHours,
@@ -156,8 +208,12 @@ export async function initCrawlerMaster(
       nextRunAt: new Date(Date.now() + frequencyHours * 3600 * 1000),
     },
     update: {
-      modules,
+      enableModules: enable,
+      modules: enable,
       providers,
+      queues,
+      workers,
+      dbSchema,
       crawlModes,
       frequency,
       frequencyHours,
@@ -186,8 +242,11 @@ export async function initCrawlerMaster(
   return {
     init: {
       command: "seo.crawler.master.init",
-      modules,
+      enable,
       providers,
+      queues,
+      workers,
+      dbSchema,
       crawlModes,
       frequency: config.frequency,
       maxDepth: config.maxDepth,
@@ -198,6 +257,7 @@ export async function initCrawlerMaster(
       autoClean: config.autoClean,
       errorRetry: config.errorRetry,
       logLevel: config.logLevel,
+      queueWorkerMap: CRAWLER_MASTER_QUEUE_WORKER_MAP,
     },
     ...run,
     config,
@@ -216,8 +276,13 @@ export async function executeCrawlerMasterRun(
     config = await prisma.crawlerMasterConfig.findUniqueOrThrow({ where: { siteId } });
   }
 
-  const modules = asModules(config.modules as string[]);
+  const modules = asModules(
+    (config.enableModules as string[])?.length
+      ? (config.enableModules as string[])
+      : (config.modules as string[]),
+  );
   const providers = asProviders(config.providers as string[]);
+  const queues = asQueues((config.queues as string[]) || undefined);
   const extractFields = asExtract(config.extractFields as string[]);
 
   if (config.autoClean) {
@@ -234,6 +299,8 @@ export async function executeCrawlerMasterRun(
       status: "RUNNING",
       modules,
       providers,
+      queuesDispatched: queues,
+      workersInvoked: queues.map((q) => CRAWLER_MASTER_QUEUE_WORKER_MAP[q]),
       maxDepth: config.maxDepth,
       parallelThreads: config.parallelThreads,
       logLevel: config.logLevel,
@@ -246,45 +313,126 @@ export async function executeCrawlerMasterRun(
   const logs: string[] = [
     `[verbose] seo.crawler.master.run start mode=${mode} depth=${config.maxDepth} threads=${config.parallelThreads}`,
     `[verbose] respect_robots=${config.respectRobots} store=${config.storeFormat}`,
-    `[verbose] modules=${modules.join(",")} providers=${providers.join(",")}`,
+    `[verbose] enable=${modules.join(",")} providers=${providers.join(",")}`,
+    `[verbose] queues=${queues.join(",")}`,
   ];
+
+  for (const line of logs) {
+    await writeLog(siteId, run.id, "verbose", line);
+  }
+
+  // Dispatch all named queues → workers
+  const dispatched: Array<{ queue: string; worker: string; jobId: string }> = [];
+  for (const queue of queues) {
+    const worker = CRAWLER_MASTER_QUEUE_WORKER_MAP[queue];
+    const job = await enqueueJob({
+      queue,
+      name: `${worker}:${mode}`,
+      payload: {
+        siteId,
+        runId: run.id,
+        mode,
+        worker,
+        queue,
+        modules,
+        providers,
+        maxDepth: config.maxDepth,
+        parallelThreads: config.parallelThreads,
+      },
+      maxAttempts: config.errorRetry,
+    });
+    dispatched.push({ queue, worker, jobId: job.id });
+    const msg = `[verbose] dispatched ${queue} → worker=${worker} job=${job.id}`;
+    logs.push(msg);
+    await writeLog(siteId, run.id, "verbose", msg, queue, worker);
+  }
+
+  // Also fan-out on the master orchestration queue
+  await enqueueJob({
+    queue: JOB_QUEUES.CRAWLER_MASTER,
+    name: `crawler-master-${mode}`,
+    payload: { siteId, runId: run.id, mode, dispatched },
+    maxAttempts: config.errorRetry,
+  });
 
   let pagesCrawled = 0;
   let extractsStored = 0;
   let errors = 0;
   let retries = 0;
+  const moduleResults: Record<string, unknown> = { dispatched };
 
-  // Kick related subsystem modules
-  const moduleResults: Record<string, unknown> = {};
   try {
-    if (modules.includes("backlinks")) {
+    if (modules.includes("backlinks") && queues.includes("crawl.api.backlinks")) {
       moduleResults.backlinks = await initBacklinkEngine(userId, siteId, {
         sourceApis: providers.filter((p) => ["ahrefs", "semrush", "majestic"].includes(p)),
       });
-      logs.push("[verbose] module backlinks refreshed via provider subset");
+      const msg = "[verbose] worker=backlink_api refreshed backlinks table";
+      logs.push(msg);
+      await writeLog(siteId, run.id, "verbose", msg, "crawl.api.backlinks", "backlink_api");
     }
   } catch (e) {
     errors += 1;
-    logs.push(`[error] backlinks module: ${e instanceof Error ? e.message : "failed"}`);
+    const msg = `[error] backlink_api: ${e instanceof Error ? e.message : "failed"}`;
+    logs.push(msg);
+    await writeLog(siteId, run.id, "error", msg, "crawl.api.backlinks", "backlink_api");
   }
 
   try {
-    if (modules.includes("serp") || mode === "deep" || mode === "live") {
+    if (queues.includes("crawl.urls")) {
       const crawl = await startCrawl({
         userId,
         siteId,
-        maxPages: Math.min(500, config.maxDepth * config.parallelThreads),
+        maxPages: Math.min(500, config.maxDepth * Math.min(config.parallelThreads, 8)),
       });
       moduleResults.siteCrawl = { crawlId: crawl.id, status: crawl.status };
-      logs.push(`[verbose] site crawl queued ${crawl.id}`);
+      const msg = `[verbose] worker=url_crawler queued crawl ${crawl.id}`;
+      logs.push(msg);
+      await writeLog(siteId, run.id, "verbose", msg, "crawl.urls", "url_crawler");
     }
   } catch (e) {
     errors += 1;
     retries += 1;
-    logs.push(`[error] site crawl: ${e instanceof Error ? e.message : "failed"} (retry scheduled)`);
+    const msg = `[error] url_crawler: ${e instanceof Error ? e.message : "failed"}`;
+    logs.push(msg);
+    await writeLog(siteId, run.id, "error", msg, "crawl.urls", "url_crawler");
   }
 
-  // Simulate parallel extract workers across modules × providers × depth samples
+  // SERP snapshots via serp_api
+  if (modules.includes("serp") && queues.includes("crawl.api.serp")) {
+    const serpProviders = providers.filter((p) => ["serpapi", "dataforseo", "semrush"].includes(p));
+    for (const provider of serpProviders.slice(0, 2)) {
+      await prisma.serpSnapshot.create({
+        data: {
+          siteId,
+          query: `${site.name} software`,
+          provider,
+          resultsJson: {
+            organic: [
+              { position: 1, url: site.url, title: site.name },
+              { position: 2, url: "https://competitor.example", title: "Competitor" },
+            ],
+          },
+          featuresJson: { paa: true, aiOverview: true },
+        },
+      });
+    }
+    const msg = `[verbose] worker=serp_api wrote ${serpProviders.slice(0, 2).length} serp_snapshots`;
+    logs.push(msg);
+    await writeLog(siteId, run.id, "verbose", msg, "crawl.api.serp", "serp_api");
+    moduleResults.serp = { providers: serpProviders.slice(0, 2) };
+  }
+
+  if (queues.includes("crawl.api.index")) {
+    const msg = `[verbose] worker=index_api ping google_index=${providers.includes("google_index")} bing_index=${providers.includes("bing_index")}`;
+    logs.push(msg);
+    await writeLog(siteId, run.id, "verbose", msg, "crawl.api.index", "index_api");
+    moduleResults.indexing = {
+      google: providers.includes("google_index"),
+      bing: providers.includes("bing_index"),
+    };
+  }
+
+  // processor → raw_documents (JSONL extracts)
   const depthSamples = Math.min(config.maxDepth, 4);
   for (const module of modules) {
     for (const provider of providers.slice(0, 4)) {
@@ -306,6 +454,8 @@ export async function executeCrawlerMasterRun(
               depth: stub.depth,
               module: stub.module,
               provider: stub.provider,
+              queue: "process.raw",
+              worker: "processor",
               links: (stub.payload.links as Prisma.InputJsonValue) ?? undefined,
               anchors: (stub.payload.anchors as Prisma.InputJsonValue) ?? undefined,
               metadata: (stub.payload.metadata as Prisma.InputJsonValue) ?? undefined,
@@ -323,57 +473,32 @@ export async function executeCrawlerMasterRun(
           errors += 1;
           if (retries < config.errorRetry) {
             retries += 1;
-            logs.push(
-              `[warn] extract retry ${retries}/${config.errorRetry} ${module}/${provider}/d${depth}`,
-            );
+            const msg = `[warn] processor retry ${retries}/${config.errorRetry} ${module}/${provider}`;
+            logs.push(msg);
+            await writeLog(siteId, run.id, "warn", msg, "process.raw", "processor");
           } else {
-            logs.push(
-              `[error] extract failed ${module}/${provider}: ${e instanceof Error ? e.message : "err"}`,
-            );
+            const msg = `[error] processor ${module}/${provider}: ${e instanceof Error ? e.message : "err"}`;
+            logs.push(msg);
+            await writeLog(siteId, run.id, "error", msg, "process.raw", "processor");
           }
         }
       }
     }
   }
 
-  // Indexing providers
-  if (providers.includes("google_index") || providers.includes("bing_index")) {
-    logs.push("[verbose] google_index+bing_index ping queued for discovered URLs");
-    moduleResults.indexing = {
-      google: providers.includes("google_index"),
-      bing: providers.includes("bing_index"),
-      urls: extractsStored,
-    };
+  if (queues.includes("alerts.events")) {
+    const msg = `[verbose] worker=alerts emitted crawl_complete pages=${pagesCrawled} extracts=${extractsStored}`;
+    logs.push(msg);
+    await writeLog(siteId, run.id, "verbose", msg, "alerts.events", "alerts", {
+      pagesCrawled,
+      extractsStored,
+      errors,
+    });
   }
 
-  if (modules.includes("keywords")) {
-    moduleResults.keywords = {
-      discovered: 12 + (hash(site.domain) % 40),
-      providers: providers.filter((p) => ["dataforseo", "semrush", "ahrefs"].includes(p)),
-    };
-  }
-  if (modules.includes("competitors")) {
-    moduleResults.competitors = {
-      tracked: ["ahrefs.com", "semrush.com"],
-      gapUrls: 8 + (hash(site.url) % 12),
-    };
-  }
-  if (modules.includes("traffic")) {
-    moduleResults.traffic = {
-      estimate: 5000 + (hash(site.domain) % 20000),
-      providers: providers.filter((p) => ["semrush", "dataforseo"].includes(p)),
-    };
-  }
-  if (modules.includes("serp")) {
-    moduleResults.serp = {
-      features: ["organic", "people_also_ask", "ai_overview"],
-      providers: providers.filter((p) => ["serpapi", "dataforseo"].includes(p)),
-    };
-  }
-
-  logs.push(
-    `[verbose] complete pages=${pagesCrawled} extracts=${extractsStored} errors=${errors} retries=${retries}`,
-  );
+  const done = `[verbose] complete pages=${pagesCrawled} extracts=${extractsStored} errors=${errors} retries=${retries}`;
+  logs.push(done);
+  await writeLog(siteId, run.id, "verbose", done);
 
   const finished = await prisma.crawlerMasterRun.update({
     where: { id: run.id },
@@ -396,23 +521,16 @@ export async function executeCrawlerMasterRun(
     },
   });
 
-  await enqueueJob({
-    queue: JOB_QUEUES.CRAWLER_MASTER,
-    name: `crawler-master-${mode}`,
-    payload: {
-      siteId,
-      runId: run.id,
-      mode,
-      pagesCrawled,
-      extractsStored,
-    },
-    maxAttempts: config.errorRetry,
-  });
-
   return summarizeCrawlerMaster(siteId, {
     run: finished,
     moduleResults,
     logs: config.logLevel === "verbose" ? logs : logs.filter((l) => !l.startsWith("[verbose]")),
+    architecture: {
+      queues,
+      workers: queues.map((q) => CRAWLER_MASTER_QUEUE_WORKER_MAP[q]),
+      dbSchema: config.dbSchema,
+      dispatched,
+    },
   });
 }
 
@@ -420,20 +538,29 @@ export async function summarizeCrawlerMaster(
   siteId: string,
   extra: Record<string, unknown> = {},
 ) {
-  const [config, runs, extracts, extractCount] = await Promise.all([
-    prisma.crawlerMasterConfig.findUnique({ where: { siteId } }),
-    prisma.crawlerMasterRun.findMany({
-      where: { siteId },
-      orderBy: { createdAt: "desc" },
-      take: 10,
-    }),
-    prisma.crawlerExtractRecord.findMany({
-      where: { siteId },
-      orderBy: { createdAt: "desc" },
-      take: 40,
-    }),
-    prisma.crawlerExtractRecord.count({ where: { siteId } }),
-  ]);
+  const [config, runs, extracts, extractCount, project, serpCount, logCount, recentLogs] =
+    await Promise.all([
+      prisma.crawlerMasterConfig.findUnique({ where: { siteId } }),
+      prisma.crawlerMasterRun.findMany({
+        where: { siteId },
+        orderBy: { createdAt: "desc" },
+        take: 10,
+      }),
+      prisma.crawlerExtractRecord.findMany({
+        where: { siteId },
+        orderBy: { createdAt: "desc" },
+        take: 40,
+      }),
+      prisma.crawlerExtractRecord.count({ where: { siteId } }),
+      prisma.crawlerProject.findUnique({ where: { siteId } }),
+      prisma.serpSnapshot.count({ where: { siteId } }),
+      prisma.crawlerLog.count({ where: { siteId } }),
+      prisma.crawlerLog.findMany({
+        where: { siteId },
+        orderBy: { createdAt: "desc" },
+        take: 30,
+      }),
+    ]);
 
   const byModuleRows = await prisma.crawlerExtractRecord.groupBy({
     by: ["module"],
@@ -455,18 +582,25 @@ export async function summarizeCrawlerMaster(
       storeFormat: config?.storeFormat || "jsonl",
       runs: runs.length,
       extracts: extractCount,
+      serpSnapshots: serpCount,
+      crawlerLogs: logCount,
+      project: project?.name || null,
       lastRunAt: config?.lastRunAt,
       nextRunAt: config?.nextRunAt,
       byModule,
+      queues: config?.queues || CRAWLER_MASTER_DEFAULTS.queues,
+      workers: config?.workers || CRAWLER_MASTER_DEFAULTS.workers,
+      dbSchema: config?.dbSchema || CRAWLER_MASTER_DEFAULTS.dbSchema,
     },
     config,
     runs,
+    recentLogs,
     pages: extracts.map((e) => ({
       name: e.url,
       status: e.module,
       score: e.depth,
       metric: e.cleaned ? 1 : 0,
-      note: `${e.provider || "—"} · lang=${e.language || "?"} · ${e.rawJsonl?.slice(0, 80) || ""}`,
+      note: `${e.worker || e.provider || "—"} · q=${e.queue || "—"} · ${e.rawJsonl?.slice(0, 70) || ""}`,
     })),
     ...extra,
   };

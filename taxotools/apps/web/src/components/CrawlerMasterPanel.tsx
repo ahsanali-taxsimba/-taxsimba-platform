@@ -14,12 +14,71 @@ type Payload = {
     storeFormat: string;
     runs: number;
     extracts: number;
+    serpSnapshots?: number;
+    crawlerLogs?: number;
     byModule?: Record<string, number>;
+    queues?: string[];
+    workers?: string[];
+    dbSchema?: string[];
   };
   init?: Record<string, unknown>;
+  architecture?: {
+    queues?: string[];
+    workers?: string[];
+    dbSchema?: unknown;
+    dispatched?: Array<{ queue: string; worker: string; jobId: string }>;
+  };
   pages?: Array<Record<string, unknown>>;
   logs?: string[];
   error?: string;
+};
+
+const INIT_BODY = {
+  enable: ["backlinks", "keywords", "serp", "competitors", "traffic"],
+  providers: [
+    "ahrefs",
+    "semrush",
+    "majestic",
+    "dataforseo",
+    "serpapi",
+    "google_index",
+    "bing_index",
+  ],
+  queues: [
+    "crawl.urls",
+    "crawl.api.backlinks",
+    "crawl.api.serp",
+    "crawl.api.index",
+    "process.raw",
+    "alerts.events",
+  ],
+  workers: [
+    "url_crawler",
+    "backlink_api",
+    "serp_api",
+    "index_api",
+    "processor",
+    "alerts",
+  ],
+  dbSchema: [
+    "projects",
+    "crawler_configs",
+    "crawl_jobs",
+    "backlinks",
+    "serp_snapshots",
+    "raw_documents",
+    "crawler_logs",
+  ],
+  crawlModes: ["live", "scheduled", "deep", "external"],
+  frequency: "6h",
+  maxDepth: 12,
+  parallelThreads: 32,
+  respectRobots: true,
+  extract: ["links", "anchors", "metadata", "schemas", "keywords", "geo", "language"],
+  storeFormat: "jsonl",
+  autoClean: true,
+  errorRetry: 3,
+  logLevel: "verbose",
 };
 
 export function CrawlerMasterPanel({ siteId }: { siteId: string }) {
@@ -37,26 +96,7 @@ export function CrawlerMasterPanel({ siteId }: { siteId: string }) {
       body: JSON.stringify({
         action,
         mode,
-        modules: ["backlinks", "keywords", "serp", "competitors", "traffic"],
-        providers: [
-          "ahrefs",
-          "semrush",
-          "majestic",
-          "dataforseo",
-          "serpapi",
-          "google_index",
-          "bing_index",
-        ],
-        crawlModes: ["live", "scheduled", "deep", "external"],
-        frequency: "6h",
-        maxDepth: 12,
-        parallelThreads: 32,
-        respectRobots: true,
-        extract: ["links", "anchors", "metadata", "schemas", "keywords", "geo", "language"],
-        storeFormat: "jsonl",
-        autoClean: true,
-        errorRetry: 3,
-        logLevel: "verbose",
+        ...INIT_BODY,
       }),
     });
     const json = await res.json();
@@ -70,6 +110,7 @@ export function CrawlerMasterPanel({ siteId }: { siteId: string }) {
   }
 
   const s = data?.summary;
+  const arch = data?.architecture;
 
   return (
     <div className="space-y-6">
@@ -104,8 +145,9 @@ export function CrawlerMasterPanel({ siteId }: { siteId: string }) {
           </button>
         </div>
         <p className="mt-2 text-xs text-ink-500">
-          modules=backlinks,keywords,serp,competitors,traffic · providers=ahrefs…bing_index ·
-          modes=live,scheduled,deep,external · 6h · depth=12 · threads=32 · robots · jsonl ·
+          --enable=backlinks,keywords,serp,competitors,traffic ·
+          --queues=crawl.urls…alerts.events · --workers=url_crawler…alerts ·
+          --db-schema=projects…crawler_logs · 6h · depth=12 · threads=32 · jsonl ·
           retry=3 · verbose
         </p>
         {error && <p className="mt-2 text-sm text-danger">{error}</p>}
@@ -132,6 +174,31 @@ export function CrawlerMasterPanel({ siteId }: { siteId: string }) {
               {Object.entries(s.byModule)
                 .map(([k, v]) => `${k}=${v}`)
                 .join(" · ")}
+            </p>
+          )}
+          {(s.queues || arch?.queues) && (
+            <p className="mt-2 text-sm text-ink-500">
+              Queues: {(s.queues || arch?.queues || []).join(", ")}
+            </p>
+          )}
+          {(s.workers || arch?.workers) && (
+            <p className="mt-1 text-sm text-ink-500">
+              Workers: {(s.workers || arch?.workers || []).join(", ")}
+            </p>
+          )}
+          {(s.dbSchema || (arch?.dbSchema as string[] | undefined)) && (
+            <p className="mt-1 text-sm text-ink-500">
+              Schema:{" "}
+              {(
+                (s.dbSchema as string[]) ||
+                (arch?.dbSchema as string[]) ||
+                []
+              ).join(", ")}
+            </p>
+          )}
+          {typeof s.serpSnapshots === "number" && (
+            <p className="mt-1 text-sm text-ink-500">
+              SERP snapshots: {s.serpSnapshots} · logs: {s.crawlerLogs ?? 0}
             </p>
           )}
         </SlideUp>

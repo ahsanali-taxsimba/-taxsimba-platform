@@ -9,6 +9,7 @@ import { processAeoScan } from "./jobs/aeo";
 import { processReport } from "./jobs/report";
 import { processBacklinkRefresh } from "./jobs/backlinks";
 import { processCrawlerMaster } from "./jobs/crawler-master";
+import { processCrawlerPipeline } from "./jobs/crawler-pipeline";
 import { pollDbJobs } from "./db-poller";
 
 const redisUrl = process.env.REDIS_URL || "redis://localhost:6380";
@@ -163,6 +164,37 @@ function createWorkers(connection: IORedis) {
     },
     { connection: conn, concurrency },
   );
+
+  // Named seo.crawler.master.init pipeline queues → workers
+  for (const queue of [
+    JOB_QUEUES.CRAWL_URLS,
+    JOB_QUEUES.CRAWL_API_BACKLINKS,
+    JOB_QUEUES.CRAWL_API_SERP,
+    JOB_QUEUES.CRAWL_API_INDEX,
+    JOB_QUEUES.PROCESS_RAW,
+    JOB_QUEUES.ALERTS_EVENTS,
+  ] as const) {
+    new Worker(
+      queue,
+      async (job) => {
+        await markJob(job.data.backgroundJobId, "RUNNING");
+        try {
+          const result = await processCrawlerPipeline({
+            ...job.data,
+            queue: job.data.queue || queue,
+          });
+          await markJob(job.data.backgroundJobId, "COMPLETED", { result });
+          return result;
+        } catch (e) {
+          await markJob(job.data.backgroundJobId, "FAILED", {
+            errorMessage: e instanceof Error ? e.message : `${queue} failed`,
+          });
+          throw e;
+        }
+      },
+      { connection: conn, concurrency },
+    );
+  }
 
   for (const queue of [
     JOB_QUEUES.AUTO_SEO,

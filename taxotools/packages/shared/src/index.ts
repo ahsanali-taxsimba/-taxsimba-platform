@@ -138,6 +138,12 @@ export const JOB_QUEUES = {
   ALERTS: "taxotools-alerts",
   BACKLINK_REFRESH: "taxotools-backlink-refresh",
   CRAWLER_MASTER: "taxotools-crawler-master",
+  CRAWL_URLS: "crawl.urls",
+  CRAWL_API_BACKLINKS: "crawl.api.backlinks",
+  CRAWL_API_SERP: "crawl.api.serp",
+  CRAWL_API_INDEX: "crawl.api.index",
+  PROCESS_RAW: "process.raw",
+  ALERTS_EVENTS: "alerts.events",
 } as const;
 
 export type JobQueueName = (typeof JOB_QUEUES)[keyof typeof JOB_QUEUES];
@@ -441,6 +447,9 @@ export const CRAWLER_MASTER_MODULES = [
 ] as const;
 export type CrawlerMasterModule = (typeof CRAWLER_MASTER_MODULES)[number];
 
+/** Alias for --enable=… */
+export const CRAWLER_MASTER_ENABLE = CRAWLER_MASTER_MODULES;
+
 export const CRAWLER_MASTER_PROVIDERS = [
   "ahrefs",
   "semrush",
@@ -466,9 +475,57 @@ export const CRAWLER_MASTER_EXTRACT = [
 ] as const;
 export type CrawlerMasterExtract = (typeof CRAWLER_MASTER_EXTRACT)[number];
 
+export const CRAWLER_MASTER_QUEUES = [
+  "crawl.urls",
+  "crawl.api.backlinks",
+  "crawl.api.serp",
+  "crawl.api.index",
+  "process.raw",
+  "alerts.events",
+] as const;
+export type CrawlerMasterQueue = (typeof CRAWLER_MASTER_QUEUES)[number];
+
+export const CRAWLER_MASTER_WORKERS = [
+  "url_crawler",
+  "backlink_api",
+  "serp_api",
+  "index_api",
+  "processor",
+  "alerts",
+] as const;
+export type CrawlerMasterWorker = (typeof CRAWLER_MASTER_WORKERS)[number];
+
+export const CRAWLER_MASTER_DB_SCHEMA = [
+  "projects",
+  "crawler_configs",
+  "crawl_jobs",
+  "backlinks",
+  "serp_snapshots",
+  "raw_documents",
+  "crawler_logs",
+] as const;
+export type CrawlerMasterDbTable = (typeof CRAWLER_MASTER_DB_SCHEMA)[number];
+
+export const CRAWLER_MASTER_QUEUE_WORKER_MAP: Record<
+  CrawlerMasterQueue,
+  CrawlerMasterWorker
+> = {
+  "crawl.urls": "url_crawler",
+  "crawl.api.backlinks": "backlink_api",
+  "crawl.api.serp": "serp_api",
+  "crawl.api.index": "index_api",
+  "process.raw": "processor",
+  "alerts.events": "alerts",
+};
+
 export const CRAWLER_MASTER_DEFAULTS = {
+  enable: [...CRAWLER_MASTER_ENABLE] as CrawlerMasterModule[],
+  /** @deprecated use enable — kept for back-compat */
   modules: [...CRAWLER_MASTER_MODULES] as CrawlerMasterModule[],
   providers: [...CRAWLER_MASTER_PROVIDERS] as CrawlerMasterProvider[],
+  queues: [...CRAWLER_MASTER_QUEUES] as CrawlerMasterQueue[],
+  workers: [...CRAWLER_MASTER_WORKERS] as CrawlerMasterWorker[],
+  dbSchema: [...CRAWLER_MASTER_DB_SCHEMA] as CrawlerMasterDbTable[],
   crawlModes: [...CRAWLER_MASTER_MODES] as CrawlerMasterMode[],
   frequency: "6h",
   frequencyHours: 6,

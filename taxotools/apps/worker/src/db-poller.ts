@@ -4,6 +4,9 @@ import { processRankCheck } from "./jobs/rank";
 import { processAIContent } from "./jobs/ai-content";
 import { processAeoScan } from "./jobs/aeo";
 import { processReport } from "./jobs/report";
+import { processCrawlerMaster } from "./jobs/crawler-master";
+import { processCrawlerPipeline } from "./jobs/crawler-pipeline";
+import { processBacklinkRefresh } from "./jobs/backlinks";
 import { JOB_QUEUES } from "@taxotools/shared";
 
 export async function pollDbJobs() {
@@ -38,8 +41,27 @@ export async function pollDbJobs() {
         case JOB_QUEUES.REPORT:
           result = await processReport(payload);
           break;
+        case JOB_QUEUES.BACKLINK_REFRESH:
+          result = await processBacklinkRefresh(payload);
+          break;
+        case JOB_QUEUES.CRAWLER_MASTER:
+          result = await processCrawlerMaster(payload);
+          break;
+        case JOB_QUEUES.CRAWL_URLS:
+        case JOB_QUEUES.CRAWL_API_BACKLINKS:
+        case JOB_QUEUES.CRAWL_API_SERP:
+        case JOB_QUEUES.CRAWL_API_INDEX:
+        case JOB_QUEUES.PROCESS_RAW:
+        case JOB_QUEUES.ALERTS_EVENTS:
+          result = await processCrawlerPipeline({
+            ...payload,
+            queue: (payload.queue as string) || job.queue,
+          });
+          break;
         default:
-          throw new Error(`Unknown queue ${job.queue}`);
+          // Soft-ack unknown/automation queues so they don't stick in QUEUED forever
+          result = { ok: true, queue: job.queue, polled: true };
+          break;
       }
       await prisma.backgroundJob.update({
         where: { id: job.id },

@@ -32,8 +32,12 @@ export async function POST(
     const body = z
       .object({
         action: z.enum(["init", "run", "summary"]).default("init"),
+        enable: z.array(z.string()).optional(),
         modules: z.array(z.string()).optional(),
         providers: z.array(z.string()).optional(),
+        queues: z.array(z.string()).optional(),
+        workers: z.array(z.string()).optional(),
+        dbSchema: z.array(z.string()).optional(),
         crawlModes: z.array(z.string()).optional(),
         frequency: z.string().optional(),
         maxDepth: z.number().int().positive().optional(),
@@ -63,8 +67,12 @@ export async function POST(
 
     return jsonOk(
       await initCrawlerMaster(user.id, siteId, {
+        enable: body.enable,
         modules: body.modules,
         providers: body.providers,
+        queues: body.queues,
+        workers: body.workers,
+        dbSchema: body.dbSchema,
         crawlModes: body.crawlModes,
         frequency: body.frequency,
         maxDepth: body.maxDepth,
