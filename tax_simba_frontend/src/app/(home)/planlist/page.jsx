@@ -68,8 +68,6 @@ const PlanCard = ({ plan, onSelect, currentPlanId, currentPlanStatus, currentPla
                     </div>
                     {plan.description ? (
                         <p className="plan-desc-text text-muted">{plan.description}</p>
-                    ) : plan.billingFrequency ? (
-                        <p className="plan-desc-text text-muted">{plan.billingFrequency}</p>
                     ) : null}
                 </div>
 

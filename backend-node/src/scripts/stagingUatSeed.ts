@@ -17,7 +17,7 @@ import { randomUUID } from "crypto";
 import { config } from "dotenv";
 
 import { close, col, connect, Doc } from "../db/mongo";
-import { activateService, createCaseAfterApplicationSubmitted, ensurePhase1bData } from "../domain/packages";
+import { activateService, createCaseAfterApplicationSubmitted, ensurePhase1bData, reconcilePackageCatalogue } from "../domain/packages";
 import { MTD } from "../domain/mtd";
 import { ensureCoreIndexes } from "../domain/seed";
 import { nowIso } from "../domain/workflow";
@@ -273,6 +273,8 @@ async function main(): Promise<void> {
 
   await connect();
   await ensureCoreIndexes();
+  // Explicit operator seed — catalogue reconciliation is intentional here (not app boot).
+  await reconcilePackageCatalogue();
   await ensurePhase1bData();
 
   for (const person of STAFF) {

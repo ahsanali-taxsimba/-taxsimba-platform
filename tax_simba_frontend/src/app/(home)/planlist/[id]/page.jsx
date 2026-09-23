@@ -125,9 +125,6 @@ export default function PlanCheckoutPage() {
           <div className="p-4 border rounded bg-white shadow-sm">
             <h2 className="mb-2">{plan.name}</h2>
             {plan.description && <p className="text-muted">{plan.description}</p>}
-            {!plan.description && plan.billingFrequency && (
-              <p className="text-muted">{plan.billingFrequency}</p>
-            )}
             <p className="fs-4 fw-semibold mb-4">
               {purchasable
                 ? `${getCurrencySymbol(currency)}${Number.isInteger(basePrice) ? basePrice : basePrice.toFixed(2)}`

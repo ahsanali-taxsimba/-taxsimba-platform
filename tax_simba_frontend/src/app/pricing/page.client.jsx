@@ -64,8 +64,6 @@ const PlanCard = ({ plan, currentPlanId, currentPlanStatus, currentPlanEndDate, 
                     </div>
                     {plan.description ? (
                         <p className="plan-desc-text text-muted">{plan.description}</p>
-                    ) : plan.billingFrequency ? (
-                        <p className="plan-desc-text text-muted">{plan.billingFrequency}</p>
                     ) : null}
                 </div>
 

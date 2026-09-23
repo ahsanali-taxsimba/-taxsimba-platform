@@ -55,6 +55,8 @@ export async function bootTestApp(): Promise<{ app: Express; dbName: string }> {
     LOCAL_STORAGE_DIR: `/tmp/taxsimba-node-tests/${dbName}`,
     API_RATE_LIMIT_PER_MINUTE: "100000",
     SEED_DEMO_DATA: "false",
+    // Test harness may bootstrap the package catalogue; production boot must not.
+    NODE_ENV: process.env.NODE_ENV || "test",
     EMAIL_DRIVER: process.env.EMAIL_DRIVER ?? "none",
   });
 

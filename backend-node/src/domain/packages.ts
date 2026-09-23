@@ -110,13 +110,13 @@ export function isInvalidPackagePrice(price: unknown): boolean {
 }
 
 /**
- * Safe idempotent catalogue reconciliation for staging / boot:
+ * Safe idempotent catalogue reconciliation for controlled staging/operator execution.
  * - exactly one active row per (service_type, code) for DEFAULT_PACKAGES
  * - realign zero / non-finite / known-drift prices to founder-approved amounts
  * - soft-deactivate duplicate actives
  *
- * Does not touch production automatically beyond boot; never invents marketing copy.
- * SEED_DEMO_DATA=false does not skip this (packages are not demo seed data).
+ * Never invents marketing copy. Must NOT run on every production boot — call from the
+ * explicit `reconcilePackages` script (or test/dev when explicitly gated).
  */
 export async function reconcilePackageCatalogue(): Promise<{
   inserted: number;
@@ -188,6 +188,28 @@ export async function reconcilePackageCatalogue(): Promise<{
   }
 
   return { inserted, realigned, deactivatedDuplicates };
+}
+
+/**
+ * Whether application boot may insert/realign package catalogue rows.
+ *
+ * Production never auto-mutates. Staging with SEED_DEMO_DATA=false must not either.
+ * Tests (NODE_ENV=test) and explicit ALLOW_PACKAGE_CATALOGUE_MUTATION=true may.
+ * Production additionally requires FORCE_PACKAGE_CATALOGUE_MUTATION_IN_PRODUCTION=true
+ * even if ALLOW is set — prefer the explicit reconcilePackages script instead.
+ */
+export function shouldMutatePackageCatalogueOnBoot(
+  env: NodeJS.ProcessEnv = process.env,
+): boolean {
+  const nodeEnv = String(env.NODE_ENV || "").toLowerCase();
+  const allow = env.ALLOW_PACKAGE_CATALOGUE_MUTATION === "true";
+  const forceProd = env.FORCE_PACKAGE_CATALOGUE_MUTATION_IN_PRODUCTION === "true";
+
+  if (nodeEnv === "production") {
+    return allow && forceProd;
+  }
+  if (nodeEnv === "test") return true;
+  return allow;
 }
 
 // Configurable late-stage lock: client-initiated package changes are disabled from these statuses.
@@ -481,9 +503,13 @@ export async function createCaseAfterApplicationSubmitted(
   };
 }
 
-/** Seeds the package catalogue and the package-change lock setting. Idempotent. */
+/** Seeds non-catalogue Phase 1B settings and client service rows. Idempotent.
+ * Package catalogue insert/realign is gated — see `shouldMutatePackageCatalogueOnBoot`.
+ */
 export async function ensurePhase1bData(): Promise<void> {
-  await reconcilePackageCatalogue();
+  if (shouldMutatePackageCatalogueOnBoot()) {
+    await reconcilePackageCatalogue();
+  }
 
   await col("settings").updateOne(
     { key: "package_change_lock" },

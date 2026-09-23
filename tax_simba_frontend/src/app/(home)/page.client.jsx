@@ -658,8 +658,6 @@ const PageClient = () => {
                         </h3>
                         {plan.description ? (
                           <p>{plan.description}</p>
-                        ) : plan.billingFrequency ? (
-                          <p>{plan.billingFrequency}</p>
                         ) : null}
                         <ul className="home-plan-list">
                           {Array.isArray(plan.features) && plan.features.map((feature, idx) => (
