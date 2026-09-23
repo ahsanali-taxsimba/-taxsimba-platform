@@ -19,8 +19,8 @@ export default async function ToolkitsHubPage() {
       <div>
         <h1 className="font-display text-3xl font-semibold">Toolkits</h1>
         <p className="text-ink-500">
-          Semrush-parity SEO, Content, and Advertising toolkits — plus Taxotools AEO/GEO &
-          programmatic AI. {ALL_TOOL_IDS.length} tools available.
+          Semrush + Search Atlas competitive toolkits — Taxo Agent autopilot, Content Genius,
+          Smart Ads, and full SEO/AEO suites. {ALL_TOOL_IDS.length} tools available.
         </p>
       </div>
 

@@ -1,45 +1,57 @@
 import { PrismaClient, PlanCode } from "@prisma/client";
-import { PLAN_LIMITS } from "@taxotools/shared";
+import { PLAN_LIMITS, PLAN_PRICES_CENTS } from "@taxotools/shared";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
+const PLAN_NAMES: Record<PlanCode, string> = {
+  STARTER: "Starter",
+  GROWTH: "Growth",
+  PRO: "Pro",
+  AGENCY: "Agency",
+  ENTERPRISE: "Enterprise",
+};
+
 async function main() {
   for (const code of Object.keys(PLAN_LIMITS) as PlanCode[]) {
     const limits = PLAN_LIMITS[code];
-    const prices: Record<PlanCode, number> = {
-      STARTER: 4900,
-      PRO: 14900,
-      AGENCY: 39900,
-      ENTERPRISE: 0,
-    };
     await prisma.plan.upsert({
       where: { code },
       create: {
         code,
-        name: code.charAt(0) + code.slice(1).toLowerCase(),
-        description: `${code} plan for Taxotools`,
-        monthlyPriceCents: prices[code],
+        name: PLAN_NAMES[code],
+        description: `${PLAN_NAMES[code]} — Taxo Agent, Content Genius, and CMS publish`,
+        monthlyPriceCents: PLAN_PRICES_CENTS[code],
         sitesLimit: limits.sites,
         keywordsLimit: limits.keywords,
         crawlsPerMonth: limits.crawlsPerMonth,
         aiCreditsPerMonth: limits.aiCreditsPerMonth,
         aeoScansPerMonth: limits.aeoScansPerMonth,
         teamSeatsLimit: limits.teamSeats,
+        ottoProjectsLimit: limits.ottoProjects,
+        llmVisibilityPlatforms: limits.llmVisibilityPlatforms,
         whiteLabel: limits.whiteLabel,
         apiAccess: limits.apiAccess,
         outreachCrm: limits.outreachCrm,
+        smartAds: limits.smartAds,
+        cmsPublish: limits.cmsPublish,
       },
       update: {
+        name: PLAN_NAMES[code],
+        monthlyPriceCents: PLAN_PRICES_CENTS[code],
         sitesLimit: limits.sites,
         keywordsLimit: limits.keywords,
         crawlsPerMonth: limits.crawlsPerMonth,
         aiCreditsPerMonth: limits.aiCreditsPerMonth,
         aeoScansPerMonth: limits.aeoScansPerMonth,
         teamSeatsLimit: limits.teamSeats,
+        ottoProjectsLimit: limits.ottoProjects,
+        llmVisibilityPlatforms: limits.llmVisibilityPlatforms,
         whiteLabel: limits.whiteLabel,
         apiAccess: limits.apiAccess,
         outreachCrm: limits.outreachCrm,
+        smartAds: limits.smartAds,
+        cmsPublish: limits.cmsPublish,
       },
     });
   }
@@ -68,7 +80,7 @@ async function main() {
       description: "Technical + content + visibility overview",
       isSystem: true,
       sectionsJson: {
-        sections: ["overview", "technical", "keywords", "content", "aeo", "backlinks"],
+        sections: ["overview", "technical", "keywords", "content", "aeo", "backlinks", "autopilot"],
       },
     },
     update: {},
@@ -137,6 +149,17 @@ async function main() {
         url: "https://example.com",
         locale: "en-US",
         countryCode: "US",
+        pixelToken: `ttx_${Math.random().toString(36).slice(2, 14)}`,
+        autopilotEnabled: true,
+        approvalMode: true,
+      },
+    });
+  } else if (!site.pixelToken) {
+    site = await prisma.site.update({
+      where: { id: site.id },
+      data: {
+        pixelToken: `ttx_${Math.random().toString(36).slice(2, 14)}`,
+        autopilotEnabled: true,
       },
     });
   }

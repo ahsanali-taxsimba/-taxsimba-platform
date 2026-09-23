@@ -13,6 +13,7 @@ function rowsFromResult(result: Record<string, unknown> | null): unknown[] {
     "keywords",
     "suggestions",
     "pages",
+    "actions",
     "features",
     "backlinks",
     "items",
@@ -26,12 +27,14 @@ function rowsFromResult(result: Record<string, unknown> | null): unknown[] {
     "paidKeywords",
     "products",
     "ads",
+    "campaigns",
     "records",
     "citations",
     "aioFeatures",
     "visibility",
     "jobs",
     "missing",
+    "publishes",
   ];
   for (const key of prefer) {
     const val = result[key];
@@ -135,6 +138,10 @@ export function ToolWorkbench({
     "ads-launch-assistant",
     "bulk-ai-content",
     "programmatic-seo",
+    "content-genius",
+    "website-studio",
+    "topical-map",
+    "scholar-research",
   ].includes(toolId);
 
   const needsCompetitor = [
@@ -216,6 +223,66 @@ export function ToolWorkbench({
               className="rounded-lg border border-ink-100 px-4 py-2 text-sm"
             >
               Run AEO scan
+            </button>
+          )}
+          {(toolId === "taxo-agent" || toolId === "auto-seo") && (
+            <>
+              <button
+                type="button"
+                disabled={busy}
+                onClick={() => runAction("scan")}
+                className="rounded-lg border border-ink-100 px-4 py-2 text-sm"
+              >
+                Scan & queue fixes
+              </button>
+              <button
+                type="button"
+                disabled={busy}
+                onClick={() => runAction("enable")}
+                className="rounded-lg border border-ink-100 px-4 py-2 text-sm"
+              >
+                Enable autopilot
+              </button>
+            </>
+          )}
+          {toolId === "taxo-pixel" && (
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => runAction("install")}
+              className="rounded-lg border border-ink-100 px-4 py-2 text-sm"
+            >
+              Mark pixel installed
+            </button>
+          )}
+          {toolId === "approval-mode" && (
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => runAction("toggle")}
+              className="rounded-lg border border-ink-100 px-4 py-2 text-sm"
+            >
+              Toggle approval mode
+            </button>
+          )}
+          {(toolId === "cms-publishing" || toolId === "content-genius") && (
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => runAction("publish")}
+              className="rounded-lg border border-ink-100 px-4 py-2 text-sm"
+            >
+              Publish to CMS
+            </button>
+          )}
+          {toolId === "overnight-repair" && (
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => runAction("run")}
+              className="rounded-lg border border-ink-100 px-4 py-2 text-sm"
+            >
+              Run overnight repair
             </button>
           )}
         </div>

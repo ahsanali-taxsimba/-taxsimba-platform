@@ -59,13 +59,13 @@ export function BillingPanel({
               )}
             </p>
             <ul className="mt-4 space-y-1 text-sm text-ink-500">
-              <li>{p.sitesLimit < 0 ? "Unlimited" : p.sitesLimit} sites</li>
+              <li>{p.sitesLimit < 0 ? "Unlimited" : p.sitesLimit} sites / Auto SEO projects</li>
               <li>{p.keywordsLimit < 0 ? "Unlimited" : p.keywordsLimit} keywords</li>
               <li>
                 {p.aiCreditsPerMonth < 0 ? "Unlimited" : p.aiCreditsPerMonth} AI credits
               </li>
               <li>
-                {p.aeoScansPerMonth < 0 ? "Unlimited" : p.aeoScansPerMonth} AEO scans
+                {p.aeoScansPerMonth < 0 ? "Unlimited" : p.aeoScansPerMonth} AEO / LLM scans
               </li>
               <li>{p.whiteLabel ? "White-label" : "Standard branding"}</li>
               <li>{p.apiAccess ? "API access" : "No API"}</li>

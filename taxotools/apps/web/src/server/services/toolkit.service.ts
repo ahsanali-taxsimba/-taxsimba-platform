@@ -5,6 +5,20 @@ import { siteHealthSummary, listCrawls, startCrawl } from "@/server/services/cra
 import { createAIJob, generateArticleStub, scoreContent, listAIJobs } from "@/server/services/ai-content.service";
 import { listVisibility, aeoShareOfVoice, startAeoScan } from "@/server/services/aeo.service";
 import { enqueueJob } from "@/server/queue";
+import {
+  getAgentOverview,
+  runAutopilotScan,
+  setAutopilotFlags,
+  approveAction,
+  deployAction,
+  rollbackAction,
+  publishToCms,
+  runContentGenius,
+  runSmartAds,
+  runOvernightRepair,
+  ensurePixelToken,
+} from "@/server/services/agent.service";
+import { JOB_QUEUES } from "@taxotools/shared";
 
 function seed(n: string) {
   return [...n].reduce((a, c) => a + c.charCodeAt(0), 0);
@@ -55,6 +69,178 @@ export async function runTool(
   const site = await getSiteForUser(userId, siteId);
 
   switch (toolId) {
+    case "taxo-agent":
+    case "auto-seo": {
+      const overview = await getAgentOverview(userId, siteId);
+      return {
+        tool: toolId,
+        ...overview,
+        summary: overview.site.autopilotEnabled
+          ? "Taxo Agent running"
+          : "Enable autopilot to deploy overnight",
+        pages: overview.actions.map((a) => ({
+          id: a.id,
+          name: a.title,
+          status: a.status,
+          score: a.impactScore,
+          note: `${a.category} · via ${a.deployVia}`,
+        })),
+      };
+    }
+    case "taxo-pixel": {
+      const overview = await getAgentOverview(userId, siteId);
+      return {
+        tool: toolId,
+        summary: overview.site.pixelInstalled ? "Pixel connected" : "Install pixel to deploy",
+        site: overview.site,
+        snippet: overview.pixelSnippet,
+        pages: [
+          { name: "Header script", status: "ready", note: overview.pixelSnippet },
+          { name: "Cloudflare Worker", status: "optional", note: "Edge deploy without CMS" },
+          { name: "WordPress / Shopify / HubSpot", status: "supported", note: "Native CMS connectors" },
+        ],
+      };
+    }
+    case "cms-publishing": {
+      const jobs = await prisma.cmsPublishJob.findMany({
+        where: { siteId },
+        orderBy: { createdAt: "desc" },
+        take: 20,
+      });
+      return {
+        tool: toolId,
+        summary: `${jobs.length} CMS publishes`,
+        pages: jobs.map((j) => ({
+          name: j.title,
+          provider: j.provider,
+          status: j.status,
+          url: j.remoteUrl,
+        })),
+        providers: ["wordpress", "shopify", "hubspot", "webflow", "contentful", "duda"],
+      };
+    }
+    case "website-studio": {
+      const topic = String(input.topic || site.name || "Landing page");
+      return {
+        tool: toolId,
+        summary: "Website Studio page draft",
+        pages: [
+          {
+            name: `${topic} — hero`,
+            score: 88,
+            status: "ready",
+            note: "Search + conversion structure built in",
+          },
+          {
+            name: `${topic} — features`,
+            score: 84,
+            status: "ready",
+            note: "Entity coverage + FAQ schema",
+          },
+          {
+            name: `${topic} — CTA`,
+            score: 90,
+            status: "ready",
+            note: "CMS publish queued",
+          },
+        ],
+      };
+    }
+    case "content-genius": {
+      const result = await runContentGenius(userId, siteId, input);
+      return {
+        tool: toolId,
+        summary: `Content Genius · score ${result.article.score}`,
+        article: result.article,
+        publish: result.publish,
+        pages: result.article.outline.map((h, i) => ({
+          name: h,
+          score: result.article.score - i,
+          status: i === 0 ? "pillar" : "section",
+          note: result.article.microagents[i % result.article.microagents.length],
+        })),
+      };
+    }
+    case "smart-ads":
+    case "google-ad-studio":
+    case "meta-ad-studio": {
+      const ads = await runSmartAds(userId, siteId, {
+        channel: toolId.includes("meta") ? "meta" : "google",
+        budget: Number(input.budget) || 50,
+      });
+      return {
+        tool: toolId,
+        summary: `Smart Ads · ${ads.channel}`,
+        ...ads,
+        pages: ads.campaigns.map((c) => ({
+          name: c.name,
+          status: c.status,
+          metric: c.dailyBudget,
+          note: c.bidStrategy,
+        })),
+      };
+    }
+    case "overnight-repair": {
+      const action = await runOvernightRepair(userId, siteId);
+      return {
+        tool: toolId,
+        summary: "Overnight repair deployed",
+        pages: [
+          {
+            name: action.title,
+            status: action.status,
+            score: action.impactScore,
+            note: action.description,
+          },
+        ],
+      };
+    }
+    case "approval-mode": {
+      const overview = await getAgentOverview(userId, siteId);
+      return {
+        tool: toolId,
+        summary: overview.site.approvalMode ? "Approval required before deploy" : "Autopilot deploys live",
+        site: overview.site,
+        pages: overview.actions
+          .filter((a) => a.status === "AWAITING_APPROVAL")
+          .map((a) => ({
+            name: a.title,
+            status: a.status,
+            score: a.impactScore,
+            note: a.description,
+            id: a.id,
+          })),
+      };
+    }
+    case "gbp-galactic": {
+      const profiles = await prisma.localProfile.findMany({ where: { siteId }, take: 20 });
+      return {
+        tool: toolId,
+        summary: "GBP Galactic automation",
+        pages: profiles.length
+          ? profiles.map((p) => ({
+              name: p.businessName,
+              status: "scheduled",
+              note: `${p.city || "Local"} · posts + reviews + Q&A`,
+            }))
+          : [
+              { name: "Main location", status: "ready", note: "Posts, reviews, Q&A queued" },
+              { name: "Secondary location", status: "ready", note: "NAP sync overnight" },
+            ],
+      };
+    }
+    case "topical-map":
+    case "scholar-research": {
+      const seed = String(input.query || input.topic || site.name || "seo");
+      const clusters = magicSuggestions(seed).map((s, i) => ({
+        name: s.phrase,
+        score: s.difficulty,
+        metric: s.volume,
+        status: i === 0 ? "pillar" : "supporting",
+        note: toolId === "scholar-research" ? "Academic / topical authority sources" : "Topical map node",
+      }));
+      return { tool: toolId, query: seed, pages: clusters };
+    }
     case "keyword-research": {
       const keywords = await listKeywords(userId, siteId);
       return {
@@ -799,9 +985,44 @@ export async function triggerToolAction(
       prompts: (input.prompts as string[]) || [`best ${input.brand || "brand"} alternative`],
     });
   }
+  if (
+    (toolId === "taxo-agent" || toolId === "auto-seo") &&
+    (action === "scan" || action === "run")
+  ) {
+    return runAutopilotScan(userId, siteId);
+  }
+  if (toolId === "taxo-pixel" && action === "install") {
+    await ensurePixelToken(userId, siteId);
+    return setAutopilotFlags(userId, siteId, { pixelInstalled: true });
+  }
+  if (toolId === "approval-mode" && action === "toggle") {
+    const site = await getSiteForUser(userId, siteId);
+    return setAutopilotFlags(userId, siteId, { approvalMode: !site.approvalMode });
+  }
+  if ((toolId === "taxo-agent" || toolId === "auto-seo") && action === "enable") {
+    return setAutopilotFlags(userId, siteId, { autopilotEnabled: true });
+  }
+  if ((toolId === "taxo-agent" || toolId === "auto-seo") && action === "disable") {
+    return setAutopilotFlags(userId, siteId, { autopilotEnabled: false });
+  }
+  if (action === "approve" && input.actionId) {
+    return approveAction(userId, siteId, String(input.actionId));
+  }
+  if (action === "deploy" && input.actionId) {
+    return deployAction(userId, siteId, String(input.actionId));
+  }
+  if (action === "rollback" && input.actionId) {
+    return rollbackAction(userId, siteId, String(input.actionId));
+  }
+  if ((toolId === "cms-publishing" || toolId === "content-genius") && action === "publish") {
+    return publishToCms(userId, siteId, input as { provider?: string; title?: string; body?: string });
+  }
+  if (toolId === "overnight-repair" && action === "run") {
+    return runOvernightRepair(userId, siteId);
+  }
   if (action === "enqueue") {
     return enqueueJob({
-      queue: "taxotools-ppc-research",
+      queue: JOB_QUEUES.PPC_RESEARCH,
       name: toolId,
       payload: { siteId, toolId, input },
     });

@@ -105,7 +105,7 @@ export function AppChrome({
 
         <div>
           <p className="mb-2 px-2.5 text-[10px] font-semibold uppercase tracking-wider text-ink-500">
-            Semrush-parity services · {toolCount}
+            Semrush + Search Atlas services · {toolCount}
           </p>
           <div className="space-y-2">
             {TOOLKIT_GROUPS.map((group) => {

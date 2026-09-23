@@ -1,5 +1,5 @@
-/** Plan codes — extend without migrating app logic */
-export const PLAN_CODES = ["STARTER", "PRO", "AGENCY", "ENTERPRISE"] as const;
+/** Plan codes — Search Atlas–competitive ladder + Enterprise */
+export const PLAN_CODES = ["STARTER", "GROWTH", "PRO", "AGENCY", "ENTERPRISE"] as const;
 export type PlanCode = (typeof PLAN_CODES)[number];
 
 /** Default usage limits per plan (overridable in DB) */
@@ -12,43 +12,75 @@ export const PLAN_LIMITS: Record<
     aiCreditsPerMonth: number;
     aeoScansPerMonth: number;
     teamSeats: number;
+    /** Autopilot SEO projects (Taxo Agent / Auto SEO) */
+    ottoProjects: number;
+    llmVisibilityPlatforms: number;
     whiteLabel: boolean;
     apiAccess: boolean;
     outreachCrm: boolean;
+    smartAds: boolean;
+    cmsPublish: boolean;
   }
 > = {
   STARTER: {
     sites: 1,
-    keywords: 100,
-    crawlsPerMonth: 5,
-    aiCreditsPerMonth: 20,
-    aeoScansPerMonth: 10,
-    teamSeats: 2,
+    keywords: 2000,
+    crawlsPerMonth: 20,
+    aiCreditsPerMonth: 500,
+    aeoScansPerMonth: 0,
+    teamSeats: 1,
+    ottoProjects: 1,
+    llmVisibilityPlatforms: 0,
     whiteLabel: false,
     apiAccess: false,
     outreachCrm: false,
+    smartAds: false,
+    cmsPublish: true,
   },
-  PRO: {
-    sites: 5,
-    keywords: 2000,
+  GROWTH: {
+    sites: 2,
+    keywords: 3500,
     crawlsPerMonth: 50,
-    aiCreditsPerMonth: 200,
-    aeoScansPerMonth: 100,
-    teamSeats: 5,
+    aiCreditsPerMonth: 1000,
+    aeoScansPerMonth: 50,
+    teamSeats: 3,
+    ottoProjects: 2,
+    llmVisibilityPlatforms: 3,
     whiteLabel: false,
     apiAccess: false,
     outreachCrm: true,
+    smartAds: true,
+    cmsPublish: true,
+  },
+  PRO: {
+    sites: 4,
+    keywords: 6000,
+    crawlsPerMonth: 200,
+    aiCreditsPerMonth: 2500,
+    aeoScansPerMonth: 200,
+    teamSeats: 5,
+    ottoProjects: 4,
+    llmVisibilityPlatforms: 5,
+    whiteLabel: true,
+    apiAccess: false,
+    outreachCrm: true,
+    smartAds: true,
+    cmsPublish: true,
   },
   AGENCY: {
-    sites: 50,
-    keywords: 15000,
-    crawlsPerMonth: 500,
-    aiCreditsPerMonth: 2000,
-    aeoScansPerMonth: 1000,
-    teamSeats: 25,
+    sites: 10,
+    keywords: 50000,
+    crawlsPerMonth: 1000,
+    aiCreditsPerMonth: 10000,
+    aeoScansPerMonth: 2000,
+    teamSeats: 10,
+    ottoProjects: 10,
+    llmVisibilityPlatforms: 5,
     whiteLabel: true,
     apiAccess: true,
     outreachCrm: true,
+    smartAds: true,
+    cmsPublish: true,
   },
   ENTERPRISE: {
     sites: -1,
@@ -57,10 +89,23 @@ export const PLAN_LIMITS: Record<
     aiCreditsPerMonth: -1,
     aeoScansPerMonth: -1,
     teamSeats: -1,
+    ottoProjects: -1,
+    llmVisibilityPlatforms: -1,
     whiteLabel: true,
     apiAccess: true,
     outreachCrm: true,
+    smartAds: true,
+    cmsPublish: true,
   },
+};
+
+/** List prices in cents — aligned with Search Atlas try-now tiers */
+export const PLAN_PRICES_CENTS: Record<PlanCode, number> = {
+  STARTER: 9900,
+  GROWTH: 19900,
+  PRO: 39900,
+  AGENCY: 99900,
+  ENTERPRISE: 0,
 };
 
 export const WORKSPACE_ROLES = ["OWNER", "ADMIN", "EDITOR", "VIEWER"] as const;
@@ -83,6 +128,9 @@ export const JOB_QUEUES = {
   BACKLINK: "taxotools-backlink",
   LOG_ANALYZE: "taxotools-log-analyze",
   PPC_RESEARCH: "taxotools-ppc-research",
+  AUTO_SEO: "taxotools-auto-seo",
+  CMS_PUBLISH: "taxotools-cms-publish",
+  SMART_ADS: "taxotools-smart-ads",
 } as const;
 
 export type JobQueueName = (typeof JOB_QUEUES)[keyof typeof JOB_QUEUES];
@@ -110,11 +158,27 @@ type ToolkitGroup = {
 };
 
 /**
- * Full Semrush-parity toolkit catalog for Taxotools navigation & APIs.
- * Mirrors Semrush: SEO, AI Visibility, Traffic & Market, Content, Local,
- * Social, Advertising, AI PR — plus Taxotools AEO/GEO extras.
+ * Semrush + Search Atlas competitive toolkit catalog.
+ * Automation toolkit mirrors OTTO / Atlas Agent / Content Genius / Smart Ads.
  */
 export const TOOLKIT_GROUPS: ToolkitGroup[] = [
+  {
+    id: "automation",
+    name: "Automation (Taxo Agent)",
+    description: "Autopilot SEO, pixel deploy, CMS publish, Content Genius, Smart Ads",
+    tools: [
+      { id: "taxo-agent", name: "Taxo Agent", path: "taxo-agent" },
+      { id: "auto-seo", name: "Auto SEO", path: "auto-seo" },
+      { id: "taxo-pixel", name: "Taxo Pixel", path: "taxo-pixel" },
+      { id: "cms-publishing", name: "Universal CMS Publishing", path: "cms-publishing" },
+      { id: "website-studio", name: "Website Studio", path: "website-studio" },
+      { id: "content-genius", name: "Content Genius", path: "content-genius" },
+      { id: "smart-ads", name: "Smart Ads", path: "smart-ads" },
+      { id: "overnight-repair", name: "Overnight Repair", path: "overnight-repair" },
+      { id: "approval-mode", name: "Approval Mode", path: "approval-mode" },
+      { id: "gbp-galactic", name: "GBP Galactic", path: "gbp-galactic" },
+    ],
+  },
   {
     id: "seo",
     name: "SEO Toolkit",
@@ -177,6 +241,8 @@ export const TOOLKIT_GROUPS: ToolkitGroup[] = [
       { id: "seo-brief-generator", name: "SEO Brief Generator", path: "seo-brief-generator" },
       { id: "ai-article-generator", name: "AI Article Generator", path: "ai-article-generator" },
       { id: "content-audit", name: "Content Audit", path: "content-audit" },
+      { id: "topical-map", name: "Topical Map Generator", path: "topical-map" },
+      { id: "scholar-research", name: "Scholar Research", path: "scholar-research" },
       { id: "marketing-calendar", name: "Marketing Calendar", path: "marketing-calendar" },
       { id: "post-tracking", name: "Post Tracking", path: "post-tracking" },
       { id: "ai-writing-assistant", name: "AI Writing Assistant", path: "ai-writing-assistant" },
@@ -220,6 +286,8 @@ export const TOOLKIT_GROUPS: ToolkitGroup[] = [
       { id: "adclarity", name: "AdClarity (Display/Video/Social)", path: "adclarity" },
       { id: "ads-launch-assistant", name: "Ads Launch Assistant", path: "ads-launch-assistant" },
       { id: "ad-builder", name: "Ad Builder", path: "ad-builder" },
+      { id: "google-ad-studio", name: "Google Ad Studio", path: "google-ad-studio" },
+      { id: "meta-ad-studio", name: "Meta Ad Studio", path: "meta-ad-studio" },
     ],
   },
   {

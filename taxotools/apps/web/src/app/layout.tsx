@@ -17,11 +17,11 @@ const sans = Source_Sans_3({
 
 export const metadata: Metadata = {
   title: {
-    default: "Taxotools — SEO, AEO & AI Visibility Platform",
+    default: "Taxotools — SEO That Runs Itself",
     template: "%s · Taxotools",
   },
   description:
-    "Taxotools is the multi-tenant SaaS for SEO analytics, rank tracking, technical audits, AI content, and AEO/GEO visibility.",
+    "Taxo Agent, Auto SEO, Content Genius, Smart Ads, and LLM visibility — the Search Atlas–competitive growth engine for agencies.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

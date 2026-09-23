@@ -107,30 +107,35 @@ enum WorkspaceRole {
 // ─── Billing & usage ──────────────────────────────────────────────────────────
 
 model Plan {
-  id                String   @id @default(cuid())
-  code              PlanCode @unique
-  name              String
-  description       String?
-  stripePriceId     String?
-  monthlyPriceCents Int      @default(0)
-  sitesLimit        Int      @default(1)
-  keywordsLimit     Int      @default(100)
-  crawlsPerMonth    Int      @default(5)
-  aiCreditsPerMonth Int      @default(20)
-  aeoScansPerMonth  Int      @default(10)
-  teamSeatsLimit    Int      @default(2)
-  whiteLabel        Boolean  @default(false)
-  apiAccess         Boolean  @default(false)
-  outreachCrm       Boolean  @default(false)
-  active            Boolean  @default(true)
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  id                       String   @id @default(cuid())
+  code                     PlanCode @unique
+  name                     String
+  description              String?
+  stripePriceId            String?
+  monthlyPriceCents        Int      @default(0)
+  sitesLimit               Int      @default(1)
+  keywordsLimit            Int      @default(100)
+  crawlsPerMonth           Int      @default(5)
+  aiCreditsPerMonth        Int      @default(20)
+  aeoScansPerMonth         Int      @default(10)
+  teamSeatsLimit           Int      @default(2)
+  ottoProjectsLimit        Int      @default(1)
+  llmVisibilityPlatforms   Int      @default(0)
+  whiteLabel               Boolean  @default(false)
+  apiAccess                Boolean  @default(false)
+  outreachCrm              Boolean  @default(false)
+  smartAds                 Boolean  @default(false)
+  cmsPublish               Boolean  @default(true)
+  active                   Boolean  @default(true)
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
 
   subscriptions Subscription[]
 }
 
 enum PlanCode {
   STARTER
+  GROWTH
   PRO
   AGENCY
   ENTERPRISE
@@ -188,18 +193,22 @@ enum UsageMetric {
 // ─── Sites / projects ─────────────────────────────────────────────────────────
 
 model Site {
-  id            String     @id @default(cuid())
-  workspaceId   String
-  name          String
-  domain        String
-  url           String
-  locale        String     @default("en-US")
-  countryCode   String     @default("US")
-  gscProperty   String?
-  status        SiteStatus @default(ACTIVE)
-  lastCrawledAt DateTime?
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
+  id               String     @id @default(cuid())
+  workspaceId      String
+  name             String
+  domain           String
+  url              String
+  locale           String     @default("en-US")
+  countryCode      String     @default("US")
+  gscProperty      String?
+  status           SiteStatus @default(ACTIVE)
+  pixelToken       String?    @unique
+  pixelInstalled   Boolean    @default(false)
+  autopilotEnabled Boolean    @default(false)
+  approvalMode     Boolean    @default(true)
+  lastCrawledAt    DateTime?
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
 
   workspace          Workspace           @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   keywords           Keyword[]
@@ -231,6 +240,8 @@ model Site {
   backlinkAuditItems BacklinkAuditItem[]
   linkProspects      LinkBuildingProspect[]
   programmaticJobs   ProgrammaticSeoJob[]
+  autoSeoActions     AutoSeoAction[]
+  cmsPublishes       CmsPublishJob[]
 
   @@unique([workspaceId, domain])
   @@index([workspaceId])
@@ -1164,6 +1175,80 @@ model ProgrammaticSeoJob {
   outputJson   Json?
   createdAt    DateTime  @default(now())
   finishedAt   DateTime?
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, status])
+}
+
+// ─── Search Atlas–parity automation (Taxo Agent / Auto SEO) ───────────────────
+
+model AutoSeoAction {
+  id           String              @id @default(cuid())
+  siteId       String
+  category     AutoSeoCategory
+  title        String
+  description  String
+  targetUrl    String?
+  deployVia    AutoSeoDeployVia    @default(PIXEL)
+  status       AutoSeoActionStatus @default(PENDING)
+  impactScore  Int                 @default(50)
+  metadata     Json?
+  approvedAt   DateTime?
+  deployedAt   DateTime?
+  rolledBackAt DateTime?
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, status])
+  @@index([siteId, category])
+}
+
+enum AutoSeoCategory {
+  TECHNICAL
+  ON_PAGE
+  CONTENT
+  SCHEMA
+  INTERNAL_LINK
+  INDEXING
+  LOCAL_GBP
+  AUTHORITY
+  ADS
+  OVERNIGHT_REPAIR
+}
+
+enum AutoSeoDeployVia {
+  PIXEL
+  CLOUDFLARE
+  CMS
+  CODE_PIPELINE
+  MANUAL
+}
+
+enum AutoSeoActionStatus {
+  PENDING
+  AWAITING_APPROVAL
+  APPROVED
+  DEPLOYED
+  FAILED
+  ROLLED_BACK
+  SKIPPED
+}
+
+model CmsPublishJob {
+  id          String    @id @default(cuid())
+  siteId      String
+  provider    String
+  title       String
+  slug        String?
+  status      JobStatus @default(QUEUED)
+  payload     Json
+  remoteUrl   String?
+  errorMessage String?
+  createdAt   DateTime  @default(now())
+  publishedAt DateTime?
 
   site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
 

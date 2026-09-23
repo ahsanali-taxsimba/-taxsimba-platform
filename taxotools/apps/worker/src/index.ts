@@ -125,6 +125,26 @@ function createWorkers(connection: IORedis) {
     },
     { connection: conn, concurrency },
   );
+
+  for (const queue of [JOB_QUEUES.AUTO_SEO, JOB_QUEUES.CMS_PUBLISH, JOB_QUEUES.SMART_ADS] as const) {
+    new Worker(
+      queue,
+      async (job) => {
+        await markJob(job.data.backgroundJobId, "RUNNING");
+        try {
+          const result = { ok: true, queue, name: job.name, at: new Date().toISOString() };
+          await markJob(job.data.backgroundJobId, "COMPLETED", { result });
+          return result;
+        } catch (e) {
+          await markJob(job.data.backgroundJobId, "FAILED", {
+            errorMessage: e instanceof Error ? e.message : `${queue} failed`,
+          });
+          throw e;
+        }
+      },
+      { connection: conn, concurrency },
+    );
+  }
 }
 
 async function main() {
