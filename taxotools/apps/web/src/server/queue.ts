@@ -42,6 +42,7 @@ export async function enqueueJob(params: {
   payload: Record<string, unknown>;
   maxAttempts?: number;
 }) {
+  // Stable unique jobId up front — avoids Redis id collisions on BackgroundJob.jobId
   const record = await prisma.backgroundJob.create({
     data: {
       queue: params.queue,
@@ -49,6 +50,7 @@ export async function enqueueJob(params: {
       status: "QUEUED",
       payload: params.payload as Prisma.InputJsonValue,
       maxAttempts: params.maxAttempts ?? 3,
+      jobId: `bq-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`,
     },
   });
 
@@ -57,13 +59,9 @@ export async function enqueueJob(params: {
     if (conn.status !== "ready") {
       await conn.connect().catch(() => undefined);
     }
-    const job = await getQueue(params.queue).add(params.name, {
+    await getQueue(params.queue).add(params.name, {
       ...params.payload,
       backgroundJobId: record.id,
-    });
-    await prisma.backgroundJob.update({
-      where: { id: record.id },
-      data: { jobId: String(job.id) },
     });
   } catch (err) {
     // Redis optional in local/dev — worker can poll BackgroundJob table

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { requireUser } from "@/lib/auth";
 import { getSiteForUser } from "@/server/services/tenant.service";
-import { prisma } from "@taxotools/database";
+import { BacklinksEnginePanel } from "@/components/BacklinksEnginePanel";
 
 export default async function BacklinksPage({
   params,
@@ -18,43 +18,6 @@ export default async function BacklinksPage({
   const { siteId } = await params;
   await getSiteForUser(user.id, siteId);
 
-  const backlinks = await prisma.backlink.findMany({
-    where: { siteId },
-    include: { sourceDomain: true },
-    orderBy: { lastSeenAt: "desc" },
-    take: 50,
-  });
-
-  // Seed a few stub backlinks for empty sites so UI is demonstrable
-  if (!backlinks.length) {
-    await prisma.backlink.createMany({
-      data: [
-        {
-          siteId,
-          sourceUrl: "https://news.example/seo-roundup",
-          targetUrl: "https://example.com/",
-          anchorText: "seo platform",
-          toxicScore: 0.1,
-        },
-        {
-          siteId,
-          sourceUrl: "https://spammy.biz/links",
-          targetUrl: "https://example.com/blog",
-          anchorText: "click here",
-          toxicScore: 0.82,
-          relNofollow: true,
-        },
-      ],
-    });
-  }
-
-  const rows = await prisma.backlink.findMany({
-    where: { siteId },
-    include: { sourceDomain: true },
-    orderBy: { lastSeenAt: "desc" },
-    take: 50,
-  });
-
   return (
     <div className="animate-rise space-y-6">
       <div>
@@ -64,37 +27,30 @@ export default async function BacklinksPage({
           </Link>{" "}
           / Backlinks
         </p>
-        <h1 className="font-display text-3xl font-semibold">Backlinks & outreach</h1>
+        <h1 className="font-display text-3xl font-semibold">Backlink Engine</h1>
         <p className="text-ink-500">
-          Index, toxic scoring, and CRM hooks — wire a backlink API for live discovery
+          Multi-source external crawl (Ahrefs · Semrush · Majestic) with toxic scoring, disavow,
+          and competitor monitoring.
         </p>
       </div>
-      <div className="overflow-hidden rounded-xl border border-ink-100 bg-white">
-        <table className="w-full text-left text-sm">
-          <thead className="border-b border-ink-100 bg-ink-50 text-xs uppercase text-ink-500">
-            <tr>
-              <th className="px-4 py-3">Source</th>
-              <th className="px-4 py-3">Anchor</th>
-              <th className="px-4 py-3">Toxic</th>
-              <th className="px-4 py-3">Rel</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((b) => (
-              <tr key={b.id} className="border-b border-ink-50">
-                <td className="px-4 py-3">{b.sourceUrl}</td>
-                <td className="px-4 py-3">{b.anchorText}</td>
-                <td className="px-4 py-3">
-                  {b.toxicScore != null ? Math.round(b.toxicScore * 100) : "—"}
-                </td>
-                <td className="px-4 py-3 text-xs">
-                  {b.relNofollow ? "nofollow" : "follow"}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <BacklinksEnginePanel siteId={siteId} />
+      <p className="text-sm text-ink-500">
+        Also open{" "}
+        <Link
+          href={`/app/sites/${siteId}/tools/backlink-engine`}
+          className="text-accent-dark"
+        >
+          Backlink Engine tool
+        </Link>{" "}
+        or{" "}
+        <Link
+          href={`/app/sites/${siteId}/tools/disavow-manager`}
+          className="text-accent-dark"
+        >
+          Disavow Manager
+        </Link>
+        .
+      </p>
     </div>
   );
 }

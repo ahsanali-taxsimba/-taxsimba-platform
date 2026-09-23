@@ -252,6 +252,9 @@ model Site {
   knowledgePages     KnowledgeBasePage[]
   agentTasks         AgentTask[]
   alertSubscriptions AlertSubscription[]
+  backlinkEngine     BacklinkEngineConfig?
+  backlinkAlerts     BacklinkAlert[]
+  disavowEntries     DisavowEntry[]
 
   @@unique([workspaceId, domain])
   @@index([workspaceId])
@@ -487,25 +490,42 @@ model Domain {
 }
 
 model Backlink {
-  id            String   @id @default(cuid())
-  siteId        String
-  sourceDomainId String?
-  sourceUrl     String
-  targetUrl     String
-  anchorText    String?
-  relNofollow   Boolean  @default(false)
-  relSponsored  Boolean  @default(false)
-  relUgc        Boolean  @default(false)
-  toxicScore    Float?
-  firstSeenAt   DateTime @default(now())
-  lastSeenAt    DateTime @default(now())
-  lostAt        DateTime?
+  id               String                 @id @default(cuid())
+  siteId           String
+  sourceDomainId   String?
+  sourceUrl        String
+  targetUrl        String
+  anchorText       String?
+  relNofollow      Boolean                @default(false)
+  relSponsored     Boolean                @default(false)
+  relUgc           Boolean                @default(false)
+  toxicScore       Float?
+  authority        Float?
+  relevance        Float?
+  spam             Float?
+  risk             Float?
+  score            Float?
+  classification   BacklinkClassification @default(NORMAL)
+  sourceApi        String?
+  competitorDomain String?
+  firstSeenAt      DateTime               @default(now())
+  lastSeenAt       DateTime               @default(now())
+  lostAt           DateTime?
 
   site         Site    @relation(fields: [siteId], references: [id], onDelete: Cascade)
   sourceDomain Domain? @relation(fields: [sourceDomainId], references: [id])
 
   @@unique([siteId, sourceUrl, targetUrl])
   @@index([siteId, toxicScore])
+  @@index([siteId, classification])
+  @@index([siteId, score])
+}
+
+enum BacklinkClassification {
+  TOXIC
+  HIGH_VALUE
+  NORMAL
+  LOST
 }
 
 model OutreachCampaign {
@@ -1439,4 +1459,66 @@ model AlertSubscription {
   site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
 
   @@index([siteId, channel])
+}
+
+// ─── seo.backlinks.init engine ────────────────────────────────────────────────
+
+model BacklinkEngineConfig {
+  id                         String   @id @default(cuid())
+  siteId                     String   @unique
+  sourceApis                 Json
+  crawlMode                  String   @default("external")
+  refreshInterval            String   @default("24h")
+  refreshIntervalHours       Int      @default(24)
+  scoreFormula               String   @default("(authority*relevance)-(spam*risk)")
+  toxicSpamGt                Float    @default(70)
+  toxicRiskGt                Float    @default(0.6)
+  highValueAuthorityGt       Float    @default(40)
+  highValueRelevanceGt       Float    @default(0.7)
+  alertVelocitySpikePct      Float    @default(30)
+  alertAnchorRepeatPct       Float    @default(20)
+  enableDisavow              Boolean  @default(true)
+  enableCompetitorMonitoring Boolean  @default(true)
+  lastRefreshAt              DateTime?
+  nextRefreshAt              DateTime?
+  status                     String   @default("active")
+  createdAt                  DateTime @default(now())
+  updatedAt                  DateTime @updatedAt
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+}
+
+model BacklinkAlert {
+  id        String   @id @default(cuid())
+  siteId    String
+  rule      String
+  severity  String   @default("warning")
+  message   String
+  metric    Float?
+  threshold Float?
+  metadata  Json?
+  resolved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, resolved])
+  @@index([siteId, rule])
+}
+
+model DisavowEntry {
+  id         String   @id @default(cuid())
+  siteId     String
+  domain     String?
+  url        String?
+  reason     String?
+  source     String   @default("engine")
+  status     String   @default("pending")
+  createdAt  DateTime @default(now())
+  exportedAt DateTime?
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, status])
+  @@unique([siteId, domain, url])
 }

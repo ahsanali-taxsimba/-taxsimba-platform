@@ -136,6 +136,7 @@ export const JOB_QUEUES = {
   QUEST: "taxotools-quest",
   INSTANT_INDEX: "taxotools-instant-index",
   ALERTS: "taxotools-alerts",
+  BACKLINK_REFRESH: "taxotools-backlink-refresh",
 } as const;
 
 export type JobQueueName = (typeof JOB_QUEUES)[keyof typeof JOB_QUEUES];
@@ -221,6 +222,9 @@ export const TOOLKIT_GROUPS: ToolkitGroup[] = [
       { id: "backlink-analytics", name: "Backlink Analytics", path: "backlink-analytics" },
       { id: "backlink-gap", name: "Backlink Gap", path: "backlink-gap" },
       { id: "backlink-audit", name: "Backlink Audit", path: "backlink-audit" },
+      { id: "backlink-engine", name: "Backlink Engine", path: "backlink-engine" },
+      { id: "disavow-manager", name: "Disavow Manager", path: "disavow-manager" },
+      { id: "competitor-backlinks", name: "Competitor Backlink Monitor", path: "competitor-backlinks" },
       { id: "link-building", name: "Link Building Tool", path: "link-building" },
       { id: "site-audit", name: "Site Audit", path: "site-audit" },
       { id: "on-page-checker", name: "On-Page SEO Checker", path: "on-page-checker" },
@@ -364,3 +368,61 @@ export function findTool(toolId: string) {
 }
 
 export const ALL_TOOL_IDS = TOOLKIT_GROUPS.flatMap((g) => g.tools.map((t) => t.id));
+
+/** seo.backlinks.init defaults — multi-source external crawl engine */
+export const BACKLINK_SOURCE_APIS = ["ahrefs", "semrush", "majestic"] as const;
+export type BacklinkSourceApi = (typeof BACKLINK_SOURCE_APIS)[number];
+
+export const BACKLINK_ENGINE_DEFAULTS = {
+  sourceApis: [...BACKLINK_SOURCE_APIS] as BacklinkSourceApi[],
+  crawlMode: "external" as const,
+  refreshInterval: "24h",
+  refreshIntervalHours: 24,
+  /** (authority * relevance) - (spam * risk) */
+  scoreFormula: "(authority*relevance)-(spam*risk)",
+  toxic: {
+    spamGt: 70,
+    riskGt: 0.6,
+  },
+  highValue: {
+    authorityGt: 40,
+    relevanceGt: 0.7,
+  },
+  alerts: {
+    velocitySpikePct: 30,
+    anchorRepeatPct: 20,
+  },
+  enableDisavow: true,
+  enableCompetitorMonitoring: true,
+} as const;
+
+export type BacklinkClassification = "toxic" | "high_value" | "normal" | "lost";
+
+export function computeBacklinkScore(input: {
+  authority: number;
+  relevance: number;
+  spam: number;
+  risk: number;
+}): number {
+  const authority = clamp(input.authority, 0, 100);
+  const relevance = clamp(input.relevance, 0, 1);
+  const spam = clamp(input.spam, 0, 100);
+  const risk = clamp(input.risk, 0, 1);
+  // Normalize spam to 0–1 for formula balance with risk
+  return authority * relevance - (spam / 100) * risk * 100;
+}
+
+export function classifyBacklink(
+  input: { authority: number; relevance: number; spam: number; risk: number },
+  cfg = BACKLINK_ENGINE_DEFAULTS,
+): BacklinkClassification {
+  if (input.spam > cfg.toxic.spamGt || input.risk > cfg.toxic.riskGt) return "toxic";
+  if (input.authority > cfg.highValue.authorityGt && input.relevance > cfg.highValue.relevanceGt) {
+    return "high_value";
+  }
+  return "normal";
+}
+
+function clamp(n: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, n));
+}

@@ -7,6 +7,7 @@ import { processRankCheck } from "./jobs/rank";
 import { processAIContent } from "./jobs/ai-content";
 import { processAeoScan } from "./jobs/aeo";
 import { processReport } from "./jobs/report";
+import { processBacklinkRefresh } from "./jobs/backlinks";
 import { pollDbJobs } from "./db-poller";
 
 const redisUrl = process.env.REDIS_URL || "redis://localhost:6380";
@@ -126,6 +127,24 @@ function createWorkers(connection: IORedis) {
     { connection: conn, concurrency },
   );
 
+  new Worker(
+    JOB_QUEUES.BACKLINK_REFRESH,
+    async (job) => {
+      await markJob(job.data.backgroundJobId, "RUNNING");
+      try {
+        const result = await processBacklinkRefresh(job.data);
+        await markJob(job.data.backgroundJobId, "COMPLETED", { result });
+        return result;
+      } catch (e) {
+        await markJob(job.data.backgroundJobId, "FAILED", {
+          errorMessage: e instanceof Error ? e.message : "backlink refresh failed",
+        });
+        throw e;
+      }
+    },
+    { connection: conn, concurrency },
+  );
+
   for (const queue of [
     JOB_QUEUES.AUTO_SEO,
     JOB_QUEUES.CMS_PUBLISH,
@@ -135,6 +154,7 @@ function createWorkers(connection: IORedis) {
     JOB_QUEUES.QUEST,
     JOB_QUEUES.INSTANT_INDEX,
     JOB_QUEUES.ALERTS,
+    JOB_QUEUES.BACKLINK,
   ] as const) {
     new Worker(
       queue,

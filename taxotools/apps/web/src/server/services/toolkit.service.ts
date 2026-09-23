@@ -46,6 +46,13 @@ import {
   runPressReleases,
   runCloudStacks,
 } from "@/server/services/advanced.service";
+import {
+  initBacklinkEngine,
+  refreshBacklinks,
+  summarizeBacklinks,
+  exportDisavowFile,
+  listCompetitorBacklinks,
+} from "@/server/services/backlinks.service";
 import { JOB_QUEUES } from "@taxotools/shared";
 
 function seed(n: string) {
@@ -97,6 +104,107 @@ export async function runTool(
   const site = await getSiteForUser(userId, siteId);
 
   switch (toolId) {
+    case "backlink-engine": {
+      const existing = await prisma.backlinkEngineConfig.findUnique({ where: { siteId } });
+      if (!existing) {
+        return initBacklinkEngine(userId, siteId, {
+          sourceApis: (input.sourceApis as string[]) || undefined,
+          competitors: (input.competitors as string[]) || undefined,
+        });
+      }
+      return summarizeBacklinks(siteId);
+    }
+    case "disavow-manager": {
+      const summary = await summarizeBacklinks(siteId);
+      return {
+        tool: toolId,
+        summary: `${summary.summary.disavowPending} pending disavow entries`,
+        pages: summary.disavow.map((d) => ({
+          name: d.domain || d.url || "entry",
+          status: d.status,
+          note: d.reason || "",
+        })),
+        disavow: summary.disavow,
+      };
+    }
+    case "competitor-backlinks":
+      return listCompetitorBacklinks(userId, siteId);
+    case "backlink-analytics": {
+      const backlinks = await prisma.backlink.findMany({
+        where: { siteId, competitorDomain: null },
+        orderBy: { score: "desc" },
+        take: 100,
+      });
+      if (!backlinks.length) {
+        await refreshBacklinks(userId, siteId);
+        return summarizeBacklinks(siteId);
+      }
+      const avgToxic =
+        backlinks.length === 0
+          ? 0
+          : backlinks.reduce((a, b) => a + (b.toxicScore ?? 0), 0) / backlinks.length;
+      return {
+        tool: toolId,
+        summary: {
+          backlinks: backlinks.length,
+          referringDomains: new Set(backlinks.map((b) => b.sourceUrl.split("/")[2])).size,
+          avgToxic,
+          highValue: backlinks.filter((b) => b.classification === "HIGH_VALUE").length,
+          toxic: backlinks.filter((b) => b.classification === "TOXIC").length,
+        },
+        backlinks,
+        pages: backlinks.slice(0, 40).map((b) => ({
+          name: b.sourceUrl,
+          status: b.classification.toLowerCase(),
+          score: b.score,
+          metric: b.authority,
+          note: b.anchorText || "",
+        })),
+      };
+    }
+    case "backlink-audit": {
+      let items = await prisma.backlinkAuditItem.findMany({
+        where: { siteId },
+        orderBy: { toxicScore: "desc" },
+        take: 50,
+      });
+      if (!items.length) {
+        const links = await prisma.backlink.findMany({ where: { siteId }, take: 40 });
+        if (links.length) {
+          await prisma.backlinkAuditItem.createMany({
+            data: links.map((l) => ({
+              siteId,
+              sourceUrl: l.sourceUrl,
+              targetUrl: l.targetUrl,
+              toxicScore: l.risk ?? l.toxicScore ?? 0.2,
+              reason:
+                l.classification === "TOXIC"
+                  ? `Toxic · spam=${l.spam} risk=${l.risk}`
+                  : l.classification === "HIGH_VALUE"
+                    ? "High-value · keep & amplify"
+                    : "OK",
+              action: l.classification === "TOXIC" ? "disavow" : "keep",
+            })),
+          });
+          items = await prisma.backlinkAuditItem.findMany({
+            where: { siteId },
+            orderBy: { toxicScore: "desc" },
+            take: 50,
+          });
+        }
+      }
+      return {
+        tool: toolId,
+        summary: `${items.length} audit items`,
+        pages: items.map((i) => ({
+          name: i.sourceUrl,
+          status: i.action,
+          score: i.toxicScore,
+          note: i.reason || "",
+        })),
+        items,
+      };
+    }
     case "quest":
       return runQuest(userId, siteId, String(input.query || input.topic || ""));
     case "domain-power":
@@ -403,53 +511,6 @@ export async function runTool(
         take: 100,
       });
       return { tool: toolId, features };
-    }
-    case "backlink-analytics": {
-      const backlinks = await prisma.backlink.findMany({
-        where: { siteId },
-        include: { sourceDomain: true },
-        orderBy: { lastSeenAt: "desc" },
-        take: 100,
-      });
-      const avgToxic =
-        backlinks.length === 0
-          ? 0
-          : backlinks.reduce((a, b) => a + (b.toxicScore ?? 0), 0) / backlinks.length;
-      return {
-        tool: toolId,
-        totals: {
-          backlinks: backlinks.length,
-          referringDomains: new Set(backlinks.map((b) => b.sourceUrl.split("/")[2])).size,
-          avgToxicScore: avgToxic,
-        },
-        backlinks,
-      };
-    }
-    case "backlink-audit": {
-      let items = await prisma.backlinkAuditItem.findMany({
-        where: { siteId },
-        orderBy: { toxicScore: "desc" },
-      });
-      if (!items.length) {
-        const links = await prisma.backlink.findMany({ where: { siteId }, take: 20 });
-        if (links.length) {
-          await prisma.backlinkAuditItem.createMany({
-            data: links.map((l) => ({
-              siteId,
-              sourceUrl: l.sourceUrl,
-              targetUrl: l.targetUrl,
-              toxicScore: l.toxicScore ?? 0.2,
-              reason: (l.toxicScore ?? 0) > 0.6 ? "High spam signals / weak anchor relevance" : "OK",
-              action: (l.toxicScore ?? 0) > 0.6 ? "disavow" : "keep",
-            })),
-          });
-          items = await prisma.backlinkAuditItem.findMany({
-            where: { siteId },
-            orderBy: { toxicScore: "desc" },
-          });
-        }
-      }
-      return { tool: toolId, items };
     }
     case "link-building": {
       let prospects = await prisma.linkBuildingProspect.findMany({
@@ -1114,6 +1175,21 @@ export async function triggerToolAction(
   }
   if (toolId === "overnight-repair" && action === "run") {
     return runOvernightRepair(userId, siteId);
+  }
+  if (
+    (toolId === "backlink-engine" || toolId === "backlink-analytics") &&
+    (action === "init" || action === "run")
+  ) {
+    return initBacklinkEngine(userId, siteId, {
+      sourceApis: (input.sourceApis as string[]) || undefined,
+      competitors: (input.competitors as string[]) || undefined,
+    });
+  }
+  if (toolId === "backlink-engine" && action === "refresh") {
+    return refreshBacklinks(userId, siteId);
+  }
+  if (toolId === "disavow-manager" && (action === "export" || action === "run")) {
+    return exportDisavowFile(userId, siteId);
   }
   if (action === "enqueue") {
     return enqueueJob({

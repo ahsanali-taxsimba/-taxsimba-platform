@@ -325,6 +325,36 @@ export function ToolWorkbench({
               Queue Autopilot tasks
             </button>
           )}
+          {(toolId === "backlink-engine" || toolId === "backlink-analytics") && (
+            <>
+              <button
+                type="button"
+                disabled={busy}
+                onClick={() => runAction("init")}
+                className="rounded-lg border border-ink-100 px-4 py-2 text-sm"
+              >
+                seo.backlinks.init
+              </button>
+              <button
+                type="button"
+                disabled={busy}
+                onClick={() => runAction("refresh")}
+                className="rounded-lg border border-ink-100 px-4 py-2 text-sm"
+              >
+                Refresh crawl
+              </button>
+            </>
+          )}
+          {toolId === "disavow-manager" && (
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => runAction("export")}
+              className="rounded-lg border border-ink-100 px-4 py-2 text-sm"
+            >
+              Export disavow file
+            </button>
+          )}
         </div>
         {error && <p className="mt-3 text-sm text-danger">{error}</p>}
       </div>
