@@ -21,6 +21,12 @@ function mapPackage(p: Doc, content: Record<string, string>): Doc {
   const features = (content[`package.${String(p.code)}.features`] ?? "")
     .split("\n")
     .filter((line) => line.trim());
+  const originalRaw = p.original_price ?? p.originalPrice;
+  const originalPrice =
+    originalRaw != null && Number(originalRaw) > 0 ? Number(originalRaw) : null;
+  const saveRaw = p.save_percentage ?? p.savePercentage;
+  const savePercentage =
+    saveRaw != null && Number(saveRaw) > 0 ? Number(saveRaw) : null;
   return {
     id: p.id,
     code: p.code,
@@ -28,6 +34,8 @@ function mapPackage(p: Doc, content: Record<string, string>): Doc {
     // Never market £0 — callers treat unavailable as an error state.
     price: priceAvailable ? price : null,
     priceAvailable,
+    originalPrice,
+    savePercentage,
     rank: p.rank,
     serviceType: p.service_type,
     billingFrequency: p.billing_frequency,

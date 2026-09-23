@@ -117,7 +117,7 @@ describe("Package catalogue boot mutation safety", () => {
 
     await col("packages").updateOne(
       { code: "SIMPLE", service_type: "SELF_ASSESSMENT" },
-      { $set: { price: 0, is_active: true } },
+      { $set: { price: 0, is_active: true, original_price: null, save_percentage: null } },
     );
     await col("packages").insertOne({
       id: randomUUID(),
@@ -133,8 +133,25 @@ describe("Package catalogue boot mutation safety", () => {
       created_at: new Date().toISOString(),
     });
 
-    const result = await reconcilePackageCatalogue();
+    const dry = await reconcilePackageCatalogue({ dryRun: true });
+    expect(dry.dryRun).toBe(true);
+    expect(dry.realigned).toBeGreaterThanOrEqual(1);
+    expect(
+      Number(
+        (
+          await col("packages").findOne({
+            code: "SIMPLE",
+            service_type: "SELF_ASSESSMENT",
+            is_active: true,
+          })
+        )?.price,
+      ),
+    ).toBe(0);
+
+    const result = await reconcilePackageCatalogue({ dryRun: false });
+    expect(result.dryRun).toBe(false);
     expect(result.realigned + result.deactivatedDuplicates).toBeGreaterThanOrEqual(1);
+    expect(result.presentationUpdated).toBeGreaterThanOrEqual(1);
 
     const simple = await col("packages").findOne({
       code: "SIMPLE",
@@ -142,11 +159,15 @@ describe("Package catalogue boot mutation safety", () => {
       is_active: true,
     });
     expect(simple?.price).toBe(119);
+    expect(simple?.original_price).toBe(199);
+    expect(simple?.save_percentage).toBe(40);
 
     const smartActive = await col("packages")
       .find({ code: "SMART", service_type: "SELF_ASSESSMENT", is_active: true })
       .toArray();
     expect(smartActive).toHaveLength(1);
     expect(smartActive[0].price).toBe(149);
+    expect(smartActive[0].original_price).toBe(229);
+    expect(smartActive[0].save_percentage).toBe(35);
   });
 });

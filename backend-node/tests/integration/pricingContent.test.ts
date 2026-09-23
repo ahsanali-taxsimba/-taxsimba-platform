@@ -215,11 +215,16 @@ describe("scheduled pricing and configurable content", () => {
     const res = await request(app).get("/api/content").set(bearer(client)).expect(200);
     for (const [key, def] of Object.entries(CONTENT_DEFAULTS)) {
       expect(res.body[key]).toBe(def.value);
-      // Screen wording always has a default; package marketing copy is opt-in and starts empty
-      // so that adopting the keys cannot add text to the current UI.
+      // Non-package screen wording always has a non-empty default.
       if (!key.startsWith("package.")) expect(String(res.body[key]).trim()).not.toBe("");
     }
-    expect(res.body["package.SIMPLE.features"]).toBe("");
+    // Founder-approved SA package copy must never be empty / invented at runtime.
+    for (const code of ["SIMPLE", "SMART", "ELITE"] as const) {
+      expect(String(res.body[`package.${code}.description`]).trim()).not.toBe("");
+      expect(String(res.body[`package.${code}.features`]).trim()).not.toBe("");
+    }
+    expect(res.body["package.SIMPLE.description"]).toContain("straightforward Self Assessment");
+    expect(res.body["package.SIMPLE.features"]).toContain("Self Assessment prepared by an accountant");
   });
 
   it("lets only a super admin edit wording, and audits every change", async () => {
@@ -274,6 +279,17 @@ describe("scheduled pricing and configurable content", () => {
       .expect(200);
     expect(plain.body[0]).not.toHaveProperty("description");
 
+    const before = await request(app)
+      .get("/api/packages?service_type=SELF_ASSESSMENT&include_content=1")
+      .set(bearer(admin))
+      .expect(200);
+    const simpleBefore = before.body.find((p: { code: string }) => p.code === "SIMPLE");
+    expect(simpleBefore.description).toContain("straightforward Self Assessment");
+    expect(simpleBefore.features.length).toBeGreaterThan(0);
+    const eliteBefore = before.body.find((p: { code: string }) => p.code === "ELITE");
+    expect(eliteBefore.description).toContain("most thorough Self Assessment");
+    expect(eliteBefore.features).toContain("Everything in Smart");
+
     await request(app)
       .put("/api/content/package.SIMPLE.features")
       .set(bearer(superAdmin))
@@ -286,10 +302,10 @@ describe("scheduled pricing and configurable content", () => {
       .expect(200);
     const simple = rich.body.find((p: { code: string }) => p.code === "SIMPLE");
     expect(simple.features).toEqual(["Prepared by an accountant", "Secure upload"]);
-    // Unconfigured marketing copy stays absent rather than introducing new text.
+    // Unedited packages keep founder-approved defaults (never blanked).
     const elite = rich.body.find((p: { code: string }) => p.code === "ELITE");
-    expect(elite.description).toBeNull();
-    expect(elite.features).toEqual([]);
+    expect(elite.description).toContain("most thorough Self Assessment");
+    expect(elite.features.length).toBeGreaterThan(0);
   });
 
   it("refuses unknown keys, technical strings, empty values and markup", async () => {

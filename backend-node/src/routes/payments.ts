@@ -129,6 +129,8 @@ paymentsRouter.get(
     res.json(
       rows.map((p) => ({
         ...p,
+        originalPrice: p.original_price ?? null,
+        savePercentage: p.save_percentage ?? null,
         description: content[`package.${String(p.code)}.description`] || null,
         features: (content[`package.${String(p.code)}.features`] ?? "")
           .split("\n")
@@ -563,14 +565,24 @@ paymentsRouter.post(
       return;
     }
     const label = `${SERVICE_LABELS[body.service_type] ?? body.service_type} — ${pkg.name}`;
-    const session = await payments().createCheckout(Number(pkg.price), label, body.origin_url, {
-      kind: "SERVICE_ACTIVATION",
-      client_id: String(client.id),
-      user_id: String(me.id),
-      service_type: body.service_type,
-      to_package: String(pkg.code),
-      package_id: String(pkg.id),
-    });
+    const { contentMap } = await import("../domain/content");
+    const content = await contentMap();
+    const productDescription =
+      content[`package.${String(pkg.code)}.description`] || null;
+    const session = await payments().createCheckout(
+      Number(pkg.price),
+      label,
+      body.origin_url,
+      {
+        kind: "SERVICE_ACTIVATION",
+        client_id: String(client.id),
+        user_id: String(me.id),
+        service_type: body.service_type,
+        to_package: String(pkg.code),
+        package_id: String(pkg.id),
+      },
+      productDescription,
+    );
     await col("payment_transactions").insertOne({
       id: randomUUID(),
       session_id: session.id,

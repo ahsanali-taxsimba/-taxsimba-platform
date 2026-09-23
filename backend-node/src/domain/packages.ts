@@ -26,6 +26,9 @@ export const DEFAULT_PACKAGES: Doc[] = [
     code: "SIMPLE",
     name: "Tax Simba Simple",
     price: 119.0,
+    // Founder-approved strikethrough presentation: £199 → £119, Save 40%.
+    original_price: 199.0,
+    save_percentage: 40,
     rank: 1,
     billing_frequency: "Per tax year",
     billing_type: "ONE_OFF",
@@ -36,6 +39,9 @@ export const DEFAULT_PACKAGES: Doc[] = [
     code: "SMART",
     name: "Tax Simba Smart",
     price: 149.0,
+    // Founder-approved strikethrough presentation: £229 → £149, Save 35%.
+    original_price: 229.0,
+    save_percentage: 35,
     rank: 2,
     billing_frequency: "Per tax year",
     billing_type: "ONE_OFF",
@@ -46,6 +52,9 @@ export const DEFAULT_PACKAGES: Doc[] = [
     code: "ELITE",
     name: "Tax Simba Elite",
     price: 299.0,
+    // Founder-approved strikethrough presentation: £399 → £299, Save 25%.
+    original_price: 399.0,
+    save_percentage: 25,
     rank: 3,
     billing_frequency: "Per tax year",
     billing_type: "ONE_OFF",
@@ -113,19 +122,26 @@ export function isInvalidPackagePrice(price: unknown): boolean {
  * Safe idempotent catalogue reconciliation for controlled staging/operator execution.
  * - exactly one active row per (service_type, code) for DEFAULT_PACKAGES
  * - realign zero / non-finite / known-drift prices to founder-approved amounts
+ * - restore original_price / save_percentage presentation fields
  * - soft-deactivate duplicate actives
  *
  * Never invents marketing copy. Must NOT run on every production boot — call from the
  * explicit `reconcilePackages` script (or test/dev when explicitly gated).
  */
-export async function reconcilePackageCatalogue(): Promise<{
+export async function reconcilePackageCatalogue(opts: { dryRun?: boolean } = {}): Promise<{
+  dryRun: boolean;
   inserted: number;
   realigned: number;
   deactivatedDuplicates: number;
+  presentationUpdated: number;
+  report: Array<Record<string, unknown>>;
 }> {
+  const dryRun = Boolean(opts.dryRun);
   let inserted = 0;
   let realigned = 0;
   let deactivatedDuplicates = 0;
+  let presentationUpdated = 0;
+  const report: Array<Record<string, unknown>> = [];
 
   for (const p of DEFAULT_PACKAGES) {
     const rows = (await col("packages")
@@ -134,17 +150,19 @@ export async function reconcilePackageCatalogue(): Promise<{
       .toArray()) as Doc[];
 
     if (!rows.length) {
-      await col("packages").insertOne({
-        ...p,
-        id: randomUUID(),
-        is_active: true,
-        created_at: nowIso(),
-      });
       inserted += 1;
+      report.push({ action: "insert", code: p.code, price: p.price });
+      if (!dryRun) {
+        await col("packages").insertOne({
+          ...p,
+          id: randomUUID(),
+          is_active: true,
+          created_at: nowIso(),
+        });
+      }
       continue;
     }
 
-    // Prefer an already-active row; otherwise the oldest.
     const preferred =
       rows.find((r) => r.is_active !== false) ?? rows[0];
     const driftPrices = SEED_PRICE_DRIFT[String(p.code)] ?? [Number(p.price)];
@@ -163,31 +181,78 @@ export async function reconcilePackageCatalogue(): Promise<{
       is_active: true,
       updated_at: nowIso(),
     };
+    let presentationChanged = false;
+    if (p.original_price != null && Number(preferred.original_price) !== Number(p.original_price)) {
+      patch.original_price = p.original_price;
+      presentationChanged = true;
+    } else if (p.original_price != null) {
+      patch.original_price = p.original_price;
+    }
+    if (
+      p.save_percentage != null &&
+      Number(preferred.save_percentage) !== Number(p.save_percentage)
+    ) {
+      patch.save_percentage = p.save_percentage;
+      presentationChanged = true;
+    } else if (p.save_percentage != null) {
+      patch.save_percentage = p.save_percentage;
+    }
     if (shouldRealign) {
       patch.price = p.price;
-      if (currentPrice !== Number(p.price)) realigned += 1;
+      if (currentPrice !== Number(p.price)) {
+        realigned += 1;
+        report.push({
+          action: "realign_price",
+          code: p.code,
+          from: currentPrice,
+          to: p.price,
+        });
+      }
     }
-    await col("packages").updateOne({ id: preferred.id }, { $set: patch });
+    if (presentationChanged) {
+      presentationUpdated += 1;
+      report.push({
+        action: "presentation",
+        code: p.code,
+        original_price: p.original_price ?? null,
+        save_percentage: p.save_percentage ?? null,
+      });
+    }
+    if (!dryRun) {
+      await col("packages").updateOne({ id: preferred.id }, { $set: patch });
+    }
 
     for (const dup of rows) {
       if (dup.id === preferred.id) continue;
       if (dup.is_active === false) continue;
-      await col("packages").updateOne(
-        { id: dup.id },
-        { $set: { is_active: false, updated_at: nowIso() } },
-      );
       deactivatedDuplicates += 1;
+      report.push({ action: "deactivate_duplicate", code: p.code, id: dup.id });
+      if (!dryRun) {
+        await col("packages").updateOne(
+          { id: dup.id },
+          { $set: { is_active: false, updated_at: nowIso() } },
+        );
+      }
     }
   }
 
   for (const code of LEGACY_MTD_PACKAGE_CODES) {
-    await col("packages").updateOne(
-      { service_type: MTD, code },
-      { $set: { is_active: false, updated_at: nowIso() } },
-    );
+    if (!dryRun) {
+      await col("packages").updateOne(
+        { service_type: MTD, code },
+        { $set: { is_active: false, updated_at: nowIso() } },
+      );
+    }
   }
 
-  return { inserted, realigned, deactivatedDuplicates };
+  return {
+    dryRun,
+    inserted,
+    realigned,
+    deactivatedDuplicates,
+    presentationUpdated,
+    report,
+  };
 }
 
 /**

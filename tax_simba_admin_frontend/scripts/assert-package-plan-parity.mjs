@@ -38,6 +38,18 @@ assert(modal.includes("subscription?.plan?.name"), "Client Details reads subscri
 const native = readFileSync(join(root, "src/lib/nativeApiUrl.ts"), "utf8");
 assert(native.includes("/api/packages") || native.includes("api/packages"), "native packages URL helper present");
 
+const cmsList = readFileSync(
+  join(root, "src/app/(admin)/(others-pages)/(cms)/subscription-plan/page.client.tsx"),
+  "utf8",
+);
+assert(cmsList.includes("originalPrice"), "CMS subscription list shows originalPrice");
+
+const cmsView = readFileSync(
+  join(root, "src/app/(admin)/(others-pages)/(cms)/subscription-plan/_section/SubscriptionPlanViewModal.tsx"),
+  "utf8",
+);
+assert(cmsView.includes("savePercentage"), "CMS plan view shows Save %");
+
 if (process.exitCode) {
   console.error("Admin package/plan assertions failed");
   process.exit(1);

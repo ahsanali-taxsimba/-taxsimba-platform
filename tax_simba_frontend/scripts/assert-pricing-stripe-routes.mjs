@@ -30,6 +30,18 @@ assert(hook.includes("Unavailable"), "formatPlanPrice never markets £0");
 assert(home.includes("n > 0"), "homepage fromPrice ignores £0");
 assert(home.includes("formatPlanPrice"), "homepage uses formatPlanPrice");
 
+// Promo presentation must come from API fields (not hardcoded copy).
+for (const [name, src] of [
+  ["homepage", home],
+  ["planlist", planlist],
+  ["pricing", pricing],
+]) {
+  assert(src.includes("originalPrice"), `${name}: renders originalPrice strikethrough`);
+  assert(src.includes("savePercentage"), `${name}: renders savePercentage`);
+  assert(src.includes("Save {plan.savePercentage}"), `${name}: Save N% from API`);
+  assert(src.includes("plan.description ?"), `${name}: description only when API provides it`);
+}
+
 const routes = [
   "src/app/(home)/planlist/checkout-success/page.jsx",
   "src/app/(home)/planlist/checkout-cancel/page.jsx",
@@ -53,6 +65,11 @@ assert(cancel.includes("No package was activated"), "cancel creates no entitleme
 
 const paymentsSuccess = readFileSync(join(root, "src/app/payments/success/page.jsx"), "utf8");
 assert(paymentsSuccess.includes("checkout-success"), "plural /payments/success redirects to canonical");
+
+const paymentSuccess = readFileSync(join(root, "src/app/payment/success/page.jsx"), "utf8");
+assert(paymentSuccess.includes("checkout-success"), "legacy /payment/success redirects to canonical");
+const paymentCancel = readFileSync(join(root, "src/app/payment/cancel/page.jsx"), "utf8");
+assert(paymentCancel.includes("checkout-cancel"), "legacy /payment/cancel redirects to canonical");
 
 if (process.exitCode) {
   console.error("Pricing / Stripe route assertions failed");

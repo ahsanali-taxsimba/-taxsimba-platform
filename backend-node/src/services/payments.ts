@@ -29,6 +29,7 @@ export interface PaymentProvider {
     label: string,
     originUrl: string,
     metadata: Record<string, string>,
+    productDescription?: string | null,
   ): Promise<CheckoutSession>;
   retrieveSession(sessionId: string): Promise<CheckoutSession>;
   parseWebhook(payload: Buffer, signature: string): WebhookEvent;
@@ -58,6 +59,7 @@ export class StripeProvider implements PaymentProvider {
     label: string,
     originUrl: string,
     metadata: Record<string, string>,
+    productDescription?: string | null,
   ): Promise<CheckoutSession> {
     const unitAmount = gbpToStripePence(amount);
     const { success_url, cancel_url } = checkoutReturnUrls(originUrl);
@@ -69,6 +71,7 @@ export class StripeProvider implements PaymentProvider {
       if (!s || s === "NaN" || s === "undefined") continue;
       safeMeta[k] = s;
     }
+    const desc = String(productDescription || "").trim();
     return session(
       await this.stripe.checkout.sessions.create({
         line_items: [
@@ -77,7 +80,11 @@ export class StripeProvider implements PaymentProvider {
               currency: "gbp",
               unit_amount: unitAmount,
               tax_behavior: "exclusive",
-              product_data: { name: label, tax_code: TAX_CODE },
+              product_data: {
+                name: label,
+                tax_code: TAX_CODE,
+                ...(desc ? { description: desc.slice(0, 500) } : {}),
+              },
             },
             quantity: 1,
           },

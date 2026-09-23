@@ -39,15 +39,58 @@ export const CONTENT_GROUPS = [
  */
 export const CONTENT_DEFAULTS: Record<string, ContentDefault> = {
   // ---------------------------------------------------------------- packages
-  // Package marketing copy does not exist in the current UI. The defaults are therefore empty:
-  // nothing is rendered until a Super Admin writes copy, so adopting these keys cannot change
-  // the current screens.
-  "package.SIMPLE.description": { group: "Packages", label: "Tax Simba Simple \u2014 description", value: "" },
-  "package.SIMPLE.features": { group: "Packages", label: "Tax Simba Simple \u2014 features", list: true, value: "" },
-  "package.SMART.description": { group: "Packages", label: "Tax Simba Smart \u2014 description", value: "" },
-  "package.SMART.features": { group: "Packages", label: "Tax Simba Smart \u2014 features", list: true, value: "" },
-  "package.ELITE.description": { group: "Packages", label: "Tax Simba Elite \u2014 description", value: "" },
-  "package.ELITE.features": { group: "Packages", label: "Tax Simba Elite \u2014 features", list: true, value: "" },
+  // Restored from repository history (commit 4a0a49f) — founder-approved SA presentation.
+  "package.SIMPLE.description": {
+    group: "Packages",
+    label: "Tax Simba Simple \u2014 description",
+    value:
+      "A straightforward Self Assessment for employed and simple self-employed income, prepared and checked by a qualified accountant.",
+  },
+  "package.SIMPLE.features": {
+    group: "Packages",
+    label: "Tax Simba Simple \u2014 features",
+    list: true,
+    value: [
+      "Self Assessment prepared by an accountant",
+      "Secure document upload",
+      "Review and approval before submission",
+      "Email and in-app updates",
+    ].join("\n"),
+  },
+  "package.SMART.description": {
+    group: "Packages",
+    label: "Tax Simba Smart \u2014 description",
+    value:
+      "For clients with several income sources who want their allowances and expenses reviewed in detail before filing.",
+  },
+  "package.SMART.features": {
+    group: "Packages",
+    label: "Tax Simba Smart \u2014 features",
+    list: true,
+    value: [
+      "Everything in Simple",
+      "Multiple income sources reviewed",
+      "Expenses and allowances check",
+      "Priority accountant messaging",
+    ].join("\n"),
+  },
+  "package.ELITE.description": {
+    group: "Packages",
+    label: "Tax Simba Elite \u2014 description",
+    value:
+      "Our most thorough Self Assessment service, including planning conversations and a full review of your position for the year.",
+  },
+  "package.ELITE.features": {
+    group: "Packages",
+    label: "Tax Simba Elite \u2014 features",
+    list: true,
+    value: [
+      "Everything in Smart",
+      "Full review of your tax position",
+      "Tax planning conversation",
+      "Priority turnaround",
+    ].join("\n"),
+  },
   "package.MTD_COMPLY.description": {
     group: "Packages",
     label: "Simbian Comply \u2014 description",

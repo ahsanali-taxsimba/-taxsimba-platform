@@ -86,6 +86,11 @@ compatPaymentsRouter.post(
       req.header("origin") ||
       "https://taxsimba.co.uk";
 
+    const { contentMap } = await import("../domain/content");
+    const content = await contentMap();
+    const productDescription =
+      content[`package.${String(pkg.code)}.description`] || null;
+
     const session = await payments().createCheckout(
       amount,
       `${serviceType === MTD ? "MTD for Income Tax" : "Self Assessment"} — ${pkg.name}`,
@@ -98,6 +103,7 @@ compatPaymentsRouter.post(
         to_package: String(pkg.code),
         package_id: String(pkg.id),
       },
+      productDescription,
     );
     await col("payment_transactions").insertOne({
       id: randomUUID(),

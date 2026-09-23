@@ -13,6 +13,7 @@ export interface RecordedCheckout {
   unit_amount_pence: number;
   currency: "gbp";
   label: string;
+  product_description: string | null;
   origin_url: string;
   success_url: string;
   cancel_url: string;
@@ -30,6 +31,7 @@ export class FakePaymentProvider implements PaymentProvider {
     label: string,
     originUrl: string,
     metadata: Record<string, string>,
+    productDescription?: string | null,
   ): Promise<CheckoutSession> {
     const unitAmount = gbpToStripePence(amount);
     const { success_url, cancel_url } = checkoutReturnUrls(originUrl);
@@ -48,6 +50,7 @@ export class FakePaymentProvider implements PaymentProvider {
       unit_amount_pence: unitAmount,
       currency: "gbp",
       label,
+      product_description: productDescription ? String(productDescription) : null,
       origin_url: originUrl,
       success_url,
       cancel_url,

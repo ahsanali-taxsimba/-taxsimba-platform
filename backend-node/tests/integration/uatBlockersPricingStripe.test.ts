@@ -44,14 +44,14 @@ describe("UAT blockers — pricing / Stripe / entitlement / admin plan", () => {
     await dropTestDb();
   });
 
-  it("catalogue SoT: Simple/Smart/Elite at £119/£149/£299; zero price realigned; duplicates deactivated", async () => {
+  it("catalogue SoT: promo presentation + descriptions; £0 realigned; dry-run is non-mutating", async () => {
     const { col } = await import("../../src/db/mongo");
     const { reconcilePackageCatalogue } = await import("../../src/domain/packages");
 
     // Corrupt Simple to £0 and insert a duplicate active SMART.
     await col("packages").updateOne(
       { code: "SIMPLE", service_type: "SELF_ASSESSMENT" },
-      { $set: { price: 0 } },
+      { $set: { price: 0, original_price: null, save_percentage: null } },
     );
     await col("packages").insertOne({
       id: randomUUID(),
@@ -67,18 +67,49 @@ describe("UAT blockers — pricing / Stripe / entitlement / admin plan", () => {
       created_at: new Date().toISOString(),
     });
 
-    const result = await reconcilePackageCatalogue();
+    const dry = await reconcilePackageCatalogue({ dryRun: true });
+    expect(dry.dryRun).toBe(true);
+    expect(dry.realigned).toBeGreaterThanOrEqual(1);
+    expect(dry.report.length).toBeGreaterThan(0);
+    const stillCorrupt = await col("packages").findOne({
+      code: "SIMPLE",
+      service_type: "SELF_ASSESSMENT",
+      is_active: true,
+    });
+    expect(Number(stillCorrupt?.price)).toBe(0);
+
+    const result = await reconcilePackageCatalogue({ dryRun: false });
+    expect(result.dryRun).toBe(false);
     expect(result.realigned).toBeGreaterThanOrEqual(1);
     expect(result.deactivatedDuplicates).toBeGreaterThanOrEqual(1);
+    expect(result.presentationUpdated).toBeGreaterThanOrEqual(1);
 
     const plans = await request(app)
       .get("/api/compat/subscription-plans?category=taxSimba")
       .expect(200);
-    const rows = plans.body.data as { code: string; price: number | null; name: string }[];
+    const rows = plans.body.data as {
+      code: string;
+      price: number | null;
+      name: string;
+      originalPrice: number | null;
+      savePercentage: number | null;
+      description: string | null;
+      features: string[];
+    }[];
     const byCode = Object.fromEntries(rows.map((r) => [r.code, r]));
     expect(byCode.SIMPLE.price).toBe(119);
+    expect(byCode.SIMPLE.originalPrice).toBe(199);
+    expect(byCode.SIMPLE.savePercentage).toBe(40);
+    expect(byCode.SIMPLE.description).toContain("straightforward Self Assessment");
+    expect(byCode.SIMPLE.features.length).toBeGreaterThan(0);
     expect(byCode.SMART.price).toBe(149);
+    expect(byCode.SMART.originalPrice).toBe(229);
+    expect(byCode.SMART.savePercentage).toBe(35);
+    expect(byCode.SMART.description).toContain("several income sources");
     expect(byCode.ELITE.price).toBe(299);
+    expect(byCode.ELITE.originalPrice).toBe(399);
+    expect(byCode.ELITE.savePercentage).toBe(25);
+    expect(byCode.ELITE.description).toContain("most thorough Self Assessment");
     expect(rows.map((r) => r.code)).toEqual(["SIMPLE", "SMART", "ELITE"]);
 
     const activeSmart = await col("packages")
@@ -132,6 +163,7 @@ describe("UAT blockers — pricing / Stripe / entitlement / admin plan", () => {
     expect(recorded.metadata.package_id).toBe(simple.id);
     expect(recorded.metadata.to_package).toBe("SIMPLE");
     expect(recorded.metadata.service_type).toBe("SELF_ASSESSMENT");
+    expect(recorded.product_description).toContain("straightforward Self Assessment");
     expect(recorded.success_url).not.toMatch(/192\.168\.|localhost/);
   });
 
@@ -229,7 +261,7 @@ describe("UAT blockers — pricing / Stripe / entitlement / admin plan", () => {
     expect(row?.subscription?.plan?.name).toMatch(/Smart/i);
   });
 
-  it("checkout-success finalises paid session idempotently; cancel creates no entitlement", async () => {
+  it("checkout-success finalises paid session idempotently; unpaid cancel creates no entitlement", async () => {
     const client = await makeClient("uat-success-finalise");
     const plans = await request(app)
       .get("/api/compat/subscription-plans?category=taxSimba")
@@ -278,7 +310,32 @@ describe("UAT blockers — pricing / Stripe / entitlement / admin plan", () => {
       })
       .toArray();
     expect(entitlements).toHaveLength(1);
+    expect(entitlements[0].package_code).toBe("ELITE");
     expect(await col("cases").countDocuments({ client_id: client.clientId })).toBe(0);
+
+    // Client dashboard surfaces the purchased plan.
+    const mine = await request(app).get("/api/my-services").set(bearer(client)).expect(200);
+    const sa = (mine.body.services as { service_type: string; package_code: string; status: string }[]).find(
+      (s) => s.service_type === "SELF_ASSESSMENT",
+    );
+    expect(sa?.status).toBe("ACTIVE");
+    expect(sa?.package_code).toBe("ELITE");
+
+    // Cancel path: checkout opened but never paid → no ACTIVE entitlement.
+    const cancelClient = await makeClient("uat-cancel-no-entitle");
+    const cancelCheckout = await request(app)
+      .post("/api/compat/client/subscription/checkout-session")
+      .set(bearer(cancelClient))
+      .send({
+        planId: elite.id,
+        originUrl: "https://app.test.taxsimba.local",
+      })
+      .expect(200);
+    expect(cancelCheckout.body.data.sessionId).toBeTruthy();
+    const cancelActive = await col("client_services")
+      .find({ client_id: cancelClient.clientId, status: "ACTIVE" })
+      .toArray();
+    expect(cancelActive).toHaveLength(0);
   });
 
   it("checkoutReturnUrls helper never embeds localhost/LAN hosts", async () => {
