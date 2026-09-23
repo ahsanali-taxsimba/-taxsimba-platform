@@ -255,6 +255,9 @@ model Site {
   backlinkEngine     BacklinkEngineConfig?
   backlinkAlerts     BacklinkAlert[]
   disavowEntries     DisavowEntry[]
+  crawlerMaster      CrawlerMasterConfig?
+  crawlerMasterRuns  CrawlerMasterRun[]
+  crawlerExtracts    CrawlerExtractRecord[]
 
   @@unique([workspaceId, domain])
   @@index([workspaceId])
@@ -1521,4 +1524,85 @@ model DisavowEntry {
 
   @@index([siteId, status])
   @@unique([siteId, domain, url])
+}
+
+// ─── seo.crawler.master.init ──────────────────────────────────────────────────
+
+model CrawlerMasterConfig {
+  id               String   @id @default(cuid())
+  siteId           String   @unique
+  modules          Json
+  providers        Json
+  crawlModes       Json
+  frequency        String   @default("6h")
+  frequencyHours   Int      @default(6)
+  maxDepth         Int      @default(12)
+  parallelThreads  Int      @default(32)
+  respectRobots    Boolean  @default(true)
+  extractFields    Json
+  storeFormat      String   @default("jsonl")
+  autoClean        Boolean  @default(true)
+  errorRetry       Int      @default(3)
+  logLevel         String   @default("verbose")
+  status           String   @default("active")
+  lastRunAt        DateTime?
+  nextRunAt        DateTime?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+}
+
+model CrawlerMasterRun {
+  id              String    @id @default(cuid())
+  siteId          String
+  mode            String
+  status          JobStatus @default(QUEUED)
+  modules         Json
+  providers       Json
+  maxDepth        Int       @default(12)
+  parallelThreads Int       @default(32)
+  pagesCrawled    Int       @default(0)
+  extractsStored  Int       @default(0)
+  errors          Int       @default(0)
+  retries         Int       @default(0)
+  storePath       String?
+  logLevel        String    @default("verbose")
+  logs            Json?
+  startedAt       DateTime?
+  finishedAt      DateTime?
+  createdAt       DateTime  @default(now())
+
+  site     Site                   @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  extracts CrawlerExtractRecord[]
+
+  @@index([siteId, createdAt])
+  @@index([siteId, status])
+}
+
+model CrawlerExtractRecord {
+  id          String   @id @default(cuid())
+  siteId      String
+  runId       String?
+  url         String
+  depth       Int      @default(0)
+  module      String
+  provider    String?
+  links       Json?
+  anchors     Json?
+  metadata    Json?
+  schemas     Json?
+  keywords    Json?
+  geo         Json?
+  language    String?
+  rawJsonl    String?
+  cleaned     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  site Site              @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  run  CrawlerMasterRun? @relation(fields: [runId], references: [id], onDelete: SetNull)
+
+  @@index([siteId, module])
+  @@index([runId])
+  @@index([siteId, createdAt])
 }

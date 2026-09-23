@@ -8,6 +8,7 @@ import { processAIContent } from "./jobs/ai-content";
 import { processAeoScan } from "./jobs/aeo";
 import { processReport } from "./jobs/report";
 import { processBacklinkRefresh } from "./jobs/backlinks";
+import { processCrawlerMaster } from "./jobs/crawler-master";
 import { pollDbJobs } from "./db-poller";
 
 const redisUrl = process.env.REDIS_URL || "redis://localhost:6380";
@@ -138,6 +139,24 @@ function createWorkers(connection: IORedis) {
       } catch (e) {
         await markJob(job.data.backgroundJobId, "FAILED", {
           errorMessage: e instanceof Error ? e.message : "backlink refresh failed",
+        });
+        throw e;
+      }
+    },
+    { connection: conn, concurrency },
+  );
+
+  new Worker(
+    JOB_QUEUES.CRAWLER_MASTER,
+    async (job) => {
+      await markJob(job.data.backgroundJobId, "RUNNING");
+      try {
+        const result = await processCrawlerMaster(job.data);
+        await markJob(job.data.backgroundJobId, "COMPLETED", { result });
+        return result;
+      } catch (e) {
+        await markJob(job.data.backgroundJobId, "FAILED", {
+          errorMessage: e instanceof Error ? e.message : "crawler master failed",
         });
         throw e;
       }

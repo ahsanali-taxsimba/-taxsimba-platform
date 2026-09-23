@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { requireUser } from "@/lib/auth";
 import { listCrawls, siteHealthSummary } from "@/server/services/crawl.service";
 import { CrawlPanel } from "@/components/CrawlPanel";
+import { CrawlerMasterPanel } from "@/components/CrawlerMasterPanel";
 
 export default async function TechnicalPage({
   params,
@@ -22,7 +23,7 @@ export default async function TechnicalPage({
   ]);
 
   return (
-    <div className="animate-rise space-y-6">
+    <div className="animate-rise space-y-8">
       <div>
         <p className="text-sm text-ink-500">
           <Link href={`/app/sites/${siteId}`} className="hover:text-accent-dark">
@@ -30,13 +31,19 @@ export default async function TechnicalPage({
           </Link>{" "}
           / Technical
         </p>
-        <h1 className="font-display text-3xl font-semibold">Site health</h1>
+        <h1 className="font-display text-3xl font-semibold">Crawler Master</h1>
         <p className="text-ink-500">
           Health score: {health.healthScore ?? "—"} · Critical:{" "}
           {health.issueCounts.CRITICAL} · High: {health.issueCounts.HIGH}
         </p>
       </div>
-      <CrawlPanel siteId={siteId} crawls={crawls} healthScore={health.healthScore} />
+      <CrawlerMasterPanel siteId={siteId} />
+      <div>
+        <h2 className="font-display text-xl font-semibold">Site audit history</h2>
+        <div className="mt-4">
+          <CrawlPanel siteId={siteId} crawls={crawls} healthScore={health.healthScore} />
+        </div>
+      </div>
     </div>
   );
 }

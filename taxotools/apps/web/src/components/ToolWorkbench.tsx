@@ -345,6 +345,16 @@ export function ToolWorkbench({
               </button>
             </>
           )}
+          {(toolId === "crawler-master" || toolId === "deep-crawl" || toolId === "live-crawl") && (
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => runAction("init")}
+              className="rounded-lg border border-ink-100 px-4 py-2 text-sm"
+            >
+              seo.crawler.master.init
+            </button>
+          )}
           {toolId === "disavow-manager" && (
             <button
               type="button"

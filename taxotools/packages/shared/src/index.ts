@@ -137,6 +137,7 @@ export const JOB_QUEUES = {
   INSTANT_INDEX: "taxotools-instant-index",
   ALERTS: "taxotools-alerts",
   BACKLINK_REFRESH: "taxotools-backlink-refresh",
+  CRAWLER_MASTER: "taxotools-crawler-master",
 } as const;
 
 export type JobQueueName = (typeof JOB_QUEUES)[keyof typeof JOB_QUEUES];
@@ -227,6 +228,9 @@ export const TOOLKIT_GROUPS: ToolkitGroup[] = [
       { id: "competitor-backlinks", name: "Competitor Backlink Monitor", path: "competitor-backlinks" },
       { id: "link-building", name: "Link Building Tool", path: "link-building" },
       { id: "site-audit", name: "Site Audit", path: "site-audit" },
+      { id: "crawler-master", name: "Crawler Master", path: "crawler-master" },
+      { id: "deep-crawl", name: "Deep Crawl", path: "deep-crawl" },
+      { id: "live-crawl", name: "Live Crawl", path: "live-crawl" },
       { id: "on-page-checker", name: "On-Page SEO Checker", path: "on-page-checker" },
       { id: "seo-content-template", name: "SEO Content Template", path: "seo-content-template" },
       { id: "seo-writing-assistant", name: "SEO Writing Assistant", path: "seo-writing-assistant" },
@@ -425,4 +429,60 @@ export function classifyBacklink(
 
 function clamp(n: number, min: number, max: number) {
   return Math.min(max, Math.max(min, n));
+}
+
+/** seo.crawler.master.init defaults */
+export const CRAWLER_MASTER_MODULES = [
+  "backlinks",
+  "keywords",
+  "serp",
+  "competitors",
+  "traffic",
+] as const;
+export type CrawlerMasterModule = (typeof CRAWLER_MASTER_MODULES)[number];
+
+export const CRAWLER_MASTER_PROVIDERS = [
+  "ahrefs",
+  "semrush",
+  "majestic",
+  "dataforseo",
+  "serpapi",
+  "google_index",
+  "bing_index",
+] as const;
+export type CrawlerMasterProvider = (typeof CRAWLER_MASTER_PROVIDERS)[number];
+
+export const CRAWLER_MASTER_MODES = ["live", "scheduled", "deep", "external"] as const;
+export type CrawlerMasterMode = (typeof CRAWLER_MASTER_MODES)[number];
+
+export const CRAWLER_MASTER_EXTRACT = [
+  "links",
+  "anchors",
+  "metadata",
+  "schemas",
+  "keywords",
+  "geo",
+  "language",
+] as const;
+export type CrawlerMasterExtract = (typeof CRAWLER_MASTER_EXTRACT)[number];
+
+export const CRAWLER_MASTER_DEFAULTS = {
+  modules: [...CRAWLER_MASTER_MODULES] as CrawlerMasterModule[],
+  providers: [...CRAWLER_MASTER_PROVIDERS] as CrawlerMasterProvider[],
+  crawlModes: [...CRAWLER_MASTER_MODES] as CrawlerMasterMode[],
+  frequency: "6h",
+  frequencyHours: 6,
+  maxDepth: 12,
+  parallelThreads: 32,
+  respectRobots: true,
+  extract: [...CRAWLER_MASTER_EXTRACT] as CrawlerMasterExtract[],
+  storeFormat: "jsonl" as const,
+  autoClean: true,
+  errorRetry: 3,
+  logLevel: "verbose" as const,
+} as const;
+
+export function parseFrequencyHours(freq: string, fallback = 6): number {
+  const m = /^(\d+)\s*h$/i.exec(freq.trim());
+  return m ? Number(m[1]) : fallback;
 }

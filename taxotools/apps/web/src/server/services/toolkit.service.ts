@@ -53,7 +53,13 @@ import {
   exportDisavowFile,
   listCompetitorBacklinks,
 } from "@/server/services/backlinks.service";
+import {
+  initCrawlerMaster,
+  executeCrawlerMasterRun,
+  summarizeCrawlerMaster,
+} from "@/server/services/crawler-master.service";
 import { JOB_QUEUES } from "@taxotools/shared";
+import type { CrawlerMasterMode } from "@taxotools/shared";
 
 function seed(n: string) {
   return [...n].reduce((a, c) => a + c.charCodeAt(0), 0);
@@ -104,6 +110,17 @@ export async function runTool(
   const site = await getSiteForUser(userId, siteId);
 
   switch (toolId) {
+    case "crawler-master": {
+      const existing = await prisma.crawlerMasterConfig.findUnique({ where: { siteId } });
+      if (!existing) {
+        return initCrawlerMaster(userId, siteId);
+      }
+      return summarizeCrawlerMaster(siteId);
+    }
+    case "deep-crawl":
+      return executeCrawlerMasterRun(userId, siteId, "deep");
+    case "live-crawl":
+      return executeCrawlerMasterRun(userId, siteId, "live");
     case "backlink-engine": {
       const existing = await prisma.backlinkEngineConfig.findUnique({ where: { siteId } });
       if (!existing) {
@@ -1190,6 +1207,21 @@ export async function triggerToolAction(
   }
   if (toolId === "disavow-manager" && (action === "export" || action === "run")) {
     return exportDisavowFile(userId, siteId);
+  }
+  if (
+    (toolId === "crawler-master" || toolId === "deep-crawl" || toolId === "live-crawl") &&
+    (action === "init" || action === "run")
+  ) {
+    if (action === "init" || toolId === "crawler-master") {
+      return initCrawlerMaster(userId, siteId, {
+        mode: toolId === "deep-crawl" ? "deep" : toolId === "live-crawl" ? "live" : "scheduled",
+      });
+    }
+    return executeCrawlerMasterRun(
+      userId,
+      siteId,
+      (toolId === "deep-crawl" ? "deep" : "live") as CrawlerMasterMode,
+    );
   }
   if (action === "enqueue") {
     return enqueueJob({
