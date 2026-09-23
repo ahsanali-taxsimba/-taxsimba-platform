@@ -8,9 +8,13 @@ import {
   CRAWLER_MASTER_QUEUES,
   CRAWLER_MASTER_WORKERS,
   CRAWLER_MASTER_DB_SCHEMA,
+  CRAWLER_MASTER_UK_DIRECTORIES,
+  CRAWLER_MASTER_ACCOUNTING_DIRECTORIES,
+  CRAWLER_MASTER_GOV_SOURCES,
   CRAWLER_MASTER_QUEUE_WORKER_MAP,
   JOB_QUEUES,
   parseFrequencyHours,
+  directorySourceUrl,
   type CrawlerMasterModule,
   type CrawlerMasterProvider,
   type CrawlerMasterMode,
@@ -55,6 +59,18 @@ function asQueues(v?: string[]): CrawlerMasterQueue[] {
   return src.filter((q): q is CrawlerMasterQueue =>
     (CRAWLER_MASTER_QUEUES as readonly string[]).includes(q),
   );
+}
+
+function asDirectoryList(
+  v: string[] | undefined,
+  defaults: readonly string[],
+  allowlist?: readonly string[],
+): string[] {
+  const src = v?.length ? v : [...defaults];
+  const cleaned = src.map((s) => s.trim()).filter(Boolean);
+  if (!allowlist?.length) return cleaned;
+  const allowed = new Set(allowlist.map((a) => a.toLowerCase()));
+  return cleaned.filter((s) => allowed.has(s.toLowerCase()));
 }
 
 async function writeLog(
@@ -130,6 +146,60 @@ function buildExtractStub(
   return { url, depth, module, provider, payload, rawJsonl: JSON.stringify(payload) };
 }
 
+function buildDirectoryExtract(
+  entry: string,
+  kind: "uk_directory" | "accounting_directory" | "gov_source",
+  siteDomain: string,
+  extractFields: CrawlerMasterExtract[],
+) {
+  const url = directorySourceUrl(entry);
+  const host = entry.split("/")[0];
+  const payload: Record<string, unknown> = {
+    url,
+    depth: 0,
+    module: kind,
+    provider: "external",
+    directory: entry,
+    targetBrand: siteDomain,
+  };
+
+  if (extractFields.includes("links")) {
+    payload.links = [`${url}/search`, `${url}/listings`, siteDomain];
+  }
+  if (extractFields.includes("anchors")) {
+    payload.anchors = [siteDomain, "find", "directory", kind.replace(/_/g, " ")];
+  }
+  if (extractFields.includes("metadata")) {
+    payload.metadata = {
+      title: `${host} · ${kind}`,
+      description: `External directory crawl of ${entry} for ${siteDomain}`,
+      canonical: url,
+      robots: "index,follow",
+    };
+  }
+  if (extractFields.includes("schemas")) {
+    payload.schemas = [{ "@type": "WebSite", name: host, url }];
+  }
+  if (extractFields.includes("keywords")) {
+    payload.keywords = [siteDomain.split(".")[0], kind, host, "uk", "directory"];
+  }
+  if (extractFields.includes("geo")) {
+    payload.geo = { country: "GB", region: "England", city: "London" };
+  }
+  if (extractFields.includes("language")) {
+    payload.language = "en-GB";
+  }
+
+  return {
+    url,
+    depth: 0,
+    module: kind,
+    provider: "external",
+    payload,
+    rawJsonl: JSON.stringify(payload),
+  };
+}
+
 export async function initCrawlerMaster(
   userId: string,
   siteId: string,
@@ -137,6 +207,9 @@ export async function initCrawlerMaster(
     enable: string[];
     modules: string[];
     providers: string[];
+    ukDirectories: string[];
+    accountingDirectories: string[];
+    govSources: string[];
     queues: string[];
     workers: string[];
     dbSchema: string[];
@@ -157,6 +230,21 @@ export async function initCrawlerMaster(
   const site = await getSiteForUser(userId, siteId);
   const enable = asModules(overrides.enable || overrides.modules);
   const providers = asProviders(overrides.providers);
+  const ukDirectories = asDirectoryList(
+    overrides.ukDirectories,
+    CRAWLER_MASTER_DEFAULTS.ukDirectories,
+    CRAWLER_MASTER_UK_DIRECTORIES,
+  );
+  const accountingDirectories = asDirectoryList(
+    overrides.accountingDirectories,
+    CRAWLER_MASTER_DEFAULTS.accountingDirectories,
+    CRAWLER_MASTER_ACCOUNTING_DIRECTORIES,
+  );
+  const govSources = asDirectoryList(
+    overrides.govSources,
+    CRAWLER_MASTER_DEFAULTS.govSources,
+    CRAWLER_MASTER_GOV_SOURCES,
+  );
   const queues = asQueues(overrides.queues);
   const workers = (
     overrides.workers?.length ? overrides.workers : [...CRAWLER_MASTER_DEFAULTS.workers]
@@ -190,6 +278,9 @@ export async function initCrawlerMaster(
       enableModules: enable,
       modules: enable,
       providers,
+      ukDirectories,
+      accountingDirectories,
+      govSources,
       queues,
       workers,
       dbSchema,
@@ -211,6 +302,9 @@ export async function initCrawlerMaster(
       enableModules: enable,
       modules: enable,
       providers,
+      ukDirectories,
+      accountingDirectories,
+      govSources,
       queues,
       workers,
       dbSchema,
@@ -244,6 +338,9 @@ export async function initCrawlerMaster(
       command: "seo.crawler.master.init",
       enable,
       providers,
+      ukDirectories,
+      accountingDirectories,
+      govSources,
       queues,
       workers,
       dbSchema,
@@ -284,6 +381,18 @@ export async function executeCrawlerMasterRun(
   const providers = asProviders(config.providers as string[]);
   const queues = asQueues((config.queues as string[]) || undefined);
   const extractFields = asExtract(config.extractFields as string[]);
+  const ukDirectories = asDirectoryList(
+    (config.ukDirectories as string[]) || undefined,
+    CRAWLER_MASTER_DEFAULTS.ukDirectories,
+  );
+  const accountingDirectories = asDirectoryList(
+    (config.accountingDirectories as string[]) || undefined,
+    CRAWLER_MASTER_DEFAULTS.accountingDirectories,
+  );
+  const govSources = asDirectoryList(
+    (config.govSources as string[]) || undefined,
+    CRAWLER_MASTER_DEFAULTS.govSources,
+  );
 
   if (config.autoClean) {
     const cutoff = new Date(Date.now() - 7 * 24 * 3600 * 1000);
@@ -314,6 +423,7 @@ export async function executeCrawlerMasterRun(
     `[verbose] seo.crawler.master.run start mode=${mode} depth=${config.maxDepth} threads=${config.parallelThreads}`,
     `[verbose] respect_robots=${config.respectRobots} store=${config.storeFormat}`,
     `[verbose] enable=${modules.join(",")} providers=${providers.join(",")}`,
+    `[verbose] uk_directories=${ukDirectories.length} accounting_directories=${accountingDirectories.length} gov_sources=${govSources.length}`,
     `[verbose] queues=${queues.join(",")}`,
   ];
 
@@ -486,6 +596,73 @@ export async function executeCrawlerMasterRun(
     }
   }
 
+  // External directory / gov sources (external + deep modes always; others when lists configured)
+  const crawlExternal =
+    mode === "external" ||
+    mode === "deep" ||
+    ukDirectories.length + accountingDirectories.length + govSources.length > 0;
+  if (crawlExternal) {
+    const directoryBatches: Array<{
+      kind: "uk_directory" | "accounting_directory" | "gov_source";
+      entries: string[];
+    }> = [
+      { kind: "uk_directory", entries: ukDirectories },
+      { kind: "accounting_directory", entries: accountingDirectories },
+      { kind: "gov_source", entries: govSources },
+    ];
+    let directoryExtracts = 0;
+    for (const batch of directoryBatches) {
+      for (const entry of batch.entries) {
+        try {
+          const stub = buildDirectoryExtract(entry, batch.kind, site.domain, extractFields);
+          await prisma.crawlerExtractRecord.create({
+            data: {
+              siteId,
+              runId: run.id,
+              url: stub.url,
+              depth: stub.depth,
+              module: stub.module,
+              provider: stub.provider,
+              queue: "crawl.urls",
+              worker: "url_crawler",
+              links: (stub.payload.links as Prisma.InputJsonValue) ?? undefined,
+              anchors: (stub.payload.anchors as Prisma.InputJsonValue) ?? undefined,
+              metadata: (stub.payload.metadata as Prisma.InputJsonValue) ?? undefined,
+              schemas: (stub.payload.schemas as Prisma.InputJsonValue) ?? undefined,
+              keywords: (stub.payload.keywords as Prisma.InputJsonValue) ?? undefined,
+              geo: (stub.payload.geo as Prisma.InputJsonValue) ?? undefined,
+              language: (stub.payload.language as string) || null,
+              rawJsonl: stub.rawJsonl,
+              cleaned: config.autoClean,
+            },
+          });
+          pagesCrawled += 1;
+          extractsStored += 1;
+          directoryExtracts += 1;
+        } catch (e) {
+          errors += 1;
+          const msg = `[error] directory ${batch.kind} ${entry}: ${e instanceof Error ? e.message : "err"}`;
+          logs.push(msg);
+          await writeLog(siteId, run.id, "error", msg, "crawl.urls", "url_crawler");
+        }
+      }
+    }
+    const msg = `[verbose] worker=url_crawler external directories uk=${ukDirectories.length} accounting=${accountingDirectories.length} gov=${govSources.length} extracts=${directoryExtracts}`;
+    logs.push(msg);
+    await writeLog(siteId, run.id, "verbose", msg, "crawl.urls", "url_crawler", {
+      ukDirectories,
+      accountingDirectories,
+      govSources,
+      directoryExtracts,
+    });
+    moduleResults.directories = {
+      uk: ukDirectories,
+      accounting: accountingDirectories,
+      gov: govSources,
+      extracts: directoryExtracts,
+    };
+  }
+
   if (queues.includes("alerts.events")) {
     const msg = `[verbose] worker=alerts emitted crawl_complete pages=${pagesCrawled} extracts=${extractsStored}`;
     logs.push(msg);
@@ -529,6 +706,9 @@ export async function executeCrawlerMasterRun(
       queues,
       workers: queues.map((q) => CRAWLER_MASTER_QUEUE_WORKER_MAP[q]),
       dbSchema: config.dbSchema,
+      ukDirectories,
+      accountingDirectories,
+      govSources,
       dispatched,
     },
   });
@@ -591,6 +771,10 @@ export async function summarizeCrawlerMaster(
       queues: config?.queues || CRAWLER_MASTER_DEFAULTS.queues,
       workers: config?.workers || CRAWLER_MASTER_DEFAULTS.workers,
       dbSchema: config?.dbSchema || CRAWLER_MASTER_DEFAULTS.dbSchema,
+      ukDirectories: config?.ukDirectories || CRAWLER_MASTER_DEFAULTS.ukDirectories,
+      accountingDirectories:
+        config?.accountingDirectories || CRAWLER_MASTER_DEFAULTS.accountingDirectories,
+      govSources: config?.govSources || CRAWLER_MASTER_DEFAULTS.govSources,
     },
     config,
     runs,

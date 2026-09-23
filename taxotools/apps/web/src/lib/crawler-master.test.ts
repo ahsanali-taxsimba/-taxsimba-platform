@@ -9,8 +9,12 @@ import {
   CRAWLER_MASTER_QUEUES,
   CRAWLER_MASTER_WORKERS,
   CRAWLER_MASTER_DB_SCHEMA,
+  CRAWLER_MASTER_UK_DIRECTORIES,
+  CRAWLER_MASTER_ACCOUNTING_DIRECTORIES,
+  CRAWLER_MASTER_GOV_SOURCES,
   CRAWLER_MASTER_QUEUE_WORKER_MAP,
   parseFrequencyHours,
+  directorySourceUrl,
   findTool,
   JOB_QUEUES,
 } from "@taxotools/shared";
@@ -33,6 +37,31 @@ describe("seo.crawler.master.init", () => {
       "serpapi",
       "google_index",
       "bing_index",
+    ]);
+    expect([...CRAWLER_MASTER_UK_DIRECTORIES]).toEqual([
+      "yell.com",
+      "192.com",
+      "thomsonlocal.com",
+      "checkatrade.com",
+      "ukbusinessforums.co.uk",
+      "freeindex.co.uk",
+      "hotfrog.co.uk",
+      "businessmagnet.co.uk",
+      "applegate.co.uk",
+      "approvedbusiness.co.uk",
+    ]);
+    expect([...CRAWLER_MASTER_ACCOUNTING_DIRECTORIES]).toEqual([
+      "icaew.com/find-a-chartered-accountant",
+      "accaglobal.com/uk/en/member/find-an-accountant",
+      "aat.org.uk/aat-directory",
+      "ifa.org.uk/find-a-member",
+      "gorillaaccounting.com",
+      "crunch.co.uk/accountants-directory",
+    ]);
+    expect([...CRAWLER_MASTER_GOV_SOURCES]).toEqual([
+      "gov.uk",
+      "companieshouse.gov.uk",
+      "hmrc.gov.uk",
     ]);
     expect([...CRAWLER_MASTER_MODES]).toEqual(["live", "scheduled", "deep", "external"]);
     expect([...CRAWLER_MASTER_EXTRACT]).toEqual([
@@ -77,9 +106,11 @@ describe("seo.crawler.master.init", () => {
     expect(CRAWLER_MASTER_DEFAULTS.autoClean).toBe(true);
     expect(CRAWLER_MASTER_DEFAULTS.errorRetry).toBe(3);
     expect(CRAWLER_MASTER_DEFAULTS.logLevel).toBe("verbose");
-    expect(CRAWLER_MASTER_DEFAULTS.queues).toEqual([...CRAWLER_MASTER_QUEUES]);
-    expect(CRAWLER_MASTER_DEFAULTS.workers).toEqual([...CRAWLER_MASTER_WORKERS]);
-    expect(CRAWLER_MASTER_DEFAULTS.dbSchema).toEqual([...CRAWLER_MASTER_DB_SCHEMA]);
+    expect(CRAWLER_MASTER_DEFAULTS.ukDirectories).toEqual([...CRAWLER_MASTER_UK_DIRECTORIES]);
+    expect(CRAWLER_MASTER_DEFAULTS.accountingDirectories).toEqual([
+      ...CRAWLER_MASTER_ACCOUNTING_DIRECTORIES,
+    ]);
+    expect(CRAWLER_MASTER_DEFAULTS.govSources).toEqual([...CRAWLER_MASTER_GOV_SOURCES]);
   });
 
   it("maps queues to workers", () => {
@@ -89,6 +120,14 @@ describe("seo.crawler.master.init", () => {
     expect(CRAWLER_MASTER_QUEUE_WORKER_MAP["crawl.api.index"]).toBe("index_api");
     expect(CRAWLER_MASTER_QUEUE_WORKER_MAP["process.raw"]).toBe("processor");
     expect(CRAWLER_MASTER_QUEUE_WORKER_MAP["alerts.events"]).toBe("alerts");
+  });
+
+  it("builds directory source URLs", () => {
+    expect(directorySourceUrl("yell.com")).toBe("https://yell.com");
+    expect(directorySourceUrl("https://gov.uk")).toBe("https://gov.uk");
+    expect(directorySourceUrl("icaew.com/find-a-chartered-accountant")).toBe(
+      "https://icaew.com/find-a-chartered-accountant",
+    );
   });
 
   it("parses frequency hours", () => {

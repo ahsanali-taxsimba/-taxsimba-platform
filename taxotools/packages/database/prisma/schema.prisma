@@ -1549,30 +1549,33 @@ model CrawlerProject {
 }
 
 model CrawlerMasterConfig {
-  id               String   @id @default(cuid())
-  siteId           String   @unique
-  enableModules    Json     @default("[]")
-  modules          Json
-  providers        Json
-  queues           Json     @default("[]")
-  workers          Json     @default("[]")
-  dbSchema         Json     @default("[]")
-  crawlModes       Json
-  frequency        String   @default("6h")
-  frequencyHours   Int      @default(6)
-  maxDepth         Int      @default(12)
-  parallelThreads  Int      @default(32)
-  respectRobots    Boolean  @default(true)
-  extractFields    Json
-  storeFormat      String   @default("jsonl")
-  autoClean        Boolean  @default(true)
-  errorRetry       Int      @default(3)
-  logLevel         String   @default("verbose")
-  status           String   @default("active")
-  lastRunAt        DateTime?
-  nextRunAt        DateTime?
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  id                     String   @id @default(cuid())
+  siteId                 String   @unique
+  enableModules          Json     @default("[]")
+  modules                Json
+  providers              Json
+  ukDirectories          Json     @default("[]")
+  accountingDirectories  Json     @default("[]")
+  govSources             Json     @default("[]")
+  queues                 Json     @default("[]")
+  workers                Json     @default("[]")
+  dbSchema               Json     @default("[]")
+  crawlModes             Json
+  frequency              String   @default("6h")
+  frequencyHours         Int      @default(6)
+  maxDepth               Int      @default(12)
+  parallelThreads        Int      @default(32)
+  respectRobots          Boolean  @default(true)
+  extractFields          Json
+  storeFormat            String   @default("jsonl")
+  autoClean              Boolean  @default(true)
+  errorRetry             Int      @default(3)
+  logLevel               String   @default("verbose")
+  status                 String   @default("active")
+  lastRunAt              DateTime?
+  nextRunAt              DateTime?
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
 
   site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
 

@@ -20,12 +20,18 @@ type Payload = {
     queues?: string[];
     workers?: string[];
     dbSchema?: string[];
+    ukDirectories?: string[];
+    accountingDirectories?: string[];
+    govSources?: string[];
   };
   init?: Record<string, unknown>;
   architecture?: {
     queues?: string[];
     workers?: string[];
     dbSchema?: unknown;
+    ukDirectories?: string[];
+    accountingDirectories?: string[];
+    govSources?: string[];
     dispatched?: Array<{ queue: string; worker: string; jobId: string }>;
   };
   pages?: Array<Record<string, unknown>>;
@@ -44,6 +50,27 @@ const INIT_BODY = {
     "google_index",
     "bing_index",
   ],
+  ukDirectories: [
+    "yell.com",
+    "192.com",
+    "thomsonlocal.com",
+    "checkatrade.com",
+    "ukbusinessforums.co.uk",
+    "freeindex.co.uk",
+    "hotfrog.co.uk",
+    "businessmagnet.co.uk",
+    "applegate.co.uk",
+    "approvedbusiness.co.uk",
+  ],
+  accountingDirectories: [
+    "icaew.com/find-a-chartered-accountant",
+    "accaglobal.com/uk/en/member/find-an-accountant",
+    "aat.org.uk/aat-directory",
+    "ifa.org.uk/find-a-member",
+    "gorillaaccounting.com",
+    "crunch.co.uk/accountants-directory",
+  ],
+  govSources: ["gov.uk", "companieshouse.gov.uk", "hmrc.gov.uk"],
   queues: [
     "crawl.urls",
     "crawl.api.backlinks",
@@ -145,10 +172,9 @@ export function CrawlerMasterPanel({ siteId }: { siteId: string }) {
           </button>
         </div>
         <p className="mt-2 text-xs text-ink-500">
-          --enable=backlinks,keywords,serp,competitors,traffic ·
-          --queues=crawl.urls…alerts.events · --workers=url_crawler…alerts ·
-          --db-schema=projects…crawler_logs · 6h · depth=12 · threads=32 · jsonl ·
-          retry=3 · verbose
+          --enable=backlinks…traffic · --uk-directories=yell.com… ·
+          --accounting-directories=icaew… · --gov-sources=gov.uk,companieshouse,hmrc ·
+          --queues=crawl.urls…alerts.events · 6h · depth=12 · threads=32 · jsonl · verbose
         </p>
         {error && <p className="mt-2 text-sm text-danger">{error}</p>}
       </FadeIn>
@@ -194,6 +220,25 @@ export function CrawlerMasterPanel({ siteId }: { siteId: string }) {
                 (arch?.dbSchema as string[]) ||
                 []
               ).join(", ")}
+            </p>
+          )}
+          {(s.ukDirectories || arch?.ukDirectories) && (
+            <p className="mt-1 text-sm text-ink-500">
+              UK directories ({(s.ukDirectories || arch?.ukDirectories || []).length}):{" "}
+              {(s.ukDirectories || arch?.ukDirectories || []).slice(0, 5).join(", ")}
+              {(s.ukDirectories || arch?.ukDirectories || []).length > 5 ? "…" : ""}
+            </p>
+          )}
+          {(s.accountingDirectories || arch?.accountingDirectories) && (
+            <p className="mt-1 text-sm text-ink-500">
+              Accounting dirs ({(s.accountingDirectories || arch?.accountingDirectories || []).length}
+              ): {(s.accountingDirectories || arch?.accountingDirectories || []).slice(0, 3).join(", ")}
+              …
+            </p>
+          )}
+          {(s.govSources || arch?.govSources) && (
+            <p className="mt-1 text-sm text-ink-500">
+              Gov sources: {(s.govSources || arch?.govSources || []).join(", ")}
             </p>
           )}
           {typeof s.serpSnapshots === "number" && (

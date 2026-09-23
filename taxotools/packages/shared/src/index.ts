@@ -518,11 +518,51 @@ export const CRAWLER_MASTER_QUEUE_WORKER_MAP: Record<
   "alerts.events": "alerts",
 };
 
+/** --uk-directories=… */
+export const CRAWLER_MASTER_UK_DIRECTORIES = [
+  "yell.com",
+  "192.com",
+  "thomsonlocal.com",
+  "checkatrade.com",
+  "ukbusinessforums.co.uk",
+  "freeindex.co.uk",
+  "hotfrog.co.uk",
+  "businessmagnet.co.uk",
+  "applegate.co.uk",
+  "approvedbusiness.co.uk",
+] as const;
+export type CrawlerMasterUkDirectory = (typeof CRAWLER_MASTER_UK_DIRECTORIES)[number];
+
+/** --accounting-directories=… */
+export const CRAWLER_MASTER_ACCOUNTING_DIRECTORIES = [
+  "icaew.com/find-a-chartered-accountant",
+  "accaglobal.com/uk/en/member/find-an-accountant",
+  "aat.org.uk/aat-directory",
+  "ifa.org.uk/find-a-member",
+  "gorillaaccounting.com",
+  "crunch.co.uk/accountants-directory",
+] as const;
+export type CrawlerMasterAccountingDirectory =
+  (typeof CRAWLER_MASTER_ACCOUNTING_DIRECTORIES)[number];
+
+/** --gov-sources=… */
+export const CRAWLER_MASTER_GOV_SOURCES = [
+  "gov.uk",
+  "companieshouse.gov.uk",
+  "hmrc.gov.uk",
+] as const;
+export type CrawlerMasterGovSource = (typeof CRAWLER_MASTER_GOV_SOURCES)[number];
+
 export const CRAWLER_MASTER_DEFAULTS = {
   enable: [...CRAWLER_MASTER_ENABLE] as CrawlerMasterModule[],
   /** @deprecated use enable — kept for back-compat */
   modules: [...CRAWLER_MASTER_MODULES] as CrawlerMasterModule[],
   providers: [...CRAWLER_MASTER_PROVIDERS] as CrawlerMasterProvider[],
+  ukDirectories: [...CRAWLER_MASTER_UK_DIRECTORIES] as CrawlerMasterUkDirectory[],
+  accountingDirectories: [
+    ...CRAWLER_MASTER_ACCOUNTING_DIRECTORIES,
+  ] as CrawlerMasterAccountingDirectory[],
+  govSources: [...CRAWLER_MASTER_GOV_SOURCES] as CrawlerMasterGovSource[],
   queues: [...CRAWLER_MASTER_QUEUES] as CrawlerMasterQueue[],
   workers: [...CRAWLER_MASTER_WORKERS] as CrawlerMasterWorker[],
   dbSchema: [...CRAWLER_MASTER_DB_SCHEMA] as CrawlerMasterDbTable[],
@@ -538,6 +578,12 @@ export const CRAWLER_MASTER_DEFAULTS = {
   errorRetry: 3,
   logLevel: "verbose" as const,
 } as const;
+
+/** Normalize a directory path/host into an absolute https URL. */
+export function directorySourceUrl(entry: string): string {
+  const trimmed = entry.trim().replace(/^https?:\/\//i, "");
+  return `https://${trimmed}`;
+}
 
 export function parseFrequencyHours(freq: string, fallback = 6): number {
   const m = /^(\d+)\s*h$/i.exec(freq.trim());
