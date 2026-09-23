@@ -26,16 +26,16 @@ const PRODUCTS = [
     body: "Technical and on-page fixes applied from live search data. No ticket queue.",
   },
   {
+    title: "QUEST",
+    body: "Maps questions, trusted sources, and AI citation paths for Digital PR and AEO.",
+  },
+  {
+    title: "WILDFIRE + HyperDrive",
+    body: "2:1 link exchanges, press releases, and cloud stacks that lift Domain Power.",
+  },
+  {
     title: "Content Genius",
     body: "Researches, writes, and publishes content that ranks and gets cited.",
-  },
-  {
-    title: "Smart Ads",
-    body: "Builds campaigns, then moves budget, bids, and targeting as performance shifts.",
-  },
-  {
-    title: "Website Studio",
-    body: "Generates and publishes pages with search and conversion structure built in.",
   },
   {
     title: "LLM Visibility",

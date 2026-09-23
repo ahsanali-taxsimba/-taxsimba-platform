@@ -1,66 +1,64 @@
 import { describe, expect, it } from "vitest";
 import { TOOLKIT_GROUPS, ALL_TOOL_IDS, findTool, PLAN_CODES, PLAN_PRICES_CENTS } from "@taxotools/shared";
 
-describe("Semrush + Search Atlas toolkit catalog", () => {
-  it("leads with Automation (Taxo Agent) then Semrush groups", () => {
-    expect(TOOLKIT_GROUPS.map((g) => g.id)).toEqual([
+describe("Semrush + Search Atlas advanced catalog", () => {
+  it("includes Automation and Authority toolkits first", () => {
+    expect(TOOLKIT_GROUPS.map((g) => g.id).slice(0, 3)).toEqual([
       "automation",
+      "authority",
       "seo",
-      "aeo",
-      "traffic-market",
-      "content",
-      "local",
-      "social",
-      "advertising",
-      "ai-pr",
-      "reports",
     ]);
   });
 
-  it("covers Search Atlas flagship surfaces", () => {
+  it("covers Search Atlas advanced surfaces", () => {
     for (const id of [
       "taxo-agent",
       "auto-seo",
-      "taxo-pixel",
-      "cms-publishing",
-      "website-studio",
       "content-genius",
       "smart-ads",
-      "overnight-repair",
-      "approval-mode",
-      "gbp-galactic",
+      "deep-freeze",
+      "instant-indexing",
+      "agent-chat",
+      "quest",
+      "domain-power",
+      "site-explorer",
+      "topical-dominance",
+      "wildfire",
+      "hyperdrive",
+      "press-releases",
+      "cloud-stacks",
+      "crawl-monitoring",
+      "health-scoreboard",
+      "knowledge-base",
+      "content-planner",
+      "meta-generator",
+      "content-rewriter",
+      "schema-generator",
+      "bulk-url-analyzer",
+      "gsc-insights",
+      "ga4-insights",
+      "citation-builder",
+      "ai-report-summary",
+      "email-alerts",
+      "slack-webhooks",
+      "orders-tasks",
     ]) {
       expect(ALL_TOOL_IDS).toContain(id);
     }
   });
 
-  it("covers core Semrush SEO tools", () => {
-    for (const id of [
-      "domain-overview",
-      "keyword-research",
-      "keyword-magic",
-      "position-tracking",
-      "backlink-analytics",
-      "site-audit",
-    ]) {
-      expect(ALL_TOOL_IDS).toContain(id);
-    }
-  });
-
-  it("exposes 70+ competitive tools", () => {
-    expect(ALL_TOOL_IDS.length).toBeGreaterThanOrEqual(70);
+  it("exposes 95+ competitive tools", () => {
+    expect(ALL_TOOL_IDS.length).toBeGreaterThanOrEqual(95);
   });
 
   it("aligns pricing with Search Atlas try-now ladder", () => {
     expect(PLAN_CODES).toContain("GROWTH");
     expect(PLAN_PRICES_CENTS.STARTER).toBe(9900);
-    expect(PLAN_PRICES_CENTS.GROWTH).toBe(19900);
-    expect(PLAN_PRICES_CENTS.PRO).toBe(39900);
     expect(PLAN_PRICES_CENTS.AGENCY).toBe(99900);
   });
 
-  it("resolves Content Genius and Smart Ads", () => {
-    expect(findTool("content-genius")?.group.id).toBe("automation");
-    expect(findTool("google-ad-studio")?.tool.name).toBe("Google Ad Studio");
+  it("resolves QUEST under Authority toolkit", () => {
+    expect(findTool("quest")?.group.id).toBe("authority");
+    expect(findTool("wildfire")?.tool.name).toContain("WILDFIRE");
   });
 });

@@ -242,6 +242,16 @@ model Site {
   programmaticJobs   ProgrammaticSeoJob[]
   autoSeoActions     AutoSeoAction[]
   cmsPublishes       CmsPublishJob[]
+  domainPowerSnaps   DomainPowerSnapshot[]
+  wildfireExchanges  WildfireExchange[]
+  hyperdriveJobs     HyperdriveJob[]
+  questResearches    QuestResearch[]
+  instantIndexJobs   InstantIndexJob[]
+  crawlBotHits       CrawlBotHit[]
+  healthScores       HealthScoreSnapshot[]
+  knowledgePages     KnowledgeBasePage[]
+  agentTasks         AgentTask[]
+  alertSubscriptions AlertSubscription[]
 
   @@unique([workspaceId, domain])
   @@index([workspaceId])
@@ -1253,4 +1263,180 @@ model CmsPublishJob {
   site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
 
   @@index([siteId, status])
+}
+
+// ─── Search Atlas advanced features ───────────────────────────────────────────
+
+model DomainPowerSnapshot {
+  id              String   @id @default(cuid())
+  siteId          String
+  domain          String
+  domainPower     Float
+  organicKeywords Int      @default(0)
+  organicTraffic  Int      @default(0)
+  backlinks       Int      @default(0)
+  referringDomains Int     @default(0)
+  spamProbability Float    @default(0)
+  topicalScore    Float    @default(0)
+  metadata        Json?
+  createdAt       DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, domain])
+  @@index([createdAt])
+}
+
+model WildfireExchange {
+  id               String   @id @default(cuid())
+  siteId           String
+  outboundDomainA  String
+  outboundDomainB  String
+  inboundDomain    String
+  domainPowerIn    Float    @default(0)
+  topicalRelevance Float    @default(0)
+  location         String?
+  status           String   @default("MATCHED")
+  metadata         Json?
+  createdAt        DateTime @default(now())
+  completedAt      DateTime?
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, status])
+}
+
+model HyperdriveJob {
+  id          String    @id @default(cuid())
+  siteId      String
+  type        String
+  title       String
+  creditsUsed Int       @default(1)
+  status      JobStatus @default(QUEUED)
+  payload     Json?
+  result      Json?
+  createdAt   DateTime  @default(now())
+  finishedAt  DateTime?
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, type])
+}
+
+model QuestResearch {
+  id        String   @id @default(cuid())
+  siteId    String
+  query     String
+  questions Json
+  sources   Json
+  gaps      Json?
+  campaigns Json?
+  createdAt DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, createdAt])
+}
+
+model InstantIndexJob {
+  id         String    @id @default(cuid())
+  siteId     String
+  urls       Json
+  provider   String    @default("indexnow")
+  status     JobStatus @default(QUEUED)
+  submitted  Int       @default(0)
+  accepted   Int       @default(0)
+  createdAt  DateTime  @default(now())
+  finishedAt DateTime?
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, status])
+}
+
+model CrawlBotHit {
+  id           String   @id @default(cuid())
+  siteId       String
+  botName      String
+  botFamily    String
+  hits         Int      @default(0)
+  avgLatencyMs Int      @default(0)
+  indexRate    Float    @default(0)
+  lastSeenAt   DateTime @default(now())
+  createdAt    DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@unique([siteId, botName])
+  @@index([siteId])
+}
+
+model HealthScoreSnapshot {
+  id             String   @id @default(cuid())
+  siteId         String
+  contentScore   Int
+  authorityScore Int
+  technicalScore Int
+  uxScore        Int
+  overallScore   Int
+  issuesFixed    Int      @default(0)
+  timeSavedHours Float    @default(0)
+  metadata       Json?
+  createdAt      DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, createdAt])
+}
+
+model KnowledgeBasePage {
+  id         String   @id @default(cuid())
+  siteId     String
+  title      String
+  slug       String
+  entities   Json
+  linkedTo   Json?
+  status     String   @default("DRAFT")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  publishedAt DateTime?
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@unique([siteId, slug])
+  @@index([siteId])
+}
+
+model AgentTask {
+  id          String    @id @default(cuid())
+  siteId      String
+  title       String
+  description String?
+  category    String
+  status      JobStatus @default(QUEUED)
+  priority    Int       @default(50)
+  assignee    String?
+  result      Json?
+  createdAt   DateTime  @default(now())
+  finishedAt  DateTime?
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, status])
+}
+
+model AlertSubscription {
+  id        String   @id @default(cuid())
+  siteId    String
+  channel   String
+  target    String
+  events    Json
+  frequency String   @default("weekly")
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, channel])
 }

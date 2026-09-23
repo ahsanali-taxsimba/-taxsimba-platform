@@ -126,7 +126,16 @@ function createWorkers(connection: IORedis) {
     { connection: conn, concurrency },
   );
 
-  for (const queue of [JOB_QUEUES.AUTO_SEO, JOB_QUEUES.CMS_PUBLISH, JOB_QUEUES.SMART_ADS] as const) {
+  for (const queue of [
+    JOB_QUEUES.AUTO_SEO,
+    JOB_QUEUES.CMS_PUBLISH,
+    JOB_QUEUES.SMART_ADS,
+    JOB_QUEUES.WILDFIRE,
+    JOB_QUEUES.HYPERDRIVE,
+    JOB_QUEUES.QUEST,
+    JOB_QUEUES.INSTANT_INDEX,
+    JOB_QUEUES.ALERTS,
+  ] as const) {
     new Worker(
       queue,
       async (job) => {

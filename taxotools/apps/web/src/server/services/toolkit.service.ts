@@ -18,6 +18,34 @@ import {
   runOvernightRepair,
   ensurePixelToken,
 } from "@/server/services/agent.service";
+import {
+  runQuest,
+  runDomainPower,
+  runSiteExplorer,
+  runTopicalDominance,
+  runWildfire,
+  runHyperdrive,
+  runInstantIndexing,
+  runCrawlMonitoring,
+  runHealthScoreboard,
+  runDeepFreeze,
+  runKnowledgeBase,
+  runContentPlanner,
+  runMetaGenerator,
+  runContentRewriter,
+  runSchemaGenerator,
+  runBulkUrlAnalyzer,
+  runGscInsights,
+  runGa4Insights,
+  runAgentChat,
+  runOrdersTasks,
+  runEmailAlerts,
+  runSlackWebhooks,
+  runAiReportSummary,
+  runCitationBuilder,
+  runPressReleases,
+  runCloudStacks,
+} from "@/server/services/advanced.service";
 import { JOB_QUEUES } from "@taxotools/shared";
 
 function seed(n: string) {
@@ -69,6 +97,73 @@ export async function runTool(
   const site = await getSiteForUser(userId, siteId);
 
   switch (toolId) {
+    case "quest":
+      return runQuest(userId, siteId, String(input.query || input.topic || ""));
+    case "domain-power":
+      return runDomainPower(userId, siteId, input.domain ? String(input.domain) : undefined);
+    case "site-explorer":
+      return runSiteExplorer(userId, siteId, input.domain ? String(input.domain) : undefined);
+    case "topical-dominance":
+      return runTopicalDominance(userId, siteId, String(input.query || input.topic || ""));
+    case "wildfire":
+      return runWildfire(userId, siteId);
+    case "hyperdrive":
+      return runHyperdrive(userId, siteId, String(input.type || "digital_pr"));
+    case "press-releases":
+      return runPressReleases(userId, siteId);
+    case "cloud-stacks":
+      return runCloudStacks(userId, siteId);
+    case "instant-indexing":
+      return runInstantIndexing(
+        userId,
+        siteId,
+        Array.isArray(input.urls) ? (input.urls as string[]) : undefined,
+      );
+    case "crawl-monitoring":
+      return runCrawlMonitoring(userId, siteId);
+    case "health-scoreboard":
+      return runHealthScoreboard(userId, siteId);
+    case "deep-freeze":
+      return runDeepFreeze(userId, siteId);
+    case "knowledge-base":
+      return runKnowledgeBase(userId, siteId, String(input.topic || input.query || ""));
+    case "content-planner":
+      return runContentPlanner(userId, siteId, String(input.query || input.topic || ""));
+    case "meta-generator":
+      return runMetaGenerator(userId, siteId, String(input.query || input.keyword || ""));
+    case "content-rewriter":
+      return runContentRewriter(userId, siteId, input.text ? String(input.text) : undefined);
+    case "schema-generator":
+      return runSchemaGenerator(userId, siteId, input.type ? String(input.type) : undefined);
+    case "bulk-url-analyzer":
+      return runBulkUrlAnalyzer(
+        userId,
+        siteId,
+        Array.isArray(input.urls)
+          ? (input.urls as string[])
+          : input.query
+            ? String(input.query)
+                .split(/[\n,]/)
+                .map((s) => s.trim())
+                .filter(Boolean)
+            : undefined,
+      );
+    case "gsc-insights":
+      return runGscInsights(userId, siteId);
+    case "ga4-insights":
+      return runGa4Insights(userId, siteId);
+    case "agent-chat":
+      return runAgentChat(userId, siteId, input.query ? String(input.query) : undefined);
+    case "orders-tasks":
+      return runOrdersTasks(userId, siteId);
+    case "email-alerts":
+      return runEmailAlerts(userId, siteId);
+    case "slack-webhooks":
+      return runSlackWebhooks(userId, siteId, input.channel ? String(input.channel) : undefined);
+    case "ai-report-summary":
+      return runAiReportSummary(userId, siteId);
+    case "citation-builder":
+      return runCitationBuilder(userId, siteId);
     case "taxo-agent":
     case "auto-seo": {
       const overview = await getAgentOverview(userId, siteId);

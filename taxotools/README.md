@@ -136,28 +136,25 @@ Limits are stored on `Plan` and mirrored in `@taxotools/shared` `PLAN_LIMITS`:
 
 ---
 
-## Semrush + Search Atlas competitive toolkits
+## Semrush + Search Atlas advanced toolkits
 
-Taxotools ships **70+ tools** across **10 toolkits** (see `@taxotools/shared` `TOOLKIT_GROUPS`):
+Taxotools ships **95+ tools** across **11 toolkits** (see `@taxotools/shared` `TOOLKIT_GROUPS`):
 
-0. **Automation (Taxo Agent)** — Taxo Agent, Auto SEO, Taxo Pixel, CMS Publishing, Website Studio, Content Genius, Smart Ads, Overnight Repair, Approval Mode, GBP Galactic
-1. **SEO Toolkit** — Domain Overview, Keyword Research/Magic/Strategy Builder, Gaps, Organic Research/Rankings, Position Tracking, SERP Features, Backlinks, Link Building, Site Audit, On-Page Checker, SEO Content Template, Writing Assistant, Log File Analyzer
-2. **AI Visibility (AEO/GEO)** — Visibility Scanner, Citations, Google AI Overviews, Sentiment, Competitor Mentions, Programmatic SEO, Bulk AI Content
-3. **Traffic & Market** — Traffic Analytics, Market Overview, Audience Insights, Top Pages, EyeOn/Trends, Competitive Research
-4. **Content Toolkit** — Topic Research/Finder, SEO Brief, AI Article, Content Audit, Topical Map, Scholar, Calendar, Post Tracking, Writing Assistant, Templates
-5. **Local Toolkit** — GBP, Listings, Reviews, Map Rank Tracker, Heatmaps, NAP
-6. **Social Toolkit** — Poster/Tracker/Analytics, Social Content AI, Influencer, Listening
-7. **Advertising Toolkit** — Research, CPC, PLA, AdClarity, Launch Assistant, Ad Builder, Google/Meta Ad Studio
-8. **AI PR Toolkit** — Media Database, Monitoring, AI-Cited Media, PR Outreach
-9. **Reports & Agency** — My Reports, White-label, Scheduled, Client Portal
+0. **Automation (Taxo Agent)** — Taxo Agent, Auto SEO, Pixel, CMS, Website Studio, Content Genius, Smart Ads, Overnight Repair, Approval Mode, GBP Galactic, Deep Freeze, Instant Indexing, Agent Chat, Orders & Tasks
+1. **Authority & QUEST** — QUEST, Domain Power, Site Explorer, Topical Dominance, WILDFIRE, HyperDrive, Press Releases, Cloud Stacks, Bulk URL Analyzer
+2. **SEO Toolkit** — Keywords, ranks, backlinks, audit, crawl monitoring, schema generator, health scoreboard, GSC/GA4 insights
+3. **AI Visibility (AEO/GEO)** — Visibility, citations, GEO, sentiment, competitors, programmatic SEO, bulk AI, Knowledge Base
+4. **Traffic & Market** — Traffic, market, audience, top pages, EyeOn, competitive research
+5. **Content** — Topics, briefs, articles, audit, topical map, Scholar, Content Planner, Meta Generator, Rewriter, calendar, templates
+6. **Local** — GBP, listings, reviews, map ranks, heatmaps, NAP, Citation Builder
+7. **Social** — Poster, tracker, analytics, content AI, influencers, listening
+8. **Advertising** — Research, CPC, PLA, AdClarity, launch, builder, Google/Meta Ad Studio
+9. **AI PR** — Media database, monitoring, AI-cited media, outreach
+10. **Reports & Agency** — Reports, white-label, schedules, client portal, AI summary, email alerts, Slack/Teams/ClickUp
 
 **Pricing** (Search Atlas–aligned): Starter **$99** · Growth **$199** · Pro **$399** · Agency **$999**
 
-Open tools from the **left sidebar**, `/app/toolkits`, or any site → toolkit hub.
-
 API: `GET|POST /api/sites/:siteId/tools/:toolId`
-
-Autopilot actions: `POST` with `{ "action": "scan" | "enable" | "install" | "publish" | "approve", "input": { ... } }`
 
 
 ---

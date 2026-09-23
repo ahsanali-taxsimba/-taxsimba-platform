@@ -131,6 +131,11 @@ export const JOB_QUEUES = {
   AUTO_SEO: "taxotools-auto-seo",
   CMS_PUBLISH: "taxotools-cms-publish",
   SMART_ADS: "taxotools-smart-ads",
+  WILDFIRE: "taxotools-wildfire",
+  HYPERDRIVE: "taxotools-hyperdrive",
+  QUEST: "taxotools-quest",
+  INSTANT_INDEX: "taxotools-instant-index",
+  ALERTS: "taxotools-alerts",
 } as const;
 
 export type JobQueueName = (typeof JOB_QUEUES)[keyof typeof JOB_QUEUES];
@@ -177,6 +182,26 @@ export const TOOLKIT_GROUPS: ToolkitGroup[] = [
       { id: "overnight-repair", name: "Overnight Repair", path: "overnight-repair" },
       { id: "approval-mode", name: "Approval Mode", path: "approval-mode" },
       { id: "gbp-galactic", name: "GBP Galactic", path: "gbp-galactic" },
+      { id: "deep-freeze", name: "Deep Freeze", path: "deep-freeze" },
+      { id: "instant-indexing", name: "Instant Indexing Engine", path: "instant-indexing" },
+      { id: "agent-chat", name: "Taxo Agent Chat", path: "agent-chat" },
+      { id: "orders-tasks", name: "Orders & Tasks", path: "orders-tasks" },
+    ],
+  },
+  {
+    id: "authority",
+    name: "Authority & QUEST",
+    description: "Domain Power, WILDFIRE, HyperDrive, QUEST citations, press & cloud stacks",
+    tools: [
+      { id: "quest", name: "QUEST Citation Research", path: "quest" },
+      { id: "domain-power", name: "Domain Power", path: "domain-power" },
+      { id: "site-explorer", name: "Site Explorer", path: "site-explorer" },
+      { id: "topical-dominance", name: "Topical Dominance", path: "topical-dominance" },
+      { id: "wildfire", name: "WILDFIRE Link Exchange", path: "wildfire" },
+      { id: "hyperdrive", name: "HyperDrive Authority", path: "hyperdrive" },
+      { id: "press-releases", name: "Press Release Engine", path: "press-releases" },
+      { id: "cloud-stacks", name: "Cloud Stacks", path: "cloud-stacks" },
+      { id: "bulk-url-analyzer", name: "Bulk URL Analyzer", path: "bulk-url-analyzer" },
     ],
   },
   {
@@ -202,6 +227,11 @@ export const TOOLKIT_GROUPS: ToolkitGroup[] = [
       { id: "seo-content-template", name: "SEO Content Template", path: "seo-content-template" },
       { id: "seo-writing-assistant", name: "SEO Writing Assistant", path: "seo-writing-assistant" },
       { id: "log-file-analyzer", name: "Log File Analyzer", path: "log-file-analyzer" },
+      { id: "crawl-monitoring", name: "Crawl Monitoring (Bots & LLMs)", path: "crawl-monitoring" },
+      { id: "schema-generator", name: "Schema Markup Generator", path: "schema-generator" },
+      { id: "health-scoreboard", name: "Health Scoreboard", path: "health-scoreboard" },
+      { id: "gsc-insights", name: "GSC Insights", path: "gsc-insights" },
+      { id: "ga4-insights", name: "GA4 Insights", path: "ga4-insights" },
     ],
   },
   {
@@ -216,6 +246,7 @@ export const TOOLKIT_GROUPS: ToolkitGroup[] = [
       { id: "ai-competitors", name: "AI Competitor Mentions", path: "ai-competitors" },
       { id: "programmatic-seo", name: "Programmatic SEO", path: "programmatic-seo" },
       { id: "bulk-ai-content", name: "Bulk AI Content Generation", path: "bulk-ai-content" },
+      { id: "knowledge-base", name: "Domain Knowledge Base", path: "knowledge-base" },
     ],
   },
   {
@@ -243,6 +274,9 @@ export const TOOLKIT_GROUPS: ToolkitGroup[] = [
       { id: "content-audit", name: "Content Audit", path: "content-audit" },
       { id: "topical-map", name: "Topical Map Generator", path: "topical-map" },
       { id: "scholar-research", name: "Scholar Research", path: "scholar-research" },
+      { id: "content-planner", name: "Content Planner", path: "content-planner" },
+      { id: "meta-generator", name: "Meta Generator", path: "meta-generator" },
+      { id: "content-rewriter", name: "Content Rewriter", path: "content-rewriter" },
       { id: "marketing-calendar", name: "Marketing Calendar", path: "marketing-calendar" },
       { id: "post-tracking", name: "Post Tracking", path: "post-tracking" },
       { id: "ai-writing-assistant", name: "AI Writing Assistant", path: "ai-writing-assistant" },
@@ -260,6 +294,7 @@ export const TOOLKIT_GROUPS: ToolkitGroup[] = [
       { id: "map-rank-tracker", name: "Map Rank Tracker", path: "map-rank-tracker" },
       { id: "local-heatmaps", name: "Local Heatmaps", path: "local-heatmaps" },
       { id: "nap-consistency", name: "NAP Consistency", path: "nap-consistency" },
+      { id: "citation-builder", name: "Local Citation Builder", path: "citation-builder" },
     ],
   },
   {
@@ -310,6 +345,9 @@ export const TOOLKIT_GROUPS: ToolkitGroup[] = [
       { id: "white-label-reports", name: "White-label Reports", path: "white-label-reports" },
       { id: "scheduled-reports", name: "Scheduled Reports", path: "scheduled-reports" },
       { id: "client-portal", name: "Client Portal", path: "client-portal" },
+      { id: "ai-report-summary", name: "AI Report Summary", path: "ai-report-summary" },
+      { id: "email-alerts", name: "Universal Email Alerts", path: "email-alerts" },
+      { id: "slack-webhooks", name: "Slack / Teams / ClickUp Alerts", path: "slack-webhooks" },
     ],
   },
 ];

@@ -142,6 +142,16 @@ export function ToolWorkbench({
     "website-studio",
     "topical-map",
     "scholar-research",
+    "quest",
+    "topical-dominance",
+    "content-planner",
+    "meta-generator",
+    "content-rewriter",
+    "bulk-url-analyzer",
+    "agent-chat",
+    "site-explorer",
+    "domain-power",
+    "knowledge-base",
   ].includes(toolId);
 
   const needsCompetitor = [
@@ -283,6 +293,36 @@ export function ToolWorkbench({
               className="rounded-lg border border-ink-100 px-4 py-2 text-sm"
             >
               Run overnight repair
+            </button>
+          )}
+          {toolId === "wildfire" && (
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => load({})}
+              className="rounded-lg border border-ink-100 px-4 py-2 text-sm"
+            >
+              Match WILDFIRE exchanges
+            </button>
+          )}
+          {toolId === "instant-indexing" && (
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => load({})}
+              className="rounded-lg border border-ink-100 px-4 py-2 text-sm"
+            >
+              Submit IndexNow + GSC
+            </button>
+          )}
+          {toolId === "orders-tasks" && (
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => load({})}
+              className="rounded-lg border border-ink-100 px-4 py-2 text-sm"
+            >
+              Queue Autopilot tasks
             </button>
           )}
         </div>
