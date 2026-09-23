@@ -50,7 +50,7 @@ const PackageIn = z.object({
   service_type: z.string(),
   code: z.string(),
   name: z.string(),
-  price: z.number(),
+  price: z.number().positive(),
   rank: z.number(),
   billing_frequency: z.string().default("Per tax year"),
   billing_type: z.string().default("ONE_OFF"),
@@ -58,16 +58,16 @@ const PackageIn = z.object({
   effective_from: z.string().nullish().default(null),
 });
 const PriceIn = z.object({
-  price: z.number(),
+  price: z.number().positive(),
   effective_from: z.string().nullish().default(null),
 });
 const ScheduleIn = z.object({
-  price: z.number(),
+  price: z.number().positive(),
   effective_from: z.string(),
 });
 const PackageUpdateIn = z.object({
   name: z.string().nullish().default(null),
-  price: z.number().nullish().default(null),
+  price: z.number().positive().nullish().default(null),
   billing_type: z.string().nullish().default(null),
   billing_frequency: z.string().nullish().default(null),
   vat_treatment: z.string().nullish().default(null),
@@ -550,6 +550,9 @@ paymentsRouter.post(
     })) as Doc | null;
     if (svc && svc.status === "ACTIVE") throw httpError(400, "This service is already active");
     const pkg = await packageOr404(body.service_type, body.package_code);
+    if (!(Number(pkg.price) > 0)) {
+      throw httpError(400, "Package price is unavailable");
+    }
     const reuse = await inflight({
       client_id: client.id,
       kind: "SERVICE_ACTIVATION",
@@ -560,12 +563,13 @@ paymentsRouter.post(
       return;
     }
     const label = `${SERVICE_LABELS[body.service_type] ?? body.service_type} — ${pkg.name}`;
-    const session = await payments().createCheckout(pkg.price, label, body.origin_url, {
+    const session = await payments().createCheckout(Number(pkg.price), label, body.origin_url, {
       kind: "SERVICE_ACTIVATION",
-      client_id: client.id,
-      user_id: me.id,
+      client_id: String(client.id),
+      user_id: String(me.id),
       service_type: body.service_type,
-      to_package: pkg.code,
+      to_package: String(pkg.code),
+      package_id: String(pkg.id),
     });
     await col("payment_transactions").insertOne({
       id: randomUUID(),

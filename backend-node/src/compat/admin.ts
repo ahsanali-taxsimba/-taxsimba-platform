@@ -8,6 +8,7 @@ import { z } from "zod";
 
 import { clean, cleanMany, col, Doc, scrubMany } from "../db/mongo";
 import { FAQ_CATEGORIES } from "../domain/helpcentre";
+import { SELF_ASSESSMENT, servicesFor } from "../domain/packages";
 import { OPERATIONAL_ONLY, TEST_EMAIL_REGEX } from "../domain/testdata";
 import { nowIso } from "../domain/workflow";
 import { handler, httpError, parseBody } from "../http/errors";
@@ -18,6 +19,7 @@ import { env } from "../config/env";
 import { keysToCamel, keysToSnake } from "./caseMap";
 import { sendCompatSuccess } from "./envelope";
 import { withTaxReturnId } from "./ids";
+import { activeSubscriptionsFromServices } from "./ownership";
 import { maskContactsForViewer } from "./privacy";
 
 export const compatAdminRouter = Router();
@@ -432,39 +434,73 @@ compatAdminRouter.post(
       );
     }
     const masked = maskContactsForViewer(users, me);
+    const clientIds = masked.map((u) => u.id);
+    const clientRows = cleanMany(
+      (await col("clients")
+        .find({ user_id: { $in: clientIds } })
+        .limit(500)
+        .toArray()) as Doc[],
+    );
+    const clientByUserId = new Map(clientRows.map((c) => [String(c.user_id), c]));
+
+    const clientsOut = [];
+    for (const u of masked) {
+      const emailVerified = Boolean(u.email_verified_at);
+      const isActive = u.is_active !== false;
+      let lifecycle = "INACTIVE";
+      if (isActive && emailVerified) lifecycle = "ACTIVE";
+      else if (isActive && !emailVerified) lifecycle = "PENDING_VERIFICATION";
+
+      let subscription: Doc | null = null;
+      const clientDoc = clientByUserId.get(String(u.id));
+      if (clientDoc) {
+        try {
+          const services = await servicesFor(clientDoc);
+          const subs = activeSubscriptionsFromServices(services);
+          const primary =
+            subs.find((s) => s.serviceType === SELF_ASSESSMENT) || subs[0] || null;
+          if (primary) subscription = primary as Doc;
+        } catch {
+          subscription = null;
+        }
+      }
+
+      clientsOut.push({
+        id: u.id,
+        name: u.name,
+        username:
+          u.username ??
+          (u.email ? String(u.email).split("@")[0] : null) ??
+          null,
+        email: u.email,
+        phone: u.phone ?? null,
+        mobile: u.phone ?? null,
+        location: u.location ?? u.address ?? null,
+        address: u.address ?? null,
+        contactMasked: Boolean(u.contact_masked),
+        isActive,
+        emailVerified,
+        emailVerifiedAt: u.email_verified_at ?? null,
+        // Canonical display lifecycle — distinct from SA/MTD entitlement.
+        lifecycle,
+        status:
+          lifecycle === "ACTIVE"
+            ? "active"
+            : lifecycle === "PENDING_VERIFICATION"
+              ? "pending_verification"
+              : "inactive",
+        role: u.role,
+        userRole: u.role,
+        createdAt: u.created_at,
+        // Purchased plan for Plan column / Client Details (ACTIVE entitlements only).
+        subscription,
+      });
+    }
+
     sendCompatSuccess(
       res,
       {
-        clients: masked.map((u) => {
-          const emailVerified = Boolean(u.email_verified_at);
-          const isActive = u.is_active !== false;
-          let lifecycle = "INACTIVE";
-          if (isActive && emailVerified) lifecycle = "ACTIVE";
-          else if (isActive && !emailVerified) lifecycle = "PENDING_VERIFICATION";
-          return {
-            id: u.id,
-            name: u.name,
-            username:
-              u.username ??
-              (u.email ? String(u.email).split("@")[0] : null) ??
-              null,
-            email: u.email,
-            phone: u.phone ?? null,
-            mobile: u.phone ?? null,
-            location: u.location ?? u.address ?? null,
-            address: u.address ?? null,
-            contactMasked: Boolean(u.contact_masked),
-            isActive,
-            emailVerified,
-            emailVerifiedAt: u.email_verified_at ?? null,
-            // Canonical display lifecycle — distinct from SA/MTD entitlement.
-            lifecycle,
-            status: lifecycle === "ACTIVE" ? "active" : lifecycle === "PENDING_VERIFICATION" ? "pending_verification" : "inactive",
-            role: u.role,
-            userRole: u.role,
-            createdAt: u.created_at,
-          };
-        }),
+        clients: clientsOut,
       },
       "OK",
     );

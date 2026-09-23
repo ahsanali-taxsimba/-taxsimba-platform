@@ -89,18 +89,106 @@ export const LEGACY_MTD_PACKAGE_CODES = ["MTD_ESSENTIAL", "MTD_PLUS"] as const;
 /**
  * Known seed-price drift values that may safely be realigned to the founder-approved
  * catalogue without clobbering intentional Super Admin live price edits.
+ * Zero / negative prices are always treated as corrupt and realigned (never marketed as £0).
  */
 const SEED_PRICE_DRIFT: Record<string, number[]> = {
-  ELITE: [249, 299],
-  MTD_ESSENTIAL: [240],
-  MTD_PLUS: [360],
+  ELITE: [0, 249, 299],
+  MTD_ESSENTIAL: [0, 240],
+  MTD_PLUS: [0, 360],
   // Staging mis-seeds that used legacy Essential/Plus amounts on Simbian codes.
-  MTD_COMPLY: [240, 29.99],
-  MTD_GROWTH: [360, 59.99],
-  MTD_ELITE: [360, 240, 89.99],
-  SIMPLE: [119],
-  SMART: [149],
+  MTD_COMPLY: [0, 240, 29.99],
+  MTD_GROWTH: [0, 360, 59.99],
+  MTD_ELITE: [0, 360, 240, 89.99],
+  SIMPLE: [0, 119],
+  SMART: [0, 149],
 };
+
+/** True when a stored catalogue price is unusable for checkout / marketing. */
+export function isInvalidPackagePrice(price: unknown): boolean {
+  const n = Number(price);
+  return !Number.isFinite(n) || n <= 0;
+}
+
+/**
+ * Safe idempotent catalogue reconciliation for staging / boot:
+ * - exactly one active row per (service_type, code) for DEFAULT_PACKAGES
+ * - realign zero / non-finite / known-drift prices to founder-approved amounts
+ * - soft-deactivate duplicate actives
+ *
+ * Does not touch production automatically beyond boot; never invents marketing copy.
+ * SEED_DEMO_DATA=false does not skip this (packages are not demo seed data).
+ */
+export async function reconcilePackageCatalogue(): Promise<{
+  inserted: number;
+  realigned: number;
+  deactivatedDuplicates: number;
+}> {
+  let inserted = 0;
+  let realigned = 0;
+  let deactivatedDuplicates = 0;
+
+  for (const p of DEFAULT_PACKAGES) {
+    const rows = (await col("packages")
+      .find({ service_type: p.service_type, code: p.code })
+      .sort({ created_at: 1 })
+      .toArray()) as Doc[];
+
+    if (!rows.length) {
+      await col("packages").insertOne({
+        ...p,
+        id: randomUUID(),
+        is_active: true,
+        created_at: nowIso(),
+      });
+      inserted += 1;
+      continue;
+    }
+
+    // Prefer an already-active row; otherwise the oldest.
+    const preferred =
+      rows.find((r) => r.is_active !== false) ?? rows[0];
+    const driftPrices = SEED_PRICE_DRIFT[String(p.code)] ?? [Number(p.price)];
+    const currentPrice = Number(preferred.price);
+    const shouldRealign =
+      isInvalidPackagePrice(currentPrice) ||
+      driftPrices.includes(currentPrice) ||
+      currentPrice === Number(p.price);
+
+    const patch: Doc = {
+      name: p.name,
+      rank: p.rank,
+      billing_frequency: p.billing_frequency,
+      billing_type: p.billing_type,
+      vat_treatment: p.vat_treatment,
+      is_active: true,
+      updated_at: nowIso(),
+    };
+    if (shouldRealign) {
+      patch.price = p.price;
+      if (currentPrice !== Number(p.price)) realigned += 1;
+    }
+    await col("packages").updateOne({ id: preferred.id }, { $set: patch });
+
+    for (const dup of rows) {
+      if (dup.id === preferred.id) continue;
+      if (dup.is_active === false) continue;
+      await col("packages").updateOne(
+        { id: dup.id },
+        { $set: { is_active: false, updated_at: nowIso() } },
+      );
+      deactivatedDuplicates += 1;
+    }
+  }
+
+  for (const code of LEGACY_MTD_PACKAGE_CODES) {
+    await col("packages").updateOne(
+      { service_type: MTD, code },
+      { $set: { is_active: false, updated_at: nowIso() } },
+    );
+  }
+
+  return { inserted, realigned, deactivatedDuplicates };
+}
 
 // Configurable late-stage lock: client-initiated package changes are disabled from these statuses.
 export const DEFAULT_LOCK_STATUSES = [
@@ -395,50 +483,7 @@ export async function createCaseAfterApplicationSubmitted(
 
 /** Seeds the package catalogue and the package-change lock setting. Idempotent. */
 export async function ensurePhase1bData(): Promise<void> {
-  for (const p of DEFAULT_PACKAGES) {
-    const existing = (await col("packages").findOne({
-      service_type: p.service_type,
-      code: p.code,
-    })) as Doc | null;
-    if (!existing) {
-      await col("packages").insertOne({
-        ...p,
-        id: randomUUID(),
-        is_active: true,
-        created_at: nowIso(),
-      });
-      continue;
-    }
-    // Align founder catalogue for new installs / known seed drift only.
-    // Do not overwrite a Super Admin live price that already differs from seed history.
-    const driftPrices = SEED_PRICE_DRIFT[String(p.code)] ?? [Number(p.price)];
-    const currentPrice = Number(existing.price);
-    const patch: Doc = {
-      name: p.name,
-      rank: p.rank,
-      billing_frequency: p.billing_frequency,
-      billing_type: p.billing_type,
-      vat_treatment: p.vat_treatment,
-      is_active: true,
-      updated_at: nowIso(),
-    };
-    if (
-      !Number.isFinite(currentPrice) ||
-      driftPrices.includes(currentPrice) ||
-      currentPrice === Number(p.price)
-    ) {
-      patch.price = p.price;
-    }
-    await col("packages").updateOne({ id: existing.id }, { $set: patch });
-  }
-
-  // Soft-deactivate superseded MTD catalogue codes (historical agreed_price rows stay intact).
-  for (const code of LEGACY_MTD_PACKAGE_CODES) {
-    await col("packages").updateOne(
-      { service_type: MTD, code },
-      { $set: { is_active: false, updated_at: nowIso() } },
-    );
-  }
+  await reconcilePackageCatalogue();
 
   await col("settings").updateOne(
     { key: "package_change_lock" },

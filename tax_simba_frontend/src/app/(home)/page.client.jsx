@@ -1,5 +1,6 @@
 "use client";
 import { getCurrencySymbol } from '@/utils/commonHelper';
+import { formatPlanPrice, isPlanPurchasable } from '@/hooks/useCatalogueFromPrice';
 import toast from 'react-hot-toast';
 
 import axios from 'axios';
@@ -245,7 +246,7 @@ const PageClient = () => {
   const fromPrice = (() => {
     const prices = subscriptionPlans
       .map((p) => Number(p.price))
-      .filter((n) => Number.isFinite(n) && n >= 0);
+      .filter((n) => Number.isFinite(n) && n > 0);
     if (!prices.length) return null;
     const min = Math.min(...prices);
     return Number.isInteger(min) ? `£${min}` : `£${min.toFixed(2)}`;
@@ -645,17 +646,21 @@ const PageClient = () => {
                           </div>
                         )}
                         <h3>
-                          {plan.originalPrice && (
+                          {plan.originalPrice && Number(plan.originalPrice) > 0 && (
                             <del className="me-2">
                               {getCurrencySymbol(plan.currency)}{plan.originalPrice}
                             </del>
                           )}
                           <span className="price-main">
-                            {getCurrencySymbol(plan.currency)}{plan.price}
+                            {formatPlanPrice(plan)}
                           </span>
                           {plan.savePercentage > 0 && <span className="off-tag ms-2">Save {plan.savePercentage}%</span>}
                         </h3>
-                        <p>{plan.description || "Perfect for individuals and businesses."}</p>
+                        {plan.description ? (
+                          <p>{plan.description}</p>
+                        ) : plan.billingFrequency ? (
+                          <p>{plan.billingFrequency}</p>
+                        ) : null}
                         <ul className="home-plan-list">
                           {Array.isArray(plan.features) && plan.features.map((feature, idx) => (
                             <li key={idx}><MdOutlineCheckCircle />{feature}</li>
@@ -672,7 +677,12 @@ const PageClient = () => {
                               fontWeight: '700',
                               borderRadius: '8px'
                             }}
+                            disabled={!isCurrent && !isCanceled && !isPlanPurchasable(plan)}
                             onClick={() => {
+                              if (!isCurrent && !isCanceled && !isPlanPurchasable(plan)) {
+                                toast.error("This package is currently unavailable.");
+                                return;
+                              }
                               if (isCanceled) {
                                 router.push(`/planlist/${plan.id}`);
                               } else if (isCurrent) {

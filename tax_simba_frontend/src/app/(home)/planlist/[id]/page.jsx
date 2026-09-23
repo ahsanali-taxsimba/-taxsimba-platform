@@ -6,6 +6,7 @@ import { useRouter, useParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import toast from 'react-hot-toast';
 import { getCurrencySymbol } from '@/utils/commonHelper';
+import { formatPlanPrice, isPlanPurchasable } from '@/hooks/useCatalogueFromPrice';
 
 /**
  * P0 K.3 — Stripe Checkout Session only.
@@ -43,6 +44,10 @@ export default function PlanCheckoutPage() {
     if (!session?.accessToken) {
       toast.error('Please log in to continue.');
       router.push(`/login?plan=${planId}`);
+      return;
+    }
+    if (!isPlanPurchasable(plan)) {
+      toast.error('This package is currently unavailable.');
       return;
     }
     setPaying(true);
@@ -109,8 +114,9 @@ export default function PlanCheckoutPage() {
     );
   }
 
-  const basePrice = plan?.price ? parseFloat(plan.price) : 0;
+  const basePrice = Number(plan?.price);
   const currency = plan.currency || 'GBP';
+  const purchasable = isPlanPurchasable(plan);
 
   return (
     <Container className="py-5">
@@ -119,8 +125,13 @@ export default function PlanCheckoutPage() {
           <div className="p-4 border rounded bg-white shadow-sm">
             <h2 className="mb-2">{plan.name}</h2>
             {plan.description && <p className="text-muted">{plan.description}</p>}
+            {!plan.description && plan.billingFrequency && (
+              <p className="text-muted">{plan.billingFrequency}</p>
+            )}
             <p className="fs-4 fw-semibold mb-4">
-              {getCurrencySymbol(currency)}{basePrice.toFixed(2)}
+              {purchasable
+                ? `${getCurrencySymbol(currency)}${Number.isInteger(basePrice) ? basePrice : basePrice.toFixed(2)}`
+                : formatPlanPrice(plan)}
             </p>
             {Array.isArray(plan.features) && plan.features.length > 0 && (
               <ul className="mb-4">
@@ -132,10 +143,10 @@ export default function PlanCheckoutPage() {
             <Button
               className="w-100 text-white"
               style={{ backgroundColor: '#14ab71', border: 'none' }}
-              disabled={paying || status === 'loading'}
+              disabled={paying || status === 'loading' || !purchasable}
               onClick={startCheckout}
             >
-              {paying ? <Spinner animation="border" size="sm" /> : 'Continue to secure checkout'}
+              {paying ? <Spinner animation="border" size="sm" /> : purchasable ? 'Continue to secure checkout' : 'Unavailable'}
             </Button>
             <p className="text-muted small mt-3 mb-0">
               You will be redirected to Stripe Checkout. Card entry on this page is not used for P0.

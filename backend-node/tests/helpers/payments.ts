@@ -4,13 +4,18 @@ import type {
   PaymentProvider,
   WebhookEvent,
 } from "../../src/services/payments";
+import { checkoutReturnUrls, gbpToStripePence } from "../../src/services/checkoutUrls";
 
 export const WEBHOOK_SIGNATURE = "test-signature";
 
 export interface RecordedCheckout {
   amount: number;
+  unit_amount_pence: number;
+  currency: "gbp";
   label: string;
   origin_url: string;
+  success_url: string;
+  cancel_url: string;
   metadata: Record<string, string>;
   session_id: string;
 }
@@ -26,6 +31,8 @@ export class FakePaymentProvider implements PaymentProvider {
     originUrl: string,
     metadata: Record<string, string>,
   ): Promise<CheckoutSession> {
+    const unitAmount = gbpToStripePence(amount);
+    const { success_url, cancel_url } = checkoutReturnUrls(originUrl);
     this.seq += 1;
     const id = `cs_test_${this.seq}`;
     const s: CheckoutSession = {
@@ -36,7 +43,17 @@ export class FakePaymentProvider implements PaymentProvider {
       payment_intent: null,
     };
     this.sessions.set(id, s);
-    this.checkouts.push({ amount, label, origin_url: originUrl, metadata, session_id: id });
+    this.checkouts.push({
+      amount,
+      unit_amount_pence: unitAmount,
+      currency: "gbp",
+      label,
+      origin_url: originUrl,
+      success_url,
+      cancel_url,
+      metadata,
+      session_id: id,
+    });
     return { ...s };
   }
 

@@ -135,8 +135,8 @@ export default function PackagePricingPage() {
   const onApplyImmediate = async () => {
     if (!selected || !canEdit) return;
     const price = Number(priceInput);
-    if (!Number.isFinite(price) || price < 0) {
-      setFlash({ type: "err", text: "Enter a valid non-negative price" });
+    if (!Number.isFinite(price) || price <= 0) {
+      setFlash({ type: "err", text: "Enter a valid price greater than zero (never £0)" });
       return;
     }
     setSaving(true);
@@ -171,8 +171,8 @@ export default function PackagePricingPage() {
   const onSchedule = async () => {
     if (!selected || !canEdit) return;
     const price = Number(scheduledPrice);
-    if (!Number.isFinite(price) || price < 0) {
-      setFlash({ type: "err", text: "Enter a valid scheduled price" });
+    if (!Number.isFinite(price) || price <= 0) {
+      setFlash({ type: "err", text: "Enter a valid scheduled price greater than zero" });
       return;
     }
     if (!scheduledFrom) {

@@ -12,6 +12,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Check, ShieldCheck, Users, Lock, Calendar, ArrowRight, Star, Award, Shield } from "lucide-react";
 import toast from 'react-hot-toast';
 import { getCurrencySymbol } from '@/utils/commonHelper';
+import { formatPlanPrice, isPlanPurchasable } from '@/hooks/useCatalogueFromPrice';
 import MtdPricingSection from '@/components/MtdPricingSection';
 
 const PlanCard = ({ plan, onSelect, currentPlanId, currentPlanStatus, currentPlanEndDate }) => {
@@ -51,13 +52,13 @@ const PlanCard = ({ plan, onSelect, currentPlanId, currentPlanStatus, currentPla
                         </div>
                     )}
                     <div className="price-row">
-                        {plan.originalPrice && (
+                        {plan.originalPrice && Number(plan.originalPrice) > 0 && (
                             <del className="price-old">
                                 {getCurrencySymbol(plan.currency)}{plan.originalPrice}
                             </del>
                         )}
                         <span className="price-new">
-                            {getCurrencySymbol(plan.currency)}{plan.price}
+                            {formatPlanPrice(plan)}
                         </span>
                         {plan.savePercentage > 0 && (
                             <span className="save-badge-green">
@@ -65,9 +66,11 @@ const PlanCard = ({ plan, onSelect, currentPlanId, currentPlanStatus, currentPla
                             </span>
                         )}
                     </div>
-                    <p className="plan-desc-text text-muted">
-                        {plan.description || "Perfect for individuals and businesses."}
-                    </p>
+                    {plan.description ? (
+                        <p className="plan-desc-text text-muted">{plan.description}</p>
+                    ) : plan.billingFrequency ? (
+                        <p className="plan-desc-text text-muted">{plan.billingFrequency}</p>
+                    ) : null}
                 </div>
 
                 <ul className="plan-feature-list-modern">

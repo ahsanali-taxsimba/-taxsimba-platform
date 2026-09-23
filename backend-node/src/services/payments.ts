@@ -6,6 +6,7 @@ import Stripe from "stripe";
 
 import { env, required } from "../config/env";
 import { Doc } from "../db/mongo";
+import { checkoutReturnUrls, gbpToStripePence } from "./checkoutUrls";
 
 export const TAX_CODE = "txcd_20060000"; // professional services
 
@@ -58,13 +59,23 @@ export class StripeProvider implements PaymentProvider {
     originUrl: string,
     metadata: Record<string, string>,
   ): Promise<CheckoutSession> {
+    const unitAmount = gbpToStripePence(amount);
+    const { success_url, cancel_url } = checkoutReturnUrls(originUrl);
+    // Metadata values must remain strings (UUID-safe) — never Number(uuid).
+    const safeMeta: Record<string, string> = {};
+    for (const [k, v] of Object.entries(metadata || {})) {
+      if (v == null) continue;
+      const s = String(v).trim();
+      if (!s || s === "NaN" || s === "undefined") continue;
+      safeMeta[k] = s;
+    }
     return session(
       await this.stripe.checkout.sessions.create({
         line_items: [
           {
             price_data: {
               currency: "gbp",
-              unit_amount: Math.round(amount * 100),
+              unit_amount: unitAmount,
               tax_behavior: "exclusive",
               product_data: { name: label, tax_code: TAX_CODE },
             },
@@ -72,11 +83,11 @@ export class StripeProvider implements PaymentProvider {
           },
         ],
         mode: "payment",
-        success_url: `${originUrl}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${originUrl}/payment/cancel`,
+        success_url,
+        cancel_url,
         automatic_tax: { enabled: true },
         billing_address_collection: "required",
-        metadata,
+        metadata: safeMeta,
       }),
     );
   }

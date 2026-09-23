@@ -15,6 +15,8 @@ import { categoryToServiceType } from "./ownership";
 export const compatPackagesRouter = Router();
 
 function mapPackage(p: Doc, content: Record<string, string>): Doc {
+  const price = Number(p.price);
+  const priceAvailable = Number.isFinite(price) && price > 0;
   const description = content[`package.${String(p.code)}.description`] || null;
   const features = (content[`package.${String(p.code)}.features`] ?? "")
     .split("\n")
@@ -23,7 +25,9 @@ function mapPackage(p: Doc, content: Record<string, string>): Doc {
     id: p.id,
     code: p.code,
     name: p.name,
-    price: p.price,
+    // Never market £0 — callers treat unavailable as an error state.
+    price: priceAvailable ? price : null,
+    priceAvailable,
     rank: p.rank,
     serviceType: p.service_type,
     billingFrequency: p.billing_frequency,
@@ -98,7 +102,10 @@ compatPackagesRouter.get(
       .sort({ rank: 1 })
       .limit(1)
       .next()) as Doc | null;
-    const baseFee = pkg ? Number(pkg.price ?? 0) : 119;
+    const baseFee = pkg && Number(pkg.price) > 0 ? Number(pkg.price) : null;
+    if (baseFee == null) {
+      throw httpError(503, "Package price is unavailable");
+    }
     sendCompatSuccess(
       res,
       {

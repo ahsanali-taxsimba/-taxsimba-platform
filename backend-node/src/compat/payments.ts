@@ -47,6 +47,14 @@ async function resolvePackage(planId: string, serviceTypeHint: string | null): P
   return clean(pkg) as Doc;
 }
 
+function requirePositivePackagePrice(pkg: Doc): number {
+  const amount = Number(pkg.price);
+  if (!Number.isFinite(amount) || amount <= 0) {
+    throw httpError(400, "Package price is unavailable");
+  }
+  return amount;
+}
+
 /**
  * Toxel: POST client/subscription/checkout-session { planId, paymentMethod? }
  * → native service-checkout semantics (Checkout Session only).
@@ -61,6 +69,7 @@ compatPaymentsRouter.post(
     const body = parseBody(CheckoutSessionIn, keysToSnake(req.body ?? {}));
     const hint = categoryToServiceType(body.service_type ?? null);
     const pkg = await resolvePackage(body.plan_id, hint);
+    const amount = requirePositivePackagePrice(pkg);
     const serviceType = String(pkg.service_type);
     if (![SELF_ASSESSMENT, MTD].includes(serviceType)) {
       throw httpError(400, "Unknown service type");
@@ -78,15 +87,16 @@ compatPaymentsRouter.post(
       "https://taxsimba.co.uk";
 
     const session = await payments().createCheckout(
-      Number(pkg.price),
+      amount,
       `${serviceType === MTD ? "MTD for Income Tax" : "Self Assessment"} — ${pkg.name}`,
       origin,
       {
         kind: "SERVICE_ACTIVATION",
-        client_id: client.id as string,
-        user_id: me.id as string,
+        client_id: String(client.id),
+        user_id: String(me.id),
         service_type: serviceType,
         to_package: String(pkg.code),
+        package_id: String(pkg.id),
       },
     );
     await col("payment_transactions").insertOne({
