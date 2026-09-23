@@ -1,0 +1,25 @@
+{
+  "name": "taxotools",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Taxotools — SEO, AEO/GEO, AI content & marketing SaaS platform",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @taxotools/web",
+    "dev:worker": "npm run dev -w @taxotools/worker",
+    "build": "npm run build -w @taxotools/database && npm run build -w @taxotools/shared && npm run build -w @taxotools/integrations && npm run build -w @taxotools/web && npm run build -w @taxotools/worker",
+    "db:generate": "npm run generate -w @taxotools/database",
+    "db:push": "npm run push -w @taxotools/database",
+    "db:migrate": "npm run migrate -w @taxotools/database",
+    "db:seed": "npm run seed -w @taxotools/database",
+    "test": "npm run test -w @taxotools/web && npm run test -w @taxotools/worker && npm run test -w @taxotools/integrations",
+    "lint": "npm run lint -w @taxotools/web",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
