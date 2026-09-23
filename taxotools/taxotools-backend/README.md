@@ -1,6 +1,6 @@
-# TaxoTools Backend — UK Accountancy Backlinks Database
+# TaxoTools Backend — UK Accountancy Continuous Intelligence
 
-Supabase-backed discovery + crawl + scoring + API for UK accountancy firm backlinks.
+24/7 discovery + SEO / GEO / AEO / keyword / backlink / competitor crawler stored in Supabase.
 
 ## Folder structure
 
@@ -8,90 +8,73 @@ Supabase-backed discovery + crawl + scoring + API for UK accountancy firm backli
 taxotools-backend/
 ├── src/
 │   ├── discovery/          # Companies House, Google, directories
-│   ├── crawler/            # Domain crawl, Common Crawl inbound
-│   ├── scoring/            # Open PageRank + backlink scoring
+│   ├── crawler/            # On-site crawl + Common Crawl + SEO/GEO/AEO extract
+│   ├── keywords/           # Keywords Everywhere
+│   ├── competitors/        # City / backlink / keyword comparisons
+│   ├── scoring/            # Open PageRank
 │   ├── supabase/           # Client + upsert helpers
 │   ├── api/                # Express REST API
-│   ├── cron/               # Weekly/monthly jobs + continuous cycle
+│   ├── cron/               # Daily/weekly/monthly + continuous forever loop
 │   └── utils/
 ├── supabase-schema.sql
+├── supabase-schema-intelligence.sql
 ├── .env.example
-├── package.json
-└── README.md
+└── package.json
 ```
-
-## Environment
-
-Copy from monorepo `taxotools/.env` or set:
-
-```bash
-SUPABASE_URL=https://YOUR.supabase.co
-SUPABASE_SERVICE_ROLE_KEY=...
-SUPABASE_ANON_KEY=...                 # optional
-OPEN_PAGERANK_API_KEY=...             # or OPENPAGERANK_API_KEY
-COMPANIES_HOUSE_API_KEY=...           # optional free key
-SERP_API_KEY=...                      # optional (Google discovery)
-COMMON_CRAWL_INDEX=CC-MAIN-2026-17
-CRAWL_DELAY_MS=500
-MAX_PAGES_PER_DOMAIN=200
-USER_AGENT=TaxoToolsBot/1.0 (+https://taxotools.com)
-BACKEND_PORT=3200
-DIRECT_URL=postgresql://...           # for db:apply
-```
-
-Also accepts `NEXT_PUBLIC_SUPABASE_URL` from the main Taxotools app `.env`.
 
 ## Setup
 
 ```bash
 cd taxotools/taxotools-backend
 npm install
-npm run db:apply          # creates tables on Supabase
-npm run test:smoke        # verifies connection + demo firms
+npm run db:apply
+npm run test:smoke
 ```
 
-## Commands
+## Start 24/7 crawling (never stops)
+
+```bash
+npm run continuous
+```
+
+Also run the API:
+
+```bash
+npm start
+```
+
+Pause without killing the process: set `crawler_control.status = 'paused'` in Supabase.
+
+## Cron scripts
 
 | Script | Purpose |
 |---|---|
-| `npm run discover` | Find UK accountants |
-| `npm run crawl` | Crawl firms + Common Crawl inbound |
-| `npm run score` | Refresh Open PageRank authorities |
-| `npm run cycle` | Discovery → Crawl → Score once |
-| `npm run cron:weekly-crawl` | Weekly backlink refresh |
-| `npm run cron:monthly-discovery` | Monthly discovery |
-| `npm run cron:weekly-authority` | Weekly authority update |
-| `npm start` | API on `:3200` |
+| `npm run continuous` | Forever loop (discovery + crawl + score) |
+| `npm run cron:daily-keywords` | Keyword refresh |
+| `npm run cron:daily-seo` | SEO / GEO / AEO refresh |
+| `npm run cron:weekly-crawl` | Backlink refresh |
+| `npm run cron:weekly-authority` | Open PageRank refresh |
+| `npm run cron:monthly-discovery` | Accountant discovery |
 
 ## API
 
 - `GET /accountants`
-- `GET /backlinks?domain=example.co.uk`
-- `GET /referring-domains?domain=example.co.uk`
-- `GET /competitor-backlinks?domain=example.co.uk`
-- `POST /ops/discover` · `POST /ops/crawl` · `POST /ops/cycle`
-
-## Continuous crawling
-
-Run on a schedule (cron / GitHub Actions / Railway):
-
-```bash
-# every day
-npm run cycle
-
-# or split
-0 3 * * 0  npm run cron:weekly-crawl
-0 4 1 * *  npm run cron:monthly-discovery
-0 5 * * 0  npm run cron:weekly-authority
-```
+- `GET /backlinks?domain=`
+- `GET /keywords?domain=`
+- `GET /seo?domain=`
+- `GET /geo?domain=`
+- `GET /aeo?domain=`
+- `GET /competitors?domain=`
+- `GET /crawler/status`
+- `POST /ops/discover` · `/ops/crawl` · `/ops/cycle` · `/ops/keywords` · `/ops/seo-refresh`
 
 ## Tables
 
-See `supabase-schema.sql`:
+`accountancy_firms`, `backlinks`, `referring_domains`, `seo_data`, `keyword_data`, `geo_data`, `aeo_data`, `crawl_logs`, `competitor_profiles`, `crawler_control`
 
-- `accountancy_firms`
-- `uk_backlinks` (+ view `backlinks`)
-- `referring_domains`
-- `crawl_logs`
+## Crawler rules
 
-`uk_backlinks` avoids clashing with the main Taxotools Prisma `Backlink` table.
+- Max 200 pages / domain (`MAX_PAGES_PER_DOMAIN`)
+- Respect `robots.txt`
+- Delay 500ms (`CRAWL_DELAY_MS`)
+- UA: `TaxoToolsBot/1.0 (+https://taxotools.com)`

@@ -172,7 +172,13 @@ API: `GET|POST /api/sites/:siteId/tools/:toolId`
 
 Default sources are **CrawlGraph** (referring domains) + **Open PageRank** (authority enrichment).
 Set `CRAWLGRAPH_API_KEY` and/or `OPENPAGERANK_API_KEY` for live data; without keys the engine
-falls back to deterministic stubs so demos keep working.  
+falls back to deterministic stubs so demos keep working.
+
+### Supabase Storage
+
+Private buckets: `reports`, `crawls`, `uploads`.  
+Set `NEXT_PUBLIC_SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY`. Reports and crawler JSONL upload via
+`@taxotools/integrations` (`supabase://bucket/path` keys in DB).  
 
 ---
 

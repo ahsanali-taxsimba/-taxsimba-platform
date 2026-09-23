@@ -28,16 +28,19 @@ export const env = {
   openPageRankKey: first(
     process.env.OPEN_PAGERANK_API_KEY,
     process.env.OPENPAGERANK_API_KEY,
-    process.env.KEYWORDS_EVERYWHERE_API_KEY,
   ),
+  keywordsEverywhereKey: first(process.env.KEYWORDS_EVERYWHERE_API_KEY),
+  pageSpeedKey: first(process.env.PAGESPEED_API_KEY, process.env.GOOGLE_API_KEY),
   companiesHouseKey: first(process.env.COMPANIES_HOUSE_API_KEY),
   serpApiKey: first(process.env.SERP_API_KEY, process.env.SERPAPI_KEY),
   commonCrawlIndex: first(process.env.COMMON_CRAWL_INDEX, "CC-MAIN-2026-17"),
   crawlDelayMs: Number(process.env.CRAWL_DELAY_MS || 500),
   maxPagesPerDomain: Number(process.env.MAX_PAGES_PER_DOMAIN || 200),
+  continuousLoopSleepMs: Number(process.env.CONTINUOUS_LOOP_SLEEP_MS || 60000),
+  continuousFirmBatch: Number(process.env.CONTINUOUS_FIRM_BATCH || 5),
   userAgent:
     process.env.USER_AGENT ||
-    "TaxoToolsBot/1.0 (+https://taxotools.com; UK accountancy research)",
+    "TaxoToolsBot/1.0 (+https://taxotools.com)",
   port: Number(process.env.BACKEND_PORT || 3200),
   databaseUrl: first(process.env.DIRECT_URL, process.env.DATABASE_URL),
 };

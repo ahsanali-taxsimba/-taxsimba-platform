@@ -31,10 +31,22 @@ export async function upsertAccountancyFirm(firm) {
   return data;
 }
 
-export async function listAccountancyFirms({ limit = 500, location } = {}) {
-  let q = getSupabase().from("accountancy_firms").select("*").order("discovered_at", { ascending: false }).limit(limit);
+export async function listAccountancyFirms({ limit = 500, location, preferStale = true } = {}) {
+  let q = getSupabase().from("accountancy_firms").select("*").limit(limit);
+  // Prefer firms never crawled / oldest first so continuous loop covers everyone
+  if (preferStale) q = q.order("last_crawled_at", { ascending: true, nullsFirst: true });
+  else q = q.order("discovered_at", { ascending: false });
   if (location) q = q.ilike("location", `%${location}%`);
   const { data, error } = await q;
-  if (error) throw error;
+  if (error) {
+    // Fallback if last_crawled_at column not yet applied
+    const fb = await getSupabase()
+      .from("accountancy_firms")
+      .select("*")
+      .order("discovered_at", { ascending: false })
+      .limit(limit);
+    if (fb.error) throw error;
+    return fb.data || [];
+  }
   return data || [];
 }

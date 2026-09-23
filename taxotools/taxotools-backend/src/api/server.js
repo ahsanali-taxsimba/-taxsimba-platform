@@ -5,9 +5,19 @@ import { getBacklinksHandler } from "./getBacklinks.js";
 import { getReferringDomainsHandler } from "./getReferringDomains.js";
 import { getAccountantsHandler } from "./getAccountants.js";
 import { competitorBacklinksHandler } from "./competitorBacklinks.js";
+import {
+  getKeywordsHandler,
+  getSeoHandler,
+  getGeoHandler,
+  getAeoHandler,
+  getCompetitorsHandler,
+  getCrawlerStatusHandler,
+} from "./intelligenceHandlers.js";
 import { runDiscovery } from "../discovery/index.js";
 import { runCrawl } from "../crawler/index.js";
 import { runCycle } from "../cron/runCycle.js";
+import { dailyKeywordUpdate } from "../cron/dailyKeywords.js";
+import { dailySeoGeoAeoRefresh } from "../cron/dailySeo.js";
 
 const log = logger("api");
 const app = express();
@@ -17,16 +27,22 @@ app.get("/health", (_req, res) => {
   res.json({
     ok: true,
     service: "taxotools-backend",
+    mode: "continuous-intelligence",
     supabase: Boolean(env.supabaseUrl),
   });
 });
 
+app.get("/accountants", getAccountantsHandler);
 app.get("/backlinks", getBacklinksHandler);
 app.get("/referring-domains", getReferringDomainsHandler);
-app.get("/accountants", getAccountantsHandler);
 app.get("/competitor-backlinks", competitorBacklinksHandler);
+app.get("/keywords", getKeywordsHandler);
+app.get("/seo", getSeoHandler);
+app.get("/geo", getGeoHandler);
+app.get("/aeo", getAeoHandler);
+app.get("/competitors", getCompetitorsHandler);
+app.get("/crawler/status", getCrawlerStatusHandler);
 
-// Ops triggers (protect in production with a secret header)
 app.post("/ops/discover", async (req, res) => {
   try {
     const r = await runDiscovery({ includeDirectories: req.body?.directories !== false });
@@ -41,6 +57,7 @@ app.post("/ops/crawl", async (req, res) => {
     const r = await runCrawl({
       limit: Number(req.body?.limit || 10),
       includeCommonCrawl: req.body?.commonCrawl !== false,
+      maxPages: req.body?.maxPages ? Number(req.body.maxPages) : undefined,
     });
     res.json(r);
   } catch (e) {
@@ -57,6 +74,27 @@ app.post("/ops/cycle", async (_req, res) => {
   }
 });
 
+app.post("/ops/keywords", async (req, res) => {
+  try {
+    const r = await dailyKeywordUpdate({ limit: Number(req.body?.limit || 20) });
+    res.json(r);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+app.post("/ops/seo-refresh", async (req, res) => {
+  try {
+    const r = await dailySeoGeoAeoRefresh({
+      limit: Number(req.body?.limit || 10),
+      maxPages: Number(req.body?.maxPages || 15),
+    });
+    res.json(r);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 app.listen(env.port, () => {
-  log.info(`TaxoTools UK backlinks API on :${env.port}`);
+  log.info(`TaxoTools continuous intelligence API on :${env.port}`);
 });
