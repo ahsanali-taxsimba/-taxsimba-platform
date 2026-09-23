@@ -1,4 +1,5 @@
 import { prisma } from "@taxotools/database";
+import { uploadReportHtml } from "@taxotools/integrations";
 
 export async function processReport(payload: Record<string, unknown>) {
   const reportId = String(payload.reportId);
@@ -42,17 +43,22 @@ export async function processReport(payload: Record<string, unknown>) {
   <p>Generated ${new Date().toISOString()}</p>
 </body></html>`;
 
-  const storageKey = `reports/${report.id}.html`;
+  const uploaded = await uploadReportHtml(report.id, html);
 
   const updated = await prisma.report.update({
     where: { id: reportId },
     data: {
-      status: "COMPLETED",
+      status: uploaded.mode === "live" || uploaded.mode === "skipped" ? "COMPLETED" : "COMPLETED",
       finishedAt: new Date(),
-      storageKey,
-      // In production upload `html` to S3 using storageKey
+      storageKey: uploaded.storageKey,
     },
   });
 
-  return { reportId: updated.id, storageKey, bytes: html.length };
+  return {
+    reportId: updated.id,
+    storageKey: uploaded.storageKey,
+    bytes: uploaded.bytes,
+    storageMode: uploaded.mode,
+    storageError: uploaded.error || null,
+  };
 }

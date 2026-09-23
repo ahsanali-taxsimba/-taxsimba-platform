@@ -14,3 +14,18 @@ export {
 export { createCrawlGraphProvider } from "./backlinks/crawlgraph";
 export { createOpenPageRankProvider, oprToAuthority } from "./backlinks/openpagerank";
 export { createStubProvider, stubBacklinks } from "./backlinks/stub";
+
+export {
+  STORAGE_BUCKETS,
+  isSupabaseStorageConfigured,
+  getSupabaseAdmin,
+  storageKeyFor,
+  parseStorageKey,
+  uploadToBucket,
+  createSignedDownloadUrl,
+  uploadReportHtml,
+  uploadCrawlJsonl,
+  uploadUserFile,
+  type StorageBucket,
+  type UploadResult,
+} from "./storage/supabase-storage";

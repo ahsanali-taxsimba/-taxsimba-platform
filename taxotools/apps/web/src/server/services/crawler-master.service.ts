@@ -21,6 +21,7 @@ import {
   type CrawlerMasterExtract,
   type CrawlerMasterQueue,
 } from "@taxotools/shared";
+import { uploadCrawlJsonl } from "@taxotools/integrations";
 import { getSiteForUser } from "@/server/services/tenant.service";
 import { enqueueJob } from "@/server/queue";
 import { initBacklinkEngine } from "@/server/services/backlinks.service";
@@ -679,6 +680,23 @@ export async function executeCrawlerMasterRun(
   logs.push(done);
   await writeLog(siteId, run.id, "verbose", done);
 
+  // Persist JSONL extract dump to Supabase Storage (crawls bucket)
+  const extractRows = await prisma.crawlerExtractRecord.findMany({
+    where: { runId: run.id },
+    orderBy: { createdAt: "asc" },
+    take: 5000,
+  });
+  const jsonl = extractRows.map((e) => e.rawJsonl || JSON.stringify({ url: e.url, module: e.module })).join("\n");
+  const uploaded = await uploadCrawlJsonl(siteId, run.id, jsonl || "{}\n");
+  const storePath = uploaded.storageKey;
+  const storageMsg = `[verbose] store jsonl → ${uploaded.storageKey} mode=${uploaded.mode} bytes=${uploaded.bytes}${uploaded.error ? ` err=${uploaded.error}` : ""}`;
+  logs.push(storageMsg);
+  await writeLog(siteId, run.id, "verbose", storageMsg, "process.raw", "processor", {
+    storageKey: uploaded.storageKey,
+    mode: uploaded.mode,
+    error: uploaded.error || null,
+  });
+
   const finished = await prisma.crawlerMasterRun.update({
     where: { id: run.id },
     data: {
@@ -687,6 +705,7 @@ export async function executeCrawlerMasterRun(
       extractsStored,
       errors,
       retries,
+      storePath,
       logs: logs as Prisma.InputJsonValue,
       finishedAt: new Date(),
     },
