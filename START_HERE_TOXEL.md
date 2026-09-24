@@ -18,7 +18,9 @@ Always deploy the **CURRENT HEAD** of:
 
 **Branch:** `toxel-uat-approved`
 
-**Approved baseline SHA (this handoff):** `PENDING_COMMIT_SHA`
+**Approved baseline SHA (this handoff):** `1cf2565ff211c9560f6abd310561a485a8c29b5a`
+
+**Deploy tip:** pull current HEAD of `toxel-uat-approved` (includes this documentation stamp on top of the approved content SHA above). All three apps must still be built from the **same** pulled tip.
 
 **Instruction:** Pull and deploy this exact branch. Prefer the SHA above; if you pull later commits on the same branch, confirm with TaxSimba before promoting.
 
