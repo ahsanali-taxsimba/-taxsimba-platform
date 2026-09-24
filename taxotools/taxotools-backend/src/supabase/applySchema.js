@@ -16,6 +16,7 @@ async function main() {
   const files = [
     path.resolve(__dirname, "../../supabase-schema.sql"),
     path.resolve(__dirname, "../../supabase-schema-intelligence.sql"),
+    path.resolve(__dirname, "../../supabase-schema-coverage.sql"),
   ];
 
   const client = new pg.Client({ connectionString: url, ssl: { rejectUnauthorized: false } });

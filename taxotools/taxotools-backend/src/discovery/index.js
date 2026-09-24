@@ -1,33 +1,52 @@
 import { logger } from "../utils/logger.js";
-import { discoverFromCompaniesHouse, seedDemoFirms } from "./companiesHouse.js";
+import { discoverFromCompaniesHouse, seedDemoFirms, resolvePendingWebsites } from "./companiesHouse.js";
 import { discoverFromGoogleSearch } from "./googleSearch.js";
 import { discoverFromDirectories } from "./directories.js";
-import { listAccountancyFirms } from "../supabase/insertDomain.js";
+import { listAccountancyFirms, getCoverageStats } from "../supabase/insertDomain.js";
 
 const log = logger("discovery");
 
 /**
- * Full discovery pipeline:
- * Companies House → Google operators → UK directories → ensure demo seed baseline
+ * Full UK-wide discovery:
+ * Companies House (paginated SIC) → resolve pending sites → Google → city directories → seed baseline
  */
-export async function runDiscovery({ includeDirectories = true } = {}) {
-  log.info("Starting UK accountancy discovery");
-  const ch = await discoverFromCompaniesHouse();
-  const google = await discoverFromGoogleSearch();
-  const dirs = includeDirectories ? await discoverFromDirectories() : [];
+export async function runDiscovery({
+  includeDirectories = true,
+  deep = false,
+} = {}) {
+  log.info("Starting UK accountancy discovery", { deep });
+  const ch = await discoverFromCompaniesHouse({
+    maxPagesPerSic: deep ? 20 : Number(process.env.CH_MAX_PAGES_PER_SIC || 5),
+  });
+  const resolved = await resolvePendingWebsites({ limit: deep ? 100 : 40 });
+  const google = await discoverFromGoogleSearch({
+    num: deep ? 20 : 10,
+  });
+  const dirs = includeDirectories
+    ? await discoverFromDirectories({
+        locations: undefined, // use default city list
+        verifyLive: true,
+      })
+    : [];
 
-  let firms = await listAccountancyFirms({ limit: 1000 });
+  // Always ensure known national firms exist
+  await seedDemoFirms("national_seed");
+
+  let firms = await listAccountancyFirms({ limit: 5000, crawlableOnly: true });
   if (!firms.length) {
-    log.warn("No firms found — inserting demo baseline");
+    log.warn("No crawlable firms — seeding demo baseline");
     await seedDemoFirms("baseline");
-    firms = await listAccountancyFirms({ limit: 1000 });
+    firms = await listAccountancyFirms({ limit: 5000, crawlableOnly: true });
   }
 
+  const coverage = await getCoverageStats();
   const summary = {
     companiesHouse: ch.length,
+    websitesResolved: resolved.resolved,
     google: google.length,
     directories: dirs.length,
-    totalFirms: firms.length,
+    crawlableFirms: firms.length,
+    coverage,
   };
   log.info("Discovery complete", summary);
   return { summary, firms };

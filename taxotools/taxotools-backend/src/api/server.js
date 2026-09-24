@@ -13,6 +13,7 @@ import {
   getCompetitorsHandler,
   getCrawlerStatusHandler,
 } from "./intelligenceHandlers.js";
+import { getCoverageStats } from "../supabase/insertDomain.js";
 import { runDiscovery } from "../discovery/index.js";
 import { runCrawl } from "../crawler/index.js";
 import { runCycle } from "../cron/runCycle.js";
@@ -42,6 +43,14 @@ app.get("/geo", getGeoHandler);
 app.get("/aeo", getAeoHandler);
 app.get("/competitors", getCompetitorsHandler);
 app.get("/crawler/status", getCrawlerStatusHandler);
+app.get("/coverage", async (_req, res) => {
+  try {
+    const coverage = await getCoverageStats();
+    res.json({ ok: true, coverage, at: new Date().toISOString() });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
 
 app.post("/ops/discover", async (req, res) => {
   try {

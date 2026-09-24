@@ -16,6 +16,7 @@ import {
   upsertGeoData,
 } from "../supabase/insertIntelligence.js";
 import { getSupabase } from "../supabase/client.js";
+import { markFirmStatus } from "../supabase/insertDomain.js";
 import { refreshKeywordsForDomain } from "../keywords/keywordsEverywhere.js";
 import { buildCompetitorProfiles } from "../competitors/buildProfiles.js";
 
@@ -233,16 +234,15 @@ export async function crawlDomain(
       errors: errors.length,
     };
   } catch (e) {
+    const msg = String(e.message || e);
+    const unreachable = /ENOTFOUND|EAI_AGAIN|CERT|SSL|ECONNREFUSED/i.test(msg) && pages === 0;
     await writeCrawlLog({
       domain: host,
-      status: "failed",
+      status: unreachable ? "unreachable" : "failed",
       pages_crawled: pages,
-      errors: String(e.message || e),
+      errors: msg,
     });
-    await getSupabase()
-      .from("accountancy_firms")
-      .update({ crawl_status: "failed", updated_at: new Date().toISOString() })
-      .eq("domain", host);
+    await markFirmStatus(host, unreachable ? "unreachable" : "failed");
     throw e;
   }
 }
