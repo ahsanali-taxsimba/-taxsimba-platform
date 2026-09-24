@@ -1,0 +1,39 @@
+# fly.toml — TaxoTools always-on UK crawler
+# https://fly.io
+
+app = "taxotools-crawler"
+primary_region = "lhr"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  NODE_ENV = "production"
+  BACKEND_PORT = "3200"
+  PORT = "3200"
+  CRAWL_DELAY_MS = "500"
+  MAX_PAGES_PER_DOMAIN = "100"
+  CONTINUOUS_LOOP_SLEEP_MS = "30000"
+  CONTINUOUS_FIRM_BATCH = "12"
+  USER_AGENT = "TaxoToolsBot/1.0 (+https://taxotools.com)"
+  COMMON_CRAWL_INDEX = "CC-MAIN-2026-17"
+
+[http_service]
+  internal_port = 3200
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ["app"]
+
+  [[http_service.checks]]
+    interval = "30s"
+    timeout = "10s"
+    grace_period = "60s"
+    method = "GET"
+    path = "/health"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"
+  cpus = 1

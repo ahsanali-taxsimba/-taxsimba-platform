@@ -1,7 +1,16 @@
 # Keep the UK accountancy crawler running 24/7 (outside Cursor)
 
 Cursor Cloud stops when the agent ends. For a crawler that **never stops**,
-host `taxotools-backend` on Render (free tier works for a start).
+host `taxotools-backend` on a cloud VM.
+
+**Render Free is slow** for UK-wide crawling. Prefer:
+- **Fly.io** → see [FLY.md](./FLY.md) (recommended)
+- **Railway** → see [FLY.md](./FLY.md)
+- **Render paid** → upgrade the existing `taxotools-crawler` service
+
+## Render (original / free)
+
+Works, but Free tier is small and may sleep.
 
 ## Easiest path — Render (about 5 minutes)
 
