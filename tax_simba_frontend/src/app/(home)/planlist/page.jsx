@@ -14,7 +14,7 @@ import toast from 'react-hot-toast';
 import { getCurrencySymbol } from '@/utils/commonHelper';
 import { formatPlanPrice, isPlanPurchasable } from '@/hooks/useCatalogueFromPrice';
 import MtdPricingSection from '@/components/MtdPricingSection';
-import { resolveCatalogueCategory } from '@/lib/catalogueJourney';
+import { resolveCatalogueCategory, mtdCurrentPlanPath, saCurrentPlanPath } from '@/lib/catalogueJourney';
 
 const PlanCard = ({ plan, onSelect, currentPlanId, currentPlanStatus, currentPlanEndDate }) => {
     const isCurrentPlan = currentPlanId === plan.id;
@@ -183,9 +183,9 @@ const PlanListContent = () => {
         }
         if (currentPlanId === planId && !isExpired && !isCanceled) {
             if (isMTD) {
-                router.push(`/mtd-dashboard?tab=subscriptions`);
+                router.push(mtdCurrentPlanPath());
             } else {
-                router.push(`/dashboard/my-subscriptions`);
+                router.push(saCurrentPlanPath());
             }
         } else {
             router.push(`/planlist/${planId}`);

@@ -1,17 +1,19 @@
 "use client";
 import { useSession } from 'next-auth/react';
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Spinner, Container, Card, Button } from "react-bootstrap";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { postPurchaseDashboardPath } from "@/lib/catalogueJourney";
 
 /**
  * Checkout Success — P0 K.3
  * Polls compat checkout-success → native payments/status → fulfil only if Stripe paid.
  * Never sets isSubscriptionBuy; refreshes ownership from my-services / account details (D7 / N5).
  * Refresh/retry is idempotent. Missing/invalid/unpaid sessions show controlled errors (never silent 404).
+ * Landing path is ownership / fulfilled-service aware — never hardcode SA /dashboard.
  */
 const CheckoutSuccess = () => {
   const router = useRouter();
@@ -22,9 +24,21 @@ const CheckoutSuccess = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [purchaseInfo, setPurchaseInfo] = useState(null);
+  const [ownership, setOwnership] = useState(null);
   const [waitingPayment, setWaitingPayment] = useState(false);
   const attemptRef = useRef(0);
   const hasSucceeded = useRef(false);
+
+  const nextDashboardPath = useMemo(
+    () =>
+      postPurchaseDashboardPath({
+        serviceType: purchaseInfo?.serviceType || purchaseInfo?.service_type,
+        hasActiveMtd: ownership?.hasActiveMtd ?? session?.hasActiveMtd ?? session?.user?.hasActiveMtd,
+        hasActiveSa: ownership?.hasActiveSa ?? session?.hasActiveSa ?? session?.user?.hasActiveSa,
+        ownership: ownership?.ownership ?? session?.ownership ?? session?.user?.ownership,
+      }),
+    [purchaseInfo, ownership, session],
+  );
 
   useEffect(() => {
     if (status === "loading") return;
@@ -76,6 +90,7 @@ const CheckoutSuccess = () => {
             ownership: data.ownership || "neither",
             isSubscriptionBuy: false,
           };
+          setOwnership(ownershipPatch);
         } catch (e) {
           console.warn("Could not refresh account entitlements", e);
         }
@@ -118,10 +133,10 @@ const CheckoutSuccess = () => {
 
   useEffect(() => {
     if (!loading && purchaseInfo && !error) {
-      const timer = setTimeout(() => router.push("/dashboard/my-subscriptions"), 5000);
+      const timer = setTimeout(() => router.push(nextDashboardPath), 5000);
       return () => clearTimeout(timer);
     }
-  }, [loading, purchaseInfo, error, router]);
+  }, [loading, purchaseInfo, error, router, nextDashboardPath]);
 
   return (
     <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "80vh" }}>
@@ -156,7 +171,7 @@ const CheckoutSuccess = () => {
                 </p>
               )}
               <p className="text-muted mb-4">You will be redirected to the next steps shortly.</p>
-              <Button variant="primary" onClick={() => router.push("/dashboard/my-subscriptions")}>
+              <Button variant="primary" onClick={() => router.push(nextDashboardPath)}>
                 Proceed to Next Steps
               </Button>
             </>

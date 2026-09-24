@@ -13,6 +13,7 @@ import { Check, ShieldCheck, Users, Lock, Calendar, ArrowRight, Star, Award, Shi
 import { getCurrencySymbol } from '@/utils/commonHelper';
 import { formatPlanPrice } from '@/hooks/useCatalogueFromPrice';
 import MtdPricingSection from '@/components/MtdPricingSection';
+import { mtdCurrentPlanPath, saCurrentPlanPath } from '@/lib/catalogueJourney';
 
 const PlanCard = ({ plan, currentPlanId, currentPlanStatus, currentPlanEndDate, onSelect }) => {
     const isCurrent = currentPlanId === plan.id;
@@ -146,20 +147,20 @@ const PricingClient = () => {
         }
     }, [session, status]);
 
+    const isMTD =
+        session?.user?.catalogueCategory === "mtd" ||
+        session?.catalogueCategory === "mtd" ||
+        session?.user?.onboardingIntent === "MTD_INCOME_TAX";
+
     const handleSelectPlan = (planId) => {
         if (currentPlanId === planId && currentPlanStatus?.toLowerCase() !== 'canceled') {
-            router.push("/dashboard/my-subscriptions");
+            router.push(isMTD ? mtdCurrentPlanPath() : saCurrentPlanPath());
         } else if (status === "authenticated") {
             router.push(`/planlist/${planId}`);
         } else {
             router.push(`/register`);
         }
     };
-
-    const isMTD =
-        session?.user?.catalogueCategory === "mtd" ||
-        session?.catalogueCategory === "mtd" ||
-        session?.user?.onboardingIntent === "MTD_INCOME_TAX";
 
     if (isMTD && !loading) {
         return (

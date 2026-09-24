@@ -55,3 +55,68 @@ export function safeContinuePath(raw) {
   }
   return path;
 }
+
+/**
+ * Post-purchase / active-service dashboard path from fulfilled service type
+ * or ownership snapshot. Never hardcode SA /dashboard after an MTD purchase.
+ */
+export function dashboardPathForService(serviceType) {
+  const raw = String(serviceType || "").toUpperCase();
+  if (
+    raw === "MTD_INCOME_TAX"
+    || raw === "MTD"
+    || raw.includes("MTD")
+  ) {
+    return "/mtd-dashboard";
+  }
+  return "/dashboard";
+}
+
+/**
+ * Resolve where checkout-success / current-plan CTAs should land.
+ * Prefer the fulfilled package serviceType; fall back to ownership flags.
+ */
+export function postPurchaseDashboardPath({
+  serviceType,
+  hasActiveMtd,
+  hasActiveSa,
+  ownership,
+} = {}) {
+  if (serviceType) return dashboardPathForService(serviceType);
+  const own = String(ownership || "").toLowerCase();
+  if (own === "mtd" || (hasActiveMtd && !hasActiveSa)) return "/mtd-dashboard";
+  if (own === "sa" || (hasActiveSa && !hasActiveMtd)) return "/dashboard";
+  if (own === "both" || (hasActiveSa && hasActiveMtd)) {
+    // Dual-service: prefer the newly fulfilled service when known; else SA workspace.
+    return "/dashboard";
+  }
+  if (hasActiveMtd) return "/mtd-dashboard";
+  return "/dashboard";
+}
+
+/** Current-plan CTA for an MTD catalogue card (subscriptions tab). */
+export function mtdCurrentPlanPath() {
+  return "/mtd-dashboard?tab=subscriptions";
+}
+
+/** Current-plan CTA for an SA catalogue card. */
+export function saCurrentPlanPath() {
+  return "/dashboard/my-subscriptions";
+}
+
+/**
+ * Marketing "Get Started" for MTD pages when the visitor is already logged in.
+ * Active MTD → dashboard; otherwise intended MTD catalogue (never SA /dashboard).
+ */
+export function mtdAuthenticatedStartPath(session) {
+  const hasActiveMtd = Boolean(
+    session?.hasActiveMtd ?? session?.user?.hasActiveMtd,
+  );
+  const ownership = String(
+    session?.ownership ?? session?.user?.ownership ?? "",
+  ).toLowerCase();
+  if (hasActiveMtd || ownership === "mtd" || ownership === "both") {
+    return "/mtd-dashboard";
+  }
+  return "/planlist?category=mtd";
+}

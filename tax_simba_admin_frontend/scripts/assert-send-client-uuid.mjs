@@ -76,6 +76,24 @@ assert(/asStringId\(taxReturnId\)/.test(cert), "certificate modal: uses asString
 assert(/clientAxios\.post/.test(cert), "certificate modal: uses clientAxios");
 assert(!/setShowFinalCertificateModal\(false\);\s*\n\s*\} catch/.test(cert), "certificate does not close on catch path naively");
 
+const assignModal = readFileSync(
+  join(root, "src/app/(admin)/(others-pages)/manage-tax/_sections/AssignAccountantModal.tsx"),
+  "utf8",
+);
+assert(/fileId:\s*string\s*\|\s*null/.test(assignModal), "AssignAccountantModal fileId is string|null");
+assert(!/fileId:\s*string\s*\|\s*number/.test(assignModal), "AssignAccountantModal fileId is not number");
+assert(/asStringId\(fileId\)/.test(assignModal), "AssignAccountantModal uses asStringId(fileId)");
+assert(/asStringId\(selectedAccountant\)/.test(assignModal), "AssignAccountantModal uses asStringId(accountant)");
+assert(!/Number\(\s*fileId\s*\)/.test(assignModal), "AssignAccountantModal no Number(fileId)");
+
+const managePage = readFileSync(
+  join(root, "src/app/(admin)/(others-pages)/manage-tax/page.client.tsx"),
+  "utf8",
+);
+assert(/useState<\s*string\s*\|\s*null\s*>/.test(managePage), "manage-tax assign id state is string|null");
+assert(/handleAssign\s*=\s*\(\s*taxReturnId:\s*string/.test(managePage), "manage-tax handleAssign takes string");
+assert(!/handleAssign\s*=\s*\(\s*taxReturnId:\s*number/.test(managePage), "manage-tax handleAssign not number");
+
 // stringId unit
 const stringIdSrc = readFileSync(join(root, "src/lib/stringId.ts"), "utf8");
 // Compile-lite: strip types

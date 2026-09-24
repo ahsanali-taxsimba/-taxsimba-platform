@@ -676,8 +676,8 @@ export default function MtdOverview({ session, userData, overviewData, onOvervie
                                                     <FaUserTie />
                                                 </div>
                                                 <div>
-                                                    <div className="accountant-name" style={{ color: "#666" }}>No accountant assigned yet.</div>
-                                                    <div className="accountant-email" style={{ color: "#999" }}>Our team will assign one shortly.</div>
+                                                    <div className="accountant-name" style={{ color: "#666" }}>Awaiting accountant assignment</div>
+                                                    <div className="accountant-email" style={{ color: "#999" }}>Our team will assign an eligible accountant shortly.</div>
                                                 </div>
                                             </>
                                         )}

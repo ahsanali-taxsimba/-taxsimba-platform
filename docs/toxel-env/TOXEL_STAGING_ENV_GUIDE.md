@@ -1,8 +1,8 @@
 # TaxSimba — Toxel Staging Environment Guide
 
-**Branch:** `cursor/p0-uat-corrections-80a7`  
-**Documentation based on audit of SHA:** `d60141e44edd4a646765130f4a907cd0fd686447`  
-**Frozen P0 (do not modify):** `taxsimba-p0-integration` @ `bded699aaa048bd44aea5334dea2ea71c6e0c1c0`
+**Branch:** `toxel-uat-approved`  
+**Source of truth:** `START_HERE_TOXEL.md` (deploy that branch / SHA only)  
+**Do not deploy:** `taxsimba-p0-integration`
 
 Launch applications only:
 
@@ -201,6 +201,6 @@ If any step fails: capture screenshot/video + network evidence + exact deploy SH
 ## Absolute prohibitions
 
 - Do not commit secrets or production credentials.  
-- Do not merge into `taxsimba-p0-integration`, `main`, SEO, or PPC branches from this handover.  
+- Do not merge into `main`/production, SEO, or PPC branches. Deploy only `toxel-uat-approved`.  
 - Do not invent OpenAI / Translate / SimbaX credentials for P0 gate.  
 - Do not claim production email/Stripe readiness without the smoke tests above.

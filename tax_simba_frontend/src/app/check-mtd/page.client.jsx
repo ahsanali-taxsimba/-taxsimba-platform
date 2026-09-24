@@ -18,6 +18,7 @@ import { getCurrencySymbol } from '@/utils/commonHelper';
 import MtdPricingSection from '@/components/MtdPricingSection';
 import toast from 'react-hot-toast';
 import { Modal } from "react-bootstrap";
+import { mtdCurrentPlanPath } from '@/lib/catalogueJourney';
 
 export default function MtdClient() {
     const [show, setShow] = useState(false);
@@ -427,7 +428,7 @@ export default function MtdClient() {
                                 currentPlanId={currentPlanId}
                                 onSelectPlan={(planId) => {
                                     if (currentPlanId === planId) {
-                                        router.push(`/dashboard/my-subscriptions`);
+                                        router.push(mtdCurrentPlanPath());
                                     } else if (status === "authenticated") {
                                         router.push(`/planlist/${planId}`);
                                     } else {

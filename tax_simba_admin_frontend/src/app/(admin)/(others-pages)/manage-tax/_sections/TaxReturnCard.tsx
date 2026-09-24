@@ -4,8 +4,8 @@ import { Calendar, Clock, Download, Eye, FileText, Mail, User, UserPlus } from "
 
 const TaxReturnCard: React.FC<{
   item: TaxReturnData;
-  onAssign: (id: number) => void;
-  onViewDetails: (id: number) => void;
+  onAssign: (id: string) => void;
+  onViewDetails: (id: string) => void;
   showAssignButton: boolean;
 }> = ({ item, onAssign, onViewDetails, showAssignButton }) => {
   const { taxReturn, files } = item;
@@ -155,7 +155,7 @@ const TaxReturnCard: React.FC<{
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                onAssign(taxReturn.id);
+                onAssign(String(taxReturn.id));
               }}
               className="px-3 py-1 bg-[#37a267] text-white text-sm rounded-lg hover:bg-[#37a267]/90 flex items-center space-x-1"
             >
@@ -168,7 +168,7 @@ const TaxReturnCard: React.FC<{
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              onViewDetails(taxReturn.id);
+              onViewDetails(String(taxReturn.id));
             }}
             className="px-3 py-1 bg-[#37a267] text-white text-sm rounded-lg hover:bg-[#37a267]/90 flex items-center space-x-1"
           >

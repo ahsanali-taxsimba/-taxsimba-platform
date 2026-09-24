@@ -185,9 +185,10 @@ export default function MtdDashboardClient({ serverSession }) {
       return "Your accountant prepares and submits your MTD updates. Check requests and deadlines here.";
     })();
 
-    // Overview Metrics Calculations for top header card
-    const mtdQuarterRaw = overviewData?.taxReturn?.mtdQuarter || overviewData?.nextQuarter?.quarterName || userData?.currentQuarter || "—";
-    const mtdQuarter = formatQuarterDisplay(mtdQuarterRaw);
+    // Overview Metrics — only from authoritative overview / entitlement payload.
+    // Do not invent backlog quarters from onboarding questionnaire answers.
+    const mtdQuarterRaw = overviewData?.taxReturn?.mtdQuarter || overviewData?.nextQuarter?.quarterName || null;
+    const mtdQuarter = mtdQuarterRaw ? formatQuarterDisplay(mtdQuarterRaw) : "—";
     
     const mtdQuarterDueDate = overviewData?.taxReturn?.mtdQuarterDueDate || overviewData?.nextQuarter?.dueDate || null;
     const displayDeadline = mtdQuarterDueDate 
@@ -210,11 +211,12 @@ export default function MtdDashboardClient({ serverSession }) {
         }
     }
 
-    const currentStatus = overviewData?.taxReturnStatus || "pending_assignment";
+    const currentStatus = overviewData?.taxReturnStatus || (overviewData?.entitlementOnly ? "active_pending_application" : "pending_assignment");
     const statusIndexMap = {
         "pending_payment": 0,
         "payment_completed": 0,
         "pending_assignment": 0,
+        "active_pending_application": 0,
         "assigned": 1,
         "preparation_started": 2,
         "in_progress": 2,
@@ -236,7 +238,11 @@ export default function MtdDashboardClient({ serverSession }) {
     const currentIndex = statusIndexMap[currentStatus] ?? 0;
     let displayStatus = taxReturnSteps[currentIndex]?.label || "Assigned Pending";
     
-    if (overviewData?.nextQuarter) {
+    if (overviewData?.entitlementOnly || currentStatus === "active_pending_application") {
+        displayStatus = "Awaiting application";
+    } else if (!mtdQuarterRaw && !overviewData?.taxReturn) {
+        displayStatus = "Setup in progress";
+    } else if (overviewData?.nextQuarter) {
         displayStatus = "Pending Start";
     }
 
@@ -247,59 +253,21 @@ export default function MtdDashboardClient({ serverSession }) {
         statusBadgeColor = "success";
     } else if (["preparation_started", "in_progress", "draft_ready", "client_review"].includes(currentStatus)) {
         statusBadgeColor = "warning";
-    } else if (["pending_payment", "pending_assignment"].includes(currentStatus)) {
+    } else if (["pending_payment", "pending_assignment", "active_pending_application"].includes(currentStatus)) {
         statusBadgeColor = "secondary";
     } else if (["final_submitted", "submitted"].includes(currentStatus)) {
         statusBadgeColor = "success";
     }
 
-    // Calculate backlog quarters based on onboarding answers
-    const getBacklogQuarters = () => {
-        if (!mtdQuarterRaw || mtdQuarterRaw === "—") return [];
-        
-        const match = mtdQuarterRaw.match(/Q([1-4])/);
-        const qNum = match ? parseInt(match[1]) : 1;
-        const yearMatch = mtdQuarterRaw.match(/\b(20\d{2})\b/);
-        const year = yearMatch ? parseInt(yearMatch[1]) : new Date().getFullYear();
-
-        let submitted = [];
-        if (userData?.submittedQuarters) {
-            try {
-                submitted = JSON.parse(userData.submittedQuarters);
-            } catch (e) {
-                submitted = Array.isArray(userData.submittedQuarters) ? userData.submittedQuarters : [userData.submittedQuarters];
-            }
-        }
-        if (!Array.isArray(submitted)) {
-            submitted = typeof submitted === 'string' ? [submitted] : [];
-        }
-
-        if (userData?.prevSubmittedMTDThisYear === "Yes, all required quarters have been submitted") {
-            return [];
-        }
-
-        const isBacklogRequired = userData?.hasOutstandingMTDSubmissions === "Yes" || 
-                                  userData?.prevSubmittedMTDThisYear === "No, I have not submitted any quarterly updates" ||
-                                  (userData?.prevSubmittedMTDThisYear === "Yes, some quarters have been submitted" && submitted.length < qNum - 1);
-        
-        if (!isBacklogRequired) return [];
-
-        const outstanding = [];
-        for (let i = 1; i < qNum; i++) {
-            const isSubmitted = submitted.some(s => s && typeof s === 'string' && s.includes(`Q${i}`));
-            if (!isSubmitted) {
-                outstanding.push({ name: `Q${i} ${year}`, status: 'Pending' });
-            }
-        }
-        outstanding.push({ name: `Q${qNum} ${year}`, status: 'In Progress' });
-        
-        if (outstanding.length > 1) {
-            return outstanding;
-        }
-        return [];
-    };
-
-    const backlogQuarters = getBacklogQuarters();
+    // Never invent historical backlog — only surface backend-provided outstanding periods.
+    const backlogQuarters = Array.isArray(overviewData?.outstandingPeriods)
+      ? overviewData.outstandingPeriods
+          .filter((p) => p && (p.label || p.name || p.quarter))
+          .map((p) => ({
+            name: p.label || p.name || (p.quarter ? `Q${p.quarter}` : "Period"),
+            status: p.status === "SUBMITTED" || p.status === "Completed" ? "Completed" : "Pending",
+          }))
+      : [];
     const hasBacklog = backlogQuarters.length > 0;
 
     return (

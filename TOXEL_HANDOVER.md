@@ -1,15 +1,24 @@
 # TOXEL HANDOVER — Ready for Toxel Staging
 
-**Verdict:** A. READY FOR TOXEL STAGING  
-**Readiness class:** **2) READY FOR TOXEL STAGING** — **not** PRODUCTION READY  
-**Branch:** `taxsimba-p0-integration` (base: `node-only-production`)  
-**Final freeze tip:** `2866f257875aa0123ad7fefcfcecbf9af3c0f61b`  
-**Gate feature tip:** `308111e1bc4549db7b9eee771067c9f50b05d2e7`  
-**K.9 baseline:** `38549faa0d2b71da3fc8c98fd240222c279971b1`  
-**K.8 checkpoint:** `9d5251d`  
-**PR:** https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/2  
+**Verdict:** Follow **`START_HERE_TOXEL.md`** — that file is the single source of truth.  
+**Readiness class:** **READY FOR TOXEL STAGING RETEST** — **not** PRODUCTION READY  
+**Branch:** `toxel-uat-approved`  
+**Do not deploy:** `taxsimba-p0-integration`, `main`/production, SEO/PPC branches  
+
+Historical freeze SHAs in older revisions of this file are archival only. Deploy the current approved baseline documented in `START_HERE_TOXEL.md`.
 
 **This is not a production-ready declaration.** Production readiness requires deployed staging/UAT. Do not merge protected branches from this gate.
+
+---
+
+## Final gate evidence (see START_HERE_TOXEL.md)
+
+| Check | Result |
+|---|---|
+| Branch | `toxel-uat-approved` |
+| Three apps same SHA | **REQUIRED** |
+| Backend typecheck / full test suite | **PASS** (0 failures / 0 skipped) |
+| Client / admin production builds | **PASS** |
 
 ---
 

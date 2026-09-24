@@ -33,7 +33,7 @@ const AdminTaxReturnManagement: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<TabStatus>('pending');
   const [viewMode, setViewMode] = useState<ViewMode>('cards');
-  const [assignTaxReturnId, setAssignTaxReturnId] = useState<number | null>(null);
+  const [assignTaxReturnId, setAssignTaxReturnId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const router = useRouter();
   const statusMap: Record<TabStatus, string[]> = {
@@ -87,12 +87,12 @@ const AdminTaxReturnManagement: React.FC = () => {
 
     return statusMatch && searchMatch;
   });
-  const handleViewDetails = (taxReturnId: number) => {
+  const handleViewDetails = (taxReturnId: string) => {
     router.push(`/manage-tax/${taxReturnId}`);
   };
 
-  const handleAssign = (taxReturnId: number) => {
-    setAssignTaxReturnId(taxReturnId);
+  const handleAssign = (taxReturnId: string) => {
+    setAssignTaxReturnId(String(taxReturnId));
   };
 
   // Statistics

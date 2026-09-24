@@ -140,7 +140,7 @@ export interface TaxReturnType {
 }
 
 export interface TaxReturn {
-  id: number;
+  id: string;
   taxReturnId: string;
   taxYear: number;
   status: string;
@@ -149,7 +149,7 @@ export interface TaxReturn {
   client: Client;
   type: TaxReturnType;
   accountant?: {
-    id: number;
+    id: string;
     name: string;
     email: string;
   };
@@ -239,14 +239,14 @@ export interface UploadedFilesDetailsProps {
 export interface TaxReturnData {
   taxReturn: {
     accountant: any;
-    id: number;
+    id: string;
     taxReturnId: string;
     taxYear: number;
     status: string;
     mtdQuarter?: string;
     mtdQuarterDueDate?: string;
     client: {
-      id: number;
+      id: string;
       name: string;
       surname: string;
       email: string;

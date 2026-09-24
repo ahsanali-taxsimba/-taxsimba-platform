@@ -16,6 +16,7 @@ import { FaQuoteLeft } from "react-icons/fa";
 import { getCurrencySymbol } from '@/utils/commonHelper';
 import MtdPricingSection from '@/components/MtdPricingSection';
 import toast from 'react-hot-toast';
+import { mtdAuthenticatedStartPath, mtdCurrentPlanPath } from '@/lib/catalogueJourney';
 
 
 
@@ -30,6 +31,10 @@ function page() {
     const router = useRouter();
 
     const { data: sessionData, status } = useSession();
+    const mtdStartHref =
+      status === "authenticated"
+        ? mtdAuthenticatedStartPath(sessionData)
+        : "/register?role=MTD";
 
     console.log(sessionData, status, "sessionData");
 
@@ -214,7 +219,7 @@ function page() {
                                 <h1 className="text-capitalize mb-3 fs-2"> <span>Making Tax Digital</span> is here</h1>
                                 <p>HMRC rules apply from April 2026. Stay ahead of the curve with simplified digital accounting tailored for the UK.</p>
                                 <div className='mtd-banner-btn d-flex align-items-center justify-content-lg-start justify-content-center gap-2 mt-4 pt-2'>
-                                    <Link href={status === "authenticated" ? "/dashboard" : "/register?role=MTD"} className="common-btn glowing-button justify-content-center">Get Started</Link>
+                                    <Link href={status === "authenticated" ? mtdStartHref : "/register?role=MTD"} className="common-btn glowing-button justify-content-center">Get Started</Link>
                                     <Link href="/check-mtd" className="common-btn-outline ">Check if I need MTD</Link>
                                 </div>
                                 <ul className='list-unstyled d-flex align-item-center gap-3 w-100 mt-4 pt-3 justify-content-lg-start justify-content-center'>
@@ -471,7 +476,7 @@ function page() {
                                                         You don&apos;t need to worry about MTD right now. But you still need to file your Self Assessment!
                                                     </p>
 
-                                                    <Link href={status === "authenticated" ? "/dashboard" : "/register?role=MTD"} className="common-btn d-inline-block w-100">
+                                                    <Link href={status === "authenticated" ? mtdStartHref : "/register?role=MTD"} className="common-btn d-inline-block w-100">
                                                         Start Using TaxSimba
                                                     </Link>
 
@@ -647,7 +652,7 @@ function page() {
                                 currentPlanId={currentPlanId}
                                 onSelectPlan={(planId) => {
                                     if (currentPlanId === planId) {
-                                        router.push(`/dashboard/my-subscriptions`);
+                                        router.push(mtdCurrentPlanPath());
                                     } else if (status === "authenticated") {
                                         router.push(`/planlist/${planId}`);
                                     } else {
@@ -790,7 +795,7 @@ function page() {
                                         <h6>Stay Compliant With MTD Without The Stress.</h6>
                                     </div>
                                     <div className="process-btn">
-                                        <Link href={status === "authenticated" ? "/dashboard" : "/register?role=MTD"} className="common-btn text-capitalize ">Get Started <GoArrowUpRight className="ms-1" /></Link>
+                                        <Link href={status === "authenticated" ? mtdStartHref : "/register?role=MTD"} className="common-btn text-capitalize ">Get Started <GoArrowUpRight className="ms-1" /></Link>
                                     </div>
                                 </div>
                             </div>
@@ -944,7 +949,7 @@ function page() {
                                         </h2>
                                         <p className='text-white mb-0'>Real-time records, receipt capture, and HMRC submissions in one place.{subscriptionPlans.length > 0 && <> From {getCurrencySymbol(subscriptionPlans[0].currency)}{subscriptionPlans[0].price}/month.</>}</p>
                                         <div className="d-flex align-items-center justify-content-center gap-2 flex-wrap mt-4">
-                                            <Link href={status === "authenticated" ? "/dashboard" : "/register?role=MTD"} className="common-btn">
+                                            <Link href={status === "authenticated" ? mtdStartHref : "/register?role=MTD"} className="common-btn">
                                                 Get Started <MdKeyboardDoubleArrowRight className="mtd-btn-icon" />
                                             </Link>
                                             {/* <Link href="https://simbax.toxsl.in/" className="common-btn-outline" target="_blank">

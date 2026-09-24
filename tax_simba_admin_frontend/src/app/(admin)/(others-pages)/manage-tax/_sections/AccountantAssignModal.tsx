@@ -7,6 +7,7 @@ import clientAxios from '@/lib/axios-client';
 import { mapTaxReturnListPayload } from '@/lib/mapTaxReturnList';
 import DatePicker from '@/components/form/date-picker';
 import { toast } from 'react-toastify';
+import { asStringId } from '@/lib/stringId';
 
 interface Accountant {
   id: string;
@@ -15,7 +16,7 @@ interface Accountant {
 }
 
 interface AssignAccountantModalProps {
-  fileId: string | number | null;
+  fileId: string | null;
   isOpen: boolean;
   onClose: () => void;
   setTaxReturns: React.Dispatch<React.SetStateAction<any>>;
@@ -85,9 +86,16 @@ const AssignAccountantModal: React.FC<AssignAccountantModalProps> = ({
 
     setSubmitting(true);
     try {
+      const caseId = asStringId(fileId);
+      const accountantId = asStringId(selectedAccountant);
+      if (!caseId || !accountantId) {
+        toast.error('Invalid case or accountant identifier.');
+        setSubmitting(false);
+        return;
+      }
       await clientAxios.post('/admin/assign', {
-        taxReturnId: fileId,
-        accountantId: selectedAccountant,
+        taxReturnId: caseId,
+        accountantId,
         notes,
         priority,
         deadline: deadline || null,

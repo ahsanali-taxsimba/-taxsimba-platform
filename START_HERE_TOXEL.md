@@ -8,28 +8,30 @@ Historical SHAs, freeze tips, old PR notes, old chat instructions and legacy fol
 
 Always deploy the **CURRENT HEAD** of:
 
-`taxsimba-p0-integration`
+`toxel-uat-approved`
+
+**Do not deploy or test `taxsimba-p0-integration`.** That branch is historical and is not the UAT baseline.
 
 ---
 
 ## 1. CURRENT DEPLOYMENT SOURCE
 
-**Branch:** `taxsimba-p0-integration`
+**Branch:** `toxel-uat-approved`
 
-**Instruction:** Always pull and deploy the latest/current HEAD of this branch.
+**Approved baseline SHA (this handoff):** `PENDING_COMMIT_SHA`
 
-Do **NOT** use the older historical freeze SHA printed in `TOXEL_HANDOVER.md` as the current deploy tip.
+**Instruction:** Pull and deploy this exact branch. Prefer the SHA above; if you pull later commits on the same branch, confirm with TaxSimba before promoting.
 
 Confirm current HEAD:
 
 ```bash
 git fetch origin
-git checkout taxsimba-p0-integration
-git pull origin taxsimba-p0-integration
+git checkout toxel-uat-approved
+git pull --ff-only origin toxel-uat-approved
 git rev-parse HEAD
 ```
 
-**Use the HEAD returned by `git rev-parse HEAD`.**
+**All three apps must be clean-built from the same SHA** (`backend-node`, `tax_simba_frontend`, `tax_simba_admin_frontend`). Do not mix SHAs across services.
 
 ---
 
@@ -53,27 +55,19 @@ git rev-parse HEAD
 
 ## 3. WHAT HAS ALREADY BEEN VERIFIED
 
-Latest verified status:
+Latest verified status on `toxel-uat-approved`:
 
 - Backend build: **PASS**
 - Backend typecheck: **PASS**
-- Backend tests: **PASS** — **31 files / 305 tests / 0 failures**
+- Backend tests: **PASS** (full suite; 0 failures; 0 skipped)
 - Client clean install/build: **PASS**
 - Admin clean install/build: **PASS**
-- Client API contract mapping: **PASS**
-- Accountant API contract mapping: **PASS**
-- Admin API contract mapping: **PASS**
-- Super Admin security contract: **PASS**
+- Ownership-aware checkout-success → `/mtd-dashboard` or `/dashboard`: **PASS**
+- MTD / SA catalogue journey + intent persistence: **PASS**
 - Stripe Checkout / fulfilment / webhook contract: **PASS**
-- SA / MTD entitlement isolation: **PASS**
-- Super Admin package pricing UI (`/admin/package-pricing`): **PASS**
-- No genuine code blocker found for Toxel staging
-
-Earlier build blockers already resolved:
-
-- missing frontend lockfiles
-- missing react-toastify dependency
-- admin prefer-const build error
+- SA / MTD entitlement isolation + dual-service: **PASS**
+- Admin UUID-safe assignment: **PASS**
+- Verification vs purchase email separation (PNG logo): **PASS**
 
 `no-console` messages may still appear as warnings but are **not** the current build blocker.
 
@@ -124,14 +118,45 @@ If unset or any value other than the string `false`, startup seeds demo data. St
 SEED_DEMO_DATA=false
 ```
 
-**`APP_BASE_URL`** = the **client public origin** (customer-facing site), e.g. `https://staging-app.example.com`.  
-Used for links in transactional emails (verification, password reset, CTAs). It is **not** the admin origin and **not** the API host.
+**`APP_BASE_URL`** = the **client public origin** (customer-facing HTTPS site), e.g. `https://staging-app.example.com`.  
+Used for links in transactional emails (verification, password reset, purchase CTAs) and the absolute PNG logo `${APP_BASE_URL}/images/logo.png`. It is **not** the admin origin and **not** the API host. Never use `logo.svg` in emails.
+
+**Client and admin API bases** must both point at **this same backend SHA**:
+
+```text
+NEXT_PUBLIC_API_URL=https://<STAGING-API-HOST>/api/compat/
+API_URL=https://<STAGING-API-HOST>/api/compat/
+BACKEND_URL=https://<STAGING-API-HOST>/api/compat/
+```
 
 **`CORS_ORIGINS`** must list **both** frontend origins (comma-separated), with no wildcard `*`:
 
 ```text
 CORS_ORIGINS=https://<CLIENT-ORIGIN>,https://<ADMIN-ORIGIN>
 ```
+
+### Clear caches before rebuild
+
+Before rebuilding staging containers / Next apps from this SHA:
+
+1. Stop running client, admin, and backend containers/processes for this environment.
+2. Clear Next.js build caches (`.next/`) and any Docker/buildkit layer caches for these three apps.
+3. `npm ci` in each of `backend-node`, `tax_simba_frontend`, `tax_simba_admin_frontend` from the **same** commit.
+4. Rebuild and restart all three together.
+5. Use **fresh test email accounts** for registration / purchase / assignment retests (do not reuse prior UAT accounts that may have mixed entitlements).
+
+### Safe staging catalogue reconciliation
+
+Boot does **not** mutate catalogue rows when `SEED_DEMO_DATA=false`. If staging package prices/codes look drifted, reconcile explicitly:
+
+```bash
+cd backend-node
+npx ts-node src/scripts/reconcilePackages.ts --dry-run
+# Review the dry-run report carefully
+npx ts-node src/scripts/reconcilePackages.ts --apply
+```
+
+Do **not** run `--apply` until the dry-run report has been reviewed. Do not embed credentials in tickets or this file.
 
 If `STORAGE_DRIVER=s3` also configure:
 
@@ -480,22 +505,24 @@ These are **not** current staging blockers.
 
 ## 12. FINAL TOXEL CHECKLIST
 
-- [ ] branch = `taxsimba-p0-integration`
-- [ ] pulled latest HEAD
-- [ ] `backend-node` deployed
-- [ ] `tax_simba_frontend` deployed
-- [ ] `tax_simba_admin_frontend` deployed
+- [ ] branch = `toxel-uat-approved`
+- [ ] `git rev-parse HEAD` matches approved baseline SHA in section 1 (or agreed later tip on same branch)
+- [ ] `backend-node`, `tax_simba_frontend`, and `tax_simba_admin_frontend` all built from **that same SHA**
+- [ ] `taxsimba-p0-integration` is **not** deployed
+- [ ] old Next/build/container caches cleared before rebuild
+- [ ] fresh test email accounts used for retest
 - [ ] `frontend/` **NOT** deployed
 - [ ] `NEXT_PUBLIC_API_URL` ends in `/api/compat/`
 - [ ] trailing slash present
-- [ ] client `API_URL` set
-- [ ] admin `BACKEND_URL` set
+- [ ] client `API_URL` set to same backend
+- [ ] admin `BACKEND_URL` set to same backend
 - [ ] client `NEXTAUTH_URL` = client public origin
 - [ ] admin `NEXTAUTH_URL` includes `/admin`
-- [ ] backend `APP_BASE_URL` = client public origin
+- [ ] backend `APP_BASE_URL` = client public HTTPS origin
 - [ ] `CORS_ORIGINS` includes **both** client and admin origins
 - [ ] `SEED_DEMO_DATA=false`
 - [ ] email env vars set for chosen `EMAIL_DRIVER` (`EMAIL_FROM`, plus SMTP_* or `RESEND_API_KEY`)
+- [ ] catalogue reconciled only via dry-run → review → apply when needed
 - [ ] admin entry uses `/admin` or `/admin/auth/signin` (not bare `:3001/`)
 - [ ] admin `NEXTAUTH_URL` is the **admin** host including `/admin` (never the client port)
 - [ ] proxy exposes `/api/compat/*` **and** `/api/packages*`
@@ -503,7 +530,7 @@ These are **not** current staging blockers.
 - [ ] Stripe wallets / BNPL **not** claimed unless actually enabled
 - [ ] `/admin/package-pricing` reachable; SUPER_ADMIN edit, ADMIN read-only
 - [ ] client / admin on separate hosts / services
-- [ ] smoke test completed
+- [ ] smoke test completed (SA + MTD + dual-service + admin assign + accountant + super-admin)
 - [ ] exact evidence captured for any failure before code changes
 
 ---
