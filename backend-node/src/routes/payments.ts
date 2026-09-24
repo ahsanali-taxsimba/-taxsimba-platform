@@ -41,6 +41,7 @@ import {
 import { isEmailVerified, requireVerifiedEmail } from "../services/emailVerification";
 import { createReceipt } from "../services/invoices";
 import { payments } from "../services/payments";
+import { queuePurchaseConfirmationEmail } from "../services/purchaseConfirmationEmail";
 
 export const paymentsRouter = Router();
 
@@ -736,6 +737,8 @@ export async function fulfil(tx: Doc): Promise<void> {
       "/admin/recommendations",
       "UPGRADE",
     );
+    // Welcome/confirmation for the upgraded package — deduped by session_id.
+    if (user) await queuePurchaseConfirmationEmail(tx, user, client);
   } else if (tx.kind === "SERVICE_ACTIVATION") {
     if (tx.offer_id) {
       const offerNow = (await col("offers").findOne({ id: tx.offer_id })) as Doc | null;
@@ -744,6 +747,8 @@ export async function fulfil(tx: Doc): Promise<void> {
           { session_id: tx.session_id },
           { $set: { fulfilled: true, duplicate: true, updated_at: nowIso() } },
         );
+        // Still attempt confirmation — dedupeKey prevents duplicates if already sent.
+        if (user) await queuePurchaseConfirmationEmail(tx, user, client);
         return;
       }
     }
@@ -757,6 +762,8 @@ export async function fulfil(tx: Doc): Promise<void> {
         { session_id: tx.session_id },
         { $set: { fulfilled: true, duplicate: true, updated_at: nowIso() } },
       );
+      // Entitlement already active (retry path) — queue confirmation if not yet sent.
+      if (user) await queuePurchaseConfirmationEmail(tx, user, client);
       return;
     }
     // Defence-in-depth only (race/legacy): refuse SA/MTD activation if email is still
@@ -769,6 +776,8 @@ export async function fulfil(tx: Doc): Promise<void> {
       paymentSession: tx.session_id,
       amount: tx.amount,
     });
+    // Post-entitlement confirmation — never rolls back activation if email fails.
+    if (user) await queuePurchaseConfirmationEmail(tx, user, client);
     if (tx.offer_id) {
       await col("offers").updateOne(
         { id: tx.offer_id },

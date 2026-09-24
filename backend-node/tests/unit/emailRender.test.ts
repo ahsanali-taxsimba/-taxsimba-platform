@@ -15,19 +15,21 @@ describe("renderEmail branded layout", () => {
   it("renders subject, heading, CTA, brand colours, logo and legal footer links", async () => {
     const { renderEmail } = await import("../../src/services/email");
     const out = renderEmail({
-      recipientName: "Alex Client",
+      recipientName: "Amara",
       subject: "Verify your email address | TaxSimba",
-      title: "Confirm your email address",
+      title: "Verify your TaxSimba account",
       body:
-        "Welcome to TaxSimba.\n\nPlease verify your email address to securely activate your account.",
+        "Please verify your email address to confirm your TaxSimba account.\n\n" +
+        "This email only verifies your account. It does not activate a package, confirm a purchase, or start a subscription.",
       link: "/verify-email?token=abc",
       callToAction: "Verify my email",
-      preheader: "Confirm your email",
+      preheader: "Verify your TaxSimba account email address",
     });
 
     expect(out.subject).toBe("Verify your email address | TaxSimba");
-    expect(out.text).toContain("Hello Alex Client,");
-    expect(out.text).toContain("Welcome to TaxSimba.");
+    expect(out.text).toContain("Hello Amara,");
+    expect(out.text).toContain("confirm your TaxSimba account");
+    expect(out.text).toContain("does not activate a package");
     expect(out.text).toContain("Verify my email: https://app.test.taxsimba.local/verify-email?token=abc");
     expect(out.text).toContain("Simple tax. Expert support.");
     expect(out.text).toContain("https://app.test.taxsimba.local/privacy-policy");
@@ -35,7 +37,7 @@ describe("renderEmail branded layout", () => {
     expect(out.text).toContain("https://app.test.taxsimba.local/contact-us");
     expect(out.text).toMatch(/© \d{4} TaxSimba Group Limited/);
 
-    expect(out.html).toContain("Confirm your email address");
+    expect(out.html).toContain("Verify your TaxSimba account");
     expect(out.html).toContain("#37a267");
     expect(out.html).toContain("#b3ed97");
     expect(out.html).toContain("https://app.test.taxsimba.local/images/logo.svg");

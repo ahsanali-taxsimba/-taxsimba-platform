@@ -11,6 +11,7 @@ import { col, Doc } from "../db/mongo";
 import { httpError } from "../http/errors";
 import { nowIso } from "../domain/workflow";
 import { queueEmail } from "./email";
+import { resolveEmailFirstName } from "./emailRecipient";
 
 export const VERIFY_TTL_HOURS = 48;
 
@@ -75,20 +76,23 @@ export async function issueEmailVerification(
     created_at: now.toISOString(),
   });
   const link = `${appBase()}/verify-email?token=${encodeURIComponent(token)}`;
+  const client = (await col("clients").findOne({ user_id: user.id })) as Doc | null;
+  const firstName = resolveEmailFirstName(user, client);
   await queueEmail({
     to: String(user.email),
-    recipientName: String(user.name ?? "there"),
+    recipientName: firstName || null,
     kind: "EMAIL_VERIFICATION",
     subject: "Verify your email address | TaxSimba",
-    title: "Confirm your email address",
+    title: "Verify your TaxSimba account",
     body:
-      "Welcome to TaxSimba.\n\n" +
-      "Please verify your email address to securely activate your account and continue setting up your tax service.\n\n" +
+      "Please verify your email address to confirm your TaxSimba account.\n\n" +
+      "This email only verifies your account. It does not activate a package, confirm a purchase, or start a subscription.\n\n" +
+      "After you verify, you can continue setting up your chosen tax service and complete purchase when you are ready.\n\n" +
       "If you didn't create a TaxSimba account, you can safely ignore this email.\n\n" +
       "Never share your TaxSimba password or verification link with anyone.",
     link,
     callToAction: "Verify my email",
-    preheader: "Confirm your email address to activate your TaxSimba account",
+    preheader: "Verify your TaxSimba account email address",
     dedupeKey: `email-verify:${id}`,
     userId: user.id as string,
   });
