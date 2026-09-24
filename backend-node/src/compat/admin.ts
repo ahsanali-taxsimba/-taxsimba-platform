@@ -9,6 +9,12 @@ import { z } from "zod";
 import { clean, cleanMany, col, Doc, scrubMany } from "../db/mongo";
 import { FAQ_CATEGORIES } from "../domain/helpcentre";
 import { SELF_ASSESSMENT, servicesFor } from "../domain/packages";
+import {
+  intentFromClient,
+  resolveClientServiceState,
+  serviceStateLabel,
+  type ClientServiceState,
+} from "../domain/onboardingIntent";
 import { OPERATIONAL_ONLY, TEST_EMAIL_REGEX } from "../domain/testdata";
 import { nowIso } from "../domain/workflow";
 import { handler, httpError, parseBody } from "../http/errors";
@@ -452,16 +458,30 @@ compatAdminRouter.post(
       else if (isActive && !emailVerified) lifecycle = "PENDING_VERIFICATION";
 
       let subscription: Doc | null = null;
+      let subscriptions: Doc[] = [];
+      let serviceState: ClientServiceState = "NO_ACTIVE_SERVICE";
+      let onboardingIntent: string | null = null;
       const clientDoc = clientByUserId.get(String(u.id));
       if (clientDoc) {
+        onboardingIntent = intentFromClient(clientDoc);
         try {
           const services = await servicesFor(clientDoc);
           const subs = activeSubscriptionsFromServices(services);
+          subscriptions = subs as Doc[];
+          const hasActiveSa = subs.some((s) => s.serviceType === SELF_ASSESSMENT);
+          const hasActiveMtd = subs.some((s) => s.serviceType === "MTD_INCOME_TAX");
+          serviceState = resolveClientServiceState(
+            onboardingIntent,
+            hasActiveSa,
+            hasActiveMtd,
+          );
+          // Prefer SA for legacy Plan column when both; otherwise first ACTIVE.
           const primary =
             subs.find((s) => s.serviceType === SELF_ASSESSMENT) || subs[0] || null;
           if (primary) subscription = primary as Doc;
         } catch {
           subscription = null;
+          serviceState = resolveClientServiceState(onboardingIntent, false, false);
         }
       }
 
@@ -490,10 +510,15 @@ compatAdminRouter.post(
               ? "pending_verification"
               : "inactive",
         role: u.role,
+        // RBAC role remains CLIENT; service journey is separate.
         userRole: u.role,
+        onboardingIntent,
+        serviceState,
+        serviceStateLabel: serviceStateLabel(serviceState),
         createdAt: u.created_at,
         // Purchased plan for Plan column / Client Details (ACTIVE entitlements only).
         subscription,
+        subscriptions,
       });
     }
 

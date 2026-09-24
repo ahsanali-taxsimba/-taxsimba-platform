@@ -15,6 +15,11 @@ import {
   ownershipForUser,
 } from "./ownership";
 import { engagementStatusForUser } from "../services/engagement";
+import {
+  onboardingSnapshotForUser,
+  resolveClientServiceState,
+  serviceStateLabel,
+} from "../domain/onboardingIntent";
 
 export const compatEntitlementsRouter = Router();
 
@@ -49,6 +54,12 @@ compatEntitlementsRouter.post(
     const me = authed(req);
     const snap = await ownershipForUser(me);
     const engagement = await engagementStatusForUser(me);
+    const onboarding = await onboardingSnapshotForUser(me);
+    const serviceState = resolveClientServiceState(
+      onboarding.onboardingIntent,
+      snap.hasActiveSa,
+      snap.hasActiveMtd,
+    );
     const active = activeSubscriptionsFromServices(snap.services);
     let phone: string | null = (me.phone as string) ?? null;
     let address: string | null = null;
@@ -69,6 +80,11 @@ compatEntitlementsRouter.post(
         has_active_sa: snap.hasActiveSa,
         has_active_mtd: snap.hasActiveMtd,
         has_active_service: snap.hasActiveService,
+        onboarding_intent: onboarding.onboardingIntent,
+        catalogue_category: onboarding.catalogueCategory,
+        continue_path: onboarding.continuePath,
+        service_state: serviceState,
+        service_state_label: serviceStateLabel(serviceState),
         is_engagement_letter_accepted: engagement.isEngagementLetterAccepted,
         engagement_accepted_at: engagement.engagementAcceptedAt,
         agreement_version: engagement.agreementVersion,

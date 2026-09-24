@@ -50,6 +50,20 @@ const cmsView = readFileSync(
 );
 assert(cmsView.includes("savePercentage"), "CMS plan view shows Save %");
 
+const clientTable = readFileSync(
+  join(root, "src/app/(admin)/(others-pages)/manage-client/_sections/ClientTable.tsx"),
+  "utf8",
+);
+assert(clientTable.includes("serviceStateLabel"), "Client table shows serviceStateLabel");
+assert(!clientTable.includes("{order.userRole || order.role || \"-\"}"), "Client table does not use RBAC role as platform");
+
+const clientModal = readFileSync(
+  join(root, "src/app/(admin)/(others-pages)/manage-client/_sections/UserViewModal.tsx"),
+  "utf8",
+);
+assert(clientModal.includes("serviceLabel"), "Client details uses serviceLabel");
+assert(clientModal.includes("serviceState"), "Client details aware of serviceState");
+
 if (process.exitCode) {
   console.error("Admin package/plan assertions failed");
   process.exit(1);

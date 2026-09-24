@@ -233,7 +233,7 @@ export default function ClientTable(props: any) {
                                     Username
                                 </TableCell>
                                 <TableCell className="px-5 py-4 font-bold text-gray-800 text-center text-xs dark:text-white uppercase tracking-wider">
-                                    Platform
+                                    Service
                                 </TableCell>
                                 <TableCell className="px-5 py-4 font-bold text-gray-800 text-center text-xs dark:text-white uppercase tracking-wider">
                                     Plan
@@ -294,7 +294,9 @@ export default function ClientTable(props: any) {
                                             {order.username || "—"}
                                         </TableCell>
                                         <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                                            {order.userRole || order.role || "-"}
+                                            {order.serviceStateLabel ||
+                                                order.serviceState ||
+                                                "No active service"}
                                         </TableCell>
                                         <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400 text-nowrap">
                                             {order.subscription?.plan?.name || order.subscription?.amount || "-"}

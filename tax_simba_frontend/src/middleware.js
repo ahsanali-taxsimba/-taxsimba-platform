@@ -29,7 +29,15 @@ function ownershipFromToken(token) {
     else if (hasActiveMtd) ownership = 'mtd';
     else ownership = 'neither';
   }
-  return { hasActiveSa, hasActiveMtd, hasActiveService, ownership };
+  const onboardingIntent =
+    token?.onboardingIntent ?? user.onboardingIntent ?? null;
+  const continuePath =
+    token?.continuePath ??
+    user.continuePath ??
+    (onboardingIntent === 'MTD_INCOME_TAX'
+      ? '/planlist?category=mtd'
+      : '/planlist?category=taxSimba');
+  return { hasActiveSa, hasActiveMtd, hasActiveService, ownership, onboardingIntent, continuePath };
 }
 
 async function getAuthToken(req) {
@@ -88,11 +96,16 @@ export async function middleware(req) {
   }
 
   if (token) {
-    const { hasActiveService, hasActiveSa, hasActiveMtd, ownership } = ownershipFromToken(token);
+    const { hasActiveService, hasActiveSa, hasActiveMtd, ownership, continuePath } =
+      ownershipFromToken(token);
     const hasSignedLetter =
       token?.isEngagementLetterAccepted === true ||
       token?.user?.isEngagementLetterAccepted === true;
     const hasSubmittedTaxInfo = token?.user?.isTaxInfoSubmitted === true;
+    const pendingPlanlist =
+      typeof continuePath === 'string' && continuePath.startsWith('/planlist')
+        ? continuePath
+        : '/planlist?category=taxSimba';
 
     if (pathname === '/login'
       || pathname === '/register'
@@ -101,7 +114,7 @@ export async function middleware(req) {
       || pathname === '/verify-email'
     ) {
       if (!hasActiveService) {
-        return NextResponse.redirect(new URL('/planlist', req.url));
+        return NextResponse.redirect(new URL(pendingPlanlist, req.url));
       }
       if (!hasSignedLetter) {
         return NextResponse.redirect(new URL('/engagement-letter', req.url));
@@ -115,7 +128,7 @@ export async function middleware(req) {
       return NextResponse.redirect(new URL('/dashboard', req.url));
     }
 
-    // No ACTIVE SA/MTD → planlist only (purchase / verify path)
+    // No ACTIVE SA/MTD → planlist only (purchase / verify path). Pending MTD must not enter SA dashboard.
     if (!hasActiveService) {
       if (pathname.startsWith('/dashboard')
         || pathname.startsWith('/tax-return-form')
@@ -123,7 +136,11 @@ export async function middleware(req) {
         || pathname.startsWith('/mtd-dashboard')
         || pathname === '/engagement-letter'
       ) {
-        return NextResponse.redirect(new URL('/planlist', req.url));
+        return NextResponse.redirect(new URL(pendingPlanlist, req.url));
+      }
+      // Bare /planlist without category → stamp server intent so catalogue stays correct.
+      if (pathname === '/planlist' && !req.nextUrl.searchParams.get('category')) {
+        return NextResponse.redirect(new URL(pendingPlanlist, req.url));
       }
     }
 

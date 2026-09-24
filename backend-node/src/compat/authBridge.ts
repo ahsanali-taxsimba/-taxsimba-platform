@@ -30,6 +30,12 @@ import {
   revokeRefreshToken,
   verifyPassword,
 } from "../services/auth";
+import {
+  onboardingSnapshotForUser,
+  parseOnboardingIntent,
+  resolveClientServiceState,
+  serviceStateLabel,
+} from "../domain/onboardingIntent";
 import { bootstrapClientServices } from "../services/clientServices";
 import {
   consumeEmailVerification,
@@ -133,6 +139,12 @@ export async function compatAuthPayload(
       : createAccessToken(user.id, user.email as string);
   const ownership = await ownershipForUser(user);
   const engagement = await engagementStatusForUser(user);
+  const onboarding = await onboardingSnapshotForUser(user);
+  const serviceState = resolveClientServiceState(
+    onboarding.onboardingIntent,
+    ownership.hasActiveSa,
+    ownership.hasActiveMtd,
+  );
   const isTaxInfoSubmitted = Boolean(user.mtd_tax_info_submitted_at);
   return {
     accessToken,
@@ -142,6 +154,11 @@ export async function compatAuthPayload(
       hasActiveMtd: ownership.hasActiveMtd,
       hasActiveService: ownership.hasActiveService,
       ownership: ownership.ownership,
+      onboardingIntent: onboarding.onboardingIntent,
+      catalogueCategory: onboarding.catalogueCategory,
+      continuePath: onboarding.continuePath,
+      serviceState,
+      serviceStateLabel: serviceStateLabel(serviceState),
       isEngagementLetterAccepted: engagement.isEngagementLetterAccepted,
       engagementAcceptedAt: engagement.engagementAcceptedAt,
       isTaxInfoSubmitted,
@@ -150,6 +167,11 @@ export async function compatAuthPayload(
     hasActiveSa: ownership.hasActiveSa,
     hasActiveMtd: ownership.hasActiveMtd,
     hasActiveService: ownership.hasActiveService,
+    onboardingIntent: onboarding.onboardingIntent,
+    catalogueCategory: onboarding.catalogueCategory,
+    continuePath: onboarding.continuePath,
+    serviceState,
+    serviceStateLabel: serviceStateLabel(serviceState),
     isEngagementLetterAccepted: engagement.isEngagementLetterAccepted,
     engagementAcceptedAt: engagement.engagementAcceptedAt,
     isTaxInfoSubmitted,
@@ -187,6 +209,8 @@ compatAuthRouter.post(
       created_at: nowIso(),
     };
     await col("users").insertOne({ ...record });
+    // Persist validated signup journey on the client (not as RBAC role). Empty → SA default.
+    const onboardingIntent = parseOnboardingIntent(body.user_role ?? body.userRole);
     const count = await col("clients").countDocuments({});
     const client: Doc = {
       id: randomUUID(),
@@ -195,6 +219,7 @@ compatAuthRouter.post(
       email: address,
       phone,
       is_test: isTestEmail(address),
+      onboarding_intent: onboardingIntent,
       created_at: nowIso(),
       client_ref: `CL-${String(42 + count).padStart(4, "0")}`,
     };
@@ -280,9 +305,17 @@ compatAuthRouter.post(
         ? req.query.token
         : parseBody(VerifyEmailIn, snake).token;
     const user = await consumeEmailVerification(token);
+    // Journey comes from persisted client intent — never from an unvalidated URL param.
+    const onboarding = await onboardingSnapshotForUser(user);
     sendCompatSuccess(
       res,
-      keysToCamel({ ok: true, email_verified_at: user.email_verified_at }),
+      keysToCamel({
+        ok: true,
+        email_verified_at: user.email_verified_at,
+        onboarding_intent: onboarding.onboardingIntent,
+        catalogue_category: onboarding.catalogueCategory,
+        continue_path: onboarding.continuePath,
+      }),
       "Email verified",
     );
   }),

@@ -14,6 +14,7 @@ import toast from 'react-hot-toast';
 import { getCurrencySymbol } from '@/utils/commonHelper';
 import { formatPlanPrice, isPlanPurchasable } from '@/hooks/useCatalogueFromPrice';
 import MtdPricingSection from '@/components/MtdPricingSection';
+import { resolveCatalogueCategory } from '@/lib/catalogueJourney';
 
 const PlanCard = ({ plan, onSelect, currentPlanId, currentPlanStatus, currentPlanEndDate }) => {
     const isCurrentPlan = currentPlanId === plan.id;
@@ -134,13 +135,28 @@ const PlanListContent = () => {
         };
         const fetchPlans = async () => {
             try {
-                const queryRole = searchParams.get('role');
-                const userRole = session?.user?.userRole || session?.user?.role || queryRole;
-                const category = userRole === 'MTD' ? 'mtd' : 'taxSimba';
+                const category = resolveCatalogueCategory(session, searchParams);
                 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
                 const response = await axios.get(`${apiUrl}subscription-plans?category=${category}`);
                 if (response.data && Array.isArray(response.data.data)) {
-                    setSubscriptionPlans(response.data.data);
+                    const plans = response.data.data;
+                    // Guard: never show SA packages on an MTD journey (and vice versa).
+                    if (category === "mtd") {
+                        const saCodes = new Set(["SIMPLE", "SMART", "ELITE"]);
+                        if (plans.some((p) => saCodes.has(p.code))) {
+                            setError("Catalogue mismatch: Self Assessment plans cannot be shown for MTD.");
+                            setSubscriptionPlans([]);
+                            return;
+                        }
+                    } else {
+                        const mtdPrefix = "MTD_";
+                        if (plans.some((p) => String(p.code || "").startsWith(mtdPrefix))) {
+                            setError("Catalogue mismatch: MTD plans cannot be shown for Self Assessment.");
+                            setSubscriptionPlans([]);
+                            return;
+                        }
+                    }
+                    setSubscriptionPlans(plans);
                 } else {
                     setError("No plans found at the moment.");
                 }
@@ -155,15 +171,14 @@ const PlanListContent = () => {
             fetchPlans();
             fetchCurrentPlan();
         }
-    }, [session, status]);
+    }, [session, status, searchParams]);
 
-    const isMTD = searchParams.get('role') === 'MTD' || session?.user?.userRole === 'MTD' || session?.user?.role === 'MTD';
+    const isMTD = resolveCatalogueCategory(session, searchParams) === "mtd";
 
     const handleSelectPlan = (planId, isExpired = false, isCanceled = false) => {
         if (!session?.accessToken) {
             toast.error("Please log in to select a plan.");
-            const queryRole = searchParams.get('role') || 'TAXSIMBA';
-            router.push(`/register?role=${queryRole}`);
+            router.push(isMTD ? "/register?role=MTD" : "/register");
             return;
         }
         if (currentPlanId === planId && !isExpired && !isCanceled) {

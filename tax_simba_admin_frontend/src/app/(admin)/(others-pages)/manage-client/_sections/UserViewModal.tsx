@@ -70,6 +70,13 @@ interface UserViewModalProps {
                 name: string;
             };
         };
+        subscriptions?: Array<{
+            serviceType?: string;
+            plan?: { name?: string; code?: string };
+        }>;
+        onboardingIntent?: string | null;
+        serviceState?: string;
+        serviceStateLabel?: string;
     } | null;
 }
 
@@ -98,7 +105,15 @@ function lifecycleChrome(lifecycle: ClientLifecycle) {
 const UserViewModal: React.FC<UserViewModalProps> = ({ isOpen, onClose, user }) => {
     if (!user) return null;
 
-    const isMTDUser = user.userRole === "MTD";
+    const isMTDUser =
+        user.serviceState === "MTD" ||
+        user.serviceState === "SA_AND_MTD" ||
+        user.serviceState === "PENDING_MTD" ||
+        user.onboardingIntent === "MTD_INCOME_TAX";
+    const serviceLabel =
+        user.serviceStateLabel ||
+        user.serviceState ||
+        "No active service";
     const lifecycle = clientLifecycle(user);
     const chrome = lifecycleChrome(lifecycle);
     const StatusIcon = chrome.Icon;
@@ -200,7 +215,7 @@ const UserViewModal: React.FC<UserViewModalProps> = ({ isOpen, onClose, user }) 
                             style={{ background: '#dbeafe', color: '#1d4ed8' }}
                         >
                             <Shield className="w-3.5 h-3.5" />
-                            <span className="capitalize">{user.userRole || "TAXSIMBA"}</span>
+                            <span>{serviceLabel}</span>
                         </span>
                         <span
                             className="text-xs font-mono font-semibold px-3 py-1 rounded-lg"
@@ -269,9 +284,22 @@ const UserViewModal: React.FC<UserViewModalProps> = ({ isOpen, onClose, user }) 
                                     </span>
                                 </div>
                                 <div className="flex justify-between items-center">
-                                    <span className="text-sm text-gray-500 font-medium">Role Level</span>
-                                    <span className="text-sm font-bold text-slate-900">{user.userRole || "Standard"}</span>
+                                    <span className="text-sm text-gray-500 font-medium">Service</span>
+                                    <span className="text-sm font-bold text-slate-900">{serviceLabel}</span>
                                 </div>
+                                {Array.isArray(user.subscriptions) && user.subscriptions.length > 0 && (
+                                    <div className="flex flex-col gap-1">
+                                        <span className="text-sm text-gray-500 font-medium">Active entitlements</span>
+                                        <span className="text-xs text-slate-700">
+                                            {user.subscriptions
+                                                .map(
+                                                    (s) =>
+                                                        `${s.serviceType === "MTD_INCOME_TAX" ? "MTD" : "SA"}: ${s.plan?.name || s.plan?.code || "—"}`,
+                                                )
+                                                .join(" · ")}
+                                        </span>
+                                    </div>
+                                )}
                             </div>
                         </div>
 

@@ -8,6 +8,7 @@ import RegistrationLoginLayout from "../_authLayout/RegistrationLoginLayout";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useReVerifyEmail } from "@/hooks/reVerifyEmail";
+import { safeContinuePath } from "@/lib/catalogueJourney";
 
 let isHitApi = false;
 
@@ -16,6 +17,7 @@ const VerifyEmail = () => {
   const [loading, setLoading] = useState(true);
   const [formEmail, setFormEmail] = useState("");
   const [canSendAgain, setCanSendAgain] = useState(false);
+  const [loginHref, setLoginHref] = useState("/login");
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.getAll("token");
@@ -32,15 +34,18 @@ const VerifyEmail = () => {
 
         if (response?.status == 200 || response?.status == 201) {
           setMessage("Your email verification is successfully completed");
-
-          // setTimeout(()=>{
-          //     router.push('/login')
-          // },3000)
+          // Journey comes from server-persisted intent in the verify response — not the URL.
+          const data = response?.data?.data || response?.data || {};
+          const continuePath = safeContinuePath(
+            data.continuePath || data.continue_path || null,
+          );
+          if (continuePath) {
+            setLoginHref(`/login?next=${encodeURIComponent(continuePath)}`);
+          }
         } else {
           const fallbackMessage =
             response?.data?.message || "Token verification failed.";
           setMessage(fallbackMessage);
-          // setMessage(data.message || "token is not verified")
         }
       } catch (error) {
         const errMessage =
@@ -55,7 +60,7 @@ const VerifyEmail = () => {
   }, []);
 
   const handleLogin = () => {
-    router.push("/login");
+    router.push(loginHref);
   };
 
   const handleSendAgain = async () => {
@@ -68,7 +73,6 @@ const VerifyEmail = () => {
       return;
     }
 
-    // 
     const { type, message } = await useReVerifyEmail(formEmail);
     if (type) {
       toast.success(message);
@@ -77,18 +81,15 @@ const VerifyEmail = () => {
     } else {
       toast.error(message);
     }
-  }
+  };
 
   return (
     <div>
       <RegistrationLoginLayout>
         <CheckInbox
-          h3Text={
-            loading ? "Loading....." : message
-          }
+          h3Text={loading ? "Loading....." : message}
           inputBox={
-            canSendAgain &&
-            (
+            canSendAgain && (
               <>
                 <label className="form-label">Email</label>
                 <input
@@ -106,23 +107,25 @@ const VerifyEmail = () => {
           button={
             loading ? (
               ""
-            ) : message !== 'Invalid or expired verification token.' ?
+            ) : message !== "Invalid or expired verification token." ? (
               <button
                 className="common-btn w-100 justify-content-center text-center"
                 id="ifsure"
                 onClick={handleLogin}
               >
-                {'Go To Login'}
+                {"Go To Login"}
               </button>
-              :
+            ) : (
               <button
                 className="basic_btn yellow_btn "
                 id="ifsure"
-                onClick={() => { canSendAgain ? handleSendAgain() : setCanSendAgain(true) }}
+                onClick={() => {
+                  canSendAgain ? handleSendAgain() : setCanSendAgain(true);
+                }}
               >
-                {'send again'}
+                {"send again"}
               </button>
-
+            )
           }
         />
       </RegistrationLoginLayout>

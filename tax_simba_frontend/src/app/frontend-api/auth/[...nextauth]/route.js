@@ -33,6 +33,12 @@ export const authOptions = {
               hasActiveService:
                 user.data.hasActiveService ?? user.data.user?.hasActiveService ?? false,
               ownership: user.data.ownership ?? user.data.user?.ownership ?? "neither",
+              onboardingIntent:
+                user.data.onboardingIntent ?? user.data.user?.onboardingIntent ?? null,
+              catalogueCategory:
+                user.data.catalogueCategory ?? user.data.user?.catalogueCategory ?? null,
+              continuePath: user.data.continuePath ?? user.data.user?.continuePath ?? null,
+              serviceState: user.data.serviceState ?? user.data.user?.serviceState ?? null,
               isEngagementLetterAccepted:
                 user.data.isEngagementLetterAccepted ??
                 user.data.user?.isEngagementLetterAccepted ??
@@ -64,6 +70,14 @@ export const authOptions = {
           token.hasActiveService = session.hasActiveService;
         }
         if (session.ownership !== undefined) token.ownership = session.ownership;
+        if (session.onboardingIntent !== undefined) {
+          token.onboardingIntent = session.onboardingIntent;
+        }
+        if (session.catalogueCategory !== undefined) {
+          token.catalogueCategory = session.catalogueCategory;
+        }
+        if (session.continuePath !== undefined) token.continuePath = session.continuePath;
+        if (session.serviceState !== undefined) token.serviceState = session.serviceState;
         if (session.isEngagementLetterAccepted !== undefined) {
           token.isEngagementLetterAccepted = session.isEngagementLetterAccepted;
         }
@@ -74,6 +88,10 @@ export const authOptions = {
             hasActiveMtd: token.hasActiveMtd,
             hasActiveService: token.hasActiveService,
             ownership: token.ownership,
+            onboardingIntent: token.onboardingIntent,
+            catalogueCategory: token.catalogueCategory,
+            continuePath: token.continuePath,
+            serviceState: token.serviceState,
             isSubscriptionBuy: false,
             isEngagementLetterAccepted:
               session.isEngagementLetterAccepted !== undefined
@@ -95,6 +113,10 @@ export const authOptions = {
         token.hasActiveMtd = user.hasActiveMtd ?? false;
         token.hasActiveService = user.hasActiveService ?? false;
         token.ownership = user.ownership ?? "neither";
+        token.onboardingIntent = user.onboardingIntent ?? null;
+        token.catalogueCategory = user.catalogueCategory ?? null;
+        token.continuePath = user.continuePath ?? null;
+        token.serviceState = user.serviceState ?? null;
         token.isEngagementLetterAccepted = user.isEngagementLetterAccepted ?? false;
       }
 
@@ -109,6 +131,10 @@ export const authOptions = {
         hasActiveMtd: token.hasActiveMtd ?? false,
         hasActiveService: token.hasActiveService ?? false,
         ownership: token.ownership ?? "neither",
+        onboardingIntent: token.onboardingIntent ?? null,
+        catalogueCategory: token.catalogueCategory ?? null,
+        continuePath: token.continuePath ?? null,
+        serviceState: token.serviceState ?? null,
         isEngagementLetterAccepted:
           token.isEngagementLetterAccepted ??
           token.user?.isEngagementLetterAccepted ??
@@ -119,6 +145,10 @@ export const authOptions = {
       session.hasActiveMtd = token.hasActiveMtd ?? false;
       session.hasActiveService = token.hasActiveService ?? false;
       session.ownership = token.ownership ?? "neither";
+      session.onboardingIntent = token.onboardingIntent ?? null;
+      session.catalogueCategory = token.catalogueCategory ?? null;
+      session.continuePath = token.continuePath ?? null;
+      session.serviceState = token.serviceState ?? null;
       session.isEngagementLetterAccepted = session.user.isEngagementLetterAccepted;
       return session;
     },

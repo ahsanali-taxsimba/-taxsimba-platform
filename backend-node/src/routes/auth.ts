@@ -37,6 +37,7 @@ import {
   verifyCode,
 } from "../services/security";
 import { bootstrapClientServices } from "../services/clientServices";
+import { onboardingSnapshotForUser, parseOnboardingIntent } from "../domain/onboardingIntent";
 
 const email = z.string().email();
 
@@ -45,6 +46,10 @@ const RegisterIn = z.object({
   password: z.string(),
   name: z.string(),
   phone: z.string().nullish().default(null),
+  user_role: z.string().nullish(),
+  userRole: z.string().nullish(),
+  onboarding_intent: z.string().nullish(),
+  onboardingIntent: z.string().nullish(),
 });
 const LoginIn = z.object({ email, password: z.string() });
 const TwoFactorLoginIn = z.object({ challenge: z.string(), code: z.string() });
@@ -69,6 +74,9 @@ authRouter.post(
     if (await col("users").findOne({ email: address })) {
       throw httpError(400, "Email already registered");
     }
+    const onboardingIntent = parseOnboardingIntent(
+      body.onboarding_intent ?? body.onboardingIntent ?? body.user_role ?? body.userRole,
+    );
     const record: Doc = {
       id: randomUUID(),
       email: address,
@@ -89,6 +97,7 @@ authRouter.post(
       email: address,
       phone: body.phone ?? null,
       is_test: isTestEmail(address),
+      onboarding_intent: onboardingIntent,
       created_at: nowIso(),
       client_ref: `CL-${String(42 + count).padStart(4, "0")}`,
     };
@@ -114,7 +123,14 @@ authRouter.post(
         ? req.query.token
         : parseBody(VerifyEmailIn, req.body).token;
     const user = await consumeEmailVerification(token);
-    res.json({ ok: true, email_verified_at: user.email_verified_at });
+    const onboarding = await onboardingSnapshotForUser(user);
+    res.json({
+      ok: true,
+      email_verified_at: user.email_verified_at,
+      onboarding_intent: onboarding.onboardingIntent,
+      catalogue_category: onboarding.catalogueCategory,
+      continue_path: onboarding.continuePath,
+    });
   }),
 );
 
@@ -123,7 +139,14 @@ authRouter.get(
   handler(async (req, res) => {
     const token = typeof req.query.token === "string" ? req.query.token : "";
     const user = await consumeEmailVerification(token);
-    res.json({ ok: true, email_verified_at: user.email_verified_at });
+    const onboarding = await onboardingSnapshotForUser(user);
+    res.json({
+      ok: true,
+      email_verified_at: user.email_verified_at,
+      onboarding_intent: onboarding.onboardingIntent,
+      catalogue_category: onboarding.catalogueCategory,
+      continue_path: onboarding.continuePath,
+    });
   }),
 );
 

@@ -74,15 +74,24 @@ export default function LoginClientPage() {
       const session = await getSession();
 
       const planId = searchParams.get('plan');
+      const nextRaw = searchParams.get('next');
+      const { pendingPlanlistPath, safeContinuePath } = await import("@/lib/catalogueJourney");
+      const nextPath = safeContinuePath(nextRaw);
 
       if (planId) {
         router.push(`/planlist/${planId}`);
+      } else if (nextPath) {
+        router.push(nextPath);
       } else if (session?.user && !session.user.hasActiveService) {
-        router.push('/planlist');
+        // Pending onboarding — resume MTD or SA package selection from server intent.
+        router.push(pendingPlanlistPath(session));
       } else if (session?.user && !session.user.isEngagementLetterAccepted) {
         router.push('/engagement-letter');
       } else if (session?.user && session.user.ownership === 'mtd') {
         router.push('/mtd-dashboard');
+      } else if (session?.user && session.user.ownership === 'both') {
+        // Combined account — SA Tax Return home; MTD reachable via nav.
+        router.push('/dashboard');
       } else {
         router.push('/dashboard');
       }

@@ -123,8 +123,8 @@ const PricingClient = () => {
 
         const fetchPlans = async () => {
             try {
-                const userRole = session?.user?.userRole || session?.user?.role;
-                const category = userRole === 'MTD' ? 'mtd' : 'taxSimba';
+                const { resolveCatalogueCategory } = await import("@/lib/catalogueJourney");
+                const category = resolveCatalogueCategory(session, null);
                 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
                 const response = await axios.get(`${apiUrl}subscription-plans?category=${category}`);
                 if (response.data && Array.isArray(response.data.data)) {
@@ -156,8 +156,10 @@ const PricingClient = () => {
         }
     };
 
-    const userRole = session?.user?.userRole || session?.user?.role;
-    const isMTD = userRole === 'MTD';
+    const isMTD =
+        session?.user?.catalogueCategory === "mtd" ||
+        session?.catalogueCategory === "mtd" ||
+        session?.user?.onboardingIntent === "MTD_INCOME_TAX";
 
     if (isMTD && !loading) {
         return (
