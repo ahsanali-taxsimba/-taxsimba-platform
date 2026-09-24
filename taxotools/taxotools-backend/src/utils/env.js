@@ -41,7 +41,8 @@ export const env = {
   userAgent:
     process.env.USER_AGENT ||
     "TaxoToolsBot/1.0 (+https://taxotools.com)",
-  port: Number(process.env.BACKEND_PORT || 3200),
+  // Render/Railway inject PORT; fall back to BACKEND_PORT for local
+  port: Number(process.env.PORT || process.env.BACKEND_PORT || 3200),
   databaseUrl: first(process.env.DIRECT_URL, process.env.DATABASE_URL),
 };
 

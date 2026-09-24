@@ -33,13 +33,18 @@ npm run test:smoke
 
 ## Start 24/7 crawling (never stops)
 
+**To keep crawling after you close Cursor**, deploy to Render — see [DEPLOY.md](./DEPLOY.md).
+
+On a long-lived host (or locally while the machine is on):
+
 ```bash
-npm run continuous
+npm run always-on   # API + continuous crawler together (auto-restart)
 ```
 
-Also run the API:
+Or separately:
 
 ```bash
+npm run continuous
 npm start
 ```
 

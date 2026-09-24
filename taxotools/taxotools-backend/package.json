@@ -11,6 +11,7 @@
     "score": "node src/scoring/backlinkScoring.js",
     "cycle": "node src/cron/runCycle.js",
     "continuous": "node src/cron/continuous.js",
+    "always-on": "node src/cron/startAlwaysOn.js",
     "cron:weekly-crawl": "node src/cron/weeklyCrawl.js",
     "cron:monthly-discovery": "node src/cron/monthlyDiscovery.js",
     "cron:weekly-authority": "node src/cron/weeklyAuthorityUpdate.js",

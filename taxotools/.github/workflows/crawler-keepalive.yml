@@ -1,0 +1,25 @@
+# Backup: if the always-on host is down, still refresh data on a schedule.
+# Primary 24/7 path is Render/Railway running `npm run always-on`.
+name: taxotools-crawler-keepalive
+
+on:
+  schedule:
+    - cron: "0 */6 * * *" # every 6 hours
+  workflow_dispatch:
+
+jobs:
+  ping-crawler:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger remote crawl cycle (if TAXOTOOLS_BACKEND_URL is set)
+        env:
+          TAXOTOOLS_BACKEND_URL: ${{ secrets.TAXOTOOLS_BACKEND_URL }}
+        run: |
+          if [ -z "$TAXOTOOLS_BACKEND_URL" ]; then
+            echo "Set repo secret TAXOTOOLS_BACKEND_URL to your Render URL to enable remote keepalive pings."
+            exit 0
+          fi
+          curl -fsS -X POST "$TAXOTOOLS_BACKEND_URL/ops/cycle" \
+            -H "Content-Type: application/json" \
+            -d '{"firmLimit":10}' || true
+          curl -fsS "$TAXOTOOLS_BACKEND_URL/crawler/status" || true
