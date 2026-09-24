@@ -63,17 +63,18 @@ compatEntitlementsRouter.post(
     const active = activeSubscriptionsFromServices(snap.services);
     let phone: string | null = (me.phone as string) ?? null;
     let address: string | null = null;
+    let clientDoc: Doc | null = null;
     if (me.role === "CLIENT") {
-      const client = (await col("clients").findOne({ user_id: me.id })) as Doc | null;
-      phone = (client?.phone as string) ?? phone;
-      address = (client?.address as string) ?? null;
+      clientDoc = (await col("clients").findOne({ user_id: me.id })) as Doc | null;
+      phone = (clientDoc?.phone as string) ?? phone;
+      address = (clientDoc?.address as string) ?? null;
     } else {
       address = (me.address as string) ?? null;
     }
     sendCompatSuccess(
       res,
       keysToCamel({
-        ...toToxelUser(me),
+        ...toToxelUser(me, clientDoc),
         phone,
         address,
         ownership: snap.ownership,

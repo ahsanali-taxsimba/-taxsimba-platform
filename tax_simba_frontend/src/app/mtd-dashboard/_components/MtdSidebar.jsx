@@ -11,14 +11,13 @@ export default function MtdSidebar({ activeTab, setActiveTab }) {
     };
 
     const menuItems = [
-        { id: "overview", label: "Dashboard Overview", icon: <FaFileInvoice /> },
-        // { id: "notifications", label: "Notifications", icon: <FaBell /> },
-        { id: "taxHistory", label: "Tax History", icon: <FaHistory /> },
-        { id: "subscriptions", label: "Current Subscription", icon: <FaFileInvoiceDollar /> },
-        { id: "billingHistory", label: "Billing History", icon: <FaHistory /> },
-        { id: "profile", label: "Profile Settings", icon: <FaUserCircle /> },
-        { id: "notifications", label: "Notifications", icon: <FaBell /> },
-        { id: "changePassword", label: "Change Password", icon: <FaKey /> },
+        { id: "overview", label: "MTD overview", icon: <FaFileInvoice /> },
+        { id: "taxHistory", label: "Quarterly history", icon: <FaHistory /> },
+        { id: "subscriptions", label: "Current MTD plan", icon: <FaFileInvoiceDollar /> },
+        { id: "billingHistory", label: "Billing history", icon: <FaHistory /> },
+        { id: "profile", label: "Profile & support", icon: <FaUserCircle /> },
+        { id: "notifications", label: "Requests & messages", icon: <FaBell /> },
+        { id: "changePassword", label: "Change password", icon: <FaKey /> },
     ];
 
     return (

@@ -31,6 +31,7 @@ import { GoArrowUpRight } from "react-icons/go";
 import { MdLogout } from "react-icons/md";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaCircleUser } from "react-icons/fa6";
+import { serviceWorkspaceFlags } from "@/lib/clientDisplayName";
 
 const languages = [
   { code: "en", label: "En" },
@@ -81,8 +82,10 @@ const Navbar = () => {
   const activeTab = searchParams.get('tab') || "";
   const { data: session, status } = useSession();
   const accessToken = session?.accessToken || null;
-  const isMTD = session?.user?.userRole === 'MTD' || session?.user?.role === 'MTD';
-  // Translation hook
+  // Ownership / intent SoT — never RBAC role === "MTD" (role is always CLIENT).
+  const workspace = serviceWorkspaceFlags(session);
+  const isMTD = workspace.mtdChromeOnly;
+  const isBoth = workspace.isBoth;
   const { changeLanguage } = useTranslation();
 
   // Translate menu items
@@ -408,7 +411,50 @@ const Navbar = () => {
                         className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
                         aria-labelledby="dropdownMenuButton"
                       >
-                        {isMTD ? (
+                        {isBoth ? (
+                          <>
+                            <li>
+                              <button className="dropdown-item"
+                                onClick={() => {
+                                  router.push("/dashboard");
+                                  setDropdownOpen(false);
+                                }}>
+                                <GrDashboard />
+                                Self Assessment
+                              </button>
+                            </li>
+                            <li>
+                              <button className="dropdown-item"
+                                onClick={() => {
+                                  router.push("/mtd-dashboard?tab=overview");
+                                  setDropdownOpen(false);
+                                }}>
+                                <TbTax />
+                                Making Tax Digital
+                              </button>
+                            </li>
+                            <li>
+                              <button className="dropdown-item"
+                                onClick={() => {
+                                  router.push("/dashboard/profile");
+                                  setDropdownOpen(false);
+                                }}>
+                                <FaRegUserCircle />
+                                Profile Settings
+                              </button>
+                            </li>
+                            <li>
+                              <button className="dropdown-item"
+                                onClick={() => {
+                                  router.push("/dashboard/change-password");
+                                  setDropdownOpen(false);
+                                }}>
+                                <PiKeyBold />
+                                Change Password
+                              </button>
+                            </li>
+                          </>
+                        ) : isMTD ? (
                           <>
                             <li>
                               <button className="dropdown-item"
@@ -427,7 +473,7 @@ const Navbar = () => {
                                   setDropdownOpen(false);
                                 }}>
                                 <TbTax />
-                                Tax History
+                                Quarterly history
                               </button>
                             </li>
 
@@ -438,7 +484,7 @@ const Navbar = () => {
                                   setDropdownOpen(false);
                                 }}>
                                 <FaFileInvoiceDollar />
-                                Current Subscription
+                                Current MTD plan
                               </button>
                             </li>
                             <li>
@@ -677,7 +723,28 @@ const Navbar = () => {
         </Offcanvas.Header>
         <Offcanvas.Body className="px-0">
           <ul className="mobile-login-menu">
-            {isMTD ? (
+            {isBoth ? (
+              <>
+                <li>
+                  <Link href="/dashboard" className={pathname === "/dashboard" ? "active" : ""} onClick={handleCloseOne}>
+                    <GrDashboard />
+                    Self Assessment
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/mtd-dashboard?tab=overview" className={pathname === "/mtd-dashboard" ? "active" : ""} onClick={handleCloseOne}>
+                    <TbTax />
+                    Making Tax Digital
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/dashboard/profile" onClick={handleCloseOne}>
+                    <FaRegUserCircle />
+                    Profile Settings
+                  </Link>
+                </li>
+              </>
+            ) : isMTD ? (
               <>
                 <li>
                   <Link href="/mtd-dashboard?tab=overview" className={pathname === "/mtd-dashboard" && activeTab === "overview" ? "active" : ""} onClick={handleCloseOne}>
@@ -688,14 +755,14 @@ const Navbar = () => {
                 <li>
                   <Link href="/mtd-dashboard?tab=taxHistory" className={pathname === "/mtd-dashboard" && activeTab === "taxHistory" ? "active" : ""} onClick={handleCloseOne}>
                     <TbTax />
-                    Tax History
+                    Quarterly history
                   </Link>
                 </li>
 
                 <li>
                   <Link href="/mtd-dashboard?tab=subscriptions" className={pathname === "/mtd-dashboard" && activeTab === "subscriptions" ? "active" : ""} onClick={handleCloseOne}>
                     <FaFileInvoiceDollar />
-                    Current Subscription
+                    Current MTD plan
                   </Link>
                 </li>
                 <li>
@@ -713,7 +780,7 @@ const Navbar = () => {
                 <li>
                   <Link href="/mtd-dashboard?tab=notifications" className={pathname === "/mtd-dashboard" && activeTab === "notifications" ? "active" : ""} onClick={handleCloseOne}>
                     <FaBell />
-                    Notifications
+                    Requests & messages
                   </Link>
                 </li>
                 <li>

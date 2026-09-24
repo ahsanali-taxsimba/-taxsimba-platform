@@ -104,8 +104,13 @@ export function splitDisplayName(name: string | null | undefined): {
 }
 
 /** Map a Node user row into the Toxel NextAuth-shaped user object. */
-export function toToxelUser(user: Doc): Doc {
-  const { firstName, lastName } = splitDisplayName(String(user.name ?? ""));
+export function toToxelUser(user: Doc, client?: Doc | null): Doc {
+  const firstFromClient = String(client?.first_name ?? "").trim();
+  const lastFromClient = String(client?.last_name ?? "").trim();
+  const { firstName, lastName } =
+    firstFromClient || lastFromClient
+      ? { firstName: firstFromClient, lastName: lastFromClient }
+      : splitDisplayName(String(user.name ?? ""));
   const hasPhoto = Boolean(user.profile_photo || user.profile_photo_storage);
   return {
     id: user.id,
@@ -113,6 +118,7 @@ export function toToxelUser(user: Doc): Doc {
     name: user.name,
     firstName,
     lastName,
+    surname: lastName || null,
     mobile: user.phone ?? null,
     // Stable serve URL (storage key stays server-side in profile_photo / profile_photo_storage).
     profilePhoto: hasPhoto ? profilePhotoPublicPath(String(user.id)) : null,
@@ -146,10 +152,14 @@ export async function compatAuthPayload(
     ownership.hasActiveMtd,
   );
   const isTaxInfoSubmitted = Boolean(user.mtd_tax_info_submitted_at);
+  let clientDoc: Doc | null = null;
+  if (user.role === "CLIENT") {
+    clientDoc = (await col("clients").findOne({ user_id: user.id })) as Doc | null;
+  }
   return {
     accessToken,
     user: {
-      ...toToxelUser(clean({ ...user }) as Doc),
+      ...toToxelUser(clean({ ...user }) as Doc, clientDoc),
       hasActiveSa: ownership.hasActiveSa,
       hasActiveMtd: ownership.hasActiveMtd,
       hasActiveService: ownership.hasActiveService,
@@ -216,6 +226,8 @@ compatAuthRouter.post(
       id: randomUUID(),
       user_id: record.id,
       name: displayName,
+      first_name: first || null,
+      last_name: last || null,
       email: address,
       phone,
       is_test: isTestEmail(address),

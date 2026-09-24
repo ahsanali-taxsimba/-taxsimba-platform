@@ -15,10 +15,21 @@ export const useFetchProfileData = async (token) => {
         );
 
         if(res?.data?.success){
+            const data = res?.data?.data || {};
+            const first =
+                data.firstName ||
+                (typeof data.name === "string" ? data.name.trim().split(/\s+/)[0] : "") ||
+                "";
             return {
-                profilePhoto: res?.data?.data?.profilePhoto,
-                firstName: res?.data?.data?.name,
-                provider: res?.data?.data?.provider,
+                profilePhoto: data.profilePhoto,
+                firstName: first,
+                lastName: data.lastName || "",
+                name: data.name || "",
+                ownership: data.ownership || null,
+                hasActiveMtd: data.hasActiveMtd,
+                hasActiveSa: data.hasActiveSa,
+                onboardingIntent: data.onboardingIntent || null,
+                provider: data.provider,
             }
         }
     } catch (err) {

@@ -21,6 +21,7 @@ import { MdOutlinePhoneIphone } from "react-icons/md";
 import { FaMapLocationDot } from "react-icons/fa6";
 
 import ProtectedMediaImage from "@/components/ProtectedMediaImage";
+import ServiceWorkspaceSwitcher from "@/components/ServiceWorkspaceSwitcher";
 
 export default function DashboardClient({ serverSession }) {
   const { data: session } = useSession()
@@ -242,6 +243,9 @@ export default function DashboardClient({ serverSession }) {
 
 
         <div className="row mt-4">
+          <div className="col-12">
+            <ServiceWorkspaceSwitcher session={sessionData || session} />
+          </div>
           <div className="col-lg-3 mb-4">
             <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
           </div>

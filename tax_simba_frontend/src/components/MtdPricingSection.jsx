@@ -33,7 +33,6 @@ const categories = [
         rows: [
             { label: "Quarterly MTD Updates Submitted", key: "mtd_updates" },
             { label: "Final Declaration Submission", key: "final_declaration" },
-            { label: "Self-Assessment Tax Return Preparation", key: "tax_return" },
             { label: "VAT Return Preparation & Submission", key: "vat_return" },
             { label: "CIS Return Preparation (up to 2 subs)", key: "CIS" },
             { label: "Payroll Processing (up to 2 employees)", key: "payroll" }
@@ -151,13 +150,8 @@ const MtdPricingSection = ({
         }
     }, [subscriptionPlans, currentPlanId, selectedPlanId]);
 
-    // Shared fallback features
-    const fallbackFeatures = [
-        "Quarterly submissions",
-        "Dedicated accountant support",
-        "Xero included",
-        "HMRC registration support"
-    ];
+    // Do not invent marketing features — only render API-provided lists.
+    const fallbackFeatures = [];
 
     const [expandedCategories, setExpandedCategories] = useState({});
     const [isMobile, setIsMobile] = useState(false);
@@ -241,14 +235,16 @@ const MtdPricingSection = ({
                                 <IconComponent size={32} />
                             </div>
 
-                            <h3 className="mtd-pricing-name text-capitalize">{plan.name}</h3>
+                            <h3 className="mtd-pricing-name text-capitalize" data-testid={`mtd-plan-name-${plan.code || idx}`}>
+                                {plan.name}
+                            </h3>
 
-                            <div className={`mtd-pricing-price-box ${idx >= 2 ? 'elite-price' : ''}`}>
+                            <div className={`mtd-pricing-price-box ${idx >= 2 ? 'elite-price' : ''}`} data-testid={`mtd-plan-price-${plan.code || idx}`}>
                                 <span className="mtd-pricing-currency">{getCurrencySymbol(plan.currency)}</span>
                                 <span className="mtd-pricing-price">{plan.price}</span>
                             </div>
 
-                            <div className="mtd-pricing-interval">+ VAT / {plan.interval === 'year' ? 'year' : 'month'}</div>
+                            <div className="mtd-pricing-interval">+ VAT / month</div>
 
                             {plan.description && (
                                 <p className="mtd-plan-description">{plan.description}</p>
@@ -256,17 +252,21 @@ const MtdPricingSection = ({
 
                             <hr className="mtd-pricing-divider" />
 
-                            <div className="mtd-pricing-group-title">Included:</div>
-                            <ul className="mtd-pricing-features">
-                                {displayFeatures.map((feature, fIdx) => (
-                                    <li key={fIdx}>
-                                        <div className="mtd-feature-check">
-                                            <FaRegCheckCircle />
-                                        </div>
-                                        <span>{feature}</span>
-                                    </li>
-                                ))}
-                            </ul>
+                            {displayFeatures.length > 0 && (
+                                <>
+                                    <div className="mtd-pricing-group-title">Included:</div>
+                                    <ul className="mtd-pricing-features">
+                                        {displayFeatures.map((feature, fIdx) => (
+                                            <li key={fIdx}>
+                                                <div className="mtd-feature-check">
+                                                    <FaRegCheckCircle />
+                                                </div>
+                                                <span>{feature}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </>
+                            )}
 
                             {onSelectPlan && (
                                 <div className="mtd-pricing-btn-wrapper">

@@ -36,15 +36,39 @@ import { withTaxReturnId } from "./ids";
 export const compatMtdRouter = Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
+/** Resolve ACTIVE MTD entitlement + optional fulfilment case. */
+async function mtdEntitlementContext(user: Doc): Promise<{
+  client: Doc;
+  svc: Doc;
+  kase: Doc | null;
+  pkg: Doc | null;
+}> {
+  await assertClientCanAccessService(user, MTD);
+  const client = (await col("clients").findOne({ user_id: user.id })) as Doc;
+  const svc = (await col("client_services").findOne({
+    client_id: client.id,
+    service_type: MTD,
+    status: "ACTIVE",
+  })) as Doc | null;
+  if (!svc) throw httpError(403, "An active MTD entitlement is required");
+  const existing = await preferExistingServiceCase(user, MTD);
+  const kase = existing ? await getCase(String(existing.id), user) : null;
+  if (kase && kase.service_type !== MTD) throw httpError(403, "Not an MTD case");
+  const pkg = svc.package_code
+    ? ((await col("packages").findOne({
+        service_type: MTD,
+        code: svc.package_code,
+      })) as Doc | null)
+    : null;
+  return { client, svc, kase, pkg };
+}
+
 /** Resolve the CLIENT's ACTIVE MTD case (fulfil/activation preferred). */
 async function activeMtdCase(user: Doc): Promise<Doc> {
-  await assertClientCanAccessService(user, MTD);
-  const existing = await preferExistingServiceCase(user, MTD);
-  if (!existing) {
+  const { kase } = await mtdEntitlementContext(user);
+  if (!kase) {
     throw httpError(400, "No MTD case found. Complete MTD purchase activation first.");
   }
-  const kase = await getCase(String(existing.id), user);
-  if (kase.service_type !== MTD) throw httpError(403, "Not an MTD case");
   return kase;
 }
 
@@ -176,7 +200,31 @@ compatMtdRouter.get(
   auth("CLIENT"),
   handler(async (req, res) => {
     const me = authed(req);
-    const kase = await activeMtdCase(me);
+    const { kase, pkg, svc } = await mtdEntitlementContext(me);
+
+    // ACTIVE entitlement without a fulfilment case yet (application not submitted).
+    if (!kase) {
+      sendCompatSuccess(
+        res,
+        {
+          entitlementOnly: true,
+          packageName: pkg?.name ?? svc.package_code ?? null,
+          packageCode: svc.package_code ?? null,
+          taxReturnStatus: "active_pending_application",
+          taxReturn: null,
+          accountant: null,
+          documents: [],
+          previousTaxReturn: null,
+          nextQuarter: null,
+          periods: [],
+          nextAction:
+            "Your Making Tax Digital service is active. Your accountant will guide onboarding — you do not need to file with HMRC yourself.",
+        },
+        "OK",
+      );
+      return;
+    }
+
     const periods = await periodsForCase(kase);
     const quarters = periods.filter((p) => p.kind === "QUARTER");
     const current =
@@ -192,6 +240,9 @@ compatMtdRouter.get(
     sendCompatSuccess(
       res,
       {
+        entitlementOnly: false,
+        packageName: pkg?.name ?? svc.package_code ?? null,
+        packageCode: svc.package_code ?? null,
         taxReturnStatus: mapTaxReturnStatus(kase, current),
         taxReturn: withTaxReturnId({
           id: kase.id,

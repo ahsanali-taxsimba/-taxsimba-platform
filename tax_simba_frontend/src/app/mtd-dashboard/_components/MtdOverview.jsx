@@ -26,6 +26,7 @@ import UploadCurrentTaxDocumentModal from "./UploadCurrentTaxDocumentModal";
 import MtdMessages from "./MtdMessages";
 import ReviewBox from "@/components/re-used/ReviewBox";
 import { formatQuarterDisplay } from "@/utils/commonHelper";
+import { welcomeGreeting } from "@/lib/clientDisplayName";
 
 export default function MtdOverview({ session, userData, overviewData, onOverviewUpdate }) {
     const [overview, setOverview] = useState(null);
@@ -521,12 +522,16 @@ export default function MtdOverview({ session, userData, overviewData, onOvervie
             `}</style>
 
             {/* Greeting Banner */}
-            <div className="mtd-overview-greeting">
+            <div className="mtd-overview-greeting" data-testid="mtd-overview-greeting">
                 <div className="mtd-badge">
-                    <MdOutlineAssignment /> MTD Compliance Dashboard
+                    <MdOutlineAssignment /> Making Tax Digital for Income Tax
                 </div>
-                <h2>Welcome, {`${userData?.name || ""} ${userData?.surname || ""}`.trim() || session?.user?.name || "Client"} 👋</h2>
-                <p>Your MTD compliance journey is being managed by our expert accountants.</p>
+                <h2 data-testid="mtd-overview-welcome">
+                    {welcomeGreeting(userData, session?.user || {})}
+                </h2>
+                <p>
+                    Your accountant prepares and submits your quarterly MTD updates. Supply documents when requested and track deadlines here — you do not file with HMRC yourself.
+                </p>
             </div>
 
             {loading ? (

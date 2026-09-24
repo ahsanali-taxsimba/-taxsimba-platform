@@ -14,12 +14,18 @@ import DeleteProfile from "../dashboard/_components/DeleteProfile";
 import ChangeProfilePassword from "../dashboard/_components/ChangeProfilePassword";
 import MySubscriptionsClient from "../dashboard/my-subscriptions/_client/MySubscriptionsClient";
 import BillingHistoryClient from "../dashboard/billing-history/_client/BillingHistoryClient";
-import { FaEnvelope, FaIdCard, FaPhoneSquareAlt, FaCalendarAlt, FaClock, FaHourglass, FaCheck } from "react-icons/fa";
+import { FaEnvelope, FaIdCard, FaPhoneSquareAlt, FaCalendarAlt, FaClock, FaHourglass, FaCheck, FaFileInvoiceDollar } from "react-icons/fa";
 import { FaMapLocationDot, FaPencil } from "react-icons/fa6";
 import toast from "react-hot-toast";
 
 import { formatQuarterDisplay } from "@/utils/commonHelper";
 import ProtectedMediaImage from "@/components/ProtectedMediaImage";
+import ServiceWorkspaceSwitcher from "@/components/ServiceWorkspaceSwitcher";
+import {
+  resolveClientDisplayName,
+  resolveClientFirstName,
+  welcomeGreeting,
+} from "@/lib/clientDisplayName";
 
 export default function MtdDashboardClient({ serverSession }) {
     const { data: session, status } = useSession();
@@ -132,9 +138,52 @@ export default function MtdDashboardClient({ serverSession }) {
         );
     }
 
-    const displayName =
-        `${userData.name || ""} ${userData.surname || ""}`.trim() ||
-        `${session?.user?.firstName || ""} ${session?.user?.lastName || ""}`.trim();
+    const displayName = resolveClientDisplayName(userData, session?.user || {});
+    const firstName = resolveClientFirstName(userData, session?.user || {});
+    const greeting = welcomeGreeting(userData, session?.user || {});
+
+    const activeMtdSub = Array.isArray(userData.subscriptions)
+      ? userData.subscriptions.find((s) => s.serviceType === "MTD_INCOME_TAX")
+      : null;
+    const mtdPackageName =
+      activeMtdSub?.plan?.name ||
+      overviewData?.packageName ||
+      userData?.mtdPackageName ||
+      null;
+    const mtdStatusKey = (() => {
+      if (!userData.hasActiveMtd && userData.onboardingIntent === "MTD_INCOME_TAX") {
+        return "pending_purchase";
+      }
+      if (!userData.hasActiveMtd) return "inactive";
+      const requested = Array.isArray(overviewData?.documents)
+        ? overviewData.documents.filter((d) => d.status === "Requested" || d.isRequested)
+        : [];
+      if (requested.length > 0) return "action_required";
+      if (overviewData?.entitlementOnly) return "active";
+      if (overviewData?.taxReturnStatus) return "active";
+      return "active";
+    })();
+    const mtdStatusLabel = {
+      pending_purchase: "Pending purchase",
+      active: "Active",
+      action_required: "Action required",
+      inactive: "Inactive",
+    }[mtdStatusKey];
+    const nextActionText = (() => {
+      if (mtdStatusKey === "pending_purchase") {
+        return "Choose your Making Tax Digital plan to continue.";
+      }
+      if (mtdStatusKey === "action_required") {
+        return "Upload the documents your accountant has requested.";
+      }
+      if (overviewData?.entitlementOnly) {
+        return "Your accountant will guide your MTD onboarding. No client filing is required.";
+      }
+      if (overviewData?.taxReturnStatus === "pending_assignment") {
+        return "Waiting for accountant assignment — nothing for you to file.";
+      }
+      return "Your accountant prepares and submits your MTD updates. Check requests and deadlines here.";
+    })();
 
     // Overview Metrics Calculations for top header card
     const mtdQuarterRaw = overviewData?.taxReturn?.mtdQuarter || overviewData?.nextQuarter?.quarterName || userData?.currentQuarter || "—";
@@ -506,8 +555,32 @@ export default function MtdDashboardClient({ serverSession }) {
                     </div>
                     <div className="profile_head_right d-flex flex-column flex-lg-row justify-content-between align-items-lg-center w-100 gap-4">
                         <div style={{ flex: '1 1 50%' }}>
-                            <h2>{displayName || "MTD User"}</h2>
-                            <ul className="ps-0 mb-0 d-flex flex-column gap-2">
+                            <p
+                                className="mb-1 text-uppercase fw-semibold"
+                                data-testid="mtd-service-title"
+                                style={{ letterSpacing: "0.06em", fontSize: "12px", color: "#0d7a4f" }}
+                            >
+                                Making Tax Digital for Income Tax
+                            </p>
+                            <h2 data-testid="mtd-client-display-name">{displayName || "Welcome"}</h2>
+                            <p className="mb-2" data-testid="mtd-welcome-greeting" style={{ fontWeight: 600 }}>
+                                {greeting}
+                            </p>
+                            <ul className="ps-0 mb-2 d-flex flex-column gap-2">
+                                <li data-testid="mtd-package-line">
+                                    <FaFileInvoiceDollar style={{ marginRight: 6 }} />
+                                    {mtdPackageName
+                                        ? `Current plan: ${mtdPackageName}`
+                                        : "Current plan: not selected yet"}
+                                </li>
+                                <li data-testid="mtd-status-line">
+                                    <FaCheck style={{ marginRight: 6 }} />
+                                    Status: {mtdStatusLabel}
+                                </li>
+                                <li data-testid="mtd-next-action-line">
+                                    <FaHourglass style={{ marginRight: 6 }} />
+                                    Next: {nextActionText}
+                                </li>
                                 <li>
                                     <FaIdCard />
                                     {userData.id || session?.user?.id}
@@ -614,7 +687,10 @@ export default function MtdDashboardClient({ serverSession }) {
 
                 {/* Main Layout */}
                 <div className="row mt-4">
-                    <div className="col-lg-3 mb-4">
+                    <div className="col-12">
+                        <ServiceWorkspaceSwitcher session={session} />
+                    </div>
+                    <div className="col-lg-3 mb-4" data-testid="mtd-sidebar-nav">
                         <MtdSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
                     </div>
                     <div className="col-lg-9">
