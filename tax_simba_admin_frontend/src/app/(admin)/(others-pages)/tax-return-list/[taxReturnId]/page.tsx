@@ -62,11 +62,11 @@ const TaxReturnManagement = () => {
   };
 
   interface TaxReturn {
-    id: number;
+    id: string;
     taxReturnId: string;
     taxYear: string | number;
     client?: {
-      id: number | string;
+      id: string;
       [key: string]: any;
     };
     [key: string]: any;
@@ -519,6 +519,7 @@ const TaxReturnManagement = () => {
                   <UploadedFilesDetails
                     taxReturn={{
                       ...taxReturn,
+                      id: String(taxReturn.id),
                       status: taxReturn.status ?? '',
                       type: taxReturn.type ?? { typeName: '' },
                       taxYear: typeof taxReturn.taxYear === 'string' ? parseInt(taxReturn.taxYear, 10) : taxReturn.taxYear,
