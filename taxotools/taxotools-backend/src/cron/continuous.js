@@ -16,8 +16,19 @@ const log = logger("continuous");
 function dayOfMonth() {
   return new Date().getUTCDate();
 }
-function dayOfWeek() {
-  return new Date().getUTCDay();
+
+async function withTimeout(promise, ms, label) {
+  let timer;
+  try {
+    return await Promise.race([
+      promise,
+      new Promise((_, reject) => {
+        timer = setTimeout(() => reject(new Error(`${label} timed out after ${ms}ms`)), ms);
+      }),
+    ]);
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 async function dailyKeywordPass(limit = 20) {
@@ -39,8 +50,7 @@ async function dailyKeywordPass(limit = 20) {
 
 /**
  * Never-stop UK-wide coverage loop.
- * Discovers new firms every few cycles, crawls EVERY crawlable firm over time,
- * saves SEO/GEO/AEO/keywords/backlinks/competitors to Supabase forever.
+ * Crawl FIRST so data grows; discover in bounded passes so boot never hangs forever.
  */
 export async function runForever() {
   assertSupabase();
@@ -50,19 +60,30 @@ export async function runForever() {
     maxPages: env.maxPagesPerDomain,
   });
 
-  await heartbeatCrawler({ status: "running", notes: "UK-wide coverage engine online" });
+  await heartbeatCrawler({
+    status: "running",
+    notes: "UK-wide coverage engine online — crawl-first mode",
+    last_heartbeat_at: new Date().toISOString(),
+  });
+
   let cycles = 0;
   let firmsProcessed = 0;
   let lastDailyKey = "";
   let lastWeeklyKey = "";
 
-  // Immediate deep discovery on boot so the database fills quickly
+  // Light boot only (max ~3 min) — never block forever on deep discovery
   try {
-    log.info("Boot discovery (deep) — filling UK firm list");
-    await runDiscovery({ includeDirectories: true, deep: true });
-    await resolvePendingWebsites({ limit: 80 });
+    log.info("Boot: light discovery + website resolve");
+    await withTimeout(
+      runDiscovery({ includeDirectories: false, deep: false }),
+      180_000,
+      "boot-discovery",
+    );
+    await withTimeout(resolvePendingWebsites({ limit: 25 }), 120_000, "boot-resolve");
   } catch (e) {
-    log.warn("Boot discovery error — continuing", { error: String(e.message || e) });
+    log.warn("Boot discovery skipped/partial — starting crawl loop", {
+      error: String(e.message || e),
+    });
   }
 
   while (true) {
@@ -79,41 +100,54 @@ export async function runForever() {
       const dailyKey = now.toISOString().slice(0, 10);
       const weeklyKey = `${now.getUTCFullYear()}-W${Math.ceil(dayOfMonth() / 7)}`;
 
-      // Discover new UK accountants every 3 cycles + every calendar day
-      if (cycles % 3 === 0 || dailyKey !== lastDailyKey) {
-        log.info("Discovery pass — find more UK accountants");
-        await runDiscovery({
-          includeDirectories: true,
-          deep: dailyKey !== lastDailyKey,
-        });
-        await resolvePendingWebsites({ limit: 50 });
-      }
-
-      if (dailyKey !== lastDailyKey) {
-        await dailyKeywordPass(env.continuousFirmBatch * 3);
-        lastDailyKey = dailyKey;
-      }
-
+      // 1) CRAWL FIRST — process pending verified firms every cycle
       const doWeekly = weeklyKey !== lastWeeklyKey;
       const crawlLimit = doWeekly
         ? Math.max(env.continuousFirmBatch, 15)
         : Math.max(env.continuousFirmBatch, 8);
 
-      // Always crawl oldest / never-crawled firms next
-      const crawl = await runCrawl({
-        limit: crawlLimit,
-        includeCommonCrawl: doWeekly || cycles % 4 === 0,
-        maxPages: Math.min(env.maxPagesPerDomain, doWeekly ? 60 : 30),
+      const crawl = await withTimeout(
+        runCrawl({
+          limit: crawlLimit,
+          includeCommonCrawl: doWeekly || cycles % 4 === 0,
+          maxPages: Math.min(env.maxPagesPerDomain, doWeekly ? 40 : 20),
+        }),
+        15 * 60_000,
+        "crawl-batch",
+      ).catch((e) => {
+        log.warn("Crawl batch error/timeout", { error: String(e.message || e) });
+        return { firms: 0 };
       });
       firmsProcessed += crawl.firms || 0;
 
+      // 2) Bounded discovery every 3 cycles (or daily) — never hang the loop
+      if (cycles % 3 === 0 || dailyKey !== lastDailyKey) {
+        log.info("Discovery pass (bounded)");
+        await withTimeout(
+          runDiscovery({
+            includeDirectories: cycles % 6 === 0,
+            deep: false,
+          }),
+          240_000,
+          "discovery",
+        ).catch((e) => log.warn(String(e.message || e)));
+        await withTimeout(resolvePendingWebsites({ limit: 30 }), 120_000, "resolve").catch(
+          (e) => log.warn(String(e.message || e)),
+        );
+      }
+
+      if (dailyKey !== lastDailyKey) {
+        await dailyKeywordPass(env.continuousFirmBatch * 2).catch(() => {});
+        lastDailyKey = dailyKey;
+      }
+
       if (doWeekly) {
-        await scoreAllReferringDomains({ limit: 800 });
+        await scoreAllReferringDomains({ limit: 500 }).catch(() => {});
         lastWeeklyKey = weeklyKey;
       }
 
       cycles += 1;
-      const coverage = await getCoverageStats();
+      const coverage = await getCoverageStats().catch(() => ({}));
       await heartbeatCrawler({
         status: "running",
         last_cycle_at: new Date().toISOString(),
