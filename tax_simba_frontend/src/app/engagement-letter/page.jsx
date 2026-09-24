@@ -221,6 +221,13 @@ export default function EngagementLetterPage() {
                 }
             });
 
+            // TS-UAT-032: mint the MTD operational case at application submit (not at purchase).
+            await axios.post(
+                `${apiUrl}client/apply-tax-return`,
+                { serviceType: "MTD_INCOME_TAX", service_type: "MTD_INCOME_TAX" },
+                { headers: { Authorization: `Bearer ${session?.accessToken}` } }
+            );
+
             await axios.post(
                 `${apiUrl}client/submit-tax-info`,
                 submitData,

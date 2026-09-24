@@ -1,14 +1,17 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import axios from "axios";
 import { Logout } from "@/app/lib/api";
 import MySubscriptionsUI from "./MySubscriptionsUI";
 import BillingHistoryClient from "../../billing-history/_client/BillingHistoryClient";
+import { resolveCatalogueCategory } from "@/lib/catalogueJourney";
 
 export default function MySubscriptionsClient() {
     const { data: session } = useSession();
     const sessionData = session || {};
+    const pathname = usePathname();
     const [userData, setUserData] = useState({});
     const [loading, setLoading] = useState(true);
 
@@ -20,7 +23,14 @@ export default function MySubscriptionsClient() {
 
         const fetchDetails = async () => {
             try {
-                const [accountRes, confirmRes, transactionRes, plansRes] = await Promise.all([
+                // Scope catalogue to the workspace in use — never mix SA + MTD cards.
+                let category = resolveCatalogueCategory(sessionData, null);
+                if (pathname?.startsWith("/mtd-dashboard")) {
+                    category = "mtd";
+                } else if (pathname?.startsWith("/dashboard")) {
+                    category = "taxSimba";
+                }
+                const [accountRes, confirmRes, plansRes] = await Promise.all([
                     axios.post(
                         `${process.env.NEXT_PUBLIC_API_URL}auth/get-account-details`,
                         {},
@@ -34,7 +44,7 @@ export default function MySubscriptionsClient() {
                         return { data: null };
                     }),
                     axios.get(
-                        `${process.env.NEXT_PUBLIC_API_URL}subscription-plans`
+                        `${process.env.NEXT_PUBLIC_API_URL}subscription-plans?category=${category}`
                     ).catch(e => {
                         console.error("Plans API Error:", e);
                         return { data: { data: [] } };
@@ -56,7 +66,7 @@ export default function MySubscriptionsClient() {
         };
 
         fetchDetails();
-    }, [sessionData?.accessToken]);
+    }, [sessionData?.accessToken, pathname]);
 
     return (
         <>

@@ -54,6 +54,29 @@ const mtdDash = readFileSync(join(root, "src/app/mtd-dashboard/page.client.js"),
 assert(!mtdDash.includes("getBacklogQuarters"), "MTD dashboard does not invent backlog quarters");
 assert(!mtdDash.includes("hasOutstandingMTDSubmissions"), "MTD dashboard does not invent backlog from questionnaire");
 
+const overview = readFileSync(join(root, "src/app/mtd-dashboard/_components/MtdOverview.jsx"), "utf8");
+assert(overview.includes("entitlementOnly"), "MtdOverview respects entitlementOnly");
+assert(overview.includes("mtd-overview-setup-state"), "MtdOverview shows setup empty state");
+assert(overview.includes("!entitlementOnly"), "MtdOverview hides assignment timeline before case");
+
+const subs = readFileSync(
+  join(root, "src/app/dashboard/my-subscriptions/_client/MySubscriptionsClient.jsx"),
+  "utf8",
+);
+assert(subs.includes("subscription-plans?category="), "my-subscriptions scopes catalogue by category");
+assert(!/subscription-plans`\s*$/m.test(subs) && !subs.includes('subscription-plans`'), "my-subscriptions does not fetch unscoped catalogue");
+
+const mtdPricing = readFileSync(join(root, "src/components/MtdPricingSection.jsx"), "utf8");
+assert(mtdPricing.includes("isPlanPurchasable"), "MtdPricingSection guards unpurchasable prices");
+assert(mtdPricing.includes("formatPlanPrice"), "MtdPricingSection uses formatPlanPrice for unavailable");
+
+const home = readFileSync(join(root, "src/app/(home)/page.client.jsx"), "utf8");
+assert(home.includes("saCurrentPlanPath"), "homepage current-plan uses saCurrentPlanPath");
+
+const engagement = readFileSync(join(root, "src/app/engagement-letter/page.jsx"), "utf8");
+assert(engagement.includes("apply-tax-return"), "MTD engagement applies case before submit-tax-info");
+assert(engagement.includes("submit-tax-info"), "MTD engagement still submits tax info");
+
 if (process.exitCode) {
   console.error("Checkout-success routing assertions failed");
   process.exit(1);

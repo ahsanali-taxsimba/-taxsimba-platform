@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AlertCircle, Flag, Clock, CheckCircle, X, Eye, Calendar, User } from 'lucide-react';
+import { asStringId } from '@/lib/stringId';
 
 interface AdminFlag {
   id: number;
@@ -12,28 +13,28 @@ interface AdminFlag {
   resolvedAt: string | null;
   resolutionNotes: string | null;
   taxReturn: {
-    id: number;
+    id: string;
     taxReturnId: string;
     taxYear: number;
     status: string;
   };
   client: {
-    id: number;
+    id: string;
     name: string;
     email: string;
   };
   accountant: {
-    id: number;
+    id: string;
     name: string;
     email: string;
   };
   flaggedBy: {
-    id: number;
+    id: string;
     name: string;
     email: string;
   };
   resolvedBy?: {
-    id: number;
+    id: string;
     name: string;
     email: string;
   };
@@ -64,8 +65,14 @@ const AdminFlags: React.FC<AdminFlagsProps> = ({ taxReturnId, clientAxios }) => 
     setLoading(true);
     setError(null);
     try {
+      const caseId = asStringId(taxReturnId);
+      if (!caseId) {
+        setError('Missing tax return identifier');
+        setFlags([]);
+        return;
+      }
       const response = await clientAxios.post('/admin/get-flag-data', {
-        taxReturnId: parseInt(taxReturnId),
+        taxReturnId: caseId,
         page: 1,
         limit: 50
       });

@@ -151,7 +151,9 @@ export default function MtdOverview({ session, userData, overviewData, onOvervie
     };
 
     const accountant = overview?.accountant;
-    const currentStatus = overview?.taxReturnStatus || "pending_assignment";
+    const entitlementOnly = Boolean(overview?.entitlementOnly) || !overview?.taxReturn;
+    const currentStatus = overview?.taxReturnStatus
+      || (entitlementOnly ? "active_pending_application" : "pending_assignment");
 
     const taxReturnSteps = [
         { key: "pending_assignment", label: "Assigned Pending", sub: "Assigned Tax Professional Pending" },
@@ -177,8 +179,10 @@ export default function MtdOverview({ session, userData, overviewData, onOvervie
         "completed": 5
     };
 
-    const currentIndex = statusIndexMap[currentStatus] ?? 0;
-    const currentStepLabel = taxReturnSteps[currentIndex]?.label || "Assigned Pending";
+    const currentIndex = entitlementOnly ? -1 : (statusIndexMap[currentStatus] ?? 0);
+    const currentStepLabel = entitlementOnly
+      ? "Awaiting application"
+      : (taxReturnSteps[currentIndex]?.label || "Assigned Pending");
 
     const requestedDocs = overview?.documents?.filter(doc => doc.uploadStatus === "uploading" && doc.isRequired === true) || [];
     const completedDocs = overview?.documents?.filter(doc => doc.uploadStatus === "completed") || [];
@@ -530,7 +534,10 @@ export default function MtdOverview({ session, userData, overviewData, onOvervie
                     {welcomeGreeting(userData, session?.user || {})}
                 </h2>
                 <p>
-                    Your accountant prepares and submits your quarterly MTD updates. Supply documents when requested and track deadlines here — you do not file with HMRC yourself.
+                    {entitlementOnly
+                      ? (overview?.nextAction
+                          || "Your Making Tax Digital service is active. Complete your application when ready — your accountant will guide onboarding.")
+                      : "Your accountant prepares and submits your quarterly MTD updates. Supply documents when requested and track deadlines here — you do not file with HMRC yourself."}
                 </p>
             </div>
 
@@ -540,6 +547,21 @@ export default function MtdOverview({ session, userData, overviewData, onOvervie
                 </div>
             ) : (
                 <>
+                    {entitlementOnly && (
+                        <div className="mtd-info-card mb-4" data-testid="mtd-overview-setup-state">
+                            <div className="card-label">
+                                <FaHourglass style={{ color: "#37a267", fontSize: "16px" }} /> Getting started
+                            </div>
+                            <p className="mb-2" style={{ color: "#334155", fontWeight: 600 }}>
+                                No quarterly obligation is available yet.
+                            </p>
+                            <p className="mb-0 text-muted" style={{ fontSize: "14px" }}>
+                                Package: <strong>{overview?.packageName || overview?.packageCode || "Active MTD"}</strong>.
+                                {" "}Complete onboarding/application to create your operational case. We will not invent quarter dates before then.
+                            </p>
+                        </div>
+                    )}
+
                     <div className="mtd-cards-grid">
                         
                         {/* Action Required: Requested Documents */}
@@ -605,8 +627,8 @@ export default function MtdOverview({ session, userData, overviewData, onOvervie
                             </div>
                         )}
 
-                        {/* Process Timeline */}
-                        {!isWaitingForNextQuarter && (
+                        {/* Process Timeline — only once an operational case exists */}
+                        {!isWaitingForNextQuarter && !entitlementOnly && (
                             <div className="process-timeline">
                             <div className="process-timeline-header">
                                 {/* <h3>Progress Tracker</h3> */}

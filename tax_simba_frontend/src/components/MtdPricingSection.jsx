@@ -4,6 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 import { Check, Shield, Star, Crown, ShieldCheck, User, Headphones, Lock, ArrowRight, X, TrendingUp, Settings, FileText, ChevronDown, ChevronUp } from "lucide-react";
 import { getCurrencySymbol } from '@/utils/commonHelper';
 import { FaRegCheckCircle, FaCheckCircle, FaTimes } from "react-icons/fa";
+import { formatPlanPrice, isPlanPurchasable } from '@/hooks/useCatalogueFromPrice';
 
 const categories = [
     {
@@ -215,6 +216,8 @@ const MtdPricingSection = ({
                     let btnText = "Get Started";
                     if (isCurrent) {
                         btnText = isCanceled ? "Buy Again" : (!isExpired ? "Manage Subscription" : "Get Started");
+                    } else if (!isPlanPurchasable(plan)) {
+                        btnText = "Unavailable";
                     }
 
                     return (
@@ -240,8 +243,14 @@ const MtdPricingSection = ({
                             </h3>
 
                             <div className={`mtd-pricing-price-box ${idx >= 2 ? 'elite-price' : ''}`} data-testid={`mtd-plan-price-${plan.code || idx}`}>
-                                <span className="mtd-pricing-currency">{getCurrencySymbol(plan.currency)}</span>
-                                <span className="mtd-pricing-price">{plan.price}</span>
+                                {isPlanPurchasable(plan) ? (
+                                  <>
+                                    <span className="mtd-pricing-currency">{getCurrencySymbol(plan.currency)}</span>
+                                    <span className="mtd-pricing-price">{Number(plan.price)}</span>
+                                  </>
+                                ) : (
+                                  <span className="mtd-pricing-price">{formatPlanPrice(plan)}</span>
+                                )}
                             </div>
 
                             <div className="mtd-pricing-interval">+ VAT / month</div>
@@ -272,6 +281,7 @@ const MtdPricingSection = ({
                                 <div className="mtd-pricing-btn-wrapper">
                                     <button
                                         className="mtd-pricing-btn"
+                                        disabled={!isCurrent && !isCanceled && !isPlanPurchasable(plan)}
                                         onClick={() => onSelectPlan(plan.id, isExpired, isCanceled)}
                                     >
                                         {btnText} <ArrowRight size={16} />
@@ -315,6 +325,8 @@ const MtdPricingSection = ({
                             let btnText = "Get Started";
                             if (isCurrent) {
                                 btnText = isCanceled ? "Buy Again" : (!isExpired ? "Manage" : "Get Started");
+                            } else if (!isPlanPurchasable(plan)) {
+                                btnText = "Unavailable";
                             }
 
                             return (
@@ -328,8 +340,14 @@ const MtdPricingSection = ({
                                         <div className="mtd-mini-card-header text-center pt-2">
                                             <h3 className="mtd-mini-name">{plan.name}</h3>
                                             <div className="mtd-mini-price-box">
-                                                <span className="mtd-mini-currency">{getCurrencySymbol(plan.currency)}</span>
-                                                <span className="mtd-mini-price">{plan.price}</span>
+                                                {isPlanPurchasable(plan) ? (
+                                                  <>
+                                                    <span className="mtd-mini-currency">{getCurrencySymbol(plan.currency)}</span>
+                                                    <span className="mtd-mini-price">{Number(plan.price)}</span>
+                                                  </>
+                                                ) : (
+                                                  <span className="mtd-mini-price">{formatPlanPrice(plan)}</span>
+                                                )}
                                             </div>
                                             <div className="mtd-mini-interval">+ VAT / Month</div>
                                         </div>
@@ -349,6 +367,7 @@ const MtdPricingSection = ({
                                             {onSelectPlan ? (
                                                 <button
                                                     className={`mtd-table-btn w-100 ${isPopular ? 'popular' : ''} ${isCurrent ? 'active-plan' : ''}`}
+                                                    disabled={!isCurrent && !isCanceled && !isPlanPurchasable(plan)}
                                                     onClick={() => onSelectPlan(plan.id, isExpired, isCanceled)}
                                                 >
                                                     {btnText}

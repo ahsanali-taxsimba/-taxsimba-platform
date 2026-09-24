@@ -2,6 +2,7 @@
 import { getCurrencySymbol } from '@/utils/commonHelper';
 import { formatPlanPrice, isPlanPurchasable } from '@/hooks/useCatalogueFromPrice';
 import toast from 'react-hot-toast';
+import { saCurrentPlanPath } from '@/lib/catalogueJourney';
 
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
@@ -684,7 +685,7 @@ const PageClient = () => {
                               if (isCanceled) {
                                 router.push(`/planlist/${plan.id}`);
                               } else if (isCurrent) {
-                                router.push("/dashboard/my-subscriptions");
+                                router.push(saCurrentPlanPath());
                               } else if (status === "authenticated") {
                                 router.push(`/planlist/${plan.id}`);
                               } else {

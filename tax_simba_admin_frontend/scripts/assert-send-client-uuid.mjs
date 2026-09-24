@@ -94,6 +94,13 @@ assert(/useState<\s*string\s*\|\s*null\s*>/.test(managePage), "manage-tax assign
 assert(/handleAssign\s*=\s*\(\s*taxReturnId:\s*string/.test(managePage), "manage-tax handleAssign takes string");
 assert(!/handleAssign\s*=\s*\(\s*taxReturnId:\s*number/.test(managePage), "manage-tax handleAssign not number");
 
+const adminFlag = readFileSync(
+  join(root, "src/components/FlagModal/AdminFlag.tsx"),
+  "utf8",
+);
+assert(!/parseInt\(\s*taxReturnId\s*\)/.test(adminFlag), "AdminFlag no parseInt(taxReturnId)");
+assert(/asStringId\(\s*taxReturnId\s*\)/.test(adminFlag), "AdminFlag uses asStringId(taxReturnId)");
+
 // stringId unit
 const stringIdSrc = readFileSync(join(root, "src/lib/stringId.ts"), "utf8");
 // Compile-lite: strip types
