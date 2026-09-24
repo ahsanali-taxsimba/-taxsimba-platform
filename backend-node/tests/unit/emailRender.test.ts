@@ -13,7 +13,8 @@ describe("renderEmail branded layout", () => {
   });
 
   it("renders subject, heading, CTA, brand colours, logo and legal footer links", async () => {
-    const { renderEmail } = await import("../../src/services/email");
+    const { renderEmail, emailLogoUrl } = await import("../../src/services/email");
+    expect(emailLogoUrl()).toBe("https://app.test.taxsimba.local/images/logo.png");
     const out = renderEmail({
       recipientName: "Amara",
       subject: "Verify your email address | TaxSimba",
@@ -40,13 +41,34 @@ describe("renderEmail branded layout", () => {
     expect(out.html).toContain("Verify your TaxSimba account");
     expect(out.html).toContain("#37a267");
     expect(out.html).toContain("#b3ed97");
-    expect(out.html).toContain("https://app.test.taxsimba.local/images/logo.svg");
+    expect(out.html).toContain("https://app.test.taxsimba.local/images/logo.png");
+    expect(out.html).not.toContain("logo.svg");
+    expect(out.html).toContain('alt="TaxSimba"');
     expect(out.html).toContain("border-radius:50px");
     expect(out.html).toContain("Verify my email");
     expect(out.html).toContain("/privacy-policy");
     expect(out.html).toContain("/terms-and-conditions");
     expect(out.html).toContain("/contact-us");
     expect(out.html).toContain("Simple tax. Expert support.");
+  });
+
+  it("uses EMAIL_LOGO_URL override and never emits localhost/svg for staging base", async () => {
+    process.env.APP_BASE_URL = "https://staging-client.example.com";
+    process.env.EMAIL_LOGO_URL = "https://staging-client.example.com/images/logo.png";
+    const { renderEmail, emailLogoUrl } = await import("../../src/services/email");
+    expect(emailLogoUrl()).toBe("https://staging-client.example.com/images/logo.png");
+    const out = renderEmail({
+      recipientName: "Sara",
+      title: "Purchase confirmed",
+      body: "Package: Tax Simba Simple",
+      link: "/dashboard",
+      callToAction: "Open my Self Assessment dashboard",
+    });
+    expect(out.html).toContain('src="https://staging-client.example.com/images/logo.png"');
+    expect(out.html).not.toMatch(/localhost|\.local|logo\.svg/i);
+    expect(out.text).toContain("https://staging-client.example.com/dashboard");
+    expect(out.text).not.toMatch(/localhost|\.local/i);
+    delete process.env.EMAIL_LOGO_URL;
   });
 
   it("escapes user-provided HTML in dynamic fields", async () => {

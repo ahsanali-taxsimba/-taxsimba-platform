@@ -44,7 +44,13 @@ export function safeContinuePath(raw) {
   const path = raw.trim();
   if (!path.startsWith("/")) return null;
   if (path.startsWith("//")) return null;
-  if (!path.startsWith("/planlist") && path !== "/engagement-letter" && !path.startsWith("/mtd-dashboard") && !path.startsWith("/dashboard")) {
+  if (!path.startsWith("/planlist")
+    && path !== "/engagement-letter"
+    && !path.startsWith("/mtd-dashboard")
+    && !path.startsWith("/dashboard")
+    && !path.startsWith("/tax-return-form")
+    && !path.startsWith("/my-tax-return")
+  ) {
     return null;
   }
   return path;

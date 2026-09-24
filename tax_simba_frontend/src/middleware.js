@@ -91,7 +91,20 @@ export async function middleware(req) {
       || pathname.startsWith('/mtd-dashboard')
       || pathname === '/planlist'
     ) {
-      return NextResponse.redirect(new URL('/login', req.url));
+      // Preserve intended destination so post-login can resume SA/MTD dashboard
+      // or pending planlist from email CTAs / deep links (open-redirect safe).
+      const loginUrl = new URL('/login', req.url);
+      const intended = `${pathname}${req.nextUrl.search}`;
+      if (
+        intended.startsWith('/planlist')
+        || intended.startsWith('/mtd-dashboard')
+        || intended.startsWith('/dashboard')
+        || intended.startsWith('/tax-return-form')
+        || intended.startsWith('/my-tax-return')
+      ) {
+        loginUrl.searchParams.set('next', intended);
+      }
+      return NextResponse.redirect(loginUrl);
     }
   }
 

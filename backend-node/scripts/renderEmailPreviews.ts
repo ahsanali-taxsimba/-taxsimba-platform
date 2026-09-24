@@ -6,7 +6,7 @@
 import { mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
 
-process.env.APP_BASE_URL = process.env.APP_BASE_URL || "https://app.test.taxsimba.local";
+process.env.APP_BASE_URL = process.env.APP_BASE_URL || "https://taxsimba.co.uk";
 
 async function main(): Promise<void> {
   const { renderEmail } = await import("../src/services/email");

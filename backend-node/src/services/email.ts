@@ -147,6 +147,20 @@ function appUrl(): string {
   return (env("APP_BASE_URL") ?? "").replace(/\/$/, "");
 }
 
+/**
+ * Absolute HTTPS logo for email clients (Gmail/Outlook/mobile).
+ * Prefer EMAIL_LOGO_URL when set; otherwise `{APP_BASE_URL}/images/logo.png`.
+ * PNG only — SVG is blocked or broken in major email clients.
+ */
+export function emailLogoUrl(): string {
+  const override = (env("EMAIL_LOGO_URL") ?? "").trim();
+  if (/^https:\/\//i.test(override)) {
+    return override.replace(/\/+$/, "");
+  }
+  const base = appUrl() || "https://taxsimba.co.uk";
+  return `${base}/images/logo.png`;
+}
+
 function escapeHtml(value: string): string {
   return value
     .replace(/&/g, "&amp;")
@@ -163,7 +177,7 @@ function escapeHtml(value: string): string {
  *   accent   #b3ed97  (--theme-lt-color)
  *   deep     #32915c / #2e8a56 (existing green gradient stops)
  *   text     #222222 / #151515
- *   logo     {APP_BASE_URL}/images/logo.svg (same asset as navbar/footer)
+ *   logo     emailLogoUrl() — public HTTPS PNG (never SVG; never localhost)
  *   legal    /privacy-policy, /terms-and-conditions, /contact-us
  *
  * `title` is the on-page heading. Optional `subject` overrides the email subject line
@@ -192,7 +206,7 @@ export function renderEmail(params: {
   const privacyUrl = `${base}/privacy-policy`;
   const termsUrl = `${base}/terms-and-conditions`;
   const contactUrl = `${base}/contact-us`;
-  const logoUrl = `${base}/images/logo.svg`;
+  const logoUrl = emailLogoUrl();
 
   const bodyParagraphs = params.body
     .split(/\n+/)
@@ -249,7 +263,7 @@ export function renderEmail(params: {
     `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background-color:#ffffff;border-radius:16px;overflow:hidden;border:1px solid #e3ebe6">`,
     // Header
     `<tr><td style="padding:24px 32px;background:linear-gradient(135deg,#37a267 0%,#32915c 50%,#2e8a56 100%);background-color:#37a267">`,
-    `<img src="${escapeHtml(logoUrl)}" width="160" height="29" alt="TaxSimba" style="display:block;border:0;height:auto;max-width:160px"/>`,
+    `<img src="${escapeHtml(logoUrl)}" width="160" height="43" alt="TaxSimba" style="display:block;border:0;outline:none;text-decoration:none;height:auto;max-width:160px"/>`,
     `</td></tr>`,
     // Accent strip
     `<tr><td style="height:4px;background-color:#b3ed97;font-size:0;line-height:0">&nbsp;</td></tr>`,
