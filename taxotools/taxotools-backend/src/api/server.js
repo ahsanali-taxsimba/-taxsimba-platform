@@ -33,6 +33,59 @@ app.get("/health", (_req, res) => {
   });
 });
 
+app.get("/", async (_req, res) => {
+  let coverage = null;
+  let control = null;
+  try {
+    coverage = await getCoverageStats();
+  } catch {
+    // ignore
+  }
+  try {
+    const { data } = await getSupabase()
+      .from("crawler_control")
+      .select("*")
+      .eq("id", "uk-accountancy")
+      .maybeSingle();
+    control = data;
+  } catch {
+    // ignore
+  }
+  res.type("html").send(`<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>TaxoTools Crawler</title>
+<style>
+  :root{--bg:#0f1419;--card:#1a2332;--text:#e7ecf3;--muted:#9aa8bc;--ok:#3ecf8e;--accent:#5b9fd4}
+  body{margin:0;font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,sans-serif;background:radial-gradient(1200px 600px at 20% -10%,#1e3a5f 0%,var(--bg) 55%);color:var(--text);min-height:100vh}
+  main{max-width:720px;margin:0 auto;padding:48px 20px}
+  h1{font-size:1.75rem;margin:0 0 8px}
+  p{color:var(--muted);line-height:1.5}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:28px 0}
+  .stat{background:var(--card);border:1px solid #2a3548;border-radius:12px;padding:16px}
+  .stat b{display:block;font-size:1.4rem;margin-top:6px}
+  .stat span{color:var(--muted);font-size:.85rem}
+  a{color:var(--accent)}
+  .ok{color:var(--ok);font-weight:600}
+</style></head><body><main>
+  <h1>TaxoTools UK Crawler</h1>
+  <p>Status: <span class="ok">${control?.status || "unknown"}</span> · continuous intelligence API</p>
+  <div class="grid">
+    <div class="stat"><span>Firms total</span><b>${coverage?.firms_total ?? "—"}</b></div>
+    <div class="stat"><span>Crawled</span><b>${coverage?.firms_crawled ?? "—"}</b></div>
+    <div class="stat"><span>SEO pages</span><b>${coverage?.seo_pages ?? "—"}</b></div>
+    <div class="stat"><span>Backlinks</span><b>${coverage?.backlinks ?? "—"}</b></div>
+    <div class="stat"><span>Keywords</span><b>${coverage?.keywords ?? "—"}</b></div>
+    <div class="stat"><span>Pending</span><b>${coverage?.firms_pending_crawl ?? "—"}</b></div>
+  </div>
+  <p>
+    <a href="/health">/health</a> ·
+    <a href="/coverage">/coverage</a> ·
+    <a href="/crawler/status">/crawler/status</a> ·
+    <a href="/accountants">/accountants</a>
+  </p>
+</main></body></html>`);
+});
+
 app.get("/accountants", getAccountantsHandler);
 app.get("/backlinks", getBacklinksHandler);
 app.get("/referring-domains", getReferringDomainsHandler);
