@@ -14,6 +14,7 @@ import {
   resolveClientServiceState,
   serviceStateLabel,
   type ClientServiceState,
+  type OnboardingIntent,
 } from "../domain/onboardingIntent";
 import { OPERATIONAL_ONLY, TEST_EMAIL_REGEX } from "../domain/testdata";
 import { nowIso } from "../domain/workflow";
@@ -460,7 +461,7 @@ compatAdminRouter.post(
       let subscription: Doc | null = null;
       let subscriptions: Doc[] = [];
       let serviceState: ClientServiceState = "NO_ACTIVE_SERVICE";
-      let onboardingIntent: string | null = null;
+      let onboardingIntent: OnboardingIntent | null = null;
       const clientDoc = clientByUserId.get(String(u.id));
       if (clientDoc) {
         onboardingIntent = intentFromClient(clientDoc);
