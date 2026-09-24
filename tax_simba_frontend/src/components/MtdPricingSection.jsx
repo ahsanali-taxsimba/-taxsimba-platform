@@ -296,20 +296,20 @@ const MtdPricingSection = ({
                         {sortedPlans.map((plan, idx) => {
                             const isPopular = hasExplicitPopular ? checkIsPopular(plan) : (idx === 1);
                             
-                            // Icons and short text based on index
+                            // Icons by rank only — never invent marketing blurbs when API copy is empty.
                             let IconComponent = User;
                             let iconClass = "comply";
-                            let shortText = "Great for sole traders getting started with MTD";
-                            
                             if (idx === 1) {
                                 IconComponent = TrendingUp;
                                 iconClass = "growth";
-                                shortText = "Perfect for growing businesses needing more support & insights";
                             } else if (idx >= 2) {
                                 IconComponent = Crown;
                                 iconClass = "elite";
-                                shortText = "Advanced support for established businesses with complex needs";
                             }
+                            const shortText =
+                                typeof plan.description === "string" && plan.description.trim()
+                                    ? plan.description.trim()
+                                    : "";
 
                             const isCurrent = currentPlanId === plan.id;
                             let btnText = "Get Started";
@@ -340,7 +340,9 @@ const MtdPricingSection = ({
                                             <div className={`mtd-mini-icon-circle ${iconClass}`}>
                                                 <IconComponent size={24} />
                                             </div>
-                                            <p className="mtd-mini-desc-text">{shortText}</p>
+                                            {shortText ? (
+                                                <p className="mtd-mini-desc-text">{shortText}</p>
+                                            ) : null}
                                         </div>
                                         
                                         <div className="mtd-mini-btn-wrapper mt-3 text-center">

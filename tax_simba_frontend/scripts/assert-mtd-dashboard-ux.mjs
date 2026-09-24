@@ -53,6 +53,8 @@ assert(!navbar.includes("userRole === 'MTD'"), "navbar no longer keys off userRo
 const pricing = readFileSync(join(root, "src/components/MtdPricingSection.jsx"), "utf8");
 assert(!pricing.includes("Self-Assessment Tax Return Preparation"), "no SA row in MTD matrix");
 assert(pricing.includes("fallbackFeatures = []"), "no invented fallback features");
+assert(!pricing.includes("Great for sole traders"), "no invented MTD mini-card blurbs");
+assert(!pricing.includes("Perfect for growing businesses"), "no invented Growth blurb");
 
 const switcher = readFileSync(join(root, "src/components/ServiceWorkspaceSwitcher.jsx"), "utf8");
 assert(switcher.includes("switch-to-sa"), "switcher has SA control");
