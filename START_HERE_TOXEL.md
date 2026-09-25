@@ -18,7 +18,7 @@ Always deploy the **CURRENT HEAD** of:
 
 **Branch:** `toxel-uat-approved`
 
-**Approved baseline SHA (this handoff):** `d0943420c517fe9183d79f6320f1c546e9e29da3`
+**Approved baseline SHA (this handoff):** `3b3833921ec109098a4a45072033da366c284c7c`
 
 **Deploy tip:** pull current HEAD of `toxel-uat-approved` (includes this documentation stamp on top of the approved content SHA above). All three apps must still be built from the **same** pulled tip.
 
