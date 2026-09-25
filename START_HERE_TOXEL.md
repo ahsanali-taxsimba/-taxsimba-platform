@@ -18,7 +18,7 @@ Always deploy the **CURRENT HEAD** of:
 
 **Branch:** `toxel-uat-approved`
 
-**Approved baseline SHA (this handoff):** `0a8a2e395526324f351576657b0a1e3d03ecebc6`
+**Approved baseline SHA (this handoff):** `1dc5ae8f1bd25959c3b3df1ff64153f0f9585e5c`
 
 **Deploy tip:** pull current HEAD of `toxel-uat-approved` (includes this documentation stamp on top of the approved content SHA above). All three apps must still be built from the **same** pulled tip.
 
@@ -69,6 +69,7 @@ Latest verified status on `toxel-uat-approved`:
 - Stripe Checkout / fulfilment / webhook contract: **PASS**
 - SA / MTD entitlement isolation + dual-service: **PASS**
 - Admin UUID-safe assignment: **PASS**
+- Operational assignment actor = **ADMIN**; Super Admin = oversight + accountant account lifecycle
 - MTD assignment handoff (canonical users.id → Assigned-to-Me list + rich notification): **PASS**
 - Authoritative MTD obligation / overdue semantics across client + staff: **PASS**
 - Verification vs purchase email separation (PNG logo): **PASS**
