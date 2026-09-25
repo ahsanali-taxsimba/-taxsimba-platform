@@ -81,8 +81,8 @@ export async function crawlDomain(
   {
     maxPages = env.maxPagesPerDomain,
     collectKeywords = env.collectKeywords,
-    collectCompetitors = true,
-    pageSpeedHome = false, // secondary; enable with PAGESPEED_API_KEY only
+    collectCompetitors = env.collectCompetitorsFirstPass,
+    pageSpeedHome = false,
   } = {},
 ) {
   const host = normalizeDomain(domain);

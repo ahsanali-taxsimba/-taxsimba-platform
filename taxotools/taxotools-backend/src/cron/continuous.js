@@ -9,7 +9,6 @@ import { getSupabase } from "../supabase/client.js";
 import { getCoverageStats } from "../supabase/insertDomain.js";
 import { refreshKeywordsForDomain } from "../keywords/keywordsEverywhere.js";
 import { extractKeywordCandidates } from "../crawler/extractIntelligence.js";
-import { purgeFirmsWithoutWebsites } from "../discovery/companiesHouse.js";
 
 const log = logger("continuous");
 
@@ -49,20 +48,22 @@ async function dailyKeywordPass(limit = 20) {
 }
 
 /**
- * Never-stop UK-wide coverage loop.
- * Crawl FIRST so data grows; discover in bounded passes so boot never hangs forever.
+ * Fast continuous loop: parallel crawl-first, light discovery, short idle.
  */
 export async function runForever() {
   assertSupabase();
-  log.info("Continuous UK coverage crawler START — never stop", {
+  log.info("Continuous UK coverage crawler START — FAST mode", {
     batch: env.continuousFirmBatch,
+    concurrency: env.crawlConcurrency,
     sleepMs: env.continuousLoopSleepMs,
+    delayMs: env.crawlDelayMs,
     maxPages: env.maxPagesPerDomain,
+    competitorsFirstPass: env.collectCompetitorsFirstPass,
   });
 
   await heartbeatCrawler({
     status: "running",
-    notes: "UK-wide coverage engine online — crawl-first mode",
+    notes: "FAST mode: parallel crawl, competitors deferred",
     last_heartbeat_at: new Date().toISOString(),
   });
 
@@ -71,27 +72,23 @@ export async function runForever() {
   let lastDailyKey = "";
   let lastWeeklyKey = "";
 
-  // Light boot: purge no-website firms, then light discovery
   try {
-    log.info("Boot: purge firms without websites + light discovery");
+    log.info("Boot: purge no-website + light discovery");
     const { purgeFirmsWithoutWebsites } = await import("../discovery/companiesHouse.js");
-    await withTimeout(purgeFirmsWithoutWebsites({ limit: 3000 }), 120_000, "boot-purge");
+    await withTimeout(purgeFirmsWithoutWebsites({ limit: 3000 }), 90_000, "boot-purge");
     await withTimeout(
       runDiscovery({ includeDirectories: false, deep: false }),
-      180_000,
+      120_000,
       "boot-discovery",
     );
   } catch (e) {
-    log.warn("Boot discovery skipped/partial — starting crawl loop", {
-      error: String(e.message || e),
-    });
+    log.warn("Boot partial — starting crawl loop", { error: String(e.message || e) });
   }
 
   while (true) {
     try {
       const control = await getCrawlerControl();
       if (control?.status === "paused") {
-        log.info("Crawler paused via crawler_control — sleeping");
         await heartbeatCrawler({ status: "paused" });
         await sleep(env.continuousLoopSleepMs);
         continue;
@@ -100,20 +97,26 @@ export async function runForever() {
       const now = new Date();
       const dailyKey = now.toISOString().slice(0, 10);
       const weeklyKey = `${now.getUTCFullYear()}-W${Math.ceil(dayOfMonth() / 7)}`;
-
-      // 1) CRAWL FIRST — process pending verified firms every cycle
       const doWeekly = weeklyKey !== lastWeeklyKey;
-      const crawlLimit = doWeekly
-        ? Math.max(env.continuousFirmBatch, 15)
-        : Math.max(env.continuousFirmBatch, 8);
+
+      const coverageBefore = await getCoverageStats().catch(() => ({}));
+      const pending = Number(coverageBefore.firms_pending_crawl || 0);
+
+      // Bigger batches while backlog is high
+      const crawlLimit = pending > 200
+        ? Math.max(env.continuousFirmBatch, 24)
+        : Math.max(env.continuousFirmBatch, 12);
 
       const crawl = await withTimeout(
         runCrawl({
           limit: crawlLimit,
-          includeCommonCrawl: doWeekly || cycles % 4 === 0,
-          maxPages: Math.min(env.maxPagesPerDomain, doWeekly ? 40 : 20),
+          concurrency: env.crawlConcurrency,
+          // Common Crawl only weekly — speeds normal cycles a lot
+          includeCommonCrawl: doWeekly,
+          collectCompetitors: doWeekly || env.collectCompetitorsFirstPass,
+          maxPages: Math.min(env.maxPagesPerDomain, doWeekly ? 30 : 15),
         }),
-        15 * 60_000,
+        20 * 60_000,
         "crawl-batch",
       ).catch((e) => {
         log.warn("Crawl batch error/timeout", { error: String(e.message || e) });
@@ -121,21 +124,21 @@ export async function runForever() {
       });
       firmsProcessed += crawl.firms || 0;
 
-      // 2) Bounded discovery every 3 cycles (or daily) — never hang the loop
-      if (cycles % 3 === 0 || dailyKey !== lastDailyKey) {
-        log.info("Discovery pass (bounded) — websites only");
+      // Discovery less often while backlog is large
+      const shouldDiscover =
+        pending < 100 || cycles % 6 === 0 || dailyKey !== lastDailyKey;
+      if (shouldDiscover) {
         await withTimeout(
           runDiscovery({
-            includeDirectories: cycles % 6 === 0,
+            includeDirectories: cycles % 12 === 0,
             deep: false,
           }),
-          240_000,
+          180_000,
           "discovery",
         ).catch((e) => log.warn(String(e.message || e)));
       }
 
       if (dailyKey !== lastDailyKey) {
-        // Keywords are optional (phase 2) — only when COLLECT_KEYWORDS / KE key enabled
         if (env.collectKeywords) {
           await dailyKeywordPass(env.continuousFirmBatch * 2).catch(() => {});
         }
@@ -143,7 +146,7 @@ export async function runForever() {
       }
 
       if (doWeekly) {
-        await scoreAllReferringDomains({ limit: 500 }).catch(() => {});
+        await scoreAllReferringDomains({ limit: 800 }).catch(() => {});
         lastWeeklyKey = weeklyKey;
       }
 
@@ -154,19 +157,29 @@ export async function runForever() {
         last_cycle_at: new Date().toISOString(),
         cycles_completed: cycles,
         firms_processed: firmsProcessed,
-        notes: JSON.stringify(coverage).slice(0, 450),
+        notes: JSON.stringify({ mode: "fast", ...coverage }).slice(0, 450),
       });
 
-      log.info("Coverage heartbeat", { cycles, firmsProcessed, coverage });
+      log.info("FAST coverage heartbeat", {
+        cycles,
+        firmsProcessed,
+        concurrency: env.crawlConcurrency,
+        coverage,
+      });
+
+      // Short nap when backlog remains; longer when nearly done
+      const sleepMs = Number(coverage.firms_pending_crawl || 0) > 50
+        ? Math.min(env.continuousLoopSleepMs, 5000)
+        : env.continuousLoopSleepMs;
+      await sleep(sleepMs);
     } catch (e) {
       log.error("Continuous cycle error — will retry", { error: String(e.message || e) });
       await heartbeatCrawler({
         status: "running",
         notes: `error: ${String(e.message || e).slice(0, 200)}`,
       });
+      await sleep(5000);
     }
-
-    await sleep(env.continuousLoopSleepMs);
   }
 }
 

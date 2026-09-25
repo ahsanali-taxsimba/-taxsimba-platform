@@ -5,46 +5,76 @@ import { refreshReferringDomainCounts } from "../supabase/updateAuthority.js";
 import { crawlDomain } from "./crawlDomain.js";
 import { fetchInboundFromCommonCrawl } from "./commonCrawlInbound.js";
 import { scoreReferringDomainsForAccountant } from "../scoring/backlinkScoring.js";
+import { env } from "../utils/env.js";
 
 const log = logger("crawler");
 
+async function mapPool(items, concurrency, worker) {
+  const results = new Array(items.length);
+  let next = 0;
+  const runners = Array.from({ length: Math.max(1, concurrency) }, async () => {
+    while (true) {
+      const i = next++;
+      if (i >= items.length) break;
+      results[i] = await worker(items[i], i);
+    }
+  });
+  await Promise.all(runners);
+  return results;
+}
+
 /**
- * Crawl all (or limited) accountancy firms: outbound pages + Common Crawl inbound,
- * then refresh referring domain counts / authority, mark lost links.
+ * Fast first-pass crawl: parallel firms, optional Common Crawl / competitors.
  */
-export async function runCrawl({ limit = 25, maxPages, includeCommonCrawl = true } = {}) {
+export async function runCrawl({
+  limit = 25,
+  maxPages,
+  includeCommonCrawl = false,
+  collectCompetitors = env.collectCompetitorsFirstPass,
+  concurrency = env.crawlConcurrency,
+} = {}) {
   const firms = await listAccountancyFirms({ limit });
-  const results = [];
   const crawlStarted = new Date().toISOString();
 
-  for (const firm of firms) {
+  log.info("Crawl batch start", {
+    firms: firms.length,
+    concurrency,
+    maxPages: maxPages ?? env.maxPagesPerDomain,
+    includeCommonCrawl,
+    collectCompetitors,
+  });
+
+  const results = await mapPool(firms, concurrency, async (firm) => {
     try {
-      const outbound = await crawlDomain(firm.domain, { maxPages });
+      const outbound = await crawlDomain(firm.domain, {
+        maxPages,
+        collectCompetitors,
+        collectKeywords: env.collectKeywords,
+      });
       let inbound = [];
       if (includeCommonCrawl) {
-        inbound = await fetchInboundFromCommonCrawl(firm.domain, { limit: 30 });
+        inbound = await fetchInboundFromCommonCrawl(firm.domain, { limit: 20 });
       }
       const lost = await markLostBacklinks(firm.domain, crawlStarted);
       await refreshReferringDomainCounts(firm.domain);
       await scoreReferringDomainsForAccountant(firm.domain);
-      results.push({
+      return {
         domain: firm.domain,
         ...outbound,
         inbound: inbound.length,
         lost,
-      });
+      };
     } catch (e) {
       log.warn(`crawl failed for ${firm.domain}`, { error: String(e.message || e) });
-      results.push({ domain: firm.domain, error: String(e.message || e) });
+      return { domain: firm.domain, error: String(e.message || e) };
     }
-  }
+  });
 
-  log.info("Crawl batch complete", { firms: firms.length, ok: results.filter((r) => !r.error).length });
+  log.info("Crawl batch complete", {
+    firms: firms.length,
+    ok: results.filter((r) => r && !r.error).length,
+  });
   return { firms: firms.length, results };
-}
-
-if (process.argv[1] && import.meta.url.endsWith(process.argv[1].replace(/\\/g, "/"))) {
-  // no-op: prefer npm scripts
 }
 
 export { crawlDomain, fetchInboundFromCommonCrawl };
