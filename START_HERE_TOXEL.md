@@ -75,6 +75,7 @@ Latest verified status on `toxel-uat-approved`:
 - Authoritative MTD obligation / overdue semantics across client + staff: **PASS**
 - Verification vs purchase email separation (PNG logo): **PASS**
 - Role-integrity regression (ADMIN assign 200 / SA assign 403 / deactivate 409 / isolation): **PASS**
+- Accountant draft upload → Admin review gate (client hidden until Admin approval; no client notify on upload): **PASS**
 
 `no-console` messages may still appear as warnings but are **not** the current build blocker.
 

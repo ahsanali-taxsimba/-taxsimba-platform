@@ -92,6 +92,26 @@ export function maxUploadBytes(): number {
   return intEnv("MAX_UPLOAD_MB", 25) * 1024 * 1024;
 }
 
+/** Infer a known MIME from filename when the browser/OS leaves Content-Type empty. */
+export function mimeFromFilename(filename: string): string | null {
+  const ext = (filename.split(".").pop() || "").toLowerCase();
+  const map: Record<string, string> = {
+    pdf: "application/pdf",
+    doc: "application/msword",
+    docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    xls: "application/vnd.ms-excel",
+    xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    csv: "text/csv",
+    txt: "text/plain",
+    jpg: "image/jpeg",
+    jpeg: "image/jpeg",
+    png: "image/png",
+    heic: "image/heic",
+    heif: "image/heif",
+  };
+  return map[ext] ?? null;
+}
+
 /** Strips any path component and anything that could be interpreted by a shell or path. */
 export function safeFilename(name: string | undefined | null): string {
   const base = (name || "file").replace(/\\/g, "/").split("/").pop() ?? "file";
@@ -108,7 +128,10 @@ export function validateUpload(contentType: string | undefined, size: number, fi
     throw httpError(413, `Files must be ${Math.floor(limit / (1024 * 1024))}MB or smaller`);
   }
   if (!size) throw httpError(400, "The file appears to be empty");
-  const ct = (contentType ?? "").split(";")[0].trim().toLowerCase();
+  let ct = (contentType ?? "").split(";")[0].trim().toLowerCase();
+  if (!ct || ct === "application/octet-stream") {
+    ct = mimeFromFilename(filename) ?? ct;
+  }
   if (!ALLOWED_UPLOAD_TYPES.has(ct)) {
     throw httpError(
       415,

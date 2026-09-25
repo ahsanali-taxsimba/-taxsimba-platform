@@ -655,16 +655,66 @@ async function handleManageReview(req: import("express").Request, res: import("e
   const requestedStatus = String(body.status ?? "").toUpperCase();
 
   if (action === "approve" || action === "admin-approve" || action === "admin_approve") {
-    if (!["ADMIN", "SUPER_ADMIN"].includes(String(me.role))) {
+    // Admin operational actor only — SUPER_ADMIN is oversight and cannot approve drafts.
+    if (String(me.role) !== "ADMIN") {
       throw httpError(403, "Insufficient permissions");
     }
+    const { notify, nowIso } = await import("../domain/workflow");
     const kase = await getCase(caseId, me);
     if (!(ALLOWED_TRANSITIONS[String(kase.status)] ?? []).includes("ADMIN_APPROVED")) {
       throw httpError(400, `Cannot admin-approve from status ${kase.status}`);
     }
+    const { releaseApprovedDraftDocuments } = await import("./documents");
+    const released = await releaseApprovedDraftDocuments(caseId, me);
+    await col("reviews").updateMany(
+      { case_id: caseId, outcome: null, kind: "DRAFT_DOCUMENT" },
+      {
+        $set: {
+          outcome: "APPROVED",
+          reviewer_id: me.id,
+          reviewer_name: me.name,
+          decided_at: nowIso(),
+          admin_note: body.note ?? null,
+        },
+      },
+    );
     await transition(kase, "ADMIN_APPROVED", me, body.note ?? "Admin approved");
+    // Release to client for review when whitelist allows.
+    const after = await getCase(caseId, me);
+    if ((ALLOWED_TRANSITIONS[String(after.status)] ?? []).includes("AWAITING_CLIENT_APPROVAL")) {
+      await transition(
+        after,
+        "AWAITING_CLIENT_APPROVAL",
+        me,
+        "Approved draft released to client for review",
+      );
+    }
+    await notify(
+      kase.client_user_id as string,
+      "Your tax return draft is ready to review",
+      "Your accountant's draft has been approved by Admin and is ready for you to review.\n\n" +
+        "Please check the figures carefully." +
+        (kase.tax_year ? `\n\nTax year: ${kase.tax_year}` : ""),
+      caseId,
+      "/documents",
+      "APPROVAL",
+    );
+    if (kase.assigned_accountant_id) {
+      await notify(
+        String(kase.assigned_accountant_id),
+        "Admin approved your draft",
+        `${kase.client_name ?? "Client"} — draft approved`,
+        caseId,
+        `/tax-return-list/${caseId}`,
+        "APPROVAL",
+      );
+    }
     const updated = await getCase(caseId, me);
-    sendCompatSuccess(res, decorateCase(updated), "Approved");
+    sendCompatSuccess(
+      res,
+      { ...decorateCase(updated), draftsReleased: released },
+      "Approved",
+    );
     return;
   }
 
@@ -674,19 +724,57 @@ async function handleManageReview(req: import("express").Request, res: import("e
     action === "admin-return" ||
     action === "admin_return"
   ) {
-    if (!["ADMIN", "SUPER_ADMIN"].includes(String(me.role))) {
+    if (String(me.role) !== "ADMIN") {
       throw httpError(403, "Insufficient permissions");
     }
+    const { notify, nowIso } = await import("../domain/workflow");
     const reason = String(body.reason ?? body.note ?? "").trim();
     if (!reason) throw httpError(400, "reason is required");
     const kase = await getCase(caseId, me);
     if (!(ALLOWED_TRANSITIONS[String(kase.status)] ?? []).includes("CHANGES_REQUIRED")) {
       throw httpError(400, `Cannot return case from status ${kase.status}`);
     }
+    await col("documents").updateMany(
+      {
+        case_id: caseId,
+        is_deleted: { $ne: true },
+        review_status: "AWAITING_ADMIN_REVIEW",
+      },
+      {
+        $set: {
+          review_status: "RETURNED",
+          status: "Replacement Required",
+          // Remain internal — client must not see returned drafts.
+          is_internal: true,
+        },
+      },
+    );
+    await col("reviews").updateMany(
+      { case_id: caseId, outcome: null, kind: "DRAFT_DOCUMENT" },
+      {
+        $set: {
+          outcome: "CHANGES_REQUIRED",
+          reviewer_id: me.id,
+          reviewer_name: me.name,
+          reason,
+          decided_at: nowIso(),
+        },
+      },
+    );
     await transition(kase, "CHANGES_REQUIRED", me, reason, {
       waitingReason: reason,
       extra: { internal_instructions: body.instructions ?? reason },
     });
+    if (kase.assigned_accountant_id) {
+      await notify(
+        String(kase.assigned_accountant_id),
+        "Admin returned your draft",
+        reason,
+        caseId,
+        `/tax-return-list/${caseId}`,
+        "REVIEW",
+      );
+    }
     const updated = await getCase(caseId, me);
     sendCompatSuccess(res, decorateCase(updated), "Returned");
     return;

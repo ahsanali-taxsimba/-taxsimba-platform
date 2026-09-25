@@ -822,7 +822,7 @@ casesRouter.post(
 
 casesRouter.post(
   "/cases/:caseId/admin-approve",
-  auth("ADMIN", "SUPER_ADMIN"),
+  auth("ADMIN"),
   handler(async (req, res) => {
     const me = authed(req);
     const caseId = req.params.caseId;
@@ -837,6 +837,8 @@ casesRouter.post(
     );
     if (!review) throw httpError(400, "No submitted work to approve");
     const adminNote = body.note ?? null;
+    const { releaseApprovedDraftDocuments } = await import("../compat/documents");
+    await releaseApprovedDraftDocuments(caseId, me);
     await col("calculation_versions").updateOne(
       { id: review.calculation_version_id },
       {
@@ -913,7 +915,7 @@ casesRouter.post(
 
 casesRouter.post(
   "/cases/:caseId/admin-return",
-  auth("ADMIN", "SUPER_ADMIN"),
+  auth("ADMIN"),
   handler(async (req, res) => {
     const me = authed(req);
     const caseId = req.params.caseId;

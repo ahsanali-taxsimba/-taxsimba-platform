@@ -1,8 +1,4 @@
-/**
- * Documents compat adapters (P0 K.5 / baseline D1–D3).
- * Thin maps onto existing getCase + storage domain (putObject/getObject).
- */
-import { randomUUID } from "crypto";
+import { createHash, randomUUID } from "crypto";
 
 import { Router } from "express";
 import multer from "multer";
@@ -10,10 +6,17 @@ import multer from "multer";
 import { APP_NAME } from "../config/env";
 import { clean, cleanMany, col, Doc, scrubMany } from "../db/mongo";
 import { getCase, ownedCaseIds } from "../domain/cases";
-import { logActivity, notify, nowIso } from "../domain/workflow";
+import { notifyAdmins } from "../domain/packages";
+import {
+  ALLOWED_TRANSITIONS,
+  logActivity,
+  notify,
+  nowIso,
+  transition,
+} from "../domain/workflow";
 import { handler, httpError } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
-import { validateUpload } from "../middleware/protections";
+import { mimeFromFilename, validateUpload } from "../middleware/protections";
 import { getObject, putObject } from "../services/storage";
 import { keysToCamel } from "./caseMap";
 import { sendCompatSuccess } from "./envelope";
@@ -21,6 +24,65 @@ import { toCaseId } from "./ids";
 
 export const compatDocumentsRouter = Router();
 const upload = multer({ storage: multer.memoryStorage() });
+
+export const DRAFT_REVIEW_AWAITING = "AWAITING_ADMIN_REVIEW";
+export const DRAFT_REVIEW_APPROVED = "APPROVED";
+export const DRAFT_REVIEW_RETURNED = "RETURNED";
+
+/**
+ * Move the case into READY_FOR_ADMIN_REVIEW when the workflow whitelist allows,
+ * stepping through ACCOUNTANT_REVIEW when needed (e.g. from ASSIGNED).
+ */
+async function ensureReadyForAdminReview(kase: Doc, me: Doc): Promise<Doc> {
+  let current = kase;
+  const status = String(current.status);
+  if (status === "READY_FOR_ADMIN_REVIEW" || status === "ADMIN_REVIEW") {
+    return current;
+  }
+  if (status === "ASSIGNED") {
+    if ((ALLOWED_TRANSITIONS[status] ?? []).includes("ACCOUNTANT_REVIEW")) {
+      await transition(current, "ACCOUNTANT_REVIEW", me, "Draft preparation started");
+      current = await getCase(String(current.id), me);
+    }
+  }
+  const next = String(current.status);
+  if ((ALLOWED_TRANSITIONS[next] ?? []).includes("READY_FOR_ADMIN_REVIEW")) {
+    await transition(
+      current,
+      "READY_FOR_ADMIN_REVIEW",
+      me,
+      "Draft submitted for Admin review",
+    );
+    current = await getCase(String(current.id), me);
+  }
+  return current;
+}
+
+/** Release awaiting draft documents to the client after Admin approval. */
+export async function releaseApprovedDraftDocuments(
+  caseId: string,
+  me: Doc,
+): Promise<number> {
+  const result = await col("documents").updateMany(
+    {
+      case_id: caseId,
+      is_deleted: { $ne: true },
+      $or: [{ is_draft: true }, { document_type: "Draft return" }],
+      review_status: DRAFT_REVIEW_AWAITING,
+    },
+    {
+      $set: {
+        is_internal: false,
+        review_status: DRAFT_REVIEW_APPROVED,
+        status: "Accepted",
+        admin_approved_at: nowIso(),
+        admin_approved_by: me.id,
+        admin_approved_by_name: me.name,
+      },
+    },
+  );
+  return result.modifiedCount ?? 0;
+}
 
 compatDocumentsRouter.post(
   "/client/my-files",
@@ -317,10 +379,56 @@ async function staffUpload(
   const f = req.file;
   if (!f) throw httpError(422, "file is required");
   const kase = await getCase(caseId, me);
+
+  const inferredMime =
+    mimeFromFilename(f.originalname) ||
+    (f.mimetype || "").split(";")[0].trim() ||
+    "application/octet-stream";
+  const effectiveMime =
+    !f.mimetype || f.mimetype === "application/octet-stream" ? inferredMime : f.mimetype;
+
+  validateUpload(effectiveMime, f.size, f.originalname);
+  const contentHash = createHash("sha256").update(f.buffer).digest("hex");
+
+  // Idempotent draft retry: same content already awaiting Admin review → return it.
+  if (kind === "draft") {
+    const existing = (await col("documents").findOne({
+      case_id: caseId,
+      is_draft: true,
+      is_deleted: { $ne: true },
+      review_status: DRAFT_REVIEW_AWAITING,
+      content_hash: contentHash,
+    })) as Doc | null;
+    if (existing) {
+      sendCompatSuccess(
+        res,
+        {
+          ...clean(existing),
+          taxReturnId: caseId,
+          caseId,
+          duplicate: true,
+          reviewStatus: DRAFT_REVIEW_AWAITING,
+        },
+        "Draft already submitted for Admin review",
+      );
+      return;
+    }
+  }
+
   const ext = f.originalname.includes(".") ? f.originalname.split(".").pop() : "bin";
   const path = `${APP_NAME}/uploads/${me.id}/${randomUUID()}.${ext}`;
-  validateUpload(f.mimetype, f.size, f.originalname);
-  const stored = await putObject(path, f.buffer, f.mimetype || "application/octet-stream");
+  const stored = await putObject(path, f.buffer, effectiveMime);
+
+  const notes =
+    (typeof req.body?.explanationNotes === "string" && req.body.explanationNotes) ||
+    (typeof req.body?.explanation_notes === "string" && req.body.explanation_notes) ||
+    (typeof req.body?.notes === "string" && req.body.notes) ||
+    null;
+  const draftType =
+    (typeof req.body?.draftType === "string" && req.body.draftType) ||
+    (typeof req.body?.draft_type === "string" && req.body.draft_type) ||
+    null;
+
   const record: Doc = {
     id: randomUUID(),
     case_id: caseId,
@@ -328,17 +436,20 @@ async function staffUpload(
     tax_year: kase.tax_year,
     document_type: kind === "final" ? "Final certificate" : "Draft return",
     name: f.originalname,
-    status: "Uploaded",
+    status: kind === "draft" ? "Under Review" : "Uploaded",
     storage_path: stored.path,
     uploader_id: me.id,
     uploader_name: me.name,
-    content_type: f.mimetype,
+    content_type: effectiveMime,
     size: stored.size ?? f.size,
-    // Draft return PDFs are client-visible for review (Toxel draft-approve journey).
-    // Staff working notes stay out of this upload path.
-    is_internal: false,
+    content_hash: contentHash,
+    // Drafts stay internal until Admin approval — client must not see them early.
+    is_internal: kind === "draft",
     is_draft: kind === "draft",
     is_final: kind === "final",
+    review_status: kind === "draft" ? DRAFT_REVIEW_AWAITING : null,
+    draft_type: kind === "draft" ? draftType : null,
+    accountant_notes: kind === "draft" ? notes : null,
     is_deleted: false,
     upload_date: nowIso(),
     created_at: nowIso(),
@@ -348,21 +459,64 @@ async function staffUpload(
   await col("documents").insertOne({ ...record });
   await logActivity(
     caseId,
-    kind === "final" ? `Final certificate uploaded: ${f.originalname}` : `Draft uploaded: ${f.originalname}`,
+    kind === "final"
+      ? `Final certificate uploaded: ${f.originalname}`
+      : `Draft submitted for Admin review: ${f.originalname}`,
     me,
   );
-  if (kind === "final") {
-    await notify(
-      kase.client_user_id as string,
-      "Your final tax documents are ready",
-      `Your final certificate is now available` +
-        (kase.case_ref ? ` for ${kase.case_ref}` : "") +
-        ".\n\nFor your security, please sign in to TaxSimba to download it.",
+
+  if (kind === "draft") {
+    await ensureReadyForAdminReview(kase, me);
+    await col("reviews").insertOne({
+      id: randomUUID(),
+      case_id: caseId,
+      document_id: record.id,
+      kind: "DRAFT_DOCUMENT",
+      version: null,
+      calculation_version_id: null,
+      submitted_by: me.id,
+      submitted_by_name: me.name,
+      submitted_at: nowIso(),
+      outcome: null,
+      reviewer_id: null,
+      reviewer_name: null,
+      reason: null,
+      instructions: null,
+      accountant_note: notes,
+      decided_at: null,
+    });
+    // Notify Admin only — never the client from accountant draft upload.
+    await notifyAdmins(
+      "Draft ready for Admin review",
+      `${kase.client_name ?? "Client"} — ${kase.case_ref ?? caseId}: ${f.originalname} submitted by ${me.name}`,
       caseId,
-      "/documents",
-      "DOCUMENT",
+      `/manage-tax/${caseId}`,
+      "REVIEW",
     );
+    sendCompatSuccess(
+      res,
+      {
+        ...clean(record),
+        taxReturnId: caseId,
+        caseId,
+        reviewStatus: DRAFT_REVIEW_AWAITING,
+        clientNotified: false,
+      },
+      "Draft submitted for Admin review",
+    );
+    return;
   }
+
+  await notify(
+    kase.client_user_id as string,
+    "Your final tax documents are ready",
+    `Your final certificate is now available` +
+      (kase.case_ref ? ` for ${kase.case_ref}` : "") +
+      ".\n\nFor your security, please sign in to TaxSimba to download it.",
+    caseId,
+    "/documents",
+    "DOCUMENT",
+  );
   sendCompatSuccess(
     res,
     {
@@ -397,9 +551,10 @@ function pickUploadedFile(
 }
 
 for (const prefix of ["/admin/assignments", "/accountant/assignments"] as const) {
+  // Draft upload: ADMIN + assigned ACCOUNTANT only. SUPER_ADMIN is oversight, not an actor.
   compatDocumentsRouter.post(
     `${prefix}/:taxReturnId/upload-draft`,
-    auth("ADMIN", "SUPER_ADMIN", "ACCOUNTANT"),
+    auth("ADMIN", "ACCOUNTANT"),
     staffUploadMw,
     handler(async (req, res) => {
       const f = pickUploadedFile(req);
@@ -409,7 +564,7 @@ for (const prefix of ["/admin/assignments", "/accountant/assignments"] as const)
   );
   compatDocumentsRouter.post(
     `${prefix}/:taxReturnId/upload-final-certificate`,
-    auth("ADMIN", "SUPER_ADMIN", "ACCOUNTANT"),
+    auth("ADMIN", "ACCOUNTANT"),
     staffUploadMw,
     handler(async (req, res) => {
       const f = pickUploadedFile(req);
@@ -422,13 +577,16 @@ for (const prefix of ["/admin/assignments", "/accountant/assignments"] as const)
 /**
  * Client draft review — thin maps onto case client-approve / MTD period client-approve.
  * Reject / request-changes notify staff via message (no invented workflow status).
+ * Only Admin-approved drafts are visible to the client.
  */
 async function draftDocumentsForCase(caseId: string, me: Doc): Promise<Doc[]> {
   const docs = (await col("documents")
     .find({
       case_id: caseId,
       is_deleted: { $ne: true },
+      is_internal: false,
       $or: [{ is_draft: true }, { document_type: "Draft return" }],
+      review_status: { $nin: [DRAFT_REVIEW_AWAITING, DRAFT_REVIEW_RETURNED] },
     })
     .sort({ created_at: -1 })
     .limit(50)
@@ -441,6 +599,7 @@ async function draftDocumentsForCase(caseId: string, me: Doc): Promise<Doc[]> {
     uploadedAt: d.upload_date ?? d.created_at ?? null,
     downloadUrl: `client/documents/${d.id}/download`,
     documentType: d.document_type,
+    reviewStatus: d.review_status ?? DRAFT_REVIEW_APPROVED,
   }));
 }
 
