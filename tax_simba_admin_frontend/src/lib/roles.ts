@@ -15,3 +15,13 @@ export function isStaffRole(role?: string | null): boolean {
 export function isSuperAdminRole(role?: string | null): boolean {
   return role === "SUPER_ADMIN";
 }
+
+/** Case assign/reassign is ADMIN-only — SUPER_ADMIN has oversight but cannot mutate ownership. */
+export function canAssignCases(role?: string | null): boolean {
+  return role === "ADMIN";
+}
+
+/** Accountant account lifecycle (add/activate/deactivate/remove) is SUPER_ADMIN-only. */
+export function canManageAccountantAccounts(role?: string | null): boolean {
+  return role === "SUPER_ADMIN";
+}

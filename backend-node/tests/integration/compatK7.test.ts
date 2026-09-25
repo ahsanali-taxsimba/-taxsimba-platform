@@ -201,9 +201,21 @@ describe("K.7 admin / SUPER_ADMIN adapters", () => {
       .expect(200);
     expect(files.body.data.files.some((f: { id: string }) => f.id === caseId)).toBe(true);
 
-    const assigned = await request(app)
+    // SUPER_ADMIN cannot assign — ADMIN-only.
+    await request(app)
       .post("/api/compat/admin/assign")
       .set(bearer(superAdmin))
+      .send({
+        taxReturnId: caseId,
+        accountantId: accountant.id,
+        deadline: "2030-01-15T00:00:00.000Z",
+        priority: "HIGH",
+      })
+      .expect(403);
+
+    const assigned = await request(app)
+      .post("/api/compat/admin/assign")
+      .set(bearer(admin))
       .send({
         taxReturnId: caseId,
         accountantId: accountant.id,

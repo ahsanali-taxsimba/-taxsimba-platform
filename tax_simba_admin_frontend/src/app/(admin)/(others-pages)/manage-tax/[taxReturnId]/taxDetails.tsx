@@ -30,11 +30,13 @@ import { getNotificationIcon } from '@/utils/getNotification';
 import BellButton from '@/components/NotficationData/BellButton';
 import { toast } from 'react-toastify';
 import DownloadCertificate from '@/components/TaxReturnModal/DownloadCertificateModal';
+import { canAssignCases } from '@/lib/roles';
 
 const AdminTaxReturnDetails = () => {
   const router = useRouter();
   const { data } = useSession();
   const userData = data?.user;
+  const canAssign = canAssignCases(userData?.role);
 
   // Normalize route param from useParams
   const params = useParams<{ taxReturnId?: string | string[] }>();
@@ -352,6 +354,10 @@ const AdminTaxReturnDetails = () => {
 
     console.log(newStatus, "newStatusnewStatus")
     if (newStatus === 'assigned') {
+      if (!canAssign) {
+        toast.error('Only an Admin can assign or reassign cases.');
+        return;
+      }
       fetchAccountants();
       setShowAssignModal(true);
       return
@@ -642,7 +648,7 @@ const AdminTaxReturnDetails = () => {
                     <Upload className="h-4 w-4" />
                     <span>Upload Draft</span>
                   </button>
-                  {taxReturn.status !== 'assigned' && (
+                  {canAssign && taxReturn.status !== 'assigned' && (
                     <button
                       onClick={() => {
                         fetchAccountants();
@@ -1416,8 +1422,8 @@ const AdminTaxReturnDetails = () => {
         </div>
       )}
 
-      {/* Assign Accountant Modal */}
-      {showAssignModal && (
+      {/* Assign Accountant Modal — ADMIN-only */}
+      {canAssign && showAssignModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
             <h4 className="font-semibold text-gray-800 mb-6 text-lg">

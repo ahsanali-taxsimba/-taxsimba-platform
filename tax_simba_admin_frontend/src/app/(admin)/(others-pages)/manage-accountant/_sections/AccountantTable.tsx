@@ -151,7 +151,23 @@ console.log('openDropdownId', openDropdownId)
             }
         } catch (error: any) {
             console.log(error)
-            toast.error(error.response?.data?.message || "Failed to delete accountant.");
+            const status = error?.response?.status;
+            const msg =
+                error?.response?.data?.message ||
+                error?.response?.data?.detail?.msg ||
+                (typeof error?.response?.data?.detail === "string"
+                    ? error.response.data.detail
+                    : null) ||
+                "Failed to delete accountant.";
+            if (status === 409) {
+                toast.error(
+                    typeof msg === "string" && msg.length
+                        ? msg
+                        : "This accountant has active cases. An Admin must reassign them before deactivation.",
+                );
+            } else {
+                toast.error(typeof msg === "string" ? msg : "Failed to delete accountant.");
+            }
         }
     }
 
@@ -164,29 +180,30 @@ console.log('openDropdownId', openDropdownId)
                 true,
             );
             if (response) {
-                const data = response.data?.data || {};
-                const openCases = Number(
-                    data.activeCasesNeedingReassignment ??
-                        data.active_cases_needing_reassignment ??
-                        0,
-                );
-                if (canonical === "inactive" && openCases > 0) {
-                    toast.warning(
-                        response.data?.message ||
-                            `Accountant deactivated. ${openCases} open case(s) still assigned — reassign them in Manage Tax before they are left without an active accountant.`,
-                    );
-                } else {
-                    toast.success(
-                        response.data?.message || "Accountant status updated successfully.",
-                    );
-                }
+                toast.success(response.data?.message || "Accountant status updated successfully.");
                 setOpenDropdownId([]);
                 if (typeof fetchData === "function") fetchData();
                 if (typeof setGridUpdate === "function") setGridUpdate(!gridUpdate);
             }
         } catch (error: any) {
             console.log(error);
-            toast.error(error.response?.data?.message || "Failed to update status.");
+            const status = error?.response?.status;
+            const msg =
+                error?.response?.data?.message ||
+                error?.response?.data?.detail?.msg ||
+                (typeof error?.response?.data?.detail === "string"
+                    ? error.response.data.detail
+                    : null) ||
+                "Failed to update status.";
+            if (status === 409) {
+                toast.error(
+                    typeof msg === "string" && msg.length
+                        ? msg
+                        : "This accountant has active cases. An Admin must reassign them before deactivation.",
+                );
+            } else {
+                toast.error(typeof msg === "string" ? msg : "Failed to update status.");
+            }
         }
     };
 

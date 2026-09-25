@@ -23,7 +23,8 @@ const MTD_TABS = ["Overview", "MTD Periods", "Tasks", "Documents", "Messages", "
 export default function CaseWorkspace() {
   const { id } = useParams();
   const { user } = useAuth();
-  const isAdmin = ["ADMIN", "SUPER_ADMIN"].includes(user?.role);
+  const canAssignCases = user?.role === "ADMIN";
+  const isStaffAdmin = ["ADMIN", "SUPER_ADMIN"].includes(user?.role);
   const [tab, setTab] = useState(
     new URLSearchParams(window.location.search).get("tab") || "Overview");
   const [cs, setCs] = useState(null);
@@ -68,7 +69,7 @@ export default function CaseWorkspace() {
       api.get(`/mtd/cases/${id}/periods`).then((r) => setMtdPeriods(r.data)).catch(() => {});
       api.get(`/mtd/cases/${id}/onboarding`).then((r) => setOnboarding(r.data)).catch(() => {});
     }
-    if (isAdmin) api.get("/accountants/workload").then((r) => setAccountants(r.data));
+    if (isStaffAdmin) api.get("/accountants/workload").then((r) => setAccountants(r.data));
   };
   useEffect(() => { load(); }, [id]);
 
@@ -131,16 +132,16 @@ export default function CaseWorkspace() {
     </div>
   );
 
-  const adminActions = isAdmin && (
+  const adminActions = isStaffAdmin && (
     <div className="flex flex-wrap gap-3">
-      {st === "COMPLETED" ? null : !cs.assigned_accountant_id ? (
+      {canAssignCases && (st === "COMPLETED" ? null : !cs.assigned_accountant_id ? (
         <button data-testid="assign-accountant-btn" className={primary} onClick={() => setModal("assign")}>Assign Accountant</button>
       ) : (
         <>
           <button data-testid="reassign-accountant-btn" className={ghost} onClick={() => setModal("assign")}>Reassign Accountant</button>
           <button data-testid="unassign-accountant-btn" className={ghost} onClick={() => setModal("unassign")}>Unassign</button>
         </>
-      )}
+      ))}
       {st === "COMPLETED" && (
         <button data-testid="reopen-case-btn" className={ghost} onClick={() => setModal("reopen")}>Reopen Case</button>
       )}
@@ -215,7 +216,7 @@ export default function CaseWorkspace() {
                           : `Package upgrade → ${r.recommended_package}`} · {r.reason} · <b>{r.status}</b>
                         {r.final_amount ? ` · sent at £${Number(r.final_amount).toFixed(2)}` : ""}
                       </span>
-                      {isAdmin && r.type === "ADDITIONAL_WORK" && r.status === "PENDING" && (
+                      {isStaffAdmin && r.type === "ADDITIONAL_WORK" && r.status === "PENDING" && (
                         <>
                           <button data-testid={`rec-approve-${r.id}`} className="text-xs font-semibold text-[#006B3C]"
                             onClick={() => { setForm({ description: r.reason, amount: r.suggested_amount || "", recommendation_id: r.id }); setModal("addpay"); }}>
@@ -246,7 +247,7 @@ export default function CaseWorkspace() {
                           href={`${process.env.REACT_APP_BACKEND_URL}/api/payment-requests/${p.id}/receipt`}
                           className="text-xs font-semibold text-[#006B3C]">Receipt {p.receipt_number}</a>
                       )}
-                      {isAdmin && p.payment_status !== "paid" && p.payment_status !== "cancelled" && (
+                      {isStaffAdmin && p.payment_status !== "paid" && p.payment_status !== "cancelled" && (
                         <>
                           <button data-testid={`payreq-resend-${p.id}`} className="text-xs font-semibold text-[#006B3C]"
                             onClick={() => act(() => api.post(`/payment-requests/${p.id}/resend`))}>Resend</button>
@@ -281,11 +282,11 @@ export default function CaseWorkspace() {
                   {issues.map((s) => (
                     <li key={s.id} data-testid={`case-issue-${s.id}`}>
                       {s.category} · <b>{s.status}</b> · raised {dt(s.created_at)}
-                      {isAdmin && s.subject ? ` · ${s.subject}` : ""}
+                      {isStaffAdmin && s.subject ? ` · ${s.subject}` : ""}
                     </li>
                   ))}
                 </ul>
-                {isAdmin && <a href="/admin/service-issues" className="text-xs font-semibold text-[#006B3C] mt-2 inline-block" data-testid="case-issues-link">Manage service issues</a>}
+                {isStaffAdmin && <a href="/admin/service-issues" className="text-xs font-semibold text-[#006B3C] mt-2 inline-block" data-testid="case-issues-link">Manage service issues</a>}
               </div>
             )}
             <div className="mt-6 grid md:grid-cols-2 gap-6">
@@ -334,7 +335,7 @@ export default function CaseWorkspace() {
         {tab === "Documents" && (
           <>
           <Panel title="Final client documents" testId="tab-final-documents" className="mb-6"
-            action={isAdmin && ["READY_FOR_SUBMISSION", "SUBMITTED", "COMPLETED"].includes(cs.status) && (
+            action={isStaffAdmin && ["READY_FOR_SUBMISSION", "SUBMITTED", "COMPLETED"].includes(cs.status) && (
               <label className="px-4 py-2 rounded-lg bg-[#078A4B] text-white text-xs font-semibold cursor-pointer hover:bg-[#006B3C] transition-colors">
                 Publish final copy
                 <input data-testid="publish-final-input" type="file" className="hidden"
@@ -531,25 +532,25 @@ export default function CaseWorkspace() {
                       <button data-testid={`mtd-review-btn-${p.id}`} className="text-xs font-semibold text-[#006B3C]"
                         onClick={() => act(() => api.post(`/mtd/periods/${p.id}/submit-for-review`))}>Publish to client (sends for admin review)</button>
                     )}
-                    {isAdmin && p.status === "ADMIN_REVIEW" && (
+                    {isStaffAdmin && p.status === "ADMIN_REVIEW" && (
                       <button data-testid={`mtd-approve-btn-${p.id}`} className="text-xs font-semibold text-[#006B3C]"
                         onClick={() => act(() => api.post(`/mtd/periods/${p.id}/admin-approve`))}>Approve &amp; publish to client</button>
                     )}
-                    {isAdmin && ["ADMIN_REVIEW", "AWAITING_CLIENT_APPROVAL"].includes(p.status) && (
+                    {isStaffAdmin && ["ADMIN_REVIEW", "AWAITING_CLIENT_APPROVAL"].includes(p.status) && (
                       <button data-testid={`mtd-changes-btn-${p.id}`} className="text-xs font-semibold text-[#D64545]"
                         onClick={() => {
                           const reason = window.prompt("Reason for returning this period for changes");
                           if (reason && reason.trim()) act(() => api.post(`/mtd/periods/${p.id}/request-changes`, { reason }));
                         }}>Return for changes</button>
                     )}
-                    {isAdmin && p.status === "APPROVED" && (
+                    {isStaffAdmin && p.status === "APPROVED" && (
                       <button data-testid={`mtd-reopen-btn-${p.id}`} className="text-xs font-semibold text-[#D64545]"
                         onClick={() => {
                           const reason = window.prompt("Reason for reopening this approved quarter for correction");
                           if (reason && reason.trim()) act(() => api.post(`/mtd/periods/${p.id}/reopen`, { reason }));
                         }}>Reopen for correction</button>
                     )}
-                    {isAdmin && p.kind === "QUARTER" && p.status !== "SUBMITTED"
+                    {isStaffAdmin && p.kind === "QUARTER" && p.status !== "SUBMITTED"
                       && (onboarding?.quarters || []).some((x) => x.period_id === p.id && x.catch_up_required) && (
                       <button data-testid={`mtd-catchup-charge-${p.id}`} className="text-xs font-semibold text-[#006B3C]"
                         onClick={() => {
@@ -562,7 +563,7 @@ export default function CaseWorkspace() {
                         }}>Raise catch-up charge</button>
                     )}
                     {p.kind === "QUARTER" && p.status !== "SUBMITTED" && (
-                      <button data-testid={isAdmin ? `mtd-prior-btn-${p.id}` : `mtd-evidence-btn-${p.id}`}
+                      <button data-testid={isStaffAdmin ? `mtd-prior-btn-${p.id}` : `mtd-evidence-btn-${p.id}`}
                         className="text-xs font-semibold text-[#626A65]"
                         onClick={() => {
                           const q = (onboarding?.quarters || []).find((x) => x.period_id === p.id);
@@ -570,7 +571,7 @@ export default function CaseWorkspace() {
                           setForm({
                             period: p,
                             quarter: q?.quarter ?? p.quarter,
-                            evidence_only: !isAdmin,
+                            evidence_only: !isStaffAdmin,
                             previous_provider: ev?.previous_provider || q?.answer?.previous_provider || "",
                             submission_date: ev?.submission_date || q?.answer?.submission_date || "",
                             submission_reference: ev?.submission_reference || q?.answer?.submission_reference || "",
@@ -579,7 +580,7 @@ export default function CaseWorkspace() {
                             note: "",
                           });
                           setModal("mtdprior");
-                        }}>{isAdmin ? "Record previous submission" : "Enter previous submission details for admin review"}</button>
+                        }}>{isStaffAdmin ? "Record previous submission" : "Enter previous submission details for admin review"}</button>
                     )}
                     {p.kind === "QUARTER" && p.status !== "SUBMITTED"
                       && (onboarding?.quarters || []).some((x) => x.period_id === p.id && x.answer
@@ -592,7 +593,7 @@ export default function CaseWorkspace() {
                           }));
                         }}>Confirm TaxSimba catch-up work</button>
                     )}
-                    {isAdmin && p.status === "APPROVED" && (
+                    {isStaffAdmin && p.status === "APPROVED" && (
                       <button data-testid={`mtd-submit-btn-${p.id}`} className="text-xs font-semibold text-[#006B3C]"
                         onClick={() => { setForm({ period: p, submission_reference: "", submission_date: "", provider: "", outcome: "" }); setModal("mtdsubmit"); }}>
                         Record external submission

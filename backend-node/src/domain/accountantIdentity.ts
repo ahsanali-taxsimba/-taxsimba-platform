@@ -62,3 +62,47 @@ export async function resolveActiveAccountantUserId(
 export function isAssignedToAccountant(kase: Doc, accountantUserId: string): boolean {
   return String(kase.assigned_accountant_id ?? "") === String(accountantUserId);
 }
+
+/** Shown when SUPER_ADMIN tries to deactivate/remove an accountant who still owns open cases. */
+export const ACCOUNTANT_ACTIVE_CASES_BLOCK_MESSAGE =
+  "This accountant has active cases. An Admin must reassign them before deactivation.";
+
+export type ActiveCasesNeedingReassignment = {
+  count: number;
+  caseIds: string[];
+};
+
+/**
+ * Open (non-completed) operational cases still assigned to this accountant user id.
+ * Used to block SUPER_ADMIN deactivate/remove until ADMIN reassigns every active case.
+ */
+export async function listActiveCasesForAccountant(
+  accountantUserId: string,
+): Promise<ActiveCasesNeedingReassignment> {
+  const { OPERATIONAL_ONLY } = await import("./testdata");
+  const rows = (await col("cases")
+    .find({
+      assigned_accountant_id: accountantUserId,
+      status: { $nin: ["COMPLETED", "SUBMITTED"] },
+      ...OPERATIONAL_ONLY,
+    })
+    .project({ id: 1 })
+    .toArray()) as Doc[];
+  const caseIds = rows.map((r) => String(r.id));
+  return { count: caseIds.length, caseIds };
+}
+
+/**
+ * Throw HTTP 409 with active case IDs/count when deactivation/removal would leave
+ * open cases on an inactive accountant. Makes no database changes.
+ */
+export async function assertNoActiveCasesBeforeDeactivate(
+  accountantUserId: string,
+): Promise<void> {
+  const active = await listActiveCasesForAccountant(accountantUserId);
+  if (active.count <= 0) return;
+  throw httpError(409, {
+    msg: ACCOUNTANT_ACTIVE_CASES_BLOCK_MESSAGE,
+    activeCasesNeedingReassignment: active,
+  });
+}

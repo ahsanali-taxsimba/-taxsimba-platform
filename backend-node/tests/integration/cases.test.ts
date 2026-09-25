@@ -214,6 +214,13 @@ describe("assignment", () => {
       .set(bearer(accountant))
       .send({ accountant_id: accountant.id })
       .expect(403);
+    // SUPER_ADMIN cannot assign — ADMIN-only.
+    const sa = await makeUser("SUPER_ADMIN", "assign-gate-sa");
+    await request(app)
+      .post(`/api/cases/${caseId}/assign`)
+      .set(bearer(sa))
+      .send({ accountant_id: accountant.id })
+      .expect(403);
     await request(app)
       .post(`/api/cases/${caseId}/assign`)
       .set(bearer(admin))

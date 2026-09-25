@@ -69,12 +69,16 @@ Latest verified status on `toxel-uat-approved`:
 - Stripe Checkout / fulfilment / webhook contract: **PASS**
 - SA / MTD entitlement isolation + dual-service: **PASS**
 - Admin UUID-safe assignment: **PASS**
-- Operational assignment actor = **ADMIN**; Super Admin = oversight + accountant account lifecycle
+- Operational assignment actor = **ADMIN only** (SUPER_ADMIN assign/reassign → **403**; FE hides assign controls)
+- SUPER_ADMIN = oversight (sees all cases + assigned accountants) + accountant account lifecycle; deactivate/remove with active cases → **409** until ADMIN reassigns
 - MTD assignment handoff (canonical users.id → Assigned-to-Me list + rich notification): **PASS**
 - Authoritative MTD obligation / overdue semantics across client + staff: **PASS**
 - Verification vs purchase email separation (PNG logo): **PASS**
+- Role-integrity regression (ADMIN assign 200 / SA assign 403 / deactivate 409 / isolation): **PASS**
 
 `no-console` messages may still appear as warnings but are **not** the current build blocker.
+
+**Shared staging deployment, Stripe TEST and real email verification are still required of the staging operator before a Toxel retest claim.**
 
 ---
 

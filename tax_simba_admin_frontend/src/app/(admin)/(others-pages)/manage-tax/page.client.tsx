@@ -18,9 +18,11 @@ import Badge from "@/components/ui/badge/Badge";
 import clientAxios from '@/lib/axios-client';
 import { mapTaxReturnListPayload } from '@/lib/mapTaxReturnList';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { TaxReturnData } from '@/utils/interface';
 import AssignAccountantModal from './_sections/AssignAccountantModal';
 import TaxReturnCard from './_sections/TaxReturnCard';
+import { canAssignCases } from '@/lib/roles';
 
 // Types
 type TabStatus = 'pending' | 'assigned' | 'completed';
@@ -36,6 +38,8 @@ const AdminTaxReturnManagement: React.FC = () => {
   const [assignTaxReturnId, setAssignTaxReturnId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const router = useRouter();
+  const { data: session } = useSession();
+  const canAssign = canAssignCases(session?.user?.role);
   const statusMap: Record<TabStatus, string[]> = {
     pending: ['pending_payment'],
     assigned: ['assigned', 'preparation_started', 'draft_ready', 'final_submitted'],
@@ -119,7 +123,7 @@ const AdminTaxReturnManagement: React.FC = () => {
       />
 
       <AssignAccountantModal
-        isOpen={assignTaxReturnId !== null}
+        isOpen={canAssign && assignTaxReturnId !== null}
         onClose={() => setAssignTaxReturnId(null)}
         fileId={assignTaxReturnId}
         setTaxReturns={setTaxReturns}
@@ -279,7 +283,9 @@ const AdminTaxReturnManagement: React.FC = () => {
                   item={item}
                   onAssign={handleAssign}
                   onViewDetails={handleViewDetails}
-                  showAssignButton={activeTab !== 'assigned' && activeTab !== 'completed'}
+                  showAssignButton={
+                    canAssign && activeTab !== 'assigned' && activeTab !== 'completed'
+                  }
                 />
               ))}
             </div>
@@ -337,7 +343,7 @@ const AdminTaxReturnManagement: React.FC = () => {
                                 Download
                               </a>
                             )}
-                            {activeTab !== 'assigned' && activeTab !== 'completed' && (
+                            {canAssign && activeTab !== 'assigned' && activeTab !== 'completed' && (
                               <button
                                 onClick={(e) => {
                                   e.preventDefault();

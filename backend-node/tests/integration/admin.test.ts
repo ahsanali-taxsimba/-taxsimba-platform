@@ -195,7 +195,7 @@ describe("admin, audit, help centre and invitations", () => {
       .expect(400);
   });
 
-  it("deactivates staff and reports the cases that need reassignment", async () => {
+  it("deactivates staff only when no open cases remain; blocks with 409 otherwise", async () => {
     const leaver = await makeUser("ACCOUNTANT", "leaver");
     const { col } = await import("../../src/db/mongo");
     await col("accountant_profiles").insertOne({
@@ -214,11 +214,35 @@ describe("admin, audit, help centre and invitations", () => {
       .expect(403);
     await request(app).patch(`/api/users/${leaver.id}/active`).set(bearer(superAdmin)).expect(422);
 
+    // Open case blocks deactivation — no mutation.
+    const blocked = await request(app)
+      .patch(`/api/users/${leaver.id}/active?is_active=false`)
+      .set(bearer(superAdmin))
+      .expect(409);
+    expect(String(blocked.body.detail?.msg || blocked.body.detail)).toMatch(
+      /Admin must reassign/i,
+    );
+    expect(blocked.body.detail?.activeCasesNeedingReassignment?.count).toBeGreaterThanOrEqual(1);
+    expect((await col("users").findOne({ id: leaver.id }))?.is_active).not.toBe(false);
+
+    // Reassign open case away, then deactivate succeeds.
+    const open = await col("cases").findOne({
+      assigned_accountant_id: leaver.id,
+      status: { $nin: ["COMPLETED", "SUBMITTED"] },
+    });
+    expect(open?.id).toBeTruthy();
+    const otherAcc = await makeUser("ACCOUNTANT", "deact-reassign-target");
+    await request(app)
+      .post(`/api/cases/${open!.id}/assign`)
+      .set(bearer(admin))
+      .send({ accountant_id: otherAcc.id })
+      .expect(200);
+
     const off = await request(app)
       .patch(`/api/users/${leaver.id}/active?is_active=false`)
       .set(bearer(superAdmin))
       .expect(200);
-    expect(off.body).toEqual({ ok: true, active_cases_needing_reassignment: 1 });
+    expect(off.body.ok).toBe(true);
     expect((await col("users").findOne({ id: leaver.id }))?.is_active).toBe(false);
     expect((await col("accountant_profiles").findOne({ user_id: leaver.id }))?.is_active).toBe(
       false,
@@ -228,7 +252,7 @@ describe("admin, audit, help centre and invitations", () => {
       .patch(`/api/users/${leaver.id}/active?is_active=true`)
       .set(bearer(superAdmin))
       .expect(200);
-    expect(on.body.active_cases_needing_reassignment).toBe(0);
+    expect(on.body.ok).toBe(true);
     expect((await col("users").findOne({ id: leaver.id }))?.is_active).toBe(true);
   });
 

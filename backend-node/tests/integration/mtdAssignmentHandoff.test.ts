@@ -307,7 +307,7 @@ describe("MTD assignment handoff — identity + list + obligation", () => {
     expect(superHit.assignedAccountantName).toBeTruthy();
   });
 
-  it("deactivating accountant with open cases returns activeCasesNeedingReassignment (no silent orphan)", async () => {
+  it("deactivating accountant with open cases returns 409 and makes no mutation until Admin reassigns", async () => {
     const client = await makeClient("mtd-deact-handoff");
     const { caseId } = await activateClientService(client, "MTD_INCOME_TAX", "MTD_COMPLY");
     await request(app)
@@ -323,26 +323,30 @@ describe("MTD assignment handoff — identity + list + obligation", () => {
       .send({ status: "inactive" })
       .expect(403);
 
+    // SUPER_ADMIN cannot assign (even for "parity") — 403.
+    await request(app)
+      .post("/api/compat/admin/assign")
+      .set(bearer(superAdmin))
+      .send({ taxReturnId: caseId, accountantId: accountantB.id })
+      .expect(403);
+
     const deact = await request(app)
       .post(`/api/compat/admin/accountants/${accountantA.id}/status`)
       .set(bearer(superAdmin))
       .send({ status: "inactive" })
-      .expect(200);
-    expect(deact.body.data.isActive).toBe(false);
-    expect(deact.body.data.activeCasesNeedingReassignment).toBeGreaterThanOrEqual(1);
-    expect(String(deact.body.message || "")).toMatch(/reassign/i);
+      .expect(409);
+    expect(String(deact.body.message || "")).toMatch(
+      /This accountant has active cases\. An Admin must reassign them before deactivation/i,
+    );
+    const needing = deact.body.data?.activeCasesNeedingReassignment;
+    expect(needing?.count).toBeGreaterThanOrEqual(1);
+    expect(needing?.caseIds).toContain(caseId);
 
-    // Case remains assigned to the (now inactive) accountant until Admin reassigns — not cleared.
+    // No mutation — accountant still active, case still assigned to A.
     const { col } = await import("../../src/db/mongo");
+    expect((await col("users").findOne({ id: accountantA.id }))?.is_active).not.toBe(false);
     const stored = await col("cases").findOne({ id: caseId });
     expect(stored?.assigned_accountant_id).toBe(accountantA.id);
-
-    // Reactivate for remaining tests in this suite.
-    await request(app)
-      .post(`/api/compat/admin/accountants/${accountantA.id}/status`)
-      .set(bearer(superAdmin))
-      .send({ status: "active" })
-      .expect(200);
   });
 
   it("SA assignment still appears in accountant list", async () => {

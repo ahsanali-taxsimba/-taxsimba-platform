@@ -401,9 +401,10 @@ casesRouter.get(
 );
 
 // ---------------------------------------------------------------- assignment
+/** Assignment / reassignment is ADMIN-only — SUPER_ADMIN gets 403. */
 casesRouter.post(
   "/cases/:caseId/assign",
-  auth("ADMIN", "SUPER_ADMIN"),
+  auth("ADMIN"),
   handler(async (req, res) => {
     const me = authed(req);
     const caseId = req.params.caseId;
@@ -493,7 +494,7 @@ casesRouter.post(
 
 casesRouter.post(
   "/cases/:caseId/unassign",
-  auth("ADMIN", "SUPER_ADMIN"),
+  auth("ADMIN"),
   handler(async (req, res) => {
     const me = authed(req);
     const caseId = req.params.caseId;

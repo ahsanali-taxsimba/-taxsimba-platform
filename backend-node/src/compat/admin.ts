@@ -19,7 +19,10 @@ import {
 import { OPERATIONAL_ONLY, TEST_EMAIL_REGEX } from "../domain/testdata";
 import { nowIso } from "../domain/workflow";
 import { currentMtdObligation } from "../domain/obligation";
-import { isAssignedToAccountant } from "../domain/accountantIdentity";
+import {
+  assertNoActiveCasesBeforeDeactivate,
+  isAssignedToAccountant,
+} from "../domain/accountantIdentity";
 import { handler, httpError, parseBody } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
 import { issueInvite } from "../services/invites";
@@ -498,15 +501,10 @@ compatAdminRouter.post(
     })) as Doc | null;
     if (!user) throw httpError(404, "User not found");
 
-    // Match native PATCH /users/:id/active: deactivation keeps case history; surfaces
-    // open assignments that still need Admin reassignment (do not silently orphan).
-    let openCases = 0;
+    // Block deactivate when the accountant still owns open cases — Admin must reassign first.
+    // 409 + no DB mutation; never instruct SUPER_ADMIN to reassign.
     if (!active) {
-      openCases = await col("cases").countDocuments({
-        assigned_accountant_id: user.id,
-        status: { $nin: ["COMPLETED", "SUBMITTED"] },
-        ...OPERATIONAL_ONLY,
-      });
+      await assertNoActiveCasesBeforeDeactivate(String(user.id));
     }
 
     await col("users").updateOne(
@@ -521,7 +519,7 @@ compatAdminRouter.post(
       const { logActivity } = await import("../domain/workflow");
       await logActivity(null, "Staff account deactivated", me, {
         target_user_id: user.id,
-        active_cases: openCases,
+        active_cases: 0,
       });
     }
 
@@ -531,13 +529,10 @@ compatAdminRouter.post(
         ok: true,
         id: user.id,
         isActive: active,
-        activeCasesNeedingReassignment: openCases,
-        // snake alias for older FE readers
-        active_cases_needing_reassignment: openCases,
+        activeCasesNeedingReassignment: { count: 0, caseIds: [] },
+        active_cases_needing_reassignment: { count: 0, case_ids: [] },
       },
-      !active && openCases > 0
-        ? `Accountant deactivated. ${openCases} open case(s) still assigned — reassign via Manage Tax.`
-        : "Accountant status updated successfully.",
+      "Accountant status updated successfully.",
     );
   }),
 );
@@ -554,11 +549,8 @@ compatAdminRouter.delete(
     })) as Doc | null;
     if (!user) throw httpError(404, "User not found");
 
-    const openCases = await col("cases").countDocuments({
-      assigned_accountant_id: user.id,
-      status: { $nin: ["COMPLETED", "SUBMITTED"] },
-      ...OPERATIONAL_ONLY,
-    });
+    // Same gate as status deactivate: Admin must reassign active cases first.
+    await assertNoActiveCasesBeforeDeactivate(String(user.id));
 
     await col("users").updateOne(
       { id: user.id },
@@ -571,7 +563,7 @@ compatAdminRouter.delete(
     const { logActivity } = await import("../domain/workflow");
     await logActivity(null, "Staff account deactivated", me, {
       target_user_id: user.id,
-      active_cases: openCases,
+      active_cases: 0,
     });
 
     sendCompatSuccess(
@@ -580,12 +572,10 @@ compatAdminRouter.delete(
         ok: true,
         id: user.id,
         isActive: false,
-        activeCasesNeedingReassignment: openCases,
-        active_cases_needing_reassignment: openCases,
+        activeCasesNeedingReassignment: { count: 0, caseIds: [] },
+        active_cases_needing_reassignment: { count: 0, case_ids: [] },
       },
-      openCases > 0
-        ? `Deactivated. ${openCases} open case(s) still assigned — reassign via Manage Tax.`
-        : "Deactivated",
+      "Deactivated",
     );
   }),
 );

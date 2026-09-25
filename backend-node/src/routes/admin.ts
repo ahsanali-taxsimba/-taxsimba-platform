@@ -423,22 +423,23 @@ adminRouter.patch(
       ]);
     }
     const isActive = ["true", "1", "yes", "on"].includes(raw.toLowerCase());
+    // Block deactivate when open cases remain — Admin must reassign first (409, no mutation).
+    if (!isActive) {
+      const { assertNoActiveCasesBeforeDeactivate } = await import(
+        "../domain/accountantIdentity"
+      );
+      await assertNoActiveCasesBeforeDeactivate(String(req.params.userId));
+    }
     await col("users").updateOne({ id: req.params.userId }, { $set: { is_active: isActive } });
     // Deactivation keeps every historical record; only the login and new assignments stop.
-    let openCases = 0;
     if (!isActive) {
-      openCases = await col("cases").countDocuments({
-        assigned_accountant_id: req.params.userId,
-        status: { $nin: ["COMPLETED", "SUBMITTED"] },
-        ...OPERATIONAL_ONLY,
-      });
       await col("accountant_profiles").updateOne(
         { user_id: req.params.userId },
         { $set: { is_active: false } },
       );
       await logActivity(null, "Staff account deactivated", me, {
         target_user_id: req.params.userId,
-        active_cases: openCases,
+        active_cases: 0,
       });
     } else {
       await col("accountant_profiles").updateOne(
@@ -446,7 +447,7 @@ adminRouter.patch(
         { $set: { is_active: true } },
       );
     }
-    res.json({ ok: true, active_cases_needing_reassignment: openCases });
+    res.json({ ok: true, active_cases_needing_reassignment: { count: 0, case_ids: [] } });
   }),
 );
 

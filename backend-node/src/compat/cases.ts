@@ -491,10 +491,11 @@ const AssignIn = z.object({
   internal_instructions: z.string().nullish().optional(),
 });
 
-/** C5 — map Toxel admin/assign → existing assign semantics via transition whitelist. */
+/** C5 — map Toxel admin/assign → existing assign semantics via transition whitelist.
+ * Assignment / reassignment is ADMIN-only (SUPER_ADMIN oversight cannot mutate ownership). */
 compatCasesRouter.post(
   "/admin/assign",
-  auth("ADMIN", "SUPER_ADMIN"),
+  auth("ADMIN"),
   handler(async (req, res) => {
     const me = authed(req);
     const body = parseBody(AssignIn, req.body ?? {});
