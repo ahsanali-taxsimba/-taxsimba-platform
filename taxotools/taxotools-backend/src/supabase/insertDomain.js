@@ -8,17 +8,30 @@ export async function upsertAccountancyFirm(firm) {
   const domain = normalizeDomain(firm.domain);
   if (!domain) return null;
 
+  // Never store firms without a real website
+  if (
+    domain.includes(".companieshouse.pending") ||
+    firm.crawl_status === "needs_website" ||
+    firm.website_verified === false
+  ) {
+    log.info("Ignoring firm without live website", {
+      domain,
+      company: firm.company_name || firm.companyName,
+    });
+    return null;
+  }
+
   const row = {
     domain,
     company_name: firm.company_name || firm.companyName || domain,
     location: firm.location || null,
     sic_code: firm.sic_code || firm.sicCode || null,
-    website_url: firm.website_url || firm.websiteUrl || (domain.includes(".pending") ? null : `https://${domain}`),
+    website_url: firm.website_url || firm.websiteUrl || `https://${domain}`,
     source: firm.source || "discovery",
+    website_verified: firm.website_verified != null ? Boolean(firm.website_verified) : true,
     updated_at: new Date().toISOString(),
   };
   if (firm.company_number != null) row.company_number = firm.company_number;
-  if (firm.website_verified != null) row.website_verified = Boolean(firm.website_verified);
   if (firm.crawl_status != null) row.crawl_status = firm.crawl_status;
 
   const { data, error } = await getSupabase()
@@ -47,6 +60,7 @@ export async function listAccountancyFirms({
 
   if (crawlableOnly) {
     q = q
+      .eq("website_verified", true)
       .not("domain", "like", "%.companieshouse.pending")
       .not("crawl_status", "in", "(unreachable,superseded,needs_website)");
   }

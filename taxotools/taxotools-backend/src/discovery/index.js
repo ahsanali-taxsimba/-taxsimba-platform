@@ -1,5 +1,5 @@
 import { logger } from "../utils/logger.js";
-import { discoverFromCompaniesHouse, seedDemoFirms, resolvePendingWebsites } from "./companiesHouse.js";
+import { discoverFromCompaniesHouse, seedDemoFirms, purgeFirmsWithoutWebsites } from "./companiesHouse.js";
 import { discoverFromGoogleSearch } from "./googleSearch.js";
 import { discoverFromDirectories } from "./directories.js";
 import { listAccountancyFirms, getCoverageStats } from "../supabase/insertDomain.js";
@@ -7,29 +7,27 @@ import { listAccountancyFirms, getCoverageStats } from "../supabase/insertDomain
 const log = logger("discovery");
 
 /**
- * Full UK-wide discovery:
- * Companies House (paginated SIC) → resolve pending sites → Google → city directories → seed baseline
+ * Full UK-wide discovery — only firms with live websites are kept.
  */
 export async function runDiscovery({
   includeDirectories = true,
   deep = false,
 } = {}) {
   log.info("Starting UK accountancy discovery", { deep });
+  const purged = await purgeFirmsWithoutWebsites({ limit: deep ? 5000 : 2000 });
   const ch = await discoverFromCompaniesHouse({
     maxPagesPerSic: deep ? 20 : Number(process.env.CH_MAX_PAGES_PER_SIC || 5),
   });
-  const resolved = await resolvePendingWebsites({ limit: deep ? 100 : 40 });
   const google = await discoverFromGoogleSearch({
     num: deep ? 20 : 10,
   });
   const dirs = includeDirectories
     ? await discoverFromDirectories({
-        locations: undefined, // use default city list
+        locations: undefined,
         verifyLive: true,
       })
     : [];
 
-  // Always ensure known national firms exist
   await seedDemoFirms("national_seed");
 
   let firms = await listAccountancyFirms({ limit: 5000, crawlableOnly: true });
@@ -42,7 +40,7 @@ export async function runDiscovery({
   const coverage = await getCoverageStats();
   const summary = {
     companiesHouse: ch.length,
-    websitesResolved: resolved.resolved,
+    purgedNoWebsite: purged.removed,
     google: google.length,
     directories: dirs.length,
     crawlableFirms: firms.length,

@@ -55,17 +55,14 @@ export async function discoverFromCompaniesHouse({
             null;
 
           let domain = null;
-          let verified = false;
           if (resolveWebsites) {
             domain = await resolveLiveDomainFromName(name);
-            verified = Boolean(domain);
             await sleep(150);
           }
 
-          // If no live site yet, still track the company under a stable CH placeholder domain
-          // so we can resolve websites later — crawler skips placeholders.
+          // No live website → ignore firm completely (do not store placeholders)
           if (!domain) {
-            domain = `ch-${companyNumber}.companieshouse.pending`;
+            continue;
           }
 
           const row = await upsertAccountancyFirm({
@@ -75,9 +72,9 @@ export async function discoverFromCompaniesHouse({
             sic_code: sic,
             company_number: companyNumber,
             source: "companies_house",
-            website_url: verified ? `https://${domain}` : null,
-            website_verified: verified,
-            crawl_status: verified ? "pending" : "needs_website",
+            website_url: `https://${domain}`,
+            website_verified: true,
+            crawl_status: "pending",
           });
           if (row) found.push(row);
         }
@@ -92,46 +89,63 @@ export async function discoverFromCompaniesHouse({
     }
   }
 
-  log.info(`Companies House discovered ${found.length} firms (verified sites preferred)`);
+  log.info(`Companies House discovered ${found.length} firms with live websites (no-website ignored)`);
   return found;
 }
 
-/** Re-check firms that still need a website */
-export async function resolvePendingWebsites({ limit = 40 } = {}) {
+/**
+ * Delete firms that have no usable website (placeholders / needs_website / unreachable).
+ */
+export async function purgeFirmsWithoutWebsites({ limit = 2000 } = {}) {
   const { getSupabase } = await import("../supabase/client.js");
-  const { data } = await getSupabase()
-    .from("accountancy_firms")
-    .select("*")
-    .eq("crawl_status", "needs_website")
-    .limit(limit);
+  const sb = getSupabase();
+  let removed = 0;
 
-  let resolved = 0;
-  for (const firm of data || []) {
-    const domain = await resolveLiveDomainFromName(firm.company_name);
-    if (!domain) continue;
-    await upsertAccountancyFirm({
-      domain,
-      company_name: firm.company_name,
-      location: firm.location,
-      sic_code: firm.sic_code,
-      company_number: firm.company_number,
-      source: firm.source || "companies_house",
-      website_url: `https://${domain}`,
-      website_verified: true,
-      crawl_status: "pending",
-    });
-    // Soft-delete / mark old placeholder
-    if (firm.domain?.includes(".companieshouse.pending")) {
-      await getSupabase()
-        .from("accountancy_firms")
-        .update({ crawl_status: "superseded", updated_at: new Date().toISOString() })
-        .eq("domain", firm.domain);
-    }
-    resolved += 1;
-    await sleep(200);
+  // Placeholders
+  const { data: pending } = await sb
+    .from("accountancy_firms")
+    .select("domain")
+    .like("domain", "%.companieshouse.pending")
+    .limit(limit);
+  for (const row of pending || []) {
+    const { error } = await sb.from("accountancy_firms").delete().eq("domain", row.domain);
+    if (!error) removed += 1;
   }
-  log.info("Resolved pending websites", { resolved, checked: (data || []).length });
-  return { resolved };
+
+  // Explicit no-website / dead statuses
+  for (const status of ["needs_website", "unreachable", "superseded"]) {
+    const { data } = await sb
+      .from("accountancy_firms")
+      .select("domain")
+      .eq("crawl_status", status)
+      .limit(limit);
+    for (const row of data || []) {
+      const { error } = await sb.from("accountancy_firms").delete().eq("domain", row.domain);
+      if (!error) removed += 1;
+    }
+  }
+
+  // website_verified = false and no real website_url
+  const { data: unverified } = await sb
+    .from("accountancy_firms")
+    .select("domain,website_url,website_verified")
+    .eq("website_verified", false)
+    .limit(limit);
+  for (const row of unverified || []) {
+    const url = String(row.website_url || "");
+    if (!url || url.includes(".pending")) {
+      const { error } = await sb.from("accountancy_firms").delete().eq("domain", row.domain);
+      if (!error) removed += 1;
+    }
+  }
+
+  log.info("Purged firms without websites", { removed });
+  return { removed };
+}
+
+/** @deprecated — no-website firms are ignored; kept as alias for purge */
+export async function resolvePendingWebsites(opts = {}) {
+  return purgeFirmsWithoutWebsites(opts);
 }
 
 export async function seedDemoFirms(source = "demo") {

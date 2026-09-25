@@ -9,7 +9,7 @@ import { getSupabase } from "../supabase/client.js";
 import { getCoverageStats } from "../supabase/insertDomain.js";
 import { refreshKeywordsForDomain } from "../keywords/keywordsEverywhere.js";
 import { extractKeywordCandidates } from "../crawler/extractIntelligence.js";
-import { resolvePendingWebsites } from "../discovery/companiesHouse.js";
+import { purgeFirmsWithoutWebsites } from "../discovery/companiesHouse.js";
 
 const log = logger("continuous");
 
@@ -71,15 +71,16 @@ export async function runForever() {
   let lastDailyKey = "";
   let lastWeeklyKey = "";
 
-  // Light boot only (max ~3 min) — never block forever on deep discovery
+  // Light boot: purge no-website firms, then light discovery
   try {
-    log.info("Boot: light discovery + website resolve");
+    log.info("Boot: purge firms without websites + light discovery");
+    const { purgeFirmsWithoutWebsites } = await import("../discovery/companiesHouse.js");
+    await withTimeout(purgeFirmsWithoutWebsites({ limit: 3000 }), 120_000, "boot-purge");
     await withTimeout(
       runDiscovery({ includeDirectories: false, deep: false }),
       180_000,
       "boot-discovery",
     );
-    await withTimeout(resolvePendingWebsites({ limit: 25 }), 120_000, "boot-resolve");
   } catch (e) {
     log.warn("Boot discovery skipped/partial — starting crawl loop", {
       error: String(e.message || e),
@@ -122,7 +123,7 @@ export async function runForever() {
 
       // 2) Bounded discovery every 3 cycles (or daily) — never hang the loop
       if (cycles % 3 === 0 || dailyKey !== lastDailyKey) {
-        log.info("Discovery pass (bounded)");
+        log.info("Discovery pass (bounded) — websites only");
         await withTimeout(
           runDiscovery({
             includeDirectories: cycles % 6 === 0,
@@ -131,9 +132,6 @@ export async function runForever() {
           240_000,
           "discovery",
         ).catch((e) => log.warn(String(e.message || e)));
-        await withTimeout(resolvePendingWebsites({ limit: 30 }), 120_000, "resolve").catch(
-          (e) => log.warn(String(e.message || e)),
-        );
       }
 
       if (dailyKey !== lastDailyKey) {
