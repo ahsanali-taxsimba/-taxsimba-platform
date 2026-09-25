@@ -104,7 +104,9 @@ const DownloadCertificate = ({
           : `/accountant/assignments/${caseId}/upload-final-certificate`;
 
       const response = await clientAxios.post(endpoint, formData, true, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+        // Do not set Content-Type — clientAxios omits it for FormData so the
+        // browser can attach the multipart boundary.
+        onUploadProgress: undefined,
       });
 
       if (response.data?.success) {

@@ -76,6 +76,7 @@ Latest verified status on `toxel-uat-approved`:
 - Verification vs purchase email separation (PNG logo): **PASS**
 - Role-integrity regression (ADMIN assign 200 / SA assign 403 / deactivate 409 / isolation): **PASS**
 - Accountant draft upload → Admin review gate (client hidden until Admin approval; no client notify on upload): **PASS**
+- Draft multipart FormData contract (no JSON Content-Type stringify; field `draftReturnFile`): **PASS**
 
 `no-console` messages may still appear as warnings but are **not** the current build blocker.
 

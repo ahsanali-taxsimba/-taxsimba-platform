@@ -528,20 +528,25 @@ async function staffUpload(
   );
 }
 
-const staffUploadMw = upload.fields([
-  { name: "file", maxCount: 1 },
-  { name: "draftReturnFile", maxCount: 1 },
-  { name: "finalCertificateFile", maxCount: 1 },
-  { name: "certificate", maxCount: 1 },
-]);
+const staffUploadMw = upload.any();
 
 function pickUploadedFile(
   req: import("express").Request,
 ): { buffer: Buffer; originalname: string; mimetype: string; size: number } | undefined {
+  if (req.file) return req.file;
   const files = req.files as
+    | Array<{ fieldname: string; buffer: Buffer; originalname: string; mimetype: string; size: number }>
     | Record<string, Array<{ buffer: Buffer; originalname: string; mimetype: string; size: number }>>
     | undefined;
-  if (!files) return req.file;
+  if (!files) return undefined;
+  if (Array.isArray(files)) {
+    const preferred = ["draftReturnFile", "file", "finalCertificateFile", "certificate"];
+    for (const name of preferred) {
+      const hit = files.find((f) => f.fieldname === name);
+      if (hit) return hit;
+    }
+    return undefined;
+  }
   return (
     files.file?.[0] ||
     files.draftReturnFile?.[0] ||

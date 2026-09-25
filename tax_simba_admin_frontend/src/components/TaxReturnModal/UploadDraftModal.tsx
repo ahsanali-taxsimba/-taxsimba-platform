@@ -131,7 +131,9 @@ const DraftUploadModal = ({
 
     try {
       const formData = new FormData();
-      formData.append('draftReturnFile', selectedFile);
+      // Must append the real File/Blob with an explicit filename so Multer receives
+      // draftReturnFile (see backend upload.fields name). Do not JSON-serialize.
+      formData.append('draftReturnFile', selectedFile, selectedFile.name);
       formData.append('draftType', draftType);
       formData.append('explanationNotes', notes);
 
@@ -140,6 +142,8 @@ const DraftUploadModal = ({
           ? `/admin/assignments/${taxReturnId}/upload-draft`
           : `/accountant/assignments/${taxReturnId}/upload-draft`;
 
+      // clientAxios omits Content-Type for FormData (Bearer only) so the browser
+      // sets multipart/form-data; boundary=… — never set Content-Type manually here.
       const response = await clientAxios.post(endpoint, formData, true, {
         onUploadProgress: (progressEvent: { loaded?: number; total?: number }) => {
           if (progressEvent.total) {
