@@ -80,9 +80,9 @@ export async function crawlDomain(
   domain,
   {
     maxPages = env.maxPagesPerDomain,
-    collectKeywords = true,
+    collectKeywords = env.collectKeywords,
     collectCompetitors = true,
-    pageSpeedHome = true,
+    pageSpeedHome = false, // secondary; enable with PAGESPEED_API_KEY only
   } = {},
 ) {
   const host = normalizeDomain(domain);
@@ -140,7 +140,7 @@ export async function crawlDomain(
           if (!seen.has(next) && queue.length < maxPages * 3) queue.push(next);
         }
 
-        if (pageSpeedHome && pages === 1) {
+        if (pageSpeedHome && env.pageSpeedKey && pages === 1) {
           homeSpeed = await maybePageSpeed(finalUrl);
         }
 

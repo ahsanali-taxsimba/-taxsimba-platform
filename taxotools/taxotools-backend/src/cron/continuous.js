@@ -137,7 +137,10 @@ export async function runForever() {
       }
 
       if (dailyKey !== lastDailyKey) {
-        await dailyKeywordPass(env.continuousFirmBatch * 2).catch(() => {});
+        // Keywords are optional (phase 2) — only when COLLECT_KEYWORDS / KE key enabled
+        if (env.collectKeywords) {
+          await dailyKeywordPass(env.continuousFirmBatch * 2).catch(() => {});
+        }
         lastDailyKey = dailyKey;
       }
 

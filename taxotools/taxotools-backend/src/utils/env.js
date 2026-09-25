@@ -38,6 +38,10 @@ export const env = {
   maxPagesPerDomain: Number(process.env.MAX_PAGES_PER_DOMAIN || 200),
   continuousLoopSleepMs: Number(process.env.CONTINUOUS_LOOP_SLEEP_MS || 60000),
   continuousFirmBatch: Number(process.env.CONTINUOUS_FIRM_BATCH || 5),
+  // Keywords only when explicitly enabled OR Keywords Everywhere key is present
+  collectKeywords:
+    String(process.env.COLLECT_KEYWORDS || "").toLowerCase() === "true" ||
+    Boolean(first(process.env.KEYWORDS_EVERYWHERE_API_KEY)),
   userAgent:
     process.env.USER_AGENT ||
     "TaxoToolsBot/1.0 (+https://taxotools.com)",
