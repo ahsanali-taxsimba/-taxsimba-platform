@@ -111,8 +111,94 @@ export class StripeProvider implements PaymentProvider {
 
 let provider: PaymentProvider | null = null;
 
+/**
+ * Local-agent / isolated staging only. Activated when PAYMENT_PROVIDER=fake and
+ * APP_BASE_URL is clearly non-production (localhost / 127.0.0.1). Never use on
+ * shared Toxel staging or production — those require Stripe TEST (sk_test_).
+ */
+class LocalStagingFakePaymentProvider implements PaymentProvider {
+  private readonly sessions = new Map<string, CheckoutSession>();
+  private seq = 0;
+
+  async createCheckout(
+    amount: number,
+    label: string,
+    originUrl: string,
+    metadata: Record<string, string>,
+    _productDescription?: string | null,
+  ): Promise<CheckoutSession> {
+    const { success_url } = checkoutReturnUrls(originUrl);
+    this.seq += 1;
+    const id = `cs_test_local_${this.seq}_${Date.now()}`;
+    const s: CheckoutSession = {
+      id,
+      // Bounce straight to success URL so browser journeys can complete without Stripe.
+      url: success_url.includes("{CHECKOUT_SESSION_ID}")
+        ? success_url.replace("{CHECKOUT_SESSION_ID}", id)
+        : `${success_url}${success_url.includes("?") ? "&" : "?"}session_id=${id}`,
+      status: "open",
+      payment_status: "unpaid",
+      payment_intent: null,
+    };
+    this.sessions.set(id, s);
+    // Auto-mark paid so retrieveSession after redirect fulfils entitlement.
+    s.status = "complete";
+    s.payment_status = "paid";
+    s.payment_intent = `pi_test_local_${this.seq}`;
+    void amount;
+    void label;
+    void metadata;
+    return { ...s };
+  }
+
+  async retrieveSession(sessionId: string): Promise<CheckoutSession> {
+    const s = this.sessions.get(sessionId);
+    if (!s) {
+      // Allow success-page refresh after process restart in local staging.
+      return {
+        id: sessionId,
+        url: null,
+        status: "complete",
+        payment_status: "paid",
+        payment_intent: `pi_test_local_recovered`,
+      };
+    }
+    return { ...s };
+  }
+
+  parseWebhook(payload: Buffer, signature: string): WebhookEvent {
+    if (signature !== "test-signature" && !signature.startsWith("whsec_test")) {
+      // Accept JSON event body for local webhook simulation.
+    }
+    void signature;
+    return JSON.parse(payload.toString("utf8")) as WebhookEvent;
+  }
+}
+
+function isLocalNonProdBaseUrl(url: string | undefined): boolean {
+  if (!url) return false;
+  try {
+    const u = new URL(url);
+    return u.hostname === "localhost" || u.hostname === "127.0.0.1";
+  } catch {
+    return false;
+  }
+}
+
 export function payments(): PaymentProvider {
-  if (!provider) provider = new StripeProvider();
+  if (!provider) {
+    const mode = (env("PAYMENT_PROVIDER") || "").toLowerCase();
+    if (mode === "fake") {
+      if (!isLocalNonProdBaseUrl(env("APP_BASE_URL"))) {
+        throw new Error(
+          "PAYMENT_PROVIDER=fake is only allowed when APP_BASE_URL is localhost/127.0.0.1",
+        );
+      }
+      provider = new LocalStagingFakePaymentProvider();
+    } else {
+      provider = new StripeProvider();
+    }
+  }
   return provider;
 }
 

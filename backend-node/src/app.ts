@@ -148,6 +148,19 @@ export function createApp(): Express {
     res.json({ message: "TaxSimba API" });
   });
 
+  /** Deployment integrity — every staging service must report the same git SHA. */
+  app.get("/api/build-info", (_req, res) => {
+    res.json({
+      service: "backend-node",
+      gitSha: process.env.GIT_SHA || process.env.COMMIT_SHA || null,
+      seedDemoData: process.env.SEED_DEMO_DATA ?? null,
+      emailDriver: process.env.EMAIL_DRIVER ?? null,
+      paymentProvider: process.env.PAYMENT_PROVIDER || (process.env.STRIPE_SECRET_KEY ? "stripe" : "unset"),
+      appBaseUrl: process.env.APP_BASE_URL ?? null,
+      dbName: process.env.DB_NAME ?? null,
+    });
+  });
+
   app.use("/api", (_req, _res, next) => next(httpError(404, "Not Found")));
   app.use(errorMiddleware);
   return app;
