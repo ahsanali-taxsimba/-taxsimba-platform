@@ -6,6 +6,7 @@ import { crawlDomain } from "./crawlDomain.js";
 import { fetchInboundFromCommonCrawl } from "./commonCrawlInbound.js";
 import { scoreReferringDomainsForAccountant } from "../scoring/backlinkScoring.js";
 import { env } from "../utils/env.js";
+import { claimFirmsForCrawl, workerId } from "../supabase/claimFirms.js";
 
 const log = logger("crawler");
 
@@ -24,7 +25,8 @@ async function mapPool(items, concurrency, worker) {
 }
 
 /**
- * Fast first-pass crawl: parallel firms, optional Common Crawl / competitors.
+ * Crawl a batch of firms.
+ * Prefers atomic DB claims so multiple Fly machines never duplicate the same firm.
  */
 export async function runCrawl({
   limit = 25,
@@ -33,15 +35,22 @@ export async function runCrawl({
   collectCompetitors = env.collectCompetitorsFirstPass,
   concurrency = env.crawlConcurrency,
 } = {}) {
-  const firms = await listAccountancyFirms({ limit });
-  const crawlStarted = new Date().toISOString();
+  const worker = workerId();
+  let firms = await claimFirmsForCrawl({ limit });
+  if (!firms) {
+    // RPC missing — single-machine safe fallback
+    firms = await listAccountancyFirms({ limit, crawlableOnly: true });
+  }
 
+  const crawlStarted = new Date().toISOString();
   log.info("Crawl batch start", {
+    worker,
     firms: firms.length,
     concurrency,
     maxPages: maxPages ?? env.maxPagesPerDomain,
     includeCommonCrawl,
     collectCompetitors,
+    claimed: true,
   });
 
   const results = await mapPool(firms, concurrency, async (firm) => {
@@ -60,21 +69,23 @@ export async function runCrawl({
       await scoreReferringDomainsForAccountant(firm.domain);
       return {
         domain: firm.domain,
+        worker,
         ...outbound,
         inbound: inbound.length,
         lost,
       };
     } catch (e) {
       log.warn(`crawl failed for ${firm.domain}`, { error: String(e.message || e) });
-      return { domain: firm.domain, error: String(e.message || e) };
+      return { domain: firm.domain, worker, error: String(e.message || e) };
     }
   });
 
   log.info("Crawl batch complete", {
+    worker,
     firms: firms.length,
     ok: results.filter((r) => r && !r.error).length,
   });
-  return { firms: firms.length, results };
+  return { firms: firms.length, worker, results };
 }
 
 export { crawlDomain, fetchInboundFromCommonCrawl };
