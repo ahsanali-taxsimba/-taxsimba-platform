@@ -474,6 +474,7 @@ compatAdminRouter.post(
   "/admin/accountants/:userId/status",
   auth("SUPER_ADMIN"),
   handler(async (req, res) => {
+    const me = authed(req);
     const body = (req.body ?? {}) as Record<string, unknown>;
     const status = String(body.status ?? "").toLowerCase();
     const active =
@@ -496,14 +497,47 @@ compatAdminRouter.post(
       role: { $in: ["ACCOUNTANT", "ADMIN"] },
     })) as Doc | null;
     if (!user) throw httpError(404, "User not found");
+
+    // Match native PATCH /users/:id/active: deactivation keeps case history; surfaces
+    // open assignments that still need Admin reassignment (do not silently orphan).
+    let openCases = 0;
+    if (!active) {
+      openCases = await col("cases").countDocuments({
+        assigned_accountant_id: user.id,
+        status: { $nin: ["COMPLETED", "SUBMITTED"] },
+        ...OPERATIONAL_ONLY,
+      });
+    }
+
     await col("users").updateOne(
       { id: user.id },
       { $set: { is_active: active, updated_at: nowIso() } },
     );
+    await col("accountant_profiles").updateOne(
+      { user_id: user.id },
+      { $set: { is_active: active } },
+    );
+    if (!active) {
+      const { logActivity } = await import("../domain/workflow");
+      await logActivity(null, "Staff account deactivated", me, {
+        target_user_id: user.id,
+        active_cases: openCases,
+      });
+    }
+
     sendCompatSuccess(
       res,
-      { ok: true, id: user.id, isActive: active },
-      "Accountant status updated successfully.",
+      {
+        ok: true,
+        id: user.id,
+        isActive: active,
+        activeCasesNeedingReassignment: openCases,
+        // snake alias for older FE readers
+        active_cases_needing_reassignment: openCases,
+      },
+      !active && openCases > 0
+        ? `Accountant deactivated. ${openCases} open case(s) still assigned — reassign via Manage Tax.`
+        : "Accountant status updated successfully.",
     );
   }),
 );
@@ -512,17 +546,47 @@ compatAdminRouter.delete(
   "/admin/accountants/:userId",
   auth("SUPER_ADMIN"),
   handler(async (req, res) => {
+    const me = authed(req);
     // Soft-deactivate — prefer invites/deactivate over hard delete.
     const user = (await col("users").findOne({
       id: req.params.userId,
       role: { $in: ["ACCOUNTANT", "ADMIN"] },
     })) as Doc | null;
     if (!user) throw httpError(404, "User not found");
+
+    const openCases = await col("cases").countDocuments({
+      assigned_accountant_id: user.id,
+      status: { $nin: ["COMPLETED", "SUBMITTED"] },
+      ...OPERATIONAL_ONLY,
+    });
+
     await col("users").updateOne(
       { id: user.id },
       { $set: { is_active: false, updated_at: nowIso() } },
     );
-    sendCompatSuccess(res, { ok: true, id: user.id, isActive: false }, "Deactivated");
+    await col("accountant_profiles").updateOne(
+      { user_id: user.id },
+      { $set: { is_active: false } },
+    );
+    const { logActivity } = await import("../domain/workflow");
+    await logActivity(null, "Staff account deactivated", me, {
+      target_user_id: user.id,
+      active_cases: openCases,
+    });
+
+    sendCompatSuccess(
+      res,
+      {
+        ok: true,
+        id: user.id,
+        isActive: false,
+        activeCasesNeedingReassignment: openCases,
+        active_cases_needing_reassignment: openCases,
+      },
+      openCases > 0
+        ? `Deactivated. ${openCases} open case(s) still assigned — reassign via Manage Tax.`
+        : "Deactivated",
+    );
   }),
 );
 

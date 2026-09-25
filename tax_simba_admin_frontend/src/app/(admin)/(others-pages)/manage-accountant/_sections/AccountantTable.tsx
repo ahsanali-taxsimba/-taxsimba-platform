@@ -156,26 +156,39 @@ console.log('openDropdownId', openDropdownId)
     }
 
     const onStatusChange = async (status?: number, id?: any) => {
-        console.log("status ", status, " id ", id)
         try {
             const canonical = status === 1 ? "active" : "inactive";
             const response = await clientAxios.post(
                 `/admin/accountants/${id}/status`,
                 { status: canonical },
                 true,
-            )
-            console.log("response ", response?.data)
+            );
             if (response) {
-                toast.success(response.data?.message || "Accountant status updated successfully.");
+                const data = response.data?.data || {};
+                const openCases = Number(
+                    data.activeCasesNeedingReassignment ??
+                        data.active_cases_needing_reassignment ??
+                        0,
+                );
+                if (canonical === "inactive" && openCases > 0) {
+                    toast.warning(
+                        response.data?.message ||
+                            `Accountant deactivated. ${openCases} open case(s) still assigned — reassign them in Manage Tax before they are left without an active accountant.`,
+                    );
+                } else {
+                    toast.success(
+                        response.data?.message || "Accountant status updated successfully.",
+                    );
+                }
                 setOpenDropdownId([]);
                 if (typeof fetchData === "function") fetchData();
                 if (typeof setGridUpdate === "function") setGridUpdate(!gridUpdate);
             }
         } catch (error: any) {
-            console.log(error)
+            console.log(error);
             toast.error(error.response?.data?.message || "Failed to update status.");
         }
-    }
+    };
 
     const toggleDropdown = (id: number) => {
         if (openDropdownId.find((item:number)=> item == id)) {

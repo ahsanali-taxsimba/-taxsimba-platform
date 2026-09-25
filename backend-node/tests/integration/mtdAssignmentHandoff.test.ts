@@ -22,6 +22,7 @@ import { FakePaymentProvider, WEBHOOK_SIGNATURE } from "../helpers/payments";
 describe("MTD assignment handoff — identity + list + obligation", () => {
   let app: Express;
   let provider: FakePaymentProvider;
+  let superAdmin: Awaited<ReturnType<typeof makeUser>>;
   let admin: Awaited<ReturnType<typeof makeUser>>;
   let accountantA: Awaited<ReturnType<typeof makeUser>>;
   let accountantB: Awaited<ReturnType<typeof makeUser>>;
@@ -42,7 +43,9 @@ describe("MTD assignment handoff — identity + list + obligation", () => {
     const { setPaymentProvider } = await import("../../src/services/payments");
     provider = new FakePaymentProvider();
     setPaymentProvider(provider);
-    admin = await makeUser("SUPER_ADMIN", "assign-handoff-admin");
+    // Operational assignment actor is ADMIN (role design). SUPER_ADMIN is oversight.
+    superAdmin = await makeUser("SUPER_ADMIN", "assign-handoff-super");
+    admin = await makeUser("ADMIN", "assign-handoff-admin");
     accountantA = await makeUser("ACCOUNTANT", "assign-handoff-a");
     accountantB = await makeUser("ACCOUNTANT", "assign-handoff-b");
     inactiveAcc = await makeUser("ACCOUNTANT", "assign-handoff-inactive");
@@ -289,6 +292,57 @@ describe("MTD assignment handoff — identity + list + obligation", () => {
       expect(progress.body.data.submissionDeadline).toBe(hist.body.data.obligation.deadline);
       expect(progress.body.data.daysToDeadline).toBe(hist.body.data.obligation.daysToDeadline);
     }
+
+    // Super Admin oversight: sees the case and which accountant is assigned (does not need to be the assigner).
+    const superView = await request(app)
+      .post("/api/compat/admin/tax-return/files")
+      .set(bearer(superAdmin))
+      .send({})
+      .expect(200);
+    const superHit = (superView.body.data.assignments || superView.body.data.taxReturns || []).find(
+      (r: { id: string }) => r.id === caseId,
+    );
+    expect(superHit).toBeTruthy();
+    expect(superHit.assignedAccountantId).toBe(accountantA.id);
+    expect(superHit.assignedAccountantName).toBeTruthy();
+  });
+
+  it("deactivating accountant with open cases returns activeCasesNeedingReassignment (no silent orphan)", async () => {
+    const client = await makeClient("mtd-deact-handoff");
+    const { caseId } = await activateClientService(client, "MTD_INCOME_TAX", "MTD_COMPLY");
+    await request(app)
+      .post("/api/compat/admin/assign")
+      .set(bearer(admin))
+      .send({ taxReturnId: caseId, accountantId: accountantA.id })
+      .expect(200);
+
+    // ADMIN cannot deactivate accountants — SUPER_ADMIN only.
+    await request(app)
+      .post(`/api/compat/admin/accountants/${accountantA.id}/status`)
+      .set(bearer(admin))
+      .send({ status: "inactive" })
+      .expect(403);
+
+    const deact = await request(app)
+      .post(`/api/compat/admin/accountants/${accountantA.id}/status`)
+      .set(bearer(superAdmin))
+      .send({ status: "inactive" })
+      .expect(200);
+    expect(deact.body.data.isActive).toBe(false);
+    expect(deact.body.data.activeCasesNeedingReassignment).toBeGreaterThanOrEqual(1);
+    expect(String(deact.body.message || "")).toMatch(/reassign/i);
+
+    // Case remains assigned to the (now inactive) accountant until Admin reassigns — not cleared.
+    const { col } = await import("../../src/db/mongo");
+    const stored = await col("cases").findOne({ id: caseId });
+    expect(stored?.assigned_accountant_id).toBe(accountantA.id);
+
+    // Reactivate for remaining tests in this suite.
+    await request(app)
+      .post(`/api/compat/admin/accountants/${accountantA.id}/status`)
+      .set(bearer(superAdmin))
+      .send({ status: "active" })
+      .expect(200);
   });
 
   it("SA assignment still appears in accountant list", async () => {
