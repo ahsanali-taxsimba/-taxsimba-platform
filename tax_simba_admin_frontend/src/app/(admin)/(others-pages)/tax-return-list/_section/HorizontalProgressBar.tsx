@@ -80,6 +80,13 @@ interface ProgressData {
   createdAt: string;
   progressSteps: ProgressStep[];
   adminNotes?: string;
+  /** Authoritative obligation days (may be negative when overdue). */
+  daysToDeadline?: number | null;
+  deadlineWarning?: string | null;
+  isOverdue?: boolean;
+  hasObligation?: boolean;
+  mtdQuarter?: string | null;
+  mtdQuarterDueDate?: string | null;
 }
 
 interface HorizontalProgressBarProps {
@@ -159,20 +166,30 @@ const HorizontalProgressBar: React.FC<HorizontalProgressBarProps> = ({
   };
 
   const getDaysUntilDeadline = () => {
+    if (progressData?.daysToDeadline != null && Number.isFinite(Number(progressData.daysToDeadline))) {
+      return Number(progressData.daysToDeadline);
+    }
     if (!progressData?.submissionDeadline) {
-      return 0;
+      return null;
     }
 
     const deadline = new Date(progressData.submissionDeadline);
-    const today = new Date();
+    const today = new Date(new Date().toISOString().slice(0, 10));
 
     if (isNaN(deadline.getTime())) {
       console.error("Invalid deadline date:", progressData.submissionDeadline);
-      return 0;
+      return null;
     }
 
-    const diffTime = deadline.getTime() - today.getTime();
-    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return Math.round((deadline.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+  };
+
+  const formatDaysLabel = () => {
+    const days = getDaysUntilDeadline();
+    if (days == null) return "No deadline set";
+    if (days < 0) return `Overdue by ${Math.abs(days)} day${Math.abs(days) === 1 ? "" : "s"}`;
+    if (days === 0) return "Due today";
+    return `${days} days remaining`;
   };
 
   // Calculate progress line width based on completed steps
@@ -304,7 +321,14 @@ const HorizontalProgressBar: React.FC<HorizontalProgressBarProps> = ({
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-orange-600">Days Left</p>
-                <p className="text-lg font-bold text-orange-900">{getDaysUntilDeadline()}</p>
+                <p className="text-lg font-bold text-orange-900">
+                  {(() => {
+                    const d = getDaysUntilDeadline();
+                    if (d == null) return "—";
+                    if (d < 0) return `-${Math.abs(d)}`;
+                    return d;
+                  })()}
+                </p>
               </div>
               <div className="w-10 h-10 bg-orange-600 rounded-lg flex items-center justify-center">
                 <Target className="h-5 w-5 text-white" />
@@ -677,24 +701,25 @@ const HorizontalProgressBar: React.FC<HorizontalProgressBarProps> = ({
             </div>
             <div>
               <p className="text-sm font-medium text-gray-500">Deadline</p>
-              <p className={`text-base font-medium ${getDaysUntilDeadline() < 30 ? 'text-red-600' : 'text-gray-700'}`}>
+              <p className={`text-base font-medium ${(getDaysUntilDeadline() ?? 999) < 30 ? 'text-red-600' : 'text-gray-700'}`}>
                 {progressData?.submissionDeadline ? new Date(progressData.submissionDeadline).toLocaleDateString() : 'Not set'}
+                {progressData?.mtdQuarter ? ` · ${progressData.mtdQuarter}` : ''}
               </p>
             </div>
             {progressData?.submissionDeadline && (
-              <div className={`flex items-center space-x-2 p-3 rounded-lg ${getDaysUntilDeadline() < 7 ? 'bg-red-50 border border-red-200' :
-                getDaysUntilDeadline() < 30 ? 'bg-yellow-50 border border-yellow-200' :
+              <div className={`flex items-center space-x-2 p-3 rounded-lg ${(getDaysUntilDeadline() ?? 999) < 7 ? 'bg-red-50 border border-red-200' :
+                (getDaysUntilDeadline() ?? 999) < 30 ? 'bg-yellow-50 border border-yellow-200' :
                   'bg-green-50 border border-green-200'
                 }`}>
-                <AlertCircle className={`h-4 w-4 ${getDaysUntilDeadline() < 7 ? 'text-red-500' :
-                  getDaysUntilDeadline() < 30 ? 'text-yellow-500' :
+                <AlertCircle className={`h-4 w-4 ${(getDaysUntilDeadline() ?? 999) < 7 ? 'text-red-500' :
+                  (getDaysUntilDeadline() ?? 999) < 30 ? 'text-yellow-500' :
                     'text-green-500'
                   }`} />
-                <span className={`text-sm font-medium ${getDaysUntilDeadline() < 7 ? 'text-red-700' :
-                  getDaysUntilDeadline() < 30 ? 'text-yellow-700' :
+                <span className={`text-sm font-medium ${(getDaysUntilDeadline() ?? 999) < 7 ? 'text-red-700' :
+                  (getDaysUntilDeadline() ?? 999) < 30 ? 'text-yellow-700' :
                     'text-green-700'
                   }`}>
-                  {getDaysUntilDeadline()} days remaining
+                  {formatDaysLabel()}
                 </span>
               </div>
             )}

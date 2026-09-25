@@ -6,7 +6,7 @@ const TaxReturnAssignmentCard: React.FC<{
   onEdit: (id: string) => void;
   onCancel: (id: string) => void;
   onComplete: (id: string) => void;
-  onViewDetails: (id: number) => void;
+  onViewDetails: (id: string | number) => void;
 }> = ({ assignment, onEdit, onCancel, onComplete, onViewDetails }) => {
   console.log("assignment", assignment)
   const getStatusColor = (status: TaxReturnAssignment['status']) => {
@@ -55,6 +55,15 @@ const TaxReturnAssignmentCard: React.FC<{
               <p className="text-sm text-gray-600">
                 {assignment.TaxReturnType?.typeName || 'Tax Return'}
               </p>
+            )}
+            {(assignment.client?.name || assignment.client?.surname) && (
+              <p className="text-sm text-gray-700 mt-1 flex items-center gap-1">
+                <User className="w-3.5 h-3.5 text-gray-400" />
+                {[assignment.client?.name, assignment.client?.surname].filter(Boolean).join(' ')}
+              </p>
+            )}
+            {assignment.TaxReturnType?.typeName && (
+              <p className="text-xs text-gray-500 mt-0.5">{assignment.TaxReturnType.typeName}</p>
             )}
           </div>
         </div>

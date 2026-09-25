@@ -27,6 +27,8 @@ import {
   journey,
   transition,
 } from "../domain/workflow";
+import { resolveActiveAccountantUserId } from "../domain/accountantIdentity";
+import { currentMtdObligation } from "../domain/obligation";
 import { handler, httpError, parseBody } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
 import { categoryToServiceType } from "./ownership";
@@ -277,13 +279,26 @@ async function buildProgressPayload(kase: Doc, me: Doc, hasSubmission: boolean):
       : j,
   );
 
+  const obligation = await currentMtdObligation(kase);
+  const submissionDeadline =
+    obligation.deadline ??
+    kase.external_deadline ??
+    kase.internal_deadline ??
+    null;
+
   return {
     ...decorateCase(kase),
     status: toxelStatus,
     statusLabel: clientStatus(String(kase.status)),
     nodeStatus: kase.status,
     priority: String(kase.priority ?? "MEDIUM").toLowerCase(),
-    submissionDeadline: kase.external_deadline ?? kase.internal_deadline ?? null,
+    submissionDeadline,
+    mtdQuarter: obligation.quarterLabel,
+    mtdQuarterDueDate: obligation.deadline,
+    daysToDeadline: obligation.daysToDeadline,
+    deadlineWarning: obligation.deadlineWarning,
+    isOverdue: obligation.isOverdue,
+    hasObligation: obligation.hasObligation,
     taxReturnId: kase.case_ref ?? kase.id,
     taxYear: kase.tax_year,
     progressPercentage: Math.min(100, Math.max(0, progressPercentage)),
@@ -297,10 +312,17 @@ async function buildProgressPayload(kase: Doc, me: Doc, hasSubmission: boolean):
       name: nameParts[0] || "Client",
       surname: nameParts.slice(1).join(" "),
       email: null, // contacts never unmasked here — use reveal-contact
+      userRole:
+        String(kase.service_type) === MTD || String(kase.service_type) === "MTD"
+          ? "MTD"
+          : "SA",
     },
     accountant,
     adminNotes: kase.internal_instructions ?? null,
     submissionReference: kase.submission_reference ?? null,
+    assignedAccountantId: kase.assigned_accountant_id ?? null,
+    assignedAccountantName: kase.assigned_accountant_name ?? null,
+    serviceType: kase.service_type,
   };
 }
 
@@ -454,8 +476,9 @@ compatCasesRouter.post(
 );
 
 const AssignIn = z.object({
-  accountant_id: z.string().optional(),
-  accountantId: z.string().optional(),
+  // Accept unknown so numeric IDs fail with a clear 400 (not Zod 422).
+  accountant_id: z.unknown().optional(),
+  accountantId: z.unknown().optional(),
   tax_return_id: z.string().optional(),
   taxReturnId: z.string().optional(),
   case_id: z.string().optional(),
@@ -478,67 +501,120 @@ compatCasesRouter.post(
     const taxReturnId =
       body.taxReturnId ?? body.tax_return_id ?? body.caseId ?? body.case_id ?? null;
     if (!taxReturnId) throw httpError(400, "taxReturnId is required");
-    const accountantId = body.accountantId ?? body.accountant_id;
-    if (!accountantId) throw httpError(400, "accountantId is required");
+    const rawAccountantId = body.accountantId ?? body.accountant_id;
+    if (rawAccountantId == null || rawAccountantId === "") {
+      throw httpError(400, "accountantId is required");
+    }
+    if (typeof rawAccountantId === "number") {
+      throw httpError(400, "accountantId must be a string UUID");
+    }
+    if (typeof rawAccountantId !== "string") {
+      throw httpError(400, "accountantId must be a string UUID");
+    }
+
     const caseId = toCaseId(String(taxReturnId));
     const kase = await getCase(caseId, me);
     if (kase.status === "COMPLETED") {
       throw httpError(400, "Completed cases are locked — reopen the case first");
     }
-    const acc = await col("users").findOne({
-      id: accountantId,
-      role: "ACCOUNTANT",
-      is_active: true,
-    });
-    if (!acc) throw httpError(404, "Accountant not found");
+
+    // Canonical identity = users.id (JWT subject). Rejects inactive / profile ids.
+    const acc = await resolveActiveAccountantUserId(rawAccountantId);
 
     const { randomUUID } = await import("crypto");
     const { nowIso, logActivity, notify } = await import("../domain/workflow");
+    const assignedAt = nowIso();
+    const serviceLabel =
+      String(kase.service_type) === MTD || String(kase.service_type) === "MTD"
+        ? "Making Tax Digital for Income Tax"
+        : "Self Assessment";
+    const caseRef = String(kase.case_ref ?? kase.id);
+    const priority = String(body.priority ?? kase.priority ?? "MEDIUM");
+    const deadline =
+      body.internalDeadline ?? body.internal_deadline ?? body.deadline ?? null;
+
+    // Idempotent re-assign to same accountant: refresh fields, do not duplicate notify noise.
+    const alreadySame =
+      String(kase.assigned_accountant_id ?? "") === acc.userId &&
+      String(kase.status) === "ASSIGNED";
+
     await col("assignments").insertOne({
       id: randomUUID(),
       case_id: caseId,
-      accountant_id: acc.id,
+      accountant_id: acc.userId,
       accountant_name: acc.name,
       assigned_by: me.id,
       assigned_by_name: me.name,
-      priority: body.priority ?? "MEDIUM",
-      internal_deadline:
-        body.internalDeadline ?? body.internal_deadline ?? body.deadline ?? null,
+      priority,
+      internal_deadline: deadline,
       internal_instructions: body.notes ?? body.internal_instructions ?? null,
-      created_at: nowIso(),
+      created_at: assignedAt,
     });
+
     const extra: Doc = {
-      assigned_accountant_id: acc.id,
+      assigned_accountant_id: acc.userId,
       assigned_accountant_name: acc.name,
-      priority: body.priority ?? "MEDIUM",
+      assigned_at: assignedAt,
+      priority,
     };
-    const deadline = body.internalDeadline ?? body.internal_deadline ?? body.deadline;
-    if (deadline) {
-      extra.internal_deadline = deadline;
-    }
+    if (deadline) extra.internal_deadline = deadline;
     if (body.notes ?? body.internal_instructions) {
       extra.internal_instructions = body.notes ?? body.internal_instructions;
     }
-    // Only transition to ASSIGNED when the whitelist allows it; reassignment keeps status.
+
     if ((ALLOWED_TRANSITIONS[String(kase.status)] ?? []).includes("ASSIGNED")) {
       await transition(kase, "ASSIGNED", me, `Assigned to ${acc.name}`, { extra });
     } else {
       await col("cases").updateOne(
         { id: caseId },
-        { $set: { ...extra, last_updated: nowIso() } },
+        { $set: { ...extra, last_updated: assignedAt } },
       );
       await logActivity(caseId, `Reassigned to ${acc.name}`, me);
     }
-    await notify(
-      String(acc.id),
-      "Case assigned to you",
-      `${kase.client_name} — ${kase.case_ref}`,
-      caseId,
-      `/work/cases/${caseId}`,
-      "ASSIGNMENT",
-    );
+
+    // Verify persistence before claiming success — never leave a false success toast.
+    const verified = (await col("cases").findOne({ id: caseId })) as Doc | null;
+    if (!verified || String(verified.assigned_accountant_id) !== acc.userId) {
+      throw httpError(500, "Assignment failed to persist — please retry");
+    }
+
+    const deepLink = `/tax-return-list/${caseId}`;
+    const notifyBody = [
+      `Client: ${kase.client_name ?? "Client"}`,
+      `Service: ${serviceLabel}`,
+      `Case: ${caseRef}`,
+      `Assigned: ${new Date(assignedAt).toLocaleDateString("en-GB")}`,
+      `Priority: ${priority}`,
+      deadline ? `Deadline: ${deadline}` : null,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    if (!alreadySame) {
+      await notify(
+        acc.userId,
+        "Case assigned to you",
+        notifyBody,
+        caseId,
+        deepLink,
+        "ASSIGNMENT",
+      );
+    }
+
     const updated = await getCase(caseId, me);
-    sendCompatSuccess(res, decorateCase(updated), "Assigned");
+    const obligation = await currentMtdObligation(updated);
+    sendCompatSuccess(
+      res,
+      {
+        ...decorateCase(updated),
+        assignedAccountantId: acc.userId,
+        assignedAccountantName: acc.name,
+        assignmentStatus: "assigned",
+        obligation,
+        notificationLink: deepLink,
+      },
+      "Assigned",
+    );
   }),
 );
 

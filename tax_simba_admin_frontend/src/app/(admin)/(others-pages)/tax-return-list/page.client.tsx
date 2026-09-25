@@ -20,9 +20,53 @@ import { useRouter } from 'next/navigation';
 import clientAxios from '@/lib/axios-client';
 import { ApiResponse, TaxReturnAssignment } from '@/utils/interface';
 import TaxReturnAssignmentCard from './_section/TaxReturnAssignmentCard';
+import { asStringId } from '@/lib/stringId';
 
+/** Map accountant/tax-return/files payload → TaxReturnAssignment cards. */
+function mapAssignmentsPayload(data: unknown): TaxReturnAssignment[] {
+    if (!data || typeof data !== 'object') return [];
+    const envelope = data as Record<string, unknown>;
+    const rowsRaw =
+        (Array.isArray(envelope.assignments) && envelope.assignments) ||
+        (Array.isArray(envelope.taxReturns) && envelope.taxReturns) ||
+        (Array.isArray(envelope.files) && envelope.files) ||
+        (Array.isArray(data) ? data : null);
+    if (!rowsRaw) return [];
 
-
+    return rowsRaw.map((row: any) => {
+        const id = asStringId(row.id ?? row.caseId ?? row.case_id ?? row.taxReturnId);
+        const serviceType = String(row.serviceType ?? row.service_type ?? '');
+        const isMtd = serviceType.includes('MTD');
+        const status = String(row.status || 'assigned').toLowerCase();
+        const nameParts = String(row.client?.name ?? row.clientName ?? row.client_name ?? '')
+            .trim()
+            .split(/\s+/)
+            .filter(Boolean);
+        return {
+            id: id as unknown as number, // interface legacy; runtime is UUID string
+            taxReturnId: String(row.taxReturnId ?? row.case_ref ?? row.caseRef ?? id),
+            taxYear: row.taxYear ?? row.tax_year ?? '',
+            status: status as TaxReturnAssignment['status'],
+            priority: String(row.priority ?? 'medium').toLowerCase() as TaxReturnAssignment['priority'],
+            assignedAt: row.assignedAt ?? row.assigned_at ?? undefined,
+            mtdQuarter: row.mtdQuarter ?? row.mtd_quarter ?? undefined,
+            mtdQuarterDueDate: row.mtdQuarterDueDate ?? row.mtd_quarter_due_date ?? row.deadline ?? undefined,
+            createdAt: row.createdAt ?? row.created_at ?? '',
+            client: {
+                id: asStringId(row.client?.id ?? row.client_user_id ?? '') as unknown as number,
+                name: row.client?.name ?? nameParts[0] ?? 'Client',
+                surname: row.client?.surname ?? nameParts.slice(1).join(' '),
+                email: row.client?.email ?? '',
+                userRole: row.client?.userRole ?? (isMtd ? 'MTD' : 'SA'),
+            },
+            TaxReturnType: row.TaxReturnType ?? row.type ?? {
+                typeName: isMtd ? 'Making Tax Digital' : 'Self Assessment',
+                typeCode: isMtd ? 'MTD' : 'SA',
+            },
+            documents: Array.isArray(row.documents) ? row.documents : [],
+        } as TaxReturnAssignment;
+    }).filter((a) => asStringId(a.id) || a.taxReturnId);
+}
 
 const AccountantAssignments: React.FC = () => {
     const [assignments, setAssignments] = useState<TaxReturnAssignment[]>([]);
@@ -33,7 +77,6 @@ const AccountantAssignments: React.FC = () => {
     const { data: session } = useSession();
     const router = useRouter();
 
-    // Fetch assignments from API
     const fetchAssignments = async () => {
         setLoading(true);
         setError(null);
@@ -41,13 +84,13 @@ const AccountantAssignments: React.FC = () => {
             const res = await clientAxios.post('/accountant/tax-return/files', {});
             const responseData: ApiResponse = res.data;
 
-            if (responseData.success && responseData.data?.assignments) {
-                setAssignments(responseData.data.assignments);
+            if (responseData.success) {
+                setAssignments(mapAssignmentsPayload(responseData.data));
             } else {
                 setAssignments([]);
             }
-        } catch (error) {
-            console.error('Error fetching tax returns:', error);
+        } catch (err) {
+            console.error('Error fetching tax returns:', err);
             setError('Failed to load assignments. Please try again.');
             setAssignments([]);
         } finally {
@@ -58,69 +101,60 @@ const AccountantAssignments: React.FC = () => {
     useEffect(() => {
         fetchAssignments();
     }, []);
-    console.log("assignments", assignments);
-    // Accountant sections
+
     const accountantSections = [
         { key: 'all', label: 'All Assignments', count: assignments.length },
         { key: 'assigned', label: 'Assigned to Me', count: assignments.filter(a => a.status !== 'completed').length },
         { key: 'completed', label: 'Completed', count: assignments.filter(a => a.status === 'completed').length }
     ];
 
-    // Filter assignments
-    const SECTION_STATUS_MAP:any = {
+    const SECTION_STATUS_MAP: Record<string, string[] | null> = {
         all: null,
-        assigned: ['assigned', 'draft_ready', 'final_submitted', 'preparation_started'],
-
+        assigned: ['assigned', 'draft_ready', 'final_submitted', 'preparation_started', 'pending_assignment'],
+        completed: ['completed'],
     };
 
     const normalizedSearch = (searchTerm || '').trim().toLowerCase();
 
     const filteredAssignments = (assignments || []).filter((assignment) => {
         const status = (assignment?.status || '').toLowerCase();
-
-        // Section filter
         const allowedStatuses = SECTION_STATUS_MAP[activeSection];
         const matchesSection =
             activeSection === 'all' ||
             (Array.isArray(allowedStatuses) && allowedStatuses.includes(status)) ||
-            (!SECTION_STATUS_MAP.hasOwnProperty(activeSection) && status === activeSection);
+            status === activeSection;
 
-        // Search filter
         const taxReturnId = (assignment?.taxReturnId || '').toLowerCase();
         const typeName = (assignment?.TaxReturnType?.typeName || '').toLowerCase();
         const typeCode = (assignment?.TaxReturnType?.typeCode || '').toLowerCase();
+        const clientName = `${assignment?.client?.name || ''} ${assignment?.client?.surname || ''}`.toLowerCase();
 
         const matchesSearch =
             !normalizedSearch ||
             taxReturnId.includes(normalizedSearch) ||
             typeName.includes(normalizedSearch) ||
-            typeCode.includes(normalizedSearch);
+            typeCode.includes(normalizedSearch) ||
+            clientName.includes(normalizedSearch);
 
         return matchesSection && matchesSearch;
     });
 
-
     const handleEditAssignment = (id: string) => {
-        // TODO: Implement edit functionality
         console.log('Edit assignment:', id);
     };
 
     const handleCancelAssignment = async (id: string) => {
         if (confirm('Are you sure you want to cancel this assignment?')) {
             try {
-               
                 setAssignments(prev =>
                     prev.map(assignment =>
-                        assignment.id.toString() === id
+                        asStringId(assignment.id) === id
                             ? { ...assignment, status: 'cancelled' as const }
                             : assignment
                     )
                 );
-
-               
-            } catch (error) {
-                console.error('Error cancelling assignment:', error);
-         
+            } catch (err) {
+                console.error('Error cancelling assignment:', err);
                 fetchAssignments();
             }
         }
@@ -128,207 +162,92 @@ const AccountantAssignments: React.FC = () => {
 
     const handleCompleteAssignment = async (id: string) => {
         try {
-            // Update local state immediately for better UX
             setAssignments(prev =>
                 prev.map(assignment =>
-                    assignment.id.toString() === id
+                    asStringId(assignment.id) === id
                         ? { ...assignment, status: 'completed' as const }
                         : assignment
                 )
             );
-
-            // TODO: Make API call to update status
-            // await updateAssignmentStatus(id, 'completed');
-        } catch (error) {
-            console.error('Error completing assignment:', error);
-            // Revert local state on error
+        } catch (err) {
+            console.error('Error completing assignment:', err);
             fetchAssignments();
         }
     };
 
-    const handleViewDetails = (assignmentId: number) => {
-        router.push(`/tax-return-list/${assignmentId}`);
+    const handleViewDetails = (assignmentId: string | number) => {
+        const id = asStringId(assignmentId);
+        if (!id) return;
+        router.push(`/tax-return-list/${id}`);
     };
 
-    // Statistics for accountant
-    const stats = {
-        total: assignments.length,
-        // assigned: assignments.filter(a => a.status == 'assigned').length,
-        inProgress: assignments.filter(a => a.status !== 'completed').length,
-        completed: assignments.filter(a => a.status === 'completed').length
-    };
-
-    if (loading) {
-        return (
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                    <h2 className="text-xl font-semibold text-gray-900">Loading Assignments...</h2>
-                    <p className="text-gray-600">Please wait while we fetch your assignments.</p>
+    return (
+        <div className="p-4 md:p-6 space-y-6">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white">My Tax Return Assignments</h1>
+                    <p className="text-sm text-gray-500 mt-1">Cases assigned to you (Self Assessment and Making Tax Digital).</p>
+                </div>
+                <div className="relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <input
+                        type="text"
+                        placeholder="Search by client, case or type..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="pl-9 pr-4 py-2 border rounded-lg text-sm w-full md:w-72"
+                    />
                 </div>
             </div>
-        );
-    }
 
-    if (error) {
-        return (
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="text-center">
-                    <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-                    <h2 className="text-xl font-semibold text-gray-900 mb-2">Error Loading Assignments</h2>
-                    <p className="text-gray-600 mb-4">{error}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {accountantSections.map((section) => (
                     <button
-                        onClick={fetchAssignments}
-                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                        key={section.key}
+                        type="button"
+                        onClick={() => setActiveSection(section.key)}
+                        className={`text-left p-4 rounded-xl border transition ${
+                            activeSection === section.key
+                                ? 'border-[#37a267] bg-[#37a267]/10'
+                                : 'border-gray-200 bg-white hover:border-gray-300'
+                        }`}
                     >
+                        <p className="text-sm font-medium text-gray-600">{section.label}</p>
+                        <p className="text-2xl font-bold text-gray-900 mt-1">{section.count}</p>
+                    </button>
+                ))}
+            </div>
+
+            {loading ? (
+                <div className="text-center py-12 text-gray-500">Loading assignments...</div>
+            ) : error ? (
+                <div className="text-center py-12 text-red-600 flex flex-col items-center gap-2">
+                    <AlertCircle className="w-8 h-8" />
+                    <p>{error}</p>
+                    <button type="button" onClick={fetchAssignments} className="text-[#37a267] underline text-sm">
                         Retry
                     </button>
                 </div>
-            </div>
-        );
-    }
-
-    return (
-        <div className="min-h-screen bg-gray-50">
-            {/* Header */}
-            <div className="bg-white shadow-sm border-b">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center py-6">
-                        <div>
-                            <h1 className="text-3xl font-bold text-gray-900">My Tax Return Assignments</h1>
-                            <p className="text-gray-600 mt-1">
-                                Track your assigned tax return tasks and completed work
-                            </p>
-                        </div>
-                        <div className="flex items-center space-x-4">
-                            <button
-                                onClick={fetchAssignments}
-                                className="flex items-center space-x-2 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors"
-                            >
-                                <Settings className="h-4 w-4" />
-                                <span>Refresh</span>
-                            </button>
-                        </div>
-                    </div>
+            ) : filteredAssignments.length === 0 ? (
+                <div className="text-center py-12 text-gray-500 bg-white rounded-xl border">
+                    <FileText className="w-10 h-10 mx-auto mb-3 text-gray-300" />
+                    <p className="font-medium">No assignments found</p>
+                    <p className="text-sm mt-1">Assigned MTD and Self Assessment cases will appear here.</p>
                 </div>
-            </div>
-
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                {/* Search Bar */}
-                <div className="mb-6">
-                    <div className="relative">
-                        <Search className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                        <input
-                            type="text"
-                            placeholder="Search by Tax Return ID, Type, or Code..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            ) : (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    {filteredAssignments.map((assignment) => (
+                        <TaxReturnAssignmentCard
+                            key={asStringId(assignment.id) || assignment.taxReturnId}
+                            assignment={assignment}
+                            onEdit={handleEditAssignment}
+                            onCancel={handleCancelAssignment}
+                            onComplete={handleCompleteAssignment}
+                            onViewDetails={handleViewDetails}
                         />
-                    </div>
+                    ))}
                 </div>
-
-                {/* Section Tabs */}
-                <div className="bg-white rounded-lg shadow-sm mb-8">
-                    <div className="border-b border-gray-200">
-                        <nav className="-mb-px flex space-x-8 px-6">
-                            {accountantSections.map((section) => (
-                                <button
-                                    key={section.key}
-                                    onClick={() => setActiveSection(section.key)}
-                                    className={`py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${activeSection === section.key
-                                            ? 'border-blue-500 text-blue-600'
-                                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                                        }`}
-                                >
-                                    {section.label}
-                                    <span className="ml-2 bg-gray-100 text-gray-600 py-0.5 px-2 rounded-full text-xs">
-                                        {section.count}
-                                    </span>
-                                </button>
-                            ))}
-                        </nav>
-                    </div>
-                </div>
-
-                {/* Statistics Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div className="bg-white rounded-lg p-6 border border-gray-200">
-                        <div className="flex items-center">
-                            <div className="p-2 bg-blue-100 rounded-lg">
-                                <Calendar className="h-6 w-6 text-blue-600" />
-                            </div>
-                            <div className="ml-4">
-                                <p className="text-sm font-medium text-gray-600">My Assignments</p>
-                                <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div className="bg-white rounded-lg p-6 border border-gray-200">
-                        <div className="flex items-center">
-                            <div className="p-2 bg-orange-100 rounded-lg">
-                                <Settings className="h-6 w-6 text-orange-600" />
-                            </div>
-                            <div className="ml-4">
-                                <p className="text-sm font-medium text-gray-600">In Progress</p>
-                                <p className="text-2xl font-bold text-gray-900">{stats.inProgress}</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="bg-white rounded-lg p-6 border border-gray-200">
-                        <div className="flex items-center">
-                            <div className="p-2 bg-green-100 rounded-lg">
-                                <CheckCircle className="h-6 w-6 text-green-600" />
-                            </div>
-                            <div className="ml-4">
-                                <p className="text-sm font-medium text-gray-600">Completed</p>
-                                <p className="text-2xl font-bold text-gray-900">{stats.completed}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Assignment Cards */}
-                <div className="space-y-6">
-                    {filteredAssignments.length > 0 ? (
-                        filteredAssignments.map((assignment) => (
-                            <TaxReturnAssignmentCard
-                                key={assignment.id}
-                                assignment={assignment}
-                                onEdit={handleEditAssignment}
-                                onCancel={handleCancelAssignment}
-                                onComplete={handleCompleteAssignment}
-                                onViewDetails={handleViewDetails}
-                            />
-                        ))
-                    ) : (
-                        <div className="text-center py-12 bg-white rounded-lg border border-gray-200">
-                            <AlertCircle className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                            <h3 className="text-lg font-medium text-gray-900 mb-2">No assignments found</h3>
-                            <p className="text-gray-500 mb-4">
-                                {searchTerm || activeSection !== 'all'
-                                    ? 'Try adjusting your filters or search terms.'
-                                    : 'No tax return assignments have been assigned to you yet.'
-                                }
-                            </p>
-                            {searchTerm && (
-                                <button
-                                    onClick={() => {
-                                        setSearchTerm('');
-                                        setActiveSection('all');
-                                    }}
-                                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-                                >
-                                    Clear Filters
-                                </button>
-                            )}
-                        </div>
-                    )}
-                </div>
-            </div>
+            )}
         </div>
     );
 };

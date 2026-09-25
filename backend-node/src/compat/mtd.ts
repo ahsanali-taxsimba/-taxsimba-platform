@@ -24,7 +24,10 @@ import {
   MTD,
   NOT_STARTED,
   SUBMITTED,
+  daysToDeadline,
+  warning,
 } from "../domain/mtd";
+import { currentMtdObligation } from "../domain/obligation";
 import { logActivity, notify, nowIso } from "../domain/workflow";
 import { handler, httpError } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
@@ -236,6 +239,8 @@ compatMtdRouter.get(
       [...quarters].reverse().find((p) => p.status === SUBMITTED) ?? null;
     const docs = await caseDocuments(String(kase.id), me);
     const accountant = await accountantPayload(kase);
+    // Single authoritative obligation snapshot shared with admin/accountant progress.
+    const obligation = await currentMtdObligation(kase);
 
     sendCompatSuccess(
       res,
@@ -248,8 +253,8 @@ compatMtdRouter.get(
           id: kase.id,
           tax_year: kase.tax_year,
           priority: kase.priority ?? null,
-          mtd_quarter: quarterLabel(current),
-          mtd_quarter_due_date: current?.deadline ?? null,
+          mtd_quarter: obligation.quarterLabel ?? quarterLabel(current),
+          mtd_quarter_due_date: obligation.deadline,
           service_type: MTD,
           status: kase.status,
         }),
@@ -267,7 +272,26 @@ compatMtdRouter.get(
           label: p.label,
           status: p.status,
           deadline: p.deadline,
+          periodStart: p.period_start,
+          periodEnd: p.period_end,
+          daysToDeadline: p.deadline ? daysToDeadline(String(p.deadline)) : null,
+          deadlineWarning: warning(p).deadline_warning,
         })),
+        obligation: {
+          quarterLabel: obligation.quarterLabel,
+          quarter: obligation.quarter,
+          deadline: obligation.deadline,
+          taxYear: obligation.taxYear,
+          daysToDeadline: obligation.daysToDeadline,
+          deadlineWarning: obligation.deadlineWarning,
+          isOverdue: obligation.isOverdue,
+          hasObligation: obligation.hasObligation,
+        },
+        nextAction: !kase.assigned_accountant_id
+          ? "Waiting for accountant assignment"
+          : accountant
+            ? `Assigned to ${[accountant.name, accountant.surname].filter(Boolean).join(" ")}. Your accountant prepares and submits your MTD updates — check requests and deadlines here.`
+            : "Your accountant prepares and submits your MTD updates. Check requests and deadlines here.",
       },
       "OK",
     );

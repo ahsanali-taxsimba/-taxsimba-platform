@@ -18,6 +18,8 @@ import {
 } from "../domain/onboardingIntent";
 import { OPERATIONAL_ONLY, TEST_EMAIL_REGEX } from "../domain/testdata";
 import { nowIso } from "../domain/workflow";
+import { currentMtdObligation } from "../domain/obligation";
+import { isAssignedToAccountant } from "../domain/accountantIdentity";
 import { handler, httpError, parseBody } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
 import { issueInvite } from "../services/invites";
@@ -32,6 +34,116 @@ import { maskContactsForViewer } from "./privacy";
 export const compatAdminRouter = Router();
 
 const STAFF_ADMIN = ["ADMIN", "SUPER_ADMIN"] as const;
+
+/** Map Node case status → Toxel manage-tax / assignment list keys. */
+function nodeToToxelListStatus(status: string): string {
+  switch (String(status || "").toUpperCase()) {
+    case "NEW":
+    case "ONBOARDING":
+    case "AWAITING_ASSIGNMENT":
+      return "pending_assignment";
+    case "ASSIGNED":
+      return "assigned";
+    case "ACCOUNTANT_REVIEW":
+    case "AWAITING_CLIENT":
+    case "IN_PREPARATION":
+    case "READY_FOR_ADMIN_REVIEW":
+    case "ADMIN_REVIEW":
+    case "CHANGES_REQUIRED":
+      return "preparation_started";
+    case "ADMIN_APPROVED":
+    case "AWAITING_CLIENT_APPROVAL":
+    case "CLIENT_APPROVED":
+    case "READY_FOR_SUBMISSION":
+      return "draft_ready";
+    case "SUBMISSION_IN_PROGRESS":
+    case "SUBMITTED":
+    case "SUBMISSION_ISSUE":
+      return "final_submitted";
+    case "COMPLETED":
+      return "completed";
+    default:
+      return String(status || "pending_assignment").toLowerCase();
+  }
+}
+
+/**
+ * Stable assignment DTO for admin Manage Tax + accountant "Assigned to Me".
+ * IDs remain string UUIDs end-to-end.
+ */
+async function toAssignmentDto(kase: Doc): Promise<Doc> {
+  const serviceType = String(kase.service_type ?? "SELF_ASSESSMENT");
+  const isMtd = serviceType === "MTD_INCOME_TAX" || serviceType === "MTD";
+  const nameParts = String(kase.client_name ?? "")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+  const obligation = await currentMtdObligation(kase);
+  const packageCode = kase.package_code ?? null;
+  let packageName = packageCode;
+  if (packageCode) {
+    const pkg = (await col("packages").findOne({
+      service_type: serviceType,
+      code: packageCode,
+    })) as Doc | null;
+    if (pkg?.name) packageName = pkg.name;
+  }
+  const toxelStatus = nodeToToxelListStatus(String(kase.status));
+  return withTaxReturnId({
+    id: String(kase.id),
+    taxReturnId: kase.case_ref ?? kase.id,
+    caseId: kase.id,
+    taxYear: kase.tax_year ?? null,
+    status: toxelStatus,
+    workflowStatus: kase.status,
+    priority: String(kase.priority ?? "MEDIUM").toLowerCase(),
+    assignedAt: kase.assigned_at ?? null,
+    createdAt: kase.created_at ?? null,
+    submittedAt: kase.application_submitted_at ?? kase.created_at ?? null,
+    mtdQuarter: obligation.quarterLabel,
+    mtdQuarterDueDate: obligation.deadline,
+    deadline: obligation.deadline ?? kase.internal_deadline ?? kase.external_deadline ?? null,
+    daysToDeadline: obligation.daysToDeadline,
+    deadlineWarning: obligation.deadlineWarning,
+    isOverdue: obligation.isOverdue,
+    hasObligation: obligation.hasObligation,
+    serviceType,
+    package: packageName,
+    packageCode,
+    assignedAccountantId: kase.assigned_accountant_id ?? null,
+    assignedAccountantName: kase.assigned_accountant_name ?? null,
+    client: {
+      id: String(kase.client_user_id ?? kase.client_id ?? ""),
+      name: nameParts[0] || "Client",
+      surname: nameParts.slice(1).join(" "),
+      email: null,
+      userRole: isMtd ? "MTD" : "SA",
+    },
+    TaxReturnType: {
+      typeName: isMtd ? "Making Tax Digital" : "Self Assessment",
+      typeCode: isMtd ? "MTD" : "SA",
+    },
+    type: {
+      typeName: isMtd ? "Making Tax Digital" : "Self Assessment",
+      typeCode: isMtd ? "MTD" : "SA",
+    },
+    accountant: kase.assigned_accountant_id
+      ? {
+          id: String(kase.assigned_accountant_id),
+          name: kase.assigned_accountant_name ?? "Accountant",
+        }
+      : null,
+    documents: [],
+    // Preserve raw case fields for manage-tax mapper compatibility.
+    client_name: kase.client_name,
+    client_user_id: kase.client_user_id,
+    client_id: kase.client_id,
+    case_ref: kase.case_ref,
+    service_type: serviceType,
+    assigned_accountant_id: kase.assigned_accountant_id,
+    assigned_accountant_name: kase.assigned_accountant_name,
+  });
+}
 
 function searchNeedle(body: Record<string, unknown>): string {
   return String(body.search ?? body.q ?? body.email ?? "").trim().toLowerCase();
@@ -608,15 +720,47 @@ compatAdminRouter.post(
       is_active: true,
       is_test: { $ne: true },
     });
+    // Authoritative scope matches Manage Tax (OPERATIONAL_ONLY cases).
+    const totalTaxReturns = await count({});
     const totalCompletedTaxReturns = await count({ status: "COMPLETED" });
     const totalOngoingTaxReturns = await count({ status: active });
+    const pendingAssignment = await count({
+      $or: [
+        { status: { $in: ["NEW", "ONBOARDING", "AWAITING_ASSIGNMENT"] } },
+        { assigned_accountant_id: null, status: { $nin: ["COMPLETED", "SUBMITTED"] } },
+      ],
+    });
+    const assignedActive = await count({
+      assigned_accountant_id: { $ne: null },
+      status: {
+        $in: [
+          "ASSIGNED",
+          "ACCOUNTANT_REVIEW",
+          "AWAITING_CLIENT",
+          "IN_PREPARATION",
+          "READY_FOR_ADMIN_REVIEW",
+          "ADMIN_REVIEW",
+          "CHANGES_REQUIRED",
+          "ADMIN_APPROVED",
+          "AWAITING_CLIENT_APPROVAL",
+          "CLIENT_APPROVED",
+          "READY_FOR_SUBMISSION",
+          "SUBMISSION_IN_PROGRESS",
+          "SUBMITTED",
+          "SUBMISSION_ISSUE",
+        ],
+      },
+    });
     sendCompatSuccess(
       res,
       {
         totalClients,
         totalAccountants,
+        totalTaxReturns,
         totalCompletedTaxReturns,
         totalOngoingTaxReturns,
+        pendingAssignment,
+        assignedActive,
         // Native bucket fields (best-effort extra).
         new: await count({ status: { $in: ["NEW", "ONBOARDING", "AWAITING_ASSIGNMENT"] } }),
         unassigned: await count({ assigned_accountant_id: null }),
@@ -878,7 +1022,10 @@ compatAdminRouter.delete(
 // ---------------------------------------------------------------- C3 tax-return lists (admin/accountant)
 async function listCasesForStaff(me: Doc, body: Record<string, unknown>): Promise<Doc[]> {
   const query: Doc = { ...OPERATIONAL_ONLY };
-  if (me.role === "ACCOUNTANT") query.assigned_accountant_id = me.id;
+  // Strict JWT user id match — never OR with profile id (prevents cross-accountant leakage).
+  if (me.role === "ACCOUNTANT") {
+    query.assigned_accountant_id = String(me.id);
+  }
   const serviceType = body.serviceType ?? body.service_type;
   if (typeof serviceType === "string" && serviceType) query.service_type = serviceType;
   const status = body.status;
@@ -888,13 +1035,14 @@ async function listCasesForStaff(me: Doc, body: Record<string, unknown>): Promis
     .sort({ last_updated: -1 })
     .limit(200)
     .toArray()) as Doc[];
-  return scrubMany(cleanMany(cases), me).map((c) =>
-    withTaxReturnId({
-      ...c,
-      tax_return_id: c.id,
-      case_id: c.id,
-    }),
-  );
+  const scrubbed = scrubMany(cleanMany(cases), me);
+  const dtos: Doc[] = [];
+  for (const c of scrubbed) {
+    // Defence in depth for accountant: skip any row that somehow doesn't match JWT.
+    if (me.role === "ACCOUNTANT" && !isAssignedToAccountant(c, String(me.id))) continue;
+    dtos.push(await toAssignmentDto(c));
+  }
+  return dtos;
 }
 
 compatAdminRouter.post(
@@ -903,7 +1051,7 @@ compatAdminRouter.post(
   handler(async (req, res) => {
     const me = authed(req);
     const files = await listCasesForStaff(me, (req.body ?? {}) as Record<string, unknown>);
-    sendCompatSuccess(res, { files, taxReturns: files }, "OK");
+    sendCompatSuccess(res, { files, taxReturns: files, assignments: files }, "OK");
   }),
 );
 
@@ -913,7 +1061,8 @@ compatAdminRouter.post(
   handler(async (req, res) => {
     const me = authed(req);
     const files = await listCasesForStaff(me, (req.body ?? {}) as Record<string, unknown>);
-    sendCompatSuccess(res, { files, taxReturns: files }, "OK");
+    // `assignments` is the accountant FE SoT; files/taxReturns kept for parity.
+    sendCompatSuccess(res, { files, taxReturns: files, assignments: files }, "OK");
   }),
 );
 

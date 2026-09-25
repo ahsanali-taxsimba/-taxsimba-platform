@@ -412,36 +412,32 @@ casesRouter.post(
     if (kase.status === "COMPLETED") {
       throw httpError(400, "Completed cases are locked — reopen the case first");
     }
-    const acc = await col("users").findOne({
-      id: body.accountant_id,
-      role: "ACCOUNTANT",
-      is_active: true,
-    });
-    if (!acc) throw httpError(404, "Accountant not found");
+    const { resolveActiveAccountantUserId } = await import("../domain/accountantIdentity");
+    const acc = await resolveActiveAccountantUserId(body.accountant_id);
+    const assignedAt = nowIso();
     await col("assignments").insertOne({
       id: randomUUID(),
       case_id: caseId,
-      accountant_id: acc.id,
+      accountant_id: acc.userId,
       accountant_name: acc.name,
       assigned_by: me.id,
       assigned_by_name: me.name,
       priority: body.priority,
       internal_deadline: body.internal_deadline,
       internal_instructions: body.internal_instructions,
-      created_at: nowIso(),
+      created_at: assignedAt,
     });
     const extra: Doc = {
-      assigned_accountant_id: acc.id,
+      assigned_accountant_id: acc.userId,
       assigned_accountant_name: acc.name,
+      assigned_at: assignedAt,
       priority: body.priority,
       internal_instructions: body.internal_instructions,
     };
     if (body.internal_deadline) extra.internal_deadline = body.internal_deadline;
     const previousId = kase.assigned_accountant_id;
-    if (previousId && previousId !== acc.id) {
-      // Reassignment changes ownership only. The workflow state (stage, status, next-action
-      // owner, waiting reason) belongs to the case, not the accountant, so it is left alone.
-      await col("cases").updateOne({ id: caseId }, { $set: { ...extra, last_updated: nowIso() } });
+    if (previousId && previousId !== acc.userId) {
+      await col("cases").updateOne({ id: caseId }, { $set: { ...extra, last_updated: assignedAt } });
       await logActivity(
         caseId,
         `Case reassigned from ${kase.assigned_accountant_name} to ${acc.name}`,
@@ -449,30 +445,46 @@ casesRouter.post(
         {
           previous_accountant_id: previousId,
           previous_accountant_name: kase.assigned_accountant_name,
-          new_accountant_id: acc.id,
+          new_accountant_id: acc.userId,
           new_accountant_name: acc.name,
         },
       );
       await notify(
-        previousId,
+        String(previousId),
         "Case reassigned",
         `${kase.client_name} — ${kase.case_ref} is now with ${acc.name}`,
         caseId,
-        "/work",
+        "/tax-return-list",
         "ASSIGNMENT",
       );
-    } else if (previousId === acc.id) {
-      await col("cases").updateOne({ id: caseId }, { $set: { ...extra, last_updated: nowIso() } });
+    } else if (previousId === acc.userId) {
+      await col("cases").updateOne({ id: caseId }, { $set: { ...extra, last_updated: assignedAt } });
       await logActivity(caseId, `Assignment details updated for ${acc.name}`, me, extra);
     } else {
       await transition(kase, "ASSIGNED", me, `Assigned to ${acc.name}`, { extra });
     }
+
+    const verified = (await col("cases").findOne({ id: caseId })) as Doc | null;
+    if (!verified || String(verified.assigned_accountant_id) !== acc.userId) {
+      throw httpError(500, "Assignment failed to persist — please retry");
+    }
+
+    const serviceLabel =
+      String(kase.service_type) === "MTD_INCOME_TAX" || String(kase.service_type) === "MTD"
+        ? "Making Tax Digital for Income Tax"
+        : "Self Assessment";
     await notify(
-      acc.id,
-      "New case assigned",
-      `${kase.client_name} — ${kase.case_ref} (${kase.tax_year})`,
+      acc.userId,
+      "Case assigned to you",
+      [
+        `Client: ${kase.client_name ?? "Client"}`,
+        `Service: ${serviceLabel}`,
+        `Case: ${kase.case_ref ?? caseId}`,
+        `Assigned: ${new Date(assignedAt).toLocaleDateString("en-GB")}`,
+        `Priority: ${body.priority ?? "MEDIUM"}`,
+      ].join("\n"),
       caseId,
-      `/work/cases/${caseId}`,
+      `/tax-return-list/${caseId}`,
       "ASSIGNMENT",
     );
     await sendCase(res, caseId, me);

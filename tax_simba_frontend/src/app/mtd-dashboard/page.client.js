@@ -179,37 +179,52 @@ export default function MtdDashboardClient({ serverSession }) {
       if (overviewData?.entitlementOnly) {
         return "Your accountant will guide your MTD onboarding. No client filing is required.";
       }
-      if (overviewData?.taxReturnStatus === "pending_assignment") {
+      if (overviewData?.accountant?.name) {
+        return `Assigned to ${overviewData.accountant.name}${overviewData.accountant.surname ? ` ${overviewData.accountant.surname}` : ""}. Follow document requests and deadlines here.`;
+      }
+      if (overviewData?.taxReturnStatus === "pending_assignment" || !overviewData?.taxReturn?.id) {
         return "Waiting for accountant assignment — nothing for you to file.";
       }
-      return "Your accountant prepares and submits your MTD updates. Check requests and deadlines here.";
+      return overviewData?.nextAction
+        || "Your accountant prepares and submits your MTD updates. Check requests and deadlines here.";
     })();
 
-    // Overview Metrics — only from authoritative overview / entitlement payload.
-    // Do not invent backlog quarters from onboarding questionnaire answers.
-    const mtdQuarterRaw = overviewData?.taxReturn?.mtdQuarter || overviewData?.nextQuarter?.quarterName || null;
-    const mtdQuarter = mtdQuarterRaw ? formatQuarterDisplay(mtdQuarterRaw) : "—";
-    
-    const mtdQuarterDueDate = overviewData?.taxReturn?.mtdQuarterDueDate || overviewData?.nextQuarter?.dueDate || null;
+    const mtdQuarterDueDate = overviewData?.obligation?.deadline
+        || overviewData?.taxReturn?.mtdQuarterDueDate
+        || overviewData?.nextQuarter?.dueDate
+        || null;
     const displayDeadline = mtdQuarterDueDate 
         ? new Date(mtdQuarterDueDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
         : "—";
 
-    let daysRemaining = null;
+    let daysRemaining = overviewData?.obligation?.daysToDeadline;
+    if (daysRemaining == null && mtdQuarterDueDate) {
+        const today = new Date(new Date().toISOString().slice(0, 10)).getTime();
+        daysRemaining = Math.round((new Date(mtdQuarterDueDate).getTime() - today) / 86400000);
+    }
     let daysRemainingText = "—";
-    let daysRemainingColor = "normal"; // normal, warning, danger
-    if (mtdQuarterDueDate) {
-        const diffTime = Math.max(0, new Date(mtdQuarterDueDate) - new Date());
-        daysRemaining = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        daysRemainingText = `${daysRemaining} Days`;
-        if (daysRemaining < 7) {
+    let daysRemainingColor = "normal";
+    if (daysRemaining != null && Number.isFinite(Number(daysRemaining))) {
+        const n = Number(daysRemaining);
+        if (n < 0) {
+            daysRemainingText = `Overdue ${Math.abs(n)}d`;
             daysRemainingColor = "danger";
-        } else if (daysRemaining < 14) {
-            daysRemainingColor = "warning";
+        } else if (n === 0) {
+            daysRemainingText = "Due today";
+            daysRemainingColor = "danger";
         } else {
-            daysRemainingColor = "success";
+            daysRemainingText = `${n} Days`;
+            if (n < 7) daysRemainingColor = "danger";
+            else if (n < 14) daysRemainingColor = "warning";
+            else daysRemainingColor = "success";
         }
     }
+
+    const mtdQuarterRaw = overviewData?.obligation?.quarterLabel
+        || overviewData?.taxReturn?.mtdQuarter
+        || overviewData?.nextQuarter?.quarterName
+        || null;
+    const mtdQuarter = mtdQuarterRaw ? formatQuarterDisplay(mtdQuarterRaw) : "—";
 
     const currentStatus = overviewData?.taxReturnStatus || (overviewData?.entitlementOnly ? "active_pending_application" : "pending_assignment");
     const statusIndexMap = {

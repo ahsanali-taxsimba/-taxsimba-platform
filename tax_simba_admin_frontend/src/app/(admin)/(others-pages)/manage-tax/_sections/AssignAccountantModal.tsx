@@ -51,7 +51,14 @@ const AssignAccountantModal: React.FC<AssignAccountantModalProps> = ({
     try {
       const res = await clientAxios.post('/admin/accountants', {});
       const data = res?.data?.data?.accountants || res?.data?.data;
-      setAccountants(Array.isArray(data) ? data : []);
+      const rows = Array.isArray(data) ? data : [];
+      // Only ACTIVE accountants are assignable.
+      setAccountants(
+        rows.filter(
+          (a: Accountant & { isActive?: boolean; status?: string }) =>
+            a.isActive !== false && String(a.status || '').toLowerCase() !== 'inactive',
+        ),
+      );
     } catch (error) {
       console.error('Failed to fetch accountants', error);
       setAccountants([]);

@@ -192,13 +192,14 @@ export default function MtdOverview({ session, userData, overviewData, onOvervie
     const userUploadedDocs = completedDocs.filter(doc => !doc.uploadedBy || doc.uploadedBy === currentUserId);
     const accountantUploadedDocs = completedDocs.filter(doc => doc.uploadedBy && doc.uploadedBy !== currentUserId);
 
-    const mtdQuarter = overview?.taxReturn?.mtdQuarter;
-    const mtdQuarterDueDate = overview?.taxReturn?.mtdQuarterDueDate;
-    let daysRemaining = null;
-    if (mtdQuarterDueDate) {
-        const diffTime = Math.max(0, new Date(mtdQuarterDueDate) - new Date());
-        daysRemaining = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const mtdQuarter = overview?.obligation?.quarterLabel || overview?.taxReturn?.mtdQuarter;
+    const mtdQuarterDueDate = overview?.obligation?.deadline || overview?.taxReturn?.mtdQuarterDueDate;
+    let daysRemaining = overview?.obligation?.daysToDeadline;
+    if (daysRemaining == null && mtdQuarterDueDate) {
+        const today = new Date(new Date().toISOString().slice(0, 10)).getTime();
+        daysRemaining = Math.round((new Date(mtdQuarterDueDate).getTime() - today) / 86400000);
     }
+    const isOverdue = overview?.obligation?.isOverdue || (daysRemaining != null && daysRemaining < 0);
     
     const previousTaxReturn = overview?.previousTaxReturn;
 
@@ -788,14 +789,20 @@ export default function MtdOverview({ session, userData, overviewData, onOvervie
                                                     </div>
                                                     <div className="d-flex justify-content-between border-bottom pb-2">
                                                         <span className="text-muted" style={{ fontSize: "14px" }}>Days Remaining</span>
-                                                        <span className="fw-bold" style={{ color: daysRemaining < 14 ? "#dc3545" : "#37a267" }}>
-                                                            {daysRemaining} Days
+                                                        <span className="fw-bold" style={{ color: isOverdue || (daysRemaining != null && daysRemaining < 14) ? "#dc3545" : "#37a267" }}>
+                                                            {daysRemaining == null
+                                                              ? "—"
+                                                              : isOverdue
+                                                                ? `Overdue ${Math.abs(daysRemaining)}d`
+                                                                : daysRemaining === 0
+                                                                  ? "Due today"
+                                                                  : `${daysRemaining} Days`}
                                                         </span>
                                                     </div>
                                                     <div className="d-flex justify-content-between">
                                                         <span className="text-muted" style={{ fontSize: "14px" }}>Status</span>
-                                                        {daysRemaining < 14 && requestedDocs.length > 0 ? (
-                                                            <span className="fw-bold text-danger">Action Required</span>
+                                                        {isOverdue || (daysRemaining != null && daysRemaining < 14 && requestedDocs.length > 0) ? (
+                                                            <span className="fw-bold text-danger">{isOverdue ? "Overdue" : "Action Required"}</span>
                                                         ) : (
                                                             <span className="fw-bold text-success">Compliance On Track</span>
                                                         )}
