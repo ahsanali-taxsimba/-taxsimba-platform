@@ -114,8 +114,42 @@ app.get("/coverage", async (_req, res) => {
 
 app.post("/ops/discover", async (req, res) => {
   try {
-    const r = await runDiscovery({ includeDirectories: req.body?.directories !== false });
+    const r = await runDiscovery({
+      includeDirectories: req.body?.directories !== false,
+      deep: Boolean(req.body?.deep),
+      includeRegionalGoogle: req.body?.regional !== false,
+    });
     res.json(r.summary);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+/** Force UK regional near-me style discovery (Google Maps via SerpAPI + CH by city). */
+app.post("/ops/discover-regional", async (req, res) => {
+  try {
+    const deep = Boolean(req.body?.deep);
+    const { discoverFromGoogleRegional } = await import("../discovery/googleRegional.js");
+    const { discoverFromCompaniesHouseRegional } = await import(
+      "../discovery/companiesHouseRegional.js"
+    );
+    const { UK_REGION_GRID } = await import("../discovery/ukRegions.js");
+    const maxPlaces = deep
+      ? UK_REGION_GRID.length
+      : Number(req.body?.maxPlaces || process.env.REGIONAL_PLACE_LIMIT || 40);
+    const chRegional = await discoverFromCompaniesHouseRegional({ deep, maxPlaces });
+    const googleRegional = await discoverFromGoogleRegional({
+      deep,
+      maxPlaces,
+      queries: ["accountants near me", "accountant", "chartered accountant"],
+    });
+    res.json({
+      ok: true,
+      companiesHouseRegional: chRegional.length,
+      googleMapsRegional: googleRegional.length,
+      places: maxPlaces,
+      serpApiConfigured: Boolean(process.env.SERP_API_KEY || process.env.SERPAPI_KEY),
+    });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }

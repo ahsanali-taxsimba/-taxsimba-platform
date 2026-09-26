@@ -1,6 +1,5 @@
-import * as cheerio from "cheerio";
 import { env } from "../utils/env.js";
-import { fetchJson, fetchText } from "../utils/fetch.js";
+import { fetchJson } from "../utils/fetch.js";
 import { normalizeDomain, isUkAccountancyDomain } from "../utils/normalizeDomain.js";
 import { logger, sleep } from "../utils/logger.js";
 import { upsertAccountancyFirm } from "../supabase/insertDomain.js";
@@ -10,10 +9,15 @@ import { UK_REGION_GRID, REGIONAL_QUERIES } from "./ukRegions.js";
 const log = logger("googleRegional");
 
 const SKIP =
-  /yell\.com|bark\.com|checkatrade|icaew\.com|accaglobal\.com|aat\.org|google\.|facebook\.|linkedin\.|instagram\.|twitter\.|bing\.com|duckduckgo\.com|wikipedia\.org/i;
+  /yell\.com|bark\.com|checkatrade|icaew\.com|accaglobal\.com|aat\.org|google\.|facebook\.|linkedin\.|instagram\.|twitter\.|bing\.com|duckduckgo\.com|wikipedia\.org|tiktok\.com|youtube\.com|tripadvisor\.|booking\.com|indeed\.com|yelp\.com/i;
 
 async function saveCandidate({ domain, company_name, location, source, website_url }, seen, found) {
   if (!domain || !isUkAccountancyDomain(domain) || SKIP.test(domain)) return;
+  // Prefer UK TLDs; allow .com only if it looks like a firm site (not a mega-platform)
+  if (domain.endsWith(".com") && domain.split(".").length === 2) {
+    const left = domain.split(".")[0];
+    if (left.length < 4 || /^(google|apple|amazon|microsoft|facebook)$/i.test(left)) return;
+  }
   if (seen.has(domain)) return;
   seen.add(domain);
   if (!(await isWebsiteLive(domain, { timeoutMs: 4500 }))) return;
@@ -30,7 +34,7 @@ async function saveCandidate({ domain, company_name, location, source, website_u
 }
 
 async function serpMapsAround(place, query, seen, found) {
-  const ll = `@${place.lat},${place.lng},11z`;
+  const ll = `@${place.lat},${place.lng},11z`; // city + ~surrounding area (~50 miles style)
   const url =
     `https://serpapi.com/search.json?engine=google_maps&type=search` +
     `&q=${encodeURIComponent(query)}` +
@@ -78,85 +82,45 @@ async function serpOrganicAround(place, query, seen, found) {
   }
 }
 
-async function duckDuckGoCity(place, query, seen, found) {
-  const q = `${query} ${place.name} UK`;
-  const url = `https://html.duckduckgo.com/html/?q=${encodeURIComponent(q)}`;
-  const res = await fetchText(url, { retries: 1, timeoutMs: 15000 });
-  const $ = cheerio.load(res.text || "");
-  const candidates = [];
-  $("a.result__a").each((_, el) => {
-    const href = $(el).attr("href") || "";
-    let link = href;
-    const m = href.match(/uddg=([^&]+)/);
-    if (m) {
-      try {
-        link = decodeURIComponent(m[1]);
-      } catch {
-        /* ignore */
-      }
-    }
-    candidates.push({
-      domain: normalizeDomain(link),
-      company_name: $(el).text().replace(/\s+/g, " ").trim(),
-      website_url: /^https?:/i.test(link) ? link : null,
-    });
-  });
-  for (const c of candidates.slice(0, 15)) {
-    await saveCandidate(
-      {
-        ...c,
-        location: place.name,
-        source: `ddg:${place.name}:${query}`,
-        website_url: c.website_url || (c.domain ? `https://${c.domain}` : null),
-      },
-      seen,
-      found,
-    );
-  }
-}
-
 /**
  * Sweep UK regions for accountancy websites (~50-mile style city grid).
- * SerpAPI Google Maps is best. DuckDuckGo fallback if SERP_API_KEY missing.
+ * Requires SERP_API_KEY for real Google Maps "accountants near me" results.
+ * Without the key this returns [] and logs a clear warning (directories/CH cover free paths).
  */
 export async function discoverFromGoogleRegional({
   deep = false,
   maxPlaces,
   queries = ["accountants near me", "accountant", "chartered accountant"],
 } = {}) {
+  if (!env.serpApiKey) {
+    log.warn(
+      "SERP_API_KEY missing — cannot run Google Maps regional near-me discovery. " +
+        "Add SERP_API_KEY on Fly.io (https://serpapi.com) then redeploy. " +
+        "Companies House regional discovery still runs without it.",
+    );
+    return [];
+  }
+
   const places = UK_REGION_GRID.slice(
     0,
     maxPlaces ?? (deep ? UK_REGION_GRID.length : Math.min(40, UK_REGION_GRID.length)),
   );
   const found = [];
   const seen = new Set();
-  const useSerp = Boolean(env.serpApiKey);
 
-  log.info("Regional discovery start", {
+  log.info("Google Maps regional discovery start", {
     places: places.length,
     queries: queries.length,
-    provider: useSerp ? "serpapi_google_maps" : "duckduckgo_fallback",
   });
-
-  if (!useSerp) {
-    log.warn(
-      "SERP_API_KEY missing — DuckDuckGo fallback (add SerpAPI for true Google Maps near-me results)",
-    );
-  }
 
   for (const place of places) {
     for (const query of queries) {
       try {
-        if (useSerp) {
-          await serpMapsAround(place, query, seen, found);
+        await serpMapsAround(place, query, seen, found);
+        await sleep(env.crawlDelayMs);
+        if (query === queries[0]) {
+          await serpOrganicAround(place, "accountant", seen, found);
           await sleep(env.crawlDelayMs);
-          if (query === queries[0]) {
-            await serpOrganicAround(place, "accountant", seen, found);
-            await sleep(env.crawlDelayMs);
-          }
-        } else {
-          await duckDuckGoCity(place, query, seen, found);
-          await sleep(env.crawlDelayMs * 2);
         }
       } catch (e) {
         log.warn(`regional failed ${place.name} / ${query}`, {

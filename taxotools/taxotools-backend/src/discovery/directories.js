@@ -95,11 +95,24 @@ const SKIP_HOSTS =
 function buildSources(locations = UK_LOCATIONS.slice(0, 12)) {
   const sources = [];
   for (const loc of locations) {
-    sources.push({
-      id: `yell:${loc}`,
-      url: `https://www.yell.com/ucs/UcsSearchAction.do?keywords=accountant&location=${encodeURIComponent(loc)}`,
-      location: loc,
-    });
+    const slug = loc.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    sources.push(
+      {
+        id: `yell:${loc}`,
+        url: `https://www.yell.com/ucs/UcsSearchAction.do?keywords=accountant&location=${encodeURIComponent(loc)}`,
+        location: loc,
+      },
+      {
+        id: `freeindex:${loc}`,
+        url: `https://www.freeindex.co.uk/find/accountants/${encodeURIComponent(slug)}`,
+        location: loc,
+      },
+      {
+        id: `thomson:${loc}`,
+        url: `https://www.thomsonlocal.com/search/accountants/${encodeURIComponent(slug)}`,
+        location: loc,
+      },
+    );
   }
   sources.push(
     { id: "bark", url: "https://www.bark.com/en/gb/company-services/accountants/", location: "UK" },
@@ -108,7 +121,6 @@ function buildSources(locations = UK_LOCATIONS.slice(0, 12)) {
     { id: "acca", url: "https://www.accaglobal.com/uk/en/member/find-an-accountant.html", location: "UK" },
     { id: "aat", url: "https://www.aat.org.uk/aat-directory", location: "UK" },
     { id: "freeindex", url: "https://www.freeindex.co.uk/categories/business_services/accountants/", location: "UK" },
-    { id: "thomsonlocal", url: "https://www.thomsonlocal.com/search/accountants/london", location: "London" },
   );
   return sources;
 }

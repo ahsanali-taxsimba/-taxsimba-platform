@@ -124,7 +124,7 @@ export async function runForever() {
       });
       firmsProcessed += crawl.firms || 0;
 
-      // Discovery less often while backlog is large
+      // Discovery less often while backlog is large; rotate UK regions each time
       const shouldDiscover =
         pending < 100 || cycles % 6 === 0 || dailyKey !== lastDailyKey;
       if (shouldDiscover) {
@@ -132,10 +132,17 @@ export async function runForever() {
           runDiscovery({
             includeDirectories: cycles % 12 === 0,
             deep: false,
+            regionalPlaceLimit: Number(process.env.REGIONAL_PLACE_LIMIT || 6),
           }),
-          180_000,
+          10 * 60_000,
           "discovery",
         ).catch((e) => log.warn(String(e.message || e)));
+        // Advance region offset so next cycle covers the next cities (~50-mile grid)
+        process.env.REGIONAL_OFFSET = String(
+          (Number(process.env.REGIONAL_OFFSET || 0) +
+            Number(process.env.REGIONAL_PLACE_LIMIT || 6)) %
+            200,
+        );
       }
 
       if (dailyKey !== lastDailyKey) {
