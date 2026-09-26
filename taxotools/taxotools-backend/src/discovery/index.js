@@ -4,6 +4,7 @@ import { discoverFromCompaniesHouseRegional } from "./companiesHouseRegional.js"
 import { discoverFromGoogleSearch } from "./googleSearch.js";
 import { discoverFromGoogleRegional } from "./googleRegional.js";
 import { discoverFromDirectories, UK_LOCATIONS } from "./directories.js";
+import { discoverFromAccountancyAge } from "./accountancyAge.js";
 import { listAccountancyFirms, getCoverageStats } from "../supabase/insertDomain.js";
 import { UK_REGION_GRID } from "./ukRegions.js";
 
@@ -51,6 +52,10 @@ export async function runDiscovery({
         verifyLive: true,
       })
     : [];
+  const top50 = await discoverFromAccountancyAge().catch((e) => {
+    log.warn("Accountancy Age discovery failed", { error: String(e.message || e) });
+    return { names: [], found: [] };
+  });
 
   await seedDemoFirms("national_seed");
 
@@ -69,6 +74,7 @@ export async function runDiscovery({
     google: google.length,
     regionalGoogle: regional.length,
     directories: dirs.length,
+    accountancyAgeTop50: top50.found?.length || 0,
     crawlableFirms: firms.length,
     regionalPlacesSwept: placeLimit,
     coverage,
