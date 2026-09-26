@@ -18,8 +18,14 @@ export function toAbsoluteUrl(href, base) {
   }
 }
 
+const JUNK_HOST =
+  /^(www\.)?(facebook|instagram|twitter|x|linkedin|tiktok|youtube|google|bing|yahoo|microsoft|apple|amazon|tripadvisor|booking|indeed|yelp|wikipedia|gov\.uk|companieshouse)\./i;
+
 export function isUkAccountancyDomain(domain) {
   const d = normalizeDomain(domain);
+  if (!d || JUNK_HOST.test(d) || d.includes("tiktok.com") || d.includes("facebook.com")) {
+    return false;
+  }
   return (
     d.endsWith(".co.uk") ||
     d.endsWith(".org.uk") ||

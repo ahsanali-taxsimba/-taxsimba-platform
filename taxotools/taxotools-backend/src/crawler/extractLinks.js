@@ -2,6 +2,10 @@ import * as cheerio from "cheerio";
 import { normalizeDomain, toAbsoluteUrl } from "../utils/normalizeDomain.js";
 import { classifyLinkType } from "./classifyLinkType.js";
 
+/** Skip low-value social/cdn outbound noise for core backlink product */
+const NOISE_TARGET =
+  /facebook\.|instagram\.|twitter\.|x\.com|linkedin\.|youtube\.|tiktok\.|pinterest\.|whatsapp\.|google\.com\/maps|g\.page|apple\.com|microsoft\.com|play\.google/i;
+
 /**
  * Extract outbound links from an HTML page.
  */
@@ -28,6 +32,9 @@ export function extractLinks(html, pageUrl, accountantDomain) {
       internal.add(abs.split("#")[0]);
       return;
     }
+
+    // Still record noise links lightly? Skip for core product signal quality.
+    if (NOISE_TARGET.test(targetHost) || NOISE_TARGET.test(abs)) return;
 
     links.push({
       source_url: pageUrl,

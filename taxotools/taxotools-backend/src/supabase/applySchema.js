@@ -12,15 +12,22 @@ async function main() {
   if (!env.databaseUrl) {
     throw new Error("DIRECT_URL or DATABASE_URL required to apply schema");
   }
-  // Strip pgbouncer query for raw SQL if present on transaction URL — prefer DIRECT_URL
   const url = env.databaseUrl;
-  const sqlPath = path.resolve(__dirname, "../../supabase-schema.sql");
-  const sql = fs.readFileSync(sqlPath, "utf8");
+  const files = [
+    path.resolve(__dirname, "../../supabase-schema.sql"),
+    path.resolve(__dirname, "../../supabase-schema-intelligence.sql"),
+    path.resolve(__dirname, "../../supabase-schema-coverage.sql"),
+    path.resolve(__dirname, "../../supabase-schema-claims.sql"),
+  ];
 
   const client = new pg.Client({ connectionString: url, ssl: { rejectUnauthorized: false } });
   await client.connect();
   try {
-    await client.query(sql);
+    for (const sqlPath of files) {
+      const sql = fs.readFileSync(sqlPath, "utf8");
+      await client.query(sql);
+      log.info(`Applied ${path.basename(sqlPath)}`);
+    }
     log.info("Schema applied successfully");
   } finally {
     await client.end();
