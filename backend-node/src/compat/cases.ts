@@ -25,6 +25,7 @@ import {
   STATUSES,
   clientStatus,
   journey,
+  nowIso,
   transition,
 } from "../domain/workflow";
 import { resolveActiveAccountantUserId } from "../domain/accountantIdentity";
@@ -58,6 +59,56 @@ function serviceTypeFromBody(body: Record<string, unknown>): string {
   return SELF_ASSESSMENT;
 }
 
+/** Resolve SA/MTD from taxReturnTypeId (package id or synthetic `type:SERVICE`). */
+async function serviceTypeFromTaxReturnTypeId(
+  body: Record<string, unknown>,
+): Promise<string | null> {
+  const raw =
+    body.tax_return_type_id ??
+    body.taxReturnTypeId ??
+    body.tax_return_typeId ??
+    null;
+  if (raw == null || raw === "") return null;
+  const id = String(raw);
+  if (id.startsWith("type:")) {
+    const st = id.slice("type:".length);
+    if (st === SELF_ASSESSMENT || st === "SA") return SELF_ASSESSMENT;
+    if (st === MTD || st === "MTD" || st === "MTD_INCOME_TAX") return MTD;
+  }
+  const pkg = (await col("packages").findOne({
+    $or: [{ id }, { code: id }],
+    is_active: { $ne: false },
+  })) as Doc | null;
+  if (!pkg) return null;
+  const st = String(pkg.service_type ?? "");
+  if (st === SELF_ASSESSMENT || st === "SA") return SELF_ASSESSMENT;
+  if (st === MTD || st === "MTD" || st === "MTD_INCOME_TAX") return MTD;
+  return null;
+}
+
+/** Normalise FE financial year (2025-2026 / 2025 / 2025/26) → 2025/26. */
+function normalizeTaxYear(body: Record<string, unknown>): string | null {
+  const raw = body.tax_year ?? body.taxYear ?? body.financial_year ?? body.financialYear ?? null;
+  if (raw == null || raw === "") return null;
+  const text = String(raw).trim();
+  const slash = text.match(/^(\d{4})\s*\/\s*(\d{2}|\d{4})$/);
+  if (slash) {
+    const start = Number(slash[1]);
+    const end = slash[2].length === 2 ? slash[2] : String(Number(slash[2])).slice(-2);
+    return `${start}/${end}`;
+  }
+  const dash = text.match(/^(\d{4})\s*-\s*(\d{2}|\d{4})$/);
+  if (dash) {
+    const start = Number(dash[1]);
+    return `${start}/${String(start + 1).slice(-2)}`;
+  }
+  if (/^\d{4}$/.test(text)) {
+    const start = Number(text);
+    return `${start}/${String(start + 1).slice(-2)}`;
+  }
+  return null;
+}
+
 function decorateCase(kase: Doc): Doc {
   return withTaxReturnId({
     ...kase,
@@ -80,9 +131,13 @@ compatCasesRouter.post(
     const body = {
       ...(typeof req.body === "object" && req.body ? req.body : {}),
     } as Record<string, unknown>;
-    const serviceType = serviceTypeFromBody(keysToSnake(body) as Record<string, unknown>);
+    const snake = keysToSnake(body) as Record<string, unknown>;
+    const fromTypeId = await serviceTypeFromTaxReturnTypeId(body);
+    const serviceType = fromTypeId ?? serviceTypeFromBody(snake);
+    // UTR is optional — never gate application / case mint on it.
     await assertClientCanAccessService(me, serviceType);
 
+    const taxYear = normalizeTaxYear(body);
     let existing = await preferExistingServiceCase(me, serviceType);
     let createdFromApplication = false;
     if (!existing) {
@@ -98,9 +153,16 @@ compatCasesRouter.post(
       }
       const result = await createCaseAfterApplicationSubmitted(client, me, serviceType, {
         reason: "Tax return application submitted",
+        taxYear,
       });
       existing = result.case;
       createdFromApplication = result.created_case;
+    } else if (taxYear && String(existing.tax_year ?? "") !== taxYear) {
+      // Keep the single case; refresh tax year from the client's Basic Details selection.
+      await col("cases").updateOne(
+        { id: existing.id },
+        { $set: { tax_year: taxYear, last_updated: nowIso() } },
+      );
     }
     const kase = await getCase(String(existing.id), me);
     sendCompatSuccess(

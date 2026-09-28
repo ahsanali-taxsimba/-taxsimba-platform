@@ -8,7 +8,7 @@ import { clean, cleanMany, col, Doc } from "../db/mongo";
 import { applyDuePriceSchedules } from "../domain/pricing";
 import { contentMap } from "../domain/content";
 import { handler, httpError } from "../http/errors";
-import { auth } from "../middleware/auth";
+import { auth, user as authed } from "../middleware/auth";
 import { sendCompatSuccess } from "./envelope";
 import { categoryToServiceType } from "./ownership";
 
@@ -133,13 +133,25 @@ compatPackagesRouter.get(
 /**
  * Service-type options for apply / MTD new-return forms.
  * Derived from active packages (SA + MTD) — no parallel tax_return_types store.
+ *
+ * Never returns an empty list for an authenticated client: if the catalogue is
+ * missing rows (SEED_DEMO_DATA=false without reconcile), fall back to the
+ * founder-approved DEFAULT_PACKAGES so Start Now / Basic Details can continue.
+ * When the client has ACTIVE entitlements, only those service types are offered.
  */
 compatPackagesRouter.post(
   "/client/tax-return-type",
   auth("CLIENT"),
-  handler(async (_req, res) => {
+  handler(async (req, res) => {
     await applyDuePriceSchedules();
-    const { SELF_ASSESSMENT, MTD } = await import("../domain/packages");
+    const {
+      DEFAULT_PACKAGES,
+      SELF_ASSESSMENT,
+      MTD,
+    } = await import("../domain/packages");
+    const { activeServiceTypesForClient } = await import("../domain/caseEntitlement");
+    const me = authed(req);
+
     const rows = cleanMany(
       (await col("packages")
         .find({ is_active: true, service_type: { $in: [SELF_ASSESSMENT, MTD] } })
@@ -147,25 +159,65 @@ compatPackagesRouter.post(
         .limit(50)
         .toArray()) as Doc[],
     );
+
     // One option per service_type (lowest rank package price).
     const byService = new Map<string, Doc>();
     for (const p of rows) {
       const st = String(p.service_type);
       if (!byService.has(st)) byService.set(st, p);
     }
-    const taxReturnTypes = [...byService.values()].map((p) => {
-      const isMtd = p.service_type === MTD;
-      return {
-        id: p.id,
-        typeName: isMtd ? "Making Tax Digital" : "Self Assessment",
-        typeCode: isMtd ? "MTD" : "SA",
-        serviceType: p.service_type,
-        baseFee: Number(p.price ?? 0),
-        packageCode: p.code,
+
+    // Catalogue fallback so an empty packages collection cannot blank the dropdown.
+    for (const p of DEFAULT_PACKAGES) {
+      const st = String(p.service_type);
+      if (byService.has(st)) continue;
+      byService.set(st, {
+        ...p,
+        id: `type:${st}`,
+        is_active: true,
+      });
+    }
+
+    let allowed = [SELF_ASSESSMENT, MTD];
+    try {
+      const active = await activeServiceTypesForClient(me);
+      if (active.length) allowed = active;
+    } catch {
+      // Keep full catalogue if entitlement lookup fails — still better than empty.
+    }
+
+    const taxReturnTypes = [...byService.values()]
+      .filter((p) => allowed.includes(String(p.service_type)))
+      .map((p) => {
+        const isMtd = p.service_type === MTD;
+        const price = Number(p.price ?? 0);
+        return {
+          id: p.id,
+          typeName: isMtd ? "Making Tax Digital" : "Self Assessment",
+          typeCode: isMtd ? "MTD" : "SA",
+          serviceType: p.service_type,
+          baseFee: Number.isFinite(price) && price > 0 ? price : 0,
+          packageCode: p.code,
+          isActive: true,
+          requiredDocuments: [],
+        };
+      });
+
+    // Final safety net: SA clients must always see Self Assessment.
+    if (!taxReturnTypes.some((t) => t.typeCode === "SA") && allowed.includes(SELF_ASSESSMENT)) {
+      const sa = DEFAULT_PACKAGES.find((p) => p.service_type === SELF_ASSESSMENT)!;
+      taxReturnTypes.unshift({
+        id: `type:${SELF_ASSESSMENT}`,
+        typeName: "Self Assessment",
+        typeCode: "SA",
+        serviceType: SELF_ASSESSMENT,
+        baseFee: Number(sa.price ?? 0),
+        packageCode: sa.code,
         isActive: true,
         requiredDocuments: [],
-      };
-    });
+      });
+    }
+
     sendCompatSuccess(res, { taxReturnTypes }, "OK");
   }),
 );

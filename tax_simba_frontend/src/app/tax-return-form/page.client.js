@@ -43,12 +43,16 @@ export default function TaxReturnPage() {
     }
   }, [accessToken]);
 
+  const authHeaders = () => ({
+    Authorization: `Bearer ${accessToken || session?.accessToken}`,
+  });
+
   const fetchTaxPrice = async () => {
     try {
       const responce = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}client/global-fee`,
         {
           headers: {
-            Authorization: accessToken,
+            ...authHeaders(),
           },
         }
       );
@@ -73,19 +77,28 @@ export default function TaxReturnPage() {
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: session?.accessToken
+            ...authHeaders(),
           },
         }
       );
 
       if (response.data.success) {
-        setTaxReturnTypes(response.data.data.taxReturnTypes);
+        const types = Array.isArray(response.data.data?.taxReturnTypes)
+          ? response.data.data.taxReturnTypes
+          : [];
+        setTaxReturnTypes(types);
+        if (!types.length) {
+          toast.error('No tax return types are available. Please contact support or try again.');
+        }
       } else {
         console.error('Unexpected response structure:', response.data);
+        toast.error('Could not load tax return types.');
       }
 
     } catch (error) {
       console.error('Error fetching tax return types:', error);
+      setTaxReturnTypes([]);
+      toast.error('Could not load tax return types. Please sign in again and retry.');
     } finally {
       setLoading(false);
     }
@@ -223,9 +236,18 @@ export default function TaxReturnPage() {
       // Add basic fields
       payload.append('taxReturnTypeId', selectedType);
       payload.append('financialYear', financialYear);
-      const taxYear = parseInt(financialYear?.split('-')?.[0], 10);
-      if (!Number.isNaN(taxYear)) {
-        payload.append('taxYear', taxYear);
+      // Backend expects UK tax-year labels like 2025/26 (not a bare calendar year).
+      const startYear = parseInt(String(financialYear || '').split('-')[0], 10);
+      if (!Number.isNaN(startYear)) {
+        const ukTaxYear = `${startYear}/${String(startYear + 1).slice(-2)}`;
+        payload.append('taxYear', ukTaxYear);
+      }
+      const selectedTypeDataForSubmit = taxReturnTypes.find((type) => type.id == selectedType);
+      if (selectedTypeDataForSubmit?.serviceType) {
+        payload.append('serviceType', selectedTypeDataForSubmit.serviceType);
+      }
+      if (selectedTypeDataForSubmit?.typeCode) {
+        payload.append('taxReturnType', selectedTypeDataForSubmit.typeCode);
       }
       payload.append('priority', 'medium');
       payload.append('isUkResident', true);
@@ -247,8 +269,8 @@ export default function TaxReturnPage() {
         payload,
         {
           headers: {
-            Authorization: session?.accessToken,
-            'Content-Type': 'multipart/form-data',
+            ...authHeaders(),
+            // Let the browser set multipart boundary — do not force a bare Content-Type.
           },
         }
       );
@@ -487,15 +509,20 @@ export default function TaxReturnPage() {
                             className="form-select"
                             value={selectedType}
                             onChange={handleTypeChange}
-                            disabled={loading}
+                            disabled={loading || !taxReturnTypes.length}
                           >
-                            <option value="">Select the type</option>
+                            <option value="">Select Tax Type</option>
                             {taxReturnTypes.map(type => (
                               <option key={type.id} value={type.id}>
                                 {type.typeName}
                               </option>
                             ))}
                           </select>
+                          {!loading && !taxReturnTypes.length && (
+                            <div className="invalid-feedback d-block">
+                              No tax return types available. Refresh the page or contact support.
+                            </div>
+                          )}
                         </div>
                         <div className="basic_row">
                           <label>Financial Year</label>
