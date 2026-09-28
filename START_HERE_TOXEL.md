@@ -77,10 +77,13 @@ Latest verified status on `toxel-uat-approved`:
 - Role-integrity regression (ADMIN assign 200 / SA assign 403 / deactivate 409 / isolation): **PASS**
 - Accountant draft upload → Admin review gate (client hidden until Admin approval; no client notify on upload): **PASS**
 - Draft multipart FormData contract (no JSON Content-Type stringify; field `draftReturnFile`): **PASS**
+- SA Start Now → tax-return-type dropdown (Bearer auth + catalogue fallback; empty packages cannot blank SA): **PASS** (code + regression tests)
+- SA apply-tax-return after Smart purchase creates exactly one case; webhook/retry idempotent; missing UTR does not block: **PASS** (code + regression tests)
 
 `no-console` messages may still appear as warnings but are **not** the current build blocker.
 
-**Shared staging deployment, Stripe TEST and real email verification are still required of the staging operator before a Toxel retest claim.**
+**Shared staging deployment, Stripe TEST and a fresh verified client retest are still required of the staging operator before a Toxel pass claim.**  
+Do **not** manually repair a failed Toxel case and call the journey passed.
 
 ---
 
