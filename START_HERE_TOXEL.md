@@ -19,12 +19,10 @@ Always deploy the **CURRENT HEAD** of:
 **Branch:** `toxel-uat-approved`
 
 **Previous tip (before this RC):** `47ac3ec96b4452b0b0ce50f53a773bc03afae270`  
-**Prior content SHA:** `fe16d36a2fa9a13f7c680897174d72e40123f157`  
-**Approved release-candidate tip:** `d775538e9213a2dba521f9d980509077c5d8f0bc`
+**Functional content SHA (this RC):** `f1facc2b339f4bae960e7ac7f216bf460e83102b`  
+**Deploy tip:** pull current HEAD of `toxel-uat-approved` after this RC lands (documentation stamps sit on top of the functional content SHA). All three apps must still be built from the **same** pulled tip and report that tip via build-info.
 
-**Deploy tip:** pull current HEAD of `toxel-uat-approved`. All three apps must still be built from the **same** pulled tip.
-
-**Instruction:** Pull and deploy this exact branch. Confirm HEAD SHA with TaxSimba before promoting. Do not use Toxel’s older evidence SHA `db323e23…` as a deploy target.
+**Instruction:** Pull and deploy this exact branch. Confirm `git rev-parse HEAD` with TaxSimba before promoting. Do not use Toxel’s older evidence SHA `db323e23…` as a deploy target.
 
 Confirm current HEAD:
 

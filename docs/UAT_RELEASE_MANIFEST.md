@@ -8,8 +8,8 @@
 | Target merge branch | `toxel-uat-approved` |
 | Previous tip SHA | `47ac3ec96b4452b0b0ce50f53a773bc03afae270` |
 | Prior content SHA | `fe16d36a2fa9a13f7c680897174d72e40123f157` |
-| New tip SHA | `d775538e9213a2dba521f9d980509077c5d8f0bc` |
-| Content SHA | `f1facc2b339f4bae960e7ac7f216bf460e83102b` |
+| Functional content SHA | `f1facc2b339f4bae960e7ac7f216bf460e83102b` |
+| New tip SHA | *(HEAD of `toxel-uat-approved` after merge — run `git rev-parse HEAD`)* |
 
 ## Changed files by defect
 
