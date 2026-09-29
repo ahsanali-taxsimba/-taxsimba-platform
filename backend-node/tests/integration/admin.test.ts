@@ -365,8 +365,10 @@ describe("admin, audit, help centre and invitations", () => {
       .expect(200);
     expect(invited.body.user.status).toBe("PENDING");
     expect(invited.body.user.is_active).toBe(false);
-    expect(invited.body.setup_link).toContain("https://app.test.taxsimba.local/invite/");
-    const firstToken = invited.body.setup_link.split("/invite/")[1];
+    expect(invited.body.setup_link).toContain(
+      "https://app.test.taxsimba.local/admin/invite/",
+    );
+    const firstToken = invited.body.setup_link.split("/admin/invite/")[1];
 
     await request(app)
       .post("/api/staff-invites")
@@ -387,7 +389,7 @@ describe("admin, audit, help centre and invitations", () => {
       .set(bearer(superAdmin))
       .set("Origin", "https://app.test.taxsimba.local")
       .expect(200);
-    const token = resent.body.setup_link.split("/invite/")[1];
+    const token = resent.body.setup_link.split("/admin/invite/")[1];
     // Re-issuing revokes the previous link.
     await request(app).get(`/api/auth/invite/${firstToken}`).expect(400);
 
@@ -435,7 +437,7 @@ describe("admin, audit, help centre and invitations", () => {
       .set(bearer(superAdmin))
       .send({ name: "Expired", email, role: "ADMIN" })
       .expect(200);
-    const token = invited.body.setup_link.split("/invite/")[1];
+    const token = invited.body.setup_link.split("/admin/invite/")[1];
     const { col } = await import("../../src/db/mongo");
     await col("staff_invites").updateOne(
       { user_id: invited.body.user.id, used_at: null },

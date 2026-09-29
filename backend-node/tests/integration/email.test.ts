@@ -170,7 +170,7 @@ describe("transactional email and reminders", () => {
     expect(res.status).toBe(200);
     const invite = rec.sent.find((m) => m.to === email);
     expect(invite).toBeDefined();
-    expect(invite?.text).toContain("/invite/");
+    expect(invite?.text).toContain("/admin/invite/");
   });
 
   it("never emails seeded test addresses", async () => {

@@ -152,9 +152,43 @@ function searchNeedle(body: Record<string, unknown>): string {
   return String(body.search ?? body.q ?? body.email ?? "").trim().toLowerCase();
 }
 
-function inviteOrigin(req: { get: (h: string) => string | undefined }): string {
-  return (req.get("origin") ?? (env("APP_BASE_URL") ?? "").replace(/\/$/, "")).replace(/\/$/, "");
+/**
+ * Stable page/limit for staff directory lists (clients, accountants).
+ * When the client omits page/limit (legacy accountant table), return the full
+ * authorised set up to maxUnpaged so existing UIs are not truncated.
+ */
+function listPagination(
+  body: Record<string, unknown>,
+  opts: { defaultLimit?: number; maxUnpaged?: number } = {},
+): {
+  page: number;
+  limit: number;
+  skip: number;
+} {
+  const hasPaging =
+    body.page !== undefined && body.page !== null && String(body.page) !== "";
+  const hasLimit =
+    (body.limit !== undefined && body.limit !== null && String(body.limit) !== "") ||
+    (body.pageSize !== undefined && body.pageSize !== null && String(body.pageSize) !== "");
+  if (!hasPaging && !hasLimit) {
+    const limit = opts.maxUnpaged ?? 2000;
+    return { page: 1, limit, skip: 0 };
+  }
+  const page = Math.max(1, Number(body.page ?? 1) || 1);
+  const rawLimit = Number(body.limit ?? body.pageSize ?? opts.defaultLimit ?? 10) || 10;
+  const limit = Math.min(100, Math.max(1, rawLimit));
+  return { page, limit, skip: (page - 1) * limit };
 }
+
+/** Deterministic newest-first ordering — created_at then id prevents page overlap. */
+function stableUserSort(a: Doc, b: Doc): number {
+  const ac = String(a.created_at ?? "");
+  const bc = String(b.created_at ?? "");
+  if (ac !== bc) return bc.localeCompare(ac);
+  return String(b.id ?? "").localeCompare(String(a.id ?? ""));
+}
+
+import { staffInviteSetupLink } from "../services/staffInviteLinks";
 
 /** Split "First Last..." into name + surname for Toxel FE columns. */
 function splitPersonName(full: unknown): { name: string; surname: string } {
@@ -281,14 +315,20 @@ compatAdminRouter.post(
   auth(...STAFF_ADMIN),
   handler(async (req, res) => {
     const me = authed(req);
-    const needle = searchNeedle((req.body ?? {}) as Record<string, unknown>);
+    const body = (req.body ?? {}) as Record<string, unknown>;
+    const needle = searchNeedle(body);
+    const { page, limit, skip } = listPagination(body);
     const query: Doc = {
       role: "ACCOUNTANT",
       is_test: { $ne: true },
       email: { $not: { $regex: TEST_EMAIL_REGEX } },
     };
     let users = cleanMany(
-      (await col("users").find(query).sort({ created_at: -1 }).limit(500).toArray()) as Doc[],
+      (await col("users")
+        .find(query)
+        .sort({ created_at: -1, id: -1 })
+        .limit(2000)
+        .toArray()) as Doc[],
     );
     if (needle) {
       users = users.filter(
@@ -301,13 +341,29 @@ compatAdminRouter.post(
             .includes(needle),
       );
     }
+    users = [...users].sort(stableUserSort);
+    const total = users.length;
+    const pageUsers = users.slice(skip, skip + limit);
     // Accountants are staff — masking still applied via viewer rules (no-op for non-CLIENT).
-    const masked = maskContactsForViewer(users, me);
+    const masked = maskContactsForViewer(pageUsers, me);
     const accountants = [];
     for (const u of masked) {
       accountants.push(await serializeAccountant(u));
     }
-    sendCompatSuccess(res, { accountants }, "OK");
+    sendCompatSuccess(
+      res,
+      {
+        accountants,
+        pagination: {
+          page,
+          limit,
+          total,
+          totalUsers: total,
+          pages: Math.max(1, Math.ceil(total / limit)),
+        },
+      },
+      "OK",
+    );
   }),
 );
 
@@ -377,7 +433,7 @@ compatAdminRouter.post(
       target_user_id: created.id,
       role,
     });
-    const link = `${inviteOrigin(req)}/invite/${invite.token}`;
+    const link = staffInviteSetupLink(invite.token, req);
     try {
       await emailInvitation({
         to: fields.email,
@@ -586,14 +642,20 @@ compatAdminRouter.post(
   auth(...STAFF_ADMIN),
   handler(async (req, res) => {
     const me = authed(req);
-    const needle = searchNeedle((req.body ?? {}) as Record<string, unknown>);
+    const body = (req.body ?? {}) as Record<string, unknown>;
+    const needle = searchNeedle(body);
+    const { page, limit, skip } = listPagination(body);
     const query: Doc = {
       role: "CLIENT",
       is_test: { $ne: true },
       email: { $not: { $regex: TEST_EMAIL_REGEX } },
     };
     let users = cleanMany(
-      (await col("users").find(query).sort({ created_at: -1 }).limit(500).toArray()) as Doc[],
+      (await col("users")
+        .find(query)
+        .sort({ created_at: -1, id: -1 })
+        .limit(2000)
+        .toArray()) as Doc[],
     );
     if (needle) {
       users = users.filter(
@@ -606,12 +668,15 @@ compatAdminRouter.post(
             .includes(needle),
       );
     }
-    const masked = maskContactsForViewer(users, me);
+    users = [...users].sort(stableUserSort);
+    const total = users.length;
+    const pageUsers = users.slice(skip, skip + limit);
+    const masked = maskContactsForViewer(pageUsers, me);
     const clientIds = masked.map((u) => u.id);
     const clientRows = cleanMany(
       (await col("clients")
         .find({ user_id: { $in: clientIds } })
-        .limit(500)
+        .limit(Math.max(clientIds.length, 1))
         .toArray()) as Doc[],
     );
     const clientByUserId = new Map(clientRows.map((c) => [String(c.user_id), c]));
@@ -693,6 +758,13 @@ compatAdminRouter.post(
       res,
       {
         clients: clientsOut,
+        pagination: {
+          page,
+          limit,
+          total,
+          totalUsers: total,
+          pages: Math.max(1, Math.ceil(total / limit)),
+        },
       },
       "OK",
     );

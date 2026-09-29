@@ -157,6 +157,7 @@ export function createApp(): Express {
       emailDriver: process.env.EMAIL_DRIVER ?? null,
       paymentProvider: process.env.PAYMENT_PROVIDER || (process.env.STRIPE_SECRET_KEY ? "stripe" : "unset"),
       appBaseUrl: process.env.APP_BASE_URL ?? null,
+      adminBaseUrl: process.env.ADMIN_BASE_URL ?? null,
       dbName: process.env.DB_NAME ?? null,
     });
   });
