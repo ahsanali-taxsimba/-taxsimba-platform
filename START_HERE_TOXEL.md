@@ -20,7 +20,7 @@ Always deploy the **CURRENT HEAD** of:
 
 **Previous tip (before this RC):** `47ac3ec96b4452b0b0ce50f53a773bc03afae270`  
 **Prior content SHA:** `fe16d36a2fa9a13f7c680897174d72e40123f157`  
-**Approved release-candidate tip:** `df30557404a495773f6976ce65103da4e2fcad80`
+**Approved release-candidate tip:** `d775538e9213a2dba521f9d980509077c5d8f0bc`
 
 **Deploy tip:** pull current HEAD of `toxel-uat-approved`. All three apps must still be built from the **same** pulled tip.
 

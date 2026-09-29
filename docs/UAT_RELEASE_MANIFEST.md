@@ -8,8 +8,8 @@
 | Target merge branch | `toxel-uat-approved` |
 | Previous tip SHA | `47ac3ec96b4452b0b0ce50f53a773bc03afae270` |
 | Prior content SHA | `fe16d36a2fa9a13f7c680897174d72e40123f157` |
-| New tip SHA | `df30557404a495773f6976ce65103da4e2fcad80` |
-| Content SHA | `df30557404a495773f6976ce65103da4e2fcad80` |
+| New tip SHA | `d775538e9213a2dba521f9d980509077c5d8f0bc` |
+| Content SHA | `f1facc2b339f4bae960e7ac7f216bf460e83102b` |
 
 ## Changed files by defect
 
