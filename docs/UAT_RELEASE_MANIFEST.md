@@ -9,7 +9,7 @@
 | Previous tip SHA | `47ac3ec96b4452b0b0ce50f53a773bc03afae270` |
 | Prior content SHA | `fe16d36a2fa9a13f7c680897174d72e40123f157` |
 | Functional content SHA | `f1facc2b339f4bae960e7ac7f216bf460e83102b` |
-| New tip SHA | `f67866bec82023c67ead7d96b52e45bf410b7c83` |
+| New tip SHA | `22b0404ed7137ab4706b1e0f5bf4db870703e691` |
 
 ## Changed files by defect
 
