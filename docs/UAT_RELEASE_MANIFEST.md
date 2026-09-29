@@ -8,8 +8,8 @@
 | Target merge branch | `toxel-uat-approved` |
 | Previous tip SHA | `47ac3ec96b4452b0b0ce50f53a773bc03afae270` |
 | Prior content SHA | `fe16d36a2fa9a13f7c680897174d72e40123f157` |
-| New tip SHA | *(filled after commit — see `git rev-parse HEAD`)* |
-| Content SHA | same as new tip for this RC |
+| New tip SHA | `f1facc2b339f4bae960e7ac7f216bf460e83102b` |
+| Content SHA | `f1facc2b339f4bae960e7ac7f216bf460e83102b` |
 
 ## Changed files by defect
 
@@ -83,4 +83,13 @@ No secret values changed in git.
 
 ## Automated verification
 
-*(filled after local commands complete)*
+| Command | Type | Passed | Failed | Skipped | Result |
+| --- | --- | ---: | ---: | ---: | --- |
+| `cd backend-node && npm run typecheck` | build/typecheck | — | 0 | 0 | PASS |
+| `cd backend-node && npm test` | unit+integration (full suite) | 416 | 0 | 0 | PASS (53 files) |
+| focused: staffInviteLinks, draftReadyAdminGate, adminDirectoryPagination, admin invite, email invite | unit+integration | 38+ | 0 | 0 | PASS |
+| `cd tax_simba_frontend && npm run build` | production build | — | 0 | 0 | PASS |
+| `cd tax_simba_admin_frontend && npm run build` | production build | — | 0 | 0 | PASS (includes `/invite/[token]`) |
+
+Skipped tests in full backend suite: **0**. Focused suites are not a substitute for the full suite; the full suite was also run and passed.
+
