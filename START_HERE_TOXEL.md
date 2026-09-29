@@ -20,7 +20,7 @@ Always deploy the **CURRENT HEAD** of:
 
 **Previous tip (before this RC):** `47ac3ec96b4452b0b0ce50f53a773bc03afae270`  
 **Functional content SHA (this RC):** `f1facc2b339f4bae960e7ac7f216bf460e83102b`  
-**Approved release-candidate tip (deploy HEAD):** `22b0404ed7137ab4706b1e0f5bf4db870703e691`
+**Approved release-candidate tip (deploy HEAD):** `96df95c5ab77b767c699d18f2c670924d8bb3279` — if this stamp commit advances HEAD, redeploy the new `git rev-parse HEAD` (must match build-info).
 
 **Deploy tip:** pull this exact HEAD of `toxel-uat-approved`. All three apps must still be built from the **same** pulled tip and report that tip via build-info.
 

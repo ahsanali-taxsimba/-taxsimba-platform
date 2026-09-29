@@ -9,7 +9,7 @@
 | Previous tip SHA | `47ac3ec96b4452b0b0ce50f53a773bc03afae270` |
 | Prior content SHA | `fe16d36a2fa9a13f7c680897174d72e40123f157` |
 | Functional content SHA | `f1facc2b339f4bae960e7ac7f216bf460e83102b` |
-| New tip SHA | `22b0404ed7137ab4706b1e0f5bf4db870703e691` |
+| New tip SHA | `96df95c5ab77b767c699d18f2c670924d8bb3279` (stamp may sit one commit ahead; use `git rev-parse HEAD` on toxel-uat-approved) |
 
 ## Changed files by defect
 
