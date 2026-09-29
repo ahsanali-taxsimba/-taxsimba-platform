@@ -1,5 +1,6 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 type SidebarContextType = {
   isExpanded: boolean;
@@ -27,6 +28,7 @@ export const useSidebar = () => {
 export const SidebarProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const pathname = usePathname();
   const [isExpanded, setIsExpanded] = useState(true);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -50,6 +52,11 @@ export const SidebarProvider: React.FC<{ children: React.ReactNode }> = ({
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  // Close the mobile drawer after navigation (Super Admin + Accountant).
+  useEffect(() => {
+    setIsMobileOpen(false);
+  }, [pathname]);
 
   const toggleSidebar = () => {
     setIsExpanded((prev) => !prev);

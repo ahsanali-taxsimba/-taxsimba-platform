@@ -27,13 +27,11 @@ export const adminRouter = Router();
 
 const STAFF_ADMIN = ["ADMIN", "SUPER_ADMIN"] as const;
 
-/**
- * The response keeps using the caller's origin exactly as before. Email needs an absolute
- * URL even when the call had no Origin header, so it falls back to the configured base URL.
- */
+import { staffInviteSetupLink } from "../services/staffInviteLinks";
+
+/** Absolute Admin invite URL (`/admin/invite/{token}`). */
 function inviteLink(req: Request, token: string): string {
-  const origin = req.get("origin") ?? (env("APP_BASE_URL") ?? "").replace(/\/$/, "");
-  return `${origin}/invite/${token}`;
+  return staffInviteSetupLink(token, req);
 }
 
 const CreateUserIn = z.object({
@@ -496,7 +494,6 @@ adminRouter.post(
       target_user_id: created.id,
       role: body.role,
     });
-    const origin = req.get("origin") ?? "";
     await emailInvitation({
       to: email,
       name: created.name as string,
@@ -507,7 +504,7 @@ adminRouter.post(
     });
     res.json({
       user: clean({ ...created }),
-      setup_link: `${origin}/invite/${invite.token}`,
+      setup_link: inviteLink(req, invite.token),
       expires_at: invite.expires_at,
     });
   }),
@@ -533,8 +530,7 @@ adminRouter.post(
       expiresAt: invite.expires_at,
       inviteId: invite.id,
     });
-    const origin = req.get("origin") ?? "";
-    res.json({ setup_link: `${origin}/invite/${invite.token}`, expires_at: invite.expires_at });
+    res.json({ setup_link: inviteLink(req, invite.token), expires_at: invite.expires_at });
   }),
 );
 

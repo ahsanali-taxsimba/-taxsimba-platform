@@ -304,11 +304,11 @@ const AppSidebar: React.FC = () => {
             nav.path && (
               <Link
                 href={nav.path}
-                className={`menu-item group ${isActive(nav.path) ? "menu-item-active" : "menu-item-inactive"
+                className={`menu-item group min-w-0 ${isActive(nav.path) ? "menu-item-active" : "menu-item-inactive"
                   }`}
               >
                 <span
-                  className={`${isActive(nav.path)
+                  className={`shrink-0 ${isActive(nav.path)
                     ? "menu-item-icon-active"
                     : "menu-item-icon-inactive"
                     }`}

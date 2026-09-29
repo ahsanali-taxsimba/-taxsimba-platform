@@ -257,15 +257,54 @@ function nodeToToxelStatus(status: string): string {
   }
 }
 
+/**
+ * Map Toxel progress-bar keys → Node statuses.
+ *
+ * Critical: `draft_ready` must never soft-map onto ADMIN_APPROVED or
+ * AWAITING_CLIENT_APPROVAL while the case is still in Admin review.
+ * That path previously bypassed the Admin approve action (document release +
+ * client notification). Admin must use the approve endpoint; accountants
+ * submit drafts via multipart upload (→ READY_FOR_ADMIN_REVIEW).
+ */
 function toxelToPreferredNodeStatus(toxel: string, currentNodeStatus?: string): string | null {
   const s = String(toxel || "").toLowerCase();
   const current = String(currentNodeStatus || "");
+
+  if (s === "draft_ready") {
+    if (current === "ADMIN_APPROVED") return "AWAITING_CLIENT_APPROVAL";
+    if (
+      current === "AWAITING_CLIENT_APPROVAL" ||
+      current === "CLIENT_APPROVED" ||
+      current === "READY_FOR_SUBMISSION"
+    ) {
+      return current;
+    }
+    // Still awaiting Admin review — progress bar cannot approve.
+    if (current === "READY_FOR_ADMIN_REVIEW" || current === "ADMIN_REVIEW") {
+      return null;
+    }
+    // Pre-review preparation: "draft ready" means submit for Admin review.
+    if (
+      [
+        "ASSIGNED",
+        "ACCOUNTANT_REVIEW",
+        "IN_PREPARATION",
+        "AWAITING_CLIENT",
+        "CHANGES_REQUIRED",
+      ].includes(current)
+    ) {
+      // ASSIGNED cannot jump straight to READY_FOR_ADMIN_REVIEW.
+      if (current === "ASSIGNED") return "ACCOUNTANT_REVIEW";
+      return "READY_FOR_ADMIN_REVIEW";
+    }
+    return null;
+  }
+
   const map: Record<string, string> = {
     pending_payment: "AWAITING_ASSIGNMENT",
     pending_assignment: "AWAITING_ASSIGNMENT",
     assigned: "ASSIGNED",
     preparation_started: "IN_PREPARATION",
-    draft_ready: "AWAITING_CLIENT_APPROVAL",
     final_submitted: "SUBMITTED",
     completed: "COMPLETED",
   };
@@ -285,8 +324,11 @@ function toxelToPreferredNodeStatus(toxel: string, currentNodeStatus?: string): 
   const allowed = ALLOWED_TRANSITIONS[current] ?? [];
   if (allowed.includes(preferred)) return preferred;
   // Prefer any allowed status that lands in the same Toxel bucket.
+  // Never soft-select ADMIN_APPROVED — that requires the approve action.
   const bucket = nodeToToxelStatus(preferred);
-  const alt = allowed.find((st) => nodeToToxelStatus(st) === bucket);
+  const alt = allowed.find(
+    (st) => st !== "ADMIN_APPROVED" && nodeToToxelStatus(st) === bucket,
+  );
   return alt ?? preferred;
 }
 
@@ -398,7 +440,15 @@ async function handleProgressWrite(req: import("express").Request, res: import("
   if (!requested) throw httpError(400, "status is required");
 
   const target = toxelToPreferredNodeStatus(requested, String(kase.status));
-  if (!target) throw httpError(400, `Unknown status ${requested}`);
+  if (!target) {
+    if (String(requested).toLowerCase() === "draft_ready") {
+      throw httpError(
+        400,
+        "Cannot advance to draft ready via progress — Admin must approve the submitted draft to release it to the client",
+      );
+    }
+    throw httpError(400, `Unknown status ${requested}`);
+  }
 
   if (target === String(kase.status)) {
     const submission = await col("submission_records").findOne({

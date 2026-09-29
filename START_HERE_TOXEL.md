@@ -18,11 +18,13 @@ Always deploy the **CURRENT HEAD** of:
 
 **Branch:** `toxel-uat-approved`
 
-**Approved baseline SHA (this handoff):** `fe16d36a2fa9a13f7c680897174d72e40123f157`
+**Previous tip (before this RC):** `47ac3ec96b4452b0b0ce50f53a773bc03afae270`  
+**Prior content SHA:** `fe16d36a2fa9a13f7c680897174d72e40123f157`  
+**Approved release-candidate tip:** *(set to `git rev-parse HEAD` after this RC lands on `toxel-uat-approved` — all three apps must report the same SHA via build-info)*
 
-**Deploy tip:** pull current HEAD of `toxel-uat-approved` (includes this documentation stamp on top of the approved content SHA above). All three apps must still be built from the **same** pulled tip.
+**Deploy tip:** pull current HEAD of `toxel-uat-approved`. All three apps must still be built from the **same** pulled tip.
 
-**Instruction:** Pull and deploy this exact branch. Prefer the SHA above; if you pull later commits on the same branch, confirm with TaxSimba before promoting.
+**Instruction:** Pull and deploy this exact branch. Confirm HEAD SHA with TaxSimba before promoting. Do not use Toxel’s older evidence SHA `db323e23…` as a deploy target.
 
 Confirm current HEAD:
 
@@ -79,11 +81,16 @@ Latest verified status on `toxel-uat-approved`:
 - Draft multipart FormData contract (no JSON Content-Type stringify; field `draftReturnFile`): **PASS**
 - SA Start Now → tax-return-type dropdown (Bearer auth + catalogue fallback; empty packages cannot blank SA): **PASS** (code + regression tests)
 - SA apply-tax-return after Smart purchase creates exactly one case; webhook/retry idempotent; missing UTR does not block: **PASS** (code + regression tests)
+- Staff invite setup links use `{ADMIN_BASE_URL}/admin/invite/{token}` + Admin invite page: **PASS** (code + tests)
+- Progress `draft_ready` cannot soft-approve / bypass Admin review: **PASS** (code + tests)
+- Admin client/accountant directory pagination (stable order, no page overlap when page/limit sent): **PASS** (code + tests)
+- Mobile sidebar closes after navigation; accountant nav labels truncate in viewport: **PASS** (code)
 
 `no-console` messages may still appear as warnings but are **not** the current build blocker.
 
 **Shared staging deployment, Stripe TEST and a fresh verified client retest are still required of the staging operator before a Toxel pass claim.**  
-Do **not** manually repair a failed Toxel case and call the journey passed.
+Do **not** manually repair a failed Toxel case and call the journey passed.  
+Local automated green does **not** mean shared staging or Toxel passed.
 
 ---
 
@@ -120,6 +127,8 @@ STRIPE_SECRET_KEY
 STRIPE_WEBHOOK_SECRET
 STORAGE_DRIVER
 APP_BASE_URL
+ADMIN_BASE_URL
+GIT_SHA
 SEED_DEMO_DATA
 EMAIL_DRIVER
 EMAIL_FROM
@@ -134,6 +143,11 @@ SEED_DEMO_DATA=false
 
 **`APP_BASE_URL`** = the **client public origin** (customer-facing HTTPS site), e.g. `https://staging-app.example.com`.  
 Used for links in transactional emails (verification, password reset, purchase CTAs) and the absolute PNG logo `${APP_BASE_URL}/images/logo.png`. It is **not** the admin origin and **not** the API host. Never use `logo.svg` in emails.
+
+**`ADMIN_BASE_URL`** = the **Admin public origin** (no path), e.g. `https://staging-admin.example.com`.  
+Staff invitation emails and `setup_link` use `{ADMIN_BASE_URL}/admin/invite/{token}` (Admin Next.js `basePath` is `/admin`). Do not omit `/admin` from the path; do not put `/admin` on the origin value itself.
+
+**`GIT_SHA`** (backend) and **`NEXT_PUBLIC_GIT_SHA`** (both frontends) must be set to the **same** full commit SHA at deploy time.
 
 **Client and admin API bases** must both point at **this same backend SHA**:
 
@@ -350,8 +364,15 @@ The admin app is served under `basePath: '/admin'`.
 | `http://<ADMIN-HOST>:3001/` | Outside the app basePath → Next.js error/404 (not a defect) |
 | `http://<ADMIN-HOST>:3001/admin` | Admin landing (`/admin/home`) with Sign In link |
 | `http://<ADMIN-HOST>:3001/admin/auth/signin` | Admin Sign In |
+| `https://<ADMIN-HOST>/admin/invite/{token}` | Staff password-setup page (from invite email) |
 
 Use `/admin` or `/admin/auth/signin` as the staging entry. Do not expect bare host root `/` on the admin port to redirect into the app.
+
+Set Admin frontend deploy env:
+
+```text
+NEXT_PUBLIC_GIT_SHA=<same full tip SHA as backend GIT_SHA>
+```
 
 ### Package pricing (admin UI)
 
@@ -473,6 +494,54 @@ Toxel should verify these after deployment:
 22. Record external submission when workflow reaches the permitted status  
 23. Confirm no HMRC API call is required
 24. SUPER_ADMIN can open `/admin/package-pricing`, edit/schedule; ADMIN sees read-only  
+25. Confirm identical build-info SHA on Backend, Client, and Admin  
+26. SUPER_ADMIN invites accountant → email CTA opens `/admin/invite/{token}` → password set → sign-in  
+27. Accountant submits PDF draft → client cannot see/download until Admin approves → Admin approve once → client notified once  
+28. Progress bar must **not** skip Admin approval (`draft_ready` while in Admin review → rejected)  
+29. Admin Manage Clients pagination: page 2 has distinct rows from page 1; totals stable  
+30. Mobile: Super Admin + Accountant sidebar closes after navigation; Tax Return label stays in viewport  
+
+### Build-info URLs (must match after deploy)
+
+| Service | URL | Expect |
+| --- | --- | --- |
+| Backend | `GET https://<STAGING-API-HOST>/api/build-info` | `gitSha` = deploy tip; also reports `appBaseUrl`, `adminBaseUrl` (non-secret) |
+| Client | `GET https://<CLIENT-ORIGIN>/build-info` | same `gitSha` |
+| Admin | `GET https://<ADMIN-ORIGIN>/admin/build-info` | same `gitSha` (basePath `/admin`) |
+
+### Focused retest order (this RC)
+
+1. Build-info SHA parity (all three)  
+2. Staff invite 404 → password setup → single-use / expired messages  
+3. Fresh MTD case: draft upload → client blocked → Admin approve → client review  
+4. Progress `draft_ready` rejected during Admin review  
+5. SA Smart purchase → Start Now → tax-return-type → one case without UTR  
+6. One client: MTD then SA purchases (not dual-select at registration)  
+7. ADMIN assign / SUPER_ADMIN assign 403 / deactivate 409 with active cases  
+8. Admin clients pagination + search  
+9. Canonical prices (no £150/£255)  
+10. Mobile sidebar + Tax Return label  
+
+**Old failed cases must remain unchanged as evidence** — do not manually repair DB rows to force a pass.
+
+### Rollback triggers
+
+- Any Critical/High defect reproducible on the deployed tip  
+- Build-info SHA mismatch across the three apps  
+- Invite or email CTA uses localhost / wrong origin  
+- Unauthorised role can read case/document data  
+- Package prices inconsistent with catalogue  
+- Migration without rollback (none required for this RC)
+
+### Rollback procedure
+
+1. Redeploy previous known tip `47ac3ec96b4452b0b0ce50f53a773bc03afae270` to Backend, Client, and Admin together.  
+2. Confirm build-info SHA matches that tip on all three.  
+3. No schema migration ships in this RC — no DB rollback step.  
+4. Keep failed staging evidence; do not wipe production-like data.
+
+Triage detail: `docs/UAT_TRIAGE_MATRIX.md`  
+Release manifest: `docs/UAT_RELEASE_MANIFEST.md`
 
 ---
 
@@ -533,6 +602,10 @@ These are **not** current staging blockers.
 - [ ] client `NEXTAUTH_URL` = client public origin
 - [ ] admin `NEXTAUTH_URL` includes `/admin`
 - [ ] backend `APP_BASE_URL` = client public HTTPS origin
+- [ ] backend `ADMIN_BASE_URL` = admin public HTTPS origin (no `/admin` path suffix)
+- [ ] `GIT_SHA` / `NEXT_PUBLIC_GIT_SHA` identical across Backend, Client, Admin
+- [ ] build-info endpoints agree on full tip SHA
+- [ ] staff invite email CTA hits `/admin/invite/{token}` on admin origin
 - [ ] `CORS_ORIGINS` includes **both** client and admin origins
 - [ ] `SEED_DEMO_DATA=false`
 - [ ] email env vars set for chosen `EMAIL_DRIVER` (`EMAIL_FROM`, plus SMTP_* or `RESEND_API_KEY`)

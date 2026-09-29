@@ -273,6 +273,11 @@
     text-decoration: none !important;
     font-size: 14px;
     line-height: 1.5;
+    /* Keep accountant Tax Return / long labels inside the viewport drawer. */
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .menu-item-active .menu-item-text {

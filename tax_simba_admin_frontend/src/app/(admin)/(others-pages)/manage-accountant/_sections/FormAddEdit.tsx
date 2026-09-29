@@ -201,11 +201,18 @@ export default function FormAddEditModal(props: any) {
             }
 
             handleCloseModal();
+            const inviteSent =
+                formType === "add" &&
+                (typeof saved.inviteLink === "string" ||
+                    typeof saved.inviteId === "string" ||
+                    typeof saved.setup_link === "string");
             toast.success(
-                response.data?.message ||
-                    (formType === "add"
-                        ? "Accountant added successfully."
-                        : "Accountant details updated successfully."),
+                inviteSent
+                    ? "Accountant invited. A one-time password-setup link has been emailed."
+                    : response.data?.message ||
+                          (formType === "add"
+                              ? "Accountant added successfully."
+                              : "Accountant details updated successfully."),
             );
 
             if (typeof fetchData === "function") {

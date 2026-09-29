@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 const authConfig = {
-  publicRoutes: ["/", "/home"],
+  publicRoutes: ["/", "/home", "/invite", "/build-info"],
   authRoutes: ["/auth/signin", "/auth/forgot-password", "/auth/reset-password"],
   protectedRoutes: [
     "/overview",
