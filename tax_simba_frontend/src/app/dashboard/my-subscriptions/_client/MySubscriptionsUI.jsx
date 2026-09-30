@@ -21,20 +21,27 @@ export default function MySubscriptionsUI({ userData, confirmData, allPlans = []
                 headers: { Authorization: `Bearer ${sessionData.accessToken}` }
             });
 
-            if (response.data && response.data.data?.url) {
+            const portalUrl =
+                response.data?.data?.url ||
+                response.data?.data?.portalUrl ||
+                response.data?.data?.portal_url;
+            if (portalUrl) {
                 await logClientAction(
                     sessionData.accessToken,
                     "VIEW_STRIPE_BILLING_PORTAL",
                     "BILLING",
-                    { url: response.data.data.url }
+                    { hasUrl: true }
                 );
-                window.location.href = response.data.data.url;
+                window.location.href = portalUrl;
             } else {
                 toast.error("Failed to load billing portal link.");
             }
         } catch (err) {
-            console.error("Failed to redirect to billing portal", err);
-            toast.error(err?.response?.data?.message || "Failed to redirect to Stripe Billing Portal.");
+            toast.error(
+                err?.response?.data?.detail ||
+                    err?.response?.data?.message ||
+                    "Failed to redirect to Stripe Billing Portal.",
+            );
         } finally {
             setPortalLoading(false);
         }
@@ -42,13 +49,13 @@ export default function MySubscriptionsUI({ userData, confirmData, allPlans = []
 
     const handleCancel = async (subId) => {
         const result = await Swal.fire({
-            title: 'Cancel Subscription?',
-            text: "Are you sure you want to cancel your current subscription? This action cannot be undone.",
+            title: 'Manage cancellation?',
+            text: "Recurring MTD billing is cancelled through the secure Stripe Billing Portal so your SA entitlement is not affected.",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#14ab71',
             cancelButtonColor: '#dc3545',
-            confirmButtonText: 'Yes, cancel it!',
+            confirmButtonText: 'Open billing portal',
             cancelButtonText: 'Back',
             borderRadius: '15px',
             customClass: {
@@ -66,32 +73,9 @@ export default function MySubscriptionsUI({ userData, confirmData, allPlans = []
                 sessionData.accessToken,
                 "CLICK_CANCEL_SUBSCRIPTION",
                 "BILLING",
-                { subscriptionId: subId }
+                { subscriptionId: subId, via: "billing_portal" }
             );
-
-            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api/';
-            await axios.post(`${apiUrl}client/subscription/cancel/${subId}`, {}, {
-                headers: { Authorization: `Bearer ${sessionData.accessToken}` }
-            });
-
-            await Swal.fire({
-                title: 'Cancelled!',
-                text: 'Your subscription has been cancelled.',
-                icon: 'success',
-                confirmButtonColor: '#14ab71',
-                borderRadius: '15px'
-            });
-
-            window.location.reload();
-        } catch (err) {
-            console.error("Failed to cancel plan", err);
-            Swal.fire({
-                title: 'Error!',
-                text: err?.response?.data?.message || "Failed to cancel subscription.",
-                icon: 'error',
-                confirmButtonColor: '#14ab71',
-                borderRadius: '15px'
-            });
+            await handleBillingPortal();
         } finally {
             setCanceling(false);
         }

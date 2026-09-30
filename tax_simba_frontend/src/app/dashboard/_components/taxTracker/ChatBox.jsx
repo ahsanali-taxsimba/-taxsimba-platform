@@ -21,7 +21,7 @@ const ChatBox = ({ show, handleClose, ids, token, id }) => {
         }
     }
     const handleMailSend = async ({ subject, body, accountantId, taxReturnId, token }) => {
-        console.log("handleMailSend called", {subject, body, accountantId, taxReturnId, token});
+        // Sensitive fields intentionally not logged.
         if (!subject || !body || !accountantId || !taxReturnId) {
             console.error("All fields are required");
             return;

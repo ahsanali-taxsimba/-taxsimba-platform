@@ -568,7 +568,11 @@ const EditProfile = ({ userData, sessionData, setTrackUpdate }) => {
                       ? userData.mobile
                       : sessionData?.user?.mobile}
 
-                    disabled />
+                    disabled
+                    aria-describedby="phone-change-help" />
+                  <Form.Text id="phone-change-help" muted>
+                    Phone changes are handled by TaxSimba support for security. Contact Support to update.
+                  </Form.Text>
                 </Form.Group>
               </Col>
               <Col lg={6}>
@@ -576,7 +580,11 @@ const EditProfile = ({ userData, sessionData, setTrackUpdate }) => {
                   <Form.Label>Email Address <span className="verified">verified</span></Form.Label>
                   <Form.Control type="text"
                     value={userData.email ? userData.email : sessionData?.user?.email}
-                    disabled />
+                    disabled
+                    aria-describedby="email-change-help" />
+                  <Form.Text id="email-change-help" muted>
+                    Email changes are staff-controlled. Contact Support to request a change.
+                  </Form.Text>
                 </Form.Group>
               </Col>
               <Col lg={12}>

@@ -436,7 +436,7 @@ const Navbar = () => {
                             <li>
                               <button className="dropdown-item"
                                 onClick={() => {
-                                  router.push("/dashboard/profile");
+                                  router.push("/dashboard/edit-profile");
                                   setDropdownOpen(false);
                                 }}>
                                 <FaRegUserCircle />
@@ -738,7 +738,7 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/dashboard/profile" onClick={handleCloseOne}>
+                  <Link href="/dashboard/edit-profile" onClick={handleCloseOne}>
                     <FaRegUserCircle />
                     Profile Settings
                   </Link>

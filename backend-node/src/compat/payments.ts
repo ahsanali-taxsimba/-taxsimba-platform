@@ -91,6 +91,11 @@ compatPaymentsRouter.post(
     const productDescription =
       content[`package.${String(pkg.code)}.description`] || null;
 
+    const billingType = String(pkg.billing_type || (serviceType === MTD ? "RECURRING" : "ONE_OFF"));
+    const existingCustomer =
+      (typeof me.stripe_customer_id === "string" && me.stripe_customer_id) ||
+      (typeof client.stripe_customer_id === "string" && client.stripe_customer_id) ||
+      null;
     const session = await payments().createCheckout(
       amount,
       `${serviceType === MTD ? "MTD for Income Tax" : "Self Assessment"} — ${pkg.name}`,
@@ -102,9 +107,26 @@ compatPaymentsRouter.post(
         service_type: serviceType,
         to_package: String(pkg.code),
         package_id: String(pkg.id),
+        billing_type: billingType,
       },
       productDescription,
+      {
+        billingType,
+        recurringInterval: "month",
+        customerEmail: String(me.email || ""),
+        existingCustomerId: existingCustomer,
+      },
     );
+    if (session.customer_id) {
+      await col("users").updateOne(
+        { id: me.id },
+        { $set: { stripe_customer_id: session.customer_id } },
+      );
+      await col("clients").updateOne(
+        { id: client.id },
+        { $set: { stripe_customer_id: session.customer_id } },
+      );
+    }
     await col("payment_transactions").insertOne({
       id: randomUUID(),
       session_id: session.id,
@@ -120,6 +142,8 @@ compatPaymentsRouter.post(
       status: "initiated",
       payment_status: "pending",
       fulfilled: false,
+      checkout_mode: session.mode || "payment",
+      stripe_customer_id: session.customer_id || null,
       created_at: nowIso(),
       updated_at: nowIso(),
     });
@@ -129,8 +153,61 @@ compatPaymentsRouter.post(
         checkout_url: session.url,
         session_id: session.id,
         amount: pkg.price,
+        mode: session.mode || "payment",
       }),
       "Checkout session created",
+    );
+  }),
+);
+
+/**
+ * Authenticated Stripe Billing Portal for recurring MTD subscriptions.
+ * Customer ID is derived server-side from the authenticated user — never trusted from the client.
+ */
+compatPaymentsRouter.post(
+  "/client/subscription/portal",
+  auth("CLIENT"),
+  handler(async (req, res) => {
+    const me = authed(req);
+    const client = await clientOf(me);
+    const customerId =
+      (typeof me.stripe_customer_id === "string" && me.stripe_customer_id) ||
+      (typeof client.stripe_customer_id === "string" && client.stripe_customer_id) ||
+      null;
+    if (!customerId) {
+      throw httpError(400, "No billing customer is linked to this account yet");
+    }
+    const mtd = (await col("client_services").findOne({
+      client_id: client.id,
+      service_type: MTD,
+      status: "ACTIVE",
+    })) as Doc | null;
+    if (!mtd) {
+      throw httpError(400, "Billing portal is available for active MTD subscriptions only");
+    }
+    const origin =
+      String((req.body as { origin_url?: string })?.origin_url || "").trim() ||
+      req.header("origin") ||
+      "https://taxsimba.co.uk";
+    const returnUrl = `${String(origin).replace(/\/+$/, "")}/dashboard/my-subscriptions`;
+    const provider = payments();
+    if (typeof provider.createBillingPortalSession !== "function") {
+      throw httpError(501, "Billing portal is not available for this payment provider");
+    }
+    const portal = await provider.createBillingPortalSession(customerId, returnUrl);
+    sendCompatSuccess(res, keysToCamel({ url: portal.url, portal_url: portal.url }), "OK");
+  }),
+);
+
+/** Explicit cancel is managed in Stripe Billing Portal — surface a clear guidance response. */
+compatPaymentsRouter.post(
+  "/client/subscription/cancel/:subscriptionId",
+  auth("CLIENT"),
+  handler(async (req, res) => {
+    void req.params.subscriptionId;
+    throw httpError(
+      400,
+      "Cancel recurring MTD billing through the Stripe Billing Portal (Manage subscription).",
     );
   }),
 );

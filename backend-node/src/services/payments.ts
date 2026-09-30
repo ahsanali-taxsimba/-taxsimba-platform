@@ -16,11 +16,22 @@ export interface CheckoutSession {
   status: string;
   payment_status: string;
   payment_intent: string | null;
+  /** Present when a Stripe Customer was created/attached for subscriptions. */
+  customer_id?: string | null;
+  mode?: "payment" | "subscription";
 }
 
 export interface WebhookEvent {
   type: string;
   object: Doc;
+}
+
+export interface CheckoutBillingOpts {
+  billingType?: string | null;
+  /** Used when billingType is RECURRING (MTD monthly catalogue). */
+  recurringInterval?: "month" | "year";
+  customerEmail?: string | null;
+  existingCustomerId?: string | null;
 }
 
 export interface PaymentProvider {
@@ -30,9 +41,14 @@ export interface PaymentProvider {
     originUrl: string,
     metadata: Record<string, string>,
     productDescription?: string | null,
+    billing?: CheckoutBillingOpts,
   ): Promise<CheckoutSession>;
   retrieveSession(sessionId: string): Promise<CheckoutSession>;
   parseWebhook(payload: Buffer, signature: string): WebhookEvent;
+  createBillingPortalSession?(
+    customerId: string,
+    returnUrl: string,
+  ): Promise<{ url: string }>;
 }
 
 function session(s: Stripe.Checkout.Session): CheckoutSession {
@@ -42,6 +58,8 @@ function session(s: Stripe.Checkout.Session): CheckoutSession {
     status: s.status ?? "open",
     payment_status: s.payment_status ?? "unpaid",
     payment_intent: typeof s.payment_intent === "string" ? s.payment_intent : null,
+    customer_id: typeof s.customer === "string" ? s.customer : null,
+    mode: s.mode === "subscription" ? "subscription" : "payment",
   };
 }
 
@@ -60,10 +78,10 @@ export class StripeProvider implements PaymentProvider {
     originUrl: string,
     metadata: Record<string, string>,
     productDescription?: string | null,
+    billing?: CheckoutBillingOpts,
   ): Promise<CheckoutSession> {
     const unitAmount = gbpToStripePence(amount);
     const { success_url, cancel_url } = checkoutReturnUrls(originUrl);
-    // Metadata values must remain strings (UUID-safe) — never Number(uuid).
     const safeMeta: Record<string, string> = {};
     for (const [k, v] of Object.entries(metadata || {})) {
       if (v == null) continue;
@@ -72,29 +90,45 @@ export class StripeProvider implements PaymentProvider {
       safeMeta[k] = s;
     }
     const desc = String(productDescription || "").trim();
+    const recurring = String(billing?.billingType || "").toUpperCase() === "RECURRING";
+    const interval = billing?.recurringInterval === "year" ? "year" : "month";
+
+    let customerId = billing?.existingCustomerId
+      ? String(billing.existingCustomerId)
+      : null;
+    if (recurring && !customerId && billing?.customerEmail) {
+      const created = await this.stripe.customers.create({
+        email: String(billing.customerEmail),
+        metadata: { user_id: safeMeta.user_id || "", client_id: safeMeta.client_id || "" },
+      });
+      customerId = created.id;
+    }
+
+    const priceData: Stripe.Checkout.SessionCreateParams.LineItem.PriceData = {
+      currency: "gbp",
+      unit_amount: unitAmount,
+      tax_behavior: "exclusive",
+      product_data: {
+        name: label,
+        tax_code: TAX_CODE,
+        ...(desc ? { description: desc.slice(0, 500) } : {}),
+      },
+      ...(recurring ? { recurring: { interval } } : {}),
+    };
+
     return session(
       await this.stripe.checkout.sessions.create({
-        line_items: [
-          {
-            price_data: {
-              currency: "gbp",
-              unit_amount: unitAmount,
-              tax_behavior: "exclusive",
-              product_data: {
-                name: label,
-                tax_code: TAX_CODE,
-                ...(desc ? { description: desc.slice(0, 500) } : {}),
-              },
-            },
-            quantity: 1,
-          },
-        ],
-        mode: "payment",
+        line_items: [{ price_data: priceData, quantity: 1 }],
+        mode: recurring ? "subscription" : "payment",
         success_url,
         cancel_url,
         automatic_tax: { enabled: true },
         billing_address_collection: "required",
         metadata: safeMeta,
+        ...(customerId ? { customer: customerId } : {}),
+        ...(recurring && billing?.customerEmail && !customerId
+          ? { customer_email: String(billing.customerEmail) }
+          : {}),
       }),
     );
   }
@@ -106,6 +140,14 @@ export class StripeProvider implements PaymentProvider {
   parseWebhook(payload: Buffer, signature: string): WebhookEvent {
     const event = this.stripe.webhooks.constructEvent(payload, signature, this.webhookSecret);
     return { type: event.type, object: event.data.object as unknown as Doc };
+  }
+
+  async createBillingPortalSession(customerId: string, returnUrl: string): Promise<{ url: string }> {
+    const portal = await this.stripe.billingPortal.sessions.create({
+      customer: customerId,
+      return_url: returnUrl,
+    });
+    return { url: portal.url };
   }
 }
 
@@ -119,6 +161,7 @@ let provider: PaymentProvider | null = null;
 class LocalStagingFakePaymentProvider implements PaymentProvider {
   private readonly sessions = new Map<string, CheckoutSession>();
   private seq = 0;
+  private customers = 0;
 
   async createCheckout(
     amount: number,
@@ -126,25 +169,29 @@ class LocalStagingFakePaymentProvider implements PaymentProvider {
     originUrl: string,
     metadata: Record<string, string>,
     _productDescription?: string | null,
+    billing?: CheckoutBillingOpts,
   ): Promise<CheckoutSession> {
     const { success_url } = checkoutReturnUrls(originUrl);
     this.seq += 1;
     const id = `cs_test_local_${this.seq}_${Date.now()}`;
+    const recurring = String(billing?.billingType || "").toUpperCase() === "RECURRING";
+    let customerId = billing?.existingCustomerId ? String(billing.existingCustomerId) : null;
+    if (recurring && !customerId) {
+      this.customers += 1;
+      customerId = `cus_test_local_${this.customers}`;
+    }
     const s: CheckoutSession = {
       id,
-      // Bounce straight to success URL so browser journeys can complete without Stripe.
       url: success_url.includes("{CHECKOUT_SESSION_ID}")
         ? success_url.replace("{CHECKOUT_SESSION_ID}", id)
         : `${success_url}${success_url.includes("?") ? "&" : "?"}session_id=${id}`,
-      status: "open",
-      payment_status: "unpaid",
-      payment_intent: null,
+      status: "complete",
+      payment_status: "paid",
+      payment_intent: recurring ? null : `pi_test_local_${this.seq}`,
+      customer_id: customerId,
+      mode: recurring ? "subscription" : "payment",
     };
     this.sessions.set(id, s);
-    // Auto-mark paid so retrieveSession after redirect fulfils entitlement.
-    s.status = "complete";
-    s.payment_status = "paid";
-    s.payment_intent = `pi_test_local_${this.seq}`;
     void amount;
     void label;
     void metadata;
@@ -154,24 +201,26 @@ class LocalStagingFakePaymentProvider implements PaymentProvider {
   async retrieveSession(sessionId: string): Promise<CheckoutSession> {
     const s = this.sessions.get(sessionId);
     if (!s) {
-      // Allow success-page refresh after process restart in local staging.
       return {
         id: sessionId,
         url: null,
         status: "complete",
         payment_status: "paid",
         payment_intent: `pi_test_local_recovered`,
+        customer_id: null,
+        mode: "payment",
       };
     }
     return { ...s };
   }
 
   parseWebhook(payload: Buffer, signature: string): WebhookEvent {
-    if (signature !== "test-signature" && !signature.startsWith("whsec_test")) {
-      // Accept JSON event body for local webhook simulation.
-    }
     void signature;
     return JSON.parse(payload.toString("utf8")) as WebhookEvent;
+  }
+
+  async createBillingPortalSession(customerId: string, returnUrl: string): Promise<{ url: string }> {
+    return { url: `${returnUrl}${returnUrl.includes("?") ? "&" : "?"}portal=1&customer=${encodeURIComponent(customerId)}` };
   }
 }
 

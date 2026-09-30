@@ -106,13 +106,13 @@ export async function consumeEmailVerification(token: string): Promise<Doc> {
     token_hash: hashToken(raw),
   })) as Doc | null;
   if (!row || row.used_at || row.revoked_at) {
-    throw httpError(400, "Invalid or expired verification link");
+    throw httpError(400, "Invalid or expired verification token.");
   }
   if (String(row.expires_at) < new Date().toISOString()) {
-    throw httpError(400, "Invalid or expired verification link");
+    throw httpError(400, "Invalid or expired verification token.");
   }
   const user = (await col("users").findOne({ id: row.user_id })) as Doc | null;
-  if (!user || user.is_active === false) throw httpError(400, "Invalid or expired verification link");
+  if (!user || user.is_active === false) throw httpError(400, "Invalid or expired verification token.");
   const verifiedAt = nowIso();
   await col("users").updateOne(
     { id: user.id },

@@ -333,7 +333,7 @@ documentsRouter.post(
         (kase.tax_year ? ` for ${kase.tax_year}` : "") +
         ".\n\nFor your security, please sign in to TaxSimba to download it.",
       caseId,
-      "/documents",
+      "/dashboard/my-documents",
       "INFO",
     );
     res.json(clean(record));

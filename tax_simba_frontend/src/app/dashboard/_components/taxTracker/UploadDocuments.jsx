@@ -82,7 +82,8 @@ const UploadDocuments = ({ requiredDocs, item, ids, setTaxReturns, setIsDocUpdat
             // Append all files to formData
             requiredDocs.forEach(doc => {
                 if (files[doc.id]) {
-                    formData.append('documents', files[doc.id]); // Append file for each document
+                    // Canonical multipart field expected by backend Multer (`file`).
+                    formData.append('file', files[doc.id]);
                     documentNames.push(doc.filename || doc.originalFileName || "");
                     documentTypes.push(doc.documentType || "client_upload");
                     documentCategories.push(doc.documentCategory || "additional_info");

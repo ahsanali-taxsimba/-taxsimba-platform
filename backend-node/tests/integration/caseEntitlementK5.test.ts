@@ -239,7 +239,11 @@ describe("K.5 case entitlement + adapters", () => {
       .post("/api/compat/client/my-files")
       .set(bearer(saOnly))
       .expect(200);
-    expect(files.body.data.files.length).toBeGreaterThan(0);
+    const docs =
+      files.body.data.files?.documents ||
+      files.body.data.documents ||
+      files.body.data.files;
+    expect(Array.isArray(docs) ? docs.length : 0).toBeGreaterThan(0);
 
     // Other client cannot download.
     await request(app)

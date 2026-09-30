@@ -73,7 +73,7 @@ const computePercentFromSteps = (steps) => {
 };
 
 const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, setIsRefresh, isRefresh, fromYear, toYear }) => {
-  console.log("TaxTracker serverSession", serverSession?.accessToken);
+  // Do not log session tokens.
   const pathname = usePathname();
   const { data: sessionData, status } = useSession();
   const [taxReturns, setTaxReturns] = useState([]);

@@ -32,14 +32,17 @@ compatMessagesRouter.get(
       { case_id: caseId, recipient_id: me.id },
       { $set: { is_read: true } },
     );
+    const mapped = scrubMany(cleanMany(msgs), me).map((m) =>
+      withTaxReturnId({ ...m, tax_return_id: caseId }),
+    );
     sendCompatSuccess(
       res,
       {
         taxReturnId: caseId,
         caseId,
-        messages: scrubMany(cleanMany(msgs), me).map((m) =>
-          withTaxReturnId({ ...m, tax_return_id: caseId }),
-        ),
+        messages: mapped,
+        // Legacy FE alias (ChatBox / TaxTracker / MtdMessages read `emails`).
+        emails: mapped,
       },
       "OK",
     );
@@ -59,12 +62,19 @@ compatMessagesRouter.post(
       .sort({ created_at: 1 })
       .limit(500)
       .toArray()) as Doc[];
+    // Mark read on POST fetch as well (FE often POSTs the log).
+    await col("messages").updateMany(
+      { case_id: caseId, recipient_id: me.id },
+      { $set: { is_read: true } },
+    );
+    const mapped = scrubMany(cleanMany(msgs), me);
     sendCompatSuccess(
       res,
       {
         taxReturnId: caseId,
         caseId,
-        messages: scrubMany(cleanMany(msgs), me),
+        messages: mapped,
+        emails: mapped,
       },
       "OK",
     );
@@ -117,7 +127,10 @@ compatMessagesRouter.post(
         { id: recipient },
         { projection: { role: 1 } },
       );
-      const link = recipientUser?.role === "CLIENT" ? "/messages" : `/work/cases/${caseId}`;
+      const link =
+        recipientUser?.role === "CLIENT"
+          ? "/dashboard/tax-tracker"
+          : `/work/cases/${caseId}`;
       await notify(
         String(recipient),
         `New message from ${me.name}`,
@@ -203,7 +216,7 @@ async function staffSendToClient(
         (text.slice(0, 120) ? `${text.slice(0, 120)}\n\n` : "") +
         "For your privacy, please use your TaxSimba account to view and respond to messages relating to your tax affairs.",
       caseId,
-      "/messages",
+      "/dashboard/tax-tracker",
       "MESSAGE",
     );
   }

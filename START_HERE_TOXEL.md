@@ -18,11 +18,13 @@ Always deploy the **CURRENT HEAD** of:
 
 **Branch:** `toxel-uat-approved`
 
-**Previous tip (before this RC):** `47ac3ec96b4452b0b0ce50f53a773bc03afae270`  
-**Functional content SHA (this RC):** `f1facc2b339f4bae960e7ac7f216bf460e83102b`  
-**Approved release-candidate tip (deploy HEAD):** `96df95c5ab77b767c699d18f2c670924d8bb3279` — if this stamp commit advances HEAD, redeploy the new `git rev-parse HEAD` (must match build-info).
+**Previous tip (before this RC):** `870b29d76959e3083f2b854689156e7ef54fbfae`  
+**Contract-correction RC branch:** `cursor/final-contract-rc-80a7` (merge into `toxel-uat-approved` before deploy)  
+**Approved release-candidate tip (deploy HEAD):** use `git rev-parse HEAD` on `toxel-uat-approved` after the contract RC is merged — all three apps must report that tip via build-info.
 
 **Deploy tip:** pull this exact HEAD of `toxel-uat-approved`. All three apps must still be built from the **same** pulled tip and report that tip via build-info.
+
+**Local gate (contract RC):** backend 429/429 PASS; client + Admin production builds PASS; Playwright static guards PASS. Shared-staging RA01–RA30 browser suite is still required after deploy (`docs/STAGING_RELEASE_ACCEPTANCE.md`).
 
 **Instruction:** Pull and deploy this exact branch. Confirm `git rev-parse HEAD` with TaxSimba before promoting. Do not use Toxel’s older evidence SHA `db323e23…` as a deploy target.
 

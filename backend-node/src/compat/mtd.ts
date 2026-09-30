@@ -180,19 +180,28 @@ async function caseDocuments(caseId: string, me: Doc): Promise<Doc[]> {
 function toOverviewDocuments(docs: Doc[]): Doc[] {
   return docs.map((d) => {
     const requested = d.status === "Requested";
+    const id = String(d.id ?? "");
+    const downloadUrl = id
+      ? `/api/compat/client/documents/${encodeURIComponent(id)}/download`
+      : null;
+    const filename = String(d.name ?? "document");
     return {
-      id: d.id,
+      id,
       documentType: d.document_type ?? "Other",
       uploadStatus: requested ? "uploading" : "completed",
       isRequired: requested || Boolean(d.request_id),
       priority: d.priority ?? null,
       deadline: d.due_date ?? null,
-      message: d.name ?? null,
+      message: filename,
       uploadedBy: d.uploader_id ?? null,
-      originalFileName: d.name ?? null,
+      originalFileName: filename,
+      filename,
       fileSize: d.size ?? null,
       mimeType: d.content_type ?? null,
-      cloudinaryUrl: null,
+      // Authorised download route — never null when a document id exists.
+      downloadUrl,
+      previewUrl: downloadUrl,
+      cloudinaryUrl: downloadUrl,
       mtdPeriodId: d.mtd_period_id ?? null,
     };
   });

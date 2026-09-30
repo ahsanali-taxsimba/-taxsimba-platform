@@ -222,7 +222,7 @@ export function renderEmail(params: {
   textLines.push(
     "",
     "TaxSimba",
-    "Simple tax. Expert support.",
+    "Your partner for stress free taxes",
     "",
     "This is a service notification about your TaxSimba account.",
     `Privacy Policy: ${privacyUrl}`,
@@ -277,7 +277,7 @@ export function renderEmail(params: {
     // Footer
     `<tr><td style="padding:24px 32px;background-color:#f7faf8;border-top:1px solid #e3ebe6">`,
     `<p style="margin:0 0 4px;font-size:14px;font-weight:700;color:#37a267">TaxSimba</p>`,
-    `<p style="margin:0 0 16px;font-size:13px;line-height:1.5;color:#5a6b62">Simple tax. Expert support.</p>`,
+    `<p style="margin:0 0 16px;font-size:13px;line-height:1.5;color:#5a6b62">Your partner for stress free taxes</p>`,
     `<p style="margin:0 0 12px;font-size:12px;line-height:1.5;color:#5a6b62">This is a service notification about your TaxSimba account.</p>`,
     `<p style="margin:0 0 12px;font-size:12px;line-height:1.5">`,
     `<a href="${escapeHtml(privacyUrl)}" style="color:#37a267;text-decoration:underline">Privacy Policy</a>`,

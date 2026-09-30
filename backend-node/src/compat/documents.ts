@@ -19,11 +19,30 @@ import { auth, user as authed } from "../middleware/auth";
 import { mimeFromFilename, validateUpload } from "../middleware/protections";
 import { getObject, putObject } from "../services/storage";
 import { keysToCamel } from "./caseMap";
+import { clientDocumentDto, clientDocumentsPayload } from "./clientDocumentDto";
 import { sendCompatSuccess } from "./envelope";
 import { toCaseId } from "./ids";
 
 export const compatDocumentsRouter = Router();
 const upload = multer({ storage: multer.memoryStorage() });
+
+/** Accept canonical `file` or legacy FE field `documents` (single file). */
+const clientUploadFields = upload.fields([
+  { name: "file", maxCount: 1 },
+  { name: "documents", maxCount: 1 },
+]);
+
+function firstUploadedFile(req: {
+  file?: { originalname: string; mimetype: string; size: number; buffer: Buffer };
+  files?: unknown;
+}): { originalname: string; mimetype: string; size: number; buffer: Buffer } | undefined {
+  if (req.file) return req.file;
+  const files = req.files as
+    | { [fieldname: string]: { originalname: string; mimetype: string; size: number; buffer: Buffer }[] }
+    | undefined;
+  if (!files || Array.isArray(files)) return undefined;
+  return files.file?.[0] ?? files.documents?.[0];
+}
 
 export const DRAFT_REVIEW_AWAITING = "AWAITING_ADMIN_REVIEW";
 export const DRAFT_REVIEW_APPROVED = "APPROVED";
@@ -100,7 +119,7 @@ compatDocumentsRouter.post(
       }
     }
     if (!accessible.length) {
-      sendCompatSuccess(res, { files: [], documents: [] }, "OK");
+      sendCompatSuccess(res, clientDocumentsPayload([]), "OK");
       return;
     }
     const docs = (await col("documents")
@@ -112,24 +131,19 @@ compatDocumentsRouter.post(
       .sort({ created_at: -1 })
       .limit(500)
       .toArray()) as Doc[];
-    const cleaned = scrubMany(cleanMany(docs), me).map((d) => ({
-      ...d,
-      taxReturnId: d.case_id,
-      tax_return_id: d.case_id,
-      caseId: d.case_id,
-    }));
-    sendCompatSuccess(res, { files: cleaned, documents: cleaned }, "OK");
+    const cleaned = scrubMany(cleanMany(docs), me).map((d) => clientDocumentDto(d));
+    sendCompatSuccess(res, clientDocumentsPayload(cleaned), "OK");
   }),
 );
 
 compatDocumentsRouter.post(
   "/client/tax-returns/:taxReturnId/upload-documents",
   auth("CLIENT"),
-  upload.single("file"),
+  clientUploadFields,
   handler(async (req, res) => {
     const me = authed(req);
     const caseId = toCaseId(req.params.taxReturnId);
-    const f = req.file;
+    const f = firstUploadedFile(req);
     if (!f) throw httpError(422, "file is required");
 
     const kase = await getCase(caseId, me);
@@ -176,7 +190,7 @@ compatDocumentsRouter.post(
     sendCompatSuccess(
       res,
       {
-        ...clean(record),
+        ...clientDocumentDto(clean(record) as Doc, caseId),
         tax_return_id: caseId,
         case_id: caseId,
         taxReturnId: caseId,
@@ -357,7 +371,7 @@ compatDocumentsRouter.post(
         (message || `${created.length} document(s) requested`) +
         "\n\nPlease upload it securely through your TaxSimba account so we can keep your tax return moving.",
       caseId,
-      "/documents",
+      "/dashboard/my-documents",
       "DOCUMENT",
     );
     sendCompatSuccess(
@@ -514,7 +528,7 @@ async function staffUpload(
       (kase.case_ref ? ` for ${kase.case_ref}` : "") +
       ".\n\nFor your security, please sign in to TaxSimba to download it.",
     caseId,
-    "/documents",
+      "/dashboard/my-documents",
     "DOCUMENT",
   );
   sendCompatSuccess(

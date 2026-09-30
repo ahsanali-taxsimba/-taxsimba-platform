@@ -2,95 +2,107 @@ import React from "react";
 import DeleteModal from "./DeleteModal";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { Logout } from "@/app/lib/api";
+import { nativeApiUrl } from "@/lib/nativeApiUrl";
 
-const DeleteProfile = ({ sessionData, setTrackUpdate }) => {
-  // Delete account
-  const DeleteAccount = async () => {
+/**
+ * Account closure request — does not invent hard-delete or soft-deactivate APIs.
+ * Both modal actions submit the approved ACCOUNT_CLOSURE data-request.
+ */
+const DeleteProfile = ({ sessionData }) => {
+  const submitClosureRequest = async (data, asDelete) => {
     try {
+      const reason = String(
+        data?.reason ||
+          (asDelete ? "Client requested account closure" : "Client requested account deactivation"),
+      ).trim();
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}client/delete-account`,
-        {},
+        nativeApiUrl("/api/my-data-requests"),
+        { kind: "ACCOUNT_CLOSURE", reason },
         {
           headers: {
             Authorization: `Bearer ${sessionData.accessToken}`,
+            "Content-Type": "application/json",
           },
-        }
+        },
       );
-      toast.success(response?.data?.message || "Account deleted successfully");
-      Logout(sessionData);
+      const duplicate = Boolean(response?.data?.duplicate_prevented);
+      toast.success(
+        duplicate
+          ? "A closure request is already pending review."
+          : "Your account-closure request has been recorded. Our team will process it under TaxSimba retention rules.",
+      );
     } catch (err) {
-      toast.error(err?.response?.data?.message || "Failed to delete account. Please try again.");
+      toast.error(
+        err?.response?.data?.detail ||
+          err?.response?.data?.message ||
+          "Could not submit the account-closure request. Please try again or contact support.",
+      );
     }
   };
 
-  const DeactivateAccount = async (data) => {
-    try {
-      const payload = sessionData?.user?.provider === 'google'
-        ? { reason: data.reason }
-        : { password: data.password, reason: data.reason };
-
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}client/deactivate`,
-        payload,
-        {
-          headers: {
-            Authorization: `Bearer ${sessionData.accessToken}`,
-          },
-        }
-      );
-      toast.success(response?.data?.message || "Account deactivated successfully");
-      Logout(sessionData);
-    } catch (err) {
-      toast.error(err?.response?.data?.message || "Failed to deactivate account. Please try again.");
-    }
-  };
   return (
     <>
       <div className="edt_profile_box">
         <div className="edt_prof_head mb-4">
           <h3 className="mb-2">Account Management</h3>
           <p>
-            Choose to temporarily deactivate your account or permanently delete it.
-            Deletion is irreversible and will remove all associated data and reviews.
+            You can request account closure. Requests are reviewed under TaxSimba retention and
+            compliance rules. This screen does not instantly erase regulated tax records.
           </p>
         </div>
         <div className="row mt-4 d-flex align-items-stretch">
           <div className="col-lg-6 mb-3">
-            <div className="p-4 d-flex flex-column h-100" style={{ background: 'rgba(55, 162, 103, 0.05)', borderRadius: '24px', border: '1px solid rgba(55, 162, 103, 0.2)' }}>
-              <h4 style={{ color: '#37a267', fontWeight: '800' }}>Deactivate Account</h4>
-              <p style={{ color: '#000', fontSize: '0.9rem', flexGrow: 1 }}>Temporarily disable your profile. You can reactivate your account anytime by logging back in.</p>
+            <div
+              className="p-4 d-flex flex-column h-100"
+              style={{
+                background: "rgba(55, 162, 103, 0.05)",
+                borderRadius: "24px",
+                border: "1px solid rgba(55, 162, 103, 0.2)",
+              }}
+            >
+              <h5 className="mb-2">Request deactivation / closure</h5>
+              <p className="flex-grow-1" style={{ fontSize: 14, color: "#5a6b62" }}>
+                Submit a request for review. Open cases and retention requirements are checked
+                before any further action.
+              </p>
               <button
-                className="common-btn mt-3"
-                style={{ background: '#37a267', color: '#06130f', border: 'none', padding: '15px 25px', borderRadius: '15px', fontWeight: '800', width: '100%', transition: '0.3s' }}
+                type="button"
+                className="basic_btn cean_btn"
                 data-bs-toggle="modal"
                 data-bs-target="#deactivateacc"
               >
-                Deactivate Now
+                Request closure
               </button>
             </div>
           </div>
           <div className="col-lg-6 mb-3">
-            <div className="p-4 d-flex flex-column h-100" style={{ background: 'rgba(255, 77, 77, 0.05)', borderRadius: '24px', border: '1px solid rgba(255, 77, 77, 0.2)' }}>
-              <h4 style={{ color: '#ff4d4d', fontWeight: '800' }}>Delete Account</h4>
-              <p style={{ color: '#000', fontSize: '0.9rem', flexGrow: 1 }}>Permanently remove your account and all data. This action is final and cannot be reversed.</p>
-              <button
-                className="common-btn mt-3"
-                style={{ background: '#ff4d4d', color: '#fff', border: 'none', padding: '15px 25px', borderRadius: '15px', fontWeight: '800', width: '100%', transition: '0.3s' }}
-                data-bs-toggle="modal"
-                data-bs-target="#deleteacc"
-              >
-                Delete Permanently
+            <div
+              className="p-4 d-flex flex-column h-100"
+              style={{
+                background: "rgba(214, 69, 69, 0.05)",
+                borderRadius: "24px",
+                border: "1px solid rgba(214, 69, 69, 0.2)",
+              }}
+            >
+              <h5 className="mb-2">Immediate permanent delete</h5>
+              <p className="flex-grow-1" style={{ fontSize: 14, color: "#5a6b62" }}>
+                Instant permanent deletion is not available from this screen. Use the closure
+                request, or contact support.
+              </p>
+              <button type="button" className="btn btn-outline-secondary" disabled>
+                Permanent delete unavailable
               </button>
             </div>
           </div>
         </div>
+        <DeleteModal
+          sessionData={sessionData}
+          DeactivateAccount={(data) => submitClosureRequest(data, false)}
+          DeleteAccount={() =>
+            submitClosureRequest({ reason: "Client requested account closure" }, true)
+          }
+        />
       </div>
-      <DeleteModal
-        DeleteAccount={DeleteAccount}
-        DeactivateAccount={DeactivateAccount}
-        sessionData={sessionData}
-      />
     </>
   );
 };

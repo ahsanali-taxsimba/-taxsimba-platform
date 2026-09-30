@@ -32,7 +32,7 @@ describe("renderEmail branded layout", () => {
     expect(out.text).toContain("confirm your TaxSimba account");
     expect(out.text).toContain("does not activate a package");
     expect(out.text).toContain("Verify my email: https://app.test.taxsimba.local/verify-email?token=abc");
-    expect(out.text).toContain("Simple tax. Expert support.");
+    expect(out.text).toContain("Your partner for stress free taxes");
     expect(out.text).toContain("https://app.test.taxsimba.local/privacy-policy");
     expect(out.text).toContain("https://app.test.taxsimba.local/terms-and-conditions");
     expect(out.text).toContain("https://app.test.taxsimba.local/contact-us");
@@ -49,7 +49,7 @@ describe("renderEmail branded layout", () => {
     expect(out.html).toContain("/privacy-policy");
     expect(out.html).toContain("/terms-and-conditions");
     expect(out.html).toContain("/contact-us");
-    expect(out.html).toContain("Simple tax. Expert support.");
+    expect(out.html).toContain("Your partner for stress free taxes");
   });
 
   it("uses EMAIL_LOGO_URL override and never emits localhost/svg for staging base", async () => {

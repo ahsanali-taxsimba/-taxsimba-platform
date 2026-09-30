@@ -12,18 +12,23 @@ export const handleDownload = async (url, filename) => {
 
       const apiBase = process.env.NEXT_PUBLIC_API_URL || "";
       const isAbsolute = /^https?:\/\//i.test(url);
+      // Support absolute API paths from DTOs: /api/compat/client/documents/:id/download
+      let relative = url;
+      if (!isAbsolute && url.startsWith("/api/compat/")) {
+        relative = url.replace(/^\/api\/compat\//, "");
+      }
       const isApiRelative =
         !isAbsolute &&
-        (url.startsWith("client/") ||
-          url.startsWith("admin/") ||
-          url.startsWith("accountant/") ||
-          url.startsWith("/client/") ||
-          url.startsWith("/admin/"));
+        (relative.startsWith("client/") ||
+          relative.startsWith("admin/") ||
+          relative.startsWith("accountant/") ||
+          relative.startsWith("/client/") ||
+          relative.startsWith("/admin/"));
 
       let fetchUrl = url;
       const headers = {};
       if (isApiRelative) {
-        const path = url.replace(/^\//, "");
+        const path = relative.replace(/^\//, "");
         fetchUrl = `${apiBase}${path}`;
         const session = await getSession();
         const token = session?.accessToken || session?.user?.accessToken;

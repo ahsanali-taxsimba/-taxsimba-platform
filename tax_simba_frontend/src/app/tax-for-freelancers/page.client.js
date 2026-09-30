@@ -34,7 +34,7 @@ const TaxForFreelancersClient = () => {
                                 <div className='feature-bussiness-left common-title pe-5'>
                                     <div className="feature-text-box connect-box-card">
                                         <h2><span>Self Assessment</span> made simple with <span>Taxsimba</span></h2>
-                                        <p className='mb-0'>Our platform is designed to take the stress out of filing your Self Assessment. Instead of navigating complicated HMRC forms, Taxsimba asks you simple questions and handles all the complex tax calculations behind the scenes. We automatically identify allowable expenses so you never pay more tax than you need to. With our direct HMRC connection, you can submit your return straight from our software with a single click. From sole traders and landlords to high earners, Taxsimba provides the guidance and confidence you need to file accurately, avoid penalties, and get back to what you do best.
+                                        <p className='mb-0'>Our platform is designed to take the stress out of filing your Self Assessment. Instead of navigating complicated HMRC forms, Taxsimba asks you simple questions and handles all the complex tax calculations behind the scenes. We automatically identify allowable expenses so you never pay more tax than you need to. With our authorised accountant filing process, you can submit your return straight from our software with a single click. From sole traders and landlords to high earners, Taxsimba provides the guidance and confidence you need to file accurately, avoid penalties, and get back to what you do best.
                                         </p>
                                     </div>
                                 </div>
@@ -108,7 +108,7 @@ const TaxForFreelancersClient = () => {
                                 <span className="tax-problem-icon">
                                     <img src="/images/tax.png" alt="img" />
                                 </span>
-                                <h3>Direct HMRC Submission</h3>
+                                <h3>Accountant-led external filing</h3>
                                 <p>Submit your Self Assessment directly to HMRC from our platform. We are Accountant Led.</p>
                             </div>
                         </Col>

@@ -185,6 +185,8 @@ compatCasesRouter.post(
     const me = authed(req);
     // Reuse list semantics: only ACTIVE-entitlement cases.
     const { activeServiceTypesForClient } = await import("../domain/caseEntitlement");
+    const { clientDocumentDto } = await import("./clientDocumentDto");
+    const { scrubMany, cleanMany } = await import("../db/mongo");
     const activeTypes = await activeServiceTypesForClient(me);
     if (!activeTypes.length) {
       sendCompatSuccess(res, [], "OK");
@@ -202,11 +204,43 @@ compatCasesRouter.post(
       .sort({ last_updated: -1 })
       .limit(100)
       .toArray()) as Doc[];
-    sendCompatSuccess(
-      res,
-      cases.map((c) => decorateCase(clean(c) as Doc)),
-      "OK",
-    );
+
+    const out = [];
+    for (const raw of cases) {
+      const c = decorateCase(clean(raw) as Doc);
+      const caseId = String(c.id);
+      const docs = (await col("documents")
+        .find({
+          case_id: caseId,
+          is_deleted: { $ne: true },
+          is_internal: false,
+        })
+        .sort({ created_at: -1 })
+        .limit(200)
+        .toArray()) as Doc[];
+      const allFiles = scrubMany(cleanMany(docs), me).map((d) => {
+        const dto = clientDocumentDto(d, caseId);
+        const requested = d.status === "Requested";
+        return {
+          ...dto,
+          uploadStatus: requested ? "uploading" : "completed",
+          id: d.id,
+        };
+      });
+      // Canonical nested shape for Tax Tracker (`item.taxReturn.id`, `item.files.allFiles`).
+      out.push({
+        ...c,
+        taxReturn: {
+          id: caseId,
+          caseRef: c.case_ref ?? null,
+          status: c.status,
+          serviceType: c.service_type,
+          taxYear: c.tax_year,
+        },
+        files: { allFiles },
+      });
+    }
+    sendCompatSuccess(res, out, "OK");
   }),
 );
 
@@ -808,7 +842,7 @@ async function handleManageReview(req: import("express").Request, res: import("e
         "Please check the figures carefully." +
         (kase.tax_year ? `\n\nTax year: ${kase.tax_year}` : ""),
       caseId,
-      "/documents",
+      "/dashboard/my-documents",
       "APPROVAL",
     );
     if (kase.assigned_accountant_id) {

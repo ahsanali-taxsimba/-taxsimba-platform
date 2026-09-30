@@ -74,7 +74,10 @@ collaborationRouter.post(
     if (recipient) {
       const recipientUser = await col("users").findOne({ id: recipient }, { projection: { role: 1 } });
       // Staff open the exact case conversation; the client's own thread lives on Messages.
-      const link = recipientUser?.role === "CLIENT" ? "/messages" : `/work/cases/${body.case_id}`;
+      const link =
+        recipientUser?.role === "CLIENT"
+          ? "/dashboard/tax-tracker"
+          : `/work/cases/${body.case_id}`;
       await notify(
         recipient,
         `New message from ${me.name}`,

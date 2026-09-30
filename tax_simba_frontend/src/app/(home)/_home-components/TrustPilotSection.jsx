@@ -81,7 +81,7 @@ const TrustPilotSection = () => {
         fetchReviews();
     }, [])
 
-    console.log("session in home",session?.accessToken)
+    // Do not log session tokens.
 
     return (
         <section className='TrustPilotSection'>

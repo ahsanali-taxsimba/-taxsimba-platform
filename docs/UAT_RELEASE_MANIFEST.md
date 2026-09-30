@@ -1,95 +1,48 @@
-# UAT release candidate manifest
+# UAT Release Manifest — Final Contract RC
 
 ## Identity
 
-| Field | Value |
-| --- | --- |
-| Branch (working) | `cursor/uat-release-candidate-80a7` |
-| Target merge branch | `toxel-uat-approved` |
-| Previous tip SHA | `47ac3ec96b4452b0b0ce50f53a773bc03afae270` |
-| Prior content SHA | `fe16d36a2fa9a13f7c680897174d72e40123f157` |
-| Functional content SHA | `f1facc2b339f4bae960e7ac7f216bf460e83102b` |
-| New tip SHA | `96df95c5ab77b767c699d18f2c670924d8bb3279` (stamp may sit one commit ahead; use `git rev-parse HEAD` on toxel-uat-approved) |
+- **Base SHA:** `870b29d76959e3083f2b854689156e7ef54fbfae`
+- **Working branch:** `cursor/final-contract-rc-80a7`
+- **Integration target:** `toxel-uat-approved`
+- **New tip SHA:** *(filled after merge — use `git rev-parse HEAD` on toxel-uat-approved)*
 
-## Changed files by defect
+## Local release gate (this RC)
 
-### Accountant invite 404
+| Check | Result |
+|---|---|
+| Backend typecheck | PASS |
+| Backend full suite | PASS (429 tests) |
+| Client production build | PASS |
+| Admin production build | PASS |
+| Contract DTO suite | PASS |
+| Release-acceptance API suite | PASS |
+| Client Playwright static guards | PASS (4/4; live staging skipped without E2E_BASE_URL) |
+| Shared-staging 30/30 browser suite | NOT EXECUTED in this environment |
 
-- `backend-node/src/services/staffInviteLinks.ts` (new)
-- `backend-node/src/routes/admin.ts`
-- `backend-node/src/compat/admin.ts` (invite link usage)
-- `backend-node/.env.example` (`ADMIN_BASE_URL`)
-- `backend-node/src/app.ts` (build-info `adminBaseUrl`)
-- `tax_simba_admin_frontend/src/app/invite/[token]/page.tsx` (new)
-- `tax_simba_admin_frontend/src/middleware.ts`
-- `tax_simba_admin_frontend/src/app/(admin)/(others-pages)/manage-accountant/_sections/FormAddEdit.tsx`
-- `backend-node/tests/unit/staffInviteLinks.test.ts` (new)
-- `backend-node/tests/integration/admin.test.ts`
-- `backend-node/tests/integration/email.test.ts`
+## Deployment order
 
-### Draft Ready Admin bypass
+1. Backend (`backend-node`)
+2. Client (`tax_simba_frontend`)
+3. Admin (`tax_simba_admin_frontend`)
 
-- `backend-node/src/compat/cases.ts`
-- `backend-node/tests/integration/draftReadyAdminGate.test.ts` (new)
-
-### Admin directory pagination
-
-- `backend-node/src/compat/admin.ts`
-- `backend-node/tests/integration/adminDirectoryPagination.test.ts` (new)
-
-### Mobile sidebar / Tax List viewport
-
-- `tax_simba_admin_frontend/src/context/SidebarContext.tsx`
-- `tax_simba_admin_frontend/src/layout/AppSidebar.tsx`
-- `tax_simba_admin_frontend/src/app/main.css`
-
-### Release documentation
-
-- `START_HERE_TOXEL.md`
-- `docs/UAT_TRIAGE_MATRIX.md`
-- `docs/UAT_RELEASE_MANIFEST.md`
+All three must report the same tip SHA via build-info.
 
 ## Migrations
 
-None. No schema changes in this RC. Rollback = redeploy previous tip only.
+None. No schema migration scripts required for this RC.
 
-## Configuration changes (names only)
+## Environment variables
 
-| Name | Change |
-| --- | --- |
-| `ADMIN_BASE_URL` | **Required** on staging/production for staff invite emails (admin origin, no path) |
-| `GIT_SHA` | Backend build-info |
-| `NEXT_PUBLIC_GIT_SHA` | Client + Admin build-info |
+No new required variables. Optional:
 
-No secret values changed in git.
+- `EMAIL_LOGO_URL` — absolute HTTPS PNG logo override
+- Existing Stripe TEST keys remain required on shared staging (`PAYMENT_PROVIDER=fake` is localhost-only)
 
-## Items explicitly not changed
+## Rollback
 
-- SEO / PPC surfaces
-- Email redesign / welcome sequence / logo redesign / Direct Debit reminders
-- Agreement module (AGR01 Not Applicable)
-- Complaints module (unapproved)
-- Package price amounts (remain founder-approved catalogue)
-- HMRC API filing (out of scope)
-- Unsafe immediate email-address replacement
+Redeploy previous tip `870b29d76959e3083f2b854689156e7ef54fbfae` for Backend → Client → Admin in that order.
 
-## Known limitations
+## Staging acceptance
 
-- Staging/production pass requires deploying this tip and Toxel evidenced retest
-- G05/G06 remain future production gates
-- Email-change token-to-new-address is a product decision (not invented here)
-- Accountant Manage UI still loads unpaged list when page/limit omitted (by design for legacy FE)
-- Legacy `frontend/` not deployed
-
-## Automated verification
-
-| Command | Type | Passed | Failed | Skipped | Result |
-| --- | --- | ---: | ---: | ---: | --- |
-| `cd backend-node && npm run typecheck` | build/typecheck | — | 0 | 0 | PASS |
-| `cd backend-node && npm test` | unit+integration (full suite) | 416 | 0 | 0 | PASS (53 files) |
-| focused: staffInviteLinks, draftReadyAdminGate, adminDirectoryPagination, admin invite, email invite | unit+integration | 38+ | 0 | 0 | PASS |
-| `cd tax_simba_frontend && npm run build` | production build | — | 0 | 0 | PASS |
-| `cd tax_simba_admin_frontend && npm run build` | production build | — | 0 | 0 | PASS (includes `/invite/[token]`) |
-
-Skipped tests in full backend suite: **0**. Focused suites are not a substitute for the full suite; the full suite was also run and passed.
-
+See `docs/STAGING_RELEASE_ACCEPTANCE.md`.

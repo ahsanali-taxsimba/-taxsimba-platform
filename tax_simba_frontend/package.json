@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:e2e": "playwright test",
+    "assert:hmrc": "node scripts/assert-no-direct-hmrc-claim.mjs"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -49,5 +51,8 @@
   "optionalDependencies": {
     "@tailwindcss/oxide-linux-x64-gnu": "4.0.0",
     "lightningcss-linux-x64-gnu": "1.28.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.51.1"
   }
 }
