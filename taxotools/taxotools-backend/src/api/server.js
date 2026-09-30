@@ -14,6 +14,17 @@ import {
   getCrawlerStatusHandler,
 } from "./intelligenceHandlers.js";
 import { getFirmCoreHandler } from "./getFirmCore.js";
+import {
+  scorecardHandler,
+  battleCardHandler,
+  backlinkGapsHandler,
+  marketsHandler,
+  leadsHandler,
+  changesHandler,
+  ukCoverageHandler,
+  importFirmsHandler,
+  contentGapsHandler,
+} from "./platformFeatures.js";
 import { getCoverageStats } from "../supabase/insertDomain.js";
 import { getSupabase } from "../supabase/client.js";
 import { runDiscovery } from "../discovery/index.js";
@@ -56,44 +67,103 @@ app.get("/", async (_req, res) => {
   }
   res.type("html").send(`<!doctype html>
 <html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>TaxoTools Crawler</title>
+<title>TaxoTools Intelligence</title>
 <style>
-  :root{--bg:#0f1419;--card:#1a2332;--text:#e7ecf3;--muted:#9aa8bc;--ok:#3ecf8e;--accent:#5b9fd4}
-  body{margin:0;font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,sans-serif;background:radial-gradient(1200px 600px at 20% -10%,#1e3a5f 0%,var(--bg) 55%);color:var(--text);min-height:100vh}
-  main{max-width:780px;margin:0 auto;padding:48px 20px}
-  h1{font-size:1.75rem;margin:0 0 8px}
-  p{color:var(--muted);line-height:1.5}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:28px 0}
-  .stat{background:var(--card);border:1px solid #2a3548;border-radius:12px;padding:16px}
-  .stat b{display:block;font-size:1.4rem;margin-top:6px}
-  .stat span{color:var(--muted);font-size:.85rem}
+  :root{--bg:#0b1220;--panel:#121a2b;--line:#243149;--text:#e8eef8;--muted:#93a0b8;--ok:#3ecf8e;--accent:#6eb6ff}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",ui-sans-serif,system-ui,sans-serif;color:var(--text);
+    background:radial-gradient(900px 480px at 15% -5%,#1d3b66 0%,transparent 55%),linear-gradient(160deg,#0b1220,#10182a 60%,#0b1220)}
+  main{max-width:960px;margin:0 auto;padding:40px 18px 64px}
+  h1{font-size:clamp(1.6rem,3vw,2.1rem);margin:0 0 8px;letter-spacing:-.02em}
+  h2{font-size:1.05rem;margin:28px 0 10px;color:#cfe0ff}
+  p{color:var(--muted);line-height:1.55;margin:0 0 12px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:22px 0}
+  .stat,.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+  .stat b{display:block;font-size:1.35rem;margin-top:6px}
+  .stat span{color:var(--muted);font-size:.82rem}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .card a{color:var(--accent);text-decoration:none;font-weight:600}
+  .card small{display:block;color:var(--muted);margin-top:6px;line-height:1.4}
   a{color:var(--accent)}
-  .ok{color:var(--ok);font-weight:600}
-  code{background:#111827;padding:2px 6px;border-radius:6px}
+  .ok{color:var(--ok);font-weight:650}
+  code{background:#0a1020;padding:2px 6px;border-radius:6px;font-size:.86em}
+  form{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 8px}
+  input,textarea,button{border-radius:10px;border:1px solid var(--line);background:#0d1526;color:var(--text);padding:10px 12px}
+  input{min-width:220px;flex:1}
+  textarea{width:100%;min-height:110px;font-family:ui-monospace,Consolas,monospace}
+  button{background:#1d4f86;border-color:#2d6fad;cursor:pointer;font-weight:650}
+  #out{white-space:pre-wrap;font-size:.82rem;max-height:280px;overflow:auto;background:#0a1020;border:1px solid var(--line);border-radius:12px;padding:12px;color:#c9d7ee}
 </style></head><body><main>
-  <h1>TaxoTools UK Crawler</h1>
-  <p>Status: <span class="ok">${control?.status || "unknown"}</span> · Core focus: firms, GEO, SEO, AEO, backlinks, competitors</p>
+  <h1>TaxoTools UK Intelligence</h1>
+  <p>Status: <span class="ok">${control?.status || "unknown"}</span> · firms, GEO, SEO, AEO, backlinks, competitors, leads</p>
   <div class="grid">
     <div class="stat"><span>Firms</span><b>${coverage?.firms_total ?? "—"}</b></div>
     <div class="stat"><span>Crawled</span><b>${coverage?.firms_crawled ?? "—"}</b></div>
-    <div class="stat"><span>GEO profiles</span><b>${coverage?.geo_profiles ?? "—"}</b></div>
+    <div class="stat"><span>GEO</span><b>${coverage?.geo_profiles ?? "—"}</b></div>
     <div class="stat"><span>SEO pages</span><b>${coverage?.seo_pages ?? "—"}</b></div>
     <div class="stat"><span>Backlinks</span><b>${coverage?.backlinks ?? "—"}</b></div>
     <div class="stat"><span>Pending</span><b>${coverage?.firms_pending_crawl ?? "—"}</b></div>
   </div>
-  <p><b>Core firm API:</b> <code>/firm?domain=mooreks.co.uk</code></p>
-  <p>
+
+  <h2>Intelligence APIs</h2>
+  <div class="cards">
+    <div class="card"><a href="/scorecard?domain=sedulo.co.uk">Scorecard</a><small>Authority + SEO + GEO + AEO + local-pack score</small></div>
+    <div class="card"><a href="/battle-card?domain=sedulo.co.uk">Battle card</a><small>Local rivals, backlink &amp; content gaps</small></div>
+    <div class="card"><a href="/backlink-gaps?domain=sedulo.co.uk">Backlink gaps</a><small>Domains linking to competitors, not you</small></div>
+    <div class="card"><a href="/markets">City markets</a><small>UK market map · try <code>?city=Manchester</code></small></div>
+    <div class="card"><a href="/leads?missing_phone=1&limit=25">Lead list</a><small>Filter weak firms · <code>&format=csv</code> export</small></div>
+    <div class="card"><a href="/content-gaps?domain=sedulo.co.uk">Content / AEO gaps</a><small>Missing VAT/payroll/FAQ/local schema</small></div>
+    <div class="card"><a href="/changes?days=7">Change monitor</a><small>Recent crawls &amp; new backlinks</small></div>
+    <div class="card"><a href="/coverage/uk">UK coverage</a><small>By source &amp; location</small></div>
+  </div>
+
+  <h2>Quick lookup</h2>
+  <form id="qform" onsubmit="return goLookup(event)">
+    <input id="qdomain" placeholder="domain e.g. sedulo.co.uk" value="sedulo.co.uk"/>
+    <button type="submit">Open scorecard</button>
+    <button type="button" onclick="location.href='/battle-card?domain='+encodeURIComponent(document.getElementById('qdomain').value)">Battle card</button>
+    <button type="button" onclick="location.href='/leads?format=csv&limit=100'">Export leads CSV</button>
+  </form>
+
+  <h2>Import firms (Name — https://site)</h2>
+  <textarea id="importText" placeholder="Firm Name — https://example.co.uk"></textarea>
+  <form onsubmit="return doImport(event)" style="margin-top:8px">
+    <button type="submit">Import live websites</button>
+  </form>
+  <pre id="out"></pre>
+
+  <p style="margin-top:22px">
     <a href="/health">/health</a> ·
     <a href="/coverage">/coverage</a> ·
-    <a href="/accountants">/accountants</a> ·
-    <a href="/firm?domain=mooreks.co.uk">/firm example</a> ·
+    <a href="/firm?domain=sedulo.co.uk">/firm</a> ·
     <a href="/crawler/status">/crawler/status</a>
   </p>
+<script>
+function goLookup(e){e.preventDefault();location.href='/scorecard?domain='+encodeURIComponent(document.getElementById('qdomain').value);return false}
+async function doImport(e){
+  e.preventDefault();
+  const out=document.getElementById('out');
+  out.textContent='Importing…';
+  try{
+    const r=await fetch('/ops/import',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:document.getElementById('importText').value})});
+    out.textContent=JSON.stringify(await r.json(),null,2);
+  }catch(err){out.textContent=String(err)}
+  return false;
+}
+</script>
 </main></body></html>`);
 });
 
 app.get("/accountants", getAccountantsHandler);
 app.get("/firm", getFirmCoreHandler);
+app.get("/scorecard", scorecardHandler);
+app.get("/battle-card", battleCardHandler);
+app.get("/backlink-gaps", backlinkGapsHandler);
+app.get("/markets", marketsHandler);
+app.get("/leads", leadsHandler);
+app.get("/changes", changesHandler);
+app.get("/coverage/uk", ukCoverageHandler);
+app.get("/content-gaps", contentGapsHandler);
 app.get("/backlinks", getBacklinksHandler);
 app.get("/referring-domains", getReferringDomainsHandler);
 app.get("/competitor-backlinks", competitorBacklinksHandler);
@@ -111,6 +181,7 @@ app.get("/coverage", async (_req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
+app.post("/ops/import", importFirmsHandler);
 
 app.post("/ops/discover", async (req, res) => {
   try {
