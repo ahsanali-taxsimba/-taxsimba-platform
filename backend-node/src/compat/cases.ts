@@ -227,6 +227,27 @@ compatCasesRouter.post(
           id: d.id,
         };
       });
+      // Nested accountant.id is required by ChatBox (assignment toast gate).
+      let accountant: Doc | null = null;
+      if (c.assigned_accountant_id) {
+        const acc = (await col("users").findOne(
+          { id: c.assigned_accountant_id },
+          { projection: { id: 1, name: 1, email: 1, phone: 1 } },
+        )) as Doc | null;
+        accountant = acc
+          ? {
+              id: acc.id,
+              name: acc.name,
+              email: acc.email,
+              mobile: acc.phone ?? "",
+            }
+          : {
+              id: c.assigned_accountant_id,
+              name: c.assigned_accountant_name ?? "Accountant",
+              email: null,
+              mobile: "",
+            };
+      }
       // Canonical nested shape for Tax Tracker (`item.taxReturn.id`, `item.files.allFiles`).
       out.push({
         ...c,
@@ -237,6 +258,8 @@ compatCasesRouter.post(
           serviceType: c.service_type,
           taxYear: c.tax_year,
         },
+        accountant,
+        assignedAccountantId: c.assigned_accountant_id ?? null,
         files: { allFiles },
       });
     }
@@ -407,8 +430,19 @@ async function buildProgressPayload(kase: Doc, me: Doc, hasSubmission: boolean):
       { projection: { id: 1, name: 1, email: 1, phone: 1 } },
     )) as Doc | null;
     accountant = acc
-      ? { name: acc.name, email: acc.email, mobile: acc.phone ?? "", avatar: null }
-      : { name: kase.assigned_accountant_name ?? "Accountant", email: null, mobile: "" };
+      ? {
+          id: acc.id,
+          name: acc.name,
+          email: acc.email,
+          mobile: acc.phone ?? "",
+          avatar: null,
+        }
+      : {
+          id: kase.assigned_accountant_id,
+          name: kase.assigned_accountant_name ?? "Accountant",
+          email: null,
+          mobile: "",
+        };
   }
 
   const journeySteps = journey(String(kase.status), hasSubmission).map((j) =>

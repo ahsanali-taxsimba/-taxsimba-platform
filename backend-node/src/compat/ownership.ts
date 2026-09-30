@@ -60,11 +60,13 @@ export function activeSubscriptionsFromServices(services: Doc[]): Doc[] {
       packageCode: s.package_code,
       startDate: s.activated_at ?? s.subscription_started_at ?? null,
       plan: {
-        id: s.package_code,
+        // Prefer real package UUID when servicesFor attached it; else code.
+        id: s.package_id ?? s.package_code,
         code: s.package_code,
         name: s.package_name ?? s.package_code,
-        price: s.agreed_price ?? s.package_price ?? null,
+        price: s.agreed_price ?? s.package_price ?? s.current_master_price ?? null,
         interval: s.billing_frequency ?? null,
+        billingType: s.billing_type ?? null,
       },
       currency: "gbp",
     }));

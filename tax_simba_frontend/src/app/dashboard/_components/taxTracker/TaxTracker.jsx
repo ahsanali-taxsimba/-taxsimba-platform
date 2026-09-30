@@ -145,8 +145,12 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
       await fetchDetailIfNeeded(id);
 
       // Set emailIds only when the tax return is opened
-      const accountantId = item?.accountant?.id;
-      const taxReturnId = item?.taxReturn?.id;
+      const accountantId =
+        item?.accountant?.id ||
+        item?.assignedAccountantId ||
+        item?.assigned_accountant_id ||
+        null;
+      const taxReturnId = item?.taxReturn?.id || item?.id || null;
       setEmailIds({
         accountantId: accountantId,
         taxReturnId: taxReturnId,

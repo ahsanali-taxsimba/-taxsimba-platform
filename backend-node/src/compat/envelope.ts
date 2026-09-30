@@ -6,6 +6,7 @@
 import { NextFunction, Request, Response } from "express";
 
 import { HttpError } from "../http/errors";
+import { mapPaymentError, PaymentConfigError } from "../services/paymentErrors";
 import { keysToCamel } from "./caseMap";
 
 export interface CompatEnvelope<T = unknown> {
@@ -76,6 +77,19 @@ export function compatErrorMiddleware(
         errorEnvelope(message, typeof err.detail === "string" ? null : err.detail),
       ),
     );
+    return;
+  }
+  // Payment config / Stripe failures → controlled actionable messages (never secrets).
+  if (
+    err instanceof PaymentConfigError ||
+    (err instanceof Error &&
+      (/STRIPE_/i.test(err.message) ||
+        /Stripe/i.test(err.name || "") ||
+        /payment provider/i.test(err.message)))
+  ) {
+    const mapped = mapPaymentError(err);
+    const message = messageFromDetail(mapped.detail);
+    res.status(mapped.status).json(keysToCamel(errorEnvelope(message)));
     return;
   }
   // eslint-disable-next-line no-console

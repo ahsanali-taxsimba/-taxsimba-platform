@@ -703,10 +703,23 @@ export async function fulfil(tx: Doc): Promise<void> {
       return;
     }
     const kase = await saCase(tx.client_id);
+    const targetPkg = (await col("packages").findOne({
+      service_type: SELF_ASSESSMENT,
+      code: tx.new_package,
+      is_active: true,
+    })) as Doc | null;
     await col("client_services").updateOne(
       { id: svc?.id },
       update({
-        $set: { package_code: tx.new_package, updated_at: nowIso() },
+        $set: {
+          package_code: tx.new_package,
+          // Keep dashboards (My Active Packages / Taxation List) on the paid catalogue price.
+          agreed_price: targetPkg ? Number(targetPkg.price) : svc?.agreed_price,
+          billing_type: targetPkg?.billing_type ?? svc?.billing_type ?? "ONE_OFF",
+          billing_frequency:
+            targetPkg?.billing_frequency ?? svc?.billing_frequency ?? "Per tax year",
+          updated_at: nowIso(),
+        },
         $push: {
           package_history: {
             previous_package: tx.previous_package,
@@ -719,6 +732,11 @@ export async function fulfil(tx: Doc): Promise<void> {
           },
         },
       }),
+    );
+    // Keep case read-models (Admin Taxation List / assignment package column) in sync.
+    await col("cases").updateMany(
+      { client_id: tx.client_id, service_type: SELF_ASSESSMENT },
+      { $set: { package_code: tx.new_package, updated_at: nowIso() } },
     );
     if (kase) {
       await logActivity(

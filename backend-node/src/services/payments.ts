@@ -4,9 +4,14 @@
  */
 import Stripe from "stripe";
 
-import { env, required } from "../config/env";
+import { env } from "../config/env";
 import { Doc } from "../db/mongo";
 import { checkoutReturnUrls, gbpToStripePence } from "./checkoutUrls";
+import {
+  isStripeMissingCustomerError,
+  isStripeTaxConfigError,
+  PaymentConfigError,
+} from "./paymentErrors";
 
 export const TAX_CODE = "txcd_20060000"; // professional services
 
@@ -68,7 +73,18 @@ export class StripeProvider implements PaymentProvider {
   private readonly webhookSecret: string;
 
   constructor() {
-    this.stripe = new Stripe(required("STRIPE_SECRET_KEY"));
+    const key = env("STRIPE_SECRET_KEY");
+    if (!key) {
+      throw new PaymentConfigError(
+        "Stripe is not configured. Set STRIPE_SECRET_KEY (sk_test_…) for this environment before starting checkout.",
+      );
+    }
+    if (!/^sk_(test|live)_/.test(key)) {
+      throw new PaymentConfigError(
+        "STRIPE_SECRET_KEY must be a Stripe secret key (sk_test_… or sk_live_…). Update the environment configuration.",
+      );
+    }
+    this.stripe = new Stripe(key);
     this.webhookSecret = env("STRIPE_WEBHOOK_SECRET") ?? "";
   }
 
@@ -116,21 +132,53 @@ export class StripeProvider implements PaymentProvider {
       ...(recurring ? { recurring: { interval } } : {}),
     };
 
-    return session(
-      await this.stripe.checkout.sessions.create({
-        line_items: [{ price_data: priceData, quantity: 1 }],
-        mode: recurring ? "subscription" : "payment",
-        success_url,
-        cancel_url,
-        automatic_tax: { enabled: true },
-        billing_address_collection: "required",
-        metadata: safeMeta,
-        ...(customerId ? { customer: customerId } : {}),
-        ...(recurring && billing?.customerEmail && !customerId
-          ? { customer_email: String(billing.customerEmail) }
-          : {}),
-      }),
-    );
+    const buildParams = (
+      useCustomer: string | null,
+      automaticTax: boolean,
+    ): Stripe.Checkout.SessionCreateParams => ({
+      line_items: [{ price_data: priceData, quantity: 1 }],
+      mode: recurring ? "subscription" : "payment",
+      success_url,
+      cancel_url,
+      automatic_tax: { enabled: automaticTax },
+      billing_address_collection: "required",
+      metadata: safeMeta,
+      ...(useCustomer ? { customer: useCustomer } : {}),
+      ...(recurring && billing?.customerEmail && !useCustomer
+        ? { customer_email: String(billing.customerEmail) }
+        : {}),
+    });
+
+    try {
+      return session(await this.stripe.checkout.sessions.create(buildParams(customerId, true)));
+    } catch (first) {
+      // Stale stored customer id — recreate and retry once.
+      if (customerId && isStripeMissingCustomerError(first)) {
+        customerId = null;
+        if (recurring && billing?.customerEmail) {
+          const created = await this.stripe.customers.create({
+            email: String(billing.customerEmail),
+            metadata: { user_id: safeMeta.user_id || "", client_id: safeMeta.client_id || "" },
+          });
+          customerId = created.id;
+        }
+        try {
+          return session(await this.stripe.checkout.sessions.create(buildParams(customerId, true)));
+        } catch (second) {
+          if (isStripeTaxConfigError(second)) {
+            return session(
+              await this.stripe.checkout.sessions.create(buildParams(customerId, false)),
+            );
+          }
+          throw second;
+        }
+      }
+      // Stripe Tax not enabled on the TEST account — retry without automatic tax.
+      if (isStripeTaxConfigError(first)) {
+        return session(await this.stripe.checkout.sessions.create(buildParams(customerId, false)));
+      }
+      throw first;
+    }
   }
 
   async retrieveSession(sessionId: string): Promise<CheckoutSession> {
@@ -239,7 +287,7 @@ export function payments(): PaymentProvider {
     const mode = (env("PAYMENT_PROVIDER") || "").toLowerCase();
     if (mode === "fake") {
       if (!isLocalNonProdBaseUrl(env("APP_BASE_URL"))) {
-        throw new Error(
+        throw new PaymentConfigError(
           "PAYMENT_PROVIDER=fake is only allowed when APP_BASE_URL is localhost/127.0.0.1",
         );
       }

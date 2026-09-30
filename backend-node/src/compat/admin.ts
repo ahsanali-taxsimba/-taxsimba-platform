@@ -82,7 +82,16 @@ async function toAssignmentDto(kase: Doc): Promise<Doc> {
     .split(/\s+/)
     .filter(Boolean);
   const obligation = await currentMtdObligation(kase);
-  const packageCode = kase.package_code ?? null;
+  // Prefer live client_services.package_code (survives SA upgrade) over frozen case field.
+  let packageCode = kase.package_code ?? null;
+  if (kase.client_id) {
+    const svc = (await col("client_services").findOne({
+      client_id: kase.client_id,
+      service_type: serviceType,
+      status: "ACTIVE",
+    })) as Doc | null;
+    if (svc?.package_code) packageCode = String(svc.package_code);
+  }
   let packageName = packageCode;
   if (packageCode) {
     const pkg = (await col("packages").findOne({

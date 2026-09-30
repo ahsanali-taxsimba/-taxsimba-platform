@@ -500,11 +500,18 @@ async function staffUpload(
       decided_at: null,
     });
     // Notify Admin only — never the client from accountant draft upload.
+    // Absolute Admin FE path (basePath /admin). Relative /manage-tax hits the wrong app
+    // and can render a bare backend "OK" envelope when APP_BASE_URL points at the API.
+    const { adminPublicOrigin } = await import("../services/staffInviteLinks");
+    const adminOrigin = adminPublicOrigin();
+    const reviewLink = adminOrigin
+      ? `${adminOrigin}/admin/manage-tax/${caseId}`
+      : `/admin/manage-tax/${caseId}`;
     await notifyAdmins(
       "Draft ready for Admin review",
       `${kase.client_name ?? "Client"} — ${kase.case_ref ?? caseId}: ${f.originalname} submitted by ${me.name}`,
       caseId,
-      `/manage-tax/${caseId}`,
+      reviewLink,
       "REVIEW",
     );
     sendCompatSuccess(

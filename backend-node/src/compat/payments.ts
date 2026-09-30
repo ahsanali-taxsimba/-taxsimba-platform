@@ -96,27 +96,33 @@ compatPaymentsRouter.post(
       (typeof me.stripe_customer_id === "string" && me.stripe_customer_id) ||
       (typeof client.stripe_customer_id === "string" && client.stripe_customer_id) ||
       null;
-    const session = await payments().createCheckout(
-      amount,
-      `${serviceType === MTD ? "MTD for Income Tax" : "Self Assessment"} — ${pkg.name}`,
-      origin,
-      {
-        kind: "SERVICE_ACTIVATION",
-        client_id: String(client.id),
-        user_id: String(me.id),
-        service_type: serviceType,
-        to_package: String(pkg.code),
-        package_id: String(pkg.id),
-        billing_type: billingType,
-      },
-      productDescription,
-      {
-        billingType,
-        recurringInterval: "month",
-        customerEmail: String(me.email || ""),
-        existingCustomerId: existingCustomer,
-      },
-    );
+    let session;
+    try {
+      session = await payments().createCheckout(
+        amount,
+        `${serviceType === MTD ? "MTD for Income Tax" : "Self Assessment"} — ${pkg.name}`,
+        origin,
+        {
+          kind: "SERVICE_ACTIVATION",
+          client_id: String(client.id),
+          user_id: String(me.id),
+          service_type: serviceType,
+          to_package: String(pkg.code),
+          package_id: String(pkg.id),
+          billing_type: billingType,
+        },
+        productDescription,
+        {
+          billingType,
+          recurringInterval: "month",
+          customerEmail: String(me.email || ""),
+          existingCustomerId: existingCustomer,
+        },
+      );
+    } catch (err) {
+      const { mapPaymentError } = await import("../services/paymentErrors");
+      throw mapPaymentError(err);
+    }
     if (session.customer_id) {
       await col("users").updateOne(
         { id: me.id },
@@ -371,18 +377,20 @@ compatPaymentsRouter.post(
     } = await import("../domain/packages");
     const body = parseBody(
       z.object({
-        package_code: z.string().min(1),
+        package_code: z.string().nullish(),
         plan_id: z.string().nullish(),
         origin_url: z.string().nullish(),
       }),
       keysToSnake(req.body ?? {}),
     );
-    let packageCode = body.package_code;
+    let packageCode = body.package_code ? String(body.package_code) : "";
     if (!packageCode && body.plan_id) {
-      const pkg = (await col("packages").findOne({ id: body.plan_id })) as Doc | null;
+      const pkg = (await col("packages").findOne({
+        $or: [{ id: body.plan_id }, { code: body.plan_id }],
+      })) as Doc | null;
       if (pkg) packageCode = String(pkg.code);
     }
-    if (!packageCode) throw httpError(400, "package_code is required");
+    if (!packageCode) throw httpError(400, "package_code or plan_id is required");
     const client = await clientOf(me);
     const svc = (await col("client_services").findOne({
       client_id: client.id,
@@ -404,18 +412,24 @@ compatPaymentsRouter.post(
       (body.origin_url && String(body.origin_url)) ||
       req.header("origin") ||
       "https://taxsimba.co.uk";
-    const session = await payments().createCheckout(
-      amount,
-      `Self Assessment upgrade — ${current.name} to ${target.name}`,
-      origin,
-      {
-        kind: "SA_UPGRADE",
-        client_id: client.id as string,
-        user_id: me.id as string,
-        from_package: String(current.code),
-        to_package: String(target.code),
-      },
-    );
+    let session;
+    try {
+      session = await payments().createCheckout(
+        amount,
+        `Self Assessment upgrade — ${current.name} to ${target.name}`,
+        origin,
+        {
+          kind: "SA_UPGRADE",
+          client_id: client.id as string,
+          user_id: me.id as string,
+          from_package: String(current.code),
+          to_package: String(target.code),
+        },
+      );
+    } catch (err) {
+      const { mapPaymentError } = await import("../services/paymentErrors");
+      throw mapPaymentError(err);
+    }
     await col("payment_transactions").insertOne({
       id: randomUUID(),
       session_id: session.id,

@@ -21,6 +21,11 @@ export function canAssignCases(role?: string | null): boolean {
   return role === "ADMIN";
 }
 
+/** Draft approve/return is ADMIN-only — SUPER_ADMIN cannot release drafts to clients. */
+export function canApproveDrafts(role?: string | null): boolean {
+  return role === "ADMIN";
+}
+
 /** Accountant account lifecycle (add/activate/deactivate/remove) is SUPER_ADMIN-only. */
 export function canManageAccountantAccounts(role?: string | null): boolean {
   return role === "SUPER_ADMIN";

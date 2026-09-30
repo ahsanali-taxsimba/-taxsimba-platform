@@ -147,6 +147,20 @@ function appUrl(): string {
   return (env("APP_BASE_URL") ?? "").replace(/\/$/, "");
 }
 
+/** Admin FE public origin (no /admin path). Falls back to APP_BASE_URL. */
+function adminUrl(): string {
+  const configured = (env("ADMIN_BASE_URL") ?? "").trim().replace(/\/+$/, "");
+  if (configured) {
+    try {
+      const u = new URL(configured.includes("://") ? configured : `https://${configured}`);
+      return `${u.protocol}//${u.host}`;
+    } catch {
+      return configured.replace(/\/admin$/i, "");
+    }
+  }
+  return appUrl();
+}
+
 /**
  * Absolute HTTPS logo for email clients (Gmail/Outlook/mobile).
  * Prefer EMAIL_LOGO_URL when set; otherwise `{APP_BASE_URL}/images/logo.png`.
@@ -194,10 +208,13 @@ export function renderEmail(params: {
   preheader?: string | null;
 }): { subject: string; text: string; html: string } {
   const base = appUrl() || "https://taxsimba.co.uk";
+  const adminBase = adminUrl() || base;
   const href = params.link
     ? params.link.startsWith("http")
       ? params.link
-      : `${base}${params.link}`
+      : params.link.startsWith("/admin/")
+        ? `${adminBase}${params.link}`
+        : `${base}${params.link}`
     : null;
   const cta = params.callToAction ?? "Open TaxSimba";
   const subject = (params.subject ?? params.title).trim();
