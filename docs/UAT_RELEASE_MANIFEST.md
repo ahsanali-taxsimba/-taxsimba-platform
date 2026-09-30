@@ -5,7 +5,7 @@
 - **Base SHA:** `870b29d76959e3083f2b854689156e7ef54fbfae`
 - **Working branch:** `cursor/final-contract-rc-80a7`
 - **Integration target:** `toxel-uat-approved`
-- **New tip SHA (this branch):** `2f7f985c84c792839acd80bdbb8d38923ef9755f`  
+- **New tip SHA (this branch):** `085e33e534468061a91bdecb9f3ee544d52e6cf1`  
   After merge into `toxel-uat-approved`, deploy that branch HEAD (`git rev-parse HEAD`).
 
 ## Local release gate (this RC)
