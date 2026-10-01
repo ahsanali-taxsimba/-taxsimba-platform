@@ -18,17 +18,15 @@ export default async function SiteOverviewPage({
     redirect("/login");
   }
   const { siteId } = await params;
-  let site;
-  try {
-    site = await getSiteForUser(user.id, siteId);
-  } catch {
-    notFound();
-  }
 
-  const [health, sov] = await Promise.all([
-    siteHealthSummary(user.id, siteId),
-    aeoShareOfVoice(user.id, siteId),
+  const sitePromise = getSiteForUser(user.id, siteId).catch(() => null);
+  const [site, health, sov] = await Promise.all([
+    sitePromise,
+    siteHealthSummary(user.id, siteId).catch(() => null),
+    aeoShareOfVoice(user.id, siteId).catch(() => []),
   ]);
+
+  if (!site || !health) notFound();
 
   const sovAvg = sov.length
     ? `${Math.round((sov.reduce((a, s) => a + s.shareOfVoice, 0) / sov.length) * 100)}%`

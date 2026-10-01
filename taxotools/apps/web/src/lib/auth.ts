@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { prisma } from "@taxotools/database";
@@ -70,16 +71,18 @@ export async function getSession() {
   return verifySessionToken(token);
 }
 
-export async function requireUser() {
+/** Deduped per request — layout + page share one user lookup. */
+export const requireUser = cache(async () => {
   const session = await getSession();
   if (!session) throw new AuthError("Unauthorized");
   const user = await prisma.user.findUnique({ where: { id: session.sub } });
   if (!user) throw new AuthError("Unauthorized");
   return user;
-}
+});
 
-export async function getAccountContext(userId: string) {
-  const account = await prisma.account.findUnique({
+/** Full account graph — cached per request. */
+export const getAccountContext = cache(async (userId: string) => {
+  return prisma.account.findUnique({
     where: { ownerId: userId },
     include: {
       subscription: { include: { plan: true } },
@@ -92,8 +95,30 @@ export async function getAccountContext(userId: string) {
       },
     },
   });
-  return account;
-}
+});
+
+/** Lightweight shell data for chrome — avoids deep includes on every navigation. */
+export const getAppShellContext = cache(async (userId: string) => {
+  return prisma.account.findUnique({
+    where: { ownerId: userId },
+    select: {
+      id: true,
+      name: true,
+      workspaces: {
+        take: 1,
+        orderBy: { createdAt: "asc" },
+        select: {
+          id: true,
+          sites: {
+            take: 1,
+            orderBy: { createdAt: "desc" },
+            select: { id: true, domain: true },
+          },
+        },
+      },
+    },
+  });
+});
 
 export class AuthError extends Error {
   status = 401;

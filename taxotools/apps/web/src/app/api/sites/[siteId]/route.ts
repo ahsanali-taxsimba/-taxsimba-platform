@@ -5,6 +5,8 @@ import { aeoShareOfVoice } from "@/server/services/aeo.service";
 import { prisma } from "@taxotools/database";
 import { jsonError, jsonOk } from "@/server/http";
 
+export const preferredRegion = ["lhr1"];
+
 export async function GET(
   _req: Request,
   ctx: { params: Promise<{ siteId: string }> },
@@ -12,22 +14,23 @@ export async function GET(
   try {
     const user = await requireUser();
     const { siteId } = await ctx.params;
-    const site = await getSiteForUser(user.id, siteId);
-    const health = await siteHealthSummary(user.id, siteId);
-    const sov = await aeoShareOfVoice(user.id, siteId);
-    const keywordCount = site._count.keywords;
-    const latestRanks = await prisma.rankRecord.findMany({
-      where: { keyword: { siteId } },
-      orderBy: { checkedAt: "desc" },
-      take: 10,
-      include: { keyword: true },
-    });
+    const [site, health, sov, latestRanks] = await Promise.all([
+      getSiteForUser(user.id, siteId),
+      siteHealthSummary(user.id, siteId),
+      aeoShareOfVoice(user.id, siteId),
+      prisma.rankRecord.findMany({
+        where: { keyword: { siteId } },
+        orderBy: { checkedAt: "desc" },
+        take: 10,
+        include: { keyword: { select: { id: true, phrase: true, locale: true } } },
+      }),
+    ]);
 
     return jsonOk({
       site,
       health,
       aeoShareOfVoice: sov,
-      keywordCount,
+      keywordCount: site._count.keywords,
       latestRanks,
     });
   } catch (err) {

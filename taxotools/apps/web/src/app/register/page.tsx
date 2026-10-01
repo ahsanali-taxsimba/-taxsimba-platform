@@ -23,11 +23,18 @@ export default function RegisterPage() {
       body: JSON.stringify({ name, email, password, accountName: accountName || undefined }),
     });
     const data = await res.json();
-    setLoading(false);
     if (!res.ok) {
+      setLoading(false);
       setError(data.error || "Registration failed");
       return;
     }
+    // Ensure testers get full plan limits even before server trial default ships.
+    await fetch("/api/billing", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ planCode: "AGENCY" }),
+    }).catch(() => undefined);
+    setLoading(false);
     router.push("/onboarding");
     router.refresh();
   }

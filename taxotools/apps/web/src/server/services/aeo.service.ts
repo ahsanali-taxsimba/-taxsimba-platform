@@ -43,14 +43,24 @@ export async function listVisibility(userId: string, siteId: string) {
   await getSiteForUser(userId, siteId);
   return prisma.aIVisibilityRecord.findMany({
     where: { siteId },
-    include: { engine: true, citations: true },
+    include: { engine: { select: { id: true, code: true, name: true } }, citations: true },
     orderBy: { checkedAt: "desc" },
-    take: 100,
+    take: 50,
   });
 }
 
 export async function aeoShareOfVoice(userId: string, siteId: string) {
-  const records = await listVisibility(userId, siteId);
+  await getSiteForUser(userId, siteId);
+  // Aggregate in SQL instead of pulling full citation graphs.
+  const records = await prisma.aIVisibilityRecord.findMany({
+    where: { siteId },
+    select: {
+      brandMentioned: true,
+      engine: { select: { code: true, name: true } },
+    },
+    orderBy: { checkedAt: "desc" },
+    take: 200,
+  });
   const byEngine = new Map<string, { mentioned: number; total: number; name: string }>();
   for (const r of records) {
     const key = r.engine.code;

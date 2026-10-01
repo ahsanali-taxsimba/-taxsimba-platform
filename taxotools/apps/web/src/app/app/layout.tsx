@@ -1,7 +1,9 @@
 import { redirect } from "next/navigation";
-import { requireUser, getAccountContext, clearSessionCookie } from "@/lib/auth";
-import { listSitesForUser } from "@/server/services/tenant.service";
+import { requireUser, getAppShellContext, clearSessionCookie } from "@/lib/auth";
 import { AppChrome } from "@/components/AppChrome";
+
+export const preferredRegion = ["lhr1"];
+export const dynamic = "force-dynamic";
 
 async function signOut() {
   "use server";
@@ -16,11 +18,9 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   } catch {
     redirect("/login");
   }
-  const [account, sites] = await Promise.all([
-    getAccountContext(user.id),
-    listSitesForUser(user.id),
-  ]);
-  const primary = sites[0];
+
+  const account = await getAppShellContext(user.id);
+  const primary = account?.workspaces[0]?.sites[0];
 
   return (
     <AppChrome

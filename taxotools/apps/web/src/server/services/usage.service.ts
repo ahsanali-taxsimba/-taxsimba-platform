@@ -94,35 +94,44 @@ export async function incrementUsage(
   });
 }
 
+/** One plan read + parallel counters — avoids 6× sequential DB round-trips. */
 export async function usageSummary(accountId: string) {
-  const plan = await getPlanForAccount(accountId);
   const period = currentUsagePeriod();
-  const metrics: UsageMetric[] = [
-    "SITES",
-    "KEYWORDS",
-    "CRAWLS",
-    "AI_CREDITS",
-    "AEO_SCANS",
-    "TEAM_SEATS",
+  const [plan, sitesUsed, keywordsUsed, seatsUsed, usageRows] = await Promise.all([
+    getPlanForAccount(accountId),
+    prisma.site.count({ where: { workspace: { accountId } } }),
+    prisma.keyword.count({ where: { site: { workspace: { accountId } } } }),
+    prisma.workspaceMember.count({ where: { workspace: { accountId } } }),
+    prisma.usageRecord.findMany({
+      where: { accountId, period },
+      select: { metric: true, quantity: true },
+    }),
+  ]);
+
+  const usedByMetric = Object.fromEntries(
+    usageRows.map((row) => [row.metric, row.quantity]),
+  ) as Partial<Record<UsageMetric, number>>;
+
+  const items: { metric: UsageMetric; used: number; limit: number }[] = [
+    { metric: "SITES", used: sitesUsed, limit: plan.sitesLimit },
+    { metric: "KEYWORDS", used: keywordsUsed, limit: plan.keywordsLimit },
+    {
+      metric: "CRAWLS",
+      used: usedByMetric.CRAWLS ?? 0,
+      limit: plan.crawlsPerMonth,
+    },
+    {
+      metric: "AI_CREDITS",
+      used: usedByMetric.AI_CREDITS ?? 0,
+      limit: plan.aiCreditsPerMonth,
+    },
+    {
+      metric: "AEO_SCANS",
+      used: usedByMetric.AEO_SCANS ?? 0,
+      limit: plan.aeoScansPerMonth,
+    },
+    { metric: "TEAM_SEATS", used: seatsUsed, limit: plan.teamSeatsLimit },
   ];
-  const items = [];
-  for (const metric of metrics) {
-    const { used, limit } = await assertWithinLimit(accountId, metric, 0).catch(async () => {
-      // assert with 0 still throws if already over — fall back
-      const limit = plan[metricToPlanField[metric]];
-      let used = 0;
-      if (metric === "SITES") {
-        used = await prisma.site.count({ where: { workspace: { accountId } } });
-      } else if (metric === "KEYWORDS") {
-        used = await prisma.keyword.count({ where: { site: { workspace: { accountId } } } });
-      } else if (metric === "TEAM_SEATS") {
-        used = await prisma.workspaceMember.count({ where: { workspace: { accountId } } });
-      } else {
-        used = await getUsage(accountId, metric, period);
-      }
-      return { plan, used, limit };
-    });
-    items.push({ metric, used, limit });
-  }
+
   return { plan, period, items };
 }

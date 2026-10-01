@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { prisma } from "@taxotools/database";
 import { slugify, domainFromUrl } from "@/lib/utils";
 import { assertWithinLimit } from "@/server/services/usage.service";
@@ -83,7 +84,7 @@ export async function createSite(params: {
   });
 }
 
-export async function listSitesForUser(userId: string) {
+export const listSitesForUser = cache(async (userId: string) => {
   return prisma.site.findMany({
     where: { workspace: { members: { some: { userId } } } },
     include: {
@@ -92,9 +93,9 @@ export async function listSitesForUser(userId: string) {
     },
     orderBy: { createdAt: "desc" },
   });
-}
+});
 
-export async function getSiteForUser(userId: string, siteId: string) {
+export const getSiteForUser = cache(async (userId: string, siteId: string) => {
   const site = await prisma.site.findFirst({
     where: { id: siteId, workspace: { members: { some: { userId } } } },
     include: {
@@ -114,4 +115,4 @@ export async function getSiteForUser(userId: string, siteId: string) {
   });
   if (!site) throw new ForbiddenError("Site not found");
   return site;
-}
+});

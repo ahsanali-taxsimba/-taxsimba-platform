@@ -58,8 +58,14 @@ export async function siteHealthSummary(userId: string, siteId: string) {
   const latest = await prisma.crawl.findFirst({
     where: { siteId, status: "COMPLETED" },
     orderBy: { finishedAt: "desc" },
-    include: {
-      issues: true,
+    select: {
+      id: true,
+      status: true,
+      startedAt: true,
+      finishedAt: true,
+      maxPages: true,
+      pagesFound: true,
+      issuesFound: true,
       _count: { select: { pages: true, issues: true } },
     },
   });
@@ -71,8 +77,16 @@ export async function siteHealthSummary(userId: string, siteId: string) {
     LOW: 0,
     INFO: 0,
   };
-  for (const issue of latest?.issues ?? []) {
-    bySeverity[issue.severity] += 1;
+
+  if (latest) {
+    const groups = await prisma.crawlIssue.groupBy({
+      by: ["severity"],
+      where: { crawlId: latest.id },
+      _count: { _all: true },
+    });
+    for (const row of groups) {
+      bySeverity[row.severity] = row._count._all;
+    }
   }
 
   const score = latest

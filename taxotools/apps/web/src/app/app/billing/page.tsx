@@ -10,11 +10,13 @@ export default async function BillingPage() {
   } catch {
     redirect("/login");
   }
-  const account = await getAccountContext(user.id);
-  const plans = await prisma.plan.findMany({
-    where: { active: true },
-    orderBy: { monthlyPriceCents: "asc" },
-  });
+  const [account, plans] = await Promise.all([
+    getAccountContext(user.id),
+    prisma.plan.findMany({
+      where: { active: true },
+      orderBy: { monthlyPriceCents: "asc" },
+    }),
+  ]);
 
   return (
     <div className="animate-rise space-y-6">

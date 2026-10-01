@@ -2,6 +2,9 @@ import { requireUser, getAccountContext } from "@/lib/auth";
 import { usageSummary } from "@/server/services/usage.service";
 import { jsonError, jsonOk } from "@/server/http";
 
+export const preferredRegion = ["lhr1"];
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     const user = await requireUser();

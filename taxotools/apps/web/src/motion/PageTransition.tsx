@@ -1,27 +1,24 @@
 "use client";
 
-import { AnimatePresence, m } from "framer-motion";
+import { m } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { pageVariants, reducedMotionVariants } from "@/motion/config";
 import { usePrefersReducedMotion } from "@/motion/hooks/usePrefersReducedMotion";
 
-/** Wrap page content with AnimatePresence for route transitions */
+/** Lightweight enter animation — no exit wait (mode=wait felt sluggish). */
 export function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const reduce = usePrefersReducedMotion();
 
+  if (reduce) return <>{children}</>;
+
   return (
-    <AnimatePresence mode="wait" initial={false}>
-      <m.div
-        key={pathname}
-        variants={reduce ? reducedMotionVariants : pageVariants}
-        initial="initial"
-        animate="enter"
-        exit="exit"
-        className="will-change-transform"
-      >
-        {children}
-      </m.div>
-    </AnimatePresence>
+    <m.div
+      key={pathname}
+      initial={{ opacity: 0, y: 4 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.16, ease: "easeOut" }}
+    >
+      {children}
+    </m.div>
   );
 }

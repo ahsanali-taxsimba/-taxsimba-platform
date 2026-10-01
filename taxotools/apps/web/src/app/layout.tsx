@@ -3,16 +3,23 @@ import { Fraunces, Source_Sans_3 } from "next/font/google";
 import { AppMotionShell } from "@/motion/AppMotionShell";
 import "./globals.css";
 
+// Prefer London — Supabase project is eu-west-2; iad1 was adding multi-second DB RTT.
+export const preferredRegion = ["lhr1"];
+
 const display = Fraunces({
   subsets: ["latin"],
   variable: "--font-display",
-  weight: ["500", "600", "700"],
+  weight: ["600", "700"],
+  display: "swap",
+  preload: true,
 });
 
 const sans = Source_Sans_3({
   subsets: ["latin"],
   variable: "--font-sans",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600"],
+  display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
