@@ -1,0 +1,9 @@
+# TaxoTools monorepo — set Vercel Root Directory to: taxotools/apps/web
+# (see apps/web/vercel.json for install/build commands)
+
+# Optional: deploy via Blueprint-style docs in PR / chat
+# Required env vars on Vercel:
+#   DATABASE_URL, DIRECT_URL, AUTH_SECRET, NEXTAUTH_SECRET
+#   NEXT_PUBLIC_APP_URL, AUTH_URL, NEXTAUTH_URL
+# Optional:
+#   REDIS_URL, SUPABASE_*, STRIPE_*, TAXOTOOLS_CRAWLER_URL

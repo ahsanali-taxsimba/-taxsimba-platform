@@ -1,0 +1,12 @@
+# Ignore everything except TaxoTools monorepo packages needed for web
+/
+!taxotools/
+taxotools/**
+!taxotools/package.json
+!taxotools/package-lock.json
+!taxotools/apps/
+!taxotools/apps/web/**
+!taxotools/packages/**
+!taxotools/packages/database/**
+!taxotools/packages/shared/**
+!taxotools/packages/integrations/**
