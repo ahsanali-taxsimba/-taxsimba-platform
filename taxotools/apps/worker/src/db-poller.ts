@@ -9,6 +9,10 @@ import { processCrawlerPipeline } from "./jobs/crawler-pipeline";
 import { processBacklinkRefresh } from "./jobs/backlinks";
 import { JOB_QUEUES } from "@taxotools/shared";
 
+/**
+ * Claim DB-only QUEUED jobs (jobId null) so work still runs when Redis is down.
+ * BullMQ-enqueued jobs get a Redis job id and are left for workers.
+ */
 export async function pollDbJobs() {
   const queued = await prisma.backgroundJob.findMany({
     where: { status: "QUEUED", jobId: null },
@@ -17,10 +21,11 @@ export async function pollDbJobs() {
   });
 
   for (const job of queued) {
-    await prisma.backgroundJob.update({
-      where: { id: job.id },
+    const claimed = await prisma.backgroundJob.updateMany({
+      where: { id: job.id, status: "QUEUED", jobId: null },
       data: { status: "RUNNING", startedAt: new Date(), attempts: { increment: 1 } },
     });
+    if (claimed.count === 0) continue;
 
     try {
       const payload = job.payload as Record<string, unknown>;
@@ -59,16 +64,30 @@ export async function pollDbJobs() {
           });
           break;
         default:
-          // Soft-ack unknown/automation queues so they don't stick in QUEUED forever
-          result = { ok: true, queue: job.queue, polled: true };
+          result = {
+            ok: false,
+            queue: job.queue,
+            stub: true,
+            message: `No live worker handler for queue ${job.queue} yet`,
+          };
           break;
       }
+
+      const failedStub =
+        typeof result === "object" &&
+        result !== null &&
+        "stub" in result &&
+        (result as { stub?: boolean }).stub === true;
+
       await prisma.backgroundJob.update({
         where: { id: job.id },
         data: {
-          status: "COMPLETED",
+          status: failedStub ? "FAILED" : "COMPLETED",
           finishedAt: new Date(),
           result: result as object,
+          errorMessage: failedStub
+            ? String((result as { message?: string }).message || "Stub queue — not implemented")
+            : null,
         },
       });
     } catch (e) {
