@@ -76,6 +76,7 @@ export function categoryToServiceType(category: string | null | undefined): stri
   const c = (category ?? "").trim().toLowerCase();
   if (!c) return null;
   if (c === "taxsimba" || c === "self_assessment" || c === "sa") return SELF_ASSESSMENT;
-  if (c === "mtd" || c === "mtd_income_tax") return MTD;
+  // "simbian" is the MTD product brand — keep as a catalogue alias for MTD.
+  if (c === "mtd" || c === "mtd_income_tax" || c === "simbian") return MTD;
   return null;
 }

@@ -21,6 +21,11 @@ export function resolveCatalogueCategory(session, searchParams) {
 
   const category = searchParams?.get?.("category");
   if (category === "mtd" || category === "taxSimba") return category;
+  // Legacy / marketing aliases
+  if (category === "simbian" || category === "MTD" || category === "mtd_income_tax") return "mtd";
+  if (category === "self_assessment" || category === "sa" || category === "SELF_ASSESSMENT") {
+    return "taxSimba";
+  }
 
   const authenticated = Boolean(session?.accessToken || session?.user);
   if (!authenticated && searchParams?.get?.("role") === "MTD") return "mtd";

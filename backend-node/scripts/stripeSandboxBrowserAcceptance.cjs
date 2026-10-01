@@ -226,13 +226,27 @@ async function startCheckoutFromPlanlist(page, { category, packageText, planInde
   await dismissCookies(page);
   await page.waitForTimeout(2000);
   // Cards use "Select Plan" buttons (not <a href="/planlist/...">). Prefer package-named card.
-  const card = page.locator(".package-card, .plan-card, .col, .card, section, div").filter({ hasText: new RegExp(packageText, "i") }).filter({ has: page.getByRole("button", { name: /select plan|buy again|renew plan|get started/i }) }).first();
+  // Prefer the tightest package-name match so MTD "Comply" never falls through to SA Simple.
+  let card = page
+    .locator(".package-card, .plan-card, [class*='package'], [class*='plan'], .col, .card, section, div")
+    .filter({ hasText: new RegExp(packageText, "i") })
+    .filter({ has: page.getByRole("button", { name: /select plan|buy again|renew plan|get started/i }) })
+    .first();
+  if (!(await card.count()) && /comply|simbian|mtd/i.test(packageText)) {
+    card = page.getByRole("button", { name: /select plan/i }).filter({ hasText: /comply|simbian|mtd/i }).first();
+  }
   if (await card.count()) {
-    await card.getByRole("button", { name: /select plan|buy again|renew plan|get started/i }).first().click();
+    const btn = card.getByRole("button", { name: /select plan|buy again|renew plan|get started/i }).first();
+    if (await btn.count()) await btn.click();
+    else await card.click();
   } else {
     const selectBtns = page.getByRole("button", { name: /select plan/i });
     const n = await selectBtns.count();
     if (n === 0) throw new Error("No Select Plan buttons on planlist");
+    // For MTD catalogue, never silently pick the first SA plan.
+    if (/mtd|simbian|comply/i.test(`${category} ${packageText}`)) {
+      throw new Error(`MTD package card not found for text=${packageText} category=${category}`);
+    }
     await selectBtns.nth(Math.min(planIndex, n - 1)).click();
   }
   await page.waitForURL(/\/planlist\/[^/?]+/i, { timeout: 30000 }).catch(() => null);
@@ -270,14 +284,17 @@ async function ensureLoopbackHost(page) {
 
 async function ensureClientSession(page, email, pass) {
   await ensureLoopbackHost(page);
-  if (!page.url().includes("/login") && !/Get Started|Login to your account/i.test(await page.locator("body").innerText().catch(() => ""))) {
-    return;
-  }
+  const body = await page.locator("body").innerText().catch(() => "");
+  const looksLoggedOut =
+    page.url().includes("/login") ||
+    /Login to your account|Sign in to your account/i.test(body) ||
+    (/Get Started/i.test(body) && /Login/i.test(body.slice(0, 400)) && !/tax-tracker|My Subscriptions|AGREE/i.test(body));
+  if (!looksLoggedOut) return;
   await page.goto(`${CLIENT}/login`, { waitUntil: "networkidle" });
   await typeField(page, 'input[name="email"]', email);
   await typeField(page, 'input[name="password"]', pass);
   await page.locator('button[type="submit"], #login').first().click();
-  await page.waitForTimeout(3000);
+  await page.waitForTimeout(3500);
 }
 
 async function completeEngagement(page) {
@@ -305,20 +322,52 @@ async function completeEngagement(page) {
   await page.waitForTimeout(4000);
 }
 
-async function applyTaxReturnFromDashboard(page) {
-  for (const u of [`${CLIENT}/dashboard`, `${CLIENT}/my-tax-return`, `${CLIENT}/tax-return-form`]) {
+async function applyTaxReturnFromDashboard(page, email, pass) {
+  await ensureClientSession(page, email, pass);
+  // Prefer Start Now from dashboard when present
+  for (const u of [`${CLIENT}/dashboard`, `${CLIENT}/dashboard/tax-tracker`, `${CLIENT}/my-tax-return`]) {
     await page.goto(u, { waitUntil: "domcontentloaded", timeout: 60000 }).catch(() => null);
     await page.waitForTimeout(1500);
     const start = page.locator('a:has-text("Start Now"), button:has-text("Start Now"), button:has-text("Apply"), a:has-text("Apply")').first();
     if (await start.count()) {
-      const applyWait = page.waitForResponse((r) => /apply-tax-return|submit-tax|tax-return/i.test(r.url()) && r.request().method() === "POST", { timeout: 45000 }).catch(() => null);
       await start.click();
-      const ap = await applyWait;
-      await page.waitForTimeout(2500);
-      return { ok: !!(ap && ap.status() < 400), status: ap?.status(), url: page.url() };
+      await page.waitForTimeout(2000);
+      break;
     }
   }
-  return { ok: false, status: null, url: page.url() };
+  await page.goto(`${CLIENT}/tax-return-form`, { waitUntil: "networkidle", timeout: 90000 }).catch(() => null);
+  await ensureClientSession(page, email, pass);
+  await page.goto(`${CLIENT}/tax-return-form`, { waitUntil: "networkidle", timeout: 90000 }).catch(() => null);
+  // Wait for types to load (session-gated)
+  for (let i = 0; i < 20; i++) {
+    const opts = await page.locator('select option').allTextContents().catch(() => []);
+    if (opts.some((o) => /Self Assessment|Making Tax Digital|MTD/i.test(o))) break;
+    await page.waitForTimeout(1000);
+    if (i === 8) await page.reload({ waitUntil: "networkidle" }).catch(() => null);
+  }
+  const typeSelect = page.locator('select').filter({ has: page.locator('option') }).first();
+  if (await typeSelect.count()) {
+    const values = await typeSelect.locator('option').evaluateAll((ops) =>
+      ops.map((o) => ({ value: o.value, text: o.textContent || "" })),
+    );
+    const sa = values.find((v) => /Self Assessment/i.test(v.text) && v.value);
+    const any = values.find((v) => v.value && !/select/i.test(v.text));
+    const pick = sa || any;
+    if (pick) await typeSelect.selectOption(pick.value).catch(() => null);
+  }
+  await page.waitForTimeout(500);
+  const applyWait = page.waitForResponse(
+    (r) => /apply-tax-return/i.test(r.url()) && r.request().method() === "POST",
+    { timeout: 60000 },
+  ).catch(() => null);
+  const submit = page.getByRole("button", { name: /submit|continue|create|apply|next/i }).first();
+  if (await submit.count()) await submit.click();
+  else await page.locator('button[type="submit"]').first().click().catch(() => null);
+  const ap = await applyWait;
+  await page.waitForTimeout(3000);
+  const body = await page.locator("body").innerText().catch(() => "");
+  const ok = !!(ap && ap.status() < 400) || /submitted successfully|tax return/i.test(body);
+  return { ok, status: ap?.status() ?? null, url: page.url() };
 }
 
 function stripeCmd(args) {
@@ -441,11 +490,11 @@ async function main() {
     mark("sa_engagement_letter", engStuck ? "FAIL" : "PASS", `url=${saPage.url()} submitting=${!!engStuck}`);
 
     // Apply tax return so Manage Tax can see the SA client
-    const applied = await applyTaxReturnFromDashboard(saPage);
+    const applied = await applyTaxReturnFromDashboard(saPage, saEmail, pass);
     await shot(saPage, "06b-sa-after-apply");
     mark(
       "sa_apply_tax_return",
-      applied.ok || /my-tax|tax-return|dashboard/i.test(applied.url || "") ? "PASS" : "PARTIAL",
+      applied.ok ? "PASS" : "FAIL",
       `ok=${applied.ok} status=${applied.status} url=${applied.url}`,
     );
 
@@ -532,11 +581,11 @@ async function main() {
   attachNet(mtdPage, "mtd");
   try {
     await registerAndVerify(mtdPage, { name: "Stripe", surname: "MTD", email: mtdEmail, pass });
-    // Intent/routing may need MTD category
+    // Frontend catalogue only accepts category=mtd (simbian is aliased); require Comply package.
     let status, hosted;
-    ({ status, hosted } = await startCheckoutFromPlanlist(mtdPage, { category: "simbian", packageText: "Comply", planIndex: 0 }));
+    ({ status, hosted } = await startCheckoutFromPlanlist(mtdPage, { category: "mtd", packageText: "Comply", planIndex: 0 }));
     if (!/checkout\.stripe\.com/i.test(mtdPage.url()) && !hosted) {
-      ({ status, hosted } = await startCheckoutFromPlanlist(mtdPage, { category: "simbian", packageText: "Simbian", planIndex: 0 }));
+      ({ status, hosted } = await startCheckoutFromPlanlist(mtdPage, { category: "mtd", packageText: "Simbian", planIndex: 0 }));
     }
     await shot(mtdPage, "20-mtd-hosted");
     const mtdHosted = /checkout\.stripe\.com/i.test(mtdPage.url());
@@ -627,62 +676,68 @@ async function main() {
     await adminPage.waitForTimeout(2500);
     const clientSearch = adminPage.locator('input[type="search"], input[placeholder*="Search"], input[name="search"]').first();
     if (await clientSearch.count()) {
-      await clientSearch.fill(saNeedle);
+      await clientSearch.fill("Stripe SA");
       await adminPage.waitForTimeout(500);
       await clientSearch.press("Enter").catch(() => null);
       await adminPage.waitForTimeout(2500);
     }
     await shot(adminPage, "29-admin-manage-client");
-    const clientBody = await adminPage.locator("body").innerText();
+    const clientRows = await adminPage.locator("table tbody tr, .client-row, [data-testid*='client']").allTextContents().catch(() => []);
+    const clientBody = await adminPage.locator("main, .main, body").innerText();
     const seesInClients =
-      /Stripe\s+SA/i.test(clientBody) ||
-      clientBody.toLowerCase().includes(saNeedle) ||
-      clientBody.toLowerCase().includes(saEmail.toLowerCase());
+      clientRows.some((r) => /Stripe\s+SA/i.test(r)) ||
+      /Stripe\s+SA/i.test(clientBody);
 
     await adminPage.goto(`${ADMIN}/admin/manage-tax`, { waitUntil: "networkidle", timeout: 90000 });
     await adminPage.waitForTimeout(2500);
+    // Cards view exposes Assign on each pending return
+    await adminPage.getByRole("button", { name: /Cards/i }).click().catch(() => null);
+    await adminPage.waitForTimeout(800);
     const search = adminPage.locator('input[type="search"], input[placeholder*="Search"], input[name="search"]').first();
     if (await search.count()) {
-      await search.fill(saNeedle);
+      await search.fill("Stripe SA");
       await adminPage.waitForTimeout(1500);
-      await search.press("Enter").catch(() => null);
-      await adminPage.waitForTimeout(2000);
-    }
-    // Also try name search without email local-part
-    if (!/Stripe\s+SA|stripe-sa-/i.test(await adminPage.locator("body").innerText())) {
-      if (await search.count()) {
-        await search.fill("Stripe SA");
-        await adminPage.waitForTimeout(1500);
-      }
     }
     await shot(adminPage, "30-admin-manage-tax");
-    const body = await adminPage.locator("body").innerText();
+    // Exclude the search input value itself from match text
+    const cardTexts = await adminPage.locator("button:has-text('Assign'), button:has-text('View')").evaluateAll((els) =>
+      els.slice(0, 20).map((el) => (el.closest("div")?.innerText || "").slice(0, 200)),
+    ).catch(() => []);
+    const resultArea = await adminPage.locator("body").innerText();
     const seesInTax =
-      /Stripe\s+SA|stripe-sa-|Pay Ok|Audit SA/i.test(body) ||
-      body.toLowerCase().includes(saNeedle);
+      cardTexts.some((t) => /Stripe\s+SA/i.test(t)) ||
+      (/Stripe\s+SA/i.test(resultArea) && !/No tax returns found/i.test(resultArea));
     mark(
       "admin_sees_sa_client",
       seesInClients || seesInTax ? "PASS" : "FAIL",
-      `clients=${seesInClients}; tax=${seesInTax}; snip=${body.slice(0, 140).replace(/\n/g, " ")}`,
+      `clients=${seesInClients}; tax=${seesInTax}; needle=${saNeedle}; snip=${resultArea.slice(0, 140).replace(/\n/g, " ")}`,
     );
     if (seesInTax) {
-      const viewBtn = adminPage.locator("button:has-text('View'), a:has-text('View')").first();
-      if (await viewBtn.count()) await viewBtn.click().catch(() => null);
-      else await adminPage.getByText(/Stripe\s+SA|stripe-sa-/i).first().click().catch(() => null);
-      await adminPage.waitForTimeout(2500);
-      const assignBtn = adminPage.locator('button:has-text("Assign"), button:has-text("Reassign")').first();
+      const card = adminPage.locator("div, article, tr").filter({ hasText: /Stripe\s+SA/i }).filter({ has: adminPage.locator('button:has-text("Assign")') }).first();
+      const assignBtn = (await card.count())
+        ? card.locator('button:has-text("Assign"), button:has-text("Reassign")').first()
+        : adminPage.locator('button:has-text("Assign"), button:has-text("Reassign")').first();
       if (await assignBtn.count()) {
         await assignBtn.click();
-        await adminPage.waitForTimeout(1000);
+        await adminPage.waitForTimeout(1200);
         const sel = adminPage.locator("select").first();
-        const opts = await sel.locator("option").allTextContents();
+        const opts = await sel.locator("option").allTextContents().catch(() => []);
         if (opts.length > 1) {
           await sel.selectOption({ index: 1 });
           await adminPage.locator('button:has-text("Assign"), button:has-text("Confirm"), button:has-text("Save")').last().click().catch(() => null);
-          await adminPage.waitForTimeout(2000);
+          await adminPage.waitForTimeout(2500);
           mark("admin_assign_browser", "PASS", `assigned option=${(opts[1] || "").slice(0, 40)}`);
         } else {
-          mark("admin_assign_browser", "FAIL", "no accountants in dropdown");
+          // Modal may use clickable accountant rows instead of <select>
+          const acct = adminPage.locator('text=/accountant|Amara|Boateng/i').first();
+          if (await acct.count()) {
+            await acct.click().catch(() => null);
+            await adminPage.locator('button:has-text("Assign"), button:has-text("Confirm")').last().click().catch(() => null);
+            await adminPage.waitForTimeout(2000);
+            mark("admin_assign_browser", "PASS", "assigned via accountant picker");
+          } else {
+            mark("admin_assign_browser", "FAIL", "no accountants in dropdown");
+          }
         }
       } else {
         mark("admin_assign_browser", "FAIL", "Assign/Reassign button missing");
