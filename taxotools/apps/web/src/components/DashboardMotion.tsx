@@ -21,7 +21,8 @@ type SiteRow = {
 
 function metricLabel(metric: string) {
   return metric
-    .replaceAll("_", " ")
+    .split("_")
+    .join(" ")
     .toLowerCase()
     .replace(/\b\w/g, (c) => c.toUpperCase());
 }
