@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
-  "installCommand": "cd ../.. && npm install",
-  "buildCommand": "cd ../.. && npm run build -w @taxotools/database && npm run build -w @taxotools/shared && npm run build -w @taxotools/integrations && npm run build -w @taxotools/web"
+  "installCommand": "npm install --prefix ../..",
+  "buildCommand": "npm run build --prefix ../.. -w @taxotools/database && npm run build --prefix ../.. -w @taxotools/shared && npm run build --prefix ../.. -w @taxotools/integrations && npm run build --prefix ../.. -w @taxotools/web"
 }
