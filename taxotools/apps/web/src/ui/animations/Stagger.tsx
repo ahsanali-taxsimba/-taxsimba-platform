@@ -1,20 +1,22 @@
 "use client";
 
-import { m, type HTMLMotionProps } from "framer-motion";
+import type { ReactNode } from "react";
+import { m } from "framer-motion";
 import { staggerContainer, staggerItem } from "./variants";
 
 export function Stagger({
   children,
   className,
-  ...rest
-}: HTMLMotionProps<"div">) {
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
     <m.div
       className={className}
       variants={staggerContainer}
       initial="hidden"
       animate="visible"
-      {...rest}
     >
       {children}
     </m.div>
@@ -24,10 +26,12 @@ export function Stagger({
 export function StaggerItem({
   children,
   className,
-  ...rest
-}: HTMLMotionProps<"div">) {
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <m.div className={className} variants={staggerItem} {...rest}>
+    <m.div className={className} variants={staggerItem}>
       {children}
     </m.div>
   );

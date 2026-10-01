@@ -1,6 +1,7 @@
 "use client";
 
-import { m, useReducedMotion, type HTMLMotionProps } from "framer-motion";
+import type { ReactNode } from "react";
+import { m, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { hoverLift } from "./variants";
 
@@ -30,8 +31,12 @@ export function DepthLayer({
   interactive = false,
   className,
   children,
-  ...rest
-}: HTMLMotionProps<"div"> & { depth?: Depth; interactive?: boolean }) {
+}: {
+  depth?: Depth;
+  interactive?: boolean;
+  className?: string;
+  children?: ReactNode;
+}) {
   const reduce = useReducedMotion();
 
   return (
@@ -52,7 +57,6 @@ export function DepthLayer({
       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: depth * 0.04 }}
       whileHover={interactive && !reduce ? hoverLift.hover : undefined}
       whileTap={interactive && !reduce ? hoverLift.tap : undefined}
-      {...rest}
     >
       {children}
     </m.div>

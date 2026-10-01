@@ -1,6 +1,7 @@
 "use client";
 
-import { m, useReducedMotion, type HTMLMotionProps } from "framer-motion";
+import type { ReactNode } from "react";
+import { m, useReducedMotion } from "framer-motion";
 import { fadeIn, durations, easings } from "./variants";
 
 export function FadeIn({
@@ -8,8 +9,12 @@ export function FadeIn({
   className,
   delay = 0,
   once = true,
-  ...rest
-}: HTMLMotionProps<"div"> & { delay?: number; once?: boolean }) {
+}: {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+  once?: boolean;
+}) {
   const reduce = useReducedMotion();
 
   if (reduce) {
@@ -24,7 +29,6 @@ export function FadeIn({
       whileInView="visible"
       viewport={{ once, amount: 0.2 }}
       transition={{ delay, duration: durations.normal, ease: easings.smooth }}
-      {...rest}
     >
       {children}
     </m.div>

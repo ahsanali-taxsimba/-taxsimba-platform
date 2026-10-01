@@ -1,6 +1,7 @@
 "use client";
 
-import { m, useReducedMotion, type HTMLMotionProps } from "framer-motion";
+import type { ReactNode } from "react";
+import { m, useReducedMotion } from "framer-motion";
 import { staggerContainer, staggerItem, easings, durations } from "./variants";
 
 /**
@@ -12,8 +13,12 @@ export function StaggerChildren({
   className,
   stagger = 0.07,
   delayChildren = 0.06,
-  ...rest
-}: HTMLMotionProps<"div"> & { stagger?: number; delayChildren?: number }) {
+}: {
+  children: ReactNode;
+  className?: string;
+  stagger?: number;
+  delayChildren?: number;
+}) {
   const reduce = useReducedMotion();
 
   return (
@@ -36,7 +41,6 @@ export function StaggerChildren({
       initial={reduce ? false : "hidden"}
       whileInView={reduce ? undefined : "visible"}
       viewport={{ once: true, amount: 0.15 }}
-      {...rest}
     >
       {children}
     </m.div>
@@ -46,8 +50,10 @@ export function StaggerChildren({
 export function StaggerChild({
   children,
   className,
-  ...rest
-}: HTMLMotionProps<"div">) {
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   const reduce = useReducedMotion();
   return (
     <m.div
@@ -64,7 +70,6 @@ export function StaggerChild({
               },
             }
       }
-      {...rest}
     >
       {children}
     </m.div>

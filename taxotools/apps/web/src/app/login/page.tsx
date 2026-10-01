@@ -39,7 +39,7 @@ export default function LoginPage() {
           className="rounded-2xl border border-ink-100 bg-white p-8 shadow-sm"
         >
           <FadeIn>
-            <Link href="/" className="font-display text-2xl font-semibold text-ink-950">
+            <Link href="/" className="brand-text font-display text-2xl font-semibold">
               Taxotools
             </Link>
             <h1 className="mt-4 text-xl font-semibold text-ink-900">Sign in</h1>
