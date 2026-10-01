@@ -42,7 +42,10 @@ export default function RegisterPage() {
           Taxotools
         </Link>
         <h1 className="mt-4 text-xl font-semibold text-ink-900">Start your trial</h1>
-        <p className="mt-1 text-sm text-ink-500">14-day Starter plan. No card required in demo.</p>
+        <p className="mt-1 text-sm text-ink-500">
+          14-day full Agency trial for testing — UK intelligence, crawls, AEO, and toolkits. No card
+          required.
+        </p>
 
         <label className="mt-6 block text-sm font-medium">
           Full name

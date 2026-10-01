@@ -111,8 +111,8 @@ export async function initBacklinkEngine(
     }
   }
 
-  const refresh = await refreshBacklinks(userId, siteId);
-
+  // Queue provider refresh instead of awaiting it — keeps signup/testing APIs
+  // responsive when external backlink APIs are slow or unavailable.
   await enqueueJob({
     queue: JOB_QUEUES.BACKLINK_REFRESH,
     name: "backlink-engine-init",
@@ -122,8 +122,11 @@ export async function initBacklinkEngine(
       sourceApis,
       crawlMode: config.crawlMode,
       refreshInterval: config.refreshInterval,
+      runRefresh: true,
     },
   });
+
+  const summary = await summarizeBacklinks(siteId);
 
   return {
     init: {
@@ -137,8 +140,9 @@ export async function initBacklinkEngine(
       alertRules: `velocity_spike>${config.alertVelocitySpikePct}%,anchor_repeat>${config.alertAnchorRepeatPct}`,
       enableDisavow: config.enableDisavow,
       enableCompetitorMonitoring: config.enableCompetitorMonitoring,
+      refreshQueued: true,
     },
-    ...refresh,
+    ...summary,
     config,
   };
 }

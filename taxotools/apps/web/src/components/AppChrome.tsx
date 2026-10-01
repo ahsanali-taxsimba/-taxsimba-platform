@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 
 const topNav = [
   { href: "/app", label: "Overview", exact: true },
+  { href: "/app/intelligence", label: "UK Intelligence", exact: false },
   { href: "/app/sites", label: "Projects / Sites" },
   { href: "/app/toolkits", label: "All Toolkits" },
 ];

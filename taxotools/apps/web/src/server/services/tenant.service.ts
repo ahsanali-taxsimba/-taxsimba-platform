@@ -11,7 +11,13 @@ export async function createAccountWithWorkspace(params: {
   const existing = await prisma.account.findUnique({ where: { ownerId: params.userId } });
   if (existing) return existing;
 
-  const starter = await prisma.plan.findUniqueOrThrow({ where: { code: "STARTER" } });
+  // Open testing signup: give full Agency limits so new clients can exercise
+  // AEO, API keys, crawls, and toolkit features without a paid upgrade first.
+  // Override with TRIAL_PLAN_CODE=STARTER|GROWTH|PRO|AGENCY|ENTERPRISE.
+  const trialCode = (process.env.TRIAL_PLAN_CODE || "AGENCY").toUpperCase();
+  const trialPlan =
+    (await prisma.plan.findUnique({ where: { code: trialCode as never } })) ||
+    (await prisma.plan.findUniqueOrThrow({ where: { code: "STARTER" } }));
   const accountSlug = slugify(params.accountName) || `acct-${params.userId.slice(-6)}`;
   const workspaceSlug = slugify(params.workspaceName) || "main";
 
@@ -22,7 +28,7 @@ export async function createAccountWithWorkspace(params: {
       ownerId: params.userId,
       subscription: {
         create: {
-          planId: starter.id,
+          planId: trialPlan.id,
           status: "TRIALING",
           trialEndsAt: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),
           currentPeriodEnd: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),

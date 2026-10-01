@@ -41,6 +41,12 @@ export function DashboardMotion({
           {planName} plan · {siteCount} site{siteCount === 1 ? "" : "s"} · workspace health at a
           glance
         </p>
+        <Link
+          href="/app/intelligence"
+          className="mt-3 inline-block text-sm font-medium text-accent-dark hover:underline"
+        >
+          Open UK Intelligence →
+        </Link>
       </FadeIn>
 
       <StaggerChildren className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
