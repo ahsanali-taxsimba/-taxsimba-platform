@@ -93,8 +93,8 @@ function extractVerifyUrl(html) {
   return m[0].replace(/&amp;/g, "&").replace(/127\.0\.0\.1:3000|localhost:3000/, "127.0.0.1:3000");
 }
 
-async function registerAndVerify(page, { name, surname, email, pass, phone }) {
-  await page.goto(`${CLIENT}/register`, { waitUntil: "networkidle", timeout: 90000 });
+async function registerAndVerify(page, { name, surname, email, pass, phone, registerPath }) {
+  await page.goto(`${CLIENT}${registerPath || "/register"}`, { waitUntil: "networkidle", timeout: 90000 });
   await dismissCookies(page);
   await typeField(page, 'input[name="name"]', name);
   await typeField(page, 'input[name="surname"]', surname);
@@ -590,9 +590,13 @@ async function main() {
   const mtdPage = await browser.newPage({ viewport: { width: 1440, height: 900 } });
   attachNet(mtdPage, "mtd");
   try {
-    // Register via MTD handoff so onboarding intent is MTD when session lacks category.
-    await mtdPage.goto(`${CLIENT}/register?role=MTD`, { waitUntil: "networkidle", timeout: 90000 });
-    await registerAndVerify(mtdPage, { name: "Stripe", surname: "MTD", email: mtdEmail, pass });
+    await registerAndVerify(mtdPage, {
+      name: "Stripe",
+      surname: "MTD",
+      email: mtdEmail,
+      pass,
+      registerPath: "/register?role=MTD",
+    });
     // Explicit category=mtd must win over any session taxSimba default.
     let status, hosted;
     ({ status, hosted } = await startCheckoutFromPlanlist(mtdPage, { category: "mtd", packageText: "Comply", planIndex: 0 }));
