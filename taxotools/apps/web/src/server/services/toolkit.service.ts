@@ -1,6 +1,12 @@
 import { prisma, type Prisma, SearchIntent } from "@taxotools/database";
 import { getSiteForUser } from "@/server/services/tenant.service";
-import { listKeywords, keywordGap, enqueueRankCheck } from "@/server/services/keyword.service";
+import {
+  listKeywords,
+  keywordGap,
+  keywordMagic,
+  enqueueRankCheck,
+  addKeywords,
+} from "@/server/services/keyword.service";
 import { siteHealthSummary, listCrawls, startCrawl } from "@/server/services/crawl.service";
 import { createAIJob, generateArticleStub, scoreContent, listAIJobs } from "@/server/services/ai-content.service";
 import { listVisibility, aeoShareOfVoice, startAeoScan } from "@/server/services/aeo.service";
@@ -451,18 +457,38 @@ export async function runTool(
     }
     case "topical-map":
     case "scholar-research": {
-      const seed = String(input.query || input.topic || site.name || "seo");
-      const clusters = magicSuggestions(seed).map((s, i) => ({
-        name: s.phrase,
+      const magic = await keywordMagic(
+        userId,
+        siteId,
+        String(input.query || input.topic || site.name || "seo"),
+      );
+      const clusters = magic.suggestions.map((s, i) => ({
+        name: s.keyword,
         score: s.difficulty,
         metric: s.volume,
         status: i === 0 ? "pillar" : "supporting",
         note: toolId === "scholar-research" ? "Academic / topical authority sources" : "Topical map node",
+        source: s.source,
       }));
-      return { tool: toolId, query: seed, pages: clusters };
+      return { tool: toolId, query: magic.query, pages: clusters, mode: magic.mode };
     }
     case "keyword-research": {
       const keywords = await listKeywords(userId, siteId);
+      if (!keywords.length) {
+        const magic = await keywordMagic(userId, siteId, String(input.query || site.name || "seo"));
+        const seeded = await addKeywords({
+          userId,
+          siteId,
+          phrases: magic.suggestions.slice(0, 12).map((s) => s.keyword),
+        });
+        return {
+          tool: toolId,
+          summary: `Seeded ${seeded.length} keywords from ${magic.source}`,
+          keywords: await listKeywords(userId, siteId),
+          mode: magic.mode,
+          providers: magic.providers,
+        };
+      }
       return {
         tool: toolId,
         summary: `${keywords.length} tracked keywords`,
@@ -470,8 +496,27 @@ export async function runTool(
       };
     }
     case "keyword-magic": {
-      const q = String(input.query || site.name || "seo").toLowerCase();
-      return { tool: toolId, query: q, suggestions: magicSuggestions(q) };
+      const magic = await keywordMagic(
+        userId,
+        siteId,
+        String(input.query || site.name || "seo"),
+      );
+      return {
+        tool: toolId,
+        query: magic.query,
+        suggestions: magic.suggestions.map((s) => ({
+          phrase: s.keyword,
+          volume: s.volume,
+          difficulty: s.difficulty,
+          cpcCents: s.cpcCents,
+          intent: intentFor(s.keyword),
+          questions: s.keyword.startsWith("how") || s.keyword.startsWith("what"),
+          source: s.source,
+        })),
+        mode: magic.mode,
+        crawlPhrases: magic.crawlPhrases,
+        providers: magic.providers,
+      };
     }
     case "keyword-gap": {
       const competitor = String(input.competitorDomain || "semrush.com");
@@ -486,27 +531,52 @@ export async function runTool(
         take: 50,
       });
       if (!rows.length) {
-        const phrases = magicSuggestions(domain.split(".")[0] || "seo").slice(0, 12);
-        await prisma.organicSnapshot.createMany({
-          data: phrases.map((p, i) => ({
-            siteId,
-            competitorDomain: domain === site.domain ? null : domain,
-            keyword: p.phrase,
-            position: (i % 20) + 1,
-            url: `https://${domain}/${p.phrase.replace(/\s+/g, "-")}`,
-            trafficShare: Math.max(0.01, 0.2 - i * 0.012),
-            volume: p.volume,
-          })),
-        });
+        // Prefer real tracked keyword ranks over inventing fake SERP rows
+        const keywords = await listKeywords(userId, siteId);
+        const ranked = keywords.filter((k) => k.ranks[0]?.position != null).slice(0, 20);
+        if (ranked.length) {
+          await prisma.organicSnapshot.createMany({
+            data: ranked.map((k) => ({
+              siteId,
+              competitorDomain: domain === site.domain ? null : domain,
+              keyword: k.phrase,
+              position: k.ranks[0]!.position,
+              url: k.ranks[0]!.url || `https://${domain}`,
+              trafficShare: k.ranks[0]!.shareOfVoice ?? 0.05,
+              volume: k.volume ?? 0,
+            })),
+          });
+        } else {
+          const magic = await keywordMagic(userId, siteId, domain.split(".")[0] || "seo");
+          await prisma.organicSnapshot.createMany({
+            data: magic.suggestions.slice(0, 12).map((p, i) => ({
+              siteId,
+              competitorDomain: domain === site.domain ? null : domain,
+              keyword: p.keyword,
+              position: null,
+              url: `https://${domain}/${p.keyword.replace(/\s+/g, "-")}`,
+              trafficShare: Math.max(0.01, 0.2 - i * 0.012),
+              volume: p.volume,
+            })),
+          });
+        }
         rows = await prisma.organicSnapshot.findMany({
           where: { siteId },
           orderBy: { trafficShare: "desc" },
           take: 50,
         });
       }
-      return { tool: toolId, domain, pages: rows };
+      return {
+        tool: toolId,
+        domain,
+        pages: rows,
+        dataSource: rows.some((r) => r.position != null) ? "ranks-or-serp" : "keyword-suggestions",
+      };
     }
     case "position-tracking": {
+      if (input.refresh === true || input.check === true) {
+        await enqueueRankCheck(userId, siteId);
+      }
       const keywords = await listKeywords(userId, siteId);
       return {
         tool: toolId,
@@ -517,6 +587,8 @@ export async function runTool(
           position: k.ranks[0]?.position ?? null,
           previous: k.ranks[0]?.previousPosition ?? null,
           hasAiOverview: k.ranks[0]?.hasAiOverview ?? false,
+          volume: k.volume,
+          difficulty: k.difficulty,
         })),
       };
     }
@@ -535,32 +607,48 @@ export async function runTool(
         orderBy: { authority: "desc" },
       });
       if (!prospects.length) {
-        await prisma.linkBuildingProspect.createMany({
-          data: [
-            {
-              siteId,
-              domain: "marketingland.example",
-              pageUrl: "https://marketingland.example/guest",
-              authority: 72,
-              status: "PROSPECT",
-              notes: "Accepts expert SEO guest posts",
-            },
-            {
-              siteId,
-              domain: "saasroundup.example",
-              pageUrl: "https://saasroundup.example/contribute",
-              authority: 58,
-              status: "CONTACTED",
-              contactEmail: "editor@saasroundup.example",
-            },
-            {
-              siteId,
-              domain: "growthops.example",
-              authority: 64,
-              status: "PROSPECT",
-            },
-          ],
+        // Seed prospects from real competitor/referring backlink hosts when available
+        const backlinks = await prisma.backlink.findMany({
+          where: { siteId },
+          orderBy: { authority: "desc" },
+          take: 15,
         });
+        const hosts = new Map<string, { url: string; authority: number }>();
+        for (const b of backlinks) {
+          try {
+            const host = new URL(b.sourceUrl).hostname.replace(/^www\./, "");
+            if (!hosts.has(host)) {
+              hosts.set(host, { url: b.sourceUrl, authority: b.authority ?? 40 });
+            }
+          } catch {
+            /* skip */
+          }
+        }
+        if (hosts.size) {
+          await prisma.linkBuildingProspect.createMany({
+            data: [...hosts.entries()].slice(0, 12).map(([domain, v]) => ({
+              siteId,
+              domain,
+              pageUrl: v.url,
+              authority: v.authority,
+              status: "PROSPECT" as const,
+              notes: "Discovered from backlink graph",
+            })),
+          });
+        } else {
+          await prisma.linkBuildingProspect.createMany({
+            data: [
+              {
+                siteId,
+                domain: "marketingland.example",
+                pageUrl: "https://marketingland.example/guest",
+                authority: 72,
+                status: "PROSPECT",
+                notes: "Run Backlink Engine refresh to replace demo prospects",
+              },
+            ],
+          });
+        }
         prospects = await prisma.linkBuildingProspect.findMany({ where: { siteId } });
       }
       return { tool: toolId, prospects };
@@ -646,6 +734,7 @@ export async function runTool(
     }
     case "seo-content-template": {
       const keyword = String(input.keyword || "seo tools");
+      const magic = await keywordMagic(userId, siteId, keyword);
       const tpl = await prisma.seoContentTemplate.create({
         data: {
           siteId,
@@ -666,12 +755,14 @@ export async function runTool(
           } as Prisma.InputJsonValue,
           semanticsJson: {
             mustHave: [keyword, "search visibility", "rankings", "content strategy"],
-            related: magicSuggestions(keyword).slice(0, 8).map((s) => s.phrase),
+            related: magic.suggestions.slice(0, 8).map((s) => s.keyword),
+            mode: magic.mode,
+            source: magic.source,
           } as Prisma.InputJsonValue,
           readabilityTarget: 60,
         },
       });
-      return { tool: toolId, template: tpl };
+      return { tool: toolId, template: tpl, mode: magic.mode };
     }
     case "seo-writing-assistant":
     case "ai-writing-assistant": {
@@ -731,16 +822,25 @@ export async function runTool(
     case "topic-research": {
       let ideas = await prisma.topicIdea.findMany({ where: { siteId }, take: 30 });
       if (!ideas.length) {
-        const seedTopic = String(input.topic || "seo");
+        const seedTopic = String(input.topic || site.name || "seo");
+        const magic = await keywordMagic(userId, siteId, seedTopic);
         await prisma.topicIdea.createMany({
-          data: magicSuggestions(seedTopic).map((s) => ({
+          data: magic.suggestions.map((s) => ({
             siteId,
             topic: seedTopic,
-            headline: s.phrase.replace(/^\w/, (c) => c.toUpperCase()),
+            headline: s.keyword.replace(/^\w/, (c) => c.toUpperCase()),
             difficulty: s.difficulty,
             volume: s.volume,
-            contentType: s.questions ? "faq" : "guide",
-            relatedJson: { related: magicSuggestions(s.phrase).slice(0, 4).map((x) => x.phrase) },
+            contentType:
+              s.keyword.startsWith("how") || s.keyword.startsWith("what") ? "faq" : "guide",
+            relatedJson: {
+              related: magic.suggestions
+                .filter((x) => x.keyword !== s.keyword)
+                .slice(0, 4)
+                .map((x) => x.keyword),
+              source: s.source,
+              mode: magic.mode,
+            },
           })),
         });
         ideas = await prisma.topicIdea.findMany({ where: { siteId }, take: 30 });
@@ -910,10 +1010,16 @@ export async function runTool(
     }
     case "keyword-cpc": {
       const query = String(input.query || "seo software");
-      const suggestions = magicSuggestions(query).map((s) => ({
-        ...s,
+      const magic = await keywordMagic(userId, siteId, query);
+      const suggestions = magic.suggestions.map((s) => ({
+        phrase: s.keyword,
+        volume: s.volume,
+        difficulty: s.difficulty,
+        cpcCents: s.cpcCents,
+        intent: intentFor(s.keyword),
         competition: Math.min(1, s.difficulty / 100),
         estimatedCpc: `$${(s.cpcCents / 100).toFixed(2)}`,
+        source: s.source,
       }));
       await prisma.adKeyword.createMany({
         data: suggestions.slice(0, 8).map((s) => ({
@@ -1131,28 +1237,70 @@ export async function runTool(
     }
     case "keyword-strategy-builder": {
       const seed = String(input.query || input.topic || site.name || "seo");
-      const clusters = magicSuggestions(seed).map((s, i) => ({
+      const magic = await keywordMagic(userId, siteId, seed);
+      const clusters = magic.suggestions.map((s, i) => ({
         cluster: `Cluster ${i + 1}`,
-        pillar: s.phrase,
-        supporting: magicSuggestions(s.phrase).slice(0, 4).map((x) => x.phrase),
+        pillar: s.keyword,
+        supporting: magic.suggestions
+          .filter((x) => x.keyword !== s.keyword)
+          .slice(0, 4)
+          .map((x) => x.keyword),
         volume: s.volume,
         difficulty: s.difficulty,
+        source: s.source,
       }));
-      return { tool: toolId, seed, clusters };
+      return { tool: toolId, seed, clusters, mode: magic.mode, providers: magic.providers };
     }
     case "backlink-gap": {
       const competitor = String(input.competitorDomain || "ahrefs.com");
-      return {
-        tool: toolId,
-        competitorDomain: competitor,
-        missing: [
-          { domain: "forbes.com", authority: 94 },
-          { domain: "hubspot.com", authority: 91 },
-          { domain: "searchenginejournal.com", authority: 88 },
-          { domain: "moz.com", authority: 91 },
-        ],
-        shared: [{ domain: "wikipedia.org", authority: 98 }],
-      };
+      const ours = await prisma.backlink.findMany({
+        where: { siteId, competitorDomain: null },
+        select: { sourceUrl: true, authority: true },
+        take: 200,
+      });
+      const comps = await prisma.backlink.findMany({
+        where: { siteId, competitorDomain: competitor },
+        select: { sourceUrl: true, authority: true },
+        take: 200,
+      });
+      const ourHosts = new Set(
+        ours.map((b) => {
+          try {
+            return new URL(b.sourceUrl).hostname.replace(/^www\./, "");
+          } catch {
+            return "";
+          }
+        }).filter(Boolean),
+      );
+      const compByHost = new Map<string, number>();
+      for (const b of comps) {
+        try {
+          const host = new URL(b.sourceUrl).hostname.replace(/^www\./, "");
+          if (!host) continue;
+          compByHost.set(host, Math.max(compByHost.get(host) || 0, b.authority ?? 0));
+        } catch {
+          /* skip */
+        }
+      }
+      const missing = [...compByHost.entries()]
+        .filter(([h]) => !ourHosts.has(h))
+        .map(([domain, authority]) => ({ domain, authority }))
+        .sort((a, b) => b.authority - a.authority)
+        .slice(0, 25);
+      const shared = [...compByHost.entries()]
+        .filter(([h]) => ourHosts.has(h))
+        .map(([domain, authority]) => ({ domain, authority }))
+        .slice(0, 25);
+      if (!missing.length && !shared.length) {
+        return {
+          tool: toolId,
+          competitorDomain: competitor,
+          missing: [],
+          shared: [],
+          summary: "No competitor backlink rows yet — run Backlink Engine with competitor monitoring",
+        };
+      }
+      return { tool: toolId, competitorDomain: competitor, missing, shared };
     }
     case "ai-sentiment":
     case "ai-competitors": {

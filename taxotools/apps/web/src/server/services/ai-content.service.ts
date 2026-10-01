@@ -1,4 +1,5 @@
 import { prisma, AIJobType, type Prisma } from "@taxotools/database";
+import { generateSeoContent } from "@taxotools/integrations";
 import { getSiteForUser } from "@/server/services/tenant.service";
 import { assertWithinLimit, incrementUsage } from "@/server/services/usage.service";
 import { enqueueJob } from "@/server/queue";
@@ -38,7 +39,7 @@ export async function createAIJob(params: {
   });
 
   await incrementUsage(site.workspace.accountId, "AI_CREDITS", credits);
-  await enqueueJob({
+  const queued = await enqueueJob({
     queue: "taxotools-ai-content",
     name: params.type.toLowerCase(),
     payload: {
@@ -48,6 +49,61 @@ export async function createAIJob(params: {
       input: params.input,
     },
   });
+
+  // No Redis/worker → generate inline so Content Genius works on Vercel.
+  if (queued.transport === "db") {
+    try {
+      await prisma.backgroundJob.update({
+        where: { id: queued.id },
+        data: { status: "RUNNING", startedAt: new Date(), attempts: { increment: 1 } },
+      });
+      await prisma.aIJob.update({
+        where: { id: job.id },
+        data: { status: "RUNNING", startedAt: new Date() },
+      });
+      const generated = await generateSeoContent({
+        type: params.type,
+        keyword: String(params.input.keyword || "seo"),
+        title: params.input.title ? String(params.input.title) : undefined,
+        tone: params.input.tone ? String(params.input.tone) : undefined,
+        brand: site.name,
+        domain: site.domain,
+        extra: params.input,
+      });
+      const completed = await prisma.aIJob.update({
+        where: { id: job.id },
+        data: {
+          status: "COMPLETED",
+          outputJson: {
+            ...generated.output,
+            _meta: { mode: generated.mode, source: generated.source },
+          } as Prisma.InputJsonValue,
+          finishedAt: new Date(),
+        },
+      });
+      await prisma.backgroundJob.update({
+        where: { id: queued.id },
+        data: {
+          status: "COMPLETED",
+          finishedAt: new Date(),
+          result: { aiJobId: job.id, mode: generated.mode, transport: "inline" },
+          errorMessage: null,
+        },
+      });
+      return completed;
+    } catch (e) {
+      const message = e instanceof Error ? e.message : "inline AI content failed";
+      await prisma.aIJob.update({
+        where: { id: job.id },
+        data: { status: "FAILED", errorMessage: message, finishedAt: new Date() },
+      });
+      await prisma.backgroundJob.update({
+        where: { id: queued.id },
+        data: { status: "FAILED", finishedAt: new Date(), errorMessage: message },
+      });
+      throw e;
+    }
+  }
 
   return job;
 }
@@ -61,7 +117,7 @@ export async function listAIJobs(userId: string, siteId: string) {
   });
 }
 
-/** Synchronous stub generator for demos / tests when worker is offline */
+/** Synchronous generator for UI previews — uses OpenAI when configured via async path elsewhere */
 export function generateArticleStub(input: {
   keyword: string;
   title?: string;
