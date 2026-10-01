@@ -167,7 +167,7 @@ export function AppChrome({
           </div>
         </div>
 
-        <div className="space-y-0.5 border-t border-ink-100 pt-3">
+        <div className="space-y-0.5 border-t border-apple-border pt-3">
           {bottomNav.map((item) => {
             const active = pathname === item.href || pathname.startsWith(item.href + "/");
             return (
@@ -176,10 +176,10 @@ export function AppChrome({
                 href={item.href}
                 onClick={() => setMobileOpen(false)}
                 className={cn(
-                  "block rounded-lg px-2.5 py-1.5 text-sm font-medium",
+                  "block rounded-pill px-2.5 py-1.5 text-sm font-medium",
                   active
                     ? "bg-accent-soft text-accent-dark"
-                    : "text-ink-700 hover:bg-accent-soft hover:text-accent-dark",
+                    : "text-ink-700 hover:bg-apple-bg hover:text-apple-text",
                 )}
               >
                 {item.label}
@@ -189,8 +189,11 @@ export function AppChrome({
         </div>
       </nav>
 
-      <form action={signOutAction} className="shrink-0 border-t border-ink-100 pt-3">
-        <button type="submit" className="text-left text-sm text-ink-500 hover:text-danger">
+      <form action={signOutAction} className="shrink-0 border-t border-apple-border pt-3">
+        <button
+          type="submit"
+          className="rounded-none bg-transparent px-0 py-0 text-left text-sm font-normal text-apple-muted shadow-none hover:text-danger"
+        >
           Sign out
         </button>
       </form>

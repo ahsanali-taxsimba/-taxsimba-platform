@@ -58,9 +58,9 @@ export function DashboardMotion({
   const greeting = userName?.split(" ")[0] || "there";
 
   const coverageSegments = [
-    { label: "Keywords tracked", value: Math.max(totalKeywords, 1), color: "#0F9F8F" },
-    { label: "Pages indexed", value: Math.max(totalPages, 1), color: "#38BDF8" },
-    { label: "Crawls run", value: Math.max(totalCrawls, 1), color: "#818CF8" },
+    { label: "Keywords tracked", value: Math.max(totalKeywords, 1), color: "#0071E3" },
+    { label: "Pages indexed", value: Math.max(totalPages, 1), color: "#2997FF" },
+    { label: "Crawls run", value: Math.max(totalCrawls, 1), color: "#86868B" },
   ];
 
   const siteBars = sites.slice(0, 6).map((s) => ({

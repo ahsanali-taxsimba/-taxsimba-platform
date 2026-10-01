@@ -173,8 +173,8 @@ export function IntelligencePanel() {
           <p className="mb-4 text-sm text-ink-500">How much of the UK firm set is enriched</p>
           <DonutBreakdown
             segments={[
-              { label: "Crawled", value: crawled || 1, color: "#0F9F8F" },
-              { label: "Pending", value: pending || 0, color: "#E8EDF5" },
+              { label: "Crawled", value: crawled || 1, color: "#0071E3" },
+              { label: "Pending", value: pending || 0, color: "#D2D2D7" },
             ]}
             centerLabel="firms"
             centerValue={total || "—"}
@@ -185,7 +185,7 @@ export function IntelligencePanel() {
           <h2 className="font-display text-xl font-semibold">Top locations in sample</h2>
           <p className="mb-4 text-sm text-ink-500">Firm density by city / region from the live list</p>
           {locationBars.length ? (
-            <BarSeries items={locationBars} color="#38BDF8" />
+            <BarSeries items={locationBars} color="#2997FF" />
           ) : (
             <p className="text-sm text-ink-500">{loading ? "Loading…" : "No location data yet."}</p>
           )}

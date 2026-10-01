@@ -111,7 +111,7 @@ export function SiteOverviewMotion({
       <div className="grid gap-4 lg:grid-cols-4">
         <ScoreRing score={healthScore} label="Site health score" />
         <MetricTile label="Keywords" value={keywordCount} hint="Tracked phrases" tone="accent">
-          <Sparkline points={rankPoints.map((p) => p.value)} color="#38BDF8" />
+          <Sparkline points={rankPoints.map((p) => p.value)} color="#2997FF" />
         </MetricTile>
         <MetricTile label="Pages discovered" value={pageCount} hint={`${crawlCount} crawls run`} />
         <MetricTile
@@ -149,25 +149,25 @@ export function SiteOverviewMotion({
               [
                 { label: "Critical", value: issueCounts.CRITICAL || 0, color: "#DC2626" },
                 { label: "High", value: issueCounts.HIGH || 0, color: "#D97706" },
-                { label: "Medium", value: issueCounts.MEDIUM || 0, color: "#38BDF8" },
+                { label: "Medium", value: issueCounts.MEDIUM || 0, color: "#2997FF" },
                 {
                   label: "Low / info",
                   value: (issueCounts.LOW || 0) + (issueCounts.INFO || 0),
-                  color: "#A8B3C7",
+                  color: "#A1A1A6",
                 },
               ] as const
             ).filter((s) => s.value > 0).length
               ? [
                   { label: "Critical", value: issueCounts.CRITICAL || 0, color: "#DC2626" },
                   { label: "High", value: issueCounts.HIGH || 0, color: "#D97706" },
-                  { label: "Medium", value: issueCounts.MEDIUM || 0, color: "#38BDF8" },
+                  { label: "Medium", value: issueCounts.MEDIUM || 0, color: "#2997FF" },
                   {
                     label: "Low / info",
                     value: (issueCounts.LOW || 0) + (issueCounts.INFO || 0),
-                    color: "#A8B3C7",
+                    color: "#A1A1A6",
                   },
                 ].filter((s) => s.value > 0)
-              : [{ label: "No issues yet", value: 1, color: "#D8F3EF" }]}
+              : [{ label: "No issues yet", value: 1, color: "#E8F2FF" }]}
             centerLabel="issues"
             centerValue={issueTotal || "0"}
           />
