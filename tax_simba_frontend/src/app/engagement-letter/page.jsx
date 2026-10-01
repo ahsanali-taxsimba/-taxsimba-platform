@@ -684,11 +684,37 @@ export default function EngagementLetterPage() {
             <div className="el-footer-gate">
                 <div className="el-gate-glass">
                     <div className="el-chk-col">
-                        <div className="el-chk-row" onClick={() => setAccepted(!accepted)}>
+                        <div
+                          className="el-chk-row"
+                          role="checkbox"
+                          aria-checked={accepted}
+                          data-testid="engagement-agree-subscription"
+                          tabIndex={0}
+                          onClick={() => setAccepted(!accepted)}
+                          onKeyDown={(e) => {
+                            if (e.key === " " || e.key === "Enter") {
+                              e.preventDefault();
+                              setAccepted((v) => !v);
+                            }
+                          }}
+                        >
                             <div className={`el-toggle ${accepted ? 'on' : ''}`} />
                             <div className="el-chk-label">I agree to the TaxSimba Subscription Agreement</div>
                         </div>
-                        <div className="el-chk-row" onClick={() => setTermsAccepted(!termsAccepted)}>
+                        <div
+                          className="el-chk-row"
+                          role="checkbox"
+                          aria-checked={termsAccepted}
+                          data-testid="engagement-agree-terms"
+                          tabIndex={0}
+                          onClick={() => setTermsAccepted(!termsAccepted)}
+                          onKeyDown={(e) => {
+                            if (e.key === " " || e.key === "Enter") {
+                              e.preventDefault();
+                              setTermsAccepted((v) => !v);
+                            }
+                          }}
+                        >
                             <div className={`el-toggle ${termsAccepted ? 'on' : ''}`} />
                             <div className="el-chk-label">I agree to the Terms of Service and Privacy Policy</div>
                         </div>
@@ -696,7 +722,20 @@ export default function EngagementLetterPage() {
 
                     <div className="el-sig-col">
                         <div className="el-sig-canvas-box">
-                            <canvas ref={canvasRef} width={1000} height={220} className="el-sig-canvas" onMouseDown={startDraw} onMouseMove={draw} onMouseUp={endDraw} onMouseLeave={endDraw} onTouchStart={startDraw} onTouchMove={draw} onTouchEnd={endDraw} />
+                            <canvas
+                              ref={canvasRef}
+                              width={1000}
+                              height={220}
+                              className="el-sig-canvas"
+                              data-testid="engagement-signature-canvas"
+                              onMouseDown={startDraw}
+                              onMouseMove={draw}
+                              onMouseUp={endDraw}
+                              onMouseLeave={endDraw}
+                              onTouchStart={startDraw}
+                              onTouchMove={draw}
+                              onTouchEnd={endDraw}
+                            />
                             <div className="el-clear" onClick={clearSignature}>Clear</div>
                         </div>
                     </div>
@@ -705,7 +744,12 @@ export default function EngagementLetterPage() {
                         <div style={{ fontSize: 12, color: '#000', textAlign: 'center', fontWeight: 600, paddingBottom: 8 }}>
                             No long-term contracts. Cancel anytime. Dedicated accountant support included. Secure HMRC compliant service.
                         </div>
-                        <button className="el-btn-main" onClick={handleSubmitLetter} disabled={loading || !accepted || !termsAccepted || !hasSignature}>
+                        <button
+                          className="el-btn-main"
+                          data-testid="engagement-agree-submit"
+                          onClick={handleSubmitLetter}
+                          disabled={loading || !accepted || !termsAccepted || !hasSignature}
+                        >
                             {loading ? "PROCESSING..." : "AGREE & CONTINUE →"}
                         </button>
                     </div>

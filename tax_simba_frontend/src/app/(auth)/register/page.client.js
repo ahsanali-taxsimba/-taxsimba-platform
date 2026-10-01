@@ -397,6 +397,17 @@ export default function RegisterPage() {
                             </div></div>
                         </div>
                         {apiErrorMsg && <span className="error_msg error_msg_color">{apiErrorMsg}</span>}
+                        <p className="text-muted small mb-3 text-center" data-testid="register-legal-links">
+                          By registering you agree to our{" "}
+                          <Link href="/terms-and-conditions" target="_blank" rel="noopener noreferrer">
+                            Terms &amp; Conditions
+                          </Link>{" "}
+                          and{" "}
+                          <Link href="/privacy-policy" target="_blank" rel="noopener noreferrer">
+                            Privacy Policy
+                          </Link>
+                          .
+                        </p>
                         <div className="form_btn_row">
                           <TranslatedButton type="submit" className="common-btn w-100 justify-content-center" id="register">Register
                             Now</TranslatedButton>

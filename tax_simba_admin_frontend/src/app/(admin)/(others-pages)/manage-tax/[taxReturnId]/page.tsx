@@ -31,6 +31,7 @@ import BellButton from '@/components/NotficationData/BellButton';
 import { toast } from 'react-toastify';
 import DownloadCertificate from '@/components/TaxReturnModal/DownloadCertificateModal';
 import { canApproveDrafts, canAssignCases } from '@/lib/roles';
+import ExternalSubmissionPanel from '../_sections/ExternalSubmissionPanel';
 
 const AdminTaxReturnDetails = () => {
   const router = useRouter();
@@ -769,7 +770,10 @@ const AdminTaxReturnDetails = () => {
                       </button>
                     </>
                   )}
-                  {canAssign && taxReturn.status !== 'assigned' && (
+                  {canAssign &&
+                    !['completed', 'final_submitted'].includes(
+                      String(taxReturn.status || '').toLowerCase(),
+                    ) && (
                     <button
                       onClick={() => {
                         fetchAccountants();
@@ -778,7 +782,9 @@ const AdminTaxReturnDetails = () => {
                       className="flex items-center space-x-2 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700"
                     >
                       <UserPlus className="h-4 w-4" />
-                      <span>Assign</span>
+                      <span>
+                        {taxReturn.accountant?.id ? 'Reassign' : 'Assign'}
+                      </span>
                     </button>
                   )}
                 </div>
@@ -845,6 +851,18 @@ const AdminTaxReturnDetails = () => {
           <div className="p-6">
             {activeTab === 'overview' && (
               <div className="space-y-6">
+                <ExternalSubmissionPanel
+                  taxReturnId={taxReturnIdStr}
+                  nodeStatus={
+                    (progressData as { nodeStatus?: string } | null)?.nodeStatus ||
+                    (taxReturn as { nodeStatus?: string } | null)?.nodeStatus ||
+                    null
+                  }
+                  onRecorded={() => {
+                    void fetchTaxReturnData();
+                    void fetchProgressData();
+                  }}
+                />
                 {/* Files Summary */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="bg-blue-50 p-4 rounded-lg">

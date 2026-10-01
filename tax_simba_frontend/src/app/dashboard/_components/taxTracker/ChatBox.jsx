@@ -12,18 +12,19 @@ const ChatBox = ({ show, handleClose, ids, token, id }) => {
     const [trackMessageSend, setTrackMessageSend] = useState(false);
     const [chatHistory, setChatHistory] = useState([]);
 
-    // Email send handler
+    // Email send handler — backend resolves assigned accountant when accountantId omitted.
     const handleOpenmailModal = () => {
-        if (ids?.accountantId){
-            setShowModal(true)
+        if (ids?.taxReturnId) {
+            setShowModal(true);
         } else {
-            toast.error("Accountant not assigned yet. Cannot send message.");
+            toast.error("Open a tax return before messaging your accountant.");
         }
     }
     const handleMailSend = async ({ subject, body, accountantId, taxReturnId, token }) => {
         // Sensitive fields intentionally not logged.
-        if (!subject || !body || !accountantId || !taxReturnId) {
+        if (!subject || !body || !taxReturnId) {
             console.error("All fields are required");
+            toast.error("Subject, message and tax return are required.");
             return;
         }
 
@@ -33,8 +34,10 @@ const ChatBox = ({ show, handleClose, ids, token, id }) => {
                 {
                     subject,
                     message: body,
-                    accountantId,
+                    body,
+                    ...(accountantId ? { accountantId, accountant_id: accountantId } : {}),
                     taxReturnId,
+                    tax_return_id: taxReturnId,
                     priority: "high"
                 },
                 {

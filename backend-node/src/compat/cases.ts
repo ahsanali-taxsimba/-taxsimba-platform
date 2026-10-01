@@ -523,7 +523,7 @@ async function adminApproveSubmittedDraft(
   me: Doc,
   note?: string | null,
 ): Promise<{ updated: Doc; released: number }> {
-  if (String(me.role) !== "ADMIN") {
+  if (String(me.role) !== "ADMIN" && String(me.role) !== "SUPER_ADMIN") {
     throw httpError(403, "Insufficient permissions");
   }
   const { notify } = await import("../domain/workflow");
@@ -596,7 +596,7 @@ async function handleProgressWrite(req: import("express").Request, res: import("
       // approve path (release docs + notify), not a bare status flip.
       if (
         (current === "READY_FOR_ADMIN_REVIEW" || current === "ADMIN_REVIEW") &&
-        String(me.role) === "ADMIN"
+        (String(me.role) === "ADMIN" || String(me.role) === "SUPER_ADMIN")
       ) {
         const { updated } = await adminApproveSubmittedDraft(
           caseId,
@@ -861,6 +861,33 @@ compatCasesRouter.post(
     const verified = (await col("cases").findOne({ id: caseId })) as Doc | null;
     if (!verified || String(verified.assigned_accountant_id) !== acc.userId) {
       throw httpError(500, "Assignment failed to persist — please retry");
+    }
+
+    // Mirror assignment onto the client profile so client/admin screens stay aligned.
+    if (verified.client_id) {
+      await col("clients").updateOne(
+        { id: verified.client_id },
+        {
+          $set: {
+            assigned_accountant_id: acc.userId,
+            assigned_accountant_name: acc.name,
+            assigned_at: assignedAt,
+            updated_at: assignedAt,
+          },
+        },
+      );
+    } else if (verified.client_user_id) {
+      await col("clients").updateOne(
+        { user_id: verified.client_user_id },
+        {
+          $set: {
+            assigned_accountant_id: acc.userId,
+            assigned_accountant_name: acc.name,
+            assigned_at: assignedAt,
+            updated_at: assignedAt,
+          },
+        },
+      );
     }
 
     const deepLink = `/tax-return-list/${caseId}`;

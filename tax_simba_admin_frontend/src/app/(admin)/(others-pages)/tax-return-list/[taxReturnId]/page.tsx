@@ -30,6 +30,7 @@ import { getNotificationIcon } from '@/utils/getNotification';
 import BellButton from '@/components/NotficationData/BellButton';
 import DownloadCertificate from '@/components/TaxReturnModal/DownloadCertificateModal';
 import { toast } from 'react-toastify';
+import ExternalSubmissionPanel from '../../manage-tax/_sections/ExternalSubmissionPanel';
 
 
 
@@ -425,7 +426,12 @@ const TaxReturnManagement = () => {
   const fetchTaxReturnData = async () => {
     setLoading(true);
     try {
-      const response = await clientAxios.post(`/accountant/tax-return/files/${taxReturnId}`, {});
+      // Accountants use assigned-to-me detail; Admin/Super Admin use admin files path.
+      const path =
+        role === 'ADMIN' || role === 'SUPER_ADMIN'
+          ? `/admin/tax-return/${taxReturnId}/files`
+          : `/accountant/tax-return/files/${taxReturnId}`;
+      const response = await clientAxios.post(path, {});
 
       if (response.data.success) {
         console.log(response?.data?.data.taxReturn);
@@ -604,6 +610,20 @@ const TaxReturnManagement = () => {
           <div className="p-6">
             {activeTab === 'overview' && (
               <div className="space-y-6">
+                {canApprove && (
+                  <ExternalSubmissionPanel
+                    taxReturnId={String(taxReturnId)}
+                    nodeStatus={
+                      (progressData as { nodeStatus?: string } | null)?.nodeStatus ||
+                      (taxReturn as { nodeStatus?: string } | null)?.nodeStatus ||
+                      null
+                    }
+                    onRecorded={() => {
+                      void fetchTaxReturnData();
+                      void fetchProgressData();
+                    }}
+                  />
+                )}
                 {/* Files Summary */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="bg-blue-50 p-4 rounded-lg">

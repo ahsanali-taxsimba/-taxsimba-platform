@@ -1293,7 +1293,9 @@ async function staffCaseDetailPayload(me: Doc, taxReturnId: string): Promise<Doc
     id: kase.id,
     taxReturnId: kase.case_ref ?? kase.id,
     taxYear: Number.isFinite(taxYearNum) ? taxYearNum : taxYearRaw,
-    status: String(kase.status ?? "").toLowerCase(),
+    // Prefer Toxel step keys for admin/accountant progress UI (draft_ready, ready_for_submission…).
+    status: nodeToToxelListStatus(String(kase.status)),
+    nodeStatus: String(kase.status ?? ""),
     statusLabel: clientStatus(String(kase.status)),
     serviceType,
     client: {
