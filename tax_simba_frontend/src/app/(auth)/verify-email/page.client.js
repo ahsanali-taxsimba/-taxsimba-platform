@@ -10,7 +10,9 @@ import toast from "react-hot-toast";
 import { useReVerifyEmail } from "@/hooks/reVerifyEmail";
 import { safeContinuePath } from "@/lib/catalogueJourney";
 
-let isHitApi = false;
+// Per-token guard only (module-level boolean blocked every later user in the same
+// Next.js process after the first verification — broke Stripe acceptance).
+const verifiedTokens = new Set();
 
 const VerifyEmail = () => {
   const [message, setMessage] = useState("");
@@ -30,8 +32,8 @@ const VerifyEmail = () => {
       return;
     }
     async function verifyEmail() {
-      if (isHitApi) return;
-      isHitApi = true;
+      if (verifiedTokens.has(token)) return;
+      verifiedTokens.add(token);
       try {
         const response = await axios.post(
           process.env.NEXT_PUBLIC_API_URL +

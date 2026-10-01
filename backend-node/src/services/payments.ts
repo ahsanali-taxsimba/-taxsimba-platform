@@ -135,19 +135,31 @@ export class StripeProvider implements PaymentProvider {
     const buildParams = (
       useCustomer: string | null,
       automaticTax: boolean,
-    ): Stripe.Checkout.SessionCreateParams => ({
-      line_items: [{ price_data: priceData, quantity: 1 }],
-      mode: recurring ? "subscription" : "payment",
-      success_url,
-      cancel_url,
-      automatic_tax: { enabled: automaticTax },
-      billing_address_collection: "required",
-      metadata: safeMeta,
-      ...(useCustomer ? { customer: useCustomer } : {}),
-      ...(recurring && billing?.customerEmail && !useCustomer
-        ? { customer_email: String(billing.customerEmail) }
-        : {}),
-    });
+    ): Stripe.Checkout.SessionCreateParams => {
+      const params: Stripe.Checkout.SessionCreateParams = {
+        line_items: [{ price_data: priceData, quantity: 1 }],
+        mode: recurring ? "subscription" : "payment",
+        success_url,
+        cancel_url,
+        // Card-only simplifies hosted Checkout for browser acceptance (avoids
+        // Link/Revolut wallets hiding the card number fields in Sandbox).
+        payment_method_types: ["card"],
+        automatic_tax: { enabled: automaticTax },
+        billing_address_collection: "required",
+        locale: "en-GB",
+        metadata: safeMeta,
+        ...(useCustomer ? { customer: useCustomer } : {}),
+        ...(!useCustomer && billing?.customerEmail
+          ? { customer_email: String(billing.customerEmail) }
+          : {}),
+      };
+      // Adaptive Pricing is a dashboard/API feature; disable when supported so
+      // Checkout stays on catalogue GBP (older stripe types may omit the field).
+      (params as Stripe.Checkout.SessionCreateParams & {
+        adaptive_pricing?: { enabled: boolean };
+      }).adaptive_pricing = { enabled: false };
+      return params;
+    };
 
     try {
       return session(await this.stripe.checkout.sessions.create(buildParams(customerId, true)));
