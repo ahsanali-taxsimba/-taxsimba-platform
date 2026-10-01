@@ -207,16 +207,24 @@ async function completeStripeCheckout(page, { expectFail = false } = {}) {
     if (await cb.isChecked().catch(() => false)) await cb.uncheck().catch(() => null);
   }
 
-  const payBtn = page.getByRole("button", { name: /^Pay$/ }).first();
-  await payBtn.click({ timeout: 20000 });
-  for (let i = 0; i < 45; i++) {
+  // One-off SA uses "Pay"; MTD recurring Checkout uses "Subscribe" (often with
+  // a Processing suffix in accessible name while busy).
+  const payBtn = page.getByRole("button", { name: /^(Pay|Subscribe)\b/i }).first();
+  await payBtn.waitFor({ state: "visible", timeout: 30000 });
+  // Ensure card fields committed before subscribe/pay.
+  await page.keyboard.press("Escape").catch(() => null);
+  await page.locator("body").click({ position: { x: 8, y: 8 } }).catch(() => null);
+  await page.waitForTimeout(400);
+  await payBtn.click({ timeout: 30000 });
+  for (let i = 0; i < 50; i++) {
     await page.waitForTimeout(1500);
     if (!/checkout\.stripe\.com/i.test(page.url())) return;
     const body = await page.locator("body").innerText().catch(() => "");
     if (expectFail && /declined|failed|incomplete|try again/i.test(body)) return;
-    if (i === 5 || i === 12) {
+    if (i === 5 || i === 12 || i === 20) {
       await page.keyboard.press("Escape").catch(() => null);
-      await payBtn.click().catch(() => null);
+      const again = page.getByRole("button", { name: /^(Pay|Subscribe)\b/i }).first();
+      await again.click().catch(() => null);
     }
   }
 }
