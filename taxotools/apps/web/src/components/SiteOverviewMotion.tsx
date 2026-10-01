@@ -1,15 +1,28 @@
 "use client";
 
 import Link from "next/link";
-import { FadeIn, SlideUp, MotionButton, RankTrackingChart } from "@/motion";
+import { RankTrackingChart } from "@/motion";
 import {
   ScoreRing,
-  MetricTile,
   SovBarList,
   ActionRow,
   DonutBreakdown,
   Sparkline,
 } from "@/components/dashboard/ChartKit";
+import {
+  SectionHeader,
+  Button,
+  MetricCard,
+  ChartContainer,
+  Card,
+  StatusTag,
+  SplitView,
+  Stagger,
+  StaggerItem,
+  FadeIn,
+  SeoAuditLayout,
+  type SeoIssueGroup,
+} from "@/ui";
 
 type Tool = { id: string; name: string; path: string };
 type Group = { id: string; name: string; description: string; tools: readonly Tool[] };
@@ -77,87 +90,145 @@ export function SiteOverviewMotion({
     { path: "reports", name: "Client reports", detail: "White-label PDF/HTML" },
   ];
 
+  const issueGroups: SeoIssueGroup[] = [
+    {
+      id: "critical",
+      label: "Critical & high",
+      defaultOpen: true,
+      issues: [
+        ...(issueCounts.CRITICAL
+          ? [
+              {
+                id: "c1",
+                title: `${issueCounts.CRITICAL} critical issue${issueCounts.CRITICAL === 1 ? "" : "s"}`,
+                detail: "Blocks indexing or major UX regressions",
+                severity: "critical" as const,
+              },
+            ]
+          : []),
+        ...(issueCounts.HIGH
+          ? [
+              {
+                id: "h1",
+                title: `${issueCounts.HIGH} high-priority issue${issueCounts.HIGH === 1 ? "" : "s"}`,
+                detail: "Strong impact on rankings or crawlability",
+                severity: "high" as const,
+              },
+            ]
+          : []),
+      ],
+    },
+    {
+      id: "medium",
+      label: "Medium",
+      issues: issueCounts.MEDIUM
+        ? [
+            {
+              id: "m1",
+              title: `${issueCounts.MEDIUM} medium issue${issueCounts.MEDIUM === 1 ? "" : "s"}`,
+              detail: "Worth fixing in the next sprint",
+              severity: "medium" as const,
+            },
+          ]
+        : [],
+    },
+    {
+      id: "low",
+      label: "Low & info",
+      issues: [
+        ...(issueCounts.LOW
+          ? [
+              {
+                id: "l1",
+                title: `${issueCounts.LOW} low issue${issueCounts.LOW === 1 ? "" : "s"}`,
+                severity: "low" as const,
+              },
+            ]
+          : []),
+        ...(issueCounts.INFO
+          ? [
+              {
+                id: "i1",
+                title: `${issueCounts.INFO} informational note${issueCounts.INFO === 1 ? "" : "s"}`,
+                severity: "info" as const,
+              },
+            ]
+          : []),
+      ],
+    },
+  ];
+
   return (
     <div className="space-y-8" data-testid="site-overview">
       <FadeIn>
-        <div className="overflow-hidden rounded-3xl border border-ink-100 bg-grid-fade px-6 py-7 shadow-sm md:px-8">
-          <p className="text-sm text-ink-500">
-            <Link href="/app/sites" className="hover:text-accent-dark">
-              Sites
-            </Link>{" "}
-            / {domain}
-          </p>
-          <div className="mt-2 flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <h1 className="font-display text-3xl font-semibold text-ink-950 md:text-4xl">
-                {siteName}
-              </h1>
-              <p className="mt-1 text-sm text-ink-500">{url}</p>
-            </div>
-            <div className="flex flex-wrap gap-2">
+        <SectionHeader
+          breadcrumbs={[
+            { label: "Sites", href: "/app/sites" },
+            { label: domain },
+          ]}
+          title={siteName}
+          description={url}
+          actions={
+            <>
               <Link href={`/app/sites/${siteId}/technical`}>
-                <MotionButton type="button" variant="outline">
-                  Run crawl
-                </MotionButton>
+                <Button variant="outline">Run crawl</Button>
               </Link>
               <Link href={`/app/sites/${siteId}/tools`}>
-                <MotionButton type="button">Full toolkit</MotionButton>
+                <Button>Full toolkit</Button>
               </Link>
-            </div>
-          </div>
-        </div>
+            </>
+          }
+        />
       </FadeIn>
 
       <div className="grid gap-4 lg:grid-cols-4">
         <ScoreRing score={healthScore} label="Site health score" />
-        <MetricTile label="Keywords" value={keywordCount} hint="Tracked phrases" tone="accent">
-          <Sparkline points={rankPoints.map((p) => p.value)} color="#2997FF" />
-        </MetricTile>
-        <MetricTile label="Pages discovered" value={pageCount} hint={`${crawlCount} crawls run`} />
-        <MetricTile
+        <MetricCard
+          label="Keywords"
+          value={keywordCount}
+          hint="Tracked phrases"
+          trend={keywordCount ? 6 : 0}
+        />
+        <MetricCard
+          label="Pages discovered"
+          value={pageCount}
+          hint={`${crawlCount} crawls run`}
+          trend={pageCount ? 4 : 0}
+        />
+        <MetricCard
           label="AI share of voice"
           value={sovAvg}
           hint={sov.length ? `${sov.length} engines sampled` : "No scans yet"}
-          tone="good"
+          gradient
         />
       </div>
 
-      <div className="grid gap-4 xl:grid-cols-3">
-        <SlideUp className="rounded-2xl border border-ink-100 bg-white p-5 shadow-sm xl:col-span-2">
-          <div className="mb-3 flex items-center justify-between">
-            <div>
-              <h2 className="font-display text-xl font-semibold">Visibility trend</h2>
-              <p className="text-sm text-ink-500">
-                Auto SEO style rank / activity pulse for {domain}
-              </p>
+      <SplitView
+        primaryRatio="xl"
+        primary={
+          <ChartContainer
+            title="Visibility trend"
+            description={`Auto SEO style rank / activity pulse for ${domain}`}
+            actions={
+              <Link
+                href={`/app/sites/${siteId}/keywords`}
+                className="text-sm font-medium text-[var(--accent-blue)] hover:underline"
+              >
+                Manage keywords
+              </Link>
+            }
+          >
+            <RankTrackingChart points={rankPoints} height={110} />
+            <div className="mt-3">
+              <Sparkline points={rankPoints.map((p) => p.value)} color="#2997FF" />
             </div>
-            <Link
-              href={`/app/sites/${siteId}/keywords`}
-              className="text-sm font-medium text-accent-dark hover:underline"
-            >
-              Manage keywords
-            </Link>
-          </div>
-          <RankTrackingChart points={rankPoints} height={110} />
-        </SlideUp>
-
-        <SlideUp delay={0.05} className="rounded-2xl border border-ink-100 bg-white p-5 shadow-sm">
-          <h2 className="font-display text-xl font-semibold">Issue breakdown</h2>
-          <p className="mb-4 text-sm text-ink-500">From the latest completed crawl</p>
-          <DonutBreakdown
-            segments={(
-              [
-                { label: "Critical", value: issueCounts.CRITICAL || 0, color: "#DC2626" },
-                { label: "High", value: issueCounts.HIGH || 0, color: "#D97706" },
-                { label: "Medium", value: issueCounts.MEDIUM || 0, color: "#2997FF" },
-                {
-                  label: "Low / info",
-                  value: (issueCounts.LOW || 0) + (issueCounts.INFO || 0),
-                  color: "#A1A1A6",
-                },
-              ] as const
-            ).filter((s) => s.value > 0).length
-              ? [
+          </ChartContainer>
+        }
+        secondary={
+          <ChartContainer title="Issue breakdown" description="From the latest completed crawl">
+            <DonutBreakdown
+              segments={(
+                [
                   { label: "Critical", value: issueCounts.CRITICAL || 0, color: "#DC2626" },
                   { label: "High", value: issueCounts.HIGH || 0, color: "#D97706" },
                   { label: "Medium", value: issueCounts.MEDIUM || 0, color: "#2997FF" },
@@ -166,33 +237,47 @@ export function SiteOverviewMotion({
                     value: (issueCounts.LOW || 0) + (issueCounts.INFO || 0),
                     color: "#A1A1A6",
                   },
-                ].filter((s) => s.value > 0)
-              : [{ label: "No issues yet", value: 1, color: "#E8F2FF" }]}
-            centerLabel="issues"
-            centerValue={issueTotal || "0"}
-          />
-        </SlideUp>
-      </div>
+                ] as const
+              )
+                .filter((s) => s.value > 0).length
+                ? [
+                    { label: "Critical", value: issueCounts.CRITICAL || 0, color: "#DC2626" },
+                    { label: "High", value: issueCounts.HIGH || 0, color: "#D97706" },
+                    { label: "Medium", value: issueCounts.MEDIUM || 0, color: "#2997FF" },
+                    {
+                      label: "Low / info",
+                      value: (issueCounts.LOW || 0) + (issueCounts.INFO || 0),
+                      color: "#A1A1A6",
+                    },
+                  ].filter((s) => s.value > 0)
+                : [{ label: "No issues yet", value: 1, color: "#E8F2FF" }]}
+              centerLabel="issues"
+              centerValue={issueTotal || "0"}
+            />
+          </ChartContainer>
+        }
+      />
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <SlideUp className="rounded-2xl border border-ink-100 bg-white p-5 shadow-sm">
+        <Card surface="glass">
           <h2 className="font-display text-xl font-semibold">AI / AEO share of voice</h2>
-          <p className="mb-4 text-sm text-ink-500">How often engines mention your brand</p>
+          <p className="mb-4 text-sm text-[var(--text-secondary)]">How often engines mention your brand</p>
           <SovBarList
             items={sov.map((s) => ({ label: s.name || s.code, value: s.shareOfVoice }))}
           />
           <div className="mt-4">
             <Link href={`/app/sites/${siteId}/aeo`}>
-              <MotionButton type="button" variant="outline">
-                Run AEO scan
-              </MotionButton>
+              <Button variant="outline">Run AEO scan</Button>
             </Link>
           </div>
-        </SlideUp>
+        </Card>
 
-        <SlideUp delay={0.05} className="rounded-2xl border border-ink-100 bg-white p-5 shadow-sm">
-          <h2 className="font-display text-xl font-semibold">Priority actions</h2>
-          <p className="mb-4 text-sm text-ink-500">Suggested workflow for this project</p>
+        <Card surface="neu">
+          <div className="mb-3 flex items-center justify-between gap-2">
+            <h2 className="font-display text-xl font-semibold">Priority actions</h2>
+            <StatusTag label={`${backlinkCount} links`} tone="neutral" />
+          </div>
+          <p className="mb-4 text-sm text-[var(--text-secondary)]">Suggested workflow for this project</p>
           <div className="space-y-2">
             <ActionRow
               title={issueTotal ? "Fix technical issues" : "Run first technical crawl"}
@@ -223,60 +308,85 @@ export function SiteOverviewMotion({
               cta="Create"
             />
           </div>
-        </SlideUp>
+        </Card>
       </div>
 
-      <SlideUp delay={0.08}>
+      <SeoAuditLayout
+        title="Technical issue groups"
+        description="Collapsible severity groups from the latest crawl snapshot."
+        breadcrumbs={[
+          { label: domain, href: `/app/sites/${siteId}` },
+          { label: "Audit" },
+        ]}
+        score={healthScore}
+        metrics={[
+          { label: "Critical", value: issueCounts.CRITICAL, trend: issueCounts.CRITICAL ? -2 : 0 },
+          { label: "High", value: issueCounts.HIGH },
+          { label: "Medium", value: issueCounts.MEDIUM },
+        ]}
+        groups={issueGroups}
+        actions={
+          <Link href={`/app/sites/${siteId}/technical`}>
+            <Button size="sm">Open full audit</Button>
+          </Link>
+        }
+      />
+
+      <div>
         <div className="mb-3 flex items-center justify-between">
           <div>
             <h2 className="font-display text-xl font-semibold">Toolkit shortcuts</h2>
-            <p className="text-sm text-ink-500">Most-used Auto SEO modules for this site</p>
+            <p className="text-sm text-[var(--text-secondary)]">Most-used Auto SEO modules for this site</p>
           </div>
           <Link
             href={`/app/sites/${siteId}/tools`}
-            className="text-sm font-medium text-accent-dark hover:underline"
+            className="text-sm font-medium text-[var(--accent-blue)] hover:underline"
           >
             View all tools
           </Link>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        <Stagger className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {featuredTools.map((tool) => (
-            <Link
-              key={tool.path}
-              href={`/app/sites/${siteId}/${tool.path === "technical" || tool.path === "keywords" || tool.path === "backlinks" || tool.path === "aeo" || tool.path === "content" || tool.path === "reports" ? tool.path : `tools/${tool.path}`}`}
-              className="rounded-2xl border border-ink-100 bg-white p-4 shadow-sm transition-colors hover:border-accent hover:bg-accent-soft/30"
-            >
-              <p className="font-display text-lg font-semibold text-ink-950">{tool.name}</p>
-              <p className="mt-1 text-sm text-ink-500">{tool.detail}</p>
-            </Link>
+            <StaggerItem key={tool.path}>
+              <Link
+                href={`/app/sites/${siteId}/${tool.path === "technical" || tool.path === "keywords" || tool.path === "backlinks" || tool.path === "aeo" || tool.path === "content" || tool.path === "reports" ? tool.path : `tools/${tool.path}`}`}
+              >
+                <Card surface="glass" interactive className="h-full">
+                  <p className="font-display text-lg font-semibold text-[var(--text-main)]">{tool.name}</p>
+                  <p className="mt-1 text-sm text-[var(--text-secondary)]">{tool.detail}</p>
+                </Card>
+              </Link>
+            </StaggerItem>
           ))}
-        </div>
-      </SlideUp>
+        </Stagger>
+      </div>
 
-      <details className="rounded-2xl border border-ink-100 bg-white p-5 shadow-sm">
-        <summary className="cursor-pointer font-display text-lg font-semibold text-ink-900">
-          All toolkit groups ({groups.reduce((n, g) => n + g.tools.length, 0)} tools)
-        </summary>
-        <div className="mt-4 space-y-5">
-          {groups.map((group) => (
-            <div key={group.id}>
-              <h3 className="text-sm font-semibold text-ink-800">{group.name}</h3>
-              <p className="text-xs text-ink-500">{group.description}</p>
-              <div className="mt-2 flex flex-wrap gap-2">
-                {group.tools.map((tool) => (
-                  <Link
-                    key={tool.id}
-                    href={`/app/sites/${siteId}/tools/${tool.path}`}
-                    className="rounded-lg border border-ink-100 bg-ink-50 px-3 py-1.5 text-xs font-medium text-ink-700 hover:border-accent hover:bg-accent-soft hover:text-accent-dark"
-                  >
-                    {tool.name}
-                  </Link>
-                ))}
+      <Card surface="solid">
+        <details>
+          <summary className="cursor-pointer font-display text-lg font-semibold text-[var(--text-main)]">
+            All toolkit groups ({groups.reduce((n, g) => n + g.tools.length, 0)} tools)
+          </summary>
+          <div className="mt-4 space-y-5">
+            {groups.map((group) => (
+              <div key={group.id}>
+                <h3 className="text-sm font-semibold text-[var(--text-main)]">{group.name}</h3>
+                <p className="text-xs text-[var(--text-secondary)]">{group.description}</p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {group.tools.map((tool) => (
+                    <Link
+                      key={tool.id}
+                      href={`/app/sites/${siteId}/tools/${tool.path}`}
+                      className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-muted)] px-3 py-1.5 text-xs font-medium text-[var(--text-main)] hover:border-[var(--accent-blue)] hover:bg-[var(--accent-soft)]"
+                    >
+                      {tool.name}
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </details>
+            ))}
+          </div>
+        </details>
+      </Card>
     </div>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { FadeIn, SlideUp, MotionButton } from "@/motion";
 import {
   MetricTile,
   DonutBreakdown,
@@ -9,6 +8,19 @@ import {
   Sparkline,
   ActionRow,
 } from "@/components/dashboard/ChartKit";
+import {
+  SectionHeader,
+  MetricCard,
+  ChartContainer,
+  Card,
+  Button,
+  StatusTag,
+  SmartTable,
+  FadeIn,
+  SplitView,
+  Stagger,
+  StaggerItem,
+} from "@/ui";
 
 type Coverage = {
   firms_total?: number;
@@ -20,6 +32,7 @@ type Coverage = {
 };
 
 type FirmRow = {
+  id?: string;
   domain?: string;
   company_name?: string;
   location?: string;
@@ -94,13 +107,16 @@ export function IntelligencePanel() {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return firms;
-    return firms.filter(
-      (f) =>
-        f.company_name?.toLowerCase().includes(q) ||
-        f.domain?.toLowerCase().includes(q) ||
-        f.location?.toLowerCase().includes(q),
-    );
+    const rows = (!q
+      ? firms
+      : firms.filter(
+          (f) =>
+            f.company_name?.toLowerCase().includes(q) ||
+            f.domain?.toLowerCase().includes(q) ||
+            f.location?.toLowerCase().includes(q),
+        )
+    ).map((f, i) => ({ ...f, id: f.domain || f.company_name || String(i) }));
+    return rows;
   }, [firms, query]);
 
   const locationBars = useMemo(() => {
@@ -122,80 +138,90 @@ export function IntelligencePanel() {
   return (
     <div className="space-y-8" data-testid="intelligence-dashboard">
       <FadeIn>
-        <div className="overflow-hidden rounded-3xl border border-ink-100 bg-grid-fade px-6 py-7 shadow-sm md:px-8">
-          <p className="text-sm font-medium text-accent-dark">UK accountancy market graph</p>
-          <h1 className="mt-1 font-display text-3xl font-semibold text-ink-950 md:text-4xl">
-            Intelligence dashboard
-          </h1>
-          <p className="mt-2 max-w-2xl text-sm text-ink-500">
-            Coverage, firm scorecards, SEO/AEO signals, and lead-ready lists — presented like an Auto
-            SEO research cockpit.
-          </p>
-        </div>
+        <SectionHeader
+          eyebrow="UK accountancy market graph"
+          title="Intelligence dashboard"
+          description="Coverage, firm scorecards, SEO/AEO signals, and lead-ready lists — glass + neu research cockpit."
+        />
       </FadeIn>
 
       {error && (
-        <p className="rounded-lg border border-danger/30 bg-danger/5 px-3 py-2 text-sm text-danger">
+        <p className="rounded-lg border border-[color-mix(in_srgb,var(--danger)_30%,transparent)] bg-[color-mix(in_srgb,var(--danger)_8%,transparent)] px-3 py-2 text-sm text-[var(--danger)]">
           {error}
         </p>
       )}
 
-      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        <MetricTile
-          label="Firms in graph"
-          value={loading ? "…" : total}
-          hint={`${crawled} crawled`}
-          tone="accent"
-        >
-          <Sparkline
-            points={[
-              Math.max(0, crawled - 400),
-              Math.max(0, crawled - 250),
-              Math.max(0, crawled - 120),
-              crawled,
-            ]}
+      <Stagger className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <StaggerItem>
+          <MetricCard
+            label="Firms in graph"
+            value={loading ? 0 : total}
+            hint={`${crawled} crawled`}
+            trend={total ? 5 : 0}
+            gradient
           />
-        </MetricTile>
-        <MetricTile label="SEO pages" value={loading ? "…" : coverage?.seo_pages ?? "—"} />
-        <MetricTile
-          label="Backlinks stored"
-          value={loading ? "…" : coverage?.backlinks ?? "—"}
-          tone="good"
-        />
-        <MetricTile label="GEO profiles" value={loading ? "…" : coverage?.geo_profiles ?? "—"} />
-        <MetricTile label="Pending crawl" value={loading ? "…" : pending} tone="warn" />
-        <MetricTile label="Listed now" value={firms.length} hint="Sample in this view" />
-      </section>
-
-      <div className="grid gap-4 xl:grid-cols-3">
-        <SlideUp className="rounded-2xl border border-ink-100 bg-white p-5 shadow-sm">
-          <h2 className="font-display text-xl font-semibold">Crawl coverage</h2>
-          <p className="mb-4 text-sm text-ink-500">How much of the UK firm set is enriched</p>
-          <DonutBreakdown
-            segments={[
-              { label: "Crawled", value: crawled || 1, color: "#0071E3" },
-              { label: "Pending", value: pending || 0, color: "#D2D2D7" },
-            ]}
-            centerLabel="firms"
-            centerValue={total || "—"}
+        </StaggerItem>
+        <StaggerItem>
+          <MetricCard label="SEO pages" value={loading ? 0 : coverage?.seo_pages ?? 0} />
+        </StaggerItem>
+        <StaggerItem>
+          <MetricCard
+            label="Backlinks stored"
+            value={loading ? 0 : coverage?.backlinks ?? 0}
+            trend={3}
           />
-        </SlideUp>
+        </StaggerItem>
+        <StaggerItem>
+          <MetricTile label="GEO profiles" value={loading ? "…" : coverage?.geo_profiles ?? "—"} />
+        </StaggerItem>
+        <StaggerItem>
+          <MetricTile label="Pending crawl" value={loading ? "…" : pending} tone="warn" />
+        </StaggerItem>
+        <StaggerItem>
+          <MetricTile label="Listed now" value={firms.length} hint="Sample in this view">
+            <Sparkline
+              points={[
+                Math.max(0, crawled - 400),
+                Math.max(0, crawled - 250),
+                Math.max(0, crawled - 120),
+                crawled,
+              ]}
+            />
+          </MetricTile>
+        </StaggerItem>
+      </Stagger>
 
-        <SlideUp delay={0.04} className="rounded-2xl border border-ink-100 bg-white p-5 shadow-sm xl:col-span-2">
-          <h2 className="font-display text-xl font-semibold">Top locations in sample</h2>
-          <p className="mb-4 text-sm text-ink-500">Firm density by city / region from the live list</p>
-          {locationBars.length ? (
-            <BarSeries items={locationBars} color="#2997FF" />
-          ) : (
-            <p className="text-sm text-ink-500">{loading ? "Loading…" : "No location data yet."}</p>
-          )}
-        </SlideUp>
-      </div>
+      <SplitView
+        primaryRatio="lg"
+        primary={
+          <ChartContainer title="Top locations in sample" description="Firm density by city / region">
+            {locationBars.length ? (
+              <BarSeries items={locationBars} color="#2997FF" />
+            ) : (
+              <p className="text-sm text-[var(--text-secondary)]">
+                {loading ? "Loading…" : "No location data yet."}
+              </p>
+            )}
+          </ChartContainer>
+        }
+        secondary={
+          <ChartContainer title="Crawl coverage" description="How much of the UK firm set is enriched">
+            <DonutBreakdown
+              segments={[
+                { label: "Crawled", value: crawled || 1, color: "#0071E3" },
+                { label: "Pending", value: pending || 0, color: "#D2D2D7" },
+              ]}
+              centerLabel="firms"
+              centerValue={total || "—"}
+            />
+          </ChartContainer>
+        }
+      />
 
       <div className="grid gap-4 xl:grid-cols-5">
-        <SlideUp className="rounded-2xl border border-ink-100 bg-white p-5 shadow-sm xl:col-span-2">
+        <Card surface="neu" className="xl:col-span-2">
           <h2 className="font-display text-xl font-semibold">Firm lookup</h2>
-          <p className="mt-1 text-sm text-ink-500">Pull the SEO / AEO / competitor bundle</p>
+          <p className="mt-1 text-sm text-[var(--text-secondary)]">Pull the SEO / AEO / competitor bundle</p>
           <form
             className="mt-4 flex flex-col gap-3 sm:flex-row"
             onSubmit={(e) => {
@@ -204,15 +230,15 @@ export function IntelligencePanel() {
             }}
           >
             <input
-              className="w-full flex-1 rounded-lg border border-ink-100 px-3 py-2 outline-none ring-accent focus:ring-2"
+              className="w-full flex-1 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-panel)] px-3 py-2 outline-none ring-[var(--accent-blue)] focus:ring-2"
               value={domain}
               onChange={(e) => setDomain(e.target.value)}
               placeholder="sedulo.co.uk"
               data-testid="intel-domain-input"
             />
-            <MotionButton type="submit" disabled={lookingUp}>
+            <Button type="submit" disabled={lookingUp}>
               {lookingUp ? "Loading…" : "Lookup"}
-            </MotionButton>
+            </Button>
           </form>
 
           {firm && (
@@ -243,64 +269,68 @@ export function IntelligencePanel() {
               cta="Markets"
             />
           </div>
-        </SlideUp>
+        </Card>
 
-        <SlideUp delay={0.05} className="overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-sm xl:col-span-3">
-          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-ink-100 px-5 py-4">
+        <div className="xl:col-span-3 space-y-3">
+          <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <h2 className="font-display text-xl font-semibold">Firm directory</h2>
-              <p className="text-sm text-ink-500">Click a company to load its intelligence card</p>
+              <p className="text-sm text-[var(--text-secondary)]">
+                Click a company to load its intelligence card
+              </p>
             </div>
             <input
-              className="w-full max-w-xs rounded-lg border border-ink-100 px-3 py-2 text-sm outline-none ring-accent focus:ring-2"
+              className="w-full max-w-xs rounded-pill border border-[var(--border-subtle)] bg-[var(--bg-panel)] px-4 py-2 text-sm outline-none ring-[var(--accent-blue)] focus:ring-2"
               placeholder="Filter by name, domain, city…"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               data-testid="intel-filter"
             />
           </div>
-          <div className="max-h-[420px] overflow-auto">
-            <table className="w-full text-left text-sm">
-              <thead className="sticky top-0 border-b border-ink-100 bg-ink-50 text-xs uppercase text-ink-500">
-                <tr>
-                  <th className="px-4 py-3">Company</th>
-                  <th className="px-4 py-3">Domain</th>
-                  <th className="px-4 py-3">Location</th>
-                  <th className="px-4 py-3">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filtered.map((row) => (
-                  <tr key={row.domain || row.company_name} className="border-b border-ink-50">
-                    <td className="px-4 py-3 font-medium text-ink-900">
-                      <button
-                        type="button"
-                        className="text-left text-accent-dark hover:underline"
-                        onClick={() => void lookupFirm(row.domain)}
-                      >
-                        {row.company_name || "—"}
-                      </button>
-                    </td>
-                    <td className="px-4 py-3 text-ink-600">{row.domain}</td>
-                    <td className="px-4 py-3 text-ink-600">{row.location || "—"}</td>
-                    <td className="px-4 py-3">
-                      <span className="rounded-full bg-accent-soft px-2 py-0.5 text-[11px] font-medium text-accent-dark">
-                        {row.crawl_status || "—"}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-                {!loading && filtered.length === 0 && (
-                  <tr>
-                    <td colSpan={4} className="px-4 py-8 text-center text-ink-500">
-                      No firms match this filter.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </SlideUp>
+          <SmartTable
+            rows={filtered}
+            columns={[
+              {
+                id: "company",
+                header: "Company",
+                sticky: true,
+                render: (row) => (
+                  <button
+                    type="button"
+                    className="text-left font-medium text-[var(--accent-blue)] hover:underline"
+                    onClick={() => void lookupFirm(row.domain)}
+                  >
+                    {row.company_name || "—"}
+                  </button>
+                ),
+              },
+              {
+                id: "domain",
+                header: "Domain",
+                render: (row) => row.domain || "—",
+              },
+              {
+                id: "location",
+                header: "Location",
+                render: (row) => row.location || "—",
+              },
+              {
+                id: "status",
+                header: "Status",
+                render: (row) => (
+                  <StatusTag
+                    label={row.crawl_status || "—"}
+                    tone={
+                      row.crawl_status === "crawled" || row.crawl_status === "done"
+                        ? "success"
+                        : "info"
+                    }
+                  />
+                ),
+              },
+            ]}
+          />
+        </div>
       </div>
     </div>
   );

@@ -1,15 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { FadeIn, SlideUp, MotionButton } from "@/motion";
 import {
   UsageGauge,
   Sparkline,
   BarSeries,
   DonutBreakdown,
   ActionRow,
-  MetricTile,
 } from "@/components/dashboard/ChartKit";
+import {
+  MetricCard,
+  ChartContainer,
+  Card,
+  SectionHeader,
+  Button,
+  DashboardGrid,
+  SplitView,
+  Stagger,
+  StaggerItem,
+  FadeIn,
+  StatusTag,
+} from "@/ui";
 
 type UsageItem = { metric: string; used: number; limit: number };
 type SiteRow = {
@@ -103,35 +114,26 @@ export function DashboardMotion({
   return (
     <div className="space-y-8" data-testid="dashboard-overview">
       <FadeIn>
-        <div className="overflow-hidden rounded-3xl border border-ink-100 bg-grid-fade px-6 py-7 shadow-sm md:px-8">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="text-sm font-medium text-accent-dark">Workspace command center</p>
-              <h1 className="mt-1 font-display text-3xl font-semibold text-ink-950 md:text-4xl">
-                Welcome back, {greeting}
-              </h1>
-              <p className="mt-2 max-w-xl text-sm text-ink-500">
-                {planName || "Trial"} plan · {siteCount} project{siteCount === 1 ? "" : "s"} · Auto
-                SEO style visibility, health, and opportunity graphs in one place.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-2">
+        <SectionHeader
+          eyebrow="Workspace command center"
+          title={`Welcome back, ${greeting}`}
+          description={`${planName || "Trial"} plan · ${siteCount} project${siteCount === 1 ? "" : "s"} · glass + neu dashboards with live visibility graphs.`}
+          actions={
+            <>
               <Link href="/onboarding">
-                <MotionButton type="button" variant="outline">
-                  Add site
-                </MotionButton>
+                <Button variant="outline">Add site</Button>
               </Link>
               {primary && (
                 <Link href={`/app/sites/${primary.id}`}>
-                  <MotionButton type="button">Open {primary.domain}</MotionButton>
+                  <Button>Open {primary.domain}</Button>
                 </Link>
               )}
-            </div>
-          </div>
-        </div>
+            </>
+          }
+        />
       </FadeIn>
 
-      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <DashboardGrid columns={4}>
         {usageItems.map((item) => (
           <UsageGauge
             key={item.metric}
@@ -140,95 +142,104 @@ export function DashboardMotion({
             limit={item.limit}
           />
         ))}
-      </section>
+      </DashboardGrid>
 
-      <div className="grid gap-4 xl:grid-cols-3">
-        <SlideUp className="rounded-2xl border border-ink-100 bg-white p-5 shadow-sm xl:col-span-2">
-          <div className="mb-4 flex items-center justify-between gap-3">
-            <div>
-              <h2 className="font-display text-xl font-semibold text-ink-950">Visibility pulse</h2>
-              <p className="text-sm text-ink-500">Keyword + crawl activity trend across projects</p>
-            </div>
-            <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-semibold text-accent-dark">
-              Live workspace
-            </span>
-          </div>
-          <Sparkline points={seedTrend(totalKeywords + totalCrawls, totalPages + 4)} />
-          <div className="mt-5 grid gap-4 sm:grid-cols-3">
-            <MetricTile label="Keywords" value={totalKeywords} hint="Tracked phrases" tone="accent" />
-            <MetricTile label="Crawls" value={totalCrawls} hint="Technical scans" />
-            <MetricTile label="Pages" value={totalPages} hint="Discovered URLs" tone="good" />
-          </div>
-        </SlideUp>
+      <Stagger className="grid gap-4 sm:grid-cols-3">
+        <StaggerItem>
+          <MetricCard label="Keywords" value={totalKeywords} hint="Tracked phrases" trend={8} gradient />
+        </StaggerItem>
+        <StaggerItem>
+          <MetricCard label="Crawls" value={totalCrawls} hint="Technical scans" trend={3} />
+        </StaggerItem>
+        <StaggerItem>
+          <MetricCard label="Pages" value={totalPages} hint="Discovered URLs" trend={5} />
+        </StaggerItem>
+      </Stagger>
 
-        <SlideUp delay={0.05} className="rounded-2xl border border-ink-100 bg-white p-5 shadow-sm">
-          <h2 className="font-display text-xl font-semibold text-ink-950">Coverage mix</h2>
-          <p className="mb-4 text-sm text-ink-500">How your SEO stack is weighted right now</p>
-          <DonutBreakdown
-            segments={coverageSegments}
-            centerLabel="signals"
-            centerValue={totalKeywords + totalPages + totalCrawls || "—"}
-          />
-        </SlideUp>
-      </div>
+      <SplitView
+        primaryRatio="xl"
+        primary={
+          <ChartContainer
+            title="Visibility pulse"
+            description="Keyword + crawl activity trend across projects"
+            actions={<StatusTag label="Live workspace" tone="info" />}
+          >
+            <Sparkline points={seedTrend(totalKeywords + totalCrawls, totalPages + 4)} />
+          </ChartContainer>
+        }
+        secondary={
+          <ChartContainer title="Coverage mix" description="How your SEO stack is weighted">
+            <DonutBreakdown
+              segments={coverageSegments}
+              centerLabel="signals"
+              centerValue={totalKeywords + totalPages + totalCrawls || "—"}
+            />
+          </ChartContainer>
+        }
+      />
 
       <div className="grid gap-4 xl:grid-cols-5">
-        <SlideUp className="rounded-2xl border border-ink-100 bg-white p-5 shadow-sm xl:col-span-3">
-          <div className="mb-4 flex items-center justify-between">
-            <div>
-              <h2 className="font-display text-xl font-semibold">Project scoreboard</h2>
-              <p className="text-sm text-ink-500">Relative activity by site (keywords · pages · crawls)</p>
-            </div>
-            <Link href="/app/sites" className="text-sm font-medium text-accent-dark hover:underline">
-              All sites
-            </Link>
-          </div>
-          {siteBars.length ? (
-            <BarSeries items={siteBars} />
-          ) : (
-            <p className="text-sm text-ink-500">Add a site to populate the scoreboard.</p>
-          )}
-          <div className="mt-5 space-y-2">
-            {sites.slice(0, 4).map((site) => (
-              <Link
-                key={site.id}
-                href={`/app/sites/${site.id}`}
-                className="flex items-center justify-between rounded-xl border border-ink-100 px-4 py-3 transition-colors hover:border-accent hover:bg-accent-soft/30"
-              >
-                <div>
-                  <p className="text-sm font-semibold text-ink-900">{site.name}</p>
-                  <p className="text-xs text-ink-500">{site.domain}</p>
-                </div>
-                <div className="text-right text-xs text-ink-500">
-                  <p>{site._count.keywords} kw</p>
-                  <p>
-                    {site._count.crawls} crawls · {site._count.pages} pages
-                  </p>
-                </div>
+        <div className="xl:col-span-3">
+          <ChartContainer
+            title="Project scoreboard"
+            description="Relative activity by site (keywords · pages · crawls)"
+            actions={
+              <Link href="/app/sites" className="text-sm font-medium text-[var(--accent-blue)] hover:underline">
+                All sites
               </Link>
-            ))}
-          </div>
-        </SlideUp>
+            }
+          >
+            {siteBars.length ? (
+              <BarSeries items={siteBars} />
+            ) : (
+              <p className="text-sm text-[var(--text-secondary)]">Add a site to populate the scoreboard.</p>
+            )}
+            <div className="mt-5 space-y-2">
+              {sites.slice(0, 4).map((site) => (
+                <Link
+                  key={site.id}
+                  href={`/app/sites/${site.id}`}
+                  className="flex items-center justify-between rounded-[16px] border border-[var(--border-subtle)] bg-[var(--bg-panel)]/60 px-4 py-3 transition-colors hover:border-[var(--accent-blue)] hover:bg-[var(--accent-soft)]/40"
+                >
+                  <div>
+                    <p className="text-sm font-semibold text-[var(--text-main)]">{site.name}</p>
+                    <p className="text-xs text-[var(--text-secondary)]">{site.domain}</p>
+                  </div>
+                  <div className="text-right text-xs text-[var(--text-secondary)]">
+                    <p>{site._count.keywords} kw</p>
+                    <p>
+                      {site._count.crawls} crawls · {site._count.pages} pages
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </ChartContainer>
+        </div>
 
-        <SlideUp delay={0.06} className="rounded-2xl border border-ink-100 bg-white p-5 shadow-sm xl:col-span-2">
-          <h2 className="font-display text-xl font-semibold">Recommended next steps</h2>
-          <p className="mb-4 text-sm text-ink-500">Auto SEO style action queue for this workspace</p>
-          <div className="space-y-2">
-            {actions.map((a) => (
-              <ActionRow key={a.title} {...a} />
-            ))}
-          </div>
-        </SlideUp>
+        <div className="xl:col-span-2">
+          <Card surface="neu" className="h-full">
+            <h2 className="font-display text-xl font-semibold">Recommended next steps</h2>
+            <p className="mb-4 text-sm text-[var(--text-secondary)]">
+              Auto SEO style action queue for this workspace
+            </p>
+            <div className="space-y-2">
+              {actions.map((a) => (
+                <ActionRow key={a.title} {...a} />
+              ))}
+            </div>
+          </Card>
+        </div>
       </div>
 
-      <SlideUp delay={0.08}>
+      <div>
         <div className="mb-3 flex items-center justify-between">
           <h2 className="font-display text-xl font-semibold">Jump into tools</h2>
-          <Link href="/app/toolkits" className="text-sm font-medium text-accent-dark">
+          <Link href="/app/toolkits" className="text-sm font-medium text-[var(--accent-blue)]">
             Browse all toolkits
           </Link>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <Stagger className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {[
             {
               href: primary ? `/app/sites/${primary.id}/keywords` : "/onboarding",
@@ -251,18 +262,18 @@ export function DashboardMotion({
               detail: "Firms, markets, leads",
             },
           ].map((item) => (
-            <Link
-              key={item.title}
-              href={item.href}
-              className="rounded-2xl border border-ink-100 bg-white p-4 shadow-sm transition-colors hover:border-accent hover:bg-accent-soft/25"
-            >
-              <p className="font-display text-lg font-semibold text-ink-950">{item.title}</p>
-              <p className="mt-1 text-sm text-ink-500">{item.detail}</p>
-              <p className="mt-3 text-xs font-semibold text-accent-dark">Open →</p>
-            </Link>
+            <StaggerItem key={item.title}>
+              <Link href={item.href}>
+                <Card surface="glass" interactive className="h-full">
+                  <p className="font-display text-lg font-semibold text-[var(--text-main)]">{item.title}</p>
+                  <p className="mt-1 text-sm text-[var(--text-secondary)]">{item.detail}</p>
+                  <p className="mt-3 text-xs font-semibold text-[var(--accent-blue)]">Open →</p>
+                </Card>
+              </Link>
+            </StaggerItem>
           ))}
-        </div>
-      </SlideUp>
+        </Stagger>
+      </div>
     </div>
   );
 }
