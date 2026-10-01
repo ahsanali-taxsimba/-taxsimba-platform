@@ -56,7 +56,7 @@ export default function OnboardingPage() {
         onSubmit={onSubmit}
         className="w-full max-w-lg animate-rise rounded-2xl border border-ink-100 bg-white p-8 shadow-sm"
       >
-        <Link href="/app" className="font-display text-2xl font-semibold">
+        <Link href="/app" className="brand-text font-display text-2xl font-semibold">
           Taxotools
         </Link>
         <h1 className="mt-4 text-xl font-semibold">Add your first site</h1>
