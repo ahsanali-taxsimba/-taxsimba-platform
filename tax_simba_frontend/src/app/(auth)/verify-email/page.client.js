@@ -10,7 +10,9 @@ import toast from "react-hot-toast";
 import { useReVerifyEmail } from "@/hooks/reVerifyEmail";
 import { safeContinuePath } from "@/lib/catalogueJourney";
 
-let isHitApi = false;
+// Per-token guard only (module-level boolean blocked every later user in the same
+// Next.js process after the first verification — broke Stripe acceptance).
+const verifiedTokens = new Set();
 
 const VerifyEmail = () => {
   const [message, setMessage] = useState("");
@@ -20,16 +22,22 @@ const VerifyEmail = () => {
   const [loginHref, setLoginHref] = useState("/login");
   const router = useRouter();
   const searchParams = useSearchParams();
-  const token = searchParams.getAll("token");
+  // Prefer a single token query value (getAll() returns an array that stringifies poorly).
+  const token = searchParams.get("token") || searchParams.getAll("token")[0] || "";
 
   useEffect(() => {
-    if (!token) return;
+    if (!token) {
+      setLoading(false);
+      setMessage("Invalid or expired verification token.");
+      return;
+    }
     async function verifyEmail() {
-      if (isHitApi) return;
-      isHitApi = true;
+      if (verifiedTokens.has(token)) return;
+      verifiedTokens.add(token);
       try {
         const response = await axios.post(
-          process.env.NEXT_PUBLIC_API_URL + `auth/verify-email?token=${token}`
+          process.env.NEXT_PUBLIC_API_URL +
+            `auth/verify-email?token=${encodeURIComponent(token)}`
         );
 
         if (response?.status == 200 || response?.status == 201) {
@@ -57,7 +65,7 @@ const VerifyEmail = () => {
       }
     }
     verifyEmail();
-  }, []);
+  }, [token]);
 
   const handleLogin = () => {
     router.push(loginHref);

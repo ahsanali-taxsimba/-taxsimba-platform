@@ -59,28 +59,56 @@ export default function PlanCheckoutPage() {
         packageCode: plan?.code || plan?.packageCode,
         originUrl: typeof window !== 'undefined' ? window.location.origin : undefined,
       };
-      // P0 K.9 E8: try activation checkout first; if already ACTIVE SA, use upgrade-checkout.
+      // Prefer upgrade when the client already has an active SA package (browser upgrade path).
+      const hasActiveSa =
+        session?.user?.hasActiveSa === true ||
+        session?.user?.ownership === 'sa' ||
+        session?.user?.ownership === 'both' ||
+        session?.user?.serviceState === 'SA';
+      const isSaPlan =
+        String(plan?.serviceType || plan?.service_type || '').toUpperCase().includes('SELF') ||
+        ['SIMPLE', 'SMART', 'ELITE'].includes(
+          String(plan?.code || plan?.packageCode || '').toUpperCase(),
+        );
       let response;
-      try {
+      if (hasActiveSa && isSaPlan) {
         response = await axios.post(
-          `${apiUrl}client/subscription/checkout-session`,
-          payload,
+          `${apiUrl}client/subscription/upgrade-checkout`,
+          {
+            planId,
+            plan_id: planId,
+            packageCode: plan?.code || plan?.packageCode || planId,
+            package_code: plan?.code || plan?.packageCode || planId,
+            originUrl: payload.originUrl,
+            origin_url: payload.originUrl,
+          },
           { headers },
         );
-      } catch (err) {
-        const msg = err?.response?.data?.message || '';
-        if (String(msg).toLowerCase().includes('already active')) {
+      } else {
+        try {
           response = await axios.post(
-            `${apiUrl}client/subscription/upgrade-checkout`,
-            {
-              planId,
-              packageCode: plan?.code || plan?.packageCode || planId,
-              originUrl: payload.originUrl,
-            },
+            `${apiUrl}client/subscription/checkout-session`,
+            payload,
             { headers },
           );
-        } else {
-          throw err;
+        } catch (err) {
+          const msg = err?.response?.data?.message || '';
+          if (String(msg).toLowerCase().includes('already active')) {
+            response = await axios.post(
+              `${apiUrl}client/subscription/upgrade-checkout`,
+              {
+                planId,
+                plan_id: planId,
+                packageCode: plan?.code || plan?.packageCode || planId,
+                package_code: plan?.code || plan?.packageCode || planId,
+                originUrl: payload.originUrl,
+                origin_url: payload.originUrl,
+              },
+              { headers },
+            );
+          } else {
+            throw err;
+          }
         }
       }
       const checkoutUrl = response.data?.data?.checkoutUrl;

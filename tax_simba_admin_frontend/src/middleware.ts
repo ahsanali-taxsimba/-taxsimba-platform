@@ -11,6 +11,7 @@ const authConfig = {
     "/manage-client",
     "/manage-accountant",
     "/manage-tax",
+    "/tax-return-list",
     "/tax-return-preparation",
     "/manage-payments",
     "/package-pricing",
@@ -29,6 +30,7 @@ const authConfig = {
   ],
   sharedRoutes: [
     "/overview",
+    "/tax-return-list",
     "/tax-return-preparation",
     "/user-profile",
   ],

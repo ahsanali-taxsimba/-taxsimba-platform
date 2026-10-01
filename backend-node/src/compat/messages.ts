@@ -16,6 +16,33 @@ import { toCaseId, withTaxReturnId } from "./ids";
 
 export const compatMessagesRouter = Router();
 
+/** Shape expected by ChatBox / Tax Tracker (sentAt, parsedEmailData, senderRole). */
+function toClientEmailDto(m: Doc, caseId: string): Doc {
+  const created = m.created_at ?? m.createdAt ?? m.sent_at ?? m.sentAt ?? null;
+  const body = String(m.body ?? m.message ?? "");
+  const role = String(m.sender_role ?? m.senderRole ?? "CLIENT");
+  return withTaxReturnId({
+    ...m,
+    tax_return_id: caseId,
+    sentAt: created,
+    createdAt: created,
+    body,
+    message: body,
+    parsedEmailData: { messageText: body, subject: m.subject ?? null },
+    emailData: {
+      senderRole: role,
+      subject: m.subject ?? null,
+      messageText: body,
+    },
+    accountant:
+      role === "ACCOUNTANT"
+        ? { id: m.sender_id ?? null, name: m.sender_name ?? "Accountant" }
+        : null,
+    senderRole: role,
+    sender_name: m.sender_name ?? null,
+  });
+}
+
 compatMessagesRouter.get(
   "/client/communication-log/:taxReturnId",
   auth(),
@@ -32,9 +59,7 @@ compatMessagesRouter.get(
       { case_id: caseId, recipient_id: me.id },
       { $set: { is_read: true } },
     );
-    const mapped = scrubMany(cleanMany(msgs), me).map((m) =>
-      withTaxReturnId({ ...m, tax_return_id: caseId }),
-    );
+    const mapped = scrubMany(cleanMany(msgs), me).map((m) => toClientEmailDto(m, caseId));
     sendCompatSuccess(
       res,
       {
@@ -67,7 +92,7 @@ compatMessagesRouter.post(
       { case_id: caseId, recipient_id: me.id },
       { $set: { is_read: true } },
     );
-    const mapped = scrubMany(cleanMany(msgs), me);
+    const mapped = scrubMany(cleanMany(msgs), me).map((m) => toClientEmailDto(m, caseId));
     sendCompatSuccess(
       res,
       {
@@ -90,6 +115,15 @@ const SendIn = z.object({
   recipient_id: z.string().nullish().optional(),
   recipientId: z.string().nullish().optional(),
   message: z.string().optional(),
+  // FE often sends these; accept so Zod does not reject as "invalid".
+  subject: z.string().optional(),
+  accountant_id: z.string().nullish().optional(),
+  accountantId: z.string().nullish().optional(),
+  html_content: z.string().optional(),
+  htmlContent: z.string().optional(),
+  priority: z.string().optional(),
+  template_id: z.union([z.string(), z.number()]).optional(),
+  templateId: z.union([z.string(), z.number()]).optional(),
 });
 
 compatMessagesRouter.post(
@@ -102,12 +136,14 @@ compatMessagesRouter.post(
       body.tax_return_id ?? body.taxReturnId ?? body.case_id ?? body.caseId ?? null;
     if (!taxReturnId) throw httpError(400, "taxReturnId is required");
     const caseId = toCaseId(String(taxReturnId));
-    const text = (body.body || body.message || "").trim();
+    const text = (body.body || body.message || body.html_content || body.htmlContent || "").trim();
     if (!text) throw httpError(400, "message body is required");
     const kase = await getCase(caseId, me);
     const recipient =
       body.recipient_id ??
       body.recipientId ??
+      body.accountant_id ??
+      body.accountantId ??
       (me.role === "CLIENT" ? kase.assigned_accountant_id : kase.client_user_id);
     const msg: Doc = {
       id: randomUUID(),
@@ -116,6 +152,7 @@ compatMessagesRouter.post(
       sender_name: me.name,
       sender_role: me.role,
       recipient_id: recipient ?? null,
+      subject: body.subject ?? null,
       body: text,
       is_read: false,
       created_at: nowIso(),
@@ -163,14 +200,15 @@ async function staffCommunicationLog(
     .sort({ created_at: 1 })
     .limit(500)
     .toArray()) as Doc[];
+  const mapped = scrubMany(cleanMany(msgs), me).map((m) => toClientEmailDto(m, caseId));
   sendCompatSuccess(
     res,
     {
       taxReturnId: caseId,
       caseId,
-      messages: scrubMany(cleanMany(msgs), me).map((m) =>
-        withTaxReturnId({ ...m, tax_return_id: caseId }),
-      ),
+      messages: mapped,
+      // Admin/accountant FE (tax-return-list / manage-tax) reads `emails`.
+      emails: mapped,
     },
     "OK",
   );
@@ -191,7 +229,7 @@ async function staffSendToClient(
     null;
   if (!taxReturnId) throw httpError(400, "taxReturnId is required");
   const caseId = toCaseId(String(taxReturnId));
-  const text = (body.body || body.message || "").trim();
+  const text = (body.body || body.message || body.html_content || body.htmlContent || "").trim();
   if (!text) throw httpError(400, "message body is required");
   const kase = await getCase(caseId, me);
   const recipient = body.recipient_id ?? body.recipientId ?? kase.client_user_id;
@@ -202,6 +240,7 @@ async function staffSendToClient(
     sender_name: me.name,
     sender_role: me.role,
     recipient_id: recipient ?? null,
+    subject: body.subject ?? null,
     body: text,
     is_read: false,
     created_at: nowIso(),

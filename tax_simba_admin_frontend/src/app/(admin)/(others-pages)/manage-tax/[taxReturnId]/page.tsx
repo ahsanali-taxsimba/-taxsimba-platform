@@ -30,15 +30,15 @@ import { getNotificationIcon } from '@/utils/getNotification';
 import BellButton from '@/components/NotficationData/BellButton';
 import { toast } from 'react-toastify';
 import DownloadCertificate from '@/components/TaxReturnModal/DownloadCertificateModal';
-import AdditionalWorkPanel from '../_sections/AdditionalWorkPanel';
+import { canApproveDrafts, canAssignCases } from '@/lib/roles';
 import ExternalSubmissionPanel from '../_sections/ExternalSubmissionPanel';
-import { canAssignCases } from '@/lib/roles';
 
 const AdminTaxReturnDetails = () => {
   const router = useRouter();
   const { data } = useSession();
   const userData = data?.user;
   const canAssign = canAssignCases(userData?.role);
+  const canApprove = canApproveDrafts(userData?.role);
 
   // Normalize route param from useParams
   const params = useParams<{ taxReturnId?: string | string[] }>();
@@ -65,7 +65,7 @@ const AdminTaxReturnDetails = () => {
   const [chatHistory, setChatHistory] = useState<any[]>([]);
   const [chatLoading, setChatLoading] = useState(false);
   const [showFinalCertificateModal, setShowFinalCertificateModal] = useState(false);
-  
+
   // Assignment modal states
   const [accountants, setAccountants] = useState<Accountant[]>([]);
   const [selectedAccountant, setSelectedAccountant] = useState<string>('');
@@ -87,11 +87,12 @@ const AdminTaxReturnDetails = () => {
       if (response.data.success) {
         return response.data;
       } else {
-        // Email templates are S6 HIDE — compose without template.
+        setError('Failed to load email template');
         return { success: false };
       }
     } catch (err) {
       console.error('Error fetching email template:', err);
+      setError('Error loading email template');
       return { success: false };
     }
   };
@@ -100,15 +101,112 @@ const AdminTaxReturnDetails = () => {
     if (!taxReturnIdStr) return;
     try {
       const response = await clientAxios.post(`/admin/get-review/${encodeURIComponent(taxReturnIdStr)}`);
-      console.log(response.data.data, "response==>")
       if (response.data.success) {
         const payload = response.data.data;
-        setReviews(Array.isArray(payload) ? payload : payload?.reviews ?? []);
+        // API returns { case, reviews, allowedTransitions } — not a bare array.
+        const list = Array.isArray(payload)
+          ? payload
+          : Array.isArray(payload?.reviews)
+            ? payload.reviews
+            : [];
+        setReviews(list);
       }
     } catch (err) {
       console.error('Error fetching review data:', err);
     }
   }
+
+  const awaitingAdminDraftReview = () => {
+    const node =
+      progressData?.nodeStatus ||
+      progressData?.workflowStatus ||
+      taxReturn?.status ||
+      '';
+    const normalized = String(node).toUpperCase();
+    return (
+      normalized === 'READY_FOR_ADMIN_REVIEW' ||
+      normalized === 'ADMIN_REVIEW' ||
+      String(taxReturn?.status || '').toLowerCase() === 'ready_for_admin_review' ||
+      String(taxReturn?.status || '').toLowerCase() === 'admin_review'
+    );
+  };
+
+  const handleApproveDraft = async () => {
+    if (!canApprove) {
+      toast.error('Only an Admin can approve accountant drafts.');
+      return;
+    }
+    if (!taxReturnIdStr) return;
+    setApproving(true);
+    try {
+      const response = await clientAxios.post(
+        `/admin/manage-review/${encodeURIComponent(taxReturnIdStr)}`,
+        { action: 'approve' },
+      );
+      if (response.data.success) {
+        toast.success('Draft approved. The client can now review it.');
+        await fetchTaxReturnData();
+        await fetchProgressData();
+        await fetchReviewData();
+        setNotifications((prev) => [
+          {
+            id: Date.now(),
+            type: 'approve',
+            message: 'Accountant draft approved and released to client',
+            time: 'Just now',
+            read: false,
+          },
+          ...prev,
+        ]);
+      } else {
+        toast.error(response.data.message || 'Failed to approve draft');
+      }
+    } catch (err) {
+      toast.error(
+        (err as any)?.response?.data?.message ||
+          (err as any)?.response?.data?.detail ||
+          'Failed to approve draft',
+      );
+    } finally {
+      setApproving(false);
+    }
+  };
+
+  const handleReturnDraft = async () => {
+    if (!canApprove) {
+      toast.error('Only an Admin can return accountant drafts.');
+      return;
+    }
+    if (!taxReturnIdStr) return;
+    const reason = window.prompt('Reason for returning the draft to the accountant:') || '';
+    if (!reason.trim()) {
+      toast.error('A return reason is required.');
+      return;
+    }
+    setRejecting(true);
+    try {
+      const response = await clientAxios.post(
+        `/admin/manage-review/${encodeURIComponent(taxReturnIdStr)}`,
+        { action: 'return', reason, note: reason },
+      );
+      if (response.data.success) {
+        toast.success('Draft returned to accountant.');
+        await fetchTaxReturnData();
+        await fetchProgressData();
+        await fetchReviewData();
+      } else {
+        toast.error(response.data.message || 'Failed to return draft');
+      }
+    } catch (err) {
+      toast.error(
+        (err as any)?.response?.data?.message ||
+          (err as any)?.response?.data?.detail ||
+          'Failed to return draft',
+      );
+    } finally {
+      setRejecting(false);
+    }
+  };
 
   useEffect(() => {
     fetchTaxReturnData();
@@ -121,7 +219,6 @@ const AdminTaxReturnDetails = () => {
   }, [taxReturnIdStr]);
 
   const fetchFlagCounts = async () => {
-    // Intentionally no-op: /admin/get-flag-data is not in P0 compat.
     setFlagCounts({ open: 0, total: 0 });
   };
 
@@ -170,34 +267,34 @@ const AdminTaxReturnDetails = () => {
       setProgressLoading(false);
     }
   };
-   const postProgressData = (newStatus: string) => {
-      if (!taxReturnIdStr) return;
-      clientAxios.post(`/admin/tax-return/${encodeURIComponent(taxReturnIdStr)}/progress`, {
-        status: newStatus
+  const postProgressData = (newStatus: string) => {
+    if (!taxReturnIdStr) return;
+    clientAxios.post(`/admin/tax-return/${encodeURIComponent(taxReturnIdStr)}/progress`, {
+      status: newStatus
+    })
+      .then(async (response) => {
+        if (response.data.success) {
+          // Refresh progress data
+          await fetchProgressData();
+          setNotifications(prev => [{
+            id: Date.now(),
+            type: 'status',
+            message: `Status updated to ${getStatusLabel(newStatus)}`,
+            time: 'Just now',
+            read: false
+          }, ...prev]);
+        } else {
+          setError(response.data.message || 'Failed to update status');
+        }
       })
-        .then(async (response) => {
-          if (response.data.success) {
-            // Refresh progress data
-            await fetchProgressData();
-            setNotifications(prev => [{
-              id: Date.now(),
-              type: 'status',
-              message: `Status updated to ${getStatusLabel(newStatus)}`,
-              time: 'Just now',
-              read: false
-            }, ...prev]);
-          } else {
-            setError(response.data.message || 'Failed to update status');
-          }
-        })
-        .catch((err) => {
-          console.error('Error updating status:', err);
-          setError('Error updating status');
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }
+      .catch((err) => {
+        console.error('Error updating status:', err);
+        setError('Error updating status');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
 
   const fetchTaxReturnData = async () => {
     if (!taxReturnIdStr) return;
@@ -227,7 +324,6 @@ const AdminTaxReturnDetails = () => {
     if (!taxReturnIdStr) return;
 
     try {
-      // Case-scoped /tax-returns/:id/notifications is not in P0 compat — use global list.
       const response = await clientAxios.post(`/all-notifications`, {
         page: 1,
         limit: 20,
@@ -611,7 +707,7 @@ const AdminTaxReturnDetails = () => {
         <div className="bg-white rounded-lg shadow-sm mb-6">
           <div className="p-6">
             <div className="flex justify-between items-start mb-6 flex-wrap gap-3">
-              <div className="flex items-start space-x-4 flex-wrap gap-3">
+              <div className="flex items-start space-x-4 flex-wrap  gap-3">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
                   <span className="text-blue-800 font-bold text-xl">
                     {taxReturn.client.name[0]}{taxReturn.client.surname[0]}
@@ -621,7 +717,7 @@ const AdminTaxReturnDetails = () => {
                   <h2 className="text-xl font-semibold text-gray-900">
                     {taxReturn.client.name} {taxReturn.client.surname}
                   </h2>
-                  <div className="flex items-center space-x-4 text-sm text-gray-600 mt-1">
+                  <div className="flex items-center space-x-4 text-sm text-gray-600 mt-1 flex-wrap gap-3">
                     <div className="flex items-center space-x-1">
                       <Mail className="w-4 h-4" />
                       <span>{taxReturn.client.email}</span>
@@ -633,7 +729,7 @@ const AdminTaxReturnDetails = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center space-x-3 flex-wrap gap-3">
+              <div className="flex items-center space-x-3 flex-wrap  gap-3">
                 <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(taxReturn.status)}`}>
                   {getStatusText(taxReturn.status)}
                 </span>
@@ -652,7 +748,32 @@ const AdminTaxReturnDetails = () => {
                     <Upload className="h-4 w-4" />
                     <span>Upload Draft</span>
                   </button>
-                  {canAssign && taxReturn.status !== 'assigned' && (
+                  {canApprove && awaitingAdminDraftReview() && (
+                    <>
+                      <button
+                        type="button"
+                        onClick={handleApproveDraft}
+                        disabled={approving}
+                        className="flex items-center space-x-2 bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 disabled:opacity-60"
+                      >
+                        <FileText className="h-4 w-4" />
+                        <span>{approving ? 'Approving…' : 'Approve Draft'}</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleReturnDraft}
+                        disabled={rejecting}
+                        className="flex items-center space-x-2 bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 disabled:opacity-60"
+                      >
+                        <AlertTriangle className="h-4 w-4" />
+                        <span>{rejecting ? 'Returning…' : 'Return Draft'}</span>
+                      </button>
+                    </>
+                  )}
+                  {canAssign &&
+                    !['completed', 'final_submitted'].includes(
+                      String(taxReturn.status || '').toLowerCase(),
+                    ) && (
                     <button
                       onClick={() => {
                         fetchAccountants();
@@ -661,7 +782,9 @@ const AdminTaxReturnDetails = () => {
                       className="flex items-center space-x-2 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700"
                     >
                       <UserPlus className="h-4 w-4" />
-                      <span>Assign</span>
+                      <span>
+                        {taxReturn.accountant?.id ? 'Reassign' : 'Assign'}
+                      </span>
                     </button>
                   )}
                 </div>
@@ -701,14 +824,13 @@ const AdminTaxReturnDetails = () => {
 
         {/* Tabs */}
         <div className="bg-white rounded-lg shadow-sm">
-          <div className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            <div className="border-b border-gray-200 min-w-max">
-              <nav className="-mb-px flex space-x-4 sm:space-x-8 px-4 sm:px-6">
-              {['overview', 'documents', 'files_by_category', 'communication', 'notifications'].map((tab) => (
+          <div className="border-b border-gray-200">
+            <nav className="-mb-px flex space-x-8 px-6">
+              {['overview', 'documents', 'files_by_category', 'communication', 'notifications', 'reviews', 'flags'].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`py-3 px-3 border-b-2 font-medium text-sm capitalize whitespace-nowrap flex-shrink-0 ${activeTab === tab
+                  className={`py-3 px-3 border-b-2 font-medium text-sm capitalize ${activeTab === tab
                     ? 'border-[#37a267] text-[#37a267]'
                     : 'border-transparent text-gray-500 hover:text-[#37a267] hover:border-[#37a267]'
                     }`}
@@ -723,13 +845,24 @@ const AdminTaxReturnDetails = () => {
                   </div>
                 </button>
               ))}
-              </nav>
-            </div>
+            </nav>
           </div>
 
           <div className="p-6">
             {activeTab === 'overview' && (
               <div className="space-y-6">
+                <ExternalSubmissionPanel
+                  taxReturnId={taxReturnIdStr}
+                  nodeStatus={
+                    (progressData as { nodeStatus?: string } | null)?.nodeStatus ||
+                    (taxReturn as { nodeStatus?: string } | null)?.nodeStatus ||
+                    null
+                  }
+                  onRecorded={() => {
+                    void fetchTaxReturnData();
+                    void fetchProgressData();
+                  }}
+                />
                 {/* Files Summary */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="bg-blue-50 p-4 rounded-lg">
@@ -746,6 +879,100 @@ const AdminTaxReturnDetails = () => {
                   </div>
                 </div>
 
+                {taxReturn.client.userRole === 'MTD' && (
+                  <div>
+                    <h3 className="text-lg font-medium text-gray-900 mb-4">MTD Business & Profile Info</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">Business Name</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.businessName || '—'}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">Business Type</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.businessType || '—'}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">UTR Number</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.utr || '—'}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">NINO</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.nino || '—'}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">Date of Birth</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.dob ? new Date(taxReturn.client.dob).toLocaleDateString() : '—'}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">Address</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.address || '—'}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">Income Sources</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0">{Array.isArray(taxReturn.client.incomeSources) ? taxReturn.client.incomeSources.join(', ') : '—'}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">Annual Turnover</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.annualTurnover || '—'}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">Record Keeping</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.recordKeepingMethod || '—'}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">Gov Gateway Status</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.govGatewayStatus || '—'}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">Registered for MTD</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.isRegisteredForMTD || '—'}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">MTD Submitted</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.prevSubmittedMTDThisYear || '—'}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">Submitted Quarters</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0">{Array.isArray(taxReturn.client.submittedQuarters) ? taxReturn.client.submittedQuarters.join(', ') : (taxReturn.client.submittedQuarters || '—')}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">Who Submitted</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.whoSubmittedQuarters || '—'}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">Outstanding Subs</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.hasOutstandingMTDSubmissions || '—'}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">Review Previous</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.reviewPreviousMTDSubmissions || '—'}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">1st Qtr Manage</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.firstQuarterToManage || '—'}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">Has Gateway Creds</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.hasGatewayCredentials || '—'}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">Previous Software</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.previousMTDSoftware || '—'}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">Other Income Sources</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.otherActiveIncomeSources || '—'}</p>
+                      </div>
+                      {taxReturn.client.accountantNotes && (
+                        <div className="bg-gray-50 p-4 rounded-lg lg:col-span-3">
+                          <h6 className="text-sm font-medium text-gray-500">Client Notes for Accountant</h6>
+                          <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.accountantNotes}</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
                 <div>
                   <h3 className="text-lg font-medium text-gray-900 mb-4">Recent Activity</h3>
                   <div className="space-y-3">
@@ -759,18 +986,6 @@ const AdminTaxReturnDetails = () => {
                       </div>
                     ))}
                   </div>
-                </div>
-
-                <AdditionalWorkPanel taxReturnId={taxReturnIdStr} userRole={userData?.role} />
-                <div className="mt-6">
-                  <ExternalSubmissionPanel
-                    taxReturnId={taxReturnIdStr}
-                    nodeStatus={progressData?.nodeStatus ?? taxReturn?.status}
-                    onRecorded={async () => {
-                      await fetchProgressData();
-                      await fetchTaxReturnData();
-                    }}
-                  />
                 </div>
               </div>
             )}
@@ -814,15 +1029,16 @@ const AdminTaxReturnDetails = () => {
                             </span>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm space-x-2">
-                           
-                            <button
-                              type="button"
+                            <a
+                              href={file.downloadUrl || file.cloudinaryUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
                               className="text-green-600 hover:text-green-800"
-                              onClick={async () => {
-                                try {
-                                  const url = file.downloadUrl || file.cloudinaryUrl;
-                                  if (!url) return;
-                                  if (!/^https?:\/\//i.test(url)) {
+                              onClick={async (e) => {
+                                const url = file.downloadUrl || file.cloudinaryUrl;
+                                if (url && !/^https?:\/\//i.test(url)) {
+                                  e.preventDefault();
+                                  try {
                                     const res = await clientAxios.get(
                                       `/${String(url).replace(/^\//, "")}`,
                                       true,
@@ -836,17 +1052,15 @@ const AdminTaxReturnDetails = () => {
                                     a.click();
                                     a.remove();
                                     URL.revokeObjectURL(blobUrl);
-                                  } else {
-                                    window.open(url, "_blank", "noopener,noreferrer");
+                                  } catch (err) {
+                                    console.error("Download failed", err);
                                   }
-                                } catch (err) {
-                                  console.error("Download failed", err);
                                 }
                               }}
                             >
                               <Download className="h-4 w-4 inline mr-1" />
                               Download
-                            </button>
+                            </a>
                           </td>
                         </tr>
                       ))}
@@ -1441,13 +1655,10 @@ const AdminTaxReturnDetails = () => {
         taxReturn={
           taxReturn
             ? {
-                ...taxReturn,
-                taxYear: String(taxReturn.taxYear),
-                client: {
-                  ...taxReturn.client,
-                  id: String(taxReturn.client.id),
-                },
-              }
+              ...taxReturn,
+              taxYear: String(taxReturn.taxYear),
+              client: { ...taxReturn.client, id: String(taxReturn.client.id) },
+            }
             : null
         }
         fetchEmailTemplate={fetchEmailTemplate}
@@ -1468,23 +1679,26 @@ const AdminTaxReturnDetails = () => {
         />
       )}
       {showFinalCertificateModal && (
-              <DownloadCertificate
-                isOpen={showFinalCertificateModal}
-                onClose={() => setShowFinalCertificateModal(false)}
-                taxReturnId={String(taxReturnIdStr || "")}
-                onUploadSuccess={() => {
-                  setShowFinalCertificateModal(false);
-                  fetchTaxReturnData();
-                  fetchProgressData();
-                }}
-                fetchProgressData={fetchProgressData}
-                postProgressData={postProgressData}
-                setShowFinalCertificateModal={setShowFinalCertificateModal}
-              />
+        <DownloadCertificate
+          isOpen={showFinalCertificateModal}
+          onClose={() => setShowFinalCertificateModal(false)}
+          taxReturnId={String(taxReturnIdStr || "")}
+          onUploadSuccess={() => {
+            setShowFinalCertificateModal(false);
+            fetchTaxReturnData();
+            fetchProgressData();
+          }}
+          fetchProgressData={fetchProgressData}
+          postProgressData={postProgressData}
+          setShowFinalCertificateModal={setShowFinalCertificateModal}
+        />
       )}
     </div>
   );
 };
 
 export default AdminTaxReturnDetails;
+
+
+
 

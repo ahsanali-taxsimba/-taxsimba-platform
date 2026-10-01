@@ -15,10 +15,21 @@ import { handler, httpError, parseBody } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
 import { fulfil } from "../routes/payments";
 import { requireVerifiedEmail } from "../services/emailVerification";
+import { resolveCheckoutOrigin } from "../services/checkoutUrls";
 import { payments } from "../services/payments";
 import { keysToCamel, keysToSnake } from "./caseMap";
 import { sendCompatSuccess } from "./envelope";
 import { categoryToServiceType } from "./ownership";
+
+function checkoutOriginFromRequest(
+  bodyOrigin: string | null | undefined,
+  headerOrigin: string | undefined,
+): string {
+  return resolveCheckoutOrigin(
+    (bodyOrigin && String(bodyOrigin)) || headerOrigin || null,
+    process.env.APP_BASE_URL,
+  );
+}
 
 export const compatPaymentsRouter = Router();
 
@@ -81,10 +92,8 @@ compatPaymentsRouter.post(
     })) as Doc | null;
     if (svc && svc.status === "ACTIVE") throw httpError(400, "This service is already active");
 
-    const origin =
-      (body.origin_url && String(body.origin_url)) ||
-      req.header("origin") ||
-      "https://taxsimba.co.uk";
+    const origin = checkoutOriginFromRequest(body.origin_url, req.header("origin") || undefined)
+      || "https://taxsimba.co.uk";
 
     const { contentMap } = await import("../domain/content");
     const content = await contentMap();
@@ -96,27 +105,33 @@ compatPaymentsRouter.post(
       (typeof me.stripe_customer_id === "string" && me.stripe_customer_id) ||
       (typeof client.stripe_customer_id === "string" && client.stripe_customer_id) ||
       null;
-    const session = await payments().createCheckout(
-      amount,
-      `${serviceType === MTD ? "MTD for Income Tax" : "Self Assessment"} — ${pkg.name}`,
-      origin,
-      {
-        kind: "SERVICE_ACTIVATION",
-        client_id: String(client.id),
-        user_id: String(me.id),
-        service_type: serviceType,
-        to_package: String(pkg.code),
-        package_id: String(pkg.id),
-        billing_type: billingType,
-      },
-      productDescription,
-      {
-        billingType,
-        recurringInterval: "month",
-        customerEmail: String(me.email || ""),
-        existingCustomerId: existingCustomer,
-      },
-    );
+    let session;
+    try {
+      session = await payments().createCheckout(
+        amount,
+        `${serviceType === MTD ? "MTD for Income Tax" : "Self Assessment"} — ${pkg.name}`,
+        origin,
+        {
+          kind: "SERVICE_ACTIVATION",
+          client_id: String(client.id),
+          user_id: String(me.id),
+          service_type: serviceType,
+          to_package: String(pkg.code),
+          package_id: String(pkg.id),
+          billing_type: billingType,
+        },
+        productDescription,
+        {
+          billingType,
+          recurringInterval: "month",
+          customerEmail: String(me.email || ""),
+          existingCustomerId: existingCustomer,
+        },
+      );
+    } catch (err) {
+      const { mapPaymentError } = await import("../services/paymentErrors");
+      throw mapPaymentError(err);
+    }
     if (session.customer_id) {
       await col("users").updateOne(
         { id: me.id },
@@ -185,10 +200,10 @@ compatPaymentsRouter.post(
     if (!mtd) {
       throw httpError(400, "Billing portal is available for active MTD subscriptions only");
     }
-    const origin =
-      String((req.body as { origin_url?: string })?.origin_url || "").trim() ||
-      req.header("origin") ||
-      "https://taxsimba.co.uk";
+    const origin = checkoutOriginFromRequest(
+      (req.body as { origin_url?: string })?.origin_url,
+      req.header("origin") || undefined,
+    ) || "https://taxsimba.co.uk";
     const returnUrl = `${String(origin).replace(/\/+$/, "")}/dashboard/my-subscriptions`;
     const provider = payments();
     if (typeof provider.createBillingPortalSession !== "function") {
@@ -371,18 +386,20 @@ compatPaymentsRouter.post(
     } = await import("../domain/packages");
     const body = parseBody(
       z.object({
-        package_code: z.string().min(1),
+        package_code: z.string().nullish(),
         plan_id: z.string().nullish(),
         origin_url: z.string().nullish(),
       }),
       keysToSnake(req.body ?? {}),
     );
-    let packageCode = body.package_code;
+    let packageCode = body.package_code ? String(body.package_code) : "";
     if (!packageCode && body.plan_id) {
-      const pkg = (await col("packages").findOne({ id: body.plan_id })) as Doc | null;
+      const pkg = (await col("packages").findOne({
+        $or: [{ id: body.plan_id }, { code: body.plan_id }],
+      })) as Doc | null;
       if (pkg) packageCode = String(pkg.code);
     }
-    if (!packageCode) throw httpError(400, "package_code is required");
+    if (!packageCode) throw httpError(400, "package_code or plan_id is required");
     const client = await clientOf(me);
     const svc = (await col("client_services").findOne({
       client_id: client.id,
@@ -400,22 +417,26 @@ compatPaymentsRouter.post(
     if (locked) throw httpError(400, `Package changes are locked at this stage (${caseStatus})`);
     const amount = Math.round(Math.max(Number(target.price) - Number(current.price), 0) * 100) / 100;
     if (amount <= 0) throw httpError(400, "No additional amount payable");
-    const origin =
-      (body.origin_url && String(body.origin_url)) ||
-      req.header("origin") ||
-      "https://taxsimba.co.uk";
-    const session = await payments().createCheckout(
-      amount,
-      `Self Assessment upgrade — ${current.name} to ${target.name}`,
-      origin,
-      {
-        kind: "SA_UPGRADE",
-        client_id: client.id as string,
-        user_id: me.id as string,
-        from_package: String(current.code),
-        to_package: String(target.code),
-      },
-    );
+    const origin = checkoutOriginFromRequest(body.origin_url, req.header("origin") || undefined)
+      || "https://taxsimba.co.uk";
+    let session;
+    try {
+      session = await payments().createCheckout(
+        amount,
+        `Self Assessment upgrade — ${current.name} to ${target.name}`,
+        origin,
+        {
+          kind: "SA_UPGRADE",
+          client_id: client.id as string,
+          user_id: me.id as string,
+          from_package: String(current.code),
+          to_package: String(target.code),
+        },
+      );
+    } catch (err) {
+      const { mapPaymentError } = await import("../services/paymentErrors");
+      throw mapPaymentError(err);
+    }
     await col("payment_transactions").insertOne({
       id: randomUUID(),
       session_id: session.id,

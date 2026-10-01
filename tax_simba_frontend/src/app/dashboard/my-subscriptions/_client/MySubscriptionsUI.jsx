@@ -296,7 +296,7 @@ export default function MySubscriptionsUI({ userData, confirmData, allPlans = []
                         <div className="subscription-actions-wrapper mt-3">
                             <button
                                 className="subscription-btn subscription-btn-primary shadow-sm"
-                                onClick={() => router.push('/planlist')}
+                                onClick={() => router.push('/planlist?category=taxSimba')}
                             >
                                 View upgrade options
                             </button>

@@ -7,6 +7,11 @@ import { remindersEnabled, startReminderWorker } from "./jobs/reminders";
 
 async function main(): Promise<void> {
   // Environment is read lazily everywhere, so loading .env here is early enough.
+  // Cloud Agent / platform shells sometimes inject empty STRIPE_* placeholders;
+  // treat blank values as unset so gitignored .env can supply real TEST keys.
+  for (const k of ["STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET", "PAYMENT_PROVIDER"]) {
+    if (process.env[k] === "") delete process.env[k];
+  }
   config();
   await connect();
   await startup();

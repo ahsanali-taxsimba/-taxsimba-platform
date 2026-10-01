@@ -222,26 +222,70 @@ export default function EngagementLetterPage() {
             });
 
             // TS-UAT-032: mint the MTD operational case at application submit (not at purchase).
-            await axios.post(
+            const applyRes = await axios.post(
                 `${apiUrl}client/apply-tax-return`,
                 { serviceType: "MTD_INCOME_TAX", service_type: "MTD_INCOME_TAX" },
                 { headers: { Authorization: `Bearer ${session?.accessToken}` } }
             );
+            if (applyRes?.data?.success === false) {
+                throw new Error(
+                    applyRes?.data?.message ||
+                        applyRes?.data?.detail ||
+                        "Failed to start tax return application.",
+                );
+            }
 
-            await axios.post(
+            // Do NOT set Content-Type manually — the browser must attach the multipart
+            // boundary. A bare `multipart/form-data` header makes Multer hang forever
+            // (Toxsl: SUBMITTING… with pending submit-tax-info).
+            // Also strip any accidental Content-Type from axios defaults.
+            const taxInfoRes = await axios.post(
                 `${apiUrl}client/submit-tax-info`,
                 submitData,
-                { 
-                    headers: { 
+                {
+                    headers: {
                         Authorization: `Bearer ${session?.accessToken}`,
-                        'Content-Type': 'multipart/form-data'
-                    } 
-                }
+                        // Explicit false / omit so axios will not force multipart without boundary.
+                    },
+                    timeout: 120000,
+                    // Prevent axios from transforming FormData into JSON.
+                    transformRequest: [
+                        (data, headers) => {
+                            if (typeof FormData !== "undefined" && data instanceof FormData) {
+                                if (headers && typeof headers === "object") {
+                                    delete headers["Content-Type"];
+                                    delete headers["content-type"];
+                                }
+                            }
+                            return data;
+                        },
+                    ],
+                },
             );
-            await updateSession({ isTaxInfoSubmitted: true });
+            if (taxInfoRes?.data?.success === false) {
+                throw new Error(
+                    taxInfoRes?.data?.message ||
+                        taxInfoRes?.data?.detail ||
+                        "Failed to submit information.",
+                );
+            }
+            try {
+                await updateSession({ isTaxInfoSubmitted: true });
+            } catch (sessionErr) {
+                // Session refresh must not strand the UI after a successful submit.
+                console.warn("Session update after tax-info submit failed", sessionErr);
+            }
             setModalStep(21);
+            toast.success("Tax information submitted successfully.");
         } catch (err) {
-            toast.error(err?.response?.data?.message || "Failed to submit information.");
+            const msg =
+                err?.code === "ECONNABORTED"
+                    ? "Submission timed out. Please try again."
+                    : err?.response?.data?.message ||
+                      err?.response?.data?.detail ||
+                      err?.message ||
+                      "Failed to submit information.";
+            toast.error(typeof msg === "string" ? msg : "Failed to submit information.");
         } finally {
             setLoading(false);
         }
@@ -640,11 +684,37 @@ export default function EngagementLetterPage() {
             <div className="el-footer-gate">
                 <div className="el-gate-glass">
                     <div className="el-chk-col">
-                        <div className="el-chk-row" onClick={() => setAccepted(!accepted)}>
+                        <div
+                          className="el-chk-row"
+                          role="checkbox"
+                          aria-checked={accepted}
+                          data-testid="engagement-agree-subscription"
+                          tabIndex={0}
+                          onClick={() => setAccepted(!accepted)}
+                          onKeyDown={(e) => {
+                            if (e.key === " " || e.key === "Enter") {
+                              e.preventDefault();
+                              setAccepted((v) => !v);
+                            }
+                          }}
+                        >
                             <div className={`el-toggle ${accepted ? 'on' : ''}`} />
                             <div className="el-chk-label">I agree to the TaxSimba Subscription Agreement</div>
                         </div>
-                        <div className="el-chk-row" onClick={() => setTermsAccepted(!termsAccepted)}>
+                        <div
+                          className="el-chk-row"
+                          role="checkbox"
+                          aria-checked={termsAccepted}
+                          data-testid="engagement-agree-terms"
+                          tabIndex={0}
+                          onClick={() => setTermsAccepted(!termsAccepted)}
+                          onKeyDown={(e) => {
+                            if (e.key === " " || e.key === "Enter") {
+                              e.preventDefault();
+                              setTermsAccepted((v) => !v);
+                            }
+                          }}
+                        >
                             <div className={`el-toggle ${termsAccepted ? 'on' : ''}`} />
                             <div className="el-chk-label">I agree to the Terms of Service and Privacy Policy</div>
                         </div>
@@ -652,7 +722,20 @@ export default function EngagementLetterPage() {
 
                     <div className="el-sig-col">
                         <div className="el-sig-canvas-box">
-                            <canvas ref={canvasRef} width={1000} height={220} className="el-sig-canvas" onMouseDown={startDraw} onMouseMove={draw} onMouseUp={endDraw} onMouseLeave={endDraw} onTouchStart={startDraw} onTouchMove={draw} onTouchEnd={endDraw} />
+                            <canvas
+                              ref={canvasRef}
+                              width={1000}
+                              height={220}
+                              className="el-sig-canvas"
+                              data-testid="engagement-signature-canvas"
+                              onMouseDown={startDraw}
+                              onMouseMove={draw}
+                              onMouseUp={endDraw}
+                              onMouseLeave={endDraw}
+                              onTouchStart={startDraw}
+                              onTouchMove={draw}
+                              onTouchEnd={endDraw}
+                            />
                             <div className="el-clear" onClick={clearSignature}>Clear</div>
                         </div>
                     </div>
@@ -661,7 +744,12 @@ export default function EngagementLetterPage() {
                         <div style={{ fontSize: 12, color: '#000', textAlign: 'center', fontWeight: 600, paddingBottom: 8 }}>
                             No long-term contracts. Cancel anytime. Dedicated accountant support included. Secure HMRC compliant service.
                         </div>
-                        <button className="el-btn-main" onClick={handleSubmitLetter} disabled={loading || !accepted || !termsAccepted || !hasSignature}>
+                        <button
+                          className="el-btn-main"
+                          data-testid="engagement-agree-submit"
+                          onClick={handleSubmitLetter}
+                          disabled={loading || !accepted || !termsAccepted || !hasSignature}
+                        >
                             {loading ? "PROCESSING..." : "AGREE & CONTINUE →"}
                         </button>
                     </div>

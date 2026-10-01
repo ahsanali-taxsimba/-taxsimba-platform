@@ -12,6 +12,7 @@ import {
   X,
   FileText,
   ExternalLink,
+  AlertTriangle,
 } from 'lucide-react';
 import { EmailTemplate, FilesData, Review, TaxReturn } from '@/utils/interface';
 import clientAxios from '@/lib/axios-client';
@@ -29,19 +30,24 @@ import { getNotificationIcon } from '@/utils/getNotification';
 import BellButton from '@/components/NotficationData/BellButton';
 import DownloadCertificate from '@/components/TaxReturnModal/DownloadCertificateModal';
 import { toast } from 'react-toastify';
+import ExternalSubmissionPanel from '../../manage-tax/_sections/ExternalSubmissionPanel';
 
 
 
 const TaxReturnManagement = () => {
   const { taxReturnId } = useParams();
   const { data } = useSession();
-  const userData = (data?.user as { id?: number | string, url?: string }) || {};
+  const userData = (data?.user as { id?: number | string, url?: string; role?: string }) || {};
+  const role = String(userData?.role || '').toUpperCase();
+  const canApprove = role === 'ADMIN';
   const [showRequestDocModal, setShowRequestDocModal] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
   const [taxReturn, setTaxReturn] = useState<TaxReturn | null>(null);
   const [files, setFiles] = useState<FilesData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [approving, setApproving] = useState(false);
+  const [rejecting, setRejecting] = useState(false);
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showFinalCertificateModal, setShowFinalCertificateModal] = useState(false);
@@ -83,21 +89,24 @@ const TaxReturnManagement = () => {
 
   const [reviewResponse, setReviewResponse] = useState('');
 
-  // Fetch email template from API
+  // Fetch email template from API (singular /template — CMS /templates remains HIDE).
   const fetchEmailTemplate = async () => {
-    try {
-      const response = await clientAxios.get('/accountant/template');
-      if (response.data.success) {
-        return response.data;
-      } else {
-        setError('Failed to load email template');
-        return { success: false };
+    const paths =
+      role === 'ADMIN' || role === 'SUPER_ADMIN'
+        ? ['/admin/template', '/accountant/template']
+        : ['/accountant/template', '/admin/template'];
+    for (const path of paths) {
+      try {
+        const response = await clientAxios.get(path);
+        if (response.data?.success && response.data?.data?.template) {
+          return response.data;
+        }
+      } catch (err) {
+        console.warn(`Template fetch failed for ${path}`, err);
       }
-    } catch (err) {
-      console.error('Error fetching email template:', err);
-      setError('Error loading email template');
-      return { success: false };
     }
+    setError('Failed to load email template');
+    return { success: false };
   };
 
   const handleEmailSend = async (emailData: any) => {
@@ -193,10 +202,105 @@ const TaxReturnManagement = () => {
     }
   };
 
+  const awaitingAdminDraftReview = () => {
+    const node =
+      progressData?.nodeStatus ||
+      progressData?.workflowStatus ||
+      taxReturn?.nodeStatus ||
+      taxReturn?.status ||
+      '';
+    const normalized = String(node).toUpperCase();
+    return (
+      normalized === 'READY_FOR_ADMIN_REVIEW' ||
+      normalized === 'ADMIN_REVIEW'
+    );
+  };
+
+  const handleApproveDraft = async () => {
+    if (!canApprove) {
+      toast.error('Only an Admin can approve accountant drafts.');
+      return;
+    }
+    const caseId = String(taxReturnId || taxReturn?.id || '').trim();
+    if (!caseId) return;
+    setApproving(true);
+    try {
+      const response = await clientAxios.post(
+        `/admin/manage-review/${encodeURIComponent(caseId)}`,
+        { action: 'approve' },
+      );
+      if (response.data.success) {
+        toast.success('Draft approved. The client can now review it.');
+        await fetchTaxReturnData();
+        await fetchProgressData();
+        await fetchReviewData();
+      } else {
+        toast.error(response.data.message || 'Failed to approve draft');
+      }
+    } catch (err: any) {
+      toast.error(
+        err?.response?.data?.message ||
+          err?.response?.data?.detail ||
+          'Failed to approve draft',
+      );
+    } finally {
+      setApproving(false);
+    }
+  };
+
+  const handleReturnDraft = async () => {
+    if (!canApprove) {
+      toast.error('Only an Admin can return accountant drafts.');
+      return;
+    }
+    const caseId = String(taxReturnId || taxReturn?.id || '').trim();
+    if (!caseId) return;
+    const reason = window.prompt('Reason for returning the draft to the accountant:') || '';
+    if (!reason.trim()) {
+      toast.error('A return reason is required.');
+      return;
+    }
+    setRejecting(true);
+    try {
+      const response = await clientAxios.post(
+        `/admin/manage-review/${encodeURIComponent(caseId)}`,
+        { action: 'return', reason, note: reason },
+      );
+      if (response.data.success) {
+        toast.success('Draft returned to accountant.');
+        await fetchTaxReturnData();
+        await fetchProgressData();
+        await fetchReviewData();
+      } else {
+        toast.error(response.data.message || 'Failed to return draft');
+      }
+    } catch (err: any) {
+      toast.error(
+        err?.response?.data?.message ||
+          err?.response?.data?.detail ||
+          'Failed to return draft',
+      );
+    } finally {
+      setRejecting(false);
+    }
+  };
+
   const handleStatusUpdate = (newStatus: string | undefined) => {
     if (!newStatus || !progressData?.meta?.canUpdate || loading) return;
     console.log(newStatus, "newStatusnewStatus")
     if (newStatus === 'draft_ready') {
+      // Toxsl path: "Advance to Draft Ready" after accountant upload must approve,
+      // not open another upload modal.
+      if (canApprove && awaitingAdminDraftReview()) {
+        void handleApproveDraft();
+        return;
+      }
+      if (canApprove) {
+        // Backend also performs full approve when Admin posts draft_ready.
+        setLoading(true);
+        postProgressData(newStatus);
+        return;
+      }
       setShowUploadModal(true);
       return
     }
@@ -322,7 +426,12 @@ const TaxReturnManagement = () => {
   const fetchTaxReturnData = async () => {
     setLoading(true);
     try {
-      const response = await clientAxios.post(`/accountant/tax-return/files/${taxReturnId}`, {});
+      // Accountants use assigned-to-me detail; Admin/Super Admin use admin files path.
+      const path =
+        role === 'ADMIN' || role === 'SUPER_ADMIN'
+          ? `/admin/tax-return/${taxReturnId}/files`
+          : `/accountant/tax-return/files/${taxReturnId}`;
+      const response = await clientAxios.post(path, {});
 
       if (response.data.success) {
         console.log(response?.data?.data.taxReturn);
@@ -414,7 +523,7 @@ const TaxReturnManagement = () => {
                 <p className="text-gray-600">Tax Year: {taxReturn?.taxYear}</p>
                 <p className="text-gray-600">Type: {taxReturn?.type?.typeName}</p>
               </div>
-              <div className="flex space-x-3">
+              <div className="flex space-x-3 flex-wrap gap-2">
                 <button
                   onClick={() => setShowEmailModal(true)}
                   className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
@@ -438,6 +547,29 @@ const TaxReturnManagement = () => {
                   <Upload className="h-4 w-4" />
                   <span>Upload Draft</span>
                 </button>
+
+                {canApprove && awaitingAdminDraftReview() && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => void handleApproveDraft()}
+                      disabled={approving}
+                      className="flex items-center space-x-2 bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 disabled:opacity-60 transition-colors"
+                    >
+                      <FileText className="h-4 w-4" />
+                      <span>{approving ? 'Approving…' : 'Approve Draft'}</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => void handleReturnDraft()}
+                      disabled={rejecting}
+                      className="flex items-center space-x-2 bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 disabled:opacity-60 transition-colors"
+                    >
+                      <AlertTriangle className="h-4 w-4" />
+                      <span>{rejecting ? 'Returning…' : 'Return Draft'}</span>
+                    </button>
+                  </>
+                )}
 
                 <button
                   onClick={() => setShowAlertModal(true)}
@@ -478,6 +610,20 @@ const TaxReturnManagement = () => {
           <div className="p-6">
             {activeTab === 'overview' && (
               <div className="space-y-6">
+                {canApprove && (
+                  <ExternalSubmissionPanel
+                    taxReturnId={String(taxReturnId)}
+                    nodeStatus={
+                      (progressData as { nodeStatus?: string } | null)?.nodeStatus ||
+                      (taxReturn as { nodeStatus?: string } | null)?.nodeStatus ||
+                      null
+                    }
+                    onRecorded={() => {
+                      void fetchTaxReturnData();
+                      void fetchProgressData();
+                    }}
+                  />
+                )}
                 {/* Files Summary */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="bg-blue-50 p-4 rounded-lg">

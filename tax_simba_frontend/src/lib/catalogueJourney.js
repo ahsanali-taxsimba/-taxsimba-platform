@@ -6,6 +6,15 @@
  * Never infer from display name or RBAC role === "CLIENT".
  */
 export function resolveCatalogueCategory(session, searchParams) {
+  // Explicit query override wins (marketing handoff / deep links / acceptance).
+  const category = searchParams?.get?.("category");
+  if (category === "mtd" || category === "taxSimba") return category;
+  // Legacy / marketing aliases
+  if (category === "simbian" || category === "MTD" || category === "mtd_income_tax") return "mtd";
+  if (category === "self_assessment" || category === "sa" || category === "SELF_ASSESSMENT") {
+    return "taxSimba";
+  }
+
   const fromSession =
     session?.catalogueCategory ||
     session?.user?.catalogueCategory ||
@@ -18,9 +27,6 @@ export function resolveCatalogueCategory(session, searchParams) {
     null;
   if (intent === "MTD_INCOME_TAX") return "mtd";
   if (intent === "SELF_ASSESSMENT") return "taxSimba";
-
-  const category = searchParams?.get?.("category");
-  if (category === "mtd" || category === "taxSimba") return category;
 
   const authenticated = Boolean(session?.accessToken || session?.user);
   if (!authenticated && searchParams?.get?.("role") === "MTD") return "mtd";

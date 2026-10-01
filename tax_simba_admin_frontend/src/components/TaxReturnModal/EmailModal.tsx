@@ -58,19 +58,73 @@ const EmailModal: React.FC<EmailModalProps> = ({
     }
   }, [isOpen]);
 
+  const normalizeTemplate = (raw: any): EmailTemplate => {
+    const subject =
+      String(raw?.subject || 'Update regarding your TaxSimba tax return');
+    const content =
+      raw?.templateContent ||
+      raw?.bodyHtml ||
+      raw?.body_html ||
+      raw?.content ||
+      '<p>Dear {{clientName}},</p><p>{{body}}</p><p>Kind regards,<br/>TaxSimba</p>';
+    return {
+      id: raw?.id ?? 'local-default-staff-case-email',
+      name: raw?.name || 'Case message',
+      templateContent: String(content),
+      isActive: raw?.isActive !== false,
+      createdAt: raw?.createdAt || '',
+      updatedAt: raw?.updatedAt || '',
+      deletedAt: raw?.deletedAt ?? null,
+      availablePlaceholders: raw?.availablePlaceholders || [
+        'clientName',
+        'body',
+        'currentDate',
+      ],
+      // Keep subject for defaulting the compose form.
+      ...( { subject } as any ),
+    } as EmailTemplate;
+  };
+
   const loadTemplate = async () => {
     setEmailTemplateLoading(true);
     setError(null);
     try {
       const response = await fetchEmailTemplate();
       if (response.success && response.data?.template) {
-        setEmailTemplate(response.data.template);
+        const normalized = normalizeTemplate(response.data.template);
+        setEmailTemplate(normalized);
+        if (!emailSubject.trim() && (normalized as any).subject) {
+          setEmailSubject(String((normalized as any).subject));
+        }
       } else {
-        setError('Failed to load email template');
+        // Local fallback so compose is never stranded when CMS templates are deferred.
+        const fallback = normalizeTemplate({
+          id: 'local-default-staff-case-email',
+          name: 'Case message',
+          subject: 'Update regarding your TaxSimba tax return',
+          bodyHtml:
+            '<p>Dear {{clientName}},</p><p>{{body}}</p><p>Kind regards,<br/>TaxSimba</p>',
+          isActive: true,
+        });
+        setEmailTemplate(fallback);
+        if (!emailSubject.trim()) {
+          setEmailSubject('Update regarding your TaxSimba tax return');
+        }
       }
     } catch (err) {
-      setError('Error loading email template');
       console.error('Error loading template:', err);
+      const fallback = normalizeTemplate({
+        id: 'local-default-staff-case-email',
+        name: 'Case message',
+        subject: 'Update regarding your TaxSimba tax return',
+        bodyHtml:
+          '<p>Dear {{clientName}},</p><p>{{body}}</p><p>Kind regards,<br/>TaxSimba</p>',
+        isActive: true,
+      });
+      setEmailTemplate(fallback);
+      if (!emailSubject.trim()) {
+        setEmailSubject('Update regarding your TaxSimba tax return');
+      }
     } finally {
       setEmailTemplateLoading(false);
     }
@@ -148,14 +202,18 @@ const EmailModal: React.FC<EmailModalProps> = ({
     const clientName = taxReturn?.client?.name || 'Valued Client';
     const body = generateEmailBody();
 
-    const templateContent = typeof emailTemplate === 'string'
-      ? emailTemplate
-      : emailTemplate.templateContent;
+    const templateContent =
+      (typeof emailTemplate === 'string'
+        ? emailTemplate
+        : emailTemplate.templateContent ||
+          (emailTemplate as any).bodyHtml ||
+          '') || '<p>Dear {{clientName}},</p><p>{{body}}</p>';
 
-    return templateContent
+    return String(templateContent)
       .replace(/\{\{currentDate\}\}/g, currentDate)
       .replace(/\{\{clientName\}\}/g, clientName)
       .replace(/\{\{body\}\}/g, body)
+      .replace(/\{\{messageBody\}\}/g, body)
       .replace(/\{\{appName\}\}/g, 'TaxSimba')
       .replace(/\{\{supportEmail\}\}/g, 'support@taxsimba.com')
       .replace(/\{\{currentYear\}\}/g, new Date().getFullYear().toString());
