@@ -76,7 +76,7 @@ export async function processAIContent(payload: Record<string, unknown>) {
     where: { id: aiJobId },
     data: {
       status: "COMPLETED",
-      outputJson: output,
+      outputJson: output as object,
       finishedAt: new Date(),
     },
   });

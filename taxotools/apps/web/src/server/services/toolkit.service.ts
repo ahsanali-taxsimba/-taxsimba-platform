@@ -568,28 +568,81 @@ export async function runTool(
     case "site-audit": {
       const health = await siteHealthSummary(userId, siteId);
       const crawls = await listCrawls(userId, siteId);
-      return { tool: toolId, health, crawls };
+      return {
+        tool: toolId,
+        health,
+        crawls,
+        dataSource: health.dataSource,
+        summary:
+          health.dataSource === "live-http"
+            ? "Live HTTP crawl data"
+            : "No completed crawl yet — run Site Audit crawl",
+      };
     }
     case "on-page-checker": {
+      const { fetchAndParsePage } = await import("@taxotools/database");
       const url = String(input.url || site.url);
-      const keyword = String(input.keyword || "seo tools");
+      const keyword = String(input.keyword || "seo tools").toLowerCase();
+      const parsed = await fetchAndParsePage(url);
+      const ideas: Array<{ severity: string; text: string }> = [];
+      let score = 100;
+      if (parsed.error || parsed.statusCode === 0) {
+        ideas.push({ severity: "critical", text: `Could not fetch URL: ${parsed.error || "unknown error"}` });
+        score -= 40;
+      } else if (parsed.statusCode >= 400) {
+        ideas.push({ severity: "critical", text: `HTTP ${parsed.statusCode} for ${url}` });
+        score -= 35;
+      }
+      const hay = `${parsed.title || ""} ${parsed.h1 || ""} ${parsed.metaDescription || ""}`.toLowerCase();
+      if (!parsed.title) {
+        ideas.push({ severity: "high", text: "Missing <title>" });
+        score -= 15;
+      } else if (!hay.includes(keyword)) {
+        ideas.push({ severity: "high", text: `Add target keyword “${keyword}” to title/H1` });
+        score -= 12;
+      }
+      if (!parsed.h1) {
+        ideas.push({ severity: "medium", text: "Missing H1 heading" });
+        score -= 10;
+      }
+      if (!parsed.metaDescription) {
+        ideas.push({ severity: "medium", text: "Missing meta description" });
+        score -= 10;
+      } else if (parsed.metaDescription.length < 70 || parsed.metaDescription.length > 165) {
+        ideas.push({
+          severity: "medium",
+          text: `Meta description length ${parsed.metaDescription.length} (aim 70–165)`,
+        });
+        score -= 6;
+      }
+      if (parsed.wordCount < 300) {
+        ideas.push({ severity: "low", text: `Thin content (${parsed.wordCount} words)` });
+        score -= 8;
+      }
+      if (!parsed.hasSchema) {
+        ideas.push({ severity: "low", text: "Add JSON-LD structured data" });
+        score -= 5;
+      }
+      if (!ideas.length) {
+        ideas.push({ severity: "info", text: "On-page basics look solid for this URL" });
+      }
       const check = await prisma.onPageCheck.create({
         data: {
           siteId,
           url,
           targetKeyword: keyword,
-          score: 62 + (seed(url + keyword) % 30),
+          score: Math.max(0, Math.min(100, score)),
           ideasJson: {
-            ideas: [
-              { severity: "high", text: `Add target keyword “${keyword}” to H1` },
-              { severity: "medium", text: "Improve meta description length (120–155 chars)" },
-              { severity: "medium", text: "Add FAQ section targeting PAA queries" },
-              { severity: "low", text: "Increase internal links to topical cluster pages" },
-            ],
+            mode: "live-http",
+            statusCode: parsed.statusCode,
+            title: parsed.title,
+            h1: parsed.h1,
+            wordCount: parsed.wordCount,
+            ideas,
           } as Prisma.InputJsonValue,
         },
       });
-      return { tool: toolId, check };
+      return { tool: toolId, check, dataSource: "live-http", summary: `Live check of ${url}` };
     }
     case "seo-content-template": {
       const keyword = String(input.keyword || "seo tools");
