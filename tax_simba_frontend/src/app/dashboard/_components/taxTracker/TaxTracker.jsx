@@ -348,8 +348,12 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
                         onClick={(e) => {
                           e.stopPropagation();
                           setEmailIds({
-                            accountantId: item?.accountant?.id,
-                            taxReturnId: item?.taxReturn?.id
+                            accountantId:
+                              item?.accountant?.id ||
+                              item?.assignedAccountantId ||
+                              item?.assigned_accountant_id ||
+                              null,
+                            taxReturnId: item?.taxReturn?.id || item?.id || null,
                           })
                           setShowChat(true);
                         }}>

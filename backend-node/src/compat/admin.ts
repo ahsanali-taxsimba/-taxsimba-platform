@@ -1352,6 +1352,33 @@ compatAdminRouter.post(
   }),
 );
 
+/**
+ * Staff email compose template (singular).
+ * CMS `/admin/templates` remains HIDE; this lightweight default unblocks Email Client
+ * compose (Toxsl: "Unable to load email template").
+ */
+const defaultStaffEmailTemplate = {
+  id: "default-staff-case-email",
+  name: "Case message",
+  subject: "Update regarding your TaxSimba tax return",
+  // EmailModal replaces {{body}} / {{messageBody}} / {{clientName}}.
+  bodyHtml:
+    "<p>Dear {{clientName}},</p><p>{{body}}</p><p>Kind regards,<br/>TaxSimba</p>",
+  templateContent:
+    "<p>Dear {{clientName}},</p><p>{{body}}</p><p>Kind regards,<br/>TaxSimba</p>",
+  isActive: true,
+};
+
+for (const path of ["/admin/template", "/accountant/template"] as const) {
+  compatAdminRouter.get(
+    path,
+    auth(...STAFF_ADMIN, "ACCOUNTANT"),
+    handler(async (_req, res) => {
+      sendCompatSuccess(res, { template: defaultStaffEmailTemplate }, "OK");
+    }),
+  );
+}
+
 /** S6 HIDE markers — refuse CMS-style invent-a-backend paths. */
 for (const path of [
   "/admin/cms",

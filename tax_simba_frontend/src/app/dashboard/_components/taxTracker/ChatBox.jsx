@@ -48,15 +48,18 @@ const ChatBox = ({ show, handleClose, ids, token, id }) => {
             if (response.data.success) {
                 toast.success("Email sent successfully");
                 setTrackMessageSend(!trackMessageSend);
-            } else {
-                console.error("Failed to send email:", response.data.message);
-                toast.error("Failed to send email");
+                return;
             }
+            throw new Error(response.data.message || "Failed to send email");
         } catch (err) {
             console.error("Error sending email:", err);
-            toast.error("Failed to send email");
-        } finally {
-            setShowModal(false);
+            toast.error(
+                err?.response?.data?.message ||
+                    err?.response?.data?.detail ||
+                    err?.message ||
+                    "Failed to send message.",
+            );
+            throw err;
         }
     };
 
@@ -80,18 +83,46 @@ const ChatBox = ({ show, handleClose, ids, token, id }) => {
       } else {
         console.error('Failed to fetch chat data:', res.data.message);
       }
-            const emails = res.data?.data?.emails || [];
+            const emails = res.data?.data?.emails || res.data?.data?.messages || [];
 
-            const formatted = emails.map((email) => ({
-                id: email.id,
-                sender: email.accountant?.name || "Accountant",
-                message: email.parsedEmailData?.messageText || "",
-                time: email.sentAt,
-                senderRole: email?.emailData?.senderRole || "CLIENT",
-            }));
+            const formatted = emails.map((email) => {
+                const time =
+                    email.sentAt ||
+                    email.createdAt ||
+                    email.created_at ||
+                    email.sent_at ||
+                    null;
+                const message =
+                    email.parsedEmailData?.messageText ||
+                    email.emailData?.messageText ||
+                    email.body ||
+                    email.message ||
+                    "";
+                const senderRole =
+                    email?.emailData?.senderRole ||
+                    email.senderRole ||
+                    email.sender_role ||
+                    "CLIENT";
+                return {
+                    id: email.id,
+                    sender:
+                        email.accountant?.name ||
+                        email.sender_name ||
+                        email.senderName ||
+                        (senderRole === "ACCOUNTANT" ? "Accountant" : "You"),
+                    message,
+                    time,
+                    senderRole,
+                };
+            });
             setMessages(formatted.reverse());
         } catch (err) {
             console.error(err);
+            toast.error(
+                err?.response?.data?.message ||
+                    err?.response?.data?.detail ||
+                    "Unable to load messages.",
+            );
         } finally {
             setLoading(false);
         }
@@ -121,7 +152,9 @@ const ChatBox = ({ show, handleClose, ids, token, id }) => {
                                         {msg.message}
                                     </p>
                                     <small className="mt-1" style={{ fontSize: "0.7rem" }}>
-                                        {new Date(msg.time).toLocaleString()}
+                                        {msg.time && !Number.isNaN(new Date(msg.time).getTime())
+                                            ? new Date(msg.time).toLocaleString()
+                                            : ""}
                                     </small>
                                 </div>
                             ))

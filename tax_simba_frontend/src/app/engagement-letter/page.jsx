@@ -228,20 +228,35 @@ export default function EngagementLetterPage() {
                 { headers: { Authorization: `Bearer ${session?.accessToken}` } }
             );
 
+            // Do NOT set Content-Type manually — the browser must attach the multipart
+            // boundary. A bare `multipart/form-data` header makes Multer hang forever
+            // (Toxsl: SUBMITTING… with pending submit-tax-info).
             await axios.post(
                 `${apiUrl}client/submit-tax-info`,
                 submitData,
-                { 
-                    headers: { 
+                {
+                    headers: {
                         Authorization: `Bearer ${session?.accessToken}`,
-                        'Content-Type': 'multipart/form-data'
-                    } 
-                }
+                    },
+                    timeout: 120000,
+                },
             );
-            await updateSession({ isTaxInfoSubmitted: true });
+            try {
+                await updateSession({ isTaxInfoSubmitted: true });
+            } catch (sessionErr) {
+                // Session refresh must not strand the UI after a successful submit.
+                console.warn("Session update after tax-info submit failed", sessionErr);
+            }
             setModalStep(21);
+            toast.success("Tax information submitted successfully.");
         } catch (err) {
-            toast.error(err?.response?.data?.message || "Failed to submit information.");
+            const msg =
+                err?.code === "ECONNABORTED"
+                    ? "Submission timed out. Please try again."
+                    : err?.response?.data?.message ||
+                      err?.response?.data?.detail ||
+                      "Failed to submit information.";
+            toast.error(msg);
         } finally {
             setLoading(false);
         }

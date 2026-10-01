@@ -249,12 +249,15 @@ compatCasesRouter.post(
             };
       }
       // Canonical nested shape for Tax Tracker (`item.taxReturn.id`, `item.files.allFiles`).
+      // taxReturn.status must be the Toxel step key (draft_ready / final_submitted), not the
+      // raw Node workflow status — otherwise the client tracker never advances past Draft Ready.
       out.push({
         ...c,
         taxReturn: {
           id: caseId,
           caseRef: c.case_ref ?? null,
-          status: c.status,
+          status: nodeToToxelStatus(String(c.status)),
+          nodeStatus: c.status,
           serviceType: c.service_type,
           taxYear: c.tax_year,
         },
@@ -298,11 +301,14 @@ function nodeToToxelStatus(status: string): string {
     case "ADMIN_REVIEW":
     case "CHANGES_REQUIRED":
       return "preparation_started";
+    // Client still reviewing the Admin-released draft.
     case "ADMIN_APPROVED":
     case "AWAITING_CLIENT_APPROVAL":
+      return "draft_ready";
+    // Client has approved — journey must advance past Draft Ready (Toxsl blocker).
     case "CLIENT_APPROVED":
     case "READY_FOR_SUBMISSION":
-      return "draft_ready";
+      return "final_submitted";
     case "SUBMISSION_IN_PROGRESS":
     case "SUBMITTED":
     case "SUBMISSION_ISSUE":
@@ -317,11 +323,11 @@ function nodeToToxelStatus(status: string): string {
 /**
  * Map Toxel progress-bar keys → Node statuses.
  *
- * Critical: `draft_ready` must never soft-map onto ADMIN_APPROVED or
- * AWAITING_CLIENT_APPROVAL while the case is still in Admin review.
- * That path previously bypassed the Admin approve action (document release +
- * client notification). Admin must use the approve endpoint; accountants
- * submit drafts via multipart upload (→ READY_FOR_ADMIN_REVIEW).
+ * Critical: `draft_ready` must never soft-map onto ADMIN_APPROVED while the
+ * case is still in Admin review without running document release + client
+ * notification. That full approve path is handled in handleProgressWrite /
+ * adminApproveSubmittedDraft — not via a bare status remap.
+ * Accountants submit drafts via multipart upload (→ READY_FOR_ADMIN_REVIEW).
  */
 function toxelToPreferredNodeStatus(toxel: string, currentNodeStatus?: string): string | null {
   const s = String(toxel || "").toLowerCase();
@@ -336,7 +342,8 @@ function toxelToPreferredNodeStatus(toxel: string, currentNodeStatus?: string): 
     ) {
       return current;
     }
-    // Still awaiting Admin review — progress bar cannot approve.
+    // Still awaiting Admin review — handled specially by handleProgressWrite
+    // (Admin → full approve+release; others → 400).
     if (current === "READY_FOR_ADMIN_REVIEW" || current === "ADMIN_REVIEW") {
       return null;
     }
@@ -498,6 +505,71 @@ async function buildProgressPayload(kase: Doc, me: Doc, hasSubmission: boolean):
   };
 }
 
+/**
+ * Admin approve + document release + client notification.
+ * Shared by manage-review and tax-return-list "Advance to Draft Ready".
+ */
+async function adminApproveSubmittedDraft(
+  caseId: string,
+  me: Doc,
+  note?: string | null,
+): Promise<{ updated: Doc; released: number }> {
+  if (String(me.role) !== "ADMIN") {
+    throw httpError(403, "Insufficient permissions");
+  }
+  const { notify } = await import("../domain/workflow");
+  const kase = await getCase(caseId, me);
+  if (!(ALLOWED_TRANSITIONS[String(kase.status)] ?? []).includes("ADMIN_APPROVED")) {
+    throw httpError(400, `Cannot admin-approve from status ${kase.status}`);
+  }
+  const { releaseApprovedDraftDocuments } = await import("./documents");
+  const released = await releaseApprovedDraftDocuments(caseId, me);
+  await col("reviews").updateMany(
+    { case_id: caseId, outcome: null, kind: "DRAFT_DOCUMENT" },
+    {
+      $set: {
+        outcome: "APPROVED",
+        reviewer_id: me.id,
+        reviewer_name: me.name,
+        decided_at: nowIso(),
+        admin_note: note ?? null,
+      },
+    },
+  );
+  await transition(kase, "ADMIN_APPROVED", me, note ?? "Admin approved");
+  const after = await getCase(caseId, me);
+  if ((ALLOWED_TRANSITIONS[String(after.status)] ?? []).includes("AWAITING_CLIENT_APPROVAL")) {
+    await transition(
+      after,
+      "AWAITING_CLIENT_APPROVAL",
+      me,
+      "Approved draft released to client for review",
+    );
+  }
+  await notify(
+    kase.client_user_id as string,
+    "Your tax return draft is ready to review",
+    "Your accountant's draft has been approved by Admin and is ready for you to review.\n\n" +
+      "Please check the figures carefully." +
+      (kase.tax_year ? `\n\nTax year: ${kase.tax_year}` : ""),
+    caseId,
+    "/dashboard/my-documents",
+    "APPROVAL",
+  );
+  if (kase.assigned_accountant_id) {
+    await notify(
+      String(kase.assigned_accountant_id),
+      "Admin approved your draft",
+      `${kase.client_name ?? "Client"} — draft approved`,
+      caseId,
+      `/tax-return-list/${caseId}`,
+      "APPROVAL",
+    );
+  }
+  const updated = await getCase(caseId, me);
+  return { updated, released };
+}
+
 /** C6 — staff progress status write (Toxel path). Maps to whitelist transitions only. */
 async function handleProgressWrite(req: import("express").Request, res: import("express").Response) {
   const me = authed(req);
@@ -510,6 +582,29 @@ async function handleProgressWrite(req: import("express").Request, res: import("
   const target = toxelToPreferredNodeStatus(requested, String(kase.status));
   if (!target) {
     if (String(requested).toLowerCase() === "draft_ready") {
+      const current = String(kase.status);
+      // Toxsl tax-return-list "Advance to Draft Ready" — Admin must run the full
+      // approve path (release docs + notify), not a bare status flip.
+      if (
+        (current === "READY_FOR_ADMIN_REVIEW" || current === "ADMIN_REVIEW") &&
+        String(me.role) === "ADMIN"
+      ) {
+        const { updated } = await adminApproveSubmittedDraft(
+          caseId,
+          me,
+          typeof body.note === "string" ? body.note : "Admin approved via progress",
+        );
+        const submission = await col("submission_records").findOne({
+          case_id: caseId,
+          status: { $in: ["SUBMITTED", "COMPLETED"] },
+        });
+        sendCompatSuccess(
+          res,
+          await buildProgressPayload(updated, me, !!submission),
+          "Draft approved and released to client",
+        );
+        return;
+      }
       throw httpError(
         400,
         "Cannot advance to draft ready via progress — Admin must approve the submitted draft to release it to the client",
@@ -835,61 +930,11 @@ async function handleManageReview(req: import("express").Request, res: import("e
   const requestedStatus = String(body.status ?? "").toUpperCase();
 
   if (action === "approve" || action === "admin-approve" || action === "admin_approve") {
-    // Admin operational actor only — SUPER_ADMIN is oversight and cannot approve drafts.
-    if (String(me.role) !== "ADMIN") {
-      throw httpError(403, "Insufficient permissions");
-    }
-    const { notify, nowIso } = await import("../domain/workflow");
-    const kase = await getCase(caseId, me);
-    if (!(ALLOWED_TRANSITIONS[String(kase.status)] ?? []).includes("ADMIN_APPROVED")) {
-      throw httpError(400, `Cannot admin-approve from status ${kase.status}`);
-    }
-    const { releaseApprovedDraftDocuments } = await import("./documents");
-    const released = await releaseApprovedDraftDocuments(caseId, me);
-    await col("reviews").updateMany(
-      { case_id: caseId, outcome: null, kind: "DRAFT_DOCUMENT" },
-      {
-        $set: {
-          outcome: "APPROVED",
-          reviewer_id: me.id,
-          reviewer_name: me.name,
-          decided_at: nowIso(),
-          admin_note: body.note ?? null,
-        },
-      },
-    );
-    await transition(kase, "ADMIN_APPROVED", me, body.note ?? "Admin approved");
-    // Release to client for review when whitelist allows.
-    const after = await getCase(caseId, me);
-    if ((ALLOWED_TRANSITIONS[String(after.status)] ?? []).includes("AWAITING_CLIENT_APPROVAL")) {
-      await transition(
-        after,
-        "AWAITING_CLIENT_APPROVAL",
-        me,
-        "Approved draft released to client for review",
-      );
-    }
-    await notify(
-      kase.client_user_id as string,
-      "Your tax return draft is ready to review",
-      "Your accountant's draft has been approved by Admin and is ready for you to review.\n\n" +
-        "Please check the figures carefully." +
-        (kase.tax_year ? `\n\nTax year: ${kase.tax_year}` : ""),
+    const { updated, released } = await adminApproveSubmittedDraft(
       caseId,
-      "/dashboard/my-documents",
-      "APPROVAL",
+      me,
+      body.note ?? null,
     );
-    if (kase.assigned_accountant_id) {
-      await notify(
-        String(kase.assigned_accountant_id),
-        "Admin approved your draft",
-        `${kase.client_name ?? "Client"} — draft approved`,
-        caseId,
-        `/tax-return-list/${caseId}`,
-        "APPROVAL",
-      );
-    }
-    const updated = await getCase(caseId, me);
     sendCompatSuccess(
       res,
       { ...decorateCase(updated), draftsReleased: released },
