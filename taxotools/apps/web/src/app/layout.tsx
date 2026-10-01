@@ -1,24 +1,9 @@
 import type { Metadata } from "next";
-import { Fraunces, Source_Sans_3 } from "next/font/google";
 import { AppMotionShell } from "@/motion/AppMotionShell";
 import "./globals.css";
 
 // Prefer London — Supabase project is eu-west-2; iad1 was adding multi-second DB RTT.
 export const preferredRegion = ["lhr1"];
-
-const display = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["500", "600", "700"],
-  display: "swap",
-});
-
-const sans = Source_Sans_3({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: {
@@ -31,8 +16,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable}`}>
-      <body className="font-sans antialiased">
+    <html lang="en-GB">
+      <body className="bg-apple-bg font-sans text-body text-apple-text antialiased">
         <AppMotionShell>{children}</AppMotionShell>
       </body>
     </html>

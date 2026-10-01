@@ -61,19 +61,19 @@ export function AppChrome({
   const NavBody = (
     <div className="flex h-full min-h-0 flex-col">
       <div className="shrink-0 px-1">
-        <Link href="/app" className="font-display text-xl font-semibold text-ink-950">
+        <Link href="/app" className="font-display text-xl font-semibold text-apple-text">
           Taxotools
         </Link>
-        <p className="mt-1 truncate text-xs text-ink-500">{accountName}</p>
+        <p className="mt-1 truncate text-xs text-apple-muted">{accountName}</p>
         {primarySiteDomain && (
-          <p className="mt-2 truncate rounded-md bg-accent-soft px-2 py-1 text-[11px] font-medium text-accent-dark">
+          <p className="mt-2 truncate rounded-pill bg-accent-soft px-3 py-1 text-[11px] font-medium text-accent-dark">
             Active: {primarySiteDomain}
           </p>
         )}
         {!primarySiteId && (
           <Link
             href="/onboarding"
-            className="mt-2 block text-[11px] font-medium text-accent-dark"
+            className="content-link mt-2 block text-[11px] font-medium"
             onClick={() => setMobileOpen(false)}
           >
             Add a site to unlock tools →
@@ -93,10 +93,10 @@ export function AppChrome({
                 href={item.href}
                 onClick={() => setMobileOpen(false)}
                 className={cn(
-                  "block rounded-lg px-2.5 py-1.5 text-sm font-medium",
+                  "block rounded-pill px-2.5 py-1.5 text-sm font-medium",
                   active
                     ? "bg-accent-soft text-accent-dark"
-                    : "text-ink-700 hover:bg-accent-soft hover:text-accent-dark",
+                    : "text-ink-700 hover:bg-apple-bg hover:text-apple-text",
                 )}
               >
                 {item.label}
@@ -106,21 +106,21 @@ export function AppChrome({
         </div>
 
         <div>
-          <p className="mb-2 px-2.5 text-[10px] font-semibold uppercase tracking-wider text-ink-500">
+          <p className="mb-2 px-2.5 text-[10px] font-semibold uppercase tracking-wider text-apple-muted">
             Auto SEO modules · {toolCount}
           </p>
           <div className="space-y-2">
             {TOOLKIT_GROUPS.map((group) => {
               const open = openGroups[group.id] ?? true;
               return (
-                <div key={group.id} className="rounded-lg border border-ink-100/80 bg-ink-50/40">
+                <div key={group.id} className="rounded-xl border border-apple-border/80 bg-apple-bg/60">
                   <button
                     type="button"
                     onClick={() => toggleGroup(group.id)}
-                    className="flex w-full items-center justify-between px-2.5 py-2 text-left"
+                    className="flex w-full items-center justify-between rounded-none bg-transparent px-2.5 py-2 text-left text-sm font-semibold text-apple-text shadow-none"
                   >
                     <span className="text-xs font-semibold text-ink-800">{group.name}</span>
-                    <span className="text-[10px] text-ink-500">
+                    <span className="text-[10px] text-apple-muted">
                       {group.tools.length} {open ? "▾" : "▸"}
                     </span>
                   </button>
@@ -198,54 +198,52 @@ export function AppChrome({
   );
 
   return (
-    <div className="min-h-screen bg-ink-50">
+    <div className="min-h-screen bg-apple-bg text-apple-text">
       <div className="mx-auto flex min-h-screen max-w-[1600px]">
-        <SlideInLeft className="hidden h-screen w-72 shrink-0 border-r border-ink-100 bg-white px-3 py-5 md:sticky md:top-0 md:block">
+        <SlideInLeft className="hidden h-screen w-72 shrink-0 border-r border-apple-border bg-apple-panel px-3 py-5 md:sticky md:top-0 md:block">
           {NavBody}
         </SlideInLeft>
 
         <div className="flex min-w-0 flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-ink-100 bg-white/90 px-6 py-4 backdrop-blur md:px-8">
+          <header className="flex items-center justify-between border-b border-apple-border bg-apple-panel/90 px-6 py-4 backdrop-blur md:px-8">
             <div className="flex items-center gap-3">
               <MotionButton
                 type="button"
                 variant="outline"
-                className="md:hidden px-3 py-1.5"
+                className="md:hidden px-3 py-1.5 text-sm"
                 onClick={() => setMobileOpen(true)}
               >
                 Menu
               </MotionButton>
               <div>
-                <p className="text-xs uppercase tracking-wide text-ink-500">Signed in as</p>
-                <p className="text-sm font-medium text-ink-900">{email}</p>
+                <p className="text-xs uppercase tracking-wide text-apple-muted">Signed in as</p>
+                <p className="text-sm font-medium text-apple-text">{email}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               {primarySiteId && (
                 <Link
                   href={`/app/sites/${primarySiteId}`}
-                  className="hidden rounded-lg border border-ink-100 px-3 py-1.5 text-sm text-ink-700 hover:bg-ink-50 sm:inline-flex"
+                  className="hidden rounded-pill border border-apple-border px-4 py-2 text-sm text-apple-text hover:bg-apple-bg sm:inline-flex"
                 >
                   Site dashboard
                 </Link>
               )}
               <Link
                 href="/app/intelligence"
-                className="hidden rounded-lg border border-ink-100 px-3 py-1.5 text-sm text-ink-700 hover:bg-ink-50 sm:inline-flex"
+                className="hidden rounded-pill border border-apple-border px-4 py-2 text-sm text-apple-text hover:bg-apple-bg sm:inline-flex"
               >
                 Intelligence
               </Link>
               <Link
                 href="/onboarding"
-                className="rounded-lg bg-accent px-3 py-1.5 text-sm font-semibold text-white hover:bg-accent-dark"
+                className="rounded-pill bg-accent px-5 py-2 text-sm font-semibold text-apple-inverse hover:bg-accent-dark"
               >
                 Add site
               </Link>
             </div>
           </header>
-          <div className="bg-[radial-gradient(ellipse_at_top,_rgba(15,159,143,0.08),_transparent_45%)] px-6 py-8 md:px-8">
-            {children}
-          </div>
+          <div className="bg-apple-bg px-6 py-10 md:px-10">{children}</div>
         </div>
       </div>
 

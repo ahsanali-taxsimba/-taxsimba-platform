@@ -19,15 +19,15 @@ export function MotionButton({
 
   const styles =
     variant === "primary"
-      ? "bg-accent text-white hover:bg-accent-dark"
+      ? "bg-accent text-apple-inverse hover:bg-accent-dark shadow-none"
       : variant === "outline"
-        ? "border border-ink-100 bg-white text-ink-800"
-        : "bg-transparent text-ink-700";
+        ? "border border-apple-border bg-apple-panel text-apple-text hover:bg-apple-bg"
+        : "bg-transparent text-apple-text hover:text-apple-link";
 
   return (
     <m.button
       className={cn(
-        "inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-semibold will-change-transform disabled:opacity-60",
+        "inline-flex items-center justify-center rounded-pill px-6 py-2.5 text-label will-change-transform disabled:opacity-60",
         styles,
         className,
       )}

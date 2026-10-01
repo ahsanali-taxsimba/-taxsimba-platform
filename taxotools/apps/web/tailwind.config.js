@@ -4,33 +4,71 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // Apple UK Store tokens + legacy ink/accent aliases
+        apple: {
+          bg: "var(--bg-main)",
+          panel: "var(--bg-panel)",
+          hero: "var(--bg-hero)",
+          text: "var(--text-main)",
+          inverse: "var(--text-inverse)",
+          muted: "var(--text-secondary)",
+          blue: "var(--accent-blue)",
+          link: "var(--link-blue)",
+          "link-hover": "var(--link-blue-hover)",
+          border: "var(--border-subtle)",
+        },
         ink: {
-          950: "#0B1220",
-          900: "#121A2B",
-          800: "#1C2740",
-          700: "#2A3857",
-          500: "#5B6B8C",
-          300: "#A8B3C7",
-          100: "#E8EDF5",
-          50: "#F5F7FB",
+          950: "var(--text-main)",
+          900: "var(--text-main)",
+          800: "#2d2d2f",
+          700: "#424245",
+          500: "var(--text-secondary)",
+          300: "#a1a1a6",
+          100: "var(--border-subtle)",
+          50: "var(--bg-main)",
         },
         accent: {
-          DEFAULT: "#0F9F8F",
-          dark: "#0B7A6E",
-          soft: "#D8F3EF",
+          DEFAULT: "var(--accent-blue)",
+          dark: "var(--link-blue-hover)",
+          soft: "#e8f2ff",
         },
         warn: "#D97706",
         danger: "#DC2626",
       },
       fontFamily: {
-        display: ["var(--font-display)", "Georgia", "serif"],
-        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: [
+          "SF Pro Text",
+          "system-ui",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "sans-serif",
+        ],
+        sans: [
+          "SF Pro Text",
+          "system-ui",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "sans-serif",
+        ],
+      },
+      fontSize: {
+        body: ["17px", { lineHeight: "1.47059", letterSpacing: "-0.022em" }],
+        label: ["21px", { lineHeight: "1.2", fontWeight: "600", letterSpacing: "-0.01em" }],
+        h1: ["56px", { lineHeight: "1.07", fontWeight: "600", letterSpacing: "-0.02em" }],
+        h2: ["40px", { lineHeight: "1.1", fontWeight: "600", letterSpacing: "-0.015em" }],
+        h3: ["34px", { lineHeight: "1.15", fontWeight: "600", letterSpacing: "-0.01em" }],
+        h4: ["28px", { lineHeight: "1.2", fontWeight: "400", letterSpacing: "-0.01em" }],
+      },
+      borderRadius: {
+        pill: "999px",
       },
       backgroundImage: {
+        // Minimal Apple-like washes (no teal mesh)
         "grid-fade":
-          "radial-gradient(ellipse at top, rgba(15,159,143,0.12), transparent 55%), linear-gradient(180deg, #F5F7FB 0%, #EEF2F8 100%)",
-        "hero-mesh":
-          "linear-gradient(135deg, rgba(11,18,32,0.92), rgba(15,159,143,0.55)), url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.05\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')",
+          "linear-gradient(180deg, var(--bg-panel) 0%, var(--bg-main) 100%)",
+        "hero-mesh": "linear-gradient(180deg, #000000 0%, #1d1d1f 100%)",
       },
       keyframes: {
         rise: {

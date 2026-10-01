@@ -63,7 +63,7 @@ export function AeoPanel({
     <div className="space-y-6">
       {chartPoints.length > 0 && (
         <SlideUp>
-          <RankTrackingChart points={chartPoints} color="#0F9F8F" />
+          <RankTrackingChart points={chartPoints} color="#0071E3" />
         </SlideUp>
       )}
 

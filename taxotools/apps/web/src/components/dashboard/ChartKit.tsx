@@ -52,7 +52,7 @@ export function UsageGauge({
   limit: number;
 }) {
   const pct = limit < 0 ? 12 : limit === 0 ? 0 : Math.min(100, Math.round((used / limit) * 100));
-  const color = pct >= 90 ? "#DC2626" : pct >= 70 ? "#D97706" : "#0F9F8F";
+  const color = pct >= 90 ? "#DC2626" : pct >= 70 ? "#D97706" : "#0071E3";
   return (
     <MetricTile
       label={label}
@@ -84,7 +84,7 @@ export function ScoreRing({
   const r = 52;
   const c = 2 * Math.PI * r;
   const pct = Math.max(0, Math.min(100, value)) / 100;
-  const color = value >= 80 ? "#0F9F8F" : value >= 55 ? "#D97706" : value > 0 ? "#DC2626" : "#A8B3C7";
+  const color = value >= 80 ? "#0071E3" : value >= 55 ? "#D97706" : value > 0 ? "#DC2626" : "#A1A1A6";
 
   return (
     <div className="flex flex-col items-center justify-center rounded-2xl border border-ink-100 bg-white p-5 shadow-sm">
@@ -130,7 +130,7 @@ export function ScoreRing({
 
 export function Sparkline({
   points,
-  color = "#0F9F8F",
+  color = "#0071E3",
   height = 56,
 }: {
   points: number[];
@@ -176,7 +176,7 @@ export function Sparkline({
 
 export function BarSeries({
   items,
-  color = "#0F9F8F",
+  color = "#0071E3",
 }: {
   items: { label: string; value: number }[];
   color?: string;

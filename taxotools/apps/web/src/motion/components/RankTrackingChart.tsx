@@ -10,7 +10,7 @@ type Point = { label?: string; value: number };
 export function RankTrackingChart({
   points,
   height = 96,
-  color = "#0F9F8F",
+  color = "#0071E3",
 }: {
   points: Point[];
   height?: number;
@@ -96,7 +96,7 @@ export function SovBar({
       </div>
       <div className="h-2 overflow-hidden rounded-full bg-ink-100">
         <m.div
-          className="h-full rounded-full bg-accent origin-left"
+          className="h-full origin-left rounded-full bg-accent"
           initial={reduce ? false : { scaleX: 0 }}
           animate={{ scaleX: 1 }}
           style={{ width: `${pct}%` }}
