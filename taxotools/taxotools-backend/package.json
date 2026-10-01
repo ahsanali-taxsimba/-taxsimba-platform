@@ -1,0 +1,32 @@
+{
+  "name": "taxotools-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "UK Accountancy Backlinks Database — discovery, crawl, score, API, cron",
+  "scripts": {
+    "start": "node src/api/server.js",
+    "discover": "node src/discovery/index.js",
+    "crawl": "node src/crawler/index.js",
+    "score": "node src/scoring/backlinkScoring.js",
+    "cycle": "node src/cron/runCycle.js",
+    "continuous": "node src/cron/continuous.js",
+    "always-on": "node src/cron/startAlwaysOn.js",
+    "cron:weekly-crawl": "node src/cron/weeklyCrawl.js",
+    "cron:monthly-discovery": "node src/cron/monthlyDiscovery.js",
+    "cron:weekly-authority": "node src/cron/weeklyAuthorityUpdate.js",
+    "cron:daily-keywords": "node src/cron/dailyKeywords.js",
+    "cron:daily-seo": "node src/cron/dailySeo.js",
+    "db:apply": "node src/supabase/applySchema.js",
+    "test:smoke": "node src/utils/smoke.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.1",
+    "cheerio": "^1.0.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "node-fetch": "^3.3.2",
+    "pg": "^8.13.1",
+    "robots-parser": "^3.0.1"
+  }
+}

@@ -1,0 +1,50 @@
+# Render Blueprint — one-click always-on crawler
+# Dashboard: New → Blueprint → connect this repo → root taxotools/taxotools-backend
+# Or create a Web Service manually with the settings below.
+
+services:
+  - type: web
+    name: taxotools-crawler
+    runtime: node
+    rootDir: taxotools/taxotools-backend
+    plan: free
+    region: frankfurt
+    buildCommand: npm install
+    startCommand: node src/cron/startAlwaysOn.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: BACKEND_PORT
+        value: "3200"
+      - key: CRAWL_DELAY_MS
+        value: "500"
+      - key: MAX_PAGES_PER_DOMAIN
+        value: "200"
+      - key: CONTINUOUS_LOOP_SLEEP_MS
+        value: "90000"
+      - key: CONTINUOUS_FIRM_BATCH
+        value: "5"
+      - key: USER_AGENT
+        value: TaxoToolsBot/1.0 (+https://taxotools.com)
+      - key: COMMON_CRAWL_INDEX
+        value: CC-MAIN-2026-17
+      # Set these in Render dashboard (copy from your Taxotools .env):
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        sync: false
+      - key: OPEN_PAGERANK_API_KEY
+        sync: false
+      - key: COMPANIES_HOUSE_API_KEY
+        sync: false
+      - key: DIRECT_URL
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: KEYWORDS_EVERYWHERE_API_KEY
+        sync: false
+      - key: SERP_API_KEY
+        sync: false

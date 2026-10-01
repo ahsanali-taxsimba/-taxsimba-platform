@@ -1,0 +1,266 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Apple UK Store + Taxotools UI design system */
+  --bg-main: #f5f5f7;
+  --bg-panel: #ffffff;
+  --bg-hero: #eef3fb;
+  --bg-elevated: rgba(255, 255, 255, 0.72);
+  --bg-muted: #eeeeef;
+  --text-main: #1d1d1f;
+  --text-inverse: #ffffff;
+  --text-secondary: #86868b;
+  --brand-primary: #0a2a6a;
+  --accent-blue: #0071e3;
+  --accent-soft: #e8f2ff;
+  --link-blue: #2997ff;
+  --link-blue-hover: #0066cc;
+  --border-subtle: #d2d2d7;
+  --success: #34c759;
+  --warn: #ff9f0a;
+  --danger: #ff3b30;
+  --glass: rgba(255, 255, 255, 0.62);
+  --glass-border: rgba(255, 255, 255, 0.55);
+  --neu-light: #ffffff;
+  --neu-dark: #e8e8ed;
+  --gradient-a: #0071e3;
+  --gradient-b: #64d2ff;
+
+  /* Legacy aliases remapped so existing Tailwind tokens stay in sync */
+  --ink: var(--text-main);
+  --accent: var(--accent-blue);
+  --surface: var(--bg-panel);
+  --font-sans: "SF Pro Text", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --font-display: "SF Pro Text", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  /* Brand stays #0A2A6A — place .brand-text on light elevated surfaces for contrast */
+  --bg-hero: #0b1224;
+}
+
+.brand-text {
+  color: var(--brand-primary);
+}
+
+/* When brand sits on a dark band, lift it onto a light glass chip for WCAG contrast */
+.brand-text-on-dark {
+  display: inline-block;
+  color: var(--brand-primary);
+  background: rgba(255, 255, 255, 0.92);
+  padding: 0.05em 0.28em;
+  border-radius: 0.28em;
+  box-shadow: 0 8px 24px rgba(10, 42, 106, 0.12);
+}
+
+.ui-glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 8px 32px rgba(29, 29, 31, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.ui-neu {
+  background: var(--bg-panel);
+  box-shadow: 8px 8px 20px rgba(29, 29, 31, 0.08), -6px -6px 16px rgba(255, 255, 255, 0.85);
+}
+
+@layer base {
+  html,
+  body {
+    min-height: 100%;
+  }
+
+  body {
+    margin: 0;
+    color: var(--text-main);
+    background: var(--bg-main);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.47059;
+    font-weight: 400;
+    letter-spacing: -0.022em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  main {
+    width: 100%;
+  }
+
+  section {
+    padding: 80px 40px;
+  }
+
+  section:nth-of-type(even) {
+    background: var(--bg-panel);
+  }
+
+  section.hero-band,
+  section[data-band="hero"] {
+    background: var(--bg-hero);
+    color: var(--text-inverse);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: inherit;
+    margin: 0;
+    font-family: var(--font-display);
+  }
+
+  h1 {
+    font-size: 56px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.07;
+  }
+
+  h2 {
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.1;
+  }
+
+  h3 {
+    font-size: 34px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+
+  h4 {
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+
+  p {
+    margin: 0;
+    color: inherit;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  /* Content links follow Apple Store link blue; nav keeps inherited text colour */
+  p a,
+  li a:not([class]),
+  .content-link {
+    color: var(--link-blue);
+  }
+
+  p a:hover,
+  li a:not([class]):hover,
+  .content-link:hover {
+    color: var(--link-blue-hover);
+  }
+
+  button,
+  .btn,
+  .btn-primary {
+    font-family: var(--font-sans);
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  button:not([class*="rounded"]),
+  .btn,
+  .btn-primary {
+    background: var(--accent-blue);
+    color: var(--text-inverse);
+    border: 0;
+    border-radius: 999px;
+    padding: 10px 24px;
+    box-shadow: none;
+    background-image: none;
+    cursor: pointer;
+  }
+
+  button:not([class*="rounded"]):hover,
+  .btn:hover,
+  .btn-primary:hover {
+    background: var(--link-blue-hover);
+    color: var(--text-inverse);
+  }
+
+  label {
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer components {
+  .panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-subtle);
+    border-radius: 18px;
+  }
+
+  .section-pad {
+    padding: 80px 40px;
+  }
+
+  .hero-band {
+    background: var(--bg-hero);
+    color: var(--text-main);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.will-change-transform {
+  will-change: transform, opacity;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 40px;
+  }
+
+  h2 {
+    font-size: 32px;
+  }
+
+  h3 {
+    font-size: 28px;
+  }
+
+  h4 {
+    font-size: 24px;
+  }
+
+  section,
+  .section-pad {
+    padding: 56px 20px;
+  }
+}

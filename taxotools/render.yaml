@@ -1,0 +1,82 @@
+# TaxoTools frontend on Render
+# Dashboard: New → Blueprint → connect repo → select this file
+# Or create a Web Service manually using the settings below.
+#
+# Root of Blueprint: taxotools/ (this folder)
+# After first deploy, set NEXT_PUBLIC_APP_URL / AUTH_URL / NEXTAUTH_URL
+# to your Render URL, e.g. https://taxotools-web.onrender.com
+
+services:
+  - type: web
+    name: taxotools-web
+    runtime: node
+    plan: free
+    region: frankfurt
+    rootDir: .
+    buildCommand: npm install && npm run build -w @taxotools/database && npm run build -w @taxotools/shared && npm run build -w @taxotools/integrations && npm run build -w @taxotools/web
+    startCommand: npm run start -w @taxotools/web
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "20"
+      # Set these in the Render dashboard (Do not commit secrets)
+      - key: DATABASE_URL
+        sync: false
+      - key: DIRECT_URL
+        sync: false
+      - key: AUTH_SECRET
+        sync: false
+      - key: NEXTAUTH_SECRET
+        sync: false
+      - key: NEXT_PUBLIC_APP_URL
+        sync: false
+      - key: AUTH_URL
+        sync: false
+      - key: NEXTAUTH_URL
+        sync: false
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        sync: false
+      - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+        sync: false
+      # UK crawler already on Fly — optional for UI links/tools
+      - key: TAXOTOOLS_CRAWLER_URL
+        value: https://taxotools-crawler.fly.dev
+
+  # Optional background worker (paid/starter plan recommended; free spins down)
+  - type: worker
+    name: taxotools-worker
+    runtime: node
+    plan: free
+    region: frankfurt
+    rootDir: .
+    buildCommand: npm install && npm run build -w @taxotools/database && npm run build -w @taxotools/shared && npm run build -w @taxotools/integrations && npm run build -w @taxotools/worker
+    startCommand: npm run start -w @taxotools/worker
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "20"
+      - key: DATABASE_URL
+        sync: false
+      - key: DIRECT_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: AUTH_SECRET
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
