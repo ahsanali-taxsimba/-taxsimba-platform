@@ -9,17 +9,15 @@ export const preferredRegion = ["lhr1"];
 const display = Fraunces({
   subsets: ["latin"],
   variable: "--font-display",
-  weight: ["600", "700"],
+  weight: ["500", "600", "700"],
   display: "swap",
-  preload: true,
 });
 
 const sans = Source_Sans_3({
   subsets: ["latin"],
   variable: "--font-sans",
-  weight: ["400", "600"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
-  preload: true,
 });
 
 export const metadata: Metadata = {
