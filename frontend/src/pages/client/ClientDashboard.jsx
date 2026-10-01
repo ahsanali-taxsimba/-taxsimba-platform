@@ -7,14 +7,18 @@ import { Panel } from "@/components/StatCard";
 import { StatusBadge } from "@/components/StatusBadge";
 import { useAuth } from "@/context/AuthContext";
 import { api, d } from "@/lib/api";
+import { useContent } from "@/lib/content";
+import { sharedServiceParams, useEntitlements } from "@/lib/services";
 
 export default function ClientDashboard() {
   const { user } = useAuth();
+  const t = useContent();
   const [cs, setCs] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [offers, setOffers] = useState([]);
-  const [mtdActive, setMtdActive] = useState(null);
   const [profileName, setProfileName] = useState("");
+  const entitlements = useEntitlements();
+  const mtdActive = entitlements.loaded ? entitlements.mtd : null;
 
   useEffect(() => {
     api.get("/cases").then(async ({ data }) => {
@@ -23,15 +27,16 @@ export default function ClientDashboard() {
       const { data: full } = await api.get(`/cases/${sa[0].id}`);
       setCs(full);
     });
-    api.get("/tasks", { params: { status: "OPEN", service_type: "SELF_ASSESSMENT" } }).then(({ data }) => setTasks(data));
     api.get("/my-offers").then(({ data }) => setOffers(data));
     api.get("/my-profile").then(({ data }) => setProfileName((data.name || "").trim()))
       .catch(() => {});
-    api.get("/my-services")
-      .then(({ data }) => setMtdActive(
-        (data.services || []).some((s) => s.service_type === "MTD_INCOME_TAX" && s.status === "ACTIVE")))
-      .catch(() => {});
   }, []);
+
+  useEffect(() => {
+    if (!entitlements.loaded) return;
+    api.get("/tasks", { params: { status: "OPEN", ...sharedServiceParams(entitlements) } })
+      .then(({ data }) => setTasks(data));
+  }, [entitlements]);
   // Name comes from the authenticated profile record, never hard-coded.
   const clientName = profileName || (user?.name || "").trim();
   const openTasks = tasks.length;
@@ -47,9 +52,9 @@ export default function ClientDashboard() {
       <div className="space-y-6">
         {!cs && mtdActive ? (
           <div data-testid="mtd-portal-card" className="bg-white border border-[#16A05D] rounded-xl p-8">
-            <h2 className="text-lg md:text-xl font-semibold text-[#161B18]">Making Tax Digital for Income Tax</h2>
+            <h2 className="text-lg md:text-xl font-semibold text-[#161B18]">{t("client.dashboard.mtd_card.heading", "Making Tax Digital for Income Tax")}</h2>
             <p className="text-sm text-[#626A65] mt-2 max-w-xl">
-              Your MTD service is active. Your quarterly updates and Final Declaration are in your MTD area.
+              {t("client.dashboard.mtd_card.body", "Your MTD service is active. Your quarterly updates and Final Declaration are in your MTD area.")}
             </p>
             <Link to="/mtd" data-testid="open-mtd-portal-btn"
               className="inline-flex mt-5 px-5 py-2.5 rounded-lg bg-[#078A4B] text-white text-sm font-semibold hover:bg-[#006B3C] transition-colors">
@@ -61,10 +66,9 @@ export default function ClientDashboard() {
             <div className="flex items-start gap-4">
               <FileCheck2 size={22} color="#16A05D" className="mt-1" />
               <div>
-                <h2 className="text-lg md:text-xl font-semibold text-[#161B18]">Your tax return is ready to review</h2>
+                <h2 className="text-lg md:text-xl font-semibold text-[#161B18]">{t("client.dashboard.ready.heading", "Your tax return is ready to review")}</h2>
                 <p className="text-sm text-[#626A65] mt-2 max-w-xl">
-                  Your accountant has prepared your return and it has been approved by our internal review team.
-                  Please review it and approve when you're happy.
+                  {t("client.dashboard.ready.body", "Your accountant has prepared your return and it has been approved by our internal review team. Please review it and approve when you're happy.")}
                 </p>
                 <Link to="/my-return" data-testid="review-my-return-btn"
                   className="inline-flex mt-5 px-5 py-2.5 rounded-lg bg-[#078A4B] text-white text-sm font-semibold hover:bg-[#006B3C] transition-colors">
@@ -78,10 +82,9 @@ export default function ClientDashboard() {
             <div className="flex items-start gap-4">
               <CheckCircle2 size={22} color="#16A05D" className="mt-1" />
               <div>
-                <h2 className="text-lg md:text-xl font-semibold text-[#161B18]">Your return has been submitted to HMRC</h2>
+                <h2 className="text-lg md:text-xl font-semibold text-[#161B18]">{t("client.dashboard.submitted.heading", "Your return has been submitted to HMRC")}</h2>
                 <p className="text-sm text-[#626A65] mt-2 max-w-xl">
-                  We've submitted your tax return and you'll find your submission reference and final documents on
-                  My Tax Return. There's nothing more for you to do.
+                  {t("client.dashboard.submitted.body", "We've submitted your tax return and you'll find your submission reference and final documents on My Tax Return. There's nothing more for you to do.")}
                 </p>
                 <Link to="/my-return" data-testid="view-submission-btn"
                   className="inline-flex mt-5 px-5 py-2.5 rounded-lg bg-[#078A4B] text-white text-sm font-semibold hover:bg-[#006B3C] transition-colors">
@@ -95,10 +98,9 @@ export default function ClientDashboard() {
             <div className="flex items-start gap-4">
               <AlertCircle size={22} color="#E6A23C" className="mt-1" />
               <div>
-                <h2 className="text-lg md:text-xl font-semibold text-[#161B18]">Action required</h2>
+                <h2 className="text-lg md:text-xl font-semibold text-[#161B18]">{t("client.dashboard.action_required.heading", "Action required")}</h2>
                 <p className="text-sm text-[#626A65] mt-2 max-w-xl">
-                  We still need some information from you. Your accountant needs the following items before they can
-                  continue preparing your tax return.
+                  {t("client.dashboard.action_required.body", "We still need some information from you. Your accountant needs the following items before they can continue preparing your tax return.")}
                 </p>
                 <Link to="/tasks" data-testid="view-required-items-btn"
                   className="inline-flex mt-5 px-5 py-2.5 rounded-lg bg-[#078A4B] text-white text-sm font-semibold hover:bg-[#006B3C] transition-colors">
@@ -112,12 +114,11 @@ export default function ClientDashboard() {
             <div className="flex items-start gap-4">
               <CheckCircle2 size={22} color="#16A05D" className="mt-1" />
               <div>
-                <h2 className="text-lg md:text-xl font-semibold text-[#161B18]">You're all up to date</h2>
+                <h2 className="text-lg md:text-xl font-semibold text-[#161B18]">{t("client.dashboard.up_to_date.heading", "You're all up to date")}</h2>
                 <p className="text-sm text-[#626A65] mt-2 max-w-xl">
-                  We have everything we need for now. Your accountant is reviewing your information and documents.
-                  We'll let you know if anything else is required.
+                  {t("client.dashboard.up_to_date.body", "We have everything we need for now. Your accountant is reviewing your information and documents. We'll let you know if anything else is required.")}
                 </p>
-                <p className="text-xs font-semibold text-[#078A4B] mt-4">No action required from you right now.</p>
+                <p className="text-xs font-semibold text-[#078A4B] mt-4">{t("client.dashboard.up_to_date.note", "No action required from you right now.")}</p>
               </div>
             </div>
           </div>
@@ -136,6 +137,19 @@ export default function ClientDashboard() {
             </Link>
           </div>
         ))}
+
+        {cs && mtdActive === true && (
+          <div data-testid="mtd-service-card" className="bg-white border border-[#E3E7E4] rounded-xl p-6 sm:p-8">
+            <h2 className="text-base md:text-lg font-semibold text-[#161B18]">{t("client.dashboard.mtd_card.heading", "Making Tax Digital for Income Tax")}</h2>
+            <p className="text-sm text-[#626A65] mt-2 max-w-xl">
+              {t("client.dashboard.mtd_card.body", "Your MTD service is active. Your quarterly updates and Final Declaration are in your MTD area.")}
+            </p>
+            <Link to="/mtd" data-testid="open-mtd-service-btn"
+              className="inline-flex mt-5 px-5 py-2.5 rounded-lg bg-[#078A4B] text-white text-sm font-semibold hover:bg-[#006B3C] transition-colors">
+              Open MTD for Income Tax
+            </Link>
+          </div>
+        )}
 
         {cs && mtdActive === false && (
           <div data-testid="mtd-informational-card" className="bg-white border border-[#E3E7E4] rounded-xl p-6 sm:p-8">

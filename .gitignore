@@ -94,3 +94,9 @@ android-sdk/
 credentials.json
 *.key
 .credentials
+
+# Parity harness artifacts
+.parity-venv/
+parity/*.log
+parity/*-run.json
+parity/PARITY_REPORT.md

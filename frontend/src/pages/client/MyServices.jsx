@@ -4,6 +4,7 @@ import AppShell from "@/components/AppShell";
 import { Empty, Panel } from "@/components/StatCard";
 import { StatusBadge } from "@/components/StatusBadge";
 import { api, apiError, d, dt, money } from "@/lib/api";
+import { useContent } from "@/lib/content";
 
 // Customer-facing payment wording only -- never the provider's raw status string.
 const PAY_LABEL = {
@@ -15,7 +16,31 @@ const PAY_TONE = {
   cancelled: "#626A65",
 };
 
+// Package marketing copy is configuration-only: nothing renders unless it has been configured,
+// so the default screen is exactly as it is today.
+function PackageCopy({ code, t }) {
+  const description = t(`package.${code}.description`, "");
+  const features = t(`package.${code}.features`, "")
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+  if (!description && !features.length) return null;
+  return (
+    <div className="mt-2" data-testid={`package-copy-${code}`}>
+      {description && <p className="text-xs text-[#626A65]">{description}</p>}
+      {features.length > 0 && (
+        <ul className="mt-1 space-y-0.5">
+          {features.map((f) => (
+            <li key={f} className="text-xs text-[#626A65]">· {f}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 export default function MyServices() {
+  const t = useContent();
   const [data, setData] = useState(null);
   const [upgrade, setUpgrade] = useState(null);
   const [offers, setOffers] = useState([]);
@@ -137,7 +162,7 @@ export default function MyServices() {
               <div key={o.id} data-testid={`offer-${o.id}`} className="border border-[#16A05D] rounded-lg p-5 mb-4">
                 <div className="font-semibold text-[#161B18]">{o.service_name} recommended</div>
                 <p className="text-sm text-[#626A65] mt-1">
-                  {o.message || "Your accountant believes this service is right for you. Our team has reviewed and approved this recommendation."}
+                  {o.message || t("client.services.offer.default_message", "Your accountant believes this service is right for you. Our team has reviewed and approved this recommendation.")}
                 </p>
                 <dl className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-4 text-sm">
                   <div><dt className="text-xs uppercase text-[#626A65]">Service</dt><dd className="font-semibold">{o.service_name}</dd></div>
@@ -188,6 +213,7 @@ export default function MyServices() {
                       <div className="text-xs text-[#626A65] mt-1">
                         Current package credit {money(o.current_package_credit)} · additional amount payable {money(o.additional_amount_payable)}
                       </div>
+                      <PackageCopy code={o.code} t={t} />
                     </button>
                   ))}
                   {opt && (
@@ -215,8 +241,7 @@ export default function MyServices() {
         {payReqs.length > 0 && (
           <Panel title="Additional work payment required" testId="additional-work-panel">
             <p className="text-sm text-[#626A65] mb-5">
-              Additional work has been identified outside your current package. Please review the
-              details below.
+              {t("client.services.additional_work.helper", "Additional work has been identified outside your current package. Please review the details below.")}
             </p>
             <ul className="space-y-4">
               {payReqs.map((p) => (

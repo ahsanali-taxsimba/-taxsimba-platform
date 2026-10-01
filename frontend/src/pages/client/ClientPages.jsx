@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import AppShell from "@/components/AppShell";
 import { Journey } from "@/components/Journey";
 import { Empty, Panel } from "@/components/StatCard";
 import { DocStatusBadge } from "@/components/StatusBadge";
 import { api, d, dt, openDocument } from "@/lib/api";
+import { useContent } from "@/lib/content";
+import { sharedServiceParams, useEntitlements } from "@/lib/services";
 
 export function ClientJourneyPage() {
   const [cs, setCs] = useState(null);
@@ -24,10 +26,14 @@ export function ClientTasks() {
   const [tab, setTab] = useState("open");
   const [busy, setBusy] = useState(null);
   const highlight = new URLSearchParams(window.location.search).get("task");
+  const entitlements = useEntitlements();
 
-  const load = () => api.get("/tasks", { params: { service_type: "SELF_ASSESSMENT" } })
-    .then(({ data }) => setTasks(data));
-  useEffect(() => { load(); }, []);
+  const load = useCallback(
+    () => api.get("/tasks", { params: sharedServiceParams(entitlements) })
+      .then(({ data }) => setTasks(data)),
+    [entitlements],
+  );
+  useEffect(() => { if (entitlements.loaded) load(); }, [entitlements, load]);
 
   const upload = async (task, file) => {
     setBusy(task.id);
@@ -108,16 +114,29 @@ export function ClientTasks() {
 }
 
 export function ClientDocuments() {
+  const t = useContent();
   const [docs, setDocs] = useState([]);
   const [filter, setFilter] = useState("all");
   const [cs, setCs] = useState(null);
   const [notice, setNotice] = useState("");
 
-  const load = (f) => api.get("/documents", {
-    params: f === "all" ? { service_type: "SELF_ASSESSMENT" } : { filter: f, service_type: "SELF_ASSESSMENT" },
-  }).then(({ data }) => setDocs(data));
-  useEffect(() => { load(filter); }, [filter]);
-  useEffect(() => { api.get("/cases", { params: { service_type: "SELF_ASSESSMENT" } }).then(({ data }) => data.length && setCs(data[0])); }, []);
+  const entitlements = useEntitlements();
+
+  const load = useCallback(
+    (f) => {
+      const scope = sharedServiceParams(entitlements);
+      return api.get("/documents", {
+        params: f === "all" ? scope : { filter: f, ...scope },
+      }).then(({ data }) => setDocs(data));
+    },
+    [entitlements],
+  );
+  useEffect(() => { if (entitlements.loaded) load(filter); }, [filter, entitlements, load]);
+  useEffect(() => {
+    if (!entitlements.loaded) return;
+    api.get("/cases", { params: sharedServiceParams(entitlements) })
+      .then(({ data }) => data.length && setCs(data[0]));
+  }, [entitlements]);
 
   const upload = async (file, input) => {
     setNotice("");
@@ -145,7 +164,7 @@ export function ClientDocuments() {
   };
 
   return (
-    <AppShell title="Documents" subtitle="Requested items, your uploads and final documents.">
+    <AppShell title={t("client.documents.title", "Documents")} subtitle={t("client.documents.subtitle", "Requested items, your uploads and final documents.")}>
       <Panel
         title="Documents"
         testId="client-documents-panel"
@@ -170,7 +189,7 @@ export function ClientDocuments() {
             </button>
           ))}
         </div>
-        {!docs.length && <Empty text="Nothing here yet." />}
+        {!docs.length && <Empty text={t("client.documents.empty", "Nothing here yet.")} />}
 
         {/* Mobile: readable cards instead of four cramped columns */}
         <ul className="md:hidden space-y-3" data-testid="documents-cards">
@@ -238,13 +257,18 @@ export function ClientMessages() {
   const [cs, setCs] = useState(null);
   const [msgs, setMsgs] = useState([]);
   const [body, setBody] = useState("");
+  const entitlements = useEntitlements();
 
-  const load = (id) => api.get("/messages", { params: { case_id: id } }).then(({ data }) => setMsgs(data));
+  const load = useCallback(
+    (id) => api.get("/messages", { params: { case_id: id } }).then(({ data }) => setMsgs(data)),
+    [],
+  );
   useEffect(() => {
-    api.get("/cases", { params: { service_type: "SELF_ASSESSMENT" } }).then(({ data }) => {
+    if (!entitlements.loaded) return;
+    api.get("/cases", { params: sharedServiceParams(entitlements) }).then(({ data }) => {
       if (data.length) { setCs(data[0]); load(data[0].id); }
     });
-  }, []);
+  }, [entitlements, load]);
 
   const send = async () => {
     if (!body.trim()) return;

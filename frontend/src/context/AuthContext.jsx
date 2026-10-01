@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { api } from "@/lib/api";
+import { resetEntitlementsCache } from "@/lib/services";
 
 const AuthContext = createContext(null);
 
@@ -16,6 +17,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = async (email, password) => {
+    resetEntitlementsCache();
     const { data } = await api.post("/auth/login", { email, password });
     if (data.two_factor_required) return data; // no session until the code is verified
     setUser(data.user);
@@ -41,6 +43,7 @@ export function AuthProvider({ children }) {
   };
 
   const logout = async () => {
+    resetEntitlementsCache();
     localStorage.removeItem("ts_token");
     try {
       await api.post("/auth/logout");
