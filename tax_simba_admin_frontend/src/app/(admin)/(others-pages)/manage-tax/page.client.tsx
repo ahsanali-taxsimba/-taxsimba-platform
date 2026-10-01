@@ -82,12 +82,16 @@ const AdminTaxReturnManagement: React.FC = () => {
             : true;
 
     const c = taxReturn?.client || {};
+    const fullName = `${c.name || ""} ${c.surname || ""}`.trim();
     const searchMatch =
       !query ||
       toLower(c.name).includes(query) ||
       toLower(c.surname).includes(query) ||
+      toLower(fullName).includes(query) ||
       toLower(c.email).includes(query) ||
-      toLower(taxReturn?.taxReturnId).includes(query);
+      toLower(taxReturn?.taxReturnId).includes(query) ||
+      toLower((taxReturn as { caseRef?: string; clientName?: string })?.caseRef).includes(query) ||
+      toLower((taxReturn as { clientName?: string })?.clientName).includes(query);
 
     return statusMatch && searchMatch;
   });

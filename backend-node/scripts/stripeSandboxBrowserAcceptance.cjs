@@ -580,12 +580,14 @@ async function main() {
   const mtdPage = await browser.newPage({ viewport: { width: 1440, height: 900 } });
   attachNet(mtdPage, "mtd");
   try {
+    // Register via MTD handoff so onboarding intent is MTD when session lacks category.
+    await mtdPage.goto(`${CLIENT}/register?role=MTD`, { waitUntil: "networkidle", timeout: 90000 });
     await registerAndVerify(mtdPage, { name: "Stripe", surname: "MTD", email: mtdEmail, pass });
-    // Frontend catalogue only accepts category=mtd (simbian is aliased); require Comply package.
+    // Explicit category=mtd must win over any session taxSimba default.
     let status, hosted;
     ({ status, hosted } = await startCheckoutFromPlanlist(mtdPage, { category: "mtd", packageText: "Comply", planIndex: 0 }));
     if (!/checkout\.stripe\.com/i.test(mtdPage.url()) && !hosted) {
-      ({ status, hosted } = await startCheckoutFromPlanlist(mtdPage, { category: "mtd", packageText: "Simbian", planIndex: 0 }));
+      ({ status, hosted } = await startCheckoutFromPlanlist(mtdPage, { category: "mtd", packageText: "Simbian Comply", planIndex: 0 }));
     }
     await shot(mtdPage, "20-mtd-hosted");
     const mtdHosted = /checkout\.stripe\.com/i.test(mtdPage.url());
