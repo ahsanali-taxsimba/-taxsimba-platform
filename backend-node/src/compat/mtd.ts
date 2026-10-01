@@ -603,30 +603,39 @@ compatMtdRouter.post(
       } catch {
         continue;
       }
-      const stored = await putObject(
-        path,
-        file.buffer,
-        file.mimetype || "application/octet-stream",
-      );
-      await col("documents").insertOne({
-        id: randomUUID(),
-        case_id: kase.id,
-        client_user_id: kase.client_user_id,
-        tax_year: kase.tax_year,
-        document_type: typesRaw[i] || "Other",
-        name: file.originalname || "document",
-        status: "Uploaded",
-        storage_path: stored.path,
-        uploader_id: me.id,
-        uploader_name: me.name,
-        content_type: file.mimetype,
-        size: stored.size ?? file.size,
-        is_internal: false,
-        is_deleted: false,
-        upload_date: nowIso(),
-        created_at: nowIso(),
-        mtd_period_id: null,
-      });
+      try {
+        const stored = await putObject(
+          path,
+          file.buffer,
+          file.mimetype || "application/octet-stream",
+        );
+        await col("documents").insertOne({
+          id: randomUUID(),
+          case_id: kase.id,
+          client_user_id: kase.client_user_id,
+          tax_year: kase.tax_year,
+          document_type: typesRaw[i] || "Other",
+          name: file.originalname || "document",
+          status: "Uploaded",
+          storage_path: stored.path,
+          uploader_id: me.id,
+          uploader_name: me.name,
+          content_type: file.mimetype,
+          size: stored.size ?? file.size,
+          is_internal: false,
+          is_deleted: false,
+          upload_date: nowIso(),
+          created_at: nowIso(),
+          mtd_period_id: null,
+        });
+      } catch (storageErr) {
+        // Do not hang the engagement submit if a single attachment fails storage.
+        // Surface a clear error so the FE loading state resets.
+        throw httpError(
+          502,
+          `Failed to store uploaded document "${file.originalname || "document"}". Please retry without attachments or contact support.`,
+        );
+      }
     }
 
     await logActivity(String(kase.id), "MTD tax info submitted", me);

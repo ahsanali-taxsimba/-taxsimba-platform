@@ -42,7 +42,7 @@ const AdminTaxReturnManagement: React.FC = () => {
   const canAssign = canAssignCases(session?.user?.role);
   const statusMap: Record<TabStatus, string[]> = {
     pending: ['pending_payment'],
-    assigned: ['assigned', 'preparation_started', 'draft_ready', 'final_submitted'],
+    assigned: ['assigned', 'preparation_started', 'draft_ready', 'client_approved', 'ready_for_submission', 'final_submitted'],
     completed: ['completed'],
   };
 
@@ -67,7 +67,7 @@ const AdminTaxReturnManagement: React.FC = () => {
   const toLower = (v?: string) => (v || '').toLowerCase();
   const query = toLower(searchTerm);
   const PENDING_STATUSES = ['pending_payment', 'payment_completed', 'pending_assignment'];
-  const ASSIGNED_STATUSES = ['assigned', 'preparation_started', 'draft_ready', 'final_submitted'];
+  const ASSIGNED_STATUSES = ['assigned', 'preparation_started', 'draft_ready', 'client_approved', 'ready_for_submission', 'final_submitted'];
   const COMPLETED_STATUSES = ['completed'];
   const filteredReturns = (taxReturns || []).filter(({ taxReturn }) => {
     const status = taxReturn?.status || '';
@@ -106,7 +106,7 @@ const AdminTaxReturnManagement: React.FC = () => {
       ['pending_payment', 'payment_completed', 'pending_assignment'].includes(item.taxReturn.status)
     ).length,
     assigned: taxReturns.filter(item =>
-      ['assigned', 'preparation_started', 'draft_ready', 'final_submitted'].includes(item.taxReturn.status)
+      ['assigned', 'preparation_started', 'draft_ready', 'client_approved', 'ready_for_submission', 'final_submitted'].includes(item.taxReturn.status)
     ).length,
     completed: taxReturns.filter(item =>
       item.taxReturn.status === 'completed'

@@ -56,9 +56,11 @@ function nodeToToxelListStatus(status: string): string {
       return "preparation_started";
     case "ADMIN_APPROVED":
     case "AWAITING_CLIENT_APPROVAL":
-    case "CLIENT_APPROVED":
-    case "READY_FOR_SUBMISSION":
       return "draft_ready";
+    case "CLIENT_APPROVED":
+      return "client_approved";
+    case "READY_FOR_SUBMISSION":
+      return "ready_for_submission";
     case "SUBMISSION_IN_PROGRESS":
     case "SUBMITTED":
     case "SUBMISSION_ISSUE":

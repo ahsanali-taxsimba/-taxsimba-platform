@@ -35,6 +35,11 @@ const statusToLabelAndClass = (status) => {
       return { label: "Preparation started", className: "wip active" };
     case "draft_ready":
       return { label: "Work In Progress • Draft ready", className: "wip active" };
+    case "client_approved":
+      return { label: "Client approved", className: "wip active" };
+    case "ready_for_submission":
+      return { label: "Ready for submission", className: "wip active" };
+    case "final_submitted":
     case "submitted":
       return { label: "Final submission", className: "completed active" };
     case "completed":
@@ -46,15 +51,26 @@ const statusToLabelAndClass = (status) => {
 
 // fallback steps if detail API not yet loaded (keeps your original feel)
 const fallbackStepsFromStatus = (status) => {
-  const order = ["assigned", "preparation_started", "draft_ready", "submitted"];
+  const order = [
+    "assigned",
+    "preparation_started",
+    "draft_ready",
+    "client_approved",
+    "ready_for_submission",
+    "final_submitted",
+  ];
   const labels = {
     assigned: "Assigned",
     preparation_started: "Preparation started",
     draft_ready: "Draft ready",
+    client_approved: "Client approved",
+    ready_for_submission: "Ready for submission",
+    final_submitted: "Final submission",
     submitted: "Final submission",
   };
   const s = (status || "").toLowerCase();
-  const currentIdx = Math.max(0, order.indexOf(s));
+  const normalized = s === "submitted" ? "final_submitted" : s;
+  const currentIdx = Math.max(0, order.indexOf(normalized));
   return order.map((key, idx) => ({
     key,
     label: labels[key],
@@ -187,12 +203,30 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
       }
 
       const emails = res.data?.data?.emails || [];
-      const formatted = emails.map((email) => ({
-        id: email.id,
-        sender: email.accountant?.name || "Accountant",
-        message: email.parsedEmailData?.messageText || "",
-        time: email.sentAt,
-      }));
+      const formatted = emails.map((email) => {
+        const time =
+          email.sentAt ||
+          email.createdAt ||
+          email.created_at ||
+          email.sent_at ||
+          null;
+        const message =
+          email.parsedEmailData?.messageText ||
+          email.emailData?.messageText ||
+          email.body ||
+          email.message ||
+          "";
+        return {
+          id: email.id,
+          sender:
+            email.accountant?.name ||
+            email.sender_name ||
+            email.senderName ||
+            "Accountant",
+          message,
+          time,
+        };
+      });
 
       setMessages(formatted.reverse()); // Reverse to show most recent messages first
     } catch (err) {
@@ -233,6 +267,9 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
       "assigned": User,
       "preparation_started": Clock,
       "draft_ready": FileText,
+      "client_approved": CheckCircle,
+      "ready_for_submission": FileText,
+      "final_submitted": FileText,
       "submitted": FileText,
       "completed": CheckCircle
     }

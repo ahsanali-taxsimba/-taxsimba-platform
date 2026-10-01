@@ -366,7 +366,7 @@ describe("admin, audit, help centre and invitations", () => {
     expect(invited.body.user.status).toBe("PENDING");
     expect(invited.body.user.is_active).toBe(false);
     expect(invited.body.setup_link).toContain(
-      "https://app.test.taxsimba.local/admin/invite/",
+      "https://admin.test.taxsimba.local/admin/invite/",
     );
     const firstToken = invited.body.setup_link.split("/admin/invite/")[1];
 

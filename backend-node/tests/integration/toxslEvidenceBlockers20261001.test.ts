@@ -134,7 +134,10 @@ describe("Toxsl evidence blockers 2026-10-01", () => {
       listAfter.body.data as Array<{ id: string; taxReturn?: { status?: string } }>
     ).find((r) => r.id === caseId)?.taxReturn?.status;
     // Must advance past Draft Ready after client approval.
-    expect(afterStatus).toBe("final_submitted");
+    expect(["client_approved", "ready_for_submission", "final_submitted"]).toContain(
+      afterStatus,
+    );
+    expect(afterStatus).not.toBe("draft_ready");
   });
 
   it("blocker3: staff template loads; send-to-client + client log DTO are valid", async () => {

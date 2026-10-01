@@ -222,25 +222,53 @@ export default function EngagementLetterPage() {
             });
 
             // TS-UAT-032: mint the MTD operational case at application submit (not at purchase).
-            await axios.post(
+            const applyRes = await axios.post(
                 `${apiUrl}client/apply-tax-return`,
                 { serviceType: "MTD_INCOME_TAX", service_type: "MTD_INCOME_TAX" },
                 { headers: { Authorization: `Bearer ${session?.accessToken}` } }
             );
+            if (applyRes?.data?.success === false) {
+                throw new Error(
+                    applyRes?.data?.message ||
+                        applyRes?.data?.detail ||
+                        "Failed to start tax return application.",
+                );
+            }
 
             // Do NOT set Content-Type manually — the browser must attach the multipart
             // boundary. A bare `multipart/form-data` header makes Multer hang forever
             // (Toxsl: SUBMITTING… with pending submit-tax-info).
-            await axios.post(
+            // Also strip any accidental Content-Type from axios defaults.
+            const taxInfoRes = await axios.post(
                 `${apiUrl}client/submit-tax-info`,
                 submitData,
                 {
                     headers: {
                         Authorization: `Bearer ${session?.accessToken}`,
+                        // Explicit false / omit so axios will not force multipart without boundary.
                     },
                     timeout: 120000,
+                    // Prevent axios from transforming FormData into JSON.
+                    transformRequest: [
+                        (data, headers) => {
+                            if (typeof FormData !== "undefined" && data instanceof FormData) {
+                                if (headers && typeof headers === "object") {
+                                    delete headers["Content-Type"];
+                                    delete headers["content-type"];
+                                }
+                            }
+                            return data;
+                        },
+                    ],
                 },
             );
+            if (taxInfoRes?.data?.success === false) {
+                throw new Error(
+                    taxInfoRes?.data?.message ||
+                        taxInfoRes?.data?.detail ||
+                        "Failed to submit information.",
+                );
+            }
             try {
                 await updateSession({ isTaxInfoSubmitted: true });
             } catch (sessionErr) {
@@ -255,8 +283,9 @@ export default function EngagementLetterPage() {
                     ? "Submission timed out. Please try again."
                     : err?.response?.data?.message ||
                       err?.response?.data?.detail ||
+                      err?.message ||
                       "Failed to submit information.";
-            toast.error(msg);
+            toast.error(typeof msg === "string" ? msg : "Failed to submit information.");
         } finally {
             setLoading(false);
         }

@@ -305,10 +305,11 @@ function nodeToToxelStatus(status: string): string {
     case "ADMIN_APPROVED":
     case "AWAITING_CLIENT_APPROVAL":
       return "draft_ready";
-    // Client has approved — journey must advance past Draft Ready (Toxsl blocker).
+    // Client has approved — must leave Draft Ready (Toxsl blocker).
     case "CLIENT_APPROVED":
+      return "client_approved";
     case "READY_FOR_SUBMISSION":
-      return "final_submitted";
+      return "ready_for_submission";
     case "SUBMISSION_IN_PROGRESS":
     case "SUBMITTED":
     case "SUBMISSION_ISSUE":
@@ -369,6 +370,8 @@ function toxelToPreferredNodeStatus(toxel: string, currentNodeStatus?: string): 
     pending_assignment: "AWAITING_ASSIGNMENT",
     assigned: "ASSIGNED",
     preparation_started: "IN_PREPARATION",
+    client_approved: "CLIENT_APPROVED",
+    ready_for_submission: "READY_FOR_SUBMISSION",
     final_submitted: "SUBMITTED",
     completed: "COMPLETED",
   };
@@ -403,11 +406,17 @@ async function buildProgressPayload(kase: Doc, me: Doc, hasSubmission: boolean):
     { key: "assigned", label: "Assigned", order: 1 },
     { key: "preparation_started", label: "Preparation Started", order: 2 },
     { key: "draft_ready", label: "Draft Ready", order: 3 },
+    // Authoritative post-approve stages (shared by client / accountant / admin).
+    { key: "client_approved", label: "Client Approved", order: 4 },
+    { key: "ready_for_submission", label: "Ready for Submission", order: 5 },
     // Accountant-led: external filing recorded in TaxSimba — not HMRC API.
-    { key: "final_submitted", label: "External Submission Recorded", order: 4 },
-    { key: "completed", label: "Completed", order: 5 },
+    { key: "final_submitted", label: "External Submission Recorded", order: 6 },
+    { key: "completed", label: "Completed", order: 7 },
   ];
-  const currentOrder = stepsDef.find((s) => s.key === toxelStatus)?.order ?? 0;
+  // Treat aliased keys at the same visual order when building the bar.
+  const orderFor = (key: string): number =>
+    stepsDef.find((s) => s.key === key)?.order ?? 0;
+  const currentOrder = orderFor(toxelStatus);
   const progressSteps = stepsDef.map((s) => ({
     ...s,
     completed: s.order < currentOrder,

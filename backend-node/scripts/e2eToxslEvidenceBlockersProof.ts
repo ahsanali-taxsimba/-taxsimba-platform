@@ -99,12 +99,21 @@ async function main() {
   const row = (list.body.data as Array<{ id: string; taxReturn?: { status?: string } }>).find(
     (r) => r.id === caseId,
   );
-  if (row?.taxReturn?.status !== "final_submitted") {
+  if (row?.taxReturn?.status === "draft_ready") {
     throw new Error(
-      `blocker2 FAIL — expected final_submitted after client approve, got ${row?.taxReturn?.status}`,
+      `blocker2 FAIL — expected past draft_ready after client approve, got ${row?.taxReturn?.status}`,
     );
   }
-  log("BLOCKER2 PASS — client advanced past Draft Ready to final_submitted");
+  if (
+    !["client_approved", "ready_for_submission", "final_submitted"].includes(
+      String(row?.taxReturn?.status),
+    )
+  ) {
+    throw new Error(
+      `blocker2 FAIL — unexpected status after client approve: ${row?.taxReturn?.status}`,
+    );
+  }
+  log(`BLOCKER2 PASS — client advanced past Draft Ready to ${row?.taxReturn?.status}`);
 
   // ——— Blocker 3: template + messaging ———
   const tmpl = await request(app).get("/api/compat/admin/template").set(bearer(admin));
