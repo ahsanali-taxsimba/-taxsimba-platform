@@ -21,6 +21,35 @@ export function normalizeClientOrigin(originUrl: string): string {
   return raw.replace(/\/+$/, "");
 }
 
+function isLoopbackHost(hostname: string): boolean {
+  return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1";
+}
+
+/**
+ * Prefer APP_BASE_URL when the browser Origin is a different loopback host
+ * (localhost vs 127.0.0.1). Cookie/session hosts otherwise diverge after Stripe
+ * hosted Checkout returns and package pages look logged-out.
+ */
+export function resolveCheckoutOrigin(
+  requestedOrigin: string | null | undefined,
+  appBaseUrl: string | null | undefined,
+): string {
+  const requested = String(requestedOrigin || "").trim();
+  const configured = String(appBaseUrl || "").trim().replace(/\/+$/, "");
+  if (!requested) return configured || "https://taxsimba.co.uk";
+  if (!configured) return normalizeClientOrigin(requested);
+  try {
+    const req = new URL(requested);
+    const cfg = new URL(configured);
+    if (isLoopbackHost(req.hostname) && isLoopbackHost(cfg.hostname) && req.hostname !== cfg.hostname) {
+      return `${cfg.protocol}//${cfg.host}`;
+    }
+  } catch {
+    /* fall through */
+  }
+  return normalizeClientOrigin(requested);
+}
+
 export function checkoutReturnUrls(originUrl: string): {
   success_url: string;
   cancel_url: string;

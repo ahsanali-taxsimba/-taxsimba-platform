@@ -15,10 +15,21 @@ import { handler, httpError, parseBody } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
 import { fulfil } from "../routes/payments";
 import { requireVerifiedEmail } from "../services/emailVerification";
+import { resolveCheckoutOrigin } from "../services/checkoutUrls";
 import { payments } from "../services/payments";
 import { keysToCamel, keysToSnake } from "./caseMap";
 import { sendCompatSuccess } from "./envelope";
 import { categoryToServiceType } from "./ownership";
+
+function checkoutOriginFromRequest(
+  bodyOrigin: string | null | undefined,
+  headerOrigin: string | undefined,
+): string {
+  return resolveCheckoutOrigin(
+    (bodyOrigin && String(bodyOrigin)) || headerOrigin || null,
+    process.env.APP_BASE_URL,
+  );
+}
 
 export const compatPaymentsRouter = Router();
 
@@ -81,10 +92,8 @@ compatPaymentsRouter.post(
     })) as Doc | null;
     if (svc && svc.status === "ACTIVE") throw httpError(400, "This service is already active");
 
-    const origin =
-      (body.origin_url && String(body.origin_url)) ||
-      req.header("origin") ||
-      "https://taxsimba.co.uk";
+    const origin = checkoutOriginFromRequest(body.origin_url, req.header("origin") || undefined)
+      || "https://taxsimba.co.uk";
 
     const { contentMap } = await import("../domain/content");
     const content = await contentMap();
@@ -191,10 +200,10 @@ compatPaymentsRouter.post(
     if (!mtd) {
       throw httpError(400, "Billing portal is available for active MTD subscriptions only");
     }
-    const origin =
-      String((req.body as { origin_url?: string })?.origin_url || "").trim() ||
-      req.header("origin") ||
-      "https://taxsimba.co.uk";
+    const origin = checkoutOriginFromRequest(
+      (req.body as { origin_url?: string })?.origin_url,
+      req.header("origin") || undefined,
+    ) || "https://taxsimba.co.uk";
     const returnUrl = `${String(origin).replace(/\/+$/, "")}/dashboard/my-subscriptions`;
     const provider = payments();
     if (typeof provider.createBillingPortalSession !== "function") {
@@ -408,10 +417,8 @@ compatPaymentsRouter.post(
     if (locked) throw httpError(400, `Package changes are locked at this stage (${caseStatus})`);
     const amount = Math.round(Math.max(Number(target.price) - Number(current.price), 0) * 100) / 100;
     if (amount <= 0) throw httpError(400, "No additional amount payable");
-    const origin =
-      (body.origin_url && String(body.origin_url)) ||
-      req.header("origin") ||
-      "https://taxsimba.co.uk";
+    const origin = checkoutOriginFromRequest(body.origin_url, req.header("origin") || undefined)
+      || "https://taxsimba.co.uk";
     let session;
     try {
       session = await payments().createCheckout(
