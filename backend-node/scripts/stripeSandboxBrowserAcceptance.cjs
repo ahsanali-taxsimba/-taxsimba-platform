@@ -339,7 +339,11 @@ async function main() {
   const ONLY = (process.env.STRIPE_ACCEPTANCE_ONLY || "").toLowerCase();
 
   log(`SHA ${require("child_process").execSync("git rev-parse HEAD", { cwd: "/workspace" }).toString().trim()}`);
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({
+    headless: true,
+    executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || "/usr/local/bin/google-chrome",
+    args: ["--no-sandbox", "--disable-dev-shm-usage"],
+  });
   const saEmail = `stripe-sa-${stamp}@toxsl-audit.test`;
   const mtdEmail = `stripe-mtd-${stamp}@toxsl-audit.test`;
   const cancelEmail = `stripe-cancel-${stamp}@toxsl-audit.test`;
