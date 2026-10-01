@@ -25,6 +25,7 @@ export default async function AppDashboardPage() {
 
   return (
     <DashboardMotion
+      userName={user.name}
       planName={plan?.name}
       siteCount={sites.length}
       usageItems={usage.items.filter((i) =>

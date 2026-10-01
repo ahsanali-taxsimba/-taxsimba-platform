@@ -19,9 +19,8 @@ export default async function SiteOverviewPage({
   }
   const { siteId } = await params;
 
-  const sitePromise = getSiteForUser(user.id, siteId).catch(() => null);
   const [site, health, sov] = await Promise.all([
-    sitePromise,
+    getSiteForUser(user.id, siteId).catch(() => null),
     siteHealthSummary(user.id, siteId).catch(() => null),
     aeoShareOfVoice(user.id, siteId).catch(() => []),
   ]);
@@ -41,7 +40,11 @@ export default async function SiteOverviewPage({
       healthScore={health.healthScore}
       keywordCount={site._count.keywords}
       pageCount={site._count.pages}
+      crawlCount={site._count.crawls}
+      backlinkCount={site._count.backlinks}
       sovAvg={sovAvg}
+      sov={sov}
+      issueCounts={health.issueCounts}
       groups={TOOLKIT_GROUPS.map((g) => ({
         id: g.id,
         name: g.name,

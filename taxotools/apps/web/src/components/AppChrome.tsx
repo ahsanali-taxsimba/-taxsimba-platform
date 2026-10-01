@@ -10,10 +10,10 @@ import { usePrefersReducedMotion } from "@/motion/hooks/usePrefersReducedMotion"
 import { cn } from "@/lib/utils";
 
 const topNav = [
-  { href: "/app", label: "Overview", exact: true },
+  { href: "/app", label: "Command center", exact: true },
   { href: "/app/intelligence", label: "UK Intelligence", exact: false },
-  { href: "/app/sites", label: "Projects / Sites" },
-  { href: "/app/toolkits", label: "All Toolkits" },
+  { href: "/app/sites", label: "Projects", exact: false },
+  { href: "/app/toolkits", label: "Toolkits", exact: false },
 ];
 
 const bottomNav = [
@@ -43,8 +43,9 @@ export function AppChrome({
 }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  // Collapse by default so the sidebar feels calmer; expand on demand.
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() =>
-    Object.fromEntries(TOOLKIT_GROUPS.map((g) => [g.id, true])),
+    Object.fromEntries(TOOLKIT_GROUPS.map((g) => [g.id, false])),
   );
   const reduce = usePrefersReducedMotion();
 
@@ -106,7 +107,7 @@ export function AppChrome({
 
         <div>
           <p className="mb-2 px-2.5 text-[10px] font-semibold uppercase tracking-wider text-ink-500">
-            Advanced Search Atlas services · {toolCount}
+            Auto SEO modules · {toolCount}
           </p>
           <div className="space-y-2">
             {TOOLKIT_GROUPS.map((group) => {
@@ -204,7 +205,7 @@ export function AppChrome({
         </SlideInLeft>
 
         <div className="flex min-w-0 flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-ink-100 bg-white/80 px-6 py-4 backdrop-blur md:px-8">
+          <header className="flex items-center justify-between border-b border-ink-100 bg-white/90 px-6 py-4 backdrop-blur md:px-8">
             <div className="flex items-center gap-3">
               <MotionButton
                 type="button"
@@ -219,14 +220,32 @@ export function AppChrome({
                 <p className="text-sm font-medium text-ink-900">{email}</p>
               </div>
             </div>
-            <Link
-              href="/onboarding"
-              className="rounded-lg border border-ink-100 px-3 py-1.5 text-sm text-ink-700 hover:bg-ink-50"
-            >
-              Add site
-            </Link>
+            <div className="flex items-center gap-2">
+              {primarySiteId && (
+                <Link
+                  href={`/app/sites/${primarySiteId}`}
+                  className="hidden rounded-lg border border-ink-100 px-3 py-1.5 text-sm text-ink-700 hover:bg-ink-50 sm:inline-flex"
+                >
+                  Site dashboard
+                </Link>
+              )}
+              <Link
+                href="/app/intelligence"
+                className="hidden rounded-lg border border-ink-100 px-3 py-1.5 text-sm text-ink-700 hover:bg-ink-50 sm:inline-flex"
+              >
+                Intelligence
+              </Link>
+              <Link
+                href="/onboarding"
+                className="rounded-lg bg-accent px-3 py-1.5 text-sm font-semibold text-white hover:bg-accent-dark"
+              >
+                Add site
+              </Link>
+            </div>
           </header>
-          <div className="px-6 py-8 md:px-8">{children}</div>
+          <div className="bg-[radial-gradient(ellipse_at_top,_rgba(15,159,143,0.08),_transparent_45%)] px-6 py-8 md:px-8">
+            {children}
+          </div>
         </div>
       </div>
 
