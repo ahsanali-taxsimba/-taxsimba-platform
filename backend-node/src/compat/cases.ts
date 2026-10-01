@@ -523,7 +523,8 @@ async function adminApproveSubmittedDraft(
   me: Doc,
   note?: string | null,
 ): Promise<{ updated: Doc; released: number }> {
-  if (String(me.role) !== "ADMIN" && String(me.role) !== "SUPER_ADMIN") {
+  // Admin operational actor only — SUPER_ADMIN is oversight and cannot approve drafts.
+  if (String(me.role) !== "ADMIN") {
     throw httpError(403, "Insufficient permissions");
   }
   const { notify } = await import("../domain/workflow");
@@ -596,7 +597,7 @@ async function handleProgressWrite(req: import("express").Request, res: import("
       // approve path (release docs + notify), not a bare status flip.
       if (
         (current === "READY_FOR_ADMIN_REVIEW" || current === "ADMIN_REVIEW") &&
-        (String(me.role) === "ADMIN" || String(me.role) === "SUPER_ADMIN")
+        String(me.role) === "ADMIN"
       ) {
         const { updated } = await adminApproveSubmittedDraft(
           caseId,
