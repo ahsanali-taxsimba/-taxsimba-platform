@@ -227,22 +227,32 @@ async function startCheckoutFromPlanlist(page, { category, packageText, planInde
   await page.waitForTimeout(2000);
   // Cards use "Select Plan" buttons (not <a href="/planlist/...">). Prefer package-named card.
   // Prefer the tightest package-name match so MTD "Comply" never falls through to SA Simple.
+  const cta = /select plan|buy again|renew plan|get started/i;
   let card = page
     .locator(".package-card, .plan-card, [class*='package'], [class*='plan'], .col, .card, section, div")
     .filter({ hasText: new RegExp(packageText, "i") })
-    .filter({ has: page.getByRole("button", { name: /select plan|buy again|renew plan|get started/i }) })
+    .filter({ has: page.getByRole("button", { name: cta }) })
     .first();
-  if (!(await card.count()) && /comply|simbian|mtd/i.test(packageText)) {
-    card = page.getByRole("button", { name: /select plan/i }).filter({ hasText: /comply|simbian|mtd/i }).first();
+  // MTD marketing cards use "Get Started" (not "Select Plan").
+  if (!(await card.count()) && /comply|simbian|mtd/i.test(`${category} ${packageText}`)) {
+    const mtdBtn = page
+      .locator("div, section, article")
+      .filter({ hasText: /Simbian Comply|Comply/i })
+      .getByRole("button", { name: /get started|select plan/i })
+      .first();
+    if (await mtdBtn.count()) {
+      await mtdBtn.click();
+      card = null;
+    }
   }
-  if (await card.count()) {
-    const btn = card.getByRole("button", { name: /select plan|buy again|renew plan|get started/i }).first();
+  if (card && (await card.count())) {
+    const btn = card.getByRole("button", { name: cta }).first();
     if (await btn.count()) await btn.click();
     else await card.click();
-  } else {
-    const selectBtns = page.getByRole("button", { name: /select plan/i });
+  } else if (card !== null) {
+    const selectBtns = page.getByRole("button", { name: cta });
     const n = await selectBtns.count();
-    if (n === 0) throw new Error("No Select Plan buttons on planlist");
+    if (n === 0) throw new Error("No Select Plan / Get Started buttons on planlist");
     // For MTD catalogue, never silently pick the first SA plan.
     if (/mtd|simbian|comply/i.test(`${category} ${packageText}`)) {
       throw new Error(`MTD package card not found for text=${packageText} category=${category}`);
