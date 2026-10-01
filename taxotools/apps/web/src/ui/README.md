@@ -80,3 +80,12 @@ export function App() {
 ## Motion
 
 Prefer `@/ui/animations` for new work. Existing `@/motion` wrappers remain for backward compatibility.
+
+| Utility | Use |
+|---------|-----|
+| `FadeIn` / `SlideUp` | Scroll-triggered section reveals (reduced-motion safe) |
+| `StaggerChildren` / `StaggerChild` | Staggered text, icons, card grids |
+| `ScrollParallax` | Hero depth / opacity parallax (`transform` + `will-change`) |
+| `DepthLayer` | Apple-style layered scale + shadow; optional hover lift |
+
+Brand colour: `brand.primary` / `--brand-primary` = `#0A2A6A`. Use `.brand-text` on light surfaces; `.brand-text-on-dark` when the brand must sit on a dark band.

@@ -5,6 +5,10 @@ module.exports = {
     extend: {
       colors: {
         // Apple UK Store tokens + legacy ink/accent aliases
+        brand: {
+          primary: "var(--brand-primary)",
+          DEFAULT: "var(--brand-primary)",
+        },
         apple: {
           bg: "var(--bg-main)",
           panel: "var(--bg-panel)",
@@ -65,10 +69,11 @@ module.exports = {
         pill: "999px",
       },
       backgroundImage: {
-        // Minimal Apple-like washes (no teal mesh)
+        // Soft light wash so brand.primary (#0A2A6A) keeps contrast
         "grid-fade":
           "linear-gradient(180deg, var(--bg-panel) 0%, var(--bg-main) 100%)",
-        "hero-mesh": "linear-gradient(180deg, #000000 0%, #1d1d1f 100%)",
+        "hero-mesh":
+          "radial-gradient(1200px 600px at 15% -10%, rgba(10,42,106,0.12), transparent 60%), radial-gradient(900px 500px at 90% 10%, rgba(0,113,227,0.14), transparent 55%), linear-gradient(180deg, #f7f9fc 0%, #eef3fb 55%, #f5f5f7 100%)",
       },
       keyframes: {
         rise: {

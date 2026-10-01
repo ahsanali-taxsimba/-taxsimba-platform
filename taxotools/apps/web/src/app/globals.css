@@ -6,12 +6,13 @@
   /* Apple UK Store + Taxotools UI design system */
   --bg-main: #f5f5f7;
   --bg-panel: #ffffff;
-  --bg-hero: #000000;
+  --bg-hero: #eef3fb;
   --bg-elevated: rgba(255, 255, 255, 0.72);
   --bg-muted: #eeeeef;
   --text-main: #1d1d1f;
   --text-inverse: #ffffff;
   --text-secondary: #86868b;
+  --brand-primary: #0a2a6a;
   --accent-blue: #0071e3;
   --accent-soft: #e8f2ff;
   --link-blue: #2997ff;
@@ -39,6 +40,22 @@
 
 [data-theme="dark"] {
   color-scheme: dark;
+  /* Brand stays #0A2A6A — place .brand-text on light elevated surfaces for contrast */
+  --bg-hero: #0b1224;
+}
+
+.brand-text {
+  color: var(--brand-primary);
+}
+
+/* When brand sits on a dark band, lift it onto a light glass chip for WCAG contrast */
+.brand-text-on-dark {
+  display: inline-block;
+  color: var(--brand-primary);
+  background: rgba(255, 255, 255, 0.92);
+  padding: 0.05em 0.28em;
+  border-radius: 0.28em;
+  box-shadow: 0 8px 24px rgba(10, 42, 106, 0.12);
 }
 
 .ui-glass {
@@ -200,7 +217,7 @@
 
   .hero-band {
     background: var(--bg-hero);
-    color: var(--text-inverse);
+    color: var(--text-main);
   }
 }
 

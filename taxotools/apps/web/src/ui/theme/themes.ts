@@ -10,6 +10,7 @@ export type ColorTokens = {
   textMain: string;
   textMuted: string;
   textInverse: string;
+  brandPrimary: string;
   accent: string;
   accentSoft: string;
   accentHover: string;
@@ -35,6 +36,7 @@ const lightBase: ColorTokens = {
   textMain: "#1D1D1F",
   textMuted: "#86868B",
   textInverse: "#FFFFFF",
+  brandPrimary: "#0A2A6A",
   accent: "#0071E3",
   accentSoft: "#E8F2FF",
   accentHover: "#0066CC",
@@ -60,6 +62,7 @@ const darkBase: ColorTokens = {
   textMain: "#F5F5F7",
   textMuted: "#A1A1A6",
   textInverse: "#000000",
+  brandPrimary: "#0A2A6A",
   accent: "#0A84FF",
   accentSoft: "rgba(10,132,255,0.18)",
   accentHover: "#409CFF",
@@ -114,6 +117,7 @@ export function themeToCssVars(theme: ColorTokens): Record<string, string> {
     "--text-main": theme.textMain,
     "--text-secondary": theme.textMuted,
     "--text-inverse": theme.textInverse,
+    "--brand-primary": theme.brandPrimary,
     "--accent-blue": theme.accent,
     "--accent-soft": theme.accentSoft,
     "--link-blue": theme.link,
