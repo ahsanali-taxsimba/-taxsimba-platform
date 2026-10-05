@@ -729,7 +729,7 @@ export async function fulfil(tx: Doc): Promise<void> {
           "Your receipt is available securely in your TaxSimba account.\n\n" +
           "We'll continue with the additional work and keep you updated on progress.",
         tx.case_id ?? null,
-        "/subscription",
+        "/dashboard/billing-history",
         "RECEIPT",
       );
     }

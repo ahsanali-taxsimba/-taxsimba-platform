@@ -130,11 +130,11 @@ export async function createAdditionalWorkRequest(
     kase.client_user_id,
     "Action required: additional work for your TaxSimba service",
     "We've identified additional work required for your tax service.\n\n" +
-      `${tx.description}\nAmount: £${Number(tx.amount).toFixed(2)}\n\n` +
+      `${tx.description}\nAmount: £${Number(tx.amount).toFixed(2)} ${String(tx.currency || "gbp").toUpperCase()}\n\n` +
       "Please review the request and make payment securely through your TaxSimba account.\n\n" +
       "We won't proceed with the additional charge until payment has been completed.",
     kase.id,
-    "/subscription",
+    "/dashboard/billing-history",
     "PAYMENT",
   );
   return clean(tx) as Doc;
@@ -219,14 +219,26 @@ export async function resendAdditionalWorkRequest(me: Doc, requestId: string): P
     { id: requestId },
     { $set: { sent_at: nowIso(), updated_at: nowIso() } },
   );
+  // Mark prior unread reminders read so notify() creates a fresh in-app row and
+  // always sends the reminder email (unread same-title collapse would skip email).
+  const reminderTitle = "Reminder: additional work awaiting payment";
+  await col("notifications").updateMany(
+    {
+      user_id: request.user_id,
+      title: reminderTitle,
+      case_id: request.case_id ?? null,
+      is_read: false,
+    },
+    { $set: { is_read: true, read_at: nowIso() } },
+  );
   await notify(
     request.user_id,
-    "Reminder: additional work awaiting payment",
+    reminderTitle,
     "A payment request for additional work is still awaiting payment.\n\n" +
-      `${request.description}\nAmount: £${Number(request.amount).toFixed(2)}\n\n` +
+      `${request.description}\nAmount: £${Number(request.amount).toFixed(2)} ${String(request.currency || "gbp").toUpperCase()}\n\n` +
       "If you've already completed the payment, no further action is required.",
     request.case_id ?? null,
-    "/subscription",
+    "/dashboard/billing-history",
     "PAYMENT",
   );
   await logActivity(request.case_id ?? null, "Additional work payment request resent", me, {
@@ -276,6 +288,19 @@ export async function startAdditionalWorkCheckout(
     try {
       const s = await payments().retrieveSession(request.session_id);
       if (s.status === "open" && s.url) {
+        return {
+          checkout_url: s.url,
+          session_id: request.session_id,
+          amount: request.amount,
+          reused: true,
+        };
+      }
+      // Provider already complete/paid but DB still pending (delayed webhook / Fake
+      // complete) — reuse; never invent a second payable AW charge.
+      if (
+        !request.fulfilled &&
+        (s.payment_status === "paid" || s.status === "complete")
+      ) {
         return {
           checkout_url: s.url,
           session_id: request.session_id,

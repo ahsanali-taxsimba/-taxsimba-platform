@@ -32,6 +32,7 @@ import { toast } from 'react-toastify';
 import DownloadCertificate from '@/components/TaxReturnModal/DownloadCertificateModal';
 import { canApproveDrafts, canAssignCases } from '@/lib/roles';
 import ExternalSubmissionPanel from '../_sections/ExternalSubmissionPanel';
+import AdditionalWorkPanel from '../_sections/AdditionalWorkPanel';
 
 const AdminTaxReturnDetails = () => {
   const router = useRouter();
@@ -877,6 +878,10 @@ const AdminTaxReturnDetails = () => {
                     void fetchTaxReturnData();
                     void fetchProgressData();
                   }}
+                />
+                <AdditionalWorkPanel
+                  taxReturnId={taxReturnIdStr}
+                  userRole={userData?.role}
                 />
                 {progressData?.meta?.canUpdate &&
                   String(progressData?.status || '').toLowerCase() === 'final_submitted' && (

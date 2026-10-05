@@ -521,6 +521,7 @@ Toxel should verify these after deployment:
 6. One client: MTD then SA purchases (not dual-select at registration)  
 7. **C-004 (Task 4):** SA→MTD and MTD→SA on same account with Stripe TEST; SA Tax Tracker shows only SA WIP (not MTD); switcher after refresh + logout/login; cancel/replay/isolation — see `docs/C004_RETEST_CHECKLIST.md` (LOCAL PASS / staging BLOCKED until deploy of `docs/C004_DEPLOY_SHA.txt`)  
 8. **SA upgrade (Task 5 / D-001, C-009, J-011):** SIMPLE→SMART / SMART→ELITE show target catalogue, SA agreed-price credit, and **upgrade difference** payable (e.g. £30 / £150 at DEFAULT; sequential total £299; direct ELITE £180); billing labels the difference; cancel/replay/isolation/zero-payable — see `docs/T5_SA_UPGRADE_RETEST_CHECKLIST.md` (LOCAL PASS SIMULATED / Stripe staging BLOCKED). **J-011 original runtime error remains UNVERIFIED**; preventive hardening only.  
+8b. **Additional Work (Task 6 / D-006–D-010, M-005):** Admin/Super Admin create on manage-tax case overview (`AdditionalWorkPanel`); client billing-history pay + receipt; resend reminder; AW never activates SA/MTD — see `docs/T6_ADDITIONAL_WORK_RETEST_CHECKLIST.md` (LOCAL PASS SIMULATED / Stripe staging BLOCKED).  
 9. ADMIN assign / SUPER_ADMIN assign 403 / deactivate 409 with active cases  
 10. Admin clients pagination + search  
 11. Canonical prices (no £150/£255)  
