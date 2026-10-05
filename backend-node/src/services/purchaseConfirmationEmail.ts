@@ -7,16 +7,16 @@
  * Idempotent via dedupeKey `purchase-welcome:${session_id}` — webhook retries do not
  * duplicate delivery. Email failure never rolls back entitlement; the queued row is retryable.
  */
-import { env } from "../config/env";
 import { col, Doc } from "../db/mongo";
 import { MTD, SELF_ASSESSMENT } from "./clientServices";
+import { requirePublicAppBaseUrl } from "./emailPublicUrls";
 import { resolveEmailFirstName } from "./emailRecipient";
 import { queueEmail } from "./email";
 
 export type PurchaseEmailKind = "SERVICE_ACTIVATION" | "SA_UPGRADE";
 
 function appBase(): string {
-  return (env("APP_BASE_URL") ?? "https://taxsimba.co.uk").replace(/\/+$/, "");
+  return requirePublicAppBaseUrl();
 }
 
 /** Acceptance wording for the purchased service (not RBAC role). */

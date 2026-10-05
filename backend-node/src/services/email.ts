@@ -13,16 +13,42 @@
  *   EMAIL_DRIVER      none (default) | log | smtp | resend
  *   EMAIL_FROM        "TaxSimba <no-reply@taxsimba.co.uk>"
  *   EMAIL_REPLY_TO    optional
- *   APP_BASE_URL      absolute base for links in emails, e.g. https://taxsimba.co.uk
+ *   APP_BASE_URL      public HTTPS client origin for email links, e.g. https://taxsimba.co.uk
+ *                     Must NOT be localhost / 127.0.0.1 / private RFC1918 — Outlook cannot
+ *                     fetch those hosts (blank logo + broken Privacy/Terms/Contact links).
+ *   ADMIN_BASE_URL    public HTTPS admin origin for /admin/… CTAs
+ *   EMAIL_LOGO_URL    optional absolute HTTPS PNG (default {APP_BASE_URL}/images/email-logo.png)
  *   SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_USER, SMTP_PASSWORD   (EMAIL_DRIVER=smtp)
  *   RESEND_API_KEY                                                (EMAIL_DRIVER=resend)
  *   EMAIL_MAX_ATTEMPTS  default 5
+ *
+ * After changing APP_BASE_URL / EMAIL_LOGO_URL / EMAIL_DRIVER, restart the API and any
+ * reminder/email worker so new renders pick up the corrected values.
  */
 import { createHash, randomUUID } from "crypto";
 
 import { env, intEnv, required } from "../config/env";
 import { col, Doc } from "../db/mongo";
 import { isTestEmail } from "../domain/testdata";
+import {
+  EmailPublicUrlError,
+  assertNoProhibitedEmailHosts,
+  emailLegalUrls,
+  emailLogoUrl as resolveEmailLogoUrl,
+  resolveEmailHref,
+  requirePublicAppBaseUrl,
+} from "./emailPublicUrls";
+
+export {
+  EmailPublicUrlError,
+  assertNoProhibitedEmailHosts,
+  emailLegalUrls,
+  isPrivateOrLocalHostname,
+  isPublicHttpsUrl,
+  PROHIBITED_EMAIL_HOST_PATTERN,
+  requirePublicAppBaseUrl,
+  resolveEmailHref,
+} from "./emailPublicUrls";
 
 export interface EmailMessage {
   to: string;
@@ -143,36 +169,13 @@ export async function ensureEmailIndexes(): Promise<void> {
   await col("email_messages").createIndex({ status: 1, next_attempt_at: 1 });
 }
 
-function appUrl(): string {
-  return (env("APP_BASE_URL") ?? "").replace(/\/$/, "");
-}
-
-/** Admin FE public origin (no /admin path). Falls back to APP_BASE_URL. */
-function adminUrl(): string {
-  const configured = (env("ADMIN_BASE_URL") ?? "").trim().replace(/\/+$/, "");
-  if (configured) {
-    try {
-      const u = new URL(configured.includes("://") ? configured : `https://${configured}`);
-      return `${u.protocol}//${u.host}`;
-    } catch {
-      return configured.replace(/\/admin$/i, "");
-    }
-  }
-  return appUrl();
-}
-
 /**
- * Absolute HTTPS logo for email clients (Gmail/Outlook/mobile).
- * Prefer EMAIL_LOGO_URL when set; otherwise `{APP_BASE_URL}/images/logo.png`.
- * PNG only — SVG is blocked or broken in major email clients.
+ * Absolute HTTPS white PNG for the green email header.
+ * Prefer EMAIL_LOGO_URL; otherwise `{APP_BASE_URL}/images/email-logo.png`.
+ * (Site `logo.png` is brand-green and renders blank on the #37a267 header in Outlook.)
  */
 export function emailLogoUrl(): string {
-  const override = (env("EMAIL_LOGO_URL") ?? "").trim();
-  if (/^https:\/\//i.test(override)) {
-    return override.replace(/\/+$/, "");
-  }
-  const base = appUrl() || "https://taxsimba.co.uk";
-  return `${base}/images/logo.png`;
+  return resolveEmailLogoUrl();
 }
 
 function escapeHtml(value: string): string {
@@ -191,11 +194,13 @@ function escapeHtml(value: string): string {
  *   accent   #b3ed97  (--theme-lt-color)
  *   deep     #32915c / #2e8a56 (existing green gradient stops)
  *   text     #222222 / #151515
- *   logo     emailLogoUrl() — public HTTPS PNG (never SVG; never localhost)
+ *   logo     emailLogoUrl() — public HTTPS white PNG (never SVG; never private hosts)
  *   legal    /privacy-policy, /terms-and-conditions, /contact-us
  *
  * `title` is the on-page heading. Optional `subject` overrides the email subject line
  * without changing how callers pass heading/body copy.
+ *
+ * Throws EmailPublicUrlError when APP_BASE_URL is missing or not a public HTTPS origin.
  */
 export function renderEmail(params: {
   recipientName?: string | null;
@@ -207,22 +212,12 @@ export function renderEmail(params: {
   callToAction?: string | null;
   preheader?: string | null;
 }): { subject: string; text: string; html: string } {
-  const base = appUrl() || "https://taxsimba.co.uk";
-  const adminBase = adminUrl() || base;
-  const href = params.link
-    ? params.link.startsWith("http")
-      ? params.link
-      : params.link.startsWith("/admin/")
-        ? `${adminBase}${params.link}`
-        : `${base}${params.link}`
-    : null;
+  const href = resolveEmailHref(params.link);
   const cta = params.callToAction ?? "Open TaxSimba";
   const subject = (params.subject ?? params.title).trim();
   const greeting = params.recipientName ? `Hello ${params.recipientName},` : "Hello,";
   const year = new Date().getFullYear();
-  const privacyUrl = `${base}/privacy-policy`;
-  const termsUrl = `${base}/terms-and-conditions`;
-  const contactUrl = `${base}/contact-us`;
+  const { privacyUrl, termsUrl, contactUrl } = emailLegalUrls();
   const logoUrl = emailLogoUrl();
 
   const bodyParagraphs = params.body
@@ -278,8 +273,8 @@ export function renderEmail(params: {
     `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f4f7f5;padding:24px 12px">`,
     `<tr><td align="center">`,
     `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background-color:#ffffff;border-radius:16px;overflow:hidden;border:1px solid #e3ebe6">`,
-    // Header
-    `<tr><td style="padding:24px 32px;background:linear-gradient(135deg,#37a267 0%,#32915c 50%,#2e8a56 100%);background-color:#37a267">`,
+    // Header — solid bgcolor for Outlook (gradients are often ignored).
+    `<tr><td style="padding:24px 32px;background-color:#37a267">`,
     `<img src="${escapeHtml(logoUrl)}" width="160" height="43" alt="TaxSimba" style="display:block;border:0;outline:none;text-decoration:none;height:auto;max-width:160px"/>`,
     `</td></tr>`,
     // Accent strip
@@ -311,7 +306,10 @@ export function renderEmail(params: {
     `</body></html>`,
   ].join("");
 
-  return { subject, text: textLines.join("\n"), html };
+  const text = textLines.join("\n");
+  assertNoProhibitedEmailHosts(html, "email html");
+  assertNoProhibitedEmailHosts(text, "email text");
+  return { subject, text, html };
 }
 
 export interface QueueParams {
@@ -346,7 +344,18 @@ export async function queueEmail(params: QueueParams): Promise<string | null> {
     if (!params.to || !params.to.includes("@")) return null;
     // Seeded demo/QA addresses must never receive real mail.
     if (isTestEmail(params.to)) return null;
-    const rendered = renderEmail(params);
+    let rendered: { subject: string; text: string; html: string };
+    try {
+      rendered = renderEmail(params);
+    } catch (e) {
+      if (e instanceof EmailPublicUrlError) {
+        // Fail safely — never queue HTML that embeds private/local hosts.
+        // eslint-disable-next-line no-console
+        console.error(`email not queued (${params.kind}): ${e.message}`);
+        return null;
+      }
+      throw e;
+    }
     const id = randomUUID();
     const now = new Date();
     const doc: Doc = {

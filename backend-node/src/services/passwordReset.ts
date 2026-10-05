@@ -4,12 +4,12 @@
  */
 import { createHash, randomBytes, randomUUID } from "crypto";
 
-import { env } from "../config/env";
 import { col, Doc } from "../db/mongo";
 import { httpError } from "../http/errors";
 import { nowIso } from "../domain/workflow";
 import { hashPassword } from "./auth";
 import { queueEmail } from "./email";
+import { requirePublicAppBaseUrl } from "./emailPublicUrls";
 import { checkPasswordStrength } from "./security";
 
 export const RESET_TTL_HOURS = 2;
@@ -19,7 +19,7 @@ function hashToken(token: string): string {
 }
 
 function appBase(): string {
-  return (env("APP_BASE_URL") ?? "https://taxsimba.co.uk").replace(/\/+$/, "");
+  return requirePublicAppBaseUrl();
 }
 
 /**

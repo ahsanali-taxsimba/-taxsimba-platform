@@ -1,5 +1,5 @@
 /**
- * Email CTA destinations + public APP_BASE_URL contract (backend).
+ * Email CTA destinations + public APP_BASE_URL contract (Toxsl J-003/J-004/J-006).
  */
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
@@ -10,6 +10,7 @@ describe("email CTA + public base URL contract", () => {
   beforeEach(() => {
     process.env.APP_BASE_URL = "https://staging-client.example.com";
     delete process.env.EMAIL_LOGO_URL;
+    delete process.env.ADMIN_BASE_URL;
   });
 
   afterEach(() => {
@@ -17,13 +18,16 @@ describe("email CTA + public base URL contract", () => {
     else process.env.APP_BASE_URL = prevBase;
     if (prevLogo === undefined) delete process.env.EMAIL_LOGO_URL;
     else process.env.EMAIL_LOGO_URL = prevLogo;
+    delete process.env.ADMIN_BASE_URL;
   });
 
-  it("verification CTA is absolute APP_BASE_URL verify-email link with PNG logo", async () => {
-    const { renderEmail, emailLogoUrl } = await import("../../src/services/email");
-    expect(emailLogoUrl()).toBe("https://staging-client.example.com/images/logo.png");
+  it("verification CTA is absolute public HTTPS with email-safe PNG logo", async () => {
+    const { renderEmail, emailLogoUrl, PROHIBITED_EMAIL_HOST_PATTERN } = await import(
+      "../../src/services/email"
+    );
+    expect(emailLogoUrl()).toBe("https://staging-client.example.com/images/email-logo.png");
     expect(emailLogoUrl()).toMatch(/^https:\/\//);
-    expect(emailLogoUrl()).not.toMatch(/localhost|\.local|logo\.svg/i);
+    expect(emailLogoUrl()).not.toMatch(PROHIBITED_EMAIL_HOST_PATTERN);
 
     const out = renderEmail({
       recipientName: "Amara",
@@ -33,15 +37,15 @@ describe("email CTA + public base URL contract", () => {
       link: "/verify-email?token=abc123",
       callToAction: "Verify my email",
     });
-    expect(out.html).toContain('src="https://staging-client.example.com/images/logo.png"');
+    expect(out.html).toContain('src="https://staging-client.example.com/images/email-logo.png"');
     expect(out.text).toContain(
       "Verify my email: https://staging-client.example.com/verify-email?token=abc123",
     );
-    expect(out.html + out.text).not.toMatch(/localhost|\.local|logo\.svg/i);
+    expect(out.html + out.text).not.toMatch(PROHIBITED_EMAIL_HOST_PATTERN);
   });
 
   it("SA and MTD purchase CTAs open the correct dashboards on APP_BASE_URL", async () => {
-    const { renderEmail } = await import("../../src/services/email");
+    const { renderEmail, PROHIBITED_EMAIL_HOST_PATTERN } = await import("../../src/services/email");
     const { buildPurchaseConfirmationContent } = await import(
       "../../src/services/purchaseConfirmationEmail"
     );
@@ -67,7 +71,7 @@ describe("email CTA + public base URL contract", () => {
     });
     expect(saMail.text).toContain("https://staging-client.example.com/dashboard");
     expect(saMail.html).toContain('href="https://staging-client.example.com/dashboard"');
-    expect(saMail.html).toContain("https://staging-client.example.com/images/logo.png");
+    expect(saMail.html).toContain("https://staging-client.example.com/images/email-logo.png");
 
     const mtd = buildPurchaseConfirmationContent({
       firstName: "Amara",
@@ -90,6 +94,6 @@ describe("email CTA + public base URL contract", () => {
     });
     expect(mtdMail.text).toContain("https://staging-client.example.com/mtd-dashboard");
     expect(mtdMail.html).toContain('href="https://staging-client.example.com/mtd-dashboard"');
-    expect(mtdMail.html + mtdMail.text).not.toMatch(/localhost|\.local/i);
+    expect(mtdMail.html + mtdMail.text).not.toMatch(PROHIBITED_EMAIL_HOST_PATTERN);
   });
 });

@@ -239,7 +239,7 @@ describe("local release-acceptance API suite", () => {
     });
     expect(out.html).toContain("TaxSimba");
     expect(out.html).toContain("Your partner for stress free taxes");
-    expect(out.html).toContain("/images/logo.png");
+    expect(out.html).toContain("/images/email-logo.png");
     expect(out.html).toContain("/privacy-policy");
     expect(out.html).toContain("/terms-and-conditions");
     expect(out.html).toContain("/contact-us");

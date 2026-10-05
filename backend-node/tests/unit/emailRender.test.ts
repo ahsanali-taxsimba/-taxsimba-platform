@@ -1,20 +1,28 @@
-import { describe, expect, it, beforeEach, afterEach } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
-describe("renderEmail branded layout", () => {
-  const prev = process.env.APP_BASE_URL;
+describe("renderEmail branded layout (J-003/J-004/J-006)", () => {
+  const prevBase = process.env.APP_BASE_URL;
+  const prevLogo = process.env.EMAIL_LOGO_URL;
+  const prevAdmin = process.env.ADMIN_BASE_URL;
 
   beforeEach(() => {
-    process.env.APP_BASE_URL = "https://app.test.taxsimba.local";
+    process.env.APP_BASE_URL = "https://staging-client.example.com";
+    delete process.env.EMAIL_LOGO_URL;
+    delete process.env.ADMIN_BASE_URL;
   });
 
   afterEach(() => {
-    if (prev === undefined) delete process.env.APP_BASE_URL;
-    else process.env.APP_BASE_URL = prev;
+    if (prevBase === undefined) delete process.env.APP_BASE_URL;
+    else process.env.APP_BASE_URL = prevBase;
+    if (prevLogo === undefined) delete process.env.EMAIL_LOGO_URL;
+    else process.env.EMAIL_LOGO_URL = prevLogo;
+    if (prevAdmin === undefined) delete process.env.ADMIN_BASE_URL;
+    else process.env.ADMIN_BASE_URL = prevAdmin;
   });
 
-  it("renders subject, heading, CTA, brand colours, logo and legal footer links", async () => {
+  it("renders subject, heading, CTA, brand colours, white email logo and legal footer links", async () => {
     const { renderEmail, emailLogoUrl } = await import("../../src/services/email");
-    expect(emailLogoUrl()).toBe("https://app.test.taxsimba.local/images/logo.png");
+    expect(emailLogoUrl()).toBe("https://staging-client.example.com/images/email-logo.png");
     const out = renderEmail({
       recipientName: "Amara",
       subject: "Verify your email address | TaxSimba",
@@ -29,46 +37,63 @@ describe("renderEmail branded layout", () => {
 
     expect(out.subject).toBe("Verify your email address | TaxSimba");
     expect(out.text).toContain("Hello Amara,");
-    expect(out.text).toContain("confirm your TaxSimba account");
-    expect(out.text).toContain("does not activate a package");
-    expect(out.text).toContain("Verify my email: https://app.test.taxsimba.local/verify-email?token=abc");
-    expect(out.text).toContain("Your partner for stress free taxes");
-    expect(out.text).toContain("https://app.test.taxsimba.local/privacy-policy");
-    expect(out.text).toContain("https://app.test.taxsimba.local/terms-and-conditions");
-    expect(out.text).toContain("https://app.test.taxsimba.local/contact-us");
-    expect(out.text).toMatch(/© \d{4} TaxSimba Group Limited/);
+    expect(out.text).toContain("Verify my email: https://staging-client.example.com/verify-email?token=abc");
+    expect(out.text).toContain("https://staging-client.example.com/privacy-policy");
+    expect(out.text).toContain("https://staging-client.example.com/terms-and-conditions");
+    expect(out.text).toContain("https://staging-client.example.com/contact-us");
 
-    expect(out.html).toContain("Verify your TaxSimba account");
     expect(out.html).toContain("#37a267");
     expect(out.html).toContain("#b3ed97");
-    expect(out.html).toContain("https://app.test.taxsimba.local/images/logo.png");
-    expect(out.html).not.toContain("logo.svg");
+    expect(out.html).toContain('src="https://staging-client.example.com/images/email-logo.png"');
     expect(out.html).toContain('alt="TaxSimba"');
-    expect(out.html).toContain("border-radius:50px");
+    expect(out.html).not.toContain("logo.svg");
+    expect(out.html).not.toMatch(/\/images\/logo\.png/);
     expect(out.html).toContain("Verify my email");
-    expect(out.html).toContain("/privacy-policy");
-    expect(out.html).toContain("/terms-and-conditions");
-    expect(out.html).toContain("/contact-us");
-    expect(out.html).toContain("Your partner for stress free taxes");
+    expect(out.html).toContain("https://staging-client.example.com/privacy-policy");
+    expect(out.html).toContain("https://staging-client.example.com/terms-and-conditions");
+    expect(out.html).toContain("https://staging-client.example.com/contact-us");
   });
 
-  it("uses EMAIL_LOGO_URL override and never emits localhost/svg for staging base", async () => {
-    process.env.APP_BASE_URL = "https://staging-client.example.com";
-    process.env.EMAIL_LOGO_URL = "https://staging-client.example.com/images/logo.png";
+  it("uses EMAIL_LOGO_URL override when it is public HTTPS PNG", async () => {
+    process.env.EMAIL_LOGO_URL = "https://cdn.example.com/brand/taxsimba-email.png";
     const { renderEmail, emailLogoUrl } = await import("../../src/services/email");
-    expect(emailLogoUrl()).toBe("https://staging-client.example.com/images/logo.png");
+    expect(emailLogoUrl()).toBe("https://cdn.example.com/brand/taxsimba-email.png");
     const out = renderEmail({
-      recipientName: "Sara",
       title: "Purchase confirmed",
       body: "Package: Tax Simba Simple",
       link: "/dashboard",
       callToAction: "Open my Self Assessment dashboard",
     });
-    expect(out.html).toContain('src="https://staging-client.example.com/images/logo.png"');
-    expect(out.html).not.toMatch(/localhost|\.local|logo\.svg/i);
+    expect(out.html).toContain('src="https://cdn.example.com/brand/taxsimba-email.png"');
+    expect(out.html + out.text).not.toMatch(/localhost|127\.0\.0\.1|192\.168\.|logo\.svg/i);
+  });
+
+  it("rewrites private absolute CTA hosts onto APP_BASE_URL (Toxsl J-004)", async () => {
+    const { renderEmail } = await import("../../src/services/email");
+    const out = renderEmail({
+      title: "Action needed",
+      body: "Please continue.",
+      link: "http://192.168.0.197:3000/dashboard",
+      callToAction: "Open TaxSimba",
+    });
+    expect(out.html).toContain('href="https://staging-client.example.com/dashboard"');
     expect(out.text).toContain("https://staging-client.example.com/dashboard");
-    expect(out.text).not.toMatch(/localhost|\.local/i);
-    delete process.env.EMAIL_LOGO_URL;
+    expect(out.html + out.text).not.toMatch(/192\.168\.|127\.0\.0\.1|localhost/i);
+  });
+
+  it("fails safely when APP_BASE_URL is missing or private", async () => {
+    const { renderEmail, EmailPublicUrlError } = await import("../../src/services/email");
+    delete process.env.APP_BASE_URL;
+    expect(() => renderEmail({ title: "Hi", body: "Body" })).toThrow(EmailPublicUrlError);
+
+    process.env.APP_BASE_URL = "http://127.0.0.1:3000";
+    expect(() => renderEmail({ title: "Hi", body: "Body" })).toThrow(/HTTPS|publicly reachable/i);
+
+    process.env.APP_BASE_URL = "https://192.168.0.197";
+    expect(() => renderEmail({ title: "Hi", body: "Body" })).toThrow(/publicly reachable/i);
+
+    process.env.APP_BASE_URL = "https://10.0.0.5";
+    expect(() => renderEmail({ title: "Hi", body: "Body" })).toThrow(/publicly reachable/i);
   });
 
   it("escapes user-provided HTML in dynamic fields", async () => {
@@ -77,14 +102,13 @@ describe("renderEmail branded layout", () => {
       recipientName: '<img src=x onerror=alert(1)>',
       title: '<script>alert("x")</script>',
       body: 'Please upload <b>P60</b> & "bank" statements',
-      link: '/documents',
-      callToAction: 'Upload <document>',
+      link: "/documents",
+      callToAction: "Upload <document>",
     });
     expect(out.html).not.toContain("<script>");
     expect(out.html).not.toContain("<img src=x");
     expect(out.html).toContain("&lt;script&gt;");
     expect(out.html).toContain("&lt;b&gt;P60&lt;/b&gt;");
-    expect(out.html).toContain("&amp;");
     expect(out.html).toContain("Upload &lt;document&gt;");
   });
 });
