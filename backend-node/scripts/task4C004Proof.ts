@@ -247,28 +247,32 @@ async function browserJourney(
 
   if (expectBoth) {
     // Workspace switcher + both dashboards
-  // Proof check: switcher on SA dashboard OR MTD dashboard (layout placement differs).
-  const switcherOnSa = await page.locator('[data-testid="service-workspace-switcher"]').count();
-  steps.push({ saDashboard: page.url(), switcherPresent: switcherOnSa > 0 });
+    await page.goto(`${FE}/dashboard`, { waitUntil: "networkidle", timeout: 60000 });
+    await page.waitForTimeout(2000);
+    await page.screenshot({ path: `${ART}/screenshots/${label}_03_sa_dashboard.png`, fullPage: true });
+    const switcherOnSa = await page.locator('[data-testid="service-workspace-switcher"]').count();
+    steps.push({ saDashboard: page.url(), switcherPresent: switcherOnSa > 0 });
 
-  await page.goto(`${FE}/mtd-dashboard`, { waitUntil: "networkidle", timeout: 60000 });
-  await page.waitForTimeout(1500);
-  await page.screenshot({
-    path: `${ART}/screenshots/${label}_04_mtd_dashboard.png`,
-    fullPage: true,
-  });
-  const switcherOnMtd = await page.locator('[data-testid="service-workspace-switcher"]').count();
-  steps.push({ mtdDashboard: page.url(), switcherPresent: switcherOnMtd > 0 });
+    await page.goto(`${FE}/mtd-dashboard`, { waitUntil: "networkidle", timeout: 60000 });
+    await page.waitForTimeout(2000);
+    await page.screenshot({
+      path: `${ART}/screenshots/${label}_04_mtd_dashboard.png`,
+      fullPage: true,
+    });
+    const switcherOnMtd = await page.locator('[data-testid="service-workspace-switcher"]').count();
+    steps.push({ mtdDashboard: page.url(), switcherPresent: switcherOnMtd > 0 });
 
-  // Refresh + direct nav
-  await page.reload({ waitUntil: "networkidle" });
-  await page.waitForTimeout(1000);
-  steps.push({
-    afterRefresh: page.url(),
-    switcherAfterRefresh: (await page.locator('[data-testid="service-workspace-switcher"]').count()) > 0,
-  });
-  out.switcherOk = switcherOnSa > 0 || switcherOnMtd > 0;
-    // SA-only: click Add MTD CTA if present (UI path)
+    // Refresh + direct nav
+    await page.reload({ waitUntil: "networkidle" });
+    await page.waitForTimeout(1000);
+    steps.push({
+      afterRefresh: page.url(),
+      switcherAfterRefresh:
+        (await page.locator('[data-testid="service-workspace-switcher"]').count()) > 0,
+    });
+    out.switcherOk = switcherOnSa > 0 || switcherOnMtd > 0;
+  } else {
+    // SA-only / MTD-only: click Add second-service CTA if present (UI path)
     const cta = page.locator('[data-testid="add-second-service-cta"]').first();
     if (await cta.count()) {
       await cta.click();
@@ -277,7 +281,12 @@ async function browserJourney(
         path: `${ART}/screenshots/${label}_03_second_planlist.png`,
         fullPage: true,
       });
-      steps.push({ afterCta: page.url(), showsSecondCatalogue: /simbian|comply|growth|mtd|simple|smart|elite/i.test(await page.locator("body").innerText()) });
+      steps.push({
+        afterCta: page.url(),
+        showsSecondCatalogue: /simbian|comply|growth|mtd|simple|smart|elite/i.test(
+          await page.locator("body").innerText(),
+        ),
+      });
     }
   }
 
@@ -373,7 +382,9 @@ async function main() {
     uiSaOnlyHadAddMtdCta: (uiSaOnly.steps as any[])?.some(
       (s) => s.mySubscriptions?.hasAddMtd === true,
     ),
-    uiBothHasSwitcher: (uiBoth.steps as any[])?.some((s) => s.saDashboard?.switcherPresent),
+    uiBothHasSwitcher:
+      Boolean((uiBoth as any)?.switcherOk) ||
+      (uiBoth.steps as any[])?.some((s) => s.saDashboard?.switcherPresent || s.mtdDashboard?.switcherPresent),
     mtdThenSaBothActive: ((mine2.data as any)?.services || []).every(
       (s: any) =>
         (s.service_type === "SELF_ASSESSMENT" || s.service_type === "MTD_INCOME_TAX") &&
