@@ -425,6 +425,20 @@ export async function inflight(query: Doc): Promise<Doc | null> {
       reused: true,
     };
   }
+  // Local FakePaymentProvider (and recovered Stripe sessions) may already report
+  // complete/paid while our row is still pending awaiting checkout-success/webhook.
+  // Reuse that session — never invent a second payable upgrade / charge.
+  if (
+    !rec.fulfilled &&
+    (session.payment_status === "paid" || session.status === "complete")
+  ) {
+    return {
+      checkout_url: session.url,
+      session_id: rec.session_id,
+      amount: rec.amount,
+      reused: true,
+    };
+  }
   await col("payment_transactions").updateOne(
     { session_id: rec.session_id },
     {
