@@ -1,7 +1,7 @@
 "use client";
-import { Spinner, Row, Col, Table } from "react-bootstrap";
+import { Spinner, Row, Col } from "react-bootstrap";
 import { useRouter, usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
