@@ -12,14 +12,17 @@ import { config } from "dotenv";
 
 config();
 
-process.env.EMAIL_ALLOW_LOCAL_BASE_URL ??= "true";
-process.env.APP_BASE_URL ??= "http://127.0.0.1:3000";
-process.env.ADMIN_BASE_URL ??= "http://127.0.0.1:3001";
-process.env.EMAIL_DRIVER ??= "smtp";
-process.env.SMTP_HOST ??= "127.0.0.1";
-process.env.SMTP_PORT ??= "1025";
-process.env.SMTP_SECURE ??= "false";
-process.env.EMAIL_FROM ??= "TaxSimba Local <no-reply@localhost.localdomain>";
+process.env.EMAIL_ALLOW_LOCAL_BASE_URL = "true";
+process.env.APP_BASE_URL = process.env.APP_BASE_URL || "http://127.0.0.1:3000";
+process.env.ADMIN_BASE_URL = process.env.ADMIN_BASE_URL || "http://127.0.0.1:3001";
+process.env.EMAIL_DRIVER = "smtp";
+process.env.SMTP_HOST = process.env.SMTP_HOST || "127.0.0.1";
+process.env.SMTP_PORT = process.env.SMTP_PORT || "1025";
+process.env.SMTP_SECURE = process.env.SMTP_SECURE || "false";
+process.env.EMAIL_FROM =
+  process.env.EMAIL_FROM || "TaxSimba Local <no-reply@localhost.localdomain>";
+delete process.env.RENDER;
+delete process.env.APP_ENV;
 
 const ART = process.env.TASK3_ARTIFACT_DIR || "/opt/cursor/artifacts/task3-local";
 
