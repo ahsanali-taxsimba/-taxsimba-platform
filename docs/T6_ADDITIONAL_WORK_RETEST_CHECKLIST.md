@@ -3,7 +3,7 @@
 **Status:** LOCAL PASS — SIMULATED PAYMENT  
 **Stripe TEST / staging / external inbox:** BLOCKED (no Stripe TEST keys exercised; Mailpit local only)  
 **Branch:** `cursor/toxsl-blockers-b01-b04-80a7`  
-**Tested tip (pre-evidence docs):** `6f54cd1cf07a5a702c74f66f9b6bee66ab6ac98b` — see evidence ZIP `DEPLOY_SHA.txt` for tip after evidence-doc commit  
+**Tested remote tip:** `1f47adbbd3db1d9b5bb20042e9c12b6e01b82040`
 **J-011:** remains **UNVERIFIED** (Task 5; not reopened here)  
 **Final Toxel handoff SHA:** deferred  
 **Evidence ZIP:** `/opt/cursor/artifacts/task6_additional_work_evidence.zip` (not in git)
