@@ -47,7 +47,11 @@ import {
 export {
   EmailPublicUrlError,
   assertNoProhibitedEmailHosts,
+  clientDocumentUploadPath,
+  clientReviewDocumentsPath,
+  emailAllowLocalBaseUrl,
   emailLegalUrls,
+  isNonLocalEmailRuntime,
   isPrivateOrLocalHostname,
   isPublicHttpsUrl,
   PROHIBITED_EMAIL_HOST_PATTERN,

@@ -63,8 +63,34 @@ export function isPublicHttpsUrl(value: string): boolean {
   }
 }
 
-/** True when local Mailpit / production-build proof may use private HTTP origins. */
+/**
+ * True when this process is a deployed staging/production (or other non-local PaaS)
+ * runtime. Local `next start` / `node dist` mailpit proof uses NODE_ENV=production too,
+ * so NODE_ENV alone is not enough — we key off PaaS / APP_ENV markers instead.
+ */
+export function isNonLocalEmailRuntime(): boolean {
+  if ((env("RENDER") ?? "").trim() !== "") return true;
+  if ((env("RENDER_SERVICE_ID") ?? "").trim() !== "") return true;
+  if ((env("K_SERVICE") ?? "").trim() !== "") return true; // Cloud Run
+  if ((env("AWS_EXECUTION_ENV") ?? "").trim() !== "") return true;
+  if ((env("DYNO") ?? "").trim() !== "") return true; // Heroku
+  const deployEnv = (
+    env("APP_ENV") ??
+    env("DEPLOY_ENV") ??
+    env("RAILWAY_ENVIRONMENT") ??
+    ""
+  )
+    .trim()
+    .toLowerCase();
+  return ["staging", "production", "prod", "uat", "preview"].includes(deployEnv);
+}
+
+/**
+ * True when local Mailpit / production-build proof may use private HTTP origins.
+ * Ignored on staging/production even if EMAIL_ALLOW_LOCAL_BASE_URL is accidentally set.
+ */
 export function emailAllowLocalBaseUrl(): boolean {
+  if (isNonLocalEmailRuntime()) return false;
   return (env("EMAIL_ALLOW_LOCAL_BASE_URL") ?? "").trim().toLowerCase() === "true";
 }
 
@@ -194,8 +220,14 @@ export function resolveEmailHref(link: string | null | undefined): string | null
       throw new EmailPublicUrlError(`Email CTA link is not a valid URL: ${raw}`);
     }
     if (isPrivateOrLocalHostname(parsed.hostname) || parsed.protocol !== "https:") {
+      const path = `${parsed.pathname}${parsed.search}${parsed.hash}`;
+      // Admin review/invite absolute links must keep ADMIN_BASE_URL when rewriting
+      // a leaked private Origin (never fall back to the client APP_BASE_URL).
+      if (parsed.pathname === "/admin" || parsed.pathname.startsWith("/admin/")) {
+        return `${requirePublicAdminBaseUrl()}${path}`;
+      }
       // Rewrite onto the public client origin — never emit the private host.
-      return `${appBase}${parsed.pathname}${parsed.search}${parsed.hash}`;
+      return `${appBase}${path}`;
     }
     return parsed.toString();
   }
@@ -245,6 +277,22 @@ export function emailLegalUrls(): {
     termsUrl: `${base}/terms-and-conditions`,
     contactUrl: `${base}/contact-us`,
   };
+}
+
+/** Client Tax Tracker CTA — include caseId so the correct return is addressable. */
+export function clientDocumentUploadPath(caseId?: string | null): string {
+  const id = String(caseId ?? "").trim();
+  return id
+    ? `/dashboard/tax-tracker?caseId=${encodeURIComponent(id)}`
+    : "/dashboard/tax-tracker";
+}
+
+/** Client My Documents / review CTA — include caseId when known. */
+export function clientReviewDocumentsPath(caseId?: string | null): string {
+  const id = String(caseId ?? "").trim();
+  return id
+    ? `/dashboard/my-documents?caseId=${encodeURIComponent(id)}`
+    : "/dashboard/my-documents";
 }
 
 /** Regex used by tests / scanners to catch prohibited hosts in generated HTML. */

@@ -12,13 +12,17 @@ and unusable Privacy / Terms / Contact links.
 | `ADMIN_BASE_URL` | Recommended | `https://admin.example.com` | Used for `/admin/…` CTAs. Public HTTPS. |
 | `EMAIL_LOGO_URL` | Optional | `https://taxsimba.co.uk/images/email-logo.png` | Defaults to `{APP_BASE_URL}/images/email-logo.png`. Must be HTTPS PNG. |
 | `EMAIL_LEGAL_BASE_URL` | Optional | `https://taxsimba.co.uk` | Privacy/Terms/Contact origin when legal pages differ from the app origin. Defaults to `APP_BASE_URL`. |
-| `EMAIL_ALLOW_LOCAL_BASE_URL` | Local only | `true` | Permits `http://127.0.0.1` APP_BASE_URL for Mailpit / production-build proof. **Never** set on staging/production. |
+| `EMAIL_ALLOW_LOCAL_BASE_URL` | Local only | `true` | Permits `http://127.0.0.1` APP_BASE_URL for Mailpit / production-build proof. **Hard-ignored** on staging/production (Render / `APP_ENV=staging|production` / other PaaS markers) even if accidentally set. |
 | `EMAIL_DRIVER` | Yes | `smtp` or `resend` | `none` disables delivery. |
 | `EMAIL_FROM` | Yes when sending | `TaxSimba <no-reply@…>` | — |
 
 Do **not** set `APP_BASE_URL` to a LAN address (e.g. `http://192.168.0.197:3000`). The renderer
 rejects private hosts. Invalid URL config persists a **FAILED** `email_messages` row with
 `last_error` prefixed `EMAIL_PUBLIC_URL_CONFIG:` — mail is **not** silently discarded.
+
+`EMAIL_ALLOW_LOCAL_BASE_URL=true` is for **local Mailpit proof only**. On Render (or when
+`APP_ENV` / `DEPLOY_ENV` is `staging` / `production` / `uat`), the flag is ignored even if
+set — private email URLs cannot be enabled by accident.
 
 ## Logo asset
 

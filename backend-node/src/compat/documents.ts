@@ -18,6 +18,10 @@ import { handler, httpError } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
 import { mimeFromFilename, validateUpload } from "../middleware/protections";
 import { getObject, putObject } from "../services/storage";
+import {
+  clientDocumentUploadPath,
+  clientReviewDocumentsPath,
+} from "../services/email";
 import { keysToCamel } from "./caseMap";
 import { clientDocumentDto, clientDocumentsPayload } from "./clientDocumentDto";
 import { sendCompatSuccess } from "./envelope";
@@ -482,7 +486,7 @@ compatDocumentsRouter.post(
         "\n\nPlease upload it securely through your TaxSimba account so we can keep your tax return moving.",
       caseId,
       // Tax Tracker is where the client upload action is rendered for outstanding requests.
-      "/dashboard/tax-tracker",
+      clientDocumentUploadPath(caseId),
       "DOCUMENT",
     );
     sendCompatSuccess(
@@ -688,7 +692,7 @@ async function staffUpload(
       (kase.case_ref ? ` for ${kase.case_ref}` : "") +
       ".\n\nFor your security, please sign in to TaxSimba to download it.",
     caseId,
-    "/dashboard/my-documents",
+    clientReviewDocumentsPath(caseId),
     "DOCUMENT",
   );
   sendCompatSuccess(
@@ -738,7 +742,7 @@ async function completeCaseAfterFinalCertificate(
         "You can continue to access your case information and available documents from your account." +
         (current.tax_year ? `\n\nTax year: ${current.tax_year}` : ""),
       caseId,
-      "/dashboard/my-documents",
+      clientReviewDocumentsPath(caseId),
       "INFO",
     );
     current = await getCase(caseId, me);

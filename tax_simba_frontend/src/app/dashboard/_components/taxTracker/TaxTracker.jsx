@@ -2,7 +2,7 @@
 import { useFetchTaxReturnData, useFetchTaxReturnDataById } from "@/hooks/fetchData";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { IoDocumentAttachSharp } from "react-icons/io5";
@@ -121,22 +121,31 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
   // cache details by id so we can render progress per opened item
   const [detailsById, setDetailsById] = useState({});
   const access_token = sessionData?.accessToken;
+  const searchParams = useSearchParams();
+  const focusCaseId = (searchParams?.get("caseId") || "").trim();
 
   const handleTaxReturnData = async () => {
     setLoading(true);
     const data = await useFetchTaxReturnData(access_token);
     const realData = (data && data.length > 0) ? data : [];
     setTaxReturns(realData);
-    // Auto-expand the first SA return with outstanding document requests so the upload
-    // action is visible without hunting (Toxsl F-003).
+    // Prefer the caseId from a document-request email CTA so the correct return/request
+    // is expanded — not merely the first dashboard row.
+    const focusIdx = focusCaseId
+      ? realData.findIndex((row) => {
+          const id = row?.taxReturn?.id || row?.id;
+          return id && String(id) === focusCaseId;
+        })
+      : -1;
     const firstWithRequest = realData.findIndex((row) => {
       if (row?.taxReturn?.status === "completed") return false;
       const files = row?.files?.allFiles || [];
       return files.some((f) => f.uploadStatus !== "completed");
     });
-    if (firstWithRequest >= 0) {
-      setOpenIdx(firstWithRequest);
-      const id = realData[firstWithRequest]?.taxReturn?.id;
+    const openAt = focusIdx >= 0 ? focusIdx : firstWithRequest;
+    if (openAt >= 0) {
+      setOpenIdx(openAt);
+      const id = realData[openAt]?.taxReturn?.id;
       if (id) void fetchDetailIfNeeded(id);
     }
     setLoading(false);

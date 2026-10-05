@@ -15,7 +15,7 @@ GitHub Actions deploy workflows in-repo. Deployment status: **BLOCKED**.
    - `APP_BASE_URL=https://<staging-client-origin>`
    - `ADMIN_BASE_URL=https://<staging-admin-origin>`
    - `EMAIL_LEGAL_BASE_URL=https://taxsimba.co.uk` (if legal pages stay on marketing)
-   - `EMAIL_ALLOW_LOCAL_BASE_URL` **unset/false**
+   - `EMAIL_ALLOW_LOCAL_BASE_URL` **unset/false** (hard-ignored on Render even if set)
    - `EMAIL_DRIVER=smtp` or `resend` + matching secrets
    - `EMAIL_FROM` verified sender
 3. Enable reminders on exactly one instance if needed (`REMINDERS_ENABLED=true`).

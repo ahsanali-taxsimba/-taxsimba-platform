@@ -125,17 +125,22 @@ describe("email CTA + public base URL contract", () => {
     expect(mtdMail.html + mtdMail.text).not.toMatch(PROHIBITED_EMAIL_HOST_PATTERN);
   });
 
-  it("document-request CTA opens Tax Tracker on APP_BASE_URL", async () => {
-    const { renderEmail } = await import("../../src/services/email");
+  it("document-request CTA opens Tax Tracker on APP_BASE_URL with caseId", async () => {
+    const { renderEmail, clientDocumentUploadPath } = await import("../../src/services/email");
+    const caseId = "case-doc-001";
     const out = renderEmail({
       recipientName: "Alex",
       subject: "Documents needed for your tax return",
       title: "We need a document from you",
-      body: "Please upload your P60 through Tax Tracker.",
-      link: "/dashboard/tax-tracker",
+      body: "Please upload your P60 through Tax Tracker for SA-CASE-001.",
+      link: clientDocumentUploadPath(caseId),
       callToAction: "Upload document",
     });
-    expect(out.html).toContain('href="https://staging-client.example.com/dashboard/tax-tracker"');
+    expect(out.html).toContain(
+      `href="https://staging-client.example.com/dashboard/tax-tracker?caseId=${encodeURIComponent(caseId)}"`,
+    );
+    expect(out.html).toContain("P60");
+    expect(out.html).toContain("SA-CASE-001");
     expect(out.html).toContain("https://staging-client.example.com/privacy-policy");
     expect(out.html).toContain("https://staging-client.example.com/terms-and-conditions");
     expect(out.html).toContain("https://staging-client.example.com/contact-us");
@@ -143,7 +148,7 @@ describe("email CTA + public base URL contract", () => {
 
   it("admin draft-review CTA uses ADMIN_BASE_URL and preserves case id", async () => {
     process.env.ADMIN_BASE_URL = "https://admin.staging.example.com";
-    const { renderEmail } = await import("../../src/services/email");
+    const { renderEmail, resolveEmailHref } = await import("../../src/services/email");
     const caseId = "case-review-abc";
     const out = renderEmail({
       recipientName: "Admin",
@@ -159,18 +164,29 @@ describe("email CTA + public base URL contract", () => {
     expect(out.text).toContain(
       `Review tax return: https://admin.staging.example.com/admin/manage-tax/${caseId}`,
     );
+    // Private absolute admin Origin leak must still rewrite onto ADMIN_BASE_URL.
+    expect(
+      resolveEmailHref(`http://192.168.1.20:3001/admin/manage-tax/${caseId}`),
+    ).toBe(`https://admin.staging.example.com/admin/manage-tax/${caseId}`);
+    expect(
+      resolveEmailHref(`http://192.168.1.20:3001/admin/invite/invite-tok`),
+    ).toBe("https://admin.staging.example.com/admin/invite/invite-tok");
   });
 
-  it("tax-return review CTA for client uses dashboard documents path", async () => {
-    const { renderEmail } = await import("../../src/services/email");
+  it("tax-return review CTA for client uses dashboard documents path with caseId", async () => {
+    const { renderEmail, clientReviewDocumentsPath } = await import("../../src/services/email");
+    const caseId = "case-review-client";
     const out = renderEmail({
       recipientName: "Casey",
       subject: "Your tax return draft is ready to review",
       title: "Your tax calculation is ready",
-      body: "Please review your tax return.",
-      link: "/dashboard/my-documents",
+      body: "Please review your tax return for SA-CASE-002.",
+      link: clientReviewDocumentsPath(caseId),
       callToAction: "Review my tax return",
     });
-    expect(out.html).toContain('href="https://staging-client.example.com/dashboard/my-documents"');
+    expect(out.html).toContain(
+      `href="https://staging-client.example.com/dashboard/my-documents?caseId=${encodeURIComponent(caseId)}"`,
+    );
+    expect(out.html).toContain("SA-CASE-002");
   });
 });
