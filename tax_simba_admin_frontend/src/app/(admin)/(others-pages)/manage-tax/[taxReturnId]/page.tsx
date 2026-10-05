@@ -466,9 +466,24 @@ const AdminTaxReturnDetails = () => {
       setShowUploadModal(true);
       return
     }
-    if (newStatus == "final_submitted") {
-      setShowFinalCertificateModal(true)
-      return
+    if (newStatus === 'final_submitted') {
+      const node = String(
+        (progressData as { nodeStatus?: string } | null)?.nodeStatus ||
+          (taxReturn as { nodeStatus?: string } | null)?.nodeStatus ||
+          '',
+      ).toUpperCase();
+      if (node === 'READY_FOR_SUBMISSION') {
+        toast.error('Record external submission before uploading the final certificate.');
+        return;
+      }
+      setShowFinalCertificateModal(true);
+      return;
+    }
+    if (newStatus === 'completed') {
+      if (String(progressData?.status || '').toLowerCase() === 'final_submitted') {
+        setShowFinalCertificateModal(true);
+        return;
+      }
     }
     setLoading(true);
     postProgressData(newStatus)
@@ -863,6 +878,18 @@ const AdminTaxReturnDetails = () => {
                     void fetchProgressData();
                   }}
                 />
+                {progressData?.meta?.canUpdate &&
+                  String(progressData?.status || '').toLowerCase() === 'final_submitted' && (
+                    <button
+                      type="button"
+                      data-testid="upload-final-certificate-btn"
+                      onClick={() => setShowFinalCertificateModal(true)}
+                      className="flex items-center space-x-2 bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700"
+                    >
+                      <Upload className="h-4 w-4" />
+                      <span>Upload Tax Return Certificate</span>
+                    </button>
+                  )}
                 {/* Files Summary */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="bg-blue-50 p-4 rounded-lg">

@@ -429,6 +429,47 @@ async function staffUpload(
     }
   }
 
+  if (kind === "final") {
+    if (me.role === "ACCOUNTANT" && String(kase.assigned_accountant_id) !== String(me.id)) {
+      throw httpError(403, "Insufficient permissions");
+    }
+
+    const existingFinal = (await col("documents").findOne({
+      case_id: caseId,
+      is_final: true,
+      is_deleted: { $ne: true },
+      content_hash: contentHash,
+    })) as Doc | null;
+    if (existingFinal) {
+      const completed = await completeCaseAfterFinalCertificate(kase, me, caseId, f.originalname);
+      sendCompatSuccess(
+        res,
+        {
+          ...clean(existingFinal),
+          taxReturnId: caseId,
+          caseId,
+          duplicate: true,
+          caseStatus: completed.status,
+          workflowStatus: completed.status,
+          toxelStatus: "completed",
+        },
+        "Final certificate already uploaded",
+      );
+      return;
+    }
+
+    const status = String(kase.status);
+    if (status === "COMPLETED") {
+      throw httpError(400, "Case is already completed");
+    }
+    if (!["SUBMITTED", "SUBMISSION_IN_PROGRESS"].includes(status)) {
+      throw httpError(
+        400,
+        `Record external submission before uploading the final certificate (case is ${status})`,
+      );
+    }
+  }
+
   const ext = f.originalname.includes(".") ? f.originalname.split(".").pop() : "bin";
   const path = `${APP_NAME}/uploads/${me.id}/${randomUUID()}.${ext}`;
   const stored = await putObject(path, f.buffer, effectiveMime);
@@ -528,6 +569,7 @@ async function staffUpload(
     return;
   }
 
+  const completed = await completeCaseAfterFinalCertificate(kase, me, caseId, f.originalname);
   await notify(
     kase.client_user_id as string,
     "Your final tax documents are ready",
@@ -535,7 +577,7 @@ async function staffUpload(
       (kase.case_ref ? ` for ${kase.case_ref}` : "") +
       ".\n\nFor your security, please sign in to TaxSimba to download it.",
     caseId,
-      "/dashboard/my-documents",
+    "/dashboard/my-documents",
     "DOCUMENT",
   );
   sendCompatSuccess(
@@ -544,9 +586,53 @@ async function staffUpload(
       ...clean(record),
       taxReturnId: caseId,
       caseId,
+      caseStatus: completed.status,
+      workflowStatus: completed.status,
+      toxelStatus: "completed",
+      duplicate: false,
     },
-    "Uploaded",
+    "Final certificate uploaded — case completed",
   );
+}
+
+/** After a valid final certificate is stored, close the SA journey (SUBMITTED → COMPLETED). */
+async function completeCaseAfterFinalCertificate(
+  kase: Doc,
+  me: Doc,
+  caseId: string,
+  filename: string,
+): Promise<Doc> {
+  let current = await getCase(caseId, me);
+  if (String(current.status) === "SUBMISSION_IN_PROGRESS") {
+    await transition(current, "SUBMITTED", me, "Final certificate received");
+    current = await getCase(caseId, me);
+  }
+  if (String(current.status) === "SUBMITTED") {
+    await transition(current, "COMPLETED", me, `Final certificate uploaded: ${filename}`, {
+      extra: {
+        completed_at: nowIso(),
+        completed_by_name: me.name,
+        completed_by_id: me.id,
+      },
+    });
+    await col("submission_records").updateOne(
+      { case_id: caseId },
+      { $set: { status: "COMPLETED", completed_at: nowIso() } },
+    );
+    await notify(
+      current.client_user_id as string,
+      "Your Self Assessment is complete",
+      "Your Self Assessment journey with TaxSimba is now complete.\n\n" +
+        "Thank you for choosing TaxSimba.\n\n" +
+        "You can continue to access your case information and available documents from your account." +
+        (current.tax_year ? `\n\nTax year: ${current.tax_year}` : ""),
+      caseId,
+      "/dashboard/my-documents",
+      "INFO",
+    );
+    current = await getCase(caseId, me);
+  }
+  return current;
 }
 
 const staffUploadMw = upload.any();
