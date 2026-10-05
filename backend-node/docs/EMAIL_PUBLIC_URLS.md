@@ -12,6 +12,7 @@ and unusable Privacy / Terms / Contact links.
 | `ADMIN_BASE_URL` | Recommended | `https://admin.example.com` | Used for `/admin/…` CTAs. Public HTTPS. |
 | `EMAIL_LOGO_URL` | Optional | `https://taxsimba.co.uk/images/email-logo.png` | Defaults to `{APP_BASE_URL}/images/email-logo.png`. Must be HTTPS PNG. |
 | `EMAIL_LEGAL_BASE_URL` | Optional | `https://taxsimba.co.uk` | Privacy/Terms/Contact origin when legal pages differ from the app origin. Defaults to `APP_BASE_URL`. |
+| `EMAIL_ALLOW_LOCAL_BASE_URL` | Local only | `true` | Permits `http://127.0.0.1` APP_BASE_URL for Mailpit / production-build proof. **Never** set on staging/production. |
 | `EMAIL_DRIVER` | Yes | `smtp` or `resend` | `none` disables delivery. |
 | `EMAIL_FROM` | Yes when sending | `TaxSimba <no-reply@…>` | — |
 

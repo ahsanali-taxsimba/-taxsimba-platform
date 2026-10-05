@@ -123,7 +123,8 @@ async function remindOpenClientTasks(run: ReminderRun, now: Date): Promise<void>
       `Action needed: ${task.name}`,
       `${kase.case_ref}: we still need this information before we can continue with your tax return.${when}`,
       kase.id,
-      "/actions",
+      // Tax Tracker is where outstanding client upload actions render.
+      "/dashboard/tax-tracker",
       "TASK",
     );
     run.client_task += 1;
@@ -155,7 +156,8 @@ async function remindClientCaseActions(run: ReminderRun, now: Date): Promise<voi
         ? `${kase.case_ref}: your figures are ready. Please review and approve them when you're happy to proceed.`
         : `${kase.case_ref}: ${kase.next_action || "there are outstanding items on your case"}.`,
       kase.id,
-      approval ? "/my-return" : "/actions",
+      // Approval → My Documents review surface; outstanding info → Tax Tracker uploads.
+      approval ? "/dashboard/my-documents" : "/dashboard/tax-tracker",
       approval ? "APPROVAL" : "TASK",
     );
     run.client_case_action += 1;
@@ -189,7 +191,7 @@ async function remindMtdPeriods(run: ReminderRun, now: Date): Promise<void> {
             `Action required: approve your ${period.label}`,
             `Your ${period.label} is awaiting approval and is due on ${period.deadline}. Please review the figures when you can.`,
             kase.id,
-            "/mtd",
+            "/mtd-dashboard",
             "APPROVAL",
           );
           run.mtd_client_approval += 1;
@@ -207,7 +209,7 @@ async function remindMtdPeriods(run: ReminderRun, now: Date): Promise<void> {
             "Please provide any outstanding records or information as soon as possible so your accountant has enough time to prepare your update.\n\n" +
             "If you've already provided everything requested, no further action is needed right now.",
           kase.id,
-          "/mtd",
+          "/mtd-dashboard",
           "DEADLINE",
         );
         run.mtd_records_due += 1;

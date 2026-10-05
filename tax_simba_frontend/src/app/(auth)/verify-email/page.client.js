@@ -13,6 +13,18 @@ import { safeContinuePath } from "@/lib/catalogueJourney";
 // Per-token guard only (module-level boolean blocked every later user in the same
 // Next.js process after the first verification — broke Stripe acceptance).
 const verifiedTokens = new Set();
+const INVALID_TOKEN_MESSAGE = "Invalid or expired verification token.";
+
+function isInvalidOrExpiredMessage(message) {
+  if (!message) return false;
+  const m = String(message).toLowerCase();
+  return (
+    message === INVALID_TOKEN_MESSAGE ||
+    m.includes("invalid") ||
+    m.includes("expired") ||
+    m.includes("not found")
+  );
+}
 
 const VerifyEmail = () => {
   const [message, setMessage] = useState("");
@@ -26,19 +38,31 @@ const VerifyEmail = () => {
   const token = searchParams.get("token") || searchParams.getAll("token")[0] || "";
 
   useEffect(() => {
+    let cancelled = false;
+
     if (!token) {
       setLoading(false);
-      setMessage("Invalid or expired verification token.");
-      return;
+      setMessage(INVALID_TOKEN_MESSAGE);
+      return undefined;
     }
+
     async function verifyEmail() {
-      if (verifiedTokens.has(token)) return;
+      if (verifiedTokens.has(token)) {
+        // Remount after a completed attempt must not spin forever.
+        if (!cancelled) {
+          setLoading(false);
+          setMessage((prev) => prev || INVALID_TOKEN_MESSAGE);
+        }
+        return;
+      }
       verifiedTokens.add(token);
       try {
         const response = await axios.post(
           process.env.NEXT_PUBLIC_API_URL +
-            `auth/verify-email?token=${encodeURIComponent(token)}`
+            `auth/verify-email?token=${encodeURIComponent(token)}`,
         );
+
+        if (cancelled) return;
 
         if (response?.status == 200 || response?.status == 201) {
           setMessage("Your email verification is successfully completed");
@@ -56,15 +80,20 @@ const VerifyEmail = () => {
           setMessage(fallbackMessage);
         }
       } catch (error) {
+        if (cancelled) return;
         const errMessage =
           error?.response?.data?.message ||
           "An error occurred during verification.";
         setMessage(errMessage);
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     }
+
     verifyEmail();
+    return () => {
+      cancelled = true;
+    };
   }, [token]);
 
   const handleLogin = () => {
@@ -81,21 +110,23 @@ const VerifyEmail = () => {
       return;
     }
 
-    const { type, message } = await useReVerifyEmail(formEmail);
+    const { type, message: reverifyMessage } = await useReVerifyEmail(formEmail);
     if (type) {
-      toast.success(message);
+      toast.success(reverifyMessage);
       setCanSendAgain(false);
       setFormEmail("");
     } else {
-      toast.error(message);
+      toast.error(reverifyMessage);
     }
   };
+
+  const showSendAgain = !loading && isInvalidOrExpiredMessage(message);
 
   return (
     <div>
       <RegistrationLoginLayout>
         <CheckInbox
-          h3Text={loading ? "Loading....." : message}
+          h3Text={loading ? "Verifying your email…" : message}
           inputBox={
             canSendAgain && (
               <>
@@ -115,15 +146,7 @@ const VerifyEmail = () => {
           button={
             loading ? (
               ""
-            ) : message !== "Invalid or expired verification token." ? (
-              <button
-                className="common-btn w-100 justify-content-center text-center"
-                id="ifsure"
-                onClick={handleLogin}
-              >
-                {"Go To Login"}
-              </button>
-            ) : (
+            ) : showSendAgain ? (
               <button
                 className="basic_btn yellow_btn "
                 id="ifsure"
@@ -132,6 +155,14 @@ const VerifyEmail = () => {
                 }}
               >
                 {"send again"}
+              </button>
+            ) : (
+              <button
+                className="common-btn w-100 justify-content-center text-center"
+                id="ifsure"
+                onClick={handleLogin}
+              >
+                {"Go To Login"}
               </button>
             )
           }

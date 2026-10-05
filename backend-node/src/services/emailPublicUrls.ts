@@ -63,9 +63,15 @@ export function isPublicHttpsUrl(value: string): boolean {
   }
 }
 
+/** True when local Mailpit / production-build proof may use private HTTP origins. */
+export function emailAllowLocalBaseUrl(): boolean {
+  return (env("EMAIL_ALLOW_LOCAL_BASE_URL") ?? "").trim().toLowerCase() === "true";
+}
+
 /**
  * Resolve the configured public client origin for email links.
- * Throws EmailPublicUrlError when missing or not a public HTTPS origin.
+ * Throws EmailPublicUrlError when missing or not a public HTTPS origin
+ * (unless EMAIL_ALLOW_LOCAL_BASE_URL=true for local Mailpit proof).
  */
 export function requirePublicAppBaseUrl(): string {
   const raw = (env("APP_BASE_URL") ?? "").trim();
@@ -80,16 +86,20 @@ export function requirePublicAppBaseUrl(): string {
   } catch {
     throw new EmailPublicUrlError(`APP_BASE_URL is not a valid URL: ${raw}`);
   }
+  const allowLocal = emailAllowLocalBaseUrl();
   if (parsed.protocol !== "https:") {
-    throw new EmailPublicUrlError(
-      `APP_BASE_URL must be HTTPS (got ${parsed.protocol}//${parsed.host}). Private/HTTP origins cannot be used in emails.`,
-    );
+    // Local Mailpit / production-build proof only — never enable on staging/production.
+    if (!(allowLocal && parsed.protocol === "http:" && isPrivateOrLocalHostname(parsed.hostname))) {
+      throw new EmailPublicUrlError(
+        `APP_BASE_URL must be HTTPS (got ${parsed.protocol}//${parsed.host}). Private/HTTP origins cannot be used in emails.`,
+      );
+    }
   }
   if (isPrivateOrLocalHostname(parsed.hostname)) {
     // Integration harness uses https://*.taxsimba.local — never allowed outside NODE_ENV=test.
     const testHarness =
       process.env.NODE_ENV === "test" && /\.taxsimba\.local$/i.test(parsed.hostname);
-    if (!testHarness) {
+    if (!testHarness && !allowLocal) {
       throw new EmailPublicUrlError(
         `APP_BASE_URL host '${parsed.hostname}' is not publicly reachable. Email clients cannot load localhost or private IP addresses.`,
       );
@@ -111,7 +121,11 @@ export function requirePublicAdminBaseUrl(): string {
   if (parsed.protocol !== "https:" || isPrivateOrLocalHostname(parsed.hostname)) {
     const testHarness =
       process.env.NODE_ENV === "test" && /\.taxsimba\.local$/i.test(parsed.hostname);
-    if (!testHarness) {
+    const allowLocal =
+      emailAllowLocalBaseUrl() &&
+      parsed.protocol === "http:" &&
+      isPrivateOrLocalHostname(parsed.hostname);
+    if (!testHarness && !allowLocal) {
       throw new EmailPublicUrlError(
         `ADMIN_BASE_URL must be a public HTTPS origin (got ${parsed.protocol}//${parsed.host}).`,
       );
@@ -128,7 +142,20 @@ export function requirePublicAdminBaseUrl(): string {
 export function emailLogoUrl(): string {
   const override = (env("EMAIL_LOGO_URL") ?? "").trim();
   if (override) {
-    if (!isPublicHttpsUrl(override)) {
+    const allowLocal = emailAllowLocalBaseUrl();
+    let ok = isPublicHttpsUrl(override);
+    if (!ok && allowLocal) {
+      try {
+        const u = new URL(override);
+        ok =
+          (u.protocol === "http:" || u.protocol === "https:") &&
+          isPrivateOrLocalHostname(u.hostname) &&
+          !/\.svg(\?|$)/i.test(override);
+      } catch {
+        ok = false;
+      }
+    }
+    if (!ok) {
       throw new EmailPublicUrlError(
         "EMAIL_LOGO_URL must be an absolute public HTTPS URL to a PNG (no localhost/private hosts).",
       );
@@ -194,7 +221,11 @@ export function requirePublicLegalBaseUrl(): string {
   if (parsed.protocol !== "https:" || isPrivateOrLocalHostname(parsed.hostname)) {
     const testHarness =
       process.env.NODE_ENV === "test" && /\.taxsimba\.local$/i.test(parsed.hostname);
-    if (!testHarness) {
+    const allowLocal =
+      emailAllowLocalBaseUrl() &&
+      parsed.protocol === "http:" &&
+      isPrivateOrLocalHostname(parsed.hostname);
+    if (!testHarness && !allowLocal) {
       throw new EmailPublicUrlError(
         `EMAIL_LEGAL_BASE_URL must be a public HTTPS origin (got ${parsed.protocol}//${parsed.host}).`,
       );
@@ -221,6 +252,8 @@ export const PROHIBITED_EMAIL_HOST_PATTERN =
   /(?:https?:\/\/)?(?:localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\]|::1|192\.168\.\d{1,3}\.\d{1,3}|10\.\d{1,3}\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[0-1])\.\d{1,3}\.\d{1,3})(?::\d+)?/i;
 
 export function assertNoProhibitedEmailHosts(htmlOrText: string, label = "email"): void {
+  // Local Mailpit proof intentionally embeds http://127.0.0.1 — skip the scanner.
+  if (emailAllowLocalBaseUrl()) return;
   if (PROHIBITED_EMAIL_HOST_PATTERN.test(htmlOrText)) {
     throw new EmailPublicUrlError(
       `${label} contains a prohibited private/local host. Check APP_BASE_URL / CTA generation.`,

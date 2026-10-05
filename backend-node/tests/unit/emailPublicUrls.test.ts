@@ -22,6 +22,7 @@ describe("emailPublicUrls (Toxsl J-003/J-004/J-006)", () => {
     ADMIN_BASE_URL: process.env.ADMIN_BASE_URL,
     EMAIL_LOGO_URL: process.env.EMAIL_LOGO_URL,
     EMAIL_LEGAL_BASE_URL: process.env.EMAIL_LEGAL_BASE_URL,
+    EMAIL_ALLOW_LOCAL_BASE_URL: process.env.EMAIL_ALLOW_LOCAL_BASE_URL,
   };
 
   beforeEach(() => {
@@ -29,6 +30,7 @@ describe("emailPublicUrls (Toxsl J-003/J-004/J-006)", () => {
     delete process.env.ADMIN_BASE_URL;
     delete process.env.EMAIL_LOGO_URL;
     delete process.env.EMAIL_LEGAL_BASE_URL;
+    delete process.env.EMAIL_ALLOW_LOCAL_BASE_URL;
   });
 
   afterEach(() => {
@@ -56,6 +58,15 @@ describe("emailPublicUrls (Toxsl J-003/J-004/J-006)", () => {
     expect(() => requirePublicAppBaseUrl()).toThrow(EmailPublicUrlError);
     delete process.env.APP_BASE_URL;
     expect(() => requirePublicAppBaseUrl()).toThrow(/not configured/i);
+  });
+
+  it("allows local APP_BASE_URL only when EMAIL_ALLOW_LOCAL_BASE_URL=true", () => {
+    process.env.APP_BASE_URL = "http://127.0.0.1:3000";
+    expect(() => requirePublicAppBaseUrl()).toThrow(EmailPublicUrlError);
+    process.env.EMAIL_ALLOW_LOCAL_BASE_URL = "true";
+    expect(requirePublicAppBaseUrl()).toBe("http://127.0.0.1:3000");
+    expect(emailLogoUrl()).toBe("http://127.0.0.1:3000/images/email-logo.png");
+    delete process.env.EMAIL_ALLOW_LOCAL_BASE_URL;
   });
 
   it("builds email-safe logo + legal URLs", () => {
