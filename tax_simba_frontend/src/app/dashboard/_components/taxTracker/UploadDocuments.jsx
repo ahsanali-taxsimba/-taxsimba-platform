@@ -10,41 +10,37 @@ const UploadDocuments = ({ requiredDocs, item, ids, setTaxReturns, setIsDocUpdat
     const [files, setFiles] = useState({});
     const { data: sessionData, status } = useSession();
     const access_token = sessionData?.accessToken;
-    const taxReturnId = item?.taxReturn?.id; // Assuming taxReturnId is available in item.
+    const taxReturnId = item?.taxReturn?.id;
     const [show, setShow] = useState(false);
-    const [error, setError] = useState({}); // To track error for each document
-    // Reset error and modal visibility when modal is closed
+    const [error, setError] = useState({});
+
     const handleModalClose = () => {
         setShow(false);
-        setError({}); // Clear errors when modal closes
-        setFiles({}); // Clear selected files when modal closes
+        setError({});
+        setFiles({});
     };
 
-    // Open the modal and clear any existing errors
     const handleModalShow = () => {
         setShow(true);
-        setError({}); // Clear errors when modal is opened
-        setFiles({}); // Clear selected files when modal is opened
+        setError({});
+        setFiles({});
     };
 
-    // Handle file input change
     const handleFileChange = (e, docId) => {
         const selectedFile = e.target.files[0];
         if (selectedFile) {
             setFiles(prevState => ({
                 ...prevState,
-                [docId]: selectedFile // Store the file by document id
+                [docId]: selectedFile
             }));
-            // Clear error for the specific document when file is selected
             setError(prevState => {
                 const newError = { ...prevState };
-                delete newError[docId]; // Remove error for this document
+                delete newError[docId];
                 return newError;
             });
         }
     };
 
-    // Validate that all required documents have files
     const validateDocuments = () => {
         let isValid = true;
         let errorMessages = {};
@@ -52,75 +48,88 @@ const UploadDocuments = ({ requiredDocs, item, ids, setTaxReturns, setIsDocUpdat
         requiredDocs.forEach(doc => {
             if (!files[doc.id]) {
                 isValid = false;
-                errorMessages[doc.id] = 'You must upload this document'; // Add error for missing file
+                errorMessages[doc.id] = 'You must upload this document';
             }
         });
 
         if (!isValid) {
-            setError(errorMessages); // Set error messages for invalid files
+            setError(errorMessages);
         }
 
-        return isValid; // Return whether all documents are uploaded
+        return isValid;
     };
 
-    // Handle document upload
     const handleUpload = async () => {
-        // Validate before uploading
         if (!validateDocuments()) {
-            return; // Don't proceed with upload if validation fails
+            return;
+        }
+        if (!taxReturnId) {
+            toast.error('Tax return is missing. Please refresh and try again.');
+            return;
+        }
+        if (!access_token) {
+            toast.error('You must be signed in to upload documents.');
+            return;
         }
 
         setLoading(true);
 
         try {
-            const formData = new FormData();
-            
-            const documentNames = [];
-            const documentTypes = [];
-            const documentCategories = [];
+            // One request per document so each upload is tied to its request placeholder.
+            for (const doc of requiredDocs) {
+                const selected = files[doc.id];
+                if (!selected) continue;
 
-            // Append all files to formData
-            requiredDocs.forEach(doc => {
-                if (files[doc.id]) {
-                    // Canonical multipart field expected by backend Multer (`file`).
-                    formData.append('file', files[doc.id]);
-                    documentNames.push(doc.filename || doc.originalFileName || "");
-                    documentTypes.push(doc.documentType || "client_upload");
-                    documentCategories.push(doc.documentCategory || "additional_info");
+                const formData = new FormData();
+                // Canonical multipart field expected by backend Multer (`file`).
+                formData.append('file', selected);
+                formData.append('documentId', String(doc.id));
+                formData.append('document_id', String(doc.id));
+                if (doc.requestId || doc.request_id) {
+                    formData.append('requestId', String(doc.requestId || doc.request_id));
                 }
-            });
+                formData.append(
+                    'documentType',
+                    doc.documentType || doc.document_type || 'client_upload',
+                );
 
-            formData.append('documentNames', JSON.stringify(documentNames));
-            formData.append('documentTypes', JSON.stringify(documentTypes));
-            formData.append('documentCategories', JSON.stringify(documentCategories));
+                // Do NOT set Content-Type — the browser must attach multipart boundary.
+                // Setting `multipart/form-data` alone causes Multer "Boundary not found"
+                // and the client toast "Failed to upload documents" (Toxsl F-004).
+                const response = await axios.post(
+                    `${process.env.NEXT_PUBLIC_API_URL}client/tax-returns/${taxReturnId}/upload-documents`,
+                    formData,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${access_token}`,
+                        },
+                    }
+                );
 
-            const response = await axios.post(
-                `${process.env.NEXT_PUBLIC_API_URL}client/tax-returns/${taxReturnId}/upload-documents`,
-                formData,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                        Authorization: `Bearer ${access_token}`,
-                    },
+                if (!response.data?.success) {
+                    const msg = response.data?.message || 'Failed to upload the documents.';
+                    throw new Error(msg);
                 }
-            );
-
-            if (response.data.success) {
-                const data = await useFetchTaxReturnData(access_token);
-                if (setTaxReturns) {
-                    setTaxReturns(data); // Update parent component's state
-                }
-                if (setIsDocUpdated) {
-                    setIsDocUpdated(true); // Notify parent component about the document update
-                }
-                toast.success('Documents uploaded successfully!');
-                setShow(false); // Close modal after successful upload
-            } else {
-                toast.error('Failed to upload the documents.');
             }
-        } catch (error) {
-            console.error('Error uploading documents:', error);
-            toast.error('Failed to upload the documents. Please try again.');
+
+            const data = await useFetchTaxReturnData(access_token);
+            if (setTaxReturns) {
+                setTaxReturns(data);
+            }
+            if (setIsDocUpdated) {
+                setIsDocUpdated(true);
+            }
+            toast.success('Documents uploaded successfully!');
+            setShow(false);
+            setFiles({});
+            setError({});
+        } catch (err) {
+            console.error('Error uploading documents:', err);
+            const apiMsg =
+                err?.response?.data?.message ||
+                err?.message ||
+                'Failed to upload the documents. Please try again.';
+            toast.error(apiMsg);
         } finally {
             setLoading(false);
         }
@@ -128,17 +137,18 @@ const UploadDocuments = ({ requiredDocs, item, ids, setTaxReturns, setIsDocUpdat
 
     return (
         <>
-            <div className="upload_valid">
+            <div className="upload_valid" data-testid="client-document-upload-banner">
                 <p>
                     <span>
                         <i className="fa-solid fa-circle-info" />
                     </span>
-                    Some of your documents are rejected. Please upload valid documents here.
+                    Your accountant has requested documents. Please upload them here.
                 </p>
                 <button
                     className="border_btn upload_btn"
+                    data-testid="client-upload-documents-btn"
                     onClick={handleModalShow}
-                    disabled={loading}
+                    disabled={loading || status !== 'authenticated'}
                 >
                     Upload Documents
                 </button>
@@ -180,6 +190,7 @@ const UploadDocuments = ({ requiredDocs, item, ids, setTaxReturns, setIsDocUpdat
                                     <input
                                         type="file"
                                         accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                                        data-testid={`client-upload-input-${doc.id}`}
                                         onChange={(e) => handleFileChange(e, doc.id)}
                                         className={`form-control mt-auto ${error[doc.id] ? 'is-invalid' : ''}`}
                                     />
@@ -197,7 +208,12 @@ const UploadDocuments = ({ requiredDocs, item, ids, setTaxReturns, setIsDocUpdat
                     <Button variant="secondary" onClick={handleModalClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleUpload} disabled={loading}>
+                    <Button
+                        variant="primary"
+                        data-testid="client-upload-submit-btn"
+                        onClick={handleUpload}
+                        disabled={loading}
+                    >
                         Upload
                     </Button>
                 </Modal.Footer>

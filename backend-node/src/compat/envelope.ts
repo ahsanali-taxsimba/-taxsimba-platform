@@ -55,6 +55,14 @@ export function sendCompatSuccess<T>(
   res.status(status).json(payload);
 }
 
+function isMultipartParseError(err: unknown): boolean {
+  if (!err || typeof err !== "object") return false;
+  const e = err as { name?: string; code?: string; message?: string };
+  if (e.name === "MulterError") return true;
+  const msg = String(e.message || "");
+  return /Boundary not found|Unexpected end of form|Unexpected field|File too large/i.test(msg);
+}
+
 /**
  * Compat-router error middleware: maps Node HttpError `{detail}` into the Toxel envelope
  * without altering native `/api` error behaviour outside this router.
@@ -77,6 +85,16 @@ export function compatErrorMiddleware(
         errorEnvelope(message, typeof err.detail === "string" ? null : err.detail),
       ),
     );
+    return;
+  }
+  // Multer / busboy failures (e.g. Content-Type without boundary) → actionable 422, not 500.
+  if (isMultipartParseError(err)) {
+    const e = err as { code?: string; message?: string };
+    const message =
+      e.code === "LIMIT_FILE_SIZE"
+        ? "File is too large"
+        : "Invalid multipart upload. Send the file as multipart/form-data with a proper boundary (do not set Content-Type manually).";
+    res.status(422).json(keysToCamel(errorEnvelope(message)));
     return;
   }
   // Payment config / Stripe failures → controlled actionable messages (never secrets).

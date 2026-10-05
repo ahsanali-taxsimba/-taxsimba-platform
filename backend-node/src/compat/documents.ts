@@ -147,35 +147,142 @@ compatDocumentsRouter.post(
     if (!f) throw httpError(422, "file is required");
 
     const kase = await getCase(caseId, me);
+    const body = (req.body ?? {}) as Record<string, unknown>;
     const documentType =
-      (typeof req.body?.document_type === "string" && req.body.document_type) ||
-      (typeof req.body?.documentType === "string" && req.body.documentType) ||
+      (typeof body.document_type === "string" && body.document_type) ||
+      (typeof body.documentType === "string" && body.documentType) ||
       "Other";
+    const documentId =
+      (typeof body.document_id === "string" && body.document_id.trim()) ||
+      (typeof body.documentId === "string" && body.documentId.trim()) ||
+      "";
+    const requestIdHint =
+      (typeof body.request_id === "string" && body.request_id.trim()) ||
+      (typeof body.requestId === "string" && body.requestId.trim()) ||
+      "";
+
+    const inferredMime =
+      mimeFromFilename(f.originalname) ||
+      (f.mimetype || "").split(";")[0].trim() ||
+      "application/octet-stream";
+    const effectiveMime =
+      !f.mimetype || f.mimetype === "application/octet-stream" ? inferredMime : f.mimetype;
+    validateUpload(effectiveMime, f.size, f.originalname);
+    const contentHash = createHash("sha256").update(f.buffer).digest("hex");
+
+    // Resolve the outstanding staff request / placeholder this upload fulfils.
+    let existing: Doc | null = null;
+    if (documentId) {
+      existing = (await col("documents").findOne({
+        id: documentId,
+        is_deleted: { $ne: true },
+      })) as Doc | null;
+      if (!existing) throw httpError(404, "Document request not found");
+      if (String(existing.case_id) !== caseId) {
+        throw httpError(400, "This document belongs to a different case");
+      }
+      if (String(existing.client_user_id) !== String(me.id)) {
+        throw httpError(403, "Not allowed");
+      }
+    } else if (requestIdHint) {
+      existing = (await col("documents").findOne({
+        case_id: caseId,
+        request_id: requestIdHint,
+        is_deleted: { $ne: true },
+      })) as Doc | null;
+    } else {
+      // Match an open Requested placeholder by type, else the oldest open request on the case.
+      existing = (await col("documents").findOne(
+        {
+          case_id: caseId,
+          status: "Requested",
+          is_deleted: { $ne: true },
+          document_type: documentType,
+        },
+        { sort: { created_at: 1 } },
+      )) as Doc | null;
+      if (!existing) {
+        existing = (await col("documents").findOne(
+          {
+            case_id: caseId,
+            status: "Requested",
+            is_deleted: { $ne: true },
+          },
+          { sort: { created_at: 1 } },
+        )) as Doc | null;
+      }
+    }
+
+    // Idempotent retry: same content already stored for this placeholder.
+    if (
+      existing &&
+      existing.status === "Uploaded" &&
+      existing.content_hash === contentHash &&
+      existing.storage_path
+    ) {
+      sendCompatSuccess(
+        res,
+        {
+          ...clientDocumentDto(clean(existing) as Doc, caseId),
+          tax_return_id: caseId,
+          case_id: caseId,
+          taxReturnId: caseId,
+          caseId,
+          duplicate: true,
+          requestId: existing.request_id ?? null,
+        },
+        "Already uploaded",
+      );
+      return;
+    }
+
+    // Store first — never mark the request complete if storage fails.
     const ext = f.originalname.includes(".") ? f.originalname.split(".").pop() : "bin";
     const path = `${APP_NAME}/uploads/${me.id}/${randomUUID()}.${ext}`;
-    validateUpload(f.mimetype, f.size, f.originalname);
-    const stored = await putObject(path, f.buffer, f.mimetype || "application/octet-stream");
+    const stored = await putObject(path, f.buffer, effectiveMime);
+
+    const requestId = (existing?.request_id as string | undefined) || requestIdHint || null;
+    const taskId = (existing?.task_id as string | undefined) || null;
     const record: Doc = {
-      id: randomUUID(),
+      id: existing?.id || randomUUID(),
       case_id: caseId,
       client_user_id: kase.client_user_id,
       tax_year: kase.tax_year,
-      document_type: documentType,
+      document_type: existing?.document_type || documentType,
       name: f.originalname,
       status: "Uploaded",
       storage_path: stored.path,
       uploader_id: me.id,
       uploader_name: me.name,
-      content_type: f.mimetype,
+      content_type: effectiveMime,
       size: stored.size ?? f.size,
+      content_hash: contentHash,
       is_internal: false,
       is_deleted: false,
       upload_date: nowIso(),
-      created_at: nowIso(),
-      task_id: null,
-      mtd_period_id: null,
+      created_at: existing?.created_at || nowIso(),
+      request_id: requestId,
+      task_id: taskId,
+      mtd_period_id: existing?.mtd_period_id ?? null,
     };
-    await col("documents").insertOne({ ...record });
+
+    if (existing) {
+      await col("documents").replaceOne({ id: existing.id }, { ...record });
+    } else {
+      await col("documents").insertOne({ ...record });
+    }
+
+    if (requestId) {
+      await col("document_requests").updateOne(
+        { id: requestId, case_id: caseId },
+        { $set: { status: "Uploaded", fulfilled_at: nowIso(), fulfilled_document_id: record.id } },
+      );
+    }
+    if (taskId) {
+      const { completeTask } = await import("../services/tasks");
+      await completeTask(String(taskId), me);
+    }
+
     await logActivity(caseId, `Document uploaded: ${f.originalname}`, me);
     if (kase.assigned_accountant_id) {
       await notify(
@@ -195,6 +302,9 @@ compatDocumentsRouter.post(
         case_id: caseId,
         taxReturnId: caseId,
         caseId,
+        duplicate: false,
+        requestId,
+        requestStatus: requestId ? "Uploaded" : null,
       },
       "Uploaded",
     );
@@ -371,7 +481,8 @@ compatDocumentsRouter.post(
         (message || `${created.length} document(s) requested`) +
         "\n\nPlease upload it securely through your TaxSimba account so we can keep your tax return moving.",
       caseId,
-      "/dashboard/my-documents",
+      // Tax Tracker is where the client upload action is rendered for outstanding requests.
+      "/dashboard/tax-tracker",
       "DOCUMENT",
     );
     sendCompatSuccess(

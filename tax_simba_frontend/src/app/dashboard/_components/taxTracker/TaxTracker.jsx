@@ -127,6 +127,18 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
     const data = await useFetchTaxReturnData(access_token);
     const realData = (data && data.length > 0) ? data : [];
     setTaxReturns(realData);
+    // Auto-expand the first SA return with outstanding document requests so the upload
+    // action is visible without hunting (Toxsl F-003).
+    const firstWithRequest = realData.findIndex((row) => {
+      if (row?.taxReturn?.status === "completed") return false;
+      const files = row?.files?.allFiles || [];
+      return files.some((f) => f.uploadStatus !== "completed");
+    });
+    if (firstWithRequest >= 0) {
+      setOpenIdx(firstWithRequest);
+      const id = realData[firstWithRequest]?.taxReturn?.id;
+      if (id) void fetchDetailIfNeeded(id);
+    }
     setLoading(false);
   };
 

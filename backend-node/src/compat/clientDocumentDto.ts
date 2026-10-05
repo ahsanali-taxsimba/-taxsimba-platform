@@ -26,6 +26,8 @@ export function clientDocumentDto(d: Doc, caseId?: string): Doc {
     caseId: cid || null,
     case_id: cid || null,
     documentType: d.document_type ?? d.documentType ?? "Other",
+    requestId: d.request_id ?? d.requestId ?? null,
+    request_id: d.request_id ?? d.requestId ?? null,
     uploadStatus:
       d.status === "Requested" || d.uploadStatus === "uploading" ? "uploading" : "completed",
     fileSize: d.size ?? d.fileSize ?? null,
