@@ -1,0 +1,5 @@
+# Deploy SHA = tip of this branch after fetch/pull (single source).
+#   git fetch origin cursor/toxsl-blockers-b01-b04-80a7
+#   git rev-parse origin/cursor/toxsl-blockers-b01-b04-80a7
+# Handoff evidence ZIP DEPLOY_SHA.txt and the PR description record that exact tip.
+# Set GIT_SHA / NEXT_PUBLIC_GIT_SHA / build-info to that same tip. Do not mix SHAs.

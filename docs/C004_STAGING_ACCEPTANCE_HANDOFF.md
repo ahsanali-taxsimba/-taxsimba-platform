@@ -8,43 +8,45 @@
 | Field | Value |
 |---|---|
 | Toxel Test ID | C-004 |
-| Final commit SHA | `d97aff5b768dfcce53af1a3789d6c08cf1cc0eae` |
-| Short SHA | `d97aff5` |
+| **Deploy SHA (single source)** | contents of `docs/C004_DEPLOY_SHA.txt` |
 | Branch | `cursor/toxsl-blockers-b01-b04-80a7` |
 | PR | https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/18 |
 | Base | `toxel-uat-approved` |
-| Local verdict | **LOCAL PASS** (fake fulfilment on localhost) |
+| Local verdict | **LOCAL PASS** (SIMULATED fulfilment on localhost) |
 | Staging verdict | **UNVERIFIED / BLOCKED** for this agent |
+
+Do **not** deploy an older intermediate SHA while reporting a newer tip (or vice versa). One SHA only.
 
 ## What must be deployed
 
 C-004 UI fix lives in **Next.js client** `tax_simba_frontend/` (not the legacy CRA `frontend/` root used by the current `render.yaml` blueprint). Deploy **the same SHA** for:
 
-1. `backend-node` — entitlements, checkout, Stripe webhook fulfil
-2. `tax_simba_frontend` — Add MTD/SA CTAs, `AddSecondServiceBanner`, `ServiceWorkspaceSwitcher` on SA + MTD layouts
+1. `backend-node` — entitlements, checkout, Stripe webhook fulfil, SA Tax Tracker case filter
+2. `tax_simba_frontend` — Add MTD/SA CTAs, switcher, Tax Tracker SA-only filter
 3. `tax_simba_admin_frontend` — optional for C-004 client checks; keep SHA parity if deployed
 
-Set build-info env on each service:
+Set build-info env on each service to the SHA in `docs/C004_DEPLOY_SHA.txt`:
 
 ```text
-GIT_SHA=d97aff5b768dfcce53af1a3789d6c08cf1cc0eae
+GIT_SHA=<C004_DEPLOY_SHA.txt>
 # client / admin also:
-NEXT_PUBLIC_GIT_SHA=d97aff5b768dfcce53af1a3789d6c08cf1cc0eae
+NEXT_PUBLIC_GIT_SHA=<C004_DEPLOY_SHA.txt>
 ```
 
 Confirm after deploy:
 
 ```bash
+DEPLOY_SHA=$(cat docs/C004_DEPLOY_SHA.txt)
 curl -sS "$BACKEND_URL/api/build-info" | jq .
 curl -sS "$CLIENT_URL/build-info" | jq .
-# Abort unless both gitSha == d97aff5b768dfcce53af1a3789d6c08cf1cc0eae
+# Abort unless both gitSha == $DEPLOY_SHA
 ```
 
 ### Blueprint note
 
 Repo `render.yaml` still points `taxsimba-staging-web` at CRA `frontend/` and branch `node-only-production`. For C-004 acceptance, either:
 
-- Deploy `tax_simba_frontend` from SHA `d97aff5…` to the staging client host (recommended for Toxel UAT), **or**
+- Deploy `tax_simba_frontend` from SHA `branch tip` to the staging client host (recommended for Toxel UAT), **or**
 - Update the Render service root/branch to build `tax_simba_frontend` from this SHA,
 
 and keep API on the same SHA. Do **not** accept C-004 against a CRA-only deploy that lacks the Next.js switcher/CTA changes.
@@ -79,7 +81,7 @@ Optional client: `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_…`.
 
 ## Deploy steps (operator)
 
-1. Merge or manually deploy branch tip `d97aff5b768dfcce53af1a3789d6c08cf1cc0eae` (or that commit directly).
+1. Merge or manually deploy branch tip the tip recorded in `docs/C004_DEPLOY_SHA.txt` / evidence ZIP (or that commit directly).
 2. Backend env: Stripe TEST keys + webhook secret; `PAYMENT_PROVIDER` unset; `APP_BASE_URL` = staging client origin; staging Mongo only.
 3. Client: build `tax_simba_frontend` with `NEXT_PUBLIC_GIT_SHA` / API URL pointing at staging.
 4. Restart services. Confirm `/api/` health and matching build-info SHAs.
@@ -100,7 +102,7 @@ Optional client: `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_…`.
 | Stripe CLI | **MISSING** |
 | Staging Mongo credentials | **MISSING** (not expected in agent env) |
 
-**Conclusion:** This agent cannot deploy or execute staging Stripe acceptance. Operator with Render + Stripe TEST access must deploy SHA `d97aff5…` and complete the checklist.
+**Conclusion:** This agent cannot deploy or execute staging Stripe acceptance. Operator with Render + Stripe TEST access must deploy SHA `branch tip` and complete the checklist.
 
 ## Staging URL / deployed SHA (to fill after deploy)
 
@@ -108,7 +110,7 @@ Optional client: `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_…`.
 |---|---|
 | Staging client URL | `_TBD — blocked; blueprint hosts 404_` |
 | Staging API URL | `_TBD — blocked; blueprint hosts 404_` |
-| Deployed commit SHA | `_TBD — must be d97aff5b768dfcce53af1a3789d6c08cf1cc0eae_` |
+| Deployed commit SHA | `_TBD — must be branch tipb3b1804824f3e6454e5bbd48ee6ad31aa_` |
 | `GET /api/build-info` | `_TBD_` |
 | `GET /build-info` | `_TBD_` |
 

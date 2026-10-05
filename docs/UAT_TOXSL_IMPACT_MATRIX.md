@@ -16,6 +16,8 @@
 | Phase 7 email | Fail | Footer tagline | Standard footer + legal links | `email.ts` | `emailRender` | Spot | Yes carry footer if green | Spot-check one receipt |
 | Phase 8 wording | Fail | Direct HMRC Submission | Accountant-led copy + scan | SEO `page.client.js` | assert-no-direct-hmrc + Playwright | Spot | Yes if scan green | Spot SEO pages |
 | Dual SA+MTD | Pass (prior) | — | Preserved + RA12 | — | releaseAcceptanceApi | Spot | Yes if RA12 green | SA→MTD same login |
+| C-004 same account SA+MTD | Fail (UI lock) → LOCAL PASS | Intent locked CTAs; SA tracker listed MTD cases as second WIP | Dual CTAs/switcher; `all-tax-returns` SA-default; FE SA filter | `catalogueJourney.js`, banners/switcher, `MySubscriptionsUI`, layouts, `cases.ts`, `TaxTracker.jsx` | toxelC004DualService + proof (SIMULATED) | Yes staging Stripe TEST | No until staging | Both directions + tracker + replay |
+| C-004 Tax Tracker dual WIP | Fail (leak) → LOCAL PASS | `all-tax-returns` returned all ACTIVE types under static year heading | Default SA-only + FE filter; case ref/year on row | `compat/cases.ts`, `TaxTracker.jsx` | C-004 tracker test + `case_ids_sa_then_mtd.json` | Yes staging | No until staging | Confirm 1 SA WIP; MTD only on MTD UI |
 | Super Admin assign | Pass (prior) | — | Preserved | — | releaseAcceptanceApi RA09 | Spot | Yes | Assign 403 |
 | Draft Admin gate | Pass (prior) | — | Preserved | — | draftUpload* + RA10 | Spot | Yes | Draft hidden then visible |
 | Pricing SA | Pass (prior) | — | Unchanged £119/£149/£299 | — | packagePricingP0 | No | Yes | — |

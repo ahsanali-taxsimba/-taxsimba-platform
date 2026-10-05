@@ -247,6 +247,58 @@ describe("Toxel C-004 dual-service ownership", () => {
     expect(aMine.body.client_ref).not.toBe(bMine.body.client_ref);
   });
 
+  it("C-004 SA Tax Tracker all-tax-returns excludes MTD cases after dual purchase", async () => {
+    const client = await makeClient(`c004-tracker-${randomUUID().slice(0, 6)}`);
+    await activateClientService(client, "SELF_ASSESSMENT", "SIMPLE");
+    await activateClientService(client, "MTD_INCOME_TAX", "MTD_COMPLY");
+
+    // Ensure both service cases exist (activation may create them).
+    const allCases = await request(app).get("/api/cases").set(bearer(client)).expect(200);
+    const caseList = Array.isArray(allCases.body)
+      ? allCases.body
+      : allCases.body?.data || allCases.body || [];
+    const saCases = (caseList as { service_type: string; id: string }[]).filter(
+      (c) => c.service_type === "SELF_ASSESSMENT",
+    );
+    const mtdCases = (caseList as { service_type: string; id: string }[]).filter(
+      (c) => c.service_type === "MTD_INCOME_TAX",
+    );
+    expect(saCases.length).toBeGreaterThanOrEqual(1);
+    expect(mtdCases.length).toBeGreaterThanOrEqual(1);
+
+    const tracker = await request(app)
+      .post("/api/compat/client/all-tax-returns")
+      .set(bearer(client))
+      .send({})
+      .expect(200);
+    const rows = tracker.body.data as {
+      taxReturn?: { id?: string; serviceType?: string };
+      service_type?: string;
+    }[];
+    expect(Array.isArray(rows)).toBe(true);
+    expect(rows.length).toBe(saCases.length);
+    for (const row of rows) {
+      const st = row.taxReturn?.serviceType || row.service_type;
+      expect(st).toBe("SELF_ASSESSMENT");
+    }
+    const trackerIds = new Set(rows.map((r) => r.taxReturn?.id).filter(Boolean));
+    for (const m of mtdCases) {
+      expect(trackerIds.has(m.id)).toBe(false);
+    }
+
+    // Explicit MTD request still returns MTD rows when entitled.
+    const mtdTracker = await request(app)
+      .post("/api/compat/client/all-tax-returns")
+      .set(bearer(client))
+      .send({ service_type: "MTD_INCOME_TAX" })
+      .expect(200);
+    const mtdRows = mtdTracker.body.data as { taxReturn?: { serviceType?: string } }[];
+    expect(mtdRows.length).toBe(mtdCases.length);
+    for (const row of mtdRows) {
+      expect(row.taxReturn?.serviceType).toBe("MTD_INCOME_TAX");
+    }
+  });
+
   it("C-004 unpaid / SA-only / MTD-only retain correct access flags; missing UTR does not block details", async () => {
     const unpaid = await makeClient(`c004-unpaid-${randomUUID().slice(0, 6)}`);
     const saOnly = await makeClient(`c004-saonly-${randomUUID().slice(0, 6)}`);

@@ -183,7 +183,9 @@ compatCasesRouter.post(
   auth("CLIENT"),
   handler(async (req, res) => {
     const me = authed(req);
-    // Reuse list semantics: only ACTIVE-entitlement cases.
+    // SA Tax Tracker only — default SELF_ASSESSMENT so dual-service clients do not
+    // see MTD cases as second "Work in Progress" rows on the SA dashboard (C-004).
+    // Optional body/query `service_type` may request MTD explicitly when needed.
     const { activeServiceTypesForClient } = await import("../domain/caseEntitlement");
     const { clientDocumentDto } = await import("./clientDocumentDto");
     const { scrubMany, cleanMany } = await import("../db/mongo");
@@ -192,9 +194,20 @@ compatCasesRouter.post(
       sendCompatSuccess(res, [], "OK");
       return;
     }
+    const body = (req.body || {}) as Doc;
+    const queryHint =
+      typeof req.query.service_type === "string" ? req.query.service_type : undefined;
+    const requested = serviceTypeFromBody({
+      service_type: body.service_type ?? body.serviceType ?? queryHint,
+    });
+    const scopedTypes = activeTypes.filter((t) => t === requested);
+    if (!scopedTypes.length) {
+      sendCompatSuccess(res, [], "OK");
+      return;
+    }
     const client = await col("clients").findOne({ user_id: me.id });
     const query: Doc = {
-      service_type: { $in: activeTypes },
+      service_type: { $in: scopedTypes },
       $or: client
         ? [{ client_user_id: me.id }, { client_id: client.id }]
         : [{ client_user_id: me.id }],

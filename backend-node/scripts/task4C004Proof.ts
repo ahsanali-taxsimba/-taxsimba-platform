@@ -247,14 +247,32 @@ async function browserJourney(
 
   if (expectBoth) {
     // Workspace switcher + both dashboards
-    await page.goto(`${FE}/dashboard`, { waitUntil: "networkidle", timeout: 60000 });
-    await page.waitForTimeout(2000);
+    await page.goto(`${FE}/dashboard/tax-tracker`, { waitUntil: "networkidle", timeout: 60000 });
+    await page.waitForTimeout(2500);
     await page.screenshot({ path: `${ART}/screenshots/${label}_03_sa_dashboard.png`, fullPage: true });
     const switcherOnSa = await page.locator('[data-testid="service-workspace-switcher"]').count();
-    steps.push({ saDashboard: page.url(), switcherPresent: switcherOnSa > 0 });
+    const wipBadges = await page.locator(".wip, [class*='wip']").count();
+    const accordionItems = await page.locator(".texreturn_accordion .accordion-item, #taxReturn .accordion-item").count();
+    const bodyText = await page.locator("body").innerText();
+    const mtdLeakInSaTracker =
+      /MTD-\d+/i.test(bodyText) && /Tax Tracker/i.test(bodyText);
+    steps.push({
+      saDashboard: page.url(),
+      switcherPresent: switcherOnSa > 0,
+      taxTrackerAccordionRows: accordionItems,
+      wipBadgeCount: wipBadges,
+      mtdCaseRefVisibleOnSaTracker: mtdLeakInSaTracker,
+    });
 
-    await page.goto(`${FE}/mtd-dashboard`, { waitUntil: "networkidle", timeout: 60000 });
-    await page.waitForTimeout(2000);
+    // Switch SA → MTD via workspace switcher when present
+    const mtdTab = page.locator('[data-testid="service-workspace-switcher"] button, [data-testid="service-workspace-switcher"] a').filter({ hasText: /Making Tax Digital|MTD/i }).first();
+    if (await mtdTab.count()) {
+      await mtdTab.click().catch(() => undefined);
+      await page.waitForTimeout(2000);
+    } else {
+      await page.goto(`${FE}/mtd-dashboard`, { waitUntil: "networkidle", timeout: 60000 });
+      await page.waitForTimeout(2000);
+    }
     await page.screenshot({
       path: `${ART}/screenshots/${label}_04_mtd_dashboard.png`,
       fullPage: true,
@@ -262,7 +280,7 @@ async function browserJourney(
     const switcherOnMtd = await page.locator('[data-testid="service-workspace-switcher"]').count();
     steps.push({ mtdDashboard: page.url(), switcherPresent: switcherOnMtd > 0 });
 
-    // Refresh + direct nav
+    // Refresh
     await page.reload({ waitUntil: "networkidle" });
     await page.waitForTimeout(1000);
     steps.push({
@@ -270,7 +288,34 @@ async function browserJourney(
       switcherAfterRefresh:
         (await page.locator('[data-testid="service-workspace-switcher"]').count()) > 0,
     });
+
+    // Logout → login → confirm switcher + both services still reachable
+    await page.goto(`${FE}/dashboard/tax-tracker`, { waitUntil: "networkidle", timeout: 60000 }).catch(() => undefined);
+    const logoutLink = page.getByRole("link", { name: /logout|log out|sign out/i }).first();
+    const logoutBtn = page.getByRole("button", { name: /logout|log out|sign out/i }).first();
+    if (await logoutLink.count()) await logoutLink.click().catch(() => undefined);
+    else if (await logoutBtn.count()) await logoutBtn.click().catch(() => undefined);
+    else await page.goto(`${FE}/login`, { waitUntil: "networkidle" });
+    await page.waitForTimeout(1500);
+    await page.goto(`${FE}/login`, { waitUntil: "networkidle", timeout: 60000 });
+    await page.locator('input[name="email"], input[type="email"]').first().fill(email);
+    await page.locator('input[name="password"], input[type="password"]').first().fill(password);
+    await page.getByRole("button", { name: /log in|sign in|login/i }).first().click();
+    await page.waitForTimeout(3500);
+    await page.goto(`${FE}/dashboard/tax-tracker`, { waitUntil: "networkidle", timeout: 60000 });
+    await page.waitForTimeout(2000);
+    await page.screenshot({
+      path: `${ART}/screenshots/${label}_05_after_relogin.png`,
+      fullPage: true,
+    });
+    const switcherAfterRelogin =
+      (await page.locator('[data-testid="service-workspace-switcher"]').count()) > 0;
+    steps.push({
+      afterLogoutLogin: page.url(),
+      switcherAfterRelogin,
+    });
     out.switcherOk = switcherOnSa > 0 || switcherOnMtd > 0;
+    out.reloginOk = switcherAfterRelogin;
   } else {
     // SA-only / MTD-only: click Add second-service CTA if present (UI path)
     const cta = page.locator('[data-testid="add-second-service-cta"]').first();
@@ -336,9 +381,35 @@ async function main() {
     onboardingIntent: (detailsBoth.data as any)?.data?.onboardingIntent,
   });
 
-  // Collect case ids
+  // Collect case ids + SA Tax Tracker list (must exclude MTD)
   const cases = await api("GET", "/api/cases", { token: tokenBoth });
   save("api/sa_then_mtd_cases.json", cases.data);
+  const tracker = await api("POST", "/api/compat/client/all-tax-returns", {
+    token: tokenBoth,
+    json: {},
+  });
+  save("api/sa_then_mtd_all_tax_returns.json", tracker.data);
+  const caseList = Array.isArray(cases.data) ? cases.data : (cases.data as any)?.data || [];
+  const trackerList = Array.isArray(tracker.data)
+    ? tracker.data
+    : (tracker.data as any)?.data || [];
+  save("api/case_ids_sa_then_mtd.json", {
+    cases: (caseList as any[]).map((c) => ({
+      id: c.id,
+      case_ref: c.case_ref,
+      service_type: c.service_type,
+      tax_year: c.tax_year,
+      status: c.status,
+    })),
+    saTaxTrackerRows: (trackerList as any[]).map((r) => ({
+      id: r.taxReturn?.id || r.id,
+      caseRef: r.taxReturn?.caseRef || r.case_ref,
+      serviceType: r.taxReturn?.serviceType || r.service_type,
+      taxYear: r.taxReturn?.taxYear || r.tax_year,
+    })),
+    explanation:
+      "Two WIP rows previously appeared because all-tax-returns returned both SA and MTD cases under a single static UK tax-year heading. After fix, tracker defaults to SELF_ASSESSMENT only.",
+  });
   const uiBoth = await browserJourney("sa_then_mtd_both", saFirst.email, saFirst.password, true);
 
   // Direction 2: MTD then SA
@@ -385,6 +456,13 @@ async function main() {
     uiBothHasSwitcher:
       Boolean((uiBoth as any)?.switcherOk) ||
       (uiBoth.steps as any[])?.some((s) => s.saDashboard?.switcherPresent || s.mtdDashboard?.switcherPresent),
+    uiBothReloginSwitcher: Boolean((uiBoth as any)?.reloginOk),
+    saTaxTrackerExcludesMtd:
+      (trackerList as any[]).every(
+        (r) => (r.taxReturn?.serviceType || r.service_type) === "SELF_ASSESSMENT",
+      ) &&
+      (trackerList as any[]).length ===
+        (caseList as any[]).filter((c) => c.service_type === "SELF_ASSESSMENT").length,
     mtdThenSaBothActive: ((mine2.data as any)?.services || []).every(
       (s: any) =>
         (s.service_type === "SELF_ASSESSMENT" || s.service_type === "MTD_INCOME_TAX") &&
@@ -394,12 +472,23 @@ async function main() {
     isolationNoOverlap: overlap.length === 0,
     separateServiceRows: saSvc?.id !== mtdSvc?.id,
     missingUtrNotBlocking: true,
-    stripeTestCheckout: "BLOCKED",
+    stripeTestCheckout: "BLOCKED — not executed (empty STRIPE_SECRET_KEY / no staging)",
+    stagingAcceptance: "BLOCKED — awaiting deploy of this tip SHA",
+    fulfilmentMode: "SIMULATED (PAYMENT_PROVIDER=fake on localhost APP_BASE_URL)",
     fakeFulfilmentUsed: true,
     secondCheckoutSessionIdPresent: Boolean(second.sessionId),
   };
   report.pass = Object.entries(report.checks)
-    .filter(([k]) => !["stripeTestCheckout", "fakeFulfilmentUsed", "secondCheckoutSessionIdPresent"].includes(k))
+    .filter(
+      ([k]) =>
+        ![
+          "stripeTestCheckout",
+          "stagingAcceptance",
+          "fulfilmentMode",
+          "fakeFulfilmentUsed",
+          "secondCheckoutSessionIdPresent",
+        ].includes(k),
+    )
     .every(([, v]) => v === true);
 
   // Copy pre-fix screenshots if present

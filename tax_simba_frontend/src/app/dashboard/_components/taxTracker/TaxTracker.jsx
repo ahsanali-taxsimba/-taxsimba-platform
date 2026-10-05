@@ -101,8 +101,19 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
     taxReturnId: null
   });
   const [messages, setMessages] = useState([]);
+  const isSelfAssessmentRow = (file) => {
+    const st = String(
+      file?.taxReturn?.serviceType ||
+        file?.serviceType ||
+        file?.service_type ||
+        "SELF_ASSESSMENT",
+    ).toUpperCase();
+    return st === "SELF_ASSESSMENT" || st === "SA";
+  };
+  // SA Tax Tracker must not list MTD cases (C-004 dual-service clients).
   const pendingReturns = (taxReturns.length > 0 && taxReturns?.filter(
     (file) => {
+      if (!isSelfAssessmentRow(file)) return false;
       const isPending = file?.taxReturn?.status !== 'completed';
       if (!isPending) return false;
 
@@ -115,7 +126,6 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
   )) || [];
   // for files display inside each item
 
-  console.log("pendingReturns", pendingReturns);
   const [showAllMap, setShowAllMap] = useState({});
 
   // cache details by id so we can render progress per opened item
@@ -308,9 +318,9 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
             </div>
             <div className="tax_rtn_reg">
               <p>
-                <strong>Tax Return Year {getUKTaxYear()}</strong>
+                <strong>Self Assessment tax returns</strong>
               </p>
-              <p>Reg. No. </p>
+              <p>Current filing year {getUKTaxYear()}</p>
             </div>
           </>
         )}
@@ -369,7 +379,11 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
                     >
                       <div className="acc_reg_left">
                         <div className="accordion_reg">
-                          <h3>Reg. No. {regNo}</h3>
+                          <h3>
+                            Reg. No. {regNo}
+                            {item?.taxReturn?.caseRef ? ` · ${item.taxReturn.caseRef}` : ""}
+                            {year && year !== "—" ? ` · ${year}` : ""}
+                          </h3>
 
                         </div>
 
