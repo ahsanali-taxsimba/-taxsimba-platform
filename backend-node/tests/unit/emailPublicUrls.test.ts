@@ -13,6 +13,7 @@ import {
   renderEmail,
   resolveEmailHref,
   requirePublicAppBaseUrl,
+  requirePublicLegalBaseUrl,
 } from "../../src/services/email";
 
 describe("emailPublicUrls (Toxsl J-003/J-004/J-006)", () => {
@@ -20,12 +21,14 @@ describe("emailPublicUrls (Toxsl J-003/J-004/J-006)", () => {
     APP_BASE_URL: process.env.APP_BASE_URL,
     ADMIN_BASE_URL: process.env.ADMIN_BASE_URL,
     EMAIL_LOGO_URL: process.env.EMAIL_LOGO_URL,
+    EMAIL_LEGAL_BASE_URL: process.env.EMAIL_LEGAL_BASE_URL,
   };
 
   beforeEach(() => {
     process.env.APP_BASE_URL = "https://taxsimba.co.uk";
     delete process.env.ADMIN_BASE_URL;
     delete process.env.EMAIL_LOGO_URL;
+    delete process.env.EMAIL_LEGAL_BASE_URL;
   });
 
   afterEach(() => {
@@ -64,6 +67,35 @@ describe("emailPublicUrls (Toxsl J-003/J-004/J-006)", () => {
     });
   });
 
+  it("separates legal origin from APP_BASE_URL when EMAIL_LEGAL_BASE_URL is set", () => {
+    process.env.APP_BASE_URL = "https://taxsimba-staging-web.onrender.com";
+    process.env.EMAIL_LEGAL_BASE_URL = "https://taxsimba.co.uk";
+    expect(requirePublicLegalBaseUrl()).toBe("https://taxsimba.co.uk");
+    expect(emailLegalUrls()).toEqual({
+      privacyUrl: "https://taxsimba.co.uk/privacy-policy",
+      termsUrl: "https://taxsimba.co.uk/terms-and-conditions",
+      contactUrl: "https://taxsimba.co.uk/contact-us",
+    });
+    const out = renderEmail({
+      title: "Verify",
+      body: "Body",
+      link: "/verify-email?token=redacted",
+      callToAction: "Verify my email",
+    });
+    expect(out.html).toContain(
+      'href="https://taxsimba-staging-web.onrender.com/verify-email?token=redacted"',
+    );
+    expect(out.html).toContain("https://taxsimba.co.uk/privacy-policy");
+    expect(out.html).toContain(
+      'src="https://taxsimba-staging-web.onrender.com/images/email-logo.png"',
+    );
+  });
+
+  it("rejects private EMAIL_LEGAL_BASE_URL", () => {
+    process.env.EMAIL_LEGAL_BASE_URL = "http://127.0.0.1:3000";
+    expect(() => requirePublicLegalBaseUrl()).toThrow(EmailPublicUrlError);
+  });
+
   it("rewrites private absolute CTAs and keeps public absolute CTAs", () => {
     expect(resolveEmailHref("/dashboard")).toBe("https://taxsimba.co.uk/dashboard");
     expect(resolveEmailHref("http://192.168.0.197:3000/verify-email?token=x")).toBe(
@@ -72,6 +104,14 @@ describe("emailPublicUrls (Toxsl J-003/J-004/J-006)", () => {
     expect(resolveEmailHref("https://taxsimba.co.uk/mtd-dashboard")).toBe(
       "https://taxsimba.co.uk/mtd-dashboard",
     );
+  });
+
+  it("routes /admin CTAs through ADMIN_BASE_URL when set", () => {
+    process.env.ADMIN_BASE_URL = "https://admin.example.com";
+    expect(resolveEmailHref("/admin/manage-tax/case-123")).toBe(
+      "https://admin.example.com/admin/manage-tax/case-123",
+    );
+    expect(resolveEmailHref("/admin/invite/tok")).toBe("https://admin.example.com/admin/invite/tok");
   });
 
   it("generated HTML never contains prohibited hosts", () => {

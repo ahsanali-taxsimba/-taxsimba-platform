@@ -48,6 +48,9 @@ services:
         value: "25"
       - key: APP_BASE_URL
         value: https://taxsimba-staging-web.onrender.com
+      # Legal/marketing pages live on production client origin; keep email footers public.
+      - key: EMAIL_LEGAL_BASE_URL
+        value: https://taxsimba.co.uk
       - key: EMAIL_DRIVER
         value: none
       - key: EMAIL_FROM

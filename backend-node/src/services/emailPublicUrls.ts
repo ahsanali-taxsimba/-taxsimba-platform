@@ -5,9 +5,11 @@
  * Every logo, CTA and legal link must therefore be an absolute public HTTPS URL.
  *
  * Configuration:
- *   APP_BASE_URL   required public client origin, e.g. https://taxsimba.co.uk
- *   EMAIL_LOGO_URL optional absolute HTTPS PNG override
- *   ADMIN_BASE_URL optional public admin origin for /admin/… CTAs
+ *   APP_BASE_URL         required public client origin, e.g. https://taxsimba.co.uk
+ *   EMAIL_LOGO_URL       optional absolute HTTPS PNG override
+ *   ADMIN_BASE_URL       optional public admin origin for /admin/… CTAs
+ *   EMAIL_LEGAL_BASE_URL optional public HTTPS origin for Privacy/Terms/Contact
+ *                        when legal/marketing pages live on a different domain than the app
  */
 import { env } from "../config/env";
 
@@ -175,12 +177,38 @@ export function resolveEmailHref(link: string | null | undefined): string | null
   return `${appBase}${path}`;
 }
 
+/**
+ * Public origin for Privacy / Terms / Contact footers.
+ * Prefer EMAIL_LEGAL_BASE_URL when the marketing/legal site differs from APP_BASE_URL
+ * (e.g. staging app on *.onrender.com, legal pages on https://taxsimba.co.uk).
+ */
+export function requirePublicLegalBaseUrl(): string {
+  const configured = (env("EMAIL_LEGAL_BASE_URL") ?? "").trim();
+  if (!configured) return requirePublicAppBaseUrl();
+  let parsed: URL;
+  try {
+    parsed = new URL(configured.includes("://") ? configured : `https://${configured}`);
+  } catch {
+    throw new EmailPublicUrlError(`EMAIL_LEGAL_BASE_URL is not a valid URL: ${configured}`);
+  }
+  if (parsed.protocol !== "https:" || isPrivateOrLocalHostname(parsed.hostname)) {
+    const testHarness =
+      process.env.NODE_ENV === "test" && /\.taxsimba\.local$/i.test(parsed.hostname);
+    if (!testHarness) {
+      throw new EmailPublicUrlError(
+        `EMAIL_LEGAL_BASE_URL must be a public HTTPS origin (got ${parsed.protocol}//${parsed.host}).`,
+      );
+    }
+  }
+  return `${parsed.protocol}//${parsed.host}`.replace(/\/+$/, "");
+}
+
 export function emailLegalUrls(): {
   privacyUrl: string;
   termsUrl: string;
   contactUrl: string;
 } {
-  const base = requirePublicAppBaseUrl();
+  const base = requirePublicLegalBaseUrl();
   return {
     privacyUrl: `${base}/privacy-policy`,
     termsUrl: `${base}/terms-and-conditions`,
