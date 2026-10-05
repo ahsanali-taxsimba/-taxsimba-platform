@@ -320,6 +320,7 @@ compatPaymentsRouter.get(
   handler(async (req, res) => {
     const { applyDuePriceSchedules } = await import("../domain/pricing");
     const { clientOf, SELF_ASSESSMENT, lockState } = await import("../domain/packages");
+    const { computeSaUpgradeQuote } = await import("../domain/saUpgrade");
     await applyDuePriceSchedules();
     const me = authed(req);
     const client = await clientOf(me);
@@ -340,14 +341,21 @@ compatPaymentsRouter.get(
         .sort({ rank: 1 })
         .toArray()) as Doc[];
       for (const p of rows) {
-        const due = Math.round(Math.max(Number(p.price) - Number(current.price), 0) * 100) / 100;
+        const quote = computeSaUpgradeQuote({
+          svc,
+          currentPkg: current,
+          targetPkg: p,
+        });
         options.push({
           code: p.code,
           name: p.name,
-          upgrade_price: p.price,
-          current_package_credit: current.price,
-          additional_amount_payable: due,
-          total_due_now: due,
+          upgrade_price: quote.upgrade_price,
+          current_package_credit: quote.current_package_credit,
+          additional_amount_payable: quote.additional_amount_payable,
+          total_due_now: quote.total_due_now,
+          currency: quote.currency,
+          amount_due_pence: quote.amount_due_pence,
+          pricing_rule: "target_catalogue_minus_sa_agreed_price",
           plan_id: p.id,
         });
       }
@@ -356,7 +364,12 @@ compatPaymentsRouter.get(
       res,
       keysToCamel({
         current_package: current
-          ? { code: current.code, name: current.name, price: current.price }
+          ? {
+              code: current.code,
+              name: current.name,
+              price: current.price,
+              agreed_price: svc.agreed_price ?? null,
+            }
           : null,
         is_highest: Boolean(current) && !options.length,
         locked,
@@ -379,11 +392,17 @@ compatPaymentsRouter.post(
     const me = authed(req);
     requireVerifiedEmail(me);
     const {
+      assertNoClientAmount,
+      computeSaUpgradeQuote,
+    } = await import("../domain/saUpgrade");
+    assertNoClientAmount(req.body as Record<string, unknown>);
+    const {
       clientOf,
       SELF_ASSESSMENT,
       packageOr404,
       lockState,
     } = await import("../domain/packages");
+    const { inflight } = await import("../routes/payments");
     const body = parseBody(
       z.object({
         package_code: z.string().nullish(),
@@ -415,8 +434,33 @@ compatPaymentsRouter.post(
     }
     const [locked, caseStatus] = await lockState(client.id);
     if (locked) throw httpError(400, `Package changes are locked at this stage (${caseStatus})`);
-    const amount = Math.round(Math.max(Number(target.price) - Number(current.price), 0) * 100) / 100;
-    if (amount <= 0) throw httpError(400, "No additional amount payable");
+    const quote = computeSaUpgradeQuote({ svc, currentPkg: current, targetPkg: target });
+    const amount = quote.total_due_now;
+    if (quote.amount_due_pence <= 0) throw httpError(400, "No additional amount payable");
+    const reuse = await inflight({
+      client_id: client.id,
+      kind: "SA_UPGRADE",
+      new_package: target.code,
+    });
+    if (reuse) {
+      sendCompatSuccess(
+        res,
+        keysToCamel({
+          ...reuse,
+          currency: quote.currency,
+          upgrade_price: quote.upgrade_price,
+          current_package_credit: quote.current_package_credit,
+          additional_amount_payable: quote.additional_amount_payable,
+          total_due_now: quote.total_due_now,
+          amount_due_pence: quote.amount_due_pence,
+          pricing_rule: "target_catalogue_minus_sa_agreed_price",
+          previous_package: current.code,
+          new_package: target.code,
+        }),
+        "Checkout session reused",
+      );
+      return;
+    }
     const origin = checkoutOriginFromRequest(body.origin_url, req.header("origin") || undefined)
       || "https://taxsimba.co.uk";
     let session;
@@ -431,6 +475,7 @@ compatPaymentsRouter.post(
           user_id: me.id as string,
           from_package: String(current.code),
           to_package: String(target.code),
+          amount_due_pence: String(quote.amount_due_pence),
         },
       );
     } catch (err) {
@@ -447,7 +492,11 @@ compatPaymentsRouter.post(
       previous_package: current.code,
       new_package: target.code,
       amount,
+      amount_due_pence: quote.amount_due_pence,
+      upgrade_price: quote.upgrade_price,
+      current_package_credit: quote.current_package_credit,
       currency: "gbp",
+      description: `SA upgrade difference ${current.code} → ${target.code}`,
       status: "initiated",
       payment_status: "pending",
       fulfilled: false,
@@ -460,6 +509,15 @@ compatPaymentsRouter.post(
         checkout_url: session.url,
         session_id: session.id,
         amount,
+        currency: quote.currency,
+        upgrade_price: quote.upgrade_price,
+        current_package_credit: quote.current_package_credit,
+        additional_amount_payable: quote.additional_amount_payable,
+        total_due_now: quote.total_due_now,
+        amount_due_pence: quote.amount_due_pence,
+        pricing_rule: "target_catalogue_minus_sa_agreed_price",
+        previous_package: current.code,
+        new_package: target.code,
       }),
       "Checkout session created",
     );

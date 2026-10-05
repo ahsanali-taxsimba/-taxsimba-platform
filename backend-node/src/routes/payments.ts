@@ -26,6 +26,10 @@ import {
   pendingSchedule,
   schedulePriceChange,
 } from "../domain/pricing";
+import {
+  assertNoClientAmount,
+  computeSaUpgradeQuote,
+} from "../domain/saUpgrade";
 import { logActivity, notify, nowIso } from "../domain/workflow";
 import { handler, httpError, parseBody } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
@@ -360,20 +364,32 @@ paymentsRouter.get(
         .sort({ rank: 1 })
         .toArray()) as Doc[];
       for (const p of rows) {
-        const due = round2(Math.max(p.price - current.price, 0));
+        const quote = computeSaUpgradeQuote({
+          svc,
+          currentPkg: current,
+          targetPkg: p,
+        });
         options.push({
           code: p.code,
           name: p.name,
-          upgrade_price: p.price,
-          current_package_credit: current.price,
-          additional_amount_payable: due,
-          total_due_now: due,
+          upgrade_price: quote.upgrade_price,
+          current_package_credit: quote.current_package_credit,
+          additional_amount_payable: quote.additional_amount_payable,
+          total_due_now: quote.total_due_now,
+          currency: quote.currency,
+          amount_due_pence: quote.amount_due_pence,
+          pricing_rule: "target_catalogue_minus_sa_agreed_price",
         });
       }
     }
     res.json({
       current_package: current
-        ? { code: current.code, name: current.name, price: current.price }
+        ? {
+            code: current.code,
+            name: current.name,
+            price: current.price,
+            agreed_price: svc.agreed_price ?? null,
+          }
         : null,
       is_highest: Boolean(current) && !options.length,
       locked,
@@ -388,7 +404,7 @@ paymentsRouter.get(
  * One payable checkout at a time per business key — reuse the open session instead of
  * creating a second payable one.
  */
-async function inflight(query: Doc): Promise<Doc | null> {
+export async function inflight(query: Doc): Promise<Doc | null> {
   const rec = (await col("payment_transactions").findOne({
     ...query,
     payment_status: "pending",
@@ -428,6 +444,7 @@ paymentsRouter.post(
   handler(async (req, res) => {
     const me = authed(req);
     requireVerifiedEmail(me);
+    assertNoClientAmount(req.body as Record<string, unknown>);
     const body = parseBody(UpgradeCheckoutIn, req.body);
     const client = await clientOf(me);
     const svc = (await col("client_services").findOne({
@@ -442,29 +459,49 @@ paymentsRouter.post(
     }
     const [locked, caseStatus] = await lockState(client.id);
     if (locked) throw httpError(400, `Package changes are locked at this stage (${caseStatus})`);
-    const amount = round2(Math.max(target.price - current.price, 0));
-    if (amount <= 0) throw httpError(400, "No additional amount payable");
+    // Recalculate at checkout time (catalogue may have moved since the quote page opened).
+    const quote = computeSaUpgradeQuote({ svc, currentPkg: current, targetPkg: target });
+    const amount = quote.total_due_now;
+    if (quote.amount_due_pence <= 0) throw httpError(400, "No additional amount payable");
     const reuse = await inflight({
       client_id: client.id,
       kind: "SA_UPGRADE",
       new_package: target.code,
     });
     if (reuse) {
-      res.json(reuse);
+      res.json({
+        ...reuse,
+        currency: quote.currency,
+        upgrade_price: quote.upgrade_price,
+        current_package_credit: quote.current_package_credit,
+        additional_amount_payable: quote.additional_amount_payable,
+        total_due_now: quote.total_due_now,
+        amount_due_pence: quote.amount_due_pence,
+        pricing_rule: "target_catalogue_minus_sa_agreed_price",
+        previous_package: current.code,
+        new_package: target.code,
+      });
       return;
     }
-    const session = await payments().createCheckout(
-      amount,
-      `Self Assessment upgrade — ${current.name} to ${target.name}`,
-      body.origin_url,
-      {
-        kind: "SA_UPGRADE",
-        client_id: client.id,
-        user_id: me.id,
-        from_package: current.code,
-        to_package: target.code,
-      },
-    );
+    let session;
+    try {
+      session = await payments().createCheckout(
+        amount,
+        `Self Assessment upgrade — ${current.name} to ${target.name}`,
+        body.origin_url,
+        {
+          kind: "SA_UPGRADE",
+          client_id: client.id,
+          user_id: me.id,
+          from_package: current.code,
+          to_package: target.code,
+          amount_due_pence: String(quote.amount_due_pence),
+        },
+      );
+    } catch (err) {
+      const { mapPaymentError } = await import("../services/paymentErrors");
+      throw mapPaymentError(err);
+    }
     await col("payment_transactions").insertOne({
       id: randomUUID(),
       session_id: session.id,
@@ -475,14 +512,31 @@ paymentsRouter.post(
       previous_package: current.code,
       new_package: target.code,
       amount,
+      amount_due_pence: quote.amount_due_pence,
+      upgrade_price: quote.upgrade_price,
+      current_package_credit: quote.current_package_credit,
       currency: "gbp",
+      description: `SA upgrade difference ${current.code} → ${target.code}`,
       status: "initiated",
       payment_status: "pending",
       fulfilled: false,
       created_at: nowIso(),
       updated_at: nowIso(),
     });
-    res.json({ checkout_url: session.url, session_id: session.id, amount });
+    res.json({
+      checkout_url: session.url,
+      session_id: session.id,
+      amount,
+      currency: quote.currency,
+      upgrade_price: quote.upgrade_price,
+      current_package_credit: quote.current_package_credit,
+      additional_amount_payable: quote.additional_amount_payable,
+      total_due_now: quote.total_due_now,
+      amount_due_pence: quote.amount_due_pence,
+      pricing_rule: "target_catalogue_minus_sa_agreed_price",
+      previous_package: current.code,
+      new_package: target.code,
+    });
   }),
 );
 
@@ -755,8 +809,7 @@ export async function fulfil(tx: Doc): Promise<void> {
       "/admin/recommendations",
       "UPGRADE",
     );
-    // Welcome/confirmation for the upgraded package — deduped by session_id.
-    if (user) await queuePurchaseConfirmationEmail(tx, user, client);
+    // Agreed email scope: do not send normal package / SA-upgrade payment-success emails.
   } else if (tx.kind === "SERVICE_ACTIVATION") {
     if (tx.offer_id) {
       const offerNow = (await col("offers").findOne({ id: tx.offer_id })) as Doc | null;

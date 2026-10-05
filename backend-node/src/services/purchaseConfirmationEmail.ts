@@ -157,12 +157,11 @@ export async function queuePurchaseConfirmationEmail(
 ): Promise<string | null> {
   try {
     const kind = String(tx.kind ?? "");
-    if (kind !== "SERVICE_ACTIVATION" && kind !== "SA_UPGRADE") return null;
+    // Agreed email scope: SERVICE_ACTIVATION only — never SA_UPGRADE / package upgrade receipts.
+    if (kind !== "SERVICE_ACTIVATION") return null;
     if (tx.payment_status !== "paid") return null;
 
-    const serviceType = String(
-      tx.service_type ?? (kind === "SA_UPGRADE" ? SELF_ASSESSMENT : ""),
-    );
+    const serviceType = String(tx.service_type ?? "");
     if (!serviceType) return null;
 
     const packageCode = String(tx.new_package ?? "");

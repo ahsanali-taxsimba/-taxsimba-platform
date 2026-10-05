@@ -319,6 +319,9 @@ export async function listMyPayments(me: Doc): Promise<Doc[]> {
     "created_at",
     "description",
     "case_ref",
+    "upgrade_price",
+    "current_package_credit",
+    "amount_due_pence",
   ];
   const rows = (await col("payment_transactions")
     .find({ user_id: me.id })

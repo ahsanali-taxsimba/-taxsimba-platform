@@ -21,5 +21,8 @@
 | Super Admin assign | Pass (prior) | — | Preserved | — | releaseAcceptanceApi RA09 | Spot | Yes | Assign 403 |
 | Draft Admin gate | Pass (prior) | — | Preserved | — | draftUpload* + RA10 | Spot | Yes | Draft hidden then visible |
 | Pricing SA | Pass (prior) | — | Unchanged £119/£149/£299 | — | packagePricingP0 | No | Yes | — |
+| D-001 SA upgrade amount vs catalogue | Fail (clarity) → LOCAL PASS | UI showed full sticker; charge was upgrade difference | Label target / SA credit / amount payable; server pence quote | `saUpgrade.ts`, `payments.ts`, `compat/payments.ts`, `planlist/[id]/page.jsx` | saUpgradePricingTask5 + proof (SIMULATED) | Yes staging Stripe TEST | No until staging | Upgrade SIMPLE→SMART shows £30 payable |
+| C-009 billing amount after upgrade | Fail (clarity) → LOCAL PASS | History lacked upgrade-difference wording | Billing description + currency + pending label | `compat/aw.ts`, `BillingHistoryUI.jsx`, `additionalWork.ts` | saUpgradePricingTask5 + browser billing | Yes staging | No until staging | History £30 “upgrade difference” |
+| J-011 SA upgrade payment errors | Fail → LOCAL PASS | Client amounts / unclear errors / no session reuse | Reject client amounts; mapPaymentError; inflight reuse; confirm final amount | `saUpgrade.ts`, compat+native checkout, planlist confirm | saUpgradePricingTask5 | Yes staging | No until staging | Fake + Stripe TEST checkout |
 
 **Objective:** Avoid a full paid restart — retest only Fail/Partial rows and spot-check Pass rows marked Spot.
