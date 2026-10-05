@@ -1,11 +1,29 @@
 # C-004 / Task 4 — consolidated retest checklist
 
-**Status:** LOCAL PASS, awaiting staging acceptance  
+**Status:** LOCAL PASS — SIMULATED PAYMENT  
+**Stripe/staging acceptance:** BLOCKED  
 **Branch:** `cursor/toxsl-blockers-b01-b04-80a7`  
 **Deploy SHA:** see `docs/C004_DEPLOY_SHA.txt` (single source — must match build-info)  
 **PR:** https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/18  
+**Final Toxel handoff SHA:** deferred until remaining tasks complete  
 
 Tasks 1–3 remain preserved on this branch (SA certificate, client upload, email branding).
+
+## Launch apps (production build gate)
+
+The three launch apps are:
+
+1. `backend-node/`
+2. `tax_simba_frontend/`
+3. `tax_simba_admin_frontend/`
+
+Legacy CRA `frontend/` is **not** a launch app and is not part of this gate.
+
+| App | Command | Local result @ tip |
+|---|---|---|
+| `backend-node/` | `cd backend-node && npm run typecheck && npm run build` | PASS |
+| `tax_simba_frontend/` | `cd tax_simba_frontend && npm run build` | PASS |
+| `tax_simba_admin_frontend/` | `cd tax_simba_admin_frontend && npm run build` | PASS |
 
 ## Fulfilment legend
 

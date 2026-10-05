@@ -1,7 +1,9 @@
 # Task 4 / C-004 — Staging acceptance handoff
 
-**Status:** LOCAL PASS, awaiting staging acceptance  
-**Do not mark STAGING PASS until the checklist below is green on a live host.**
+**Status:** LOCAL PASS — SIMULATED PAYMENT  
+**Stripe/staging acceptance:** BLOCKED  
+**Do not mark STAGING PASS until the checklist below is green on a live host.**  
+**Final Toxel handoff SHA:** deferred until remaining tasks complete.
 
 ## Identity (deploy this exact commit)
 
@@ -12,18 +14,18 @@
 | Branch | `cursor/toxsl-blockers-b01-b04-80a7` |
 | PR | https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/18 |
 | Base | `toxel-uat-approved` |
-| Local verdict | **LOCAL PASS** (SIMULATED fulfilment on localhost) |
+| Local verdict | **LOCAL PASS — SIMULATED PAYMENT** |
 | Staging verdict | **UNVERIFIED / BLOCKED** for this agent |
 
 Do **not** deploy an older intermediate SHA while reporting a newer tip (or vice versa). One SHA only.
 
 ## What must be deployed
 
-C-004 UI fix lives in **Next.js client** `tax_simba_frontend/` (not the legacy CRA `frontend/` root used by the current `render.yaml` blueprint). Deploy **the same SHA** for:
+C-004 UI fix lives in **Next.js client** `tax_simba_frontend/` (not the legacy CRA `frontend/` root used by the current `render.yaml` blueprint). The three launch apps — deploy **the same SHA** for all:
 
-1. `backend-node` — entitlements, checkout, Stripe webhook fulfil, SA Tax Tracker case filter
-2. `tax_simba_frontend` — Add MTD/SA CTAs, switcher, Tax Tracker SA-only filter
-3. `tax_simba_admin_frontend` — optional for C-004 client checks; keep SHA parity if deployed
+1. `backend-node/` — entitlements, checkout, Stripe webhook fulfil, SA Tax Tracker case filter
+2. `tax_simba_frontend/` — Add MTD/SA CTAs, switcher, Tax Tracker SA-only filter
+3. `tax_simba_admin_frontend/` — launch admin app (SHA parity required)
 
 Set build-info env on each service to the SHA in `docs/C004_DEPLOY_SHA.txt`:
 
