@@ -21,6 +21,7 @@ import toast from "react-hot-toast";
 import { formatQuarterDisplay } from "@/utils/commonHelper";
 import ProtectedMediaImage from "@/components/ProtectedMediaImage";
 import ServiceWorkspaceSwitcher from "@/components/ServiceWorkspaceSwitcher";
+import AddSecondServiceBanner from "@/components/AddSecondServiceBanner";
 import {
   resolveClientDisplayName,
   resolveClientFirstName,
@@ -672,6 +673,7 @@ export default function MtdDashboardClient({ serverSession }) {
                 <div className="row mt-4">
                     <div className="col-12">
                         <ServiceWorkspaceSwitcher session={session} />
+                        <AddSecondServiceBanner session={session} account={userData} />
                     </div>
                     <div className="col-lg-3 mb-4" data-testid="mtd-sidebar-nav">
                         <MtdSidebar activeTab={activeTab} setActiveTab={setActiveTab} />

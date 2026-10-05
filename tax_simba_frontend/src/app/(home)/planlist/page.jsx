@@ -122,11 +122,20 @@ const PlanListContent = () => {
                     const response = await axios.post(`${apiUrl}auth/get-account-details`, {}, {
                         headers: { Authorization: `Bearer ${session.accessToken}` }
                     });
-                    if (response.data?.data?.subscription) {
-                        setCurrentPlanId(response.data.data.subscription.planId);
-                        setCurrentPlanStatus(response.data.data.subscription.status);
-                        setCurrentPlanEndDate(response.data.data.subscription.endDate);
-                        // setCurrentPlanStatus(response.data.data.isSubscriptionBuy ? response.data.data.subscription.status : 'expired');
+                    const data = response.data?.data;
+                    if (!data) return;
+                    const category = resolveCatalogueCategory(session, searchParams);
+                    const wantMtd = category === "mtd";
+                    const subs = Array.isArray(data.subscriptions) ? data.subscriptions : [];
+                    const matched = subs.find((s) => {
+                        const t = String(s?.serviceType || s?.service_type || "").toUpperCase();
+                        return wantMtd ? t.includes("MTD") : (t.includes("SELF") || t === "SA");
+                    }) || (!wantMtd && !data.hasActiveMtd ? data.subscription : null)
+                      || (wantMtd && data.hasActiveMtd ? data.subscription : null);
+                    if (matched) {
+                        setCurrentPlanId(matched.planId || matched.plan?.id);
+                        setCurrentPlanStatus(matched.status);
+                        setCurrentPlanEndDate(matched.endDate);
                     }
                 } catch (error) {
                     console.error("Error fetching account details:", error);
