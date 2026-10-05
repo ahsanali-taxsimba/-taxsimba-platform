@@ -6,10 +6,20 @@ import { serviceWorkspaceFlags } from "@/lib/clientDisplayName";
 /**
  * Deliberate SA ↔ MTD workspace switch for dual-service accounts.
  * Hidden for single-service / pending-only clients.
+ * Prefer live account ownership (get-account-details) over stale JWT session.
  */
-export default function ServiceWorkspaceSwitcher({ session }) {
+export default function ServiceWorkspaceSwitcher({ session, account }) {
   const pathname = usePathname();
-  const flags = serviceWorkspaceFlags(session);
+  const merged = {
+    ...(session || {}),
+    ...(session?.user || {}),
+    hasActiveSa:
+      account?.hasActiveSa ?? session?.hasActiveSa ?? session?.user?.hasActiveSa,
+    hasActiveMtd:
+      account?.hasActiveMtd ?? session?.hasActiveMtd ?? session?.user?.hasActiveMtd,
+    ownership: account?.ownership ?? session?.ownership ?? session?.user?.ownership,
+  };
+  const flags = serviceWorkspaceFlags(merged);
   if (!flags.isBoth) return null;
 
   const onMtd = pathname?.startsWith("/mtd-dashboard");

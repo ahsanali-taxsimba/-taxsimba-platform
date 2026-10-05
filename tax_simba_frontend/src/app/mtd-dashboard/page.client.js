@@ -672,7 +672,7 @@ export default function MtdDashboardClient({ serverSession }) {
                 {/* Main Layout */}
                 <div className="row mt-4">
                     <div className="col-12">
-                        <ServiceWorkspaceSwitcher session={session} />
+                        <ServiceWorkspaceSwitcher session={session} account={userData} />
                         <AddSecondServiceBanner session={session} account={userData} />
                     </div>
                     <div className="col-lg-3 mb-4" data-testid="mtd-sidebar-nav">

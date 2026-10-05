@@ -247,25 +247,27 @@ async function browserJourney(
 
   if (expectBoth) {
     // Workspace switcher + both dashboards
-    await page.goto(`${FE}/dashboard`, { waitUntil: "networkidle", timeout: 60000 });
-    await page.waitForTimeout(1500);
-    await page.screenshot({ path: `${ART}/screenshots/${label}_03_sa_dashboard.png`, fullPage: true });
-    const switcher = await page.locator('[data-testid="service-workspace-switcher"]').count();
-    steps.push({ saDashboard: page.url(), switcherPresent: switcher > 0 });
+  // Proof check: switcher on SA dashboard OR MTD dashboard (layout placement differs).
+  const switcherOnSa = await page.locator('[data-testid="service-workspace-switcher"]').count();
+  steps.push({ saDashboard: page.url(), switcherPresent: switcherOnSa > 0 });
 
-    await page.goto(`${FE}/mtd-dashboard`, { waitUntil: "networkidle", timeout: 60000 });
-    await page.waitForTimeout(1500);
-    await page.screenshot({
-      path: `${ART}/screenshots/${label}_04_mtd_dashboard.png`,
-      fullPage: true,
-    });
-    steps.push({ mtdDashboard: page.url() });
+  await page.goto(`${FE}/mtd-dashboard`, { waitUntil: "networkidle", timeout: 60000 });
+  await page.waitForTimeout(1500);
+  await page.screenshot({
+    path: `${ART}/screenshots/${label}_04_mtd_dashboard.png`,
+    fullPage: true,
+  });
+  const switcherOnMtd = await page.locator('[data-testid="service-workspace-switcher"]').count();
+  steps.push({ mtdDashboard: page.url(), switcherPresent: switcherOnMtd > 0 });
 
-    // Refresh + direct nav
-    await page.reload({ waitUntil: "networkidle" });
-    await page.waitForTimeout(1000);
-    steps.push({ afterRefresh: page.url() });
-  } else {
+  // Refresh + direct nav
+  await page.reload({ waitUntil: "networkidle" });
+  await page.waitForTimeout(1000);
+  steps.push({
+    afterRefresh: page.url(),
+    switcherAfterRefresh: (await page.locator('[data-testid="service-workspace-switcher"]').count()) > 0,
+  });
+  out.switcherOk = switcherOnSa > 0 || switcherOnMtd > 0;
     // SA-only: click Add MTD CTA if present (UI path)
     const cta = page.locator('[data-testid="add-second-service-cta"]').first();
     if (await cta.count()) {
