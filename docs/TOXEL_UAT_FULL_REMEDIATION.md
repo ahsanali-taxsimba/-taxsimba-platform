@@ -2,7 +2,7 @@
 
 **Branch:** `cursor/toxsl-blockers-b01-b04-80a7`  
 **Base PR:** #18 (update only; no new branch/PR)  
-**Authoritative Toxel deploy HEAD:** pinned full SHA in §SHA (must match `git rev-parse origin/cursor/toxsl-blockers-b01-b04-80a7` after pull)  
+**Authoritative Toxel deploy HEAD (pinned full SHA):** `4fe621546631958f5fb386be927f66624018df36`
 **Product revision tested (gap-close code):** `12c8930a993def839356a8e6d7e6dc5d4d7e6b1f` (G-009 links + J-003 admin logos + D1-014 amounts); prior journey core `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20`  
 **Status:** READY FOR TOXEL RETEST (Stripe TEST / staging scheduler / external inbox remain **BLOCKED**)  
 **Do not merge. Do not deploy from this agent.**  
@@ -164,7 +164,7 @@ Artifact dirs:
 
 | Label | Full SHA | Meaning |
 |---|---|---|
-| **Authoritative Toxel deploy HEAD (pinned)** | *(set below after docs push — must equal `git rev-parse` of branch tip)* | Deploy this tip |
+| **Authoritative Toxel deploy HEAD (pinned)** | `4fe621546631958f5fb386be927f66624018df36` | Deploy this tip |
 | **Gap-close product commit** | `12c8930a993def839356a8e6d7e6dc5d4d7e6b1f` | G-009 `/mtd-dashboard` links, admin logo assets/paths, D1-014 charged amount UI + verify script |
 | **Prior journey product core** | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` | F-008 SA panel + H-007 strengthen + G-006/J-011/E/H |
 
