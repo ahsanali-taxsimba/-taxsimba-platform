@@ -129,7 +129,7 @@ Unit/build alone are **not** claimed as journey PASS. Regression suites (toxelG0
 
 | Label | Full SHA | Meaning |
 |---|---|---|
-| **Authoritative Toxel deploy HEAD** | `c26de8868f785e57a23bf9f653483323d10e0dd8` | Branch tip including this documentation |
+| **Authoritative Toxel deploy HEAD** | `2c3287903c556baa25c65ab78d72f88f3b8e9862` | Branch tip including this documentation |
 | **Product / tested revision** | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` | Last commit with application code (F-008 SA panel + H-007 reason strengthen + prior G-006/J-011/E/H from `ec898b2`) |
 | Docs-only commits after product | any commits touching only `docs/` after product tip | Documentation / SHA labels only — **no product behaviour change** |
 
