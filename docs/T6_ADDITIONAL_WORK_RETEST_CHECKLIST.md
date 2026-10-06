@@ -3,7 +3,7 @@
 **Status:** LOCAL PASS — SIMULATED PAYMENT / MAILPIT  
 **Stripe TEST / staging / external inbox:** BLOCKED  
 **Branch:** `cursor/toxsl-blockers-b01-b04-80a7`  
-**Tested remote tip:** `d9bb49b4906cee9432dc6a55194c5e03bed86ffe`  
+**Tested remote tip:** `63bf9f482a9f7a53967ce098bc2a34b9de286698`  
 **J-011:** remains **UNVERIFIED** (Task 5; not reopened)  
 **Final Toxel handoff SHA:** deferred  
 **Evidence ZIP:** `/opt/cursor/artifacts/task6_additional_work_evidence.zip` (not in git)
