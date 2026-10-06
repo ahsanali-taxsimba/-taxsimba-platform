@@ -1,6 +1,6 @@
 # UAT reconciliation — Tasks 1–8 on `cursor/toxsl-blockers-b01-b04-80a7`
 
-**Branch tip:** `08efe6a9c7886dccc8a6ebe7e0cf68bef9407669`  
+**Branch tip:** `42e93c208771371948e32febeae6bcb3a48aa9d9` (docs tip; product fix tip for J-005 remains `a89c83f`)  
 **PR:** https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/18  
 **Generated:** 2026-10-06  
 **Final Toxel handover SHA:** deferred (no deploy)  
@@ -30,7 +30,7 @@ Statuses used: **LOCAL PASS** | **FAIL** | **BLOCKED** | **UNVERIFIED** | **NOT 
 | **D-009** | Resend/reminder outstanding | Task 6 | Mailpit reminder evidence | same | **LOCAL PASS** (Mailpit; external inbox **BLOCKED**) |
 | **D-010** | Pay + receipt/status | Task 6 | reconcile INV-2026-0006 | same | **LOCAL PASS** (SIMULATED; Stripe **BLOCKED**) |
 | **M-005** | Full AW journey | Task 6 | D-006→D-010 + `reconcile/` | same | **LOCAL PASS** (SIMULATED) |
-| **J-007** | Notification content not openable; read persistence | Task 7 — link/url mirror + MTD Notifications | `/opt/cursor/artifacts/task7_notifications_reminders_evidence.zip`; **specific ID** `after/03b_specific_notification_id_read_persistence.json` | primary `8ff8211d0b0bb85d004a78bde90a8153ecb9dbd3`; specific-ID check on tip `3a1c6074990f487cea20a0d30039eaffaa2ba9b3` (recon docs tip `424bd235884d60ccb649f4d74c817f3fcaa7face`) | **LOCAL PASS** (Mailpit; staging/external **BLOCKED**) |
+| **J-007** | Notification content not openable; read persistence | Task 7 — link/url mirror + MTD Notifications | `/opt/cursor/artifacts/task7_notifications_reminders_evidence.zip`; **specific ID** `after/03b_specific_notification_id_read_persistence.json` | primary `8ff8211d0b0bb85d004a78bde90a8153ecb9dbd3`; specific-ID check tip `3a1c6074990f487cea20a0d30039eaffaa2ba9b3` | **LOCAL PASS** (Mailpit; staging/external **BLOCKED**) |
 | **J-008** | Missing reminders (open task / awaiting info / awaiting approval) | Task 7 — reminder job + states | `api/j008_uat_states_verification.json` + Mailpit | `8ff8211d0b0bb85d004a78bde90a8153ecb9dbd3` | **LOCAL PASS** (Mailpit local; auto staging scheduler **BLOCKED**) |
 | **J-009** | Overdue escalation to Admin/Super Admin; no client overdue email | Task 7 — §15.8 gate + `/admin/mtd` | `api/j009_recipient_rules.json`; Mailpit; bucket screenshot | `8ff8211d0b0bb85d004a78bde90a8153ecb9dbd3` | **LOCAL PASS** (Mailpit; staging/external **BLOCKED**) |
 | **J-005** | Raw HTML in message content (`<p>dfgd<p>`) | Task 8 — allowlisted sanitize + SafeMessageBody | `/opt/cursor/artifacts/task8_j005_safe_message_html.zip` (+ preserved `…_a89c83f.zip`); `docs/T8_…CHECKLIST.md` | `a89c83fcc48bdb6f4d0d7654a3d28225c8f31994` | **LOCAL PASS** |
