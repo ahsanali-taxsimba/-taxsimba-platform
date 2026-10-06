@@ -4,6 +4,7 @@ import axios from "axios";
 import { Offcanvas } from "react-bootstrap";
 import EmailModal from "./EmailModal";
 import { toast } from "react-hot-toast";
+import SafeMessageBody from "@/components/SafeMessageBody";
 
 const ChatBox = ({ show, handleClose, ids, token, id }) => {
     const [messages, setMessages] = useState([]);
@@ -151,9 +152,7 @@ const ChatBox = ({ show, handleClose, ids, token, id }) => {
                             messages.map((msg) => (
                                 <div key={msg.id} className={`mb-2 d-flex flex-column ${msg.senderRole === "ACCOUNTANT" ? "reciever" : msg.senderRole === "ADMIN" ? "reciever admin_reciever" : "sender"}`}>
                                     <small>{msg.senderRole === "ACCOUNTANT" ? "Accountant" : msg.sender}</small>
-                                    <p>
-                                        {msg.message}
-                                    </p>
+                                    <SafeMessageBody content={msg.message} as="div" className="safe-message-body" />
                                     <small className="mt-1" style={{ fontSize: "0.7rem" }}>
                                         {msg.time && !Number.isNaN(new Date(msg.time).getTime())
                                             ? new Date(msg.time).toLocaleString()

@@ -28,6 +28,7 @@ import { useSession } from 'next-auth/react';
 import AdminFlags from '@/components/FlagModal/AdminFlag';
 import { getNotificationIcon } from '@/utils/getNotification';
 import BellButton from '@/components/NotficationData/BellButton';
+import SafeMessageBody from '@/components/SafeMessageBody';
 import { toast } from 'react-toastify';
 import DownloadCertificate from '@/components/TaxReturnModal/DownloadCertificateModal';
 import { canApproveDrafts, canAssignCases } from '@/lib/roles';
@@ -1207,9 +1208,10 @@ const AdminTaxReturnDetails = () => {
                                 )}
 
                               {email.parsedEmailData?.messageText && (
-                                <div className="text-sm leading-relaxed">
-                                  {email.parsedEmailData.messageText}
-                                </div>
+                                <SafeMessageBody
+                                  content={email.parsedEmailData.messageText}
+                                  className="text-sm leading-relaxed"
+                                />
                               )}
 
                               {email.parsedEmailData?.documentList && (

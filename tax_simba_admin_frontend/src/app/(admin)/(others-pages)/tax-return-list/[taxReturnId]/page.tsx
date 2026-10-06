@@ -28,6 +28,7 @@ import FlagModal from '@/components/FlagModal/FlagModal';
 import RequestDocumentsModal from '@/components/FlagModal/RequiredDocument';
 import { getNotificationIcon } from '@/utils/getNotification';
 import BellButton from '@/components/NotficationData/BellButton';
+import SafeMessageBody from '@/components/SafeMessageBody';
 import DownloadCertificate from '@/components/TaxReturnModal/DownloadCertificateModal';
 import { toast } from 'react-toastify';
 import ExternalSubmissionPanel from '../../manage-tax/_sections/ExternalSubmissionPanel';
@@ -810,9 +811,10 @@ const TaxReturnManagement = () => {
 
                               {/* Message text */}
                               {email.parsedEmailData?.messageText && (
-                                <div className="text-sm leading-relaxed">
-                                  {email.parsedEmailData.messageText}
-                                </div>
+                                <SafeMessageBody
+                                  content={email.parsedEmailData.messageText}
+                                  className="text-sm leading-relaxed"
+                                />
                               )}
 
                               {/* Document requirements (if any) */}

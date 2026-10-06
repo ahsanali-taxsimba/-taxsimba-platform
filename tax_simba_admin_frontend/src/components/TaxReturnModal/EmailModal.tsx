@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Mail, Send, RefreshCw } from 'lucide-react';
+import { escapeHtml, formatPlainLinesAsSafeHtml } from '@/utils/sanitizeMessageHtml';
 
 interface EmailTemplate {
   id: number;
@@ -161,17 +162,9 @@ const EmailModal: React.FC<EmailModalProps> = ({
   const generateEmailBody = () => {
     let body = '';
 
-    // Add the main message content with proper HTML formatting
+    // Add the main message content with proper HTML formatting (escaped plain text)
     if (emailBody && emailBody.trim()) {
-      // Convert line breaks to proper HTML paragraphs
-      const formattedMessage = emailBody
-        .split('\n')
-        .map(line => line.trim())
-        .filter(line => line.length > 0)
-        .map(line => `<p style="margin-bottom: 15px; color: #666; font-size: 16px; line-height: 1.6;">${line}</p>`)
-        .join('');
-
-      body += formattedMessage;
+      body += formatPlainLinesAsSafeHtml(emailBody);
     } else {
       body += `<p style="margin-bottom: 15px; color: #666; font-size: 16px; line-height: 1.6;">We are writing to you regarding your tax return.</p>`;
     }
@@ -182,7 +175,11 @@ const EmailModal: React.FC<EmailModalProps> = ({
         .split('\n')
         .map(doc => doc.trim())
         .filter(doc => doc.length > 0)
-        .map(doc => doc.startsWith('•') || doc.startsWith('-') || doc.startsWith('*') ? doc : `• ${doc}`)
+        .map(doc => {
+          const prefixed =
+            doc.startsWith('•') || doc.startsWith('-') || doc.startsWith('*') ? doc : `• ${doc}`;
+          return escapeHtml(prefixed);
+        })
         .join('<br/>');
 
       body += `<div style="background: #f8f9fa; padding: 20px; margin: 25px 0; border-left: 4px solid #667eea; border-radius: 8px;">

@@ -5,6 +5,7 @@ import { IoChatbubbles, IoPaperPlane } from "react-icons/io5";
 import { FaUserTie, FaUserCircle } from "react-icons/fa";
 import { Modal, Button, Form, Spinner } from "react-bootstrap";
 import toast from "react-hot-toast";
+import SafeMessageBody from "@/components/SafeMessageBody";
 
 export default function MtdMessages({ session, accountantInfo, taxReturnDbId }) {
     const [messages, setMessages] = useState([]);
@@ -241,7 +242,12 @@ export default function MtdMessages({ session, accountantInfo, taxReturnDbId }) 
                                     {msg.subject && (
                                         <div className="mtd-msg-subject">{msg.subject}</div>
                                     )}
-                                    <p className="mtd-msg-text">{msg.message || "(No content)"}</p>
+                                    <SafeMessageBody
+                                        content={msg.message}
+                                        as="div"
+                                        className="mtd-msg-text"
+                                        emptyFallback="(No content)"
+                                    />
                                     <span className="mtd-msg-time">
                                         {new Date(msg.time).toLocaleString("en-GB", {
                                             day: "numeric", month: "short", year: "numeric",
