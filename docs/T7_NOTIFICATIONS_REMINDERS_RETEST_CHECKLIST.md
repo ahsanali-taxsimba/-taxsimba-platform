@@ -3,8 +3,8 @@
 **Status:** LOCAL PASS — MAILPIT  
 **External inbox / staging:** BLOCKED  
 **Branch:** `cursor/toxsl-blockers-b01-b04-80a7`  
-**Tested tip (full SHA):** 
-**Fix commit:** 
+**Tested tip (full SHA):** `8ff8211d0b0bb85d004a78bde90a8153ecb9dbd3`  
+**Fix commit:** `630fe6a577eafc274d7b69d9fa3abd7397a48fb2`  
 **J-011:** remains **UNVERIFIED** (Task 5; not reopened)  
 **Final Toxel handoff SHA:** deferred  
 **Evidence ZIP:** `/opt/cursor/artifacts/task7_notifications_reminders_evidence.zip` (not in git)  
