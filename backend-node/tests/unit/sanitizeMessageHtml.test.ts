@@ -59,6 +59,13 @@ describe("sanitizeMessageHtml (J-005)", () => {
     expect(out).toContain(">ok</p>");
   });
 
+  it("does not double-escape already-encoded compose HTML when sanitizing", () => {
+    const composed = formatPlainLinesAsSafeHtml("<script>x</script>");
+    const rendered = sanitizeMessageHtml(composed);
+    expect(rendered).toContain("&lt;script&gt;x&lt;/script&gt;");
+    expect(rendered).not.toContain("&amp;lt;script");
+  });
+
   it("escapeHtml escapes entities", () => {
     expect(escapeHtml(`<a "b">`)).toBe("&lt;a &quot;b&quot;&gt;");
   });

@@ -36,6 +36,17 @@ export function looksLikeHtml(value) {
   return /<\/?[a-z][\s\S]*>/i.test(String(value ?? ""));
 }
 
+/** Decode common entities once, then escape — avoids double-encoding compose output. */
+function normalizeTextNode(value) {
+  const decoded = String(value ?? "")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+  return escapeHtml(decoded);
+}
+
 function sanitizeHref(raw) {
   const href = String(raw ?? "").trim();
   if (!href) return null;
@@ -75,7 +86,7 @@ export function sanitizeMessageHtml(raw) {
   let match;
   while ((match = tagRe.exec(html)) !== null) {
     if (match[3] != null) {
-      out.push(escapeHtml(match[3]));
+      out.push(normalizeTextNode(match[3]));
       continue;
     }
     const tagName = String(match[1] || "").toLowerCase();

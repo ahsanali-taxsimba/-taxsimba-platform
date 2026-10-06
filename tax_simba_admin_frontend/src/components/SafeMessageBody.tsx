@@ -6,7 +6,7 @@ import { sanitizeMessageHtml } from "@/utils/sanitizeMessageHtml";
 type SafeMessageBodyProps = {
   content?: string | null;
   className?: string;
-  as?: keyof JSX.IntrinsicElements;
+  as?: React.ElementType;
   emptyFallback?: string;
 };
 
