@@ -2,12 +2,12 @@
 
 **Branch:** `cursor/toxsl-blockers-b01-b04-80a7`  
 **Base PR:** #18 (update only; no new branch/PR)  
-**Authoritative Toxel deploy HEAD (pinned full SHA):** `e5505b4599514d353d51f514f6ba3ef7f18295bb`  
+**Authoritative Toxel deploy HEAD:** tip of this branch / PR #18 (full SHA reported in handover + `PINNED_HEAD.txt` in the evidence bundle; do not use older pin commits that self-reference a prior tip)  
 **Product revision tested (gap-close code):** `12c8930a993def839356a8e6d7e6dc5d4d7e6b1f` (G-009 links + J-003 admin logos + D1-014 amounts); prior journey core `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20`  
-**Browser verification SHA (Playwright run):** recorded in `gap_close_browser_20261006/tested_sha.txt` / bundle README  
+**Browser verification SHA (Playwright run):** `7fe42995e6ddbfe73903a57c4c10f155f4ecd6c0` (`gap_close_browser_20261006/tested_sha.txt`) — hosts still up; no product rebuild this handover turn  
 **Status:** READY FOR TOXEL RETEST (Stripe TEST / staging scheduler / external inbox remain **BLOCKED**)  
 **Do not merge. Do not deploy from this agent.**  
-**Downloadable evidence bundle:** `/opt/cursor/artifacts/gap_close_evidence_bundle_20261006.zip` (also `/cursor/stores/self/artifacts/gap_close_evidence_bundle_20261006.zip`).
+**Downloadable evidence bundle:** [`gap_close_evidence_bundle_20261006.zip`](/opt/cursor/artifacts/gap_close_evidence_bundle_20261006.zip) (also `/cursor/stores/self/artifacts/gap_close_evidence_bundle_20261006.zip`).
 
 ## ID mapping correction (mandatory)
 
@@ -52,13 +52,29 @@ Base dir: `/home/ubuntu/.cursor/projects/workspace/uploads/` — every file belo
 
 **Not available / not claimed reviewed:** raw `.mp4` files (only PDF frame samples where uploaded), staging HAR, Stripe TEST live receipts, external Outlook/Gmail captures. Chat visibility alone is not filesystem proof.
 
-### Inaccessible / missing from prior inventory (gap close)
+### Inaccessible / missing from prior inventory (gap close) — reconfirmed this handover
 
-| Item | Indexed? | On disk? | Maps to |
+| Item | Indexed? | On disk? | Classification | Maps to |
+|---|---|---|---|---|
+| `EVIDENCE_INDEX.csv` row for `2nd_oct_2026/F-012.mp4` in `Toxel_Videos_04.zip` (27053970 B, SHA256 `80a659cfbea41426ea4488ecb02e1cdc9ab9809ca21464be02a183a42fdb7bb7`) | Yes | Index only (inside `Toxel_UAT_Text_and_Index_b306.zip`) | **DUPLICATE metadata** — same inaccessible claim already inventoried; **not** video access | F-012 |
+| `Toxel_Videos_04.zip` / `F-012.mp4` binary | Yes (index) | **No** — not in uploads | **MISSING evidence** | F-012 (tester path for F-013/F-014) |
+| F-012 PDF frame sample (cf. `J-011_b138.pdf`) | No | **No** | **MISSING evidence** | F-012 |
+| Combined colour PDF | No mention in ODT/`EVIDENCE_INDEX.csv` | **No** — not uploaded | **MISSING evidence** | Branding colour pack — cannot review |
+| Prior `F012_COLOUR_PDF_INVENTORY.md` in gap-close artifacts | Agent-written | Yes | **DUPLICATE report** of inaccessibility (not substitute for binaries) | F-012 / colour |
+
+**Access verdict:** Attached F-012 evidence is **not accessible for review**. Only the index metadata and prior “inaccessible” inventory notes are present. Combined colour PDF remains **not uploaded**.
+
+## F-012–F-014 reconciliation vs current SA journey
+
+Original tester outcome (all three): **BLOCKED / NOT TESTABLE** at **“Upload Tax Return Certificate”** — journey did not advance, so submitted status/email (F-012), final documents download (F-013), and full case history consistency (F-014) could not be verified. Cited evidence ref for F-012: `__F-012.mp4____`.
+
+| ID | Original | Current SA product (preserved Tasks 1–8) | Handover status |
 |---|---|---|---|
-| `F-012.mp4` (`Toxel_Videos_04.zip`, 27053970 B, SHA256 `80a659cf…`) | Yes — `EVIDENCE_INDEX.csv` | **No** — zip/mp4 not uploaded | **F-012** (also blocks tester path for **F-013**, **F-014**) — original: BLOCKED at Upload Tax Return Certificate |
-| F-012 PDF frame sample | No | **No** | F-012 |
-| Combined colour PDF | No mention in ODT/index | **No** — not uploaded | Branding colour pack (if any) — cannot review |
+| **F-012** | BLOCKED — stuck at certificate upload; cannot verify Submitted status/email | Final certificate upload after external submission advances case **SUBMITTED → COMPLETED** (`backend-node/src/compat/documents.ts` upload-final-certificate + `saFinalCertificateJourney.test.ts`). Related **F-011** external submission is **LOCAL PASS**. | Product advance path preserved. **Original video still MISSING** — cannot re-review tester F-012.mp4. Submitted **email** proof still needs Mailpit local / external inbox (**external BLOCKED**). |
+| **F-013** | BLOCKED — cannot reach completion/final-document download | Client `GET …/final-certificate` after staff upload; completion transition in same certificate journey | Product path preserved; original video MISSING |
+| **F-014** | BLOCKED — cannot verify history through full journey | Certificate journey asserts status transitions + idempotent retry | Product path preserved; original video MISSING |
+
+These three were **not** in the original 38 FAIL list (they were BLOCKED). They do **not** change the FAIL+PARTIAL matrix totals below. They remain **evidence-incomplete** for original-video sign-off until `Toxel_Videos_04.zip` / `F-012.mp4` (and optionally colour PDF) are uploaded.
 
 ## Environment blockers (keep for Toxel)
 
@@ -105,7 +121,7 @@ Statuses used: **LOCAL PASS** | **FAIL** | **BLOCKED** | **UNVERIFIED** | **NOT 
 | E-002 | FAIL | **LOCAL PASS** | Engagement letter shows client name + SA/MTD service lines (`engagement-client-name` / `engagement-service-line`); accept returns `serviceTypes`; browser `e002_engagement.png` |
 | E-003 | FAIL | **LOCAL PASS** | Accept + status return timestamp/version; Profile wired; browser `e003_profile_acceptance.png` |
 | F-001 | FAIL | **LOCAL PASS** | Tasks 1–8 SA open/continue — preserved |
-| F-002 | FAIL | **UNVERIFIED** | **Cannot close as “no questionnaire by design”.** Agreed sources re-checked (not assumption): (1) Original UAT `TOXEL_ORIGINAL_UAT_2964.txt` F-002 FAIL note: *“For the SA journey, the Questionnaire is not applicable…”* (tester observation, not a signed product requirement); (2) same pack **M-001** Journey 1 still lists SA path as `engagement → questionnaire/docs → …` — conflicts with closing F-002 as by-design skip; (3) `memory/P0_CONTRACT_BASELINE.md` **G3** maps `submit-tax-info` questionnaire → **MTD** onboarding only (`mtdOnboarding.ts`); (4) no written product-owner / contract line stating SA must omit questionnaire. Keep **UNVERIFIED** until owner confirms SA exclusion vs M-001. |
+| F-002 | FAIL | **UNVERIFIED** | See **F-002 conflicting sources** below. Keep **UNVERIFIED** pending product decision. |
 | F-003 | FAIL | **LOCAL PASS** | Tasks 1–8 document upload — preserved |
 | F-005 | FAIL | **LOCAL PASS** | Task 7 notification content/deep-link — preserved |
 | **F-008** | FAIL | **LOCAL PASS** | **SA** calc API `total_income=42500.5` / `tax_due=4280.75`; browser `SaFiguresReviewPanel` on manage-tax (`f008_sa_figures_panel.png` + `f008_calculations_api.json`) |
@@ -135,11 +151,33 @@ Statuses used: **LOCAL PASS** | **FAIL** | **BLOCKED** | **UNVERIFIED** | **NOT 
 | **LOCAL PASS** | **30** | B-002, C-004, D-001, D-006, D1-010, **D1-014**, E-002, E-003, F-001, F-003, F-005, **F-008**, F-009, F-011, G-006, G-007, G-008, **G-009**, H-006, H-007, H-010, I-004, I-006, I-010, **J-003**, J-005, J-007, J-008, J-009, J-011 |
 | **FAIL** | **0** | — |
 | **BLOCKED** | **8** | B-003, B-004, D-014, D-015, D-016, D-017, D-018, D-021 |
-| **UNVERIFIED** | **1** | **F-002** (requirement source does not confirm SA “no questionnaire by design”) |
+| **UNVERIFIED** | **1** | **F-002** (requirement conflict unresolved — see quotes) |
 | **NOT CHECKED** | **0** | — |
 | **Sum** | **39** | 38 FAIL + 1 PARTIAL |
 
-Tasks 1–8 remain preserved (B01–B04, F-001/F-003/F-004, C-004, D-001, D-006–D-010, J-005, J-007/J-008/J-009, Mailpit notification paths, dual-service, etc.). No merge/deploy.
+Tasks 1–8 remain preserved (B01–B04, F-001/F-003/F-004, C-004, D-001, D-006–D-010, J-005, J-007/J-008/J-009, Mailpit notification paths, dual-service, SA final certificate, etc.). No merge/deploy.
+
+## F-002 — conflicting requirement sources (UNVERIFIED)
+
+**Quoted sources (verbatim):**
+
+1. **UAT F-002 FAIL note** (`TOXEL_ORIGINAL_UAT_2964.txt`):  
+   > For the SA journey, the Questionnaire is not applicable. After the engagement letter is signed, the user is redirected to the next stage/page directly. Therefore, the questionnaire load/save/resume flow does not apply to the SA journey.
+
+2. **UAT M-001 Journey 1** (same pack):  
+   > Journey 1 — New SA client: register → verify → purchase → activation → engagement → questionnaire/docs → accountant → admin review → client approval → external submission → completion.
+
+3. **P0 contract G3** (`memory/P0_CONTRACT_BASELINE.md`):  
+   > G3 \| `submit-tax-info` \| POST `client/submit-tax-info` \| FormData / answers \| success \| `POST /mtd/cases/:id/onboarding` and/or profile \| ADAPTER \| Map questionnaire; no activation \| `mtdOnboarding.ts`
+
+**Conflict:** (1) treats SA questionnaire as N/A; (2) still requires `questionnaire/docs` on the SA journey; (3) maps the questionnaire adapter to **MTD** onboarding only. There is no written product-owner line that SA must omit questionnaire.
+
+**Exact product decision needed (choose one):**
+
+- **(A)** SA intentionally omits questionnaire → treat F-002 as N/A / PASS-by-design; **correct M-001** to `engagement → docs → …` (drop questionnaire for SA); keep questionnaire MTD-only per G3.  
+- **(B)** SA must include questionnaire load/save/resume per M-001 → current post-engagement skip is a **defect**; implement SA questionnaire and retest F-002 as FAIL until fixed.
+
+Until (A) or (B) is recorded by product owner, **F-002 stays UNVERIFIED**. Do not close as “no questionnaire by design” on assumption.
 
 ## Newly changed journeys — verification evidence
 
@@ -167,11 +205,12 @@ Browser method: Playwright chromium (ComputerUse blocked — model usage quota).
 
 | Label | Full SHA | Meaning |
 |---|---|---|
-| **Authoritative Toxel deploy HEAD (pinned)** | `e5505b4599514d353d51f514f6ba3ef7f18295bb` | Deploy this tip (PR #18 branch) |
-| **Gap-close product commit** | `12c8930a993def839356a8e6d7e6dc5d4d7e6b1f` | G-009 `/mtd-dashboard` links, admin logo assets/paths, D1-014 charged amount UI + verify script |
+| **Authoritative Toxel deploy HEAD** | Tip of `cursor/toxsl-blockers-b01-b04-80a7` / PR #18 (`PINNED_HEAD.txt` in bundle + handover) | Docs-only tips after product do not change behaviour; deploy latest pushed tip |
+| **Gap-close product commit (tested)** | `12c8930a993def839356a8e6d7e6dc5d4d7e6b1f` | G-009 `/mtd-dashboard` links, admin logo assets/paths, D1-014 charged amount UI + verify script |
+| **Browser run SHA** | `7fe42995e6ddbfe73903a57c4c10f155f4ecd6c0` | Playwright 13/13 PASS against product at/after `12c8930…` |
 | **Prior journey product core** | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` | F-008 SA panel + H-007 strengthen + G-006/J-011/E/H |
 
-Toxel should deploy the **pinned authoritative HEAD** on `cursor/toxsl-blockers-b01-b04-80a7` / PR #18.
+Toxel should deploy the **latest pushed tip** of `cursor/toxsl-blockers-b01-b04-80a7` / PR #18.
 
 ## Branding / visual
 
