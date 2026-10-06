@@ -467,8 +467,28 @@ const AdminTaxReturnDetails = () => {
       return
     }
     if (newStatus == "final_submitted") {
-      setShowFinalCertificateModal(true)
-      return
+      const toxel = String(progressData?.status || "").toLowerCase();
+      const node = String(
+        (progressData as { nodeStatus?: string } | null)?.nodeStatus ||
+          (taxReturn as { nodeStatus?: string } | null)?.nodeStatus ||
+          "",
+      ).toUpperCase();
+      if (
+        toxel === "ready_for_submission" ||
+        node === "READY_FOR_SUBMISSION" ||
+        toxel === "client_approved"
+      ) {
+        toast.error(
+          "Record external submission (date + reference) before uploading the final certificate.",
+        );
+        return;
+      }
+      if (toxel !== "final_submitted" && node !== "SUBMITTED" && node !== "SUBMISSION_IN_PROGRESS") {
+        toast.error("Record external submission before uploading the final certificate.");
+        return;
+      }
+      setShowFinalCertificateModal(true);
+      return;
     }
     setLoading(true);
     postProgressData(newStatus)

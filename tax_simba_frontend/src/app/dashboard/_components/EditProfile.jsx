@@ -348,7 +348,7 @@ const EditProfile = ({ userData, sessionData, setTrackUpdate }) => {
           </Row>}
 
           {/* ── Onboarding Questionnaire ── */}
-          {!isEditProfile && userData.userRole === "MTD" && (
+          {!isEditProfile && (userData.userRole === "MTD" || userData.userRole === "SA" || userData.ownership === "sa" || userData.ownership === "mtd" || userData.ownership === "both" || userData.jobRole || userData.businessType) && (
             <div
               style={{
                 marginTop: 32,
@@ -358,6 +358,7 @@ const EditProfile = ({ userData, sessionData, setTrackUpdate }) => {
                 padding: '28px 28px 8px',
                 position: 'relative',
               }}
+              data-testid="onboarding-questionnaire"
             >
               {/* Section Header */}
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
@@ -371,7 +372,7 @@ const EditProfile = ({ userData, sessionData, setTrackUpdate }) => {
                     Onboarding Questionnaire
                   </h5>
                   <p style={{ margin: 0, fontSize: 12, color: '#6b8f7e' }}>
-                    Your answers from the initial MTD setup wizard
+                    Your answers from the initial setup wizard
                   </p>
                 </div>
                 <span style={{
@@ -393,6 +394,27 @@ const EditProfile = ({ userData, sessionData, setTrackUpdate }) => {
                   <div className="mb-4">
                     <h6 className="mb-1" style={{ color: '#1a3d2b' }}>Business Name</h6>
                     <p className="text-muted">{userData.businessName || "N/A"}</p>
+                    <hr style={{ borderColor: '#d4ede0' }} />
+                  </div>
+                </Col>
+                <Col lg={6}>
+                  <div className="mb-4">
+                    <h6 className="mb-1" style={{ color: '#1a3d2b' }}>Job Role</h6>
+                    <p className="text-muted" data-testid="profile-job-role">{userData.jobRole || "N/A"}</p>
+                    <hr style={{ borderColor: '#d4ede0' }} />
+                  </div>
+                </Col>
+                <Col lg={6}>
+                  <div className="mb-4">
+                    <h6 className="mb-1" style={{ color: '#1a3d2b' }}>Employment Status</h6>
+                    <p className="text-muted" data-testid="profile-employment-status">{userData.employmentStatus || "N/A"}</p>
+                    <hr style={{ borderColor: '#d4ede0' }} />
+                  </div>
+                </Col>
+                <Col lg={6}>
+                  <div className="mb-4">
+                    <h6 className="mb-1" style={{ color: '#1a3d2b' }}>UTR</h6>
+                    <p className="text-muted">{userData.utr || "N/A"}</p>
                     <hr style={{ borderColor: '#d4ede0' }} />
                   </div>
                 </Col>

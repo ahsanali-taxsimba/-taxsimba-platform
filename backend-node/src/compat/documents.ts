@@ -332,12 +332,33 @@ compatDocumentsRouter.get(
       .sort({ created_at: -1 })
       .limit(50)
       .toArray()) as Doc[];
+    const mapped = scrubMany(cleanMany(docs), me).map((d) =>
+      clientDocumentDto(d, caseId),
+    );
+    const primary = mapped[0] || null;
     sendCompatSuccess(
       res,
       {
         caseId,
         taxReturnId: caseId,
-        documents: keysToCamel(scrubMany(cleanMany(docs), me)),
+        documents: mapped,
+        // Rich shape expected by FinalCertificateModal / TaxReturnHistory.
+        finalCertificate: primary
+          ? {
+              id: primary.id,
+              filename: primary.filename,
+              downloadUrl: primary.downloadUrl,
+              uploadedAt: primary.created_at ?? primary.upload_date ?? null,
+              fileSize: primary.fileSize,
+              mimeType: primary.mimeType,
+            }
+          : null,
+        taxReturn: {
+          id: caseId,
+          status: "completed",
+        },
+        submissionSummary: null,
+        accountantNotes: null,
       },
       "OK",
     );

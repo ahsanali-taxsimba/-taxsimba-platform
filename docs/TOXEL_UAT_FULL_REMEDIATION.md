@@ -6,8 +6,9 @@
 **Product revision tested (gap-close code):** `12c8930a993def839356a8e6d7e6dc5d4d7e6b1f` (G-009 links + J-003 admin logos + D1-014 amounts); prior journey core `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20`  
 **Browser verification SHA (Playwright run):** `7fe42995e6ddbfe73903a57c4c10f155f4ecd6c0` (`gap_close_browser_20261006/tested_sha.txt`) — hosts still up; no product rebuild this handover turn  
 **Status:** READY FOR TOXEL RETEST (Stripe TEST / staging scheduler / external inbox remain **BLOCKED**)  
-**Do not merge. Do not deploy from this agent.**  
-**Downloadable evidence bundle:** [`gap_close_evidence_bundle_20261006.zip`](/opt/cursor/artifacts/gap_close_evidence_bundle_20261006.zip) (also `/cursor/stores/self/artifacts/gap_close_evidence_bundle_20261006.zip`).
+**Attachment note:** `F-012_41ab.pdf` is now on disk (30 sampled frames — **not** the complete video). Combined colour PDF still missing. Raw `F-012.mp4` / `Toxel_Videos_04.zip` still missing.  
+**Matrix (FAIL+PARTIAL=39):** LOCAL PASS **31** · BLOCKED **8** · UNVERIFIED **0** · FAIL **0**  
+**Separate original BLOCKED:** F-012 / F-013 / F-014 → LOCAL PASS (product path); external inbox for F-012 email remains BLOCKED.
 
 ## ID mapping correction (mandatory)
 
@@ -121,7 +122,7 @@ Statuses used: **LOCAL PASS** | **FAIL** | **BLOCKED** | **UNVERIFIED** | **NOT 
 | E-002 | FAIL | **LOCAL PASS** | Engagement letter shows client name + SA/MTD service lines (`engagement-client-name` / `engagement-service-line`); accept returns `serviceTypes`; browser `e002_engagement.png` |
 | E-003 | FAIL | **LOCAL PASS** | Accept + status return timestamp/version; Profile wired; browser `e003_profile_acceptance.png` |
 | F-001 | FAIL | **LOCAL PASS** | Tasks 1–8 SA open/continue — preserved |
-| F-002 | FAIL | **UNVERIFIED** | See **F-002 conflicting sources** below. Keep **UNVERIFIED** pending product decision. |
+| F-002 | FAIL | **LOCAL PASS** | **Product decision (B):** SA clients require onboarding questions. Reused engagement `submit-tax-info` wizard for SA (optional UTR, job role, employment + shared questions). Backend persists `sa_tax_info`; middleware gates SA until submitted; profile + admin manage-tax show answers. Missing UTR does not block dashboard. Docs: M-001 keeps `questionnaire/docs`; prior tester N/A note superseded. Evidence: `saSubmitTaxInfoF002.test.ts` + browser. |
 | F-003 | FAIL | **LOCAL PASS** | Tasks 1–8 document upload — preserved |
 | F-005 | FAIL | **LOCAL PASS** | Task 7 notification content/deep-link — preserved |
 | **F-008** | FAIL | **LOCAL PASS** | **SA** calc API `total_income=42500.5` / `tax_due=4280.75`; browser `SaFiguresReviewPanel` on manage-tax (`f008_sa_figures_panel.png` + `f008_calculations_api.json`) |
@@ -148,36 +149,27 @@ Statuses used: **LOCAL PASS** | **FAIL** | **BLOCKED** | **UNVERIFIED** | **NOT 
 
 | Status | Count | IDs |
 |---|---|---|
-| **LOCAL PASS** | **30** | B-002, C-004, D-001, D-006, D1-010, **D1-014**, E-002, E-003, F-001, F-003, F-005, **F-008**, F-009, F-011, G-006, G-007, G-008, **G-009**, H-006, H-007, H-010, I-004, I-006, I-010, **J-003**, J-005, J-007, J-008, J-009, J-011 |
+| **LOCAL PASS** | **31** | B-002, C-004, D-001, D-006, D1-010, **D1-014**, E-002, E-003, F-001, **F-002**, F-003, F-005, **F-008**, F-009, F-011, G-006, G-007, G-008, **G-009**, H-006, H-007, H-010, I-004, I-006, I-010, **J-003**, J-005, J-007, J-008, J-009, J-011 |
 | **FAIL** | **0** | — |
 | **BLOCKED** | **8** | B-003, B-004, D-014, D-015, D-016, D-017, D-018, D-021 |
-| **UNVERIFIED** | **1** | **F-002** (requirement conflict unresolved — see quotes) |
+| **UNVERIFIED** | **0** | — |
 | **NOT CHECKED** | **0** | — |
 | **Sum** | **39** | 38 FAIL + 1 PARTIAL |
 
-Tasks 1–8 remain preserved (B01–B04, F-001/F-003/F-004, C-004, D-001, D-006–D-010, J-005, J-007/J-008/J-009, Mailpit notification paths, dual-service, SA final certificate, etc.). No merge/deploy.
+## Original BLOCKED / NOT TESTABLE (separate from FAIL+PARTIAL 39)
 
-## F-002 — conflicting requirement sources (UNVERIFIED)
+| ID | Original | Current | Basis |
+|---|---|---|---|
+| **F-012** | BLOCKED at certificate upload | **LOCAL PASS** (product path) | F-012.pdf 30 frames reviewed: defect was certificate modal at `ready_for_submission`. Fixed: advance requires External Submission panel first; certificate only after `final_submitted`/`SUBMITTED`. Journey test PASS; Mailpit submitted email = **LOCAL/SIMULATED**; external inbox still **BLOCKED**. PDF frames ≠ complete video. |
+| **F-013** | BLOCKED | **LOCAL PASS** (product path) | Final certificate on `all-tax-returns` + enriched GET final-certificate; client download via My Documents / history. |
+| **F-014** | BLOCKED | **LOCAL PASS** (product path) | Status transitions SUBMITTED→COMPLETED + reload assertions in `saFinalCertificateJourney.test.ts`. |
+| G-010 / G-011 | BLOCKED/NOT TESTABLE | unchanged env | Outside this remediation focus |
 
-**Quoted sources (verbatim):**
+## F-002 — product decision recorded
 
-1. **UAT F-002 FAIL note** (`TOXEL_ORIGINAL_UAT_2964.txt`):  
-   > For the SA journey, the Questionnaire is not applicable. After the engagement letter is signed, the user is redirected to the next stage/page directly. Therefore, the questionnaire load/save/resume flow does not apply to the SA journey.
+**Decision (B):** SA Self Assessment **requires** onboarding questionnaire (optional UTR, job role/employment, agreed shared questions). M-001 path `engagement → questionnaire/docs → …` is authoritative. Prior F-002 tester note (“questionnaire not applicable”) is superseded by this product decision.
 
-2. **UAT M-001 Journey 1** (same pack):  
-   > Journey 1 — New SA client: register → verify → purchase → activation → engagement → questionnaire/docs → accountant → admin review → client approval → external submission → completion.
-
-3. **P0 contract G3** (`memory/P0_CONTRACT_BASELINE.md`):  
-   > G3 \| `submit-tax-info` \| POST `client/submit-tax-info` \| FormData / answers \| success \| `POST /mtd/cases/:id/onboarding` and/or profile \| ADAPTER \| Map questionnaire; no activation \| `mtdOnboarding.ts`
-
-**Conflict:** (1) treats SA questionnaire as N/A; (2) still requires `questionnaire/docs` on the SA journey; (3) maps the questionnaire adapter to **MTD** onboarding only. There is no written product-owner line that SA must omit questionnaire.
-
-**Exact product decision needed (choose one):**
-
-- **(A)** SA intentionally omits questionnaire → treat F-002 as N/A / PASS-by-design; **correct M-001** to `engagement → docs → …` (drop questionnaire for SA); keep questionnaire MTD-only per G3.  
-- **(B)** SA must include questionnaire load/save/resume per M-001 → current post-engagement skip is a **defect**; implement SA questionnaire and retest F-002 as FAIL until fixed.
-
-Until (A) or (B) is recorded by product owner, **F-002 stays UNVERIFIED**. Do not close as “no questionnaire by design” on assumption.
+Implementation: reuse engagement-letter tax-info wizard for SA; `POST /api/compat/client/submit-tax-info` accepts `SELF_ASSESSMENT`; persists `users.sa_tax_info`; `isTaxInfoSubmitted` includes SA; middleware gates SA until submitted; missing UTR never blocks dashboard.
 
 ## Newly changed journeys — verification evidence
 

@@ -132,7 +132,7 @@ export async function middleware(req) {
       if (!hasSignedLetter) {
         return NextResponse.redirect(new URL('/engagement-letter', req.url));
       }
-      if (ownership === 'mtd' && !hasSubmittedTaxInfo) {
+      if ((ownership === 'mtd' || ownership === 'sa') && !hasSubmittedTaxInfo) {
         return NextResponse.redirect(new URL('/engagement-letter', req.url));
       }
       if (ownership === 'mtd') {
@@ -168,7 +168,12 @@ export async function middleware(req) {
       }
     }
 
-    if (hasActiveService && hasSignedLetter && ownership === 'mtd' && !hasSubmittedTaxInfo) {
+    if (
+      hasActiveService &&
+      hasSignedLetter &&
+      (ownership === 'mtd' || ownership === 'sa') &&
+      !hasSubmittedTaxInfo
+    ) {
       if (pathname !== '/engagement-letter') {
         return NextResponse.redirect(new URL('/engagement-letter', req.url));
       }

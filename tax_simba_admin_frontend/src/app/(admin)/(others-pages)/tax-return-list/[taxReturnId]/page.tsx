@@ -306,12 +306,26 @@ const TaxReturnManagement = () => {
       return
     }
     if (newStatus === 'final_submitted') {
+      // F-012: do not open certificate upload before external submission is recorded.
+      const toxel = String(progressData?.status || '').toLowerCase();
       const node = String(
         (progressData as { nodeStatus?: string } | null)?.nodeStatus ||
           (taxReturn as { nodeStatus?: string } | null)?.nodeStatus ||
           '',
       ).toUpperCase();
-      if (node === 'READY_FOR_SUBMISSION') {
+      if (
+        toxel === 'ready_for_submission' ||
+        node === 'READY_FOR_SUBMISSION' ||
+        toxel === 'client_approved'
+      ) {
+        toast.error(
+          'Record external submission (date + reference) before uploading the final certificate. Use the External submission panel below.',
+        );
+        const panel = document.querySelector('[data-testid="external-submission-panel"]');
+        if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      if (toxel !== 'final_submitted' && node !== 'SUBMITTED' && node !== 'SUBMISSION_IN_PROGRESS') {
         toast.error('Record external submission before uploading the final certificate.');
         return;
       }

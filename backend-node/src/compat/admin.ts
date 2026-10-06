@@ -1216,6 +1216,9 @@ async function staffCaseDetailPayload(me: Doc, taxReturnId: string): Promise<Doc
     { id: kase.client_user_id },
     { projection: { password_hash: 0, totp: 0, recovery_code_hashes: 0 } },
   )) as Doc | null;
+  const clientDoc = (await col("clients").findOne({
+    user_id: kase.client_user_id,
+  })) as Doc | null;
   const maskedClient = clientUser
     ? (maskContactsForViewer([clean(clientUser) as Doc], me)[0] as Doc)
     : null;
@@ -1229,6 +1232,10 @@ async function staffCaseDetailPayload(me: Doc, taxReturnId: string): Promise<Doc
       : "Self Assessment";
   const typeCode =
     serviceType === "MTD_INCOME_TAX" || serviceType === "MTD" ? "MTD" : "SA";
+  const taxSnap =
+    (clientUser?.sa_tax_info as Doc | undefined) ||
+    (clientUser?.mtd_tax_info as Doc | undefined) ||
+    null;
 
   let accountant: Doc | null = null;
   if (kase.assigned_accountant_id) {
@@ -1305,6 +1312,22 @@ async function staffCaseDetailPayload(me: Doc, taxReturnId: string): Promise<Doc
       surname: nameParts.slice(1).join(" "),
       email: maskedClient?.email ?? null,
       phone: maskedClient?.phone ?? null,
+      userRole: typeCode === "MTD" ? "MTD" : "SA",
+      // F-002: assigned accountant/admin can read onboarding answers (UTR optional).
+      utr: clientDoc?.utr ?? taxSnap?.utr ?? null,
+      businessName: taxSnap?.businessName ?? taxSnap?.business_name ?? null,
+      businessType: taxSnap?.businessType ?? taxSnap?.business_type ?? null,
+      jobRole: taxSnap?.jobRole ?? taxSnap?.job_role ?? null,
+      employmentStatus:
+        taxSnap?.employmentStatus ?? taxSnap?.employment_status ?? null,
+      incomeSources: taxSnap?.incomeSources ?? taxSnap?.income_sources ?? null,
+      annualTurnover: taxSnap?.annualTurnover ?? taxSnap?.annual_turnover ?? null,
+      recordKeepingMethod:
+        taxSnap?.recordKeepingMethod ?? taxSnap?.record_keeping_method ?? null,
+      currentAccountant:
+        taxSnap?.currentAccountant ?? taxSnap?.current_accountant ?? null,
+      accountantNotes:
+        taxSnap?.accountantNotes ?? taxSnap?.accountant_notes ?? null,
     },
     type: { typeName, typeCode },
     accountant,

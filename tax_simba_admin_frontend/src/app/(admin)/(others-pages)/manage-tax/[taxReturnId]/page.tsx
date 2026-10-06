@@ -471,12 +471,27 @@ const AdminTaxReturnDetails = () => {
       return
     }
     if (newStatus === 'final_submitted') {
+      // F-012: Advance to "External Submission Recorded" must NOT open the
+      // certificate modal while still at ready_for_submission.
+      const toxel = String(progressData?.status || '').toLowerCase();
       const node = String(
         (progressData as { nodeStatus?: string } | null)?.nodeStatus ||
           (taxReturn as { nodeStatus?: string } | null)?.nodeStatus ||
           '',
       ).toUpperCase();
-      if (node === 'READY_FOR_SUBMISSION') {
+      if (
+        toxel === 'ready_for_submission' ||
+        node === 'READY_FOR_SUBMISSION' ||
+        toxel === 'client_approved'
+      ) {
+        toast.error(
+          'Record external submission (date + reference) before uploading the final certificate. Use the External submission panel below.',
+        );
+        const panel = document.querySelector('[data-testid="external-submission-panel"]');
+        if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      if (toxel !== 'final_submitted' && node !== 'SUBMITTED' && node !== 'SUBMISSION_IN_PROGRESS') {
         toast.error('Record external submission before uploading the final certificate.');
         return;
       }
@@ -961,10 +976,12 @@ const AdminTaxReturnDetails = () => {
                   </div>
                 </div>
 
-                {taxReturn.client.userRole === 'MTD' && (
+                {(taxReturn.client.userRole === 'MTD' || taxReturn.client.userRole === 'SA') && (
                   <div>
-                    <h3 className="text-lg font-medium text-gray-900 mb-4">MTD Business & Profile Info</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <h3 className="text-lg font-medium text-gray-900 mb-4">
+                      {taxReturn.client.userRole === 'MTD' ? 'MTD' : 'SA'} Business &amp; Profile Info
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" data-testid="client-onboarding-answers">
                       <div className="bg-gray-50 p-4 rounded-lg">
                         <h6 className="text-sm font-medium text-gray-500">Business Name</h6>
                         <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.businessName || '—'}</p>
@@ -972,6 +989,14 @@ const AdminTaxReturnDetails = () => {
                       <div className="bg-gray-50 p-4 rounded-lg">
                         <h6 className="text-sm font-medium text-gray-500">Business Type</h6>
                         <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.businessType || '—'}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">Job Role</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0" data-testid="admin-client-job-role">{taxReturn.client.jobRole || '—'}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h6 className="text-sm font-medium text-gray-500">Employment Status</h6>
+                        <p className="text-sm font-semibold text-gray-900 mb-0">{taxReturn.client.employmentStatus || '—'}</p>
                       </div>
                       <div className="bg-gray-50 p-4 rounded-lg">
                         <h6 className="text-sm font-medium text-gray-500">UTR Number</h6>

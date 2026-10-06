@@ -151,7 +151,10 @@ export async function compatAuthPayload(
     ownership.hasActiveSa,
     ownership.hasActiveMtd,
   );
-  const isTaxInfoSubmitted = Boolean(user.mtd_tax_info_submitted_at);
+  // F-002: SA or MTD onboarding questionnaire counts as submitted.
+  const isTaxInfoSubmitted = Boolean(
+    user.mtd_tax_info_submitted_at || user.sa_tax_info_submitted_at,
+  );
   let clientDoc: Doc | null = null;
   if (user.role === "CLIENT") {
     clientDoc = (await col("clients").findOne({ user_id: user.id })) as Doc | null;

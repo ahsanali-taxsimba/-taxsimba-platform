@@ -264,6 +264,20 @@ compatCasesRouter.post(
       // Canonical nested shape for Tax Tracker (`item.taxReturn.id`, `item.files.allFiles`).
       // taxReturn.status must be the Toxel step key (draft_ready / final_submitted), not the
       // raw Node workflow status — otherwise the client tracker never advances past Draft Ready.
+      const finalDoc = docs.find((d) => d.is_final === true) || null;
+      const finalCertificate = finalDoc
+        ? (() => {
+            const dto = clientDocumentDto(finalDoc, caseId);
+            return {
+              id: dto.id,
+              filename: dto.filename,
+              downloadUrl: dto.downloadUrl,
+              uploadedAt: finalDoc.created_at ?? finalDoc.upload_date ?? null,
+              fileSize: dto.fileSize,
+              mimeType: dto.mimeType,
+            };
+          })()
+        : null;
       out.push({
         ...c,
         taxReturn: {
@@ -277,6 +291,7 @@ compatCasesRouter.post(
         accountant,
         assignedAccountantId: c.assigned_accountant_id ?? null,
         files: { allFiles },
+        finalCertificate,
       });
     }
     sendCompatSuccess(res, out, "OK");

@@ -90,7 +90,40 @@ compatEntitlementsRouter.post(
         engagement_accepted_at: engagement.engagementAcceptedAt,
         agreement_version: engagement.agreementVersion,
         required_agreement_version: engagement.requiredAgreementVersion,
-        is_tax_info_submitted: Boolean(me.mtd_tax_info_submitted_at),
+        is_tax_info_submitted: Boolean(
+          me.mtd_tax_info_submitted_at || me.sa_tax_info_submitted_at,
+        ),
+        // Onboarding questionnaire snapshot (SA and/or MTD) for profile resume.
+        ...((): Doc => {
+          const snap =
+            (me.sa_tax_info as Doc | undefined) ||
+            (me.mtd_tax_info as Doc | undefined) ||
+            null;
+          if (!snap) return {};
+          return {
+            business_type: snap.businessType ?? snap.business_type ?? null,
+            business_name: snap.businessName ?? snap.business_name ?? null,
+            job_role: snap.jobRole ?? snap.job_role ?? null,
+            employment_status:
+              snap.employmentStatus ?? snap.employment_status ?? null,
+            gov_gateway_status:
+              snap.govGatewayStatus ?? snap.gov_gateway_status ?? null,
+            is_registered_for_mtd:
+              snap.isRegisteredForMTD ?? snap.is_registered_for_mtd ?? null,
+            current_accountant:
+              snap.currentAccountant ?? snap.current_accountant ?? null,
+            income_sources: snap.incomeSources ?? snap.income_sources ?? null,
+            annual_turnover:
+              snap.annualTurnover ?? snap.annual_turnover ?? null,
+            record_keeping_method:
+              snap.recordKeepingMethod ?? snap.record_keeping_method ?? null,
+            accountant_notes:
+              snap.accountantNotes ?? snap.accountant_notes ?? null,
+            sa_tax_info: me.sa_tax_info ?? null,
+            mtd_tax_info: me.mtd_tax_info ?? null,
+          };
+        })(),
+        utr: clientDoc?.utr ?? null,
         // Deprecated — never a source of truth (baseline D7 / N5).
         is_subscription_buy: false,
         subscription: active[0] ?? null,
