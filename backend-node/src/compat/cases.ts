@@ -528,6 +528,125 @@ async function buildProgressPayload(kase: Doc, me: Doc, hasSubmission: boolean):
 }
 
 /**
+ * G-006/G-007 — Manage-tax "Approve Draft" on an MTD case must publish the
+ * current period to AWAITING_CLIENT_APPROVAL (same outcome as native
+ * /api/mtd/periods/:id/admin-approve). SA case status alone is not the MTD SoT.
+ */
+async function adminApproveMtdPeriodDraft(
+  caseId: string,
+  me: Doc,
+  note?: string | null,
+): Promise<{ updated: Doc; released: number }> {
+  const { notify, nowIso: iso } = await import("../domain/workflow");
+  const {
+    ADMIN_REVIEW,
+    AWAITING_CLIENT,
+    IN_PROGRESS,
+    advance,
+    NOT_STARTED,
+  } = await import("../domain/mtd");
+  const kase = await getCase(caseId, me);
+  const periods = (await col("mtd_periods")
+    .find({ case_id: caseId, kind: { $ne: "FINAL_DECLARATION" } })
+    .sort({ quarter: 1 })
+    .limit(20)
+    .toArray()) as Doc[];
+  const candidate =
+    periods.find((p) => p.status === ADMIN_REVIEW) ||
+    periods.find((p) => p.status === IN_PROGRESS && p.draft) ||
+    periods.find((p) => [NOT_STARTED, IN_PROGRESS, ADMIN_REVIEW].includes(String(p.status))) ||
+    null;
+  if (!candidate) {
+    throw httpError(400, "No MTD period is awaiting admin approval");
+  }
+  if (candidate.status === AWAITING_CLIENT) {
+    const updated = await getCase(caseId, me);
+    return { updated, released: 0 };
+  }
+  const draft =
+    (candidate.draft as Doc | null) ||
+    ({
+      income: 0,
+      expenses: 0,
+      net_profit: 0,
+      estimated_income_tax: null,
+      estimated_national_insurance: null,
+      suggested_set_aside: null,
+      client_note: note ?? "Admin released period for client review",
+    } as Doc);
+  const version = Number(candidate.published_version ?? 0) + 1;
+  const snapshot = {
+    ...draft,
+    version,
+    published_by_name: me.name,
+    published_at: iso(),
+  };
+  const history = [...((candidate.published_versions as Doc[]) ?? []), snapshot];
+  await advance(
+    candidate,
+    kase,
+    AWAITING_CLIENT,
+    `figures published to client (version ${version})`,
+    me,
+    {
+      draft,
+      published: snapshot,
+      published_version: version,
+      published_versions: history,
+      client_approved_at: null,
+      approved_version: null,
+      approved_snapshot: null,
+    },
+  );
+  // Keep parent case status aligned for staff case bars that still read cases.status.
+  if ((ALLOWED_TRANSITIONS[String(kase.status)] ?? []).includes("ADMIN_APPROVED")) {
+    await transition(kase, "ADMIN_APPROVED", me, note ?? "Admin approved MTD draft");
+    const after = await getCase(caseId, me);
+    if ((ALLOWED_TRANSITIONS[String(after.status)] ?? []).includes("AWAITING_CLIENT_APPROVAL")) {
+      await transition(
+        after,
+        "AWAITING_CLIENT_APPROVAL",
+        me,
+        "MTD figures released to client for review",
+      );
+    }
+  } else if (String(kase.status) === "ASSIGNED" || String(kase.status) === "ACCOUNTANT_REVIEW") {
+    // Soft sync for MTD cases that never entered the SA admin-review lane.
+    await col("cases").updateOne(
+      { id: caseId },
+      {
+        $set: {
+          status: "AWAITING_CLIENT_APPROVAL",
+          current_stage: "AWAITING_CLIENT_APPROVAL",
+          updated_at: iso(),
+        },
+      },
+    );
+  }
+  await notify(
+    kase.client_user_id as string,
+    `Your MTD ${candidate.label ?? "period"} figures are ready to review`,
+    `Your accountant has prepared your figures for ${candidate.label ?? "this period"}.\n\n` +
+      "Please review the figures and approve them when you're happy for your accountant to proceed.",
+    caseId,
+    "/mtd-dashboard",
+    "REVIEW",
+  );
+  if (kase.assigned_accountant_id) {
+    await notify(
+      String(kase.assigned_accountant_id),
+      "Admin approved your MTD draft",
+      `${kase.client_name ?? "Client"} — ${candidate.label ?? "period"} approved`,
+      caseId,
+      `/manage-tax/${caseId}`,
+      "APPROVAL",
+    );
+  }
+  const updated = await getCase(caseId, me);
+  return { updated, released: 1 };
+}
+
+/**
  * Admin approve + document release + client notification.
  * Shared by manage-review and tax-return-list "Advance to Draft Ready".
  */
@@ -542,6 +661,9 @@ async function adminApproveSubmittedDraft(
   }
   const { notify } = await import("../domain/workflow");
   const kase = await getCase(caseId, me);
+  if (String(kase.service_type) === MTD || String(kase.service_type) === "MTD") {
+    return adminApproveMtdPeriodDraft(caseId, me, note);
+  }
   if (!(ALLOWED_TRANSITIONS[String(kase.status)] ?? []).includes("ADMIN_APPROVED")) {
     throw httpError(400, `Cannot admin-approve from status ${kase.status}`);
   }

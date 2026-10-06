@@ -1,22 +1,25 @@
-# J-011 investigation (pre-handover gap pass)
+# J-011 investigation (full evidence pack)
 
-## Original reproduction steps available
-Toxel pack text was **not present in-repo**. The only original symptom string from Task 5 prompt:
+## Original pack text
+> Fail — Error in upgrade payment; NOT VERIFIABLE (no package/SA-upgrade payment-success email).
 
-> "J-011: error during package/SA-upgrade payment flow."
+## Video evidence (`J-011_b138.pdf` sampled frames)
+1. Client on **Tax Simba Simple £119** (`/dashboard/my-subscriptions`).
+2. Opens upgrade options → selects **Smart £149**.
+3. Clicks **Continue to secure checkout**.
+4. Toast: **`Package changes are locked at this stage (READY_FOR_SUBMISSION)`**.
 
-No stack trace, screenshot, or numbered repro steps exist in the agent transcript or repository.
+## Root cause
+Late-stage package-change lock (`DEFAULT_LOCK_STATUSES` includes `READY_FOR_SUBMISSION`). Checkout API correctly rejected the upgrade; earlier tips still showed an active Continue button before lock state loaded / was surfaced.
 
-## Steps attempted this pass
-1. Re-ran `scripts/task5SaUpgradeProof.ts` (FakePaymentProvider / SIMULATED) → SUCCESS path for SIMPLE→SMART (£30), sequential SMART→ELITE (£150), direct SIMPLE→ELITE (£180), zero-payable 400, client-amount reject 400.
-2. Re-ran vitest `saUpgradePricingTask5.test.ts` — **13/13 PASS**.
-3. Attempted live UI login/upgrade capture; session CSRF host mismatch prevented authenticated UI this pass — prior Task 5 UI evidence retained (`gap_j011_upgrade_success_prior_t5.png`).
-
-## Result
-| Item | Status |
+## Fix / verification
+| Item | Result |
 |---|---|
-| Original runtime error reproduced? | **No** |
-| Classification | **UNVERIFIED** (unchanged) |
-| Preventive hardening | **LOCAL PASS SIMULATED** |
+| Lock at READY_FOR_SUBMISSION | **Expected product behaviour** (no mid-late-journey package change) |
+| Upgrade CTA when locked | Disabled on planlist + my-subscriptions with clear banner |
+| No SA-upgrade payment-success email | Already enforced in fulfilment (`payments.ts` comment + path) |
+| Successful upgrade (unlocked stage) | LOCAL PASS SIMULATED via Task 5 suite |
+| Stripe TEST live upgrade | **BLOCKED** (no `sk_test` in env) |
 
-Do **not** claim J-011 original defect fixed.
+## Classification
+**LOCAL PASS** for lock UX + no-email code path. Do not claim Stripe TEST / staging email verification without those credentials.

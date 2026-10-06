@@ -591,7 +591,22 @@ export default function EngagementLetterPage() {
                         <div className="el-info-grid">
                             <div className="el-info-card">
                                 <label>Client Signatory</label>
-                                <p>{session?.user?.firstName} {session?.user?.lastName}</p>
+                                <p data-testid="engagement-client-name">
+                                  {session?.user?.firstName || session?.user?.name || "Client"}
+                                  {session?.user?.lastName ? ` ${session.user.lastName}` : ""}
+                                </p>
+                            </div>
+                            <div className="el-info-card">
+                                <label>Service</label>
+                                <p data-testid="engagement-service-line">
+                                  {String(session?.user?.userRole || session?.user?.role || "")
+                                    .toUpperCase()
+                                    .includes("MTD")
+                                    ? "Making Tax Digital for Income Tax"
+                                    : "Self Assessment"}
+                                  {" · "}
+                                  selected subscription plan
+                                </p>
                             </div>
                             <div className="el-info-card">
                                 <label>Reference Date</label>
@@ -609,8 +624,25 @@ export default function EngagementLetterPage() {
                             <div className="el-card">
                                 {idx === 0 && (
                                     <>
-                                        <p>Welcome to <strong>TaxSimba</strong>.</p>
-                                        <p>By subscribing to our platform, you agree to the following terms.</p>
+                                        <p>
+                                          Welcome to <strong>TaxSimba</strong>
+                                          {(session?.user?.firstName || session?.user?.name)
+                                            ? `, ${(session?.user?.firstName || session?.user?.name)}${session?.user?.lastName ? ` ${session.user.lastName}` : ""}`
+                                            : ""}
+                                          .
+                                        </p>
+                                        <p data-testid="engagement-intro-service">
+                                          This engagement covers your{" "}
+                                          <strong>
+                                            {String(session?.user?.userRole || session?.user?.role || "")
+                                              .toUpperCase()
+                                              .includes("MTD")
+                                              ? "Making Tax Digital for Income Tax"
+                                              : "Self Assessment"}
+                                          </strong>{" "}
+                                          service under your selected subscription plan.
+                                        </p>
+                                        <p>By continuing, you agree to the following terms.</p>
                                     </>
                                 )}
                                 {idx === 1 && (
@@ -621,8 +653,18 @@ export default function EngagementLetterPage() {
                                 )}
                                 {idx === 2 && (
                                     <>
-                                        <p>Your subscription begins when your first payment is successfully processed.</p>
-                                        <p>Your subscription renews automatically on a monthly basis unless cancelled.</p>
+                                        <p data-testid="engagement-subscription-service">
+                                          Your{" "}
+                                          <strong>
+                                            {String(session?.user?.userRole || session?.user?.role || "")
+                                              .toUpperCase()
+                                              .includes("MTD")
+                                              ? "Making Tax Digital"
+                                              : "Self Assessment"}
+                                          </strong>{" "}
+                                          subscription begins when your first payment is successfully processed.
+                                        </p>
+                                        <p>Your subscription renews according to the billing terms of your selected plan unless cancelled.</p>
                                         <p style={{ marginTop: 16 }}>You may cancel your subscription at any time through your dashboard. Cancellation will take effect at the end of your current billing period.</p>
                                     </>
                                 )}

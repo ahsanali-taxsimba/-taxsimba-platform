@@ -320,7 +320,8 @@ adminRouter.post(
   handler(async (req, res) => {
     const me = authed(req);
     const body = parseBody(ReasonIn, req.body);
-    if (!body.reason.trim()) throw httpError(400, "A reason is required");
+    const { assertRevealReason } = await import("../domain/revealReason");
+    const reason = assertRevealReason(body.reason);
     const target = (await col("users").findOne({
       id: req.params.clientUserId,
       role: "CLIENT",
@@ -332,7 +333,7 @@ adminRouter.post(
       client_name: target.name,
       accessed_by: me.name,
       role: me.role,
-      reason: body.reason,
+      reason,
       created_at: nowIso(),
     });
     res.json({

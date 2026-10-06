@@ -280,6 +280,12 @@ describe("admin, audit, help centre and invitations", () => {
       .expect(200);
     expect(revealed.body.email).toBe(client.email);
 
+    await request(app)
+      .post(`/api/clients/${client.id}/reveal-contact`)
+      .set(bearer(superAdmin))
+      .send({ reason: "short" })
+      .expect(400);
+
     await request(app).get("/api/contact-access-log").set(bearer(admin)).expect(403);
     const log = await request(app)
       .get("/api/contact-access-log")

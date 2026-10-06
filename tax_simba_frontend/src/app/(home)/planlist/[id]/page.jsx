@@ -300,7 +300,7 @@ export default function PlanCheckoutPage() {
 
             {upgradeLocked && (
               <Alert variant="warning" data-testid="upgrade-locked">
-                {upgradeLocked}
+                {upgradeLocked}. Package changes are closed at this stage of your Self Assessment return — checkout is disabled until the case moves out of late filing.
               </Alert>
             )}
 

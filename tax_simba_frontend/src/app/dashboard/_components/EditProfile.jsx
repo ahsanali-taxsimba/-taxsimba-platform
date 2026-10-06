@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { FaPhone, FaEnvelope } from "react-icons/fa";
@@ -46,6 +46,22 @@ const EditProfile = ({ userData, sessionData, setTrackUpdate }) => {
   };
   const [isEditProfile, setIsEditProfile] = useState(false);
   const [formData, setFormData] = useState(initialFormState);
+  const [engagementStatus, setEngagementStatus] = useState(null);
+
+  useEffect(() => {
+    const token = sessionData?.accessToken;
+    if (!token) return;
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001/api/";
+    axios
+      .get(`${apiUrl}client/engagement-letter-status`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        const data = res.data?.data || res.data || {};
+        setEngagementStatus(data);
+      })
+      .catch(() => setEngagementStatus(null));
+  }, [sessionData?.accessToken]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -263,6 +279,29 @@ const EditProfile = ({ userData, sessionData, setTrackUpdate }) => {
               <div className="mb-4">
                 <h6 className="mb-1">Email address <span className="verified">verified</span></h6>
                 <p className="text-muted">{userData.email ? userData.email : sessionData?.user?.email}</p>
+                <hr />
+              </div>
+            </Col>
+            <Col lg={6}>
+              <div className="mb-4" data-testid="engagement-acceptance-status">
+                <h6 className="mb-1">Engagement letter</h6>
+                <p className="text-muted mb-0">
+                  {engagementStatus?.accepted || engagementStatus?.engagementAccepted
+                    ? `Accepted${
+                        engagementStatus.acceptedAt || engagementStatus.accepted_at
+                          ? ` · ${new Date(
+                              engagementStatus.acceptedAt || engagementStatus.accepted_at,
+                            ).toLocaleString("en-GB")}`
+                          : ""
+                      }${
+                        engagementStatus.version || engagementStatus.letterVersion
+                          ? ` · v${engagementStatus.version || engagementStatus.letterVersion}`
+                          : ""
+                      }`
+                    : sessionData?.user?.engagementAcceptedAt
+                      ? `Accepted · ${new Date(sessionData.user.engagementAcceptedAt).toLocaleString("en-GB")}`
+                      : "Not yet accepted"}
+                </p>
                 <hr />
               </div>
             </Col>

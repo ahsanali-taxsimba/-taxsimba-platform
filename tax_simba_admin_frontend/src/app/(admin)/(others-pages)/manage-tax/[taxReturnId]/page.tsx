@@ -33,6 +33,7 @@ import { toast } from 'react-toastify';
 import DownloadCertificate from '@/components/TaxReturnModal/DownloadCertificateModal';
 import { canApproveDrafts, canAssignCases } from '@/lib/roles';
 import ExternalSubmissionPanel from '../_sections/ExternalSubmissionPanel';
+import MtdPeriodActionsPanel from '../_sections/MtdPeriodActionsPanel';
 import AdditionalWorkPanel from '../_sections/AdditionalWorkPanel';
 
 const AdminTaxReturnDetails = () => {
@@ -738,6 +739,40 @@ const AdminTaxReturnDetails = () => {
                     <div className="flex items-center space-x-1">
                       <Mail className="w-4 h-4" />
                       <span>{taxReturn.client.email}</span>
+                      {String(userData?.role || '').toUpperCase() === 'SUPER_ADMIN' &&
+                        taxReturn.client?.id && (
+                        <button
+                          type="button"
+                          data-testid="reveal-contact-case"
+                          className="ml-2 inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 hover:underline"
+                          onClick={async () => {
+                            const reason = window.prompt(
+                              'SUPER_ADMIN contact reveal requires a reason (min 10 characters, audited):',
+                            );
+                            if (!reason || !reason.trim()) return;
+                            try {
+                              const res = await clientAxios.post(
+                                `/admin/clients/${encodeURIComponent(String(taxReturn.client.id))}/reveal-contact`,
+                                { reason: reason.trim() },
+                              );
+                              const data = res.data?.data || res.data;
+                              if (data?.email) {
+                                toast.success(`Revealed: ${data.email}${data.phone ? ` · ${data.phone}` : ''}`);
+                              }
+                            } catch (err: unknown) {
+                              toast.error(
+                                (err as { response?: { data?: { message?: string; detail?: string } } })
+                                  ?.response?.data?.message ||
+                                  (err as { response?: { data?: { detail?: string } } })?.response?.data
+                                    ?.detail ||
+                                  'Reveal failed',
+                              );
+                            }
+                          }}
+                        >
+                          <Eye className="w-3.5 h-3.5" /> Reveal contact
+                        </button>
+                      )}
                     </div>
                     <div className="flex items-center space-x-1">
                       <FileText className="w-4 h-4" />
@@ -868,18 +903,28 @@ const AdminTaxReturnDetails = () => {
           <div className="p-6">
             {activeTab === 'overview' && (
               <div className="space-y-6">
-                <ExternalSubmissionPanel
-                  taxReturnId={taxReturnIdStr}
-                  nodeStatus={
-                    (progressData as { nodeStatus?: string } | null)?.nodeStatus ||
-                    (taxReturn as { nodeStatus?: string } | null)?.nodeStatus ||
-                    null
-                  }
-                  onRecorded={() => {
-                    void fetchTaxReturnData();
-                    void fetchProgressData();
-                  }}
-                />
+                {taxReturn?.client?.userRole === 'MTD' ? (
+                  <MtdPeriodActionsPanel
+                    caseId={taxReturnIdStr}
+                    onChanged={() => {
+                      void fetchTaxReturnData();
+                      void fetchProgressData();
+                    }}
+                  />
+                ) : (
+                  <ExternalSubmissionPanel
+                    taxReturnId={taxReturnIdStr}
+                    nodeStatus={
+                      (progressData as { nodeStatus?: string } | null)?.nodeStatus ||
+                      (taxReturn as { nodeStatus?: string } | null)?.nodeStatus ||
+                      null
+                    }
+                    onRecorded={() => {
+                      void fetchTaxReturnData();
+                      void fetchProgressData();
+                    }}
+                  />
+                )}
                 <AdditionalWorkPanel
                   taxReturnId={taxReturnIdStr}
                   userRole={userData?.role}

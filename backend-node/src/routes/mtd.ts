@@ -685,13 +685,30 @@ mtdRouter.post(
         approved_snapshot: null,
       },
     );
+    // G-006 — keep parent case status aligned for staff/client case bars.
+    if (
+      ["ASSIGNED", "ACCOUNTANT_REVIEW", "IN_PREPARATION", "AWAITING_CLIENT"].includes(
+        String(kase.status),
+      )
+    ) {
+      await col("cases").updateOne(
+        { id: kase.id },
+        {
+          $set: {
+            status: "AWAITING_CLIENT_APPROVAL",
+            current_stage: "AWAITING_CLIENT_APPROVAL",
+            updated_at: nowIso(),
+          },
+        },
+      );
+    }
     await notify(
       kase.client_user_id,
       `Your MTD ${row.label} figures are ready to review`,
       `Your accountant has prepared your figures for ${row.label}.\n\n` +
         "Please review the figures and approve them when you're happy for your accountant to proceed.",
       kase.id,
-      "/mtd",
+      "/mtd-dashboard",
       "REVIEW",
     );
     res.json(out);

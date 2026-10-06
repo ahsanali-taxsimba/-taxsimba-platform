@@ -102,12 +102,22 @@ function quarterLabel(row: Doc | null | undefined): string | null {
 function mapTaxReturnStatus(kase: Doc, current: Doc | null): string {
   if (kase.status === "COMPLETED") return "completed";
   if (!kase.assigned_accountant_id) return "pending_assignment";
-  if (!current) return "assigned";
+  // Case-level soft sync (G-006): if manage-tax advanced the case but period
+  // lag exists, prefer client-visible draft_ready / approved from case status.
+  const caseSt = String(kase.status || "");
+  if (!current) {
+    if (caseSt === "AWAITING_CLIENT_APPROVAL" || caseSt === "ADMIN_APPROVED") return "draft_ready";
+    if (caseSt === "CLIENT_APPROVED" || caseSt === "READY_FOR_SUBMISSION") return "approved";
+    if (caseSt === "SUBMITTED") return "submitted";
+    return "assigned";
+  }
   switch (String(current.status)) {
     case NOT_STARTED:
+      if (caseSt === "AWAITING_CLIENT_APPROVAL" || caseSt === "ADMIN_APPROVED") return "draft_ready";
       return "assigned";
     case IN_PROGRESS:
     case ADMIN_REVIEW:
+      if (caseSt === "AWAITING_CLIENT_APPROVAL" || caseSt === "ADMIN_APPROVED") return "draft_ready";
       return "preparation_started";
     case AWAITING_CLIENT:
       return "draft_ready";

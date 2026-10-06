@@ -1,7 +1,7 @@
 "use client";
-import { Spinner, Row, Col } from "react-bootstrap";
+import { Spinner, Row, Col, Alert } from "react-bootstrap";
 import { useRouter, usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
@@ -19,6 +19,32 @@ export default function MySubscriptionsUI({ userData, confirmData, allPlans = []
     const pathname = usePathname();
     const [canceling, setCanceling] = useState(false);
     const [portalLoading, setPortalLoading] = useState(false);
+    const [upgradeLockReason, setUpgradeLockReason] = useState(null);
+
+    useEffect(() => {
+        const token = sessionData?.accessToken;
+        if (!token) return;
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001/api/";
+        axios
+            .get(`${apiUrl}client/subscription/upgrade-options`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((res) => {
+                const data = res.data?.data || res.data || {};
+                if (data.locked) {
+                    setUpgradeLockReason(
+                        data.lockReason ||
+                            data.lock_reason ||
+                            "Package changes are locked at this stage of your return",
+                    );
+                } else {
+                    setUpgradeLockReason(null);
+                }
+            })
+            .catch(() => {
+                /* non-fatal — keep upgrade CTA available */
+            });
+    }, [sessionData?.accessToken]);
 
     const handleBillingPortal = async () => {
         setPortalLoading(true);
@@ -359,10 +385,23 @@ export default function MySubscriptionsUI({ userData, confirmData, allPlans = []
 
                         {/* P0 K.3: portal/cancel hidden (E9); upgrade + C-004 second-service CTAs */}
                         <div className="subscription-actions-wrapper mt-3">
+                            {upgradeLockReason ? (
+                                <Alert variant="warning" className="mb-2 w-100" data-testid="upgrade-locked-banner">
+                                    {upgradeLockReason}. Package upgrades will reopen when your return is no longer in a late filing stage.
+                                </Alert>
+                            ) : null}
                             <button
                                 className="subscription-btn subscription-btn-primary shadow-sm"
                                 data-testid="view-upgrade-options"
-                                onClick={() => router.push(upgradeHref)}
+                                disabled={Boolean(upgradeLockReason)}
+                                title={upgradeLockReason || undefined}
+                                onClick={() => {
+                                    if (upgradeLockReason) {
+                                        toast.error(upgradeLockReason);
+                                        return;
+                                    }
+                                    router.push(upgradeHref);
+                                }}
                             >
                                 View upgrade options
                             </button>

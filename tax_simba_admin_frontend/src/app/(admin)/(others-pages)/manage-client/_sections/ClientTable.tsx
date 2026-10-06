@@ -38,9 +38,13 @@ export default function ClientTable(props: any) {
 
     const revealContact = async (userId: string) => {
         const reason = window.prompt(
-            "SUPER_ADMIN contact reveal requires a reason (audited):",
+            "SUPER_ADMIN contact reveal requires a reason (min 10 characters, audited):",
         );
         if (!reason || !reason.trim()) return;
+        if (reason.trim().length < 10) {
+            toast.error("Reveal reason must be at least 10 characters");
+            return;
+        }
         try {
             const res = await clientAxios.post(
                 `/admin/clients/${encodeURIComponent(userId)}/reveal-contact`,
