@@ -1,6 +1,6 @@
 # UAT reconciliation — Tasks 1–8 on `cursor/toxsl-blockers-b01-b04-80a7`
 
-**Branch tip:** `424bd235884d60ccb649f4d74c817f3fcaa7face`  
+**Branch tip:** `4dbfd36d5b9274fd55ea647343d2cceded7d2a6e`  
 **PR:** https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/18  
 **Generated:** 2026-10-06  
 **Final Toxel handover SHA:** deferred (no deploy)  
