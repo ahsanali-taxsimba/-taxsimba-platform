@@ -20,7 +20,7 @@ export default function Home() {
           <div className="header-wrapper flex items-center justify-between">
             <div className="header-logo">
               <a className="navbar-brand" href="#">
-                <img src="./images/logo.svg" alt="Logo" />
+                <img src="/images/logo/logo.svg" alt="TaxSimba Logo" />
               </a>
             </div>
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 text-center d-none">

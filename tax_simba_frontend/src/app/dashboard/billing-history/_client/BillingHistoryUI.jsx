@@ -63,8 +63,12 @@ export default function BillingHistoryUI({ transactions = [], loading, onDownloa
                                         <td className="py-3 px-4">{i + 1}</td>
                                         <td className="py-3 px-4 text-muted" style={{ fontSize: '0.85rem' }}>{tx.stripeSubscriptionId || tx.stripePaymentIntentId || tx.id}</td>
                                         <td className="py-3 px-4 text-muted">{formatDate(tx.createdAt)}</td>
-                                        <td className="py-3 px-4 fw-bold">
-                                            {getCurrencySymbol(tx.currency)}{tx.amount}
+                                        <td className="py-3 px-4 fw-bold" data-testid="tx-amount">
+                                            {/* D1-014: always show charged amount (upgrade delta), never upgradePrice/sticker */}
+                                            {getCurrencySymbol(tx.currency)}
+                                            {Number.isFinite(Number(tx.amount))
+                                                ? Number(tx.amount).toFixed(2)
+                                                : "0.00"}
                                             {String(tx.currency || 'gbp').toUpperCase() !== 'GBP' ? (
                                                 <span className="text-muted small ms-1">{String(tx.currency).toUpperCase()}</span>
                                             ) : (

@@ -167,7 +167,7 @@ mtdRouter.get(
             `Action required: approve your ${r.label}`,
             `Your ${r.label} is awaiting approval and is due on ${r.deadline}. Please review the figures when you can.`,
             caseId,
-            "/mtd",
+            "/mtd-dashboard",
             "REVIEW",
           );
         }
@@ -392,7 +392,7 @@ mtdRouter.post(
       `Your accountant needs the following for your MTD period:\n\n${title}\n\n` +
         "Please provide it securely through your TaxSimba account.",
       kase.id,
-      "/mtd",
+      "/mtd-dashboard",
       "UPLOAD",
     );
     res.json(clean(placeholder));
@@ -866,7 +866,7 @@ mtdRouter.post(
       `Your accountant is making a correction to your ${row.label} figures.\n\n` +
         "There's nothing you need to do right now. Once the updated figures are ready, we'll let you know so you can review them again.",
       kase.id,
-      "/mtd",
+      "/mtd-dashboard",
       "INFO",
     );
     res.json(out);
@@ -911,7 +911,7 @@ mtdRouter.post(
         `Submission reference: ${body.submission_reference.trim()}\n\n` +
         "You can view its status at any time from your TaxSimba account.",
       kase.id,
-      "/mtd",
+      "/mtd-dashboard",
       "SUBMISSION",
     );
     res.json(out);
