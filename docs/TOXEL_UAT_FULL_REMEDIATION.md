@@ -2,9 +2,9 @@
 
 **Branch:** `cursor/toxsl-blockers-b01-b04-80a7`  
 **Base PR:** #18  
-**Final Toxel tip SHA:** `7e7dbfd142cc2a19bdf07220de28d223729b480d`  
+**Final Toxel tip SHA:** `babf0488ff2b5afeafcc14d160079da7fa27a00e`  
 **Product fix tip:** `ec898b24740039d07bb2c7bd4cd1add43e0f628f`  
-**Documentation-only after product tip:** `c0558e3` (counts/profile), `e08df06` (SHA align), `7e7dbfd` (this note)  
+**Documentation-only after product tip:** `c0558e3` (counts/profile), `e08df06` (SHA align), `7e7dbfd`/`babf048` (SHA label finalize)  
 **Previous tip (pre this remediation):** `780decd36c060b4bc7b66471e49f7478f00b2a05`  
 **Status:** READY FOR TOXEL RETEST (with documented env BLOCKED items)
 
