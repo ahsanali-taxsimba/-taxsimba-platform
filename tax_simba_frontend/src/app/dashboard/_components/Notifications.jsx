@@ -245,7 +245,26 @@ export default function Notifications({ session }) {
                                     transition: "all 0.2s ease-in-out"
                                 }}
                             >
-                                <div className="d-flex align-items-center gap-3 overflow-hidden w-100">
+                                <div
+                                    className="d-flex align-items-center gap-3 overflow-hidden w-100"
+                                    role="button"
+                                    tabIndex={0}
+                                    data-testid={`notification-row-${notif.id}`}
+                                    onClick={() => {
+                                        if (!notif.read) void handleMarkAsRead(notif.id);
+                                        if (notif.link) {
+                                            window.location.href = notif.link;
+                                        }
+                                    }}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter" || e.key === " ") {
+                                            e.preventDefault();
+                                            if (!notif.read) void handleMarkAsRead(notif.id);
+                                            if (notif.link) window.location.href = notif.link;
+                                        }
+                                    }}
+                                    style={{ cursor: notif.link ? "pointer" : "default" }}
+                                >
                                     <div 
                                         className="d-flex align-items-center justify-content-center flex-shrink-0"
                                         style={{ 
@@ -259,11 +278,20 @@ export default function Notifications({ session }) {
                                         <NotifIcon size={20} />
                                     </div>
                                     <div className="overflow-hidden" style={{ minWidth: 0 }}>
+                                        {notif.title ? (
+                                            <p
+                                                className={`mb-1 ${notif.read ? "text-muted" : "text-dark fw-semibold"}`}
+                                                style={{ fontSize: "14px", lineHeight: "1.4", margin: 0 }}
+                                            >
+                                                {notif.title}
+                                            </p>
+                                        ) : null}
                                         <p 
-                                            className={`mb-1 ${notif.read ? 'text-muted' : 'text-dark fw-semibold'}`} 
-                                            style={{ fontSize: "14px", lineHeight: "1.5", margin: 0 }}
+                                            className={`mb-1 ${notif.read ? 'text-muted' : 'text-dark'}`} 
+                                            style={{ fontSize: "13px", lineHeight: "1.5", margin: 0, whiteSpace: "pre-wrap" }}
+                                            data-testid={`notification-body-${notif.id}`}
                                         >
-                                            {notif.message}
+                                            {notif.message || notif.body || ""}
                                         </p>
                                         <span className="text-muted d-block mt-1" style={{ fontSize: "12px" }}>
                                             {notif.time}
@@ -276,7 +304,10 @@ export default function Notifications({ session }) {
                                         <button 
                                             className="btn btn-sm btn-light border d-flex align-items-center justify-content-center"
                                             style={{ width: "32px", height: "32px", borderRadius: "50%", padding: 0 }}
-                                            onClick={() => handleMarkAsRead(notif.id)}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                void handleMarkAsRead(notif.id);
+                                            }}
                                             title="Mark as read"
                                         >
                                             <FaCheck size={12} className="text-success" />

@@ -3,7 +3,7 @@
 **Status:** LOCAL PASS — SIMULATED PAYMENT / MAILPIT  
 **Stripe TEST / staging / external inbox:** BLOCKED  
 **Branch:** `cursor/toxsl-blockers-b01-b04-80a7`  
-**Tested remote tip:** `63bf9f482a9f7a53967ce098bc2a34b9de286698`  
+**Tested remote tip:** _(stamped after reconcile commit)_  
 **J-011:** remains **UNVERIFIED** (Task 5; not reopened)  
 **Final Toxel handoff SHA:** deferred  
 **Evidence ZIP:** `/opt/cursor/artifacts/task6_additional_work_evidence.zip` (not in git)
@@ -18,16 +18,36 @@
 | Not the cause | Permissions, API routing, or missing backend domain |
 | Browser note | Admin must be on **`:3001`** (CORS allows 3000/3001 only) |
 
+## Receipt / notification reconcile (INV-0004 vs 0005 → linked INV-0006)
+
+Prior finalize pack mixed two separate £55.50 SIMULATED payments (`INV-2026-0004` notification vs `INV-2026-0005` opened receipt). That was evidence packaging, not a product ID bug.
+
+| Field | Linked journey (`ids_match: true`) |
+|---|---|
+| requestId | `a42fa437-a5a8-48fa-8ecb-795c5933449c` |
+| sessionId | `cs_test_local_1_1791245432753` |
+| paymentIntent | `pi_reconcile_1791245432755` |
+| invoiceId | `7706c844-4072-4e0b-8158-718f87faa2f2` |
+| receiptNumber | **INV-2026-0006** |
+| notificationId | `0627bd3b-e585-4e2a-9a39-8e60d4f0e166` |
+
+**Defects fixed for dashboard open:**
+1. Compat notifications now mirror `body` → `message` (+ `time`) so client `Notifications.jsx` shows receipt text.
+2. `notify()` no longer collapses unread **RECEIPT** rows (successive INV numbers stay distinct).
+3. Notification row click marks read and follows `link` into billing; body shows title + message.
+
+**Evidence:** `reconcile/00_reconcile_summary.json`, `reconcile/api/id_linkage.json`, `reconcile/screenshots/01_notifications_list_before_click.png`, `02_after_notification_click.png`, `04_opened_receipt.png`, `05_notification_opened_content.png` (real client dashboard — not API-rendered HTML).
+
 ## UAT pack checklist (corrected mapping)
 
 | ID | UAT criterion | Local | Staging | Evidence references |
 |---|---|---|---|---|
 | **D-006** | Admin creates Additional Work request | **PASS** | BLOCKED | `screenshots/14_admin_aw_form_filled.png`, `16_admin_aw_panel_with_rows.png`; `finalize/api/d006_admin_create.json` (201, desc/amount/GBP) |
-| **D-007** | Client sees correct description and amount | **PASS** | BLOCKED | `screenshots/21_client_aw_panel.png`, `finalize/screenshots/d007_d010_billing_panel.png`; `finalize/api/d007_client_sees_desc_amount.json` (`matches: true`, £55.50 / Finalize T6…) |
-| **D-008** | Request email and in-app notification arrive | **PASS** (Mailpit local) | BLOCKED external inbox | **Email body:** `finalize/mailpit/d008_request_email.json` + `.html` + `finalize/screenshots/d008_request_email_opened.png` (desc + £ amount + Review & pay). **Opened notification:** `finalize/api/d008_inapp_notifications.json` + `finalize/screenshots/d008_opened_notification_content.png` (title/message/link `/dashboard/billing-history`) |
-| **D-009** | Resend/reminder for outstanding request | **PASS** (Mailpit local) | BLOCKED | `finalize/api/d009_resend_outstanding.json` (200); **Reminder email body:** `finalize/mailpit/d009_reminder_email.json` + `.html` + `finalize/screenshots/d009_reminder_email_opened.png` (“Reminder: additional work awaiting payment”, still-outstanding desc/amount) |
-| **D-010** | Successful payment, receipt/confirmation, correct status | **PASS** (SIMULATED) | BLOCKED Stripe TEST | `finalize/api/d010_checkout_simulated.json` + webhook success; **Opened receipt:** `finalize/receipts/d010_opened_receipt.html` + `finalize/screenshots/d010_opened_receipt.png` (INV-…, PAID, desc, £55.50); billing Paid badge `21_client_aw_panel.png`; optional Mailpit `finalize/mailpit/d010_payment_received_email.*` |
-| **M-005** | Complete request → payment → receipt/status journey | **PASS** (SIMULATED) | BLOCKED | End-to-end: D-006→D-010 above; `proof/00_summary.json`…`10_*.json`; browser create→client billing→opened receipt |
+| **D-007** | Client sees correct description and amount | **PASS** | BLOCKED | `screenshots/21_client_aw_panel.png`, `finalize/screenshots/d007_d010_billing_panel.png`; `finalize/api/d007_client_sees_desc_amount.json` (`matches: true`, £55.50 / Finalize T6…); reconcile billing shows INV-0006 Paid |
+| **D-008** | Request email and in-app notification arrive | **PASS** (Mailpit local) | BLOCKED external inbox | **Email body:** `finalize/mailpit/d008_request_email.json` + `.html` + `finalize/screenshots/d008_request_email_opened.png`. **Opened notification (dashboard):** `reconcile/screenshots/05_notification_opened_content.png` (INV-2026-0006 body); click→billing `reconcile/screenshots/02_after_notification_click.png` |
+| **D-009** | Resend/reminder for outstanding request | **PASS** (Mailpit local) | BLOCKED | `finalize/api/d009_resend_outstanding.json` (200); **Reminder email body:** `finalize/mailpit/d009_reminder_email.json` + `.html` + `finalize/screenshots/d009_reminder_email_opened.png` |
+| **D-010** | Successful payment, receipt/confirmation, correct status | **PASS** (SIMULATED) | BLOCKED Stripe TEST | Linked IDs `reconcile/api/id_linkage.json`; **Opened receipt:** `reconcile/receipts/opened_receipt.html` + `reconcile/screenshots/04_opened_receipt.png` (INV-2026-0006, PAID, £55.50, `pi_reconcile_…`); prior finalize pack retained under `finalize/` |
+| **M-005** | Complete request → payment → receipt/status journey | **PASS** (SIMULATED) | BLOCKED | End-to-end: D-006→D-010 + `reconcile/` linked journey; `proof/00_summary.json`…`10_*.json` |
 
 ## Additional checks (not D-006–D-010 primary IDs)
 
@@ -59,6 +79,7 @@ npx vitest run \
 OUT_DIR=/tmp/t6-aw-proof npx ts-node --transpile-only scripts/task6AdditionalWorkProof.ts
 node scripts/t6BrowserEvidence.mjs
 node scripts/t6FinalizeEvidence.mjs
+node scripts/t6ReconcileEvidence.mjs
 npm run typecheck && npm run build
 cd ../tax_simba_frontend && npm run build
 cd ../tax_simba_admin_frontend && npm run build
@@ -71,11 +92,15 @@ cd ../tax_simba_admin_frontend && npm run build
 - `tax_simba_admin_frontend/.../manage-tax/[taxReturnId]/page.tsx`
 - `tax_simba_admin_frontend/.../AdditionalWorkPanel.tsx`
 - `backend-node/src/domain/additionalWork.ts`
+- `backend-node/src/domain/workflow.ts` (RECEIPT notify no-collapse)
+- `backend-node/src/compat/notifications.ts` (`message`/`time` compat)
 - `backend-node/src/routes/payments.ts`
+- `tax_simba_frontend/.../Notifications.jsx` (title+body; click→link)
 - `backend-node/tests/integration/additionalWorkTask6.test.ts`
 - `backend-node/scripts/task6AdditionalWorkProof.ts`
 - `backend-node/scripts/t6BrowserEvidence.mjs`
 - `backend-node/scripts/t6FinalizeEvidence.mjs`
+- `backend-node/scripts/t6ReconcileEvidence.mjs`
 - `docs/T6_ADDITIONAL_WORK_RETEST_CHECKLIST.md`
 - `docs/UAT_TOXSL_IMPACT_MATRIX.md`
 - `START_HERE_TOXEL.md`
