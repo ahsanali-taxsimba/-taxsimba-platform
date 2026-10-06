@@ -56,9 +56,11 @@ function nodeToToxelListStatus(status: string): string {
       return "preparation_started";
     case "ADMIN_APPROVED":
     case "AWAITING_CLIENT_APPROVAL":
-    case "CLIENT_APPROVED":
-    case "READY_FOR_SUBMISSION":
       return "draft_ready";
+    case "CLIENT_APPROVED":
+      return "client_approved";
+    case "READY_FOR_SUBMISSION":
+      return "ready_for_submission";
     case "SUBMISSION_IN_PROGRESS":
     case "SUBMITTED":
     case "SUBMISSION_ISSUE":
@@ -82,7 +84,16 @@ async function toAssignmentDto(kase: Doc): Promise<Doc> {
     .split(/\s+/)
     .filter(Boolean);
   const obligation = await currentMtdObligation(kase);
-  const packageCode = kase.package_code ?? null;
+  // Prefer live client_services.package_code (survives SA upgrade) over frozen case field.
+  let packageCode = kase.package_code ?? null;
+  if (kase.client_id) {
+    const svc = (await col("client_services").findOne({
+      client_id: kase.client_id,
+      service_type: serviceType,
+      status: "ACTIVE",
+    })) as Doc | null;
+    if (svc?.package_code) packageCode = String(svc.package_code);
+  }
   let packageName = packageCode;
   if (packageCode) {
     const pkg = (await col("packages").findOne({
@@ -800,7 +811,8 @@ compatAdminRouter.post(
   handler(async (req, res) => {
     const me = authed(req);
     const body = parseBody(z.object({ reason: z.string() }), req.body ?? {});
-    if (!body.reason.trim()) throw httpError(400, "A reason is required");
+    const { assertRevealReason } = await import("../domain/revealReason");
+    const reason = assertRevealReason(body.reason);
     const target = (await col("users").findOne({
       id: req.params.userId,
       role: "CLIENT",
@@ -813,7 +825,7 @@ compatAdminRouter.post(
       client_name: target.name,
       accessed_by: me.name,
       role: me.role,
-      reason: body.reason,
+      reason,
       created_at: nowIso(),
     });
     sendCompatSuccess(
@@ -1204,6 +1216,9 @@ async function staffCaseDetailPayload(me: Doc, taxReturnId: string): Promise<Doc
     { id: kase.client_user_id },
     { projection: { password_hash: 0, totp: 0, recovery_code_hashes: 0 } },
   )) as Doc | null;
+  const clientDoc = (await col("clients").findOne({
+    user_id: kase.client_user_id,
+  })) as Doc | null;
   const maskedClient = clientUser
     ? (maskContactsForViewer([clean(clientUser) as Doc], me)[0] as Doc)
     : null;
@@ -1217,6 +1232,10 @@ async function staffCaseDetailPayload(me: Doc, taxReturnId: string): Promise<Doc
       : "Self Assessment";
   const typeCode =
     serviceType === "MTD_INCOME_TAX" || serviceType === "MTD" ? "MTD" : "SA";
+  const taxSnap =
+    (clientUser?.sa_tax_info as Doc | undefined) ||
+    (clientUser?.mtd_tax_info as Doc | undefined) ||
+    null;
 
   let accountant: Doc | null = null;
   if (kase.assigned_accountant_id) {
@@ -1282,7 +1301,9 @@ async function staffCaseDetailPayload(me: Doc, taxReturnId: string): Promise<Doc
     id: kase.id,
     taxReturnId: kase.case_ref ?? kase.id,
     taxYear: Number.isFinite(taxYearNum) ? taxYearNum : taxYearRaw,
-    status: String(kase.status ?? "").toLowerCase(),
+    // Prefer Toxel step keys for admin/accountant progress UI (draft_ready, ready_for_submission…).
+    status: nodeToToxelListStatus(String(kase.status)),
+    nodeStatus: String(kase.status ?? ""),
     statusLabel: clientStatus(String(kase.status)),
     serviceType,
     client: {
@@ -1291,6 +1312,22 @@ async function staffCaseDetailPayload(me: Doc, taxReturnId: string): Promise<Doc
       surname: nameParts.slice(1).join(" "),
       email: maskedClient?.email ?? null,
       phone: maskedClient?.phone ?? null,
+      userRole: typeCode === "MTD" ? "MTD" : "SA",
+      // F-002: assigned accountant/admin can read onboarding answers (UTR optional).
+      utr: clientDoc?.utr ?? taxSnap?.utr ?? null,
+      businessName: taxSnap?.businessName ?? taxSnap?.business_name ?? null,
+      businessType: taxSnap?.businessType ?? taxSnap?.business_type ?? null,
+      jobRole: taxSnap?.jobRole ?? taxSnap?.job_role ?? null,
+      employmentStatus:
+        taxSnap?.employmentStatus ?? taxSnap?.employment_status ?? null,
+      incomeSources: taxSnap?.incomeSources ?? taxSnap?.income_sources ?? null,
+      annualTurnover: taxSnap?.annualTurnover ?? taxSnap?.annual_turnover ?? null,
+      recordKeepingMethod:
+        taxSnap?.recordKeepingMethod ?? taxSnap?.record_keeping_method ?? null,
+      currentAccountant:
+        taxSnap?.currentAccountant ?? taxSnap?.current_accountant ?? null,
+      accountantNotes:
+        taxSnap?.accountantNotes ?? taxSnap?.accountant_notes ?? null,
     },
     type: { typeName, typeCode },
     accountant,
@@ -1342,6 +1379,33 @@ compatAdminRouter.post(
     sendCompatSuccess(res, payload, "OK");
   }),
 );
+
+/**
+ * Staff email compose template (singular).
+ * CMS `/admin/templates` remains HIDE; this lightweight default unblocks Email Client
+ * compose (Toxsl: "Unable to load email template").
+ */
+const defaultStaffEmailTemplate = {
+  id: "default-staff-case-email",
+  name: "Case message",
+  subject: "Update regarding your TaxSimba tax return",
+  // EmailModal replaces {{body}} / {{messageBody}} / {{clientName}}.
+  bodyHtml:
+    "<p>Dear {{clientName}},</p><p>{{body}}</p><p>Kind regards,<br/>TaxSimba</p>",
+  templateContent:
+    "<p>Dear {{clientName}},</p><p>{{body}}</p><p>Kind regards,<br/>TaxSimba</p>",
+  isActive: true,
+};
+
+for (const path of ["/admin/template", "/accountant/template"] as const) {
+  compatAdminRouter.get(
+    path,
+    auth(...STAFF_ADMIN, "ACCOUNTANT"),
+    handler(async (_req, res) => {
+      sendCompatSuccess(res, { template: defaultStaffEmailTemplate }, "OK");
+    }),
+  );
+}
 
 /** S6 HIDE markers — refuse CMS-style invent-a-backend paths. */
 for (const path of [

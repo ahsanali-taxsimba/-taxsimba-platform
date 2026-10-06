@@ -56,8 +56,13 @@ export async function bootTestApp(): Promise<{ app: Express; dbName: string }> {
     API_RATE_LIMIT_PER_MINUTE: "100000",
     SEED_DEMO_DATA: "false",
     // Test harness may bootstrap the package catalogue; production boot must not.
-    NODE_ENV: process.env.NODE_ENV || "test",
+    NODE_ENV: "test",
     EMAIL_DRIVER: process.env.EMAIL_DRIVER ?? "none",
+    // Isolate from any developer .env base URLs left on the process.
+    APP_BASE_URL: ORIGIN,
+    ADMIN_BASE_URL: "https://admin.test.taxsimba.local",
+    PAYMENT_PROVIDER: "",
+    ALLOW_PACKAGE_CATALOGUE_MUTATION: "true",
   });
 
   const { connect } = await import("../../src/db/mongo");

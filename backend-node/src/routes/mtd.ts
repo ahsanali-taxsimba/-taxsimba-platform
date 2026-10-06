@@ -167,7 +167,7 @@ mtdRouter.get(
             `Action required: approve your ${r.label}`,
             `Your ${r.label} is awaiting approval and is due on ${r.deadline}. Please review the figures when you can.`,
             caseId,
-            "/mtd",
+            "/mtd-dashboard",
             "REVIEW",
           );
         }
@@ -392,7 +392,7 @@ mtdRouter.post(
       `Your accountant needs the following for your MTD period:\n\n${title}\n\n` +
         "Please provide it securely through your TaxSimba account.",
       kase.id,
-      "/mtd",
+      "/mtd-dashboard",
       "UPLOAD",
     );
     res.json(clean(placeholder));
@@ -685,13 +685,30 @@ mtdRouter.post(
         approved_snapshot: null,
       },
     );
+    // G-006 — keep parent case status aligned for staff/client case bars.
+    if (
+      ["ASSIGNED", "ACCOUNTANT_REVIEW", "IN_PREPARATION", "AWAITING_CLIENT"].includes(
+        String(kase.status),
+      )
+    ) {
+      await col("cases").updateOne(
+        { id: kase.id },
+        {
+          $set: {
+            status: "AWAITING_CLIENT_APPROVAL",
+            current_stage: "AWAITING_CLIENT_APPROVAL",
+            updated_at: nowIso(),
+          },
+        },
+      );
+    }
     await notify(
       kase.client_user_id,
       `Your MTD ${row.label} figures are ready to review`,
       `Your accountant has prepared your figures for ${row.label}.\n\n` +
         "Please review the figures and approve them when you're happy for your accountant to proceed.",
       kase.id,
-      "/mtd",
+      "/mtd-dashboard",
       "REVIEW",
     );
     res.json(out);
@@ -849,7 +866,7 @@ mtdRouter.post(
       `Your accountant is making a correction to your ${row.label} figures.\n\n` +
         "There's nothing you need to do right now. Once the updated figures are ready, we'll let you know so you can review them again.",
       kase.id,
-      "/mtd",
+      "/mtd-dashboard",
       "INFO",
     );
     res.json(out);
@@ -894,7 +911,7 @@ mtdRouter.post(
         `Submission reference: ${body.submission_reference.trim()}\n\n` +
         "You can view its status at any time from your TaxSimba account.",
       kase.id,
-      "/mtd",
+      "/mtd-dashboard",
       "SUBMISSION",
     );
     res.json(out);

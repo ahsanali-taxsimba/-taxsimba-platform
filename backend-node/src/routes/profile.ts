@@ -372,7 +372,7 @@ profileRouter.get(
         case_ref: c.case_ref,
         due_date: c.external_deadline ?? null,
         status: "OPEN",
-        link: "/my-return",
+        link: "/dashboard/my-documents",
         created_at: c.last_updated,
       });
     }

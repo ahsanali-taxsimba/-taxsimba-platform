@@ -5,10 +5,9 @@ import { Suspense } from 'react'
 const page = () => {
   return (
     <div>
-      <Suspense>
+      <Suspense fallback={<p className="text-center p-5">Verifying your email…</p>}>
         <VerifyEmail />
       </Suspense>
-      
     </div>
   )
 }

@@ -12,19 +12,24 @@ const EmailModal = ({ show, onClose, onSend, ids, token }) => {
     if (!subject.trim() || !body.trim()) return;
 
     setLoading(true);
-    await onSend({
-      subject,
-      body,
-      accountantId: ids.accountantId,
-      taxReturnId: ids.taxReturnId,
-      token,
-    });
-    setLoading(false);
-
-    // reset & close
-    setSubject("");
-    setBody("");
-    onClose();
+    try {
+      await onSend({
+        subject,
+        body,
+        accountantId: ids.accountantId,
+        taxReturnId: ids.taxReturnId,
+        token,
+      });
+      // reset & close only after a successful send
+      setSubject("");
+      setBody("");
+      onClose();
+    } catch (err) {
+      // Keep the form open so the user can retry; loading always resets.
+      console.error("Send message failed", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const resetEmailForm = () => {

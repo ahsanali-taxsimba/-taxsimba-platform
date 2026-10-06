@@ -39,11 +39,22 @@ async function notificationsFor(me: Doc): Promise<Doc[]> {
 /** Map Node is_read → Toxel `read` (and keep isRead for camelCase consumers). */
 function toToxelNotification(n: Doc): Doc {
   const read = Boolean(n.is_read ?? n.isRead ?? n.read);
+  const body = String(n.body ?? n.message ?? "");
+  const created = String(n.created_at ?? n.createdAt ?? "");
+  const link = n.link ?? n.url ?? null;
   return {
     ...n,
+    body,
+    // Client dashboard Notifications.jsx reads `message` (Toxel shape).
+    message: body,
+    // Admin notifications page reads `url`; clients/staff also use `link`.
+    link,
+    url: link,
     read,
     is_read: read,
     isRead: read,
+    // Relative/absolute time label used by the dashboard list.
+    time: created ? created.slice(0, 19).replace("T", " ") : n.time ?? null,
   };
 }
 
@@ -70,7 +81,7 @@ compatNotificationsRouter.post(
           String(n.title ?? "")
             .toLowerCase()
             .includes(search) ||
-          String(n.body ?? "")
+          String(n.body ?? n.message ?? "")
             .toLowerCase()
             .includes(search),
       );

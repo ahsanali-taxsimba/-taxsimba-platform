@@ -26,7 +26,11 @@ import { col, Doc } from "../db/mongo";
 import { applyDuePriceSchedules } from "../domain/pricing";
 import { OPERATIONAL_ONLY } from "../domain/testdata";
 import { notify } from "../domain/workflow";
-import { flushEmailQueue } from "../services/email";
+import {
+  clientDocumentUploadPath,
+  clientReviewDocumentsPath,
+  flushEmailQueue,
+} from "../services/email";
 
 export interface ReminderRun {
   client_task: number;
@@ -123,7 +127,8 @@ async function remindOpenClientTasks(run: ReminderRun, now: Date): Promise<void>
       `Action needed: ${task.name}`,
       `${kase.case_ref}: we still need this information before we can continue with your tax return.${when}`,
       kase.id,
-      "/actions",
+      // Tax Tracker is where outstanding client upload actions render.
+      clientDocumentUploadPath(kase.id as string),
       "TASK",
     );
     run.client_task += 1;
@@ -155,11 +160,25 @@ async function remindClientCaseActions(run: ReminderRun, now: Date): Promise<voi
         ? `${kase.case_ref}: your figures are ready. Please review and approve them when you're happy to proceed.`
         : `${kase.case_ref}: ${kase.next_action || "there are outstanding items on your case"}.`,
       kase.id,
-      approval ? "/my-return" : "/actions",
+      // Approval → My Documents review surface; outstanding info → Tax Tracker uploads.
+      approval
+        ? clientReviewDocumentsPath(kase.id as string)
+        : clientDocumentUploadPath(kase.id as string),
       approval ? "APPROVAL" : "TASK",
     );
     run.client_case_action += 1;
   }
+}
+
+/** Period ids that still have an outstanding Requested document (client-owned delay). */
+async function mtdPeriodsAwaitingClientDocs(): Promise<Set<string>> {
+  const rows = await col("documents")
+    .find(
+      { status: "Requested", mtd_period_id: { $ne: null } },
+      { projection: { mtd_period_id: 1 } },
+    )
+    .toArray();
+  return new Set(rows.map((d) => d.mtd_period_id as string));
 }
 
 /** MTD periods: approvals outstanding, records due, and overdue escalation to admins. */
@@ -174,6 +193,9 @@ async function remindMtdPeriods(run: ReminderRun, now: Date): Promise<void> {
   const admins = (await col("users")
     .find({ role: { $in: ["ADMIN", "SUPER_ADMIN"] }, is_active: true }, { projection: { id: 1 } })
     .toArray()) as Doc[];
+  // §15.8: escalate only when deadline passed AND a Requested client document is still open.
+  // Completing/uploading the request removes the placeholder → suppresses further escalations.
+  const awaitingClientDocs = await mtdPeriodsAwaitingClientDocs();
 
   for (const period of periods) {
     const kase = (await col("cases").findOne({ id: period.case_id, ...OPERATIONAL_ONLY })) as Doc | null;
@@ -189,7 +211,7 @@ async function remindMtdPeriods(run: ReminderRun, now: Date): Promise<void> {
             `Action required: approve your ${period.label}`,
             `Your ${period.label} is awaiting approval and is due on ${period.deadline}. Please review the figures when you can.`,
             kase.id,
-            "/mtd",
+            "/mtd-dashboard",
             "APPROVAL",
           );
           run.mtd_client_approval += 1;
@@ -207,16 +229,22 @@ async function remindMtdPeriods(run: ReminderRun, now: Date): Promise<void> {
             "Please provide any outstanding records or information as soon as possible so your accountant has enough time to prepare your update.\n\n" +
             "If you've already provided everything requested, no further action is needed right now.",
           kase.id,
-          "/mtd",
+          "/mtd-dashboard",
           "DEADLINE",
         );
         run.mtd_records_due += 1;
       }
     }
 
-    if (due !== null && due < 0) {
+    if (
+      due !== null &&
+      due < 0 &&
+      awaitingClientDocs.has(period.id as string) &&
+      ["NOT_STARTED", "IN_PROGRESS"].includes(String(period.status))
+    ) {
       // Escalation is the existing oversight behaviour, now raised on a schedule instead of
       // only when a staff member happens to open the period list.
+      // Agreed: admin escalation only — no new client overdue email.
       for (const admin of admins) {
         if (!(await claimReminder(`mtd_overdue:${period.id}:${admin.id}`, now))) continue;
         await notify(

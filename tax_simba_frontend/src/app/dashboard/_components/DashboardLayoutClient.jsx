@@ -20,6 +20,8 @@ import {
     FaRegTrashAlt,
 } from "react-icons/fa";
 import { FaMapLocationDot } from "react-icons/fa6";
+import ServiceWorkspaceSwitcher from "@/components/ServiceWorkspaceSwitcher";
+import AddSecondServiceBanner from "@/components/AddSecondServiceBanner";
 
 export default function DashboardLayoutClient({ serverSession, children }) {
     const { data: session } = useSession();
@@ -201,6 +203,16 @@ export default function DashboardLayoutClient({ serverSession, children }) {
 
                 {/* Sidebar + Page Content */}
                 <div className="row mt-4">
+                    <div className="col-12">
+                        <ServiceWorkspaceSwitcher
+                            session={sessionData || session}
+                            account={userData}
+                        />
+                        <AddSecondServiceBanner
+                            session={sessionData || session}
+                            account={userData}
+                        />
+                    </div>
                     <div className="col-lg-3 mb-4 d-lg-block d-none">
                         <Sidebar />
                     </div>

@@ -12,6 +12,7 @@ import { APP_NAME } from "../config/env";
 import { clean, cleanMany, col, Doc, scrubMany } from "../db/mongo";
 import {
   assertClientCanAccessService,
+  clientHasActiveService,
   preferExistingServiceCase,
 } from "../domain/caseEntitlement";
 import { getCase } from "../domain/cases";
@@ -27,6 +28,7 @@ import {
   daysToDeadline,
   warning,
 } from "../domain/mtd";
+import { SELF_ASSESSMENT } from "../domain/packages";
 import { currentMtdObligation } from "../domain/obligation";
 import { logActivity, notify, nowIso } from "../domain/workflow";
 import { handler, httpError } from "../http/errors";
@@ -102,12 +104,22 @@ function quarterLabel(row: Doc | null | undefined): string | null {
 function mapTaxReturnStatus(kase: Doc, current: Doc | null): string {
   if (kase.status === "COMPLETED") return "completed";
   if (!kase.assigned_accountant_id) return "pending_assignment";
-  if (!current) return "assigned";
+  // Case-level soft sync (G-006): if manage-tax advanced the case but period
+  // lag exists, prefer client-visible draft_ready / approved from case status.
+  const caseSt = String(kase.status || "");
+  if (!current) {
+    if (caseSt === "AWAITING_CLIENT_APPROVAL" || caseSt === "ADMIN_APPROVED") return "draft_ready";
+    if (caseSt === "CLIENT_APPROVED" || caseSt === "READY_FOR_SUBMISSION") return "approved";
+    if (caseSt === "SUBMITTED") return "submitted";
+    return "assigned";
+  }
   switch (String(current.status)) {
     case NOT_STARTED:
+      if (caseSt === "AWAITING_CLIENT_APPROVAL" || caseSt === "ADMIN_APPROVED") return "draft_ready";
       return "assigned";
     case IN_PROGRESS:
     case ADMIN_REVIEW:
+      if (caseSt === "AWAITING_CLIENT_APPROVAL" || caseSt === "ADMIN_APPROVED") return "draft_ready";
       return "preparation_started";
     case AWAITING_CLIENT:
       return "draft_ready";
@@ -492,8 +504,10 @@ compatMtdRouter.post(
 );
 
 /**
- * T4 / G3 — map Toxel tax-info FormData onto MTD case docs + best-effort onboarding answers.
- * Never activates SA/MTD or creates entitlements.
+ * T4 / G3 / F-002 — map Toxel tax-info FormData onto SA or MTD case docs.
+ * SA: optional UTR, job role / employment, shared questionnaire fields.
+ * MTD: existing mid-year onboarding map. Never activates entitlements.
+ * Missing UTR must not block this endpoint or dashboard access.
  */
 compatMtdRouter.post(
   "/client/submit-tax-info",
@@ -501,89 +515,135 @@ compatMtdRouter.post(
   upload.any(),
   handler(async (req, res) => {
     const me = authed(req);
-    await assertClientCanAccessService(me, MTD);
-    const kase = await activeMtdCase(me);
     const body = (req.body ?? {}) as Record<string, string>;
     const files = (req.files as { fieldname?: string; originalname: string; mimetype: string; size: number; buffer: Buffer }[] | undefined) ?? [];
 
-    // Persist questionnaire snapshot (no activation / no new case).
+    const hasSa = await clientHasActiveService(me, SELF_ASSESSMENT);
+    const hasMtd = await clientHasActiveService(me, MTD);
+    if (!hasSa && !hasMtd) {
+      throw httpError(403, "An active SA or MTD service is required");
+    }
+
+    const requested = String(body.serviceType || body.service_type || "").toUpperCase();
+    const wantsSa =
+      requested === "SA" ||
+      requested === "SELF_ASSESSMENT" ||
+      requested.includes("SELF");
+    const wantsMtd = requested.includes("MTD");
+    let serviceType = MTD;
+    if (wantsSa && hasSa) serviceType = SELF_ASSESSMENT;
+    else if (wantsMtd && hasMtd) serviceType = MTD;
+    else if (hasSa && !hasMtd) serviceType = SELF_ASSESSMENT;
+    else if (hasMtd) serviceType = MTD;
+    else serviceType = SELF_ASSESSMENT;
+
+    await assertClientCanAccessService(me, serviceType);
+    let kase = await preferExistingServiceCase(me, serviceType);
+    if (!kase) {
+      throw httpError(
+        400,
+        serviceType === MTD
+          ? "No MTD case found. Complete MTD purchase activation first."
+          : "No Self Assessment case found. Start your tax return application first.",
+      );
+    }
+    kase = await getCase(String(kase.id), me);
+
     const snapshot: Doc = {
       ...body,
+      service_type: serviceType,
+      jobRole: body.jobRole || body.job_role || "",
+      employmentStatus: body.employmentStatus || body.employment_status || "",
       submitted_at: nowIso(),
       case_id: kase.id,
     };
-    await col("users").updateOne(
-      { id: me.id },
-      {
-        $set: {
-          mtd_tax_info_submitted_at: nowIso(),
-          mtd_tax_info: snapshot,
-          updated_at: nowIso(),
-        },
-      },
-    );
 
-    // Best-effort onboarding map from submittedQuarters JSON.
-    let submittedQuarters: string[] = [];
-    try {
-      const raw = body.submittedQuarters ?? body.submitted_quarters;
-      if (raw) submittedQuarters = JSON.parse(String(raw));
-    } catch {
-      submittedQuarters = [];
+    // Optional UTR — persist on client profile when provided; never required.
+    const cleanedUtr = String(body.utr || "").replace(/\s+/g, "");
+    if (cleanedUtr && !/^\d{10}$/.test(cleanedUtr)) {
+      throw httpError(400, "UTR must be 10 digits when provided");
     }
-    if (Array.isArray(submittedQuarters) && submittedQuarters.length) {
-      const periods = await periodsForCase(kase);
-      const joined = String(kase.mtd_joined_on ?? kase.created_at ?? nowIso()).slice(0, 10);
-      const answers: Doc[] = [];
-      for (const q of submittedQuarters) {
-        const num = Number(String(q).replace(/\D/g, ""));
-        if (!num || num < 1 || num > 4) continue;
-        const row = periods.find((p) => p.kind === "QUARTER" && Number(p.quarter) === num);
-        if (!row || String(row.period_end) >= joined || row.status === SUBMITTED) continue;
-        answers.push({
-          quarter: num,
-          period_id: row.id,
-          status: "SUBMITTED_ELSEWHERE",
-          previous_provider: body.whoSubmittedQuarters || body.previousMTDSoftware || "Previous provider",
-          submission_date: null,
-          submission_reference: null,
-          income: null,
-          expenses: null,
-          document_id: null,
-          note: "Mapped from client/submit-tax-info",
-          answered_by_name: me.name,
-          answered_by_role: me.role,
-          answered_at: nowIso(),
-          staff_review_status: "PENDING_REVIEW",
-        });
-      }
-      if (answers.length) {
-        const existing = (await col("mtd_onboarding").findOne({ case_id: kase.id })) as Doc | null;
-        const prior = ((existing?.answers ?? []) as Doc[]).filter(
-          (a) => !answers.some((n) => Number(n.quarter) === Number(a.quarter)),
-        );
-        await col("mtd_onboarding").updateOne(
-          { case_id: kase.id },
-          {
-            $set: {
-              answers: [...prior, ...answers].sort((a, b) => Number(a.quarter) - Number(b.quarter)),
-              completed_at: nowIso(),
-              completed_by_name: me.name,
-              updated_at: nowIso(),
-            },
-            $setOnInsert: {
-              case_id: kase.id,
-              case_ref: kase.case_ref,
-              client_user_id: kase.client_user_id,
-              created_at: nowIso(),
-            },
-          },
-          { upsert: true },
-        );
-      }
+    const userSet: Doc = {
+      updated_at: nowIso(),
+    };
+    if (serviceType === MTD) {
+      userSet.mtd_tax_info_submitted_at = nowIso();
+      userSet.mtd_tax_info = snapshot;
+    } else {
+      userSet.sa_tax_info_submitted_at = nowIso();
+      userSet.sa_tax_info = snapshot;
+    }
+    await col("users").updateOne({ id: me.id }, { $set: userSet });
+    if (cleanedUtr) {
+      await col("clients").updateOne(
+        { user_id: me.id },
+        { $set: { utr: cleanedUtr, updated_at: nowIso() } },
+      );
     }
 
-    // Upload accompanying documents onto the MTD case.
+    // Best-effort onboarding map from submittedQuarters JSON (MTD only).
+    if (serviceType === MTD) {
+      let submittedQuarters: string[] = [];
+      try {
+        const raw = body.submittedQuarters ?? body.submitted_quarters;
+        if (raw) submittedQuarters = JSON.parse(String(raw));
+      } catch {
+        submittedQuarters = [];
+      }
+      if (Array.isArray(submittedQuarters) && submittedQuarters.length) {
+        const periods = await periodsForCase(kase);
+        const joined = String(kase.mtd_joined_on ?? kase.created_at ?? nowIso()).slice(0, 10);
+        const answers: Doc[] = [];
+        for (const q of submittedQuarters) {
+          const num = Number(String(q).replace(/\D/g, ""));
+          if (!num || num < 1 || num > 4) continue;
+          const row = periods.find((p) => p.kind === "QUARTER" && Number(p.quarter) === num);
+          if (!row || String(row.period_end) >= joined || row.status === SUBMITTED) continue;
+          answers.push({
+            quarter: num,
+            period_id: row.id,
+            status: "SUBMITTED_ELSEWHERE",
+            previous_provider: body.whoSubmittedQuarters || body.previousMTDSoftware || "Previous provider",
+            submission_date: null,
+            submission_reference: null,
+            income: null,
+            expenses: null,
+            document_id: null,
+            note: "Mapped from client/submit-tax-info",
+            answered_by_name: me.name,
+            answered_by_role: me.role,
+            answered_at: nowIso(),
+            staff_review_status: "PENDING_REVIEW",
+          });
+        }
+        if (answers.length) {
+          const existing = (await col("mtd_onboarding").findOne({ case_id: kase.id })) as Doc | null;
+          const prior = ((existing?.answers ?? []) as Doc[]).filter(
+            (a) => !answers.some((n) => Number(n.quarter) === Number(a.quarter)),
+          );
+          await col("mtd_onboarding").updateOne(
+            { case_id: kase.id },
+            {
+              $set: {
+                answers: [...prior, ...answers].sort((a, b) => Number(a.quarter) - Number(b.quarter)),
+                completed_at: nowIso(),
+                completed_by_name: me.name,
+                updated_at: nowIso(),
+              },
+              $setOnInsert: {
+                case_id: kase.id,
+                case_ref: kase.case_ref,
+                client_user_id: kase.client_user_id,
+                created_at: nowIso(),
+              },
+            },
+            { upsert: true },
+          );
+        }
+      }
+    }
+
+    // Upload accompanying documents onto the target case.
     const typesRaw = files.map((_, i) => {
       const arr = req.body?.documentTypes;
       if (Array.isArray(arr)) return String(arr[i] ?? "Other");
@@ -593,7 +653,6 @@ compatMtdRouter.post(
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       if (!file.originalname && !file.buffer) continue;
-      // Skip non-document fields if multer captured text as files (shouldn't with .any + memory).
       const ext = file.originalname?.includes(".")
         ? file.originalname.split(".").pop()
         : "bin";
@@ -603,38 +662,50 @@ compatMtdRouter.post(
       } catch {
         continue;
       }
-      const stored = await putObject(
-        path,
-        file.buffer,
-        file.mimetype || "application/octet-stream",
-      );
-      await col("documents").insertOne({
-        id: randomUUID(),
-        case_id: kase.id,
-        client_user_id: kase.client_user_id,
-        tax_year: kase.tax_year,
-        document_type: typesRaw[i] || "Other",
-        name: file.originalname || "document",
-        status: "Uploaded",
-        storage_path: stored.path,
-        uploader_id: me.id,
-        uploader_name: me.name,
-        content_type: file.mimetype,
-        size: stored.size ?? file.size,
-        is_internal: false,
-        is_deleted: false,
-        upload_date: nowIso(),
-        created_at: nowIso(),
-        mtd_period_id: null,
-      });
+      try {
+        const stored = await putObject(
+          path,
+          file.buffer,
+          file.mimetype || "application/octet-stream",
+        );
+        await col("documents").insertOne({
+          id: randomUUID(),
+          case_id: kase.id,
+          client_user_id: kase.client_user_id,
+          tax_year: kase.tax_year,
+          document_type: typesRaw[i] || "Other",
+          name: file.originalname || "document",
+          status: "Uploaded",
+          storage_path: stored.path,
+          uploader_id: me.id,
+          uploader_name: me.name,
+          content_type: file.mimetype,
+          size: stored.size ?? file.size,
+          is_internal: false,
+          is_deleted: false,
+          upload_date: nowIso(),
+          created_at: nowIso(),
+          mtd_period_id: null,
+        });
+      } catch {
+        throw httpError(
+          502,
+          `Failed to store uploaded document "${file.originalname || "document"}". Please retry without attachments or contact support.`,
+        );
+      }
     }
 
-    await logActivity(String(kase.id), "MTD tax info submitted", me);
+    await logActivity(
+      String(kase.id),
+      serviceType === MTD ? "MTD tax info submitted" : "SA tax info submitted",
+      me,
+    );
     sendCompatSuccess(
       res,
       {
         ok: true,
         isTaxInfoSubmitted: true,
+        serviceType,
         taxReturnId: kase.id,
         caseId: kase.id,
       },

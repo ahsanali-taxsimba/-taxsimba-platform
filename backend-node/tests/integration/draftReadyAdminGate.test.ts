@@ -1,6 +1,7 @@
 /**
- * Progress-bar "draft_ready" must not bypass Admin approval
- * (document release + client notification).
+ * Progress-bar "draft_ready" behaviour around Admin review.
+ * Accountants cannot skip Admin approval. Admin "Advance to Draft Ready"
+ * (tax-return-list) runs the full approve + document release path.
  */
 import { randomUUID } from "crypto";
 
@@ -19,7 +20,7 @@ import {
 
 type Client = TestUser & { clientId: string };
 
-describe("draft_ready progress cannot skip Admin review", () => {
+describe("draft_ready progress Admin gate", () => {
   let app: Express;
   let admin: TestUser;
   let accountant: TestUser;
@@ -59,7 +60,42 @@ describe("draft_ready progress cannot skip Admin review", () => {
     await dropTestDb();
   });
 
-  it("rejects draft_ready while case is READY_FOR_ADMIN_REVIEW", async () => {
+  it("Accountant cannot advance draft_ready while READY_FOR_ADMIN_REVIEW", async () => {
+    const { col } = await import("../../src/db/mongo");
+    const kase = await makeCase("READY_FOR_ADMIN_REVIEW");
+    const docId = randomUUID();
+    await col("documents").insertOne({
+      id: docId,
+      case_id: kase.id,
+      client_user_id: client.id,
+      document_type: "Draft return",
+      name: "draft.pdf",
+      is_draft: true,
+      is_internal: true,
+      review_status: "AWAITING_ADMIN_REVIEW",
+      is_deleted: false,
+      uploader_id: accountant.id,
+      created_at: new Date().toISOString(),
+    });
+
+    const res = await request(app)
+      .post(`/api/compat/accountant/tax-return/${kase.id}/progress`)
+      .set(bearer(accountant))
+      .send({ status: "draft_ready" })
+      .expect(400);
+
+    const detail = String(res.body.detail || res.body.message || JSON.stringify(res.body));
+    expect(detail).toMatch(/Admin must approve/i);
+
+    const after = await col("cases").findOne({ id: kase.id });
+    expect(after?.status).toBe("READY_FOR_ADMIN_REVIEW");
+
+    const doc = await col("documents").findOne({ id: docId });
+    expect(doc?.is_internal).toBe(true);
+    expect(doc?.review_status).toBe("AWAITING_ADMIN_REVIEW");
+  });
+
+  it("Admin progress draft_ready approves and releases the draft to the client", async () => {
     const { col } = await import("../../src/db/mongo");
     const kase = await makeCase("READY_FOR_ADMIN_REVIEW");
     const docId = randomUUID();
@@ -81,17 +117,17 @@ describe("draft_ready progress cannot skip Admin review", () => {
       .post(`/api/compat/admin/tax-return/${kase.id}/progress`)
       .set(bearer(admin))
       .send({ status: "draft_ready" })
-      .expect(400);
+      .expect(200);
 
-    const detail = String(res.body.detail || res.body.message || JSON.stringify(res.body));
-    expect(detail).toMatch(/Admin must approve/i);
+    expect(res.body.data.status).toBe("draft_ready");
+    expect(["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"]).toContain(res.body.data.nodeStatus);
 
     const after = await col("cases").findOne({ id: kase.id });
-    expect(after?.status).toBe("READY_FOR_ADMIN_REVIEW");
+    expect(["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"]).toContain(after?.status);
 
     const doc = await col("documents").findOne({ id: docId });
-    expect(doc?.is_internal).toBe(true);
-    expect(doc?.review_status).toBe("AWAITING_ADMIN_REVIEW");
+    expect(doc?.is_internal).toBe(false);
+    expect(doc?.review_status).toBe("APPROVED");
   });
 
   it("maps draft_ready → READY_FOR_ADMIN_REVIEW from IN_PREPARATION", async () => {

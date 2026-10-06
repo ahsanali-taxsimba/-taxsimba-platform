@@ -81,7 +81,13 @@ const AccountantAssignments: React.FC = () => {
         setLoading(true);
         setError(null);
         try {
-            const res = await clientAxios.post('/accountant/tax-return/files', {});
+            const role = String((session?.user as { role?: string } | undefined)?.role || '').toUpperCase();
+            // Admin Manage Tax Simple View uses admin files; accountants use assigned-to-me.
+            const path =
+                role === 'ADMIN' || role === 'SUPER_ADMIN'
+                    ? '/admin/tax-return/files'
+                    : '/accountant/tax-return/files';
+            const res = await clientAxios.post(path, {});
             const responseData: ApiResponse = res.data;
 
             if (responseData.success) {
@@ -99,8 +105,9 @@ const AccountantAssignments: React.FC = () => {
     };
 
     useEffect(() => {
-        fetchAssignments();
-    }, []);
+        if (session?.user) fetchAssignments();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [session?.user]);
 
     const accountantSections = [
         { key: 'all', label: 'All Assignments', count: assignments.length },
@@ -110,7 +117,7 @@ const AccountantAssignments: React.FC = () => {
 
     const SECTION_STATUS_MAP: Record<string, string[] | null> = {
         all: null,
-        assigned: ['assigned', 'draft_ready', 'final_submitted', 'preparation_started', 'pending_assignment'],
+        assigned: ['assigned', 'draft_ready', 'client_approved', 'ready_for_submission', 'final_submitted', 'preparation_started', 'pending_assignment'],
         completed: ['completed'],
     };
 

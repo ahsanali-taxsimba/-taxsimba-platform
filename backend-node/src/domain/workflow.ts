@@ -234,18 +234,22 @@ export async function notify(
   link: string | null = null,
   ntype = "INFO",
 ): Promise<void> {
-  const duplicate = await col("notifications").findOne({
-    user_id: userId,
-    title,
-    case_id: caseId,
-    is_read: false,
-  });
-  if (duplicate) {
-    await col("notifications").updateOne(
-      { id: duplicate.id },
-      { $set: { body, created_at: nowIso() } },
-    );
-    return;
+  // RECEIPT notifications must not collapse — successive paid AW requests on the
+  // same case would otherwise overwrite the prior receipt number (INV-…) in-body.
+  if (ntype !== "RECEIPT") {
+    const duplicate = await col("notifications").findOne({
+      user_id: userId,
+      title,
+      case_id: caseId,
+      is_read: false,
+    });
+    if (duplicate) {
+      await col("notifications").updateOne(
+        { id: duplicate.id },
+        { $set: { body, created_at: nowIso() } },
+      );
+      return;
+    }
   }
   const notification: Doc = {
     id: randomUUID(),

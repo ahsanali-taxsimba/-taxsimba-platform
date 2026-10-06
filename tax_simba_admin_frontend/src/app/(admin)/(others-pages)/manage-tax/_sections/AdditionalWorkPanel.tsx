@@ -165,16 +165,25 @@ export default function AdditionalWorkPanel({ taxReturnId, userRole }: Props) {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          <input
-            data-testid="addpay-amount"
-            type="number"
-            min="0"
-            step="0.01"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
-            placeholder="Amount (£)"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <input
+              data-testid="addpay-amount"
+              type="number"
+              min="0"
+              step="0.01"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+              placeholder="Amount"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+            />
+            <div
+              data-testid="addpay-currency"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white text-gray-700"
+              aria-label="Currency"
+            >
+              GBP (£)
+            </div>
+          </div>
           <input
             data-testid="addpay-due-date"
             type="date"

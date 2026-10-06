@@ -234,8 +234,9 @@ const GlobalNotificationsPage: React.FC = () => {
       await markNotificationAsRead(notification.id);
     }
 
-    if (notification.url) {
-      let targetUrl = notification.url;
+    const rawLink = (notification as any).url || (notification as any).link;
+    if (rawLink) {
+      let targetUrl = String(rawLink);
 
       // Extract the tax return ID from the notification object if it exists
       // Fallback: Match a number after /tax-returns/ or just a number surrounded by slashes/end of string
@@ -249,6 +250,12 @@ const GlobalNotificationsPage: React.FC = () => {
         } else if (userRole === 'ACCOUNTANT') {
           targetUrl = `/tax-return-list/${taxReturnDbId}`;
         }
+      }
+
+      // UUID case deep-links from Node: /work/cases/{uuid} → manage-tax
+      const uuidCase = targetUrl.match(/\/(?:work\/)?cases\/([0-9a-f-]{36})/i);
+      if (uuidCase && isAdminRole(userRole)) {
+        targetUrl = `/manage-tax/${uuidCase[1]}`;
       }
 
       // Prepend /admin if the URL doesn't already start with it (and is a relative path)
@@ -490,7 +497,7 @@ const GlobalNotificationsPage: React.FC = () => {
                              />
                           )}
                           {/* P0 M4: notification DELETE deferred (405) — hide trash control */}
-                          {notification.url && (
+                          {(notification.url || (notification as any).link) && (
                             <ExternalLink className="w-4 h-4 text-gray-400" 
                             // title="Has link" 
                             />
@@ -498,9 +505,14 @@ const GlobalNotificationsPage: React.FC = () => {
                         </div>
                       </div>
 
-                      {/* Message */}
-                      <p className={`text-sm mb-3 ${!notification.read ? 'font-medium text-gray-900' : 'text-gray-700'}`}>
-                        {notification.message}
+                      {/* Message — title + body so content is visible (J-007) */}
+                      {(notification as any).title ? (
+                        <p className={`text-sm mb-1 ${!notification.read ? 'font-semibold text-gray-900' : 'font-medium text-gray-800'}`}>
+                          {(notification as any).title}
+                        </p>
+                      ) : null}
+                      <p className={`text-sm mb-3 whitespace-pre-wrap ${!notification.read ? 'font-medium text-gray-900' : 'text-gray-700'}`}>
+                        {notification.message || (notification as any).body || ""}
                       </p>
 
                       {/* Metadata */}

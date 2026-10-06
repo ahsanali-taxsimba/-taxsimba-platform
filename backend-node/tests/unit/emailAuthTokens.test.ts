@@ -22,6 +22,10 @@ beforeAll(async () => {
     TOTP_FERNET_KEY: process.env.TOTP_FERNET_KEY ?? generateKey(),
     EMAIL_DRIVER: "none",
     SEED_DEMO_DATA: "false",
+    NODE_ENV: "test",
+    // Public HTTPS origin — never inherit localhost from a developer .env.
+    APP_BASE_URL: "https://app.test.taxsimba.local",
+    ADMIN_BASE_URL: "https://admin.test.taxsimba.local",
   });
   const { connect } = await import("../../src/db/mongo");
   await connect();

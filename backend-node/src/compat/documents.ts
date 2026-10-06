@@ -18,6 +18,10 @@ import { handler, httpError } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
 import { mimeFromFilename, validateUpload } from "../middleware/protections";
 import { getObject, putObject } from "../services/storage";
+import {
+  clientDocumentUploadPath,
+  clientReviewDocumentsPath,
+} from "../services/email";
 import { keysToCamel } from "./caseMap";
 import { clientDocumentDto, clientDocumentsPayload } from "./clientDocumentDto";
 import { sendCompatSuccess } from "./envelope";
@@ -147,35 +151,142 @@ compatDocumentsRouter.post(
     if (!f) throw httpError(422, "file is required");
 
     const kase = await getCase(caseId, me);
+    const body = (req.body ?? {}) as Record<string, unknown>;
     const documentType =
-      (typeof req.body?.document_type === "string" && req.body.document_type) ||
-      (typeof req.body?.documentType === "string" && req.body.documentType) ||
+      (typeof body.document_type === "string" && body.document_type) ||
+      (typeof body.documentType === "string" && body.documentType) ||
       "Other";
+    const documentId =
+      (typeof body.document_id === "string" && body.document_id.trim()) ||
+      (typeof body.documentId === "string" && body.documentId.trim()) ||
+      "";
+    const requestIdHint =
+      (typeof body.request_id === "string" && body.request_id.trim()) ||
+      (typeof body.requestId === "string" && body.requestId.trim()) ||
+      "";
+
+    const inferredMime =
+      mimeFromFilename(f.originalname) ||
+      (f.mimetype || "").split(";")[0].trim() ||
+      "application/octet-stream";
+    const effectiveMime =
+      !f.mimetype || f.mimetype === "application/octet-stream" ? inferredMime : f.mimetype;
+    validateUpload(effectiveMime, f.size, f.originalname);
+    const contentHash = createHash("sha256").update(f.buffer).digest("hex");
+
+    // Resolve the outstanding staff request / placeholder this upload fulfils.
+    let existing: Doc | null = null;
+    if (documentId) {
+      existing = (await col("documents").findOne({
+        id: documentId,
+        is_deleted: { $ne: true },
+      })) as Doc | null;
+      if (!existing) throw httpError(404, "Document request not found");
+      if (String(existing.case_id) !== caseId) {
+        throw httpError(400, "This document belongs to a different case");
+      }
+      if (String(existing.client_user_id) !== String(me.id)) {
+        throw httpError(403, "Not allowed");
+      }
+    } else if (requestIdHint) {
+      existing = (await col("documents").findOne({
+        case_id: caseId,
+        request_id: requestIdHint,
+        is_deleted: { $ne: true },
+      })) as Doc | null;
+    } else {
+      // Match an open Requested placeholder by type, else the oldest open request on the case.
+      existing = (await col("documents").findOne(
+        {
+          case_id: caseId,
+          status: "Requested",
+          is_deleted: { $ne: true },
+          document_type: documentType,
+        },
+        { sort: { created_at: 1 } },
+      )) as Doc | null;
+      if (!existing) {
+        existing = (await col("documents").findOne(
+          {
+            case_id: caseId,
+            status: "Requested",
+            is_deleted: { $ne: true },
+          },
+          { sort: { created_at: 1 } },
+        )) as Doc | null;
+      }
+    }
+
+    // Idempotent retry: same content already stored for this placeholder.
+    if (
+      existing &&
+      existing.status === "Uploaded" &&
+      existing.content_hash === contentHash &&
+      existing.storage_path
+    ) {
+      sendCompatSuccess(
+        res,
+        {
+          ...clientDocumentDto(clean(existing) as Doc, caseId),
+          tax_return_id: caseId,
+          case_id: caseId,
+          taxReturnId: caseId,
+          caseId,
+          duplicate: true,
+          requestId: existing.request_id ?? null,
+        },
+        "Already uploaded",
+      );
+      return;
+    }
+
+    // Store first — never mark the request complete if storage fails.
     const ext = f.originalname.includes(".") ? f.originalname.split(".").pop() : "bin";
     const path = `${APP_NAME}/uploads/${me.id}/${randomUUID()}.${ext}`;
-    validateUpload(f.mimetype, f.size, f.originalname);
-    const stored = await putObject(path, f.buffer, f.mimetype || "application/octet-stream");
+    const stored = await putObject(path, f.buffer, effectiveMime);
+
+    const requestId = (existing?.request_id as string | undefined) || requestIdHint || null;
+    const taskId = (existing?.task_id as string | undefined) || null;
     const record: Doc = {
-      id: randomUUID(),
+      id: existing?.id || randomUUID(),
       case_id: caseId,
       client_user_id: kase.client_user_id,
       tax_year: kase.tax_year,
-      document_type: documentType,
+      document_type: existing?.document_type || documentType,
       name: f.originalname,
       status: "Uploaded",
       storage_path: stored.path,
       uploader_id: me.id,
       uploader_name: me.name,
-      content_type: f.mimetype,
+      content_type: effectiveMime,
       size: stored.size ?? f.size,
+      content_hash: contentHash,
       is_internal: false,
       is_deleted: false,
       upload_date: nowIso(),
-      created_at: nowIso(),
-      task_id: null,
-      mtd_period_id: null,
+      created_at: existing?.created_at || nowIso(),
+      request_id: requestId,
+      task_id: taskId,
+      mtd_period_id: existing?.mtd_period_id ?? null,
     };
-    await col("documents").insertOne({ ...record });
+
+    if (existing) {
+      await col("documents").replaceOne({ id: existing.id }, { ...record });
+    } else {
+      await col("documents").insertOne({ ...record });
+    }
+
+    if (requestId) {
+      await col("document_requests").updateOne(
+        { id: requestId, case_id: caseId },
+        { $set: { status: "Uploaded", fulfilled_at: nowIso(), fulfilled_document_id: record.id } },
+      );
+    }
+    if (taskId) {
+      const { completeTask } = await import("../services/tasks");
+      await completeTask(String(taskId), me);
+    }
+
     await logActivity(caseId, `Document uploaded: ${f.originalname}`, me);
     if (kase.assigned_accountant_id) {
       await notify(
@@ -195,6 +306,9 @@ compatDocumentsRouter.post(
         case_id: caseId,
         taxReturnId: caseId,
         caseId,
+        duplicate: false,
+        requestId,
+        requestStatus: requestId ? "Uploaded" : null,
       },
       "Uploaded",
     );
@@ -218,12 +332,33 @@ compatDocumentsRouter.get(
       .sort({ created_at: -1 })
       .limit(50)
       .toArray()) as Doc[];
+    const mapped = scrubMany(cleanMany(docs), me).map((d) =>
+      clientDocumentDto(d, caseId),
+    );
+    const primary = mapped[0] || null;
     sendCompatSuccess(
       res,
       {
         caseId,
         taxReturnId: caseId,
-        documents: keysToCamel(scrubMany(cleanMany(docs), me)),
+        documents: mapped,
+        // Rich shape expected by FinalCertificateModal / TaxReturnHistory.
+        finalCertificate: primary
+          ? {
+              id: primary.id,
+              filename: primary.filename,
+              downloadUrl: primary.downloadUrl,
+              uploadedAt: primary.created_at ?? primary.upload_date ?? null,
+              fileSize: primary.fileSize,
+              mimeType: primary.mimeType,
+            }
+          : null,
+        taxReturn: {
+          id: caseId,
+          status: "completed",
+        },
+        submissionSummary: null,
+        accountantNotes: null,
       },
       "OK",
     );
@@ -371,7 +506,8 @@ compatDocumentsRouter.post(
         (message || `${created.length} document(s) requested`) +
         "\n\nPlease upload it securely through your TaxSimba account so we can keep your tax return moving.",
       caseId,
-      "/dashboard/my-documents",
+      // Tax Tracker is where the client upload action is rendered for outstanding requests.
+      clientDocumentUploadPath(caseId),
       "DOCUMENT",
     );
     sendCompatSuccess(
@@ -426,6 +562,47 @@ async function staffUpload(
         "Draft already submitted for Admin review",
       );
       return;
+    }
+  }
+
+  if (kind === "final") {
+    if (me.role === "ACCOUNTANT" && String(kase.assigned_accountant_id) !== String(me.id)) {
+      throw httpError(403, "Insufficient permissions");
+    }
+
+    const existingFinal = (await col("documents").findOne({
+      case_id: caseId,
+      is_final: true,
+      is_deleted: { $ne: true },
+      content_hash: contentHash,
+    })) as Doc | null;
+    if (existingFinal) {
+      const completed = await completeCaseAfterFinalCertificate(kase, me, caseId, f.originalname);
+      sendCompatSuccess(
+        res,
+        {
+          ...clean(existingFinal),
+          taxReturnId: caseId,
+          caseId,
+          duplicate: true,
+          caseStatus: completed.status,
+          workflowStatus: completed.status,
+          toxelStatus: "completed",
+        },
+        "Final certificate already uploaded",
+      );
+      return;
+    }
+
+    const status = String(kase.status);
+    if (status === "COMPLETED") {
+      throw httpError(400, "Case is already completed");
+    }
+    if (!["SUBMITTED", "SUBMISSION_IN_PROGRESS"].includes(status)) {
+      throw httpError(
+        400,
+        `Record external submission before uploading the final certificate (case is ${status})`,
+      );
     }
   }
 
@@ -500,11 +677,18 @@ async function staffUpload(
       decided_at: null,
     });
     // Notify Admin only — never the client from accountant draft upload.
+    // Absolute Admin FE path (basePath /admin). Relative /manage-tax hits the wrong app
+    // and can render a bare backend "OK" envelope when APP_BASE_URL points at the API.
+    const { adminPublicOrigin } = await import("../services/staffInviteLinks");
+    const adminOrigin = adminPublicOrigin();
+    const reviewLink = adminOrigin
+      ? `${adminOrigin}/admin/manage-tax/${caseId}`
+      : `/admin/manage-tax/${caseId}`;
     await notifyAdmins(
       "Draft ready for Admin review",
       `${kase.client_name ?? "Client"} — ${kase.case_ref ?? caseId}: ${f.originalname} submitted by ${me.name}`,
       caseId,
-      `/manage-tax/${caseId}`,
+      reviewLink,
       "REVIEW",
     );
     sendCompatSuccess(
@@ -521,6 +705,7 @@ async function staffUpload(
     return;
   }
 
+  const completed = await completeCaseAfterFinalCertificate(kase, me, caseId, f.originalname);
   await notify(
     kase.client_user_id as string,
     "Your final tax documents are ready",
@@ -528,7 +713,7 @@ async function staffUpload(
       (kase.case_ref ? ` for ${kase.case_ref}` : "") +
       ".\n\nFor your security, please sign in to TaxSimba to download it.",
     caseId,
-      "/dashboard/my-documents",
+    clientReviewDocumentsPath(caseId),
     "DOCUMENT",
   );
   sendCompatSuccess(
@@ -537,9 +722,53 @@ async function staffUpload(
       ...clean(record),
       taxReturnId: caseId,
       caseId,
+      caseStatus: completed.status,
+      workflowStatus: completed.status,
+      toxelStatus: "completed",
+      duplicate: false,
     },
-    "Uploaded",
+    "Final certificate uploaded — case completed",
   );
+}
+
+/** After a valid final certificate is stored, close the SA journey (SUBMITTED → COMPLETED). */
+async function completeCaseAfterFinalCertificate(
+  kase: Doc,
+  me: Doc,
+  caseId: string,
+  filename: string,
+): Promise<Doc> {
+  let current = await getCase(caseId, me);
+  if (String(current.status) === "SUBMISSION_IN_PROGRESS") {
+    await transition(current, "SUBMITTED", me, "Final certificate received");
+    current = await getCase(caseId, me);
+  }
+  if (String(current.status) === "SUBMITTED") {
+    await transition(current, "COMPLETED", me, `Final certificate uploaded: ${filename}`, {
+      extra: {
+        completed_at: nowIso(),
+        completed_by_name: me.name,
+        completed_by_id: me.id,
+      },
+    });
+    await col("submission_records").updateOne(
+      { case_id: caseId },
+      { $set: { status: "COMPLETED", completed_at: nowIso() } },
+    );
+    await notify(
+      current.client_user_id as string,
+      "Your Self Assessment is complete",
+      "Your Self Assessment journey with TaxSimba is now complete.\n\n" +
+        "Thank you for choosing TaxSimba.\n\n" +
+        "You can continue to access your case information and available documents from your account." +
+        (current.tax_year ? `\n\nTax year: ${current.tax_year}` : ""),
+      caseId,
+      clientReviewDocumentsPath(caseId),
+      "INFO",
+    );
+    current = await getCase(caseId, me);
+  }
+  return current;
 }
 
 const staffUploadMw = upload.any();

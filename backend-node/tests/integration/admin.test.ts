@@ -280,6 +280,12 @@ describe("admin, audit, help centre and invitations", () => {
       .expect(200);
     expect(revealed.body.email).toBe(client.email);
 
+    await request(app)
+      .post(`/api/clients/${client.id}/reveal-contact`)
+      .set(bearer(superAdmin))
+      .send({ reason: "short" })
+      .expect(400);
+
     await request(app).get("/api/contact-access-log").set(bearer(admin)).expect(403);
     const log = await request(app)
       .get("/api/contact-access-log")
@@ -366,7 +372,7 @@ describe("admin, audit, help centre and invitations", () => {
     expect(invited.body.user.status).toBe("PENDING");
     expect(invited.body.user.is_active).toBe(false);
     expect(invited.body.setup_link).toContain(
-      "https://app.test.taxsimba.local/admin/invite/",
+      "https://admin.test.taxsimba.local/admin/invite/",
     );
     const firstToken = invited.body.setup_link.split("/admin/invite/")[1];
 

@@ -2,7 +2,7 @@
 import { useFetchTaxReturnData, useFetchTaxReturnDataById } from "@/hooks/fetchData";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { IoDocumentAttachSharp } from "react-icons/io5";
@@ -35,6 +35,11 @@ const statusToLabelAndClass = (status) => {
       return { label: "Preparation started", className: "wip active" };
     case "draft_ready":
       return { label: "Work In Progress • Draft ready", className: "wip active" };
+    case "client_approved":
+      return { label: "Client approved", className: "wip active" };
+    case "ready_for_submission":
+      return { label: "Ready for submission", className: "wip active" };
+    case "final_submitted":
     case "submitted":
       return { label: "Final submission", className: "completed active" };
     case "completed":
@@ -46,15 +51,26 @@ const statusToLabelAndClass = (status) => {
 
 // fallback steps if detail API not yet loaded (keeps your original feel)
 const fallbackStepsFromStatus = (status) => {
-  const order = ["assigned", "preparation_started", "draft_ready", "submitted"];
+  const order = [
+    "assigned",
+    "preparation_started",
+    "draft_ready",
+    "client_approved",
+    "ready_for_submission",
+    "final_submitted",
+  ];
   const labels = {
     assigned: "Assigned",
     preparation_started: "Preparation started",
     draft_ready: "Draft ready",
+    client_approved: "Client approved",
+    ready_for_submission: "Ready for submission",
+    final_submitted: "Final submission",
     submitted: "Final submission",
   };
   const s = (status || "").toLowerCase();
-  const currentIdx = Math.max(0, order.indexOf(s));
+  const normalized = s === "submitted" ? "final_submitted" : s;
+  const currentIdx = Math.max(0, order.indexOf(normalized));
   return order.map((key, idx) => ({
     key,
     label: labels[key],
@@ -85,8 +101,19 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
     taxReturnId: null
   });
   const [messages, setMessages] = useState([]);
+  const isSelfAssessmentRow = (file) => {
+    const st = String(
+      file?.taxReturn?.serviceType ||
+        file?.serviceType ||
+        file?.service_type ||
+        "SELF_ASSESSMENT",
+    ).toUpperCase();
+    return st === "SELF_ASSESSMENT" || st === "SA";
+  };
+  // SA Tax Tracker must not list MTD cases (C-004 dual-service clients).
   const pendingReturns = (taxReturns.length > 0 && taxReturns?.filter(
     (file) => {
+      if (!isSelfAssessmentRow(file)) return false;
       const isPending = file?.taxReturn?.status !== 'completed';
       if (!isPending) return false;
 
@@ -99,18 +126,38 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
   )) || [];
   // for files display inside each item
 
-  console.log("pendingReturns", pendingReturns);
   const [showAllMap, setShowAllMap] = useState({});
 
   // cache details by id so we can render progress per opened item
   const [detailsById, setDetailsById] = useState({});
   const access_token = sessionData?.accessToken;
+  const searchParams = useSearchParams();
+  const focusCaseId = (searchParams?.get("caseId") || "").trim();
 
   const handleTaxReturnData = async () => {
     setLoading(true);
     const data = await useFetchTaxReturnData(access_token);
     const realData = (data && data.length > 0) ? data : [];
     setTaxReturns(realData);
+    // Prefer the caseId from a document-request email CTA so the correct return/request
+    // is expanded — not merely the first dashboard row.
+    const focusIdx = focusCaseId
+      ? realData.findIndex((row) => {
+          const id = row?.taxReturn?.id || row?.id;
+          return id && String(id) === focusCaseId;
+        })
+      : -1;
+    const firstWithRequest = realData.findIndex((row) => {
+      if (row?.taxReturn?.status === "completed") return false;
+      const files = row?.files?.allFiles || [];
+      return files.some((f) => f.uploadStatus !== "completed");
+    });
+    const openAt = focusIdx >= 0 ? focusIdx : firstWithRequest;
+    if (openAt >= 0) {
+      setOpenIdx(openAt);
+      const id = realData[openAt]?.taxReturn?.id;
+      if (id) void fetchDetailIfNeeded(id);
+    }
     setLoading(false);
   };
 
@@ -145,8 +192,12 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
       await fetchDetailIfNeeded(id);
 
       // Set emailIds only when the tax return is opened
-      const accountantId = item?.accountant?.id;
-      const taxReturnId = item?.taxReturn?.id;
+      const accountantId =
+        item?.accountant?.id ||
+        item?.assignedAccountantId ||
+        item?.assigned_accountant_id ||
+        null;
+      const taxReturnId = item?.taxReturn?.id || item?.id || null;
       setEmailIds({
         accountantId: accountantId,
         taxReturnId: taxReturnId,
@@ -183,12 +234,30 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
       }
 
       const emails = res.data?.data?.emails || [];
-      const formatted = emails.map((email) => ({
-        id: email.id,
-        sender: email.accountant?.name || "Accountant",
-        message: email.parsedEmailData?.messageText || "",
-        time: email.sentAt,
-      }));
+      const formatted = emails.map((email) => {
+        const time =
+          email.sentAt ||
+          email.createdAt ||
+          email.created_at ||
+          email.sent_at ||
+          null;
+        const message =
+          email.parsedEmailData?.messageText ||
+          email.emailData?.messageText ||
+          email.body ||
+          email.message ||
+          "";
+        return {
+          id: email.id,
+          sender:
+            email.accountant?.name ||
+            email.sender_name ||
+            email.senderName ||
+            "Accountant",
+          message,
+          time,
+        };
+      });
 
       setMessages(formatted.reverse()); // Reverse to show most recent messages first
     } catch (err) {
@@ -229,6 +298,9 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
       "assigned": User,
       "preparation_started": Clock,
       "draft_ready": FileText,
+      "client_approved": CheckCircle,
+      "ready_for_submission": FileText,
+      "final_submitted": FileText,
       "submitted": FileText,
       "completed": CheckCircle
     }
@@ -246,9 +318,9 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
             </div>
             <div className="tax_rtn_reg">
               <p>
-                <strong>Tax Return Year {getUKTaxYear()}</strong>
+                <strong>Self Assessment tax returns</strong>
               </p>
-              <p>Reg. No. </p>
+              <p>Current filing year {getUKTaxYear()}</p>
             </div>
           </>
         )}
@@ -307,7 +379,11 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
                     >
                       <div className="acc_reg_left">
                         <div className="accordion_reg">
-                          <h3>Reg. No. {regNo}</h3>
+                          <h3>
+                            Reg. No. {regNo}
+                            {item?.taxReturn?.caseRef ? ` · ${item.taxReturn.caseRef}` : ""}
+                            {year && year !== "—" ? ` · ${year}` : ""}
+                          </h3>
 
                         </div>
 
@@ -344,8 +420,12 @@ const TaxTracker = ({ serverSession, setIsDocUpdated, setTrackUpdate, taxPrice, 
                         onClick={(e) => {
                           e.stopPropagation();
                           setEmailIds({
-                            accountantId: item?.accountant?.id,
-                            taxReturnId: item?.taxReturn?.id
+                            accountantId:
+                              item?.accountant?.id ||
+                              item?.assignedAccountantId ||
+                              item?.assigned_accountant_id ||
+                              null,
+                            taxReturnId: item?.taxReturn?.id || item?.id || null,
                           })
                           setShowChat(true);
                         }}>

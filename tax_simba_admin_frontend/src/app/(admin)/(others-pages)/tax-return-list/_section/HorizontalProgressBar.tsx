@@ -109,6 +109,8 @@ const HorizontalProgressBar: React.FC<HorizontalProgressBarProps> = ({
       'assigned': User,
       'preparation_started': Clock,
       'draft_ready': FileText,
+      'client_approved': CheckCircle,
+      'ready_for_submission': FileText,
       'final_submitted': FileText,
       'completed': CheckCircle,
       // Add more mappings as needed
@@ -124,6 +126,8 @@ const HorizontalProgressBar: React.FC<HorizontalProgressBarProps> = ({
       'assigned': 'Assigned to tax professional',
       'preparation_started': 'Tax return preparation in progress',
       'draft_ready': 'Draft ready for client review',
+      'client_approved': 'Client approved the draft',
+      'ready_for_submission': 'Ready for external submission',
       'final_submitted': 'Final documents submitted to tax authorities',
       'completed': 'Tax return filed successfully',
       // Add more descriptions as needed

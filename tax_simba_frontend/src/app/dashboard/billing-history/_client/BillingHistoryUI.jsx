@@ -63,12 +63,27 @@ export default function BillingHistoryUI({ transactions = [], loading, onDownloa
                                         <td className="py-3 px-4">{i + 1}</td>
                                         <td className="py-3 px-4 text-muted" style={{ fontSize: '0.85rem' }}>{tx.stripeSubscriptionId || tx.stripePaymentIntentId || tx.id}</td>
                                         <td className="py-3 px-4 text-muted">{formatDate(tx.createdAt)}</td>
-                                        <td className="py-3 px-4 fw-bold">{getCurrencySymbol(tx.currency)}{tx.amount}</td>
-                                        <td className="py-3 px-4 text-muted text-capitalize">{tx.description?.replace('Subscription purchase for ', '') || "Payment"}</td>
+                                        <td className="py-3 px-4 fw-bold" data-testid="tx-amount">
+                                            {/* D1-014: always show charged amount (upgrade delta), never upgradePrice/sticker */}
+                                            {getCurrencySymbol(tx.currency)}
+                                            {Number.isFinite(Number(tx.amount))
+                                                ? Number(tx.amount).toFixed(2)
+                                                : "0.00"}
+                                            {String(tx.currency || 'gbp').toUpperCase() !== 'GBP' ? (
+                                                <span className="text-muted small ms-1">{String(tx.currency).toUpperCase()}</span>
+                                            ) : (
+                                                <span className="text-muted small ms-1">GBP</span>
+                                            )}
+                                        </td>
+                                        <td className="py-3 px-4 text-muted">
+                                            {tx.kind === 'SA_UPGRADE' || String(tx.description || '').toLowerCase().includes('upgrade')
+                                                ? (tx.description || 'Package upgrade difference — amount charged')
+                                                : (tx.description?.replace('Subscription purchase for ', '') || 'Payment')}
+                                        </td>
                                         <td className="py-3 px-4 text-muted">{tx.modeOfPayment || formatPaymentMethod(tx.paymentMethodId || tx.paymentMethodType)}</td>
                                         <td className="py-3 px-4 text-center">
-                                            <span className={`badge px-2 py-1 text-capitalize`} style={{ fontSize: '0.75rem', backgroundColor: tx.status === 'succeeded' || tx.status === 'completed' ? '#14ab71' : '#dc3545' }}>
-                                                {tx.status === 'succeeded' ? 'Complete' : tx.status}
+                                            <span className={`badge px-2 py-1 text-capitalize`} style={{ fontSize: '0.75rem', backgroundColor: tx.status === 'succeeded' || tx.status === 'completed' ? '#14ab71' : tx.status === 'pending' ? '#f59e0b' : '#dc3545' }}>
+                                                {tx.status === 'succeeded' ? 'Complete' : tx.status === 'pending' ? 'Pending confirmation' : tx.status}
                                             </span>
                                         </td>
                                         <td className="py-3 px-4 text-center text-nowrap">

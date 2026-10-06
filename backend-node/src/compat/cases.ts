@@ -183,7 +183,9 @@ compatCasesRouter.post(
   auth("CLIENT"),
   handler(async (req, res) => {
     const me = authed(req);
-    // Reuse list semantics: only ACTIVE-entitlement cases.
+    // SA Tax Tracker only — default SELF_ASSESSMENT so dual-service clients do not
+    // see MTD cases as second "Work in Progress" rows on the SA dashboard (C-004).
+    // Optional body/query `service_type` may request MTD explicitly when needed.
     const { activeServiceTypesForClient } = await import("../domain/caseEntitlement");
     const { clientDocumentDto } = await import("./clientDocumentDto");
     const { scrubMany, cleanMany } = await import("../db/mongo");
@@ -192,9 +194,20 @@ compatCasesRouter.post(
       sendCompatSuccess(res, [], "OK");
       return;
     }
+    const body = (req.body || {}) as Doc;
+    const queryHint =
+      typeof req.query.service_type === "string" ? req.query.service_type : undefined;
+    const requested = serviceTypeFromBody({
+      service_type: body.service_type ?? body.serviceType ?? queryHint,
+    });
+    const scopedTypes = activeTypes.filter((t) => t === requested);
+    if (!scopedTypes.length) {
+      sendCompatSuccess(res, [], "OK");
+      return;
+    }
     const client = await col("clients").findOne({ user_id: me.id });
     const query: Doc = {
-      service_type: { $in: activeTypes },
+      service_type: { $in: scopedTypes },
       $or: client
         ? [{ client_user_id: me.id }, { client_id: client.id }]
         : [{ client_user_id: me.id }],
@@ -227,17 +240,58 @@ compatCasesRouter.post(
           id: d.id,
         };
       });
+      // Nested accountant.id is required by ChatBox (assignment toast gate).
+      let accountant: Doc | null = null;
+      if (c.assigned_accountant_id) {
+        const acc = (await col("users").findOne(
+          { id: c.assigned_accountant_id },
+          { projection: { id: 1, name: 1, email: 1, phone: 1 } },
+        )) as Doc | null;
+        accountant = acc
+          ? {
+              id: acc.id,
+              name: acc.name,
+              email: acc.email,
+              mobile: acc.phone ?? "",
+            }
+          : {
+              id: c.assigned_accountant_id,
+              name: c.assigned_accountant_name ?? "Accountant",
+              email: null,
+              mobile: "",
+            };
+      }
       // Canonical nested shape for Tax Tracker (`item.taxReturn.id`, `item.files.allFiles`).
+      // taxReturn.status must be the Toxel step key (draft_ready / final_submitted), not the
+      // raw Node workflow status — otherwise the client tracker never advances past Draft Ready.
+      const finalDoc = docs.find((d) => d.is_final === true) || null;
+      const finalCertificate = finalDoc
+        ? (() => {
+            const dto = clientDocumentDto(finalDoc, caseId);
+            return {
+              id: dto.id,
+              filename: dto.filename,
+              downloadUrl: dto.downloadUrl,
+              uploadedAt: finalDoc.created_at ?? finalDoc.upload_date ?? null,
+              fileSize: dto.fileSize,
+              mimeType: dto.mimeType,
+            };
+          })()
+        : null;
       out.push({
         ...c,
         taxReturn: {
           id: caseId,
           caseRef: c.case_ref ?? null,
-          status: c.status,
+          status: nodeToToxelStatus(String(c.status)),
+          nodeStatus: c.status,
           serviceType: c.service_type,
           taxYear: c.tax_year,
         },
+        accountant,
+        assignedAccountantId: c.assigned_accountant_id ?? null,
         files: { allFiles },
+        finalCertificate,
       });
     }
     sendCompatSuccess(res, out, "OK");
@@ -275,11 +329,15 @@ function nodeToToxelStatus(status: string): string {
     case "ADMIN_REVIEW":
     case "CHANGES_REQUIRED":
       return "preparation_started";
+    // Client still reviewing the Admin-released draft.
     case "ADMIN_APPROVED":
     case "AWAITING_CLIENT_APPROVAL":
-    case "CLIENT_APPROVED":
-    case "READY_FOR_SUBMISSION":
       return "draft_ready";
+    // Client has approved — must leave Draft Ready (Toxsl blocker).
+    case "CLIENT_APPROVED":
+      return "client_approved";
+    case "READY_FOR_SUBMISSION":
+      return "ready_for_submission";
     case "SUBMISSION_IN_PROGRESS":
     case "SUBMITTED":
     case "SUBMISSION_ISSUE":
@@ -294,11 +352,11 @@ function nodeToToxelStatus(status: string): string {
 /**
  * Map Toxel progress-bar keys → Node statuses.
  *
- * Critical: `draft_ready` must never soft-map onto ADMIN_APPROVED or
- * AWAITING_CLIENT_APPROVAL while the case is still in Admin review.
- * That path previously bypassed the Admin approve action (document release +
- * client notification). Admin must use the approve endpoint; accountants
- * submit drafts via multipart upload (→ READY_FOR_ADMIN_REVIEW).
+ * Critical: `draft_ready` must never soft-map onto ADMIN_APPROVED while the
+ * case is still in Admin review without running document release + client
+ * notification. That full approve path is handled in handleProgressWrite /
+ * adminApproveSubmittedDraft — not via a bare status remap.
+ * Accountants submit drafts via multipart upload (→ READY_FOR_ADMIN_REVIEW).
  */
 function toxelToPreferredNodeStatus(toxel: string, currentNodeStatus?: string): string | null {
   const s = String(toxel || "").toLowerCase();
@@ -313,7 +371,8 @@ function toxelToPreferredNodeStatus(toxel: string, currentNodeStatus?: string): 
     ) {
       return current;
     }
-    // Still awaiting Admin review — progress bar cannot approve.
+    // Still awaiting Admin review — handled specially by handleProgressWrite
+    // (Admin → full approve+release; others → 400).
     if (current === "READY_FOR_ADMIN_REVIEW" || current === "ADMIN_REVIEW") {
       return null;
     }
@@ -339,6 +398,8 @@ function toxelToPreferredNodeStatus(toxel: string, currentNodeStatus?: string): 
     pending_assignment: "AWAITING_ASSIGNMENT",
     assigned: "ASSIGNED",
     preparation_started: "IN_PREPARATION",
+    client_approved: "CLIENT_APPROVED",
+    ready_for_submission: "READY_FOR_SUBMISSION",
     final_submitted: "SUBMITTED",
     completed: "COMPLETED",
   };
@@ -373,11 +434,17 @@ async function buildProgressPayload(kase: Doc, me: Doc, hasSubmission: boolean):
     { key: "assigned", label: "Assigned", order: 1 },
     { key: "preparation_started", label: "Preparation Started", order: 2 },
     { key: "draft_ready", label: "Draft Ready", order: 3 },
+    // Authoritative post-approve stages (shared by client / accountant / admin).
+    { key: "client_approved", label: "Client Approved", order: 4 },
+    { key: "ready_for_submission", label: "Ready for Submission", order: 5 },
     // Accountant-led: external filing recorded in TaxSimba — not HMRC API.
-    { key: "final_submitted", label: "External Submission Recorded", order: 4 },
-    { key: "completed", label: "Completed", order: 5 },
+    { key: "final_submitted", label: "External Submission Recorded", order: 6 },
+    { key: "completed", label: "Completed", order: 7 },
   ];
-  const currentOrder = stepsDef.find((s) => s.key === toxelStatus)?.order ?? 0;
+  // Treat aliased keys at the same visual order when building the bar.
+  const orderFor = (key: string): number =>
+    stepsDef.find((s) => s.key === key)?.order ?? 0;
+  const currentOrder = orderFor(toxelStatus);
   const progressSteps = stepsDef.map((s) => ({
     ...s,
     completed: s.order < currentOrder,
@@ -407,8 +474,19 @@ async function buildProgressPayload(kase: Doc, me: Doc, hasSubmission: boolean):
       { projection: { id: 1, name: 1, email: 1, phone: 1 } },
     )) as Doc | null;
     accountant = acc
-      ? { name: acc.name, email: acc.email, mobile: acc.phone ?? "", avatar: null }
-      : { name: kase.assigned_accountant_name ?? "Accountant", email: null, mobile: "" };
+      ? {
+          id: acc.id,
+          name: acc.name,
+          email: acc.email,
+          mobile: acc.phone ?? "",
+          avatar: null,
+        }
+      : {
+          id: kase.assigned_accountant_id,
+          name: kase.assigned_accountant_name ?? "Accountant",
+          email: null,
+          mobile: "",
+        };
   }
 
   const journeySteps = journey(String(kase.status), hasSubmission).map((j) =>
@@ -464,6 +542,194 @@ async function buildProgressPayload(kase: Doc, me: Doc, hasSubmission: boolean):
   };
 }
 
+/**
+ * G-006/G-007 — Manage-tax "Approve Draft" on an MTD case must publish the
+ * current period to AWAITING_CLIENT_APPROVAL (same outcome as native
+ * /api/mtd/periods/:id/admin-approve). SA case status alone is not the MTD SoT.
+ */
+async function adminApproveMtdPeriodDraft(
+  caseId: string,
+  me: Doc,
+  note?: string | null,
+): Promise<{ updated: Doc; released: number }> {
+  const { notify, nowIso: iso } = await import("../domain/workflow");
+  const {
+    ADMIN_REVIEW,
+    AWAITING_CLIENT,
+    IN_PROGRESS,
+    advance,
+    NOT_STARTED,
+  } = await import("../domain/mtd");
+  const kase = await getCase(caseId, me);
+  const periods = (await col("mtd_periods")
+    .find({ case_id: caseId, kind: { $ne: "FINAL_DECLARATION" } })
+    .sort({ quarter: 1 })
+    .limit(20)
+    .toArray()) as Doc[];
+  const candidate =
+    periods.find((p) => p.status === ADMIN_REVIEW) ||
+    periods.find((p) => p.status === IN_PROGRESS && p.draft) ||
+    periods.find((p) => [NOT_STARTED, IN_PROGRESS, ADMIN_REVIEW].includes(String(p.status))) ||
+    null;
+  if (!candidate) {
+    throw httpError(400, "No MTD period is awaiting admin approval");
+  }
+  if (candidate.status === AWAITING_CLIENT) {
+    const updated = await getCase(caseId, me);
+    return { updated, released: 0 };
+  }
+  const draft =
+    (candidate.draft as Doc | null) ||
+    ({
+      income: 0,
+      expenses: 0,
+      net_profit: 0,
+      estimated_income_tax: null,
+      estimated_national_insurance: null,
+      suggested_set_aside: null,
+      client_note: note ?? "Admin released period for client review",
+    } as Doc);
+  const version = Number(candidate.published_version ?? 0) + 1;
+  const snapshot = {
+    ...draft,
+    version,
+    published_by_name: me.name,
+    published_at: iso(),
+  };
+  const history = [...((candidate.published_versions as Doc[]) ?? []), snapshot];
+  await advance(
+    candidate,
+    kase,
+    AWAITING_CLIENT,
+    `figures published to client (version ${version})`,
+    me,
+    {
+      draft,
+      published: snapshot,
+      published_version: version,
+      published_versions: history,
+      client_approved_at: null,
+      approved_version: null,
+      approved_snapshot: null,
+    },
+  );
+  // Keep parent case status aligned for staff case bars that still read cases.status.
+  if ((ALLOWED_TRANSITIONS[String(kase.status)] ?? []).includes("ADMIN_APPROVED")) {
+    await transition(kase, "ADMIN_APPROVED", me, note ?? "Admin approved MTD draft");
+    const after = await getCase(caseId, me);
+    if ((ALLOWED_TRANSITIONS[String(after.status)] ?? []).includes("AWAITING_CLIENT_APPROVAL")) {
+      await transition(
+        after,
+        "AWAITING_CLIENT_APPROVAL",
+        me,
+        "MTD figures released to client for review",
+      );
+    }
+  } else if (String(kase.status) === "ASSIGNED" || String(kase.status) === "ACCOUNTANT_REVIEW") {
+    // Soft sync for MTD cases that never entered the SA admin-review lane.
+    await col("cases").updateOne(
+      { id: caseId },
+      {
+        $set: {
+          status: "AWAITING_CLIENT_APPROVAL",
+          current_stage: "AWAITING_CLIENT_APPROVAL",
+          updated_at: iso(),
+        },
+      },
+    );
+  }
+  await notify(
+    kase.client_user_id as string,
+    `Your MTD ${candidate.label ?? "period"} figures are ready to review`,
+    `Your accountant has prepared your figures for ${candidate.label ?? "this period"}.\n\n` +
+      "Please review the figures and approve them when you're happy for your accountant to proceed.",
+    caseId,
+    "/mtd-dashboard",
+    "REVIEW",
+  );
+  if (kase.assigned_accountant_id) {
+    await notify(
+      String(kase.assigned_accountant_id),
+      "Admin approved your MTD draft",
+      `${kase.client_name ?? "Client"} — ${candidate.label ?? "period"} approved`,
+      caseId,
+      `/manage-tax/${caseId}`,
+      "APPROVAL",
+    );
+  }
+  const updated = await getCase(caseId, me);
+  return { updated, released: 1 };
+}
+
+/**
+ * Admin approve + document release + client notification.
+ * Shared by manage-review and tax-return-list "Advance to Draft Ready".
+ */
+async function adminApproveSubmittedDraft(
+  caseId: string,
+  me: Doc,
+  note?: string | null,
+): Promise<{ updated: Doc; released: number }> {
+  // Admin operational actor only — SUPER_ADMIN is oversight and cannot approve drafts.
+  if (String(me.role) !== "ADMIN") {
+    throw httpError(403, "Insufficient permissions");
+  }
+  const { notify } = await import("../domain/workflow");
+  const kase = await getCase(caseId, me);
+  if (String(kase.service_type) === MTD || String(kase.service_type) === "MTD") {
+    return adminApproveMtdPeriodDraft(caseId, me, note);
+  }
+  if (!(ALLOWED_TRANSITIONS[String(kase.status)] ?? []).includes("ADMIN_APPROVED")) {
+    throw httpError(400, `Cannot admin-approve from status ${kase.status}`);
+  }
+  const { releaseApprovedDraftDocuments } = await import("./documents");
+  const released = await releaseApprovedDraftDocuments(caseId, me);
+  await col("reviews").updateMany(
+    { case_id: caseId, outcome: null, kind: "DRAFT_DOCUMENT" },
+    {
+      $set: {
+        outcome: "APPROVED",
+        reviewer_id: me.id,
+        reviewer_name: me.name,
+        decided_at: nowIso(),
+        admin_note: note ?? null,
+      },
+    },
+  );
+  await transition(kase, "ADMIN_APPROVED", me, note ?? "Admin approved");
+  const after = await getCase(caseId, me);
+  if ((ALLOWED_TRANSITIONS[String(after.status)] ?? []).includes("AWAITING_CLIENT_APPROVAL")) {
+    await transition(
+      after,
+      "AWAITING_CLIENT_APPROVAL",
+      me,
+      "Approved draft released to client for review",
+    );
+  }
+  await notify(
+    kase.client_user_id as string,
+    "Your tax return draft is ready to review",
+    "Your accountant's draft has been approved by Admin and is ready for you to review.\n\n" +
+      "Please check the figures carefully." +
+      (kase.tax_year ? `\n\nTax year: ${kase.tax_year}` : ""),
+    caseId,
+    "/dashboard/my-documents",
+    "APPROVAL",
+  );
+  if (kase.assigned_accountant_id) {
+    await notify(
+      String(kase.assigned_accountant_id),
+      "Admin approved your draft",
+      `${kase.client_name ?? "Client"} — draft approved`,
+      caseId,
+      `/tax-return-list/${caseId}`,
+      "APPROVAL",
+    );
+  }
+  const updated = await getCase(caseId, me);
+  return { updated, released };
+}
+
 /** C6 — staff progress status write (Toxel path). Maps to whitelist transitions only. */
 async function handleProgressWrite(req: import("express").Request, res: import("express").Response) {
   const me = authed(req);
@@ -476,6 +742,29 @@ async function handleProgressWrite(req: import("express").Request, res: import("
   const target = toxelToPreferredNodeStatus(requested, String(kase.status));
   if (!target) {
     if (String(requested).toLowerCase() === "draft_ready") {
+      const current = String(kase.status);
+      // Toxsl tax-return-list "Advance to Draft Ready" — Admin must run the full
+      // approve path (release docs + notify), not a bare status flip.
+      if (
+        (current === "READY_FOR_ADMIN_REVIEW" || current === "ADMIN_REVIEW") &&
+        String(me.role) === "ADMIN"
+      ) {
+        const { updated } = await adminApproveSubmittedDraft(
+          caseId,
+          me,
+          typeof body.note === "string" ? body.note : "Admin approved via progress",
+        );
+        const submission = await col("submission_records").findOne({
+          case_id: caseId,
+          status: { $in: ["SUBMITTED", "COMPLETED"] },
+        });
+        sendCompatSuccess(
+          res,
+          await buildProgressPayload(updated, me, !!submission),
+          "Draft approved and released to client",
+        );
+        return;
+      }
       throw httpError(
         400,
         "Cannot advance to draft ready via progress — Admin must approve the submitted draft to release it to the client",
@@ -725,6 +1014,33 @@ compatCasesRouter.post(
       throw httpError(500, "Assignment failed to persist — please retry");
     }
 
+    // Mirror assignment onto the client profile so client/admin screens stay aligned.
+    if (verified.client_id) {
+      await col("clients").updateOne(
+        { id: verified.client_id },
+        {
+          $set: {
+            assigned_accountant_id: acc.userId,
+            assigned_accountant_name: acc.name,
+            assigned_at: assignedAt,
+            updated_at: assignedAt,
+          },
+        },
+      );
+    } else if (verified.client_user_id) {
+      await col("clients").updateOne(
+        { user_id: verified.client_user_id },
+        {
+          $set: {
+            assigned_accountant_id: acc.userId,
+            assigned_accountant_name: acc.name,
+            assigned_at: assignedAt,
+            updated_at: assignedAt,
+          },
+        },
+      );
+    }
+
     const deepLink = `/tax-return-list/${caseId}`;
     const notifyBody = [
       `Client: ${kase.client_name ?? "Client"}`,
@@ -801,61 +1117,11 @@ async function handleManageReview(req: import("express").Request, res: import("e
   const requestedStatus = String(body.status ?? "").toUpperCase();
 
   if (action === "approve" || action === "admin-approve" || action === "admin_approve") {
-    // Admin operational actor only — SUPER_ADMIN is oversight and cannot approve drafts.
-    if (String(me.role) !== "ADMIN") {
-      throw httpError(403, "Insufficient permissions");
-    }
-    const { notify, nowIso } = await import("../domain/workflow");
-    const kase = await getCase(caseId, me);
-    if (!(ALLOWED_TRANSITIONS[String(kase.status)] ?? []).includes("ADMIN_APPROVED")) {
-      throw httpError(400, `Cannot admin-approve from status ${kase.status}`);
-    }
-    const { releaseApprovedDraftDocuments } = await import("./documents");
-    const released = await releaseApprovedDraftDocuments(caseId, me);
-    await col("reviews").updateMany(
-      { case_id: caseId, outcome: null, kind: "DRAFT_DOCUMENT" },
-      {
-        $set: {
-          outcome: "APPROVED",
-          reviewer_id: me.id,
-          reviewer_name: me.name,
-          decided_at: nowIso(),
-          admin_note: body.note ?? null,
-        },
-      },
-    );
-    await transition(kase, "ADMIN_APPROVED", me, body.note ?? "Admin approved");
-    // Release to client for review when whitelist allows.
-    const after = await getCase(caseId, me);
-    if ((ALLOWED_TRANSITIONS[String(after.status)] ?? []).includes("AWAITING_CLIENT_APPROVAL")) {
-      await transition(
-        after,
-        "AWAITING_CLIENT_APPROVAL",
-        me,
-        "Approved draft released to client for review",
-      );
-    }
-    await notify(
-      kase.client_user_id as string,
-      "Your tax return draft is ready to review",
-      "Your accountant's draft has been approved by Admin and is ready for you to review.\n\n" +
-        "Please check the figures carefully." +
-        (kase.tax_year ? `\n\nTax year: ${kase.tax_year}` : ""),
+    const { updated, released } = await adminApproveSubmittedDraft(
       caseId,
-      "/dashboard/my-documents",
-      "APPROVAL",
+      me,
+      body.note ?? null,
     );
-    if (kase.assigned_accountant_id) {
-      await notify(
-        String(kase.assigned_accountant_id),
-        "Admin approved your draft",
-        `${kase.client_name ?? "Client"} — draft approved`,
-        caseId,
-        `/tax-return-list/${caseId}`,
-        "APPROVAL",
-      );
-    }
-    const updated = await getCase(caseId, me);
     sendCompatSuccess(
       res,
       { ...decorateCase(updated), draftsReleased: released },

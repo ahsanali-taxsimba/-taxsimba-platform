@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { FaPhone, FaEnvelope } from "react-icons/fa";
@@ -46,6 +46,22 @@ const EditProfile = ({ userData, sessionData, setTrackUpdate }) => {
   };
   const [isEditProfile, setIsEditProfile] = useState(false);
   const [formData, setFormData] = useState(initialFormState);
+  const [engagementStatus, setEngagementStatus] = useState(null);
+
+  useEffect(() => {
+    const token = sessionData?.accessToken;
+    if (!token) return;
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001/api/";
+    axios
+      .get(`${apiUrl}client/engagement-letter-status`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        const data = res.data?.data || res.data || {};
+        setEngagementStatus(data);
+      })
+      .catch(() => setEngagementStatus(null));
+  }, [sessionData?.accessToken]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -266,6 +282,36 @@ const EditProfile = ({ userData, sessionData, setTrackUpdate }) => {
                 <hr />
               </div>
             </Col>
+            <Col lg={6}>
+              <div className="mb-4" data-testid="engagement-acceptance-status">
+                <h6 className="mb-1">Engagement letter</h6>
+                <p className="text-muted mb-0">
+                  {engagementStatus?.isEngagementLetterAccepted ||
+                  engagementStatus?.is_engagement_letter_accepted
+                    ? `Accepted${
+                        engagementStatus.engagementAcceptedAt ||
+                        engagementStatus.engagement_accepted_at
+                          ? ` · ${new Date(
+                              engagementStatus.engagementAcceptedAt ||
+                                engagementStatus.engagement_accepted_at,
+                            ).toLocaleString("en-GB")}`
+                          : ""
+                      }${
+                        engagementStatus.agreementVersion ||
+                        engagementStatus.agreement_version
+                          ? ` · v${
+                              engagementStatus.agreementVersion ||
+                              engagementStatus.agreement_version
+                            }`
+                          : ""
+                      }`
+                    : sessionData?.user?.engagementAcceptedAt
+                      ? `Accepted · ${new Date(sessionData.user.engagementAcceptedAt).toLocaleString("en-GB")}`
+                      : "Not yet accepted"}
+                </p>
+                <hr />
+              </div>
+            </Col>
             <Col lg={12}>
               <div className="mb-4">
                 <h6 className="mb-1">Address</h6>
@@ -302,7 +348,7 @@ const EditProfile = ({ userData, sessionData, setTrackUpdate }) => {
           </Row>}
 
           {/* ── Onboarding Questionnaire ── */}
-          {!isEditProfile && userData.userRole === "MTD" && (
+          {!isEditProfile && (userData.userRole === "MTD" || userData.userRole === "SA" || userData.ownership === "sa" || userData.ownership === "mtd" || userData.ownership === "both" || userData.jobRole || userData.businessType) && (
             <div
               style={{
                 marginTop: 32,
@@ -312,6 +358,7 @@ const EditProfile = ({ userData, sessionData, setTrackUpdate }) => {
                 padding: '28px 28px 8px',
                 position: 'relative',
               }}
+              data-testid="onboarding-questionnaire"
             >
               {/* Section Header */}
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
@@ -325,7 +372,7 @@ const EditProfile = ({ userData, sessionData, setTrackUpdate }) => {
                     Onboarding Questionnaire
                   </h5>
                   <p style={{ margin: 0, fontSize: 12, color: '#6b8f7e' }}>
-                    Your answers from the initial MTD setup wizard
+                    Your answers from the initial setup wizard
                   </p>
                 </div>
                 <span style={{
@@ -347,6 +394,27 @@ const EditProfile = ({ userData, sessionData, setTrackUpdate }) => {
                   <div className="mb-4">
                     <h6 className="mb-1" style={{ color: '#1a3d2b' }}>Business Name</h6>
                     <p className="text-muted">{userData.businessName || "N/A"}</p>
+                    <hr style={{ borderColor: '#d4ede0' }} />
+                  </div>
+                </Col>
+                <Col lg={6}>
+                  <div className="mb-4">
+                    <h6 className="mb-1" style={{ color: '#1a3d2b' }}>Job Role</h6>
+                    <p className="text-muted" data-testid="profile-job-role">{userData.jobRole || "N/A"}</p>
+                    <hr style={{ borderColor: '#d4ede0' }} />
+                  </div>
+                </Col>
+                <Col lg={6}>
+                  <div className="mb-4">
+                    <h6 className="mb-1" style={{ color: '#1a3d2b' }}>Employment Status</h6>
+                    <p className="text-muted" data-testid="profile-employment-status">{userData.employmentStatus || "N/A"}</p>
+                    <hr style={{ borderColor: '#d4ede0' }} />
+                  </div>
+                </Col>
+                <Col lg={6}>
+                  <div className="mb-4">
+                    <h6 className="mb-1" style={{ color: '#1a3d2b' }}>UTR</h6>
+                    <p className="text-muted">{userData.utr || "N/A"}</p>
                     <hr style={{ borderColor: '#d4ede0' }} />
                   </div>
                 </Col>

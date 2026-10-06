@@ -28,15 +28,17 @@ import { useSession } from 'next-auth/react';
 import AdminFlags from '@/components/FlagModal/AdminFlag';
 import { getNotificationIcon } from '@/utils/getNotification';
 import BellButton from '@/components/NotficationData/BellButton';
+import SafeMessageBody from '@/components/SafeMessageBody';
 import { toast } from 'react-toastify';
 import DownloadCertificate from '@/components/TaxReturnModal/DownloadCertificateModal';
-import { canAssignCases } from '@/lib/roles';
+import { canApproveDrafts, canAssignCases } from '@/lib/roles';
 
 const AdminTaxReturnDetails = () => {
   const router = useRouter();
   const { data } = useSession();
   const userData = data?.user;
   const canAssign = canAssignCases(userData?.role);
+  const canApprove = canApproveDrafts(userData?.role);
 
   // Normalize route param from useParams
   const params = useParams<{ taxReturnId?: string | string[] }>();
@@ -99,14 +101,112 @@ const AdminTaxReturnDetails = () => {
     if (!taxReturnIdStr) return;
     try {
       const response = await clientAxios.post(`/admin/get-review/${encodeURIComponent(taxReturnIdStr)}`);
-      console.log(response.data.data, "response==>")
       if (response.data.success) {
-        setReviews(response.data.data);
+        const payload = response.data.data;
+        // API returns { case, reviews, allowedTransitions } — not a bare array.
+        const list = Array.isArray(payload)
+          ? payload
+          : Array.isArray(payload?.reviews)
+            ? payload.reviews
+            : [];
+        setReviews(list);
       }
     } catch (err) {
       console.error('Error fetching review data:', err);
     }
   }
+
+  const awaitingAdminDraftReview = () => {
+    const node =
+      progressData?.nodeStatus ||
+      progressData?.workflowStatus ||
+      taxReturn?.status ||
+      '';
+    const normalized = String(node).toUpperCase();
+    return (
+      normalized === 'READY_FOR_ADMIN_REVIEW' ||
+      normalized === 'ADMIN_REVIEW' ||
+      String(taxReturn?.status || '').toLowerCase() === 'ready_for_admin_review' ||
+      String(taxReturn?.status || '').toLowerCase() === 'admin_review'
+    );
+  };
+
+  const handleApproveDraft = async () => {
+    if (!canApprove) {
+      toast.error('Only an Admin can approve accountant drafts.');
+      return;
+    }
+    if (!taxReturnIdStr) return;
+    setApproving(true);
+    try {
+      const response = await clientAxios.post(
+        `/admin/manage-review/${encodeURIComponent(taxReturnIdStr)}`,
+        { action: 'approve' },
+      );
+      if (response.data.success) {
+        toast.success('Draft approved. The client can now review it.');
+        await fetchTaxReturnData();
+        await fetchProgressData();
+        await fetchReviewData();
+        setNotifications((prev) => [
+          {
+            id: Date.now(),
+            type: 'approve',
+            message: 'Accountant draft approved and released to client',
+            time: 'Just now',
+            read: false,
+          },
+          ...prev,
+        ]);
+      } else {
+        toast.error(response.data.message || 'Failed to approve draft');
+      }
+    } catch (err) {
+      toast.error(
+        (err as any)?.response?.data?.message ||
+          (err as any)?.response?.data?.detail ||
+          'Failed to approve draft',
+      );
+    } finally {
+      setApproving(false);
+    }
+  };
+
+  const handleReturnDraft = async () => {
+    if (!canApprove) {
+      toast.error('Only an Admin can return accountant drafts.');
+      return;
+    }
+    if (!taxReturnIdStr) return;
+    const reason = window.prompt('Reason for returning the draft to the accountant:') || '';
+    if (!reason.trim()) {
+      toast.error('A return reason is required.');
+      return;
+    }
+    setRejecting(true);
+    try {
+      const response = await clientAxios.post(
+        `/admin/manage-review/${encodeURIComponent(taxReturnIdStr)}`,
+        { action: 'return', reason, note: reason },
+      );
+      if (response.data.success) {
+        toast.success('Draft returned to accountant.');
+        await fetchTaxReturnData();
+        await fetchProgressData();
+        await fetchReviewData();
+      } else {
+        toast.error(response.data.message || 'Failed to return draft');
+      }
+    } catch (err) {
+      toast.error(
+        (err as any)?.response?.data?.message ||
+          (err as any)?.response?.data?.detail ||
+          'Failed to return draft',
+      );
+    } finally {
+      setRejecting(false);
+    }
+  };
 
   useEffect(() => {
     fetchTaxReturnData();
@@ -367,8 +467,28 @@ const AdminTaxReturnDetails = () => {
       return
     }
     if (newStatus == "final_submitted") {
-      setShowFinalCertificateModal(true)
-      return
+      const toxel = String(progressData?.status || "").toLowerCase();
+      const node = String(
+        (progressData as { nodeStatus?: string } | null)?.nodeStatus ||
+          (taxReturn as { nodeStatus?: string } | null)?.nodeStatus ||
+          "",
+      ).toUpperCase();
+      if (
+        toxel === "ready_for_submission" ||
+        node === "READY_FOR_SUBMISSION" ||
+        toxel === "client_approved"
+      ) {
+        toast.error(
+          "Record external submission (date + reference) before uploading the final certificate.",
+        );
+        return;
+      }
+      if (toxel !== "final_submitted" && node !== "SUBMITTED" && node !== "SUBMISSION_IN_PROGRESS") {
+        toast.error("Record external submission before uploading the final certificate.");
+        return;
+      }
+      setShowFinalCertificateModal(true);
+      return;
     }
     setLoading(true);
     postProgressData(newStatus)
@@ -648,6 +768,28 @@ const AdminTaxReturnDetails = () => {
                     <Upload className="h-4 w-4" />
                     <span>Upload Draft</span>
                   </button>
+                  {canApprove && awaitingAdminDraftReview() && (
+                    <>
+                      <button
+                        type="button"
+                        onClick={handleApproveDraft}
+                        disabled={approving}
+                        className="flex items-center space-x-2 bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 disabled:opacity-60"
+                      >
+                        <FileText className="h-4 w-4" />
+                        <span>{approving ? 'Approving…' : 'Approve Draft'}</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleReturnDraft}
+                        disabled={rejecting}
+                        className="flex items-center space-x-2 bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 disabled:opacity-60"
+                      >
+                        <AlertTriangle className="h-4 w-4" />
+                        <span>{rejecting ? 'Returning…' : 'Return Draft'}</span>
+                      </button>
+                    </>
+                  )}
                   {canAssign && taxReturn.status !== 'assigned' && (
                     <button
                       onClick={() => {
@@ -1086,9 +1228,10 @@ const AdminTaxReturnDetails = () => {
                                 )}
 
                               {email.parsedEmailData?.messageText && (
-                                <div className="text-sm leading-relaxed">
-                                  {email.parsedEmailData.messageText}
-                                </div>
+                                <SafeMessageBody
+                                  content={email.parsedEmailData.messageText}
+                                  className="text-sm leading-relaxed"
+                                />
                               )}
 
                               {email.parsedEmailData?.documentList && (

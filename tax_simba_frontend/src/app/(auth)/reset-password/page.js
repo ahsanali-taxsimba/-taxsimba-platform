@@ -3,7 +3,7 @@ import { Suspense } from "react"
 export default function Page(){
   return (
     <>
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense fallback={<p className="text-center p-5">Loading password reset…</p>}>
           <ResetPasswordPage/>
         </Suspense>
     </>

@@ -37,6 +37,8 @@ export default function EngagementLetterPage() {
         businessType: "",
         businessName: "",
         utr: "",
+        jobRole: "",
+        employmentStatus: "",
         govGatewayStatus: "",
         isRegisteredForMTD: "",
         currentAccountant: "",
@@ -62,6 +64,13 @@ export default function EngagementLetterPage() {
         proofOfAddress: null
     });
     const [validated, setValidated] = useState(false);
+    // F-002: reuse this questionnaire for SA as well as MTD.
+    const ownershipNow = session?.user?.ownership || session?.ownership;
+    const isSaQuestionnaire =
+        ownershipNow === "sa" ||
+        (ownershipNow !== "mtd" &&
+            session?.user?.hasActiveSa === true &&
+            session?.user?.hasActiveMtd !== true);
 
     useEffect(() => {
         if (session?.user) {
@@ -71,6 +80,14 @@ export default function EngagementLetterPage() {
                 surname: session.user.surname || session.user.lastName || "",
                 address: session.user.address || ""
             }));
+            // Resume SA/MTD questionnaire if engagement done but tax info incomplete.
+            const accepted =
+                session.user.isEngagementLetterAccepted === true ||
+                session.isEngagementLetterAccepted === true;
+            const submitted = session.user.isTaxInfoSubmitted === true;
+            if (accepted && !submitted) {
+                setShowTaxModal(true);
+            }
         }
     }, [session]);
 
@@ -167,14 +184,17 @@ export default function EngagementLetterPage() {
             );
             await updateSession({ isEngagementLetterAccepted: true });
 
-            // Prefer ownership SoT (K.3) over legacy userRole === 'MTD'.
+            // F-002 product decision: SA clients require onboarding questions
+            // (reuse this modal). MTD / both also continue to show it.
             const ownership = session?.user?.ownership || session?.ownership;
-            const isMtdPath =
-              ownership === 'mtd' ||
-              ownership === 'both' ||
+            const needsTaxInfo =
+              ownership === "sa" ||
+              ownership === "mtd" ||
+              ownership === "both" ||
+              session?.user?.hasActiveSa === true ||
               session?.user?.hasActiveMtd === true;
 
-            if (isMtdPath && ownership !== 'sa') {
+            if (needsTaxInfo) {
                 setShowTaxModal(true);
                 setLoading(false);
             } else {
@@ -204,6 +224,14 @@ export default function EngagementLetterPage() {
                     submitData.append(key, formData[key]);
                 }
             });
+            submitData.append(
+                "serviceType",
+                isSaQuestionnaire ? "SELF_ASSESSMENT" : "MTD_INCOME_TAX",
+            );
+            submitData.append(
+                "service_type",
+                isSaQuestionnaire ? "SELF_ASSESSMENT" : "MTD_INCOME_TAX",
+            );
             
             // Append files
             const typeMap = {
@@ -221,33 +249,92 @@ export default function EngagementLetterPage() {
                 }
             });
 
-            // TS-UAT-032: mint the MTD operational case at application submit (not at purchase).
-            await axios.post(
+            // TS-UAT-032 / F-002: mint the operational case for the active service.
+            const applyServiceType = isSaQuestionnaire
+                ? "SELF_ASSESSMENT"
+                : "MTD_INCOME_TAX";
+            const applyRes = await axios.post(
                 `${apiUrl}client/apply-tax-return`,
-                { serviceType: "MTD_INCOME_TAX", service_type: "MTD_INCOME_TAX" },
+                { serviceType: applyServiceType, service_type: applyServiceType },
                 { headers: { Authorization: `Bearer ${session?.accessToken}` } }
             );
+            if (applyRes?.data?.success === false) {
+                throw new Error(
+                    applyRes?.data?.message ||
+                        applyRes?.data?.detail ||
+                        "Failed to start tax return application.",
+                );
+            }
 
-            await axios.post(
+            // Do NOT set Content-Type manually — the browser must attach the multipart
+            // boundary. A bare `multipart/form-data` header makes Multer hang forever
+            // (Toxsl: SUBMITTING… with pending submit-tax-info).
+            // Also strip any accidental Content-Type from axios defaults.
+            const taxInfoRes = await axios.post(
                 `${apiUrl}client/submit-tax-info`,
                 submitData,
-                { 
-                    headers: { 
+                {
+                    headers: {
                         Authorization: `Bearer ${session?.accessToken}`,
-                        'Content-Type': 'multipart/form-data'
-                    } 
-                }
+                        // Explicit false / omit so axios will not force multipart without boundary.
+                    },
+                    timeout: 120000,
+                    // Prevent axios from transforming FormData into JSON.
+                    transformRequest: [
+                        (data, headers) => {
+                            if (typeof FormData !== "undefined" && data instanceof FormData) {
+                                if (headers && typeof headers === "object") {
+                                    delete headers["Content-Type"];
+                                    delete headers["content-type"];
+                                }
+                            }
+                            return data;
+                        },
+                    ],
+                },
             );
-            await updateSession({ isTaxInfoSubmitted: true });
+            if (taxInfoRes?.data?.success === false) {
+                throw new Error(
+                    taxInfoRes?.data?.message ||
+                        taxInfoRes?.data?.detail ||
+                        "Failed to submit information.",
+                );
+            }
+            try {
+                await updateSession({ isTaxInfoSubmitted: true });
+            } catch (sessionErr) {
+                // Session refresh must not strand the UI after a successful submit.
+                console.warn("Session update after tax-info submit failed", sessionErr);
+            }
             setModalStep(21);
+            toast.success("Tax information submitted successfully.");
         } catch (err) {
-            toast.error(err?.response?.data?.message || "Failed to submit information.");
+            const msg =
+                err?.code === "ECONNABORTED"
+                    ? "Submission timed out. Please try again."
+                    : err?.response?.data?.message ||
+                      err?.response?.data?.detail ||
+                      err?.message ||
+                      "Failed to submit information.";
+            toast.error(typeof msg === "string" ? msg : "Failed to submit information.");
         } finally {
             setLoading(false);
         }
     };
 
     const getNextStep = (currentStep, data) => {
+        // SA path: skip MTD-only quarters / gateway questions; include job role.
+        if (isSaQuestionnaire) {
+            if (currentStep === 3) return 100; // job role
+            if (currentStep === 100) return 101; // employment
+            if (currentStep === 101) return 15; // accountant
+            if (currentStep === 15) return 16;
+            if (currentStep === 16) return 17;
+            if (currentStep === 17) return 18;
+            if (currentStep === 18) return 19;
+            if (currentStep === 19) return 20;
+            return currentStep + 1;
+        }
         if (currentStep === 6) {
             if (data.prevSubmittedMTDThisYear === 'Yes, some quarters have been submitted') return 7;
             if (data.prevSubmittedMTDThisYear === 'Yes, all required quarters have been submitted') return 8;
@@ -264,6 +351,17 @@ export default function EngagementLetterPage() {
     };
 
     const getPrevStep = (currentStep, data) => {
+        if (isSaQuestionnaire) {
+            if (currentStep === 100) return 3;
+            if (currentStep === 101) return 100;
+            if (currentStep === 15) return 101;
+            if (currentStep === 16) return 15;
+            if (currentStep === 17) return 16;
+            if (currentStep === 18) return 17;
+            if (currentStep === 19) return 18;
+            if (currentStep === 20) return 19;
+            return currentStep - 1;
+        }
         if (currentStep === 9) {
             if (data.prevSubmittedMTDThisYear === 'Yes, some quarters have been submitted' || data.prevSubmittedMTDThisYear === 'Yes, all required quarters have been submitted') return 8;
             return 6;
@@ -292,18 +390,26 @@ export default function EngagementLetterPage() {
                 return toast.error("Please enter a valid 10-digit UTR, or leave blank to provide later.");
             }
         }
-        if (modalStep === 4 && !formData.govGatewayStatus) return toast.error("Please select an option.");
-        if (modalStep === 5 && !formData.isRegisteredForMTD) return toast.error("Please select an option.");
-        
-        if (modalStep === 6 && !formData.prevSubmittedMTDThisYear) return toast.error("Please select an option.");
-        if (modalStep === 7 && formData.submittedQuarters.length === 0) return toast.error("Please select at least one quarter.");
-        if (modalStep === 8 && !formData.whoSubmittedQuarters) return toast.error("Please select an option.");
-        if (modalStep === 9 && !formData.hasOutstandingMTDSubmissions) return toast.error("Please select an option.");
-        if (modalStep === 10 && !formData.reviewPreviousMTDSubmissions) return toast.error("Please select an option.");
-        if (modalStep === 11 && !formData.firstQuarterToManage) return toast.error("Please select an option.");
-        if (modalStep === 12 && !formData.hasGatewayCredentials) return toast.error("Please select an option.");
-        if (modalStep === 13 && !formData.previousMTDSoftware) return toast.error("Please select an option.");
-        if (modalStep === 14 && !formData.otherActiveIncomeSources) return toast.error("Please select an option.");
+        if (modalStep === 100 && !String(formData.jobRole || "").trim()) {
+            return toast.error("Please enter your job role.");
+        }
+        if (modalStep === 101 && !formData.employmentStatus) {
+            return toast.error("Please select your employment status.");
+        }
+        if (!isSaQuestionnaire) {
+            if (modalStep === 4 && !formData.govGatewayStatus) return toast.error("Please select an option.");
+            if (modalStep === 5 && !formData.isRegisteredForMTD) return toast.error("Please select an option.");
+            
+            if (modalStep === 6 && !formData.prevSubmittedMTDThisYear) return toast.error("Please select an option.");
+            if (modalStep === 7 && formData.submittedQuarters.length === 0) return toast.error("Please select at least one quarter.");
+            if (modalStep === 8 && !formData.whoSubmittedQuarters) return toast.error("Please select an option.");
+            if (modalStep === 9 && !formData.hasOutstandingMTDSubmissions) return toast.error("Please select an option.");
+            if (modalStep === 10 && !formData.reviewPreviousMTDSubmissions) return toast.error("Please select an option.");
+            if (modalStep === 11 && !formData.firstQuarterToManage) return toast.error("Please select an option.");
+            if (modalStep === 12 && !formData.hasGatewayCredentials) return toast.error("Please select an option.");
+            if (modalStep === 13 && !formData.previousMTDSoftware) return toast.error("Please select an option.");
+            if (modalStep === 14 && !formData.otherActiveIncomeSources) return toast.error("Please select an option.");
+        }
 
         if (modalStep === 15 && !formData.currentAccountant) return toast.error("Please select an option.");
         if (modalStep === 16 && formData.incomeSources.length === 0) return toast.error("Please select at least one income source.");
@@ -547,7 +653,22 @@ export default function EngagementLetterPage() {
                         <div className="el-info-grid">
                             <div className="el-info-card">
                                 <label>Client Signatory</label>
-                                <p>{session?.user?.firstName} {session?.user?.lastName}</p>
+                                <p data-testid="engagement-client-name">
+                                  {session?.user?.firstName || session?.user?.name || "Client"}
+                                  {session?.user?.lastName ? ` ${session.user.lastName}` : ""}
+                                </p>
+                            </div>
+                            <div className="el-info-card">
+                                <label>Service</label>
+                                <p data-testid="engagement-service-line">
+                                  {String(session?.user?.userRole || session?.user?.role || "")
+                                    .toUpperCase()
+                                    .includes("MTD")
+                                    ? "Making Tax Digital for Income Tax"
+                                    : "Self Assessment"}
+                                  {" · "}
+                                  selected subscription plan
+                                </p>
                             </div>
                             <div className="el-info-card">
                                 <label>Reference Date</label>
@@ -565,8 +686,25 @@ export default function EngagementLetterPage() {
                             <div className="el-card">
                                 {idx === 0 && (
                                     <>
-                                        <p>Welcome to <strong>TaxSimba</strong>.</p>
-                                        <p>By subscribing to our platform, you agree to the following terms.</p>
+                                        <p>
+                                          Welcome to <strong>TaxSimba</strong>
+                                          {(session?.user?.firstName || session?.user?.name)
+                                            ? `, ${(session?.user?.firstName || session?.user?.name)}${session?.user?.lastName ? ` ${session.user.lastName}` : ""}`
+                                            : ""}
+                                          .
+                                        </p>
+                                        <p data-testid="engagement-intro-service">
+                                          This engagement covers your{" "}
+                                          <strong>
+                                            {String(session?.user?.userRole || session?.user?.role || "")
+                                              .toUpperCase()
+                                              .includes("MTD")
+                                              ? "Making Tax Digital for Income Tax"
+                                              : "Self Assessment"}
+                                          </strong>{" "}
+                                          service under your selected subscription plan.
+                                        </p>
+                                        <p>By continuing, you agree to the following terms.</p>
                                     </>
                                 )}
                                 {idx === 1 && (
@@ -577,8 +715,18 @@ export default function EngagementLetterPage() {
                                 )}
                                 {idx === 2 && (
                                     <>
-                                        <p>Your subscription begins when your first payment is successfully processed.</p>
-                                        <p>Your subscription renews automatically on a monthly basis unless cancelled.</p>
+                                        <p data-testid="engagement-subscription-service">
+                                          Your{" "}
+                                          <strong>
+                                            {String(session?.user?.userRole || session?.user?.role || "")
+                                              .toUpperCase()
+                                              .includes("MTD")
+                                              ? "Making Tax Digital"
+                                              : "Self Assessment"}
+                                          </strong>{" "}
+                                          subscription begins when your first payment is successfully processed.
+                                        </p>
+                                        <p>Your subscription renews according to the billing terms of your selected plan unless cancelled.</p>
                                         <p style={{ marginTop: 16 }}>You may cancel your subscription at any time through your dashboard. Cancellation will take effect at the end of your current billing period.</p>
                                     </>
                                 )}
@@ -640,11 +788,37 @@ export default function EngagementLetterPage() {
             <div className="el-footer-gate">
                 <div className="el-gate-glass">
                     <div className="el-chk-col">
-                        <div className="el-chk-row" onClick={() => setAccepted(!accepted)}>
+                        <div
+                          className="el-chk-row"
+                          role="checkbox"
+                          aria-checked={accepted}
+                          data-testid="engagement-agree-subscription"
+                          tabIndex={0}
+                          onClick={() => setAccepted(!accepted)}
+                          onKeyDown={(e) => {
+                            if (e.key === " " || e.key === "Enter") {
+                              e.preventDefault();
+                              setAccepted((v) => !v);
+                            }
+                          }}
+                        >
                             <div className={`el-toggle ${accepted ? 'on' : ''}`} />
                             <div className="el-chk-label">I agree to the TaxSimba Subscription Agreement</div>
                         </div>
-                        <div className="el-chk-row" onClick={() => setTermsAccepted(!termsAccepted)}>
+                        <div
+                          className="el-chk-row"
+                          role="checkbox"
+                          aria-checked={termsAccepted}
+                          data-testid="engagement-agree-terms"
+                          tabIndex={0}
+                          onClick={() => setTermsAccepted(!termsAccepted)}
+                          onKeyDown={(e) => {
+                            if (e.key === " " || e.key === "Enter") {
+                              e.preventDefault();
+                              setTermsAccepted((v) => !v);
+                            }
+                          }}
+                        >
                             <div className={`el-toggle ${termsAccepted ? 'on' : ''}`} />
                             <div className="el-chk-label">I agree to the Terms of Service and Privacy Policy</div>
                         </div>
@@ -652,7 +826,20 @@ export default function EngagementLetterPage() {
 
                     <div className="el-sig-col">
                         <div className="el-sig-canvas-box">
-                            <canvas ref={canvasRef} width={1000} height={220} className="el-sig-canvas" onMouseDown={startDraw} onMouseMove={draw} onMouseUp={endDraw} onMouseLeave={endDraw} onTouchStart={startDraw} onTouchMove={draw} onTouchEnd={endDraw} />
+                            <canvas
+                              ref={canvasRef}
+                              width={1000}
+                              height={220}
+                              className="el-sig-canvas"
+                              data-testid="engagement-signature-canvas"
+                              onMouseDown={startDraw}
+                              onMouseMove={draw}
+                              onMouseUp={endDraw}
+                              onMouseLeave={endDraw}
+                              onTouchStart={startDraw}
+                              onTouchMove={draw}
+                              onTouchEnd={endDraw}
+                            />
                             <div className="el-clear" onClick={clearSignature}>Clear</div>
                         </div>
                     </div>
@@ -661,31 +848,44 @@ export default function EngagementLetterPage() {
                         <div style={{ fontSize: 12, color: '#000', textAlign: 'center', fontWeight: 600, paddingBottom: 8 }}>
                             No long-term contracts. Cancel anytime. Dedicated accountant support included. Secure HMRC compliant service.
                         </div>
-                        <button className="el-btn-main" onClick={handleSubmitLetter} disabled={loading || !accepted || !termsAccepted || !hasSignature}>
+                        <button
+                          className="el-btn-main"
+                          data-testid="engagement-agree-submit"
+                          onClick={handleSubmitLetter}
+                          disabled={loading || !accepted || !termsAccepted || !hasSignature}
+                        >
                             {loading ? "PROCESSING..." : "AGREE & CONTINUE →"}
                         </button>
                     </div>
                 </div>
             </div>
 
-            {/* --- TAX INFO MODAL (MTD ONLY) --- */}
+            {/* --- TAX INFO MODAL (SA + MTD — F-002) --- */}
             {showTaxModal && (
                 <div className="tx-overlay">
                     <div className="tx-modal" style={{ maxWidth: 600 }}>
                         <div style={{ textAlign: 'center', marginBottom: 20 }}>
                             <div style={{ fontSize: 13, fontWeight: 700, color: '#b3ed97', textTransform: 'uppercase', marginBottom: 12 }}>
-                                {modalStep <= 20 ? `Progress: ${((modalStep - 1) / 20 * 100).toFixed(0)}% Complete` : ''}
+                                {modalStep <= 20 || modalStep >= 100 ? `Onboarding questionnaire` : ''}
                             </div>
                             <div className="tx-step-dot" style={{ background: 'rgba(255,255,255,0.1)', height: 4, width: '100%', marginBottom: 16 }}>
-                                <div style={{ height: '100%', background: 'var(--theme-color)', width: `${modalStep <= 20 ? ((modalStep - 1) / 20 * 100) : 100}%`, transition: '0.3s', borderRadius: 4 }} />
+                                <div style={{ height: '100%', background: 'var(--theme-color)', width: `${modalStep === 21 ? 100 : 40}%`, transition: '0.3s', borderRadius: 4 }} />
                             </div>
-                            {modalStep <= 20 && <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)' }}>Question {modalStep} of 20</div>}
+                            {modalStep !== 21 && (
+                                <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)' }}>
+                                    {isSaQuestionnaire ? "Self Assessment onboarding" : "Making Tax Digital onboarding"}
+                                </div>
+                            )}
                         </div>
 
                         {modalStep === 1 && (
                             <div className="tx-fade-in">
                                 <h2 className="tx-title" style={{ fontSize: 24 }}>Welcome to TaxSimba</h2>
-                                <p className="tx-sub" style={{ marginBottom: 24 }}>Let’s get your business set up for Making Tax Digital. This should only take 2–3 minutes.</p>
+                                <p className="tx-sub" style={{ marginBottom: 24 }}>
+                                    {isSaQuestionnaire
+                                        ? "Let’s collect a few Self Assessment details so your accountant can get started. This should only take 2–3 minutes."
+                                        : "Let’s get your business set up for Making Tax Digital. This should only take 2–3 minutes."}
+                                </p>
                                 
                                 <label className="tx-label">What type of business do you operate? <span>*</span></label>
                                 <div className="tx-radio-group">
@@ -714,7 +914,7 @@ export default function EngagementLetterPage() {
                             <div className="tx-fade-in">
                                 <label className="tx-label">What is your Unique Taxpayer Reference (UTR)? <span style={{ fontWeight: 400, opacity: 0.8 }}>(Optional)</span></label>
                                 <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.65)', marginBottom: 12 }}>
-                                    You can leave this blank and provide it later, or your accountant can request it.
+                                    You can leave this blank and provide it later, or your accountant can request it. Missing UTR does not block dashboard access.
                                 </p>
                                 <div className="tx-form-group">
                                     <input className="tx-input" value={formData.utr} onChange={(e) => setFormData({ ...formData, utr: e.target.value })} placeholder="Enter 10-digit UTR Number (optional)" maxLength={10} />
@@ -724,7 +924,44 @@ export default function EngagementLetterPage() {
                             </div>
                         )}
 
-                        {modalStep === 4 && (
+                        {modalStep === 100 && (
+                            <div className="tx-fade-in">
+                                <label className="tx-label">What is your job role / occupation? <span>*</span></label>
+                                <div className="tx-form-group">
+                                    <input
+                                        className={`tx-input ${validated && !formData.jobRole ? 'error' : ''}`}
+                                        value={formData.jobRole}
+                                        onChange={(e) => setFormData({ ...formData, jobRole: e.target.value })}
+                                        placeholder="e.g. Freelance designer, Landlord, Company director"
+                                        data-testid="sa-job-role"
+                                    />
+                                </div>
+                                <button className="tx-btn-next" onClick={handleNextStep}>Continue</button>
+                                <button style={{ width: '100%', padding: 12, background: 'transparent', border: 'none', color: '#fff', marginTop: 8, cursor: 'pointer', fontSize: 13 }} onClick={handlePrevStep}>← Go Back</button>
+                            </div>
+                        )}
+
+                        {modalStep === 101 && (
+                            <div className="tx-fade-in">
+                                <label className="tx-label">What is your employment status? <span>*</span></label>
+                                <div className="tx-radio-group">
+                                    {['Self-employed', 'Employed (PAYE)', 'Both employed and self-employed', 'Landlord / property income only', 'Other / not sure'].map(val => (
+                                        <div
+                                            key={val}
+                                            className={`tx-radio-label ${formData.employmentStatus === val ? 'active' : ''} ${validated && !formData.employmentStatus ? 'error' : ''}`}
+                                            onClick={() => setFormData({ ...formData, employmentStatus: val })}
+                                            data-testid="sa-employment-status"
+                                        >
+                                            <div className="tx-radio-circle" /> {val}
+                                        </div>
+                                    ))}
+                                </div>
+                                <button className="tx-btn-next" onClick={handleNextStep}>Continue</button>
+                                <button style={{ width: '100%', padding: 12, background: 'transparent', border: 'none', color: '#fff', marginTop: 8, cursor: 'pointer', fontSize: 13 }} onClick={handlePrevStep}>← Go Back</button>
+                            </div>
+                        )}
+
+                        {modalStep === 4 && !isSaQuestionnaire && (
                             <div className="tx-fade-in">
                                 <label className="tx-label">Do you have a Government Gateway account? <span>*</span></label>
                                 <div className="tx-radio-group">

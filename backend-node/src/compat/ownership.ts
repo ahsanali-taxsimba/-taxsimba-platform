@@ -60,11 +60,13 @@ export function activeSubscriptionsFromServices(services: Doc[]): Doc[] {
       packageCode: s.package_code,
       startDate: s.activated_at ?? s.subscription_started_at ?? null,
       plan: {
-        id: s.package_code,
+        // Prefer real package UUID when servicesFor attached it; else code.
+        id: s.package_id ?? s.package_code,
         code: s.package_code,
         name: s.package_name ?? s.package_code,
-        price: s.agreed_price ?? s.package_price ?? null,
+        price: s.agreed_price ?? s.package_price ?? s.current_master_price ?? null,
         interval: s.billing_frequency ?? null,
+        billingType: s.billing_type ?? null,
       },
       currency: "gbp",
     }));
@@ -74,6 +76,7 @@ export function categoryToServiceType(category: string | null | undefined): stri
   const c = (category ?? "").trim().toLowerCase();
   if (!c) return null;
   if (c === "taxsimba" || c === "self_assessment" || c === "sa") return SELF_ASSESSMENT;
-  if (c === "mtd" || c === "mtd_income_tax") return MTD;
+  // "simbian" is the MTD product brand — keep as a catalogue alias for MTD.
+  if (c === "mtd" || c === "mtd_income_tax" || c === "simbian") return MTD;
   return null;
 }

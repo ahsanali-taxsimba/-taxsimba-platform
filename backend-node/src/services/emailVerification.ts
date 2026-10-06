@@ -6,11 +6,11 @@
  */
 import { createHash, randomBytes, randomUUID } from "crypto";
 
-import { env } from "../config/env";
 import { col, Doc } from "../db/mongo";
 import { httpError } from "../http/errors";
 import { nowIso } from "../domain/workflow";
 import { queueEmail } from "./email";
+import { requirePublicAppBaseUrl } from "./emailPublicUrls";
 import { resolveEmailFirstName } from "./emailRecipient";
 
 export const VERIFY_TTL_HOURS = 48;
@@ -20,7 +20,7 @@ function hashToken(token: string): string {
 }
 
 function appBase(): string {
-  return (env("APP_BASE_URL") ?? "https://taxsimba.co.uk").replace(/\/+$/, "");
+  return requirePublicAppBaseUrl();
 }
 
 export function isEmailVerified(user: Doc | null | undefined): boolean {

@@ -1,31 +1,28 @@
 'use client'
-// import TextInputField from '../../../components/default/TextInputField'
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import TextInputField from '../../../components/default/TextInputField'
 import RegistrationLoginLayout from '../_authLayout/RegistrationLoginLayout'
-// import RegistrationLoginLayout from '../_authLayout/RegistrationLoginLayout'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEye,
   faEyeSlash,
-  faParagraph,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
-import { useSearchParams } from 'next/navigation'
-import Pcomponent from '../../utils/typography/Pcomponent';
-import H2component from '../../utils/typography/H2component';
 import toast from 'react-hot-toast';
-import { TranslatedHeading, TranslatedHeadingTwo, TranslatedHeadingThree, TranslatedHeadingFour, TranslatedHeadingFive, TranslatedParagraph, TranslatedButton, TranslatedSpan, TranslatedNextLink, TranslatedInput } from "@/components/TranslatedContent";
-import TranslatedText from "@/components/TranslatedText";
-import { IoIosMail, IoMdMail } from 'react-icons/io';
+import { TranslatedText } from "@/components/TranslatedContent";
+import { IoMdMail } from 'react-icons/io';
+import CheckInbox from '../../../components/default/CheckInbox';
+
+const INVALID_TOKEN_MESSAGE = "Invalid or expired password reset link.";
 
 export default function ResetPasswordPage() {
   const searchParams = useSearchParams()
   const router = useRouter()
-  const token = searchParams.get('token');
+  const token = (searchParams.get('token') || "").trim();
+  const [tokenError, setTokenError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
-
     password: "",
     confirmPassword: "",
   });
@@ -37,10 +34,19 @@ export default function ResetPasswordPage() {
     pass: false,
     confirmPass: false,
   });
+
+  useEffect(() => {
+    if (!token) {
+      setTokenError(INVALID_TOKEN_MESSAGE);
+    } else {
+      setTokenError("");
+    }
+  }, [token]);
+
   const handleView = () => {
     setIsView((prev) => ({
       ...prev,
-      pass: !prev.pass, // toggle pass value
+      pass: !prev.pass,
     }));
   };
   const handleViewConfirm = () => {
@@ -79,10 +85,16 @@ export default function ResetPasswordPage() {
   };
   const handleClick = async (e) => {
     e.preventDefault();
+    if (!token) {
+      setTokenError(INVALID_TOKEN_MESSAGE);
+      toast.error(INVALID_TOKEN_MESSAGE);
+      return;
+    }
     if (formError.password || formError.confirmPassword || !formData.password || !formData.confirmPassword) {
       toast.error("Please fill the passwords correctly");
       return;
     }
+    setSubmitting(true);
     try {
       const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}auth/reset-password`, {
         token: token,
@@ -91,14 +103,41 @@ export default function ResetPasswordPage() {
       })
 
       if (res.status === 200) {
-        toast.success("reset-password successful");
+        toast.success("Password reset successful. Please log in.");
         router.push('/login')
-      }
-      else {
+      } else {
+        const msg = res?.data?.message || "Password reset failed.";
+        setTokenError(msg);
+        toast.error(msg);
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message)
+      const msg =
+        error?.response?.data?.message ||
+        error?.message ||
+        INVALID_TOKEN_MESSAGE;
+      setTokenError(msg);
+      toast.error(msg);
+    } finally {
+      setSubmitting(false);
     }
+  }
+
+  if (tokenError && !token) {
+    return (
+      <RegistrationLoginLayout>
+        <CheckInbox
+          h3Text={tokenError}
+          button={
+            <button
+              className="common-btn w-100 justify-content-center text-center"
+              onClick={() => router.push('/login')}
+            >
+              Go To Login
+            </button>
+          }
+        />
+      </RegistrationLoginLayout>
+    );
   }
 
   return (
@@ -117,7 +156,10 @@ export default function ResetPasswordPage() {
               <div className='registration_part_inner'>
 
                 <div className="sign_in_form_part ">
-                  <h5 className='fw-bold mb-4 text-center'>Forgot your password</h5>
+                  <h5 className='fw-bold mb-4 text-center'>Reset your password</h5>
+                  {tokenError ? (
+                    <p className="text-danger text-center mb-3" role="alert">{tokenError}</p>
+                  ) : null}
                   <form>
                     <div className="sign_in_form">
                       <div className='mb-3 position-relative'>
@@ -128,8 +170,6 @@ export default function ResetPasswordPage() {
                           handleFunction={handleChange}
                           className="password_field"
                           err={formError.password}
-                          // validError={validError}
-                          // spanErrors={spanErrors}
                           placeholder="Enter New Password"
                           eyeIcon={
                             !isView.pass ? (
@@ -177,8 +217,9 @@ export default function ResetPasswordPage() {
                     <div className="form_btn_row">
                       <button
                         className="common-btn w-100 justify-content-center"
+                        disabled={submitting || !token}
                         onClick={(e) => handleClick(e)}
-                      > <TranslatedText> Reset Password </TranslatedText>
+                      > <TranslatedText> {submitting ? "Resetting…" : "Reset Password"} </TranslatedText>
                       </button>
                     </div>
 

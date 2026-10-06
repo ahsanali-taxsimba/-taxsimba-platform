@@ -59,6 +59,7 @@ const navItems: NavItem[] = [
       { name: "Tax Return Type", path: "/tax-return-type", pro: false, adminOnly: true, p0Hide: true },
       { name: "Tax Return", path: "/tax-return-list", pro: false, accountantOnly: true },
       { name: "Tax Manager", path: "/manage-tax", pro: false, adminOnly: true },
+      { name: "MTD Operations", path: "/mtd", pro: false, adminOnly: true },
       { name: "Tax Rates Management", path: "/tax-rates", pro: false, adminOnly: true, p0Hide: true },
     ],
   },

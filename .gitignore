@@ -100,3 +100,9 @@ credentials.json
 parity/*.log
 parity/*-run.json
 parity/PARITY_REPORT.md
+
+# Task 3 local Mailpit evidence (screenshots / email HTML / seed passwords)
+/opt/cursor/artifacts/
+backend-node/artifacts/
+**/task3-local/
+**/entitled_seed.json

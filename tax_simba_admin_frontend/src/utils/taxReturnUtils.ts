@@ -1,5 +1,6 @@
 import { CheckCircle, Clock, DollarSign, FileText, User } from "lucide-react";
 import { GenerateEmailBodyParams } from "./interface";
+import { escapeHtml } from "./sanitizeMessageHtml";
 
   export const formatFileSize = (bytes: number) => {
     if (bytes === 0) return '0 Bytes';
@@ -71,9 +72,9 @@ export   const statusSteps = [
 const toListHtml = (docList?: string | string[]) =>
   Array.isArray(docList)
     ? `<ul style="margin:0;padding-left:18px">${docList
-        .map(item => `<li>${item}</li>`)
+        .map(item => `<li>${escapeHtml(String(item))}</li>`)
         .join('')}</ul>`
-    : docList ?? '';
+    : (docList ? escapeHtml(String(docList)) : '');
 
 const formatDeadline = (d?: string | Date) =>
   d instanceof Date ? d.toLocaleDateString() : d ?? '';
@@ -88,10 +89,10 @@ export const generateEmailBody = (params: GenerateEmailBodyParams): string => {
     accountantEmail,
   } = params;
 
-  let body = `<p style="font-size: 16px; margin-bottom: 20px; color: #333;"><strong>Dear ${clientName || '{{clientName}}'},</strong></p>`;
+  let body = `<p style="font-size: 16px; margin-bottom: 20px; color: #333;"><strong>Dear ${escapeHtml(clientName || '{{clientName}}')},</strong></p>`;
 
   body += `<div style="margin: 25px 0; line-height: 1.8; color: #666; font-size: 16px;">
-    ${emailBody || '{{messageContent}}'}
+    ${emailBody ? escapeHtml(String(emailBody)).replace(/\r\n|\r|\n/g, '<br/>') : '{{messageContent}}'}
   </div>`;
 
   const docsHtml = toListHtml(documentList);
@@ -105,14 +106,14 @@ export const generateEmailBody = (params: GenerateEmailBodyParams): string => {
   const deadlineText = formatDeadline(deadline);
   if (deadlineText) {
     body += `<div style="background: #fff3cd; padding: 15px; margin: 25px 0; border-radius: 4px; border-left: 4px solid #ffc107;">
-      <p style="margin: 0; color: #856404;"><strong>⏰ Deadline:</strong> ${deadlineText}</p>
+      <p style="margin: 0; color: #856404;"><strong>⏰ Deadline:</strong> ${escapeHtml(String(deadlineText))}</p>
     </div>`;
   }
 
   if (additionalNotes) {
     body += `<div style="margin: 25px 0; padding: 20px; background: #e3f2fd; border-radius: 4px;">
       <h4 style="color: #1976d2; margin-top: 0;">💡 Additional Notes:</h4>
-      <div style="color: #0d47a1; margin-bottom: 0;">${additionalNotes}</div>
+      <div style="color: #0d47a1; margin-bottom: 0;">${escapeHtml(String(additionalNotes)).replace(/\r\n|\r|\n/g, '<br/>')}</div>
     </div>`;
   }
 
@@ -120,8 +121,8 @@ export const generateEmailBody = (params: GenerateEmailBodyParams): string => {
     <p style="color: #666;">If you have any questions, please don't hesitate to contact me.</p>
     <p style="color: #333;">
       Best regards,<br>
-      <strong>${accountantName || '{{accountantName}}'}</strong><br>
-      <span style="color: #667eea;">${accountantEmail || '{{accountantEmail}}'}</span>
+      <strong>${escapeHtml(accountantName || '{{accountantName}}')}</strong><br>
+      <span style="color: #667eea;">${escapeHtml(accountantEmail || '{{accountantEmail}}')}</span>
     </p>
   </div>`;
 

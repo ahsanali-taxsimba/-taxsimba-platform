@@ -150,18 +150,30 @@ compatAwRouter.get(
         r.kind === "ADDITIONAL_WORK"
           ? r.description || "Additional work"
           : r.kind === "SA_UPGRADE"
-            ? `Package upgrade${r.new_package ? `: ${r.new_package}` : ""}`
+            ? `Package upgrade difference${
+                r.previous_package && r.new_package
+                  ? ` (${r.previous_package} → ${r.new_package})`
+                  : r.new_package
+                    ? `: ${r.new_package}`
+                    : ""
+              } — amount charged`
             : r.description || "Service activation",
       status:
         r.payment_status === "paid"
           ? "succeeded"
           : r.payment_status === "cancelled"
             ? "cancelled"
-            : r.payment_status,
+            : r.payment_status === "pending"
+              ? "pending"
+              : r.payment_status,
       paymentStatus: r.payment_status,
       createdAt: r.created_at,
       caseRef: r.case_ref ?? null,
       modeOfPayment: "stripe_checkout",
+      previousPackage: r.previous_package ?? null,
+      newPackage: r.new_package ?? null,
+      upgradePrice: r.upgrade_price ?? null,
+      currentPackageCredit: r.current_package_credit ?? null,
     }));
     sendCompatSuccess(res, { transactions }, "OK");
   }),

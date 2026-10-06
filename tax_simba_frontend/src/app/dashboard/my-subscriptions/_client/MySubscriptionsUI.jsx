@@ -1,17 +1,50 @@
 "use client";
-import { Spinner, Row, Col, Table } from "react-bootstrap";
-import { useRouter } from "next/navigation";
+import { Spinner, Row, Col, Alert } from "react-bootstrap";
+import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import { getCurrencySymbol } from "@/utils/commonHelper";
 import { logClientAction } from "@/utils/auditLogger";
+import {
+    addSecondServiceLabel,
+    addSecondServicePath,
+    upgradeCataloguePath,
+} from "@/lib/catalogueJourney";
+import AddSecondServiceBanner from "@/components/AddSecondServiceBanner";
 
 export default function MySubscriptionsUI({ userData, confirmData, allPlans = [], loading, sessionData }) {
     const router = useRouter();
+    const pathname = usePathname();
     const [canceling, setCanceling] = useState(false);
     const [portalLoading, setPortalLoading] = useState(false);
+    const [upgradeLockReason, setUpgradeLockReason] = useState(null);
+
+    useEffect(() => {
+        const token = sessionData?.accessToken;
+        if (!token) return;
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001/api/";
+        axios
+            .get(`${apiUrl}client/subscription/upgrade-options`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((res) => {
+                const data = res.data?.data || res.data || {};
+                if (data.locked) {
+                    setUpgradeLockReason(
+                        data.lockReason ||
+                            data.lock_reason ||
+                            "Package changes are locked at this stage of your return",
+                    );
+                } else {
+                    setUpgradeLockReason(null);
+                }
+            })
+            .catch(() => {
+                /* non-fatal — keep upgrade CTA available */
+            });
+    }, [sessionData?.accessToken]);
 
     const handleBillingPortal = async () => {
         setPortalLoading(true);
@@ -112,17 +145,44 @@ export default function MySubscriptionsUI({ userData, confirmData, allPlans = []
     };
 
     // Safely resolve subscription — confirmData from list endpoint may be an array or { subscriptions }
-    const activeSubFromConfirm = Array.isArray(confirmData)
-        ? confirmData[0]
+    const activeSubs = Array.isArray(confirmData)
+        ? confirmData
         : Array.isArray(confirmData?.subscriptions)
-          ? confirmData.subscriptions[0]
-          : (confirmData?.subscription || confirmData?.data || confirmData);
+          ? confirmData.subscriptions
+          : Array.isArray(userData?.subscriptions)
+            ? userData.subscriptions
+            : [];
+    const onMtdWorkspace = pathname?.startsWith("/mtd-dashboard");
+    const matchService = (row) => {
+        const t = String(row?.serviceType || row?.service_type || "").toUpperCase();
+        return onMtdWorkspace
+            ? t.includes("MTD")
+            : t.includes("SELF") || t === "SA" || !t;
+    };
+    const activeSubFromConfirm =
+        activeSubs.find(matchService) ||
+        activeSubs[0] ||
+        confirmData?.subscription ||
+        confirmData?.data ||
+        confirmData;
 
     const sub = activeSubFromConfirm || userData?.subscription || userData?.subscriptions?.[0];
+    const hasActiveSa = Boolean(
+        userData?.hasActiveSa ?? confirmData?.hasActiveSa ?? sessionData?.hasActiveSa ?? sessionData?.user?.hasActiveSa,
+    );
+    const hasActiveMtd = Boolean(
+        userData?.hasActiveMtd ?? confirmData?.hasActiveMtd ?? sessionData?.hasActiveMtd ?? sessionData?.user?.hasActiveMtd,
+    );
     const hasActive =
       Boolean(userData?.hasActiveService) ||
       Boolean(confirmData?.hasActiveService) ||
+      hasActiveSa ||
+      hasActiveMtd ||
       Boolean(sub && (sub.status === 'active' || sub.status === 'ACTIVE'));
+    const ownershipSource = { hasActiveSa, hasActiveMtd };
+    const secondServiceHref = addSecondServicePath(ownershipSource);
+    const secondServiceLabel = addSecondServiceLabel(ownershipSource);
+    const upgradeHref = upgradeCataloguePath(pathname, ownershipSource);
     const currentPlan = allPlans.find(plan => plan.id === sub?.planId || plan.id === sub?.plan?.id || plan.code === sub?.packageCode || plan.code === sub?.plan?.code);
     const features = currentPlan?.features || sub?.plan?.features || [];
 
@@ -211,6 +271,37 @@ export default function MySubscriptionsUI({ userData, confirmData, allPlans = []
             </div>
 
             <div className="profile_details px-4 py-4 mt-3 border rounded bg-white shadow-sm">
+                {(hasActiveSa || hasActiveMtd) && (
+                    <div
+                        className="mb-4 pb-3"
+                        data-testid="service-ownership-summary"
+                        style={{ borderBottom: "1px solid rgba(13,43,30,0.1)" }}
+                    >
+                        <div className="small text-muted text-uppercase fw-semibold mb-2" style={{ letterSpacing: "0.04em" }}>
+                            Your services
+                        </div>
+                        <div className="d-flex flex-wrap gap-2">
+                            <span
+                                className="badge px-3 py-2"
+                                style={{ backgroundColor: hasActiveSa ? "#0f8c5a" : "#6c757d" }}
+                                data-testid="sa-service-status"
+                            >
+                                Self Assessment: {hasActiveSa ? "ACTIVE" : "Not active"}
+                            </span>
+                            <span
+                                className="badge px-3 py-2"
+                                style={{ backgroundColor: hasActiveMtd ? "#0f8c5a" : "#6c757d" }}
+                                data-testid="mtd-service-status"
+                            >
+                                Making Tax Digital: {hasActiveMtd ? "ACTIVE" : "Not active"}
+                            </span>
+                        </div>
+                    </div>
+                )}
+                <AddSecondServiceBanner
+                    session={sessionData}
+                    account={{ hasActiveSa, hasActiveMtd }}
+                />
                 {!hasActive || !sub ? (
                     <div className="text-center py-4">
                         <h5 className="text-muted mb-4">You do not have an active subscription.</h5>
@@ -229,7 +320,7 @@ export default function MySubscriptionsUI({ userData, confirmData, allPlans = []
                             <Col lg={6}>
                                 <div className="subscription-detail-item">
                                     <span className="subscription-detail-label">Subscription Status:</span>
-                                    <span className="badge px-3 py-2 text-capitalize" style={{ backgroundColor: sub.status === 'active' ? '#0f8c5a' : '#c82333' }}>
+                                    <span className="badge px-3 py-2 text-capitalize" style={{ backgroundColor: sub.status === 'active' || sub.status === 'ACTIVE' ? '#0f8c5a' : '#c82333' }}>
                                         {sub.status || 'Active'}
                                     </span>
                                 </div>
@@ -292,14 +383,50 @@ export default function MySubscriptionsUI({ userData, confirmData, allPlans = []
                             </Col>
                         </Row>
 
-                        {/* P0 K.3: portal/cancel hidden (E9); upgrade-only CTA (E8) */}
+                        {/* P0 K.3: portal/cancel hidden (E9); upgrade + C-004 second-service CTAs */}
                         <div className="subscription-actions-wrapper mt-3">
+                            {upgradeLockReason ? (
+                                <Alert variant="warning" className="mb-2 w-100" data-testid="upgrade-locked-banner">
+                                    {upgradeLockReason}. Package upgrades will reopen when your return is no longer in a late filing stage.
+                                </Alert>
+                            ) : null}
                             <button
                                 className="subscription-btn subscription-btn-primary shadow-sm"
-                                onClick={() => router.push('/planlist')}
+                                data-testid="view-upgrade-options"
+                                disabled={Boolean(upgradeLockReason)}
+                                title={upgradeLockReason || undefined}
+                                onClick={() => {
+                                    if (upgradeLockReason) {
+                                        toast.error(upgradeLockReason);
+                                        return;
+                                    }
+                                    router.push(upgradeHref);
+                                }}
                             >
                                 View upgrade options
                             </button>
+                            {secondServiceHref && secondServiceLabel ? (
+                                <button
+                                    className="subscription-btn subscription-btn-primary shadow-sm"
+                                    data-testid="add-second-service-cta"
+                                    style={{ backgroundColor: "#0d2b1e" }}
+                                    onClick={() => router.push(secondServiceHref)}
+                                >
+                                    {secondServiceLabel}
+                                </button>
+                            ) : null}
+                            {hasActiveSa && hasActiveMtd ? (
+                                <button
+                                    className="subscription-btn subscription-btn-primary shadow-sm"
+                                    data-testid="open-other-workspace"
+                                    style={{ backgroundColor: "#2e5a45" }}
+                                    onClick={() =>
+                                        router.push(onMtdWorkspace ? "/dashboard" : "/mtd-dashboard")
+                                    }
+                                >
+                                    {onMtdWorkspace ? "Open Self Assessment" : "Open Making Tax Digital"}
+                                </button>
+                            ) : null}
                         </div>
                     </>
                 )}

@@ -13,16 +13,52 @@
  *   EMAIL_DRIVER      none (default) | log | smtp | resend
  *   EMAIL_FROM        "TaxSimba <no-reply@taxsimba.co.uk>"
  *   EMAIL_REPLY_TO    optional
- *   APP_BASE_URL      absolute base for links in emails, e.g. https://taxsimba.co.uk
+ *   APP_BASE_URL         public HTTPS client origin for email links, e.g. https://taxsimba.co.uk
+ *                        Must NOT be localhost / 127.0.0.1 / private RFC1918 — Outlook cannot
+ *                        fetch those hosts (blank logo + broken Privacy/Terms/Contact links).
+ *   ADMIN_BASE_URL       public HTTPS admin origin for /admin/… CTAs
+ *   EMAIL_LOGO_URL       optional absolute HTTPS PNG (default {APP_BASE_URL}/images/email-logo.png)
+ *   EMAIL_LEGAL_BASE_URL optional public HTTPS origin for Privacy/Terms/Contact when legal
+ *                        pages live on a different domain than the app
  *   SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_USER, SMTP_PASSWORD   (EMAIL_DRIVER=smtp)
  *   RESEND_API_KEY                                                (EMAIL_DRIVER=resend)
  *   EMAIL_MAX_ATTEMPTS  default 5
+ *
+ * Invalid public-URL config does not silently drop mail: a FAILED `email_messages` row is
+ * persisted with `last_error` describing the operational misconfiguration.
+ *
+ * After changing APP_BASE_URL / EMAIL_LOGO_URL / EMAIL_DRIVER, restart the API and any
+ * reminder/email worker so new renders pick up the corrected values.
  */
 import { createHash, randomUUID } from "crypto";
 
 import { env, intEnv, required } from "../config/env";
 import { col, Doc } from "../db/mongo";
 import { isTestEmail } from "../domain/testdata";
+import {
+  EmailPublicUrlError,
+  assertNoProhibitedEmailHosts,
+  emailLegalUrls,
+  emailLogoUrl as resolveEmailLogoUrl,
+  resolveEmailHref,
+  requirePublicAppBaseUrl,
+} from "./emailPublicUrls";
+
+export {
+  EmailPublicUrlError,
+  assertNoProhibitedEmailHosts,
+  clientDocumentUploadPath,
+  clientReviewDocumentsPath,
+  emailAllowLocalBaseUrl,
+  emailLegalUrls,
+  isNonLocalEmailRuntime,
+  isPrivateOrLocalHostname,
+  isPublicHttpsUrl,
+  PROHIBITED_EMAIL_HOST_PATTERN,
+  requirePublicAppBaseUrl,
+  requirePublicLegalBaseUrl,
+  resolveEmailHref,
+} from "./emailPublicUrls";
 
 export interface EmailMessage {
   to: string;
@@ -143,22 +179,13 @@ export async function ensureEmailIndexes(): Promise<void> {
   await col("email_messages").createIndex({ status: 1, next_attempt_at: 1 });
 }
 
-function appUrl(): string {
-  return (env("APP_BASE_URL") ?? "").replace(/\/$/, "");
-}
-
 /**
- * Absolute HTTPS logo for email clients (Gmail/Outlook/mobile).
- * Prefer EMAIL_LOGO_URL when set; otherwise `{APP_BASE_URL}/images/logo.png`.
- * PNG only — SVG is blocked or broken in major email clients.
+ * Absolute HTTPS white PNG for the green email header.
+ * Prefer EMAIL_LOGO_URL; otherwise `{APP_BASE_URL}/images/email-logo.png`.
+ * (Site `logo.png` is brand-green and renders blank on the #37a267 header in Outlook.)
  */
 export function emailLogoUrl(): string {
-  const override = (env("EMAIL_LOGO_URL") ?? "").trim();
-  if (/^https:\/\//i.test(override)) {
-    return override.replace(/\/+$/, "");
-  }
-  const base = appUrl() || "https://taxsimba.co.uk";
-  return `${base}/images/logo.png`;
+  return resolveEmailLogoUrl();
 }
 
 function escapeHtml(value: string): string {
@@ -177,11 +204,13 @@ function escapeHtml(value: string): string {
  *   accent   #b3ed97  (--theme-lt-color)
  *   deep     #32915c / #2e8a56 (existing green gradient stops)
  *   text     #222222 / #151515
- *   logo     emailLogoUrl() — public HTTPS PNG (never SVG; never localhost)
+ *   logo     emailLogoUrl() — public HTTPS white PNG (never SVG; never private hosts)
  *   legal    /privacy-policy, /terms-and-conditions, /contact-us
  *
  * `title` is the on-page heading. Optional `subject` overrides the email subject line
  * without changing how callers pass heading/body copy.
+ *
+ * Throws EmailPublicUrlError when APP_BASE_URL is missing or not a public HTTPS origin.
  */
 export function renderEmail(params: {
   recipientName?: string | null;
@@ -193,19 +222,12 @@ export function renderEmail(params: {
   callToAction?: string | null;
   preheader?: string | null;
 }): { subject: string; text: string; html: string } {
-  const base = appUrl() || "https://taxsimba.co.uk";
-  const href = params.link
-    ? params.link.startsWith("http")
-      ? params.link
-      : `${base}${params.link}`
-    : null;
+  const href = resolveEmailHref(params.link);
   const cta = params.callToAction ?? "Open TaxSimba";
   const subject = (params.subject ?? params.title).trim();
   const greeting = params.recipientName ? `Hello ${params.recipientName},` : "Hello,";
   const year = new Date().getFullYear();
-  const privacyUrl = `${base}/privacy-policy`;
-  const termsUrl = `${base}/terms-and-conditions`;
-  const contactUrl = `${base}/contact-us`;
+  const { privacyUrl, termsUrl, contactUrl } = emailLegalUrls();
   const logoUrl = emailLogoUrl();
 
   const bodyParagraphs = params.body
@@ -261,8 +283,8 @@ export function renderEmail(params: {
     `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f4f7f5;padding:24px 12px">`,
     `<tr><td align="center">`,
     `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background-color:#ffffff;border-radius:16px;overflow:hidden;border:1px solid #e3ebe6">`,
-    // Header
-    `<tr><td style="padding:24px 32px;background:linear-gradient(135deg,#37a267 0%,#32915c 50%,#2e8a56 100%);background-color:#37a267">`,
+    // Header — solid bgcolor for Outlook (gradients are often ignored).
+    `<tr><td style="padding:24px 32px;background-color:#37a267">`,
     `<img src="${escapeHtml(logoUrl)}" width="160" height="43" alt="TaxSimba" style="display:block;border:0;outline:none;text-decoration:none;height:auto;max-width:160px"/>`,
     `</td></tr>`,
     // Accent strip
@@ -294,7 +316,10 @@ export function renderEmail(params: {
     `</body></html>`,
   ].join("");
 
-  return { subject, text: textLines.join("\n"), html };
+  const text = textLines.join("\n");
+  assertNoProhibitedEmailHosts(html, "email html");
+  assertNoProhibitedEmailHosts(text, "email text");
+  return { subject, text, html };
 }
 
 export interface QueueParams {
@@ -319,9 +344,56 @@ function hashKey(key: string): string {
 }
 
 /**
+ * Persist an operational FAILED row when public URL config prevents safe rendering.
+ * Never embeds the broken HTML (which could contain private hosts). Callers still get
+ * null so request handlers are not aborted, but ops can query email_messages for FAILED.
+ */
+async function recordEmailPublicUrlFailure(
+  params: QueueParams,
+  err: EmailPublicUrlError,
+): Promise<string | null> {
+  const id = randomUUID();
+  const now = new Date();
+  const operationalError = `EMAIL_PUBLIC_URL_CONFIG: ${err.message}`.slice(0, 500);
+  // eslint-disable-next-line no-console
+  console.error(`email FAILED (${params.kind}): ${operationalError}`);
+  const doc: Doc = {
+    id,
+    dedupe_key: hashKey(params.dedupeKey),
+    kind: params.kind,
+    to: params.to,
+    user_id: params.userId ?? null,
+    case_id: params.caseId ?? null,
+    subject: params.subject || params.title || "(email not rendered — public URL config error)",
+    text: "",
+    html: "",
+    status: "FAILED",
+    attempts: 0,
+    last_error: operationalError,
+    next_attempt_at: now,
+    created_at: now,
+    sent_at: null,
+  };
+  try {
+    await col("email_messages").insertOne(doc);
+    return id;
+  } catch (e) {
+    if ((e as Doc)?.code === 11000) return null;
+    // eslint-disable-next-line no-console
+    console.error(
+      `email FAILED row could not be persisted (${params.kind}): ${String(e).slice(0, 300)}`,
+    );
+    return null;
+  }
+}
+
+/**
  * Persist a message and attempt delivery in the background. Never throws: callers are
  * request handlers whose primary job (the state change and the in-app notification) has
  * already succeeded.
+ *
+ * Invalid APP_BASE_URL / EMAIL_LOGO_URL / legal URL config writes a FAILED row with an
+ * explicit operational error instead of silently discarding the message.
  */
 export async function queueEmail(params: QueueParams): Promise<string | null> {
   try {
@@ -329,7 +401,15 @@ export async function queueEmail(params: QueueParams): Promise<string | null> {
     if (!params.to || !params.to.includes("@")) return null;
     // Seeded demo/QA addresses must never receive real mail.
     if (isTestEmail(params.to)) return null;
-    const rendered = renderEmail(params);
+    let rendered: { subject: string; text: string; html: string };
+    try {
+      rendered = renderEmail(params);
+    } catch (e) {
+      if (e instanceof EmailPublicUrlError) {
+        return await recordEmailPublicUrlFailure(params, e);
+      }
+      throw e;
+    }
     const id = randomUUID();
     const now = new Date();
     const doc: Doc = {

@@ -266,6 +266,7 @@ describe("K.9 CRITICAL E2E gate via /api/compat", () => {
       const dual = await makeClient("k9dual", { emailVerified: true });
       await activateClientService(dual, "SELF_ASSESSMENT");
       await activateClientService(dual, "MTD_INCOME_TAX");
+      // C-004: default all-tax-returns is SA-only (no MTD leak into SA Tax Tracker).
       const list = await request(app)
         .post("/api/compat/client/all-tax-returns")
         .set(bearer(dual))
@@ -273,7 +274,19 @@ describe("K.9 CRITICAL E2E gate via /api/compat", () => {
         .expect(200);
       const rows = list.body.data.taxReturns || list.body.data.files || list.body.data || [];
       expect(Array.isArray(rows)).toBe(true);
-      expect(rows.length).toBeGreaterThanOrEqual(2);
+      expect(rows.length).toBeGreaterThanOrEqual(1);
+      for (const row of rows as { taxReturn?: { serviceType?: string }; service_type?: string }[]) {
+        const st = row.taxReturn?.serviceType || row.service_type;
+        expect(st).toBe("SELF_ASSESSMENT");
+      }
+      const mtdList = await request(app)
+        .post("/api/compat/client/all-tax-returns")
+        .set(bearer(dual))
+        .send({ service_type: "MTD_INCOME_TAX" })
+        .expect(200);
+      const mtdRows =
+        mtdList.body.data.taxReturns || mtdList.body.data.files || mtdList.body.data || [];
+      expect(mtdRows.length).toBeGreaterThanOrEqual(1);
     });
   });
 

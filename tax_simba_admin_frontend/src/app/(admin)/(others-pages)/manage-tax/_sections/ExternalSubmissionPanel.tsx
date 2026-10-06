@@ -26,8 +26,14 @@ export default function ExternalSubmissionPanel({
   const [note, setNote] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const ready = nodeStatus === "READY_FOR_SUBMISSION";
-  const already = nodeStatus === "SUBMITTED" || nodeStatus === "COMPLETED";
+  const normalized = String(nodeStatus || "").toUpperCase();
+  const ready =
+    normalized === "READY_FOR_SUBMISSION" ||
+    String(nodeStatus || "").toLowerCase() === "ready_for_submission";
+  const already =
+    normalized === "SUBMITTED" ||
+    normalized === "COMPLETED" ||
+    ["final_submitted", "completed"].includes(String(nodeStatus || "").toLowerCase());
 
   const submit = async () => {
     if (!date.trim() || !reference.trim()) {

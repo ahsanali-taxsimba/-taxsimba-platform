@@ -190,6 +190,38 @@ describe("transactional email and reminders", () => {
     expect(rec.sent).toHaveLength(0);
   });
 
+  it("persists FAILED email_messages when APP_BASE_URL is not public HTTPS", async () => {
+    const rec = await useRecording();
+    const { col } = await import("../../src/db/mongo");
+    const { queueEmail } = await import("../../src/services/email");
+    const prev = process.env.APP_BASE_URL;
+    process.env.APP_BASE_URL = "http://192.168.0.197:3000";
+    try {
+      const subject = `Config fail ${randomUUID().slice(0, 6)}`;
+      const id = await queueEmail({
+        to: client.email,
+        recipientName: "Ops",
+        kind: "EMAIL_VERIFICATION",
+        subject,
+        title: subject,
+        body: "Should not render private hosts.",
+        link: "/verify-email?token=redacted",
+        callToAction: "Verify my email",
+        dedupeKey: `url-fail:${randomUUID()}`,
+        userId: client.id,
+      });
+      expect(id).toBeTruthy();
+      expect(rec.sent).toHaveLength(0);
+      const row = await col("email_messages").findOne({ id });
+      expect(row?.status).toBe("FAILED");
+      expect(String(row?.last_error ?? "")).toMatch(/EMAIL_PUBLIC_URL_CONFIG/);
+      expect(String(row?.html ?? "")).toBe("");
+      expect(String(row?.text ?? "")).toBe("");
+    } finally {
+      process.env.APP_BASE_URL = prev;
+    }
+  });
+
   it("reminds a client once per repeat window about an open task", async () => {
     const rec = await useRecording();
     const { col } = await import("../../src/db/mongo");
@@ -256,6 +288,19 @@ describe("transactional email and reminders", () => {
         is_test: false,
       },
     ]);
+    const overduePeriodId = (
+      await col("mtd_periods").findOne({ case_id: kase.id, label: "Quarter 2" })
+    )?.id as string;
+    // §15.8: overdue admin escalation requires an outstanding Requested placeholder.
+    await col("documents").insertOne({
+      id: randomUUID(),
+      case_id: kase.id,
+      mtd_period_id: overduePeriodId,
+      status: "Requested",
+      filename: "bank-statements.pdf",
+      is_internal: false,
+      is_deleted: false,
+    });
     const run = await runReminders();
     expect(run.mtd_client_approval).toBe(1);
     expect(run.mtd_overdue_escalation).toBeGreaterThanOrEqual(1);
