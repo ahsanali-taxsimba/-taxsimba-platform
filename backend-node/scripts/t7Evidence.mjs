@@ -288,26 +288,13 @@ async function main() {
   });
   save("before/admin_notifications_overdue_search.json", beforeAdmin.json);
 
-  // Run reminders with controlled "now"
-  const { runReminders } = await import("../dist/jobs/reminders.js").catch(() =>
-    import("../src/jobs/reminders.ts"),
-  );
-  // Prefer compiled dist after build; fallback via dynamic ts not available — call via HTTP script using require after build
-  let run;
-  try {
-    const mod = require("../dist/jobs/reminders.js");
-    // Ensure DB env matches
-    run = await mod.runReminders(new Date());
-  } catch (e) {
-    // Spawn node with ts-node
-    const { spawnSync } = require("child_process");
-    const r = spawnSync(
-      "npx",
-      ["ts-node", "--transpile-only", "-e", "require('./src/jobs/reminders').runReminders().then(r=>{console.log(JSON.stringify(r))})"],
-      { cwd: "/workspace/backend-node", encoding: "utf8", env: process.env },
-    );
-    run = JSON.parse((r.stdout || "").trim().split("\n").pop());
-  }
+  // Run reminders with controlled "now" against the same Mongo (connect backend mongo first).
+  process.env.MONGO_URL = process.env.MONGO_URL || "mongodb://127.0.0.1:27017";
+  process.env.DB_NAME = process.env.DB_NAME || DB;
+  const mongoMod = require("../dist/db/mongo.js");
+  await mongoMod.connect();
+  const remMod = require("../dist/jobs/reminders.js");
+  const run = await remMod.runReminders(new Date());
   save("api/reminder_run.json", run);
 
   const afterClient = await request("/api/compat/all-notifications", {
@@ -364,13 +351,7 @@ async function main() {
   save("api/isolation.json", { otherEmail, leaked_count: leaked.length, pass: leaked.length === 0 });
 
   // Duplicate prevention
-  let run2;
-  try {
-    const mod = require("../dist/jobs/reminders.js");
-    run2 = await mod.runReminders(new Date());
-  } catch {
-    run2 = { error: "skip" };
-  }
+  const run2 = await remMod.runReminders(new Date());
   save("api/reminder_run_duplicate.json", run2);
 
   // Suppression: complete task + clear Requested doc
@@ -380,13 +361,7 @@ async function main() {
     key: { $in: [`client_task:${taskId}`] },
   });
   await db.collection("reminder_log").deleteMany({ key: new RegExp(`^mtd_overdue:${q2.id}:`) });
-  let run3;
-  try {
-    const mod = require("../dist/jobs/reminders.js");
-    run3 = await mod.runReminders(new Date());
-  } catch {
-    run3 = { error: "skip" };
-  }
+  const run3 = await remMod.runReminders(new Date());
   save("api/reminder_run_after_suppress.json", {
     run: run3,
     note: "Task COMPLETED + Requested→Uploaded; expect no new client_task / overdue escalation for those subjects",
