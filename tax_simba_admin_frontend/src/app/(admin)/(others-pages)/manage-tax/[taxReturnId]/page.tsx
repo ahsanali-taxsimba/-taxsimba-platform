@@ -34,6 +34,7 @@ import DownloadCertificate from '@/components/TaxReturnModal/DownloadCertificate
 import { canApproveDrafts, canAssignCases } from '@/lib/roles';
 import ExternalSubmissionPanel from '../_sections/ExternalSubmissionPanel';
 import MtdPeriodActionsPanel from '../_sections/MtdPeriodActionsPanel';
+import SaFiguresReviewPanel from '../_sections/SaFiguresReviewPanel';
 import AdditionalWorkPanel from '../_sections/AdditionalWorkPanel';
 
 const AdminTaxReturnDetails = () => {
@@ -912,18 +913,21 @@ const AdminTaxReturnDetails = () => {
                     }}
                   />
                 ) : (
-                  <ExternalSubmissionPanel
-                    taxReturnId={taxReturnIdStr}
-                    nodeStatus={
-                      (progressData as { nodeStatus?: string } | null)?.nodeStatus ||
-                      (taxReturn as { nodeStatus?: string } | null)?.nodeStatus ||
-                      null
-                    }
-                    onRecorded={() => {
-                      void fetchTaxReturnData();
-                      void fetchProgressData();
-                    }}
-                  />
+                  <>
+                    <SaFiguresReviewPanel caseId={taxReturnIdStr} />
+                    <ExternalSubmissionPanel
+                      taxReturnId={taxReturnIdStr}
+                      nodeStatus={
+                        (progressData as { nodeStatus?: string } | null)?.nodeStatus ||
+                        (taxReturn as { nodeStatus?: string } | null)?.nodeStatus ||
+                        null
+                      }
+                      onRecorded={() => {
+                        void fetchTaxReturnData();
+                        void fetchProgressData();
+                      }}
+                    />
+                  </>
                 )}
                 <AdditionalWorkPanel
                   taxReturnId={taxReturnIdStr}

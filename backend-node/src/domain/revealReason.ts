@@ -28,7 +28,12 @@ export function assertRevealReason(raw: string | null | undefined): string {
   if (reason.length < 10) {
     throw httpError(400, "Reveal reason must be at least 10 characters");
   }
-  if (TRIVIAL.has(reason.toLowerCase())) {
+  const lower = reason.toLowerCase();
+  if (TRIVIAL.has(lower)) {
+    throw httpError(400, "Reveal reason must describe why contact details are needed");
+  }
+  // Reject keyboard-mash / single-character spam (e.g. "aaaaaaaaaa", "!!!!!!!!!!!").
+  if (/^(.)\1+$/.test(lower) || /^(.{1,3})\1+$/.test(lower)) {
     throw httpError(400, "Reveal reason must describe why contact details are needed");
   }
   return reason;

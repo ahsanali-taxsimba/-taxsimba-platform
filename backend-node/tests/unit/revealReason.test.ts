@@ -13,6 +13,8 @@ describe("assertRevealReason (H-007)", () => {
     expect(() => assertRevealReason("support")).toThrow(/at least 10/i);
     expect(() => assertRevealReason("test")).toThrow(/at least 10/i);
     expect(() => assertRevealReason("xxxxxxxxxx")).toThrow(/describe why/i);
+    expect(() => assertRevealReason("aaaaaaaaaa")).toThrow(/describe why/i);
+    expect(() => assertRevealReason("abcabcabcabc")).toThrow(/describe why/i);
   });
 
   it("accepts a meaningful audit reason", () => {

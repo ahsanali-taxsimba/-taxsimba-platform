@@ -1,8 +1,8 @@
 "use client";
 
 /**
- * G-008 / H-010 / F-008 — MTD period actions on manage-tax:
- * - Show published/draft figures for Admin review
+ * G-008 / H-010 — MTD period actions on manage-tax:
+ * - Show published/draft figures for Admin review (MTD only; not SA F-008)
  * - Admin-approve (publish to client) when in ADMIN_REVIEW
  * - Record external quarterly submission (no HMRC API)
  */
