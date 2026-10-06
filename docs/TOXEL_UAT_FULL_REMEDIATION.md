@@ -2,10 +2,10 @@
 
 **Branch:** `cursor/toxsl-blockers-b01-b04-80a7`  
 **Base PR:** #18  
-**Final Toxel tip SHA:** `e08df065ea1e0ccf00d90f9aaf0e7087b902975a`  
-**Previous tip (pre this remediation commit):** `780decd36c060b4bc7b66471e49f7478f00b2a05`  
-**Product fix tip:**   
-**Documentation-only commits after product tip:**  (counts/profile fields),  (SHA align)  
+**Final Toxel tip SHA:** `7e7dbfd142cc2a19bdf07220de28d223729b480d`  
+**Product fix tip:** `ec898b24740039d07bb2c7bd4cd1add43e0f628f`  
+**Documentation-only after product tip:** `c0558e3` (counts/profile), `e08df06` (SHA align), `7e7dbfd` (this note)  
+**Previous tip (pre this remediation):** `780decd36c060b4bc7b66471e49f7478f00b2a05`  
 **Status:** READY FOR TOXEL RETEST (with documented env BLOCKED items)
 
 ## Evidence pack inventory (this run)
@@ -72,7 +72,7 @@ B01–B04, F-001/F-003/F-004, C-004 (+ checklist), D-001/D-004/D-005/D-006–D-0
 7. **Engagement (E-002/3):** letter shows client + service; Profile shows acceptance timestamp/version.
 8. **Reveal (H-006/7):** Super Admin reveal on manage-tax; short reasons rejected.
 
-## Test / build counts (tip `e08df065ea1e0ccf00d90f9aaf0e7087b902975a` + docs follow-up)
+## Test / build counts (product tip `ec898b24740039d07bb2c7bd4cd1add43e0f628f`; docs follow-ups after)
 
 | Suite | Result |
 |---|---|
