@@ -288,6 +288,19 @@ describe("transactional email and reminders", () => {
         is_test: false,
       },
     ]);
+    const overduePeriodId = (
+      await col("mtd_periods").findOne({ case_id: kase.id, label: "Quarter 2" })
+    )?.id as string;
+    // §15.8: overdue admin escalation requires an outstanding Requested placeholder.
+    await col("documents").insertOne({
+      id: randomUUID(),
+      case_id: kase.id,
+      mtd_period_id: overduePeriodId,
+      status: "Requested",
+      filename: "bank-statements.pdf",
+      is_internal: false,
+      is_deleted: false,
+    });
     const run = await runReminders();
     expect(run.mtd_client_approval).toBe(1);
     expect(run.mtd_overdue_escalation).toBeGreaterThanOrEqual(1);

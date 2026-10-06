@@ -170,6 +170,17 @@ async function remindClientCaseActions(run: ReminderRun, now: Date): Promise<voi
   }
 }
 
+/** Period ids that still have an outstanding Requested document (client-owned delay). */
+async function mtdPeriodsAwaitingClientDocs(): Promise<Set<string>> {
+  const rows = await col("documents")
+    .find(
+      { status: "Requested", mtd_period_id: { $ne: null } },
+      { projection: { mtd_period_id: 1 } },
+    )
+    .toArray();
+  return new Set(rows.map((d) => d.mtd_period_id as string));
+}
+
 /** MTD periods: approvals outstanding, records due, and overdue escalation to admins. */
 async function remindMtdPeriods(run: ReminderRun, now: Date): Promise<void> {
   const periods = (await col("mtd_periods")
@@ -182,6 +193,9 @@ async function remindMtdPeriods(run: ReminderRun, now: Date): Promise<void> {
   const admins = (await col("users")
     .find({ role: { $in: ["ADMIN", "SUPER_ADMIN"] }, is_active: true }, { projection: { id: 1 } })
     .toArray()) as Doc[];
+  // §15.8: escalate only when deadline passed AND a Requested client document is still open.
+  // Completing/uploading the request removes the placeholder → suppresses further escalations.
+  const awaitingClientDocs = await mtdPeriodsAwaitingClientDocs();
 
   for (const period of periods) {
     const kase = (await col("cases").findOne({ id: period.case_id, ...OPERATIONAL_ONLY })) as Doc | null;
@@ -222,9 +236,15 @@ async function remindMtdPeriods(run: ReminderRun, now: Date): Promise<void> {
       }
     }
 
-    if (due !== null && due < 0) {
+    if (
+      due !== null &&
+      due < 0 &&
+      awaitingClientDocs.has(period.id as string) &&
+      ["NOT_STARTED", "IN_PROGRESS"].includes(String(period.status))
+    ) {
       // Escalation is the existing oversight behaviour, now raised on a schedule instead of
       // only when a staff member happens to open the period list.
+      // Agreed: admin escalation only — no new client overdue email.
       for (const admin of admins) {
         if (!(await claimReminder(`mtd_overdue:${period.id}:${admin.id}`, now))) continue;
         await notify(
