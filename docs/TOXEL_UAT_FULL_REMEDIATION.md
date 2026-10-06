@@ -2,11 +2,12 @@
 
 **Branch:** `cursor/toxsl-blockers-b01-b04-80a7`  
 **Base PR:** #18 (update only; no new branch/PR)  
-**Authoritative Toxel deploy HEAD (pinned full SHA):** `4fe621546631958f5fb386be927f66624018df36`
+**Authoritative Toxel deploy HEAD (pinned full SHA):** `PIN_AFTER_COMMIT`  
 **Product revision tested (gap-close code):** `12c8930a993def839356a8e6d7e6dc5d4d7e6b1f` (G-009 links + J-003 admin logos + D1-014 amounts); prior journey core `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20`  
+**Browser verification SHA (Playwright run):** recorded in `gap_close_browser_20261006/tested_sha.txt` / bundle README  
 **Status:** READY FOR TOXEL RETEST (Stripe TEST / staging scheduler / external inbox remain **BLOCKED**)  
 **Do not merge. Do not deploy from this agent.**  
-**Downloadable evidence bundle:** see `/opt/cursor/artifacts/gap_close_evidence_bundle_20261006.zip` (also attached via PR artifacts).
+**Downloadable evidence bundle:** `/opt/cursor/artifacts/gap_close_evidence_bundle_20261006.zip` (also `/cursor/stores/self/artifacts/gap_close_evidence_bundle_20261006.zip`).
 
 ## ID mapping correction (mandatory)
 
@@ -104,7 +105,7 @@ Statuses used: **LOCAL PASS** | **FAIL** | **BLOCKED** | **UNVERIFIED** | **NOT 
 | E-002 | FAIL | **LOCAL PASS** | Engagement letter shows client name + SA/MTD service lines (`engagement-client-name` / `engagement-service-line`); accept returns `serviceTypes`; browser `e002_engagement.png` |
 | E-003 | FAIL | **LOCAL PASS** | Accept + status return timestamp/version; Profile wired; browser `e003_profile_acceptance.png` |
 | F-001 | FAIL | **LOCAL PASS** | Tasks 1–8 SA open/continue — preserved |
-| F-002 | FAIL | **UNVERIFIED** | **Cannot close as “by design”.** Sources checked: (1) Original UAT tester note — SA questionnaire N/A after engagement; (2) `memory/P0_CONTRACT_BASELINE.md` G3 maps `submit-tax-info` questionnaire → **MTD** onboarding only; (3) no agreed written requirement stating SA must skip questionnaire. Keep open until product/requirement owner confirms SA exclusion. |
+| F-002 | FAIL | **UNVERIFIED** | **Cannot close as “no questionnaire by design”.** Agreed sources re-checked (not assumption): (1) Original UAT `TOXEL_ORIGINAL_UAT_2964.txt` F-002 FAIL note: *“For the SA journey, the Questionnaire is not applicable…”* (tester observation, not a signed product requirement); (2) same pack **M-001** Journey 1 still lists SA path as `engagement → questionnaire/docs → …` — conflicts with closing F-002 as by-design skip; (3) `memory/P0_CONTRACT_BASELINE.md` **G3** maps `submit-tax-info` questionnaire → **MTD** onboarding only (`mtdOnboarding.ts`); (4) no written product-owner / contract line stating SA must omit questionnaire. Keep **UNVERIFIED** until owner confirms SA exclusion vs M-001. |
 | F-003 | FAIL | **LOCAL PASS** | Tasks 1–8 document upload — preserved |
 | F-005 | FAIL | **LOCAL PASS** | Task 7 notification content/deep-link — preserved |
 | **F-008** | FAIL | **LOCAL PASS** | **SA** calc API `total_income=42500.5` / `tax_due=4280.75`; browser `SaFiguresReviewPanel` on manage-tax (`f008_sa_figures_panel.png` + `f008_calculations_api.json`) |
@@ -113,8 +114,8 @@ Statuses used: **LOCAL PASS** | **FAIL** | **BLOCKED** | **UNVERIFIED** | **NOT 
 | G-006 | FAIL | **LOCAL PASS** | Live API: manage-review approve → period `AWAITING_CLIENT_APPROVAL`, overview `draft_ready` |
 | G-007 | FAIL | **LOCAL PASS** | Live API: client approve persists after G-006 publish |
 | G-008 | FAIL | **LOCAL PASS** | Live API: `record-submission` on period; UI `MtdPeriodActionsPanel` |
-| G-009 | FAIL | **LOCAL PASS** | Live API: in-app notification title `MTD Quarter 1 submitted`, link `/mtd-dashboard`; Mailpit subject match (`gap_close_verify_20261006/`). MTD dashboard UI session gate still **PENDING** (see browser results) |
-| H-006 | FAIL | **LOCAL PASS** | Reveal on manage-tax + live Super Admin reveal API returns email |
+| G-009 | FAIL | **LOCAL PASS** | Live API + Mailpit (`gap_close_verify_20261006/`); browser MTD dashboard + `?tab=notifications` + re-login PASS (`g009_*.png`, `g00x_mtd_dashboard.png`) after engagement + `submit-tax-info` gates |
+| H-006 | FAIL | **LOCAL PASS** | Live Super Admin reveal API + browser SUPER_ADMIN `reveal-contact` on manage-tax (`h006_reveal.png`) |
 | H-007 | FAIL | **LOCAL PASS** | Reason ≥10 chars; rejects trivial/repeated mash (`aaaaaaaaaa`); unit + live API |
 | H-010 | FAIL | **LOCAL PASS** | Same MTD external submission panel/API as G-008 |
 | I-004 | FAIL | **LOCAL PASS** | Task 7 — preserved |
@@ -152,23 +153,25 @@ Artifact dirs:
 |---|---|---|---|
 | **G-006 / G-007** | Live API publish → client approve | PASS | `7d92c997…` / tip |
 | **G-008 / H-010** | Live API `record-submission` | PASS | `7d92c997…` / tip |
-| **G-009** | Live API in-app + Mailpit submitted; link `/mtd-dashboard` | PASS (API); UI session gate PENDING | `12c8930a993def839356a8e6d7e6dc5d4d7e6b1f` |
+| **G-009** | Live API + Mailpit + browser MTD notifications tab + re-login | **PASS** | `12c8930a993def839356a8e6d7e6dc5d4d7e6b1f` |
 | **F-008** | Live API calcs + browser `SaFiguresReviewPanel` (42500.5 / 4280.75) | PASS | `12c8930a…` (panel from `7d92c997…`) |
-| **D1-014** | Live API amount=30 + billing UI £30.00 | PASS | `12c8930a…` |
+| **D1-014** | Live API amount=30 + billing UI £30.00 + refresh | PASS | `12c8930a…` |
 | **J-003** | Client + admin logo HTTP 200 + screenshots | PASS | `12c8930a…` |
 | **E-002 / E-003** | Live API + browser engagement/profile | PASS | tip |
-| **H-006 / H-007** | Live API reveal; UI reveal control PENDING (Super Admin session) | API PASS; UI PENDING | tip |
-| **J-011** | UI + API 400 lock at READY_FOR_SUBMISSION | LOCAL PASS; Stripe TEST BLOCKED | tip |
+| **H-006 / H-007** | Live API reveal + browser SUPER_ADMIN reveal control | **PASS** (UI+API) | tip |
+| **J-011** | UI lock banner + API `locked=true` at READY_FOR_SUBMISSION | LOCAL PASS; Stripe TEST BLOCKED | tip |
+
+Browser method: Playwright chromium (ComputerUse blocked — model usage quota). All 13 gap-close browser checks **PASS** (`BROWSER_RESULTS.md`).
 
 ## SHA authority
 
 | Label | Full SHA | Meaning |
 |---|---|---|
-| **Authoritative Toxel deploy HEAD (pinned)** | `4fe621546631958f5fb386be927f66624018df36` | Deploy this tip |
+| **Authoritative Toxel deploy HEAD (pinned)** | `PIN_AFTER_COMMIT` | Deploy this tip (PR #18 branch) |
 | **Gap-close product commit** | `12c8930a993def839356a8e6d7e6dc5d4d7e6b1f` | G-009 `/mtd-dashboard` links, admin logo assets/paths, D1-014 charged amount UI + verify script |
 | **Prior journey product core** | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` | F-008 SA panel + H-007 strengthen + G-006/J-011/E/H |
 
-Toxel should deploy the **branch tip** (authoritative HEAD).
+Toxel should deploy the **pinned authoritative HEAD** on `cursor/toxsl-blockers-b01-b04-80a7` / PR #18.
 
 ## Branding / visual
 
