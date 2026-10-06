@@ -70,12 +70,11 @@ function save(rel, data) {
   return p;
 }
 
-async function mailpitBySubject(substr) {
-  const list = await request("/api/v1/messages?limit=80", { base: MAILPIT });
+async function mailpitMessages() {
+  const list = await request("/api/v1/messages?limit=100", { base: MAILPIT });
   const msgs = list.json?.messages || [];
   const hits = [];
   for (const m of msgs) {
-    if (!String(m.Subject || "").toLowerCase().includes(substr.toLowerCase())) continue;
     const detail = await request(`/api/v1/message/${m.ID}`, { base: MAILPIT });
     hits.push({
       id: m.ID,
@@ -86,6 +85,20 @@ async function mailpitBySubject(substr) {
     });
   }
   return hits;
+}
+
+function mailpitFind(hits, { subjectIncludes, bodyIncludesAll = [], afterMs = 0 } = {}) {
+  const needle = (bodyIncludesAll || []).map((s) => String(s).toLowerCase());
+  return hits
+    .filter((m) => {
+      if (afterMs && new Date(m.created).getTime() < afterMs - 2000) return false;
+      if (subjectIncludes && !String(m.subject || "").toLowerCase().includes(String(subjectIncludes).toLowerCase())) {
+        return false;
+      }
+      const blob = `${m.subject || ""}\n${m.text || ""}\n${m.html || ""}`.toLowerCase();
+      return needle.every((n) => blob.includes(n));
+    })
+    .sort((a, b) => String(b.created).localeCompare(String(a.created)))[0];
 }
 
 async function main() {
@@ -108,6 +121,21 @@ async function main() {
     body: { signature: "T6 AW Client", accepted: true },
   });
 
+  // Clear unread collapse so create always sends email (same-title unread skips mail)
+  await request("/api/compat/notifications/read-all", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${clientToken}` },
+    body: {},
+  });
+  await request("/api/compat/notifications/mark-all-read", {
+    method: "PATCH",
+    headers: { Authorization: `Bearer ${clientToken}` },
+    body: {},
+  }).catch(() => null);
+
+  const DESC = "Finalize T6 additional schedules review";
+  const AMOUNT = 55.5;
+
   // D-006 create outstanding for reminder + email capture
   const beforeMail = Date.now();
   const create = await request("/api/compat/admin/payment-requests", {
@@ -116,8 +144,8 @@ async function main() {
     body: {
       taxReturnId: CASE_ID,
       caseId: CASE_ID,
-      description: "Finalize T6 additional schedules review",
-      amount: 55.5,
+      description: DESC,
+      amount: AMOUNT,
       internalNote: "finalize evidence",
     },
   });
@@ -126,23 +154,75 @@ async function main() {
     status: create.status,
     body: JSON.parse(redact(JSON.stringify(create.json))),
   });
-  const outstandingId = create.json?.data?.id || create.json?.id;
+  let outstandingId = create.json?.data?.id || create.json?.id;
   if (!outstandingId) throw new Error(`create failed ${create.status}`);
 
-  // Wait briefly for mail
-  await new Promise((r) => setTimeout(r, 1500));
-  const requestEmails = await mailpitBySubject("Action required: additional work");
-  const newestRequest = requestEmails.sort((a, b) => String(b.created).localeCompare(String(a.created)))[0];
+  // Wait briefly for mail; match by desc+amount (not merely newest Action required)
+  await new Promise((r) => setTimeout(r, 2000));
+  let allMail = await mailpitMessages();
+  let newestRequest = mailpitFind(allMail, {
+    subjectIncludes: "Action required",
+    bodyIncludesAll: ["Finalize T6 additional schedules review", "55.50"],
+    afterMs: beforeMail,
+  });
+  // If create email was collapsed, mark-all-read again and create a fresh request so
+  // Action required email is actually sent (resend alone produces Reminder subject).
+  if (!newestRequest) {
+    await request("/api/compat/notifications/read-all", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${clientToken}` },
+      body: {},
+    });
+    const recreate = await request("/api/compat/admin/payment-requests", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${adminToken}` },
+      body: {
+        taxReturnId: CASE_ID,
+        caseId: CASE_ID,
+        description: DESC,
+        amount: AMOUNT,
+        internalNote: "finalize evidence recreate for request email",
+      },
+    });
+    const recreateId = recreate.json?.data?.id || recreate.json?.id;
+    if (recreateId) {
+      await request(`/api/compat/admin/payment-requests/${outstandingId}/cancel`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${adminToken}` },
+        body: {},
+      }).catch(() => null);
+      outstandingId = recreateId;
+      save("api/d006_admin_create.json", {
+        mode: "SIMULATED",
+        status: recreate.status,
+        body: JSON.parse(redact(JSON.stringify(recreate.json))),
+        note: "recreated after mark-all-read so Action required email is sent",
+      });
+    }
+    await new Promise((r) => setTimeout(r, 2000));
+    allMail = await mailpitMessages();
+    newestRequest =
+      mailpitFind(allMail, {
+        subjectIncludes: "Action required",
+        bodyIncludesAll: ["Finalize T6 additional schedules review", "55.50"],
+        afterMs: beforeMail,
+      }) ||
+      mailpitFind(allMail, {
+        bodyIncludesAll: ["Finalize T6 additional schedules review", "55.50"],
+        afterMs: beforeMail,
+      });
+  }
   save("mailpit/d008_request_email.json", {
     mode: "LOCAL MAILPIT — not external inbox",
     subject: newestRequest?.subject,
     created: newestRequest?.created,
     text: newestRequest?.text?.slice(0, 5000),
     html_excerpt: newestRequest?.html?.slice(0, 8000),
-    includes_description: /Finalize T6 additional schedules review|additional work/i.test(
+    includes_description: /Finalize T6 additional schedules review/i.test(
       (newestRequest?.text || "") + (newestRequest?.html || ""),
     ),
-    includes_amount: /55\.50|£55|GBP/i.test((newestRequest?.text || "") + (newestRequest?.html || "")),
+    includes_amount: /55\.50|£55\.50/i.test((newestRequest?.text || "") + (newestRequest?.html || "")),
+    is_action_required_subject: /action required/i.test(newestRequest?.subject || ""),
     billing_link: /billing-history/.test((newestRequest?.text || "") + (newestRequest?.html || "")),
   });
   if (newestRequest?.html) save("mailpit/d008_request_email.html", newestRequest.html);
@@ -160,10 +240,10 @@ async function main() {
     amount: seen?.amount,
     currency: seen?.currency,
     paymentStatus: seen?.paymentStatus || seen?.payment_status,
-    matches: seen?.description?.includes("Finalize T6") && Number(seen?.amount) === 55.5,
+    matches: seen?.description?.includes("Finalize T6") && Number(seen?.amount) === AMOUNT,
   });
 
-  // D-008 in-app notification content
+  // D-008 in-app notification content (prefer this request's Finalize T6 / £55.50 row)
   const notif = await request("/api/compat/all-notifications", {
     method: "POST",
     headers: { Authorization: `Bearer ${clientToken}` },
@@ -171,12 +251,20 @@ async function main() {
   });
   const notifications = notif.json?.data?.notifications || notif.json?.notifications || [];
   const awNotifs = notifications.filter((n) =>
-    /additional work/i.test(`${n.title || ""} ${n.message || n.body || n.content || ""}`),
+    /additional work|Finalize T6/i.test(`${n.title || ""} ${n.message || n.body || n.content || ""}`),
+  );
+  const finalizeNotifs = awNotifs.filter((n) =>
+    /Finalize T6 additional schedules review/i.test(`${n.message || n.body || n.content || ""}`),
+  );
+  const actionRequired = finalizeNotifs.filter((n) => /action required/i.test(n.title || ""));
+  const openedNotifs = (actionRequired.length ? actionRequired : finalizeNotifs.length ? finalizeNotifs : awNotifs).slice(
+    0,
+    3,
   );
   save("api/d008_inapp_notifications.json", {
     status: notif.status,
     count: awNotifs.length,
-    opened_content: awNotifs.slice(0, 5).map((n) => ({
+    opened_content: openedNotifs.map((n) => ({
       id: n.id,
       title: n.title,
       message: n.message || n.body || n.content || n.description,
@@ -185,8 +273,68 @@ async function main() {
       createdAt: n.createdAt || n.created_at,
     })),
   });
+  // Render opened notification content HTML for screenshot (not just a list button)
+  const notifHtml = `<!doctype html><html><body style="font-family:system-ui;padding:24px;background:#f6f7f8">
+    <h1 style="font-size:16px;color:#333">LOCAL evidence — opened notification content from /api/compat/all-notifications (redacted)</h1>
+    ${openedNotifs
+      .map((n) => {
+        const msg = String(n.message || n.body || n.content || n.description || "")
+          .replace(/</g, "&lt;")
+          .replace(/\n/g, "<br/>");
+        return `<div style="background:#fff;border-radius:12px;padding:16px;margin:12px 0;box-shadow:0 1px 3px rgba(0,0,0,.08)">
+          <div style="font-weight:700;margin-bottom:8px">${String(n.title || "").replace(/</g, "&lt;")}</div>
+          <div style="white-space:pre-wrap;line-height:1.45">${msg}</div>
+          <div style="margin-top:10px;font-size:12px;color:#666">Link: ${String(n.link || n.cta_url || n.url || "").replace(/</g, "&lt;")}</div>
+          <div style="font-size:12px;color:#666">Created: ${String(n.createdAt || n.created_at || "")}</div>
+        </div>`;
+      })
+      .join("")}
+  </body></html>`;
+  save("api/d008_opened_notification_content.html", notifHtml);
 
-  // Create second request to cancel, and pay the first outstanding via fake checkout
+  // D-009 resend/reminder on the SAME outstanding £55.50 request (before pay)
+  const beforeReminder = Date.now();
+  const resendOutstanding = await request(`/api/compat/admin/payment-requests/${outstandingId}/resend`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${adminToken}` },
+    body: {},
+  });
+  await new Promise((r) => setTimeout(r, 1500));
+  allMail = await mailpitMessages();
+  const newestReminder =
+    mailpitFind(allMail, {
+      subjectIncludes: "Reminder",
+      bodyIncludesAll: ["Finalize T6 additional schedules review", "55.50"],
+      afterMs: beforeReminder,
+    }) ||
+    mailpitFind(allMail, {
+      bodyIncludesAll: ["Finalize T6 additional schedules review", "55.50", "reminder"],
+      afterMs: beforeReminder,
+    }) ||
+    mailpitFind(allMail, {
+      bodyIncludesAll: ["Finalize T6 additional schedules review", "55.50"],
+      afterMs: beforeReminder,
+    });
+  save("api/d009_resend_outstanding.json", {
+    status: resendOutstanding.status,
+    body: resendOutstanding.json ? JSON.parse(redact(JSON.stringify(resendOutstanding.json))) : null,
+    requestId: outstandingId,
+  });
+  save("mailpit/d009_reminder_email.json", {
+    mode: "LOCAL MAILPIT — not external inbox",
+    note: "Resend reminder for outstanding Finalize T6 / £55.50 request",
+    subject: newestReminder?.subject,
+    created: newestReminder?.created,
+    text: newestReminder?.text?.slice(0, 5000),
+    html_excerpt: newestReminder?.html?.slice(0, 8000),
+    includes_description: /Finalize T6 additional schedules review/i.test(
+      (newestReminder?.text || "") + (newestReminder?.html || ""),
+    ),
+    includes_amount: /55\.50|£55\.50/i.test((newestReminder?.text || "") + (newestReminder?.html || "")),
+  });
+  if (newestReminder?.html) save("mailpit/d009_reminder_email.html", newestReminder.html);
+
+  // Create second request to cancel (guards only — not D-009 primary)
   const toCancel = await request("/api/compat/admin/payment-requests", {
     method: "POST",
     headers: { Authorization: `Bearer ${adminToken}` },
@@ -271,31 +419,25 @@ async function main() {
     html_excerpt: receiptHtml.slice(0, 4000),
   });
 
-  // D-009 resend on still-pending cancel-target BEFORE cancel; then cancel; then paid cannot resend
-  const resendPending = await request(`/api/compat/admin/payment-requests/${cancelId}/resend`, {
-    method: "POST",
-    headers: { Authorization: `Bearer ${adminToken}` },
-    body: {},
-  });
+  // Capture payment-received email for this paid request (optional D-010)
   await new Promise((r) => setTimeout(r, 1000));
-  const reminderEmails = await mailpitBySubject("additional work");
-  // Prefer newest after resend — subjects may still be Action required
-  save("api/d009_resend_outstanding.json", {
-    status: resendPending.status,
-    body: resendPending.json ? JSON.parse(redact(JSON.stringify(resendPending.json))) : null,
+  allMail = await mailpitMessages();
+  const paidEmail = mailpitFind(allMail, {
+    subjectIncludes: "Payment received",
+    bodyIncludesAll: ["Finalize T6 additional schedules review", "55.50"],
   });
-  const newestReminder = reminderEmails.sort((a, b) => String(b.created).localeCompare(String(a.created)))[0];
-  save("mailpit/d009_reminder_email.json", {
-    mode: "LOCAL MAILPIT — not external inbox",
-    note: "Resend uses same Action required subject; body is reminder content",
-    subject: newestReminder?.subject,
-    created: newestReminder?.created,
-    text: newestReminder?.text?.slice(0, 5000),
-    html_excerpt: newestReminder?.html?.slice(0, 8000),
-  });
-  if (newestReminder?.html) save("mailpit/d009_reminder_email.html", newestReminder.html);
+  if (paidEmail) {
+    save("mailpit/d010_payment_received_email.json", {
+      mode: "LOCAL MAILPIT — not external inbox",
+      subject: paidEmail.subject,
+      created: paidEmail.created,
+      text: paidEmail.text?.slice(0, 5000),
+      html_excerpt: paidEmail.html?.slice(0, 8000),
+    });
+    if (paidEmail.html) save("mailpit/d010_payment_received_email.html", paidEmail.html);
+  }
 
-  // Cancel outstanding cancelId
+  // Cancel cancel-target; then paid/cancelled cannot pay or remind
   const cancelled = await request(`/api/compat/admin/payment-requests/${cancelId}/cancel`, {
     method: "POST",
     headers: { Authorization: `Bearer ${adminToken}` },
@@ -353,13 +495,12 @@ async function main() {
     ]);
     await page.waitForTimeout(2000);
 
-    // Notifications
+    // Notifications list (secondary) + opened notification CONTENT (primary D-008)
     await page.goto(`${FE}/dashboard/notifications`, { waitUntil: "domcontentloaded", timeout: 60000 });
     await page.waitForTimeout(3000);
     const acceptCookies = page.getByRole("button", { name: /accept all/i });
     if ((await acceptCookies.count()) > 0) await acceptCookies.first().click().catch(() => null);
-    // Click first additional-work notification if present
-    const awRow = page.getByText(/additional work/i).first();
+    const awRow = page.getByText(/Finalize T6|additional work/i).first();
     if ((await awRow.count()) > 0) {
       await awRow.click().catch(() => null);
       await page.waitForTimeout(1500);
@@ -372,6 +513,13 @@ async function main() {
       url: page.url(),
       bodySnippet: redact((await page.locator("body").innerText()).slice(0, 2500)),
     });
+    const notifPage = await context.newPage();
+    await notifPage.setContent(notifHtml);
+    await notifPage.screenshot({
+      path: path.join(OUT, "screenshots/d008_opened_notification_content.png"),
+      fullPage: true,
+    });
+    await notifPage.close();
 
     // Billing + open receipt in new page via API HTML render in browser
     await page.goto(`${FE}/dashboard/billing-history`, { waitUntil: "domcontentloaded", timeout: 60000 });
@@ -418,14 +566,32 @@ async function main() {
       await rpage.close();
     }
 
-    // Also screenshot rendered request email HTML
+    // Screenshot opened request email + reminder email + payment email bodies
     const emailPage = await context.newPage();
-    const emailHtml = fs.readFileSync(path.join(OUT, "mailpit/d008_request_email.html"), "utf8");
-    await emailPage.setContent(emailHtml);
-    await emailPage.screenshot({
-      path: path.join(OUT, "screenshots/d008_request_email_opened.png"),
-      fullPage: true,
-    });
+    const emailHtmlPath = path.join(OUT, "mailpit/d008_request_email.html");
+    if (fs.existsSync(emailHtmlPath)) {
+      await emailPage.setContent(fs.readFileSync(emailHtmlPath, "utf8"));
+      await emailPage.screenshot({
+        path: path.join(OUT, "screenshots/d008_request_email_opened.png"),
+        fullPage: true,
+      });
+    }
+    const remPath = path.join(OUT, "mailpit/d009_reminder_email.html");
+    if (fs.existsSync(remPath)) {
+      await emailPage.setContent(fs.readFileSync(remPath, "utf8"));
+      await emailPage.screenshot({
+        path: path.join(OUT, "screenshots/d009_reminder_email_opened.png"),
+        fullPage: true,
+      });
+    }
+    const paidPath = path.join(OUT, "mailpit/d010_payment_received_email.html");
+    if (fs.existsSync(paidPath)) {
+      await emailPage.setContent(fs.readFileSync(paidPath, "utf8"));
+      await emailPage.screenshot({
+        path: path.join(OUT, "screenshots/d010_payment_received_email_opened.png"),
+        fullPage: true,
+      });
+    }
     await emailPage.close();
   } finally {
     await browser.close();
