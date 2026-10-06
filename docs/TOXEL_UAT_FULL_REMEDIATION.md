@@ -1,26 +1,34 @@
 # Toxel UAT full remediation — consolidated result
 
 **Branch:** `cursor/toxsl-blockers-b01-b04-80a7`  
-**Base PR:** #18  
-**Final Toxel tip SHA:** `babf0488ff2b5afeafcc14d160079da7fa27a00e`  
-**Product fix tip:** `ec898b24740039d07bb2c7bd4cd1add43e0f628f`  
-**Documentation-only after product tip:** `c0558e3` (counts/profile), `e08df06` (SHA align), `7e7dbfd`/`babf048` (SHA label finalize)  
-**Previous tip (pre this remediation):** `780decd36c060b4bc7b66471e49f7478f00b2a05`  
-**Status:** READY FOR TOXEL RETEST (with documented env BLOCKED items)
+**Base PR:** #18 (update only; no new branch/PR)  
+**Authoritative Toxel deploy HEAD (this document tip):** see §SHA below after push  
+**Product revision tested (code under verification):** see §SHA  
+**Status:** READY FOR TOXEL RETEST (Stripe TEST / staging scheduler / external inbox remain **BLOCKED**)  
+**Do not merge. Do not deploy from this agent.**
 
-## Evidence pack inventory (this run)
+## ID mapping correction (mandatory)
 
-| Attachment | Readable? | Role |
+| ID | Journey | Not sufficient |
 |---|---|---|
-| `TOXEL_ORIGINAL_UAT_2964.txt` | Yes | Master checklist (238 unique IDs) |
-| `528161_…02oct_4c79.odt` | Yes (extracted) | Same locked pack |
-| `Toxel_UAT_Text_and_Index_b306.zip` | Yes | Index + README + original txt |
-| Defect PDFs (J-011, J-005, B-008, B-011, C-009, D-*, D1-*, F-*, G-*, SA/MTD retests, new_pull) | Yes (sampled frames) | Video frame samples — **not** continuous proof |
-| `Toxel_Screenshots_Part_01…06` | Yes (present) | Screenshot archives |
+| **F-008** | **SA** Admin calculation figures review (`GET /api/cases/:id/calculations` → total_income / taxable_income / tax_due on manage-tax **Self Assessment** panel `SaFiguresReviewPanel`) | MTD `MtdPeriodActionsPanel` alone does **not** establish F-008 PASS |
+| **G-006 / G-007 / G-008 / H-010** | **MTD** period figures, admin publish → client `draft_ready`, external quarterly submission | Separate from F-008 |
 
-Missing / not claimed reviewed: raw original `.mp4` video files (only sampled PDFs), staging HAR, Stripe TEST live receipts, external inbox captures.
+## Attachment-access inventory
 
-## Environment blockers (honest)
+| Attachment (path under uploads) | Readable? | Role / notes |
+|---|---|---|
+| `/home/ubuntu/.cursor/projects/workspace/uploads/TOXEL_ORIGINAL_UAT_2964.txt` | Yes | Master checklist text (238 unique IDs) |
+| `/home/ubuntu/.cursor/projects/workspace/uploads/528161_TAXSIMBASTAGINGUATPACKFORTOXEL2_02oct_4c79.odt` | Yes (extracted earlier) | Locked pack ODT |
+| `/home/ubuntu/.cursor/projects/workspace/uploads/Toxel_UAT_Text_and_Index_b306.zip` | Yes | `TOXEL_ORIGINAL_UAT.txt`, `EVIDENCE_INDEX.csv`, `README_CURSOR.txt` |
+| `B-008_cb97.pdf`, `B-011_3390.pdf`, `C-009_55ab.pdf`, `D-003_83f7.pdf`, `D-012_4b7b.pdf`, `D1-001_7aee.pdf`, `D1-002_0d68.pdf`, `D1-004_26c4.pdf`, `D1-005_d0e4.pdf` | Yes (PDF present; frames sampled where used) | Defect / journey PDFs — **not** continuous video proof |
+| `F-004_626b.pdf`, `F-010_clint_approve_draft_46e2.pdf`, `G-0045678_08d6.pdf`, `J-005_3405.pdf`, `J-011_b138.pdf` | Yes | Includes J-011 video-frame sample used for RCA |
+| `mtd_retest_flow_2oct_2026_614a.pdf`, `new_pull_e600.pdf`, `SA_registration_2_oct_2026_794e.pdf`, `SA_tex_return_retesting_9ccc.pdf` | Yes | Retest flow PDFs |
+| `Toxel_Screenshots_Part_01_e0ac.pdf` … `Part_06_435c.pdf` | Yes (present) | Screenshot archives |
+
+**Not available / not claimed reviewed:** raw `.mp4` files (only PDF frame samples), staging HAR, Stripe TEST live receipts, external Outlook/Gmail captures. Chat visibility alone is not filesystem proof — paths above were opened on disk.
+
+## Environment blockers (keep for Toxel)
 
 | Check | Status | Exact blocker |
 |---|---|---|
@@ -29,72 +37,121 @@ Missing / not claimed reviewed: raw original `.mp4` video files (only sampled PD
 | External inbox (Outlook/Gmail) | **BLOCKED** | SMTP → Mailpit `127.0.0.1:1025` only |
 | Fake payments / Mailpit / local reminder worker | **LOCAL / SIMULATED** | Available |
 
-## Original FAIL / PARTIAL / BLOCKED summary vs tip
+## Original pack baseline (from `TOXEL_ORIGINAL_UAT_2964.txt`)
 
-Original pack: **38 FAIL**, **2 PARTIAL**, **9 BLOCKED**, **115 UNTESTED**, **73 PASS** (239 rows / 238 unique IDs).
+- **238** unique Test IDs (239 rows if counting mid-line `B-003` embedding).
+- Tester-marked Evidence Ref outcomes (parsed): **~73 PASS**, **38 FAIL** (incl. free-text **H-006**), **1 PARTIAL** (`D-014` Partially Verified), **5+ BLOCKED/NOT TESTABLE** (`F-012`–`F-014`, `G-010`, `G-011`), remainder blank/UNTESTED, plus process rows.
 
-### Journey-blocking fixes in this remediation
+### Original FAIL list (38)
 
-| ID | Original finding | Fix | Current result |
+`B-002`, `B-003`, `B-004`, `C-004`, `D-001`, `D-006`, `D-015`, `D-016`, `D-017`, `D-018`, `D-021`, `D1-010`, `D1-014`, `E-002`, `E-003`, `F-001`, `F-002`, `F-003`, `F-005`, `F-008`, `F-009`, `F-011`, `G-006`, `G-007`, `G-008`, `G-009`, `H-006`, `H-007`, `H-010`, `I-004`, `I-006`, `I-010`, `J-003`, `J-005`, `J-007`, `J-008`, `J-009`, `J-011`
+
+### Original PARTIAL list (1)
+
+`D-014` (Apple Pay partially verified — option visible, E2E payment not completed)
+
+## Reconciliation of every original FAIL / PARTIAL
+
+Statuses used: **LOCAL PASS** | **FAIL** | **BLOCKED** | **UNVERIFIED** | **NOT CHECKED**
+
+| ID | Original | Current | Basis |
 |---|---|---|---|
-| **G-006 / G-007** | Admin approves MTD draft; client stays **Assigned** | Manage-tax approve publishes MTD period; case status synced; overview maps `draft_ready` | **LOCAL PASS** (`toxelG006MtdApprove` 3/3) |
-| **G-008 / H-010** | No UI to record external MTD submission | `MtdPeriodActionsPanel` on manage-tax (period record-submission + figures) | **LOCAL PASS** (API + panel wired) |
-| **F-008** | Admin no figures review view | Period figures shown on manage-tax MTD panel | **LOCAL PASS** (UI present) |
-| **J-011** | Upgrade payment error; cannot verify no success email | Video root cause: lock at `READY_FOR_SUBMISSION`. UX: disable upgrade CTA when locked; no upgrade payment-success email already enforced | **LOCAL PASS** (lock UX + no-email code); Stripe TEST still **BLOCKED** |
-| **E-002 / E-003** | Generic engagement; acceptance not in profile | Client/service lines on letter; acceptance status on Profile | **LOCAL PASS** (code) |
-| **H-006 / H-007** | Reveal only on User List; any reason accepted | Reveal on manage-tax; reason ≥10 chars + non-trivial | **LOCAL PASS** (unit + admin tests) |
+| B-002 | FAIL | **LOCAL PASS** | Tasks 1–8 — registration intent does not auto-activate; preserved |
+| B-003 | FAIL | **BLOCKED** | External inbox / branded email logo — Mailpit only |
+| B-004 | FAIL | **BLOCKED** | Same — logo in real verification email |
+| C-004 | FAIL | **LOCAL PASS** | Task 4 dual-service — preserved |
+| D-001 | FAIL | **LOCAL PASS** | Task 5 SA pricing — preserved |
+| D-006 | FAIL | **LOCAL PASS** | Task 6 Additional Work — preserved |
+| D-014 | PARTIAL | **BLOCKED** | Stripe wallet eligibility / TEST config |
+| D-015 | FAIL | **BLOCKED** | Google Pay — Stripe TEST |
+| D-016 | FAIL | **BLOCKED** | Klarna — Stripe TEST |
+| D-017 | FAIL | **BLOCKED** | Clearpay — Stripe TEST |
+| D-018 | FAIL | **BLOCKED** | Saved card / Stripe TEST |
+| D-021 | FAIL | **BLOCKED** | Stripe-hosted logo — Stripe TEST |
+| D1-010 | FAIL | **LOCAL PASS** | Tasks 1–8 dynamic pricing cancel path — preserved |
+| D1-014 | FAIL | **NOT CHECKED** | Transaction-list amount not re-exercised this tip |
+| E-002 | FAIL | **LOCAL PASS** | Engagement letter shows client name + SA/MTD service lines (`engagement-client-name` / `engagement-service-line`); accept returns `serviceTypes` |
+| E-003 | FAIL | **LOCAL PASS** | Accept + status return timestamp/version; Profile `engagement-acceptance-status` wired |
+| F-001 | FAIL | **LOCAL PASS** | Tasks 1–8 SA open/continue — preserved |
+| F-002 | FAIL | **LOCAL PASS** | SA path has no questionnaire (by design); not a product defect |
+| F-003 | FAIL | **LOCAL PASS** | Tasks 1–8 document upload — preserved |
+| F-005 | FAIL | **LOCAL PASS** | Task 7 notification content/deep-link — preserved |
+| **F-008** | FAIL | **LOCAL PASS** | **SA** calc API returns figures; admin manage-tax shows `SaFiguresReviewPanel` (not MTD panel). Evidence § below |
+| F-009 | FAIL | **LOCAL PASS** | Task 7 notification visibility — preserved |
+| F-011 | FAIL | **LOCAL PASS** | Tasks 1–8 SA external submission — preserved |
+| G-006 | FAIL | **LOCAL PASS** | Live API: manage-review approve → period `AWAITING_CLIENT_APPROVAL`, overview `draft_ready` |
+| G-007 | FAIL | **LOCAL PASS** | Live API: client approve persists after G-006 publish |
+| G-008 | FAIL | **LOCAL PASS** | Live API: `record-submission` on period; UI `MtdPeriodActionsPanel` |
+| G-009 | FAIL | **UNVERIFIED** | Submitted/status notification not re-proved end-to-end this tip (Mailpit-capable; content path covered under Task 7 generally) |
+| H-006 | FAIL | **LOCAL PASS** | Reveal on manage-tax + live Super Admin reveal API returns email |
+| H-007 | FAIL | **LOCAL PASS** | Reason ≥10 chars; rejects trivial/repeated mash (`aaaaaaaaaa`); unit + live API |
+| H-010 | FAIL | **LOCAL PASS** | Same MTD external submission panel/API as G-008 |
+| I-004 | FAIL | **LOCAL PASS** | Task 7 — preserved |
+| I-006 | FAIL | **LOCAL PASS** | Task 7 — preserved |
+| I-010 | FAIL | **LOCAL PASS** | Task 7 — preserved |
+| J-003 | FAIL | **NOT CHECKED** | App logo render not re-screenshot this tip (branding files not changed) |
+| J-005 | FAIL | **LOCAL PASS** | Task 8 safe HTML — preserved |
+| J-007 | FAIL | **LOCAL PASS** | Task 7 — preserved (Mailpit) |
+| J-008 | FAIL | **LOCAL PASS** | Task 7 — preserved (Mailpit) |
+| J-009 | FAIL | **LOCAL PASS** | Task 7 overdue Admin+Super Admin, no client overdue email — preserved |
+| J-011 | FAIL/NOT VERIFIABLE | **LOCAL PASS** (UX + no success-email policy) | Video RCA: upgrade at `READY_FOR_SUBMISSION`. UI disables upgrade CTA; checkout blocked while locked. **Stripe TEST still BLOCKED** for live Stripe payment proof of original error |
 
-### Tasks 1–8 preserved (already LOCAL PASS)
+### Exact totals (original FAIL + PARTIAL only = 39)
 
-B01–B04, F-001/F-003/F-004, C-004 (+ checklist), D-001/D-004/D-005/D-006–D-010, J-005, J-007/J-008/J-009, J-003/J-004/J-006 (Mailpit), D1-010, C-001 entitlement SoT, B-002 by-design registration intent.
-
-### Still BLOCKED / out of local reach
-
-| ID | Reason |
+| Status | Count |
 |---|---|
-| D-014…D-018 wallets/BNPL/saved card | Stripe eligibility / TEST config |
-| D-021 / B-003 / B-004 logo in Stripe/email | Staging branding assets + real inbox |
-| A-006 / A-007 / A-009 | Staging Stripe + real email + scheduler |
-| D1-006 / D1-008 / D1-009 | Renewal / schedule pending staging |
-| F-012…F-014, G-010, G-011 | Were blocked by F-001 / period completion — retest after G/F fixes on staging |
-| K / K1 / L / M / N / P / R sections | Mostly UNTESTED in original pack; not claimed retested here beyond prior Tasks 1–8 coverage |
+| **LOCAL PASS** | **27** |
+| **FAIL** | **0** |
+| **BLOCKED** | **9** |
+| **UNVERIFIED** | **1** (`G-009`) |
+| **NOT CHECKED** | **2** (`D1-014`, `J-003`) |
+| **Sum** | **39** |
+
+Tasks 1–8 remain preserved (B01–B04, F-001/F-003/F-004, C-004, D-001, D-006–D-010, J-005, J-007/J-008/J-009, Mailpit notification paths, dual-service, etc.). No merge/deploy.
+
+## Newly changed journeys — verification evidence
+
+Artifact dir: `/opt/cursor/artifacts/full_remediation_verify_20261006_033025/` (`api_results.json`, `f008_sa_case.json`).
+
+| Journey | Evidence type | Result | Tested product SHA |
+|---|---|---|---|
+| **G-006 / G-007** | **Live API** against `127.0.0.1:8002` — create MTD case → figures → submit-for-review → `POST /api/compat/admin/manage-review/:id` approve → period `AWAITING_CLIENT_APPROVAL` → overview `taxReturnStatus=draft_ready` → client approve | PASS | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` (includes `ec898b2` G-006 core + F-008/H-007) |
+| **G-008 / H-010** | **Live API** `record-submission` on period after client approve; admin UI panel source wired | PASS | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
+| **F-008** | **Live API** Admin `GET /api/cases/:saCaseId/calculations` → `total_income=42500.5`, `taxable_income=31200.25`, `tax_due=4280.75`; client list empty until approved; **SA-only** `SaFiguresReviewPanel` on manage-tax (MTD branch unchanged) | PASS (API + wiring) | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
+| **F-008 browser** | Admin UI | **Browser UI not performed this tip** — live API + SA-only panel wiring completed | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
+| **E-002 / E-003** | **Live API** accept with signature → status has `engagementAcceptedAt` + `agreementVersion` + `serviceTypes:["SELF_ASSESSMENT"]`; UI testids on engagement letter + Profile | PASS | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
+| **H-006 / H-007** | **Live API** Super Admin reveal; short reason 400; `aaaaaaaaaa` 400 after strengthen; meaningful reason 200 with email; manage-tax reveal button wired | PASS | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
+| **J-011** | UI lock at late SA stage; checkout returned 400 while case `READY_FOR_SUBMISSION`; no upgrade payment-success email policy | LOCAL PASS; Stripe TEST **BLOCKED** | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
+
+Unit/build alone are **not** claimed as journey PASS. Regression suites (toxelG006MtdApprove, revealReason, etc.) support but do not replace the live API rows above.
+
+## SHA authority (fill after push)
+
+| Label | Full SHA | Meaning |
+|---|---|---|
+| **Authoritative Toxel deploy HEAD** | `PLACEHOLDER_HEAD` | Branch tip including this documentation |
+| **Product / tested revision** | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` | Last commit with application code (F-008 SA panel + H-007 reason strengthen + prior G-006/J-011/E/H from `ec898b2`) |
+| Docs-only commits after product | any commits touching only `docs/` after product tip | Documentation / SHA labels only — **no product behaviour change** |
+
+Toxel should deploy **Authoritative HEAD**. Behaviour equals **Product revision**; documentation-only commits after that tip do not change runtime.
+
+Prior product core (before F-008 SA panel + H-007 strengthen): `ec898b24740039d07bb2c7bd4cd1add43e0f628f`.
+
+## Branding / visual
+
+Diff for this remediation does **not** change brand colours, logos, themes, or global CSS. Changes are functional: manage-tax SA/MTD panels, reveal validation, engagement/profile acceptance display, upgrade lock UX. No unrelated visual redesign.
 
 ## Retest checklist (concise)
 
-**Setup:** backend-node + client `:3000` + admin `:3001` + Mongo + Mailpit; tip SHA below; fake payments OK for LOCAL; Stripe TEST keys required for payment acceptance.
-
-1. **SA journey:** register → verify → buy SA → engagement → docs upload → accountant draft → Admin approve → client approve → record external submission → certificate.
-2. **MTD journey:** buy MTD → assign → figures → Admin publish (manage-tax Approve Draft **or** period Publish) → client overview shows **Draft Ready** (not Assigned) → client approve → record external submission on period panel.
-3. **Dual service (C-004):** same client ACTIVE SA+MTD; Tax Tracker SA-only.
-4. **Upgrade (D-001 / J-011):** upgrade while case early-stage → difference amount; while `READY_FOR_SUBMISSION` → upgrade CTA disabled (no dead-end toast); confirm **no** package/upgrade payment-success email.
-5. **Additional Work (D-006–010):** Admin create → client pay → receipt.
-6. **Notifications (J-005/7/8/9):** safe HTML; deep-links; reminders LOCAL with `REMINDERS_ENABLED`; overdue Admin+Super Admin, no client overdue email.
-7. **Engagement (E-002/3):** letter shows client + service; Profile shows acceptance timestamp/version.
-8. **Reveal (H-006/7):** Super Admin reveal on manage-tax; short reasons rejected.
-
-## Test / build counts (product tip `ec898b24740039d07bb2c7bd4cd1add43e0f628f`; docs follow-ups after)
-
-| Suite | Result |
-|---|---|
-| toxelG006MtdApprove | 3/3 PASS |
-| revealReason | 3/3 PASS |
-| mtd | 19/19 PASS |
-| admin | 18/18 PASS |
-| saUpgradePricingTask5 | 13/13 PASS |
-| toxslBlockersB01toB04 | 5/5 PASS |
-| toxelC004DualService | 7/7 PASS |
-| clientContractDto | 7/7 PASS |
-| contactMasking | 4/4 PASS |
-| additionalWorkTask6 | 6/6 PASS |
-| email | 12/12 PASS |
-| Backend `tsc --noEmit` | PASS |
-| Client `npm run build` | PASS |
-| Admin `npm run build` | PASS |
-
-**Counts:** verified product LOCAL PASS rows from Tasks 1–8 plus G-006/G-007/G-008/F-008/J-011 UX/E-002/E-003/H-006/H-007 this tip. Stripe TEST / staging / external inbox remain **BLOCKED** (not counted as PASS).
+1. **SA:** buy → engagement (name+service) → docs → accountant calc → Admin manage-tax **SA figures panel** → approve → client → external submission.  
+2. **MTD:** buy → assign → figures → Admin approve on manage-tax → client overview **Draft Ready** (not Assigned) → client approve → period record submission.  
+3. **F-008:** confirm SA case shows calculation figures; MTD case shows MTD panel only.  
+4. **Upgrade / J-011:** early-stage upgrade OK; `READY_FOR_SUBMISSION` → CTA disabled; no package/upgrade payment-success email; Stripe TEST when keys available.  
+5. **Reveal:** Super Admin on manage-tax; short/trivial reasons rejected.  
+6. Keep Stripe TEST / staging / external inbox **BLOCKED** until Toxel env ready.
 
 ## Status
 
 **READY FOR TOXEL RETEST**
 
-Reasons: journey-blocking G-006/G-007/G-008 and related UAT FAILs fixed and regression-tested; Tasks 1–8 preserved. Stripe TEST, staging scheduler, and external inbox remain BLOCKED for those specific acceptance checks — do not treat them as PASS.
+Journey-blocking G-006/G-007/G-008 and **SA F-008** addressed with live API evidence; Tasks 1–8 preserved. Stripe TEST, staging scheduler, and external inbox remain **BLOCKED**. Do not merge or deploy from this agent.
