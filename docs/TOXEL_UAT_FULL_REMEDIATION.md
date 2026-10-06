@@ -217,12 +217,13 @@ Diff for this remediation does **not** change brand colours, logos, themes, or g
 
 ## Retest checklist (concise)
 
-1. **SA:** buy → engagement (name+service) → docs → accountant calc → Admin manage-tax **SA figures panel** → approve → client → external submission.  
-2. **MTD:** buy → assign → figures → Admin approve on manage-tax → client overview **Draft Ready** (not Assigned) → client approve → period record submission.  
-3. **F-008:** confirm SA case shows calculation figures; MTD case shows MTD panel only.  
-4. **Upgrade / J-011:** early-stage upgrade OK; `READY_FOR_SUBMISSION` → CTA disabled; no package/upgrade payment-success email; Stripe TEST when keys available.  
-5. **Reveal:** Super Admin on manage-tax; short/trivial reasons rejected.  
-6. Keep Stripe TEST / staging / external inbox **BLOCKED** until Toxel env ready.
+1. **SA / F-002:** buy → engagement → **questionnaire** (optional UTR, job role, employment) → dashboard without UTR → profile + admin see answers after refresh/re-login.  
+2. **SA / F-012–F-014:** at Ready for Submission → **External Submission** panel first (not certificate modal) → upload certificate → COMPLETED → client final-certificate download.  
+3. **SA F-008:** accountant calc → Admin manage-tax **SA figures panel** → approve → client → external submission.  
+4. **MTD:** buy → assign → figures → Admin approve on manage-tax → client overview **Draft Ready** → client approve → period record submission.  
+5. **Upgrade / J-011:** early-stage upgrade OK; `READY_FOR_SUBMISSION` → CTA disabled; Stripe TEST when keys available.  
+6. **Reveal:** Super Admin on manage-tax; short/trivial reasons rejected.  
+7. Keep Stripe TEST / staging / external inbox **BLOCKED** until Toxel env ready.
 
 ## Status
 
