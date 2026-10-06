@@ -2,13 +2,16 @@
 
 **Branch:** `cursor/toxsl-blockers-b01-b04-80a7`  
 **Base PR:** #18 (update only; no new branch/PR)  
-**Authoritative Toxel deploy HEAD:** tip of this branch / PR #18 (full SHA reported in handover + `PINNED_HEAD.txt` in the evidence bundle; do not use older pin commits that self-reference a prior tip)  
-**Product revision tested (gap-close code):** `12c8930a993def839356a8e6d7e6dc5d4d7e6b1f` (G-009 links + J-003 admin logos + D1-014 amounts); prior journey core `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20`  
-**Browser verification SHA (Playwright run):** `7fe42995e6ddbfe73903a57c4c10f155f4ecd6c0` (`gap_close_browser_20261006/tested_sha.txt`) — hosts still up; no product rebuild this handover turn  
+**Authoritative Toxel deploy HEAD:** `b220aa1a0ba2d245c37c628ae5b04174c946aeba` (tip of this branch / PR #18; also `PINNED_HEAD.txt` in evidence bundle)  
+**Product revision tested (this turn):** `b220aa1a0ba2d245c37c628ae5b04174c946aeba` — F-002 SA questionnaire + F-012–F-014 certificate gate; admin Client types  
+**Prior product revisions (preserved Tasks 1–8 / gap-close):** `12c8930a993def839356a8e6d7e6dc5d4d7e6b1f`, `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20`  
+**Browser verification SHA (this turn):** `b220aa1a0ba2d245c37c628ae5b04174c946aeba` — API/client/admin `build-info` all match after rebuild+restart  
+**Historical gap-close browser SHA:** `7fe42995e6ddbfe73903a57c4c10f155f4ecd6c0` (older tip; not this revision)  
 **Status:** READY FOR TOXEL RETEST (Stripe TEST / staging scheduler / external inbox remain **BLOCKED**)  
-**Attachment note:** `F-012_41ab.pdf` is now on disk (30 sampled frames — **not** the complete video). Combined colour PDF still missing. Raw `F-012.mp4` / `Toxel_Videos_04.zip` still missing.  
+**Attachment note:** `F-012_41ab.pdf` readable (30 sampled frames — **not** the complete video). Combined colour PDF still missing. Raw `F-012.mp4` / `Toxel_Videos_04.zip` still missing.  
 **Matrix (FAIL+PARTIAL=39):** LOCAL PASS **31** · BLOCKED **8** · UNVERIFIED **0** · FAIL **0**  
-**Separate original BLOCKED:** F-012 / F-013 / F-014 → LOCAL PASS (product path); external inbox for F-012 email remains BLOCKED.
+**Separate original BLOCKED:** F-012 / F-013 / F-014 → LOCAL PASS (product path) on tip; external inbox for F-012 email remains BLOCKED.  
+**Downloadable evidence:** `/opt/cursor/artifacts/toxsl_remediation_evidence_20261006.zip`
 
 ## ID mapping correction (mandatory)
 
@@ -59,11 +62,11 @@ Base dir: `/home/ubuntu/.cursor/projects/workspace/uploads/` — every file belo
 |---|---|---|---|---|
 | `EVIDENCE_INDEX.csv` row for `2nd_oct_2026/F-012.mp4` in `Toxel_Videos_04.zip` (27053970 B, SHA256 `80a659cfbea41426ea4488ecb02e1cdc9ab9809ca21464be02a183a42fdb7bb7`) | Yes | Index only (inside `Toxel_UAT_Text_and_Index_b306.zip`) | **DUPLICATE metadata** — same inaccessible claim already inventoried; **not** video access | F-012 |
 | `Toxel_Videos_04.zip` / `F-012.mp4` binary | Yes (index) | **No** — not in uploads | **MISSING evidence** | F-012 (tester path for F-013/F-014) |
-| F-012 PDF frame sample (cf. `J-011_b138.pdf`) | No | **No** | **MISSING evidence** | F-012 |
+| F-012 PDF frame sample (`F-012_41ab.pdf`) | Yes | **Yes** — 30 frames + `F012_PAGE_MAP.md` | **Readable sampled frames** (≠ complete video) | F-012–F-014 |
 | Combined colour PDF | No mention in ODT/`EVIDENCE_INDEX.csv` | **No** — not uploaded | **MISSING evidence** | Branding colour pack — cannot review |
 | Prior `F012_COLOUR_PDF_INVENTORY.md` in gap-close artifacts | Agent-written | Yes | **DUPLICATE report** of inaccessibility (not substitute for binaries) | F-012 / colour |
 
-**Access verdict:** Attached F-012 evidence is **not accessible for review**. Only the index metadata and prior “inaccessible” inventory notes are present. Combined colour PDF remains **not uploaded**.
+**Access verdict:** `F-012_41ab.pdf` is **readable** (30 sampled frames). Raw `F-012.mp4` / `Toxel_Videos_04.zip` and combined colour PDF remain **not uploaded**.
 
 ## F-012–F-014 reconciliation vs current SA journey
 
@@ -160,9 +163,9 @@ Statuses used: **LOCAL PASS** | **FAIL** | **BLOCKED** | **UNVERIFIED** | **NOT 
 
 | ID | Original | Current | Basis |
 |---|---|---|---|
-| **F-012** | BLOCKED at certificate upload | **LOCAL PASS** (product path) | F-012.pdf 30 frames reviewed: defect was certificate modal at `ready_for_submission`. Fixed: advance requires External Submission panel first; certificate only after `final_submitted`/`SUBMITTED`. Journey test PASS; Mailpit submitted email = **LOCAL/SIMULATED**; external inbox still **BLOCKED**. PDF frames ≠ complete video. |
-| **F-013** | BLOCKED | **LOCAL PASS** (product path) | Final certificate on `all-tax-returns` + enriched GET final-certificate; client download via My Documents / history. |
-| **F-014** | BLOCKED | **LOCAL PASS** (product path) | Status transitions SUBMITTED→COMPLETED + reload assertions in `saFinalCertificateJourney.test.ts`. |
+| **F-012** | BLOCKED at certificate upload | **LOCAL PASS** (product path) | F-012.pdf 30 frames reviewed: defect was certificate modal at `ready_for_submission`. Fixed: advance requires External Submission first. Fresh browser on `b220aa1…`: cert CTA hidden at ready; after `record-submission` upload → COMPLETED. Vitest journey PASS. Submitted email = **LOCAL/SIMULATED**; external inbox **BLOCKED**. PDF frames ≠ complete video. |
+| **F-013** | BLOCKED | **LOCAL PASS** (product path) | Client `GET /api/compat/client/tax-returns/:id/final-certificate` 200 + download URL; evidence `f013_final_certificate.json` + `f013_certificate_download.pdf`. |
+| **F-014** | BLOCKED | **LOCAL PASS** (product path) | Progress remains `completed` after reload; admin manage-tax shows completed banner (`f014_*`). |
 | G-010 / G-011 | BLOCKED/NOT TESTABLE | unchanged env | Outside this remediation focus |
 
 ## F-002 — product decision recorded
@@ -174,35 +177,39 @@ Implementation: reuse engagement-letter tax-info wizard for SA; `POST /api/compa
 ## Newly changed journeys — verification evidence
 
 Artifact dirs:
-- `/opt/cursor/artifacts/full_remediation_verify_20261006_033025/` (prior live API)
-- `/opt/cursor/artifacts/gap_close_verify_20261006/` (D1-014 + G-009 live API)
-- `/opt/cursor/artifacts/gap_close_browser_20261006/` (Playwright screenshots + BROWSER_RESULTS.md)
-- **Downloadable zip:** `/opt/cursor/artifacts/gap_close_evidence_bundle_20261006.zip`
+- `/opt/cursor/artifacts/f002_f012_browser_20261006/` (**fresh** F-002 + F-012–F-014 on tip)
+- `/opt/cursor/artifacts/f012_pdf_frames_20261006/` (F-012.pdf page map + frames)
+- `/opt/cursor/artifacts/gap_close_browser_20261006/` (prior gap-close Playwright — historical SHA)
+- `/opt/cursor/artifacts/gap_close_verify_20261006/` (prior D1-014 + G-009 live API)
+- **Downloadable zip:** `/opt/cursor/artifacts/toxsl_remediation_evidence_20261006.zip`
 
 | Journey | Evidence type | Result | Tested product SHA |
 |---|---|---|---|
-| **G-006 / G-007** | Live API publish → client approve | PASS | `7d92c997…` / tip |
-| **G-008 / H-010** | Live API `record-submission` | PASS | `7d92c997…` / tip |
+| **F-002** | API + browser profile/admin + re-login (blank UTR) | **PASS** | `b220aa1a0ba2d245c37c628ae5b04174c946aeba` |
+| **F-012–F-014** | Browser gate + certificate upload + client download | **PASS** (product path) | `b220aa1a0ba2d245c37c628ae5b04174c946aeba` |
+| **G-006 / G-007** | Live API publish → client approve | PASS | prior tip (preserved) |
+| **G-008 / H-010** | Live API `record-submission` | PASS | prior tip (preserved) |
 | **G-009** | Live API + Mailpit + browser MTD notifications tab + re-login | **PASS** | `12c8930a993def839356a8e6d7e6dc5d4d7e6b1f` |
-| **F-008** | Live API calcs + browser `SaFiguresReviewPanel` (42500.5 / 4280.75) | PASS | `12c8930a…` (panel from `7d92c997…`) |
+| **F-008** | Live API calcs + browser `SaFiguresReviewPanel` (42500.5 / 4280.75) | PASS | `12c8930a…` |
 | **D1-014** | Live API amount=30 + billing UI £30.00 + refresh | PASS | `12c8930a…` |
 | **J-003** | Client + admin logo HTTP 200 + screenshots | PASS | `12c8930a…` |
 | **E-002 / E-003** | Live API + browser engagement/profile | PASS | tip |
 | **H-006 / H-007** | Live API reveal + browser SUPER_ADMIN reveal control | **PASS** (UI+API) | tip |
 | **J-011** | UI lock banner + API `locked=true` at READY_FOR_SUBMISSION | LOCAL PASS; Stripe TEST BLOCKED | tip |
 
-Browser method: Playwright chromium (ComputerUse blocked — model usage quota). All 13 gap-close browser checks **PASS** (`BROWSER_RESULTS.md`).
+Browser method: Playwright chromium. Fresh F-002/F-012 suite on tip; prior 13 gap-close checks historical.
 
 ## SHA authority
 
 | Label | Full SHA | Meaning |
 |---|---|---|
-| **Authoritative Toxel deploy HEAD** | Tip of `cursor/toxsl-blockers-b01-b04-80a7` / PR #18 (`PINNED_HEAD.txt` in bundle + handover) | Docs-only tips after product do not change behaviour; deploy latest pushed tip |
-| **Gap-close product commit (tested)** | `12c8930a993def839356a8e6d7e6dc5d4d7e6b1f` | G-009 `/mtd-dashboard` links, admin logo assets/paths, D1-014 charged amount UI + verify script |
-| **Browser run SHA** | `7fe42995e6ddbfe73903a57c4c10f155f4ecd6c0` | Playwright 13/13 PASS against product at/after `12c8930…` |
-| **Prior journey product core** | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` | F-008 SA panel + H-007 strengthen + G-006/J-011/E/H |
+| **Authoritative Toxel deploy HEAD** | `b220aa1a0ba2d245c37c628ae5b04174c946aeba` | Tip of `cursor/toxsl-blockers-b01-b04-80a7` / PR #18 |
+| **Fresh F-002 / F-012 product + browser** | `b220aa1a0ba2d245c37c628ae5b04174c946aeba` | SA questionnaire + certificate gate; API/client/admin build-info match |
+| **Gap-close product (historical)** | `12c8930a993def839356a8e6d7e6dc5d4d7e6b1f` | G-009 / J-003 / D1-014 |
+| **Historical gap-close browser** | `7fe42995e6ddbfe73903a57c4c10f155f4ecd6c0` | Prior Playwright 13/13 — not this tip |
+| **Prior journey product core** | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` | F-008 SA panel + H-007 / G-006 |
 
-Toxel should deploy the **latest pushed tip** of `cursor/toxsl-blockers-b01-b04-80a7` / PR #18.
+Toxel should deploy the **latest pushed tip** of `cursor/toxsl-blockers-b01-b04-80a7` / PR #18 (`b220aa1a0ba2d245c37c628ae5b04174c946aeba`). Different historical browser SHAs are prior verification runs, not alternate product builds of this tip.
 
 ## Branding / visual
 
