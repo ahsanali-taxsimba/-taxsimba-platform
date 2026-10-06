@@ -2,10 +2,11 @@
 
 **Branch:** `cursor/toxsl-blockers-b01-b04-80a7`  
 **Base PR:** #18 (update only; no new branch/PR)  
-**Authoritative Toxel deploy HEAD:** use `git rev-parse origin/cursor/toxsl-blockers-b01-b04-80a7` after pull — recorded at last push in §SHA (do not use an older docs-label SHA)  
-**Product revision tested (code under verification):** `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20`  
+**Authoritative Toxel deploy HEAD:** pinned full SHA in §SHA (must match `git rev-parse origin/cursor/toxsl-blockers-b01-b04-80a7` after pull)  
+**Product revision tested (gap-close code):** `12c8930a993def839356a8e6d7e6dc5d4d7e6b1f` (G-009 links + J-003 admin logos + D1-014 amounts); prior journey core `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20`  
 **Status:** READY FOR TOXEL RETEST (Stripe TEST / staging scheduler / external inbox remain **BLOCKED**)  
-**Do not merge. Do not deploy from this agent.**
+**Do not merge. Do not deploy from this agent.**  
+**Downloadable evidence bundle:** see `/opt/cursor/artifacts/gap_close_evidence_bundle_20261006.zip` (also attached via PR artifacts).
 
 ## ID mapping correction (mandatory)
 
@@ -48,7 +49,15 @@ Base dir: `/home/ubuntu/.cursor/projects/workspace/uploads/` — every file belo
 | `Toxel_Screenshots_Part_05_9505.pdf` | 1810363 | Yes | Screenshot archive |
 | `Toxel_Screenshots_Part_06_435c.pdf` | 1503818 | Yes | Screenshot archive |
 
-**Not available / not claimed reviewed:** raw `.mp4` files (only PDF frame samples), staging HAR, Stripe TEST live receipts, external Outlook/Gmail captures. Chat visibility alone is not filesystem proof.
+**Not available / not claimed reviewed:** raw `.mp4` files (only PDF frame samples where uploaded), staging HAR, Stripe TEST live receipts, external Outlook/Gmail captures. Chat visibility alone is not filesystem proof.
+
+### Inaccessible / missing from prior inventory (gap close)
+
+| Item | Indexed? | On disk? | Maps to |
+|---|---|---|---|
+| `F-012.mp4` (`Toxel_Videos_04.zip`, 27053970 B, SHA256 `80a659cf…`) | Yes — `EVIDENCE_INDEX.csv` | **No** — zip/mp4 not uploaded | **F-012** (also blocks tester path for **F-013**, **F-014**) — original: BLOCKED at Upload Tax Return Certificate |
+| F-012 PDF frame sample | No | **No** | F-012 |
+| Combined colour PDF | No mention in ODT/index | **No** — not uploaded | Branding colour pack (if any) — cannot review |
 
 ## Environment blockers (keep for Toxel)
 
@@ -91,27 +100,27 @@ Statuses used: **LOCAL PASS** | **FAIL** | **BLOCKED** | **UNVERIFIED** | **NOT 
 | D-018 | FAIL | **BLOCKED** | Saved card / Stripe TEST |
 | D-021 | FAIL | **BLOCKED** | Stripe-hosted logo — Stripe TEST |
 | D1-010 | FAIL | **LOCAL PASS** | Tasks 1–8 dynamic pricing cancel path — preserved |
-| D1-014 | FAIL | **NOT CHECKED** | Transaction-list amount not re-exercised this tip |
-| E-002 | FAIL | **LOCAL PASS** | Engagement letter shows client name + SA/MTD service lines (`engagement-client-name` / `engagement-service-line`); accept returns `serviceTypes` |
-| E-003 | FAIL | **LOCAL PASS** | Accept + status return timestamp/version; Profile `engagement-acceptance-status` wired |
+| D1-014 | FAIL | **LOCAL PASS** | Live API + UI: upgrade tx `amount=30` (not sticker `upgradePrice=149`); `BillingHistoryUI` shows `£30.00`; evidence `gap_close_verify_20261006/` + `d1014_billing_amounts.png` |
+| E-002 | FAIL | **LOCAL PASS** | Engagement letter shows client name + SA/MTD service lines (`engagement-client-name` / `engagement-service-line`); accept returns `serviceTypes`; browser `e002_engagement.png` |
+| E-003 | FAIL | **LOCAL PASS** | Accept + status return timestamp/version; Profile wired; browser `e003_profile_acceptance.png` |
 | F-001 | FAIL | **LOCAL PASS** | Tasks 1–8 SA open/continue — preserved |
-| F-002 | FAIL | **LOCAL PASS** | SA path has no questionnaire (by design); not a product defect |
+| F-002 | FAIL | **UNVERIFIED** | **Cannot close as “by design”.** Sources checked: (1) Original UAT tester note — SA questionnaire N/A after engagement; (2) `memory/P0_CONTRACT_BASELINE.md` G3 maps `submit-tax-info` questionnaire → **MTD** onboarding only; (3) no agreed written requirement stating SA must skip questionnaire. Keep open until product/requirement owner confirms SA exclusion. |
 | F-003 | FAIL | **LOCAL PASS** | Tasks 1–8 document upload — preserved |
 | F-005 | FAIL | **LOCAL PASS** | Task 7 notification content/deep-link — preserved |
-| **F-008** | FAIL | **LOCAL PASS** | **SA** calc API returns figures; admin manage-tax shows `SaFiguresReviewPanel` (not MTD panel). Evidence § below |
+| **F-008** | FAIL | **LOCAL PASS** | **SA** calc API `total_income=42500.5` / `tax_due=4280.75`; browser `SaFiguresReviewPanel` on manage-tax (`f008_sa_figures_panel.png` + `f008_calculations_api.json`) |
 | F-009 | FAIL | **LOCAL PASS** | Task 7 notification visibility — preserved |
 | F-011 | FAIL | **LOCAL PASS** | Tasks 1–8 SA external submission — preserved |
 | G-006 | FAIL | **LOCAL PASS** | Live API: manage-review approve → period `AWAITING_CLIENT_APPROVAL`, overview `draft_ready` |
 | G-007 | FAIL | **LOCAL PASS** | Live API: client approve persists after G-006 publish |
 | G-008 | FAIL | **LOCAL PASS** | Live API: `record-submission` on period; UI `MtdPeriodActionsPanel` |
-| G-009 | FAIL | **UNVERIFIED** | Submitted/status notification not re-proved end-to-end this tip (Mailpit-capable; content path covered under Task 7 generally) |
+| G-009 | FAIL | **LOCAL PASS** | Live API: in-app notification title `MTD Quarter 1 submitted`, link `/mtd-dashboard`; Mailpit subject match (`gap_close_verify_20261006/`). MTD dashboard UI session gate still **PENDING** (see browser results) |
 | H-006 | FAIL | **LOCAL PASS** | Reveal on manage-tax + live Super Admin reveal API returns email |
 | H-007 | FAIL | **LOCAL PASS** | Reason ≥10 chars; rejects trivial/repeated mash (`aaaaaaaaaa`); unit + live API |
 | H-010 | FAIL | **LOCAL PASS** | Same MTD external submission panel/API as G-008 |
 | I-004 | FAIL | **LOCAL PASS** | Task 7 — preserved |
 | I-006 | FAIL | **LOCAL PASS** | Task 7 — preserved |
 | I-010 | FAIL | **LOCAL PASS** | Task 7 — preserved |
-| J-003 | FAIL | **NOT CHECKED** | App logo render not re-screenshot this tip (branding files not changed) |
+| J-003 | FAIL | **LOCAL PASS** | Client `/images/logo.svg` + admin `/admin/images/logo/logo.svg` HTTP 200 and rendered (`j003_*.png`); admin auth/home paths fixed + assets added |
 | J-005 | FAIL | **LOCAL PASS** | Task 8 safe HTML — preserved |
 | J-007 | FAIL | **LOCAL PASS** | Task 7 — preserved (Mailpit) |
 | J-008 | FAIL | **LOCAL PASS** | Task 7 — preserved (Mailpit) |
@@ -122,42 +131,44 @@ Statuses used: **LOCAL PASS** | **FAIL** | **BLOCKED** | **UNVERIFIED** | **NOT 
 
 | Status | Count | IDs |
 |---|---|---|
-| **LOCAL PASS** | **28** | B-002, C-004, D-001, D-006, D1-010, E-002, E-003, F-001, F-002, F-003, F-005, **F-008**, F-009, F-011, G-006, G-007, G-008, H-006, H-007, H-010, I-004, I-006, I-010, J-005, J-007, J-008, J-009, J-011 |
+| **LOCAL PASS** | **30** | B-002, C-004, D-001, D-006, D1-010, **D1-014**, E-002, E-003, F-001, F-003, F-005, **F-008**, F-009, F-011, G-006, G-007, G-008, **G-009**, H-006, H-007, H-010, I-004, I-006, I-010, **J-003**, J-005, J-007, J-008, J-009, J-011 |
 | **FAIL** | **0** | — |
 | **BLOCKED** | **8** | B-003, B-004, D-014, D-015, D-016, D-017, D-018, D-021 |
-| **UNVERIFIED** | **1** | G-009 |
-| **NOT CHECKED** | **2** | D1-014, J-003 |
+| **UNVERIFIED** | **1** | **F-002** (requirement source does not confirm SA “no questionnaire by design”) |
+| **NOT CHECKED** | **0** | — |
 | **Sum** | **39** | 38 FAIL + 1 PARTIAL |
 
 Tasks 1–8 remain preserved (B01–B04, F-001/F-003/F-004, C-004, D-001, D-006–D-010, J-005, J-007/J-008/J-009, Mailpit notification paths, dual-service, etc.). No merge/deploy.
 
 ## Newly changed journeys — verification evidence
 
-Artifact dir: `/opt/cursor/artifacts/full_remediation_verify_20261006_033025/` (`api_results.json`, `f008_sa_case.json`).
+Artifact dirs:
+- `/opt/cursor/artifacts/full_remediation_verify_20261006_033025/` (prior live API)
+- `/opt/cursor/artifacts/gap_close_verify_20261006/` (D1-014 + G-009 live API)
+- `/opt/cursor/artifacts/gap_close_browser_20261006/` (Playwright screenshots + BROWSER_RESULTS.md)
+- **Downloadable zip:** `/opt/cursor/artifacts/gap_close_evidence_bundle_20261006.zip`
 
 | Journey | Evidence type | Result | Tested product SHA |
 |---|---|---|---|
-| **G-006 / G-007** | **Live API** against `127.0.0.1:8002` — create MTD case → figures → submit-for-review → `POST /api/compat/admin/manage-review/:id` approve → period `AWAITING_CLIENT_APPROVAL` → overview `taxReturnStatus=draft_ready` → client approve | PASS | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` (includes `ec898b2` G-006 core + F-008/H-007) |
-| **G-008 / H-010** | **Live API** `record-submission` on period after client approve; admin UI panel source wired | PASS | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
-| **F-008** | **Live API** Admin `GET /api/cases/:saCaseId/calculations` → `total_income=42500.5`, `taxable_income=31200.25`, `tax_due=4280.75`; client list empty until approved; **SA-only** `SaFiguresReviewPanel` on manage-tax (MTD branch unchanged) | PASS (API + wiring) | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
-| **F-008 browser** | Admin UI | **Browser UI not performed this tip** — live API + `SaFiguresReviewPanel` SA-only wiring completed | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
-| **E-002 / E-003** | **Live API** accept with signature → status has `engagementAcceptedAt` + `agreementVersion` + `serviceTypes:["SELF_ASSESSMENT"]`; UI testids on engagement letter + Profile | PASS | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
-| **H-006 / H-007** | **Live API** Super Admin reveal; short reason 400; `aaaaaaaaaa` 400 after strengthen; meaningful reason 200 with email; manage-tax reveal button wired | PASS | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
-| **J-011** | UI lock at late SA stage; checkout returned 400 while case `READY_FOR_SUBMISSION`; no upgrade payment-success email policy | LOCAL PASS; Stripe TEST **BLOCKED** | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
-
-Unit/build alone are **not** claimed as journey PASS. Regression suites (toxelG006MtdApprove, revealReason, etc.) support but do not replace the live API rows above.
+| **G-006 / G-007** | Live API publish → client approve | PASS | `7d92c997…` / tip |
+| **G-008 / H-010** | Live API `record-submission` | PASS | `7d92c997…` / tip |
+| **G-009** | Live API in-app + Mailpit submitted; link `/mtd-dashboard` | PASS (API); UI session gate PENDING | `12c8930a993def839356a8e6d7e6dc5d4d7e6b1f` |
+| **F-008** | Live API calcs + browser `SaFiguresReviewPanel` (42500.5 / 4280.75) | PASS | `12c8930a…` (panel from `7d92c997…`) |
+| **D1-014** | Live API amount=30 + billing UI £30.00 | PASS | `12c8930a…` |
+| **J-003** | Client + admin logo HTTP 200 + screenshots | PASS | `12c8930a…` |
+| **E-002 / E-003** | Live API + browser engagement/profile | PASS | tip |
+| **H-006 / H-007** | Live API reveal; UI reveal control PENDING (Super Admin session) | API PASS; UI PENDING | tip |
+| **J-011** | UI + API 400 lock at READY_FOR_SUBMISSION | LOCAL PASS; Stripe TEST BLOCKED | tip |
 
 ## SHA authority
 
 | Label | Full SHA | Meaning |
 |---|---|---|
-| **Authoritative Toxel deploy HEAD** | *(branch tip — set to `git rev-parse` of `origin/cursor/toxsl-blockers-b01-b04-80a7` after this docs push; see PR #18 / agent handover for the pinned full SHA)* | Docs-only tip; **identical runtime** to product revision below |
-| **Product / tested revision** | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` | Last commit with application code (F-008 SA panel + H-007 reason strengthen + prior G-006/J-011/E/H from `ec898b2`). Live API evidence was run against this SHA. |
-| Docs-only commits after product | `c26de88` … tip (only `docs/TOXEL_UAT_FULL_REMEDIATION.md`) | Documentation / totals / SHA labels — **no product behaviour change** |
+| **Authoritative Toxel deploy HEAD (pinned)** | *(set below after docs push — must equal `git rev-parse` of branch tip)* | Deploy this tip |
+| **Gap-close product commit** | `12c8930a993def839356a8e6d7e6dc5d4d7e6b1f` | G-009 `/mtd-dashboard` links, admin logo assets/paths, D1-014 charged amount UI + verify script |
+| **Prior journey product core** | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` | F-008 SA panel + H-007 strengthen + G-006/J-011/E/H |
 
-Toxel should deploy the **branch tip** (authoritative HEAD). Behaviour equals **Product revision** `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20`; documentation-only commits after that tip do not change runtime.
-
-Prior product core (before F-008 SA panel + H-007 strengthen): `ec898b24740039d07bb2c7bd4cd1add43e0f628f`.
+Toxel should deploy the **branch tip** (authoritative HEAD).
 
 ## Branding / visual
 
