@@ -2,7 +2,7 @@
 
 **Branch:** `cursor/toxsl-blockers-b01-b04-80a7`  
 **Base PR:** #18 (update only; no new branch/PR)  
-**Authoritative Toxel deploy HEAD (this document tip):** see §SHA below after push  
+**Authoritative Toxel deploy HEAD:** `a4dde642295a52f78ffd1f64448f13214c7629a8`  
 **Product revision tested (code under verification):** see §SHA  
 **Status:** READY FOR TOXEL RETEST (Stripe TEST / staging scheduler / external inbox remain **BLOCKED**)  
 **Do not merge. Do not deploy from this agent.**
@@ -118,7 +118,7 @@ Artifact dir: `/opt/cursor/artifacts/full_remediation_verify_20261006_033025/` (
 | **G-006 / G-007** | **Live API** against `127.0.0.1:8002` — create MTD case → figures → submit-for-review → `POST /api/compat/admin/manage-review/:id` approve → period `AWAITING_CLIENT_APPROVAL` → overview `taxReturnStatus=draft_ready` → client approve | PASS | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` (includes `ec898b2` G-006 core + F-008/H-007) |
 | **G-008 / H-010** | **Live API** `record-submission` on period after client approve; admin UI panel source wired | PASS | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
 | **F-008** | **Live API** Admin `GET /api/cases/:saCaseId/calculations` → `total_income=42500.5`, `taxable_income=31200.25`, `tax_due=4280.75`; client list empty until approved; **SA-only** `SaFiguresReviewPanel` on manage-tax (MTD branch unchanged) | PASS (API + wiring) | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
-| **F-008 browser** | Admin UI | **Browser UI not performed this tip** — live API + SA-only panel wiring completed | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
+| **F-008 browser** | Admin UI | **Browser UI not performed this tip** — live API + `SaFiguresReviewPanel` SA-only wiring completed | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
 | **E-002 / E-003** | **Live API** accept with signature → status has `engagementAcceptedAt` + `agreementVersion` + `serviceTypes:["SELF_ASSESSMENT"]`; UI testids on engagement letter + Profile | PASS | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
 | **H-006 / H-007** | **Live API** Super Admin reveal; short reason 400; `aaaaaaaaaa` 400 after strengthen; meaningful reason 200 with email; manage-tax reveal button wired | PASS | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
 | **J-011** | UI lock at late SA stage; checkout returned 400 while case `READY_FOR_SUBMISSION`; no upgrade payment-success email policy | LOCAL PASS; Stripe TEST **BLOCKED** | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
@@ -129,7 +129,7 @@ Unit/build alone are **not** claimed as journey PASS. Regression suites (toxelG0
 
 | Label | Full SHA | Meaning |
 |---|---|---|
-| **Authoritative Toxel deploy HEAD** | `5bf968db763febe0931db36c230234398274da4e` | Branch tip after push; behaviour identical to product `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
+| **Authoritative Toxel deploy HEAD** | `a4dde642295a52f78ffd1f64448f13214c7629a8` | Branch tip after push; behaviour identical to product `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
 | **Product / tested revision** | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` | Last commit with application code (F-008 SA panel + H-007 reason strengthen + prior G-006/J-011/E/H from `ec898b2`) |
 | Docs-only commits after product | any commits touching only `docs/` after product tip | Documentation / SHA labels only — **no product behaviour change** |
 
