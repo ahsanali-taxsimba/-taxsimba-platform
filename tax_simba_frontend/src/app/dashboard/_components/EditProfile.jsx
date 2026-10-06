@@ -286,16 +286,23 @@ const EditProfile = ({ userData, sessionData, setTrackUpdate }) => {
               <div className="mb-4" data-testid="engagement-acceptance-status">
                 <h6 className="mb-1">Engagement letter</h6>
                 <p className="text-muted mb-0">
-                  {engagementStatus?.accepted || engagementStatus?.engagementAccepted
+                  {engagementStatus?.isEngagementLetterAccepted ||
+                  engagementStatus?.is_engagement_letter_accepted
                     ? `Accepted${
-                        engagementStatus.acceptedAt || engagementStatus.accepted_at
+                        engagementStatus.engagementAcceptedAt ||
+                        engagementStatus.engagement_accepted_at
                           ? ` · ${new Date(
-                              engagementStatus.acceptedAt || engagementStatus.accepted_at,
+                              engagementStatus.engagementAcceptedAt ||
+                                engagementStatus.engagement_accepted_at,
                             ).toLocaleString("en-GB")}`
                           : ""
                       }${
-                        engagementStatus.version || engagementStatus.letterVersion
-                          ? ` · v${engagementStatus.version || engagementStatus.letterVersion}`
+                        engagementStatus.agreementVersion ||
+                        engagementStatus.agreement_version
+                          ? ` · v${
+                              engagementStatus.agreementVersion ||
+                              engagementStatus.agreement_version
+                            }`
                           : ""
                       }`
                     : sessionData?.user?.engagementAcceptedAt

@@ -2,6 +2,7 @@
 
 **Branch:** `cursor/toxsl-blockers-b01-b04-80a7`  
 **Base PR:** #18  
+**Final Toxel tip SHA:** `ec898b24740039d07bb2c7bd4cd1add43e0f628f`  
 **Previous tip (pre this remediation commit):** `780decd36c060b4bc7b66471e49f7478f00b2a05`  
 **Status:** READY FOR TOXEL RETEST (with documented env BLOCKED items)
 
@@ -69,22 +70,26 @@ B01–B04, F-001/F-003/F-004, C-004 (+ checklist), D-001/D-004/D-005/D-006–D-0
 7. **Engagement (E-002/3):** letter shows client + service; Profile shows acceptance timestamp/version.
 8. **Reveal (H-006/7):** Super Admin reveal on manage-tax; short reasons rejected.
 
-## Test / build counts (this tip)
+## Test / build counts (tip `ec898b24740039d07bb2c7bd4cd1add43e0f628f` + docs follow-up)
 
-See commit message / CI for exact HEAD. Local verification this pass:
+| Suite | Result |
+|---|---|
+| toxelG006MtdApprove | 3/3 PASS |
+| revealReason | 3/3 PASS |
+| mtd | 19/19 PASS |
+| admin | 18/18 PASS |
+| saUpgradePricingTask5 | 13/13 PASS |
+| toxslBlockersB01toB04 | 5/5 PASS |
+| toxelC004DualService | 7/7 PASS |
+| clientContractDto | 7/7 PASS |
+| contactMasking | 4/4 PASS |
+| additionalWorkTask6 | 6/6 PASS |
+| email | 12/12 PASS |
+| Backend `tsc --noEmit` | PASS |
+| Client `npm run build` | PASS |
+| Admin `npm run build` | PASS |
 
-- `toxelG006MtdApprove` **3/3 PASS**
-- `revealReason` **3/3 PASS**
-- `mtd` **19/19 PASS**
-- `admin` **18/18 PASS** (incl. short reveal reject)
-- `saUpgradePricingTask5` **13/13 PASS**
-- `toxslBlockersB01toB04` **5/5 PASS**
-- `toxelC004DualService` **7/7 PASS**
-- `clientContractDto` **7/7 PASS**
-- `contactMasking` **4/4 PASS**
-- Backend `tsc --noEmit` **PASS**
-
-Client/admin production builds recorded in follow-up commit notes.
+**Counts:** verified product LOCAL PASS rows from Tasks 1–8 plus G-006/G-007/G-008/F-008/J-011 UX/E-002/E-003/H-006/H-007 this tip. Stripe TEST / staging / external inbox remain **BLOCKED** (not counted as PASS).
 
 ## Status
 
