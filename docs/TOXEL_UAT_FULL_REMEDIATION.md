@@ -2,8 +2,8 @@
 
 **Branch:** `cursor/toxsl-blockers-b01-b04-80a7`  
 **Base PR:** #18 (update only; no new branch/PR)  
-**Authoritative Toxel deploy HEAD:** `a4dde642295a52f78ffd1f64448f13214c7629a8`  
-**Product revision tested (code under verification):** see §SHA  
+**Authoritative Toxel deploy HEAD:** use `git rev-parse origin/cursor/toxsl-blockers-b01-b04-80a7` after pull — recorded at last push in §SHA (do not use an older docs-label SHA)  
+**Product revision tested (code under verification):** `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20`  
 **Status:** READY FOR TOXEL RETEST (Stripe TEST / staging scheduler / external inbox remain **BLOCKED**)  
 **Do not merge. Do not deploy from this agent.**
 
@@ -16,17 +16,39 @@
 
 ## Attachment-access inventory
 
-| Attachment (path under uploads) | Readable? | Role / notes |
-|---|---|---|
-| `/home/ubuntu/.cursor/projects/workspace/uploads/TOXEL_ORIGINAL_UAT_2964.txt` | Yes | Master checklist text (238 unique IDs) |
-| `/home/ubuntu/.cursor/projects/workspace/uploads/528161_TAXSIMBASTAGINGUATPACKFORTOXEL2_02oct_4c79.odt` | Yes (extracted earlier) | Locked pack ODT |
-| `/home/ubuntu/.cursor/projects/workspace/uploads/Toxel_UAT_Text_and_Index_b306.zip` | Yes | `TOXEL_ORIGINAL_UAT.txt`, `EVIDENCE_INDEX.csv`, `README_CURSOR.txt` |
-| `B-008_cb97.pdf`, `B-011_3390.pdf`, `C-009_55ab.pdf`, `D-003_83f7.pdf`, `D-012_4b7b.pdf`, `D1-001_7aee.pdf`, `D1-002_0d68.pdf`, `D1-004_26c4.pdf`, `D1-005_d0e4.pdf` | Yes (PDF present; frames sampled where used) | Defect / journey PDFs — **not** continuous video proof |
-| `F-004_626b.pdf`, `F-010_clint_approve_draft_46e2.pdf`, `G-0045678_08d6.pdf`, `J-005_3405.pdf`, `J-011_b138.pdf` | Yes | Includes J-011 video-frame sample used for RCA |
-| `mtd_retest_flow_2oct_2026_614a.pdf`, `new_pull_e600.pdf`, `SA_registration_2_oct_2026_794e.pdf`, `SA_tex_return_retesting_9ccc.pdf` | Yes | Retest flow PDFs |
-| `Toxel_Screenshots_Part_01_e0ac.pdf` … `Part_06_435c.pdf` | Yes (present) | Screenshot archives |
+Base dir: `/home/ubuntu/.cursor/projects/workspace/uploads/` — every file below was opened on disk this session (size = bytes).
 
-**Not available / not claimed reviewed:** raw `.mp4` files (only PDF frame samples), staging HAR, Stripe TEST live receipts, external Outlook/Gmail captures. Chat visibility alone is not filesystem proof — paths above were opened on disk.
+| Attachment | Bytes | Readable? | Role / notes |
+|---|---:|---|---|
+| `TOXEL_ORIGINAL_UAT_2964.txt` | 62596 | Yes | Master checklist text (238 unique IDs) |
+| `528161_TAXSIMBASTAGINGUATPACKFORTOXEL2_02oct_4c79.odt` | 80640 | Yes | Locked pack ODT (extracted earlier) |
+| `Toxel_UAT_Text_and_Index_b306.zip` | 22486 | Yes | `TOXEL_ORIGINAL_UAT.txt`, `EVIDENCE_INDEX.csv`, `README_CURSOR.txt` |
+| `B-008_cb97.pdf` | 582902 | Yes | Defect/journey PDF — not continuous video |
+| `B-011_3390.pdf` | 1126329 | Yes | Defect/journey PDF |
+| `C-009_55ab.pdf` | 1294339 | Yes | Defect/journey PDF |
+| `D-003_83f7.pdf` | 1432855 | Yes | Defect/journey PDF |
+| `D-012_4b7b.pdf` | 813310 | Yes | Defect/journey PDF |
+| `D1-001_7aee.pdf` | 513067 | Yes | Defect/journey PDF |
+| `D1-002_0d68.pdf` | 307040 | Yes | Defect/journey PDF |
+| `D1-004_26c4.pdf` | 275577 | Yes | Defect/journey PDF |
+| `D1-005_d0e4.pdf` | 165091 | Yes | Defect/journey PDF |
+| `F-004_626b.pdf` | 1413355 | Yes | Journey PDF |
+| `F-010_clint_approve_draft_46e2.pdf` | 1328643 | Yes | Journey PDF |
+| `G-0045678_08d6.pdf` | 1374589 | Yes | Journey PDF |
+| `J-005_3405.pdf` | 1362436 | Yes | Journey PDF |
+| `J-011_b138.pdf` | 681657 | Yes | Video-frame sample used for J-011 RCA |
+| `mtd_retest_flow_2oct_2026_614a.pdf` | 1283379 | Yes | Retest flow PDF |
+| `new_pull_e600.pdf` | 1561724 | Yes | Retest / pull PDF |
+| `SA_registration_2_oct_2026_794e.pdf` | 762653 | Yes | SA registration PDF |
+| `SA_tex_return_retesting_9ccc.pdf` | 1287648 | Yes | SA return retest PDF |
+| `Toxel_Screenshots_Part_01_e0ac.pdf` | 1347881 | Yes | Screenshot archive |
+| `Toxel_Screenshots_Part_02_d525.pdf` | 1815358 | Yes | Screenshot archive |
+| `Toxel_Screenshots_Part_03_3397.pdf` | 1936021 | Yes | Screenshot archive |
+| `Toxel_Screenshots_Part_04_da4a.pdf` | 1947707 | Yes | Screenshot archive |
+| `Toxel_Screenshots_Part_05_9505.pdf` | 1810363 | Yes | Screenshot archive |
+| `Toxel_Screenshots_Part_06_435c.pdf` | 1503818 | Yes | Screenshot archive |
+
+**Not available / not claimed reviewed:** raw `.mp4` files (only PDF frame samples), staging HAR, Stripe TEST live receipts, external Outlook/Gmail captures. Chat visibility alone is not filesystem proof.
 
 ## Environment blockers (keep for Toxel)
 
@@ -98,14 +120,14 @@ Statuses used: **LOCAL PASS** | **FAIL** | **BLOCKED** | **UNVERIFIED** | **NOT 
 
 ### Exact totals (original FAIL + PARTIAL only = 39)
 
-| Status | Count |
-|---|---|
-| **LOCAL PASS** | **27** |
-| **FAIL** | **0** |
-| **BLOCKED** | **9** |
-| **UNVERIFIED** | **1** (`G-009`) |
-| **NOT CHECKED** | **2** (`D1-014`, `J-003`) |
-| **Sum** | **39** |
+| Status | Count | IDs |
+|---|---|---|
+| **LOCAL PASS** | **28** | B-002, C-004, D-001, D-006, D1-010, E-002, E-003, F-001, F-002, F-003, F-005, **F-008**, F-009, F-011, G-006, G-007, G-008, H-006, H-007, H-010, I-004, I-006, I-010, J-005, J-007, J-008, J-009, J-011 |
+| **FAIL** | **0** | — |
+| **BLOCKED** | **8** | B-003, B-004, D-014, D-015, D-016, D-017, D-018, D-021 |
+| **UNVERIFIED** | **1** | G-009 |
+| **NOT CHECKED** | **2** | D1-014, J-003 |
+| **Sum** | **39** | 38 FAIL + 1 PARTIAL |
 
 Tasks 1–8 remain preserved (B01–B04, F-001/F-003/F-004, C-004, D-001, D-006–D-010, J-005, J-007/J-008/J-009, Mailpit notification paths, dual-service, etc.). No merge/deploy.
 
@@ -125,15 +147,15 @@ Artifact dir: `/opt/cursor/artifacts/full_remediation_verify_20261006_033025/` (
 
 Unit/build alone are **not** claimed as journey PASS. Regression suites (toxelG006MtdApprove, revealReason, etc.) support but do not replace the live API rows above.
 
-## SHA authority (fill after push)
+## SHA authority
 
 | Label | Full SHA | Meaning |
 |---|---|---|
-| **Authoritative Toxel deploy HEAD** | `a4dde642295a52f78ffd1f64448f13214c7629a8` | Branch tip after push; behaviour identical to product `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` |
-| **Product / tested revision** | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` | Last commit with application code (F-008 SA panel + H-007 reason strengthen + prior G-006/J-011/E/H from `ec898b2`) |
-| Docs-only commits after product | any commits touching only `docs/` after product tip | Documentation / SHA labels only — **no product behaviour change** |
+| **Authoritative Toxel deploy HEAD** | *(branch tip — set to `git rev-parse` of `origin/cursor/toxsl-blockers-b01-b04-80a7` after this docs push; see PR #18 / agent handover for the pinned full SHA)* | Docs-only tip; **identical runtime** to product revision below |
+| **Product / tested revision** | `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20` | Last commit with application code (F-008 SA panel + H-007 reason strengthen + prior G-006/J-011/E/H from `ec898b2`). Live API evidence was run against this SHA. |
+| Docs-only commits after product | `c26de88` … tip (only `docs/TOXEL_UAT_FULL_REMEDIATION.md`) | Documentation / totals / SHA labels — **no product behaviour change** |
 
-Toxel should deploy **Authoritative HEAD**. Behaviour equals **Product revision**; documentation-only commits after that tip do not change runtime.
+Toxel should deploy the **branch tip** (authoritative HEAD). Behaviour equals **Product revision** `7d92c997c2323dc0c67725c2fb6e3f91fdb6cd20`; documentation-only commits after that tip do not change runtime.
 
 Prior product core (before F-008 SA panel + H-007 strengthen): `ec898b24740039d07bb2c7bd4cd1add43e0f628f`.
 
