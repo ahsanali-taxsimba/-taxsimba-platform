@@ -20,6 +20,8 @@ export interface Client {
   accountantNotes?: string;
   businessType?: string;
   businessName?: string;
+  jobRole?: string;
+  employmentStatus?: string;
   prevSubmittedMTDThisYear?: string;
   submittedQuarters?: string[];
   whoSubmittedQuarters?: string;
