@@ -2,14 +2,21 @@
  * Single tax-return document category card — title, description, upload, status, notes.
  */
 import { useState } from "react";
+import DownloadWarningModal from "@/components/documents/DownloadWarningModal";
+import ScanStatusBadge from "@/components/documents/ScanStatusBadge";
 import { api, apiError, dt } from "@/lib/api";
+import { openSecureFile } from "@/lib/secureDownload";
 
 const STATUS_TONE = {
   NOT_UPLOADED: ["#F1F3F2", "#626A65", "Not uploaded"],
   UPLOADED: ["#FDF3E3", "#B77A12", "Uploaded"],
   VERIFIED: ["#E9F7EF", "#16A05D", "Verified"],
   NOT_APPLICABLE: ["#F0EBFB", "#7656C9", "Not applicable"],
+  AWAITING_REPLACEMENT: ["#FDECEC", "#D64545", "Awaiting replacement"],
 };
+
+const ACCEPT =
+  ".pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx,application/pdf,image/jpeg,image/png,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
 export function CategoryStatusBadge({ status }) {
   const [bg, fg, label] = STATUS_TONE[status] || STATUS_TONE.NOT_UPLOADED;
@@ -32,9 +39,14 @@ export default function CategoryCard({
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
   const [notes, setNotes] = useState(category.accountant_notes || "");
+  const [warn, setWarn] = useState(null);
 
   const upload = async (file) => {
     if (!file) return;
+    if (file.size > 20 * 1024 * 1024) {
+      setErr("This file is too large. Maximum file size is 20MB per file.");
+      return;
+    }
     setBusy(true);
     setErr("");
     try {
@@ -64,15 +76,41 @@ export default function CategoryCard({
     }
   };
 
-  const openFile = async (fileId) => {
-    const win = window.open("", "_blank");
+  const requestAlt = async (fileId) => {
+    setBusy(true);
+    setErr("");
     try {
-      const res = await api.get(`/intake/files/${fileId}`, { responseType: "blob" });
-      const url = URL.createObjectURL(res.data);
-      if (win) win.location.href = url;
+      await api.post(`/intake/categories/${category.id}/request-alternative`, {
+        file_id: fileId || null,
+      });
+      setWarn(null);
+      onChanged?.();
     } catch (e) {
-      if (win) win.close();
-      setErr(apiError(e.response?.data?.detail) || "Could not open file");
+      setErr(apiError(e.response?.data?.detail) || "Could not request alternative");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const openFile = async (file) => {
+    setErr("");
+    try {
+      await openSecureFile({
+        url: `/intake/files/${file.id}`,
+        name: file.file_name,
+        onRisk: ({ mode, scanStatus }) =>
+          new Promise((resolve) => {
+            setWarn({
+              mode,
+              scanStatus,
+              file,
+              resolve,
+            });
+          }),
+      });
+    } catch (e) {
+      if (e?.code === "INFECTED") return;
+      setErr(apiError(e.response?.data?.detail) || e.message || "Could not open file");
     }
   };
 
@@ -93,19 +131,23 @@ export default function CategoryCard({
       <p className="text-xs text-[#626A65] mt-2 flex-1">{category.description}</p>
       <p className="text-[10px] text-[#626A65] mt-1">
         Maps to: <span className="font-semibold">{(category.tax_section || "").replace(/_/g, " ")}</span>
+        {" · "}20MB max per file · PDF, JPG, PNG, Word, Excel
       </p>
 
-      <ul className="mt-3 space-y-1 max-h-24 overflow-y-auto">
+      <ul className="mt-3 space-y-1 max-h-28 overflow-y-auto">
         {(category.files || []).map((f) => (
-          <li key={f.id} className="flex justify-between gap-2 text-xs">
+          <li key={f.id} className="flex justify-between gap-2 text-xs items-center">
             <button
               type="button"
               className="text-[#006B3C] font-semibold truncate text-left"
-              onClick={() => openFile(f.id)}
+              onClick={() => openFile(f)}
             >
               {f.file_name}
             </button>
-            <span className="text-[#626A65] shrink-0">v{f.version} · {dt(f.uploaded_at)}</span>
+            <span className="flex items-center gap-2 shrink-0">
+              <ScanStatusBadge status={f.scan_status} />
+              <span className="text-[#626A65]">v{f.version} · {dt(f.uploaded_at)}</span>
+            </span>
           </li>
         ))}
       </ul>
@@ -118,7 +160,7 @@ export default function CategoryCard({
             type="file"
             className="hidden"
             disabled={busy || category.status === "NOT_APPLICABLE"}
-            accept="image/*,application/pdf,.csv,.xls,.xlsx"
+            accept={ACCEPT}
             onChange={(e) => upload(e.target.files?.[0])}
           />
         </label>
@@ -153,6 +195,17 @@ export default function CategoryCard({
             Verify
           </button>
         )}
+        {canVerify && category.status !== "NOT_APPLICABLE" && (
+          <button
+            type="button"
+            data-testid={`intake-request-alt-${category.category_key}`}
+            disabled={busy}
+            className="text-xs font-semibold text-[#B77A12]"
+            onClick={() => requestAlt(category.files?.[0]?.id)}
+          >
+            Request Alternative Document
+          </button>
+        )}
       </div>
 
       {canVerify && (
@@ -177,6 +230,30 @@ export default function CategoryCard({
         <p className="mt-2 text-xs text-[#626A65]">Note: {category.accountant_notes}</p>
       )}
       {err && <p className="text-xs text-[#D64545] mt-2">{err}</p>}
+
+      <DownloadWarningModal
+        open={Boolean(warn)}
+        mode={warn?.mode}
+        scanStatus={warn?.scanStatus}
+        fileName={warn?.file?.file_name}
+        busy={busy}
+        onCancel={() => {
+          warn?.resolve?.("cancel");
+          setWarn(null);
+        }}
+        onConfirm={() => {
+          warn?.resolve?.("confirm");
+          setWarn(null);
+        }}
+        onRequestAlternative={
+          canVerify
+            ? () => {
+                warn?.resolve?.("request");
+                requestAlt(warn?.file?.id);
+              }
+            : undefined
+        }
+      />
     </div>
   );
 }

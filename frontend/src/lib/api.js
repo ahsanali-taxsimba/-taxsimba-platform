@@ -61,18 +61,24 @@ export const d = (s) =>
 // sent and the browser lands on {"detail":"Not authenticated"}. Fetching it with the
 // authenticated client and viewing the resulting blob keeps access control fully server-side
 // and never exposes a public document URL.
-export async function openDocument(id, name) {
-  // The tab must be opened synchronously within the click handler, otherwise the browser
-  // treats the later window.open as non user-initiated and blocks it.
-  const win = window.open("", "_blank");
-  let res;
-  try {
-    res = await api.get(`/documents/${id}/download`, { responseType: "blob" });
-  } catch (e) {
-    if (win) win.close();
-    throw e;
+//
+// Antivirus gate: infected → blocked; suspicious/corrupt → confirm, then retry with confirm_risk.
+async function readBlobErrorDetail(error) {
+  const data = error?.response?.data;
+  if (!data) return null;
+  if (typeof data === "string") return data;
+  if (data instanceof Blob) {
+    try {
+      return JSON.parse(await data.text()).detail;
+    } catch {
+      return null;
+    }
   }
-  const url = URL.createObjectURL(res.data);
+  return data.detail ?? data;
+}
+
+function openBlobInWindow(blob, name, win) {
+  const url = URL.createObjectURL(blob);
   if (win) {
     win.location.href = url;
   } else {
@@ -85,3 +91,40 @@ export async function openDocument(id, name) {
   }
   setTimeout(() => URL.revokeObjectURL(url), 60000);
 }
+
+export async function openDocument(id, name, opts = {}) {
+  // The tab must be opened synchronously within the click handler, otherwise the browser
+  // treats the later window.open as non user-initiated and blocks it.
+  const win = window.open("", "_blank");
+  try {
+    const res = await api.get(`/documents/${id}/download`, {
+      responseType: "blob",
+      params: opts.confirmRisk ? { confirm_risk: "1" } : undefined,
+    });
+    openBlobInWindow(res.data, name, win);
+  } catch (e) {
+    if (win) win.close();
+    const status = e?.response?.status;
+    const detail = await readBlobErrorDetail(e);
+    if (status === 403) {
+      const msg =
+        (typeof detail === "string" && detail) ||
+        "❌ This file contains malware and cannot be downloaded. Please request a replacement from the client.";
+      window.alert(msg);
+      throw e;
+    }
+    if (status === 409) {
+      const payload = typeof detail === "object" && detail ? detail : {};
+      const msg =
+        payload.message ||
+        "⚠ This file appears suspicious or corrupt. Download at your own risk.\n\nWe recommend requesting an alternative document from the client.";
+      if (window.confirm(`${msg}\n\nDownload anyway?`)) {
+        return openDocument(id, name, { confirmRisk: true });
+      }
+      return;
+    }
+    throw e;
+  }
+}
+
+export { readBlobErrorDetail, openBlobInWindow };

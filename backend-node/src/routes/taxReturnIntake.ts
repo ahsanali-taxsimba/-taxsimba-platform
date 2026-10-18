@@ -6,11 +6,11 @@
  *   POST   /intake/categories/:id/upload
  *   PATCH  /intake/categories/:id
  *   GET    /intake/files/:id
+ *   POST   /intake/categories/:id/request-alternative
  *   GET    /intake/dashboard
  *   GET    /intake/me?tax_year=
  */
 import { Router } from "express";
-import multer from "multer";
 import { z } from "zod";
 
 import { clientRecord } from "../domain/cases";
@@ -18,7 +18,8 @@ import { ensureIntakeIndexes } from "../domain/taxReturnIntake";
 import { clean, col, Doc } from "../db/mongo";
 import { handler, httpError, parseBody } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
-import { validateUpload } from "../middleware/protections";
+import { uploadMiddleware, validateUpload } from "../middleware/protections";
+import { requestAlternativeDocument } from "../services/fileScan";
 import {
   ensureTaxReturnIntake,
   getIntakeFile,
@@ -29,7 +30,7 @@ import {
 } from "../services/taxReturnIntake";
 
 export const taxReturnIntakeRouter = Router();
-const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 25 * 1024 * 1024 } });
+const upload = uploadMiddleware();
 
 let ready = false;
 async function boot(): Promise<void> {
@@ -40,9 +41,14 @@ async function boot(): Promise<void> {
 
 const CategoryPatchIn = z.object({
   status: z
-    .enum(["NOT_UPLOADED", "UPLOADED", "VERIFIED", "NOT_APPLICABLE"])
+    .enum(["NOT_UPLOADED", "UPLOADED", "VERIFIED", "NOT_APPLICABLE", "AWAITING_REPLACEMENT"])
     .optional(),
   accountant_notes: z.string().nullish(),
+});
+
+const RequestAltIn = z.object({
+  message: z.string().nullish(),
+  file_id: z.string().nullish(),
 });
 
 taxReturnIntakeRouter.get(
@@ -145,12 +151,43 @@ taxReturnIntakeRouter.patch(
   }),
 );
 
+taxReturnIntakeRouter.post(
+  "/intake/categories/:id/request-alternative",
+  auth("ACCOUNTANT", "ADMIN", "SUPER_ADMIN"),
+  handler(async (req, res) => {
+    await boot();
+    const me = authed(req);
+    const body = parseBody(RequestAltIn, req.body);
+    const category = (await col("tax_return_document_categories").findOne({
+      id: req.params.id,
+    })) as Doc | null;
+    if (!category) throw httpError(404, "Document category not found");
+    if (!category.client_user_id) throw httpError(400, "Category has no linked client user");
+    res.json(
+      await requestAlternativeDocument({
+        actor: me,
+        case_id: category.case_id ?? null,
+        client_user_id: category.client_user_id,
+        client_id: category.client_id,
+        category_label: category.category_name,
+        category_id: category.id,
+        file_id: body.file_id ?? null,
+        source: "intake",
+        message: body.message,
+      }),
+    );
+  }),
+);
+
 taxReturnIntakeRouter.get(
   "/intake/files/:id",
   auth("CLIENT", "ACCOUNTANT", "ADMIN", "SUPER_ADMIN"),
   handler(async (req, res) => {
     await boot();
-    const file = await getIntakeFile(req.params.id, authed(req));
+    const confirmRisk = ["1", "true", "yes"].includes(
+      String(req.query.confirm_risk || "").toLowerCase(),
+    );
+    const file = await getIntakeFile(req.params.id, authed(req), { confirmRisk });
     res.setHeader("Content-Type", file.contentType);
     res.setHeader(
       "Content-Disposition",

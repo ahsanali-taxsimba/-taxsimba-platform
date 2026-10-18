@@ -19,7 +19,6 @@
  *   POST   /aml/cases/:id/screening   (PEP stub re-run)
  */
 import { Router } from "express";
-import multer from "multer";
 import { z } from "zod";
 
 import { clientRecord } from "../domain/cases";
@@ -27,7 +26,8 @@ import { ensureAmlIndexes } from "../domain/aml";
 import { clean, col, Doc } from "../db/mongo";
 import { handler, httpError, parseBody } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
-import { validateUpload } from "../middleware/protections";
+import { uploadMiddleware, validateUpload } from "../middleware/protections";
+import { requestAlternativeDocument } from "../services/fileScan";
 import {
   amlDashboard,
   amlGate,
@@ -46,7 +46,7 @@ import {
 } from "../services/aml";
 
 export const amlRouter = Router();
-const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 15 * 1024 * 1024 } });
+const upload = uploadMiddleware();
 
 let ready = false;
 async function boot(): Promise<void> {
@@ -265,12 +265,43 @@ amlRouter.post(
   }),
 );
 
+amlRouter.post(
+  "/aml/documents/:id/request-alternative",
+  auth("ACCOUNTANT", "ADMIN", "SUPER_ADMIN"),
+  handler(async (req, res) => {
+    await boot();
+    const me = authed(req);
+    const doc = (await col("aml_documents").findOne({ id: req.params.id })) as Doc | null;
+    if (!doc) throw httpError(404, "AML document not found");
+    const amlCase = (await col("aml_cases").findOne({ id: doc.aml_case_id })) as Doc | null;
+    if (!amlCase?.client_user_id) throw httpError(400, "AML case has no linked client user");
+    const message =
+      typeof (req.body as Doc)?.message === "string" ? String((req.body as Doc).message) : null;
+    res.json(
+      await requestAlternativeDocument({
+        actor: me,
+        case_id: null,
+        client_user_id: amlCase.client_user_id,
+        client_id: doc.client_id,
+        category_label: String(doc.type || "AML document").replace(/_/g, " "),
+        category_id: null,
+        file_id: doc.id,
+        source: "aml",
+        message,
+      }),
+    );
+  }),
+);
+
 amlRouter.get(
   "/aml/documents/:id/file",
   auth("CLIENT", "ACCOUNTANT", "ADMIN", "SUPER_ADMIN"),
   handler(async (req, res) => {
     await boot();
-    const file = await getAmlDocumentFile(req.params.id, authed(req));
+    const confirmRisk = ["1", "true", "yes"].includes(
+      String(req.query.confirm_risk || "").toLowerCase(),
+    );
+    const file = await getAmlDocumentFile(req.params.id, authed(req), { confirmRisk });
     res.setHeader("Content-Type", file.contentType);
     res.setHeader(
       "Content-Disposition",

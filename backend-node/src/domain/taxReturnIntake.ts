@@ -34,6 +34,7 @@ export const CATEGORY_STATUSES = [
   "UPLOADED",
   "VERIFIED",
   "NOT_APPLICABLE",
+  "AWAITING_REPLACEMENT",
 ] as const;
 export type CategoryStatus = (typeof CATEGORY_STATUSES)[number];
 

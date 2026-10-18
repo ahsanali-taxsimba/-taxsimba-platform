@@ -19,6 +19,7 @@ import { APP_NAME } from "../config/env";
 import { clean, cleanMany, col, Doc } from "../db/mongo";
 import { httpError } from "../http/errors";
 import { notify } from "../domain/workflow";
+import { assertDownloadAllowed, scanAndRecord } from "./fileScan";
 import { getObject, putObject } from "./storage";
 
 // ---------------------------------------------------------------------------
@@ -177,10 +178,16 @@ export async function decorateAmlCase(id: string): Promise<Doc> {
       id: d.id,
       type: d.type,
       file_name: d.file_name,
+      file_size: d.size,
+      file_type: d.content_type,
       content_type: d.content_type,
       size: d.size,
       uploaded_at: d.uploaded_at,
       notes: d.notes,
+      scan_status: d.scan_status || "pending",
+      scan_timestamp: d.scan_timestamp || null,
+      scanner_notes: d.scanner_notes || null,
+      replacement_requested: Boolean(d.replacement_requested),
       // Clients never receive the raw storage key — download via /aml/documents/:id/file.
       has_file: true,
     })),
@@ -201,10 +208,16 @@ export async function decorateAmlCaseForStaff(id: string): Promise<Doc> {
     id: d.id,
     type: d.type,
     file_name: d.file_name,
+    file_size: d.size,
+    file_type: d.content_type,
     content_type: d.content_type,
     size: d.size,
     uploaded_at: d.uploaded_at,
     notes: d.notes,
+    scan_status: d.scan_status || "pending",
+    scan_timestamp: d.scan_timestamp || null,
+    scanner_notes: d.scanner_notes || null,
+    replacement_requested: Boolean(d.replacement_requested),
   }));
   const client = (await col("clients").findOne({ id: decorated.client_id })) as Doc | null;
   decorated.client = client
@@ -338,18 +351,37 @@ export async function uploadAmlDocument(params: {
   );
 
   const now = nowIso();
+  const docId = randomUUID();
+  const scan = await scanAndRecord({
+    file_id: docId,
+    source: "aml",
+    buffer: params.file.buffer,
+    file_name: params.file.originalname,
+    file_type: params.file.mimetype,
+    file_size: stored.size ?? params.file.size,
+    client_id: params.client.id,
+    case_id: null,
+    category: params.type,
+  });
   const doc: Doc = {
-    id: randomUUID(),
+    id: docId,
     aml_case_id: params.caseId,
     client_id: params.client.id,
+    category: params.type,
     type: params.type,
     file_id: stored.path,
     file_name: params.file.originalname,
+    file_size: stored.size ?? params.file.size,
+    file_type: params.file.mimetype,
     content_type: params.file.mimetype,
     size: stored.size ?? params.file.size,
     uploaded_at: now,
     uploaded_by: params.actor.id,
     notes: params.notes ?? null,
+    scan_status: scan.scan_status,
+    scan_timestamp: scan.scan_timestamp,
+    scanner_notes: scan.scanner_notes,
+    replacement_requested: false,
     // Placeholder retention mark — MLRO should confirm from relationship end date.
     retain_until: isoPlusYears(5),
   };
@@ -396,7 +428,8 @@ export async function uploadAmlDocument(params: {
 export async function getAmlDocumentFile(
   documentId: string,
   actor: Doc,
-): Promise<{ data: Buffer; contentType: string; fileName: string }> {
+  options: { confirmRisk?: boolean } = {},
+): Promise<{ data: Buffer; contentType: string; fileName: string; scan_status: string }> {
   if (!["ACCOUNTANT", "ADMIN", "SUPER_ADMIN"].includes(actor.role)) {
     // Clients may fetch their own selfie/ID for preview during onboarding only.
     if (actor.role !== "CLIENT") throw httpError(403, "Insufficient permissions");
@@ -407,15 +440,27 @@ export async function getAmlDocumentFile(
     const amlCase = await getAmlCase(doc.aml_case_id);
     if (amlCase.client_user_id !== actor.id) throw httpError(403, "Not your document");
   }
+  await assertDownloadAllowed({
+    file_id: documentId,
+    source: "aml",
+    scan_status: doc.scan_status,
+    actor,
+    confirmRisk: options.confirmRisk,
+  });
   const stored = await getObject(doc.file_id);
   await logAmlAudit({
     aml_case_id: doc.aml_case_id,
     client_id: doc.client_id,
     actor,
     action: "DOCUMENT_VIEWED",
-    meta: { document_id: documentId, type: doc.type },
+    meta: { document_id: documentId, type: doc.type, scan_status: doc.scan_status },
   });
-  return { data: stored.data, contentType: stored.contentType, fileName: doc.file_name };
+  return {
+    data: stored.data,
+    contentType: stored.contentType,
+    fileName: doc.file_name,
+    scan_status: (doc.scan_status as string) || "pending",
+  };
 }
 
 // ---------------------------------------------------------------------------

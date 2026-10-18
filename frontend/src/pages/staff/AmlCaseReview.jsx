@@ -4,21 +4,12 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import AppShell from "@/components/AppShell";
+import DownloadWarningModal from "@/components/documents/DownloadWarningModal";
+import ScanStatusBadge from "@/components/documents/ScanStatusBadge";
 import { Empty, Panel } from "@/components/StatCard";
 import { useAuth } from "@/context/AuthContext";
 import { api, apiError, d, dt } from "@/lib/api";
-
-async function openAmlFile(id) {
-  const win = window.open("", "_blank");
-  try {
-    const res = await api.get(`/aml/documents/${id}/file`, { responseType: "blob" });
-    const url = URL.createObjectURL(res.data);
-    if (win) win.location.href = url;
-  } catch (e) {
-    if (win) win.close();
-    throw e;
-  }
-}
+import { openSecureFile } from "@/lib/secureDownload";
 
 export default function AmlCaseReview() {
   const { id } = useParams();
@@ -41,6 +32,7 @@ export default function AmlCaseReview() {
       pep_sanctions_cleared: false,
     },
   });
+  const [warn, setWarn] = useState(null);
 
   const load = async () => {
     const { data } = await api.get(`/aml/cases/${id}`);
@@ -88,6 +80,37 @@ export default function AmlCaseReview() {
   const docs = (type) => (row.documents || []).filter((d) => d.type === type);
   const canReview = ["SUBMITTED", "IN_REVIEW", "IN_PROGRESS"].includes(row.status);
 
+  const requestAlt = async (doc) => {
+    setBusy(true);
+    setErr("");
+    try {
+      await api.post(`/aml/documents/${doc.id}/request-alternative`, {});
+      setWarn(null);
+      await load();
+    } catch (e) {
+      setErr(apiError(e.response?.data?.detail) || "Could not request alternative");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const openDoc = async (doc) => {
+    setErr("");
+    try {
+      await openSecureFile({
+        url: `/aml/documents/${doc.id}/file`,
+        name: doc.file_name,
+        onRisk: ({ mode, scanStatus }) =>
+          new Promise((resolve) => {
+            setWarn({ mode, scanStatus, file: doc, resolve });
+          }),
+      });
+    } catch (e) {
+      if (e?.code === "INFECTED") return;
+      setErr(apiError(e.response?.data?.detail) || e.message || "Could not open file");
+    }
+  };
+
   return (
     <AppShell
       title={row.client?.name || "AML case"}
@@ -133,15 +156,19 @@ export default function AmlCaseReview() {
           </Panel>
 
           <Panel title="Identity document" testId="aml-review-id">
-            <DocList items={[...docs("PASSPORT"), ...docs("DRIVING_LICENCE_FRONT"), ...docs("DRIVING_LICENCE_BACK")]} />
+            <DocList
+              items={[...docs("PASSPORT"), ...docs("DRIVING_LICENCE_FRONT"), ...docs("DRIVING_LICENCE_BACK")]}
+              onOpen={openDoc}
+              onRequestAlt={requestAlt}
+            />
           </Panel>
 
           <Panel title="Proofs of address" testId="aml-review-poa">
-            <DocList items={docs("PROOF_OF_ADDRESS")} />
+            <DocList items={docs("PROOF_OF_ADDRESS")} onOpen={openDoc} onRequestAlt={requestAlt} />
           </Panel>
 
           <Panel title="Live photo" testId="aml-review-selfie">
-            <DocList items={docs("SELFIE")} />
+            <DocList items={docs("SELFIE")} onOpen={openDoc} onRequestAlt={requestAlt} />
           </Panel>
 
           <Panel title="PEP / sanctions screening" testId="aml-review-screening">
@@ -297,30 +324,64 @@ export default function AmlCaseReview() {
           </Panel>
         </div>
       </div>
+
+      <DownloadWarningModal
+        open={Boolean(warn)}
+        mode={warn?.mode}
+        scanStatus={warn?.scanStatus}
+        fileName={warn?.file?.file_name}
+        busy={busy}
+        onCancel={() => {
+          warn?.resolve?.("cancel");
+          setWarn(null);
+        }}
+        onConfirm={() => {
+          warn?.resolve?.("confirm");
+          setWarn(null);
+        }}
+        onRequestAlternative={() => {
+          warn?.resolve?.("request");
+          if (warn?.file) requestAlt(warn.file);
+        }}
+      />
     </AppShell>
   );
 }
 
-function DocList({ items }) {
+function DocList({ items, onOpen, onRequestAlt }) {
   if (!items?.length) return <Empty text="No documents uploaded." />;
   return (
     <ul className="space-y-2">
       {items.map((d) => (
         <li key={d.id} className="flex items-center justify-between gap-3 text-sm border border-[#E3E7E4] rounded-lg p-3">
           <div>
-            <div className="font-semibold">{d.type.replace(/_/g, " ")}</div>
+            <div className="font-semibold flex items-center gap-2">
+              {d.type.replace(/_/g, " ")}
+              <ScanStatusBadge status={d.scan_status} />
+            </div>
             <div className="text-xs text-[#626A65]">
               {d.file_name} · {dt(d.uploaded_at)}
+              {d.replacement_requested ? " · Replacement requested" : ""}
             </div>
           </div>
-          <button
-            type="button"
-            data-testid={`aml-view-doc-${d.id}`}
-            className="text-xs font-semibold text-[#006B3C]"
-            onClick={() => openAmlFile(d.id)}
-          >
-            View
-          </button>
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              data-testid={`aml-request-alt-${d.id}`}
+              className="text-xs font-semibold text-[#B77A12]"
+              onClick={() => onRequestAlt(d)}
+            >
+              Request Alternative Document
+            </button>
+            <button
+              type="button"
+              data-testid={`aml-view-doc-${d.id}`}
+              className="text-xs font-semibold text-[#006B3C]"
+              onClick={() => onOpen(d)}
+            >
+              View
+            </button>
+          </div>
         </li>
       ))}
     </ul>

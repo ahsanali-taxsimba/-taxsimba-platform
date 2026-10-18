@@ -30,6 +30,7 @@ import { ensureEsignIndexes, ensureEsignTemplates } from "./domain/esign";
 import { ensureAmlIndexes } from "./domain/aml";
 import { ensureEngagementIndexes } from "./domain/engagementLetter";
 import { ensureIntakeIndexes } from "./domain/taxReturnIntake";
+import { ensureFileSecurityIndexes } from "./domain/fileSecurity";
 import { ensureEmailIndexes } from "./services/email";
 import { ensureReminderIndexes } from "./jobs/reminders";
 import { ensureIndexes as ensureLoginIndexes } from "./services/loginLockout";
@@ -130,6 +131,7 @@ export async function startup(): Promise<void> {
   await ensureEngagementIndexes();
   await ensureAmlIndexes();
   await ensureIntakeIndexes();
+  await ensureFileSecurityIndexes();
 }
 
 export function createApp(): Express {

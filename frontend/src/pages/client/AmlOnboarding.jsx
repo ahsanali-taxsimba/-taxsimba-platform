@@ -415,7 +415,12 @@ function FileUpload({ label, testId, onFile, existing, disabled }) {
   return (
     <div>
       <div className="text-sm font-medium mb-1.5">{label}</div>
-      {existing && <p className="text-xs text-[#16A05D] mb-1">✓ {existing.file_name}</p>}
+      {existing && (
+        <p className="text-xs text-[#16A05D] mb-1">
+          ✓ {existing.file_name}
+          {existing.scan_status ? ` · scan: ${existing.scan_status}` : ""}
+        </p>
+      )}
       <label
         className={`inline-flex px-4 py-2 rounded-lg border border-[#E3E7E4] text-sm font-semibold cursor-pointer ${
           disabled ? "opacity-50" : "hover:bg-[#F1F8F4]"
@@ -425,12 +430,21 @@ function FileUpload({ label, testId, onFile, existing, disabled }) {
         <input
           data-testid={testId}
           type="file"
-          accept="image/*,application/pdf"
+          accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"
           className="hidden"
           disabled={disabled}
-          onChange={(e) => onFile(e.target.files?.[0])}
+          onChange={(e) => {
+            const f = e.target.files?.[0];
+            if (f && f.size > 20 * 1024 * 1024) {
+              window.alert("This file is too large. Maximum file size is 20MB per file.");
+              e.target.value = "";
+              return;
+            }
+            onFile(f);
+          }}
         />
       </label>
+      <p className="text-[10px] text-[#626A65] mt-1">20MB max per file</p>
     </div>
   );
 }

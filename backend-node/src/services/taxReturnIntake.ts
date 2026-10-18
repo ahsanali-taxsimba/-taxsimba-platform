@@ -15,6 +15,7 @@ import {
 import { getCase } from "../domain/cases";
 import { clean, cleanMany, col, Doc } from "../db/mongo";
 import { httpError } from "../http/errors";
+import { assertDownloadAllowed, scanAndRecord } from "./fileScan";
 import { getObject, putObject } from "./storage";
 
 function recomputeMasterStatus(categories: Doc[]): string {
@@ -29,10 +30,13 @@ function recomputeMasterStatus(categories: Doc[]): string {
     ["UPLOADED", "VERIFIED"].includes(c.status),
   );
   const awaiting = categories.some((c) => c.status === "UPLOADED");
-  if (awaiting && categories.every((c) => ["UPLOADED", "VERIFIED", "NOT_APPLICABLE"].includes(c.status))) {
+  const doneOrNa = ["UPLOADED", "VERIFIED", "NOT_APPLICABLE"];
+  if (awaiting && categories.every((c) => doneOrNa.includes(c.status))) {
     return "AWAITING_VERIFICATION";
   }
-  if (anyUploaded) return "IN_PROGRESS";
+  if (anyUploaded || categories.some((c) => c.status === "AWAITING_REPLACEMENT")) {
+    return "IN_PROGRESS";
+  }
   return "NOT_STARTED";
 }
 
@@ -57,7 +61,7 @@ function progressOf(categories: Doc[]): Doc {
     mandatory_satisfied: mandatoryOk,
     mandatory_verified: mandatoryVerified,
     missing_mandatory: mandatory
-      .filter((c) => c.status === "NOT_UPLOADED")
+      .filter((c) => ["NOT_UPLOADED", "AWAITING_REPLACEMENT"].includes(c.status))
       .map((c) => c.category_name),
   };
 }
@@ -226,11 +230,16 @@ export async function decorateIntake(intakeId: string): Promise<Doc> {
     filesByCat[key].push({
       id: f.id,
       file_name: f.file_name,
+      file_size: f.size,
+      file_type: f.content_type,
       content_type: f.content_type,
       size: f.size,
       version: f.version,
       uploaded_at: f.uploaded_at,
       uploaded_by_name: f.uploaded_by_name,
+      scan_status: f.scan_status || "pending",
+      scan_timestamp: f.scan_timestamp || null,
+      scanner_notes: f.scanner_notes || null,
       // storage_path never leaves the API for clients/staff list views.
     });
   }
@@ -324,13 +333,28 @@ export async function uploadToCategory(params: {
   );
 
   const now = nowIso();
+  const fileId = randomUUID();
+  const scan = await scanAndRecord({
+    file_id: fileId,
+    source: "intake",
+    buffer: params.file.buffer,
+    file_name: params.file.originalname,
+    file_type: params.file.mimetype,
+    file_size: stored.size ?? params.file.size,
+    client_id: category.client_id,
+    case_id: category.case_id,
+    category: category.category_key,
+  });
   const fileDoc: Doc = {
-    id: randomUUID(),
+    id: fileId,
     intake_id: category.intake_id,
     category_id: category.id,
     client_id: category.client_id,
     case_id: category.case_id,
+    category: category.category_key,
     file_name: params.file.originalname,
+    file_size: stored.size ?? params.file.size,
+    file_type: params.file.mimetype,
     content_type: params.file.mimetype,
     size: stored.size ?? params.file.size,
     storage_path: stored.path,
@@ -339,6 +363,9 @@ export async function uploadToCategory(params: {
     uploaded_by: params.actor.id,
     uploaded_by_name: params.actor.name,
     uploaded_at: now,
+    scan_status: scan.scan_status,
+    scan_timestamp: scan.scan_timestamp,
+    scanner_notes: scan.scanner_notes,
     is_deleted: false,
     // TODO(ocr): enqueue OCR for BANK_STATEMENTS / EMPLOYMENT_RECORDS.
     // TODO(ai): enqueue expense categorisation for OTHER_EXPENSES.
@@ -394,6 +421,9 @@ export async function uploadToCategory(params: {
       intake_category_id: category.id,
       intake_file_id: fileDoc.id,
       tax_section: category.tax_section,
+      scan_status: scan.scan_status,
+      scan_timestamp: scan.scan_timestamp,
+      scanner_notes: scan.scanner_notes,
     });
   }
 
@@ -430,6 +460,9 @@ export async function updateCategoryStatus(params: {
     if (category.client_user_id !== params.actor.id) throw httpError(403, "Not your intake");
   } else if (category.case_id) {
     await getCase(category.case_id, params.actor);
+  }
+  if (params.status === "AWAITING_REPLACEMENT") {
+    throw httpError(400, "Use Request Alternative Document to mark awaiting replacement");
   }
 
   if (params.status && !CATEGORY_STATUSES.includes(params.status)) {
@@ -490,7 +523,8 @@ export async function updateCategoryStatus(params: {
 export async function getIntakeFile(
   fileId: string,
   actor: Doc,
-): Promise<{ data: Buffer; contentType: string; fileName: string }> {
+  options: { confirmRisk?: boolean } = {},
+): Promise<{ data: Buffer; contentType: string; fileName: string; scan_status: string }> {
   const file = (await col(INTAKE_COLLECTIONS.files).findOne({
     id: fileId,
     is_deleted: { $ne: true },
@@ -508,6 +542,13 @@ export async function getIntakeFile(
   } else if (!["ADMIN", "SUPER_ADMIN", "ACCOUNTANT"].includes(actor.role)) {
     throw httpError(403, "Insufficient permissions");
   }
+  await assertDownloadAllowed({
+    file_id: fileId,
+    source: "intake",
+    scan_status: file.scan_status,
+    actor,
+    confirmRisk: options.confirmRisk,
+  });
   const stored = await getObject(file.storage_path);
   await logIntakeAudit({
     intake_id: file.intake_id,
@@ -515,9 +556,14 @@ export async function getIntakeFile(
     case_id: file.case_id,
     actor,
     action: "FILE_VIEWED",
-    meta: { file_id: fileId },
+    meta: { file_id: fileId, scan_status: file.scan_status },
   });
-  return { data: stored.data, contentType: stored.contentType, fileName: file.file_name };
+  return {
+    data: stored.data,
+    contentType: stored.contentType,
+    fileName: file.file_name,
+    scan_status: (file.scan_status as string) || "pending",
+  };
 }
 
 /**

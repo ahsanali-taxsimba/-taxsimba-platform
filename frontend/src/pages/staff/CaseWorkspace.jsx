@@ -6,6 +6,7 @@ import { DocStatusBadge, PriorityBadge, StatusBadge } from "@/components/StatusB
 import SendForApprovalModal from "@/components/esign/SendForApprovalModal";
 import { SignatureStatusBadge } from "@/components/esign/SignatureStatusBadge";
 import { useAuth } from "@/context/AuthContext";
+import ScanStatusBadge from "@/components/documents/ScanStatusBadge";
 import { api, d, dt, money, openDocument } from "@/lib/api";
 import { warningBadge } from "@/pages/staff/AdminMtd";
 import TaxReturnIntake from "@/pages/TaxReturnIntake";
@@ -450,7 +451,12 @@ export default function CaseWorkspace() {
                   <td className="py-4 pr-4 font-semibold">{doc.name}{doc.is_internal && <span className="ml-2 text-[11px] text-[#7656C9]">Internal</span>}</td>
                   <td className="py-4 pr-4 text-[#626A65]">{doc.document_type}</td>
                   <td className="py-4 pr-4 text-[#626A65]">{doc.uploader_name || "—"} {doc.upload_date ? `· ${d(doc.upload_date)}` : ""}</td>
-                  <td className="py-4 pr-4"><DocStatusBadge status={doc.status} /></td>
+                  <td className="py-4 pr-4">
+                    <div className="flex items-center gap-2">
+                      <DocStatusBadge status={doc.status} />
+                      {doc.scan_status && <ScanStatusBadge status={doc.scan_status} />}
+                    </div>
+                  </td>
                   <td className="py-4 pr-4">
                     <select data-testid={`doc-status-${doc.id}`} value={doc.status}
                       onChange={(e) => act(() => api.patch(`/documents/${doc.id}/status`, null, { params: { status: e.target.value } }))}
@@ -458,8 +464,18 @@ export default function CaseWorkspace() {
                       {["Requested", "Uploaded", "Under Review", "Accepted", "Replacement Required", "Final"].map((s) => <option key={s}>{s}</option>)}
                     </select>
                   </td>
-                  <td className="py-4">{doc.storage_path && <a className="text-xs font-semibold text-[#078A4B]" target="_blank" rel="noreferrer"
-                    href={`${process.env.REACT_APP_BACKEND_URL}/api/documents/${doc.id}/download`}>View</a>}</td>
+                  <td className="py-4">
+                    {doc.storage_path && (
+                      <button
+                        type="button"
+                        data-testid={`case-doc-view-${doc.id}`}
+                        className="text-xs font-semibold text-[#078A4B]"
+                        onClick={() => openDocument(doc.id, doc.name)}
+                      >
+                        View
+                      </button>
+                    )}
+                  </td>
                 </tr>
               ))}</tbody>
             </table>
