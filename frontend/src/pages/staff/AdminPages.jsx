@@ -22,10 +22,32 @@ const CARDS = [
 
 export function AdminDashboard() {
   const [stats, setStats] = useState({});
+  const [esign, setEsign] = useState(null);
   const nav = useNavigate();
-  useEffect(() => { api.get("/stats/admin").then(({ data }) => setStats(data)); }, []);
+  useEffect(() => {
+    api.get("/stats/admin").then(({ data }) => setStats(data));
+    api.get("/esign/dashboard").then(({ data }) => setEsign(data)).catch(() => {});
+  }, []);
   return (
     <AppShell title="Operations Control Centre" subtitle="All client cases across the practice.">
+      {esign && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+          <StatCard
+            label="Documents awaiting signature"
+            value={esign.counts?.awaiting_signature ?? 0}
+            tone="#B77A12"
+            testId="admin-esign-awaiting"
+            onClick={() => nav("/admin/esign")}
+          />
+          <StatCard
+            label="Returns approved and ready to file"
+            value={esign.counts?.approved_ready_to_file ?? 0}
+            tone="#16A05D"
+            testId="admin-esign-ready"
+            onClick={() => nav("/admin/esign")}
+          />
+        </div>
+      )}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {CARDS.map(([key, label, tone]) => (
           <StatCard key={key} label={label} value={stats[key]} tone={tone} testId={`admin-card-${key}`}

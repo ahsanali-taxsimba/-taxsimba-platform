@@ -19,6 +19,8 @@ import CaseWorkspace from "@/pages/staff/CaseWorkspace";
 import SuperAdmin from "@/pages/staff/SuperAdmin";
 import AcceptInvite from "@/pages/AcceptInvite";
 import StaffSecurity from "@/pages/staff/StaffSecurity";
+import EsignDashboard from "@/pages/staff/EsignDashboard";
+import SignDocument from "@/pages/SignDocument";
 import { AdminServiceIssues, ClientServiceIssues } from "@/pages/ServiceIssues";
 import { ServiceGuard } from "@/components/ServiceGuard";
 
@@ -48,6 +50,8 @@ export default function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/invite/:token" element={<AcceptInvite />} />
+          {/* Public e-sign page — unique expiring token per signer; no auth required */}
+          <Route path="/sign/:token" element={<SignDocument />} />
 
           <Route path="/" element={<Landing />} />
 
@@ -72,9 +76,11 @@ export default function App() {
           <Route path="/work/mtd" element={<Guard roles={["ACCOUNTANT"]}><AccountantMtd /></Guard>} />
 
           <Route path="/work" element={<Guard roles={STAFF}><AccountantDashboard /></Guard>} />
+          <Route path="/work/esign" element={<Guard roles={["ACCOUNTANT"]}><EsignDashboard /></Guard>} />
           <Route path="/work/cases/:id" element={<Guard roles={["ACCOUNTANT", "ADMIN", "SUPER_ADMIN"]}><CaseWorkspace /></Guard>} />
 
           <Route path="/admin" element={<Guard roles={ADMIN}><AdminDashboard /></Guard>} />
+          <Route path="/admin/esign" element={<Guard roles={ADMIN}><EsignDashboard /></Guard>} />
           <Route path="/staff/security" element={<Guard roles={["ACCOUNTANT", "ADMIN", "SUPER_ADMIN"]}><StaffSecurity /></Guard>} />          <Route path="/admin/cases" element={<Guard roles={ADMIN}><AdminCases /></Guard>} />
           <Route path="/admin/cases/:id" element={<Guard roles={ADMIN}><CaseWorkspace /></Guard>} />
           <Route path="/admin/review/:id" element={<Guard roles={ADMIN}><CaseWorkspace /></Guard>} />

@@ -12,6 +12,7 @@ import { casesRouter } from "./routes/cases";
 import { collaborationRouter } from "./routes/collaboration";
 import { contentRouter } from "./routes/content";
 import { documentsRouter } from "./routes/documents";
+import { esignRouter } from "./routes/esign";
 import { mtdRouter } from "./routes/mtd";
 import { mtdOnboardingRouter } from "./routes/mtdOnboarding";
 import { paymentsRouter } from "./routes/payments";
@@ -22,6 +23,7 @@ import { ensurePhase1bData } from "./domain/packages";
 import { ensureCoreIndexes, seed } from "./domain/seed";
 import { ensureContentIndexes } from "./domain/content";
 import { ensurePricingIndexes } from "./domain/pricing";
+import { ensureEsignIndexes, ensureEsignTemplates } from "./domain/esign";
 import { ensureEmailIndexes } from "./services/email";
 import { ensureReminderIndexes } from "./jobs/reminders";
 import { ensureIndexes as ensureLoginIndexes } from "./services/loginLockout";
@@ -69,6 +71,13 @@ const QUERY_INDEXES: Record<string, string[]> = {
   pricing_audit: ["package_id", "created_at"],
   staff_invites: ["user_id", "token_hash"],
   users: ["role", "is_test", "created_at"],
+  // Native e-sign module (DocuSign-like) — see domain/esign.ts
+  esign_document_templates: ["type", "firm_id", "is_active"],
+  esign_generated_documents: ["case_id", "mtd_period_id", "client_user_id", "status", "calculation_hash"],
+  esign_signature_requests: ["document_id", "case_id", "status", "expires_at"],
+  esign_signers: ["request_id", "email"],
+  esign_signature_events: ["request_id", "document_id", "timestamp"],
+  esign_firm_branding: ["firm_id"],
 };
 
 export async function ensureQueryIndexes(): Promise<void> {
@@ -99,6 +108,8 @@ export async function startup(): Promise<void> {
   await ensureReminderIndexes();
   await ensurePricingIndexes();
   await ensureContentIndexes();
+  await ensureEsignIndexes();
+  await ensureEsignTemplates();
 }
 
 export function createApp(): Express {
@@ -125,6 +136,7 @@ export function createApp(): Express {
   app.use("/api", authRouter);
   app.use("/api", casesRouter);
   app.use("/api", documentsRouter);
+  app.use("/api", esignRouter);
   app.use("/api", collaborationRouter);
   app.use("/api/mtd", mtdOnboardingRouter);
   app.use("/api/mtd", mtdRouter);

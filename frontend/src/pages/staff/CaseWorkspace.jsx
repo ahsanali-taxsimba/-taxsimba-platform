@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import AppShell from "@/components/AppShell";
 import { Empty, Panel } from "@/components/StatCard";
 import { DocStatusBadge, PriorityBadge, StatusBadge } from "@/components/StatusBadge";
+import SendForApprovalModal from "@/components/esign/SendForApprovalModal";
+import { SignatureStatusBadge } from "@/components/esign/SignatureStatusBadge";
 import { useAuth } from "@/context/AuthContext";
 import { api, d, dt, money, openDocument } from "@/lib/api";
 import { warningBadge } from "@/pages/staff/AdminMtd";
@@ -47,6 +49,8 @@ export default function CaseWorkspace() {
   const [issues, setIssues] = useState([]);
   const [mtdPeriods, setMtdPeriods] = useState([]);
   const [onboarding, setOnboarding] = useState(null);
+  const [esignRequests, setEsignRequests] = useState([]);
+  const [esignContext, setEsignContext] = useState(null);
 
   const load = async () => {
     const { data } = await api.get(`/cases/${id}`);
@@ -64,6 +68,8 @@ export default function CaseWorkspace() {
     api.get(`/cases/${id}/final-documents`).then((r) => setFinalDocs(r.data)).catch(() => {});
     api.get(`/cases/${id}/reopen-history`).then((r) => setReopens(r.data)).catch(() => {});
     api.get("/service-issues", { params: { case_id: id } }).then((r) => setIssues(r.data)).catch(() => {});
+    // E-sign requests tied to this case (VAT/MTD/SA approval packs)
+    api.get("/esign/requests", { params: { case_id: id } }).then((r) => setEsignRequests(r.data)).catch(() => setEsignRequests([]));
     if (data.service_type === "MTD_INCOME_TAX") {
       api.get(`/mtd/cases/${id}/periods`).then((r) => setMtdPeriods(r.data)).catch(() => {});
       api.get(`/mtd/cases/${id}/onboarding`).then((r) => setOnboarding(r.data)).catch(() => {});
@@ -112,6 +118,34 @@ export default function CaseWorkspace() {
       {["ACCOUNTANT_REVIEW", "IN_PREPARATION", "CHANGES_REQUIRED"].includes(st) && latestCalc && (
         <button data-testid="submit-admin-review-btn" className={primary} onClick={() => setModal("submit")}>Send to Admin for Review</button>
       )}
+      {["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"].includes(st) && cs.service_type !== "MTD_INCOME_TAX" && (
+        <button
+          data-testid="send-for-approval-btn"
+          className={primary}
+          onClick={() => {
+            setEsignContext({
+              documentType: "SA_SUMMARY_APPROVAL",
+              caseId: id,
+              clientName: cs.client_name,
+              clientEmail: cs.client_email || "",
+              clientUserId: cs.client_user_id,
+              caseRef: cs.case_ref,
+              taxYear: cs.tax_year,
+              calculationVersionId: cs.approved_version_id || latestCalc?.id,
+              calculationVersion: latestCalc?.version,
+              figures: {
+                total_income: latestCalc?.total_income,
+                taxable_income: latestCalc?.taxable_income,
+                income_tax: latestCalc?.income_tax,
+                ni: latestCalc?.ni,
+                total_due: latestCalc?.total_due ?? latestCalc?.amount_due,
+              },
+            });
+          }}
+        >
+          Send for approval
+        </button>
+      )}
       <button data-testid="add-note-btn" className={ghost} onClick={() => setModal("note")}>Add Internal Note</button>
       <button data-testid="recommend-additional-work-btn" className={ghost} onClick={() => setModal("recAddWork")}>Recommend Additional Work</button>
       <button data-testid="recommend-package-btn" className={ghost} onClick={() => setModal("recPackage")}>Recommend Package Upgrade</button>
@@ -150,6 +184,34 @@ export default function CaseWorkspace() {
           <button data-testid="admin-return-btn" className={`${btn} bg-[#D64545] text-white hover:opacity-90`} onClick={() => setModal("return")}>Return for Changes</button>
         </>
       )}
+      {["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"].includes(st) && cs.service_type !== "MTD_INCOME_TAX" && (
+        <button
+          data-testid="admin-send-for-approval-btn"
+          className={primary}
+          onClick={() => {
+            setEsignContext({
+              documentType: "SA_SUMMARY_APPROVAL",
+              caseId: id,
+              clientName: cs.client_name,
+              clientEmail: cs.client_email || "",
+              clientUserId: cs.client_user_id,
+              caseRef: cs.case_ref,
+              taxYear: cs.tax_year,
+              calculationVersionId: cs.approved_version_id || latestCalc?.id,
+              calculationVersion: latestCalc?.version,
+              figures: {
+                total_income: latestCalc?.total_income,
+                taxable_income: latestCalc?.taxable_income,
+                income_tax: latestCalc?.income_tax,
+                ni: latestCalc?.ni,
+                total_due: latestCalc?.total_due ?? latestCalc?.amount_due,
+              },
+            });
+          }}
+        >
+          Send for approval
+        </button>
+      )}
       {st !== "COMPLETED" && (
         <button data-testid="request-additional-payment-btn" className={ghost} onClick={() => setModal("addpay")}>Request Additional Payment</button>
       )}
@@ -180,6 +242,17 @@ export default function CaseWorkspace() {
             </dl>
           </div>
           <div className="mt-6 pt-6 border-t border-[#E3E7E4]">{accountantActions}{adminActions}</div>
+          {esignRequests.length > 0 && (
+            <div className="mt-4 flex flex-wrap gap-2 items-center" data-testid="case-esign-status-row">
+              <span className="text-xs uppercase text-[#626A65] font-semibold mr-1">E-sign</span>
+              {esignRequests.slice(0, 5).map((r) => (
+                <span key={r.id} className="inline-flex items-center gap-1.5 text-xs text-[#626A65]">
+                  <SignatureStatusBadge status={r.status} />
+                  <span className="truncate max-w-[10rem]">{r.document?.title || r.id.slice(0, 8)}</span>
+                </span>
+              ))}
+            </div>
+          )}
           {err && <p data-testid="workspace-error" className="text-sm text-[#D64545] mt-3">{err}</p>}
         </Panel>
 
@@ -535,6 +608,39 @@ export default function CaseWorkspace() {
                       <button data-testid={`mtd-approve-btn-${p.id}`} className="text-xs font-semibold text-[#006B3C]"
                         onClick={() => act(() => api.post(`/mtd/periods/${p.id}/admin-approve`))}>Approve &amp; publish to client</button>
                     )}
+                    {["AWAITING_CLIENT_APPROVAL", "ADMIN_REVIEW", "IN_PROGRESS"].includes(p.status) && (p.published || p.draft) && (
+                      <button
+                        data-testid={`mtd-send-for-approval-${p.id}`}
+                        className="text-xs font-semibold text-[#006B3C]"
+                        onClick={() => {
+                          const figs = p.published || p.draft || {};
+                          setEsignContext({
+                            documentType: "MTD_QUARTERLY_APPROVAL",
+                            caseId: id,
+                            mtdPeriodId: p.id,
+                            clientName: cs.client_name,
+                            clientEmail: cs.client_email || "",
+                            clientUserId: cs.client_user_id,
+                            caseRef: cs.case_ref,
+                            periodLabel: p.label,
+                            figures: {
+                              income: figs.income,
+                              expenses: figs.expenses,
+                              net: figs.net_profit ?? figs.net,
+                            },
+                            mergeFields: {
+                              obligation_type: p.kind || "QUARTER",
+                            },
+                          });
+                        }}
+                      >
+                        Send for approval
+                      </button>
+                    )}
+                    {(() => {
+                      const req = esignRequests.find((r) => r.mtd_period_id === p.id);
+                      return req ? <SignatureStatusBadge status={req.status} testId={`mtd-esign-status-${p.id}`} /> : null;
+                    })()}
                     {isAdmin && ["ADMIN_REVIEW", "AWAITING_CLIENT_APPROVAL"].includes(p.status) && (
                       <button data-testid={`mtd-changes-btn-${p.id}`} className="text-xs font-semibold text-[#D64545]"
                         onClick={() => {
@@ -1217,6 +1323,13 @@ export default function CaseWorkspace() {
           </div>
         </div>
       )}
+
+      <SendForApprovalModal
+        open={!!esignContext}
+        context={esignContext || {}}
+        onClose={() => setEsignContext(null)}
+        onSent={() => { setEsignContext(null); load(); }}
+      />
     </AppShell>
   );
 }

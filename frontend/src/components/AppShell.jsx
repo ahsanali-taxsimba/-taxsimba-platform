@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Bell, LayoutDashboard, FileText, FolderOpen, MessageSquare, CheckSquare, Route,
   User, CreditCard, HelpCircle, Settings, Users, Briefcase, ShieldCheck, LogOut, Menu, X, Sparkles,
-  AlertCircle, Layers, CalendarClock,
+  AlertCircle, Layers, CalendarClock, PenLine,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { api, dt } from "@/lib/api";
@@ -28,6 +28,7 @@ const ACCOUNTANT_NAV = [
   ["Dashboard", "/work", LayoutDashboard],
   ["My Cases", "/work?tab=in_progress", Briefcase],
   ["MTD Workload", "/work/mtd", CalendarClock],
+  ["E-signatures", "/work/esign", PenLine],
 ];
 
 const ADMIN_NAV = [
@@ -37,6 +38,7 @@ const ADMIN_NAV = [
   ["Recommendations", "/admin/recommendations", Sparkles],
   ["Service Issues", "/admin/service-issues", AlertCircle],
   ["MTD Operations", "/admin/mtd", CalendarClock],
+  ["E-signatures", "/admin/esign", PenLine],
   ["Accountants", "/admin/accountants", Users],
 ];
 
