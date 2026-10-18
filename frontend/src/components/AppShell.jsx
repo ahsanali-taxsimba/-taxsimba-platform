@@ -5,6 +5,7 @@ import {
   User, CreditCard, HelpCircle, Settings, Users, Briefcase, ShieldCheck, LogOut, Menu, X, Sparkles,
   AlertCircle, Layers, CalendarClock, PenLine,
 } from "lucide-react";
+import EngagementGate from "@/components/engagement/EngagementGate";
 import { useAuth } from "@/context/AuthContext";
 import { api, dt } from "@/lib/api";
 import { useEntitlements } from "@/lib/services";
@@ -79,7 +80,7 @@ export default function AppShell({ children, title, subtitle }) {
 
   const unread = notes.filter((n) => !n.is_read).length;
 
-  return (
+  const shell = (
     <div className="min-h-screen bg-[#F7F8F7] flex">
       <aside
         className={`${openNav ? "fixed inset-y-0 left-0 z-40 flex shadow-xl" : "hidden"} md:flex md:static w-[17rem] max-w-[85vw] md:w-64 shrink-0 flex-col bg-white border-r border-[#E3E7E4]`}
@@ -205,4 +206,8 @@ export default function AppShell({ children, title, subtitle }) {
       </div>
     </div>
   );
+
+  // Client Care Letter → Engagement Letter: require in-app e-sign before tax/MTD work.
+  if (isClient) return <EngagementGate>{shell}</EngagementGate>;
+  return shell;
 }

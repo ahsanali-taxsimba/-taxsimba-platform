@@ -4,8 +4,9 @@ import { Request, Response, Router } from "express";
 import { z } from "zod";
 
 import { clean, cleanMany, col, Doc, scrub, scrubMany } from "../db/mongo";
-import { daysLeft, decorate, getCase, ownedCaseIds } from "../domain/cases";
+import { clientRecord, daysLeft, decorate, getCase, ownedCaseIds } from "../domain/cases";
 import { isTestEmail, OPERATIONAL_ONLY } from "../domain/testdata";
+import { assertEngagementSigned } from "../services/engagementLetter";
 import {
   ALLOWED_TRANSITIONS,
   clientStatus,
@@ -899,6 +900,9 @@ casesRouter.post(
     const me = authed(req);
     const caseId = req.params.caseId;
     const kase = await getCase(caseId, me);
+    // Filing approvals require a signed engagement letter (replaces Client Care Letter).
+    const client = await clientRecord(me);
+    if (client) await assertEngagementSigned(client);
     if (!["ADMIN_APPROVED", "AWAITING_CLIENT_APPROVAL"].includes(kase.status)) {
       throw httpError(400, "Return is not ready for your approval");
     }
@@ -979,6 +983,11 @@ casesRouter.post(
     const approval = await col("client_approvals").findOne({ case_id: caseId });
     if (!review || !kase.approved_version_id) throw httpError(400, "Admin approval is not complete");
     if (!approval) throw httpError(400, "Client approval is not complete");
+    // HMRC filing is blocked until the client's engagement letter is signed.
+    if (kase.client_id) {
+      const filingClient = (await col("clients").findOne({ id: kase.client_id })) as Doc | null;
+      if (filingClient) await assertEngagementSigned(clean(filingClient) as Doc);
+    }
     if (kase.status !== "READY_FOR_SUBMISSION") {
       throw httpError(400, `Case must be READY_FOR_SUBMISSION (currently ${kase.status})`);
     }

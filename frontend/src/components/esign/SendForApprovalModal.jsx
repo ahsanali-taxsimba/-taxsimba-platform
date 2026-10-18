@@ -15,7 +15,7 @@ const DOC_TYPES = [
   { value: "MTD_QUARTERLY_APPROVAL", label: "MTD quarterly update" },
   { value: "VAT_RETURN_APPROVAL", label: "VAT return" },
   { value: "CT_SUMMARY_APPROVAL", label: "Corporation Tax summary" },
-  { value: "ENGAGEMENT_LETTER", label: "Engagement letter (stub)" },
+  // Engagement letters are generated automatically from /engagement (not this staff modal).
   { value: "AML_PACK", label: "AML / onboarding pack (stub)" },
 ];
 

@@ -12,6 +12,7 @@ import { casesRouter } from "./routes/cases";
 import { collaborationRouter } from "./routes/collaboration";
 import { contentRouter } from "./routes/content";
 import { documentsRouter } from "./routes/documents";
+import { engagementRouter } from "./routes/engagement";
 import { esignRouter } from "./routes/esign";
 import { mtdRouter } from "./routes/mtd";
 import { mtdOnboardingRouter } from "./routes/mtdOnboarding";
@@ -24,6 +25,7 @@ import { ensureCoreIndexes, seed } from "./domain/seed";
 import { ensureContentIndexes } from "./domain/content";
 import { ensurePricingIndexes } from "./domain/pricing";
 import { ensureEsignIndexes, ensureEsignTemplates } from "./domain/esign";
+import { ensureEngagementIndexes } from "./domain/engagementLetter";
 import { ensureEmailIndexes } from "./services/email";
 import { ensureReminderIndexes } from "./jobs/reminders";
 import { ensureIndexes as ensureLoginIndexes } from "./services/loginLockout";
@@ -78,6 +80,8 @@ const QUERY_INDEXES: Record<string, string[]> = {
   esign_signers: ["request_id", "email"],
   esign_signature_events: ["request_id", "document_id", "timestamp"],
   esign_firm_branding: ["firm_id"],
+  engagement_letters: ["client_id", "client_user_id", "status", "our_ref"],
+  engagement_schedules: ["engagement_letter_id"],
 };
 
 export async function ensureQueryIndexes(): Promise<void> {
@@ -110,6 +114,7 @@ export async function startup(): Promise<void> {
   await ensureContentIndexes();
   await ensureEsignIndexes();
   await ensureEsignTemplates();
+  await ensureEngagementIndexes();
 }
 
 export function createApp(): Express {
@@ -137,6 +142,7 @@ export function createApp(): Express {
   app.use("/api", casesRouter);
   app.use("/api", documentsRouter);
   app.use("/api", esignRouter);
+  app.use("/api", engagementRouter);
   app.use("/api", collaborationRouter);
   app.use("/api/mtd", mtdOnboardingRouter);
   app.use("/api/mtd", mtdRouter);

@@ -16,6 +16,7 @@ import {
   SELF_ASSESSMENT,
   SERVICE_LABELS,
 } from "../services/clientServices";
+import { ensureEngagementAfterActivation } from "../services/engagementLetter";
 
 export { MTD, SELF_ASSESSMENT, SERVICE_LABELS };
 
@@ -266,6 +267,10 @@ export async function activateService(
       "ASSIGNMENT",
     );
   }
+
+  // Engagement letter (replaces Client Care Letter) must be signed before filing/MTD.
+  await ensureEngagementAfterActivation(clean(client) as Doc);
+
   return {
     case: clean(kase) as Doc,
     created_case: createdCase,

@@ -464,29 +464,23 @@ export async function ensureEsignTemplates(): Promise<void> {
       created_at: now,
       updated_at: now,
     },
-    // --- Extensibility stubs -------------------------------------------------
+    // Engagement letters are owned by domain/engagementLetter.ts (frozen legal
+    // wording + auto schedules). This catalogue row remains for e-sign type
+    // routing / downloads — do not edit legal copy here.
     {
       firm_id: null,
       type: "ENGAGEMENT_LETTER",
-      name: "Engagement letter (stub)",
-      title: "Letter of engagement",
-      body_markdown: [
-        "# Letter of engagement",
-        "",
-        "**Client:** {{client_name}}",
-        "**Service:** {{service_type}}",
-        "",
-        "{{engagement_terms}}",
-        "",
-        "<!-- TODO(engagement): expand per-service template library",
-        "     (VAT, accounts, payroll, tax) and annual re-engagement variants. -->",
-      ].join("\n"),
+      name: "Engagement letter (system-generated)",
+      title: "Terms of Engagement",
+      body_markdown:
+        "See domain/engagementLetter.ts — legal template is code-owned and not staff-editable.",
       merge_fields: [
-        { key: "client_name", label: "Client name", required: true },
-        { key: "service_type", label: "Service", required: true },
-        { key: "engagement_terms", label: "Terms body" },
+        { key: "client_display_name", label: "Client name", required: true },
+        { key: "schedules_block", label: "Service schedules", required: true },
+        { key: "our_ref", label: "Our Ref" },
+        { key: "letter_date", label: "Date" },
       ],
-      layout: { sections: ["header", "terms", "consent"] },
+      layout: { sections: ["letter", "acceptance"] },
       version: 1,
       is_active: true,
       created_at: now,

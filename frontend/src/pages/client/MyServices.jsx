@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import AppShell from "@/components/AppShell";
+import EngagementLetterModal from "@/components/engagement/EngagementLetterModal";
 import { Empty, Panel } from "@/components/StatCard";
 import { StatusBadge } from "@/components/StatusBadge";
 import { api, apiError, d, dt, money } from "@/lib/api";
@@ -47,6 +48,8 @@ export default function MyServices() {
   const [payments, setPayments] = useState([]);
   const [payReqs, setPayReqs] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [engagement, setEngagement] = useState(null);
+  const [showEngagement, setShowEngagement] = useState(false);
   const activeCount = (data?.services || []).filter((s) => s.status === "ACTIVE").length;
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
@@ -57,6 +60,7 @@ export default function MyServices() {
     api.get("/my-offers").then(({ data }) => setOffers(data));
     api.get("/my-payments").then(({ data }) => setPayments(data));
     api.get("/payment-requests").then(({ data }) => setPayReqs(data)).catch(() => {});
+    api.get("/engagement/me").then(({ data }) => setEngagement(data)).catch(() => {});
   };
   useEffect(() => { load(); }, []);
 
@@ -97,6 +101,44 @@ export default function MyServices() {
   return (
     <AppShell title="My Services" subtitle={data?.client_ref ? `Client ${data.client_ref} · one account, all your services` : "Your TaxSimba services"}>
       <div className="space-y-6">
+        {engagement?.engagement && (
+          <Panel title="Engagement letter" testId="engagement-status-panel">
+            <p className="text-sm text-[#626A65]">
+              Replaces the previous Client Care Letter. Auto-filled from your profile and purchased services — legal wording cannot be changed.
+            </p>
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              <span
+                data-testid="engagement-status-badge"
+                className="px-2.5 py-1 rounded-md text-xs font-bold uppercase"
+                style={{
+                  background: engagement.ok ? "#E9F7EF" : "#FDF3E3",
+                  color: engagement.ok ? "#16A05D" : "#B77A12",
+                }}
+              >
+                {engagement.ok ? "Active" : "Pending signature"}
+              </span>
+              <span className="text-xs text-[#626A65]">
+                {engagement.engagement.our_ref}
+                {engagement.engagement.letter_date ? ` · ${engagement.engagement.letter_date}` : ""}
+              </span>
+              <button
+                type="button"
+                data-testid="open-engagement-letter-btn"
+                onClick={() => setShowEngagement(true)}
+                className="text-xs font-semibold text-[#006B3C]"
+              >
+                {engagement.ok ? "View signed letter" : "Review and sign"}
+              </button>
+            </div>
+            <EngagementLetterModal
+              open={showEngagement}
+              engagement={engagement.engagement}
+              required={!engagement.ok}
+              onClose={() => setShowEngagement(false)}
+              onSigned={() => { setShowEngagement(false); load(); }}
+            />
+          </Panel>
+        )}
         <Panel title="My Services" testId="my-services-panel">
           {!data?.services?.length && <Empty text="No services yet." />}
           <ul className="space-y-4">
@@ -337,8 +379,11 @@ export function PaymentSuccess() {
             <p data-testid="payment-paid-text" className="text-sm font-semibold text-[#16A05D]">
               Payment received. Your account has been updated.
             </p>
-            <button data-testid="back-to-services-btn" onClick={() => nav("/subscription")}
-              className="mt-5 px-5 py-2.5 rounded-lg bg-[#078A4B] text-white text-sm font-semibold">Back to My Services</button>
+            <p className="text-sm text-[#626A65] mt-3" data-testid="engagement-next-step">
+              Next: review and sign your Engagement Letter (this replaces the previous Client Care Letter). It will open automatically from your dashboard if still pending.
+            </p>
+            <button data-testid="back-to-services-btn" onClick={() => nav("/dashboard")}
+              className="mt-5 px-5 py-2.5 rounded-lg bg-[#078A4B] text-white text-sm font-semibold">Continue to dashboard</button>
           </>
         )}
         {status === "pending" && <p className="text-sm text-[#E6A23C]">Payment is still processing. We'll update your services as soon as it clears.</p>}

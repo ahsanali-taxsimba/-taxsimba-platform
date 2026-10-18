@@ -18,6 +18,7 @@ import { config } from "dotenv";
 
 import { close, col, connect, Doc } from "../db/mongo";
 import { activateService, ensurePhase1bData } from "../domain/packages";
+import { seedMarkEngagementActive } from "../services/engagementLetter";
 import { MTD } from "../domain/mtd";
 import { ensureCoreIndexes } from "../domain/seed";
 import { nowIso } from "../domain/workflow";
@@ -282,6 +283,8 @@ async function main(): Promise<void> {
         q3CaseId = String(result.case?.id ?? "");
       }
     }
+    // Fixture accounts are pre-signed so UAT journeys can focus on tax/MTD flows.
+    await seedMarkEngagementActive(client);
   }
 
   if (!q3CaseId) throw new Error("Q3 joiner MTD case was not created");
