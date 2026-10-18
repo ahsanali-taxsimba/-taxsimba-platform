@@ -91,6 +91,9 @@ export async function generateEngagementLetter(
   client: Doc,
   opts: { force?: boolean; actor?: Doc | null } = {},
 ): Promise<Doc> {
+  // Engagement / e-sign onboarding proceeds only after AML CDD is approved.
+  await assertAmlApproved(client);
+
   const services = await activeServiceRows(client.id);
   if (!services.length) {
     throw httpError(400, "No active services to include in the engagement letter");
