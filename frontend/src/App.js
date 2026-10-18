@@ -20,6 +20,9 @@ import SuperAdmin from "@/pages/staff/SuperAdmin";
 import AcceptInvite from "@/pages/AcceptInvite";
 import StaffSecurity from "@/pages/staff/StaffSecurity";
 import EsignDashboard from "@/pages/staff/EsignDashboard";
+import AmlDashboard from "@/pages/staff/AmlDashboard";
+import AmlCaseReview from "@/pages/staff/AmlCaseReview";
+import AmlOnboarding from "@/pages/client/AmlOnboarding";
 import SignDocument from "@/pages/SignDocument";
 import { AdminServiceIssues, ClientServiceIssues } from "@/pages/ServiceIssues";
 import { ServiceGuard } from "@/components/ServiceGuard";
@@ -56,6 +59,7 @@ export default function App() {
           <Route path="/" element={<Landing />} />
 
           <Route path="/dashboard" element={<Guard roles={CLIENT}><ClientDashboard /></Guard>} />
+          <Route path="/aml" element={<Guard roles={CLIENT}><AmlOnboarding /></Guard>} />
           <Route path="/my-return" element={<Guard roles={CLIENT}><ServiceGuard serviceType="SELF_ASSESSMENT"><MyTaxReturn /></ServiceGuard></Guard>} />
           <Route path="/documents" element={<Guard roles={CLIENT}><ClientDocuments /></Guard>} />
           <Route path="/messages" element={<Guard roles={CLIENT}><ClientMessages /></Guard>} />
@@ -77,10 +81,14 @@ export default function App() {
 
           <Route path="/work" element={<Guard roles={STAFF}><AccountantDashboard /></Guard>} />
           <Route path="/work/esign" element={<Guard roles={["ACCOUNTANT"]}><EsignDashboard /></Guard>} />
+          <Route path="/work/aml" element={<Guard roles={["ACCOUNTANT"]}><AmlDashboard /></Guard>} />
+          <Route path="/work/aml/:id" element={<Guard roles={["ACCOUNTANT"]}><AmlCaseReview /></Guard>} />
           <Route path="/work/cases/:id" element={<Guard roles={["ACCOUNTANT", "ADMIN", "SUPER_ADMIN"]}><CaseWorkspace /></Guard>} />
 
           <Route path="/admin" element={<Guard roles={ADMIN}><AdminDashboard /></Guard>} />
           <Route path="/admin/esign" element={<Guard roles={ADMIN}><EsignDashboard /></Guard>} />
+          <Route path="/admin/aml" element={<Guard roles={ADMIN}><AmlDashboard /></Guard>} />
+          <Route path="/admin/aml/:id" element={<Guard roles={ADMIN}><AmlCaseReview /></Guard>} />
           <Route path="/staff/security" element={<Guard roles={["ACCOUNTANT", "ADMIN", "SUPER_ADMIN"]}><StaffSecurity /></Guard>} />          <Route path="/admin/cases" element={<Guard roles={ADMIN}><AdminCases /></Guard>} />
           <Route path="/admin/cases/:id" element={<Guard roles={ADMIN}><CaseWorkspace /></Guard>} />
           <Route path="/admin/review/:id" element={<Guard roles={ADMIN}><CaseWorkspace /></Guard>} />

@@ -28,6 +28,7 @@ import { ESIGN_COLLECTIONS, HMRC_CONSENT_TEXT, hashPayload } from "../domain/esi
 import { nowIso, logActivity, notify } from "../domain/workflow";
 import { clean, cleanMany, col, Doc } from "../db/mongo";
 import { httpError } from "../http/errors";
+import { assertAmlApproved } from "./aml";
 import { MTD, SELF_ASSESSMENT, SERVICE_LABELS } from "./clientServices";
 
 const CONSENT =

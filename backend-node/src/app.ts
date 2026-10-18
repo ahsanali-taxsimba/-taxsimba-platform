@@ -12,6 +12,7 @@ import { casesRouter } from "./routes/cases";
 import { collaborationRouter } from "./routes/collaboration";
 import { contentRouter } from "./routes/content";
 import { documentsRouter } from "./routes/documents";
+import { amlRouter } from "./routes/aml";
 import { engagementRouter } from "./routes/engagement";
 import { esignRouter } from "./routes/esign";
 import { mtdRouter } from "./routes/mtd";
@@ -25,6 +26,7 @@ import { ensureCoreIndexes, seed } from "./domain/seed";
 import { ensureContentIndexes } from "./domain/content";
 import { ensurePricingIndexes } from "./domain/pricing";
 import { ensureEsignIndexes, ensureEsignTemplates } from "./domain/esign";
+import { ensureAmlIndexes } from "./domain/aml";
 import { ensureEngagementIndexes } from "./domain/engagementLetter";
 import { ensureEmailIndexes } from "./services/email";
 import { ensureReminderIndexes } from "./jobs/reminders";
@@ -82,6 +84,11 @@ const QUERY_INDEXES: Record<string, string[]> = {
   esign_firm_branding: ["firm_id"],
   engagement_letters: ["client_id", "client_user_id", "status", "our_ref"],
   engagement_schedules: ["engagement_letter_id"],
+  aml_cases: ["client_id", "client_user_id", "status", "next_review_due"],
+  aml_documents: ["aml_case_id", "client_id", "type"],
+  aml_checks: ["aml_case_id"],
+  aml_screening_results: ["aml_case_id"],
+  aml_audit_log: ["aml_case_id", "client_id", "created_at"],
 };
 
 export async function ensureQueryIndexes(): Promise<void> {
@@ -115,6 +122,7 @@ export async function startup(): Promise<void> {
   await ensureEsignIndexes();
   await ensureEsignTemplates();
   await ensureEngagementIndexes();
+  await ensureAmlIndexes();
 }
 
 export function createApp(): Express {
@@ -143,6 +151,7 @@ export function createApp(): Express {
   app.use("/api", documentsRouter);
   app.use("/api", esignRouter);
   app.use("/api", engagementRouter);
+  app.use("/api", amlRouter);
   app.use("/api", collaborationRouter);
   app.use("/api/mtd", mtdOnboardingRouter);
   app.use("/api/mtd", mtdRouter);

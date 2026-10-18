@@ -3,8 +3,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Bell, LayoutDashboard, FileText, FolderOpen, MessageSquare, CheckSquare, Route,
   User, CreditCard, HelpCircle, Settings, Users, Briefcase, ShieldCheck, LogOut, Menu, X, Sparkles,
-  AlertCircle, Layers, CalendarClock, PenLine,
+  AlertCircle, Layers, CalendarClock, PenLine, Fingerprint,
 } from "lucide-react";
+import AmlGate from "@/components/aml/AmlGate";
 import EngagementGate from "@/components/engagement/EngagementGate";
 import { useAuth } from "@/context/AuthContext";
 import { api, dt } from "@/lib/api";
@@ -12,6 +13,7 @@ import { useEntitlements } from "@/lib/services";
 
 const CLIENT_NAV = [
   ["Dashboard", "/dashboard", LayoutDashboard],
+  ["Identity verification", "/aml", Fingerprint],
   ["Action Required", "/actions", AlertCircle],
   ["My Tax Return", "/my-return", FileText],
   ["Documents", "/documents", FolderOpen],
@@ -29,6 +31,7 @@ const ACCOUNTANT_NAV = [
   ["Dashboard", "/work", LayoutDashboard],
   ["My Cases", "/work?tab=in_progress", Briefcase],
   ["MTD Workload", "/work/mtd", CalendarClock],
+  ["AML reviews", "/work/aml", Fingerprint],
   ["E-signatures", "/work/esign", PenLine],
 ];
 
@@ -36,6 +39,7 @@ const ADMIN_NAV = [
   ["Dashboard", "/admin", LayoutDashboard],
   ["All Cases", "/admin/cases", Briefcase],
   ["Admin Review", "/admin/cases?bucket=admin_review", ShieldCheck],
+  ["AML compliance", "/admin/aml", Fingerprint],
   ["Recommendations", "/admin/recommendations", Sparkles],
   ["Service Issues", "/admin/service-issues", AlertCircle],
   ["MTD Operations", "/admin/mtd", CalendarClock],
@@ -207,7 +211,13 @@ export default function AppShell({ children, title, subtitle }) {
     </div>
   );
 
-  // Client Care Letter → Engagement Letter: require in-app e-sign before tax/MTD work.
-  if (isClient) return <EngagementGate>{shell}</EngagementGate>;
+  // AML/KYC first, then Engagement Letter e-sign, before tax/MTD work proceeds.
+  if (isClient) {
+    return (
+      <AmlGate>
+        <EngagementGate>{shell}</EngagementGate>
+      </AmlGate>
+    );
+  }
   return shell;
 }

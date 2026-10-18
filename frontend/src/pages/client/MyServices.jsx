@@ -50,6 +50,7 @@ export default function MyServices() {
   const [selected, setSelected] = useState(null);
   const [engagement, setEngagement] = useState(null);
   const [showEngagement, setShowEngagement] = useState(false);
+  const [aml, setAml] = useState(null);
   const activeCount = (data?.services || []).filter((s) => s.status === "ACTIVE").length;
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
@@ -61,8 +62,17 @@ export default function MyServices() {
     api.get("/my-payments").then(({ data }) => setPayments(data));
     api.get("/payment-requests").then(({ data }) => setPayReqs(data)).catch(() => {});
     api.get("/engagement/me").then(({ data }) => setEngagement(data)).catch(() => {});
+    api.get("/aml/gate").then(({ data }) => setAml(data)).catch(() => {});
   };
   useEffect(() => { load(); }, []);
+
+  const requireAml = () => {
+    if (aml && !aml.ok) {
+      setErr("AML/KYC check required before services can be activated. Complete identity verification first.");
+      return false;
+    }
+    return true;
+  };
 
   const payRequest = async (id) => {
     setBusy(true); setErr("");
@@ -75,6 +85,7 @@ export default function MyServices() {
   };
 
   const startUpgrade = async (code) => {
+    if (!requireAml()) return;
     setBusy(true); setErr("");
     try {
       const { data } = await api.post("/payments/upgrade-checkout", { package_code: code, origin_url: window.location.origin });
@@ -86,6 +97,7 @@ export default function MyServices() {
   };
 
   const startOffer = async (offerId) => {
+    if (!requireAml()) return;
     setBusy(true); setErr("");
     try {
       const { data } = await api.post("/payments/offer-checkout", { offer_id: offerId, origin_url: window.location.origin });
@@ -101,6 +113,23 @@ export default function MyServices() {
   return (
     <AppShell title="My Services" subtitle={data?.client_ref ? `Client ${data.client_ref} · one account, all your services` : "Your TaxSimba services"}>
       <div className="space-y-6">
+        {aml && !aml.ok && (
+          <Panel title="Identity verification required" testId="aml-blocked-panel">
+            <p className="text-sm text-[#161B18]" data-testid="aml-blocked-message">
+              To comply with UK Anti-Money Laundering regulations, we must verify your identity and address before you can activate tax or MTD services.
+            </p>
+            <p className="text-xs text-[#626A65] mt-2">
+              Status: {(aml.status || "REQUIRED").replace(/_/g, " ")}
+            </p>
+            <Link
+              to="/aml"
+              data-testid="aml-go-verify-btn"
+              className="inline-flex mt-4 px-5 py-2.5 rounded-lg bg-[#078A4B] text-white text-sm font-semibold"
+            >
+              Complete AML / KYC check
+            </Link>
+          </Panel>
+        )}
         {engagement?.engagement && (
           <Panel title="Engagement letter" testId="engagement-status-panel">
             <p className="text-sm text-[#626A65]">
