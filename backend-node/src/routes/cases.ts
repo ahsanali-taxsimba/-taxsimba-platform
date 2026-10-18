@@ -7,6 +7,7 @@ import { clean, cleanMany, col, Doc, scrub, scrubMany } from "../db/mongo";
 import { clientRecord, daysLeft, decorate, getCase, ownedCaseIds } from "../domain/cases";
 import { isTestEmail, OPERATIONAL_ONLY } from "../domain/testdata";
 import { assertEngagementSigned } from "../services/engagementLetter";
+import { assertIntakeReadyForReview, assertIntakeVerified } from "../services/taxReturnIntake";
 import {
   ALLOWED_TRANSITIONS,
   clientStatus,
@@ -692,6 +693,8 @@ casesRouter.post(
       case_id: caseId,
     });
     if (!calc) throw httpError(404, "Calculation version not found");
+    // Mandatory intake categories must be uploaded or marked N/A before admin review.
+    await assertIntakeReadyForReview(caseId);
     await col("calculation_versions").updateOne({ id: calc.id }, { $set: { is_locked: true } });
     await col("reviews").insertOne({
       id: randomUUID(),
@@ -988,6 +991,8 @@ casesRouter.post(
       const filingClient = (await col("clients").findOne({ id: kase.client_id })) as Doc | null;
       if (filingClient) await assertEngagementSigned(clean(filingClient) as Doc);
     }
+    // Mandatory intake categories must be accountant-verified (or N/A) before filing.
+    await assertIntakeVerified(caseId);
     if (kase.status !== "READY_FOR_SUBMISSION") {
       throw httpError(400, `Case must be READY_FOR_SUBMISSION (currently ${kase.status})`);
     }

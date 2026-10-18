@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Bell, LayoutDashboard, FileText, FolderOpen, MessageSquare, CheckSquare, Route,
   User, CreditCard, HelpCircle, Settings, Users, Briefcase, ShieldCheck, LogOut, Menu, X, Sparkles,
-  AlertCircle, Layers, CalendarClock, PenLine, Fingerprint,
+  AlertCircle, Layers, CalendarClock, PenLine, Fingerprint, Upload,
 } from "lucide-react";
 import AmlGate from "@/components/aml/AmlGate";
 import EngagementGate from "@/components/engagement/EngagementGate";
@@ -16,6 +16,7 @@ const CLIENT_NAV = [
   ["Identity verification", "/aml", Fingerprint],
   ["Action Required", "/actions", AlertCircle],
   ["My Tax Return", "/my-return", FileText],
+  ["Document intake", "/document-intake", Upload],
   ["Documents", "/documents", FolderOpen],
   ["Messages", "/messages", MessageSquare],
   ["Tasks", "/tasks", CheckSquare],
@@ -32,6 +33,7 @@ const ACCOUNTANT_NAV = [
   ["My Cases", "/work?tab=in_progress", Briefcase],
   ["MTD Workload", "/work/mtd", CalendarClock],
   ["AML reviews", "/work/aml", Fingerprint],
+  ["Document intake", "/work/intake", Upload],
   ["E-signatures", "/work/esign", PenLine],
 ];
 
@@ -40,6 +42,7 @@ const ADMIN_NAV = [
   ["All Cases", "/admin/cases", Briefcase],
   ["Admin Review", "/admin/cases?bucket=admin_review", ShieldCheck],
   ["AML compliance", "/admin/aml", Fingerprint],
+  ["Document intake", "/admin/intake", Upload],
   ["Recommendations", "/admin/recommendations", Sparkles],
   ["Service Issues", "/admin/service-issues", AlertCircle],
   ["MTD Operations", "/admin/mtd", CalendarClock],
@@ -79,7 +82,7 @@ export default function AppShell({ children, title, subtitle }) {
   }
   // A client only ever navigates to the services they are entitled to.
   if (isClient && !saActive) {
-    items = items.filter(([, path]) => !["/my-return", "/journey"].includes(path));
+    items = items.filter(([, path]) => !["/my-return", "/journey", "/document-intake"].includes(path));
   }
 
   const unread = notes.filter((n) => !n.is_read).length;

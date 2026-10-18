@@ -24,16 +24,18 @@ export function AdminDashboard() {
   const [stats, setStats] = useState({});
   const [esign, setEsign] = useState(null);
   const [aml, setAml] = useState(null);
+  const [intake, setIntake] = useState(null);
   const nav = useNavigate();
   useEffect(() => {
     api.get("/stats/admin").then(({ data }) => setStats(data));
     api.get("/esign/dashboard").then(({ data }) => setEsign(data)).catch(() => {});
     api.get("/aml/dashboard").then(({ data }) => setAml(data)).catch(() => {});
+    api.get("/intake/dashboard").then(({ data }) => setIntake(data)).catch(() => {});
   }, []);
   return (
     <AppShell title="Operations Control Centre" subtitle="All client cases across the practice.">
-      {(aml || esign) && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+      {(aml || esign || intake) && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-6">
           {aml && (
             <>
               <StatCard
@@ -49,6 +51,24 @@ export function AdminDashboard() {
                 tone="#D64545"
                 testId="admin-aml-overdue"
                 onClick={() => nav("/admin/aml")}
+              />
+            </>
+          )}
+          {intake && (
+            <>
+              <StatCard
+                label="Clients with missing documents"
+                value={intake.counts?.missing_documents ?? 0}
+                tone="#B77A12"
+                testId="admin-intake-missing"
+                onClick={() => nav("/admin/intake")}
+              />
+              <StatCard
+                label="Returns blocked on uploads"
+                value={intake.counts?.blocked_returns ?? 0}
+                tone="#D64545"
+                testId="admin-intake-blocked"
+                onClick={() => nav("/admin/intake")}
               />
             </>
           )}

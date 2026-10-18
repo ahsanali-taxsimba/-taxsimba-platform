@@ -8,6 +8,7 @@ import { SignatureStatusBadge } from "@/components/esign/SignatureStatusBadge";
 import { useAuth } from "@/context/AuthContext";
 import { api, d, dt, money, openDocument } from "@/lib/api";
 import { warningBadge } from "@/pages/staff/AdminMtd";
+import TaxReturnIntake from "@/pages/TaxReturnIntake";
 
 const CHECKLIST = [
   ["client_information_reviewed", "Client information reviewed"],
@@ -19,7 +20,7 @@ const CHECKLIST = [
   ["return_ready", "Return ready for internal review"],
 ];
 
-const TABS = ["Overview", "Tasks", "Documents", "Messages", "Tax Working", "Internal Notes", "Activity"];
+const TABS = ["Overview", "Document Intake", "Tasks", "Documents", "Messages", "Tax Working", "Internal Notes", "Activity"];
 const MTD_TABS = ["Overview", "MTD Periods", "Tasks", "Documents", "Messages", "Internal Notes", "Activity"];
 
 export default function CaseWorkspace() {
@@ -402,6 +403,10 @@ export default function CaseWorkspace() {
               </li>
             ))}</ul>
           </Panel>
+        )}
+
+        {tab === "Document Intake" && cs.service_type !== "MTD_INCOME_TAX" && (
+          <TaxReturnIntake caseId={id} embedded />
         )}
 
         {tab === "Documents" && (

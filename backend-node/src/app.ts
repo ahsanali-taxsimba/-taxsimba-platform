@@ -15,6 +15,7 @@ import { documentsRouter } from "./routes/documents";
 import { amlRouter } from "./routes/aml";
 import { engagementRouter } from "./routes/engagement";
 import { esignRouter } from "./routes/esign";
+import { taxReturnIntakeRouter } from "./routes/taxReturnIntake";
 import { mtdRouter } from "./routes/mtd";
 import { mtdOnboardingRouter } from "./routes/mtdOnboarding";
 import { paymentsRouter } from "./routes/payments";
@@ -28,6 +29,7 @@ import { ensurePricingIndexes } from "./domain/pricing";
 import { ensureEsignIndexes, ensureEsignTemplates } from "./domain/esign";
 import { ensureAmlIndexes } from "./domain/aml";
 import { ensureEngagementIndexes } from "./domain/engagementLetter";
+import { ensureIntakeIndexes } from "./domain/taxReturnIntake";
 import { ensureEmailIndexes } from "./services/email";
 import { ensureReminderIndexes } from "./jobs/reminders";
 import { ensureIndexes as ensureLoginIndexes } from "./services/loginLockout";
@@ -89,6 +91,10 @@ const QUERY_INDEXES: Record<string, string[]> = {
   aml_checks: ["aml_case_id"],
   aml_screening_results: ["aml_case_id"],
   aml_audit_log: ["aml_case_id", "client_id", "created_at"],
+  tax_return_master_intakes: ["client_id", "tax_year", "case_id", "completion_status"],
+  tax_return_document_categories: ["intake_id", "client_id", "case_id", "category_key"],
+  tax_return_intake_files: ["category_id", "intake_id", "content_hash"],
+  tax_return_intake_audit: ["intake_id", "created_at"],
 };
 
 export async function ensureQueryIndexes(): Promise<void> {
@@ -123,6 +129,7 @@ export async function startup(): Promise<void> {
   await ensureEsignTemplates();
   await ensureEngagementIndexes();
   await ensureAmlIndexes();
+  await ensureIntakeIndexes();
 }
 
 export function createApp(): Express {
@@ -152,6 +159,7 @@ export function createApp(): Express {
   app.use("/api", esignRouter);
   app.use("/api", engagementRouter);
   app.use("/api", amlRouter);
+  app.use("/api", taxReturnIntakeRouter);
   app.use("/api", collaborationRouter);
   app.use("/api/mtd", mtdOnboardingRouter);
   app.use("/api/mtd", mtdRouter);

@@ -18,6 +18,7 @@ import {
 } from "../services/clientServices";
 import { assertAmlApproved } from "../services/aml";
 import { ensureEngagementAfterActivation } from "../services/engagementLetter";
+import { ensureIntakeForCase } from "../services/taxReturnIntake";
 
 export { MTD, SELF_ASSESSMENT, SERVICE_LABELS };
 
@@ -275,6 +276,11 @@ export async function activateService(
 
   // Engagement letter (replaces Client Care Letter) must be signed before filing/MTD.
   await ensureEngagementAfterActivation(clean(client) as Doc);
+
+  // Structured tax-return document intake categories for SA cases.
+  if (serviceType === SELF_ASSESSMENT && kase) {
+    await ensureIntakeForCase(kase, clean(client) as Doc, actor);
+  }
 
   return {
     case: clean(kase) as Doc,
