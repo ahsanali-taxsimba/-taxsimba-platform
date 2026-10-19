@@ -19,6 +19,7 @@ import CaseWorkspace from "@/pages/staff/CaseWorkspace";
 import SuperAdmin from "@/pages/staff/SuperAdmin";
 import AcceptInvite from "@/pages/AcceptInvite";
 import StaffSecurity from "@/pages/staff/StaffSecurity";
+import WhoWeAre from "@/pages/WhoWeAre";
 import { AdminServiceIssues, ClientServiceIssues } from "@/pages/ServiceIssues";
 import { ServiceGuard } from "@/components/ServiceGuard";
 
@@ -48,6 +49,9 @@ export default function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/invite/:token" element={<AcceptInvite />} />
+          {/* Public company page — no auth required */}
+          <Route path="/who-we-are" element={<WhoWeAre />} />
+          <Route path="/about-us" element={<WhoWeAre />} />
 
           <Route path="/" element={<Landing />} />
 
