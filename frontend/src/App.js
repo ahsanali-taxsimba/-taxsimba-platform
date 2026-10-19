@@ -25,6 +25,7 @@ import AmlCaseReview from "@/pages/staff/AmlCaseReview";
 import AmlOnboarding from "@/pages/client/AmlOnboarding";
 import TaxReturnIntake, { IntakeDashboard } from "@/pages/TaxReturnIntake";
 import SignDocument from "@/pages/SignDocument";
+import WhoWeAre from "@/pages/WhoWeAre";
 import { AdminServiceIssues, ClientServiceIssues } from "@/pages/ServiceIssues";
 import { ServiceGuard } from "@/components/ServiceGuard";
 
@@ -56,6 +57,9 @@ export default function App() {
           <Route path="/invite/:token" element={<AcceptInvite />} />
           {/* Public e-sign page — unique expiring token per signer; no auth required */}
           <Route path="/sign/:token" element={<SignDocument />} />
+          {/* Public company page — no auth required */}
+          <Route path="/who-we-are" element={<WhoWeAre />} />
+          <Route path="/about-us" element={<WhoWeAre />} />
 
           <Route path="/" element={<Landing />} />
 
