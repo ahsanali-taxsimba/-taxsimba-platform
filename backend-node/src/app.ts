@@ -16,6 +16,7 @@ import { amlRouter } from "./routes/aml";
 import { engagementRouter } from "./routes/engagement";
 import { esignRouter } from "./routes/esign";
 import { hmrc64Router } from "./routes/hmrc64";
+import { emailTemplatesRouter } from "./routes/emailTemplates";
 import { taxReturnIntakeRouter } from "./routes/taxReturnIntake";
 import { mtdRouter } from "./routes/mtd";
 import { mtdOnboardingRouter } from "./routes/mtdOnboarding";
@@ -33,6 +34,7 @@ import { ensureEngagementIndexes } from "./domain/engagementLetter";
 import { ensureIntakeIndexes } from "./domain/taxReturnIntake";
 import { ensureFileSecurityIndexes } from "./domain/fileSecurity";
 import { ensureHmrc64Indexes } from "./domain/hmrc64";
+import { ensureEmailTemplateIndexes, ensureEmailTemplates } from "./domain/emailTemplates";
 import { ensureEmailIndexes } from "./services/email";
 import { ensureReminderIndexes } from "./jobs/reminders";
 import { ensureIndexes as ensureLoginIndexes } from "./services/loginLockout";
@@ -135,6 +137,8 @@ export async function startup(): Promise<void> {
   await ensureIntakeIndexes();
   await ensureFileSecurityIndexes();
   await ensureHmrc64Indexes();
+  await ensureEmailTemplateIndexes();
+  await ensureEmailTemplates();
 }
 
 export function createApp(): Express {
@@ -163,6 +167,7 @@ export function createApp(): Express {
   app.use("/api", documentsRouter);
   app.use("/api", esignRouter);
   app.use("/api", hmrc64Router);
+  app.use("/api", emailTemplatesRouter);
   app.use("/api", engagementRouter);
   app.use("/api", amlRouter);
   app.use("/api", taxReturnIntakeRouter);
