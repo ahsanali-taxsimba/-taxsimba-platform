@@ -98,6 +98,14 @@ export default function SignDocument() {
               <h1 className="text-2xl font-bold mt-1" data-testid="esign-doc-title">
                 {pack.document.title}
               </h1>
+              {pack.instructions && (
+                <p
+                  data-testid="esign-instructions"
+                  className="mt-3 text-sm font-semibold text-[#006B3C] bg-[#EAF5EE] rounded-lg px-3 py-2"
+                >
+                  {pack.instructions}
+                </p>
+              )}
               <p className="text-sm text-[#626A65] mt-2">
                 {pack.document.client_name}
                 {pack.document.tax_period_label ? ` · ${pack.document.tax_period_label}` : ""}
@@ -107,12 +115,20 @@ export default function SignDocument() {
                 Document hash: {pack.document.calculation_hash}
               </p>
 
-              <div
-                data-testid="esign-doc-body"
-                className="mt-6 prose prose-sm max-w-none text-[#161B18] whitespace-pre-wrap font-serif leading-relaxed border-t border-[#E3E7E4] pt-6"
-              >
-                {pack.document.body_rendered}
-              </div>
+              {pack.document.body_rendered?.trim().startsWith("<") ? (
+                <div
+                  data-testid="esign-doc-body"
+                  className="mt-6 border-t border-[#E3E7E4] pt-6"
+                  dangerouslySetInnerHTML={{ __html: pack.document.body_rendered }}
+                />
+              ) : (
+                <div
+                  data-testid="esign-doc-body"
+                  className="mt-6 prose prose-sm max-w-none text-[#161B18] whitespace-pre-wrap font-serif leading-relaxed border-t border-[#E3E7E4] pt-6"
+                >
+                  {pack.document.body_rendered}
+                </div>
+              )}
             </div>
 
             {done ? (

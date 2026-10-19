@@ -62,6 +62,7 @@ const CreateDocumentIn = z.object({
     "CT_SUMMARY_APPROVAL",
     "ENGAGEMENT_LETTER",
     "AML_PACK",
+    "HMRC_64_8",
     "CUSTOM",
   ]),
   case_id: z.string().nullish(),

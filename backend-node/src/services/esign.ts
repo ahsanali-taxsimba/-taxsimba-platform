@@ -33,6 +33,7 @@ import { logActivity, notify, nowIso, transition } from "../domain/workflow";
 import { clean, cleanMany, col, Doc } from "../db/mongo";
 import { httpError } from "../http/errors";
 import { queueEmail } from "./email";
+import { HMRC64_CONSENT_TEXT } from "../domain/hmrc64";
 
 // ---------------------------------------------------------------------------
 // Input shapes
@@ -690,7 +691,12 @@ export async function getSigningPackage(rawToken: string, meta: { ip?: string; u
       client_name: document.client_name,
       version: document.version,
     },
-    consent_text: HMRC_CONSENT_TEXT,
+    consent_text:
+      document.type === "HMRC_64_8" ? HMRC64_CONSENT_TEXT : HMRC_CONSENT_TEXT,
+    instructions:
+      document.type === "HMRC_64_8"
+        ? "Please sign this HMRC 64-8 authorisation form."
+        : null,
     branding: branding
       ? clean(branding)
       : { firm_name: "TaxSimba", primary_colour: "#006B3C", logo_url: null },
@@ -731,6 +737,9 @@ export async function completeSignature(
       ? `CLICK:${signer.name}`
       : input.typed_name?.trim() || signer.name);
 
+  const consentText =
+    document.type === "HMRC_64_8" ? HMRC64_CONSENT_TEXT : HMRC_CONSENT_TEXT;
+
   await col(ESIGN_COLLECTIONS.signers).updateOne(
     { id: signer.id },
     {
@@ -739,7 +748,7 @@ export async function completeSignature(
         signed_at: now,
         signature_type: input.signature_type,
         signature_data: signatureData,
-        consent_text: HMRC_CONSENT_TEXT,
+        consent_text: consentText,
         consent_accepted: true,
       },
     },
@@ -752,7 +761,7 @@ export async function completeSignature(
     event_type: "CONSENTED",
     ip: meta.ip,
     user_agent: meta.ua,
-    meta: { consent_text: HMRC_CONSENT_TEXT },
+    meta: { consent_text: consentText },
   });
   await recordEvent({
     request_id: request.id,
@@ -805,11 +814,15 @@ export async function completeSignature(
       },
     );
 
-    await applyPostSignHooks(document, request, {
-      id: "system",
-      name: "E-sign",
-      role: "SYSTEM",
-    });
+    await applyPostSignHooks(
+      { ...document, certificate_html: certificate, status: "SIGNED", signed_at: now },
+      request,
+      {
+        id: "system",
+        name: "E-sign",
+        role: "SYSTEM",
+      },
+    );
 
     // TODO(payments): if request.payment_redirect_url is set, surface it to the
     // signing UI so the client can be redirected after completion.
@@ -836,6 +849,23 @@ export async function completeSignature(
  */
 async function applyPostSignHooks(document: Doc, request: Doc, systemUser: Doc): Promise<void> {
   const now = nowIso();
+
+  if (document.type === "HMRC_64_8") {
+    const { onHmrc64Signed } = await import("./hmrc64");
+    await onHmrc64Signed({
+      esign_document_id: document.id,
+      esign_request_id: request.id,
+      signed_at: now,
+      certificate_html: document.certificate_html,
+    });
+    if (document.case_id) {
+      await logActivity(document.case_id, "HMRC 64-8 authorisation signed", systemUser, {
+        request_id: request.id,
+        document_id: document.id,
+      });
+    }
+    return;
+  }
 
   if (document.mtd_period_id) {
     await col("mtd_periods").updateOne(

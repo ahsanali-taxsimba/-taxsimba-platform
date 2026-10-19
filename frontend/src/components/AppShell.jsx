@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Bell, LayoutDashboard, FileText, FolderOpen, MessageSquare, CheckSquare, Route,
   User, CreditCard, HelpCircle, Settings, Users, Briefcase, ShieldCheck, LogOut, Menu, X, Sparkles,
-  AlertCircle, Layers, CalendarClock, PenLine, Fingerprint, Upload, Building2,
+  AlertCircle, Layers, CalendarClock, PenLine, Fingerprint, Upload, Building2, FileBadge2,
 } from "lucide-react";
 import AmlGate from "@/components/aml/AmlGate";
 import EngagementGate from "@/components/engagement/EngagementGate";
@@ -36,6 +36,7 @@ const ACCOUNTANT_NAV = [
   ["AML reviews", "/work/aml", Fingerprint],
   ["Document intake", "/work/intake", Upload],
   ["E-signatures", "/work/esign", PenLine],
+  ["HMRC 64-8", "/work/hmrc64", FileBadge2],
   ["Who We Are", "/who-we-are", Building2],
 ];
 
@@ -49,6 +50,7 @@ const ADMIN_NAV = [
   ["Service Issues", "/admin/service-issues", AlertCircle],
   ["MTD Operations", "/admin/mtd", CalendarClock],
   ["E-signatures", "/admin/esign", PenLine],
+  ["HMRC 64-8", "/admin/hmrc64", FileBadge2],
   ["Accountants", "/admin/accountants", Users],
   ["Who We Are", "/who-we-are", Building2],
 ];

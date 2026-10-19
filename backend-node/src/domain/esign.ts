@@ -32,6 +32,7 @@ export const DOCUMENT_TYPES = [
   "CT_SUMMARY_APPROVAL",
   "ENGAGEMENT_LETTER",
   "AML_PACK",
+  "HMRC_64_8",
   "CUSTOM",
 ] as const;
 export type DocumentType = (typeof DOCUMENT_TYPES)[number];
@@ -324,7 +325,35 @@ export function defaultExpiryIso(days = DEFAULT_EXPIRY_DAYS): string {
 /** Seed built-in templates used by VAT/MTD and SA/CT approval flows. */
 export async function ensureEsignTemplates(): Promise<void> {
   const existing = await col(ESIGN_COLLECTIONS.templates).countDocuments({});
-  if (existing > 0) return;
+  if (existing > 0) {
+    // Upsert newer catalogue rows (e.g. HMRC_64_8) without wiping staff customisations.
+    const has648 = await col(ESIGN_COLLECTIONS.templates).findOne({ type: "HMRC_64_8" });
+    if (!has648) {
+      const now = nowIso();
+      await col(ESIGN_COLLECTIONS.templates).insertOne({
+        id: randomUUID(),
+        firm_id: null,
+        type: "HMRC_64_8",
+        name: "HMRC 64-8 authorising your agent",
+        title: "HMRC 64-8 — Authorising your agent",
+        body_markdown:
+          "See domain/hmrc64.ts — official box labels are code-owned; merge fields auto-fill values only.",
+        merge_fields: [
+          { key: "client_full_name", label: "Client full name", required: true },
+          { key: "address_line_1", label: "Address line 1", required: true },
+          { key: "utr", label: "UTR" },
+          { key: "ni_number", label: "NI number" },
+          { key: "body_html", label: "Rendered form HTML" },
+        ],
+        layout: { sections: ["hmrc64", "signature"] },
+        version: 1,
+        is_active: true,
+        created_at: now,
+        updated_at: now,
+      });
+    }
+    return;
+  }
 
   const now = nowIso();
   const seeds: Omit<DocumentTemplate, "id">[] = [
@@ -511,6 +540,27 @@ export async function ensureEsignTemplates(): Promise<void> {
         { key: "engagement_summary", label: "Engagement excerpt" },
       ],
       layout: { sections: ["aml", "engagement", "consent"] },
+      version: 1,
+      is_active: true,
+      created_at: now,
+      updated_at: now,
+    },
+    // Official HMRC 64-8 facsimile is rendered in domain/hmrc64.ts (locked boxes).
+    {
+      firm_id: null,
+      type: "HMRC_64_8",
+      name: "HMRC 64-8 authorising your agent",
+      title: "HMRC 64-8 — Authorising your agent",
+      body_markdown:
+        "See domain/hmrc64.ts — official box labels are code-owned; merge fields auto-fill values only.",
+      merge_fields: [
+        { key: "client_full_name", label: "Client full name", required: true },
+        { key: "address_line_1", label: "Address line 1", required: true },
+        { key: "utr", label: "UTR" },
+        { key: "ni_number", label: "NI number" },
+        { key: "body_html", label: "Rendered form HTML" },
+      ],
+      layout: { sections: ["hmrc64", "signature"] },
       version: 1,
       is_active: true,
       created_at: now,
