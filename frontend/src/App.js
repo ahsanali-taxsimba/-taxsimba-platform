@@ -29,6 +29,7 @@ import WhoWeAre from "@/pages/WhoWeAre";
 import Hmrc64Dashboard from "@/pages/staff/Hmrc64Dashboard";
 import Hmrc64Workspace from "@/pages/staff/Hmrc64Workspace";
 import EmailTemplates from "@/pages/staff/EmailTemplates";
+import TaxKnowledgeLibrary from "@/pages/staff/TaxKnowledgeLibrary";
 import { AdminServiceIssues, ClientServiceIssues } from "@/pages/ServiceIssues";
 import { ServiceGuard } from "@/components/ServiceGuard";
 
@@ -94,6 +95,7 @@ export default function App() {
           <Route path="/work/hmrc64/client/:clientId" element={<Guard roles={["ACCOUNTANT"]}><Hmrc64Workspace /></Guard>} />
           <Route path="/work/hmrc64/:formId" element={<Guard roles={["ACCOUNTANT"]}><Hmrc64Workspace /></Guard>} />
           <Route path="/work/email-templates" element={<Guard roles={["ACCOUNTANT"]}><EmailTemplates /></Guard>} />
+          <Route path="/work/tax-knowledge" element={<Guard roles={["ACCOUNTANT"]}><TaxKnowledgeLibrary /></Guard>} />
           <Route path="/work/aml" element={<Guard roles={["ACCOUNTANT"]}><AmlDashboard /></Guard>} />
           <Route path="/work/aml/:id" element={<Guard roles={["ACCOUNTANT"]}><AmlCaseReview /></Guard>} />
           <Route path="/work/intake" element={<Guard roles={["ACCOUNTANT"]}><IntakeDashboard /></Guard>} />
@@ -106,6 +108,7 @@ export default function App() {
           <Route path="/admin/hmrc64/client/:clientId" element={<Guard roles={ADMIN}><Hmrc64Workspace /></Guard>} />
           <Route path="/admin/hmrc64/:formId" element={<Guard roles={ADMIN}><Hmrc64Workspace /></Guard>} />
           <Route path="/admin/email-templates" element={<Guard roles={ADMIN}><EmailTemplates /></Guard>} />
+          <Route path="/admin/tax-knowledge" element={<Guard roles={ADMIN}><TaxKnowledgeLibrary /></Guard>} />
           <Route path="/admin/aml" element={<Guard roles={ADMIN}><AmlDashboard /></Guard>} />
           <Route path="/admin/aml/:id" element={<Guard roles={ADMIN}><AmlCaseReview /></Guard>} />
           <Route path="/admin/intake" element={<Guard roles={ADMIN}><IntakeDashboard /></Guard>} />

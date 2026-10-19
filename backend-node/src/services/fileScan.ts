@@ -25,7 +25,7 @@ import { queueEmail } from "./email";
 
 export interface ScanInput {
   file_id: string;
-  source: "documents" | "intake" | "aml";
+  source: "documents" | "intake" | "aml" | "knowledge";
   buffer: Buffer;
   file_name: string;
   file_type: string;
