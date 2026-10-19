@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { apiError } from "@/lib/api";
 
@@ -45,7 +45,22 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F8F7] flex items-center justify-center p-6">
+    <div className="min-h-screen bg-[#F7F8F7] flex flex-col">
+      <header className="border-b border-[#E3E7E4] bg-white/90 backdrop-blur-md">
+        <div className="max-w-6xl mx-auto px-5 h-14 flex items-center justify-between">
+          <span className="font-heading text-lg font-extrabold text-[#006B3C]">TaxSimba</span>
+          <nav className="flex items-center gap-2 text-sm font-semibold">
+            <Link
+              to="/who-we-are"
+              data-testid="login-nav-who-we-are"
+              className="px-3 py-2 rounded-lg text-[#626A65] hover:bg-[#F1F8F4] hover:text-[#161B18]"
+            >
+              Who We Are
+            </Link>
+          </nav>
+        </div>
+      </header>
+      <div className="flex-1 flex items-center justify-center p-6">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="text-3xl font-extrabold text-[#006B3C] font-heading tracking-tight">TaxSimba</div>
@@ -104,6 +119,13 @@ export default function Login() {
             <div>Super Admin: superadmin@taxsimba.co.uk / Super@123</div>
           </div>
         )}
+        <p className="mt-6 text-center text-xs text-[#626A65]">
+          <Link to="/who-we-are" className="font-semibold text-[#006B3C] hover:underline">
+            Who We Are
+          </Link>
+          {" · "}UK accountants &amp; UK software
+        </p>
+      </div>
       </div>
     </div>
   );

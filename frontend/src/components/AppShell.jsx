@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Bell, LayoutDashboard, FileText, FolderOpen, MessageSquare, CheckSquare, Route,
   User, CreditCard, HelpCircle, Settings, Users, Briefcase, ShieldCheck, LogOut, Menu, X, Sparkles,
-  AlertCircle, Layers, CalendarClock,
+  AlertCircle, Layers, CalendarClock, Building2,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { api, dt } from "@/lib/api";
@@ -20,6 +20,7 @@ const CLIENT_NAV = [
   ["Profile", "/profile", User],
   ["My Services", "/subscription", CreditCard],
   ["Report a Problem", "/service-issues", AlertCircle],
+  ["Who We Are", "/who-we-are", Building2],
   ["Help Centre", "/help", HelpCircle],
   ["Settings", "/settings", Settings],
 ];
@@ -28,6 +29,7 @@ const ACCOUNTANT_NAV = [
   ["Dashboard", "/work", LayoutDashboard],
   ["My Cases", "/work?tab=in_progress", Briefcase],
   ["MTD Workload", "/work/mtd", CalendarClock],
+  ["Who We Are", "/who-we-are", Building2],
 ];
 
 const ADMIN_NAV = [
@@ -38,6 +40,7 @@ const ADMIN_NAV = [
   ["Service Issues", "/admin/service-issues", AlertCircle],
   ["MTD Operations", "/admin/mtd", CalendarClock],
   ["Accountants", "/admin/accountants", Users],
+  ["Who We Are", "/who-we-are", Building2],
 ];
 
 const SUPER_NAV = [["Super Admin", "/super", ShieldCheck]];
