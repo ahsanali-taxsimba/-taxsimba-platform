@@ -19,6 +19,7 @@ import { handler, httpError, parseBody } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
 import { hashPassword } from "../services/auth";
 import { emailInvitation } from "../services/email";
+import { createAmlCase } from "../services/aml";
 import { bootstrapClientServices } from "../services/clientServices";
 import { consumeInvite, findValidInvite, issueInvite } from "../services/invites";
 import { checkPasswordStrength } from "../services/security";
@@ -394,6 +395,7 @@ adminRouter.post(
       client.client_ref = `CL-${String(42 + total).padStart(4, "0")}`;
       await col("clients").insertOne({ ...client });
       await bootstrapClientServices(client);
+      await createAmlCase(client, { actor: authed(req) });
     }
     if (body.role === "ACCOUNTANT") {
       await col("accountant_profiles").insertOne({
