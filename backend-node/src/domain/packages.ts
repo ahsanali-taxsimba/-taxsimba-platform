@@ -16,6 +16,9 @@ import {
   SELF_ASSESSMENT,
   SERVICE_LABELS,
 } from "../services/clientServices";
+import { assertAmlApproved } from "../services/aml";
+import { ensureEngagementAfterActivation } from "../services/engagementLetter";
+import { ensureIntakeForCase } from "../services/taxReturnIntake";
 
 export { MTD, SELF_ASSESSMENT, SERVICE_LABELS };
 
@@ -148,6 +151,10 @@ export async function activateService(
   const paymentSession = opts.paymentSession ?? null;
   const amount = opts.amount ?? null;
   const actor = user ? { id: user.id, name: user.name, role: user.role ?? "CLIENT" } : null;
+  // AML/KYC must be approved before any tax/MTD service activation.
+  // Seed/system activations pass opts.reason starting with "Staging" — still require AML
+  // unless the fixture has already been marked compliant (see seedMarkAmlApproved).
+  await assertAmlApproved(client);
   await applyDuePriceSchedules();
   const pkg = (await col("packages").findOne({
     service_type: serviceType,
@@ -266,6 +273,15 @@ export async function activateService(
       "ASSIGNMENT",
     );
   }
+
+  // Engagement letter (replaces Client Care Letter) must be signed before filing/MTD.
+  await ensureEngagementAfterActivation(clean(client) as Doc);
+
+  // Structured tax-return document intake categories for SA cases.
+  if (serviceType === SELF_ASSESSMENT && kase) {
+    await ensureIntakeForCase(kase, clean(client) as Doc, actor);
+  }
+
   return {
     case: clean(kase) as Doc,
     created_case: createdCase,

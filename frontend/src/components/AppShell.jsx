@@ -3,16 +3,20 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Bell, LayoutDashboard, FileText, FolderOpen, MessageSquare, CheckSquare, Route,
   User, CreditCard, HelpCircle, Settings, Users, Briefcase, ShieldCheck, LogOut, Menu, X, Sparkles,
-  AlertCircle, Layers, CalendarClock,
+  AlertCircle, Layers, CalendarClock, PenLine, Fingerprint, Upload, Building2,
 } from "lucide-react";
+import AmlGate from "@/components/aml/AmlGate";
+import EngagementGate from "@/components/engagement/EngagementGate";
 import { useAuth } from "@/context/AuthContext";
 import { api, dt } from "@/lib/api";
 import { useEntitlements } from "@/lib/services";
 
 const CLIENT_NAV = [
   ["Dashboard", "/dashboard", LayoutDashboard],
+  ["Identity verification", "/aml", Fingerprint],
   ["Action Required", "/actions", AlertCircle],
   ["My Tax Return", "/my-return", FileText],
+  ["Document intake", "/document-intake", Upload],
   ["Documents", "/documents", FolderOpen],
   ["Messages", "/messages", MessageSquare],
   ["Tasks", "/tasks", CheckSquare],
@@ -20,6 +24,7 @@ const CLIENT_NAV = [
   ["Profile", "/profile", User],
   ["My Services", "/subscription", CreditCard],
   ["Report a Problem", "/service-issues", AlertCircle],
+  ["Who We Are", "/who-we-are", Building2],
   ["Help Centre", "/help", HelpCircle],
   ["Settings", "/settings", Settings],
 ];
@@ -28,16 +33,24 @@ const ACCOUNTANT_NAV = [
   ["Dashboard", "/work", LayoutDashboard],
   ["My Cases", "/work?tab=in_progress", Briefcase],
   ["MTD Workload", "/work/mtd", CalendarClock],
+  ["AML reviews", "/work/aml", Fingerprint],
+  ["Document intake", "/work/intake", Upload],
+  ["E-signatures", "/work/esign", PenLine],
+  ["Who We Are", "/who-we-are", Building2],
 ];
 
 const ADMIN_NAV = [
   ["Dashboard", "/admin", LayoutDashboard],
   ["All Cases", "/admin/cases", Briefcase],
   ["Admin Review", "/admin/cases?bucket=admin_review", ShieldCheck],
+  ["AML compliance", "/admin/aml", Fingerprint],
+  ["Document intake", "/admin/intake", Upload],
   ["Recommendations", "/admin/recommendations", Sparkles],
   ["Service Issues", "/admin/service-issues", AlertCircle],
   ["MTD Operations", "/admin/mtd", CalendarClock],
+  ["E-signatures", "/admin/esign", PenLine],
   ["Accountants", "/admin/accountants", Users],
+  ["Who We Are", "/who-we-are", Building2],
 ];
 
 const SUPER_NAV = [["Super Admin", "/super", ShieldCheck]];
@@ -72,12 +85,12 @@ export default function AppShell({ children, title, subtitle }) {
   }
   // A client only ever navigates to the services they are entitled to.
   if (isClient && !saActive) {
-    items = items.filter(([, path]) => !["/my-return", "/journey"].includes(path));
+    items = items.filter(([, path]) => !["/my-return", "/journey", "/document-intake"].includes(path));
   }
 
   const unread = notes.filter((n) => !n.is_read).length;
 
-  return (
+  const shell = (
     <div className="min-h-screen bg-[#F7F8F7] flex">
       <aside
         className={`${openNav ? "fixed inset-y-0 left-0 z-40 flex shadow-xl" : "hidden"} md:flex md:static w-[17rem] max-w-[85vw] md:w-64 shrink-0 flex-col bg-white border-r border-[#E3E7E4]`}
@@ -203,4 +216,14 @@ export default function AppShell({ children, title, subtitle }) {
       </div>
     </div>
   );
+
+  // AML/KYC first, then Engagement Letter e-sign, before tax/MTD work proceeds.
+  if (isClient) {
+    return (
+      <AmlGate>
+        <EngagementGate>{shell}</EngagementGate>
+      </AmlGate>
+    );
+  }
+  return shell;
 }
