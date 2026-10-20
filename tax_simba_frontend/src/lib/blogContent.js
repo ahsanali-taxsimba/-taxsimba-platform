@@ -1,6 +1,7 @@
 import {
   getArticleBySlug,
   getRelatedArticles,
+  isPubliclyVisibleArticle,
   mergeArticlesWithApi,
   normalizeApiArticle,
   withResolvedArticleContent,
@@ -26,13 +27,26 @@ export async function fetchApiBlogList({ page = 1, limit = 9 } = {}) {
   }
 }
 
-export async function getMergedBlogList({ page = 1, limit = 9 } = {}) {
+export async function getMergedBlogList({ page = 1, limit = 9, category } = {}) {
   const api = await fetchApiBlogList({ page, limit });
-  const merged = mergeArticlesWithApi(api.articles);
+  let merged = mergeArticlesWithApi(api.articles);
 
-  // Simple client-side pagination over merged set when API is empty/partial
+  if (category) {
+    const needle = String(category).toLowerCase();
+    const aliases = {
+      mtd: "making tax digital",
+      "making-tax-digital": "making tax digital",
+      sa: "self assessment",
+      "self-assessment": "self assessment",
+    };
+    const target = aliases[needle] || needle;
+    merged = merged.filter(
+      (a) => String(a.category || "").toLowerCase() === target,
+    );
+  }
+
   const total = merged.length;
-  const totalPages = Math.max(1, Math.ceil(total / limit));
+  const totalPages = Math.max(1, Math.ceil(total / limit) || 1);
   const safePage = Math.min(Math.max(1, page), totalPages);
   const start = (safePage - 1) * limit;
   const pageItems = merged.slice(start, start + limit);
@@ -50,12 +64,16 @@ export async function getMergedBlogList({ page = 1, limit = 9 } = {}) {
 }
 
 export async function getBlogBySlug(slug) {
-  const curated = getArticleBySlug(slug);
-  if (curated) {
-    const blog = withResolvedArticleContent(curated);
+  const curatedAny = getArticleBySlug(slug, { includeUnpublished: true });
+  if (curatedAny) {
+    // Draft / unpublished curated records must not resolve via API fallback.
+    if (!isPubliclyVisibleArticle(curatedAny)) {
+      return null;
+    }
+    const blog = withResolvedArticleContent(curatedAny);
     return {
       blog,
-      recentBlogs: getRelatedArticles(curated, 4),
+      recentBlogs: getRelatedArticles(curatedAny, 4),
     };
   }
 
@@ -65,8 +83,9 @@ export async function getBlogBySlug(slug) {
     if (data?.data?.blog || data?.data) {
       const payload = data.data.blog ? data.data : { blog: data.data, recentBlogs: [] };
       const blog = normalizeApiArticle(payload.blog);
+      if (!isPubliclyVisibleArticle(blog)) return null;
       const recent = Array.isArray(payload.recentBlogs)
-        ? payload.recentBlogs.map(normalizeApiArticle)
+        ? payload.recentBlogs.map(normalizeApiArticle).filter(isPubliclyVisibleArticle)
         : getRelatedArticles(blog, 4);
       return { blog, recentBlogs: recent };
     }

@@ -398,7 +398,7 @@ const Navbar = () => {
                             <ul>
                               <li>
                                 <Link href="/blogs">
-                                  Guides &amp; Blog
+                                  Blog &amp; Guides
                                 </Link>
                               </li>
                               <li>
@@ -730,7 +730,7 @@ const Navbar = () => {
               <Link href="/contact-us" className={pathname === "/contact-us" ? "active" : ""} onClick={handleClose}>Support</Link>
             </li>
             <li>
-              <Link href="/blogs" className={pathname === "/blogs" || pathname?.startsWith("/blogs/") ? "active" : ""} onClick={handleClose}>Guides &amp; Blog</Link>
+              <Link href="/blogs" className={pathname === "/blogs" || pathname?.startsWith("/blogs/") ? "active" : ""} onClick={handleClose}>Blog &amp; Guides</Link>
             </li>
             <li>
               <Link href="/mtd-information" className={pathname === "/mtd-information" ? "active" : ""} onClick={handleClose}>MTD information and Pricing</Link>

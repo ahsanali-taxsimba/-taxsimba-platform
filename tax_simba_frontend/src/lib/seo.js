@@ -78,13 +78,11 @@ export function articleJsonLd(article) {
       : absoluteUrl(article.featuredImage)
     : absoluteUrl(DEFAULT_OG_IMAGE);
 
-  return {
+  const payload = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: article.title,
     description: article.metaDescription || article.excerpt,
-    datePublished: article.publishedAt,
-    dateModified: article.reviewedAt || article.publishedAt,
     author: {
       "@type": "Organization",
       name: article.authorName || SITE_NAME,
@@ -108,6 +106,17 @@ export function articleJsonLd(article) {
     inLanguage: "en-GB",
     isAccessibleForFree: true,
   };
+
+  // Only emit dates that are real and present on the visible page.
+  if (article.publishedAt && !Number.isNaN(new Date(article.publishedAt).getTime())) {
+    payload.datePublished = article.publishedAt;
+  }
+  const modified = article.reviewedAt || article.publishedAt;
+  if (modified && !Number.isNaN(new Date(modified).getTime())) {
+    payload.dateModified = modified;
+  }
+
+  return payload;
 }
 
 export function breadcrumbJsonLd(items) {

@@ -44,7 +44,7 @@ export default async function BlogPage({ params }) {
     articleJsonLd(blog),
     breadcrumbJsonLd([
       { name: "Home", path: "/" },
-      { name: "Guides & Blog", path: "/blogs" },
+      { name: "Blog & Guides", path: "/blogs" },
       { name: blog.title, path: `/blogs/${blog.slug}` },
     ]),
   ];

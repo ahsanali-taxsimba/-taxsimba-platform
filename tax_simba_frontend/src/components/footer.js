@@ -169,7 +169,7 @@ const Footer = () => {
                     <TranslatedNextLink href="/check-mtd"><span><FaAngleRight /></span>Check if I need MTD</TranslatedNextLink>
                   </li>
                   <li>
-                    <TranslatedNextLink href="/blogs"><span><FaAngleRight /></span>Guides &amp; Blog</TranslatedNextLink>
+                    <TranslatedNextLink href="/blogs"><span><FaAngleRight /></span>Blog &amp; Guides</TranslatedNextLink>
                   </li>
                   <li>
                     <TranslatedNextLink href="/making-tax-digital"><span><FaAngleRight /></span>Making Tax Digital Accountant</TranslatedNextLink>
