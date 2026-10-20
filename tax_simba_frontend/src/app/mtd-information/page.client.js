@@ -15,12 +15,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaQuoteLeft } from "react-icons/fa";
 import { getCurrencySymbol } from '@/utils/commonHelper';
 import MtdPricingSection from '@/components/MtdPricingSection';
+import MtdGuidesStrip from '@/components/articles/MtdGuidesStrip';
 import toast from 'react-hot-toast';
 
 
 
 
-function page() {
+function MtdInformationPage({ mtdGuides = [] }) {
 
     const [show, setShow] = useState(false);
 
@@ -706,6 +707,8 @@ function page() {
                 </motion.div>
             </section>
 
+            <MtdGuidesStrip guides={mtdGuides} />
+
             <section className="about-choose-sec benefit-sec-mtd ptb-80">
                 <Container>
                     <Row className="align-items-center">
@@ -1009,4 +1012,4 @@ function page() {
     )
 }
 
-export default page
+export default MtdInformationPage

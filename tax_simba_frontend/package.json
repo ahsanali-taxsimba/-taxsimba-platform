@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "verify:articles": "node scripts/verify-article-upsert.mjs",
+    "release:publish-editorial": "node scripts/publish-editorial-drafts.mjs",
+    "verify:article-fields": "node scripts/verify-article-fields.mjs",
+    "verify:production-readiness": "node scripts/verify-production-readiness.mjs"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -49,5 +53,11 @@
   "optionalDependencies": {
     "@tailwindcss/oxide-linux-x64-gnu": "4.0.0",
     "lightningcss-linux-x64-gnu": "1.28.2"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.7",
+    "eslint": "^9.39.1",
+    "eslint-config-next": "^15.5.22",
+    "typescript": "^5.9.3"
   }
 }

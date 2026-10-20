@@ -7,6 +7,14 @@
  * Blog articles answer informational/problem searches and link into those hubs.
  */
 
+import { next82Articles } from "./articles.next82.js";
+import {
+  editorialDraftRelease,
+  isEditorialDraftReleaseReady,
+  isEditoriallyApprovedDraft,
+} from "./articleReleaseConfig.js";
+export { next82Articles, editorialDraftRelease };
+
 export const ARTICLE_CTA = {
   SA: { href: "/register", label: "Start Self Assessment with TaxSimba" },
   MTD: { href: "/register?role=MTD", label: "Get MTD support with TaxSimba" },
@@ -119,7 +127,7 @@ export function withResolvedArticleContent(article, now = new Date()) {
  *  curated?: boolean,
  * }>}
  */
-export const articles = [
+export const original38Articles = [
   {
     id: "seo-mtd-hmrc-signed-up",
     slug: "hmrc-signed-me-up-for-making-tax-digital",
@@ -3217,15 +3225,85 @@ export const articles = [
 
 ];
 
-export function getPublishedArticles() {
-  return [...articles].sort(
-    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
-  );
+/**
+ * Stable slug-based upsert into the canonical article registry.
+ * Repeat imports of the same payload must not create duplicates.
+ */
+export function upsertArticlesBySlug(existing = [], incoming = []) {
+  const map = new Map();
+  for (const article of existing) {
+    if (!article?.slug) continue;
+    map.set(article.slug, article);
+  }
+  for (const article of incoming) {
+    if (!article?.slug) continue;
+    const prev = map.get(article.slug);
+    map.set(article.slug, prev ? { ...prev, ...article } : article);
+  }
+  return Array.from(map.values());
 }
 
-export function getArticleBySlug(slug) {
+/** Canonical registry: original 38 + editorially approved next 82 (slug upsert). */
+export const articles = upsertArticlesBySlug(original38Articles, next82Articles);
+
+/** Idempotence proof helper used by verification scripts. */
+export function mergeArticleBatches(base, ...batches) {
+  return batches.reduce((acc, batch) => upsertArticlesBySlug(acc, batch), base);
+}
+
+/**
+ * Apply the controlled publisher release overlay.
+ * Source records stay draft until TAXSIMBA_PUBLISH_EDITORIAL_DRAFTS is enabled
+ * with a real TAXSIMBA_EDITORIAL_PUBLISHED_AT timestamp.
+ */
+export function withReleaseResolution(article) {
+  if (!article) return article;
+  if (!isEditorialDraftReleaseReady()) return article;
+  if (!isEditoriallyApprovedDraft(article)) return article;
+  const publishedAt = editorialDraftRelease.publishedAt;
+  return {
+    ...article,
+    status: "published",
+    publishedAt,
+    reviewedAt: article.reviewedAt || publishedAt,
+  };
+}
+
+/**
+ * Public visibility gate for every consumer (hub, routes, sitemap, related, APIs).
+ * Unpublished / draft / future / invalid dates stay out of public surfaces.
+ */
+export function isPubliclyVisibleArticle(article, now = new Date()) {
+  const resolved = withReleaseResolution(article);
+  if (!resolved?.slug) return false;
+  if (resolved.status === "draft" || resolved.status === "unpublished") return false;
+  if (!resolved.publishedAt) return false;
+  const published = new Date(resolved.publishedAt);
+  if (Number.isNaN(published.getTime())) return false;
+  if (published.getTime() > now.getTime()) return false;
+  return true;
+}
+
+export function getAllArticles() {
+  return articles.map(withReleaseResolution);
+}
+
+export function getPublishedArticles(now = new Date()) {
+  return getAllArticles()
+    .filter((a) => isPubliclyVisibleArticle(a, now))
+    .sort(
+      (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+    );
+}
+
+export function getArticleBySlug(slug, { includeUnpublished = false } = {}) {
   if (!slug) return null;
-  return articles.find((a) => a.slug === slug) || null;
+  const raw = articles.find((a) => a.slug === slug) || null;
+  if (!raw) return null;
+  const article = withReleaseResolution(raw);
+  if (includeUnpublished) return article;
+  if (!isPubliclyVisibleArticle(article)) return null;
+  return article;
 }
 
 export function getRelatedArticles(article, limit = 3) {
@@ -3247,6 +3325,18 @@ export function getCtaForArticle(article) {
   return base;
 }
 
+/** Contextual mid-article service CTA destinations from the article UX spec. */
+export function getContextualServiceCta(article) {
+  if (!article) return { href: "/pricing", label: "Compare Self Assessment packages" };
+  if (article.ctaType === "MTD" || article.category === "Making Tax Digital") {
+    return { href: "/mtd-information", label: "Compare current MTD packages" };
+  }
+  if (article.ctaType === "CHECK") {
+    return { href: "/check-mtd", label: "Check if MTD applies" };
+  }
+  return { href: "/pricing", label: "Compare Self Assessment packages" };
+}
+
 export function normalizeApiArticle(raw = {}) {
   return {
     id: raw.id || raw._id || raw.slug,
@@ -3259,17 +3349,22 @@ export function normalizeApiArticle(raw = {}) {
     category: raw.category?.name || raw.category || raw.subCategory?.name || "Tax guides",
     audience: raw.audience || "general",
     tags: raw.tags || [],
-    publishedAt: raw.publishedAt || raw.createdAt || new Date().toISOString(),
-    reviewedAt: raw.reviewedAt || raw.updatedAt || raw.publishedAt,
+    publishedAt: raw.publishedAt || raw.createdAt || null,
+    reviewedAt: raw.reviewedAt || raw.updatedAt || raw.publishedAt || null,
     authorName: raw.authorName || raw.author || "TaxSimba",
-    reviewerName: raw.reviewerName || "TaxSimba",
+    reviewerName: raw.reviewerName || "",
     featuredImage: raw.featuredImage || "/images/tax_blog_default.png",
     featuredImageAlt: raw.featuredImageAlt || raw.title || "TaxSimba guide",
     ctaType: raw.ctaType === "MTD" ? "MTD" : raw.ctaType === "CHECK" ? "CHECK" : "SA",
     relatedSlugs: raw.relatedSlugs || [],
     relatedPages: raw.relatedPages || [],
     sources: raw.sources || [],
+    status: raw.status || (raw.publishedAt || raw.isPublished ? "published" : "draft"),
     curated: false,
+    iconKey: raw.iconKey || "tax-guide",
+    contentType: raw.contentType || "Guide",
+    readingMinutes: raw.readingMinutes || null,
+    heroStyle: raw.heroStyle || "compact-icon",
   };
 }
 
@@ -3285,7 +3380,9 @@ export function mergeArticlesWithApi(apiArticles = []) {
   for (const raw of apiArticles) {
     if (!raw?.slug) continue;
     if (map.has(raw.slug) && map.get(raw.slug).curated) continue;
-    if (!map.has(raw.slug)) map.set(raw.slug, normalizeApiArticle(raw));
+    const normalized = normalizeApiArticle(raw);
+    if (!isPubliclyVisibleArticle(normalized)) continue;
+    if (!map.has(raw.slug)) map.set(raw.slug, normalized);
   }
   return Array.from(map.values()).sort(
     (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
@@ -3296,8 +3393,37 @@ export function getFeaturedArticles(limit = 3) {
   return getPublishedArticles().slice(0, limit);
 }
 
+export function getPublishedArticlesByCategory(category, limit = 3) {
+  if (!category) return getFeaturedArticles(limit);
+  const needle = String(category).toLowerCase();
+  return getPublishedArticles()
+    .filter((a) => String(a.category || "").toLowerCase() === needle)
+    .slice(0, limit);
+}
+
 export function getAllArticleSlugs() {
   return getPublishedArticles().map((a) => a.slug);
+}
+
+export function getArticleRegistryStats() {
+  const raw = [...articles];
+  const all = getAllArticles();
+  const published = getPublishedArticles();
+  const slugs = raw.map((a) => a.slug);
+  const ids = raw.map((a) => a.id);
+  const repeat = upsertArticlesBySlug(raw, next82Articles);
+  return {
+    total: raw.length,
+    uniqueSlugs: new Set(slugs).size,
+    uniqueIds: new Set(ids).size,
+    publishedCount: published.length,
+    draftCount: raw.filter((a) => a.status === "draft" || !a.publishedAt).length,
+    releasedPublicCount: published.length,
+    releaseEnabled: isEditorialDraftReleaseReady(),
+    repeatUpsertTotal: repeat.length,
+    originalBaseline: original38Articles.length,
+    next82Count: next82Articles.length,
+  };
 }
 
 /** Backward-compatible export name used across the app */
