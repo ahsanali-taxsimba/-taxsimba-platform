@@ -12,8 +12,11 @@ Enable both environment variables in the deployment that should go live:
 
 ```bash
 export TAXSIMBA_PUBLISH_EDITORIAL_DRAFTS=true
-# Real release timestamp — not backdated, and not in the future (future dates stay excluded).
 export TAXSIMBA_EDITORIAL_PUBLISHED_AT=2026-10-20T03:00:00.000Z
+# Mirror for client bundles (inlined at build time):
+export NEXT_PUBLIC_TAXSIMBA_PUBLISH_EDITORIAL_DRAFTS=true
+export NEXT_PUBLIC_TAXSIMBA_EDITORIAL_PUBLISHED_AT=2026-10-20T03:00:00.000Z
+# Real release timestamp — not backdated, and not in the future (future dates stay excluded).
 npm run build && npm run start
 npm run release:publish-editorial -- --verify
 ```

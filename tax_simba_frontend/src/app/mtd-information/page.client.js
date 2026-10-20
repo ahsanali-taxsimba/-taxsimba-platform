@@ -21,7 +21,7 @@ import toast from 'react-hot-toast';
 
 
 
-function MtdInformationPage() {
+function MtdInformationPage({ mtdGuides = [] }) {
 
     const [show, setShow] = useState(false);
 
@@ -707,7 +707,7 @@ function MtdInformationPage() {
                 </motion.div>
             </section>
 
-            <MtdGuidesStrip limit={3} />
+            <MtdGuidesStrip guides={mtdGuides} />
 
             <section className="about-choose-sec benefit-sec-mtd ptb-80">
                 <Container>

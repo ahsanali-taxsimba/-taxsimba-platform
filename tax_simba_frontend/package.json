@@ -9,7 +9,8 @@
     "lint": "next lint",
     "verify:articles": "node scripts/verify-article-upsert.mjs",
     "release:publish-editorial": "node scripts/publish-editorial-drafts.mjs",
-    "verify:article-fields": "node scripts/verify-article-fields.mjs"
+    "verify:article-fields": "node scripts/verify-article-fields.mjs",
+    "verify:production-readiness": "node scripts/verify-production-readiness.mjs"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",

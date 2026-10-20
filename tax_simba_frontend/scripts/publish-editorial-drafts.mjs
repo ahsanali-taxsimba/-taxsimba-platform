@@ -69,6 +69,8 @@ if (args.printEnv) {
   const at = args.at || editorialDraftRelease.publishedAt || new Date().toISOString();
   console.log(`export TAXSIMBA_PUBLISH_EDITORIAL_DRAFTS=true`);
   console.log(`export TAXSIMBA_EDITORIAL_PUBLISHED_AT=${at}`);
+  console.log(`export NEXT_PUBLIC_TAXSIMBA_PUBLISH_EDITORIAL_DRAFTS=true`);
+  console.log(`export NEXT_PUBLIC_TAXSIMBA_EDITORIAL_PUBLISHED_AT=${at}`);
   console.log(`# then: npm run build && npm run start`);
   console.log(`# verify: npm run release:publish-editorial -- --verify`);
   process.exit(0);

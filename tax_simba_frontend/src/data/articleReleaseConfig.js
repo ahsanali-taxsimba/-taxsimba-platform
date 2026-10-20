@@ -3,40 +3,51 @@
  *
  * Default: drafts stay unpublished (safe for review PRs).
  *
- * At intentional deployment time, enable BOTH env vars (or set the values below
- * in the release commit) so public consumers expose all approved drafts with a
- * real publication timestamp — never a fabricated backdate.
+ * At intentional deployment time set BOTH the server and public env vars so
+ * server routes/sitemap AND client hub filters/counts stay aligned:
  *
- *   TAXSIMBA_PUBLISH_EDITORIAL_DRAFTS=true \
- *   TAXSIMBA_EDITORIAL_PUBLISHED_AT=2026-10-20T12:00:00.000Z \
+ *   TAXSIMBA_PUBLISH_EDITORIAL_DRAFTS=true
+ *   TAXSIMBA_EDITORIAL_PUBLISHED_AT=2026-10-20T03:00:00.000Z
+ *   NEXT_PUBLIC_TAXSIMBA_PUBLISH_EDITORIAL_DRAFTS=true
+ *   NEXT_PUBLIC_TAXSIMBA_EDITORIAL_PUBLISHED_AT=2026-10-20T03:00:00.000Z
  *   npm run build && npm run start
  *
- * Or run the documented helper (does not merge/deploy by itself):
+ * NEXT_PUBLIC_* values are inlined at build time for client components.
  *
- *   npm run release:publish-editorial -- --at=2026-10-20T12:00:00.000Z --verify
+ * Or run:
+ *   npm run release:publish-editorial -- --at=2026-10-20T03:00:00.000Z --print-env
  *
- * Merge order (blocker until done):
- * 1) Merge the existing 38-article SEO branch (cursor/taxsimba-seo-cleanup-80a7 / PR #4)
- *    into the production base / main first.
- * 2) Rebase content/taxsimba-82-articles onto that updated main before final approval.
+ * Merge/rebase note: content/taxsimba-82-articles is based on live production tip
+ * cursor/taxsimba-seo-cleanup-80a7 @ 0d21a049… (38 live slugs).
  */
-function readEnvFlag(name) {
-  const raw = process.env[name];
-  if (raw == null) return false;
-  return ["1", "true", "yes", "on"].includes(String(raw).trim().toLowerCase());
+function readEnvFlag(...names) {
+  for (const name of names) {
+    const raw = process.env[name];
+    if (raw == null) continue;
+    if (["1", "true", "yes", "on"].includes(String(raw).trim().toLowerCase())) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function readEnvValue(...names) {
+  for (const name of names) {
+    const raw = process.env[name];
+    if (raw != null && String(raw).trim()) return String(raw).trim();
+  }
+  return null;
 }
 
 export const editorialDraftRelease = {
-  /**
-   * When true, editorially approved draft records become publicly visible using
-   * `publishedAt` below. Keep false until the release owner intentionally publishes.
-   */
-  enabled: readEnvFlag("TAXSIMBA_PUBLISH_EDITORIAL_DRAFTS"),
-  /**
-   * Real publication timestamp (ISO-8601). Required when enabled.
-   * Example: "2026-10-20T12:00:00.000Z"
-   */
-  publishedAt: process.env.TAXSIMBA_EDITORIAL_PUBLISHED_AT || null,
+  enabled: readEnvFlag(
+    "TAXSIMBA_PUBLISH_EDITORIAL_DRAFTS",
+    "NEXT_PUBLIC_TAXSIMBA_PUBLISH_EDITORIAL_DRAFTS",
+  ),
+  publishedAt: readEnvValue(
+    "TAXSIMBA_EDITORIAL_PUBLISHED_AT",
+    "NEXT_PUBLIC_TAXSIMBA_EDITORIAL_PUBLISHED_AT",
+  ),
 };
 
 export function isEditorialDraftReleaseReady() {

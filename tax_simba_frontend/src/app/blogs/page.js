@@ -1,5 +1,6 @@
 import BlogPageClient from "./page.client";
 import { getMergedBlogList } from "@/lib/blogContent";
+import { getPublishedArticles } from "@/data/articles";
 import { buildPageMetadata } from "@/lib/seo";
 
 const DEFAULT_LIMIT = 12;
@@ -23,10 +24,13 @@ export default async function BlogPage({ searchParams }) {
     limit: DEFAULT_LIMIT,
     category: category || undefined,
   });
+  // Server-resolved published registry so client filters/counts match release env.
+  const publishedArticles = getPublishedArticles();
 
   return (
     <BlogPageClient
       articles={articles}
+      publishedArticles={publishedArticles}
       pagination={pagination}
       initialPage={1}
       limit={DEFAULT_LIMIT}

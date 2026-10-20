@@ -2,16 +2,14 @@
 
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
-import { getPublishedArticlesByCategory } from "@/data/articles";
 import ArticleCard from "./ArticleCard";
 
 /**
  * Three published MTD guide cards shown below MTD packages.
- * Counts and links are derived from the shared published registry.
+ * Guides must be resolved on the server and passed in so release env is honoured.
  */
-export default function MtdGuidesStrip({ limit = 3 }) {
-  const guides = getPublishedArticlesByCategory("Making Tax Digital", limit);
-  if (!guides.length) return null;
+export default function MtdGuidesStrip({ guides = [] }) {
+  if (!Array.isArray(guides) || !guides.length) return null;
 
   return (
     <section className="mtd-guides-strip ptb-80 pt-0" aria-labelledby="mtd-guides-heading">
@@ -25,10 +23,7 @@ export default function MtdGuidesStrip({ limit = 3 }) {
               Practical answers from the Blog &amp; Guides library.
             </p>
           </div>
-          <Link
-            href="/blogs?category=mtd"
-            className="common-btn-outline"
-          >
+          <Link href="/blogs?category=mtd" className="common-btn-outline">
             View all MTD guides
           </Link>
         </div>

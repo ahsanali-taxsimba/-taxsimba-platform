@@ -1,4 +1,5 @@
 import MtdInfoClient from "./page.client";
+import { getPublishedArticlesByCategory } from "@/data/articles";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
@@ -9,5 +10,6 @@ export const metadata = buildPageMetadata({
 });
 
 export default function MtdInformationPage() {
-  return <MtdInfoClient />;
+  const mtdGuides = getPublishedArticlesByCategory("Making Tax Digital", 3);
+  return <MtdInfoClient mtdGuides={mtdGuides} />;
 }

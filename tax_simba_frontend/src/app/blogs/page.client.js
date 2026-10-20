@@ -3,10 +3,7 @@ import { useMemo, useState, useCallback } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import {
-  getPublishedArticles,
-  mergeArticlesWithApi,
-} from "@/data/articles";
+import { mergeArticlesWithApi } from "@/data/articles";
 import ArticleCard from "@/components/articles/ArticleCard";
 import fetchJSON from "@/lib/fetchJSON";
 
@@ -31,6 +28,7 @@ function filterLocal(articles, categoryId) {
 
 export default function BlogPageClient({
   articles = [],
+  publishedArticles = [],
   pagination,
   initialPage = 1,
   limit = 12,
@@ -38,7 +36,12 @@ export default function BlogPageClient({
   initialCategory = "all",
 }) {
   const router = useRouter();
-  const curated = useMemo(() => getPublishedArticles(), []);
+  // Prefer server-provided published registry (honours release env). Never
+  // re-derive publication on the client from process.env alone.
+  const curated = useMemo(
+    () => (publishedArticles.length ? publishedArticles : articles),
+    [publishedArticles, articles],
+  );
   const initialItems =
     articles.length > 0 ? articles : filterLocal(curated, initialCategory);
   const [items, setItems] = useState(initialItems);
@@ -97,7 +100,7 @@ export default function BlogPageClient({
         };
 
         if (newArticles.length === 0 && page === 1) {
-          setItems(getPublishedArticles().slice(0, limit));
+          setItems(filterLocal(curated, "all").slice(0, limit));
         } else if (page === 1) {
           setItems(mergeArticlesWithApi(newArticles).slice(0, limit));
         } else {
@@ -112,7 +115,7 @@ export default function BlogPageClient({
       } catch (err) {
         console.error("Failed to load blogs", err);
         if (page === 1) {
-          setItems(filterLocal(getPublishedArticles(), activeFilter).slice(0, limit));
+          setItems(filterLocal(curated, activeFilter).slice(0, limit));
         }
       } finally {
         setLoading(false);
