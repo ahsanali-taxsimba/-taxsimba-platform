@@ -8,7 +8,12 @@
  */
 
 import { next82Articles } from "./articles.next82.js";
-export { next82Articles };
+import {
+  editorialDraftRelease,
+  isEditorialDraftReleaseReady,
+  isEditoriallyApprovedDraft,
+} from "./articleReleaseConfig.js";
+export { next82Articles, editorialDraftRelease };
 
 export const ARTICLE_CTA = {
   SA: { href: "/register", label: "Start Self Assessment with TaxSimba" },
@@ -3247,21 +3252,40 @@ export function mergeArticleBatches(base, ...batches) {
 }
 
 /**
+ * Apply the controlled publisher release overlay.
+ * Source records stay draft until TAXSIMBA_PUBLISH_EDITORIAL_DRAFTS is enabled
+ * with a real TAXSIMBA_EDITORIAL_PUBLISHED_AT timestamp.
+ */
+export function withReleaseResolution(article) {
+  if (!article) return article;
+  if (!isEditorialDraftReleaseReady()) return article;
+  if (!isEditoriallyApprovedDraft(article)) return article;
+  const publishedAt = editorialDraftRelease.publishedAt;
+  return {
+    ...article,
+    status: "published",
+    publishedAt,
+    reviewedAt: article.reviewedAt || publishedAt,
+  };
+}
+
+/**
  * Public visibility gate for every consumer (hub, routes, sitemap, related, APIs).
  * Unpublished / draft / future / invalid dates stay out of public surfaces.
  */
 export function isPubliclyVisibleArticle(article, now = new Date()) {
-  if (!article?.slug) return false;
-  if (article.status === "draft" || article.status === "unpublished") return false;
-  if (!article.publishedAt) return false;
-  const published = new Date(article.publishedAt);
+  const resolved = withReleaseResolution(article);
+  if (!resolved?.slug) return false;
+  if (resolved.status === "draft" || resolved.status === "unpublished") return false;
+  if (!resolved.publishedAt) return false;
+  const published = new Date(resolved.publishedAt);
   if (Number.isNaN(published.getTime())) return false;
   if (published.getTime() > now.getTime()) return false;
   return true;
 }
 
 export function getAllArticles() {
-  return [...articles];
+  return articles.map(withReleaseResolution);
 }
 
 export function getPublishedArticles(now = new Date()) {
@@ -3274,9 +3298,11 @@ export function getPublishedArticles(now = new Date()) {
 
 export function getArticleBySlug(slug, { includeUnpublished = false } = {}) {
   if (!slug) return null;
-  const article = articles.find((a) => a.slug === slug) || null;
-  if (!article) return null;
-  if (!includeUnpublished && !isPubliclyVisibleArticle(article)) return null;
+  const raw = articles.find((a) => a.slug === slug) || null;
+  if (!raw) return null;
+  const article = withReleaseResolution(raw);
+  if (includeUnpublished) return article;
+  if (!isPubliclyVisibleArticle(article)) return null;
   return article;
 }
 
@@ -3380,17 +3406,20 @@ export function getAllArticleSlugs() {
 }
 
 export function getArticleRegistryStats() {
+  const raw = [...articles];
   const all = getAllArticles();
   const published = getPublishedArticles();
-  const slugs = all.map((a) => a.slug);
-  const ids = all.map((a) => a.id);
-  const repeat = upsertArticlesBySlug(all, next82Articles);
+  const slugs = raw.map((a) => a.slug);
+  const ids = raw.map((a) => a.id);
+  const repeat = upsertArticlesBySlug(raw, next82Articles);
   return {
-    total: all.length,
+    total: raw.length,
     uniqueSlugs: new Set(slugs).size,
     uniqueIds: new Set(ids).size,
     publishedCount: published.length,
-    draftCount: all.filter((a) => a.status === "draft" || !a.publishedAt).length,
+    draftCount: raw.filter((a) => a.status === "draft" || !a.publishedAt).length,
+    releasedPublicCount: published.length,
+    releaseEnabled: isEditorialDraftReleaseReady(),
     repeatUpsertTotal: repeat.length,
     originalBaseline: original38Articles.length,
     next82Count: next82Articles.length,
