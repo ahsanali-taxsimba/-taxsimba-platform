@@ -7,10 +7,12 @@
 | Field | Value |
 |---|---|
 | Integration branch | `cursor/taxsimba-v6-integration-df9b` |
+| Integration PR | https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/31 (draft, blocked) |
+| Handover commit on integration branch | `e9fa5e6a8959f0283338655a90e191774fd45920` (docs only — not a deployable V6 SHA) |
 | Intended deployment base | `content/taxsimba-82-articles` @ `67e371a17d6b774bc5364a3b52ebd831ddeb873c` |
 | Live SEO / 38-article base | `cursor/taxsimba-seo-cleanup-80a7` (PR #4 / production candidate) |
 | Related content PR | #26 `content/taxsimba-82-articles` → `cursor/taxsimba-seo-cleanup-80a7` (120 articles, controlled publish) |
-| Cleanup PR (part01 on main) | see PR opened from `cursor/remove-taxsimba-v6-part01-df9b` → `main` |
+| Cleanup PR (part01 on main) | https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/30 (`cursor/remove-taxsimba-v6-part01-df9b` → `main`) |
 | Exact approved integration SHA | **none** — V6 source files not available |
 | Rollback target if anything were deployed | previous frontend image / `content/taxsimba-82-articles` @ `67e371a` |
 
