@@ -95,3 +95,7 @@ Rollback = previous frontend image/commit. No database rollback.
 ## part01 on main
 
 Confirmed accidental commit on `main` @ `7494dd2`. Cleanup PR #30 deletes it and adds ignore rules. Upload branch `taxsimba-v6-upload` retains the parts for reconstruction only — **do not merge that branch**.
+
+## /blogs listing presentation (follow-up)
+
+Scoped `/blogs` hub layout/styles updated to match the agreed green-and-ivory visual reference (hero split, landlord strip, featured toolbar, 3-column illustrated cards). Article bodies, titles, slugs, first-20 order, artwork files, downloads, calculators, SEO metadata, service pages and signup behaviour unchanged. Global navbar left as-is (out of scope).

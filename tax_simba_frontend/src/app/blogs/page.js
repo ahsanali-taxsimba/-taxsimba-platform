@@ -3,7 +3,7 @@ import { getMergedBlogList } from "@/lib/blogContent";
 
 import { buildPageMetadata } from "@/lib/seo";
 
-const DEFAULT_LIMIT = 10;
+const DEFAULT_LIMIT = 9;
 const blogsUrl = `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001/api/"}resources/blogs`;
 
 export function generateMetadata() {

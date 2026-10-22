@@ -2,11 +2,11 @@
 import { useMemo, useState, useCallback } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import {getSeasonalFocus} from "@/data/articleSeasonalFocus";
+import { getSeasonalFocus } from "@/data/articleSeasonalFocus";
 import ArticleCard from "@/components/articles/ArticleCard";
-
 
 const FILTERS = [
   { id: "all", label: "All guides", category: "" },
@@ -27,12 +27,33 @@ function filterLocal(articles, categoryId) {
   );
 }
 
+function HouseIcon() {
+  return (
+    <svg
+      className="guide-hub-landlord-icon"
+      width="28"
+      height="28"
+      viewBox="0 0 28 28"
+      fill="none"
+      aria-hidden="true"
+    >
+      <rect x="1.5" y="1.5" width="25" height="25" rx="4" stroke="currentColor" strokeWidth="1.5" />
+      <path
+        d="M8 14.5L14 9l6 5.5V20a1 1 0 0 1-1 1h-3.2v-4.2h-3.6V21H9a1 1 0 0 1-1-1v-5.5z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export default function BlogPageClient({
   articles = [],
   publishedArticles = [],
   pagination,
   initialPage = 1,
-  limit = 10,
+  limit = 9,
   apiUrl,
   initialCategory = "all",
 }) {
@@ -55,12 +76,16 @@ export default function BlogPageClient({
 
   const publishedCount = curated.length;
   const totalPages = pageInfo?.totalPages || 1;
+  const showingFeatured =
+    activeFilter === "all" && !query.trim() && currentPage === 1;
 
   const applyFilter = useCallback(
     (filterId) => {
       setActiveFilter(filterId);
       const next = filterLocal(curated, filterId).filter((article) =>
-        `${article.title} ${article.excerpt} ${article.query || ""} ${(article.tags || []).join(" ")}`.toLowerCase().includes(query.trim().toLowerCase()),
+        `${article.title} ${article.excerpt} ${article.query || ""} ${(article.tags || []).join(" ")}`
+          .toLowerCase()
+          .includes(query.trim().toLowerCase()),
       );
       setItems(next.slice(0, limit));
       setPageInfo({
@@ -79,18 +104,45 @@ export default function BlogPageClient({
     [curated, limit, router, query],
   );
 
+  const handleSearch = useCallback(
+    (value) => {
+      setQuery(value);
+      const filtered = filterLocal(curated, activeFilter).filter((article) =>
+        `${article.title} ${article.excerpt} ${article.query || ""} ${(article.tags || []).join(" ")}`
+          .toLowerCase()
+          .includes(value.trim().toLowerCase()),
+      );
+      setItems(filtered.slice(0, limit));
+      setCurrentPage(1);
+      setPageInfo({
+        page: 1,
+        total: filtered.length,
+        totalPages: Math.max(1, Math.ceil(filtered.length / limit)),
+        limit,
+      });
+    },
+    [curated, activeFilter, limit],
+  );
+
   const handlePageChange = useCallback(
     async (page) => {
       if (page < 1 || page > totalPages || page === currentPage || loading) return;
       setLoading(true);
       try {
         const filtered = filterLocal(curated, activeFilter).filter((article) =>
-          `${article.title} ${article.excerpt} ${article.query || ""} ${(article.tags || []).join(" ")}`.toLowerCase().includes(query.trim().toLowerCase()),
+          `${article.title} ${article.excerpt} ${article.query || ""} ${(article.tags || []).join(" ")}`
+            .toLowerCase()
+            .includes(query.trim().toLowerCase()),
         );
         const start = (page - 1) * limit;
         setItems(filtered.slice(start, start + limit));
         setCurrentPage(page);
-        setPageInfo({ page, total: filtered.length, totalPages: Math.max(1, Math.ceil(filtered.length / limit)), limit });
+        setPageInfo({
+          page,
+          total: filtered.length,
+          totalPages: Math.max(1, Math.ceil(filtered.length / limit)),
+          limit,
+        });
         window.scrollTo({ top: 0, behavior: "smooth" });
       } catch (err) {
         console.error("Failed to load blogs", err);
@@ -118,72 +170,103 @@ export default function BlogPageClient({
 
   return (
     <div className="editorial-guide-hub">
-      <section className="guide-hub-masthead py-80">
+      <section className="guide-hub-masthead" aria-labelledby="guide-hub-heading">
         <Container>
-          <Row className="align-items-center">
-            <Col lg={12}>
-              <div className="guide-hub-intro text-center">
-                <p className="premium-kicker">Blog &amp; Guides</p>
-                <h1 className="mb-3">Clear answers. Less tax stress.</h1>
-                <p className="mb-0">
-                  Practical guidance on Self Assessment, Making Tax Digital, landlords
-                  and sole traders — written to help you take the next step with TaxSimba.
-                  {publishedCount > 0 ? (
-                    <>
-                      {" "}
-                      <span className="d-inline-block">
-                        {publishedCount} published guide{publishedCount === 1 ? "" : "s"}
-                        .
-                      </span>
-                    </>
-                  ) : null}
+          <Row className="guide-hub-hero align-items-center g-4 g-lg-5">
+            <Col lg={6}>
+              <div className="guide-hub-intro">
+                <h1 id="guide-hub-heading">Practical answers. Clear next steps.</h1>
+                <p className="guide-hub-lead">
+                  Self Assessment, Making Tax Digital and landlord tax guides.
                 </p>
+                {publishedCount > 0 ? (
+                  <p className="guide-hub-count sr-only">
+                    {publishedCount} published guide{publishedCount === 1 ? "" : "s"}.
+                  </p>
+                ) : null}
               </div>
+            </Col>
+            <Col lg={6}>
+              <figure className="guide-hub-hero-media">
+                <Image
+                  src="/images/articles/self-assessment-for-landlords-2025-26-1440.webp"
+                  alt=""
+                  width={1440}
+                  height={480}
+                  className="guide-hub-hero-img"
+                  priority
+                  sizes="(max-width: 991px) 100vw, 540px"
+                />
+              </figure>
             </Col>
           </Row>
         </Container>
       </section>
 
-      {focus ? <section className="guide-seasonal-focus" aria-label="Current filing focus"><Container><h2>{focus.title}</h2><p>{focus.body}</p><ul>{focus.links.map(([slug,label])=><li key={slug}><Link href={`/blogs/${slug}`}>{label}</Link></li>)}</ul></Container></section> : null}
-      <section className="guide-seasonal-focus" aria-label="Landlord tax help"><Container><h2>Renting out a property?</h2><p>Find annual tax-return support, ongoing MTD help and guides organised around your rental situation.</p><Link href="/landlords">Explore the landlord hub →</Link></Container></section>
-      <section className="blog-sec ptb-80">
+      <section className="guide-hub-landlord-strip" aria-label="Landlord tax help">
         <Container>
-          <div className="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
-            <div className="common-title mb-0">
-              <h2>{activeFilter === "all" && !query && currentPage <= 2 ? "Featured guides" : "Explore our guides"}</h2>
+          <div className="guide-hub-landlord-inner">
+            <div className="guide-hub-landlord-copy">
+              <HouseIcon />
+              <p>
+                <strong>Renting out a property?</strong> Find annual tax-return
+                support, ongoing MTD help and practical property guides.
+              </p>
             </div>
-            <div className="article-filter-row" role="tablist" aria-label="Guide categories">
-              {FILTERS.map((filter) => (
-                <button
-                  key={filter.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={activeFilter === filter.id}
-                  className={`article-filter-btn${activeFilter === filter.id ? " active" : ""}`}
-                  onClick={() => applyFilter(filter.id)}
-                >
-                  {filter.label}
-                </button>
-              ))}
+            <Link href="/landlords" className="guide-hub-landlord-link">
+              Explore the landlord hub →
+            </Link>
+          </div>
+        </Container>
+      </section>
+
+      <section className="blog-sec guide-hub-listing ptb-80">
+        <Container>
+          <div className="guide-hub-toolbar">
+            <div className="common-title mb-0">
+              <h2>{showingFeatured ? "Featured guides" : "Explore our guides"}</h2>
+            </div>
+            <div className="guide-hub-search">
+              <label htmlFor="guide-search" className="visually-hidden">
+                Search guides
+              </label>
+              <span className="guide-hub-search-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.8" />
+                  <path d="M16.5 16.5L21 21" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                </svg>
+              </span>
+              <input
+                id="guide-search"
+                type="search"
+                className="form-control"
+                placeholder="Search guides"
+                value={query}
+                onChange={(event) => handleSearch(event.target.value)}
+              />
             </div>
           </div>
 
-          <div className="mb-4">
-            <label htmlFor="guide-search" className="form-label">Search guides</label>
-            <input id="guide-search" type="search" className="form-control" placeholder="Try MTD, receipts or rental income" value={query}
-              onChange={(event) => {
-                const value = event.target.value;
-                setQuery(value);
-                const filtered = filterLocal(curated, activeFilter).filter((article) =>
-                  `${article.title} ${article.excerpt} ${article.query || ""} ${(article.tags || []).join(" ")}`.toLowerCase().includes(value.trim().toLowerCase()),
-                );
-                setItems(filtered.slice(0, limit));
-                setCurrentPage(1);
-                setPageInfo({ page: 1, total: filtered.length, totalPages: Math.max(1, Math.ceil(filtered.length / limit)), limit });
-              }} />
-            <p className="mt-2 mb-0" role="status">{pageInfo?.total ?? publishedCount} guides found</p>
+          <div className="article-filter-row" role="tablist" aria-label="Guide categories">
+            {FILTERS.map((filter) => (
+              <button
+                key={filter.id}
+                type="button"
+                role="tab"
+                aria-selected={activeFilter === filter.id}
+                className={`article-filter-btn${activeFilter === filter.id ? " active" : ""}`}
+                onClick={() => applyFilter(filter.id)}
+              >
+                {filter.label}
+              </button>
+            ))}
           </div>
-          <Row>
+
+          <p className="guide-hub-status" role="status">
+            {pageInfo?.total ?? publishedCount} guides found
+          </p>
+
+          <Row className="guide-hub-grid">
             {loading ? (
               <Col xs={12}>
                 <div className="text-center py-5">
@@ -192,7 +275,7 @@ export default function BlogPageClient({
               </Col>
             ) : items?.length > 0 ? (
               items.map((article) => (
-                <Col lg={6} md={6} className="mb-4" key={article?.id || article?.slug}>
+                <Col lg={4} md={6} className="mb-4" key={article?.id || article?.slug}>
                   <ArticleCard article={article} />
                 </Col>
               ))
@@ -237,6 +320,22 @@ export default function BlogPageClient({
           )}
         </Container>
       </section>
+
+      {focus ? (
+        <section className="guide-seasonal-focus" aria-label="Current filing focus">
+          <Container>
+            <h2>{focus.title}</h2>
+            <p>{focus.body}</p>
+            <ul>
+              {focus.links.map(([slug, label]) => (
+                <li key={slug}>
+                  <Link href={`/blogs/${slug}`}>{label}</Link>
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </section>
+      ) : null}
     </div>
   );
 }
