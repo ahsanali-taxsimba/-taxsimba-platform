@@ -1,6 +1,7 @@
 /**
  * Client AML/KYC onboarding — mandatory before service activation.
- * Steps: profile → identity document → two proofs of address → live photo → submit.
+ * Steps: profile → identity document → two proofs of address → live photo (optional now) → submit.
+ * Live photo / selfie may be uploaded later so signup can continue.
  */
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
@@ -27,23 +28,31 @@ function statusTone(status) {
 
 function Progress({ progress, status }) {
   const items = [
-    ["ID uploaded", progress?.id_uploaded],
-    ["Proof of address uploaded", progress?.proof_of_address_uploaded],
-    ["Live photo captured", progress?.live_photo_captured],
+    ["ID uploaded", progress?.id_uploaded, false],
+    ["Proof of address uploaded", progress?.proof_of_address_uploaded, false],
+    [
+      progress?.live_photo_captured
+        ? "Live photo captured"
+        : progress?.live_photo_deferred
+          ? "Live photo later"
+          : "Live photo (optional now)",
+      progress?.live_photo_captured,
+      !progress?.live_photo_captured,
+    ],
   ];
   const tone = statusTone(status);
   return (
     <div className="flex flex-wrap gap-2" data-testid="aml-progress">
-      {items.map(([label, done]) => (
+      {items.map(([label, done, optional]) => (
         <span
           key={label}
           className="inline-flex items-center rounded-md px-2.5 py-1 text-xs font-semibold"
           style={{
-            background: done ? "#E9F7EF" : "#F1F3F2",
-            color: done ? "#16A05D" : "#626A65",
+            background: done ? "#E9F7EF" : optional ? "#FFF8E8" : "#F1F3F2",
+            color: done ? "#16A05D" : optional ? "#B77A12" : "#626A65",
           }}
         >
-          {done ? "✓ " : "○ "}
+          {done ? "✓ " : optional ? "… " : "○ "}
           {label}
         </span>
       ))}
@@ -192,7 +201,8 @@ export default function AmlOnboarding() {
             <div className="space-y-4" data-testid="aml-under-review-detail">
               <p className="text-sm text-[#161B18]">
                 Your identity pack has been submitted. Our compliance team will review your documents
-                and live photo. You do not need to do anything else unless we ask for a re-upload.
+                {progress?.live_photo_captured ? " and live photo" : ""}. You can keep going with signup —
+                add a live photo below anytime if you skipped it.
               </p>
               <ol className="space-y-2 text-sm">
                 {[
@@ -225,7 +235,14 @@ export default function AmlOnboarding() {
                     Proofs of address: {progress?.proof_of_address_count || 0} file
                     {(progress?.proof_of_address_count || 0) === 1 ? "" : "s"}
                   </li>
-                  <li>Live photo: {progress?.live_photo_captured ? "captured" : "missing"}</li>
+                  <li>
+                    Live photo:{" "}
+                    {progress?.live_photo_captured
+                      ? "captured"
+                      : progress?.live_photo_deferred
+                        ? "deferred — upload later"
+                        : "not yet uploaded"}
+                  </li>
                 </ul>
               </div>
               <p className="text-xs text-[#626A65]">
@@ -240,6 +257,17 @@ export default function AmlOnboarding() {
           <Panel testId="aml-reupload-banner">
             <p className="text-sm font-semibold text-[#D64545]">Action needed — please re-upload</p>
             <p className="text-sm text-[#161B18] mt-2">{amlCase.reupload_message}</p>
+          </Panel>
+        )}
+
+        {/* Live photo later — available during review or after approval if still missing */}
+        {(underReview || approved) && !progress?.live_photo_captured && (
+          <Panel title="Upload live photo later" testId="aml-selfie-later-panel">
+            <p className="text-sm text-[#626A65] mb-4">
+              You can add your live photo / selfie now or later. This does not block you from continuing
+              signup.
+            </p>
+            <LivePhotoCapture disabled={busy} onCapture={(f) => upload("SELFIE", f)} />
           </Panel>
         )}
 
@@ -420,21 +448,36 @@ export default function AmlOnboarding() {
 
             {step === 3 && (
               <Panel title="Live photo" testId="aml-step-selfie">
-                <p className="text-sm text-[#626A65] mb-4">
+                <p className="text-sm text-[#626A65] mb-2">
                   Take a live photo of yourself so we can compare it with your identity document.
+                </p>
+                <p className="text-xs text-[#B77A12] mb-4" data-testid="aml-selfie-optional-note">
+                  Optional for now — you can skip and upload your selfie later, then continue signup.
                 </p>
                 {docsByType.SELFIE?.[0] && (
                   <p className="text-sm text-[#16A05D] mb-3">✓ Photo captured: {docsByType.SELFIE[0].file_name}</p>
                 )}
                 <LivePhotoCapture disabled={busy} onCapture={(f) => upload("SELFIE", f)} />
-                <button
-                  type="button"
-                  className="mt-4 text-sm font-semibold text-[#006B3C]"
-                  onClick={() => setStep(4)}
-                  disabled={!progress?.live_photo_captured}
-                >
-                  Continue →
-                </button>
+                <div className="mt-4 flex flex-wrap items-center gap-3">
+                  <button
+                    type="button"
+                    className="text-sm font-semibold text-[#006B3C]"
+                    onClick={() => setStep(4)}
+                    data-testid="aml-selfie-continue"
+                  >
+                    {progress?.live_photo_captured ? "Continue →" : "Continue without live photo →"}
+                  </button>
+                  {!progress?.live_photo_captured && (
+                    <button
+                      type="button"
+                      className="text-sm font-semibold text-[#626A65] underline"
+                      data-testid="aml-selfie-later"
+                      onClick={() => setStep(4)}
+                    >
+                      Skip — upload selfie later
+                    </button>
+                  )}
+                </div>
               </Panel>
             )}
 
@@ -447,8 +490,18 @@ export default function AmlOnboarding() {
                     {progress?.proof_of_address_uploaded ? "✓" : "○"} Two proofs of address (
                     {progress?.proof_of_address_count || 0}/2)
                   </li>
-                  <li>{progress?.live_photo_captured ? "✓" : "○"} Live photo</li>
+                  <li>
+                    {progress?.live_photo_captured
+                      ? "✓ Live photo"
+                      : "… Live photo (optional — can upload later)"}
+                  </li>
                 </ul>
+                {!progress?.live_photo_captured && (
+                  <p className="text-xs text-[#626A65] mb-3" data-testid="aml-submit-selfie-later-hint">
+                    Submitting without a live photo is fine. You can add it later from this page while
+                    signup continues.
+                  </p>
+                )}
                 {amlCase?.status === "REQUIRES_REUPLOAD" && amlCase.reupload_message && (
                   <p className="text-sm text-[#D64545] mb-3">{amlCase.reupload_message}</p>
                 )}

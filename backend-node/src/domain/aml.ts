@@ -121,6 +121,8 @@ export interface AmlCase {
   id_document_kind: "PASSPORT" | "DRIVING_LICENCE" | null;
   proof_of_address_count: number;
   has_selfie: boolean;
+  /** Client chose to upload live photo later and continue signup. */
+  live_photo_deferred: boolean;
   submitted_at: string | null;
   reviewed_at: string | null;
   reviewer_id: string | null;
@@ -174,7 +176,8 @@ export const REQUIRED_PROOF_OF_ADDRESS = 2;
 export const REVIEW_CHECKLIST_LABELS = {
   id_matches_client: "Identity document matches client name / DOB / photo",
   address_docs_valid_and_recent: "Both proofs of address are valid and sufficiently recent",
-  selfie_matches_id: "Live photo reasonably matches the ID photograph",
+  selfie_matches_id:
+    "Live photo reasonably matches the ID photograph (required when a selfie is on file; skip if deferred)",
   pep_sanctions_cleared: "PEP / sanctions screening cleared (or N/A pending integration)",
 } as const;
 
