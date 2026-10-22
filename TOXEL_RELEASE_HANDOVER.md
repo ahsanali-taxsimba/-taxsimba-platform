@@ -8,7 +8,7 @@
 |---|---|
 | Integration branch | `cursor/taxsimba-v6-integration-df9b` |
 | Integration PR | https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/31 |
-| **Approved candidate SHA** | *(fill after push — see tip of branch)* |
+| **Approved candidate SHA** |  |
 | Deployment base | `content/taxsimba-82-articles` @ `67e371a17d6b774bc5364a3b52ebd831ddeb873c` |
 | Package source | Remote branch `taxsimba-v6-upload` (parts 01–06); **not** merged |
 | Package ZIP | Size `113671918`; SHA-256 `95568877c054797b62d5654e0fb428822f7b92a4be48416fcdf3ce8e7c4e60fe` (**verified**) |
