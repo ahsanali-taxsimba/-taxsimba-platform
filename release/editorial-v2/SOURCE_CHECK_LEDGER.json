@@ -1,0 +1,117 @@
+{
+  "scope": "Selected new/updated claims, not independent sign-off of all120",
+  "items": [
+    {
+      "claim": "Published MTD plan prices and division of work",
+      "url": "https://taxfix.com/en-uk/making-tax-digital/",
+      "kind": "provider offer",
+      "checked": "2026-10-21",
+      "scope": "4.99/24.99/39.99 monthly inc VAT; introductory terms identified; no market-average inference"
+    },
+    {
+      "claim": "Published basic SA fee",
+      "url": "https://rjaccountancy.co.uk/fees/",
+      "kind": "provider offer",
+      "checked": "2026-10-21",
+      "scope": "179 plus VAT and separate business/property calculations"
+    },
+    {
+      "claim": "Published SA offer",
+      "url": "https://sleek.com/uk/resources/how-much-do-accountants-charge-for-self-assessment/",
+      "kind": "provider offer",
+      "checked": "2026-10-21",
+      "scope": "275 plus VAT; used as an example, not representative average"
+    },
+    {
+      "claim": "Quarterly periods, deadlines and selected reporting rules",
+      "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+      "kind": "official guidance",
+      "checked": "2026-10-21"
+    },
+    {
+      "claim": "First-year MTD relief and penalty regime",
+      "url": "https://www.gov.uk/guidance/penalties-for-making-tax-digital-for-income-tax",
+      "kind": "official guidance",
+      "checked": "2026-10-21"
+    },
+    {
+      "claim": "Registration, filing and payment distinction",
+      "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "kind": "official guidance",
+      "checked": "2026-10-21"
+    },
+    {
+      "claim": "PAYE coding conditions and collection",
+      "url": "https://www.gov.uk/pay-self-assessment-tax-bill/through-your-tax-code",
+      "kind": "official guidance",
+      "checked": "2026-10-21"
+    },
+    {
+      "claim": "Find an existing UTR",
+      "url": "https://www.gov.uk/find-utr-number",
+      "kind": "official guidance",
+      "checked": "2026-10-21"
+    },
+    {
+      "claim": "Business expenses versus personal tax-return fees",
+      "url": "https://www.gov.uk/expenses-if-youre-self-employed/legal-financial",
+      "kind": "official guidance",
+      "checked": "2026-10-21"
+    },
+    {
+      "claim": "Travel expense and private-use limits",
+      "url": "https://www.gov.uk/expenses-if-youre-self-employed/travel",
+      "kind": "official guidance",
+      "checked": "2026-10-21"
+    },
+    {
+      "claim": "Simplified home-working bands",
+      "url": "https://www.gov.uk/simpler-income-tax-simplified-expenses/working-from-home",
+      "kind": "official guidance",
+      "checked": "2026-10-21"
+    },
+    {
+      "claim": "Simplified vehicle rates by year",
+      "url": "https://www.gov.uk/simpler-income-tax-simplified-expenses/vehicles",
+      "kind": "official guidance",
+      "checked": "2026-10-21",
+      "scope": "45p before 6 April 2026;55p first10k in2026/27;25p thereafter;24p motorcycle;eligibility limitations retained"
+    },
+    {
+      "claim": "SA302 and tax-year overview retrieval",
+      "url": "https://www.gov.uk/sa302-tax-calculation",
+      "kind": "official guidance",
+      "checked": "2026-10-21"
+    },
+    {
+      "claim": "Savings interest reporting route",
+      "url": "https://www.gov.uk/apply-tax-free-interest-on-savings/how-you-pay-tax-on-savings-interest",
+      "kind": "official guidance",
+      "checked": "2026-10-21"
+    },
+    {
+      "claim": "Personal Savings Allowance and related allowances",
+      "url": "https://www.gov.uk/apply-tax-free-interest-on-savings/how-much-is-tax-free",
+      "kind": "official guidance",
+      "checked": "2026-10-21"
+    },
+    {
+      "claim": "Pension relief at source and method distinction",
+      "url": "https://www.gov.uk/tax-on-your-private-pension/pension-tax-relief",
+      "kind": "official guidance",
+      "checked": "2026-10-21"
+    },
+    {
+      "claim": "Historic 2025/26 National Insurance values",
+      "url": "https://www.gov.uk/government/publications/rates-and-allowances-national-insurance-contributions/rates-and-allowances-national-insurance-contributions",
+      "kind": "official guidance",
+      "checked": "2026-10-21"
+    },
+    {
+      "claim": "Google generative AI content guidance",
+      "url": "https://developers.google.com/search/docs/fundamentals/using-gen-ai-content",
+      "kind": "search publisher guidance",
+      "checked": "2026-10-21"
+    }
+  ]
+}

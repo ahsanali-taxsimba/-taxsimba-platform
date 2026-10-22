@@ -1,0 +1,166 @@
+[
+  {
+    "releasePosition": 81,
+    "slug": "mtd-standard-vs-calendar-update-periods",
+    "title": "MTD Standard or Calendar Update Periods: Which Should You Use?",
+    "category": "Making Tax Digital",
+    "metaTitle": "MTD Standard vs Calendar Periods: Check Before Filing | TaxSimba",
+    "metaDescription": "Compare MTD standard and calendar update periods, cumulative dates and shared deadlines, and check the software setting before the first submission.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — send quarterly updates",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+      }
+    ]
+  },
+  {
+    "releasePosition": 82,
+    "slug": "mtd-simpler-categorisation-under-90000",
+    "title": "MTD Records Below £90,000: When Simpler Categorisation Applies",
+    "category": "Making Tax Digital",
+    "metaTitle": "MTD Simpler Categorisation: The £90,000 Test | TaxSimba",
+    "metaDescription": "Check eligibility for simpler MTD categories, keep supporting records and identify restricted property finance costs and any turnover-triggered change.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — create digital records",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      }
+    ]
+  },
+  {
+    "releasePosition": 83,
+    "slug": "mtd-sole-trader-and-landlord-separate-updates",
+    "title": "Self-Employed and a Landlord: How Your MTD Updates Fit Together",
+    "category": "Making Tax Digital",
+    "metaTitle": "Sole Trader and Landlord: Separate MTD Updates | TaxSimba",
+    "metaDescription": "Trade and rental income can combine for MTD eligibility while needing separate business records and updates. Plan the complete reporting workflow.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — create digital records",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      },
+      {
+        "label": "HMRC / GOV.UK — send quarterly updates",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+      }
+    ]
+  },
+  {
+    "releasePosition": 84,
+    "slug": "mtd-main-vs-supporting-accountant",
+    "title": "Main or Supporting MTD Accountant: Who Files Your Annual Return?",
+    "category": "Making Tax Digital",
+    "metaTitle": "Main vs Supporting MTD Agent: Who Files the Return? | TaxSimba",
+    "metaDescription": "Check MTD agent roles, annual-return responsibility and record handovers before authorising an accountant or bookkeeper for quarterly work.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — choose agents for making tax digital for income tax",
+        "url": "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "HMRC / GOV.UK — submit your tax return",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/submit-your-tax-return"
+      }
+    ]
+  },
+  {
+    "releasePosition": 85,
+    "slug": "mtd-estimated-tax-bill-not-final",
+    "title": "Why Your MTD Tax Estimate May Differ From Your Final Bill",
+    "category": "Making Tax Digital",
+    "metaTitle": "MTD Tax Estimates: Why the Final Bill Can Differ | TaxSimba",
+    "metaDescription": "Understand the limits of an MTD tax estimate, identify missing income and adjustments, and distinguish estimated liability from the amount still payable.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — send quarterly updates",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+      }
+    ]
+  },
+  {
+    "releasePosition": 86,
+    "slug": "mtd-partnership-income-individual-partners",
+    "title": "Does Partnership Income Put You Into MTD for Income Tax?",
+    "category": "Making Tax Digital",
+    "metaTitle": "Partnership Income and MTD: Check Separate Sources | TaxSimba",
+    "metaDescription": "Distinguish partnership profit from sole-trader and property income for MTD, and gather the partnership statement for your complete personal return.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — check if youre eligible for making tax digital for income tax",
+        "url": "https://www.gov.uk/guidance/check-if-youre-eligible-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "HMRC / GOV.UK — create digital records",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      }
+    ]
+  },
+  {
+    "releasePosition": 87,
+    "slug": "mtd-limited-company-director-income",
+    "title": "MTD and Limited Company Directors: Which Income Counts?",
+    "category": "Making Tax Digital",
+    "metaTitle": "MTD and Company Directors: Which Income Counts? | TaxSimba",
+    "metaDescription": "Separate company turnover, salary and dividends from personal trading and property income before checking a director's MTD obligations.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — check if youre eligible for making tax digital for income tax",
+        "url": "https://www.gov.uk/guidance/check-if-youre-eligible-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "HMRC / GOV.UK — add or cease income sources",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/add-or-cease-income-sources"
+      }
+    ]
+  },
+  {
+    "releasePosition": 88,
+    "slug": "mtd-new-business-new-rental-income",
+    "title": "Starting a New Business or Rental Income While Already in MTD",
+    "category": "Making Tax Digital",
+    "metaTitle": "New Business or Rent While in MTD: Check Start Dates | TaxSimba",
+    "metaDescription": "Adding a trade or rental source while in MTD? Distinguish a new source from another UK property and check when digital records and updates become required.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — add or cease income sources",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/add-or-cease-income-sources"
+      }
+    ]
+  },
+  {
+    "releasePosition": 89,
+    "slug": "mtd-letting-agent-gross-rent-net-payment",
+    "title": "Letting Agent Statements and MTD: Record Gross Rent, Not Just the Payout",
+    "category": "Making Tax Digital",
+    "metaTitle": "Letting Agent Statements: Gross Rent vs Net Payout | TaxSimba",
+    "metaDescription": "Reconcile agent-collected rent, fees, repairs and bank payouts for MTD, identify unusual deductions and avoid counting the same rent twice.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — create digital records",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      },
+      {
+        "label": "HMRC / GOV.UK — income tax when you rent out a property working out your rental income",
+        "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+      }
+    ]
+  },
+  {
+    "releasePosition": 90,
+    "slug": "voluntary-mtd-before-compulsory-start",
+    "title": "Should You Join MTD Voluntarily Before Your Compulsory Start Date?",
+    "category": "Making Tax Digital",
+    "metaTitle": "Join MTD Voluntarily? Check the Full Commitment | TaxSimba",
+    "metaDescription": "Considering early MTD signup? Check eligibility, the chosen tax year, software readiness and any catch-up records before committing to quarterly reporting.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — sign up for making tax digital for income tax",
+        "url": "https://www.gov.uk/guidance/sign-up-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "HMRC / GOV.UK — using making tax digital for income tax for the first time",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/using-making-tax-digital-for-income-tax-for-the-first-time"
+      }
+    ]
+  }
+]

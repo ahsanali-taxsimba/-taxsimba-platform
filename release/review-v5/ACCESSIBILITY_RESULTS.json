@@ -1,0 +1,846 @@
+{
+  "tool": "axe-core 4.10.3",
+  "scope": "Automated article-region WCAG A/AA rules at 390px; external requests blocked. Does not certify all WCAG requirements or screen-reader behavior.",
+  "results": [
+    {
+      "rank": 1,
+      "slug": "mtd-accountant-cost",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 22
+    },
+    {
+      "rank": 2,
+      "slug": "self-assessment-accountant-cost",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 22
+    },
+    {
+      "rank": 3,
+      "slug": "join-mtd-service-mid-year",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 4,
+      "slug": "switch-mtd-accountant-mid-year",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 5,
+      "slug": "mtd-quarterly-updates-tax-payments",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 6,
+      "slug": "self-assessment-2025-26-mtd-2026-27",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 7,
+      "slug": "mtd-cumulative-quarterly-updates",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 22
+    },
+    {
+      "rank": 8,
+      "slug": "correct-mtd-quarterly-update",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 22
+    },
+    {
+      "rank": 9,
+      "slug": "waiting-for-utr-tax-return",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 10,
+      "slug": "employed-and-self-employed-tax-return",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 11,
+      "slug": "uber-private-hire-driver-tax-return",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 12,
+      "slug": "delivery-driver-courier-tax-return",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 13,
+      "slug": "mtd-software-vs-accountant-service",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 14,
+      "slug": "authorise-mtd-accountant-safely",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 15,
+      "slug": "multiple-overdue-self-assessment-returns",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 16,
+      "slug": "appeal-self-assessment-late-penalty",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 17,
+      "slug": "sold-rental-property-60-day-tax",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 22
+    },
+    {
+      "rank": 18,
+      "slug": "pay-self-assessment-through-tax-code-december",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 19,
+      "slug": "mtd-proof-quarterly-update-submitted",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 20,
+      "slug": "hmrc-signed-me-up-for-making-tax-digital",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 21,
+      "slug": "mtd-qualifying-income",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 22,
+      "slug": "mtd-quarterly-updates",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 23,
+      "slug": "self-assessment-deadline",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 24,
+      "slug": "self-assessment-documents-checklist",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 25,
+      "slug": "understanding-self-assessment-uk",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 26,
+      "slug": "top-tax-saving-tips-uk",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 27,
+      "slug": "making-tax-digital-explained",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 28,
+      "slug": "mtd-accountant-or-agent",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 29,
+      "slug": "mtd-digital-records",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 30,
+      "slug": "missed-mtd-quarterly-update",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 31,
+      "slug": "payments-on-account-explained",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 32,
+      "slug": "late-self-assessment-penalties",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 33,
+      "slug": "mtd-quarterly-deadline-7-november-2026",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 34,
+      "slug": "mtd-for-landlords-2026-27",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 35,
+      "slug": "mtd-for-sole-traders-2026-27",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 36,
+      "slug": "hmrc-mtd-signup-wrong",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 37,
+      "slug": "mtd-30000-threshold-2027",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 38,
+      "slug": "does-mtd-replace-self-assessment",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 39,
+      "slug": "mtd-exemptions",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 40,
+      "slug": "self-assessment-for-landlords-2025-26",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 41,
+      "slug": "self-assessment-for-sole-traders-2025-26",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 42,
+      "slug": "self-assessment-register-by-5-october-2026",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 43,
+      "slug": "cannot-pay-self-assessment-tax-bill",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 44,
+      "slug": "reduce-self-assessment-payments-on-account",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 45,
+      "slug": "landlord-mortgage-interest-tax-relief",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 46,
+      "slug": "cis-deductions-self-assessment",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 47,
+      "slug": "undeclared-rental-income-hmrc",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 48,
+      "slug": "self-assessment-side-hustle",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 49,
+      "slug": "trading-allowance-1000-hmrc",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 50,
+      "slug": "amend-self-assessment-tax-return",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 51,
+      "slug": "mtd-income-tax-vs-mtd-vat",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 52,
+      "slug": "can-i-use-spreadsheets-for-mtd",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 53,
+      "slug": "cis-tax-refunds-subcontractors",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 54,
+      "slug": "cis-20-vs-30-percent-deductions",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 55,
+      "slug": "cis-payment-deduction-statements",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 56,
+      "slug": "cis-allowable-expenses-subcontractors",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 57,
+      "slug": "cis-gross-payment-status",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 58,
+      "slug": "mtd-no-income-quarter",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 59,
+      "slug": "mtd-two-self-employed-businesses",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 60,
+      "slug": "mtd-employed-landlord-salary",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 61,
+      "slug": "mtd-jointly-owned-rental-property",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 62,
+      "slug": "cis-subcontractors-mtd-gross-income",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 63,
+      "slug": "mtd-bank-feeds-complete-records",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 64,
+      "slug": "mtd-income-fallen-opt-out",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 65,
+      "slug": "hairdresser-beauty-self-assessment",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 66,
+      "slug": "company-director-personal-tax-return",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 67,
+      "slug": "vinted-ebay-personal-items-tax",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 68,
+      "slug": "etsy-seller-tax-return",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 69,
+      "slug": "airbnb-holiday-let-tax-2025-26",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 70,
+      "slug": "joint-rental-property-tax-return",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 71,
+      "slug": "landlord-repairs-vs-improvements",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 72,
+      "slug": "savings-interest-self-assessment",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 73,
+      "slug": "self-employed-working-from-home-expenses",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 74,
+      "slug": "self-employed-mileage-vs-actual-costs",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 75,
+      "slug": "sa302-tax-year-overview-mortgage",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 76,
+      "slug": "high-salary-self-assessment-needed",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 77,
+      "slug": "lost-receipts-self-assessment",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 78,
+      "slug": "child-benefit-charge-paye-or-self-assessment",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 79,
+      "slug": "pension-contributions-adjusted-net-income",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 80,
+      "slug": "crypto-swaps-tax-without-cashing-out",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 81,
+      "slug": "mtd-standard-vs-calendar-update-periods",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 82,
+      "slug": "mtd-simpler-categorisation-under-90000",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 83,
+      "slug": "mtd-sole-trader-and-landlord-separate-updates",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 84,
+      "slug": "mtd-main-vs-supporting-accountant",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 85,
+      "slug": "mtd-estimated-tax-bill-not-final",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 86,
+      "slug": "mtd-partnership-income-individual-partners",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 87,
+      "slug": "mtd-limited-company-director-income",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 88,
+      "slug": "mtd-new-business-new-rental-income",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 89,
+      "slug": "mtd-letting-agent-gross-rent-net-payment",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 90,
+      "slug": "voluntary-mtd-before-compulsory-start",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 91,
+      "slug": "mtd-20000-threshold-april-2028",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 92,
+      "slug": "mtd-receipt-photo-vs-digital-record",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 93,
+      "slug": "mtd-software-hmrc-outage-deadline",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 94,
+      "slug": "dividend-tax-2025-26-vs-2026-27",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 95,
+      "slug": "student-loan-postgraduate-self-assessment",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 96,
+      "slug": "self-employed-national-insurance-2025-26",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 97,
+      "slug": "cash-basis-vs-traditional-accounting",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 98,
+      "slug": "self-employed-trading-loss-tax-relief",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 99,
+      "slug": "stopped-self-employed-final-tax-return",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 100,
+      "slug": "content-creator-influencer-tax-return",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 101,
+      "slug": "private-tutor-self-assessment-tax",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 102,
+      "slug": "personal-trainer-fitness-coach-tax",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 103,
+      "slug": "self-employed-cleaner-tax-return",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 104,
+      "slug": "rent-a-room-relief-lodger-tax",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 105,
+      "slug": "landlord-replacement-domestic-items-relief",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 106,
+      "slug": "landlord-expenses-empty-property-void-period",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 107,
+      "slug": "non-resident-landlord-uk-tax-return",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 108,
+      "slug": "foreign-income-tax-return-2025-26-fig",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 109,
+      "slug": "sold-shares-capital-gains-tax-records",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 110,
+      "slug": "crypto-hmrc-reporting-2026-carf",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 111,
+      "slug": "winter-fuel-payment-self-assessment-2025-26",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 112,
+      "slug": "self-assessment-refund-pending",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 113,
+      "slug": "gift-aid-self-assessment-tax-relief",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 114,
+      "slug": "state-pension-self-assessment-income",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 115,
+      "slug": "leave-self-assessment-no-return-needed",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 116,
+      "slug": "p800-simple-assessment-pa302-vs-tax-return",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 117,
+      "slug": "self-employed-business-loan-interest-repayments",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 118,
+      "slug": "basis-period-transition-profit-2025-26",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 119,
+      "slug": "pre-trading-startup-expenses-self-employed",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    },
+    {
+      "rank": 120,
+      "slug": "self-employed-equipment-cash-basis-capital-allowances",
+      "violations": [],
+      "incomplete": [],
+      "passedRules": 20
+    }
+  ]
+}

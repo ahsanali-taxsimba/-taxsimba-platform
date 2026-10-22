@@ -1,0 +1,206 @@
+[
+  {
+    "releasePosition": 101,
+    "slug": "private-tutor-self-assessment-tax",
+    "title": "Private Tutor Tax Returns: Fees, Platforms and Term-Time Records",
+    "category": "Self Assessment",
+    "metaTitle": "Private Tutor Tax Returns: Fees and Record Checklist | TaxSimba",
+    "metaDescription": "Prepare tutor tax records across private lessons, agencies and platforms. Reconcile fees and refunds, separate PAYE work and check the tax-year cut-off.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — working for yourself",
+        "url": "https://www.gov.uk/working-for-yourself"
+      },
+      {
+        "label": "HMRC / GOV.UK — expenses if youre self employed",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed"
+      },
+      {
+        "label": "HMRC / GOV.UK — check if you need to tell hmrc about your income from online platforms",
+        "url": "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms"
+      }
+    ]
+  },
+  {
+    "releasePosition": 102,
+    "slug": "personal-trainer-fitness-coach-tax",
+    "title": "Personal Trainer Tax: Gym Fees, Client Packages and Online Coaching",
+    "category": "Self Assessment",
+    "metaTitle": "Personal Trainer Tax: Clients, Gym Fees and Packages | TaxSimba",
+    "metaDescription": "Prepare personal trainer tax records for gym work, client packages and online coaching, with clear refunds, fees, employment and business-cost evidence.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — working for yourself",
+        "url": "https://www.gov.uk/working-for-yourself"
+      },
+      {
+        "label": "HMRC / GOV.UK — expenses if youre self employed",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed"
+      },
+      {
+        "label": "HMRC / GOV.UK — check if you need to tell hmrc about your income from online platforms",
+        "url": "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms"
+      }
+    ]
+  },
+  {
+    "releasePosition": 103,
+    "slug": "self-employed-cleaner-tax-return",
+    "title": "Self-Employed Cleaner Tax Returns: Cash Payments and Business Records",
+    "category": "Self Assessment",
+    "metaTitle": "Self-Employed Cleaner Tax: Cash and Business Records | TaxSimba",
+    "metaDescription": "Keep cleaner tax records complete across cash, bank and agency payments. Separate employment, business supplies, private use and supported travel costs.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — working for yourself",
+        "url": "https://www.gov.uk/working-for-yourself"
+      },
+      {
+        "label": "HMRC / GOV.UK — self employed records",
+        "url": "https://www.gov.uk/self-employed-records"
+      },
+      {
+        "label": "HMRC / GOV.UK — expenses if youre self employed",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed"
+      }
+    ]
+  },
+  {
+    "releasePosition": 104,
+    "slug": "rent-a-room-relief-lodger-tax",
+    "title": "Rent a Room Relief: When Lodger Income Needs a Tax Return",
+    "category": "Self Assessment",
+    "metaTitle": "Rent a Room Relief: Lodger Receipts and Tax Returns | TaxSimba",
+    "metaDescription": "Check Rent a Room conditions, gross receipts and shared-income limits, then compare the scheme with normal expenses where a return is needed.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — the rent a room scheme",
+        "url": "https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme"
+      },
+      {
+        "label": "HMRC / GOV.UK — pim4001",
+        "url": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim4001"
+      },
+      {
+        "label": "HMRC / GOV.UK — create digital records",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      }
+    ]
+  },
+  {
+    "releasePosition": 105,
+    "slug": "landlord-replacement-domestic-items-relief",
+    "title": "Landlord Furniture and Appliances: Replacement of Domestic Items Relief",
+    "category": "Self Assessment",
+    "metaTitle": "Landlord Furniture and Appliances: Replacement Relief | TaxSimba",
+    "metaDescription": "Check replacement of domestic items relief, distinguish initial furnishing and fixtures, and keep evidence of the old item, equivalent replacement and disposal.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — income tax when you rent out a property working out your rental income",
+        "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+      },
+      {
+        "label": "HMRC / GOV.UK — pim3210",
+        "url": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim3210"
+      }
+    ]
+  },
+  {
+    "releasePosition": 106,
+    "slug": "landlord-expenses-empty-property-void-period",
+    "title": "Can Landlords Claim Expenses While a Rental Property Is Empty?",
+    "category": "Self Assessment",
+    "metaTitle": "Empty Rental Property: Check Void-Period Expenses | TaxSimba",
+    "metaDescription": "A vacancy does not automatically end a rental business. Record letting intentions, marketing, private use and the nature of costs during the void period.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — pim2510",
+        "url": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim2510"
+      },
+      {
+        "label": "HMRC / GOV.UK — income tax when you rent out a property working out your rental income",
+        "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+      }
+    ]
+  },
+  {
+    "releasePosition": 107,
+    "slug": "non-resident-landlord-uk-tax-return",
+    "title": "Living Abroad With UK Rental Income: Withholding and Your Tax Return",
+    "category": "Self Assessment",
+    "metaTitle": "Non-Resident Landlord: Withholding and UK Tax Returns | TaxSimba",
+    "metaDescription": "Separate Non-resident Landlords Scheme withholding from final UK tax. Prepare gross rent, certificates, residence facts and any gross-payment approval.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — rent",
+        "url": "https://www.gov.uk/tax-uk-income-live-abroad/rent"
+      },
+      {
+        "label": "HMRC / GOV.UK — what the non resident landlords scheme is",
+        "url": "https://www.gov.uk/government/publications/non-resident-landord-guidance-notes-for-letting-agents-and-tenants-non-resident-landlords-scheme-guidance-notes/what-the-non-resident-landlords-scheme-is"
+      }
+    ]
+  },
+  {
+    "releasePosition": 108,
+    "slug": "foreign-income-tax-return-2025-26-fig",
+    "title": "Foreign Income on a 2025/26 Tax Return: What Changed From April 2025?",
+    "category": "Self Assessment",
+    "metaTitle": "Foreign Income 2025/26: Residence and FIG Changes | TaxSimba",
+    "metaDescription": "Foreign income rules changed in April 2025. Prepare residence history, source-by-country records and foreign tax evidence before considering FIG relief.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — tax foreign income",
+        "url": "https://www.gov.uk/tax-foreign-income"
+      },
+      {
+        "label": "HMRC / GOV.UK — check if you can claim the 4 year foreign income and gains regime",
+        "url": "https://www.gov.uk/guidance/check-if-you-can-claim-the-4-year-foreign-income-and-gains-regime"
+      }
+    ]
+  },
+  {
+    "releasePosition": 109,
+    "slug": "sold-shares-capital-gains-tax-records",
+    "title": "Sold Shares Outside an ISA? The Records Needed for Capital Gains Tax",
+    "category": "Self Assessment",
+    "metaTitle": "Sold Shares Outside an ISA? Capital Gains Records | TaxSimba",
+    "metaDescription": "Prepare share-disposal records across brokers, including purchases, fees, corporate actions and later acquisitions needed for UK matching calculations.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — what you pay it on",
+        "url": "https://www.gov.uk/tax-sell-shares/what-you-pay-it-on"
+      },
+      {
+        "label": "HMRC / GOV.UK — hs284 shares and capital gains tax 2026",
+        "url": "https://www.gov.uk/government/publications/shares-and-capital-gains-tax-hs284-self-assessment-helpsheet/hs284-shares-and-capital-gains-tax-2026"
+      },
+      {
+        "label": "HMRC / GOV.UK — capital gains tax rates and allowances",
+        "url": "https://www.gov.uk/guidance/capital-gains-tax-rates-and-allowances"
+      }
+    ]
+  },
+  {
+    "releasePosition": 110,
+    "slug": "crypto-hmrc-reporting-2026-carf",
+    "title": "Crypto Reporting From 2026: What Providers Tell HMRC and What You Still Do",
+    "category": "Self Assessment",
+    "metaTitle": "Crypto Reporting From 2026: What You Still Need to Do | TaxSimba",
+    "metaDescription": "Provider crypto reporting does not file your tax return. Reconcile calendar-year reports with UK tax years and keep complete wallet and exchange histories.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — information youll need to give to uk cryptoasset service providers",
+        "url": "https://www.gov.uk/guidance/information-youll-need-to-give-to-uk-cryptoasset-service-providers"
+      },
+      {
+        "label": "HMRC / GOV.UK — check if youll need to report cryptoasset data to hmrc",
+        "url": "https://www.gov.uk/guidance/check-if-youll-need-to-report-cryptoasset-data-to-hmrc"
+      },
+      {
+        "label": "HMRC / GOV.UK — check if you need to pay tax when you sell cryptoassets",
+        "url": "https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets"
+      }
+    ]
+  }
+]

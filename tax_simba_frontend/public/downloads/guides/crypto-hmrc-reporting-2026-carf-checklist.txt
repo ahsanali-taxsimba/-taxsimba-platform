@@ -1,0 +1,38 @@
+TaxSimba — Crypto Reporting From 2026: What Providers Tell HMRC and What You Still Do
+Preparation worksheet
+
+Optional offline planning aid, not a tax return or filing confirmation.
+Keep completed notes securely; never include passwords or one-time codes.
+
+WORK THROUGH THIS EXAMPLE
+A provider’s CARF information covers a calendar year, while your personal tax records use UK tax years. Keep a transaction-level export so the periods can be reconciled. Waiting for the provider’s first report does not prepare your own return.
+
+DECISION TO RESOLVE
+Can the same transaction be assigned correctly to both reporting periods?
+
+YOUR POSITION
+Relevant year and source: ____________________
+Evidence supporting your answer: ____________________
+Missing item and who will obtain it: ____________________
+Deadline or next review date: ____________________
+
+1. Export complete exchange and wallet histories.
+Notes: ______________________________
+
+2. Reconcile calendar-year and tax-year dates.
+Notes: ______________________________
+
+3. Link transfers between your own wallets.
+Notes: ______________________________
+
+4. Identify disposals, fees and income events.
+Notes: ______________________________
+
+5. Verify sensitive-data requests through secure provider channels.
+Notes: ______________________________
+
+Actions agreed and responsible person:
+____________________________________
+
+Guide: https://taxsimba.co.uk/blogs/crypto-hmrc-reporting-2026-carf
+Check the current guide and official sources before relying on a deadline or process.

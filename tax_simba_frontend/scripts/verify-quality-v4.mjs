@@ -1,0 +1,30 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {articles,getCtaForArticle} from '../src/data/articles.js';
+import {articleQualityActions,getArticleAction} from '../src/data/articleQualityActions.js';
+assert.equal(Object.keys(articleQualityActions).length,120);
+for(const a of articles){
+ const x=getArticleAction(a,new Date('2026-10-21T12:00:00Z'));
+ assert(x&&x.heading&&x.body&&x.href,a.slug);
+ assert.equal(x.ownerAssigned,false);assert.equal(x.lastQualifiedTaxReview,null);
+ assert(!/last chance|only \d+|guaranteed|buy now/i.test(x.heading+' '+x.body));
+ assert.equal(a.sources.length,new Set(a.sources.map(x=>x.url)).size,a.slug);
+ assert(a.metaTitle.length<=65,a.slug+' editorial title target, not Google pixel guarantee');
+ assert(a.metaDescription.length<=160);
+ assert.equal(x.nationsInScope.length,4);
+ const cta=getCtaForArticle(a);assert(['/register','/register?role=MTD','/check-mtd'].includes(cta.href));
+}
+const bySlug=new Map(articles.map(a=>[a.slug,a]));const mtd=bySlug.get('mtd-cumulative-quarterly-updates');
+assert(getArticleAction(mtd,new Date('2026-11-07T12:00:00Z')).timing.body.includes('7 November 2026'));
+assert(getArticleAction(mtd,new Date('2026-11-08T12:00:00Z')).timing.body.includes('7 February 2027'));
+assert.equal(getArticleAction(mtd,new Date('2027-05-08T12:00:00Z')).timing,null);
+const coding=bySlug.get('pay-self-assessment-through-tax-code-december');
+assert(getArticleAction(coding,new Date('2026-12-30T23:00:00Z')).timing.heading.includes('earlier'));
+assert(getArticleAction(coding,new Date('2026-12-31T00:00:00Z')).timing.heading.includes('another'));
+assert.equal(getArticleAction(coding,new Date('2027-02-01T12:00:00Z')).timing,null);
+assert.equal(getArticleAction(bySlug.get('cannot-pay-self-assessment-tax-bill')).freeRoute,true);
+assert.equal(getArticleAction(bySlug.get('mtd-qualifying-income')).href,'/check-mtd');
+assert.equal(getArticleAction(bySlug.get('mtd-30000-threshold-2027'),new Date('2027-04-06T00:00:00Z')).timing,null);
+assert.equal(getArticleAction({slug:'unknown'}),null);
+assert.equal(articles.filter(a=>a.content.includes('Check the home nation used')).length,34);
+console.log('PASS: 120 UK/service/maintenance records; scope and free routes; metadata lengths; London deadline boundaries and expiry; no fabricated review or scarcity.');

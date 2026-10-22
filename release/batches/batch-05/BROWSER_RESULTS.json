@@ -1,0 +1,241 @@
+{
+  "releasePositions": [
+    41,
+    50
+  ],
+  "articles": [
+    {
+      "rank": 41,
+      "slug": "self-assessment-for-sole-traders-2025-26",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 42,
+      "slug": "self-assessment-register-by-5-october-2026",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 43,
+      "slug": "cannot-pay-self-assessment-tax-bill",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 44,
+      "slug": "reduce-self-assessment-payments-on-account",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 45,
+      "slug": "landlord-mortgage-interest-tax-relief",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 46,
+      "slug": "cis-deductions-self-assessment",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 47,
+      "slug": "undeclared-rental-income-hmrc",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 48,
+      "slug": "self-assessment-side-hustle",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 49,
+      "slug": "trading-allowance-1000-hmrc",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 50,
+      "slug": "amend-self-assessment-tax-return",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    }
+  ],
+  "hub": "pagination all 120, search, empty state, category passed",
+  "signup": "public routes passed; no account created or payment made",
+  "scope": "Full final release tested; this file identifies the ten guides in this incremental package."
+}

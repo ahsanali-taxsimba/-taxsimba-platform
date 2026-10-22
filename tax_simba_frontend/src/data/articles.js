@@ -13,6 +13,7 @@ import {
   isEditorialDraftReleaseReady,
   isEditoriallyApprovedDraft,
 } from "./articleReleaseConfig.js";
+import { enhanceArticle, compareArticlePriority } from "./articleEditorial.js";
 export { next82Articles, editorialDraftRelease };
 
 export const ARTICLE_CTA = {
@@ -93,6 +94,7 @@ export function withResolvedArticleContent(article, now = new Date()) {
         ...(pack.metaTitle ? { metaTitle: pack.metaTitle } : {}),
         ...(pack.metaDescription ? { metaDescription: pack.metaDescription } : {}),
         ...(pack.excerpt ? { excerpt: pack.excerpt } : {}),
+        ...(pack.answer ? { answer: pack.answer } : {}),
       };
     }
   }
@@ -198,7 +200,11 @@ export const original38Articles = [
 <p>Sam is a sole trader who also lets a flat. HMRC confirms Sam is signed up for MTD for Income Tax. Sam logs into HMRC online services, checks both income sources, and decides not to learn every MTD software screen alone. Sam appoints TaxSimba so an accountant-led team can manage the MTD workflow while Sam supplies bank exports, invoices and rental statements.</p>
 
 <h2>Common mistake</h2>
-<p>Putting the letter aside because “I already do Self Assessment.” MTD adds digital record-keeping and quarterly updates for the income types in scope. Leaving everything until January makes catch-up harder, and you need to send the required quarterly updates before you can submit your tax return.</p>
+<p>Putting the letter aside because “I already do Self Assessment.” MTD adds digital record-keeping and quarterly updates for the income types in scope. Leaving everything until January makes catch-up harder. HMRC says you must send the final quarterly update for the tax year before submitting your tax return.</p>
+
+<h2>What about penalties and your earlier return?</h2>
+<p>HMRC says there are no penalty points for missing quarterly update deadlines in 2026/27. Digital records and updates are still required; the relief does not remove the annual-return deadline. A 2025/26 Self Assessment return can also remain due by 31 January 2027 alongside your 2026/27 MTD work.</p>
+<p>If all your trading and property income ceased before 6 April 2026, update the HMRC records and check the earlier return. If all sources ceased during 2026/27, check the update covering cessation and that year’s return rather than assuming every obligation ends immediately.</p>
 
 <h2>If you think you were signed up incorrectly</h2>
 <p>If your question is “HMRC has put me into MTD, but I think that is wrong,” use the dedicated guide on <a href="/blogs/hmrc-mtd-signup-wrong">disputing an MTD signup</a>. Contact HMRC if you believe you are exempt or should not be in scope, and do not ignore the message while you wait.</p>
@@ -3244,7 +3250,7 @@ export function upsertArticlesBySlug(existing = [], incoming = []) {
 }
 
 /** Canonical registry: original 38 + editorially approved next 82 (slug upsert). */
-export const articles = upsertArticlesBySlug(original38Articles, next82Articles);
+export const articles = upsertArticlesBySlug(original38Articles, next82Articles).map(enhanceArticle);
 
 /** Idempotence proof helper used by verification scripts. */
 export function mergeArticleBatches(base, ...batches) {
@@ -3265,7 +3271,6 @@ export function withReleaseResolution(article) {
     ...article,
     status: "published",
     publishedAt,
-    reviewedAt: article.reviewedAt || publishedAt,
   };
 }
 
@@ -3291,9 +3296,7 @@ export function getAllArticles() {
 export function getPublishedArticles(now = new Date()) {
   return getAllArticles()
     .filter((a) => isPubliclyVisibleArticle(a, now))
-    .sort(
-      (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
-    );
+    .sort(compareArticlePriority);
 }
 
 export function getArticleBySlug(slug, { includeUnpublished = false } = {}) {
@@ -3379,14 +3382,12 @@ export function mergeArticlesWithApi(apiArticles = []) {
   }
   for (const raw of apiArticles) {
     if (!raw?.slug) continue;
-    if (map.has(raw.slug) && map.get(raw.slug).curated) continue;
+    if (articles.some((article) => article.slug === raw.slug)) continue;
     const normalized = normalizeApiArticle(raw);
     if (!isPubliclyVisibleArticle(normalized)) continue;
     if (!map.has(raw.slug)) map.set(raw.slug, normalized);
   }
-  return Array.from(map.values()).sort(
-    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
-  );
+  return Array.from(map.values()).map(enhanceArticle).sort(compareArticlePriority);
 }
 
 export function getFeaturedArticles(limit = 3) {

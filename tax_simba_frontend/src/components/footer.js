@@ -169,6 +169,8 @@ const Footer = () => {
                     <TranslatedNextLink href="/check-mtd"><span><FaAngleRight /></span>Check if I need MTD</TranslatedNextLink>
                   </li>
                   <li>
+                    <TranslatedNextLink href="/landlords"><span><FaAngleRight /></span>Landlord tax help</TranslatedNextLink>
+                    </li><li>
                     <TranslatedNextLink href="/blogs"><span><FaAngleRight /></span>Blog &amp; Guides</TranslatedNextLink>
                   </li>
                   <li>

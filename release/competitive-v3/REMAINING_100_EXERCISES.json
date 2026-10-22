@@ -1,0 +1,502 @@
+{
+  "21": [
+    "Check the year before adding the income",
+    "Your latest trade receipts are £22,000, but the HMRC notice uses an earlier return. Put each year’s trade and property income on a separate line before comparing a threshold. Mixing this year’s trade receipts with last year’s rent creates a total that belongs to neither year.",
+    "Which completed return and income sources support the start date in your notice?"
+  ],
+  "22": [
+    "Reconcile a category before approving the update",
+    "Your software shows £900 of repairs, but the folder contains a £300 invoice entered twice. Reconcile the entries to evidence before approving the cumulative category totals. A complete folder of images cannot show whether a single invoice has been counted twice.",
+    "Can you trace the total back to distinct transactions for the correct business and period?"
+  ],
+  "23": [
+    "Give filing and payment their own completion dates",
+    "You approve a return on 20 January, but have no submission confirmation and have not arranged payment. Keep approval, filing and payment as three separate lines. Each needs its own evidence; marking the email approved does not finish the other two.",
+    "Which of the three tasks is complete, and who is responsible for the remaining ones?"
+  ],
+  "24": [
+    "Mark a missing document with an owner",
+    "A P60 is ready, one rental statement is missing and the savings account has not been checked. Send the available records with a short gap list. Name who will obtain each missing item and when, instead of sending a folder that appears complete.",
+    "Does your cover sheet identify missing records across every income source?"
+  ],
+  "25": [
+    "Follow one return from start to finish",
+    "You discover that your side business may need reporting. First check the filing requirement, then confirm registration, gather the correct year’s figures, review the draft, obtain filing evidence and arrange any payment. Put these tasks on a timeline so registration is not mistaken for a finished return.",
+    "What is the next unfinished step, and what evidence will show it is done?"
+  ],
+  "26": [
+    "Ask whether spending improves your finances",
+    "A £500 purchase is not a £500 tax saving. Before buying, ask whether the business needs it, whether relief is available and which year it affects. Review costs already incurred before creating new spending purely to obtain a deduction.",
+    "Would the purchase still be worthwhile after paying its cost and allowing for any actual relief?"
+  ],
+  "27": [
+    "Separate setup from ongoing work",
+    "A software subscription is active, but records are incomplete and no one has accepted the next filing. List signup, software authorisation, digital records, quarterly submissions and annual completion separately. That makes it easier to see whether the problem is access, bookkeeping or responsibility.",
+    "Which part is ready, and which still has no named person responsible?"
+  ],
+  "28": [
+    "Use an unanswered transaction to test responsibility",
+    "Your bank feed contains a £450 transfer with no explanation. The accountant cannot reliably classify it from the amount alone. Agree how you will answer record queries and when, even where the accountant handles every software submission.",
+    "Who answers a transaction query, and what happens if the answer is missing near a deadline?"
+  ],
+  "29": [
+    "Link the invoice to a usable entry",
+    "Choose one supplier invoice. Find the digital entry, check its date, amount and category, then find the supporting document again. If the entry is duplicated or cannot be traced, fix the record rather than adding another copy of the image.",
+    "Can a different person follow the evidence from document to entry to reported total?"
+  ],
+  "30": [
+    "Turn an overdue screen into a dated plan",
+    "Two businesses show outstanding work, but records are ready for only one. List the obligations separately, identify each missing period and agree a catch-up date with the filer. Keep the eventual submission confirmations so an overdue label is resolved with evidence.",
+    "Which business, period and missing records prevent the next submission?"
+  ],
+  "31": [
+    "Keep payments on account out of the earlier-year total",
+    "An illustrative £4,000 relevant bill can be accompanied by a £2,000 first payment on account, making £6,000 due in January before other adjustments. The second £2,000 instalment belongs on the July line. Do not describe the £8,000 combined payments as all being tax on one year.",
+    "Which payment settles the earlier year and which is an advance towards the next?"
+  ],
+  "32": [
+    "Match each charge to the notice",
+    "You receive a late-filing penalty and a separate late-payment charge. Record the year, type, amount and issue date for each. Filing the return deals with the missing submission, while payment and any appeal need separate action.",
+    "Have you checked the applicable regime and response deadline for each individual notice?"
+  ],
+  "33": [
+    "Check the export starts at the right date",
+    "You download July-to-September bank activity for the second update. That export alone does not explain the full cumulative totals. Keep the earlier records and check the software’s selected reporting basis before approving the update.",
+    "Does the proposed submission reconcile to the entire cumulative coverage period?"
+  ],
+  "34": [
+    "Reconcile properties before combining the business",
+    "One letting agent manages two UK flats and another manages a third. Reconcile each statement to the underlying rent, fees and ownership share before combining the relevant property-business totals. A payout from one agent is not the whole portfolio.",
+    "Are all properties, ownership shares and agent deductions represented once?"
+  ],
+  "35": [
+    "Give a personal transfer a different label",
+    "Your sole-trade account receives £700 from a customer and £500 from your savings. Keep the £500 transfer identifiable so it is not counted as another sale. Support the customer payment with the sales record and check any cash receipts separately.",
+    "Can you explain every receipt without assuming that every deposit is turnover?"
+  ],
+  "36": [
+    "Build the disagreement from documents",
+    "A notice refers to a trade that has stopped. Keep the cessation date, final accounts and relevant HMRC correspondence together. Explain which fact is wrong and what correction you are requesting, rather than replying only that your current income is lower.",
+    "Which recorded fact supports your disagreement with signup?"
+  ],
+  "37": [
+    "Use the return that drives April 2027",
+    "Prepare a 2025/26 schedule containing the relevant trade and property income before expenses, with salary kept separate. Keep it beside the April 2027 eligibility check. A later fall in income needs its own analysis rather than replacing the lookback figures.",
+    "Does your preparation use the correct assessment year and income definition?"
+  ],
+  "38": [
+    "Track the earlier return separately",
+    "Your current MTD records are up to date, but your earlier annual return is still awaiting a P60. Keep that return in the tracker until it is actually submitted. Completing updates for the new year does not report the earlier year’s employment figures.",
+    "Which annual return remains open despite the current updates being complete?"
+  ],
+  "39": [
+    "Describe the actual barrier to digital use",
+    "If a disability or lack of usable connectivity prevents digital compliance, describe the practical effect and the support already explored. Keep the application and HMRC decision. A statement that software feels difficult gives less useful evidence than the specific barrier.",
+    "What prevents compliance, what evidence supports it and what has HMRC decided?"
+  ],
+  "40": [
+    "Split the mortgage statement before calculating profit",
+    "Your mortgage payment is £900 a month, but that includes repayment of borrowing. Obtain the lender’s interest breakdown and keep it separate from rent, agent fees and repairs. Do not enter the full bank debit as a rental expense.",
+    "Can the accountant identify interest, capital and any relevant finance charges?"
+  ],
+  "41": [
+    "Check the trade and personal return together",
+    "Your business records reconcile, but a P45 and CIS statement are outside the folder. Add those documents to the personal-return pack. A correct trading-profit figure is only part of a return that must also reflect other relevant income and tax already deducted.",
+    "What information belongs on the personal return beyond the business accounts?"
+  ],
+  "42": [
+    "Keep proof of the late registration action",
+    "If you missed the notification date, record when you applied or reactivated and retain HMRC’s acknowledgement. Put any filing date in the actual notice beside the separate tax-payment date. Do not assume waiting for a reference pauses every obligation.",
+    "Which deadline comes from the notice, and which payment still needs arranging?"
+  ],
+  "43": [
+    "Prepare a realistic affordability schedule",
+    "Write down the HMRC balance, other debts, essential household costs and a monthly amount you can maintain. Distinguish a proposed payment from a plan HMRC has accepted. Keep filing work moving while discussing the debt.",
+    "What payment can you sustain, and where is HMRC’s confirmation of the arrangement?"
+  ],
+  "44": [
+    "Revisit the forecast when work returns",
+    "You forecast lower profits after losing a client, then obtain a replacement contract. Update the estimate supporting any reduction in payments on account. Keep the assumptions and dates so the claim reflects the latest position rather than an outdated cash worry.",
+    "Does the revised estimate include the replacement income and other relevant changes?"
+  ],
+  "45": [
+    "Check a finance-cost figure rather than a bank total",
+    "Your rental pack shows £8,000 of mortgage payments but no interest certificate. Ask for the lender’s breakdown before calculating finance-cost relief. Keep any brought-forward restriction schedule too, because the current bank total does not explain relief available from earlier years.",
+    "What amount is interest, and what earlier restricted costs remain available?"
+  ],
+  "46": [
+    "Show gross income and CIS credit separately",
+    "A contractor’s statement identifies gross pay and CIS deductions. Reconcile those figures to the bank receipt without treating the deduction as a second business expense. Keep the statement with the return so the tax credit can be checked separately from trading profit.",
+    "Do the gross income, deduction and net payment reconcile?"
+  ],
+  "47": [
+    "Map the years before choosing a disclosure route",
+    "Prepare one line per rental year with gross rent, costs, ownership and any return already submitted. Mark where figures are incomplete. Give the adviser the full timeline so current returns, amendments and a possible disclosure are not accidentally mixed together.",
+    "Which years were omitted, which were filed and which still need evidence?"
+  ],
+  "48": [
+    "Add the platforms before testing the allowance",
+    "You use two selling apps and also take direct orders. Add the relevant trading receipts before considering the £1,000 allowance; do not test each app as if it were an unrelated personal allowance. Keep sales of your own used possessions identifiable.",
+    "Have you separated genuine trade receipts from disposals of personal items?"
+  ],
+  "49": [
+    "Compare deductions on the same receipts",
+    "For an eligible trade with £1,600 receipts, compare the trading allowance with supported actual expenses. Keep the two calculations separate. Do not subtract both methods from the same income or assume the allowance is always the better choice.",
+    "Which permitted method gives the appropriate result for this trade and year?"
+  ],
+  "50": [
+    "Keep the original and corrected figures side by side",
+    "Record the affected year, box or schedule, original amount, corrected amount and evidence. Confirm the method used for the original filing and retain the amendment confirmation. Changing your working spreadsheet alone leaves the submitted return unchanged.",
+    "What exactly changed, how was it submitted and what calculation now appears at HMRC?"
+  ],
+  "51": [
+    "Give each tax its own reporting calendar",
+    "Your VAT period ends in June while your personal tax year ends in April. List the two services, software permissions, returns and payment dates separately. A VAT submission receipt should not be filed as evidence that an Income Tax update is complete.",
+    "Which receipt belongs to which tax and reporting obligation?"
+  ],
+  "52": [
+    "Test the spreadsheet handover with sample records",
+    "Before a deadline, ask how your workbook is imported into the compatible filing system and how errors are corrected. Test a small sample and compare the resulting totals. Sending a spreadsheet by email is not proof that the filing software has processed it or HMRC has received an update.",
+    "Can you follow one record through the agreed digital process without rekeying reported data?"
+  ],
+  "53": [
+    "Reconcile the credit before predicting a refund",
+    "List CIS deductions by contractor and tax month, then compare the supported total with the draft return. Other income and liabilities still affect the final outcome. A repayment advert based only on the deduction percentage skips that wider calculation.",
+    "Does the draft include all income and the evidenced CIS credit once?"
+  ],
+  "54": [
+    "Check the identity details behind the deduction rate",
+    "Ask the contractor which details were used for verification and compare them with your registration record. Keep the statement showing the deduction actually made. A corrected identity record is a different issue from the eventual annual tax calculation.",
+    "Which name, UTR and registration details need confirming with the contractor?"
+  ],
+  "55": [
+    "Request a named missing period",
+    "Write to the contractor identifying the tax month, payment dates and statement required. Keep the request and response. If duplicates cannot be obtained, use HMRC’s published missing-statement route rather than inventing deductions by reversing the bank payment.",
+    "Which statement is missing, what has been requested and what evidence is available instead?"
+  ],
+  "56": [
+    "Explain mixed business and private costs",
+    "A phone or vehicle is used for both work and personal activity. Keep the invoice and a reasonable record supporting the business element. The payment being made from a business account does not establish that the entire amount is an allowable trade cost.",
+    "What supports the business purpose and the private-use adjustment?"
+  ],
+  "57": [
+    "Budget for tax after deductions stop",
+    "Your contractor begins paying without CIS deductions after gross-payment approval. Keep recording the full income and set a separate plan for the tax liability. A larger bank receipt is not necessarily extra profit available to spend.",
+    "How will the tax be funded now that the contractor is not withholding it?"
+  ],
+  "58": [
+    "Check cumulative totals in a quiet period",
+    "The latest period has no new trade income or expenses, but the year already contains transactions. Confirm the cumulative totals remain consistent with those earlier records. A quiet period does not mean replacing the year-to-date figures with zeros.",
+    "Is there no new activity, or has the business actually ceased?"
+  ],
+  "59": [
+    "Allocate one shared bill only once",
+    "Two trades share a phone. Keep an explained allocation between them and any private use. Do not put the entire bill into both sets of records. Check first whether the activities are separate trades rather than inferring that from separate bank accounts.",
+    "Can each trade’s figures reconcile without duplicating the shared expense?"
+  ],
+  "60": [
+    "Keep salary out of the threshold calculation",
+    "Prepare a property-income schedule and put PAYE salary in a separate personal-income column. Salary does not become rent because it reaches the same account. Keep the P60 for the annual tax calculation even where it is excluded from the MTD qualifying-income total.",
+    "Which figures decide MTD entry, and which affect the eventual overall tax bill?"
+  ],
+  "61": [
+    "Check each owner’s position independently",
+    "Two people own the same rental property, but one also has a separate trade. Compare each person’s relevant income and ownership share. Keep the source documents consistent while checking their reporting obligations individually. One owner’s subscription does not prove the other is covered.",
+    "Does each owner have an agreed records and filing arrangement for their own position?"
+  ],
+  "62": [
+    "Use the statement before checking turnover",
+    "Your CIS bank deposits are lower than the stated income because deductions were withheld. Recover the gross figures from statements before testing MTD qualifying income. Do not use the smaller net receipts as a substitute for turnover.",
+    "Can the gross income used in the threshold check be reconciled to CIS statements?"
+  ],
+  "63": [
+    "Find the transactions a bank feed cannot explain",
+    "Choose one month and compare cash takings, platform statements, personal transfers and another business account with the feed. Mark omissions and duplicates. A successful connection message confirms a link, not complete or correctly classified records.",
+    "Which transactions are absent, netted down or still unexplained?"
+  ],
+  "64": [
+    "Keep the exit question separate from cancellation",
+    "You expect a lower-income year and want to cancel software. Recover the relevant returns and check the MTD exit conditions first. Keep the confirmed outcome before ending the process used for existing obligations.",
+    "What evidence supports the exit, and who has confirmed when reporting stops?"
+  ],
+  "65": [
+    "Reconcile chair-rent income with cash clients",
+    "You receive salon payouts and also take private appointments. Keep each source, tips and any chair-rent charges identifiable. Compare appointment records with cash and card receipts rather than assuming the salon’s net transfer is your entire income.",
+    "Are private clients and cash tips included alongside salon statements?"
+  ],
+  "66": [
+    "Ask for the director details needed this year",
+    "A director’s personal return pack should not stop at a P60 and bank transfers. Check the current employment-page questions and obtain the relevant company, dividend and shareholding details where required. Keep the company tax year separate from the personal reporting year.",
+    "Who will supply the company details and shareholding history supporting the personal return?"
+  ],
+  "67": [
+    "Keep a note of what you originally bought",
+    "Separate unwanted clothes bought for your own use from items bought to resell. Keep purchase history and a short description of the activity. A platform telling HMRC about sales does not itself classify them as a trade or decide any capital-gains position.",
+    "What evidence explains the purpose and history of the items sold?"
+  ],
+  "68": [
+    "Reconcile a platform reserve with the payout",
+    "An Etsy report includes sales not yet paid out because money is held in reserve. Keep the report, fees, refunds and later release visible. Tell the accountant the accounting method before treating the bank deposit as the sales total.",
+    "Which difference is a timing item, a fee, a refund or missing income?"
+  ],
+  "69": [
+    "Bring the old holiday-let schedules to the new return",
+    "Collect earlier capital-allowance and loss schedules alongside the 2025/26 property records. Do not simply copy the prior year’s furnished-holiday-letting calculation. Changes to the regime can make the history relevant even though the property still has the same guests.",
+    "Which earlier balances and claims need review under the post-April-2025 rules?"
+  ],
+  "70": [
+    "Give the accountant the ownership evidence",
+    "Rent arrives in one owner’s account, but the property is jointly held. Supply the ownership documents and relationship between the owners before deciding the reporting split. An informal agreement about who spends the rent is not sufficient evidence of its tax treatment.",
+    "What legal or beneficial ownership evidence supports the proposed shares?"
+  ],
+  "71": [
+    "Separate one building project into its real parts",
+    "A contractor invoice covers repainting, replacing a broken fitting and adding an extension. Ask for the work to be itemised, with before-and-after descriptions. A single payment can contain different kinds of expenditure that should not be forced into one expense label.",
+    "Can the cost of each distinct repair, replacement or improvement be evidenced?"
+  ],
+  "72": [
+    "Add the interest across relevant accounts",
+    "Collect annual interest statements for each relevant account, including accounts outside the main bank. Keep the account type and gross interest identifiable. A bank reporting information to HMRC does not ensure the accountant has the complete figures for your return.",
+    "Which accounts are included, and which interest belongs in the reporting calculation?"
+  ],
+  "73": [
+    "Record hours as well as household costs",
+    "For a representative month, note home-working hours and keep the relevant bills. Compare the eligible methods using the same period. Do not combine a simplified household-cost claim with the same actual household costs again. Phone and internet need their own assessment.",
+    "What record supports the chosen method and prevents duplicate costs?"
+  ],
+  "74": [
+    "Recover last year’s vehicle method first",
+    "Before comparing this year’s mileage and bills, locate the earlier vehicle claim and purchase history. A larger number from a new calculation does not establish that switching is allowed. Keep eligible business-mile records and actual costs so the permitted method can be checked.",
+    "Which method is already in use for this vehicle, and which tax-year rates apply?"
+  ],
+  "75": [
+    "Match mortgage evidence to the filed figures",
+    "The lender requests two tax years, but the latest return was amended. Obtain the relevant tax calculations and overviews, checking the years and updated figures. A draft prepared before amendment can conflict with the HMRC record and delay the application.",
+    "Do all requested documents relate to the correct years and the final filed position?"
+  ],
+  "76": [
+    "Check the reason for filing beyond salary",
+    "Your employment income is fully under PAYE, but you also have savings, dividends or a notice to file. Use the current checker with the whole picture. Do not decide the filing position from salary alone or from an old salary threshold in another guide.",
+    "What other income, charge or HMRC notice affects the reporting requirement?"
+  ],
+  "77": [
+    "Create a replacement-evidence log",
+    "For a lost receipt, record the supplier, date, amount, purpose and evidence requested. Attach a duplicate invoice or other reliable support if obtained. Mark unresolved items openly for the accountant rather than inserting a round-number expense with no explanation.",
+    "Which amount is evidenced and which remains an estimate needing review?"
+  ],
+  "78": [
+    "Review both partners’ relevant income",
+    "Gather the Child Benefit figures and relevant income information before deciding who has a charge and how it is reported. Keep pension and donation evidence available where they affect adjusted net income. A PAYE route for the charge does not resolve an unrelated notice to file.",
+    "Has the whole reporting position been checked before deciding to leave Self Assessment?"
+  ],
+  "79": [
+    "Identify the pension method from the evidence",
+    "A payslip and a private pension statement describe contributions differently. Label which amounts are relief at source, net pay or salary sacrifice before supplying a total. Adding every displayed figure can deduct the same contribution twice.",
+    "What method applies to each payment, and which figure belongs in the tax calculation?"
+  ],
+  "80": [
+    "Record the value of both sides of a swap",
+    "Keep the time, tokens exchanged, GBP value, fees and acquisition history when swapping one token for another. A wallet showing no withdrawal to a bank does not remove the need to review disposals. Transfers between your own wallets need identifying separately.",
+    "Can the transaction be traced without treating every wallet movement as a new purchase or sale?"
+  ],
+  "81": [
+    "Check the basis already used in software",
+    "Before comparing an export with an update, recover the first submission and the selected standard or calendar basis. A period ending on 30 September is not interchangeable with one ending on 5 October. Keep the same basis visible throughout the year.",
+    "Which reporting basis does the existing submission evidence show?"
+  ],
+  "82": [
+    "Plan for the limit before simplifying categories",
+    "If turnover is close to the applicable limit, keep enough detail to support fuller categories. A single total may save time today but create reconstruction work if eligibility changes. Check the relevant source and conditions rather than assuming all personal income shares one test.",
+    "Could the records still support the required categories if the turnover limit is reached?"
+  ],
+  "83": [
+    "Keep the trade and property receipt trails distinct",
+    "A customer pays the trade while a tenant pays rent into the same account. Identify both sources and any transfers before producing the required business summaries. Adding sources for eligibility does not mean combining unrelated totals into one quarterly update.",
+    "Can each required business update be reconciled to its own records?"
+  ],
+  "84": [
+    "Name the person who closes the annual return",
+    "A bookkeeper has supporting-agent access and an accountant handles the annual position. Record who supplies missing information and who obtains final approval. Keep that agreement beside the permissions so a completed update is not mistaken for annual-return responsibility.",
+    "Who is the main agent responsible for the final return, and what remains with the supporting agent?"
+  ],
+  "85": [
+    "Explain the difference between three tax figures",
+    "Your software shows an in-year estimate, the draft annual calculation shows another amount and the HMRC account shows a balance after payments. Compare their dates and what they include. They can describe different stages rather than a single unexplained software error.",
+    "Which figure is an estimate, which is total liability and which is still payable?"
+  ],
+  "86": [
+    "Do not use partnership turnover as personal turnover",
+    "Keep the partnership statement separate from any personal sole trade and rental records. The partnership’s gross receipts are not automatically the individual partner’s personal trading receipts for MTD entry. The wider annual return still needs the relevant partnership information.",
+    "Which activity is a partnership and which is a separate personal business?"
+  ],
+  "87": [
+    "Keep company receipts out of a personal trade",
+    "A company receives sales revenue and pays its director salary or dividends. Do not relabel the company’s sales as the director’s personal sole-trade turnover. Check any separately owned rental property or genuine personal trade on its own facts.",
+    "Which taxpayer earned each amount: the company or the individual?"
+  ],
+  "88": [
+    "Start a new-source file without assuming an immediate update",
+    "Record the new source’s actual start date and keep its transactions identifiable. If you are already in MTD, check HMRC’s rules for when digital-record and quarterly duties start for that new source. An existing subscription alone does not answer that timing question.",
+    "When is the new source first included in a return, and when do its MTD record duties start?"
+  ],
+  "89": [
+    "Reconcile the agent’s deductions explicitly",
+    "An agent receives £1,200 rent, keeps £120 in fees and pays £1,080 to you. The statement explains gross income of £1,200 and a separate £120 fee. Recording £1,080 rent and deducting £120 again counts the charge twice.",
+    "Does the gross rent less each identified deduction equal the payout?"
+  ],
+  "90": [
+    "Decide whether early entry fits your records",
+    "Before volunteering, test one month of complete records and agree who will maintain them. Check software support, applicable filing duties and the route if circumstances later change. Treat the choice as a reporting commitment rather than a demonstration account.",
+    "What practical benefit justifies starting early, and who will complete the work?"
+  ],
+  "91": [
+    "Put April 2028 preparation against the right year",
+    "Keep a 2026/27 schedule of relevant gross trade and property income for the April 2028 phase. Record the expected start separately from your current obligations. A future threshold should not be used to infer that an identical duty already applies today.",
+    "Which year’s income supports the future start-date check?"
+  ],
+  "92": [
+    "Test whether a photo became one correct record",
+    "Open one receipt image and locate the resulting entry. Check that OCR has not read the date or amount incorrectly, and that a matching bank import did not create a duplicate. Keep the image as evidence linked to the agreed entry.",
+    "Is there exactly one supported transaction for this receipt?"
+  ],
+  "93": [
+    "Keep a useful failure record",
+    "Record the attempted filing time, affected business, obligation, error message and support reference. Check whether authorisation, local connectivity or HMRC service status explains it. Keep the eventual successful submission separately; a support ticket alone does not prove the filing finished.",
+    "Who owns the fault investigation and when will submission success be verified?"
+  ],
+  "94": [
+    "Allocate each dividend to its actual tax year",
+    "A company statement spans March and April. List payment dates and vouchers instead of applying one year’s rates to the whole statement. Keep dividends from other holdings visible too, because the tax calculation concerns the person’s combined income.",
+    "Which dividend belongs in 2025/26 and which belongs in 2026/27?"
+  ],
+  "95": [
+    "Reconcile payroll loan deductions separately",
+    "Collect the P60 or payslip evidence of student and postgraduate loan deductions and identify the relevant plans. Keep those figures separate from PAYE Income Tax. Otherwise the return can miss a repayment already made or mislabel it as ordinary tax.",
+    "Are all payroll repayments and applicable loan types included in the review?"
+  ],
+  "96": [
+    "Use profit and the correct contribution year",
+    "Keep the tax-adjusted trade profit calculation and any information relevant to contribution status. Bank drawings, turnover and profit are different amounts. Before using a National Insurance rate, check that it belongs to the return year being prepared.",
+    "Which profit figure and tax-year rules support the contribution calculation?"
+  ],
+  "97": [
+    "Follow one invoice across the year end",
+    "An invoice is issued before 5 April but paid afterwards. Keep the invoice and receipt dates visible so the accounting method determines the reporting year. When changing methods, check the transition so the same amount is neither omitted nor counted twice.",
+    "Which method applies, and was the amount already brought into an earlier calculation?"
+  ],
+  "98": [
+    "Compare relief routes using the actual tax years",
+    "Keep the supported loss beside other income and tax paid for the relevant years. Compare the available claims and their effect on allowances before choosing one. Record the amount used and balance remaining so later returns do not claim the same loss again.",
+    "Which route is eligible, what is its deadline and what loss remains afterwards?"
+  ],
+  "99": [
+    "Keep a closure list beyond the last sale",
+    "Record the cessation date, unpaid invoices, remaining stock or equipment and outstanding returns. Check any MTD duties and transition balances separately. Stopping customer work does not automatically close every tax task or remove another source of reportable income.",
+    "Which final receipts, asset matters and reporting obligations remain open?"
+  ],
+  "100": [
+    "Keep the agreement behind a non-cash payment",
+    "A brand provides a product in exchange for a post. Keep the agreement, product details and valuation evidence with cash sponsorship and affiliate records. The absence of a bank receipt does not establish that the arrangement has no tax relevance.",
+    "What was provided, what work was agreed and what evidence supports the value?"
+  ],
+  "101": [
+    "Reconcile tutoring platforms with private lessons",
+    "Keep platform statements, direct lesson fees, cancellations and refunds together, but distinguish any employed teaching role. Gross fees and net platform payouts answer different questions. A full appointment record helps identify cash lessons missing from bank deposits.",
+    "Can lesson income be reconciled across platforms, direct clients and employment?"
+  ],
+  "102": [
+    "Explain prepaid coaching and refunds",
+    "Keep the terms and dates of prepaid coaching packages, sessions delivered and refunds. Tell the accountant the accounting method and any gym employment arrangement. Do not assume the same treatment applies to every payment simply because all the work is fitness related.",
+    "What evidence explains the nature and timing of each kind of receipt?"
+  ],
+  "103": [
+    "Reconcile the cash kept outside the bank",
+    "A client pays cash and some is used to buy cleaning supplies before the remainder is deposited. Record the full customer receipt and the supported supplies cost separately. The smaller bank deposit alone cannot explain either figure.",
+    "Does the income log include cash spent before it reached the bank?"
+  ],
+  "104": [
+    "Add related charges to the lodger records",
+    "Keep the accommodation agreement and receipts for rent and related services together. Record who else receives income from accommodation in the same home. The payment labelled rent may not be the entire relevant receipt or decide the applicable relief limit.",
+    "What gross receipts and shared-income arrangements need checking?"
+  ],
+  "105": [
+    "Keep the old item with the new invoice",
+    "When replacing an appliance, note what it replaced, why it was replaced, any upgrade element and any amount recovered from selling the old item. A new invoice alone cannot establish whether it is an initial furnishing, replacement or improvement.",
+    "What evidence supports the qualifying replacement amount?"
+  ],
+  "106": [
+    "Build a dated record of the letting gap",
+    "Keep the previous tenancy end, marketing evidence, repair dates, private use and next tenancy start together. This explains whether costs arose during a continuing letting business or a different period. A blank rental bank statement does not establish the answer.",
+    "What was happening to the property when each cost arose?"
+  ],
+  "107": [
+    "Reconcile rent before and after withholding",
+    "Ask for agent statements and tax certificates showing gross rent, fees and any withholding. Keep permission for gross payment if held. The net transfer cannot show whether tax was withheld, while gross-payment approval does not settle the final annual liability.",
+    "Which tax has already been paid and what reporting remains?"
+  ],
+  "108": [
+    "Create a residence and source timeline",
+    "List residence history and foreign income by source, country and date, keeping foreign tax evidence alongside it. Flag earlier remittance-basis history separately. A total bank transfer to the UK cannot replace the facts needed to assess the income or a FIG claim.",
+    "Which residence years, sources and transitional facts require specialist review?"
+  ],
+  "109": [
+    "Recover acquisition history before trusting the app gain",
+    "An investment account shows sale proceeds but the shares were transferred in from another broker. Obtain the earlier acquisition and corporate-action records. The new app may not hold the history required for a UK tax calculation.",
+    "Can the disposal be traced to the full relevant holding history across accounts?"
+  ],
+  "110": [
+    "Keep calendar reporting separate from the UK return",
+    "A provider’s CARF information covers a calendar year, while your personal tax records use UK tax years. Keep a transaction-level export so the periods can be reconciled. Waiting for the provider’s first report does not prepare your own return.",
+    "Can the same transaction be assigned correctly to both reporting periods?"
+  ],
+  "111": [
+    "Keep the payment and recovery route identifiable",
+    "Record the Winter Fuel Payment, the relevant year and the recovery information HMRC provides. If preparing a return, check that the correct-year treatment is used. A payment appearing in the bank does not itself show whether recovery occurs through PAYE or another route.",
+    "Which year and HMRC recovery method apply to this particular payment?"
+  ],
+  "112": [
+    "Distinguish a credit from a completed repayment",
+    "Keep the return calculation, repayment request, HMRC account status and bank receipt as separate evidence. A credit can still be under review or set against another liability. Before chasing, identify the last completed stage and use the current official enquiry route.",
+    "Has repayment actually been issued, or is the account only showing a credit?"
+  ],
+  "113": [
+    "Separate the donation paid from its gross figure",
+    "For a £100 eligible Gift Aid donation, record the £100 paid separately from the generally £125 gross amount. Keep payroll giving outside that ordinary Gift Aid total. Entering both as separate donations would overstate what was given.",
+    "Which payments qualify, and what evidence supports the figure used?"
+  ],
+  "114": [
+    "Reconcile entitlement with the tax-year boundary",
+    "State Pension bank credits can straddle the tax-year boundary. Keep the entitlement information and relevant dates rather than relying solely on deposits received between April dates. Give the accountant other pensions and taxable income as well.",
+    "Which amount is attributable to the tax year under the applicable reporting rules?"
+  ],
+  "115": [
+    "Keep confirmation that the return is no longer required",
+    "If the income source has stopped, list remaining income, gains and any notices before asking HMRC to remove the filing requirement. Retain the response for the specific year. Stopping an accountancy subscription is not confirmation that HMRC withdrew the return.",
+    "Which year has HMRC confirmed, and what older obligations remain?"
+  ],
+  "116": [
+    "Reconcile the notice to records already filed",
+    "Put the P800 or PA302 beside the relevant income documents, tax paid and any Self Assessment calculation for that year. Identify the exact mismatch before contacting HMRC. Paying both figures without checking can conceal a duplicate assessment issue.",
+    "What income or payment differs, and which notice process applies?"
+  ],
+  "117": [
+    "Split the finance payment into its components",
+    "A £300 repayment comprises £250 principal and £50 interest. Keep the agreement and identify the components before reviewing the business-interest treatment. Keep the purchase invoice separately so the asset is not claimed again through repayments of its borrowing.",
+    "Which entries represent the asset, repayment of debt and possible finance expense?"
+  ],
+  "118": [
+    "Reconcile the transition-profit balance annually",
+    "Recover the original transition profit, amounts taxed in each year and any acceleration elections. Compare the remaining balance with the prior return before preparing the next allocation. A new accountant cannot reconstruct that history from current-year bank deposits alone.",
+    "Does the schedule explain the original amount, amounts already taxed and balance remaining?"
+  ],
+  "119": [
+    "Explain why a pre-start cost relates to the trade",
+    "For each earlier cost, record the date, supplier, purpose, trade-start date and any private or capital element. Keep the evidence rather than labelling every purchase before the first sale as startup expenses. Training and equipment can need their own assessment.",
+    "Would the cost qualify under the relevant conditions rather than merely fall within seven years?"
+  ],
+  "120": [
+    "Track the asset and the financing separately",
+    "Keep the item’s invoice, business-use evidence, purchase date, finance agreement and later disposal together. The accounting method affects the tax route, while loan principal and the asset purchase are not two separate deductions for the same cost.",
+    "Can the accountant follow the item from purchase through use to disposal without duplicate claims?"
+  ]
+}

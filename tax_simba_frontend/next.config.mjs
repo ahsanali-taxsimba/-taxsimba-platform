@@ -57,6 +57,7 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      { source: "/services/rental-income-tax-returns", destination: "/rental-income-service", permanent: true },
       {
         source: '/blog-details',
         destination: '/blogs/understanding-self-assessment-uk',

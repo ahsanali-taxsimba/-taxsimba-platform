@@ -1,0 +1,822 @@
+[
+  {
+    "id": "seo-next38-mtd-accountant-cost",
+    "slug": "mtd-accountant-cost",
+    "title": "How Much Does an MTD Accountant Cost? What to Compare Before You Buy",
+    "excerpt": "An MTD price only makes sense when you know which jobs it covers. A software subscription, quarterly filing service and accountant-managed package can involve very different responsibilities.",
+    "metaTitle": "MTD Accountant Cost: Fees and What’s Included | TaxSimba",
+    "metaDescription": "Compare MTD accountant fees, software, bookkeeping, quarterly updates and annual returns. See what to ask before choosing a managed service.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/mtd-accountant-cost-960.webp",
+    "featuredImageAlt": "A client examines a price tag while an accountant explains the records and filing work included in a service.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "mtd-accountant-or-agent"
+    ],
+    "relatedPages": [
+      {
+        "href": "/mtd-information",
+        "label": "Compare current MTD packages"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — choose the right software for making tax digital for income tax",
+        "url": "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — choose agents for making tax digital for income tax",
+        "url": "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 39,
+    "researchCheckedAt": "2026-10-20",
+    "content": "<p>An MTD price only makes sense when you know which jobs it covers. A software subscription, quarterly filing service and accountant-managed package can involve very different responsibilities.</p>\n<h2>Compare the work, not just the monthly number</h2>\n<p>Ask who maintains your records, checks transactions, sends quarterly updates and prepares the annual Income Tax return. Check whether software is included and whether the advertised price covers one business, several trades or rental income. A low entry price is less useful if you still need to arrange the work you expected someone else to handle.</p>\n<h2>Check TaxSimba’s current packages</h2>\n<p>Compare the current <a href=\"/mtd-information\">TaxSimba MTD packages</a> and confirm the fee, payment frequency and service scope before purchasing. Ask whether the quote covers maintaining records, quarterly updates and the annual return for the same tax year, and whether the number of trades or rental sources changes the price. Keep the agreed package details with your records.</p>\n<h2>Ask about work from earlier periods</h2>\n<p>Joining after the tax year begins can involve records or submissions that need separate attention. Tell the provider what has already been done and obtain agreement on any additional charge before work starts.</p>\n<p>Make a short comparison with four columns: ongoing fee, included tasks, your responsibilities and additional work. That is a more useful buying decision than choosing the smallest headline price.</p>\n<h2>A useful comparison example</h2>\n<p>Suppose one quote covers software access and another covers software plus maintaining records. Even if the first is cheaper, you still need to budget time or money for the bookkeeping. Write down the tasks you would otherwise have to do yourself before deciding which offers better value.</p>\n<h2>Questions to ask before paying</h2>\n<p>Does the price include the annual return for the same MTD tax year? Who deals with missing records? Are earlier periods included? How many businesses or properties are covered? When does the service start? Keep the answers with your purchase details.</p>\n<h2>Is a monthly fee the same as paying tax monthly?</h2>\n<p>No. The service fee pays for the work described in your engagement. Income Tax paid to HMRC is separate. For an illustrative fee of £29.99 a month, twelve payments total £359.88. This example is arithmetic, not a current TaxSimba quote or confirmation of an annual commitment. Check the live offer and payment terms.</p>\n<p><strong>Next step:</strong> Compare TaxSimba’s current MTD packages and tell us about your business and any earlier submissions.</p>",
+    "editorialStatus": "final-copy",
+    "wordCount": 394,
+    "targetQuery": "MTD accountant cost",
+    "priority": "P1",
+    "differentiation": "Commercial comparison; existing agent article explains delegation rather than fees.",
+    "iconKey": "digital-tax",
+    "contentType": "Answer guide",
+    "readingMinutes": 2,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "Compare the work behind the price.",
+    "query": "MTD accountant cost",
+    "answer": "The fee depends on who keeps your records, sends your quarterly updates and prepares your annual return. Compare those jobs, the businesses covered and any catch-up charges before comparing prices.",
+    "alt": "A client examines a price tag while an accountant explains the records and filing work included in a service.",
+    "details": [
+      "Ask for a written list of bookkeeping, software, quarterly updates and annual-return work included in the quoted fee.",
+      "Confirm who checks and sends each update, and whether more than one business or rental source changes the price.",
+      "Describe earlier periods, missing records and corrections before paying; ask for the scope and price of extra work."
+    ],
+    "premiumReady": true,
+    "artwork": {
+      "slug": "mtd-accountant-cost",
+      "src": "/images/articles/mtd-accountant-cost-960.webp",
+      "srcSet": "/images/articles/mtd-accountant-cost-480.webp 480w, /images/articles/mtd-accountant-cost-960.webp 960w, /images/articles/mtd-accountant-cost-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": 1,
+    "checklist": [
+      "Confirm what the fee includes",
+      "Check who completes quarterly updates",
+      "Ask what triggers an extra charge"
+    ]
+  },
+  {
+    "id": "seo-next38-self-assessment-accountant-cost",
+    "slug": "self-assessment-accountant-cost",
+    "title": "How Much Does a Self Assessment Accountant Cost? Compare the Full Service",
+    "excerpt": "The right Self Assessment fee depends on the work you need, not simply the number of pages in a return. Before choosing an accountant, ask what the price covers and what could be additional.",
+    "metaTitle": "Self Assessment Accountant Cost and Fees | TaxSimba",
+    "metaDescription": "Compare Self Assessment accountant fees and what they cover, from preparation and review to filing, extra income sources and specialist calculations.",
+    "category": "Self Assessment",
+    "audience": "individual-taxpayers",
+    "tags": [
+      "sa",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/self-assessment-accountant-cost-960.webp",
+    "featuredImageAlt": "A business owner and accountant compare income records and the scope of a tax-return service.",
+    "ctaType": "SA",
+    "relatedSlugs": [
+      "understanding-self-assessment-uk"
+    ],
+    "relatedPages": [
+      {
+        "href": "/pricing",
+        "label": "Compare current Self Assessment packages"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — check if you need tax return",
+        "url": "https://www.gov.uk/check-if-you-need-tax-return"
+      },
+      {
+        "label": "GOV.UK — legal financial",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed/legal-financial"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 55,
+    "researchCheckedAt": "2026-10-20",
+    "content": "<p>The right Self Assessment fee depends on the work you need, not simply the number of pages in a return. Before choosing an accountant, ask what the price covers and what could be additional.</p>\n<h2>Compare preparation, review and submission</h2>\n<p>Check whether the accountant prepares the return, reviews your information and submits it after your approval. Ask how questions are handled and whether expenses, allowances or multiple income sources require a different package.</p>\n<p>A fee for filing an individual return is not automatically a fee for business bookkeeping, a company return or a separate Capital Gains Tax report. Describe the work before paying.</p>\n<h2>Check TaxSimba’s current prices</h2>\n<p>Use <a href=\"/pricing\">TaxSimba’s current Self Assessment pricing</a> to compare the fee and work included. Confirm which tax year and income sources the selected package covers, what review and submission work is included and whether any additional calculation needs a separate quote. Keep the agreed scope and price with your purchase details.</p>\n<h2>Ask about complexity early</h2>\n<p>Tell the accountant about rental income, overseas matters, cryptoassets, disposals and previous errors. A lower advertised fee should not be taken as confirmation that every specialist calculation is included.</p>\n<p>Compare the total agreed cost and your own time commitment. An accountant who explains missing information before starting can be more useful than a headline discount with unclear scope.</p>\n<h2>A useful comparison checklist</h2>\n<p>Ask each provider to confirm the tax year, income sources covered, preparation and submission work, communication method and treatment of additional calculations. Comparing these answers is more useful than comparing the largest advertised discount.</p>\n<h2>Is the accountant’s fee deductible?</h2>\n<p>HMRC distinguishes business accountancy costs from the cost of preparing and submitting a personal Self Assessment return, which it lists as a cost you cannot claim. If one invoice covers different jobs, give the work description to your accountant so any allowable business element can be assessed separately.</p>\n<h2>Does a low price guarantee a refund?</h2>\n<p>No. A refund depends on the actual tax position, including income, allowable costs, reliefs and tax already paid. The value of the service is correct preparation and agreed support, not a promise to manufacture a repayment.</p>\n<p><strong>Next step:</strong> Review TaxSimba’s current SA packages and describe your income sources so the appropriate service can be confirmed.</p>",
+    "editorialStatus": "final-copy",
+    "wordCount": 374,
+    "targetQuery": "self assessment accountant cost",
+    "priority": "P1",
+    "differentiation": "High-intent price guide; no equivalent in original 38.",
+    "iconKey": "accountant",
+    "contentType": "Answer guide",
+    "readingMinutes": 2,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "Know what your tax-return fee covers.",
+    "query": "Self Assessment accountant cost",
+    "answer": "A useful quote identifies the tax year, income sources, preparation, review and filing included. Bookkeeping, company returns and separate Capital Gains Tax reports may need a different agreement.",
+    "alt": "A business owner and accountant compare income records and the scope of a tax-return service.",
+    "details": [
+      "List employment, business, rental and other relevant income, and identify the tax year you need help with.",
+      "Ask whether the quoted fee includes preparation, your review, submission and answers to follow-up questions.",
+      "Check how specialist calculations, missing information and previous errors are priced before comparing providers."
+    ],
+    "premiumReady": true,
+    "artwork": {
+      "slug": "self-assessment-accountant-cost",
+      "src": "/images/articles/self-assessment-accountant-cost-960.webp",
+      "srcSet": "/images/articles/self-assessment-accountant-cost-480.webp 480w, /images/articles/self-assessment-accountant-cost-960.webp 960w, /images/articles/self-assessment-accountant-cost-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": 2,
+    "checklist": [
+      "List every income source",
+      "Confirm the filing and advice included",
+      "Compare like-for-like annual service"
+    ]
+  },
+  {
+    "id": "seo-next38-join-mtd-service-mid-year",
+    "slug": "join-mtd-service-mid-year",
+    "title": "Joining an MTD Service Mid-Year: What Happens to Earlier Quarters?",
+    "excerpt": "Joining an MTD service during the tax year does not, by itself, explain what happened to earlier updates. Your new accountant needs a starting position before deciding what work remains.",
+    "metaTitle": "Join an MTD Service Mid-Year: Earlier Updates | TaxSimba",
+    "metaDescription": "Joining an MTD service mid-year? Prepare your earlier records and submission history, check outstanding updates and agree any catch-up work before paying.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/join-mtd-service-mid-year-960.webp",
+    "featuredImageAlt": "A business owner and accountant organise earlier receipts alongside a trail of reporting calendars.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "missed-mtd-quarterly-update"
+    ],
+    "relatedPages": [
+      {
+        "href": "/mtd-information",
+        "label": "Compare current MTD packages"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — create digital records",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      },
+      {
+        "label": "GOV.UK — choose agents for making tax digital for income tax",
+        "url": "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 42,
+    "researchCheckedAt": "2026-10-20",
+    "content": "<p>Joining an MTD service during the tax year does not, by itself, explain what happened to earlier updates. Your new accountant needs a starting position before deciding what work remains.</p>\n<h2>Separate three situations</h2>\n<p>Earlier updates may already have been submitted correctly. They may have been submitted but need review. Or they may still be outstanding. These situations involve different work and should not automatically receive the same quote.</p>\n<p>Prepare a list of the update periods, whether each was submitted, who handled it and where the underlying records are kept. If you are unsure, say so. A guess can create avoidable work later.</p>\n<h2>What happens at TaxSimba</h2>\n<p>When arranging TaxSimba support, identify the update periods already submitted for the tax year you need help with. Share the confirmations and underlying year-to-date records. Your own description of a previous submission is useful starting information, but it is not independent proof that HMRC received it.</p>\n<p>If earlier work needs correction, ask the accountant to explain the proposed work and whether it is included or separately charged. Agree that scope before authorising additional work, and retain confirmation of what is eventually submitted.</p>\n<h2>Ask about the full starting cost</h2>\n<p>Get a clear distinction between the ongoing subscription and any separately agreed catch-up or correction work. Do not assume a new monthly subscription clears every previous obligation.</p>\n<h2>Example: Q1 and Q2 already filed</h2>\n<p>If you join before Q3 after Q1 and Q2 were filed, give the incoming accountant the earlier confirmations and the records from the tax-year start. The next cumulative update still needs the year-to-date position; earlier records do not become irrelevant because the first two updates were sent.</p>\n<h2>What if I selected the wrong quarter?</h2>\n<p>Tell the assigned accountant promptly. Do not try to solve the issue by buying another package or making a duplicate submission. The declaration and work allocation should be checked first.</p>\n<h2>Does a payment unlock amend HMRC’s records?</h2>\n<p>No. An unlock permits work inside the service workflow. The accountant must then choose the appropriate correction or filing action using compatible software. Ask what has actually been submitted and retain the relevant confirmation rather than treating an unlocked dashboard card as proof.</p>\n<p><strong>Next step:</strong> Have your submission history and records ready when choosing a package, and ask for any additional work to be explained before payment.</p>",
+    "editorialStatus": "final-copy",
+    "wordCount": 382,
+    "targetQuery": "join MTD service mid year catch up",
+    "priority": "P1",
+    "differentiation": "Buying and onboarding mechanics; existing missed-update guide covers compliance response.",
+    "iconKey": "calendar",
+    "contentType": "Answer guide",
+    "readingMinutes": 2,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "Start with a clear picture of the work already done.",
+    "query": "join MTD service mid year",
+    "answer": "Bring your records from the start of the tax year and the history of updates already sent. Agree who handles the next deadline and whether earlier missing or incorrect work needs a separate fee.",
+    "alt": "A business owner and accountant organise earlier receipts alongside a trail of reporting calendars.",
+    "details": [
+      "Collect records from the tax-year start, including earlier periods that another accountant handled.",
+      "List each reporting period, whether it was submitted, who sent it and where the confirmation is stored.",
+      "Ask the incoming accountant to confirm the next deadline, their responsibilities and the price of any catch-up work."
+    ],
+    "premiumReady": true,
+    "artwork": {
+      "slug": "join-mtd-service-mid-year",
+      "src": "/images/articles/join-mtd-service-mid-year-960.webp",
+      "srcSet": "/images/articles/join-mtd-service-mid-year-480.webp 480w, /images/articles/join-mtd-service-mid-year-960.webp 960w, /images/articles/join-mtd-service-mid-year-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": 3,
+    "checklist": [
+      "Gather records from the tax-year start",
+      "Check earlier update periods",
+      "Agree who submits the next update"
+    ]
+  },
+  {
+    "id": "seo-next38-switch-mtd-accountant-mid-year",
+    "slug": "switch-mtd-accountant-mid-year",
+    "title": "Can I Switch MTD Accountants Halfway Through the Tax Year?",
+    "excerpt": "You can explore changing your MTD accountant during the year, but a good handover matters more than the date you move. The incoming accountant needs to understand both the records and the work already submitted.",
+    "metaTitle": "Switch MTD Accountant Mid-Year: Handover | TaxSimba",
+    "metaDescription": "Switching MTD accountants during the year? Use a handover checklist for digital records, submission history, agent permissions and the next filing deadline.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/switch-mtd-accountant-mid-year-960.webp",
+    "featuredImageAlt": "Two accountants hand over a closed records folder while their client oversees the transfer.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "mtd-accountant-or-agent"
+    ],
+    "relatedPages": [
+      {
+        "href": "/mtd-information",
+        "label": "Compare current MTD packages"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — choose agents for making tax digital for income tax",
+        "url": "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — authorising an agent to deal with your tax affairs",
+        "url": "https://www.gov.uk/guidance/authorising-an-agent-to-deal-with-your-tax-affairs"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 41,
+    "researchCheckedAt": "2026-10-20",
+    "content": "<p>You can explore changing your MTD accountant during the year, but a good handover matters more than the date you move. The incoming accountant needs to understand both the records and the work already submitted.</p>\n<h2>Start with a clear handover list</h2>\n<p>Ask your current accountant for the digital records, submission history, reporting periods and any outstanding queries. Request an explanation of how you can export or retain access to the records. Access to an HMRC account alone is not a replacement for the bookkeeping behind it.</p>\n<p>HMRC supports different agent roles for MTD. The relevant authorisations must match the work your new accountant is taking over. Do not assume that ending a commercial arrangement automatically updates every permission.</p>\n<h2>Agree who owns the next deadline</h2>\n<p>Before transferring, write down which firm will complete the next update and which will prepare the annual return. Avoid an arrangement where each believes the other is filing. Tell the incoming accountant about any previous corrections or incomplete periods.</p>\n<p>TaxSimba asks which quarters have already been submitted so the assigned accountant can review the starting position. A client-declared previous submission is different from work filed by TaxSimba.</p>\n<h2>Check the commercial arrangements</h2>\n<p>Ask about notice requirements, unpaid fees and any charge for reviewing earlier work. If corrections are needed, agree the scope and price before authorising them.</p>\n<h2>Example: moving after the second update</h2>\n<p>If the first two updates have been filed, the new accountant still needs the records from the start of the tax year. The third update is cumulative, so starting with only the latest three months can leave the new firm without a complete picture.</p>\n<h2>Can two accountants both be involved?</h2>\n<p>Different agent arrangements can be possible, but responsibilities need to be explicit. Name who maintains the records, who sends the next update and who finalises the annual return. Avoid asking both firms to submit the same work.</p>\n<h2>Will switching correct old errors automatically?</h2>\n<p>No. A handover transfers information and responsibilities. Reviewing or correcting earlier work is a separate question. Ask the incoming accountant to identify any concerns, explain the proposed work and confirm any extra fee before it starts.</p>\n<p><strong>Next step:</strong> Contact TaxSimba with your current reporting periods, submitted updates and available records so the handover can be assessed before you commit.</p>",
+    "editorialStatus": "final-copy",
+    "wordCount": 378,
+    "targetQuery": "switch MTD accountant mid year",
+    "priority": "P1",
+    "differentiation": "Transfer and continuity; distinct from choosing an agent.",
+    "iconKey": "digital-tax",
+    "contentType": "Answer guide",
+    "readingMinutes": 2,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "A clear handover protects the next deadline.",
+    "query": "switch MTD accountant mid year",
+    "answer": "A mid-year switch needs complete records, submission history and the right agent authorisations. Agree in writing who sends the next update and who prepares the annual return.",
+    "alt": "Two accountants hand over a closed records folder while their client oversees the transfer.",
+    "details": [
+      "Request digital records, reporting periods, submission confirmations and unresolved queries from your current accountant.",
+      "Confirm the new accountant has the appropriate authority and ask which existing permissions need changing.",
+      "Record which firm owns the next update and annual return, plus any notice period or charge for earlier work."
+    ],
+    "premiumReady": true,
+    "artwork": {
+      "slug": "switch-mtd-accountant-mid-year",
+      "src": "/images/articles/switch-mtd-accountant-mid-year-960.webp",
+      "srcSet": "/images/articles/switch-mtd-accountant-mid-year-480.webp 480w, /images/articles/switch-mtd-accountant-mid-year-960.webp 960w, /images/articles/switch-mtd-accountant-mid-year-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": 4,
+    "checklist": [
+      "Download your records",
+      "Confirm agent authorisation",
+      "Set a clear handover date"
+    ]
+  },
+  {
+    "id": "seo-next38-mtd-quarterly-updates-tax-payments",
+    "slug": "mtd-quarterly-updates-tax-payments",
+    "title": "Does MTD Mean Paying Income Tax Every Quarter?",
+    "excerpt": "Quarterly MTD updates are not automatically quarterly tax bills. Reporting your business information and paying your Income Tax are separate parts of the process.",
+    "metaTitle": "Does MTD Mean Quarterly Income Tax Payments? | TaxSimba",
+    "metaDescription": "MTD quarterly updates report your records; they are not automatically tax bills. Understand estimates, annual returns and separate Income Tax payment dates.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/mtd-quarterly-updates-tax-payments-960.webp",
+    "featuredImageAlt": "A sole trader and accountant separate a reporting calendar from a savings jar used to budget for tax.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "payments-on-account-explained"
+    ],
+    "relatedPages": [
+      {
+        "href": "/mtd-information",
+        "label": "Compare current MTD packages"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — using making tax digital for income tax for the first time",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/using-making-tax-digital-for-income-tax-for-the-first-time"
+      },
+      {
+        "label": "GOV.UK — deadlines",
+        "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 51,
+    "researchCheckedAt": "2026-10-20",
+    "content": "<p>Quarterly MTD updates are not automatically quarterly tax bills. Reporting your business information and paying your Income Tax are separate parts of the process.</p>\n<h2>Understand the three different amounts</h2>\n<p>A quarterly update reports information from your records. An estimate can help you understand the possible tax position. The final annual calculation brings the relevant information together. Do not treat every figure labelled “estimated tax” as an immediate payment demand.</p>\n<p>HMRC says the requirement to submit an annual return and pay by the following 31 January continues under MTD. Payments on account can also remain relevant, so check your own HMRC statement rather than assuming there is only one payment a year.</p>\n<h2>Keep your service fee separate</h2>\n<p>Your accountant’s monthly subscription is a payment for professional services. It is not an instalment of tax paid to HMRC. Check the recipient and purpose when you make a payment.</p>\n<h2>Use updates to plan ahead</h2>\n<p>More regular records can help you notice a growing tax liability earlier. Discuss a sensible reserve with your accountant, especially if profits change significantly. Setting money aside does not itself settle the eventual tax bill.</p>\n<h2>Example: an estimate and a service invoice</h2>\n<p>Your dashboard might show an estimated Income Tax figure while a separate invoice charges for accountant services. Paying the service invoice does not settle the estimated tax. Check who the payment is going to and what obligation it relates to.</p>\n<h2>Will my tax payment dates ever change?</h2>\n<p>Use your actual HMRC statement and current guidance. Payments on account, adjustments and individual arrangements can affect what you need to pay. A general MTD explanation is not a replacement for checking your own account.</p>\n<h2>Should I wait for the final return before budgeting?</h2>\n<p>Regular records can help you plan earlier, but the estimate can change as other income, reliefs and year-end adjustments are included. Ask the accountant what remains unknown before deciding how much to reserve.</p>\n<p><strong>Next step:</strong> Ask the accountant to explain your expected tax payment dates and service billing separately. If you already have a payments-on-account schedule, keep it available when you join.</p>",
+    "editorialStatus": "final-copy",
+    "wordCount": 346,
+    "targetQuery": "do I pay tax quarterly MTD",
+    "priority": "P1",
+    "differentiation": "Payment anxiety; distinct from payments-on-account pillar.",
+    "iconKey": "calendar",
+    "contentType": "Answer guide",
+    "readingMinutes": 2,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "Reporting information and paying tax are separate tasks.",
+    "query": "does MTD mean paying tax quarterly",
+    "answer": "Quarterly MTD updates are not automatically quarterly tax bills. Keep update deadlines, provisional estimates and the final annual tax calculation separate, and check any payments on account due.",
+    "alt": "A sole trader and accountant separate a reporting calendar from a savings jar used to budget for tax.",
+    "details": [
+      "Keep income and expense records current so the accountant can prepare the correct reporting-period totals.",
+      "Ask what an in-year estimate includes and which annual information or adjustments are still missing.",
+      "Keep a separate schedule of tax-payment deadlines and any payments on account; the service subscription does not pay HMRC."
+    ],
+    "premiumReady": true,
+    "artwork": {
+      "slug": "mtd-quarterly-updates-tax-payments",
+      "src": "/images/articles/mtd-quarterly-updates-tax-payments-960.webp",
+      "srcSet": "/images/articles/mtd-quarterly-updates-tax-payments-480.webp 480w, /images/articles/mtd-quarterly-updates-tax-payments-960.webp 960w, /images/articles/mtd-quarterly-updates-tax-payments-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": 5,
+    "checklist": [
+      "Keep quarterly records current",
+      "Treat estimates as provisional",
+      "Budget separately for the final bill"
+    ]
+  },
+  {
+    "id": "seo-next38-self-assessment-2025-26-mtd-2026-27",
+    "slug": "self-assessment-2025-26-mtd-2026-27",
+    "title": "Self Assessment for 2025/26 and MTD for 2026/27: Why Both May Be Due",
+    "excerpt": "Starting MTD does not remove a return due for an earlier tax year. In autumn 2026, some people are managing 2026/27 MTD work while still preparing their 2025/26 Self Assessment.",
+    "metaTitle": "2025/26 Self Assessment and 2026/27 MTD | TaxSimba",
+    "metaDescription": "Starting MTD in 2026/27 does not finish your 2025/26 Self Assessment. Track both tax years, records, services and filing responsibilities separately.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/self-assessment-2025-26-mtd-2026-27-960.webp",
+    "featuredImageAlt": "A business owner and accountant keep a completed-year folder separate from current digital records.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "does-mtd-replace-self-assessment"
+    ],
+    "relatedPages": [
+      {
+        "href": "/mtd-information",
+        "label": "Compare current MTD packages"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — deadlines",
+        "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+      },
+      {
+        "label": "GOV.UK — using making tax digital for income tax for the first time",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/using-making-tax-digital-for-income-tax-for-the-first-time"
+      },
+      {
+        "label": "GOV.UK — submit your tax return",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/submit-your-tax-return"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 53,
+    "researchCheckedAt": "2026-10-20",
+    "content": "<p>Starting MTD does not remove a return due for an earlier tax year. In autumn 2026, some people are managing 2026/27 MTD work while still preparing their 2025/26 Self Assessment.</p>\n<h2>Put the tax year on every document request</h2>\n<p>The 2025/26 tax year ended on 5 April 2026. Its usual online Self Assessment filing deadline is 31 January 2027. The MTD updates you are working on during 2026/27 concern a different year.</p>\n<p>HMRC’s first-year timetable puts the 2026/27 MTD annual return deadline at 31 January 2028. Do not move the earlier return into that later timetable.</p>\n<h2>Avoid paying twice for the same agreed service</h2>\n<p>When choosing support, ask which year the purchase covers. A package including the annual return for an MTD service year does not automatically include a separate earlier-year return.</p>\n<p>Make a simple list showing each tax year, the accountant responsible, records still needed and whether the work has been submitted. Keep filing and tax-payment confirmations with the correct year.</p>\n<h2>Tell the incoming accountant about unfinished work</h2>\n<p>A previous accountant may still be completing 2025/26 while another starts the new MTD year. Both need clear instructions about their responsibilities so that nothing is missed or duplicated.</p>\n<h2>A simple two-row tracker</h2>\n<p>Create one row for 2025/26 Self Assessment and another for 2026/27 MTD. Against each, record the service purchased, accountant responsible, next action and submission status. This prevents an update about one year being mistaken for completion of the other.</p>\n<h2>Which records go where?</h2>\n<p>Label folders with the tax year and source of income. Keep employment documents and annual statements with the year they cover, not the date you downloaded them. If an expense or payment falls near the boundary, provide its dates for the accountant to assess.</p>\n<h2>Does signing one letter cover both years?</h2>\n<p>Check the purchase details and engagement. A reusable agreement can support more than one service, but the actual work, periods and fees still need identifying. Do not infer coverage from a generic heading alone.</p>\n<p><strong>Next step:</strong> Tell TaxSimba which tax year you need help with and whether any earlier returns remain outstanding before purchasing or adding a service.</p>",
+    "editorialStatus": "final-copy",
+    "wordCount": 361,
+    "targetQuery": "Self Assessment 2025 26 MTD 2026 27 both",
+    "priority": "P1",
+    "differentiation": "Specific overlapping tax years; existing replacement article is evergreen.",
+    "iconKey": "digital-tax",
+    "contentType": "Practical guide",
+    "readingMinutes": 2,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "Two tax years can need attention at the same time.",
+    "query": "Self Assessment 2025/26 MTD 2026/27",
+    "answer": "Starting MTD for 2026/27 does not remove a return due for 2025/26. Track the service purchased, accountant responsible, records and submission status separately for each year.",
+    "alt": "A business owner and accountant keep a completed-year folder separate from current digital records.",
+    "details": [
+      "Check whether your 2025/26 return is prepared, approved or submitted, and who is responsible for unfinished work.",
+      "Keep 2026/27 digital records separate and tell the accountant about every relevant business and rental source.",
+      "Use a two-row tracker for the tax year, service, next action and submission confirmation so one is not mistaken for the other."
+    ],
+    "premiumReady": true,
+    "artwork": {
+      "slug": "self-assessment-2025-26-mtd-2026-27",
+      "src": "/images/articles/self-assessment-2025-26-mtd-2026-27-960.webp",
+      "srcSet": "/images/articles/self-assessment-2025-26-mtd-2026-27-480.webp 480w, /images/articles/self-assessment-2025-26-mtd-2026-27-960.webp 960w, /images/articles/self-assessment-2025-26-mtd-2026-27-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": 6,
+    "checklist": [
+      "Finish the earlier return",
+      "Prepare digital records",
+      "Track both deadlines separately"
+    ]
+  },
+  {
+    "id": "seo-next38-mtd-cumulative-quarterly-updates",
+    "slug": "mtd-cumulative-quarterly-updates",
+    "title": "Are MTD Quarterly Updates Cumulative? A Simple Worked Example",
+    "excerpt": "Yes. MTD quarterly updates report the tax year so far, rather than treating each submission as a separate three-month total. This distinction matters when you check what has been sent.",
+    "metaTitle": "Are MTD Quarterly Updates Cumulative? | TaxSimba",
+    "metaDescription": "See how cumulative MTD updates report year-to-date figures, with a £12,000 plus £15,000 example and checks to avoid counting earlier income twice.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/mtd-cumulative-quarterly-updates-960.webp",
+    "featuredImageAlt": "An accountant and client organise a growing sequence of records to illustrate cumulative reporting.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "mtd-quarterly-updates"
+    ],
+    "relatedPages": [
+      {
+        "href": "/mtd-information",
+        "label": "Compare current MTD packages"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — send quarterly updates",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 43,
+    "researchCheckedAt": "2026-10-20",
+    "content": "<p>Yes. MTD quarterly updates report the tax year so far, rather than treating each submission as a separate three-month total. This distinction matters when you check what has been sent.</p>\n<h2>An example of the difference</h2>\n<p>Suppose a business receives £12,000 in its first quarter and £15,000 in its second. Its income for the first half of the year is £27,000. The second cumulative update reflects that year-to-date position, not just the £15,000 received during the second quarter.</p>\n<p>This is an illustration of income only. The actual update also depends on the business records and relevant expense categories. Your accountant or software should assemble the correct totals; do not copy the example into a return.</p>\n<h2>Use labels that tell you what you are looking at</h2>\n<p>A dashboard might divide your workflow into Q1, Q2, Q3 and Q4. That can be convenient for tracking work, but it should not hide the coverage of the submitted update. A standard second update covers 6 April to 5 October. Confirm the periods in use if you have calendar reporting.</p>\n<h2>What to check before approval</h2>\n<p>Ask whether the figures are a quarter’s activity or the cumulative update. Check that earlier records have carried forward and that corrections have not accidentally duplicated income.</p>\n<h2>Three checks before approving the figures</h2>\n<p>First, confirm the business and tax year. Second, read the start and end dates of the update. Third, compare the cumulative totals with the underlying records for that whole period. Comparing a cumulative total only with the most recent quarter is not a like-for-like check.</p>\n<h2>Does cumulative mean adding the submitted totals together?</h2>\n<p>No. If one update already contains the earlier activity, adding it to the next cumulative update counts that earlier activity again. Use the records or the latest appropriate year-to-date totals for the question being checked.</p>\n<h2>What about corrections to Q1?</h2>\n<p>Ask the accountant how a corrected record is reflected in subsequent updates. Do not assume every correction requires a separate resubmission of the original quarter. The stage reached in the tax year and whether the annual return has been filed affect the correct next step.</p>\n<p><strong>Next step:</strong> If the update looks different from your bank totals for one quarter, ask your accountant to explain the year-to-date reconciliation before assuming something is wrong.</p>",
+    "editorialStatus": "final-copy",
+    "wordCount": 381,
+    "targetQuery": "are MTD updates cumulative",
+    "priority": "P1",
+    "differentiation": "Specific calculation problem; links to existing quarterly-update pillar.",
+    "iconKey": "calendar",
+    "contentType": "Answer guide",
+    "readingMinutes": 2,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "Read the dates before comparing the totals.",
+    "query": "are MTD quarterly updates cumulative",
+    "answer": "Yes. An update reports the tax year so far. If income is £12,000 in the first quarter and £15,000 in the second, the second cumulative income figure is £27,000, not £15,000.",
+    "alt": "An accountant and client organise a growing sequence of records to illustrate cumulative reporting.",
+    "details": [
+      "Check the business, tax year and start and end dates shown for the update before comparing figures.",
+      "Reconcile the whole covered period to the records; do not compare a cumulative total only with the latest three months.",
+      "Save the submission confirmation and do not add successive cumulative totals together, which would count earlier activity twice."
+    ],
+    "premiumReady": true,
+    "artwork": {
+      "slug": "mtd-cumulative-quarterly-updates",
+      "src": "/images/articles/mtd-cumulative-quarterly-updates-960.webp",
+      "srcSet": "/images/articles/mtd-cumulative-quarterly-updates-480.webp 480w, /images/articles/mtd-cumulative-quarterly-updates-960.webp 960w, /images/articles/mtd-cumulative-quarterly-updates-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": 7,
+    "checklist": [
+      "Check the period covered",
+      "Reconcile year-to-date totals",
+      "Keep submission evidence"
+    ]
+  },
+  {
+    "id": "seo-next38-correct-mtd-quarterly-update",
+    "slug": "correct-mtd-quarterly-update",
+    "title": "Found a Mistake After an MTD Update? How to Prepare for a Correction",
+    "excerpt": "Finding an omitted receipt or wrongly categorised transaction after an MTD update does not mean you should start deleting submissions. First identify what needs correcting in the underlying records.",
+    "metaTitle": "Correct an MTD Quarterly Update: Next Steps | TaxSimba",
+    "metaDescription": "Found an error after an MTD update? Gather the evidence, correct the underlying records and check the filing stage before choosing the correction process.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/correct-mtd-quarterly-update-960.webp",
+    "featuredImageAlt": "A client spots a receipt in the wrong pile and an accountant moves it to the correct records folder.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "mtd-quarterly-updates"
+    ],
+    "relatedPages": [
+      {
+        "href": "/mtd-information",
+        "label": "Compare current MTD packages"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — create digital records",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      },
+      {
+        "label": "GOV.UK — adjust your self employment and property income",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/adjust-your-self-employment-and-property-income"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 44,
+    "researchCheckedAt": "2026-10-20",
+    "content": "<p>Finding an omitted receipt or wrongly categorised transaction after an MTD update does not mean you should start deleting submissions. First identify what needs correcting in the underlying records.</p>\n<h2>Make the issue specific</h2>\n<p>Send your accountant the transaction date, amount, description and supporting document. Explain whether the problem is missing income, an expense, a duplicate or private spending included as a business cost. Keep a copy of the original information so the change can be understood later.</p>\n<p>HMRC’s guidance explains how corrected digital records feed into updates. The route can differ depending on whether the fourth update or annual return has already been sent. Your accountant should identify the appropriate stage before making the change.</p>\n<h2>Avoid correcting the same item twice</h2>\n<p>If a previous accountant is still involved, agree who will make the correction. Changing a spreadsheet and asking someone else to adjust the software independently can create two changes for one problem.</p>\n<h2>What happens if extra work is needed</h2>\n<p>Reviewing earlier records may fall outside the work already agreed. Ask the provider to explain whether the correction is included, what additional work is proposed and whether there is a charge. A dashboard unlock is an administrative step, not an HMRC amendment in itself.</p>\n<h2>A message that helps resolve the issue</h2>\n<p>Try: “The £240 payment dated 12 September was a personal purchase, but it appears in business expenses. The receipt and bank reference are attached. Please check the record and explain whether any submission needs changing.” This identifies the evidence without prescribing the tax treatment.</p>\n<h2>What if the mistake changes the tax estimate?</h2>\n<p>An in-year estimate is not the final annual liability. Keep enough information for the accountant to explain why the figure changed and whether other income or adjustments remain outstanding.</p>\n<h2>What if I have already approved the annual return?</h2>\n<p>Tell the accountant whether it was only approved or actually submitted. Those are different stages. A correction after submission needs assessment under the relevant amendment process; changing a local document alone does not update HMRC’s record.</p>\n<p><strong>Next step:</strong> Give TaxSimba the evidence and the affected period. The assigned accountant can assess the correction and request admin approval for any separately agreed work.</p>",
+    "editorialStatus": "final-copy",
+    "wordCount": 363,
+    "targetQuery": "correct MTD quarterly update",
+    "priority": "P1",
+    "differentiation": "Correction evidence and workflow rather than late filing.",
+    "iconKey": "calendar",
+    "contentType": "Answer guide",
+    "readingMinutes": 2,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "Start with the record that needs correcting.",
+    "query": "correct MTD quarterly update",
+    "answer": "Identify the affected transaction and give your accountant the evidence. The correction route depends on the reporting stage, including whether the fourth update or annual return has already been sent.",
+    "alt": "A client spots a receipt in the wrong pile and an accountant moves it to the correct records folder.",
+    "details": [
+      "Write down the date, amount, description and whether the issue concerns missing income, an expense, a duplicate or private spending.",
+      "Send the supporting document and ask the accountant to check the underlying digital record and relevant filing stage.",
+      "Retain the original evidence, agree who makes the change and ask what has actually been submitted after correction."
+    ],
+    "premiumReady": true,
+    "artwork": {
+      "slug": "correct-mtd-quarterly-update",
+      "src": "/images/articles/correct-mtd-quarterly-update-960.webp",
+      "srcSet": "/images/articles/correct-mtd-quarterly-update-480.webp 480w, /images/articles/correct-mtd-quarterly-update-960.webp 960w, /images/articles/correct-mtd-quarterly-update-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": 8,
+    "checklist": [
+      "Record the error",
+      "Correct the digital records",
+      "Keep an audit trail"
+    ]
+  },
+  {
+    "id": "seo-next38-waiting-for-utr-tax-return",
+    "slug": "waiting-for-utr-tax-return",
+    "title": "Waiting for a UTR Before January? Steps to Take While You Wait",
+    "excerpt": "Waiting for a Unique Taxpayer Reference is a reason to act early, not a reason to leave every other part of the return until later. Registration and preparing your tax information can involve separate tasks.",
+    "metaTitle": "Waiting for a UTR? Prepare Your Tax Return | TaxSimba",
+    "metaDescription": "Waiting for a UTR before January? Check registration, gather your tax-year records and tell your accountant about deadlines while the reference is resolved.",
+    "category": "Self Assessment",
+    "audience": "individual-taxpayers",
+    "tags": [
+      "sa",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/waiting-for-utr-tax-return-960.webp",
+    "featuredImageAlt": "A freelancer checks for a letter while keeping tax-return records organised at a home-office desk.",
+    "ctaType": "SA",
+    "relatedSlugs": [
+      "self-assessment-register-by-5-october-2026"
+    ],
+    "relatedPages": [
+      {
+        "href": "/pricing",
+        "label": "Compare current Self Assessment packages"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — register for self assessment",
+        "url": "https://www.gov.uk/register-for-self-assessment"
+      },
+      {
+        "label": "GOV.UK — deadlines",
+        "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 72,
+    "researchCheckedAt": "2026-10-20",
+    "content": "<p>Waiting for a Unique Taxpayer Reference is a reason to act early, not a reason to leave every other part of the return until later. Registration and preparing your tax information can involve separate tasks.</p>\n<h2>Check whether you already have a record</h2>\n<p>Tell the accountant if you previously registered for Self Assessment. HMRC’s guidance explains that some people may need to reactivate an account rather than start as a completely new filer. Follow the relevant HMRC process instead of repeatedly submitting applications.</p>\n<p>Keep the registration date and any acknowledgement. Check HMRC’s current response guidance rather than relying on a delivery estimate from an old article.</p>\n<h2>Prepare the return evidence now</h2>\n<p>Gather income documents, expense records and details of other relevant circumstances for the tax year. Answer the accountant’s questions and identify missing documents. This helps reduce the remaining work once the reference issue is resolved.</p>\n<p>TaxSimba allows onboarding without a UTR, but dashboard access is not confirmation that all filing requirements have been met. The accountant still needs to resolve the appropriate reference and authorisation steps before submission.</p>\n<h2>Tell the accountant about deadlines</h2>\n<p>Explain when you registered and which year is due. Do not assume a missing reference automatically extends the ordinary filing or tax-payment date.</p>\n<h2>What you can finish while waiting</h2>\n<p>Organise documents, identify income sources, answer onboarding questions and resolve missing-record issues. Keep a clear note of the registration date and the tax year concerned. These tasks can reduce the work still needed once the reference is available.</p>\n<h2>Can I submit without resolving the reference issue?</h2>\n<p>Onboarding access and filing readiness are different. Your accountant must confirm the required references and authorisation before submission. Do not assume that completing a questionnaire means HMRC has accepted a return.</p>\n<h2>What if I already registered years ago?</h2>\n<p>Tell the accountant before making another application. The appropriate action may involve finding an existing reference or reactivating a record. Use HMRC’s current guidance and keep correspondence instead of repeatedly applying and hoping one request arrives first.</p>\n<p><strong>Next step:</strong> Use HMRC’s registration guidance and share the acknowledgement with TaxSimba through the agreed document process. Never send your Government Gateway password.</p>",
+    "editorialStatus": "final-copy",
+    "wordCount": 356,
+    "targetQuery": "waiting for UTR tax return deadline",
+    "priority": "P1",
+    "differentiation": "Pre-filing reference problem; registration-date guide remains existing article.",
+    "iconKey": "tax-guide",
+    "contentType": "Answer guide",
+    "readingMinutes": 2,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "You can organise the evidence while the reference is resolved.",
+    "query": "waiting for UTR tax return",
+    "answer": "Keep registration evidence and prepare the tax-year records while waiting. A missing UTR does not automatically extend filing or payment deadlines, and onboarding access is not proof that filing requirements are complete.",
+    "alt": "A freelancer checks for a letter while keeping tax-return records organised at a home-office desk.",
+    "details": [
+      "Keep the registration date and acknowledgement, and mention any previous Self Assessment account before applying again.",
+      "Gather income documents and expense evidence for the correct year and answer the accountant’s outstanding questions.",
+      "Tell the accountant which deadline is approaching and resolve the required reference and authorisation before submission."
+    ],
+    "premiumReady": true,
+    "artwork": {
+      "slug": "waiting-for-utr-tax-return",
+      "src": "/images/articles/waiting-for-utr-tax-return-960.webp",
+      "srcSet": "/images/articles/waiting-for-utr-tax-return-480.webp 480w, /images/articles/waiting-for-utr-tax-return-960.webp 960w, /images/articles/waiting-for-utr-tax-return-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": 9,
+    "checklist": [
+      "Keep registration evidence",
+      "Prepare the return meanwhile",
+      "Escalate before the deadline"
+    ]
+  },
+  {
+    "id": "seo-next38-employed-and-self-employed-tax-return",
+    "slug": "employed-and-self-employed-tax-return",
+    "title": "Employed and Self-Employed: What Your Accountant Needs for One Tax Return",
+    "excerpt": "A job and a self-employed activity can belong in the same individual tax return. The accountant needs both sets of information to assess the complete position rather than treating the side business in isolation.",
+    "metaTitle": "Employed and Self-Employed Tax Return Records | TaxSimba",
+    "metaDescription": "Prepare one tax return for employment and self-employment: gather PAYE documents, business records and other income details for the correct tax year.",
+    "category": "Self Assessment",
+    "audience": "individual-taxpayers",
+    "tags": [
+      "sa",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/employed-and-self-employed-tax-return-960.webp",
+    "featuredImageAlt": "An employee with a side business and an accountant combine two sets of records into one tax-return folder.",
+    "ctaType": "SA",
+    "relatedSlugs": [
+      "self-assessment-for-sole-traders-2025-26"
+    ],
+    "relatedPages": [
+      {
+        "href": "/pricing",
+        "label": "Compare current Self Assessment packages"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — check if you need tax return",
+        "url": "https://www.gov.uk/check-if-you-need-tax-return"
+      },
+      {
+        "label": "GOV.UK — what records to keep",
+        "url": "https://www.gov.uk/self-employed-records/what-records-to-keep"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 56,
+    "researchCheckedAt": "2026-10-20",
+    "content": "<p>A job and a self-employed activity can belong in the same individual tax return. The accountant needs both sets of information to assess the complete position rather than treating the side business in isolation.</p>\n<h2>Bring the employment evidence</h2>\n<p>Gather your P60 or relevant P45, any taxable-benefit information and details of other jobs during the year. Explain job changes and any figures you believe are incorrect. PAYE deductions matter when the overall calculation is prepared.</p>\n<h2>Bring the business evidence separately</h2>\n<p>Provide income records, allowable-expense documents and the dates you started or stopped trading. Distinguish money earned from customers from transfers out of your salary account. Paying business costs from personal funds does not make the transactions disappear.</p>\n<p>Use the correct tax year for both sets of documents. A calendar-year platform summary may need reconciling to the UK tax-year records.</p>\n<h2>Do you definitely need to file?</h2>\n<p>Use HMRC’s current checker rather than assuming every small amount of extra income requires the same action. Equally, do not ignore a notice to file just because tax has already been deducted from your salary.</p>\n<h2>What to ask before purchasing</h2>\n<p>Confirm that the service covers employment and self-employment together. Tell the accountant about other income, loans, pension contributions or property so these are not discovered after the scope is agreed.</p>\n<h2>Example: wages and freelance receipts</h2>\n<p>Keep your employment income and PAYE evidence separate from freelance sales and expenses. The return brings the relevant information together, but the bookkeeping should still explain where each figure came from.</p>\n<h2>Do I get another Personal Allowance for the business?</h2>\n<p>Do not assume each income source has its own separate allowance. Your accountant considers the individual’s overall position and the rules for the year. That is one reason the employment information matters even when your question concerns only the side business.</p>\n<h2>What if my employer already knows about the side work?</h2>\n<p>An employer knowing about it does not replace your tax-reporting responsibilities. Likewise, a business platform reporting information to HMRC is not the same as completing your return. Check the filing requirement and keep your own records.</p>\n<p><strong>Next step:</strong> Share both your employment documents and business records through TaxSimba’s document process for the tax year purchased.</p>",
+    "editorialStatus": "final-copy",
+    "wordCount": 365,
+    "targetQuery": "employed and self employed tax return",
+    "priority": "P1",
+    "differentiation": "Mixed-income filing rather than generic sole-trader overview.",
+    "iconKey": "accountant",
+    "contentType": "Practical guide",
+    "readingMinutes": 2,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "Bring both income sources into the same picture.",
+    "query": "employed and self employed tax return",
+    "answer": "Employment and self-employment can belong in one individual return. Bring PAYE evidence as well as business income and expense records, so tax already deducted and the overall position can be checked.",
+    "alt": "An employee with a side business and an accountant combine two sets of records into one tax-return folder.",
+    "details": [
+      "Collect your P60 or relevant P45, taxable-benefit information and details of jobs held during the tax year.",
+      "Keep business sales, expense evidence and start or cessation dates separate from transfers of your own money.",
+      "Provide both sets of records together and mention other income, pension contributions or loans before the scope is agreed."
+    ],
+    "premiumReady": true,
+    "artwork": {
+      "slug": "employed-and-self-employed-tax-return",
+      "src": "/images/articles/employed-and-self-employed-tax-return-960.webp",
+      "srcSet": "/images/articles/employed-and-self-employed-tax-return-480.webp 480w, /images/articles/employed-and-self-employed-tax-return-960.webp 960w, /images/articles/employed-and-self-employed-tax-return-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": 10,
+    "checklist": [
+      "Collect P60 or P45 details",
+      "Prepare business records",
+      "Reconcile tax already deducted"
+    ]
+  }
+]

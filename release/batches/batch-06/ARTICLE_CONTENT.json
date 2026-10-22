@@ -1,0 +1,1255 @@
+[
+  {
+    "id": "seo-mtd-itsa-vs-vat",
+    "slug": "mtd-income-tax-vs-mtd-vat",
+    "title": "MTD for Income Tax vs MTD for VAT: What’s the Difference?",
+    "excerpt": "Making Tax Digital for VAT and Making Tax Digital for Income Tax are separate regimes. Being compliant with one does not enrol you in the other. Here is who each applies to, what you send, and how to check your Income Tax position.",
+    "metaTitle": "MTD Income Tax vs VAT: What Is Different? | TaxSimba",
+    "metaDescription": "Compare MTD for Income Tax and VAT: separate eligibility, records, software authorisation and deadlines, even when one business uses both.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords-vat",
+    "tags": [
+      "mtd",
+      "vat",
+      "income-tax",
+      "making-tax-digital",
+      "hmrc"
+    ],
+    "publishedAt": "2026-09-15T15:23:30.000Z",
+    "reviewedAt": "2026-09-15T15:23:30.000Z",
+    "authorName": "TaxSimba",
+    "reviewerName": "TaxSimba",
+    "featuredImage": "/images/articles/mtd-income-tax-vs-mtd-vat-1440.webp",
+    "featuredImageAlt": "Two separate business folders, one for VAT invoices and one for personal income records, accountant explaining distinction.",
+    "ctaType": "CHECK",
+    "relatedSlugs": [
+      "making-tax-digital-explained",
+      "mtd-qualifying-income",
+      "can-i-use-spreadsheets-for-mtd",
+      "mtd-for-sole-traders-2026-27",
+      "does-mtd-replace-self-assessment"
+    ],
+    "relatedPages": [
+      {
+        "href": "/check-mtd",
+        "label": "Check if MTD applies"
+      },
+      {
+        "href": "/making-tax-digital",
+        "label": "Making Tax Digital accountant service"
+      },
+      {
+        "href": "/mtd-information",
+        "label": "MTD information"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Making Tax Digital for VAT",
+        "url": "https://www.gov.uk/government/collections/making-tax-digital-for-vat"
+      },
+      {
+        "label": "GOV.UK — Choose the right software for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax"
+      }
+    ],
+    "curated": true,
+    "content": "\n<p><strong>They are not the same thing.</strong> Making Tax Digital (MTD) for VAT and MTD for Income Tax are separate HMRC programmes with different people in scope, different submissions and separate software sign-up. Filing VAT digitally does not automatically put you into MTD for Income Tax.</p>\n\n<h2>Side-by-side</h2>\n<ul>\n  <li><strong>MTD for VAT</strong> — Aimed at <strong>VAT-registered</strong> businesses. GOV.UK says all VAT-registered businesses should now be signed up; new registrations are enrolled automatically unless exempt. You keep specified VAT records digitally and submit VAT Returns through compatible software.</li>\n  <li><strong>MTD for Income Tax</strong> — Aimed at <strong>sole traders and landlords</strong> whose qualifying income brings them into scope on HMRC’s phased timetable (from 6 April 2026 for higher qualifying income). You keep digital income and expense records and send <strong>quarterly updates</strong> plus a year-end tax return through compatible software.</li>\n</ul>\n\n<h2>What you actually send</h2>\n<p>VAT returns report output tax, input tax and your net VAT position for your VAT period. Income Tax quarterly updates summarise self-employment and/or property income and expenses for fixed update periods — GOV.UK is clear those updates are <strong>not</strong> full tax returns. Your Income Tax return still pulls in other income (such as employment, savings or dividends) at year end through the software.</p>\n\n<h2>Software and sign-up are separate</h2>\n<p>GOV.UK’s Income Tax software guidance notes that if you are VAT-registered you may already use software for VAT, and you should check whether the same product also works for Making Tax Digital for Income Tax — or use a different compatible product. Authorising software for one tax does not replace authorising it for the other. Use HMRC’s Income Tax software finder for ITSA-compatible options, and the VAT software lists/tools for VAT.</p>\n\n<h2>Who should worry about which</h2>\n<ul>\n  <li>VAT-registered limited company with no personal self-employment or property in scope → MTD for VAT matters; MTD for Income Tax usually does not apply to the company itself in the same way.</li>\n  <li>Sole trader above the Income Tax qualifying threshold, not VAT-registered → MTD for Income Tax can apply without any VAT MTD duty.</li>\n  <li>Landlord or sole trader who is also VAT-registered → both regimes can apply at once, with different deadlines and penalty systems.</li>\n</ul>\n\n<h2>Common mistake</h2>\n<p>Assuming “I’m already on Making Tax Digital” because VAT Returns go through software. For Income Tax you still need to check qualifying income, sign up when required, and send quarterly Income Tax updates. Start with <a href=\"/check-mtd\">Check if MTD applies</a> and <a href=\"/blogs/mtd-qualifying-income\">qualifying income explained</a>.</p>\n\n<p>TaxSimba’s <a href=\"/making-tax-digital\">Making Tax Digital service</a> is accountant-led support for Income Tax MTD obligations. We do not claim that using TaxSimba replaces your own HMRC VAT registration duties. If you only need to know whether Income Tax MTD applies, use <a href=\"/check-mtd\">the MTD checker</a> first.</p>\n\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>One business, two reporting calendars</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>A VAT-registered sole trader already submits VAT returns through software. Her personal gross trading income also brings her within MTD for Income Tax. She checks that the product supports both services, authorises the relevant connections and keeps two obligation trackers. A successful VAT submission does not confirm an Income Tax update, and the Income Tax cumulative period may not match her VAT period. She reconciles the shared bookkeeping records while retaining separate acknowledgements.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Which taxes are you registered for?</th><td>Check VAT obligations and personal MTD for Income Tax scope independently.</td></tr><tr><th scope=\"row\">Does the software support both services?</th><td>Verify relevant features, income sources and authorisation rather than relying on an MTD label.</td></tr><tr><th scope=\"row\">Which deadline and receipt are you checking?</th><td>Keep separate VAT-return and Income Tax-update references.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Does VAT registration automatically start Income Tax MTD?</h3><p>No. The programmes have separate eligibility and setup rules. Check the personal qualifying-income test and start date.</p><h3>Does a limited company&#39;s VAT filing cover its director?</h3><p>No. Company VAT obligations and a director&#39;s personal income reporting are different matters. Assess personal trading and property income separately.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>List VAT and personal Income Tax obligations.</li><li>Check the software&#39;s support for each service.</li><li>Record separate authorisations and access responsibilities.</li><li>Diary both reporting calendars.</li><li>Retain separate submission acknowledgements.</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/mtd-income-tax-vs-mtd-vat-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "dek": "Compare MTD for Income Tax and VAT: separate eligibility, records, software authorisation and deadlines, even when one business uses both.",
+    "query": "mtd income tax vs vat  what is different ",
+    "answer": "MTD for VAT and MTD for Income Tax have separate eligibility, authorisation and reporting duties. A business can need either or both. Check that the software supports the relevant tax and income sources, and track each submission calendar separately.",
+    "alt": "Two separate business folders, one for VAT invoices and one for personal income records, accountant explaining distinction.",
+    "details": [
+      "Check VAT obligations and personal MTD for Income Tax scope independently.",
+      "Verify relevant features, income sources and authorisation rather than relying on an MTD label.",
+      "Keep separate VAT-return and Income Tax-update references."
+    ],
+    "checklist": [
+      "Which taxes are you registered for?",
+      "Does the software support both services?",
+      "Which deadline and receipt are you checking?"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:35:35.502Z",
+    "depth": {
+      "exampleTitle": "One business, two reporting calendars",
+      "example": [
+        "A VAT-registered sole trader already submits VAT returns through software. Her personal gross trading income also brings her within MTD for Income Tax. She checks that the product supports both services, authorises the relevant connections and keeps two obligation trackers. A successful VAT submission does not confirm an Income Tax update, and the Income Tax cumulative period may not match her VAT period. She reconciles the shared bookkeeping records while retaining separate acknowledgements."
+      ],
+      "decisionRows": [
+        [
+          "Which taxes are you registered for?",
+          "Check VAT obligations and personal MTD for Income Tax scope independently."
+        ],
+        [
+          "Does the software support both services?",
+          "Verify relevant features, income sources and authorisation rather than relying on an MTD label."
+        ],
+        [
+          "Which deadline and receipt are you checking?",
+          "Keep separate VAT-return and Income Tax-update references."
+        ]
+      ],
+      "questions": [
+        [
+          "Does VAT registration automatically start Income Tax MTD?",
+          "No. The programmes have separate eligibility and setup rules. Check the personal qualifying-income test and start date."
+        ],
+        [
+          "Does a limited company's VAT filing cover its director?",
+          "No. Company VAT obligations and a director's personal income reporting are different matters. Assess personal trading and property income separately."
+        ]
+      ],
+      "worksheetPrompts": [
+        "List VAT and personal Income Tax obligations.",
+        "Check the software's support for each service.",
+        "Record separate authorisations and access responsibilities.",
+        "Diary both reporting calendars.",
+        "Retain separate submission acknowledgements."
+      ],
+      "downloadHref": "/downloads/guides/mtd-income-tax-vs-mtd-vat-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/mtd-income-tax-vs-mtd-vat-checklist.txt",
+    "readingMinutes": 4,
+    "premiumReady": true,
+    "artwork": {
+      "slug": "mtd-income-tax-vs-mtd-vat",
+      "src": "/images/articles/mtd-income-tax-vs-mtd-vat-960.webp",
+      "srcSet": "/images/articles/mtd-income-tax-vs-mtd-vat-480.webp 480w, /images/articles/mtd-income-tax-vs-mtd-vat-960.webp 960w, /images/articles/mtd-income-tax-vs-mtd-vat-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "heroStyle": "editorial-illustration",
+    "priorityRank": null,
+    "releaseRank": 51
+  },
+  {
+    "id": "seo-mtd-spreadsheets",
+    "slug": "can-i-use-spreadsheets-for-mtd",
+    "title": "Can I Use Spreadsheets for Making Tax Digital?",
+    "excerpt": "Yes — but usually not by emailing HMRC a spreadsheet. GOV.UK allows software that connects to existing spreadsheet records (often called bridging software), or full accounting software that keeps the digital records for you.",
+    "metaTitle": "Can I Use Spreadsheets for MTD Income Tax? | TaxSimba",
+    "metaDescription": "Keep spreadsheets with an appropriate MTD software connection. Check digital links, supported income sources, authorisation and year-end return coverage.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "spreadsheets",
+      "bridging-software",
+      "digital-records",
+      "hmrc"
+    ],
+    "publishedAt": "2026-09-15T15:23:30.000Z",
+    "reviewedAt": "2026-09-15T15:23:30.000Z",
+    "authorName": "TaxSimba",
+    "reviewerName": "TaxSimba",
+    "featuredImage": "/images/articles/can-i-use-spreadsheets-for-mtd-1440.webp",
+    "featuredImageAlt": "A spreadsheet user connects an abstract spreadsheet on laptop to a compatible filing tool, clear document-transfer metaphor.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "mtd-digital-records",
+      "mtd-income-tax-vs-mtd-vat",
+      "mtd-accountant-or-agent",
+      "mtd-quarterly-updates",
+      "making-tax-digital-explained"
+    ],
+    "relatedPages": [
+      {
+        "href": "/making-tax-digital",
+        "label": "Making Tax Digital accountant service"
+      },
+      {
+        "href": "/mtd-information",
+        "label": "MTD information"
+      },
+      {
+        "href": "/register?role=MTD",
+        "label": "Get MTD support with TaxSimba"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Choose the right software for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Find software that works with Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/find-software-that-works-with-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Get your software ready   - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/get-your-software-ready"
+      }
+    ],
+    "curated": true,
+    "content": "\n<p>You can keep using spreadsheets for day-to-day records, but under Making Tax Digital for Income Tax you still need <strong>compatible software</strong> to create or connect digital records and to send quarterly updates and your tax return to HMRC. Uploading a standalone Excel file through a personal email is not the process GOV.UK describes.</p>\n\n<h2>Two software shapes GOV.UK describes</h2>\n<p>In “Choose the right software for Making Tax Digital for Income Tax”, GOV.UK says you can get software that either:</p>\n<ul>\n  <li>creates and stores digital records for you, or</li>\n  <li>connects to existing records, such as those held in spreadsheets</li>\n</ul>\n<p>The second type is sometimes called <strong>bridging software</strong>. GOV.UK’s example: if you use spreadsheets for income and expenses, bridging software can connect to them and make submissions to HMRC. Full accounting products may replace the spreadsheet entirely.</p>\n\n<h2>What “compatible” actually means</h2>\n<p>Whatever you choose must support your income sources (self-employment, UK property, foreign property as relevant), let you send quarterly updates and the tax return, and work with your accounting period (tax-year quarters or calendar update periods). Use HMRC’s software finder rather than assuming a VAT-only product covers Income Tax MTD.</p>\n\n<h2>What this means if you love Excel</h2>\n<p>You do not have to abandon every workbook overnight. You do need a product that HMRC’s finder treats as compatible, then you must <strong>authorise</strong> that software to connect to HMRC before the first quarterly update. GOV.UK’s “get your software ready” steps cover authorisation and checking your accounting period — you cannot change the period after the first update has gone.</p>\n\n<h2>Common mistake</h2>\n<p>Leaving spreadsheet tidy-up until the week of the first deadline. Bridging tools still need clean columns, consistent dates and complete income sources. Messy books create messy quarterly updates. Pair this page with <a href=\"/blogs/mtd-digital-records\">MTD digital records</a> and <a href=\"/blogs/mtd-quarterly-updates\">what quarterly updates contain</a>.</p>\n\n<h2>Accountant-led option</h2>\n<p>Many people prefer an agent to operate the software and submissions. That is allowed: GOV.UK’s software guidance says you or an agent on your behalf use commercial software for records and filings. TaxSimba’s <a href=\"/making-tax-digital\">Making Tax Digital service</a> is built around accountant-led support, not a claim that TaxSimba is HMRC or that we submit through a public “TaxSimba HMRC API” of our own. For eligibility first, use <a href=\"/check-mtd\">Check if MTD applies</a>; when you want help running the digital process, <a href=\"/register?role=MTD\">get MTD support with TaxSimba</a>.</p>\n\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>A workbook still needs a submission route</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>Lina keeps dated sales and expenses in a spreadsheet she understands. Before choosing a bridging product, she checks how data moves digitally from the workbook, whether her property income is supported and who handles the annual return. She tests the import with a sample month and reconciles its totals. Emailing the spreadsheet to someone is a document handover, not proof that HMRC received an update. She keeps the final acknowledgement from the authorised submission route.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Can the product connect to your actual records?</th><td>Check the digital transfer method and supported workbook format before committing.</td></tr><tr><th scope=\"row\">Does it cover all relevant income sources?</th><td>Check self-employment, UK or foreign property and year-end capabilities as needed.</td></tr><tr><th scope=\"row\">Who sends and checks the submission?</th><td>Agree responsibilities and retain the software acknowledgement for the period.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Can I just upload an Excel file to HMRC?</h3><p>A standalone spreadsheet is not the required submission route. Use compatible software that creates or connects the digital records and sends the required information.</p><h3>Is a VAT bridging licence enough?</h3><p>Check specifically for MTD for Income Tax support. VAT compatibility does not establish Income Tax functionality.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Map the workbook&#39;s date, amount and category columns.</li><li>Check the digital connection and supported format.</li><li>List required business and property sources.</li><li>Confirm quarterly and annual-return coverage.</li><li>Test reconciliation and agree who retains submission evidence.</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/can-i-use-spreadsheets-for-mtd-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "dek": "Keep spreadsheets with an appropriate MTD software connection. Check digital links, supported income sources, authorisation and year-end return coverage.",
+    "query": "can i use spreadsheets for mtd income tax ",
+    "answer": "You can keep using spreadsheets for day-to-day records, but under Making Tax Digital for Income Tax you still need compatible software to create or connect digital records and to send quarterly updates and your tax return to HMRC. Uploading a standalone Excel file through a personal email is not the process GOV.UK describes.",
+    "alt": "A spreadsheet user connects an abstract spreadsheet on laptop to a compatible filing tool, clear document-transfer metaphor.",
+    "details": [
+      "Check the digital transfer method and supported workbook format before committing.",
+      "Check self-employment, UK or foreign property and year-end capabilities as needed.",
+      "Agree responsibilities and retain the software acknowledgement for the period."
+    ],
+    "checklist": [
+      "Can the product connect to your actual records?",
+      "Does it cover all relevant income sources?",
+      "Who sends and checks the submission?"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:35:35.502Z",
+    "depth": {
+      "exampleTitle": "A workbook still needs a submission route",
+      "example": [
+        "Lina keeps dated sales and expenses in a spreadsheet she understands. Before choosing a bridging product, she checks how data moves digitally from the workbook, whether her property income is supported and who handles the annual return. She tests the import with a sample month and reconciles its totals. Emailing the spreadsheet to someone is a document handover, not proof that HMRC received an update. She keeps the final acknowledgement from the authorised submission route."
+      ],
+      "decisionRows": [
+        [
+          "Can the product connect to your actual records?",
+          "Check the digital transfer method and supported workbook format before committing."
+        ],
+        [
+          "Does it cover all relevant income sources?",
+          "Check self-employment, UK or foreign property and year-end capabilities as needed."
+        ],
+        [
+          "Who sends and checks the submission?",
+          "Agree responsibilities and retain the software acknowledgement for the period."
+        ]
+      ],
+      "questions": [
+        [
+          "Can I just upload an Excel file to HMRC?",
+          "A standalone spreadsheet is not the required submission route. Use compatible software that creates or connects the digital records and sends the required information."
+        ],
+        [
+          "Is a VAT bridging licence enough?",
+          "Check specifically for MTD for Income Tax support. VAT compatibility does not establish Income Tax functionality."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Map the workbook's date, amount and category columns.",
+        "Check the digital connection and supported format.",
+        "List required business and property sources.",
+        "Confirm quarterly and annual-return coverage.",
+        "Test reconciliation and agree who retains submission evidence."
+      ],
+      "downloadHref": "/downloads/guides/can-i-use-spreadsheets-for-mtd-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/can-i-use-spreadsheets-for-mtd-checklist.txt",
+    "readingMinutes": 4,
+    "premiumReady": true,
+    "artwork": {
+      "slug": "can-i-use-spreadsheets-for-mtd",
+      "src": "/images/articles/can-i-use-spreadsheets-for-mtd-960.webp",
+      "srcSet": "/images/articles/can-i-use-spreadsheets-for-mtd-480.webp 480w, /images/articles/can-i-use-spreadsheets-for-mtd-960.webp 960w, /images/articles/can-i-use-spreadsheets-for-mtd-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "heroStyle": "editorial-illustration",
+    "priorityRank": null,
+    "releaseRank": 52
+  },
+  {
+    "id": "seo-cis-tax-refunds",
+    "slug": "cis-tax-refunds-subcontractors",
+    "title": "CIS Tax Refunds: How Subcontractors Claim Back CIS Deductions",
+    "excerpt": "CIS deductions are advance payments towards your tax and National Insurance. Here is when a refund can arise for sole traders and partners, what evidence you need, and how limited companies reclaim differently.",
+    "metaTitle": "CIS Tax Refunds: Evidence, Calculation and Claims | TaxSimba",
+    "metaDescription": "Understand how CIS deductions can produce a Self Assessment repayment, what evidence to gather and why neither the refund amount nor timing is fixed.",
+    "category": "Self Assessment",
+    "audience": "cis-subcontractors",
+    "tags": [
+      "CIS",
+      "tax-refund",
+      "subcontractor",
+      "self-assessment",
+      "construction"
+    ],
+    "publishedAt": "2026-09-15T15:51:14.000Z",
+    "reviewedAt": "2026-09-15T15:51:14.000Z",
+    "authorName": "TaxSimba",
+    "reviewerName": "TaxSimba",
+    "featuredImage": "/images/articles/cis-tax-refunds-subcontractors-1440.webp",
+    "featuredImageAlt": "A construction subcontractor and accountant reconcile yearly tax deductions with business records and expense evidence.",
+    "ctaType": "SA",
+    "relatedSlugs": [
+      "cis-deductions-self-assessment",
+      "cis-payment-deduction-statements",
+      "cis-20-vs-30-percent-deductions",
+      "cis-allowable-expenses-subcontractors",
+      "cis-gross-payment-status"
+    ],
+    "relatedPages": [
+      {
+        "href": "/self-assessment",
+        "label": "Self Assessment accountant service"
+      },
+      {
+        "href": "/register",
+        "label": "Start Self Assessment with TaxSimba"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — What you must do as a Construction Industry Scheme (CIS) subcontractor: Pay tax and claim back deductions",
+        "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/pay-tax-and-claim-back-deductions"
+      },
+      {
+        "label": "GOV.UK — What you must do as a Construction Industry Scheme (CIS) subcontractor: Overview",
+        "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor"
+      },
+      {
+        "label": "GOV.UK — Claim repayment of subcontractor deductions",
+        "url": "https://www.gov.uk/government/publications/construction-industry-scheme-individuals-repayment-claim-cis40"
+      }
+    ],
+    "curated": true,
+    "content": "\n<p>A “CIS tax refund” usually means HMRC owes you money because contractors deducted more under the Construction Industry Scheme than your final Income Tax and National Insurance bill for the year. The deductions themselves are <strong>not</strong> a separate final tax — GOV.UK treats them as advance payments towards what you eventually owe.</p>\n\n<h2>Why a refund can happen</h2>\n<p>Contractors typically take 20% (if you are registered and can be verified) or 30% (if not) from labour payments. Your actual Self Assessment liability depends on total profit after allowable expenses, other income, allowances and reliefs. If CIS already covered more than that liability, the excess can come back as a repayment after the return is processed — or reduce what you still have to pay.</p>\n<p>Illustrative only: £36,000 gross CIS labour in a year, £7,200 deducted at 20%, and after expenses your Self Assessment bill is £4,900. The £7,200 credits the bill; around £2,300 may be repayable once HMRC has matched the figures. Real outcomes depend on the whole return.</p>\n\n<h2>Sole traders and partners: Self Assessment is the main route</h2>\n<p>GOV.UK says sole traders and partners report total pay <strong>before</strong> CIS deductions as income, and report the deductions so HMRC can credit them. After the tax year ends, that usually happens on the Self Assessment return. For the form-level walkthrough, use <a href=\"/blogs/cis-deductions-self-assessment\">CIS deductions on your Self Assessment return</a>.</p>\n<p>If you need money back <strong>during</strong> the tax year rather than waiting for the return, HMRC publishes form <strong>CIS40</strong> for individuals. GOV.UK’s CIS40 guidance says to use the tax return instead once you are claiming after the year ends.</p>\n\n<h2>Limited companies are not on this Self Assessment path</h2>\n<p>Company subcontractors do not reclaim CIS through a personal Self Assessment return in the same way. GOV.UK directs companies to set CIS deductions against PAYE liabilities through payroll submissions (FPS/EPS). Do not try to clear company CIS on a personal return or by copying a sole-trader process. If you trade through a company, get payroll/CIS advice for that structure.</p>\n\n<h2>Evidence that actually matters</h2>\n<p>Keep every <a href=\"/blogs/cis-payment-deduction-statements\">payment and deduction statement</a>. Those figures are what you (or your accountant) total for the return. Bank “net” receipts alone are not enough — you need gross, materials, and deduction amounts. If statements are missing, chase the contractor first; HMRC’s CIS system also holds what contractors reported, but your own paperwork still matters.</p>\n\n<h2>Common mistakes</h2>\n<ul>\n  <li>Treating the 20% or 30% deduction as your final tax rate — see <a href=\"/blogs/cis-20-vs-30-percent-deductions\">20% vs 30% CIS deductions</a>.</li>\n  <li>Entering only net pay as turnover, which understates income and muddles the CIS credit.</li>\n  <li>Ignoring expenses that reduce profit — and therefore can increase a refund. See <a href=\"/blogs/cis-allowable-expenses-subcontractors\">CIS allowable expenses</a>.</li>\n  <li>Assuming gross payment status people get “refunds” of deductions that were never taken — they usually do not. See <a href=\"/blogs/cis-gross-payment-status\">CIS gross payment status</a>.</li>\n</ul>\n\n<p>A CIS refund question is still a Self Assessment question. Being under CIS does not automatically put you into Making Tax Digital for Income Tax; that depends on qualifying income thresholds and HMRC’s timetable. Use the free <a href=\"/check-mtd\">MTD checker</a> if your gross self-employment turnover is high enough that digital reporting may also apply.</p>\n\n<p>TaxSimba’s <a href=\"/self-assessment\">Self Assessment service</a> is accountant-led help for sole traders and partners who need CIS credited correctly on the return. We do not guarantee a refund amount or a payment date. <a href=\"/register\">Start Self Assessment with TaxSimba</a> if you want that preparation handled.</p>\n\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>A credit is checked against the whole return</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>Darren&#39;s statements total £6,400 of CIS deductions. Assume the completed return shows a £5,100 liability before those credits and no other account adjustments. The difference is £1,300, potentially repayable after processing and account checks. He does not advertise £6,400 as his refund, and he supplies expense evidence rather than inventing costs to increase it. His accountant also checks other income, prior payments and whether HMRC has applied the credits correctly.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Are all deductions supported?</th><td>Reconcile the complete contractor statements to gross payments and bank receipts.</td></tr><tr><th scope=\"row\">Is the annual tax calculation complete?</th><td>Include allowable expenses and other personal income before estimating a repayment.</td></tr><tr><th scope=\"row\">Has HMRC processed and allocated the credit?</th><td>Check the account and any information requests before promising a payment date.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Does a 30% deduction guarantee a larger refund?</h3><p>No. Repayment depends on the full liability and credited amounts. A higher deduction affects cash flow but is not the final tax rate.</p><h3>Do company subcontractors use this personal-return route?</h3><p>No. Company CIS deductions have a different payroll and repayment process. Confirm the business structure before making a claim.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Collect every contractor&#39;s deduction statements.</li><li>Reconcile gross payments and CIS credits.</li><li>Gather supported business expense records.</li><li>List other income and account balances.</li><li>Record HMRC processing messages and repayment details securely.</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/cis-tax-refunds-subcontractors-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "dek": "Understand how CIS deductions can produce a Self Assessment repayment, what evidence to gather and why neither the refund amount nor timing is fixed.",
+    "query": "cis tax refunds  evidence  calculation and claims",
+    "answer": "A “CIS tax refund” usually means HMRC owes you money because contractors deducted more under the Construction Industry Scheme than your final Income Tax and National Insurance bill for the year. The deductions themselves are not a separate final tax — GOV.UK treats them as advance payments towards what you eventually owe.",
+    "alt": "A construction subcontractor and accountant reconcile yearly tax deductions with business records and expense evidence.",
+    "details": [
+      "Reconcile the complete contractor statements to gross payments and bank receipts.",
+      "Include allowable expenses and other personal income before estimating a repayment.",
+      "Check the account and any information requests before promising a payment date."
+    ],
+    "checklist": [
+      "Are all deductions supported?",
+      "Is the annual tax calculation complete?",
+      "Has HMRC processed and allocated the credit?"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:35:35.502Z",
+    "depth": {
+      "exampleTitle": "A credit is checked against the whole return",
+      "example": [
+        "Darren's statements total £6,400 of CIS deductions. Assume the completed return shows a £5,100 liability before those credits and no other account adjustments. The difference is £1,300, potentially repayable after processing and account checks. He does not advertise £6,400 as his refund, and he supplies expense evidence rather than inventing costs to increase it. His accountant also checks other income, prior payments and whether HMRC has applied the credits correctly."
+      ],
+      "decisionRows": [
+        [
+          "Are all deductions supported?",
+          "Reconcile the complete contractor statements to gross payments and bank receipts."
+        ],
+        [
+          "Is the annual tax calculation complete?",
+          "Include allowable expenses and other personal income before estimating a repayment."
+        ],
+        [
+          "Has HMRC processed and allocated the credit?",
+          "Check the account and any information requests before promising a payment date."
+        ]
+      ],
+      "questions": [
+        [
+          "Does a 30% deduction guarantee a larger refund?",
+          "No. Repayment depends on the full liability and credited amounts. A higher deduction affects cash flow but is not the final tax rate."
+        ],
+        [
+          "Do company subcontractors use this personal-return route?",
+          "No. Company CIS deductions have a different payroll and repayment process. Confirm the business structure before making a claim."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Collect every contractor's deduction statements.",
+        "Reconcile gross payments and CIS credits.",
+        "Gather supported business expense records.",
+        "List other income and account balances.",
+        "Record HMRC processing messages and repayment details securely."
+      ],
+      "downloadHref": "/downloads/guides/cis-tax-refunds-subcontractors-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/cis-tax-refunds-subcontractors-checklist.txt",
+    "readingMinutes": 5,
+    "premiumReady": true,
+    "artwork": {
+      "slug": "cis-tax-refunds-subcontractors",
+      "src": "/images/articles/cis-tax-refunds-subcontractors-960.webp",
+      "srcSet": "/images/articles/cis-tax-refunds-subcontractors-480.webp 480w, /images/articles/cis-tax-refunds-subcontractors-960.webp 960w, /images/articles/cis-tax-refunds-subcontractors-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "heroStyle": "editorial-illustration",
+    "priorityRank": null,
+    "releaseRank": 53
+  },
+  {
+    "id": "seo-cis-20-vs-30",
+    "slug": "cis-20-vs-30-percent-deductions",
+    "title": "20% vs 30% CIS Deductions: Why Am I Paying More?",
+    "excerpt": "Under CIS, contractors usually deduct 20% if you are registered and verified, or 30% if not. Neither figure is your final tax rate — here is what each rate means and what to check if 30% keeps appearing.",
+    "metaTitle": "CIS 20% vs 30%: Check Registration and Verification | TaxSimba",
+    "metaDescription": "Check why CIS deductions may be 20% or 30%, how contractor verification affects the rate and why deductions are separate from your final tax bill.",
+    "category": "Self Assessment",
+    "audience": "cis-subcontractors",
+    "tags": [
+      "CIS",
+      "20%",
+      "30%",
+      "verification",
+      "subcontractor"
+    ],
+    "publishedAt": "2026-09-15T15:51:14.000Z",
+    "reviewedAt": "2026-09-15T15:51:14.000Z",
+    "authorName": "TaxSimba",
+    "reviewerName": "TaxSimba",
+    "featuredImage": "/images/articles/cis-20-vs-30-percent-deductions-1440.webp",
+    "featuredImageAlt": "A subcontractor checks verification correspondence beside a deduction statement and hard hat, curious rather than angry.",
+    "ctaType": "SA",
+    "relatedSlugs": [
+      "cis-tax-refunds-subcontractors",
+      "cis-deductions-self-assessment",
+      "cis-gross-payment-status",
+      "cis-payment-deduction-statements",
+      "cis-allowable-expenses-subcontractors"
+    ],
+    "relatedPages": [
+      {
+        "href": "/self-assessment",
+        "label": "Self Assessment accountant service"
+      },
+      {
+        "href": "/register",
+        "label": "Start Self Assessment with TaxSimba"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — What you must do as a Construction Industry Scheme (CIS) subcontractor: Overview",
+        "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor"
+      },
+      {
+        "label": "GOV.UK — What you must do as a Construction Industry Scheme (CIS) subcontractor: Get paid",
+        "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid"
+      },
+      {
+        "label": "GOV.UK — What you must do as a Construction Industry Scheme (CIS) subcontractor: Overview",
+        "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/how-to-get-gross-payment-status"
+      }
+    ],
+    "curated": true,
+    "content": "\n<p>If your contractor takes <strong>30%</strong> instead of <strong>20%</strong>, it usually means you are not registered for CIS in a way the contractor can verify — or verification failed. GOV.UK is clear: registered and verifiable subcontractors are deducted at the standard 20%; if either condition fails, the higher 30% rate applies. Neither percentage is your final Income Tax rate.</p>\n\n<h2>What the two rates actually are</h2>\n<ul>\n  <li><strong>20%</strong> — net payment status where you are registered for CIS and the contractor can verify you with HMRC.</li>\n  <li><strong>30%</strong> — higher rate where you are not registered, or the contractor cannot verify you.</li>\n  <li><strong>0% CIS deduction</strong> — only where you hold <a href=\"/blogs/cis-gross-payment-status\">gross payment status</a> (you still pay tax later through Self Assessment or Corporation Tax as applicable).</li>\n</ul>\n<p>Deductions are calculated on the labour element after materials that the contractor is satisfied relate to the job (and excluding VAT). A higher rate hurts cash flow now; it does not permanently “set” your tax at 30%.</p>\n\n<h2>Why 30% shows up in practice</h2>\n<ul>\n  <li>You never registered as a CIS subcontractor</li>\n  <li>The contractor used wrong name, Unique Taxpayer Reference (UTR) or National Insurance details</li>\n  <li>Verification failed or timed out and the contractor defaulted to the higher rate</li>\n  <li>You changed from sole trader to company (or the reverse) and the contractor still holds old details</li>\n</ul>\n\n<h2>What to do if you think the rate is wrong</h2>\n<ol>\n  <li>Confirm you are registered for CIS with HMRC for the correct business structure.</li>\n  <li>Give the contractor the exact details HMRC holds and ask them to verify again before the next payment.</li>\n  <li>Check the <a href=\"/blogs/cis-payment-deduction-statements\">payment and deduction statement</a> — it should show the deduction taken for that tax month.</li>\n  <li>Keep working: even at 30%, the money still counts as an advance towards your eventual bill when claimed correctly — see <a href=\"/blogs/cis-tax-refunds-subcontractors\">CIS tax refunds</a> and <a href=\"/blogs/cis-deductions-self-assessment\">CIS on Self Assessment</a>.</li>\n</ol>\n\n<h2>Gross payment status is a different lever</h2>\n<p>If cash flow is the real problem and you meet HMRC’s tests, gross payment status means contractors pay you without CIS deductions. That is not automatic, and it does not remove the duty to pay tax. It also does not decide whether you are employed or self-employed.</p>\n\n<h2>Common mistake</h2>\n<p>Assuming “I’m a basic-rate taxpayer so CIS should be 20% of my tax band.” CIS rates are scheme deduction rates tied to registration and verification, not to your Income Tax band.</p>\n\n<p>Separately, do not treat a 20% or 30% CIS deduction as proof you are “already digital” for Making Tax Digital. CIS is about how contractors pay you; MTD for Income Tax is about digital records and quarterly updates when qualifying income crosses HMRC’s thresholds. If that might apply, start with <a href=\"/check-mtd\">Check if MTD applies</a> rather than guessing from your deduction rate.</p>\n\n<p>If you want help sorting CIS credits on a Self Assessment return after a year of mixed 20%/30% statements, TaxSimba’s <a href=\"/self-assessment\">Self Assessment service</a> can prepare that return with an accountant. We cannot force a contractor to re-verify you, and we do not guarantee HMRC will change a past deduction rate. <a href=\"/register\">Start Self Assessment with TaxSimba</a>.</p>\n\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>Fix the verification trail before the next payment</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>An invoice has £1,000 subject to CIS after the relevant exclusions. At 20%, the deduction would be £200; at 30%, £300. When a contractor cannot verify Jamie, he checks the exact registered business name and reference details, supplies corrections through a secure channel and asks for verification before the next payment. He retains the actual statements for tax-credit purposes. The arithmetic illustrates the cash difference; it does not decide which rate the contractor must apply.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Do the contractor&#39;s details match HMRC&#39;s record?</th><td>Check the legal structure, business name and correct registration references.</td></tr><tr><th scope=\"row\">What verification result did the contractor receive?</th><td>Resolve the underlying mismatch rather than choosing a rate from your Income Tax band.</td></tr><tr><th scope=\"row\">Are deductions shown correctly on statements?</th><td>Keep the actual amounts and query discrepancies promptly.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Is 20% CIS the same as basic-rate Income Tax?</h3><p>No. CIS withholding follows scheme status and verification. Your annual liability is calculated separately from all relevant income and reliefs.</p><h3>Can I assume past higher deductions disappear after registration?</h3><p>No. Keep the actual deduction evidence and follow the proper correction or tax-credit process. Do not overwrite historical statements with a preferred rate.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Check your CIS registration and business structure.</li><li>Confirm exact details supplied to the contractor.</li><li>Record the verification issue and follow-up.</li><li>Review each payment and deduction statement.</li><li>Keep actual deductions for the annual return.</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/cis-20-vs-30-percent-deductions-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "dek": "Check why CIS deductions may be 20% or 30%, how contractor verification affects the rate and why deductions are separate from your final tax bill.",
+    "query": "cis 20  vs 30   check registration and verification",
+    "answer": "If your contractor takes 30% instead of 20%, it usually means you are not registered for CIS in a way the contractor can verify — or verification failed. GOV.UK is clear: registered and verifiable subcontractors are deducted at the standard 20%; if either condition fails, the higher 30% rate applies. Neither percentage is your final Income Tax rate.",
+    "alt": "A subcontractor checks verification correspondence beside a deduction statement and hard hat, curious rather than angry.",
+    "details": [
+      "Check the legal structure, business name and correct registration references.",
+      "Resolve the underlying mismatch rather than choosing a rate from your Income Tax band.",
+      "Keep the actual amounts and query discrepancies promptly."
+    ],
+    "checklist": [
+      "Do the contractor's details match HMRC's record?",
+      "What verification result did the contractor receive?",
+      "Are deductions shown correctly on statements?"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:35:35.502Z",
+    "depth": {
+      "exampleTitle": "Fix the verification trail before the next payment",
+      "example": [
+        "An invoice has £1,000 subject to CIS after the relevant exclusions. At 20%, the deduction would be £200; at 30%, £300. When a contractor cannot verify Jamie, he checks the exact registered business name and reference details, supplies corrections through a secure channel and asks for verification before the next payment. He retains the actual statements for tax-credit purposes. The arithmetic illustrates the cash difference; it does not decide which rate the contractor must apply."
+      ],
+      "decisionRows": [
+        [
+          "Do the contractor's details match HMRC's record?",
+          "Check the legal structure, business name and correct registration references."
+        ],
+        [
+          "What verification result did the contractor receive?",
+          "Resolve the underlying mismatch rather than choosing a rate from your Income Tax band."
+        ],
+        [
+          "Are deductions shown correctly on statements?",
+          "Keep the actual amounts and query discrepancies promptly."
+        ]
+      ],
+      "questions": [
+        [
+          "Is 20% CIS the same as basic-rate Income Tax?",
+          "No. CIS withholding follows scheme status and verification. Your annual liability is calculated separately from all relevant income and reliefs."
+        ],
+        [
+          "Can I assume past higher deductions disappear after registration?",
+          "No. Keep the actual deduction evidence and follow the proper correction or tax-credit process. Do not overwrite historical statements with a preferred rate."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Check your CIS registration and business structure.",
+        "Confirm exact details supplied to the contractor.",
+        "Record the verification issue and follow-up.",
+        "Review each payment and deduction statement.",
+        "Keep actual deductions for the annual return."
+      ],
+      "downloadHref": "/downloads/guides/cis-20-vs-30-percent-deductions-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/cis-20-vs-30-percent-deductions-checklist.txt",
+    "readingMinutes": 5,
+    "premiumReady": true,
+    "artwork": {
+      "slug": "cis-20-vs-30-percent-deductions",
+      "src": "/images/articles/cis-20-vs-30-percent-deductions-960.webp",
+      "srcSet": "/images/articles/cis-20-vs-30-percent-deductions-480.webp 480w, /images/articles/cis-20-vs-30-percent-deductions-960.webp 960w, /images/articles/cis-20-vs-30-percent-deductions-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "heroStyle": "editorial-illustration",
+    "priorityRank": null,
+    "releaseRank": 54
+  },
+  {
+    "id": "seo-cis-statements",
+    "slug": "cis-payment-deduction-statements",
+    "title": "CIS Payment and Deduction Statements: What Subcontractors Need to Keep",
+    "excerpt": "Contractors must give you a payment and deduction statement when CIS is taken. Here is what it should show, when it is due, why you need it for Self Assessment, and what to do if it never arrives.",
+    "metaTitle": "CIS Payment and Deduction Statements: Missing Records | TaxSimba",
+    "metaDescription": "Check what CIS statements show, reconcile them by tax month and follow HMRC's process when a contractor cannot supply missing deductions evidence.",
+    "category": "Self Assessment",
+    "audience": "cis-subcontractors",
+    "tags": [
+      "CIS",
+      "payment-statement",
+      "deduction-statement",
+      "records",
+      "subcontractor"
+    ],
+    "publishedAt": "2026-09-15T15:51:14.000Z",
+    "reviewedAt": "2026-09-15T15:51:14.000Z",
+    "authorName": "TaxSimba",
+    "reviewerName": "TaxSimba",
+    "featuredImage": "/images/articles/cis-payment-deduction-statements-1440.webp",
+    "featuredImageAlt": "A construction worker organises monthly contractor statements and reconciles them with invoice records.",
+    "ctaType": "SA",
+    "relatedSlugs": [
+      "cis-tax-refunds-subcontractors",
+      "cis-deductions-self-assessment",
+      "cis-20-vs-30-percent-deductions",
+      "cis-allowable-expenses-subcontractors",
+      "self-assessment-documents-checklist"
+    ],
+    "relatedPages": [
+      {
+        "href": "/self-assessment",
+        "label": "Self Assessment accountant service"
+      },
+      {
+        "href": "/register",
+        "label": "Start Self Assessment with TaxSimba"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — What you must do as a Construction Industry Scheme (CIS) subcontractor: Get paid",
+        "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid"
+      },
+      {
+        "label": "GOV.UK — Construction Industry Scheme: a guide for contractors and subcontractors (CIS 340)",
+        "url": "https://www.gov.uk/government/publications/construction-industry-scheme-cis-340/construction-industry-scheme-a-guide-for-contractors-and-subcontractors-cis-340"
+      },
+      {
+        "label": "GOV.UK — CISR12160 - The Scheme: contractors: subcontractor's payment and deduction statement - HMRC internal manual",
+        "url": "https://www.gov.uk/hmrc-internal-manuals/construction-industry-scheme-reform/cisr12160"
+      }
+    ],
+    "curated": true,
+    "content": "\n<p>A CIS <strong>payment and deduction statement</strong> is your written proof of what a contractor paid you and how much CIS they took. Without it, reclaiming deductions on Self Assessment becomes guesswork. GOV.UK and HMRC’s CIS guidance require contractors to give this statement when a deduction has been made.</p>\n\n<h2>When you should receive it</h2>\n<p>A CIS tax month runs from the <strong>6th of one month to the 5th of the next</strong>. The contractor must give you the statement within <strong>14 days after the end of that tax month</strong> — so typically by the 19th. They may issue one statement covering the whole month or one per payment, as long as you get at least the required monthly evidence where deductions were taken.</p>\n<p>HMRC notes there is no obligation to issue a statement where payment was made gross (no deduction), though some contractors still do as good practice.</p>\n\n<h2>What it should show</h2>\n<p>Statements can look different, but CIS 340 expects details such as:</p>\n<ul>\n  <li>contractor name and employer tax reference</li>\n  <li>tax month end date (or payment date if single-payment statements)</li>\n  <li>your name and Unique Taxpayer Reference (UTR)</li>\n  <li>verification number if higher-rate (30%) deductions were made because you could not be verified</li>\n  <li>gross amount of payments</li>\n  <li>cost of materials that reduced the amount subject to deduction</li>\n  <li>amount of the CIS deduction</li>\n</ul>\n\n<h2>Why it matters for your tax return</h2>\n<p>On Self Assessment you report income before CIS and claim the deductions as a credit. The monthly statements are how you build those year totals. They also help you spot a wrong <a href=\"/blogs/cis-20-vs-30-percent-deductions\">20% vs 30%</a> rate early. For reclaim mechanics see <a href=\"/blogs/cis-deductions-self-assessment\">CIS deductions on Self Assessment</a> and <a href=\"/blogs/cis-tax-refunds-subcontractors\">CIS tax refunds</a>.</p>\n\n<h2>If the statement never arrives</h2>\n<ol>\n  <li>Ask the contractor in writing for the missing tax month(s).</li>\n  <li>Cross-check bank receipts and your own job records so you know what “should” appear.</li>\n  <li>Keep chasing — HMRC’s guidance puts the duty on the contractor to provide the statement when deductions were made.</li>\n  <li>Tell your accountant which months are missing before the return is filed; do not invent figures.</li>\n</ol>\n\n<h2>Practical filing habit</h2>\n<p>Save PDFs or photos in folders by tax month (6th–5th), not by calendar month alone. One missing January statement can wipe hundreds of pounds of CIS credit if nobody notices until January filing season. Pair this with the wider <a href=\"/blogs/self-assessment-documents-checklist\">Self Assessment documents checklist</a>.</p>\n<p>Those statements also help you total gross CIS labour for the year. If that gross self-employment income (with any property income) may sit above Making Tax Digital thresholds, keep the same figures tidy for eligibility checks — <a href=\"/check-mtd\">check if MTD applies</a> — without treating CIS paperwork as an MTD filing by itself.</p>\n\n<p>TaxSimba’s <a href=\"/self-assessment\">Self Assessment accountants</a> will ask for a complete set of statements before preparing a CIS-heavy return. We cannot issue statements for a contractor, and we do not guarantee HMRC will accept incomplete evidence. <a href=\"/register\">Start Self Assessment with TaxSimba</a> when you want help turning the paperwork into a correct return.</p>\n\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>A missing month is a question to resolve</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>Faye&#39;s bank records show payments from three contractors, but one contractor&#39;s statement is missing for a tax month. She lists the contractor, payment dates and amounts, asks for a duplicate and marks the gap in the return pack. She does not divide the bank credits by 80% to manufacture a statement: materials, VAT or a different deduction rate could change the calculation. If duplicates cannot be obtained, she follows HMRC&#39;s published missing-statement process.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Which tax month and contractor are missing?</th><td>Build a month-by-contractor grid so gaps are visible.</td></tr><tr><th scope=\"row\">Do statement totals match actual payments?</th><td>Reconcile gross amounts, relevant materials, deductions and net receipts.</td></tr><tr><th scope=\"row\">Can the contractor supply a replacement?</th><td>Request it first and retain the request; use HMRC&#39;s official alternative if unavailable.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Can a bank credit prove the deduction?</h3><p>It proves receipt of money, but not necessarily the CIS amount. Obtain the statement or follow the missing-evidence route.</p><h3>Are CIS tax months calendar months?</h3><p>No. They run from the 6th to the following 5th. Label files by the tax month so statements are not accidentally omitted or counted twice.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>List contractors and CIS tax months.</li><li>Match each statement to bank payments.</li><li>Mark missing, duplicate or disputed amounts.</li><li>Request replacements and keep correspondence.</li><li>Tell your accountant about unresolved gaps before filing.</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/cis-payment-deduction-statements-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "dek": "Check what CIS statements show, reconcile them by tax month and follow HMRC's process when a contractor cannot supply missing deductions evidence.",
+    "query": "cis payment and deduction statements  missing records",
+    "answer": "A CIS payment and deduction statement is your written proof of what a contractor paid you and how much CIS they took. Without it, reclaiming deductions on Self Assessment becomes guesswork. GOV.UK and HMRC’s CIS guidance require contractors to give this statement when a deduction has been made.",
+    "alt": "A construction worker organises monthly contractor statements and reconciles them with invoice records.",
+    "details": [
+      "Build a month-by-contractor grid so gaps are visible.",
+      "Reconcile gross amounts, relevant materials, deductions and net receipts.",
+      "Request it first and retain the request; use HMRC's official alternative if unavailable."
+    ],
+    "checklist": [
+      "Which tax month and contractor are missing?",
+      "Do statement totals match actual payments?",
+      "Can the contractor supply a replacement?"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:35:35.502Z",
+    "depth": {
+      "exampleTitle": "A missing month is a question to resolve",
+      "example": [
+        "Faye's bank records show payments from three contractors, but one contractor's statement is missing for a tax month. She lists the contractor, payment dates and amounts, asks for a duplicate and marks the gap in the return pack. She does not divide the bank credits by 80% to manufacture a statement: materials, VAT or a different deduction rate could change the calculation. If duplicates cannot be obtained, she follows HMRC's published missing-statement process."
+      ],
+      "decisionRows": [
+        [
+          "Which tax month and contractor are missing?",
+          "Build a month-by-contractor grid so gaps are visible."
+        ],
+        [
+          "Do statement totals match actual payments?",
+          "Reconcile gross amounts, relevant materials, deductions and net receipts."
+        ],
+        [
+          "Can the contractor supply a replacement?",
+          "Request it first and retain the request; use HMRC's official alternative if unavailable."
+        ]
+      ],
+      "questions": [
+        [
+          "Can a bank credit prove the deduction?",
+          "It proves receipt of money, but not necessarily the CIS amount. Obtain the statement or follow the missing-evidence route."
+        ],
+        [
+          "Are CIS tax months calendar months?",
+          "No. They run from the 6th to the following 5th. Label files by the tax month so statements are not accidentally omitted or counted twice."
+        ]
+      ],
+      "worksheetPrompts": [
+        "List contractors and CIS tax months.",
+        "Match each statement to bank payments.",
+        "Mark missing, duplicate or disputed amounts.",
+        "Request replacements and keep correspondence.",
+        "Tell your accountant about unresolved gaps before filing."
+      ],
+      "downloadHref": "/downloads/guides/cis-payment-deduction-statements-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/cis-payment-deduction-statements-checklist.txt",
+    "readingMinutes": 4,
+    "premiumReady": true,
+    "artwork": {
+      "slug": "cis-payment-deduction-statements",
+      "src": "/images/articles/cis-payment-deduction-statements-960.webp",
+      "srcSet": "/images/articles/cis-payment-deduction-statements-480.webp 480w, /images/articles/cis-payment-deduction-statements-960.webp 960w, /images/articles/cis-payment-deduction-statements-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "heroStyle": "editorial-illustration",
+    "priorityRank": null,
+    "releaseRank": 55
+  },
+  {
+    "id": "seo-cis-expenses",
+    "slug": "cis-allowable-expenses-subcontractors",
+    "title": "CIS Allowable Expenses for Subcontractors: What Can You Claim?",
+    "excerpt": "Self-employed CIS subcontractors claim the same style of allowable business expenses as other sole traders — tools, travel, protective kit and more — with strict limits on everyday clothes, commuting and mixed private use.",
+    "metaTitle": "CIS Subcontractor Expenses: Records and Common Traps | TaxSimba",
+    "metaDescription": "Prepare allowable expense evidence as a CIS subcontractor, separate private use and equipment treatment, and keep deductions apart from business costs.",
+    "category": "Self Assessment",
+    "audience": "cis-subcontractors",
+    "tags": [
+      "CIS",
+      "allowable-expenses",
+      "subcontractor",
+      "self-employed",
+      "self-assessment"
+    ],
+    "publishedAt": "2026-09-15T15:51:14.000Z",
+    "reviewedAt": "2026-09-15T15:51:14.000Z",
+    "authorName": "TaxSimba",
+    "reviewerName": "TaxSimba",
+    "featuredImage": "/images/articles/cis-allowable-expenses-subcontractors-1440.webp",
+    "featuredImageAlt": "A tradesperson brings tools, workwear receipts, business mileage notebook and personal-use notes to an accountant.",
+    "ctaType": "SA",
+    "relatedSlugs": [
+      "cis-tax-refunds-subcontractors",
+      "cis-deductions-self-assessment",
+      "cis-payment-deduction-statements",
+      "self-assessment-for-sole-traders-2025-26",
+      "top-tax-saving-tips-uk"
+    ],
+    "relatedPages": [
+      {
+        "href": "/self-assessment",
+        "label": "Self Assessment accountant service"
+      },
+      {
+        "href": "/register",
+        "label": "Start Self Assessment with TaxSimba"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Expenses if you're self-employed: Overview",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed"
+      },
+      {
+        "label": "GOV.UK — Expenses if you're self-employed: Clothing expenses",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed/clothing"
+      },
+      {
+        "label": "GOV.UK — Expenses if you're self-employed: Overview",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed/vehicles-travel"
+      },
+      {
+        "label": "GOV.UK — Expenses if you're self-employed: Overview",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed/office-property-equipment"
+      }
+    ],
+    "curated": true,
+    "content": "\n<p>There is no separate “CIS expenses” code list. If you are a <strong>self-employed</strong> subcontractor (sole trader or partner), you use the normal Self Assessment rules for allowable business costs. CIS only changes how contractors pay you; it does not invent new deductions. Company subcontractors claim through the company, not this personal Self Assessment checklist.</p>\n\n<h2>The basic test</h2>\n<p>GOV.UK’s self-employed expenses guide says you can only claim costs that are for the business. Keep receipts and records. You do not send every receipt with the return, but HMRC can ask later.</p>\n\n<h2>Costs construction subcontractors often look at</h2>\n<ul>\n  <li><strong>Tools and equipment</strong> — small tools and short-life items may be allowable expenses; longer-term plant and machinery often sit under capital allowances (rules depend on cash basis vs traditional accounting).</li>\n  <li><strong>Protective / work clothing</strong> — GOV.UK allows uniforms and protective clothing needed for the work. Everyday jeans, trainers or ordinary coats are not allowable even if you wear them on site.</li>\n  <li><strong>Travel between jobs</strong> — fuel, parking, public transport and similar for business journeys can qualify. Travel between home and a regular place of work generally does not.</li>\n  <li><strong>Vehicle costs</strong> — insurance, repairs, fuel and related running costs for business use, or simplified mileage flat rates where you choose that method. Private miles need a fair split.</li>\n  <li><strong>Phone and admin</strong> — business calls, software, stationery; split private use on a home broadband or mobile contract.</li>\n  <li><strong>Insurance and professional costs</strong> — public liability, tools cover, and accountancy fees for the business where they relate to the trade.</li>\n  <li><strong>Materials</strong> — goods you buy to use on jobs can be business costs; remember materials also affect how CIS deductions are calculated on the contractor’s side.</li>\n</ul>\n\n<h2>What usually does not qualify</h2>\n<ul>\n  <li>Ordinary clothing</li>\n  <li>Home-to-work commuting</li>\n  <li>Parking fines or penalties</li>\n  <li>Private holidays, personal phone use, or family costs parked through the business</li>\n</ul>\n\n<h2>How expenses interact with CIS</h2>\n<p>Expenses reduce taxable profit. Lower profit can mean a larger CIS repayment when deductions already taken exceed the final bill — see <a href=\"/blogs/cis-tax-refunds-subcontractors\">CIS tax refunds</a>. They do not change the 20%/30% withheld on each payslip. Keep <a href=\"/blogs/cis-payment-deduction-statements\">payment statements</a> separate from expense folders so income and costs do not get mixed.</p>\n<p>Also remember: Making Tax Digital qualifying-income tests generally look at turnover before expenses, not at the profit left after tools and travel. Claiming CIS expenses correctly still matters for Self Assessment, but it does not “expense you out” of MTD if gross income is above the threshold. Confirm with <a href=\"/check-mtd\">Check if MTD applies</a> when your construction turnover is substantial, and read TaxSimba’s <a href=\"/making-tax-digital\">Making Tax Digital overview</a> only if you are genuinely in scope.</p>\n\n<h2>Worked sketch (illustrative only)</h2>\n<p>Gross CIS labour £48,000; CIS deducted £9,600; allowable expenses £11,000. Taxable trading profit starts near £37,000 before other adjustments. The £9,600 still credits the Self Assessment bill. Skipping the £11,000 expenses would inflate profit and shrink any refund — without changing what contractors already withheld.</p>\n\n<p>TaxSimba’s <a href=\"/self-assessment\">Self Assessment service</a> helps sole-trader subcontractors sort allowable costs and CIS credits with an accountant. We do not promise every receipt will be accepted, and we do not sell “maximised CIS refund” schemes. <a href=\"/register\">Start Self Assessment with TaxSimba</a>.</p>\n\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>Separate site costs from everyday spending</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>A subcontractor buys £85 protective boots, £60 everyday jeans and pays a £45 parking penalty. She keeps the receipts but does not assume all three are deductible because she was working that day. She lists the business purpose, identifies the protective item and flags the ordinary clothing and fine for exclusion. Her van and phone records include private-use information. CIS deductions stay in a separate credit schedule rather than becoming another expense.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">What was the business purpose?</th><td>Keep evidence and descriptions; a business bank payment alone does not establish allowability.</td></tr><tr><th scope=\"row\">Is there mixed private use?</th><td>Record a supportable split instead of claiming the full cost automatically.</td></tr><tr><th scope=\"row\">Is this equipment or a running cost?</th><td>Confirm asset treatment under the applicable accounting basis and avoid duplicate claims.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Do expenses reduce CIS withheld on old payments?</h3><p>Not retrospectively through the expense claim. Allowable costs affect annual profit; actual CIS deductions are separately credited in the return.</p><h3>Can I claim normal clothes worn on site?</h3><p>Ordinary clothing is generally not deductible. Uniforms and protective clothing have different rules; retain the item details.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Group receipts by business cost type.</li><li>Write the business purpose for unusual items.</li><li>Record private-use splits for vehicles and phones.</li><li>List equipment and the accounting basis used.</li><li>Keep CIS credit totals separate from expense totals.</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/cis-allowable-expenses-subcontractors-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "dek": "Prepare allowable expense evidence as a CIS subcontractor, separate private use and equipment treatment, and keep deductions apart from business costs.",
+    "query": "cis subcontractor expenses  records and common traps",
+    "answer": "There is no separate “CIS expenses” code list. If you are a self-employed subcontractor (sole trader or partner), you use the normal Self Assessment rules for allowable business costs. CIS only changes how contractors pay you; it does not invent new deductions. Company subcontractors claim through the company, not this personal Self Assessment checklist.",
+    "alt": "A tradesperson brings tools, workwear receipts, business mileage notebook and personal-use notes to an accountant.",
+    "details": [
+      "Keep evidence and descriptions; a business bank payment alone does not establish allowability.",
+      "Record a supportable split instead of claiming the full cost automatically.",
+      "Confirm asset treatment under the applicable accounting basis and avoid duplicate claims."
+    ],
+    "checklist": [
+      "What was the business purpose?",
+      "Is there mixed private use?",
+      "Is this equipment or a running cost?"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:35:35.502Z",
+    "depth": {
+      "exampleTitle": "Separate site costs from everyday spending",
+      "example": [
+        "A subcontractor buys £85 protective boots, £60 everyday jeans and pays a £45 parking penalty. She keeps the receipts but does not assume all three are deductible because she was working that day. She lists the business purpose, identifies the protective item and flags the ordinary clothing and fine for exclusion. Her van and phone records include private-use information. CIS deductions stay in a separate credit schedule rather than becoming another expense."
+      ],
+      "decisionRows": [
+        [
+          "What was the business purpose?",
+          "Keep evidence and descriptions; a business bank payment alone does not establish allowability."
+        ],
+        [
+          "Is there mixed private use?",
+          "Record a supportable split instead of claiming the full cost automatically."
+        ],
+        [
+          "Is this equipment or a running cost?",
+          "Confirm asset treatment under the applicable accounting basis and avoid duplicate claims."
+        ]
+      ],
+      "questions": [
+        [
+          "Do expenses reduce CIS withheld on old payments?",
+          "Not retrospectively through the expense claim. Allowable costs affect annual profit; actual CIS deductions are separately credited in the return."
+        ],
+        [
+          "Can I claim normal clothes worn on site?",
+          "Ordinary clothing is generally not deductible. Uniforms and protective clothing have different rules; retain the item details."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Group receipts by business cost type.",
+        "Write the business purpose for unusual items.",
+        "Record private-use splits for vehicles and phones.",
+        "List equipment and the accounting basis used.",
+        "Keep CIS credit totals separate from expense totals."
+      ],
+      "downloadHref": "/downloads/guides/cis-allowable-expenses-subcontractors-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/cis-allowable-expenses-subcontractors-checklist.txt",
+    "readingMinutes": 5,
+    "premiumReady": true,
+    "artwork": {
+      "slug": "cis-allowable-expenses-subcontractors",
+      "src": "/images/articles/cis-allowable-expenses-subcontractors-960.webp",
+      "srcSet": "/images/articles/cis-allowable-expenses-subcontractors-480.webp 480w, /images/articles/cis-allowable-expenses-subcontractors-960.webp 960w, /images/articles/cis-allowable-expenses-subcontractors-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "heroStyle": "editorial-illustration",
+    "priorityRank": null,
+    "releaseRank": 56
+  },
+  {
+    "id": "seo-cis-gross-payment-status",
+    "slug": "cis-gross-payment-status",
+    "title": "CIS Gross Payment Status: What It Means and Who Can Apply",
+    "excerpt": "Gross payment status means CIS contractors pay you without deducting 20% or 30% up front. You still owe tax. Here is what HMRC currently tests, how to apply, and when gross status helps cash flow.",
+    "metaTitle": "CIS Gross Payment Status: Cash Flow and Tax Duties | TaxSimba",
+    "metaDescription": "Understand CIS gross payment status, HMRC's application tests and the records and tax budgeting you still need when contractors stop deducting tax.",
+    "category": "Self Assessment",
+    "audience": "cis-subcontractors",
+    "tags": [
+      "CIS",
+      "gross-payment-status",
+      "GPS",
+      "subcontractor",
+      "construction"
+    ],
+    "publishedAt": "2026-09-15T15:51:14.000Z",
+    "reviewedAt": "2026-09-15T15:51:14.000Z",
+    "authorName": "TaxSimba",
+    "reviewerName": "TaxSimba",
+    "featuredImage": "/images/articles/cis-gross-payment-status-1440.webp",
+    "featuredImageAlt": "An established construction contractor reviews business turnover and compliance papers before applying for gross payment.",
+    "ctaType": "SA",
+    "relatedSlugs": [
+      "cis-20-vs-30-percent-deductions",
+      "cis-tax-refunds-subcontractors",
+      "cis-deductions-self-assessment",
+      "cis-payment-deduction-statements",
+      "cis-allowable-expenses-subcontractors"
+    ],
+    "relatedPages": [
+      {
+        "href": "/self-assessment",
+        "label": "Self Assessment accountant service"
+      },
+      {
+        "href": "/register",
+        "label": "Start Self Assessment with TaxSimba"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — What you must do as a Construction Industry Scheme (CIS) subcontractor: Overview",
+        "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/how-to-get-gross-payment-status"
+      },
+      {
+        "label": "GOV.UK — What you must do as a Construction Industry Scheme (CIS) subcontractor: Overview",
+        "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor"
+      },
+      {
+        "label": "GOV.UK — What you must do as a Construction Industry Scheme (CIS) subcontractor: Get paid",
+        "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid"
+      }
+    ],
+    "curated": true,
+    "content": "\n<p><strong>Gross payment status</strong> means CIS contractors pay you in full for qualifying contract payments, without taking the usual 20% or 30% CIS deduction. GOV.UK is explicit: you still pay your Income Tax and National Insurance (or Corporation Tax for companies) yourself through the normal year-end process.</p>\n\n<h2>What changes — and what does not</h2>\n<ul>\n  <li><strong>Changes:</strong> cash arrives without CIS withheld; monthly deduction statements for CIS deductions are generally not required when nothing was deducted.</li>\n  <li><strong>Does not change:</strong> the need to register and report income correctly; employment vs self-employment status (gross status alone does not decide that); the duty to budget for tax.</li>\n</ul>\n\n<h2>Who can apply — current GOV.UK tests</h2>\n<p>HMRC looks at whether your business:</p>\n<ul>\n  <li>has paid tax and National Insurance on time in the past (compliance test)</li>\n  <li>does construction work (or provides labour for it) in the UK (business test)</li>\n  <li>is run through a bank account</li>\n</ul>\n<p>HMRC also looks at turnover for the last 12 months, ignoring VAT and the cost of materials. GOV.UK currently states the turnover must be at least:</p>\n<ul>\n  <li><strong>£30,000</strong> if you are a sole trader</li>\n  <li><strong>£30,000 for each partner</strong>, or at least <strong>£100,000</strong> for the partnership as a whole</li>\n  <li><strong>£30,000 for each company director</strong>, or at least <strong>£100,000</strong> for the company as a whole</li>\n</ul>\n<p>Recheck the live GOV.UK page before you apply — thresholds and tests can be updated.</p>\n\n<h2>How to apply</h2>\n<p>GOV.UK lets you apply online or by post. Applying for gross payment status also registers you for CIS if you are not already registered. Keep bank evidence and compliance history tidy before you submit.</p>\n\n<h2>Paying tax with gross status</h2>\n<p>Sole traders and partners still declare income on Self Assessment. Company owners use the Corporation Tax return for company profits. Without CIS deductions sitting on account, you must actively set money aside — otherwise January (or company payment dates) becomes a cash shock. Compare that with people on net payment status who may later see <a href=\"/blogs/cis-tax-refunds-subcontractors\">CIS refunds</a> when deductions exceed the final bill.</p>\n\n<h2>When gross status may not suit you</h2>\n<p>If your compliance history is uneven, turnover is below the test, or you prefer contractors to withhold something towards tax, staying on 20% net payment status can be simpler. Gross status is a cash-flow tool, not a badge that reduces the tax you ultimately owe.</p>\n\n<p>Gross payment status also does not decide Making Tax Digital eligibility. You can be paid gross under CIS and still need digital records and quarterly updates if qualifying income brings you into MTD — or be outside MTD while still on CIS deductions. Separate the two: use <a href=\"/check-mtd\">Check if MTD applies</a> for the digital-reporting question, and keep Self Assessment (or company filing) for the tax bill itself.</p>\n\n<p>TaxSimba helps self-employed subcontractors through our <a href=\"/self-assessment\">Self Assessment service</a> once income needs reporting — including after a move to gross payment status. We do not process HMRC gross-status applications as a standalone product on this page, and we do not guarantee approval. <a href=\"/register\">Start Self Assessment with TaxSimba</a> when you want accountant-led filing support.</p>\n\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>More cash today still needs a tax reserve</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>A subcontractor normally has £400 CIS deducted from a £2,000 payment subject to the scheme. After gross payment status takes effect and is verified, the relevant payment can arrive without that deduction. He does not treat the extra cash as extra profit or spend the tax reserve automatically. He updates his forecast, continues reporting the full income and checks compliance deadlines. Gross payment status changes withholding; it does not make the business tax-free or settle employment status.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Do you meet HMRC&#39;s current application tests?</th><td>Check the business, turnover and compliance requirements before applying.</td></tr><tr><th scope=\"row\">Has the contractor verified the new status?</th><td>Confirm the effective treatment and keep the payment records.</td></tr><tr><th scope=\"row\">Is tax being reserved without withholding?</th><td>Update cash-flow planning and keep filing and payment obligations on schedule.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Does gross status remove Self Assessment?</h3><p>No. Sole traders still need to report and pay through the applicable tax process. Companies have their own obligations.</p><h3>Can gross status be lost?</h3><p>HMRC reviews compliance. Keep records, returns and payments up to date and read any review or cancellation notice carefully.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Check eligibility and the relevant turnover calculation.</li><li>Review outstanding returns and tax payments.</li><li>Retain the application outcome and effective details.</li><li>Confirm contractor verification.</li><li>Update the tax reserve and compliance calendar.</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/cis-gross-payment-status-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "dek": "Understand CIS gross payment status, HMRC's application tests and the records and tax budgeting you still need when contractors stop deducting tax.",
+    "query": "cis gross payment status  cash flow and tax duties",
+    "answer": "Gross payment status means CIS contractors pay you in full for qualifying contract payments, without taking the usual 20% or 30% CIS deduction. GOV.UK is explicit: you still pay your Income Tax and National Insurance (or Corporation Tax for companies) yourself through the normal year-end process.",
+    "alt": "An established construction contractor reviews business turnover and compliance papers before applying for gross payment.",
+    "details": [
+      "Check the business, turnover and compliance requirements before applying.",
+      "Confirm the effective treatment and keep the payment records.",
+      "Update cash-flow planning and keep filing and payment obligations on schedule."
+    ],
+    "checklist": [
+      "Do you meet HMRC's current application tests?",
+      "Has the contractor verified the new status?",
+      "Is tax being reserved without withholding?"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:35:35.502Z",
+    "depth": {
+      "exampleTitle": "More cash today still needs a tax reserve",
+      "example": [
+        "A subcontractor normally has £400 CIS deducted from a £2,000 payment subject to the scheme. After gross payment status takes effect and is verified, the relevant payment can arrive without that deduction. He does not treat the extra cash as extra profit or spend the tax reserve automatically. He updates his forecast, continues reporting the full income and checks compliance deadlines. Gross payment status changes withholding; it does not make the business tax-free or settle employment status."
+      ],
+      "decisionRows": [
+        [
+          "Do you meet HMRC's current application tests?",
+          "Check the business, turnover and compliance requirements before applying."
+        ],
+        [
+          "Has the contractor verified the new status?",
+          "Confirm the effective treatment and keep the payment records."
+        ],
+        [
+          "Is tax being reserved without withholding?",
+          "Update cash-flow planning and keep filing and payment obligations on schedule."
+        ]
+      ],
+      "questions": [
+        [
+          "Does gross status remove Self Assessment?",
+          "No. Sole traders still need to report and pay through the applicable tax process. Companies have their own obligations."
+        ],
+        [
+          "Can gross status be lost?",
+          "HMRC reviews compliance. Keep records, returns and payments up to date and read any review or cancellation notice carefully."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Check eligibility and the relevant turnover calculation.",
+        "Review outstanding returns and tax payments.",
+        "Retain the application outcome and effective details.",
+        "Confirm contractor verification.",
+        "Update the tax reserve and compliance calendar."
+      ],
+      "downloadHref": "/downloads/guides/cis-gross-payment-status-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/cis-gross-payment-status-checklist.txt",
+    "readingMinutes": 4,
+    "premiumReady": true,
+    "artwork": {
+      "slug": "cis-gross-payment-status",
+      "src": "/images/articles/cis-gross-payment-status-960.webp",
+      "srcSet": "/images/articles/cis-gross-payment-status-480.webp 480w, /images/articles/cis-gross-payment-status-960.webp 960w, /images/articles/cis-gross-payment-status-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "heroStyle": "editorial-illustration",
+    "priorityRank": null,
+    "releaseRank": 57
+  },
+  {
+    "id": "seo-next38-mtd-no-income-quarter",
+    "slug": "mtd-no-income-quarter",
+    "title": "No Income This Quarter: Do I Still Need an MTD Update?",
+    "excerpt": "A quiet period does not automatically remove an MTD reporting obligation. HMRC says an update is still required where an income source has no income and no expenses during an update period.",
+    "metaTitle": "No Income This Quarter: Do I Still Need an MTD Update? | TaxSimba",
+    "metaDescription": "A quiet quarter does not automatically remove MTD reporting. Check year-to-date totals, expenses, ceased sources and the submission evidence you need.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/mtd-no-income-quarter-1440.webp",
+    "featuredImageAlt": "A seasonal trader with a quiet shop keeps an empty-period ledger and sends required records, peaceful calendar.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "mtd-quarterly-updates"
+    ],
+    "relatedPages": [
+      {
+        "href": "/mtd-information",
+        "label": "Compare current MTD packages"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Send quarterly updates - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+      },
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 45,
+    "researchCheckedAt": "2026-10-20",
+    "content": "<p>A quiet period does not automatically remove an MTD reporting obligation. HMRC says an update is still required where an income source has no income and no expenses during an update period.</p>\n<h2>Check what “no activity” means</h2>\n<p>No customer payments is not necessarily the same as no business activity. There may still be software costs, insurance, rent, bank charges or other transactions to consider. Tell your accountant what happened rather than simply writing “nothing”.</p>\n<p>The records also need to reflect the accounting method in use. An unpaid invoice and an amount received are not interchangeable in every set of accounts.</p>\n<h2>Temporary inactivity is different from stopping</h2>\n<p>If you have stopped trading or ended a rental activity, explain the date and circumstances. Do not assume that leaving a quarter blank tells HMRC the business has ceased. There is a separate process for changes to income sources.</p>\n<p>Keep previous submissions and supporting records available. A business that stops taking new bookings may still receive money or incur costs afterwards.</p>\n<h2>A useful message to your accountant</h2>\n<p>Say: “There were no new sales this period. These are the bank statements and any remaining costs. Please check whether anything else needs recording.” That gives the accountant evidence to work from.</p>\n<h2>Example: a seasonal business</h2>\n<p>A business may have no sales during a quiet period but still pay insurance or software fees. Send those records rather than reporting zero income and zero costs without checking. If the period genuinely has neither, the accountant can assess the required nil-activity reporting.</p>\n<h2>Does a nil update mean the cumulative total is zero?</h2>\n<p>Not necessarily. Earlier activity can remain in the year-to-date totals. “No new activity this quarter” and “nothing has happened all tax year” describe different positions.</p>\n<h2>Should I cancel my service if work stops temporarily?</h2>\n<p>Check the remaining obligations first. A short break, permanent cessation and a commercial cancellation have different consequences. Agree who will complete outstanding bookkeeping, updates and the annual return before ending an arrangement.</p>\n<p><strong>Next step:</strong> Respond to the record request even when the period was quiet. Let the accountant confirm the filing position instead of assuming no update is due.</p>\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>No new sales does not mean zero year-to-date income</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>A trader reported £9,000 cumulative income in the first period and makes no new sales in the second. The year-to-date income can still be £9,000; it does not become zero simply because the latest three months were quiet. She also checks business subscriptions and other costs incurred during the gap. She confirms the required update with the accountant, keeps the acknowledgement and distinguishes a temporary pause from permanently ceasing the business.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">No sales or no transactions at all?</th><td>Check expenses, refunds and non-bank activity as well as customer receipts.</td></tr><tr><th scope=\"row\">What remains in the cumulative totals?</th><td>Preserve earlier activity and reconcile the year-to-date records.</td></tr><tr><th scope=\"row\">Temporary pause or permanent cessation?</th><td>Agree the correct reporting steps and outstanding annual work before ending a service.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Should I ignore the accountant&#39;s record request if nothing happened?</h3><p>No. Confirm the position and provide any costs or changes so the required update can be checked and sent.</p><h3>Does cancelling a subscription end HMRC obligations?</h3><p>No. Commercial cancellation and tax reporting are separate. Agree who handles any remaining submissions and final return.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Confirm new income, expenses and refunds.</li><li>Check earlier cumulative figures.</li><li>Document any permanent cessation date.</li><li>Agree who sends the required update.</li><li>Save acknowledgement and remaining year-end tasks.</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/mtd-no-income-quarter-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "editorialStatus": "final-copy",
+    "wordCount": 356,
+    "targetQuery": "MTD nil return no income",
+    "priority": "P2",
+    "differentiation": "Nil-activity question, distinct from general deadlines.",
+    "iconKey": "calendar",
+    "contentType": "Answer guide",
+    "readingMinutes": 4,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "A quiet quarter does not automatically remove MTD reporting. Check year-to-date totals, expenses, ceased sources and the submission evidence you need.",
+    "query": "no income this quarter  do i still need an mtd update ",
+    "answer": "A quiet period does not automatically remove an MTD reporting obligation. HMRC says an update is still required where an income source has no income and no expenses during an update period.",
+    "alt": "A seasonal trader with a quiet shop keeps an empty-period ledger and sends required records, peaceful calendar.",
+    "details": [
+      "Check expenses, refunds and non-bank activity as well as customer receipts.",
+      "Preserve earlier activity and reconcile the year-to-date records.",
+      "Agree the correct reporting steps and outstanding annual work before ending a service."
+    ],
+    "checklist": [
+      "No sales or no transactions at all?",
+      "What remains in the cumulative totals?",
+      "Temporary pause or permanent cessation?"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:35:35.502Z",
+    "depth": {
+      "exampleTitle": "No new sales does not mean zero year-to-date income",
+      "example": [
+        "A trader reported £9,000 cumulative income in the first period and makes no new sales in the second. The year-to-date income can still be £9,000; it does not become zero simply because the latest three months were quiet. She also checks business subscriptions and other costs incurred during the gap. She confirms the required update with the accountant, keeps the acknowledgement and distinguishes a temporary pause from permanently ceasing the business."
+      ],
+      "decisionRows": [
+        [
+          "No sales or no transactions at all?",
+          "Check expenses, refunds and non-bank activity as well as customer receipts."
+        ],
+        [
+          "What remains in the cumulative totals?",
+          "Preserve earlier activity and reconcile the year-to-date records."
+        ],
+        [
+          "Temporary pause or permanent cessation?",
+          "Agree the correct reporting steps and outstanding annual work before ending a service."
+        ]
+      ],
+      "questions": [
+        [
+          "Should I ignore the accountant's record request if nothing happened?",
+          "No. Confirm the position and provide any costs or changes so the required update can be checked and sent."
+        ],
+        [
+          "Does cancelling a subscription end HMRC obligations?",
+          "No. Commercial cancellation and tax reporting are separate. Agree who handles any remaining submissions and final return."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Confirm new income, expenses and refunds.",
+        "Check earlier cumulative figures.",
+        "Document any permanent cessation date.",
+        "Agree who sends the required update.",
+        "Save acknowledgement and remaining year-end tasks."
+      ],
+      "downloadHref": "/downloads/guides/mtd-no-income-quarter-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/mtd-no-income-quarter-checklist.txt",
+    "premiumReady": true,
+    "artwork": {
+      "slug": "mtd-no-income-quarter",
+      "src": "/images/articles/mtd-no-income-quarter-960.webp",
+      "srcSet": "/images/articles/mtd-no-income-quarter-480.webp 480w, /images/articles/mtd-no-income-quarter-960.webp 960w, /images/articles/mtd-no-income-quarter-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": null,
+    "releaseRank": 58
+  },
+  {
+    "id": "seo-next38-mtd-two-self-employed-businesses",
+    "slug": "mtd-two-self-employed-businesses",
+    "title": "Two Self-Employed Businesses: How Does MTD Reporting Work?",
+    "excerpt": "Running two self-employed activities can mean more than keeping one combined bank total. Before arranging MTD support, tell your accountant about every trade and how the records are organised.",
+    "metaTitle": "Two Self-Employed Businesses: MTD Records and Updates | TaxSimba",
+    "metaDescription": "Running two trades? Separate the records, allocate shared costs once and confirm that your MTD software and accountant's scope cover both activities.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/mtd-two-self-employed-businesses-1440.webp",
+    "featuredImageAlt": "A person runs a carpentry workshop and a separate tutoring business, two distinct ledger folders at one desk.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "mtd-for-sole-traders-2026-27"
+    ],
+    "relatedPages": [
+      {
+        "href": "/mtd-information",
+        "label": "Compare current MTD packages"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Work out your qualifying income for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Choose the right software for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 46,
+    "researchCheckedAt": "2026-10-20",
+    "content": "<p>Running two self-employed activities can mean more than keeping one combined bank total. Before arranging MTD support, tell your accountant about every trade and how the records are organised.</p>\n<h2>Identify the separate activities</h2>\n<p>Describe what each business does, any trading names and when it started. A trading name alone does not settle whether there are separate businesses for tax purposes. Your accountant should assess the facts rather than relying on how accounts are labelled.</p>\n<p>MTD software needs to support the relevant business income sources. When records are mixed, it becomes harder to identify which activity a receipt or payment belongs to.</p>\n<h2>Build a practical separation</h2>\n<p>Use a clear tag or reference for each transaction. Keep separate sales summaries and note how shared costs were allocated. If both businesses use the same phone, premises or vehicle, record enough information for a reasonable review rather than charging the full cost twice.</p>\n<p>Tell the accountant if a transfer between accounts is simply money moving within your finances. It should not be mistaken for another customer payment.</p>\n<h2>Check the quote before buying</h2>\n<p>Ask whether the plan covers both activities and any work needed to separate existing records. A package suitable for one straightforward trade should not be assumed to cover an unlimited number of businesses.</p>\n<h2>Example: design work and a separate trade</h2>\n<p>Explain the customers, services and working arrangements of both activities. Your accountant can consider whether the records describe separate trades and how they should be reported. Two bank accounts do not automatically create two trades, just as one bank account does not automatically combine them.</p>\n<h2>What about rental income as well?</h2>\n<p>Tell the accountant about it at the outset. Property and self-employment can affect the eligibility calculation and create separate reporting needs. A complete list is more useful than adding another income source shortly before filing.</p>\n<h2>Can shared costs be included in both businesses?</h2>\n<p>The same cost should not be claimed twice. Keep the total invoice and explain the use across activities. Ask the accountant to review a reasonable allocation, including any private use, rather than putting the full bill into each set of records.</p>\n<p><strong>Next step:</strong> Send a short description of each activity and a sample of how you keep records so TaxSimba can confirm the service scope.</p>\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>A shared phone bill must not be claimed twice</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>Alex runs a repair trade and a separate teaching business. A £60 phone bill supports both activities and private calls. He records the original bill once and documents the proposed business allocation rather than entering £60 in each set of books. He tags sales by activity and marks account transfers clearly. The accountant checks whether the activities are separate businesses and how each should be reported, rather than deciding from the number of bank accounts.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Are these distinct businesses for tax purposes?</th><td>Describe the activities, customers and start dates for a factual assessment.</td></tr><tr><th scope=\"row\">Can every transaction be allocated?</th><td>Use clear business tags and a documented method for shared costs.</td></tr><tr><th scope=\"row\">Does the agreed service cover both?</th><td>Confirm records, updates and annual-return scope for each activity.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Do two trading names automatically mean two businesses?</h3><p>No. The underlying activities and facts matter. Provide descriptions rather than relying on labels alone.</p><h3>Can a single bank account be used?</h3><p>It may be possible, but mixed records need reliable separation. One account does not remove the need to report distinct businesses correctly.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Describe each activity and start date.</li><li>Identify sales and expense record sources.</li><li>Tag transactions by business.</li><li>Document shared and private-use allocations.</li><li>Confirm software support and service scope for every business.</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/mtd-two-self-employed-businesses-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "editorialStatus": "final-copy",
+    "wordCount": 377,
+    "targetQuery": "MTD two businesses",
+    "priority": "P2",
+    "differentiation": "Separate trades and record organisation.",
+    "iconKey": "digital-tax",
+    "contentType": "Answer guide",
+    "readingMinutes": 4,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "Running two trades? Separate the records, allocate shared costs once and confirm that your MTD software and accountant's scope cover both activities.",
+    "query": "two self employed businesses  mtd records and updates",
+    "answer": "Running two self-employed activities can mean more than keeping one combined bank total. Before arranging MTD support, tell your accountant about every trade and how the records are organised.",
+    "alt": "A person runs a carpentry workshop and a separate tutoring business, two distinct ledger folders at one desk.",
+    "details": [
+      "Describe the activities, customers and start dates for a factual assessment.",
+      "Use clear business tags and a documented method for shared costs.",
+      "Confirm records, updates and annual-return scope for each activity."
+    ],
+    "checklist": [
+      "Are these distinct businesses for tax purposes?",
+      "Can every transaction be allocated?",
+      "Does the agreed service cover both?"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:35:35.502Z",
+    "depth": {
+      "exampleTitle": "A shared phone bill must not be claimed twice",
+      "example": [
+        "Alex runs a repair trade and a separate teaching business. A £60 phone bill supports both activities and private calls. He records the original bill once and documents the proposed business allocation rather than entering £60 in each set of books. He tags sales by activity and marks account transfers clearly. The accountant checks whether the activities are separate businesses and how each should be reported, rather than deciding from the number of bank accounts."
+      ],
+      "decisionRows": [
+        [
+          "Are these distinct businesses for tax purposes?",
+          "Describe the activities, customers and start dates for a factual assessment."
+        ],
+        [
+          "Can every transaction be allocated?",
+          "Use clear business tags and a documented method for shared costs."
+        ],
+        [
+          "Does the agreed service cover both?",
+          "Confirm records, updates and annual-return scope for each activity."
+        ]
+      ],
+      "questions": [
+        [
+          "Do two trading names automatically mean two businesses?",
+          "No. The underlying activities and facts matter. Provide descriptions rather than relying on labels alone."
+        ],
+        [
+          "Can a single bank account be used?",
+          "It may be possible, but mixed records need reliable separation. One account does not remove the need to report distinct businesses correctly."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Describe each activity and start date.",
+        "Identify sales and expense record sources.",
+        "Tag transactions by business.",
+        "Document shared and private-use allocations.",
+        "Confirm software support and service scope for every business."
+      ],
+      "downloadHref": "/downloads/guides/mtd-two-self-employed-businesses-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/mtd-two-self-employed-businesses-checklist.txt",
+    "premiumReady": true,
+    "artwork": {
+      "slug": "mtd-two-self-employed-businesses",
+      "src": "/images/articles/mtd-two-self-employed-businesses-960.webp",
+      "srcSet": "/images/articles/mtd-two-self-employed-businesses-480.webp 480w, /images/articles/mtd-two-self-employed-businesses-960.webp 960w, /images/articles/mtd-two-self-employed-businesses-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": null,
+    "releaseRank": 59
+  },
+  {
+    "id": "seo-next38-mtd-employed-landlord-salary",
+    "slug": "mtd-employed-landlord-salary",
+    "title": "Employed and a Landlord: Does Your Salary Count Towards MTD?",
+    "excerpt": "A salary can affect your overall tax position without being part of the qualifying income used for MTD eligibility. Do not decide whether you need MTD by adding every amount that arrives in your bank account.",
+    "metaTitle": "Employed and a Landlord: Does Salary Count for MTD? | TaxSimba",
+    "metaDescription": "Separate PAYE salary from MTD qualifying income, check your share of gross rent and prepare the full employment and property picture for year-end.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/mtd-employed-landlord-salary-1440.webp",
+    "featuredImageAlt": "An employed landlord separates salary papers from gross rental statements, house keys and work bag visible.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "mtd-qualifying-income",
+      "self-assessment-for-landlords-2025-26"
+    ],
+    "relatedPages": [
+      {
+        "href": "/mtd-information",
+        "label": "Compare current MTD packages"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Work out your qualifying income for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 47,
+    "researchCheckedAt": "2026-10-20",
+    "content": "<p>A salary can affect your overall tax position without being part of the qualifying income used for MTD eligibility. Do not decide whether you need MTD by adding every amount that arrives in your bank account.</p>\n<h2>Separate the eligibility check from the tax calculation</h2>\n<p>HMRC’s qualifying-income test focuses on relevant gross self-employment and property income. Employment salary is treated differently. The correct lookback tax year also matters, so using this month’s income may give the wrong answer.</p>\n<p>Once you are in MTD, your overall annual tax position still needs to reflect all relevant income. Being paid through PAYE does not make rental income disappear from the review.</p>\n<h2>What to give the accountant</h2>\n<p>Prepare your rental statements, property costs, employment documents and any previous tax return. Identify joint ownership, periods when the property was empty and money retained by a letting agent.</p>\n<p>Ask the accountant to distinguish three figures: your gross rent, rental profit and combined taxable income. They answer different questions. The amount available after a mortgage payment is not necessarily the taxable property profit.</p>\n<h2>Avoid a common buying mistake</h2>\n<p>Do not buy a package solely because your salary exceeds an MTD headline threshold. Have the relevant property and business figures checked first.</p>\n<h2>Example: salary plus rent</h2>\n<p>Someone with a £45,000 salary and £18,000 of gross rental income should not assume that £63,000 is the qualifying-income figure for MTD. The relevant income sources and lookback year need checking. This example illustrates the distinction; it is not a complete eligibility determination.</p>\n<h2>Does a letting agent’s payment show gross rent?</h2>\n<p>It may already have management fees or other deductions taken off. Give the accountant the full rental statement rather than only the bank credit.</p>\n<h2>Is the MTD threshold a tax-free allowance?</h2>\n<p>No. A threshold that determines digital reporting is different from the rules for reporting rental income and calculating tax. Being outside MTD does not automatically mean rental income is exempt or that no Self Assessment action is needed.</p>\n<p><strong>Next step:</strong> Tell TaxSimba that you have both employment and rental income so the eligibility check and agreed annual work reflect your actual position.</p>\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>Three totals answer three questions</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>Amira has £48,000 PAYE salary and £16,000 gross rent. She does not call £64,000 her MTD qualifying income merely because both amounts are income. She records the relevant gross property figure for the eligibility check, rental income and allowable costs for property profit, and all relevant income for the annual tax calculation. The look-back year and any other trade still need checking. Being outside MTD would not itself make the rent exempt from reporting.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Which income counts for the MTD test?</th><td>Separate relevant gross trading and property income from salary and other sources.</td></tr><tr><th scope=\"row\">Is joint rent shown at your share?</th><td>Supply ownership details and the full agent statement rather than only the payout.</td></tr><tr><th scope=\"row\">Is employment included at year-end?</th><td>Retain PAYE and benefit documents for the complete annual tax position.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Does a high salary alone mean I need MTD?</h3><p>No. Employment salary is not the relevant qualifying-income source. Check property and self-employment income for the correct year.</p><h3>Can mortgage costs reduce the threshold figure?</h3><p>No. The scope test starts from gross qualifying income. Property profit and finance-cost relief answer different tax questions.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Record the correct look-back year.</li><li>Total relevant gross trading and property income.</li><li>Document joint-property shares.</li><li>Collect agent, expense and finance-cost records.</li><li>Gather employment and benefit documents for year-end.</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/mtd-employed-landlord-salary-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "editorialStatus": "final-copy",
+    "wordCount": 354,
+    "targetQuery": "does salary count towards MTD landlord",
+    "priority": "P2",
+    "differentiation": "Salary versus property eligibility; general threshold pillar remains canonical.",
+    "iconKey": "home",
+    "contentType": "Answer guide",
+    "readingMinutes": 4,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "Separate PAYE salary from MTD qualifying income, check your share of gross rent and prepare the full employment and property picture for year-end.",
+    "query": "employed and a landlord  does salary count for mtd ",
+    "answer": "A salary can affect your overall tax position without being part of the qualifying income used for MTD eligibility. Do not decide whether you need MTD by adding every amount that arrives in your bank account.",
+    "alt": "An employed landlord separates salary papers from gross rental statements, house keys and work bag visible.",
+    "details": [
+      "Separate relevant gross trading and property income from salary and other sources.",
+      "Supply ownership details and the full agent statement rather than only the payout.",
+      "Retain PAYE and benefit documents for the complete annual tax position."
+    ],
+    "checklist": [
+      "Which income counts for the MTD test?",
+      "Is joint rent shown at your share?",
+      "Is employment included at year-end?"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:35:35.502Z",
+    "depth": {
+      "exampleTitle": "Three totals answer three questions",
+      "example": [
+        "Amira has £48,000 PAYE salary and £16,000 gross rent. She does not call £64,000 her MTD qualifying income merely because both amounts are income. She records the relevant gross property figure for the eligibility check, rental income and allowable costs for property profit, and all relevant income for the annual tax calculation. The look-back year and any other trade still need checking. Being outside MTD would not itself make the rent exempt from reporting."
+      ],
+      "decisionRows": [
+        [
+          "Which income counts for the MTD test?",
+          "Separate relevant gross trading and property income from salary and other sources."
+        ],
+        [
+          "Is joint rent shown at your share?",
+          "Supply ownership details and the full agent statement rather than only the payout."
+        ],
+        [
+          "Is employment included at year-end?",
+          "Retain PAYE and benefit documents for the complete annual tax position."
+        ]
+      ],
+      "questions": [
+        [
+          "Does a high salary alone mean I need MTD?",
+          "No. Employment salary is not the relevant qualifying-income source. Check property and self-employment income for the correct year."
+        ],
+        [
+          "Can mortgage costs reduce the threshold figure?",
+          "No. The scope test starts from gross qualifying income. Property profit and finance-cost relief answer different tax questions."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Record the correct look-back year.",
+        "Total relevant gross trading and property income.",
+        "Document joint-property shares.",
+        "Collect agent, expense and finance-cost records.",
+        "Gather employment and benefit documents for year-end."
+      ],
+      "downloadHref": "/downloads/guides/mtd-employed-landlord-salary-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/mtd-employed-landlord-salary-checklist.txt",
+    "premiumReady": true,
+    "artwork": {
+      "slug": "mtd-employed-landlord-salary",
+      "src": "/images/articles/mtd-employed-landlord-salary-960.webp",
+      "srcSet": "/images/articles/mtd-employed-landlord-salary-480.webp 480w, /images/articles/mtd-employed-landlord-salary-960.webp 960w, /images/articles/mtd-employed-landlord-salary-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": null,
+    "releaseRank": 60
+  }
+]

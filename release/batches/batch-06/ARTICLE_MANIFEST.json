@@ -1,0 +1,214 @@
+[
+  {
+    "releasePosition": 51,
+    "slug": "mtd-income-tax-vs-mtd-vat",
+    "title": "MTD for Income Tax vs MTD for VAT: What’s the Difference?",
+    "category": "Making Tax Digital",
+    "metaTitle": "MTD Income Tax vs VAT: What Is Different? | TaxSimba",
+    "metaDescription": "Compare MTD for Income Tax and VAT: separate eligibility, records, software authorisation and deadlines, even when one business uses both.",
+    "sources": [
+      {
+        "label": "GOV.UK — Making Tax Digital for VAT",
+        "url": "https://www.gov.uk/government/collections/making-tax-digital-for-vat"
+      },
+      {
+        "label": "GOV.UK — Choose software for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax"
+      }
+    ]
+  },
+  {
+    "releasePosition": 52,
+    "slug": "can-i-use-spreadsheets-for-mtd",
+    "title": "Can I Use Spreadsheets for Making Tax Digital?",
+    "category": "Making Tax Digital",
+    "metaTitle": "Can I Use Spreadsheets for MTD Income Tax? | TaxSimba",
+    "metaDescription": "Keep spreadsheets with an appropriate MTD software connection. Check digital links, supported income sources, authorisation and year-end return coverage.",
+    "sources": [
+      {
+        "label": "GOV.UK — Choose the right software for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Find software that works with Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/find-software-that-works-with-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Get your software ready",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/get-your-software-ready"
+      }
+    ]
+  },
+  {
+    "releasePosition": 53,
+    "slug": "cis-tax-refunds-subcontractors",
+    "title": "CIS Tax Refunds: How Subcontractors Claim Back CIS Deductions",
+    "category": "Self Assessment",
+    "metaTitle": "CIS Tax Refunds: Evidence, Calculation and Claims | TaxSimba",
+    "metaDescription": "Understand how CIS deductions can produce a Self Assessment repayment, what evidence to gather and why neither the refund amount nor timing is fixed.",
+    "sources": [
+      {
+        "label": "GOV.UK — CIS subcontractors: pay tax and claim back deductions",
+        "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/pay-tax-and-claim-back-deductions"
+      },
+      {
+        "label": "GOV.UK — What you must do as a CIS subcontractor",
+        "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor"
+      },
+      {
+        "label": "GOV.UK — Claim repayment of subcontractor deductions (CIS40)",
+        "url": "https://www.gov.uk/government/publications/construction-industry-scheme-individuals-repayment-claim-cis40"
+      }
+    ]
+  },
+  {
+    "releasePosition": 54,
+    "slug": "cis-20-vs-30-percent-deductions",
+    "title": "20% vs 30% CIS Deductions: Why Am I Paying More?",
+    "category": "Self Assessment",
+    "metaTitle": "CIS 20% vs 30%: Check Registration and Verification | TaxSimba",
+    "metaDescription": "Check why CIS deductions may be 20% or 30%, how contractor verification affects the rate and why deductions are separate from your final tax bill.",
+    "sources": [
+      {
+        "label": "GOV.UK — CIS subcontractors: overview",
+        "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor"
+      },
+      {
+        "label": "GOV.UK — CIS subcontractors: get paid",
+        "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid"
+      },
+      {
+        "label": "GOV.UK — CIS subcontractors: gross payment status",
+        "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/how-to-get-gross-payment-status"
+      }
+    ]
+  },
+  {
+    "releasePosition": 55,
+    "slug": "cis-payment-deduction-statements",
+    "title": "CIS Payment and Deduction Statements: What Subcontractors Need to Keep",
+    "category": "Self Assessment",
+    "metaTitle": "CIS Payment and Deduction Statements: Missing Records | TaxSimba",
+    "metaDescription": "Check what CIS statements show, reconcile them by tax month and follow HMRC's process when a contractor cannot supply missing deductions evidence.",
+    "sources": [
+      {
+        "label": "GOV.UK — CIS subcontractors: get paid",
+        "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid"
+      },
+      {
+        "label": "GOV.UK — Construction Industry Scheme guide (CIS 340)",
+        "url": "https://www.gov.uk/government/publications/construction-industry-scheme-cis-340/construction-industry-scheme-a-guide-for-contractors-and-subcontractors-cis-340"
+      },
+      {
+        "label": "HMRC — Payment and deduction statement (CISR12160)",
+        "url": "https://www.gov.uk/hmrc-internal-manuals/construction-industry-scheme-reform/cisr12160"
+      }
+    ]
+  },
+  {
+    "releasePosition": 56,
+    "slug": "cis-allowable-expenses-subcontractors",
+    "title": "CIS Allowable Expenses for Subcontractors: What Can You Claim?",
+    "category": "Self Assessment",
+    "metaTitle": "CIS Subcontractor Expenses: Records and Common Traps | TaxSimba",
+    "metaDescription": "Prepare allowable expense evidence as a CIS subcontractor, separate private use and equipment treatment, and keep deductions apart from business costs.",
+    "sources": [
+      {
+        "label": "GOV.UK — Expenses if you’re self-employed",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed"
+      },
+      {
+        "label": "GOV.UK — Clothing expenses",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed/clothing"
+      },
+      {
+        "label": "GOV.UK — Car, van and travel expenses",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed/vehicles-travel"
+      },
+      {
+        "label": "GOV.UK — Office, property and equipment",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed/office-property-equipment"
+      }
+    ]
+  },
+  {
+    "releasePosition": 57,
+    "slug": "cis-gross-payment-status",
+    "title": "CIS Gross Payment Status: What It Means and Who Can Apply",
+    "category": "Self Assessment",
+    "metaTitle": "CIS Gross Payment Status: Cash Flow and Tax Duties | TaxSimba",
+    "metaDescription": "Understand CIS gross payment status, HMRC's application tests and the records and tax budgeting you still need when contractors stop deducting tax.",
+    "sources": [
+      {
+        "label": "GOV.UK — How to get gross payment status",
+        "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/how-to-get-gross-payment-status"
+      },
+      {
+        "label": "GOV.UK — CIS subcontractors overview",
+        "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor"
+      },
+      {
+        "label": "GOV.UK — CIS subcontractors: get paid",
+        "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid"
+      }
+    ]
+  },
+  {
+    "releasePosition": 58,
+    "slug": "mtd-no-income-quarter",
+    "title": "No Income This Quarter: Do I Still Need an MTD Update?",
+    "category": "Making Tax Digital",
+    "metaTitle": "No Income This Quarter: Do I Still Need an MTD Update? | TaxSimba",
+    "metaDescription": "A quiet quarter does not automatically remove MTD reporting. Check year-to-date totals, expenses, ceased sources and the submission evidence you need.",
+    "sources": [
+      {
+        "label": "GOV.UK — send quarterly updates",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+      },
+      {
+        "label": "GOV.UK — create digital records",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      }
+    ]
+  },
+  {
+    "releasePosition": 59,
+    "slug": "mtd-two-self-employed-businesses",
+    "title": "Two Self-Employed Businesses: How Does MTD Reporting Work?",
+    "category": "Making Tax Digital",
+    "metaTitle": "Two Self-Employed Businesses: MTD Records and Updates | TaxSimba",
+    "metaDescription": "Running two trades? Separate the records, allocate shared costs once and confirm that your MTD software and accountant's scope cover both activities.",
+    "sources": [
+      {
+        "label": "GOV.UK — work out your qualifying income for making tax digital for income tax",
+        "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — choose the right software for making tax digital for income tax",
+        "url": "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+      }
+    ]
+  },
+  {
+    "releasePosition": 60,
+    "slug": "mtd-employed-landlord-salary",
+    "title": "Employed and a Landlord: Does Your Salary Count Towards MTD?",
+    "category": "Making Tax Digital",
+    "metaTitle": "Employed and a Landlord: Does Salary Count for MTD? | TaxSimba",
+    "metaDescription": "Separate PAYE salary from MTD qualifying income, check your share of gross rent and prepare the full employment and property picture for year-end.",
+    "sources": [
+      {
+        "label": "GOV.UK — work out your qualifying income for making tax digital for income tax",
+        "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — find out if and when you need to use making tax digital for income tax",
+        "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      }
+    ]
+  }
+]

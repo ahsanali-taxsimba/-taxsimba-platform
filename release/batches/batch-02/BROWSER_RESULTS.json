@@ -1,0 +1,346 @@
+{
+  "articles": [
+    {
+      "rank": 1,
+      "slug": "mtd-accountant-cost",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px no horizontal overflow"
+      ]
+    },
+    {
+      "rank": 2,
+      "slug": "self-assessment-accountant-cost",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px no horizontal overflow"
+      ]
+    },
+    {
+      "rank": 3,
+      "slug": "join-mtd-service-mid-year",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px no horizontal overflow"
+      ]
+    },
+    {
+      "rank": 4,
+      "slug": "switch-mtd-accountant-mid-year",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px no horizontal overflow"
+      ]
+    },
+    {
+      "rank": 5,
+      "slug": "mtd-quarterly-updates-tax-payments",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px no horizontal overflow"
+      ]
+    },
+    {
+      "rank": 6,
+      "slug": "self-assessment-2025-26-mtd-2026-27",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px no horizontal overflow"
+      ]
+    },
+    {
+      "rank": 7,
+      "slug": "mtd-cumulative-quarterly-updates",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px no horizontal overflow"
+      ]
+    },
+    {
+      "rank": 8,
+      "slug": "correct-mtd-quarterly-update",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px no horizontal overflow"
+      ]
+    },
+    {
+      "rank": 9,
+      "slug": "waiting-for-utr-tax-return",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px no horizontal overflow"
+      ]
+    },
+    {
+      "rank": 10,
+      "slug": "employed-and-self-employed-tax-return",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px no horizontal overflow"
+      ]
+    },
+    {
+      "rank": 11,
+      "slug": "uber-private-hire-driver-tax-return",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px no horizontal overflow"
+      ]
+    },
+    {
+      "rank": 12,
+      "slug": "delivery-driver-courier-tax-return",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px no horizontal overflow"
+      ]
+    },
+    {
+      "rank": 13,
+      "slug": "mtd-software-vs-accountant-service",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px no horizontal overflow"
+      ]
+    },
+    {
+      "rank": 14,
+      "slug": "authorise-mtd-accountant-safely",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px no horizontal overflow"
+      ]
+    },
+    {
+      "rank": 15,
+      "slug": "multiple-overdue-self-assessment-returns",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px no horizontal overflow"
+      ]
+    },
+    {
+      "rank": 16,
+      "slug": "appeal-self-assessment-late-penalty",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px no horizontal overflow"
+      ]
+    },
+    {
+      "rank": 17,
+      "slug": "sold-rental-property-60-day-tax",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px no horizontal overflow"
+      ]
+    },
+    {
+      "rank": 18,
+      "slug": "pay-self-assessment-through-tax-code-december",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px no horizontal overflow"
+      ]
+    },
+    {
+      "rank": 19,
+      "slug": "mtd-proof-quarterly-update-submitted",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px no horizontal overflow"
+      ]
+    },
+    {
+      "rank": 20,
+      "slug": "hmrc-signed-me-up-for-making-tax-digital",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px no horizontal overflow"
+      ]
+    }
+  ],
+  "hub": "pagination all 120, search, empty state, category passed",
+  "signup": "public routes passed; no account created or payment made"
+}

@@ -63,7 +63,9 @@ export function isEditoriallyApprovedDraft(article) {
   if (!article) return false;
   return (
     article.status === "draft" &&
-    article.releaseReadiness === "editorially-approved-publisher-release-required" &&
-    article.editorialReviewStatus === "verified-against-official-guidance"
+    ((article.releaseReadiness === "editorially-approved-publisher-release-required" &&
+      article.editorialReviewStatus === "verified-against-official-guidance") ||
+     (article.releaseReadiness === "publisher-review-required" &&
+      article.editorialReviewStatus === "ai-assisted-editorial-revision"))
   );
 }

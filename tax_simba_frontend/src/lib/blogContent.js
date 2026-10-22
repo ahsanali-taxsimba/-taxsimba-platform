@@ -53,6 +53,7 @@ export async function getMergedBlogList({ page = 1, limit = 9, category } = {}) 
 
   return {
     articles: pageItems,
+    publishedArticles: mergeArticlesWithApi(api.articles),
     pagination: {
       totalPages,
       page: safePage,

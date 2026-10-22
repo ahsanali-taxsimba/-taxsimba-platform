@@ -2,10 +2,15 @@
 import { useMemo, useState, useCallback } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { mergeArticlesWithApi } from "@/data/articles";
+
+import { getSeasonalFocus } from "@/data/articleSeasonalFocus";
+import {
+  GUIDE_HUB_HERO,
+  withGuideHubListingArtwork,
+} from "@/data/guideHubListingArtwork";
 import ArticleCard from "@/components/articles/ArticleCard";
-import fetchJSON from "@/lib/fetchJSON";
 
 const FILTERS = [
   { id: "all", label: "All guides", category: "" },
@@ -26,16 +31,38 @@ function filterLocal(articles, categoryId) {
   );
 }
 
+function HouseIcon() {
+  return (
+    <svg
+      className="guide-hub-landlord-icon"
+      width="28"
+      height="28"
+      viewBox="0 0 28 28"
+      fill="none"
+      aria-hidden="true"
+    >
+      <rect x="1.5" y="1.5" width="25" height="25" rx="4" stroke="currentColor" strokeWidth="1.5" />
+      <path
+        d="M8 14.5L14 9l6 5.5V20a1 1 0 0 1-1 1h-3.2v-4.2h-3.6V21H9a1 1 0 0 1-1-1v-5.5z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export default function BlogPageClient({
   articles = [],
   publishedArticles = [],
   pagination,
   initialPage = 1,
-  limit = 12,
+  limit = 9,
   apiUrl,
   initialCategory = "all",
 }) {
   const router = useRouter();
+  const focus = getSeasonalFocus();
   // Prefer server-provided published registry (honours release env). Never
   // re-derive publication on the client from process.env alone.
   const curated = useMemo(
@@ -44,6 +71,7 @@ export default function BlogPageClient({
   );
   const initialItems =
     articles.length > 0 ? articles : filterLocal(curated, initialCategory);
+  const [query, setQuery] = useState("");
   const [items, setItems] = useState(initialItems);
   const [pageInfo, setPageInfo] = useState(pagination);
   const [currentPage, setCurrentPage] = useState(pageInfo?.page || initialPage);
@@ -52,11 +80,17 @@ export default function BlogPageClient({
 
   const publishedCount = curated.length;
   const totalPages = pageInfo?.totalPages || 1;
+  const showingFeatured =
+    activeFilter === "all" && !query.trim() && currentPage === 1;
 
   const applyFilter = useCallback(
     (filterId) => {
       setActiveFilter(filterId);
-      const next = filterLocal(curated, filterId);
+      const next = filterLocal(curated, filterId).filter((article) =>
+        `${article.title} ${article.excerpt} ${article.query || ""} ${(article.tags || []).join(" ")}`
+          .toLowerCase()
+          .includes(query.trim().toLowerCase()),
+      );
       setItems(next.slice(0, limit));
       setPageInfo({
         totalPages: Math.max(1, Math.ceil(next.length / limit)),
@@ -71,7 +105,27 @@ export default function BlogPageClient({
           : `/blogs?category=${encodeURIComponent(filterId)}`;
       router.replace(href, { scroll: false });
     },
-    [curated, limit, router],
+    [curated, limit, router, query],
+  );
+
+  const handleSearch = useCallback(
+    (value) => {
+      setQuery(value);
+      const filtered = filterLocal(curated, activeFilter).filter((article) =>
+        `${article.title} ${article.excerpt} ${article.query || ""} ${(article.tags || []).join(" ")}`
+          .toLowerCase()
+          .includes(value.trim().toLowerCase()),
+      );
+      setItems(filtered.slice(0, limit));
+      setCurrentPage(1);
+      setPageInfo({
+        page: 1,
+        total: filtered.length,
+        totalPages: Math.max(1, Math.ceil(filtered.length / limit)),
+        limit,
+      });
+    },
+    [curated, activeFilter, limit],
   );
 
   const handlePageChange = useCallback(
@@ -79,38 +133,20 @@ export default function BlogPageClient({
       if (page < 1 || page > totalPages || page === currentPage || loading) return;
       setLoading(true);
       try {
-        if (activeFilter !== "all") {
-          const filtered = filterLocal(curated, activeFilter);
-          const start = (page - 1) * limit;
-          setItems(filtered.slice(start, start + limit));
-          setCurrentPage(page);
-          setPageInfo((prev) => ({ ...prev, page, total: filtered.length }));
-          window.scrollTo({ top: 0, behavior: "smooth" });
-          return;
-        }
-
-        const url = `${apiUrl}?page=${page}&limit=${limit}&per_page=${limit}`;
-        const data = await fetchJSON(url, { next: { revalidate: 0 } });
-        const newArticles = data?.data?.articles || [];
-        const newPagination = data?.data?.pagination || {
-          totalPages: Math.ceil((data?.data?.total || 0) / limit) || 1,
+        const filtered = filterLocal(curated, activeFilter).filter((article) =>
+          `${article.title} ${article.excerpt} ${article.query || ""} ${(article.tags || []).join(" ")}`
+            .toLowerCase()
+            .includes(query.trim().toLowerCase()),
+        );
+        const start = (page - 1) * limit;
+        setItems(filtered.slice(start, start + limit));
+        setCurrentPage(page);
+        setPageInfo({
           page,
-          total: data?.data?.total || 0,
+          total: filtered.length,
+          totalPages: Math.max(1, Math.ceil(filtered.length / limit)),
           limit,
-        };
-
-        if (newArticles.length === 0 && page === 1) {
-          setItems(filterLocal(curated, "all").slice(0, limit));
-        } else if (page === 1) {
-          setItems(mergeArticlesWithApi(newArticles).slice(0, limit));
-        } else {
-          const merged = mergeArticlesWithApi(newArticles);
-          const start = (page - 1) * limit;
-          setItems(merged.slice(start, start + limit));
-        }
-
-        setPageInfo(newPagination);
-        setCurrentPage(newPagination.page || page);
+        });
         window.scrollTo({ top: 0, behavior: "smooth" });
       } catch (err) {
         console.error("Failed to load blogs", err);
@@ -121,7 +157,7 @@ export default function BlogPageClient({
         setLoading(false);
       }
     },
-    [apiUrl, limit, totalPages, currentPage, loading, activeFilter, curated],
+    [limit, totalPages, currentPage, loading, activeFilter, curated, query],
   );
 
   const getPageNumbers = () => {
@@ -137,55 +173,103 @@ export default function BlogPageClient({
   };
 
   return (
-    <>
-      <section className="breadcrum-sec-top py-80">
-        <Container>
-          <Row className="align-items-center">
-            <Col lg={8}>
-              <div className="bread-crum-inr-box text-lg-start text-center">
-                <h1 className="text-capitalize mb-3">Blog &amp; Guides</h1>
-                <p className="mb-0">
-                  Practical guidance on Self Assessment, Making Tax Digital, landlords
-                  and sole traders — written to help you take the next step with TaxSimba.
-                  {publishedCount > 0 ? (
-                    <>
-                      {" "}
-                      <span className="d-inline-block">
-                        {publishedCount} published guide{publishedCount === 1 ? "" : "s"}
-                        .
-                      </span>
-                    </>
-                  ) : null}
+    <div className="editorial-guide-hub">
+      <section className="guide-hub-masthead" aria-labelledby="guide-hub-heading">
+        <Container className="guide-hub-shell">
+          <div className="guide-hub-hero">
+            <div className="guide-hub-intro">
+              <h1 id="guide-hub-heading">Practical answers. Clear next steps.</h1>
+              <p className="guide-hub-lead">
+                Self Assessment, Making Tax Digital and landlord tax guides.
+              </p>
+              {publishedCount > 0 ? (
+                <p className="guide-hub-count sr-only">
+                  {publishedCount} published guide{publishedCount === 1 ? "" : "s"}.
                 </p>
-              </div>
-            </Col>
-          </Row>
+              ) : null}
+            </div>
+            <figure className="guide-hub-hero-media">
+                <Image
+                src={GUIDE_HUB_HERO.src}
+                alt={GUIDE_HUB_HERO.alt}
+                width={GUIDE_HUB_HERO.width}
+                height={GUIDE_HUB_HERO.height}
+                className="guide-hub-hero-img"
+                priority
+                sizes="(max-width: 991px) 100vw, 520px"
+              />
+            </figure>
+          </div>
         </Container>
       </section>
 
-      <section className="blog-sec ptb-80">
-        <Container>
-          <div className="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
-            <div className="common-title mb-0">
-              <h2>Latest guides</h2>
+      <section className="guide-hub-landlord-strip" aria-label="Landlord tax help">
+        <Container className="guide-hub-shell">
+          <div className="guide-hub-landlord-inner">
+            <div className="guide-hub-landlord-copy">
+              <HouseIcon />
+              <div className="guide-hub-landlord-text">
+                <p className="guide-hub-landlord-heading">Renting out a property?</p>
+                <p className="guide-hub-landlord-sub">
+                  Find annual tax-return support, ongoing MTD help and practical
+                  property guides.
+                </p>
+              </div>
             </div>
-            <div className="article-filter-row" role="tablist" aria-label="Guide categories">
-              {FILTERS.map((filter) => (
-                <button
-                  key={filter.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={activeFilter === filter.id}
-                  className={`article-filter-btn${activeFilter === filter.id ? " active" : ""}`}
-                  onClick={() => applyFilter(filter.id)}
-                >
-                  {filter.label}
-                </button>
-              ))}
+            <Link href="/landlords" className="guide-hub-landlord-link">
+              Explore the landlord hub →
+            </Link>
+          </div>
+        </Container>
+      </section>
+
+      <section className="blog-sec guide-hub-listing">
+        <Container className="guide-hub-shell">
+          <div className="guide-hub-toolbar">
+            <div className="common-title mb-0">
+              <h2>{showingFeatured ? "Featured guides" : "Explore our guides"}</h2>
+            </div>
+            <div className="guide-hub-search">
+              <label htmlFor="guide-search" className="visually-hidden">
+                Search guides
+              </label>
+              <span className="guide-hub-search-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.8" />
+                  <path d="M16.5 16.5L21 21" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                </svg>
+              </span>
+              <input
+                id="guide-search"
+                type="search"
+                className="form-control"
+                placeholder="Search guides"
+                value={query}
+                onChange={(event) => handleSearch(event.target.value)}
+              />
             </div>
           </div>
 
-          <Row>
+          <div className="article-filter-row" role="tablist" aria-label="Guide categories">
+            {FILTERS.map((filter) => (
+              <button
+                key={filter.id}
+                type="button"
+                role="tab"
+                aria-selected={activeFilter === filter.id}
+                className={`article-filter-btn${activeFilter === filter.id ? " active" : ""}`}
+                onClick={() => applyFilter(filter.id)}
+              >
+                {filter.label}
+              </button>
+            ))}
+          </div>
+
+          <p className="guide-hub-status" role="status">
+            {pageInfo?.total ?? publishedCount} guides found
+          </p>
+
+          <Row className="guide-hub-grid">
             {loading ? (
               <Col xs={12}>
                 <div className="text-center py-5">
@@ -195,13 +279,13 @@ export default function BlogPageClient({
             ) : items?.length > 0 ? (
               items.map((article) => (
                 <Col lg={4} md={6} className="mb-4" key={article?.id || article?.slug}>
-                  <ArticleCard article={article} />
+                  <ArticleCard article={withGuideHubListingArtwork(article)} />
                 </Col>
               ))
             ) : (
               <Col xs={12}>
                 <p className="mb-0">
-                  No published guides in this category yet.{" "}
+                  No guides match your search and category.{" "}
                   <Link href="/blogs">View all guides</Link>
                 </p>
               </Col>
@@ -220,6 +304,7 @@ export default function BlogPageClient({
               {getPageNumbers().map((page) => (
                 <button
                   key={page}
+                  aria-current={page === currentPage ? "page" : undefined}
                   className={`page-btn ${page === currentPage ? "active" : ""}`}
                   disabled={loading}
                   onClick={() => handlePageChange(page)}
@@ -238,6 +323,22 @@ export default function BlogPageClient({
           )}
         </Container>
       </section>
-    </>
+
+      {focus ? (
+        <section className="guide-seasonal-focus" aria-label="Current filing focus">
+          <Container>
+            <h2>{focus.title}</h2>
+            <p>{focus.body}</p>
+            <ul>
+              {focus.links.map(([slug, label]) => (
+                <li key={slug}>
+                  <Link href={`/blogs/${slug}`}>{label}</Link>
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </section>
+      ) : null}
+    </div>
   );
 }

@@ -1,0 +1,190 @@
+[
+  {
+    "releasePosition": 91,
+    "slug": "mtd-20000-threshold-april-2028",
+    "title": "MTD From April 2028: What the £20,000 Threshold Means",
+    "category": "Making Tax Digital",
+    "metaTitle": "MTD £20,000 Threshold: Planning for April 2028 | TaxSimba",
+    "metaDescription": "Check the scheduled April 2028 MTD £20,000 threshold against 2026/27 gross qualifying income and distinguish later preparation from an existing obligation.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — check if youre eligible for making tax digital for income tax",
+        "url": "https://www.gov.uk/guidance/check-if-youre-eligible-for-making-tax-digital-for-income-tax"
+      }
+    ]
+  },
+  {
+    "releasePosition": 92,
+    "slug": "mtd-receipt-photo-vs-digital-record",
+    "title": "Is a Receipt Photo Enough for MTD? What Your Records Need",
+    "category": "Making Tax Digital",
+    "metaTitle": "Receipt Photos and MTD: Complete the Digital Record | TaxSimba",
+    "metaDescription": "Receipt photos support MTD records but do not replace transaction entries. Check extracted dates, amounts, categories, business purpose and duplicate imports.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — create digital records",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      },
+      {
+        "label": "HMRC / GOV.UK — self employed records",
+        "url": "https://www.gov.uk/self-employed-records"
+      }
+    ]
+  },
+  {
+    "releasePosition": 93,
+    "slug": "mtd-software-hmrc-outage-deadline",
+    "title": "MTD Software or HMRC Unavailable Near a Deadline: What to Do",
+    "category": "Making Tax Digital",
+    "metaTitle": "MTD Software or HMRC Outage: Evidence and Next Steps | TaxSimba",
+    "metaDescription": "MTD unavailable near a deadline? Identify the failure, keep dated evidence, check official service notices and confirm the submission after recovery.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — help and support",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/help-and-support"
+      },
+      {
+        "label": "HMRC / GOV.UK — reasonable excuses",
+        "url": "https://www.gov.uk/tax-appeals/reasonable-excuses"
+      },
+      {
+        "label": "HMRC / GOV.UK — issue 148 of agent update",
+        "url": "https://www.gov.uk/government/publications/agent-update-issue-148/issue-148-of-agent-update"
+      }
+    ]
+  },
+  {
+    "releasePosition": 94,
+    "slug": "dividend-tax-2025-26-vs-2026-27",
+    "title": "Dividend Tax: Keep Your 2025/26 Return Separate From 2026/27 Rates",
+    "category": "Self Assessment",
+    "metaTitle": "Dividend Tax: Keep 2025/26 and 2026/27 Separate | TaxSimba",
+    "metaDescription": "Dividend tax rates differ between 2025/26 and 2026/27. Organise vouchers and investment statements by tax year before checking bands and allowances.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — tax on dividends",
+        "url": "https://www.gov.uk/tax-on-dividends"
+      },
+      {
+        "label": "HMRC / GOV.UK — income tax rates and allowances current and past",
+        "url": "https://www.gov.uk/government/publications/rates-and-allowances-income-tax/income-tax-rates-and-allowances-current-and-past"
+      },
+      {
+        "label": "HMRC / GOV.UK — how dividends are taxed",
+        "url": "https://www.gov.uk/tax-on-dividends/how-dividends-are-taxed"
+      }
+    ]
+  },
+  {
+    "releasePosition": 95,
+    "slug": "student-loan-postgraduate-self-assessment",
+    "title": "Student and Postgraduate Loans on Self Assessment: Avoid Double Counting",
+    "category": "Self Assessment",
+    "metaTitle": "Student Loans on Self Assessment: Avoid Double Counting | TaxSimba",
+    "metaDescription": "Prepare the right student and postgraduate loan plan details, payroll deductions and repayment-start information for a complete Self Assessment calculation.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — tell hmrc about a student loan in your tax return",
+        "url": "https://www.gov.uk/guidance/tell-hmrc-about-a-student-loan-in-your-tax-return"
+      },
+      {
+        "label": "HMRC / GOV.UK — how you repay",
+        "url": "https://www.gov.uk/repaying-your-student-loan/how-you-repay"
+      }
+    ]
+  },
+  {
+    "releasePosition": 96,
+    "slug": "self-employed-national-insurance-2025-26",
+    "title": "Self-Employed National Insurance for Your 2025/26 Tax Return",
+    "category": "Self Assessment",
+    "metaTitle": "Self-Employed National Insurance 2025/26: Check the Year | TaxSimba",
+    "metaDescription": "Check Class 4 and Class 2 treatment for your 2025/26 tax return using the correct year's profit figures, employment records and contribution history.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — rates and allowances national insurance contributions",
+        "url": "https://www.gov.uk/government/publications/rates-and-allowances-national-insurance-contributions/rates-and-allowances-national-insurance-contributions"
+      },
+      {
+        "label": "HMRC / GOV.UK — national insurance classes",
+        "url": "https://www.gov.uk/national-insurance/national-insurance-classes"
+      },
+      {
+        "label": "HMRC / GOV.UK — self employed national insurance rates",
+        "url": "https://www.gov.uk/self-employed-national-insurance-rates"
+      }
+    ]
+  },
+  {
+    "releasePosition": 97,
+    "slug": "cash-basis-vs-traditional-accounting",
+    "title": "Cash Basis or Traditional Accounting: Which Figures Go on Your Return?",
+    "category": "Self Assessment",
+    "metaTitle": "Cash Basis vs Traditional Accounting: Timing Matters | TaxSimba",
+    "metaDescription": "Compare cash basis with traditional accounting, identify unpaid invoices and bills, and check opening adjustments before switching methods.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — self employed records",
+        "url": "https://www.gov.uk/self-employed-records"
+      },
+      {
+        "label": "HMRC / GOV.UK — simpler income tax cash basis",
+        "url": "https://www.gov.uk/simpler-income-tax-cash-basis"
+      },
+      {
+        "label": "HMRC / GOV.UK — hs222 how to calculate your taxable profits 2026",
+        "url": "https://www.gov.uk/government/publications/how-to-calculate-your-taxable-profits-hs222-self-assessment-helpsheet/hs222-how-to-calculate-your-taxable-profits-2026"
+      }
+    ]
+  },
+  {
+    "releasePosition": 98,
+    "slug": "self-employed-trading-loss-tax-relief",
+    "title": "Made a Self-Employed Loss? What to Check Before Claiming Relief",
+    "category": "Self Assessment",
+    "metaTitle": "Self-Employed Trading Loss: Compare Relief Options | TaxSimba",
+    "metaDescription": "A trading loss does not guarantee a refund. Establish the tax-adjusted loss, gather earlier returns and compare eligible relief routes and deadlines.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — hs227 losses 2026",
+        "url": "https://www.gov.uk/government/publications/losses-hs227-self-assessment-helpsheet/hs227-losses-2026"
+      }
+    ]
+  },
+  {
+    "releasePosition": 99,
+    "slug": "stopped-self-employed-final-tax-return",
+    "title": "Stopped Being Self-Employed? Your Final Return Still Matters",
+    "category": "Self Assessment",
+    "metaTitle": "Stopped Self-Employed? Prepare Your Final Tax Return | TaxSimba",
+    "metaDescription": "Closing a sole trade still needs HMRC notification and final tax work. Gather cessation dates, unpaid amounts, assets and any remaining MTD obligations.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — stop being self employed",
+        "url": "https://www.gov.uk/stop-being-self-employed"
+      },
+      {
+        "label": "HMRC / GOV.UK — add or cease income sources",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/add-or-cease-income-sources"
+      }
+    ]
+  },
+  {
+    "releasePosition": 100,
+    "slug": "content-creator-influencer-tax-return",
+    "title": "Content Creator Tax: Sponsorships, Platform Income and Gifted Products",
+    "category": "Self Assessment",
+    "metaTitle": "Content Creator Tax: Cash, Sponsorships and Products | TaxSimba",
+    "metaDescription": "Prepare creator tax records for advertising, affiliates, sponsorships and non-cash collaborations, with platform reconciliations and private-use details.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — check if you need to tell hmrc about your income from online platforms",
+        "url": "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms"
+      },
+      {
+        "label": "HMRC / GOV.UK — selling goods or services on a digital platform",
+        "url": "https://www.gov.uk/guidance/selling-goods-or-services-on-a-digital-platform"
+      }
+    ]
+  }
+]

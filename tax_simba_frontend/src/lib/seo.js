@@ -29,6 +29,8 @@ export function buildPageMetadata({
   path,
   ogImage = DEFAULT_OG_IMAGE,
   ogImageAlt = "TaxSimba",
+  ogImageWidth = 1200,
+  ogImageHeight = 628,
   robots = "index, follow",
   type = "website",
   keywords,
@@ -53,8 +55,8 @@ export function buildPageMetadata({
       images: [
         {
           url: ogImageUrl,
-          width: 1200,
-          height: 628,
+          width: ogImageWidth,
+          height: ogImageHeight,
           alt: ogImageAlt,
         },
       ],
@@ -111,7 +113,9 @@ export function articleJsonLd(article) {
   if (article.publishedAt && !Number.isNaN(new Date(article.publishedAt).getTime())) {
     payload.datePublished = article.publishedAt;
   }
-  const modified = article.reviewedAt || article.publishedAt;
+  const modified = [article.contentUpdatedAt, article.reviewedAt, article.publishedAt]
+    .filter(value => value && !Number.isNaN(new Date(value).getTime()))
+    .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())[0];
   if (modified && !Number.isNaN(new Date(modified).getTime())) {
     payload.dateModified = modified;
   }

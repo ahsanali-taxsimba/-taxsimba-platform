@@ -1,9 +1,9 @@
 import BlogPageClient from "./page.client";
 import { getMergedBlogList } from "@/lib/blogContent";
-import { getPublishedArticles } from "@/data/articles";
+
 import { buildPageMetadata } from "@/lib/seo";
 
-const DEFAULT_LIMIT = 12;
+const DEFAULT_LIMIT = 9;
 const blogsUrl = `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001/api/"}resources/blogs`;
 
 export function generateMetadata() {
@@ -19,13 +19,13 @@ export function generateMetadata() {
 export default async function BlogPage({ searchParams }) {
   const params = await searchParams;
   const category = typeof params?.category === "string" ? params.category : "";
-  const { articles, pagination, resourceData } = await getMergedBlogList({
+  const { articles, pagination, resourceData, publishedArticles } = await getMergedBlogList({
     page: 1,
     limit: DEFAULT_LIMIT,
     category: category || undefined,
   });
   // Server-resolved published registry so client filters/counts match release env.
-  const publishedArticles = getPublishedArticles();
+
 
   return (
     <BlogPageClient

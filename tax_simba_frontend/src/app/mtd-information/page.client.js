@@ -728,8 +728,7 @@ function MtdInformationPage({ mtdGuides = [] }) {
                                         <span> feels confusing</span>
                                     </h2>
                                     <p>
-                                        Navigating new government mandates shouldn't feel like an uphill
-                                        battle. Most current systems aren't ready for the transition.  </p>
+                                        Keep the reporting steps clear: digital records, quarterly updates and an annual return through compatible software.  </p>
                                 </div>
                                 <div className="feature-list-wrapper mt-4">
                                     <Row className='align-items-center'>
@@ -745,8 +744,7 @@ function MtdInformationPage({ mtdGuides = [] }) {
                                             <div className="feature-card  mb-4">
                                                 <div className="feature-name">
                                                     <h6>Digital software requirement</h6>
-                                                    <p>Paper records or standard spreadsheets will no longer be accepted
-                                                        by HMRC.</p>
+                                                    <p>Digital records need compatible software. Spreadsheets can be used with suitable bridging software and digital links.</p>
                                                 </div>
                                             </div>
                                         </Col>
@@ -754,8 +752,7 @@ function MtdInformationPage({ mtdGuides = [] }) {
                                             <div className="feature-card last-card">
                                                 <div className="feature-name">
                                                     <h6>Penalties</h6>
-                                                    <p>New points-based penalty system for late submissions and
-                                                        payments starting 2026.</p>
+                                                    <p>No quarterly-update penalty points apply for 2026/27. Annual-return and late-payment rules are separate; late-payment penalties are not points based.</p>
                                                 </div>
                                             </div>
                                         </Col>

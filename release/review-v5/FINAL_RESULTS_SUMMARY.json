@@ -1,0 +1,29 @@
+{
+  "articlePages": 120,
+  "browserWidths": [
+    320,
+    390,
+    1440
+  ],
+  "layoutFailures": 0,
+  "uncaughtJavaScriptErrors": 0,
+  "calculatorInteractions": [
+    "quote fill/compare/blank validation",
+    "cumulative signed correction",
+    "property date interaction",
+    "hub search and filter"
+  ],
+  "automatedAccessibilityPages": 120,
+  "automatedAccessibilityViolations": 0,
+  "accessibilityScope": "Automated article-region WCAG A/AA rules at 390px; external requests blocked. Does not certify all WCAG requirements or screen-reader behavior.",
+  "accessibilityIncompleteChecks": 0,
+  "httpArticles": 120,
+  "httpResponsiveImages": 360,
+  "httpDownloads": 120,
+  "coreAnswersReviewed": 120,
+  "officialSourcePagesRetrieved": 142,
+  "independentProfessionalApproval": false,
+  "liveCustomerFlow": "not exercised; Toxel deployment environment required",
+  "screenReader": "not performed",
+  "coreWebVitals": "not measured"
+}

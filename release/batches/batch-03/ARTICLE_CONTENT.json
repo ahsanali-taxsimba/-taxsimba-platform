@@ -1,0 +1,1266 @@
+[
+  {
+    "id": "seo-mtd-qualifying-income",
+    "slug": "mtd-qualifying-income",
+    "title": "MTD Qualifying Income Explained — Does the £50,000 Rule Apply to Me?",
+    "excerpt": "Qualifying income is the figure HMRC uses to decide when Making Tax Digital for Income Tax applies. Here is what counts, what does not, and how the £50,000 threshold fits in.",
+    "metaTitle": "MTD Qualifying Income: Which Income Counts? | TaxSimba",
+    "metaDescription": "Check MTD qualifying income using gross self-employment and property income. Separate PAYE and other income, then match the correct tax year and threshold.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "qualifying-income",
+      "thresholds"
+    ],
+    "publishedAt": "2026-09-14T13:30:00.000Z",
+    "reviewedAt": "2026-09-15T11:58:00.000Z",
+    "authorName": "TaxSimba",
+    "reviewerName": "TaxSimba",
+    "featuredImage": "/images/articles/mtd-qualifying-income-1440.webp",
+    "featuredImageAlt": "An independent trader separates gross business invoices and rental statements from a payslip; three distinct piles and a magnifying glass.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "mtd-30000-threshold-2027",
+      "hmrc-signed-me-up-for-making-tax-digital",
+      "mtd-quarterly-updates",
+      "mtd-accountant-or-agent",
+      "mtd-digital-records",
+      "making-tax-digital-explained"
+    ],
+    "relatedPages": [
+      {
+        "href": "/making-tax-digital",
+        "label": "Making Tax Digital accountant service"
+      },
+      {
+        "href": "/check-mtd",
+        "label": "MTD checker"
+      },
+      {
+        "href": "/rental-income-tax",
+        "label": "MTD for landlords"
+      },
+      {
+        "href": "/self-employed-tax-return",
+        "label": "MTD for sole traders"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Work out your qualifying income for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      }
+    ],
+    "curated": true,
+    "content": "\n<p>For Making Tax Digital for Income Tax, “qualifying income” is your gross income from self-employment and property for a tax year, before expenses (turnover). The £50,000 figure is the first threshold: if your qualifying income for 2024 to 2025 was over £50,000, you should have started MTD from 6 April 2026. Later phases use £30,000 and £20,000.</p>\n\n<h2>What counts as qualifying income</h2>\n<p>HMRC adds up income from:</p>\n<ul>\n  <li>self-employment</li>\n  <li>property (including, where relevant, more than one source)</li>\n</ul>\n<p>That total can come from several trades or properties. It is based on the Self Assessment return HMRC uses to assess the relevant year, not on a rough guess from your bank balance.</p>\n\n<h2>What usually does not count</h2>\n<p>These are generally not part of qualifying income for MTD threshold checks:</p>\n<ul>\n  <li>employment income taxed through PAYE</li>\n  <li>State Pension and private pensions</li>\n  <li>dividends (including from your own company)</li>\n  <li>your share of profit as an individual partner in a partnership (with limited exceptions explained on GOV.UK)</li>\n</ul>\n<p>You may still need Self Assessment for those incomes. They just do not drive the MTD qualifying-income total in the same way.</p>\n\n<h2>How the £50,000 rule fits the timeline</h2>\n<p>According to current GOV.UK guidance, if your qualifying income is over:</p>\n<ul>\n  <li>£50,000 for 2024 to 2025: MTD from 6 April 2026</li>\n  <li>£30,000 for 2025 to 2026: MTD from 6 April 2027</li>\n  <li>£20,000 for 2026 to 2027: MTD from 6 April 2028</li>\n</ul>\n<p>HMRC reviews returns and may write to you. Even without a letter, it is still your responsibility to check whether you need to use MTD.</p>\n\n<h2>Example</h2>\n<p>Jordan has £27,000 rental turnover and £26,000 self-employment turnover in the same tax year. Qualifying income is £53,000 before expenses. That is over £50,000, so the April 2026 MTD start can apply even though neither figure alone looks “huge.”</p>\n\n<h2>Common mistake</h2>\n<p>Using profit after expenses, or adding PAYE salary into the total, then deciding you are “safely under £50,000.” Threshold checks are based on HMRC’s qualifying-income rules. Read the <a href=\"https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax\" target=\"_blank\" rel=\"noopener noreferrer\">official GOV.UK page</a> rather than social media shortcuts.</p>\n\n<h2>What to do next</h2>\n<ol>\n  <li>Work out your self-employment and property totals using GOV.UK’s qualifying-income guidance.</li>\n  <li>Use HMRC’s checker and TaxSimba’s <a href=\"/check-mtd\">MTD checker</a> as a practical prompt, then confirm against official rules.</li>\n  <li>If you are in scope (or already signed up), plan digital records and quarterly updates.</li>\n  <li>Decide whether you want accountant-led support via the <a href=\"/making-tax-digital\">Making Tax Digital service</a>.</li>\n</ol>\n\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>Combine the right income sources, not every bank receipt</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>Suppose one relevant tax year contains £24,000 of sole-trade turnover and £28,000 gross rent. The combined figure is £52,000 before expenses. A £35,000 PAYE salary is a separate item, not another amount to add to this qualifying-income example. Check which assessment year HMRC uses for the proposed start date. This illustration does not decide exemptions or the treatment of every unusual income source.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Sole-trade turnover</th><td>Use the relevant gross business income before expenses.</td></tr><tr><th scope=\"row\">Property income</th><td>Include the relevant property income and ownership share.</td></tr><tr><th scope=\"row\">Assessment year</th><td>Match the total to the correct phase and official threshold.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Does a low profit put me outside MTD?</h3><p>Not by itself: turnover and profit are different figures. Check the qualifying-income calculation before relying on expenses.</p><h3>Should I use the latest bank balance?</h3><p>No. Use records for the tax year HMRC assesses, distinguishing income from transfers and other receipts.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Assessment tax year</li><li>Gross income from each sole trade</li><li>Property income and ownership shares</li><li>PAYE and other excluded income kept separate</li><li>Start date, exemption questions and HMRC correspondence</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/mtd-qualifying-income-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "dek": "Check MTD qualifying income using gross self-employment and property income. Separate PAYE and other income, then match the correct tax year and threshold.",
+    "query": "mtd qualifying income  which income counts ",
+    "answer": "For Making Tax Digital for Income Tax, “qualifying income” is your gross income from self-employment and property for a tax year, before expenses (turnover). The £50,000 figure is the first threshold: if your qualifying income for 2024 to 2025 was over £50,000, you should have started MTD from 6 April 2026. Later phases use £30,000 and £20,000.",
+    "alt": "An independent trader separates gross business invoices and rental statements from a payslip; three distinct piles and a magnifying glass.",
+    "details": [
+      "Use the relevant gross business income before expenses.",
+      "Include the relevant property income and ownership share.",
+      "Match the total to the correct phase and official threshold."
+    ],
+    "checklist": [
+      "Sole-trade turnover",
+      "Property income",
+      "Assessment year"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:15:01.507Z",
+    "depth": {
+      "exampleTitle": "Combine the right income sources, not every bank receipt",
+      "example": [
+        "Suppose one relevant tax year contains £24,000 of sole-trade turnover and £28,000 gross rent. The combined figure is £52,000 before expenses. A £35,000 PAYE salary is a separate item, not another amount to add to this qualifying-income example. Check which assessment year HMRC uses for the proposed start date. This illustration does not decide exemptions or the treatment of every unusual income source."
+      ],
+      "decisionRows": [
+        [
+          "Sole-trade turnover",
+          "Use the relevant gross business income before expenses."
+        ],
+        [
+          "Property income",
+          "Include the relevant property income and ownership share."
+        ],
+        [
+          "Assessment year",
+          "Match the total to the correct phase and official threshold."
+        ]
+      ],
+      "questions": [
+        [
+          "Does a low profit put me outside MTD?",
+          "Not by itself: turnover and profit are different figures. Check the qualifying-income calculation before relying on expenses."
+        ],
+        [
+          "Should I use the latest bank balance?",
+          "No. Use records for the tax year HMRC assesses, distinguishing income from transfers and other receipts."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Assessment tax year",
+        "Gross income from each sole trade",
+        "Property income and ownership shares",
+        "PAYE and other excluded income kept separate",
+        "Start date, exemption questions and HMRC correspondence"
+      ],
+      "downloadHref": "/downloads/guides/mtd-qualifying-income-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/mtd-qualifying-income-checklist.txt",
+    "readingMinutes": 4,
+    "premiumReady": true,
+    "artwork": {
+      "slug": "mtd-qualifying-income",
+      "src": "/images/articles/mtd-qualifying-income-960.webp",
+      "srcSet": "/images/articles/mtd-qualifying-income-480.webp 480w, /images/articles/mtd-qualifying-income-960.webp 960w, /images/articles/mtd-qualifying-income-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "heroStyle": "editorial-illustration",
+    "priorityRank": null,
+    "releaseRank": 21
+  },
+  {
+    "id": "seo-mtd-quarterly-updates",
+    "slug": "mtd-quarterly-updates",
+    "title": "MTD Quarterly Updates — What Do I Actually Need to Send?",
+    "excerpt": "Quarterly updates are summaries of your self-employment and property income and expenses — not a full tax return. Here is what goes to HMRC and when.",
+    "metaTitle": "MTD Quarterly Updates: Records, Totals and Evidence | TaxSimba",
+    "metaDescription": "Understand what MTD quarterly updates contain, how cumulative periods work and what evidence to keep after compatible software sends the summary.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "quarterly-updates",
+      "deadlines"
+    ],
+    "publishedAt": "2026-09-14T13:00:00.000Z",
+    "reviewedAt": "2026-09-15T11:58:00.000Z",
+    "authorName": "TaxSimba",
+    "reviewerName": "TaxSimba",
+    "featuredImage": "/images/articles/mtd-quarterly-updates-1440.webp",
+    "featuredImageAlt": "An electrician and accountant transform many invoices into a tidy single summary ledger, with a calendar nearby.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "mtd-quarterly-deadline-7-november-2026",
+      "mtd-qualifying-income",
+      "hmrc-signed-me-up-for-making-tax-digital",
+      "mtd-digital-records",
+      "missed-mtd-quarterly-update",
+      "making-tax-digital-explained"
+    ],
+    "relatedPages": [
+      {
+        "href": "/making-tax-digital",
+        "label": "Making Tax Digital accountant service"
+      },
+      {
+        "href": "/mtd-information",
+        "label": "MTD packages"
+      },
+      {
+        "href": "/check-mtd",
+        "label": "Check if MTD applies"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Send quarterly updates - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+      },
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      },
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax"
+      }
+    ],
+    "curated": true,
+    "content": "\n<p>An MTD quarterly update is a summary of totals for your self-employment and/or property income and expense categories. It is created from your digital records and sent to HMRC through compatible software (or by an agent). It is not your full year-end tax return, and HMRC does not receive every individual invoice.</p>\n\n<h2>What actually gets sent</h2>\n<p>Your software adds up digital records for each business and produces totals using the same broad income and expense categories used in Self Assessment. Each quarterly update covers from the start of the tax year to the end of that update period, so it shows year-to-date totals. If you need to correct something, update your digital records in the software so later updates reflect the right figures, following HMRC’s process.</p>\n<p>You do not need to make accounting or tax adjustments before sending a quarterly update. If you had no income or expenses in a period, you still need to send the update.</p>\n\n<h2>When they are due (standard update periods)</h2>\n<p>If your accounting period aligns with the tax year (6 April to 5 April), GOV.UK sets out standard periods and deadlines including:</p>\n<ul>\n  <li>6 April to 5 July: send by 7 August</li>\n  <li>6 April to 5 October: send by 7 November</li>\n  <li>6 April to 5 January: send by 7 February</li>\n  <li>6 April to 5 April: send by 7 May (following tax year)</li>\n</ul>\n<p>Calendar update periods exist for some 1 April–31 March accounting periods. The send-by deadlines above stay the same. Your software should show the dates that apply to you.</p>\n\n<h2>Example</h2>\n<p>Riley is a self-employed electrician in MTD. Throughout the year Riley stores invoices and expenses digitally. Before each deadline, compatible software (used with accountant oversight through TaxSimba) produces the quarterly totals for Riley to check, then sends the update. Riley is not emailing HMRC a folder of PDF receipts every quarter.</p>\n\n<h2>Common mistake</h2>\n<p>Treating quarterlies as optional “practice runs” before Self Assessment. For people in MTD, quarterly updates are required. For 2026 to 2027, HMRC will not apply penalty points for late quarterly updates, but you still need to send them before you can submit your tax return, and late-return penalties can still apply.</p>\n\n<h2>What to do next</h2>\n<ol>\n  <li>Confirm you are in MTD (or have been signed up).</li>\n  <li>Keep digital records as you go, not in a January shoebox.</li>\n  <li>Diary the quarterly deadlines your software shows.</li>\n  <li>Decide whether an accountant or agent should send updates for you. If you want managed help, see the <a href=\"/making-tax-digital\">Making Tax Digital service</a>.</li>\n</ol>\n\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>From individual records to one business summary</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>A fictional electrician has thirty sales invoices and forty expense entries. The software builds category totals from those records; the update is not a parcel of seventy invoice images sent to HMRC. The underlying evidence still matters. Before approving the summary, check that the business, period and year-to-date records are correct, then retain the filing outcome. A successful upload of receipts is not the same event as submission.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Input records</th><td>Reconcile the transactions and preserve supporting evidence.</td></tr><tr><th scope=\"row\">Update period</th><td>Check cumulative dates and the correct business.</td></tr><tr><th scope=\"row\">Submission result</th><td>Save confirmation and resolve any error or mismatch.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Does HMRC receive every receipt image?</h3><p>The quarterly update sends summary totals rather than each invoice. Keep the underlying evidence as part of your records.</p><h3>Can I skip an update during a quiet period?</h3><p>Do not assume no activity removes the obligation. Check and send the required update even where the period has no income or expenses.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Business and accounting-period setting</li><li>Income and expense categories reconciled</li><li>Cumulative period covered</li><li>Outstanding records or queries</li><li>Submission outcome and next deadline</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/mtd-quarterly-updates-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "dek": "Understand what MTD quarterly updates contain, how cumulative periods work and what evidence to keep after compatible software sends the summary.",
+    "query": "mtd quarterly updates  records  totals and evidence",
+    "answer": "An MTD quarterly update is a summary of totals for your self-employment and/or property income and expense categories. It is created from your digital records and sent to HMRC through compatible software (or by an agent). It is not your full year-end tax return, and HMRC does not receive every individual invoice.",
+    "alt": "An electrician and accountant transform many invoices into a tidy single summary ledger, with a calendar nearby.",
+    "details": [
+      "Reconcile the transactions and preserve supporting evidence.",
+      "Check cumulative dates and the correct business.",
+      "Save confirmation and resolve any error or mismatch."
+    ],
+    "checklist": [
+      "Input records",
+      "Update period",
+      "Submission result"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:15:01.507Z",
+    "depth": {
+      "exampleTitle": "From individual records to one business summary",
+      "example": [
+        "A fictional electrician has thirty sales invoices and forty expense entries. The software builds category totals from those records; the update is not a parcel of seventy invoice images sent to HMRC. The underlying evidence still matters. Before approving the summary, check that the business, period and year-to-date records are correct, then retain the filing outcome. A successful upload of receipts is not the same event as submission."
+      ],
+      "decisionRows": [
+        [
+          "Input records",
+          "Reconcile the transactions and preserve supporting evidence."
+        ],
+        [
+          "Update period",
+          "Check cumulative dates and the correct business."
+        ],
+        [
+          "Submission result",
+          "Save confirmation and resolve any error or mismatch."
+        ]
+      ],
+      "questions": [
+        [
+          "Does HMRC receive every receipt image?",
+          "The quarterly update sends summary totals rather than each invoice. Keep the underlying evidence as part of your records."
+        ],
+        [
+          "Can I skip an update during a quiet period?",
+          "Do not assume no activity removes the obligation. Check and send the required update even where the period has no income or expenses."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Business and accounting-period setting",
+        "Income and expense categories reconciled",
+        "Cumulative period covered",
+        "Outstanding records or queries",
+        "Submission outcome and next deadline"
+      ],
+      "downloadHref": "/downloads/guides/mtd-quarterly-updates-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/mtd-quarterly-updates-checklist.txt",
+    "readingMinutes": 4,
+    "premiumReady": true,
+    "artwork": {
+      "slug": "mtd-quarterly-updates",
+      "src": "/images/articles/mtd-quarterly-updates-960.webp",
+      "srcSet": "/images/articles/mtd-quarterly-updates-480.webp 480w, /images/articles/mtd-quarterly-updates-960.webp 960w, /images/articles/mtd-quarterly-updates-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "heroStyle": "editorial-illustration",
+    "priorityRank": null,
+    "releaseRank": 22
+  },
+  {
+    "id": "seo-sa-deadline-2027",
+    "slug": "self-assessment-deadline",
+    "title": "Self Assessment Deadline 2027 — Dates You Need to Know",
+    "excerpt": "For the 2025 to 2026 tax year, the online Self Assessment deadline is 31 January 2027. Here are the key dates, what happens if you are late, and how to prepare.",
+    "metaTitle": "Self Assessment Deadline 2027: Filing and Payment | TaxSimba",
+    "metaDescription": "Prepare for the 2025/26 Self Assessment deadlines. Distinguish online filing, payment, paper returns and the earlier PAYE collection cutoff.",
+    "category": "Self Assessment",
+    "audience": "self-assessment",
+    "tags": [
+      "self-assessment",
+      "deadlines",
+      "31-january"
+    ],
+    "publishedAt": "2026-09-14T12:30:00.000Z",
+    "reviewedAt": "2026-09-15T11:58:00.000Z",
+    "authorName": "TaxSimba",
+    "reviewerName": "TaxSimba",
+    "featuredImage": "/images/articles/self-assessment-deadline-1440.webp",
+    "featuredImageAlt": "A freelancer plans filing and payment on separate calendar notes while gathering documents early at an oak desk.",
+    "ctaType": "SA",
+    "relatedSlugs": [
+      "self-assessment-register-by-5-october-2026",
+      "self-assessment-documents-checklist",
+      "payments-on-account-explained",
+      "late-self-assessment-penalties",
+      "self-assessment-for-sole-traders-2025-26",
+      "amend-self-assessment-tax-return"
+    ],
+    "relatedPages": [
+      {
+        "href": "/self-assessment",
+        "label": "Online Self Assessment accountant"
+      },
+      {
+        "href": "/pricing",
+        "label": "Self Assessment packages"
+      },
+      {
+        "href": "/self-assessment-guide",
+        "label": "Self Assessment guide"
+      },
+      {
+        "href": "/making-tax-digital",
+        "label": "Also need MTD support?"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Self Assessment tax returns: Deadlines",
+        "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+      },
+      {
+        "label": "GOV.UK — Self Assessment tax returns: Overview",
+        "url": "https://www.gov.uk/self-assessment-tax-returns"
+      },
+      {
+        "label": "GOV.UK — Understand your Self Assessment tax bill: Payments on account",
+        "url": "https://www.gov.uk/understand-self-assessment-bill/payments-on-account"
+      }
+    ],
+    "curated": true,
+    "content": "\n<p>For the 2025 to 2026 tax year (6 April 2025 to 5 April 2026), HMRC must receive your online Self Assessment return and any tax you owe by 11:59pm on 31 January 2027. Miss that and you can face late filing and late payment penalties.</p>\n\n<h2>Key dates for the 2027 filing season</h2>\n<ul>\n  <li><strong>31 October 2026:</strong> paper tax return deadline (if you still file on paper).</li>\n  <li><strong>30 December 2026:</strong> online deadline if you want HMRC to collect through your tax code where that option applies.</li>\n  <li><strong>31 January 2027:</strong> online return and payment deadline for most people.</li>\n  <li><strong>31 July:</strong> second payment on account deadline where payments on account apply.</li>\n</ul>\n<p>If you need to tell HMRC you should be in Self Assessment for the first time (or again after a gap), GOV.UK also sets a 5 October registration-related deadline for the previous tax year. Check the <a href=\"https://www.gov.uk/self-assessment-tax-returns/deadlines\" target=\"_blank\" rel=\"noopener noreferrer\">deadlines page</a> for the exact wording that applies to you, and see our <a href=\"/blogs/self-assessment-register-by-5-october-2026\">5 October registration guide</a>.</p>\n\n<h2>What “deadline” covers</h2>\n<p>People often hear “31 January” and only think about clicking submit. In practice you usually need:</p>\n<ul>\n  <li>the return filed online, and</li>\n  <li>the balancing payment paid on time</li>\n</ul>\n<p>Filing on time but paying late can still create charges. Payments on account, if they apply, are a separate rhythm. They are not a surprise “extra bill” invented by your accountant. See <a href=\"/blogs/payments-on-account-explained\">payments on account explained</a>.</p>\n\n<h2>Example</h2>\n<p>Priya freelances and also has a small rental. She gathers records in autumn, uses TaxSimba’s accountant-led Self Assessment service to prepare the return, reviews it in December, and files well before 31 January 2027 instead of discovering missing invoices in the last week of January.</p>\n\n<h2>Common mistake</h2>\n<p>Waiting for a perfect final bank export on 30 January. If something is missing, you still need a plan: file on time with best available figures only where HMRC rules allow, or get advice quickly. Do not simply ghost the deadline.</p>\n<p>If you later spot a genuine mistake on a return you already filed, that is usually an <a href=\"/blogs/amend-self-assessment-tax-return\">amendment</a> problem, not a second “deadline” — act within HMRC’s correction window.</p>\n\n<h2>Getting ready</h2>\n<ol>\n  <li>Confirm which tax year you are filing for and diary 31 January 2027.</li>\n  <li>Build a document checklist (income, expenses, property, dividends, and so on). See the <a href=\"/blogs/self-assessment-documents-checklist\">documents checklist</a>.</li>\n  <li>Start early if your affairs are mixed or you may also have MTD obligations.</li>\n  <li>Choose DIY software carefully, or use the <a href=\"/self-assessment\">Self Assessment accountant service</a> if you want preparation handled.</li>\n</ol>\n\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>One completed return can still leave a payment task</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>A taxpayer submits a 2025/26 online return early but has not arranged payment. The filing confirmation resolves the submission question, not the payment question. Make separate entries for the return, the balance due and any payment on account. If a special HMRC notice sets a different filing deadline, keep that letter and check whether the payment timetable differs. Do not infer an extension merely from a missing document.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Return filing</th><td>Check the tax year, route and applicable deadline.</td></tr><tr><th scope=\"row\">Payment</th><td>Check the bill and allow time for the chosen payment method.</td></tr><tr><th scope=\"row\">Special notice</th><td>Retain and read any HMRC deadline letter separately.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Does filing early mean paying immediately?</h3><p>Filing and payment dates are separate. Check the actual amount and due date rather than assuming the submission date creates a new deadline.</p><h3>What if a supplier document is missing?</h3><p>Identify the gap early and ask how HMRC&#39;s rules apply. Missing evidence is not a reason to invent figures or ignore the deadline.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Tax year and filing route</li><li>Applicable HMRC notice</li><li>Return preparation and approval status</li><li>Tax and payments-on-account amounts</li><li>Payment method and confirmation</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/self-assessment-deadline-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "dek": "Prepare for the 2025/26 Self Assessment deadlines. Distinguish online filing, payment, paper returns and the earlier PAYE collection cutoff.",
+    "query": "self assessment deadline 2027  filing and payment",
+    "answer": "For the 2025 to 2026 tax year (6 April 2025 to 5 April 2026), HMRC must receive your online Self Assessment return and any tax you owe by 11:59pm on 31 January 2027. Miss that and you can face late filing and late payment penalties.",
+    "alt": "A freelancer plans filing and payment on separate calendar notes while gathering documents early at an oak desk.",
+    "details": [
+      "Check the tax year, route and applicable deadline.",
+      "Check the bill and allow time for the chosen payment method.",
+      "Retain and read any HMRC deadline letter separately."
+    ],
+    "checklist": [
+      "Return filing",
+      "Payment",
+      "Special notice"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:15:01.507Z",
+    "depth": {
+      "exampleTitle": "One completed return can still leave a payment task",
+      "example": [
+        "A taxpayer submits a 2025/26 online return early but has not arranged payment. The filing confirmation resolves the submission question, not the payment question. Make separate entries for the return, the balance due and any payment on account. If a special HMRC notice sets a different filing deadline, keep that letter and check whether the payment timetable differs. Do not infer an extension merely from a missing document."
+      ],
+      "decisionRows": [
+        [
+          "Return filing",
+          "Check the tax year, route and applicable deadline."
+        ],
+        [
+          "Payment",
+          "Check the bill and allow time for the chosen payment method."
+        ],
+        [
+          "Special notice",
+          "Retain and read any HMRC deadline letter separately."
+        ]
+      ],
+      "questions": [
+        [
+          "Does filing early mean paying immediately?",
+          "Filing and payment dates are separate. Check the actual amount and due date rather than assuming the submission date creates a new deadline."
+        ],
+        [
+          "What if a supplier document is missing?",
+          "Identify the gap early and ask how HMRC's rules apply. Missing evidence is not a reason to invent figures or ignore the deadline."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Tax year and filing route",
+        "Applicable HMRC notice",
+        "Return preparation and approval status",
+        "Tax and payments-on-account amounts",
+        "Payment method and confirmation"
+      ],
+      "downloadHref": "/downloads/guides/self-assessment-deadline-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/self-assessment-deadline-checklist.txt",
+    "readingMinutes": 4,
+    "premiumReady": true,
+    "artwork": {
+      "slug": "self-assessment-deadline",
+      "src": "/images/articles/self-assessment-deadline-960.webp",
+      "srcSet": "/images/articles/self-assessment-deadline-480.webp 480w, /images/articles/self-assessment-deadline-960.webp 960w, /images/articles/self-assessment-deadline-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "heroStyle": "editorial-illustration",
+    "priorityRank": null,
+    "releaseRank": 23
+  },
+  {
+    "id": "seo-sa-documents-checklist",
+    "slug": "self-assessment-documents-checklist",
+    "title": "What Documents Do I Need for My Self Assessment Tax Return?",
+    "excerpt": "A practical Self Assessment document checklist for sole traders, landlords and people with mixed income — so you are not hunting for paperwork in January.",
+    "metaTitle": "Self Assessment Documents: Build a Complete Record Pack | TaxSimba",
+    "metaDescription": "Gather Self Assessment documents by income source: PAYE, business, property, savings, investments and other relevant records. Identify gaps before filing.",
+    "category": "Self Assessment",
+    "audience": "self-assessment",
+    "tags": [
+      "self-assessment",
+      "documents",
+      "checklist",
+      "records"
+    ],
+    "publishedAt": "2026-09-14T12:00:00.000Z",
+    "reviewedAt": "2026-09-15T11:58:00.000Z",
+    "authorName": "TaxSimba",
+    "reviewerName": "TaxSimba",
+    "featuredImage": "/images/articles/self-assessment-documents-checklist-1440.webp",
+    "featuredImageAlt": "A mixed-income worker places payslips, rental records, invoices and savings certificates into clearly distinct folders.",
+    "ctaType": "SA",
+    "relatedSlugs": [
+      "self-assessment-for-landlords-2025-26",
+      "self-assessment-for-sole-traders-2025-26",
+      "self-assessment-deadline",
+      "self-assessment-register-by-5-october-2026",
+      "payments-on-account-explained",
+      "amend-self-assessment-tax-return"
+    ],
+    "relatedPages": [
+      {
+        "href": "/self-assessment",
+        "label": "Online Self Assessment accountant"
+      },
+      {
+        "href": "/pricing",
+        "label": "Packages and pricing"
+      },
+      {
+        "href": "/rental-income-tax",
+        "label": "Landlords also facing MTD?"
+      },
+      {
+        "href": "/self-employed-tax-return",
+        "label": "Sole traders also facing MTD?"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Self Assessment tax returns: Overview",
+        "url": "https://www.gov.uk/self-assessment-tax-returns"
+      },
+      {
+        "label": "GOV.UK — Business records if you're self-employed: Overview",
+        "url": "https://www.gov.uk/self-employed-records"
+      },
+      {
+        "label": "GOV.UK — Expenses if you're self-employed: Overview",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed"
+      },
+      {
+        "label": "GOV.UK — Work out your rental income when you let property",
+        "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+      }
+    ],
+    "curated": true,
+    "content": "\n<p>You need enough evidence to report your income and claim what you are entitled to claim. That usually means identity and HMRC references, income records, expense evidence, and anything extra that applies to you (property, investments, foreign income, student loans, and so on). You do not need a perfect filing cabinet, but you do need a trail HMRC could ask about.</p>\n\n<h2>Core documents most people should gather</h2>\n<ul>\n  <li>National Insurance number and Unique Taxpayer Reference (UTR) if you have one</li>\n  <li>P60 / P45 / P11D where you also had employment</li>\n  <li>Bank statements covering the tax year</li>\n  <li>Records of other untaxed income you must report</li>\n</ul>\n\n<h2>If you are self-employed or freelancing</h2>\n<ul>\n  <li>Sales invoices and payment records (turnover)</li>\n  <li>Expense receipts and bills that are wholly and exclusively for business</li>\n  <li>Mileage or travel logs if you claim them</li>\n  <li>Home-as-office workings if relevant</li>\n  <li>Details of any stock, equipment or capital purchases</li>\n</ul>\n<p>HMRC expects you to keep business records. Digital copies are fine if they are clear and complete.</p>\n\n<h2>If you have rental income</h2>\n<ul>\n  <li>Rent received (statements from agents help)</li>\n  <li>Allowable property expenses (repairs, insurance, agent fees, and similar)</li>\n  <li>Mortgage interest information where it affects your property calculations</li>\n  <li>Dates properties were let, empty or personally used</li>\n</ul>\n\n<h2>Other common extras</h2>\n<ul>\n  <li>Dividend vouchers or broker summaries</li>\n  <li>Bank / building society interest certificates</li>\n  <li>Capital gains information if you disposed of assets</li>\n  <li>Pension contribution records</li>\n  <li>Charitable donation evidence for Gift Aid</li>\n  <li>Student loan plan details if repayments interact with your return</li>\n</ul>\n\n<h2>Example</h2>\n<p>Alex freelances and lets one flat. Before using TaxSimba, Alex exports business bank CSV files, saves PDF invoices, downloads the letting agent’s annual statement, and photographs repair receipts. The accountant can prepare the return from that pack instead of chasing missing items in January.</p>\n\n<h2>Common mistake</h2>\n<p>Keeping only the “big” invoices and losing small recurring costs (software, phone, insurance). Those small items add up, and without evidence they are hard to support if HMRC asks questions.</p>\n<p>If you already filed and then find missing documents that change the figures, use HMRC’s <a href=\"/blogs/amend-self-assessment-tax-return\">amendment process</a> rather than hoping the gap never matters.</p>\n\n<h2>Build your pack</h2>\n<ol>\n  <li>List your income types for the tax year.</li>\n  <li>Create a simple folder (digital is fine) per category.</li>\n  <li>Note gaps early. Do not discover them on 30 January.</li>\n  <li>If you want help, start the <a href=\"/self-assessment\">Self Assessment service</a> and upload as you go.</li>\n</ol>\n\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>Find the missing category before January</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>A freelancer supplies business bank exports but forgets employment benefits and a small rental. A large folder is not necessarily a complete folder. Start with an income-source list, then attach evidence for each source and the matching tax year. Where one statement covers a different period, flag the dates rather than silently treating it as a tax-year total. The accountant needs the gaps explained as well as the available files.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Income-source list</th><td>List every relevant source before sorting documents.</td></tr><tr><th scope=\"row\">Period coverage</th><td>Check start and end dates on each statement.</td></tr><tr><th scope=\"row\">Missing evidence</th><td>Record who will obtain it and by when.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Do bank statements explain every payment?</h3><p>Not always. Keep invoices, statements and explanations for transfers, private spending and unusual transactions.</p><h3>Should I send only documents showing income?</h3><p>Include relevant expense, tax-deducted and other evidence as well. The exact pack depends on your circumstances.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Income sources for the tax year</li><li>PAYE and tax-deducted documents</li><li>Business or property supporting evidence</li><li>Statement coverage and missing records</li><li>Named owner and date for each gap</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/self-assessment-documents-checklist-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "dek": "Gather Self Assessment documents by income source: PAYE, business, property, savings, investments and other relevant records. Identify gaps before filing.",
+    "query": "self assessment documents  build a complete record pack",
+    "answer": "You need enough evidence to report your income and claim what you are entitled to claim. That usually means identity and HMRC references, income records, expense evidence, and anything extra that applies to you (property, investments, foreign income, student loans, and so on). You do not need a perfect filing cabinet, but you do need a trail HMRC could ask about.",
+    "alt": "A mixed-income worker places payslips, rental records, invoices and savings certificates into clearly distinct folders.",
+    "details": [
+      "List every relevant source before sorting documents.",
+      "Check start and end dates on each statement.",
+      "Record who will obtain it and by when."
+    ],
+    "checklist": [
+      "Income-source list",
+      "Period coverage",
+      "Missing evidence"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:15:01.507Z",
+    "depth": {
+      "exampleTitle": "Find the missing category before January",
+      "example": [
+        "A freelancer supplies business bank exports but forgets employment benefits and a small rental. A large folder is not necessarily a complete folder. Start with an income-source list, then attach evidence for each source and the matching tax year. Where one statement covers a different period, flag the dates rather than silently treating it as a tax-year total. The accountant needs the gaps explained as well as the available files."
+      ],
+      "decisionRows": [
+        [
+          "Income-source list",
+          "List every relevant source before sorting documents."
+        ],
+        [
+          "Period coverage",
+          "Check start and end dates on each statement."
+        ],
+        [
+          "Missing evidence",
+          "Record who will obtain it and by when."
+        ]
+      ],
+      "questions": [
+        [
+          "Do bank statements explain every payment?",
+          "Not always. Keep invoices, statements and explanations for transfers, private spending and unusual transactions."
+        ],
+        [
+          "Should I send only documents showing income?",
+          "Include relevant expense, tax-deducted and other evidence as well. The exact pack depends on your circumstances."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Income sources for the tax year",
+        "PAYE and tax-deducted documents",
+        "Business or property supporting evidence",
+        "Statement coverage and missing records",
+        "Named owner and date for each gap"
+      ],
+      "downloadHref": "/downloads/guides/self-assessment-documents-checklist-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/self-assessment-documents-checklist-checklist.txt",
+    "readingMinutes": 4,
+    "premiumReady": true,
+    "artwork": {
+      "slug": "self-assessment-documents-checklist",
+      "src": "/images/articles/self-assessment-documents-checklist-960.webp",
+      "srcSet": "/images/articles/self-assessment-documents-checklist-480.webp 480w, /images/articles/self-assessment-documents-checklist-960.webp 960w, /images/articles/self-assessment-documents-checklist-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "heroStyle": "editorial-illustration",
+    "priorityRank": null,
+    "releaseRank": 24
+  },
+  {
+    "id": "static-1",
+    "slug": "understanding-self-assessment-uk",
+    "title": "A Simple Guide to UK Self Assessment",
+    "excerpt": "Self Assessment is how HMRC collects Income Tax from people who need to report income themselves each year — including many self-employed people and landlords.",
+    "metaTitle": "UK Self Assessment: Who Files and What Happens | TaxSimba",
+    "metaDescription": "Understand UK Self Assessment, when to check whether a return is needed, what records to prepare and how filing differs from paying the bill.",
+    "category": "Self Assessment",
+    "audience": "self-assessment",
+    "tags": [
+      "self-assessment",
+      "hmrc",
+      "deadlines"
+    ],
+    "publishedAt": "2024-03-20T10:00:00.000Z",
+    "reviewedAt": "2026-09-14T12:00:00.000Z",
+    "authorName": "TaxSimba",
+    "reviewerName": "TaxSimba",
+    "featuredImage": "/images/articles/understanding-self-assessment-uk-1440.webp",
+    "featuredImageAlt": "A first-time taxpayer and accountant open an organised return folder together, simple welcoming introductory scene.",
+    "ctaType": "SA",
+    "relatedSlugs": [
+      "self-assessment-deadline",
+      "self-assessment-documents-checklist",
+      "hmrc-signed-me-up-for-making-tax-digital"
+    ],
+    "relatedPages": [
+      {
+        "href": "/self-assessment",
+        "label": "Online Self Assessment accountant"
+      },
+      {
+        "href": "/pricing",
+        "label": "Self Assessment packages"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Self Assessment tax returns: Overview",
+        "url": "https://www.gov.uk/self-assessment-tax-returns"
+      }
+    ],
+    "curated": true,
+    "content": "\n<p><strong>Immediate answer:</strong> Self Assessment is HMRC’s system for collecting Income Tax from people who need to report certain income themselves. If you are self-employed, a landlord, or have other untaxed income, you may need to file a return each year.</p>\n\n<h2>What Self Assessment means</h2>\n<p>Instead of tax being collected only through PAYE, you tell HMRC about your income and claim allowable expenses, then pay any tax due by the deadlines HMRC sets.</p>\n\n<h2>Who it affects</h2>\n<p>You may need to file if you earned more than the trading allowance threshold from self-employment, received taxable rental income, had untaxed foreign income, or meet other HMRC criteria (for example certain high incomes or Child Benefit charges). Check GOV.UK if you are unsure.</p>\n\n<h2>Example</h2>\n<p>Priya freelances alongside a part-time job. PAYE covers her employment income, but her freelance profit still needs reporting through Self Assessment so HMRC can collect the right Income Tax and National Insurance.</p>\n\n<h2>Common mistake</h2>\n<p>Missing allowable expenses that are wholly and exclusively for business — such as relevant travel, insurance, or equipment — and overpaying tax as a result.</p>\n\n<h2>What to do next</h2>\n<ol>\n  <li>Confirm whether you need to register for Self Assessment.</li>\n  <li>Gather income records and expense evidence.</li>\n  <li>Note the online filing and payment deadlines on GOV.UK.</li>\n  <li>Decide whether to prepare the return yourself or use an accountant-led service.</li>\n</ol>\n\n<h2>How TaxSimba can help</h2>\n<p>TaxSimba’s accountants guide you through an online Self Assessment process: you provide information and documents, we prepare and review the return, and you approve before filing where applicable.</p>\n\n<p>General information only — not personal tax advice.</p>\n\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>A new side business changes the information needed</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>A fictional employee starts taking freelance work. PAYE may still deal with employment tax, but it does not establish that the new business income has already been reported. Check whether notification or a return is required and collect records from the start of the activity. If HMRC issues a notice to file, deal with that notice rather than assuming a small eventual bill cancels the instruction.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Need to report</th><td>Use the official checker and relevant HMRC notices.</td></tr><tr><th scope=\"row\">Preparation</th><td>Gather income, allowable-cost and tax-deducted evidence.</td></tr><tr><th scope=\"row\">Completion</th><td>Check both filing confirmation and payment obligations.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Does opening a business account register me with HMRC?</h3><p>No. Check the separate notification and registration steps that apply to your circumstances.</p><h3>Does a nil tax bill always mean no return?</h3><p>No. The filing requirement and the tax calculation are different questions; address any HMRC notice.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Tax year and HMRC notices</li><li>Income sources and start dates</li><li>Income and expense records</li><li>Tax already deducted</li><li>Registration, filing and payment next steps</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/understanding-self-assessment-uk-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "dek": "Understand UK Self Assessment, when to check whether a return is needed, what records to prepare and how filing differs from paying the bill.",
+    "query": "uk self assessment  who files and what happens",
+    "answer": "Self Assessment is HMRC’s system for collecting Income Tax from people who need to report certain income themselves. If you are self-employed, a landlord, or have other untaxed income, you may need to file a return each year.",
+    "alt": "A first-time taxpayer and accountant open an organised return folder together, simple welcoming introductory scene.",
+    "details": [
+      "Use the official checker and relevant HMRC notices.",
+      "Gather income, allowable-cost and tax-deducted evidence.",
+      "Check both filing confirmation and payment obligations."
+    ],
+    "checklist": [
+      "Need to report",
+      "Preparation",
+      "Completion"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:15:01.507Z",
+    "depth": {
+      "exampleTitle": "A new side business changes the information needed",
+      "example": [
+        "A fictional employee starts taking freelance work. PAYE may still deal with employment tax, but it does not establish that the new business income has already been reported. Check whether notification or a return is required and collect records from the start of the activity. If HMRC issues a notice to file, deal with that notice rather than assuming a small eventual bill cancels the instruction."
+      ],
+      "decisionRows": [
+        [
+          "Need to report",
+          "Use the official checker and relevant HMRC notices."
+        ],
+        [
+          "Preparation",
+          "Gather income, allowable-cost and tax-deducted evidence."
+        ],
+        [
+          "Completion",
+          "Check both filing confirmation and payment obligations."
+        ]
+      ],
+      "questions": [
+        [
+          "Does opening a business account register me with HMRC?",
+          "No. Check the separate notification and registration steps that apply to your circumstances."
+        ],
+        [
+          "Does a nil tax bill always mean no return?",
+          "No. The filing requirement and the tax calculation are different questions; address any HMRC notice."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Tax year and HMRC notices",
+        "Income sources and start dates",
+        "Income and expense records",
+        "Tax already deducted",
+        "Registration, filing and payment next steps"
+      ],
+      "downloadHref": "/downloads/guides/understanding-self-assessment-uk-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/understanding-self-assessment-uk-checklist.txt",
+    "readingMinutes": 3,
+    "premiumReady": true,
+    "artwork": {
+      "slug": "understanding-self-assessment-uk",
+      "src": "/images/articles/understanding-self-assessment-uk-960.webp",
+      "srcSet": "/images/articles/understanding-self-assessment-uk-480.webp 480w, /images/articles/understanding-self-assessment-uk-960.webp 960w, /images/articles/understanding-self-assessment-uk-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "heroStyle": "editorial-illustration",
+    "priorityRank": null,
+    "releaseRank": 25
+  },
+  {
+    "id": "static-2",
+    "slug": "top-tax-saving-tips-uk",
+    "title": "Top Tax-Saving Tips for Small Businesses in the UK",
+    "excerpt": "Practical ways sole traders and small businesses can stay compliant while claiming what they are entitled to — without aggressive tax schemes.",
+    "metaTitle": "Small Business Tax: Evidence-Based Expense Checks | TaxSimba",
+    "metaDescription": "Improve small-business tax records by checking genuine expenses, private use and supporting evidence. Avoid assuming every business payment is deductible.",
+    "category": "Self Assessment",
+    "audience": "sole-traders",
+    "tags": [
+      "expenses",
+      "sole-trader",
+      "self-assessment"
+    ],
+    "publishedAt": "2024-04-15T09:00:00.000Z",
+    "reviewedAt": "2026-09-14T12:00:00.000Z",
+    "authorName": "TaxSimba",
+    "reviewerName": "TaxSimba",
+    "featuredImage": "/images/articles/top-tax-saving-tips-uk-1440.webp",
+    "featuredImageAlt": "A small-business owner compares receipts with expenses and separates a personal shopping bag from business supplies.",
+    "ctaType": "SA",
+    "relatedSlugs": [
+      "self-assessment-documents-checklist",
+      "understanding-self-assessment-uk",
+      "making-tax-digital-explained"
+    ],
+    "relatedPages": [
+      {
+        "href": "/self-employed-tax-return",
+        "label": "MTD for sole traders"
+      },
+      {
+        "href": "/self-assessment",
+        "label": "Self Assessment accountant service"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Expenses if you're self-employed: Overview",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed"
+      }
+    ],
+    "curated": true,
+    "content": "\n<p><strong>Immediate answer:</strong> The most reliable “tax saving” for most sole traders is accurate record-keeping and claiming allowable expenses — not exotic schemes.</p>\n\n<h2>What this means</h2>\n<p>HMRC allows you to deduct costs that are wholly and exclusively for your business. Good records make those claims defensible.</p>\n\n<h2>Who it affects</h2>\n<p>Self-employed people, freelancers and small traders who report profits through Self Assessment (and, where applicable, Making Tax Digital).</p>\n\n<h2>Example</h2>\n<p>A courier who keeps mileage and phone evidence can claim legitimate business costs. Without records, those claims are hard to support if HMRC asks questions.</p>\n\n<h2>Common mistake</h2>\n<p>Mixing personal and business spending with no audit trail, then guessing expenses at year end.</p>\n\n<h2>What to do next</h2>\n<ol>\n  <li>Separate business transactions where practical.</li>\n  <li>Store invoices and bank evidence digitally.</li>\n  <li>Review HMRC’s allowable expenses guidance.</li>\n  <li>Use an accountant if your affairs are mixed or growing.</li>\n</ol>\n\n<h2>How TaxSimba can help</h2>\n<p>Our accountant-led Self Assessment service helps you organise information and prepare an accurate return — without promising unrealistic “guaranteed savings.”</p>\n\n<p>General information only — not personal tax advice.</p>\n\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>A deduction reduces profit, not the bill pound for pound</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>A trader finds a genuine £100 business cost omitted from their records. If allowable, it reduces the relevant profit figure by £100; that does not mean a £100 tax refund is guaranteed. The tax effect depends on the wider calculation. Keep the receipt, explain business use and check whether the cost belongs to this period and accounting method. Buying an unnecessary item simply to seek relief still costs money.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Business purpose</th><td>Explain why the cost relates to the trade.</td></tr><tr><th scope=\"row\">Evidence and period</th><td>Keep the invoice and check when it belongs in the records.</td></tr><tr><th scope=\"row\">Private use</th><td>Identify any personal element rather than claiming everything.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Can I claim a cost just because the business account paid it?</h3><p>The payment account alone does not determine deductibility. The purpose and tax treatment still need checking.</p><h3>Are guaranteed tax-saving promises reliable?</h3><p>A provider cannot establish your entitlement without the facts. Ask which specific rule and evidence support a proposed claim.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Cost and supplier evidence</li><li>Business purpose</li><li>Relevant accounting period</li><li>Private-use explanation</li><li>Questions about treatment or missing evidence</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/top-tax-saving-tips-uk-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "dek": "Improve small-business tax records by checking genuine expenses, private use and supporting evidence. Avoid assuming every business payment is deductible.",
+    "query": "small business tax  evidence based expense checks",
+    "answer": "The most reliable “tax saving” for most sole traders is accurate record-keeping and claiming allowable expenses — not exotic schemes.",
+    "alt": "A small-business owner compares receipts with expenses and separates a personal shopping bag from business supplies.",
+    "details": [
+      "Explain why the cost relates to the trade.",
+      "Keep the invoice and check when it belongs in the records.",
+      "Identify any personal element rather than claiming everything."
+    ],
+    "checklist": [
+      "Business purpose",
+      "Evidence and period",
+      "Private use"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:15:01.507Z",
+    "depth": {
+      "exampleTitle": "A deduction reduces profit, not the bill pound for pound",
+      "example": [
+        "A trader finds a genuine £100 business cost omitted from their records. If allowable, it reduces the relevant profit figure by £100; that does not mean a £100 tax refund is guaranteed. The tax effect depends on the wider calculation. Keep the receipt, explain business use and check whether the cost belongs to this period and accounting method. Buying an unnecessary item simply to seek relief still costs money."
+      ],
+      "decisionRows": [
+        [
+          "Business purpose",
+          "Explain why the cost relates to the trade."
+        ],
+        [
+          "Evidence and period",
+          "Keep the invoice and check when it belongs in the records."
+        ],
+        [
+          "Private use",
+          "Identify any personal element rather than claiming everything."
+        ]
+      ],
+      "questions": [
+        [
+          "Can I claim a cost just because the business account paid it?",
+          "The payment account alone does not determine deductibility. The purpose and tax treatment still need checking."
+        ],
+        [
+          "Are guaranteed tax-saving promises reliable?",
+          "A provider cannot establish your entitlement without the facts. Ask which specific rule and evidence support a proposed claim."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Cost and supplier evidence",
+        "Business purpose",
+        "Relevant accounting period",
+        "Private-use explanation",
+        "Questions about treatment or missing evidence"
+      ],
+      "downloadHref": "/downloads/guides/top-tax-saving-tips-uk-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/top-tax-saving-tips-uk-checklist.txt",
+    "readingMinutes": 3,
+    "premiumReady": true,
+    "artwork": {
+      "slug": "top-tax-saving-tips-uk",
+      "src": "/images/articles/top-tax-saving-tips-uk-960.webp",
+      "srcSet": "/images/articles/top-tax-saving-tips-uk-480.webp 480w, /images/articles/top-tax-saving-tips-uk-960.webp 960w, /images/articles/top-tax-saving-tips-uk-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "heroStyle": "editorial-illustration",
+    "priorityRank": null,
+    "releaseRank": 26
+  },
+  {
+    "id": "static-3",
+    "slug": "making-tax-digital-explained",
+    "title": "Making Tax Digital (MTD): What You Need to Know",
+    "excerpt": "Making Tax Digital for Income Tax changes how many sole traders and landlords keep records and report to HMRC. Here is the plain-English version.",
+    "metaTitle": "Making Tax Digital for Income Tax: Practical Overview | TaxSimba",
+    "metaDescription": "Understand MTD for Income Tax: qualifying income, digital records, quarterly updates and the annual return. Check the rules for your actual start year.",
+    "category": "Making Tax Digital",
+    "audience": "mtd",
+    "tags": [
+      "mtd",
+      "landlords",
+      "sole-traders"
+    ],
+    "publishedAt": "2024-05-02T11:30:00.000Z",
+    "reviewedAt": "2026-09-14T13:00:00.000Z",
+    "authorName": "TaxSimba",
+    "reviewerName": "TaxSimba",
+    "featuredImage": "/images/articles/making-tax-digital-explained-1440.webp",
+    "featuredImageAlt": "A landlord and trader explore a laptop ledger and four calendar markers with a professional adviser.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "does-mtd-replace-self-assessment",
+      "mtd-exemptions",
+      "mtd-for-sole-traders-2026-27",
+      "mtd-for-landlords-2026-27",
+      "mtd-qualifying-income"
+    ],
+    "relatedPages": [
+      {
+        "href": "/making-tax-digital",
+        "label": "Making Tax Digital accountant"
+      },
+      {
+        "href": "/check-mtd",
+        "label": "MTD eligibility checker"
+      },
+      {
+        "href": "/mtd-information",
+        "label": "MTD packages"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      }
+    ],
+    "curated": true,
+    "content": "\n<p><strong>Immediate answer:</strong> Making Tax Digital for Income Tax requires many sole traders and landlords to keep digital records and send quarterly updates to HMRC, alongside year-end obligations.</p>\n\n<h2>What the rules mean</h2>\n<p>MTD is about digital record-keeping and regular digital reporting for qualifying income. It is separate from older “file once in January” habits, even though Self Assessment still matters for your overall tax position.</p>\n\n<h2>Who it affects</h2>\n<p>People with qualifying income from self-employment and/or property who meet HMRC’s phased thresholds and dates. Check GOV.UK for the current rules that apply to you.</p>\n\n<h2>Example</h2>\n<p>A landlord above the relevant threshold must keep digital property records and submit quarterly updates, rather than leaving everything to a single annual spreadsheet tidy-up.</p>\n\n<h2>Common mistake</h2>\n<p>Assuming MTD for VAT experience automatically covers Income Tax MTD — they are related ideas but different regimes.</p>\n\n<h2>What to do next</h2>\n<ol>\n  <li>Confirm whether you are in scope.</li>\n  <li>Choose how digital records will be kept.</li>\n  <li>Diary quarterly update periods.</li>\n  <li>Decide whether to appoint an accountant/agent.</li>\n</ol>\n\n<h2>How TaxSimba can help</h2>\n<p>TaxSimba provides accountant-led MTD support: we help manage the process so you are not left alone with software complexity. See our <a href=\"/making-tax-digital\">MTD accountant service</a> for the commercial next step.</p>\n\n<p>General information only — not personal tax advice.</p>\n\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>Separate the four questions at setup</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>A landlord asks whether buying software means MTD is complete. It does not answer whether they are in scope, whether all relevant digital records are present, whether updates have been sent or whether the annual return is finished. Work through those questions separately. A software purchase is a tool choice; the relevant records, permissions and reporting tasks must still be set up for the right year.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Scope</th><td>Check qualifying income, start date and exemptions.</td></tr><tr><th scope=\"row\">Records and updates</th><td>Agree a compatible workflow and reporting responsibilities.</td></tr><tr><th scope=\"row\">Annual position</th><td>Plan the return and actual tax payment separately.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Is MTD for VAT the same service?</h3><p>No. The taxes, scope and reporting requirements differ. Do not assume an existing VAT setup covers Income Tax.</p><h3>Can an accountant manage the process?</h3><p>An appropriately authorised agent can undertake agreed work using compatible software. Confirm the role and service scope.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Qualifying-income assessment year</li><li>Start date and exemptions to check</li><li>Business and property sources</li><li>Software or agent responsibilities</li><li>Update, return and payment plan</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/making-tax-digital-explained-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "dek": "Understand MTD for Income Tax: qualifying income, digital records, quarterly updates and the annual return. Check the rules for your actual start year.",
+    "query": "making tax digital for income tax  practical overview",
+    "answer": "Making Tax Digital for Income Tax requires many sole traders and landlords to keep digital records and send quarterly updates to HMRC, alongside year-end obligations.",
+    "alt": "A landlord and trader explore a laptop ledger and four calendar markers with a professional adviser.",
+    "details": [
+      "Check qualifying income, start date and exemptions.",
+      "Agree a compatible workflow and reporting responsibilities.",
+      "Plan the return and actual tax payment separately."
+    ],
+    "checklist": [
+      "Scope",
+      "Records and updates",
+      "Annual position"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:15:01.507Z",
+    "depth": {
+      "exampleTitle": "Separate the four questions at setup",
+      "example": [
+        "A landlord asks whether buying software means MTD is complete. It does not answer whether they are in scope, whether all relevant digital records are present, whether updates have been sent or whether the annual return is finished. Work through those questions separately. A software purchase is a tool choice; the relevant records, permissions and reporting tasks must still be set up for the right year."
+      ],
+      "decisionRows": [
+        [
+          "Scope",
+          "Check qualifying income, start date and exemptions."
+        ],
+        [
+          "Records and updates",
+          "Agree a compatible workflow and reporting responsibilities."
+        ],
+        [
+          "Annual position",
+          "Plan the return and actual tax payment separately."
+        ]
+      ],
+      "questions": [
+        [
+          "Is MTD for VAT the same service?",
+          "No. The taxes, scope and reporting requirements differ. Do not assume an existing VAT setup covers Income Tax."
+        ],
+        [
+          "Can an accountant manage the process?",
+          "An appropriately authorised agent can undertake agreed work using compatible software. Confirm the role and service scope."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Qualifying-income assessment year",
+        "Start date and exemptions to check",
+        "Business and property sources",
+        "Software or agent responsibilities",
+        "Update, return and payment plan"
+      ],
+      "downloadHref": "/downloads/guides/making-tax-digital-explained-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/making-tax-digital-explained-checklist.txt",
+    "readingMinutes": 3,
+    "premiumReady": true,
+    "artwork": {
+      "slug": "making-tax-digital-explained",
+      "src": "/images/articles/making-tax-digital-explained-960.webp",
+      "srcSet": "/images/articles/making-tax-digital-explained-480.webp 480w, /images/articles/making-tax-digital-explained-960.webp 960w, /images/articles/making-tax-digital-explained-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "heroStyle": "editorial-illustration",
+    "priorityRank": null,
+    "releaseRank": 27
+  },
+  {
+    "id": "seo-mtd-accountant-or-agent",
+    "slug": "mtd-accountant-or-agent",
+    "title": "Can an Accountant Handle Making Tax Digital for Me?",
+    "excerpt": "Yes — you can appoint an accountant or agent for Making Tax Digital for Income Tax. Here is what they can do, what you still need to provide, and how an accountant-led service differs from DIY software.",
+    "metaTitle": "Can an Accountant Manage MTD? Tasks and Responsibilities | TaxSimba",
+    "metaDescription": "Check what an MTD accountant or agent can do, which permissions are needed and what records and answers you still need to provide.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "accountant",
+      "agent",
+      "sole-trader",
+      "landlord"
+    ],
+    "publishedAt": "2026-09-15T10:00:00.000Z",
+    "reviewedAt": "2026-09-15T11:58:00.000Z",
+    "authorName": "TaxSimba",
+    "reviewerName": "TaxSimba",
+    "featuredImage": "/images/articles/mtd-accountant-or-agent-1440.webp",
+    "featuredImageAlt": "An authorised accountant handles a client's organised records while the client supplies missing invoices.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "hmrc-signed-me-up-for-making-tax-digital",
+      "mtd-qualifying-income",
+      "mtd-quarterly-updates",
+      "mtd-digital-records",
+      "making-tax-digital-explained"
+    ],
+    "relatedPages": [
+      {
+        "href": "/making-tax-digital",
+        "label": "Making Tax Digital accountant service"
+      },
+      {
+        "href": "/check-mtd",
+        "label": "Check if MTD applies to you"
+      },
+      {
+        "href": "/mtd-information",
+        "label": "MTD packages"
+      },
+      {
+        "href": "/rental-income-tax",
+        "label": "MTD for landlords"
+      },
+      {
+        "href": "/self-employed-tax-return",
+        "label": "MTD for sole traders"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Sign up your client for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/sign-up-your-client-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Choose the right software for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      }
+    ],
+    "curated": true,
+    "content": "\n<p>If Making Tax Digital for Income Tax applies to you, you do not have to run the software alone. GOV.UK’s guidance is written for you <em>or</em> your agent: an authorised accountant can help keep digital records, send quarterly updates, and submit your tax return using compatible software.</p>\n<p>Appointing help does not hand HMRC responsibility to someone else in the abstract. You still need to supply complete, accurate information. The accountant manages process and software. They cannot invent missing invoices or guess rent you never recorded.</p>\n\n<h2>What an authorised agent can typically help with</h2>\n<p>In practice, once you have authorised an agent for MTD (and they have the right HMRC agent services setup), they can usually help with:</p>\n<ul>\n  <li>signing you up for MTD where that step is still needed</li>\n  <li>choosing and connecting compatible software</li>\n  <li>creating and maintaining digital records from the evidence you provide</li>\n  <li>preparing and sending quarterly updates</li>\n  <li>helping you complete and submit the year-end tax return through that software</li>\n</ul>\n<p>Exact permissions depend on how you authorise them. Ask your accountant to spell out what they will do and what stays with you.</p>\n\n<h2>Checklist: what you normally still need to do</h2>\n<ol>\n  <li>Authorise the agent for Making Tax Digital for Income Tax (and Self Assessment where relevant) through HMRC’s agent processes.</li>\n  <li>Confirm your income sources (self-employment, UK or foreign property, or both) so the right records and updates are set up.</li>\n  <li>Hand over usable evidence on a steady rhythm: bank exports, sales invoices, expense receipts, letting-agent statements, and notes for anything unusual.</li>\n  <li>Answer clarifying questions when a transaction is unclear (private vs business, which property, which category).</li>\n  <li>Review and approve work where your service process asks you to, before updates or the return go to HMRC.</li>\n  <li>Keep supporting documents. MTD digital records sit alongside the invoices and statements you still need for Self Assessment evidence.</li>\n</ol>\n<p>Late or incomplete records make quarterly updates harder for everyone involved. That is a customer-side constraint, not something software can paper over.</p>\n\n<h2>DIY software vs accountant support</h2>\n<p>With DIY-compatible software you drive categorisation, submissions, and HMRC screens yourself. With an accountant-led service such as TaxSimba, you feed information through a client workflow and accountants use compatible software to help manage MTD. TaxSimba is not standalone DIY filing software you are expected to run unsupervised.</p>\n<p>DIY can still suit simple affairs if you are comfortable with software and will update records weekly. Mixed income, several properties, or a sudden HMRC signup are usually when people want help.</p>\n\n<h2>If you are still checking whether MTD applies</h2>\n<p>Use GOV.UK’s eligibility guidance and our free <a href=\"/check-mtd\">MTD checker</a>, then read <a href=\"/blogs/mtd-qualifying-income\">how qualifying income thresholds work</a> if the £50,000 (and later) figures are unclear.</p>\n<p>Prefer not to learn every MTD screen? Compare packages on <a href=\"/mtd-information\">MTD information</a> and <a href=\"/pricing\">pricing</a>, then start from the <a href=\"/making-tax-digital\">Making Tax Digital accountant service</a> if you want managed support rather than DIY software alone. Authorisation and software choices should still follow current GOV.UK guidance for your situation.</p>\n\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>An unexplained transfer still needs the client&#39;s answer</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>An accountant sees a bank transfer but cannot tell whether it is a customer payment, private transfer or loan. Access to software does not supply that missing fact. Agree a query process and respond with evidence. Separately confirm which agent role covers records, updates and the annual return: the commercial promise and HMRC permissions should match the work being undertaken.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Client information</th><td>Supply complete records and explain unclear transactions.</td></tr><tr><th scope=\"row\">Agent authority</th><td>Match the authorised role to the agreed tasks.</td></tr><tr><th scope=\"row\">Filing responsibility</th><td>Identify who checks, sends and confirms each obligation.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Does appointing an accountant remove my responsibility?</h3><p>You still need to provide accurate, complete information and check the return information as required.</p><h3>Does every supporting agent handle the annual return?</h3><p>No. Check main-agent responsibilities and who is engaged to finalise and submit the annual return.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Engagement scope</li><li>Main or supporting-agent role</li><li>Record delivery arrangements</li><li>Query and approval process</li><li>Submission confirmations and outstanding work</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/mtd-accountant-or-agent-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "dek": "Check what an MTD accountant or agent can do, which permissions are needed and what records and answers you still need to provide.",
+    "query": "can an accountant manage mtd  tasks and responsibilities",
+    "answer": "If Making Tax Digital for Income Tax applies to you, you do not have to run the software alone. GOV.UK’s guidance is written for you or your agent: an authorised accountant can help keep digital records, send quarterly updates, and submit your tax return using compatible software.",
+    "alt": "An authorised accountant handles a client's organised records while the client supplies missing invoices.",
+    "details": [
+      "Supply complete records and explain unclear transactions.",
+      "Match the authorised role to the agreed tasks.",
+      "Identify who checks, sends and confirms each obligation."
+    ],
+    "checklist": [
+      "Client information",
+      "Agent authority",
+      "Filing responsibility"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:15:01.507Z",
+    "depth": {
+      "exampleTitle": "An unexplained transfer still needs the client's answer",
+      "example": [
+        "An accountant sees a bank transfer but cannot tell whether it is a customer payment, private transfer or loan. Access to software does not supply that missing fact. Agree a query process and respond with evidence. Separately confirm which agent role covers records, updates and the annual return: the commercial promise and HMRC permissions should match the work being undertaken."
+      ],
+      "decisionRows": [
+        [
+          "Client information",
+          "Supply complete records and explain unclear transactions."
+        ],
+        [
+          "Agent authority",
+          "Match the authorised role to the agreed tasks."
+        ],
+        [
+          "Filing responsibility",
+          "Identify who checks, sends and confirms each obligation."
+        ]
+      ],
+      "questions": [
+        [
+          "Does appointing an accountant remove my responsibility?",
+          "You still need to provide accurate, complete information and check the return information as required."
+        ],
+        [
+          "Does every supporting agent handle the annual return?",
+          "No. Check main-agent responsibilities and who is engaged to finalise and submit the annual return."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Engagement scope",
+        "Main or supporting-agent role",
+        "Record delivery arrangements",
+        "Query and approval process",
+        "Submission confirmations and outstanding work"
+      ],
+      "downloadHref": "/downloads/guides/mtd-accountant-or-agent-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/mtd-accountant-or-agent-checklist.txt",
+    "readingMinutes": 4,
+    "premiumReady": true,
+    "artwork": {
+      "slug": "mtd-accountant-or-agent",
+      "src": "/images/articles/mtd-accountant-or-agent-960.webp",
+      "srcSet": "/images/articles/mtd-accountant-or-agent-480.webp 480w, /images/articles/mtd-accountant-or-agent-960.webp 960w, /images/articles/mtd-accountant-or-agent-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "heroStyle": "editorial-illustration",
+    "priorityRank": null,
+    "releaseRank": 28
+  },
+  {
+    "id": "seo-mtd-digital-records",
+    "slug": "mtd-digital-records",
+    "title": "MTD Digital Records — What You Actually Need to Keep",
+    "excerpt": "MTD for Income Tax requires digital records of self-employment and property income and expenses. Here is what that means day to day — without the jargon.",
+    "metaTitle": "MTD Digital Records: Evidence, Categories and Links | TaxSimba",
+    "metaDescription": "Keep useful MTD digital records with dates, amounts and categories. Preserve receipts and check digital links where records move between software products.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "digital-records",
+      "record-keeping",
+      "landlords",
+      "sole-traders"
+    ],
+    "publishedAt": "2026-09-15T09:30:00.000Z",
+    "reviewedAt": "2026-09-15T11:58:00.000Z",
+    "authorName": "TaxSimba",
+    "reviewerName": "TaxSimba",
+    "featuredImage": "/images/articles/mtd-digital-records-1440.webp",
+    "featuredImageAlt": "A trader records a receipt on a laptop beside the original paper evidence, showing date and amount as abstract lines.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "mtd-for-sole-traders-2026-27",
+      "mtd-for-landlords-2026-27",
+      "mtd-quarterly-updates",
+      "missed-mtd-quarterly-update",
+      "mtd-qualifying-income",
+      "mtd-accountant-or-agent",
+      "hmrc-signed-me-up-for-making-tax-digital"
+    ],
+    "relatedPages": [
+      {
+        "href": "/making-tax-digital",
+        "label": "Making Tax Digital accountant service"
+      },
+      {
+        "href": "/check-mtd",
+        "label": "MTD checker"
+      },
+      {
+        "href": "/self-employed-tax-return",
+        "label": "MTD for sole traders"
+      },
+      {
+        "href": "/rental-income-tax",
+        "label": "MTD for landlords"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      },
+      {
+        "label": "GOV.UK — Choose the right software for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Send quarterly updates - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+      }
+    ],
+    "curated": true,
+    "content": "\n<p>A digital record, in HMRC’s words, is a record of income or expense created and stored in software that works with Making Tax Digital for Income Tax. If MTD applies, you or your agent must keep those records for self-employment and/or property income and expenses. Those records later feed quarterly updates. This guide is about the records themselves, not how to submit an update.</p>\n<p>Paper shoeboxes and a January tidy-up are not the design. You should still keep underlying evidence (invoices, statements, receipts). MTD does not mean “delete everything except software totals.”</p>\n\n<h2>What each digital record needs</h2>\n<p>When you create a record, GOV.UK expects at least:</p>\n<ul>\n  <li>amount</li>\n  <li>date the income was received or the expense incurred</li>\n  <li>category, using the same broad Self Assessment-style categories your software supports</li>\n</ul>\n<p>Day to day that usually means a clear trail for money in (sales, fees, rent and other taxable income in scope) and money out (allowable expenses), recorded close enough to the transaction that period totals are not guesswork.</p>\n<p>For example, a landlord’s boiler repair might be recorded as amount £240, date 12 June 2026, category something like repairs and maintenance (wording depends on the software). The invoice PDF still sits in your files as supporting evidence.</p>\n\n<h2>Self-employment and property: different shapes</h2>\n<p>If you have more than one sole-trader business, GOV.UK expects separate digital records (and separate quarterly updates) for each. UK rental properties are different: they are generally treated as one UK property business, so you do not create a separate MTD “set” per flat. Your software rolls UK property income and expenses into that one business, including your share of jointly let UK property.</p>\n<p>Foreign property has its own rules, including separate digital records per foreign property in many cases, even though they still form one foreign property business for the update. Check GOV.UK if you have mixed UK and overseas lets.</p>\n\n<h2>One product or several, and digital links</h2>\n<p>You can use one all-in-one product for records and submissions, or more than one product. If you use more than one, GOV.UK requires them to be digitally linked before you send updates or the return.</p>\n<p>Legitimate digital links include methods such as:</p>\n<ul>\n  <li>linked cells or formulas in spreadsheets</li>\n  <li>importing or exporting files (for example CSV or XML) between compatible tools</li>\n  <li>emailing a spreadsheet of digital records for import into another product</li>\n  <li>transferring files on a portable device for import</li>\n  <li>automated data transfer or an API connection</li>\n</ul>\n<p>What is not treated as a digital link is manually rewriting figures, or cutting and pasting records between systems after they have been created. Once a digital record has gone to HMRC in a quarterly update, you must not manually move that record around inside or between products in those non-compliant ways. If multi-product linking sounds fiddly, many people prefer an accountant or agent to design the workflow.</p>\n\n<h2>When to start</h2>\n<p>Start from the beginning of the relevant tax year for your accounting period (often 6 April for standard periods, or 1 April if you use calendar update periods). If you join part-way through the year, you may need to catch up records from the start of the year so the first update is complete. Create records as close to each transaction as you reasonably can.</p>\n\n<h2>A common mistake</h2>\n<p>Mixing personal and business spending in one account with no labels, then expecting software or an accountant to reconstruct everything from vague bank descriptions. Cleaner habits through the year make the records usable. For how those records later roll into HMRC summaries, see <a href=\"/blogs/mtd-quarterly-updates\">what quarterly updates contain</a>.</p>\n\n<p>On TaxSimba’s <a href=\"/making-tax-digital\">MTD service</a>, you still provide documents and answers. Accountants help organise the compatible-software workflow so records stay usable. Unsure whether MTD applies at all? Confirm on GOV.UK and use the <a href=\"/check-mtd\">MTD checker</a> as a prompt.</p>\n\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>The receipt and the ledger entry do different jobs</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>A fictional trader photographs a £90 invoice and stores it in a folder. That photograph supports the transaction, but the required digital record also needs the relevant date, amount and category in the software workflow. If data then moves to another product, check the linking method. A well-named image file alone does not establish that the record has reached the update totals correctly.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Supporting evidence</th><td>Keep the invoice or other genuine transaction evidence.</td></tr><tr><th scope=\"row\">Digital record</th><td>Check date, amount, category and business source.</td></tr><tr><th scope=\"row\">Product transfer</th><td>Verify the permitted digital-link workflow where applicable.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Can I delete the receipt once the amount is entered?</h3><p>Keep supporting evidence under the applicable record-retention requirements. Software totals do not replace the whole evidence trail.</p><h3>What if I have business and rental income?</h3><p>Keep the required sources identifiable and check how the software groups records for each business.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Business or property source</li><li>Dates, amounts and categories</li><li>Supporting evidence location</li><li>Private-use or unclear entries</li><li>Software products and transfer method</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/mtd-digital-records-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "dek": "Keep useful MTD digital records with dates, amounts and categories. Preserve receipts and check digital links where records move between software products.",
+    "query": "mtd digital records  evidence  categories and links",
+    "answer": "A digital record, in HMRC’s words, is a record of income or expense created and stored in software that works with Making Tax Digital for Income Tax. If MTD applies, you or your agent must keep those records for self-employment and/or property income and expenses. Those records later feed quarterly updates. This guide is about the records themselves, not how to submit an update.",
+    "alt": "A trader records a receipt on a laptop beside the original paper evidence, showing date and amount as abstract lines.",
+    "details": [
+      "Keep the invoice or other genuine transaction evidence.",
+      "Check date, amount, category and business source.",
+      "Verify the permitted digital-link workflow where applicable."
+    ],
+    "checklist": [
+      "Supporting evidence",
+      "Digital record",
+      "Product transfer"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:15:01.507Z",
+    "depth": {
+      "exampleTitle": "The receipt and the ledger entry do different jobs",
+      "example": [
+        "A fictional trader photographs a £90 invoice and stores it in a folder. That photograph supports the transaction, but the required digital record also needs the relevant date, amount and category in the software workflow. If data then moves to another product, check the linking method. A well-named image file alone does not establish that the record has reached the update totals correctly."
+      ],
+      "decisionRows": [
+        [
+          "Supporting evidence",
+          "Keep the invoice or other genuine transaction evidence."
+        ],
+        [
+          "Digital record",
+          "Check date, amount, category and business source."
+        ],
+        [
+          "Product transfer",
+          "Verify the permitted digital-link workflow where applicable."
+        ]
+      ],
+      "questions": [
+        [
+          "Can I delete the receipt once the amount is entered?",
+          "Keep supporting evidence under the applicable record-retention requirements. Software totals do not replace the whole evidence trail."
+        ],
+        [
+          "What if I have business and rental income?",
+          "Keep the required sources identifiable and check how the software groups records for each business."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Business or property source",
+        "Dates, amounts and categories",
+        "Supporting evidence location",
+        "Private-use or unclear entries",
+        "Software products and transfer method"
+      ],
+      "downloadHref": "/downloads/guides/mtd-digital-records-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/mtd-digital-records-checklist.txt",
+    "readingMinutes": 5,
+    "premiumReady": true,
+    "artwork": {
+      "slug": "mtd-digital-records",
+      "src": "/images/articles/mtd-digital-records-960.webp",
+      "srcSet": "/images/articles/mtd-digital-records-480.webp 480w, /images/articles/mtd-digital-records-960.webp 960w, /images/articles/mtd-digital-records-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "heroStyle": "editorial-illustration",
+    "priorityRank": null,
+    "releaseRank": 29
+  },
+  {
+    "id": "seo-mtd-missed-quarterly",
+    "slug": "missed-mtd-quarterly-update",
+    "title": "I Missed an MTD Quarterly Update — What Should I Do Now?",
+    "excerpt": "Already past an MTD quarterly deadline? Here is how to catch up, what HMRC’s 2026 to 2027 soft landing means, and when penalty points can apply in later years.",
+    "metaTitle": "Missed an MTD Update? Catch-Up Steps and Evidence | TaxSimba",
+    "metaDescription": "Missed an MTD quarterly update? Identify the business and period, repair the records and check submission evidence. Confirm the rules for the relevant year.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "missed-deadline",
+      "catch-up",
+      "penalties"
+    ],
+    "publishedAt": "2026-09-15T09:00:00.000Z",
+    "reviewedAt": "2026-09-15T11:58:00.000Z",
+    "authorName": "TaxSimba",
+    "reviewerName": "TaxSimba",
+    "featuredImage": "/images/articles/missed-mtd-quarterly-update-1440.webp",
+    "featuredImageAlt": "A worried trader calmly rebuilds missing records with an accountant and calendar rather than hiding an overdue notice.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "mtd-quarterly-deadline-7-november-2026",
+      "mtd-quarterly-updates",
+      "mtd-digital-records",
+      "hmrc-signed-me-up-for-making-tax-digital",
+      "mtd-accountant-or-agent"
+    ],
+    "relatedPages": [
+      {
+        "href": "/making-tax-digital",
+        "label": "Making Tax Digital accountant service"
+      },
+      {
+        "href": "/mtd-information",
+        "label": "MTD packages"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Send quarterly updates - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+      },
+      {
+        "label": "GOV.UK — Penalties for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/penalties-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      }
+    ],
+    "curated": true,
+    "content": "\n<p>If a quarterly deadline has already passed, treat it as catch-up work, not a reason to ignore HMRC messages until January. Repair the digital records, send the overdue update, then protect the next date.</p>\n<p>For how quarterly updates work when you are on track, use the separate guide on <a href=\"/blogs/mtd-quarterly-updates\">what quarterly updates include and when they are due</a>. This page is only about being late.</p>\n\n<h2>Does missing a deadline mean an automatic fine?</h2>\n<p>For the 2026 to 2027 tax year, HMRC will not apply penalty points for late quarterly updates. That soft landing does not make updates optional. You still need to keep digital records and send the quarterly updates, including before you can submit your tax return. Late tax returns and late payment of tax can still attract penalties.</p>\n<p>After 2026 to 2027, late quarterly updates sit in HMRC’s points-based late submission system. In outline: each missed quarterly deadline (and, separately, a missed tax return deadline) can attract a penalty point; the threshold is 4 points; reaching it brings a £200 penalty, and further missed deadlines while at the threshold can each bring another £200. You only get one point per deadline, even if you have more than one business. Always re-check the current <a href=\"https://www.gov.uk/guidance/penalties-for-making-tax-digital-for-income-tax\" target=\"_blank\" rel=\"noopener noreferrer\">GOV.UK MTD penalties page</a> for the year you are in.</p>\n\n<h2>Catch-up sequence that usually works</h2>\n<ol>\n  <li>Name the gap: which update period is overdue, and for which self-employment or property business?</li>\n  <li>Rebuild the digital records from the start of the tax year where catch-up is required (invoices, bank exports, rental statements). Guessing totals to clear a screen is a bad trade.</li>\n  <li>Send the overdue update through compatible software, or ask your accountant/agent to send it.</li>\n  <li>Confirm it landed in the software / HMRC view your agent uses, then diary the next deadline your software shows (often 7 August, 7 November, 7 February, 7 May when periods align with the tax year).</li>\n  <li>Fix the habit that caused the miss: monthly record uploads, calendar reminders, or handing the workflow to an agent.</li>\n</ol>\n\n<h2>What not to do</h2>\n<ul>\n  <li>Assume the 2026 to 2027 quarterly soft landing means you can skip updates</li>\n  <li>Wait for Self Assessment season and hope the gap disappears</li>\n  <li>Invent figures without evidence just to get past a screen</li>\n</ul>\n\n<p>If you want help getting back on track, TaxSimba’s <a href=\"/making-tax-digital\">Making Tax Digital service</a> is set up for people who need records organised and quarterly reporting moving again. You still supply the underlying information. Also useful while you catch up: <a href=\"/blogs/mtd-digital-records\">what digital records to keep</a> and <a href=\"/blogs/mtd-accountant-or-agent\">how an accountant can handle MTD</a>.</p>\n<p>Rules change by tax year. Confirm deadlines and penalties on GOV.UK before you rely on any summary, including this one.</p>\n\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>A catch-up plan needs an owner and a result</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>A trader discovers an overdue update while preparing the next period. They list the affected business, underlying record gaps and the person responsible for sending the update. After the work is sent, they retain the actual result rather than simply closing the bookkeeping task. First-year penalty relief should not be mistaken for permission to abandon the records or required updates.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Identify the gap</th><td>Confirm the business, tax year and reporting period.</td></tr><tr><th scope=\"row\">Repair and send</th><td>Resolve missing records and agree who submits.</td></tr><tr><th scope=\"row\">Verify completion</th><td>Keep the filing outcome and protect the next deadline.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Should I guess a total to clear the overdue screen?</h3><p>No. Establish a defensible record position and ask for advice about unresolved gaps before taking filing action.</p><h3>Does quarterly penalty relief cover every tax deadline?</h3><p>Do not extend one relief to other obligations. Check the annual-return and tax-payment positions separately.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Affected business and update period</li><li>Missing records and supporting evidence</li><li>Relevant HMRC messages</li><li>Named filing owner and target date</li><li>Submission outcome and next deadline</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/missed-mtd-quarterly-update-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "dek": "Missed an MTD quarterly update? Identify the business and period, repair the records and check submission evidence. Confirm the rules for the relevant year.",
+    "query": "missed an mtd update  catch up steps and evidence",
+    "answer": "If a quarterly deadline has already passed, treat it as catch-up work, not a reason to ignore HMRC messages until January. Repair the digital records, send the overdue update, then protect the next date.",
+    "alt": "A worried trader calmly rebuilds missing records with an accountant and calendar rather than hiding an overdue notice.",
+    "details": [
+      "Confirm the business, tax year and reporting period.",
+      "Resolve missing records and agree who submits.",
+      "Keep the filing outcome and protect the next deadline."
+    ],
+    "checklist": [
+      "Identify the gap",
+      "Repair and send",
+      "Verify completion"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:15:01.507Z",
+    "depth": {
+      "exampleTitle": "A catch-up plan needs an owner and a result",
+      "example": [
+        "A trader discovers an overdue update while preparing the next period. They list the affected business, underlying record gaps and the person responsible for sending the update. After the work is sent, they retain the actual result rather than simply closing the bookkeeping task. First-year penalty relief should not be mistaken for permission to abandon the records or required updates."
+      ],
+      "decisionRows": [
+        [
+          "Identify the gap",
+          "Confirm the business, tax year and reporting period."
+        ],
+        [
+          "Repair and send",
+          "Resolve missing records and agree who submits."
+        ],
+        [
+          "Verify completion",
+          "Keep the filing outcome and protect the next deadline."
+        ]
+      ],
+      "questions": [
+        [
+          "Should I guess a total to clear the overdue screen?",
+          "No. Establish a defensible record position and ask for advice about unresolved gaps before taking filing action."
+        ],
+        [
+          "Does quarterly penalty relief cover every tax deadline?",
+          "Do not extend one relief to other obligations. Check the annual-return and tax-payment positions separately."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Affected business and update period",
+        "Missing records and supporting evidence",
+        "Relevant HMRC messages",
+        "Named filing owner and target date",
+        "Submission outcome and next deadline"
+      ],
+      "downloadHref": "/downloads/guides/missed-mtd-quarterly-update-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/missed-mtd-quarterly-update-checklist.txt",
+    "readingMinutes": 4,
+    "premiumReady": true,
+    "artwork": {
+      "slug": "missed-mtd-quarterly-update",
+      "src": "/images/articles/missed-mtd-quarterly-update-960.webp",
+      "srcSet": "/images/articles/missed-mtd-quarterly-update-480.webp 480w, /images/articles/missed-mtd-quarterly-update-960.webp 960w, /images/articles/missed-mtd-quarterly-update-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "heroStyle": "editorial-illustration",
+    "priorityRank": null,
+    "releaseRank": 30
+  }
+]

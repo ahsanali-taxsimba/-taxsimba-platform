@@ -1,0 +1,23 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {articles} from '../src/data/articles.js';
+import {getSeasonalFocus} from '../src/data/articleSeasonalFocus.js';
+import {RELEASE_ORDER_SLUGS,PRIORITY_ARTICLE_SLUGS} from '../src/data/articleEditorial.js';
+assert.deepEqual([...articles].sort((a,b)=>a.releaseRank-b.releaseRank).map(a=>a.slug),RELEASE_ORDER_SLUGS);
+assert.deepEqual(RELEASE_ORDER_SLUGS.slice(0,20),PRIORITY_ARTICLE_SLUGS);
+const b=new Map(articles.map(a=>[a.slug,a]));
+assert(b.get('mtd-exemptions').content.includes('SA109'));
+for(const slug of ['non-resident-landlord-uk-tax-return','foreign-income-tax-return-2025-26-fig'])assert(b.get(slug).content.includes('temporary 2026/27'));
+assert(b.get('winter-fuel-payment-self-assessment-2025-26').content.includes('Pension Age Winter Heating Payment'));
+assert(b.get('hmrc-signed-me-up-for-making-tax-digital').content.includes('more recent filed return'));
+assert(!b.get('mtd-accountant-cost').content.includes('Work out the cost over the same service period'));
+assert(b.get('mtd-accountant-cost').sources.some(s=>s.url.includes('taxfix.com')));
+assert.equal(getSeasonalFocus(new Date('2026-11-07T23:00:00Z')).links[1][0],'mtd-quarterly-deadline-7-november-2026');
+assert.equal(getSeasonalFocus(new Date('2026-11-08T00:00:00Z')).links[0][0],'missed-mtd-quarterly-update');
+assert.equal(getSeasonalFocus(new Date('2027-02-01T00:00:00Z')),null);
+const destination=fs.readFileSync('src/app/mtd-information/page.client.js','utf8');
+assert(destination.includes('Spreadsheets can be used with suitable bridging software'));
+assert(destination.includes('late-payment penalties are not points based'));
+assert(!destination.includes('Most current systems'));
+for(const a of articles){assert.equal(a.independentReviewStatus,'not-performed');assert.equal(a.reviewerName,'');}
+console.log('PASS: priority twenty unchanged; source qualifications; current-topic links and expiry; corrected MTD destination wording; no invented reviewer.');
