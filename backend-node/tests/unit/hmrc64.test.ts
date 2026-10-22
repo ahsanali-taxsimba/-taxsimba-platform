@@ -4,7 +4,11 @@ import {
   evaluatePrecheck,
   buildFillFields,
 } from "../../src/services/hmrc64";
-import { renderHmrc64Html, splitAddress } from "../../src/domain/hmrc64";
+import {
+  renderHmrc64Html,
+  sanitizeClientOverrides,
+  splitAddress,
+} from "../../src/domain/hmrc64";
 
 describe("splitAddress", () => {
   it("extracts UK postcode and lines", () => {
@@ -32,7 +36,31 @@ describe("buildFillFields + precheck", () => {
     expect(fields.utr).toBe("1234567890");
     expect(fields.ni_number).toBe("QQ123456C");
     expect(fields.address_postcode).toBe("SW1A 1AA");
+    expect(fields.agent_name).toBe("Taxsimba Group Ltd");
     expect(evaluatePrecheck(fields).ready).toBe(true);
+  });
+
+  it("ignores agent overrides — only client boxes are fillable", () => {
+    const fields = buildFillFields(
+      { name: "Jordan Client", address: "1 Tax Lane, London, SW1A 1AA" },
+      {
+        client_full_name: "Jordan Updated",
+        agent_name: "Wingate Accountants Ltd",
+        agent_address: "Should not apply",
+      } as never,
+    );
+    expect(fields.client_full_name).toBe("Jordan Updated");
+    expect(fields.agent_name).toBe("Taxsimba Group Ltd");
+    expect(fields.agent_address).not.toContain("Should not apply");
+  });
+
+  it("sanitizeClientOverrides strips agent keys", () => {
+    const clean = sanitizeClientOverrides({
+      utr: "1234567890",
+      agent_name: "Evil Firm",
+      agent_reference: "X",
+    });
+    expect(clean).toEqual({ utr: "1234567890" });
   });
 
   it("blocks generate when name or address missing", () => {
@@ -44,7 +72,7 @@ describe("buildFillFields + precheck", () => {
 });
 
 describe("renderHmrc64Html", () => {
-  it("keeps HMRC labels and inserts values only", () => {
+  it("keeps locked HMRC structure and fills values only", () => {
     const html = renderHmrc64Html(
       {
         client_full_name: "Jordan Client",
@@ -59,7 +87,7 @@ describe("renderHmrc64Html", () => {
         business_utr: "",
         vat_registration_number: "",
         company_registration_number: "",
-        agent_name: "TaxSimba",
+        agent_name: "Taxsimba Group Ltd",
         agent_address: "UK",
         agent_phone: "",
         agent_reference: "A123",
@@ -67,9 +95,17 @@ describe("renderHmrc64Html", () => {
       { generated_at: "2026-01-01T00:00:00.000Z" },
     );
     expect(html).toContain("Authorising your agent");
+    expect(html).toContain('data-hmrc64-structure-locked="true"');
+    expect(html).toContain("Your details");
+    expect(html).toContain("Business details (if applicable)");
+    expect(html).toContain("Agent details");
+    expect(html).toContain("What you are authorising");
     expect(html).toContain("National Insurance number");
     expect(html).toContain("Unique Taxpayer Reference (UTR)");
     expect(html).toContain("Jordan Client");
+    expect(html).toContain("Taxsimba Group Ltd");
     expect(html).toContain('data-field="utr"');
+    // Structure must stay official — never rename the authorisation section.
+    expect(html).not.toContain("<h2>Authorisation</h2>");
   });
 });

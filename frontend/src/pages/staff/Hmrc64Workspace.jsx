@@ -66,9 +66,14 @@ export default function Hmrc64Workspace() {
     setErr("");
     try {
       const id = clientId || form?.client_id;
+      // Client boxes only — never send agent_* (structure / agent identity are locked).
+      const clientOverrides = {};
+      for (const [key] of FIELD_LABELS) {
+        if (fields[key] != null) clientOverrides[key] = fields[key];
+      }
       const { data } = await api.post(`/hmrc64/clients/${id}/generate`, {
         case_id: caseId || null,
-        overrides: fields,
+        overrides: clientOverrides,
       });
       setForm(data);
       nav(`${base}/${data.id}`, { replace: true });
@@ -113,12 +118,22 @@ export default function Hmrc64Workspace() {
   return (
     <AppShell
       title="HMRC 64-8"
-      subtitle="Auto-fill client details into the official authorisation boxes, then send for signature"
+      subtitle="Fill client details only — official HMRC 64-8 structure stays locked"
     >
       <div className="mb-4">
         <Link to={base} className="text-sm font-semibold text-[#006B3C]">
           ← Back to 64-8 dashboard
         </Link>
+      </div>
+
+      <div
+        className="mb-4 rounded-lg border border-[#E3E7E4] bg-[#F7F8F7] px-3 py-2.5 text-xs text-[#161B18]"
+        data-testid="hmrc64-structure-lock-banner"
+      >
+        <strong className="text-[#006B3C]">Official form locked. </strong>
+        Only client details are completed into the HMRC 64-8 boxes. The form structure and HMRC
+        labels are not changed (changing them risks HMRC rejection). Agent details come from
+        Taxsimba Group Ltd firm settings and are not editable here.
       </div>
 
       {err && (
@@ -128,12 +143,13 @@ export default function Hmrc64Workspace() {
       )}
 
       <div className="grid lg:grid-cols-2 gap-6">
-        <Panel title="Pre-check — details to insert" testId="hmrc64-precheck">
+        <Panel title="Client details to insert" testId="hmrc64-precheck">
           {!precheck && !form && <Empty text="Loading client details…" />}
           {precheck && (
             <>
               <p className="text-xs text-[#626A65] mb-4">
-                Correct anything missing before generating. Form structure and HMRC wording stay locked.
+                Correct missing client details before generating. You cannot edit the 64-8 layout or
+                agent boxes.
               </p>
               {precheck.missing?.length > 0 && (
                 <div className="mb-3 text-xs text-[#D64545] bg-[#FDECEC] rounded-lg px-3 py-2">
@@ -170,6 +186,34 @@ export default function Hmrc64Workspace() {
                   />
                 </label>
               </div>
+
+              <div
+                className="mt-5 rounded-lg border border-[#E3E7E4] bg-[#F7F8F7] px-3 py-3"
+                data-testid="hmrc64-agent-readonly"
+              >
+                <div className="text-xs font-semibold text-[#161B18] mb-2">
+                  Agent details (locked — Taxsimba Group Ltd)
+                </div>
+                <dl className="grid sm:grid-cols-2 gap-2 text-xs text-[#626A65]">
+                  <div>
+                    <dt>Agent / firm name</dt>
+                    <dd className="font-semibold text-[#161B18]">{fields.agent_name || "—"}</dd>
+                  </div>
+                  <div>
+                    <dt>Agent reference</dt>
+                    <dd className="font-semibold text-[#161B18]">{fields.agent_reference || "—"}</dd>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <dt>Agent address</dt>
+                    <dd className="font-semibold text-[#161B18]">{fields.agent_address || "—"}</dd>
+                  </div>
+                  <div>
+                    <dt>Agent telephone</dt>
+                    <dd className="font-semibold text-[#161B18]">{fields.agent_phone || "—"}</dd>
+                  </div>
+                </dl>
+              </div>
+
               {!form?.id && (
                 <button
                   type="button"
@@ -266,12 +310,15 @@ export default function Hmrc64Workspace() {
             </div>
           </Panel>
 
-          <Panel title="Form preview (locked boxes)" testId="hmrc64-preview">
+          <Panel title="Official 64-8 preview (structure locked)" testId="hmrc64-preview">
+            <p className="text-xs text-[#626A65] mb-2">
+              Preview of filled client boxes on the locked HMRC 64-8 structure.
+            </p>
             {(form?.preview_html || precheck) && (
               <div
                 data-testid="hmrc64-preview-frame"
-                className="border border-[#E3E7E4] rounded-lg bg-white overflow-auto max-h-[32rem] p-2"
-                // Preview only — official labels are server-rendered; values are autofilled.
+                className="border border-[#161B18] rounded-sm bg-white overflow-auto max-h-[32rem] p-2"
+                // Preview only — official labels/structure are server-locked; values autofilled.
                 dangerouslySetInnerHTML={{
                   __html:
                     form?.preview_html ||

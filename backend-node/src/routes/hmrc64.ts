@@ -40,6 +40,7 @@ function clientMeta(req: Request): { ip?: string } {
   return { ip };
 }
 
+/** Client / business boxes only — agent fields and form structure are locked. */
 const FillOverrides = z
   .object({
     client_full_name: z.string().optional(),
@@ -54,12 +55,9 @@ const FillOverrides = z
     business_utr: z.string().optional(),
     vat_registration_number: z.string().optional(),
     company_registration_number: z.string().optional(),
-    agent_name: z.string().optional(),
-    agent_address: z.string().optional(),
-    agent_phone: z.string().optional(),
-    agent_reference: z.string().optional(),
   })
-  .partial();
+  .partial()
+  .strict();
 
 const GenerateIn = z.object({
   case_id: z.string().nullish(),

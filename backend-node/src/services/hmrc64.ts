@@ -14,6 +14,7 @@ import {
   logHmrc64Audit,
   nowIso,
   renderHmrc64Html,
+  sanitizeClientOverrides,
   splitAddress,
 } from "../domain/hmrc64";
 import { getCase } from "../domain/cases";
@@ -39,11 +40,10 @@ function agentDefaults(): Pick<
   Hmrc64FillFields,
   "agent_name" | "agent_address" | "agent_phone" | "agent_reference"
 > {
+  // Agent boxes are firm identity only — never taken from staff request overrides.
   return {
-    agent_name: env("FIRM_LEGAL_NAME") || env("FIRM_NAME") || "TaxSimba",
-    agent_address:
-      env("FIRM_ADDRESS") ||
-      "TaxSimba, United Kingdom",
+    agent_name: env("FIRM_LEGAL_NAME") || env("FIRM_NAME") || "Taxsimba Group Ltd",
+    agent_address: env("FIRM_ADDRESS") || "Taxsimba Group Ltd, United Kingdom",
     agent_phone: env("FIRM_PHONE") || "",
     agent_reference: env("FIRM_AGENT_CODE") || env("HMRC_AGENT_CODE") || "",
   };
@@ -68,40 +68,48 @@ export function buildFillFields(
   client: Doc,
   overrides: Partial<Hmrc64FillFields> = {},
 ): Hmrc64FillFields {
+  // Agent / structure are locked. Only client (+ business) boxes accept overrides.
+  const clientOnly = sanitizeClientOverrides(overrides);
   const addr = splitAddress(
-    overrides.address_line_1
-      ? [overrides.address_line_1, overrides.address_line_2, overrides.address_line_3, overrides.address_postcode]
+    clientOnly.address_line_1
+      ? [
+          clientOnly.address_line_1,
+          clientOnly.address_line_2,
+          clientOnly.address_line_3,
+          clientOnly.address_postcode,
+        ]
           .filter(Boolean)
           .join(", ")
       : (client.address as string) || "",
   );
   const agent = agentDefaults();
   return {
-    client_full_name: overrides.client_full_name ?? (client.name as string) ?? "",
-    address_line_1: overrides.address_line_1 ?? addr.line1,
-    address_line_2: overrides.address_line_2 ?? addr.line2,
-    address_line_3: overrides.address_line_3 ?? addr.line3,
-    address_postcode: overrides.address_postcode ?? addr.postcode,
-    date_of_birth: overrides.date_of_birth ?? (client.date_of_birth as string) ?? "",
-    ni_number: overrides.ni_number ?? (client.ni_number as string) ?? (client.nino as string) ?? "",
-    utr: overrides.utr ?? (client.utr as string) ?? "",
+    client_full_name: clientOnly.client_full_name ?? (client.name as string) ?? "",
+    address_line_1: clientOnly.address_line_1 ?? addr.line1,
+    address_line_2: clientOnly.address_line_2 ?? addr.line2,
+    address_line_3: clientOnly.address_line_3 ?? addr.line3,
+    address_postcode: clientOnly.address_postcode ?? addr.postcode,
+    date_of_birth: clientOnly.date_of_birth ?? (client.date_of_birth as string) ?? "",
+    ni_number: clientOnly.ni_number ?? (client.ni_number as string) ?? (client.nino as string) ?? "",
+    utr: clientOnly.utr ?? (client.utr as string) ?? "",
     business_name:
-      overrides.business_name ??
+      clientOnly.business_name ??
       (client.business_name as string) ??
       (client.company_name as string) ??
       "",
-    business_utr: overrides.business_utr ?? (client.business_utr as string) ?? "",
+    business_utr: clientOnly.business_utr ?? (client.business_utr as string) ?? "",
     vat_registration_number:
-      overrides.vat_registration_number ?? (client.vat_registration_number as string) ?? "",
+      clientOnly.vat_registration_number ?? (client.vat_registration_number as string) ?? "",
     company_registration_number:
-      overrides.company_registration_number ??
+      clientOnly.company_registration_number ??
       (client.company_registration_number as string) ??
       (client.company_number as string) ??
       "",
-    agent_name: overrides.agent_name ?? agent.agent_name,
-    agent_address: overrides.agent_address ?? agent.agent_address,
-    agent_phone: overrides.agent_phone ?? agent.agent_phone,
-    agent_reference: overrides.agent_reference ?? agent.agent_reference,
+    // Always firm defaults — ignore any agent_* in the request body.
+    agent_name: agent.agent_name,
+    agent_address: agent.agent_address,
+    agent_phone: agent.agent_phone,
+    agent_reference: agent.agent_reference,
   };
 }
 
