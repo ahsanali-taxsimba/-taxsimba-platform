@@ -192,10 +192,10 @@ export default function BlogPageClient({
                   src="/images/articles/self-assessment-for-landlords-2025-26-1440.webp"
                   alt=""
                   width={1440}
-                  height={480}
+                  height={900}
                   className="guide-hub-hero-img"
                   priority
-                  sizes="(max-width: 991px) 100vw, 540px"
+                  sizes="(max-width: 991px) 100vw, 520px"
                 />
               </figure>
             </Col>

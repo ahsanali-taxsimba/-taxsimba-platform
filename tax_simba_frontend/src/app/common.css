@@ -1568,84 +1568,96 @@ body {
 }
 
 /* Editorial guide hub: listing presentation for /blogs (scoped). */
-.editorial-guide-hub { background: #fbfaf6; color: #143c32; }
+.editorial-guide-hub {
+  --guide-hub-ink: #123f32;
+  --guide-hub-muted: #4d6359;
+  --guide-hub-ivory: #fbfaf6;
+  --guide-hub-sage: #eef4ec;
+  --guide-hub-line: #d9e5d8;
+  --guide-hub-focus: #247458;
+  background: var(--guide-hub-ivory);
+  color: #143c32;
+}
 .guide-hub-masthead {
-  background: #fbfaf6;
+  background: var(--guide-hub-ivory);
   border-bottom: none;
-  padding: 48px 0 36px;
+  padding: 28px 0 22px;
 }
 .guide-hub-hero { min-height: 0; }
-.guide-hub-intro { max-width: 34rem; }
+.guide-hub-intro { max-width: 32rem; }
 .guide-hub-intro h1,
 .editorial-guide-hub .common-title h2,
 .editorial-guide-hub .article-card-title {
   font-family: Georgia, "Times New Roman", serif;
-  color: #123f32;
+  color: var(--guide-hub-ink);
   text-transform: none;
 }
 .guide-hub-intro h1 {
   display: block;
-  font-size: clamp(2.35rem, 4.6vw, 3.75rem);
-  line-height: 1.08;
-  letter-spacing: -0.035em;
-  margin: 0 0 1rem;
+  font-size: clamp(2rem, 3.8vw, 3.05rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0 0 0.7rem;
   font-weight: 700;
 }
 .guide-hub-lead {
   margin: 0;
-  font-size: 1.12rem;
-  line-height: 1.55;
-  color: #4b6258;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: var(--guide-hub-muted);
   max-width: 28rem;
 }
 .guide-hub-hero-media {
   margin: 0;
-  border-radius: 18px;
+  border-radius: 14px;
   overflow: hidden;
   background: #edf2e9;
-  border: 1px solid #d5e0d6;
+  border: 1px solid var(--guide-hub-line);
+  max-width: 520px;
+  margin-left: auto;
 }
 .guide-hub-hero-img {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 16 / 10;
   object-fit: cover;
+  object-position: center;
 }
 
 .guide-hub-landlord-strip {
-  background: #eef4ec;
-  border-block: 1px solid #d9e5d8;
-  padding: 18px 0;
+  background: var(--guide-hub-sage);
+  border-block: 1px solid var(--guide-hub-line);
+  padding: 14px 0;
 }
 .guide-hub-landlord-inner {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 14px 28px;
+  gap: 12px 24px;
 }
 .guide-hub-landlord-copy {
   display: flex;
   align-items: flex-start;
-  gap: 14px;
+  gap: 12px;
   flex: 1 1 280px;
   min-width: 0;
 }
 .guide-hub-landlord-copy p {
   margin: 0;
   color: #2f4f43;
-  font-size: 1rem;
-  line-height: 1.5;
+  font-size: 0.98rem;
+  line-height: 1.45;
 }
 .guide-hub-landlord-copy strong {
-  color: #123f32;
+  color: var(--guide-hub-ink);
   font-weight: 700;
 }
 .guide-hub-landlord-icon {
   flex-shrink: 0;
   color: #15543f;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 .guide-hub-landlord-link {
   color: #07583d;
@@ -1656,23 +1668,23 @@ body {
 }
 .guide-hub-landlord-link:hover { color: #083b2b; }
 
-.editorial-guide-hub .guide-hub-listing { padding-top: 48px; }
+.editorial-guide-hub .guide-hub-listing { padding-top: 40px; padding-bottom: 56px; }
 .guide-hub-toolbar {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 16px 24px;
-  margin-bottom: 18px;
+  gap: 14px 24px;
+  margin-bottom: 14px;
 }
 .editorial-guide-hub .common-title h2 {
-  font-size: clamp(1.9rem, 3vw, 2.55rem);
+  font-size: clamp(1.75rem, 2.8vw, 2.35rem);
   margin: 0;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
 }
 .guide-hub-search {
   position: relative;
-  width: min(100%, 280px);
+  width: min(100%, 268px);
 }
 .guide-hub-search-icon {
   position: absolute;
@@ -1685,25 +1697,29 @@ body {
 }
 .editorial-guide-hub .guide-hub-search input[type="search"] {
   border-radius: 999px;
-  padding: 0.75rem 1.1rem 0.75rem 2.5rem;
+  padding: 0.7rem 1rem 0.7rem 2.45rem;
   border: 1px solid #d4dfd6;
   background: #fff;
+  color: var(--guide-hub-ink);
   box-shadow: none;
 }
+.editorial-guide-hub .guide-hub-search input[type="search"]::placeholder {
+  color: #6b8176;
+}
 .editorial-guide-hub .article-filter-row {
-  gap: 4px 22px;
-  margin-bottom: 10px;
+  gap: 4px 20px;
+  margin-bottom: 8px;
   border-bottom: 1px solid #e2ebe3;
-  padding-bottom: 2px;
+  padding-bottom: 0;
 }
 .editorial-guide-hub .article-filter-btn {
   border: 0;
   background: transparent;
   border-radius: 0;
   padding: 8px 0 10px;
-  font-size: 0.98rem;
+  font-size: 0.96rem;
   font-weight: 600;
-  color: #4d6359;
+  color: var(--guide-hub-muted);
   box-shadow: none;
 }
 .editorial-guide-hub .article-filter-btn.active,
@@ -1711,26 +1727,37 @@ body {
 .editorial-guide-hub .article-filter-btn:focus-visible {
   border: 0;
   background: transparent;
-  color: #123f32;
+  color: var(--guide-hub-ink);
   box-shadow: inset 0 -2px 0 #15543f;
 }
 .guide-hub-status {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: #5a7166;
-  margin: 0 0 22px;
+  margin: 0 0 20px;
 }
 
-/* Listing cards: image, title, category + Read guide (hub-scoped). */
+/* Equal-height columns + listing cards (hub-scoped only). */
+.editorial-guide-hub .guide-hub-grid > [class*="col-"] {
+  display: flex;
+}
+.editorial-guide-hub .guide-hub-grid .article-card-link {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
 .editorial-guide-hub .article-card {
   background: transparent;
   border: 0;
   border-radius: 0;
-  padding: 0;
+  padding: 0 0 4px;
   box-shadow: none;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   align-items: end;
   column-gap: 12px;
+  row-gap: 0;
+  width: 100%;
   height: 100%;
 }
 .editorial-guide-hub .article-card-link:hover .article-card,
@@ -1740,16 +1767,19 @@ body {
 }
 .editorial-guide-hub .article-artwork-card {
   grid-column: 1 / -1;
-  margin: 0 0 1rem;
+  margin: 0 0 0.9rem;
   border: 0;
-  border-radius: 14px;
+  border-radius: 12px;
   overflow: hidden;
   background: #edf2e9;
 }
 .editorial-guide-hub .article-artwork img,
 .editorial-guide-hub .premium-guide-card .article-artwork img {
   aspect-ratio: 16 / 10;
+  width: 100%;
+  height: auto;
   object-fit: cover;
+  object-position: center;
 }
 .editorial-guide-hub .article-card-top,
 .editorial-guide-hub .article-card-excerpt {
@@ -1757,18 +1787,25 @@ body {
 }
 .editorial-guide-hub .article-card-title {
   grid-column: 1 / -1;
-  font-size: clamp(1.15rem, 1.7vw, 1.4rem);
+  font-size: clamp(1.12rem, 1.45vw, 1.32rem);
   font-weight: 700;
-  line-height: 1.3;
-  margin: 0 0 0.85rem;
+  line-height: 1.32;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.75rem;
   align-self: start;
+  color: var(--guide-hub-ink);
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
 }
 .editorial-guide-hub .article-card-meta {
   grid-column: 1;
   margin: 0;
   display: block;
-  font-size: 0.88rem;
-  color: #5a7166;
+  min-width: 0;
+  font-size: 0.86rem;
+  line-height: 1.35;
+  color: #52685e;
+  padding-right: 8px;
 }
 .editorial-guide-hub .article-card-meta span[aria-hidden],
 .editorial-guide-hub .article-card-meta span:last-child {
@@ -1780,12 +1817,14 @@ body {
 .editorial-guide-hub .article-card-cta {
   grid-column: 2;
   margin: 0;
+  font-size: 0.92rem;
   font-weight: 700;
-  color: #123f32;
+  color: var(--guide-hub-ink);
   text-decoration: underline;
   text-underline-offset: 3px;
   white-space: nowrap;
   justify-self: end;
+  align-self: end;
 }
 .editorial-guide-hub .article-card-cta::after { content: " →"; }
 .editorial-guide-hub .article-card-link:hover .article-card-title,
@@ -1793,21 +1832,37 @@ body {
   color: #07583d;
 }
 .editorial-guide-hub a:focus-visible,
-.editorial-guide-hub button:focus-visible {
-  outline: 3px solid #247458;
-  outline-offset: 4px;
+.editorial-guide-hub button:focus-visible,
+.editorial-guide-hub input:focus-visible {
+  outline: 3px solid var(--guide-hub-focus);
+  outline-offset: 3px;
+}
+.editorial-guide-hub .pagination {
+  margin-top: 12px;
 }
 @media (max-width: 991px) {
-  .guide-hub-masthead { padding: 36px 0 28px; }
-  .guide-hub-hero-media { max-width: 560px; }
+  .guide-hub-masthead { padding: 24px 0 18px; }
+  .guide-hub-hero-media { max-width: 100%; margin-left: 0; }
+  .editorial-guide-hub .guide-hub-grid > [class*="col-"] { margin-bottom: 1.35rem; }
 }
 @media (max-width: 575px) {
-  .guide-hub-masthead { padding: 28px 0 20px; }
-  .editorial-guide-hub .blog-sec { padding: 32px 0 48px; }
+  .guide-hub-masthead { padding: 20px 0 14px; }
+  .editorial-guide-hub .blog-sec { padding: 28px 0 44px; }
   .guide-hub-toolbar { align-items: stretch; }
   .guide-hub-search { width: 100%; }
   .guide-hub-landlord-link { white-space: normal; }
-  .editorial-guide-hub .article-filter-row { gap: 4px 16px; }
+  .editorial-guide-hub .article-filter-row { gap: 4px 14px; overflow-x: auto; }
+  .editorial-guide-hub .article-card-title { font-size: 1.18rem; }
+  .editorial-guide-hub .article-card-meta,
+  .editorial-guide-hub .article-card-cta { font-size: 0.9rem; }
+}
+@media (max-width: 360px) {
+  .editorial-guide-hub .container,
+  .guide-hub-masthead .container,
+  .guide-hub-landlord-strip .container {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
 }
 
 /* Practical editorial additions to the selected twenty guides. */
