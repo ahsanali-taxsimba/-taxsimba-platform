@@ -105,10 +105,10 @@ export interface EngagementSchedule {
 }
 
 /** Frozen template version — bump only when legal wording itself changes. */
-export const ENGAGEMENT_TEMPLATE_VERSION = 1;
+export const ENGAGEMENT_TEMPLATE_VERSION = 2;
 
 /**
- * Firm-facing details from the source letter. Overridable via env for white-label;
+ * Firm-facing details for Taxsimba Group Ltd. Overridable via env for staging;
  * not editable by staff in the product UI.
  *
  * TODO(white-label): load from esign_firm_branding / firm settings per multi-firm tenant.
@@ -118,24 +118,30 @@ export function firmDefaults(): {
   signatory: string;
   firm_name: string;
   tel: string;
+  email: string;
   our_ref_prefix: string;
 } {
   return {
-    primary_contact: process.env.ENGAGEMENT_PRIMARY_CONTACT || "Mr. Asim Abbas",
-    signatory: process.env.ENGAGEMENT_SIGNATORY || "Asim Abbas",
-    firm_name: process.env.ENGAGEMENT_FIRM_NAME || "Wingate Accountants Ltd",
-    tel: process.env.ENGAGEMENT_FIRM_TEL || "074819 00004",
-    our_ref_prefix: process.env.ENGAGEMENT_REF_PREFIX || "ES/AN",
+    primary_contact:
+      process.env.ENGAGEMENT_PRIMARY_CONTACT || "Your assigned Taxsimba accountant",
+    signatory: process.env.ENGAGEMENT_SIGNATORY || "Authorised Signatory",
+    firm_name: process.env.ENGAGEMENT_FIRM_NAME || "Taxsimba Group Ltd",
+    tel: process.env.ENGAGEMENT_FIRM_TEL || "",
+    email: process.env.ENGAGEMENT_FIRM_EMAIL || "admin@taxsimba.co.uk",
+    our_ref_prefix: process.env.ENGAGEMENT_REF_PREFIX || "TS/EL",
   };
 }
 
 /**
  * Canonical schedule labels for purchased services.
+ * Tax return clients → Self Assessment schedule with package fee.
+ * MTD clients → Making Tax Digital schedule with relevant package fee.
  * TODO(legal): expand VAT / accounts / payroll schedule wording when those services ship.
  */
 export const SERVICE_SCHEDULE_LABELS: Record<string, string> = {
-  SELF_ASSESSMENT: "Preparation & Submission of personal Tax Return",
-  MTD_INCOME_TAX: "Making Tax Digital for Income Tax — quarterly updates & Final Declaration",
+  SELF_ASSESSMENT: "Tax return — preparation and submission of your Self Assessment tax return",
+  MTD_INCOME_TAX:
+    "Making Tax Digital (MTD) for Income Tax — quarterly updates and Final Declaration",
 };
 
 export function formatGbp(amount: number | null | undefined): string {
@@ -254,18 +260,29 @@ export function buildScheduleLine(params: {
     SERVICE_SCHEDULE_LABELS[params.service_type] ||
     params.service_type.replace(/_/g, " ");
   const price = formatGbp(params.price);
-  const feeNote =
-    params.service_type === "SELF_ASSESSMENT"
-      ? price
-        ? `Already included in Annual Fee Pack (${price}${params.package_name ? ` · ${params.package_name}` : ""})`
-        : "Already included in Annual Fee Pack"
-      : [
-          params.package_name,
-          price,
-          params.billing_frequency,
-        ]
-          .filter(Boolean)
-          .join(" · ");
+  const pkg = (params.package_name || "").trim();
+  const freq = (params.billing_frequency || "").trim();
+
+  let feeNote = "";
+  if (params.service_type === "SELF_ASSESSMENT") {
+    // Tax return clients — package fee for the selected tax return package.
+    const bits = [
+      price ? `Package fee: ${price}` : "Package fee: as per your selected tax return package",
+      pkg ? `Package: ${pkg}` : null,
+      freq || null,
+    ].filter(Boolean);
+    feeNote = bits.join(" · ");
+  } else if (params.service_type === "MTD_INCOME_TAX") {
+    // MTD clients — relevant MTD package fee.
+    const bits = [
+      price ? `Package fee: ${price}` : "Package fee: as per your selected MTD package",
+      pkg ? `Package: ${pkg}` : null,
+      freq || null,
+    ].filter(Boolean);
+    feeNote = bits.join(" · ");
+  } else {
+    feeNote = [pkg, price ? `Package fee: ${price}` : null, freq].filter(Boolean).join(" · ");
+  }
   return `Schedule ${params.sort_order}\t${label}${feeNote ? `   - ${feeNote}` : ""}`;
 }
 
@@ -282,12 +299,13 @@ export const ENGAGEMENT_LETTER_LEGAL_TEMPLATE = `{{client_display_name}}
 
 Dear {{dear_name}}
 Terms of Engagement
-Thank you for appointing us as your tax advisers. This letter, along with the attached service schedules and our standard terms of business, outlines the scope of our services and clearly sets out both your responsibilities and ours.
+Thank you for appointing Taxsimba Group Ltd as your tax advisers. This letter, along with the attached service schedules and our standard terms of business, outlines the scope of our services and clearly sets out both your responsibilities and ours.
 {{primary_contact}} will act as the primary point of contact and will be responsible for overseeing all aspects of this engagement.
-We adhere to the ACCA’s Code of Ethics and accept your instructions on the understanding that all our services will be delivered in accordance with these professional standards.
+We adhere to recognised professional ethical standards for UK tax advisers and accept your instructions on the understanding that all our services will be delivered in accordance with those standards and applicable UK tax law.
 1.  SCOPE OF SERVICES
 1.1.    We have listed below the work which you have instructed us to carry out, the detail of which is contained in the attached schedules. These state your and our responsibilities in relation to the work to be carried out. Only the services which are listed in the attached schedules are included within the scope of our instructions. If there are other services that you wish us to carry out which are not listed in the schedules, please let us know and we will discuss with you whether they can be included in the scope of our work. If we agree to carry out additional services for you, we will provide you with a new or amended engagement letter and schedules.
-1.2 The following schedule[s] of services and our terms of business are attached to this engagement letter and should be read in conjunction with it. 
+1.2     For Self Assessment (tax return) clients, the scope is preparation and submission of your tax return at the package fee for your selected tax return package. For Making Tax Digital (MTD) clients, the scope is MTD for Income Tax quarterly updates and the Final Declaration at the package fee for your selected MTD package. Fees are as shown in the schedule(s) below and match the package you purchased on the Taxsimba platform.
+1.3 The following schedule[s] of services and our terms of business are attached to this engagement letter and should be read in conjunction with it. 
         
 {{schedules_block}}
     
@@ -298,7 +316,7 @@ We adhere to the ACCA’s Code of Ethics and accept your instructions on the und
 2.3.    Unless there is a legal or regulatory requirement to do so, our work is not to be made available to third parties without our written permission and we will accept no         responsibility to third parties for any aspect of our professional services or work that is made available to them.
 3.  COMMUNICATION
 
-3.1.    We will contact yourself in relation to your tax affairs.
+3.1.    We will contact you in relation to your tax affairs. You may also reach Taxsimba Group Ltd at {{firm_email}}.
 4.  AGREEMENT OF TERMS
 
 4.1.    Data Protection
@@ -319,7 +337,7 @@ Confirmation of Agreement
 
 5.1.1.  You have the right to cancel within 14 days without giving any reason. The            cancellation period will expire after 14 days from the date you enter into the contract.
 
-5.1.2.  To exercise your right to cancel, you must inform us of your decision to cancel this contract by a clear statement (eg, a letter sent by post, fax or email).
+5.1.2.  To exercise your right to cancel, you must inform us of your decision to cancel this contract by a clear statement (eg, a letter sent by post, fax or email to {{firm_email}}).
 
 5.1.3.  To meet the cancellation deadline, it is sufficient for you to send your communication before the cancellation period expires.
 Effect of Cancellation
@@ -330,10 +348,10 @@ Start of Services
 
 Yours sincerely
 {{firm_signatory}}
-{{firm_name}}
-Tel No: {{firm_tel}}
+For and on behalf of {{firm_name}}
+Email: {{firm_email}}{{firm_tel_line}}
 APPOINTMENT ACCEPTANCE 
-I acknowledge receipt of your engagement letter, a copy of which is attached, and we agree to the letter and the attached schedules of services which, together with the terms of business, fully record the agreement between us concerning your appointment to carry out the work described in the schedules.
+I acknowledge receipt of your engagement letter from Taxsimba Group Ltd, a copy of which is attached, and we agree to the letter and the attached schedules of services which, together with the terms of business, fully record the agreement between us concerning your appointment to carry out the work described in the schedules.
 
 Name    {{acceptance_name}}
 Signed ...................................................      Date ......................
