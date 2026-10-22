@@ -1569,22 +1569,38 @@ body {
 
 /* Editorial guide hub: listing presentation for /blogs (scoped). */
 .editorial-guide-hub {
-  --guide-hub-ink: #123f32;
-  --guide-hub-muted: #4d6359;
-  --guide-hub-ivory: #fbfaf6;
-  --guide-hub-sage: #eef4ec;
-  --guide-hub-line: #d9e5d8;
+  --guide-hub-ink: #1a3a32;
+  --guide-hub-muted: #5a6b63;
+  --guide-hub-ivory: #f9f8f3;
+  --guide-hub-sage: #e8f0e6;
+  --guide-hub-line: #d7e0d4;
+  --guide-hub-card-line: #e4ebe2;
   --guide-hub-focus: #247458;
+  --guide-hub-shell: 1120px;
   background: var(--guide-hub-ivory);
-  color: #143c32;
+  color: #1a3a32;
+}
+.editorial-guide-hub .guide-hub-shell {
+  max-width: var(--guide-hub-shell);
 }
 .guide-hub-masthead {
   background: var(--guide-hub-ivory);
   border-bottom: none;
-  padding: 28px 0 22px;
+  padding: 56px 0 40px;
+  overflow: hidden;
 }
-.guide-hub-hero { min-height: 0; }
-.guide-hub-intro { max-width: 32rem; }
+.guide-hub-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  min-height: 280px;
+}
+.guide-hub-intro {
+  max-width: 28rem;
+  position: relative;
+  z-index: 2;
+}
 .guide-hub-intro h1,
 .editorial-guide-hub .common-title h2,
 .editorial-guide-hub .article-card-title {
@@ -1594,27 +1610,43 @@ body {
 }
 .guide-hub-intro h1 {
   display: block;
-  font-size: clamp(2rem, 3.8vw, 3.05rem);
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  margin: 0 0 0.7rem;
+  font-size: clamp(2.55rem, 4.8vw, 3.85rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  margin: 0 0 1.1rem;
   font-weight: 700;
 }
 .guide-hub-lead {
   margin: 0;
-  font-size: 1.05rem;
-  line-height: 1.5;
+  font-size: 1.15rem;
+  line-height: 1.55;
   color: var(--guide-hub-muted);
-  max-width: 28rem;
+  max-width: 26rem;
+  font-weight: 400;
 }
 .guide-hub-hero-media {
   margin: 0;
-  border-radius: 14px;
-  overflow: hidden;
-  background: #edf2e9;
-  border: 1px solid var(--guide-hub-line);
-  max-width: 520px;
-  margin-left: auto;
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+  background: transparent;
+  position: relative;
+  justify-self: end;
+  width: min(100%, 620px);
+}
+.guide-hub-hero-media::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 28%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    var(--guide-hub-ivory) 0%,
+    rgba(249, 248, 243, 0.85) 35%,
+    rgba(249, 248, 243, 0) 100%
+  );
 }
 .guide-hub-hero-img {
   display: block;
@@ -1622,69 +1654,80 @@ body {
   height: auto;
   aspect-ratio: 16 / 10;
   object-fit: cover;
-  object-position: center;
+  object-position: 72% 50%;
+  border-radius: 0;
 }
 
 .guide-hub-landlord-strip {
   background: var(--guide-hub-sage);
   border-block: 1px solid var(--guide-hub-line);
-  padding: 14px 0;
+  padding: 28px 0;
 }
 .guide-hub-landlord-inner {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px 24px;
+  gap: 18px 40px;
 }
 .guide-hub-landlord-copy {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  flex: 1 1 280px;
+  gap: 16px;
+  flex: 1 1 420px;
   min-width: 0;
 }
-.guide-hub-landlord-copy p {
-  margin: 0;
-  color: #2f4f43;
-  font-size: 0.98rem;
-  line-height: 1.45;
-}
-.guide-hub-landlord-copy strong {
+.guide-hub-landlord-text { min-width: 0; }
+.guide-hub-landlord-heading {
+  margin: 0 0 0.25rem;
   color: var(--guide-hub-ink);
+  font-size: 1.12rem;
   font-weight: 700;
+  line-height: 1.3;
+}
+.guide-hub-landlord-sub {
+  margin: 0;
+  color: #3d5449;
+  font-size: 1rem;
+  line-height: 1.5;
+  max-width: 40rem;
 }
 .guide-hub-landlord-icon {
   flex-shrink: 0;
   color: #15543f;
-  margin-top: 1px;
+  margin-top: 2px;
 }
 .guide-hub-landlord-link {
   color: #07583d;
   font-weight: 700;
+  font-size: 1rem;
   text-decoration: underline;
   text-underline-offset: 4px;
   white-space: nowrap;
+  margin-left: auto;
 }
 .guide-hub-landlord-link:hover { color: #083b2b; }
 
-.editorial-guide-hub .guide-hub-listing { padding-top: 40px; padding-bottom: 56px; }
+.editorial-guide-hub .guide-hub-listing {
+  padding: 64px 0 80px;
+  background: var(--guide-hub-ivory);
+}
 .guide-hub-toolbar {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 14px 24px;
-  margin-bottom: 14px;
+  gap: 18px 28px;
+  margin-bottom: 18px;
 }
 .editorial-guide-hub .common-title h2 {
-  font-size: clamp(1.75rem, 2.8vw, 2.35rem);
+  font-size: clamp(1.9rem, 3vw, 2.55rem);
   margin: 0;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
 }
 .guide-hub-search {
   position: relative;
-  width: min(100%, 268px);
+  width: min(100%, 280px);
 }
 .guide-hub-search-icon {
   position: absolute;
@@ -1697,7 +1740,7 @@ body {
 }
 .editorial-guide-hub .guide-hub-search input[type="search"] {
   border-radius: 999px;
-  padding: 0.7rem 1rem 0.7rem 2.45rem;
+  padding: 0.78rem 1.1rem 0.78rem 2.55rem;
   border: 1px solid #d4dfd6;
   background: #fff;
   color: var(--guide-hub-ink);
@@ -1707,8 +1750,8 @@ body {
   color: #6b8176;
 }
 .editorial-guide-hub .article-filter-row {
-  gap: 4px 20px;
-  margin-bottom: 8px;
+  gap: 4px 22px;
+  margin-bottom: 10px;
   border-bottom: 1px solid #e2ebe3;
   padding-bottom: 0;
 }
@@ -1716,8 +1759,8 @@ body {
   border: 0;
   background: transparent;
   border-radius: 0;
-  padding: 8px 0 10px;
-  font-size: 0.96rem;
+  padding: 10px 0 12px;
+  font-size: 0.98rem;
   font-weight: 600;
   color: var(--guide-hub-muted);
   box-shadow: none;
@@ -1731,12 +1774,16 @@ body {
   box-shadow: inset 0 -2px 0 #15543f;
 }
 .guide-hub-status {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: #5a7166;
-  margin: 0 0 20px;
+  margin: 0 0 28px;
 }
 
-/* Equal-height columns + listing cards (hub-scoped only). */
+/* Equal-height bordered cards (hub-scoped only). */
+.editorial-guide-hub .guide-hub-grid {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 1.5rem;
+}
 .editorial-guide-hub .guide-hub-grid > [class*="col-"] {
   display: flex;
 }
@@ -1744,12 +1791,13 @@ body {
   display: flex;
   width: 100%;
   height: 100%;
+  border-radius: 14px;
 }
 .editorial-guide-hub .article-card {
-  background: transparent;
-  border: 0;
-  border-radius: 0;
-  padding: 0 0 4px;
+  background: #fff;
+  border: 1px solid var(--guide-hub-card-line);
+  border-radius: 14px;
+  padding: 0 0 1rem;
   box-shadow: none;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -1759,23 +1807,24 @@ body {
   row-gap: 0;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 .editorial-guide-hub .article-card-link:hover .article-card,
 .editorial-guide-hub .article-card-link:focus-visible .article-card {
-  border-color: transparent;
+  border-color: #c5d4c4;
   transform: none;
 }
 .editorial-guide-hub .article-artwork-card {
   grid-column: 1 / -1;
-  margin: 0 0 0.9rem;
+  margin: 0 0 1rem;
   border: 0;
-  border-radius: 12px;
+  border-radius: 0;
   overflow: hidden;
   background: #edf2e9;
 }
 .editorial-guide-hub .article-artwork img,
 .editorial-guide-hub .premium-guide-card .article-artwork img {
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 4 / 3;
   width: 100%;
   height: auto;
   object-fit: cover;
@@ -1787,11 +1836,11 @@ body {
 }
 .editorial-guide-hub .article-card-title {
   grid-column: 1 / -1;
-  font-size: clamp(1.12rem, 1.45vw, 1.32rem);
+  font-size: clamp(1.05rem, 1.35vw, 1.22rem);
   font-weight: 700;
-  line-height: 1.32;
+  line-height: 1.3;
   letter-spacing: -0.015em;
-  margin: 0 0 0.75rem;
+  margin: 0 1rem 0.85rem;
   align-self: start;
   color: var(--guide-hub-ink);
   overflow-wrap: anywhere;
@@ -1799,12 +1848,12 @@ body {
 }
 .editorial-guide-hub .article-card-meta {
   grid-column: 1;
-  margin: 0;
+  margin: 0 0 0 1rem;
   display: block;
   min-width: 0;
-  font-size: 0.86rem;
+  font-size: 0.84rem;
   line-height: 1.35;
-  color: #52685e;
+  color: #6a7a72;
   padding-right: 8px;
 }
 .editorial-guide-hub .article-card-meta span[aria-hidden],
@@ -1816,8 +1865,8 @@ body {
 }
 .editorial-guide-hub .article-card-cta {
   grid-column: 2;
-  margin: 0;
-  font-size: 0.92rem;
+  margin: 0 1rem 0 0;
+  font-size: 0.9rem;
   font-weight: 700;
   color: var(--guide-hub-ink);
   text-decoration: underline;
@@ -1838,28 +1887,47 @@ body {
   outline-offset: 3px;
 }
 .editorial-guide-hub .pagination {
-  margin-top: 12px;
+  margin-top: 20px;
 }
 @media (max-width: 991px) {
-  .guide-hub-masthead { padding: 24px 0 18px; }
-  .guide-hub-hero-media { max-width: 100%; margin-left: 0; }
-  .editorial-guide-hub .guide-hub-grid > [class*="col-"] { margin-bottom: 1.35rem; }
+  .guide-hub-masthead { padding: 36px 0 28px; }
+  .guide-hub-hero {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    min-height: 0;
+  }
+  .guide-hub-intro { max-width: 36rem; }
+  .guide-hub-hero-media {
+    width: 100%;
+    justify-self: stretch;
+  }
+  .guide-hub-hero-media::before {
+    width: 100%;
+    height: 22%;
+    inset: 0 0 auto 0;
+    background: linear-gradient(
+      180deg,
+      var(--guide-hub-ivory) 0%,
+      rgba(249, 248, 243, 0) 100%
+    );
+  }
+  .editorial-guide-hub .guide-hub-grid > [class*="col-"] { margin-bottom: 0.5rem; }
 }
 @media (max-width: 575px) {
-  .guide-hub-masthead { padding: 20px 0 14px; }
-  .editorial-guide-hub .blog-sec { padding: 28px 0 44px; }
+  .guide-hub-masthead { padding: 28px 0 20px; }
+  .guide-hub-intro h1 { font-size: clamp(2.15rem, 9vw, 2.7rem); }
+  .guide-hub-landlord-strip { padding: 22px 0; }
+  .editorial-guide-hub .guide-hub-listing { padding: 40px 0 56px; }
   .guide-hub-toolbar { align-items: stretch; }
   .guide-hub-search { width: 100%; }
-  .guide-hub-landlord-link { white-space: normal; }
+  .guide-hub-landlord-link { white-space: normal; margin-left: 0; }
   .editorial-guide-hub .article-filter-row { gap: 4px 14px; overflow-x: auto; }
-  .editorial-guide-hub .article-card-title { font-size: 1.18rem; }
+  .editorial-guide-hub .article-card-title { font-size: 1.12rem; }
   .editorial-guide-hub .article-card-meta,
-  .editorial-guide-hub .article-card-cta { font-size: 0.9rem; }
+  .editorial-guide-hub .article-card-cta { font-size: 0.88rem; }
 }
 @media (max-width: 360px) {
-  .editorial-guide-hub .container,
-  .guide-hub-masthead .container,
-  .guide-hub-landlord-strip .container {
+  .editorial-guide-hub .guide-hub-shell {
     padding-left: 14px;
     padding-right: 14px;
   }

@@ -6,6 +6,10 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import { getSeasonalFocus } from "@/data/articleSeasonalFocus";
+import {
+  GUIDE_HUB_HERO,
+  withGuideHubListingArtwork,
+} from "@/data/guideHubListingArtwork";
 import ArticleCard from "@/components/articles/ArticleCard";
 
 const FILTERS = [
@@ -171,47 +175,46 @@ export default function BlogPageClient({
   return (
     <div className="editorial-guide-hub">
       <section className="guide-hub-masthead" aria-labelledby="guide-hub-heading">
-        <Container>
-          <Row className="guide-hub-hero align-items-center g-4 g-lg-5">
-            <Col lg={6}>
-              <div className="guide-hub-intro">
-                <h1 id="guide-hub-heading">Practical answers. Clear next steps.</h1>
-                <p className="guide-hub-lead">
-                  Self Assessment, Making Tax Digital and landlord tax guides.
+        <Container className="guide-hub-shell">
+          <div className="guide-hub-hero">
+            <div className="guide-hub-intro">
+              <h1 id="guide-hub-heading">Practical answers. Clear next steps.</h1>
+              <p className="guide-hub-lead">
+                Self Assessment, Making Tax Digital and landlord tax guides.
+              </p>
+              {publishedCount > 0 ? (
+                <p className="guide-hub-count sr-only">
+                  {publishedCount} published guide{publishedCount === 1 ? "" : "s"}.
                 </p>
-                {publishedCount > 0 ? (
-                  <p className="guide-hub-count sr-only">
-                    {publishedCount} published guide{publishedCount === 1 ? "" : "s"}.
-                  </p>
-                ) : null}
-              </div>
-            </Col>
-            <Col lg={6}>
-              <figure className="guide-hub-hero-media">
-                <Image
-                  src="/images/articles/self-assessment-for-landlords-2025-26-1440.webp"
-                  alt=""
-                  width={1440}
-                  height={900}
-                  className="guide-hub-hero-img"
-                  priority
-                  sizes="(max-width: 991px) 100vw, 520px"
-                />
-              </figure>
-            </Col>
-          </Row>
+              ) : null}
+            </div>
+            <figure className="guide-hub-hero-media">
+              <Image
+                src={GUIDE_HUB_HERO.src}
+                alt={GUIDE_HUB_HERO.alt}
+                width={GUIDE_HUB_HERO.width}
+                height={GUIDE_HUB_HERO.height}
+                className="guide-hub-hero-img"
+                priority
+                sizes="(max-width: 991px) 100vw, 56vw"
+              />
+            </figure>
+          </div>
         </Container>
       </section>
 
       <section className="guide-hub-landlord-strip" aria-label="Landlord tax help">
-        <Container>
+        <Container className="guide-hub-shell">
           <div className="guide-hub-landlord-inner">
             <div className="guide-hub-landlord-copy">
               <HouseIcon />
-              <p>
-                <strong>Renting out a property?</strong> Find annual tax-return
-                support, ongoing MTD help and practical property guides.
-              </p>
+              <div className="guide-hub-landlord-text">
+                <p className="guide-hub-landlord-heading">Renting out a property?</p>
+                <p className="guide-hub-landlord-sub">
+                  Find annual tax-return support, ongoing MTD help and practical
+                  property guides.
+                </p>
+              </div>
             </div>
             <Link href="/landlords" className="guide-hub-landlord-link">
               Explore the landlord hub →
@@ -220,8 +223,8 @@ export default function BlogPageClient({
         </Container>
       </section>
 
-      <section className="blog-sec guide-hub-listing ptb-80">
-        <Container>
+      <section className="blog-sec guide-hub-listing">
+        <Container className="guide-hub-shell">
           <div className="guide-hub-toolbar">
             <div className="common-title mb-0">
               <h2>{showingFeatured ? "Featured guides" : "Explore our guides"}</h2>
@@ -276,7 +279,7 @@ export default function BlogPageClient({
             ) : items?.length > 0 ? (
               items.map((article) => (
                 <Col lg={4} md={6} className="mb-4" key={article?.id || article?.slug}>
-                  <ArticleCard article={article} />
+                  <ArticleCard article={withGuideHubListingArtwork(article)} />
                 </Col>
               ))
             ) : (
