@@ -5,6 +5,7 @@ import { Request, Router } from "express";
 import { z } from "zod";
 
 import { clean, cleanMany, col, Doc } from "../db/mongo";
+import { clientRecord } from "../domain/cases";
 import {
   ADMIN_REVIEW,
   advance,
@@ -26,6 +27,7 @@ import { confirmPriorAnswer } from "./mtdOnboarding";
 import { logActivity, notify, nowIso } from "../domain/workflow";
 import { handler, httpError, parseBody } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
+import { assertEngagementSigned } from "../services/engagementLetter";
 
 export const mtdRouter = Router();
 
@@ -736,6 +738,9 @@ mtdRouter.post(
   handler(async (req, res) => {
     const me = authed(req);
     const [row, kase] = await period(req.params.periodId, me);
+    // MTD approvals require a signed engagement letter (replaces Client Care Letter).
+    const client = await clientRecord(me);
+    if (client) await assertEngagementSigned(client);
     if (row.status !== AWAITING_CLIENT) throw httpError(400, "This period is not awaiting your approval");
     const hasBody = req.body && Object.keys(req.body as Doc).length > 0;
     if (hasBody) {
@@ -864,6 +869,10 @@ mtdRouter.post(
     if (row.status === SUBMITTED) throw httpError(400, "This period is already submitted and locked");
     if (row.status !== APPROVED) {
       throw httpError(400, "Client approval is required before a submission can be recorded");
+    }
+    if (kase.client_id) {
+      const filingClient = (await col("clients").findOne({ id: kase.client_id })) as Doc | null;
+      if (filingClient) await assertEngagementSigned(clean(filingClient) as Doc);
     }
     if (!body.submission_reference.trim() || !body.submission_date.trim()) {
       throw httpError(400, "A submission reference and date are required");

@@ -18,6 +18,8 @@ import { config } from "dotenv";
 
 import { close, col, connect, Doc } from "../db/mongo";
 import { activateService, ensurePhase1bData } from "../domain/packages";
+import { seedMarkAmlApproved } from "../services/aml";
+import { seedMarkEngagementActive } from "../services/engagementLetter";
 import { MTD } from "../domain/mtd";
 import { ensureCoreIndexes } from "../domain/seed";
 import { nowIso } from "../domain/workflow";
@@ -274,6 +276,8 @@ async function main(): Promise<void> {
   for (const person of CLIENTS) {
     const user = await upsertUser(person, password);
     const client = await upsertClientRecord(user);
+    // Fixtures are pre-approved for AML so UAT can focus on tax/MTD journeys.
+    await seedMarkAmlApproved(client);
     for (const serviceType of person.services ?? []) {
       const result = await activateService(client, null, serviceType, PACKAGE[serviceType], {
         reason: "Staging UAT seed",
@@ -282,6 +286,8 @@ async function main(): Promise<void> {
         q3CaseId = String(result.case?.id ?? "");
       }
     }
+    // Fixture accounts are pre-signed so UAT journeys can focus on tax/MTD flows.
+    await seedMarkEngagementActive(client);
   }
 
   if (!q3CaseId) throw new Error("Q3 joiner MTD case was not created");
