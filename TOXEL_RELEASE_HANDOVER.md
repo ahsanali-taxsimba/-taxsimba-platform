@@ -18,6 +18,8 @@
 
 Toxel must test and deploy **this exact SHA**. Do not deploy a different commit.
 
+Later commits on this branch that only update `TOXEL_RELEASE_HANDOVER.md` do not change the deployable tree; if the branch tip differs, still deploy `1cd29e8d1b3c158bf2ba89f9cb8059e4863208b9` unless a newer code commit is explicitly approved.
+
 ## Obsolete blocker (replaced)
 
 Earlier handover claimed parts 02–06 were missing because only `main` was inspected. **Correction:** all six parts are on `origin/taxsimba-v6-upload`. Fresh retrieval via `git show` reconstructed and verified the ZIP successfully. The missing-parts blocker is withdrawn.
