@@ -17,12 +17,21 @@ const STEPS = [
   { key: "review", label: "Submit" },
 ];
 
+function statusTone(status) {
+  if (status === "APPROVED") return { bg: "#E9F7EF", fg: "#16A05D" };
+  if (status === "REJECTED") return { bg: "#FBEBEB", fg: "#D64545" };
+  if (status === "REQUIRES_REUPLOAD") return { bg: "#FDF3E3", fg: "#B77A12" };
+  if (["SUBMITTED", "IN_REVIEW"].includes(status)) return { bg: "#FDF3E3", fg: "#B77A12" };
+  return { bg: "#F1F3F2", fg: "#626A65" };
+}
+
 function Progress({ progress, status }) {
   const items = [
     ["ID uploaded", progress?.id_uploaded],
     ["Proof of address uploaded", progress?.proof_of_address_uploaded],
     ["Live photo captured", progress?.live_photo_captured],
   ];
+  const tone = statusTone(status);
   return (
     <div className="flex flex-wrap gap-2" data-testid="aml-progress">
       {items.map(([label, done]) => (
@@ -38,7 +47,11 @@ function Progress({ progress, status }) {
           {label}
         </span>
       ))}
-      <span className="inline-flex items-center rounded-md px-2.5 py-1 text-xs font-semibold bg-[#F0EBFB] text-[#7656C9]">
+      <span
+        className="inline-flex items-center rounded-md px-2.5 py-1 text-xs font-semibold"
+        style={{ background: tone.bg, color: tone.fg }}
+        data-testid="aml-status-badge"
+      >
         Status: {(status || "NOT_STARTED").replace(/_/g, " ")}
       </span>
     </div>
@@ -175,10 +188,58 @@ export default function AmlOnboarding() {
         )}
 
         {underReview && (
-          <Panel testId="aml-pending-review-panel">
-            <p className="text-sm text-[#B77A12] font-semibold">
-              Your documents have been submitted and are awaiting review by our team.
-            </p>
+          <Panel title="Awaiting TaxSimba review" testId="aml-pending-review-panel">
+            <div className="space-y-4" data-testid="aml-under-review-detail">
+              <p className="text-sm text-[#161B18]">
+                Your identity pack has been submitted. Our compliance team will review your documents
+                and live photo. You do not need to do anything else unless we ask for a re-upload.
+              </p>
+              <ol className="space-y-2 text-sm">
+                {[
+                  ["Submitted", true, amlCase?.submitted_at ? `Sent ${new Date(amlCase.submitted_at).toLocaleString("en-GB")}` : "With our team"],
+                  ["Staff review", amlCase?.status === "IN_REVIEW", "Accountant or admin checks ID, address and photo"],
+                  ["Decision", false, "Approved, re-upload requested, or rejected with a clear message"],
+                ].map(([label, done, hint]) => (
+                  <li key={label} className="flex gap-3 items-start">
+                    <span
+                      className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold"
+                      style={{
+                        background: done ? "#E9F7EF" : "#F1F3F2",
+                        color: done ? "#16A05D" : "#626A65",
+                      }}
+                    >
+                      {done ? "✓" : "·"}
+                    </span>
+                    <span>
+                      <span className="font-semibold text-[#161B18]">{label}</span>
+                      <span className="block text-xs text-[#626A65]">{hint}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+              <div className="rounded-lg border border-[#E3E7E4] bg-[#F7F8F7] p-3 text-xs text-[#626A65]">
+                <div className="font-semibold text-[#161B18] mb-1">What we received</div>
+                <ul className="space-y-1">
+                  <li>Identity: {(amlCase?.id_document_kind || "document").replace(/_/g, " ")}</li>
+                  <li>
+                    Proofs of address: {progress?.proof_of_address_count || 0} file
+                    {(progress?.proof_of_address_count || 0) === 1 ? "" : "s"}
+                  </li>
+                  <li>Live photo: {progress?.live_photo_captured ? "captured" : "missing"}</li>
+                </ul>
+              </div>
+              <p className="text-xs text-[#626A65]">
+                Typical review is within 1–2 working days. You will see an update here and in Messages
+                when a decision is made.
+              </p>
+            </div>
+          </Panel>
+        )}
+
+        {amlCase?.status === "REQUIRES_REUPLOAD" && amlCase.reupload_message && (
+          <Panel testId="aml-reupload-banner">
+            <p className="text-sm font-semibold text-[#D64545]">Action needed — please re-upload</p>
+            <p className="text-sm text-[#161B18] mt-2">{amlCase.reupload_message}</p>
           </Panel>
         )}
 

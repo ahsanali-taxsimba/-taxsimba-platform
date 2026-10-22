@@ -52,11 +52,11 @@ export default function AmlGate({ children }) {
       {state.loaded && !state.ok && (
         <div
           data-testid="aml-pending-banner"
-          className="bg-[#F0EBFB] border-b border-[#D9D0F5] px-4 py-2.5 text-sm text-[#7656C9] text-center"
+          className="bg-[#FDF3E3] border-b border-[#F0D9A8] px-4 py-2.5 text-sm text-[#8A5A10] text-center"
         >
-          <strong>AML/KYC check required.</strong> Verify your identity and address before activating
-          services.{" "}
-          <Link to="/aml" className="font-semibold underline" data-testid="aml-banner-link">
+          <strong>Identity verification required.</strong> Complete your AML/KYC check before
+          activating services.{" "}
+          <Link to="/aml" className="font-semibold text-[#006B3C] underline" data-testid="aml-banner-link">
             Continue verification
           </Link>
         </div>

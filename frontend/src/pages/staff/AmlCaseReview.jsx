@@ -111,6 +111,12 @@ export default function AmlCaseReview() {
     }
   };
 
+  const idDocs = [...docs("PASSPORT"), ...docs("DRIVING_LICENCE_FRONT"), ...docs("DRIVING_LICENCE_BACK")];
+  const poaDocs = dedupeDocs(docs("PROOF_OF_ADDRESS"));
+  const selfieDocs = docs("SELFIE");
+  const checklistDone = Object.values(form.checklist).filter(Boolean).length;
+  const checklistTotal = 4;
+
   return (
     <AppShell
       title={row.client?.name || "AML case"}
@@ -120,6 +126,26 @@ export default function AmlCaseReview() {
         <Link to={base} className="text-sm font-semibold text-[#006B3C]">
           ← Back to AML list
         </Link>
+      </div>
+
+      <div
+        className="mb-6 rounded-xl border border-[#E3E7E4] bg-[#F7F8F7] px-4 py-3 flex flex-wrap gap-3 items-center"
+        data-testid="aml-review-summary"
+      >
+        <span className="text-xs font-semibold uppercase tracking-wide text-[#626A65]">Pack summary</span>
+        <Chip ok={idDocs.length > 0}>{idDocs.length ? "ID on file" : "ID missing"}</Chip>
+        <Chip ok={poaDocs.length >= 2}>
+          Address {poaDocs.length}/2
+        </Chip>
+        <Chip ok={selfieDocs.length > 0}>{selfieDocs.length ? "Live photo" : "No live photo"}</Chip>
+        {row.submitted_at && (
+          <span className="text-xs text-[#626A65]">Submitted {dt(row.submitted_at)}</span>
+        )}
+        {canReview && (
+          <span className="ml-auto text-xs font-semibold text-[#006B3C]">
+            Checklist {checklistDone}/{checklistTotal}
+          </span>
+        )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -156,19 +182,15 @@ export default function AmlCaseReview() {
           </Panel>
 
           <Panel title="Identity document" testId="aml-review-id">
-            <DocList
-              items={[...docs("PASSPORT"), ...docs("DRIVING_LICENCE_FRONT"), ...docs("DRIVING_LICENCE_BACK")]}
-              onOpen={openDoc}
-              onRequestAlt={requestAlt}
-            />
+            <DocList items={idDocs} onOpen={openDoc} onRequestAlt={requestAlt} />
           </Panel>
 
           <Panel title="Proofs of address" testId="aml-review-poa">
-            <DocList items={docs("PROOF_OF_ADDRESS")} onOpen={openDoc} onRequestAlt={requestAlt} />
+            <DocList items={poaDocs} onOpen={openDoc} onRequestAlt={requestAlt} />
           </Panel>
 
           <Panel title="Live photo" testId="aml-review-selfie">
-            <DocList items={docs("SELFIE")} onOpen={openDoc} onRequestAlt={requestAlt} />
+            <DocList items={selfieDocs} onOpen={openDoc} onRequestAlt={requestAlt} />
           </Panel>
 
           <Panel title="PEP / sanctions screening" testId="aml-review-screening">
@@ -348,14 +370,44 @@ export default function AmlCaseReview() {
   );
 }
 
+function Chip({ children, ok }) {
+  return (
+    <span
+      className="inline-flex rounded-md px-2.5 py-1 text-xs font-semibold"
+      style={{
+        background: ok ? "#E9F7EF" : "#FBEBEB",
+        color: ok ? "#16A05D" : "#D64545",
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
+/** Collapse identical filename+size uploads so review is not cluttered by retries. */
+function dedupeDocs(items) {
+  const seen = new Set();
+  const out = [];
+  for (const d of items || []) {
+    const key = `${d.file_name}|${d.file_size || d.size || 0}|${d.type}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(d);
+  }
+  return out;
+}
+
 function DocList({ items, onOpen, onRequestAlt }) {
   if (!items?.length) return <Empty text="No documents uploaded." />;
   return (
     <ul className="space-y-2">
       {items.map((d) => (
-        <li key={d.id} className="flex items-center justify-between gap-3 text-sm border border-[#E3E7E4] rounded-lg p-3">
-          <div>
-            <div className="font-semibold flex items-center gap-2">
+        <li
+          key={d.id}
+          className="flex flex-wrap items-center justify-between gap-3 text-sm border border-[#E3E7E4] rounded-lg p-3"
+        >
+          <div className="min-w-0">
+            <div className="font-semibold flex flex-wrap items-center gap-2">
               {d.type.replace(/_/g, " ")}
               <ScanStatusBadge status={d.scan_status} />
             </div>
@@ -367,19 +419,19 @@ function DocList({ items, onOpen, onRequestAlt }) {
           <div className="flex items-center gap-2 shrink-0">
             <button
               type="button"
-              data-testid={`aml-request-alt-${d.id}`}
-              className="text-xs font-semibold text-[#B77A12]"
-              onClick={() => onRequestAlt(d)}
-            >
-              Request Alternative Document
-            </button>
-            <button
-              type="button"
               data-testid={`aml-view-doc-${d.id}`}
-              className="text-xs font-semibold text-[#006B3C]"
+              className="px-3 py-1.5 rounded-lg bg-[#078A4B] text-white text-xs font-semibold"
               onClick={() => onOpen(d)}
             >
               View
+            </button>
+            <button
+              type="button"
+              data-testid={`aml-request-alt-${d.id}`}
+              className="px-3 py-1.5 rounded-lg border border-[#E3E7E4] text-xs font-semibold text-[#B77A12]"
+              onClick={() => onRequestAlt(d)}
+            >
+              Request alternative
             </button>
           </div>
         </li>
