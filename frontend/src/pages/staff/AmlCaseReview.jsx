@@ -114,8 +114,12 @@ export default function AmlCaseReview() {
   const idDocs = [...docs("PASSPORT"), ...docs("DRIVING_LICENCE_FRONT"), ...docs("DRIVING_LICENCE_BACK")];
   const poaDocs = dedupeDocs(docs("PROOF_OF_ADDRESS"));
   const selfieDocs = docs("SELFIE");
-  const checklistDone = Object.values(form.checklist).filter(Boolean).length;
-  const checklistTotal = 4;
+  const selfieRequired = selfieDocs.length > 0;
+  const checklistDone = Object.entries(form.checklist).filter(([key, v]) => {
+    if (key === "selfie_matches_id" && !selfieRequired) return false;
+    return Boolean(v);
+  }).length;
+  const checklistTotal = selfieRequired ? 4 : 3;
 
   return (
     <AppShell
@@ -137,7 +141,13 @@ export default function AmlCaseReview() {
         <Chip ok={poaDocs.length >= 2}>
           Address {poaDocs.length}/2
         </Chip>
-        <Chip ok={selfieDocs.length > 0}>{selfieDocs.length ? "Live photo" : "No live photo"}</Chip>
+        <Chip ok={selfieDocs.length > 0}>
+          {selfieDocs.length
+            ? "Live photo"
+            : row.live_photo_deferred || row.progress?.live_photo_deferred
+              ? "Live photo later"
+              : "No live photo"}
+        </Chip>
         {row.submitted_at && (
           <span className="text-xs text-[#626A65]">Submitted {dt(row.submitted_at)}</span>
         )}
@@ -190,7 +200,15 @@ export default function AmlCaseReview() {
           </Panel>
 
           <Panel title="Live photo" testId="aml-review-selfie">
-            <DocList items={selfieDocs} onOpen={openDoc} onRequestAlt={requestAlt} />
+            {selfieDocs.length === 0 ? (
+              <p className="text-sm text-[#B77A12]" data-testid="aml-review-selfie-deferred">
+                {row.live_photo_deferred || row.progress?.live_photo_deferred
+                  ? "Client deferred live photo — they can upload it later while signup continues."
+                  : "No live photo on file yet. Approval can proceed; selfie check is only required once uploaded."}
+              </p>
+            ) : (
+              <DocList items={selfieDocs} onOpen={openDoc} onRequestAlt={requestAlt} />
+            )}
           </Panel>
 
           <Panel title="PEP / sanctions screening" testId="aml-review-screening">
@@ -230,7 +248,12 @@ export default function AmlCaseReview() {
                 {[
                   ["id_matches_client", "ID matches client details"],
                   ["address_docs_valid_and_recent", "Address documents valid and recent"],
-                  ["selfie_matches_id", "Live photo matches ID photo"],
+                  [
+                    "selfie_matches_id",
+                    selfieRequired
+                      ? "Live photo matches ID photo"
+                      : "Live photo matches ID (N/A — deferred / not uploaded yet)",
+                  ],
                   ["pep_sanctions_cleared", "PEP / sanctions cleared (or N/A)"],
                 ].map(([key, label]) => (
                   <label key={key} className="flex items-start gap-2 cursor-pointer">
@@ -238,6 +261,7 @@ export default function AmlCaseReview() {
                       type="checkbox"
                       data-testid={`aml-check-${key}`}
                       checked={!!form.checklist[key]}
+                      disabled={key === "selfie_matches_id" && !selfieRequired}
                       onChange={(e) =>
                         setForm({
                           ...form,

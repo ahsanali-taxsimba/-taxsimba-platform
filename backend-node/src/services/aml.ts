@@ -22,6 +22,41 @@ import { notify } from "../domain/workflow";
 import { assertDownloadAllowed, scanAndRecord } from "./fileScan";
 import { getObject, putObject } from "./storage";
 
+/** Pure progress helper — live photo is optional so signup can continue without it. */
+export function computeAmlProgress(
+  amlCase: Doc,
+  documents: Doc[],
+): {
+  id_uploaded: boolean;
+  proof_of_address_uploaded: boolean;
+  proof_of_address_count: number;
+  proof_of_address_required: number;
+  live_photo_captured: boolean;
+  live_photo_deferred: boolean;
+  live_photo_required_for_submit: boolean;
+  profile_complete: boolean;
+  ready_to_submit: boolean;
+} {
+  const poa = documents.filter((d) => d.type === "PROOF_OF_ADDRESS");
+  const hasPassport = documents.some((d) => d.type === "PASSPORT");
+  const hasLicenceFront = documents.some((d) => d.type === "DRIVING_LICENCE_FRONT");
+  const hasLicenceBack = documents.some((d) => d.type === "DRIVING_LICENCE_BACK");
+  const hasSelfie = documents.some((d) => d.type === "SELFIE");
+  const idComplete = hasPassport || (hasLicenceFront && hasLicenceBack);
+  const addressComplete = poa.length >= REQUIRED_PROOF_OF_ADDRESS;
+  return {
+    id_uploaded: idComplete,
+    proof_of_address_uploaded: addressComplete,
+    proof_of_address_count: poa.length,
+    proof_of_address_required: REQUIRED_PROOF_OF_ADDRESS,
+    live_photo_captured: hasSelfie,
+    live_photo_deferred: Boolean(amlCase.live_photo_deferred) && !hasSelfie,
+    live_photo_required_for_submit: false,
+    profile_complete: Boolean(amlCase.date_of_birth && amlCase.residential_address),
+    ready_to_submit: idComplete && addressComplete && Boolean(amlCase.date_of_birth),
+  };
+}
+
 // ---------------------------------------------------------------------------
 // Case lifecycle
 // ---------------------------------------------------------------------------
@@ -72,6 +107,7 @@ export async function createAmlCase(
     id_document_kind: null,
     proof_of_address_count: 0,
     has_selfie: false,
+    live_photo_deferred: false,
     submitted_at: null,
     reviewed_at: null,
     reviewer_id: null,
@@ -154,23 +190,7 @@ export async function decorateAmlCase(id: string): Promise<Doc> {
       .toArray(),
   );
 
-  const poa = documents.filter((d) => d.type === "PROOF_OF_ADDRESS");
-  const hasPassport = documents.some((d) => d.type === "PASSPORT");
-  const hasLicenceFront = documents.some((d) => d.type === "DRIVING_LICENCE_FRONT");
-  const hasLicenceBack = documents.some((d) => d.type === "DRIVING_LICENCE_BACK");
-  const hasSelfie = documents.some((d) => d.type === "SELFIE");
-  const idComplete =
-    hasPassport || (hasLicenceFront && hasLicenceBack);
-  const addressComplete = poa.length >= REQUIRED_PROOF_OF_ADDRESS;
-  const progress = {
-    id_uploaded: idComplete,
-    proof_of_address_uploaded: addressComplete,
-    proof_of_address_count: poa.length,
-    proof_of_address_required: REQUIRED_PROOF_OF_ADDRESS,
-    live_photo_captured: hasSelfie,
-    profile_complete: Boolean(amlCase.date_of_birth && amlCase.residential_address),
-    ready_to_submit: idComplete && addressComplete && hasSelfie && Boolean(amlCase.date_of_birth),
-  };
+  const progress = computeAmlProgress(amlCase, documents);
 
   return {
     ...amlCase,
@@ -314,7 +334,15 @@ export async function uploadAmlDocument(params: {
   if (amlCase.client_id !== params.client.id && params.actor.role === "CLIENT") {
     throw httpError(403, "Not your AML case");
   }
-  if (["APPROVED", "SUBMITTED", "IN_REVIEW"].includes(amlCase.status) && params.actor.role === "CLIENT") {
+  // Selfie / live photo may be uploaded later (during review or after approval) so signup can continue.
+  const deferSelfieUpload =
+    params.type === "SELFIE" &&
+    ["SUBMITTED", "IN_REVIEW", "APPROVED"].includes(amlCase.status);
+  if (
+    ["APPROVED", "SUBMITTED", "IN_REVIEW"].includes(amlCase.status) &&
+    params.actor.role === "CLIENT" &&
+    !deferSelfieUpload
+  ) {
     throw httpError(400, "Cannot upload documents while the case is under review or approved");
   }
   if (amlCase.status === "REJECTED") {
@@ -401,6 +429,7 @@ export async function uploadAmlDocument(params: {
       $set: {
         proof_of_address_count: poaCount,
         has_selfie: hasSelfie,
+        ...(hasSelfie ? { live_photo_deferred: false } : {}),
         status:
           amlCase.status === "NOT_STARTED" || amlCase.status === "REQUIRES_REUPLOAD"
             ? "IN_PROGRESS"
@@ -413,6 +442,22 @@ export async function uploadAmlDocument(params: {
       },
     },
   );
+
+  if (deferSelfieUpload && params.type === "SELFIE") {
+    for (const admin of await col("users")
+      .find({ role: { $in: ["ADMIN", "SUPER_ADMIN", "ACCOUNTANT"] }, is_active: true })
+      .limit(20)
+      .toArray()) {
+      await notify(
+        admin.id as string,
+        "AML live photo uploaded",
+        `${params.client.name || "Client"} uploaded their live photo / selfie after deferring it.`,
+        null,
+        admin.role === "ACCOUNTANT" ? `/work/aml/${params.caseId}` : `/admin/aml/${params.caseId}`,
+        "REVIEW",
+      );
+    }
+  }
 
   await logAmlAudit({
     aml_case_id: params.caseId,
@@ -473,7 +518,7 @@ export async function submitAmlCase(caseId: string, client: Doc, actor: Doc): Pr
   if (!decorated.progress?.ready_to_submit) {
     throw httpError(
       400,
-      "Please complete identity document, two proofs of address, live photo, and date of birth before submitting",
+      "Please complete identity document, two proofs of address, and date of birth before submitting. Live photo can be uploaded later.",
     );
   }
   if (!["IN_PROGRESS", "REQUIRES_REUPLOAD", "NOT_STARTED"].includes(decorated.status)) {
@@ -481,9 +526,18 @@ export async function submitAmlCase(caseId: string, client: Doc, actor: Doc): Pr
   }
 
   const now = nowIso();
+  const hasSelfie = Boolean(decorated.progress?.live_photo_captured);
   await col(AML_COLLECTIONS.cases).updateOne(
     { id: caseId },
-    { $set: { status: "SUBMITTED", submitted_at: now, updated_at: now } },
+    {
+      $set: {
+        status: "SUBMITTED",
+        submitted_at: now,
+        updated_at: now,
+        live_photo_deferred: !hasSelfie,
+        has_selfie: hasSelfie,
+      },
+    },
   );
   await col("clients").updateOne(
     { id: client.id },
@@ -587,12 +641,15 @@ export async function reviewAmlCase(
 
   if (input.decision === "APPROVED") {
     const { checklist } = input;
-    if (
-      !checklist.id_matches_client ||
-      !checklist.address_docs_valid_and_recent ||
-      !checklist.selfie_matches_id
-    ) {
-      throw httpError(400, "All core checklist items must be confirmed to approve");
+    if (!checklist.id_matches_client || !checklist.address_docs_valid_and_recent) {
+      throw httpError(400, "Identity and address checklist items must be confirmed to approve");
+    }
+    const hasSelfie = Boolean(
+      await col(AML_COLLECTIONS.documents).findOne({ aml_case_id: caseId, type: "SELFIE" }),
+    );
+    // Live photo check is required only when a selfie is already on file.
+    if (hasSelfie && !checklist.selfie_matches_id) {
+      throw httpError(400, "Confirm the live photo matches the ID photograph before approving");
     }
   }
 
