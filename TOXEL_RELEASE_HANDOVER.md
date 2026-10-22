@@ -8,57 +8,54 @@
 |---|---|
 | Integration branch | `cursor/taxsimba-v6-integration-df9b` |
 | Integration PR | https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/31 |
-| **RELEASE CANDIDATE SHA (full)** | `fa2aca68eabe7a6ed5f2bde02f88fb092f584b53` |
+| **RELEASE CANDIDATE SHA (full)** | `PLACEHOLDER_CODE_SHA` |
 | Label | **RELEASE CANDIDATE** (not approved) |
 | Deployment base | `content/taxsimba-82-articles` @ `67e371a17d6b774bc5364a3b52ebd831ddeb873c` |
 | Package source | Remote branch `taxsimba-v6-upload` (parts 01–06); **not** merged |
 | Package ZIP | Size `113671918`; SHA-256 `95568877c054797b62d5654e0fb428822f7b92a4be48416fcdf3ce8e7c4e60fe` (**verified**) |
-| Related content PR | #26 (120 articles / controlled publish) |
-| part01 cleanup on main | https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/30 |
+| Related content PR | #26 |
+| part01 cleanup | PR #30 |
 | Rollback target | Previous frontend image / `content/taxsimba-82-articles` @ `67e371a` |
-
-Toxel must review **this exact SHA**. Do not deploy a different commit. Branch tip may include docs-only handover commits after the code SHA.
 
 ## Publication settings (controlled 120)
 
-| Setting | Value / behaviour |
+| Setting | Value |
 |---|---|
-| Default public set (no publish env) | **38** live guides; **82** editorial drafts hidden |
-| Release publish | `release:prepare` writes `.env.production.local` enabling all **120** guides |
-| Env flags | `TAXSIMBA_*` + matching `NEXT_PUBLIC_*` via `articleReleaseConfig.js` |
-| Published-at | `TAXSIMBA_EDITORIAL_PUBLISHED_AT` — reuse existing ISO timestamp if already set |
-| Order on `/blogs` | Agreed first **20**, then remaining **100** (featured page limit 9 per page) |
+| Default (no publish env) | **38** public / **82** drafts hidden |
+| Release publish | `release:prepare` → `.env.production.local` enables all **120** |
+| Env flags | `TAXSIMBA_*` + `NEXT_PUBLIC_*` via `articleReleaseConfig.js` |
+| Order on `/blogs` | First **20**, then remaining **100** (9 per page) |
 
-## /blogs layout metrics @ 1536px (actual, after CSS match)
+## /blogs mockup implementation
 
-| Metric | Actual @ 1536 |
+**Reference:** attached Blog & Guides mockup **1169×769** px (scaled to 1536 for comparison).
+
+### Assets (extracted from mockup — tracked in Git)
+
+| Asset | Path |
 |---|---|
-| Content shell width | **1280px** |
-| Hero block height | **420px** (masthead pad 72/48 → mast **540px**) |
-| H1 size / wrap | **64px**, **2 lines**, width ~567px |
-| Landlord strip | pad **34px**, height **124px** |
-| Card image ratio | **2.398 ≈ 2.4:1** (CSS `aspect-ratio: 2.4 / 1`) |
-| Card media source | Existing **article illustrations** (no photographic listing override) |
+| Hero books/mug/plant | `public/images/guide-hub/hero-still-life-{640,960,1600}.webp` (+ `.jpg`) |
+| First six card illustrations | `public/images/guide-hub/cards/{slug}-{480,960,1440}.webp` for: `mtd-accountant-cost`, `self-assessment-accountant-cost`, `join-mtd-service-mid-year`, `switch-mtd-accountant-mid-year`, `mtd-quarterly-updates-tax-payments`, `self-assessment-2025-26-mtd-2026-27` |
 
-CSS matches content width, hero scale, strip spacing and wide card crops. **CSS alone does not reproduce the mockup’s illustrated editorial artwork.**
+Crop quality at display size: native card crops **313×133** → ~1.32× upscale to 414×172; hero ~1.2× — **acceptable, not blocked**. Production logo: `public/images/logo.svg` (not taken from mockup).
 
-## Artwork gap (exact — separate from layout)
+### Actual metrics @ 1536px
 
-| Item | Status |
-|---|---|
-| Hero books + **plain** mug + plant matching mockup art direction | Temporary still-life stand-in only (plain mug, no lion). **Approved mockup asset still required.** |
-| Listing cards — illustrated editorial ~2.4:1 for **all 120** slugs | **0 present / 120 needed.** Repo has cartoon consultation series only. Prior photographic listing experiments were rejected as not matching the reference and are **not** applied; do **not** extend that style. |
-| Production logo + working nav | **Kept** (reference nav not applied) |
+| Metric | Target | Actual |
+|---|---|---|
+| Content width | 1272px | **1272px** |
+| Hero height | ~185px | **185px** |
+| H1 | ~46px, one line | **46px**, 1 line |
+| Landlord strip | ~75px | **79px** |
+| Card image | ~414×172, 2.4:1 | **398×166**, ratio **2.398** |
+| Column gap | ~24px | **1.5rem (24px)** |
 
-See `tax_simba_frontend/src/data/guideHubListingArtwork.js` → `GUIDE_HUB_ARTWORK_GAP`.
+### Screenshots
 
-## What changed (intended)
-
-- V6 landlord hub + 120 guides, downloads, calculators, SEO, SA/MTD pages (prior integration preserved).
-- `/blogs` layout CSS tuned to reference metrics at 1536px: 1280px shell, taller hero, 2-line headline, strip spacing, **2.4:1** card images.
-- Hero mug: plain (no invented lion branding).
-- Photographic listing overrides removed from the render path; cards use existing article artwork cropped to 2.4:1 until illustrated assets arrive.
-- Article content, titles, first-20 order, URLs, SEO, calculators, downloads, publication controls, service pages, signup links unchanged.
+- Desktop 1536 (header + hero + strip + six cards): `/opt/cursor/artifacts/blogs_mockup_desktop_1536.png`
+- Side-by-side vs reference @ 1536: `/opt/cursor/artifacts/blogs_mockup_compare_1536.png`
+- Mobile hero + first three: `/opt/cursor/artifacts/blogs_mockup_mobile_hero_three.png`
+- Mobile first three cards: `/opt/cursor/artifacts/blogs_mockup_mobile_first_three.png`
 
 ## Checks
 
@@ -66,22 +63,31 @@ See `tax_simba_frontend/src/data/guideHubListingArtwork.js` → `GUIDE_HUB_ARTWO
 
 | Check | Result |
 |---|---|
-| Package ZIP size + SHA-256 | PASS |
 | `npm run release:build` | PASS |
 | Overflow 320 / 390 / 768 / 1536 | PASS |
-| Search / filter / pagination | PASS |
+| Hero + first-six mockup assets HTTP 200 | PASS |
+| Search / category filter / pagination | PASS |
 | First-20 order on page 1 | PASS |
-| Card ratio ~2.4:1 @ 1536 | PASS |
-| Screenshots | `blogs_rc_desktop_1536.png`, `blogs_rc_compare_1536.png` (reference \| actual), `blogs_rc_mobile_first_three.png` |
+| Full titles preserved (wrap naturally) | PASS |
 
-### Untested / blocked (do not claim passed)
+### Untested / not claimed
 
 | Check | Reason |
 |---|---|
-| Signup → package → dashboard → verification → payment/email → accountant assignment | No staging API/keys |
-| Missing-UTR must not block onboarding/dashboard | Needs live backend |
-| Formal a11y certification | Not run |
-| Pixel-perfect artwork match to mockup | Blocked on missing illustrated assets above |
+| Signup → package → dashboard → payment / accountant assignment | No staging API/keys |
+| Missing-UTR onboarding | Needs live backend |
+| Formal a11y audit | Not run (keyboard tab exercised only lightly) |
+| Exact pixel match to mockup | Not claimed — see remaining differences |
+
+## Remaining visual differences (plain list)
+
+1. Production header (promo bar, Home/Calculators/Login/Get Started) vs mockup nav (Services / Landlord tax help / Blog & Guides / Pricing / Get started).
+2. Production TaxSimba logo mark vs mockup wordmark styling.
+3. Full article titles (longer, wrapping) vs mockup shortened titles.
+4. Cards 7–120 still use existing article illustrations (not mockup art).
+5. Mockup calendar/binder labels left only in artwork — not copied into article tax guidance.
+6. Minor spacing/type rendering differences vs the 1169px source bitmap when scaled.
+7. Hero mug retains the crest present in the extracted mockup artwork (not redrawn).
 
 ## Deployment
 

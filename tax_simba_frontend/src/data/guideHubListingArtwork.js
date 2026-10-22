@@ -1,48 +1,47 @@
 /**
- * /blogs hub media notes.
- *
- * Layout/spacing is handled in CSS. Artwork that matches the reference’s
- * illustrated editorial style is NOT present in the repo or V6 package.
- * Do not treat CSS crops or prior photographic experiments as a substitute.
+ * /blogs hub media extracted from the agreed Blog & Guides mockup.
+ * Listing overrides apply only to the first six featured guides.
+ * Remaining cards keep existing articleArtwork (unchanged this task).
  */
+
+const CARD = (slug) => ({
+  slug,
+  src: `/images/guide-hub/cards/${slug}-960.webp`,
+  srcSet: `/images/guide-hub/cards/${slug}-480.webp 480w, /images/guide-hub/cards/${slug}-960.webp 960w, /images/guide-hub/cards/${slug}-1440.webp 1440w`,
+  width: 1440,
+  height: 600, // 2.4:1
+});
 
 export const GUIDE_HUB_HERO = {
   src: "/images/guide-hub/hero-still-life-1600.webp",
   srcSet:
     "/images/guide-hub/hero-still-life-640.webp 640w, /images/guide-hub/hero-still-life-960.webp 960w, /images/guide-hub/hero-still-life-1600.webp 1600w",
   width: 1600,
-  height: 900,
-  alt: "Stack of green tax guides, a plain mug and a plant on a wooden desk",
+  height: 1000,
+  alt: "Stack of green tax guides, a mug and a plant on a wooden desk",
 };
 
-/**
- * Exact artwork gap vs the agreed /blogs mockup (illustrated editorial style):
- *
- * 1. Hero: reference uses illustrated/editorial books + plain mug + plant still-life
- *    that matches the mockup art direction. Current file is a temporary still-life
- *    stand-in with a plain mug (no lion mark). Replace with the approved mockup asset
- *    when available: e.g. `guide-hub-hero-books-mug-plant.{webp,jpg}` (wide, ivory-blend left).
- *
- * 2. Listing cards (all 120): reference uses topic-specific illustrated editorial
- *    frames at ~2.4:1 (wide). Repo currently only has the shared cartoon consultation
- *    series under `/images/articles/{slug}-*.webp`. Photographic listing overrides were
- *    tried and rejected as not matching the reference — do not extend that style.
- *
- * Needed card assets (illustrated editorial, ~2.4:1, topic-relevant), one set per slug:
- *   /images/guide-hub/cards/{slug}-{480,960,1440}.webp
- * for every slug in PRIORITY_ARTICLE_SLUGS (20) then REMAINING_ARTICLE_SLUGS (100).
- *
- * Until those ship, cards use existing articleArtwork cropped to 2.4:1 in CSS only.
- */
+/** First six priority guides → mockup card illustrations (by slug). */
+export const GUIDE_HUB_LISTING_ARTWORK = {
+  "mtd-accountant-cost": CARD("mtd-accountant-cost"),
+  "self-assessment-accountant-cost": CARD("self-assessment-accountant-cost"),
+  "join-mtd-service-mid-year": CARD("join-mtd-service-mid-year"),
+  "switch-mtd-accountant-mid-year": CARD("switch-mtd-accountant-mid-year"),
+  "mtd-quarterly-updates-tax-payments": CARD("mtd-quarterly-updates-tax-payments"),
+  "self-assessment-2025-26-mtd-2026-27": CARD("self-assessment-2025-26-mtd-2026-27"),
+};
+
 export const GUIDE_HUB_ARTWORK_GAP = {
-  heroApprovedAsset: false,
-  listingIllustratedAssetsPresent: 0,
-  listingIllustratedAssetsNeeded: 120,
-  note:
-    "CSS can match width, spacing and 2.4:1 crops; it cannot reproduce the mockup’s illustrated editorial artwork.",
+  mockupSource: "attached Blog & Guides mockup (1169×769)",
+  heroExtracted: true,
+  firstSixCardsExtracted: true,
+  remainingListingCardsUnchanged: 114,
+  note: "Later-page artwork left on existing article illustrations for this focused task.",
 };
 
-/** No listing artwork overrides — keep existing article illustrations until gap is filled. */
 export function withGuideHubListingArtwork(article) {
-  return article;
+  if (!article?.slug) return article;
+  const art = GUIDE_HUB_LISTING_ARTWORK[article.slug];
+  if (!art) return article;
+  return { ...article, artwork: art };
 }

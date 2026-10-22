@@ -189,14 +189,14 @@ export default function BlogPageClient({
               ) : null}
             </div>
             <figure className="guide-hub-hero-media">
-              <Image
+                <Image
                 src={GUIDE_HUB_HERO.src}
                 alt={GUIDE_HUB_HERO.alt}
                 width={GUIDE_HUB_HERO.width}
                 height={GUIDE_HUB_HERO.height}
                 className="guide-hub-hero-img"
                 priority
-                sizes="(max-width: 991px) 100vw, 56vw"
+                sizes="(max-width: 991px) 100vw, 520px"
               />
             </figure>
           </div>
