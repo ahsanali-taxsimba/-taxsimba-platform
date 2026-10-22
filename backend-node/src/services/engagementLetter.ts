@@ -186,7 +186,9 @@ export async function generateEngagementLetter(
     engagement_start_date: letterDate,
     firm_signatory: firm.signatory,
     firm_name: firm.firm_name,
+    firm_email: firm.email,
     firm_tel: firm.tel,
+    firm_tel_line: firm.tel ? `\nTel No: ${firm.tel}` : "",
     acceptance_name: acceptanceName,
     // Checkbox marker filled at sign-time; blank until then.
     early_start_marker: "☐",
