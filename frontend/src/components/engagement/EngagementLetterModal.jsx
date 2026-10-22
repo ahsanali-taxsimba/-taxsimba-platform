@@ -192,11 +192,11 @@ export default function EngagementLetterModal({
 
               <ScheduleCards schedules={schedules} />
 
-              <div className="rounded-lg border border-[#E3E7E4] divide-y divide-[#E3E7E4]">
+              <div className="grid sm:grid-cols-2 gap-2">
                 {KEY_POINTS.map((p) => (
-                  <div key={p.title} className="px-3 py-2.5">
-                    <div className="text-xs font-semibold text-[#006B3C]">{p.title}</div>
-                    <p className="text-xs text-[#626A65] mt-0.5 leading-relaxed">{p.body}</p>
+                  <div key={p.title} className="rounded-lg border border-[#E3E7E4] px-3 py-2">
+                    <div className="text-[11px] font-semibold text-[#006B3C]">{p.title}</div>
+                    <p className="text-[11px] text-[#626A65] mt-0.5 leading-snug">{p.body}</p>
                   </div>
                 ))}
               </div>
