@@ -1,11 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 import AppShell from "@/components/AppShell";
+import ScanStatusBadge from "@/components/documents/ScanStatusBadge";
 import { Journey } from "@/components/Journey";
 import { Empty, Panel } from "@/components/StatCard";
 import { DocStatusBadge } from "@/components/StatusBadge";
-import { api, d, dt, openDocument } from "@/lib/api";
+import { api, apiError, d, dt, openDocument } from "@/lib/api";
 import { useContent } from "@/lib/content";
 import { sharedServiceParams, useEntitlements } from "@/lib/services";
+
+const UPLOAD_ACCEPT =
+  ".pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx,application/pdf,image/jpeg,image/png";
 
 export function ClientJourneyPage() {
   const [cs, setCs] = useState(null);
@@ -140,6 +144,11 @@ export function ClientDocuments() {
 
   const upload = async (file, input) => {
     setNotice("");
+    if (file.size > 20 * 1024 * 1024) {
+      window.alert("This file is too large. Maximum file size is 20MB per file.");
+      if (input) input.value = "";
+      return;
+    }
     const fd = new FormData();
     fd.append("case_id", cs.id);
     fd.append("document_type", "Client upload");
@@ -152,7 +161,7 @@ export function ClientDocuments() {
       await load("all");
     } catch (e) {
       setNotice("");
-      window.alert("Sorry, that upload didn't work. Please try again.");
+      window.alert(apiError(e.response?.data?.detail) || "Sorry, that upload didn't work. Please try again.");
     }
     if (input) input.value = "";
   };
@@ -169,11 +178,19 @@ export function ClientDocuments() {
         title="Documents"
         testId="client-documents-panel"
         action={cs && (
-          <label className="px-4 py-2 rounded-lg bg-[#078A4B] text-white text-xs font-semibold cursor-pointer hover:bg-[#006B3C] transition-colors">
-            Upload document
-            <input data-testid="client-upload-input" type="file" className="hidden"
-              onChange={(e) => e.target.files[0] && upload(e.target.files[0], e.target)} />
-          </label>
+          <div className="flex flex-col items-end gap-1">
+            <label className="px-4 py-2 rounded-lg bg-[#078A4B] text-white text-xs font-semibold cursor-pointer hover:bg-[#006B3C] transition-colors">
+              Upload document
+              <input
+                data-testid="client-upload-input"
+                type="file"
+                className="hidden"
+                accept={UPLOAD_ACCEPT}
+                onChange={(e) => e.target.files[0] && upload(e.target.files[0], e.target)}
+              />
+            </label>
+            <span className="text-[10px] text-[#626A65]">20MB max per file · PDF, JPG, PNG, Word, Excel</span>
+          </div>
         )}
       >
         {notice && (
@@ -201,7 +218,10 @@ export function ClientDocuments() {
               </div>
               <div className="text-xs text-[#626A65] mt-1">{who(doc)}{doc.upload_date ? ` · ${d(doc.upload_date)}` : ""}</div>
               <div className="flex items-center justify-between gap-3 mt-3">
-                <DocStatusBadge status={doc.status} />
+                <div className="flex items-center gap-2">
+                  <DocStatusBadge status={doc.status} />
+                  {doc.scan_status && <ScanStatusBadge status={doc.scan_status} />}
+                </div>
                 {doc.storage_path && (
                   <button data-testid={`download-m-${doc.id}`} type="button"
                     onClick={() => openDocument(doc.id, doc.name)}
@@ -232,7 +252,12 @@ export function ClientDocuments() {
                     <td className="py-4 pr-4 text-[#626A65]">{doc.tax_year || "—"}</td>
                     <td className="py-4 pr-4 text-[#626A65]">{doc.uploader_name || "—"}</td>
                     <td className="py-4 pr-4 text-[#626A65]">{doc.upload_date ? d(doc.upload_date) : "—"}</td>
-                    <td className="py-4 pr-4"><DocStatusBadge status={doc.status} /></td>
+                    <td className="py-4 pr-4">
+                      <div className="flex items-center gap-2">
+                        <DocStatusBadge status={doc.status} />
+                        {doc.scan_status && <ScanStatusBadge status={doc.scan_status} />}
+                      </div>
+                    </td>
                     <td className="py-4">
                       {doc.storage_path && (
                         <button data-testid={`download-${doc.id}`} type="button"

@@ -12,6 +12,11 @@ import { casesRouter } from "./routes/cases";
 import { collaborationRouter } from "./routes/collaboration";
 import { contentRouter } from "./routes/content";
 import { documentsRouter } from "./routes/documents";
+import { amlRouter } from "./routes/aml";
+import { engagementRouter } from "./routes/engagement";
+import { esignRouter } from "./routes/esign";
+import { hmrc64Router } from "./routes/hmrc64";
+import { taxReturnIntakeRouter } from "./routes/taxReturnIntake";
 import { mtdRouter } from "./routes/mtd";
 import { mtdOnboardingRouter } from "./routes/mtdOnboarding";
 import { paymentsRouter } from "./routes/payments";
@@ -22,6 +27,12 @@ import { ensurePhase1bData } from "./domain/packages";
 import { ensureCoreIndexes, seed } from "./domain/seed";
 import { ensureContentIndexes } from "./domain/content";
 import { ensurePricingIndexes } from "./domain/pricing";
+import { ensureEsignIndexes, ensureEsignTemplates } from "./domain/esign";
+import { ensureAmlIndexes } from "./domain/aml";
+import { ensureEngagementIndexes } from "./domain/engagementLetter";
+import { ensureIntakeIndexes } from "./domain/taxReturnIntake";
+import { ensureFileSecurityIndexes } from "./domain/fileSecurity";
+import { ensureHmrc64Indexes } from "./domain/hmrc64";
 import { ensureEmailIndexes } from "./services/email";
 import { ensureReminderIndexes } from "./jobs/reminders";
 import { ensureIndexes as ensureLoginIndexes } from "./services/loginLockout";
@@ -69,6 +80,24 @@ const QUERY_INDEXES: Record<string, string[]> = {
   pricing_audit: ["package_id", "created_at"],
   staff_invites: ["user_id", "token_hash"],
   users: ["role", "is_test", "created_at"],
+  // Native e-sign module (DocuSign-like) — see domain/esign.ts
+  esign_document_templates: ["type", "firm_id", "is_active"],
+  esign_generated_documents: ["case_id", "mtd_period_id", "client_user_id", "status", "calculation_hash"],
+  esign_signature_requests: ["document_id", "case_id", "status", "expires_at"],
+  esign_signers: ["request_id", "email"],
+  esign_signature_events: ["request_id", "document_id", "timestamp"],
+  esign_firm_branding: ["firm_id"],
+  engagement_letters: ["client_id", "client_user_id", "status", "our_ref"],
+  engagement_schedules: ["engagement_letter_id"],
+  aml_cases: ["client_id", "client_user_id", "status", "next_review_due"],
+  aml_documents: ["aml_case_id", "client_id", "type"],
+  aml_checks: ["aml_case_id"],
+  aml_screening_results: ["aml_case_id"],
+  aml_audit_log: ["aml_case_id", "client_id", "created_at"],
+  tax_return_master_intakes: ["client_id", "tax_year", "case_id", "completion_status"],
+  tax_return_document_categories: ["intake_id", "client_id", "case_id", "category_key"],
+  tax_return_intake_files: ["category_id", "intake_id", "content_hash"],
+  tax_return_intake_audit: ["intake_id", "created_at"],
 };
 
 export async function ensureQueryIndexes(): Promise<void> {
@@ -99,6 +128,13 @@ export async function startup(): Promise<void> {
   await ensureReminderIndexes();
   await ensurePricingIndexes();
   await ensureContentIndexes();
+  await ensureEsignIndexes();
+  await ensureEsignTemplates();
+  await ensureEngagementIndexes();
+  await ensureAmlIndexes();
+  await ensureIntakeIndexes();
+  await ensureFileSecurityIndexes();
+  await ensureHmrc64Indexes();
 }
 
 export function createApp(): Express {
@@ -125,6 +161,11 @@ export function createApp(): Express {
   app.use("/api", authRouter);
   app.use("/api", casesRouter);
   app.use("/api", documentsRouter);
+  app.use("/api", esignRouter);
+  app.use("/api", hmrc64Router);
+  app.use("/api", engagementRouter);
+  app.use("/api", amlRouter);
+  app.use("/api", taxReturnIntakeRouter);
   app.use("/api", collaborationRouter);
   app.use("/api/mtd", mtdOnboardingRouter);
   app.use("/api/mtd", mtdRouter);

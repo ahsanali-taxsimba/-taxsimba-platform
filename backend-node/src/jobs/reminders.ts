@@ -34,6 +34,7 @@ export interface ReminderRun {
   mtd_client_approval: number;
   mtd_records_due: number;
   mtd_overdue_escalation: number;
+  hmrc64_reminders: number;
   emails_sent: number;
   prices_applied: number;
 }
@@ -45,6 +46,7 @@ function emptyRun(): ReminderRun {
     mtd_client_approval: 0,
     mtd_records_due: 0,
     mtd_overdue_escalation: 0,
+    hmrc64_reminders: 0,
     emails_sent: 0,
     prices_applied: 0,
   };
@@ -237,6 +239,13 @@ export async function runReminders(now = new Date()): Promise<ReminderRun> {
   await remindOpenClientTasks(run, now);
   await remindClientCaseActions(run, now);
   await remindMtdPeriods(run, now);
+  try {
+    const { runHmrc64Reminders } = await import("../services/hmrc64");
+    run.hmrc64_reminders = (await runHmrc64Reminders()).reminded;
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.warn(`[reminders] hmrc64 skipped: ${String(e)}`);
+  }
   // Deliver anything that a provider outage left queued, including this run's own messages.
   run.emails_sent = (await flushEmailQueue()).sent;
   return run;

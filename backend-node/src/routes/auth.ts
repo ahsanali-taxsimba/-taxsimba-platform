@@ -31,6 +31,7 @@ import {
   verifyCode,
 } from "../services/security";
 import { bootstrapClientServices } from "../services/clientServices";
+import { createAmlCase } from "../services/aml";
 
 const email = z.string().email();
 
@@ -79,6 +80,8 @@ authRouter.post(
     };
     await col("clients").insertOne({ ...client });
     await bootstrapClientServices(client);
+    // New clients must complete AML/KYC before service activation (MLR 2017 CDD).
+    await createAmlCase(client, { actor: record });
     res.json(await authResponse(req, res, record));
   }),
 );

@@ -1,7 +1,6 @@
 import { randomUUID } from "crypto";
 
 import { Request, Router } from "express";
-import multer from "multer";
 
 import { APP_NAME } from "../config/env";
 import { clean, cleanMany, col, Doc, scrubMany } from "../db/mongo";
@@ -9,13 +8,18 @@ import { getCase, ownedCaseIds } from "../domain/cases";
 import { logActivity, notify, nowIso } from "../domain/workflow";
 import { handler, httpError } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
-import { validateUpload } from "../middleware/protections";
+import { uploadMiddleware, validateUpload } from "../middleware/protections";
+import {
+  assertDownloadAllowed,
+  requestAlternativeDocument,
+  scanAndRecord,
+} from "../services/fileScan";
 import { getObject, putObject } from "../services/storage";
 import { completeTask } from "../services/tasks";
 
 export const documentsRouter = Router();
 
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = uploadMiddleware();
 
 const DOCUMENT_STATUSES = [
   "Requested",
@@ -141,13 +145,30 @@ documentsRouter.post(
     const path = `${APP_NAME}/uploads/${me.id}/${randomUUID()}.${ext}`;
     validateUpload(file.mimetype, file.size, file.originalname);
     const stored = await putObject(path, file.buffer, file.mimetype || "application/octet-stream");
-    const record: Doc = {
-      id: documentId || randomUUID(),
+    const recordId = documentId || randomUUID();
+    const scan = await scanAndRecord({
+      file_id: recordId,
+      source: "documents",
+      buffer: file.buffer,
+      file_name: file.originalname,
+      file_type: file.mimetype,
+      file_size: stored.size ?? file.size,
+      client_id: kase.client_id ?? null,
       case_id: caseId,
+      category: documentType,
+    });
+    const record: Doc = {
+      id: recordId,
+      case_id: caseId,
+      client_id: kase.client_id ?? null,
       client_user_id: kase.client_user_id,
       tax_year: kase.tax_year,
+      category: documentType,
       document_type: documentType,
       name: file.originalname,
+      file_name: file.originalname,
+      file_size: stored.size ?? file.size,
+      file_type: file.mimetype,
       status: isInternal ? "Final" : "Uploaded",
       storage_path: stored.path,
       uploader_id: me.id,
@@ -157,9 +178,13 @@ documentsRouter.post(
       is_internal: isInternal,
       is_deleted: false,
       upload_date: nowIso(),
+      uploaded_at: nowIso(),
       created_at: nowIso(),
       task_id: taskId ?? null,
       mtd_period_id: mtdPeriodId ?? null,
+      scan_status: scan.scan_status,
+      scan_timestamp: scan.scan_timestamp,
+      scanner_notes: scan.scanner_notes,
     };
     const existing = (await col("documents").findOne({ id: record.id })) as Doc | null;
     if (existing) {
@@ -250,10 +275,46 @@ documentsRouter.get(
     // Access is always proven against the parent case, not the document's copied fields —
     // for staff as well as clients, so no role can read a document out of scope.
     await getCase(doc.case_id, me);
+    const confirmRisk = ["1", "true", "yes"].includes(
+      String(req.query.confirm_risk || "").toLowerCase(),
+    );
+    await assertDownloadAllowed({
+      file_id: doc.id,
+      source: "documents",
+      scan_status: doc.scan_status,
+      actor: me,
+      confirmRisk,
+    });
     const { data, contentType } = await getObject(doc.storage_path);
     res.setHeader("Content-Type", doc.content_type || contentType);
     res.setHeader("Content-Disposition", `inline; filename="${doc.name}"`);
     res.send(data);
+  }),
+);
+
+documentsRouter.post(
+  "/documents/:documentId/request-alternative",
+  auth("ACCOUNTANT", "ADMIN", "SUPER_ADMIN"),
+  handler(async (req, res) => {
+    const me = authed(req);
+    const doc = (await col("documents").findOne({ id: req.params.documentId })) as Doc | null;
+    if (!doc) throw httpError(404, "Document not found");
+    const kase = await getCase(doc.case_id, me);
+    const message =
+      typeof (req.body as Doc)?.message === "string" ? String((req.body as Doc).message) : null;
+    res.json(
+      await requestAlternativeDocument({
+        actor: me,
+        case_id: doc.case_id,
+        client_user_id: kase.client_user_id,
+        client_id: kase.client_id,
+        category_label: doc.document_type || doc.name || "document",
+        category_id: doc.intake_category_id ?? null,
+        file_id: doc.id,
+        source: doc.intake_category_id ? "intake" : "documents",
+        message,
+      }),
+    );
   }),
 );
 
@@ -298,14 +359,31 @@ documentsRouter.post(
       file.mimetype || "application/octet-stream",
     );
     const version = (await col("documents").countDocuments({ case_id: caseId, is_final: true })) + 1;
+    const recordId = randomUUID();
+    const scan = await scanAndRecord({
+      file_id: recordId,
+      source: "documents",
+      buffer: file.buffer,
+      file_name: file.originalname,
+      file_type: file.mimetype,
+      file_size: stored.size ?? file.size,
+      client_id: kase.client_id ?? null,
+      case_id: caseId,
+      category: documentType,
+    });
     const record: Doc = {
-      id: randomUUID(),
+      id: recordId,
       case_id: caseId,
       case_ref: kase.case_ref,
+      client_id: kase.client_id ?? null,
       client_user_id: kase.client_user_id,
       tax_year: kase.tax_year,
+      category: documentType,
       document_type: documentType,
       name: file.originalname,
+      file_name: file.originalname,
+      file_size: stored.size ?? file.size,
+      file_type: file.mimetype,
       status: "Final",
       storage_path: stored.path,
       uploader_id: me.id,
@@ -318,7 +396,11 @@ documentsRouter.post(
       is_deleted: false,
       published_at: nowIso(),
       upload_date: nowIso(),
+      uploaded_at: nowIso(),
       created_at: nowIso(),
+      scan_status: scan.scan_status,
+      scan_timestamp: scan.scan_timestamp,
+      scanner_notes: scan.scanner_notes,
     };
     await col("documents").insertOne({ ...record });
     await logActivity(
