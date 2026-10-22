@@ -172,6 +172,9 @@ const Footer = () => {
                     <TranslatedNextLink href="/blogs"><span><FaAngleRight /></span>Blog &amp; Guides</TranslatedNextLink>
                   </li>
                   <li>
+                    <TranslatedNextLink href="/stories"><span><FaAngleRight /></span>Client Stories</TranslatedNextLink>
+                  </li>
+                  <li>
                     <TranslatedNextLink href="/making-tax-digital"><span><FaAngleRight /></span>Making Tax Digital Accountant</TranslatedNextLink>
                   </li>
                   <li>

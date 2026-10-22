@@ -1,0 +1,914 @@
+[
+  {
+    "id": 1,
+    "name": "Aisha Khan",
+    "category": "Freelancers",
+    "service": "Self Assessment for freelance income",
+    "title": "The freelance work grew faster than her filing system.",
+    "slug": "aisha-khan-the-freelance-work-grew-faster-than-her-filing-system",
+    "problem": "Aisha started with a few design jobs after work. Soon she had regular clients, but invoices were in one folder and receipts were scattered across her phone.",
+    "support": "TaxSimba gave her a document list, reviewed the records she supplied and asked about the gaps before preparing her return.",
+    "outcome": "She reviewed and approved the return with her questions answered. She also knew what to save for the following year.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Freelancers",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 2,
+    "name": "Daniel Brooks",
+    "category": "Self Assessment",
+    "service": "Outstanding Self Assessment returns",
+    "title": "He couldn't remember which year he had last filed.",
+    "slug": "daniel-brooks-he-couldn-t-remember-which-year-he-had-last-filed",
+    "problem": "Daniel knew he was behind. Each time he tried to start, he found another letter or an incomplete folder and put the whole thing away again.",
+    "support": "TaxSimba established which returns were outstanding, then listed the records needed for each year. The work was tackled in an agreed order.",
+    "outcome": "The outstanding returns were brought up to date. Any unpaid tax was explained separately, so he understood that filing the paperwork and settling the balance were different steps.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "cardTitle": "Behind on returns. Ready to sort it.",
+    "cardExcerpt": "Working through the outstanding years.",
+    "tags": [
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified.",
+    "cardTitleLines": [
+      "Behind on returns.",
+      "Ready to sort it."
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Mei Chen",
+    "category": "Landlords",
+    "service": "Self Assessment for rental income",
+    "title": "The rent reached her account. The full picture didn't.",
+    "slug": "mei-chen-the-rent-reached-her-account-the-full-picture-didn-t",
+    "problem": "Mei's letting agent deducted charges before sending her payment. She had been using the bank deposits as her starting point and wasn't sure what else mattered.",
+    "support": "TaxSimba reviewed the agent statements alongside the bank records and supporting invoices, following up on differences before preparing the property figures.",
+    "outcome": "Mei could see how the rental figures had been assembled and which documents to keep together next time.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "cardTitle": "Rent coming in. Paperwork everywhere.",
+    "cardExcerpt": "Bringing letting-agent records and invoices together.",
+    "tags": [
+      "Landlords",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified.",
+    "cardTitleLines": [
+      "Rent coming in.",
+      "Paperwork everywhere."
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Kwame Mensah",
+    "category": "CIS workers",
+    "service": "Self Assessment with CIS deductions",
+    "title": "His bank payments were smaller than his invoices.",
+    "slug": "kwame-mensah-his-bank-payments-were-smaller-than-his-invoices",
+    "problem": "Kwame had worked for several contractors. He knew deductions had been made, but wasn't confident about how those amounts belonged in his return.",
+    "support": "TaxSimba checked his payment and deduction statements against the available income records, reviewed his business expenses and explained the calculation.",
+    "outcome": "He approved a return that accounted for the reviewed income and CIS deductions. The outcome was explained without assuming he would receive a refund.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "cardTitle": "Missing statements. An unfinished return.",
+    "cardExcerpt": "Checking contractor records and CIS deductions.",
+    "tags": [
+      "CIS workers",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified.",
+    "cardTitleLines": [
+      "Missing statements.",
+      "An unfinished return."
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Omar Hassan",
+    "category": "MTD",
+    "service": "MTD eligibility review and onboarding",
+    "title": "He needed to know what MTD meant for his working week.",
+    "slug": "omar-hassan-he-needed-to-know-what-mtd-meant-for-his-working-week",
+    "problem": "Omar had read about Making Tax Digital, but still couldn't picture what he would need to do between jobs and customer calls.",
+    "support": "TaxSimba reviewed his circumstances, explained the requirements that applied and agreed how records, accountant input and submissions would be handled within his service.",
+    "outcome": "Omar left with responsibilities and dates he understood, rather than a list of unfamiliar terms.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "cardTitle": "A new routine. A clear place to start.",
+    "cardExcerpt": "Understanding the steps and who handles each task.",
+    "tags": [
+      "MTD"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified.",
+    "cardTitleLines": [
+      "A new routine.",
+      "A clear place to start."
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Priya Shah",
+    "category": "Self Assessment",
+    "service": "Self Assessment for employment and freelance income",
+    "title": "She paid tax through work. The side income raised questions.",
+    "slug": "priya-shah-she-paid-tax-through-work-the-side-income-raised-questions",
+    "problem": "Priya's salary arrived with a payslip. Her weekend marketing projects came with invoices and expenses she recorded separately. She worried about mixing them up.",
+    "support": "TaxSimba gathered both sets of information, checked missing details and explained how the different income figures appeared in her return.",
+    "outcome": "Priya could review the whole year together and understand what she was approving before submission.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "cardTitle": "One salary. A growing side business.",
+    "cardExcerpt": "Reviewing employment and freelance income.",
+    "tags": [
+      "Self Assessment",
+      "Freelancers"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified.",
+    "cardCategory": "Freelancers",
+    "cardTitleLines": [
+      "One salary. A growing",
+      "side business."
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Luca Moretti",
+    "category": "Freelancers",
+    "service": "Self Assessment after moving into freelancing",
+    "title": "He left his job halfway through the year.",
+    "slug": "luca-moretti-he-left-his-job-halfway-through-the-year",
+    "problem": "Luca became a freelance photographer after several months in employment. His paperwork covered two very different parts of the same tax year.",
+    "support": "TaxSimba reviewed his employment documents, freelance records and relevant dates, then asked about purchases made around the move into self-employment.",
+    "outcome": "His return was prepared using both sets of records. He knew which documents related to the old job and which belonged with the freelance work.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Freelancers",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 8,
+    "name": "Grace Okafor",
+    "category": "Landlords",
+    "service": "Self Assessment for a first rental property",
+    "title": "Her first tenant moved in. The tax paperwork was new too.",
+    "slug": "grace-okafor-her-first-tenant-moved-in-the-tax-paperwork-was-new-too",
+    "problem": "Grace had kept the tenancy paperwork but hadn't thought about creating a separate folder for rental income and property costs.",
+    "support": "TaxSimba explained which records were needed, reviewed the information she supplied and queried costs rather than treating every property payment the same way.",
+    "outcome": "Grace reviewed her first rental-income return and started keeping the supporting documents together as they arrived.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "cardTitle": "A first property. A first rental return.",
+    "cardExcerpt": "Knowing which rental records to provide.",
+    "tags": [
+      "Landlords",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified.",
+    "cardTitleLines": [
+      "A first property.",
+      "A first rental return."
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Ben Walker",
+    "category": "CIS workers",
+    "service": "Self Assessment with missing CIS statements",
+    "title": "One contractor's statements were missing.",
+    "slug": "ben-walker-one-contractor-s-statements-were-missing",
+    "problem": "Ben had most of his construction paperwork, but an old contractor had sent statements to an email account he no longer used.",
+    "support": "TaxSimba identified the missing periods and helped him understand what to request. The return was prepared once the relevant records had been obtained and checked.",
+    "outcome": "Ben reviewed figures backed by the recovered paperwork. He also began checking that statements arrived throughout the year.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "CIS workers",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 10,
+    "name": "Zainab Ali",
+    "category": "MTD",
+    "service": "MTD record-keeping setup",
+    "title": "A paper folder had worked. Now it was getting in the way.",
+    "slug": "zainab-ali-a-paper-folder-had-worked-now-it-was-getting-in-the-way",
+    "problem": "Zainab kept receipts in envelopes and wrote totals in a notebook. As her business grew, finding a single purchase could take an evening.",
+    "support": "TaxSimba reviewed her existing process and explained the digital record-keeping needed for her circumstances. They agreed a suitable workflow within the service.",
+    "outcome": "Zainab began entering records regularly and keeping supporting documents organised. She knew what information her accountant needed to review.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "MTD"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 11,
+    "name": "Hannah Williams",
+    "category": "Self Assessment",
+    "service": "Self Assessment preparation and explanation",
+    "title": "She didn't want to approve numbers she couldn't explain.",
+    "slug": "hannah-williams-she-didn-t-want-to-approve-numbers-she-couldn-t-explain",
+    "problem": "Hannah had sent her paperwork, but the draft calculation meant little to her. She wanted to understand it before giving approval.",
+    "support": "TaxSimba walked her through the main figures, answered questions about the information used and explained the payment position shown.",
+    "outcome": "Hannah approved the return after the discussion. She kept the calculation with her records and knew which figures to refer to later.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 12,
+    "name": "Sofia Rossi",
+    "category": "Freelancers",
+    "service": "Self Assessment for freelance tutoring",
+    "title": "Her lessons came through an agency and private bookings.",
+    "slug": "sofia-rossi-her-lessons-came-through-an-agency-and-private-bookings",
+    "problem": "Sofia tutored through an agency as well as working with families directly. Her diary was full, but her income records were in different formats.",
+    "support": "TaxSimba reviewed the agency statements and direct-payment records together, asking about cancellations, fees and anything that didn't match.",
+    "outcome": "Her return was prepared from the reconciled information. She had a clear list of reports and records to keep for the next year.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Freelancers",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 13,
+    "name": "Arjun Patel",
+    "category": "Landlords",
+    "service": "Self Assessment for a jointly owned rental property",
+    "title": "He wasn't sure which share belonged on his return.",
+    "slug": "arjun-patel-he-wasn-t-sure-which-share-belonged-on-his-return",
+    "problem": "Arjun and his partner owned a rental property together. The income reached a shared account, and he didn't want to assume how it should be reported.",
+    "support": "TaxSimba reviewed the ownership information and relevant records before determining the treatment for his individual return.",
+    "outcome": "Arjun understood the share reported for him and the documents supporting it. The position was checked rather than guessed from the bank account name.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Landlords",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 14,
+    "name": "Farah Mahmood",
+    "category": "CIS workers",
+    "service": "Self Assessment for CIS and direct customer work",
+    "title": "Some jobs had deductions. Others were paid directly.",
+    "slug": "farah-mahmood-some-jobs-had-deductions-others-were-paid-directly",
+    "problem": "Farah worked as a self-employed decorator for contractors and private households. Her records mixed CIS statements with invoices paid without CIS deductions.",
+    "support": "TaxSimba separated the payment records, checked the relevant deductions and brought the different work into her return with the reviewed expenses.",
+    "outcome": "Farah could see that both kinds of work had been included without treating all payments as if they had the same deductions.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "CIS workers",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 15,
+    "name": "Marcus Johnson",
+    "category": "MTD",
+    "service": "MTD record-review routine",
+    "title": "He was always one busy month away from a backlog.",
+    "slug": "marcus-johnson-he-was-always-one-busy-month-away-from-a-backlog",
+    "problem": "Marcus updated his records when he had time. A busy run of work usually meant several weeks of transactions needed attention at once.",
+    "support": "TaxSimba agreed a regular schedule for the information required under his MTD service. Unclear items and missing documents were raised in smaller batches.",
+    "outcome": "Marcus began keeping up with the records. Catching up no longer meant setting aside an entire weekend.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "MTD"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 16,
+    "name": "Nadia Ahmed",
+    "category": "Self Assessment",
+    "service": "Self Assessment following an HMRC notice",
+    "title": "The letter was clear about a return. She wasn't clear why.",
+    "slug": "nadia-ahmed-the-letter-was-clear-about-a-return-she-wasn-t-clear-why",
+    "problem": "Nadia received a notice asking her to file. She didn't want to ignore it, but couldn't tell which information was relevant to her circumstances.",
+    "support": "TaxSimba reviewed the notice and her position before explaining the work required. A return was needed and the team helped prepare it.",
+    "outcome": "Nadia reviewed and approved the return with a clear explanation of the information included and the next steps.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 17,
+    "name": "Ethan Clarke",
+    "category": "Freelancers",
+    "service": "Self Assessment for freelance income and expenses",
+    "title": "His business purchases were mixed with the weekly shop.",
+    "slug": "ethan-clarke-his-business-purchases-were-mixed-with-the-weekly-shop",
+    "problem": "Ethan used one account for everything. By year end, he couldn't distinguish some freelance purchases from personal spending without checking old emails.",
+    "support": "TaxSimba asked him to identify business transactions and supply supporting records. Unclear items were discussed before the return was prepared.",
+    "outcome": "He approved the reviewed figures and began keeping business spending separate, making it easier to answer the same questions next year.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Freelancers",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 18,
+    "name": "Elena Popescu",
+    "category": "Landlords",
+    "service": "Self Assessment for multiple rental properties",
+    "title": "Two properties had become one muddled spreadsheet.",
+    "slug": "elena-popescu-two-properties-had-become-one-muddled-spreadsheet",
+    "problem": "Elena had rental income and costs from two properties in the same spreadsheet, with some invoices labelled only by the supplier's name.",
+    "support": "TaxSimba asked her to identify the relevant property for each unclear item, checked the supporting documents and assembled the figures needed for her return.",
+    "outcome": "Elena received an explanation of the completed figures and began labelling property records as they arrived.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Landlords",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 19,
+    "name": "Yusuf Rahman",
+    "category": "CIS workers",
+    "service": "Self Assessment expense review for a subcontractor",
+    "title": "He had tool receipts. He didn't know which ones mattered.",
+    "slug": "yusuf-rahman-he-had-tool-receipts-he-didn-t-know-which-ones-mattered",
+    "problem": "Yusuf saved purchase confirmations for tools, equipment and other spending, but wasn't confident about what could be included or how it should be treated.",
+    "support": "TaxSimba reviewed the records and asked about business use, checking the treatment rather than adding every receipt to an expense total.",
+    "outcome": "Yusuf approved the return with the relevant costs considered. He understood why keeping a receipt and being able to claim a cost aren't the same thing.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "CIS workers",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 20,
+    "name": "Linh Nguyen",
+    "category": "MTD",
+    "service": "MTD service responsibilities and software workflow",
+    "title": "She had software. She still didn't know who did what.",
+    "slug": "linh-nguyen-she-had-software-she-still-didn-t-know-who-did-what",
+    "problem": "Linh had started using software and expected the rest to fall into place. She was unsure who needed to check transactions or deal with questions.",
+    "support": "TaxSimba explained the agreed service, her own responsibilities and the accountant's role. They walked through how information would move through the process.",
+    "outcome": "Linh knew which tasks still needed her attention and how to raise a question before an update was prepared.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "MTD"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 21,
+    "name": "Oliver Reed",
+    "category": "Self Assessment",
+    "service": "Self Assessment handover from a previous accountant",
+    "title": "He wanted to move accountants without losing track of the year.",
+    "slug": "oliver-reed-he-wanted-to-move-accountants-without-losing-track-of-the-year",
+    "problem": "Oliver had some old returns but no clear update on the current one. He worried that changing accountants would leave a gap.",
+    "support": "With the necessary authority, TaxSimba requested the relevant handover records and established what had already been completed before agreeing the remaining work.",
+    "outcome": "Oliver received a clear list of outstanding tasks and who was handling them. He didn't have to guess whether the return was underway.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 22,
+    "name": "Amara Thompson",
+    "category": "Freelancers",
+    "service": "Self Assessment for several freelance activities",
+    "title": "Her work didn't fit into one job title.",
+    "slug": "amara-thompson-her-work-didn-t-fit-into-one-job-title",
+    "problem": "Amara earned money from event work, photography and occasional administrative projects. She wasn't sure how to explain the different activities on a return.",
+    "support": "TaxSimba asked about each source, reviewed the records and determined how the activities should be reported for her circumstances.",
+    "outcome": "Amara reviewed a return based on the full picture. She also began keeping the supporting records organised by activity.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Freelancers",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 23,
+    "name": "Samir Haddad",
+    "category": "Landlords",
+    "service": "Self Assessment for rent collected in different ways",
+    "title": "The agent handled one tenancy. He managed the other.",
+    "slug": "samir-haddad-the-agent-handled-one-tenancy-he-managed-the-other",
+    "problem": "Samir received agent statements for one property and direct tenant payments for another. The records were different enough to make comparisons awkward.",
+    "support": "TaxSimba reviewed both sets of rental records, matched supporting costs to the available documents and queried differences before preparing the return.",
+    "outcome": "Samir could follow the rental figures without relying on bank deposits alone. He kept a separate document folder for each property afterwards.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Landlords",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 24,
+    "name": "Chloe Martin",
+    "category": "CIS workers",
+    "service": "Self Assessment for employment and CIS income",
+    "title": "Her year included a payslip and subcontracting statements.",
+    "slug": "chloe-martin-her-year-included-a-payslip-and-subcontracting-statements",
+    "problem": "Chloe moved from an employed construction role into self-employed work. She wasn't sure what to do with the deductions shown on different documents.",
+    "support": "TaxSimba gathered her employment records and CIS statements, reviewed the dates and explained how the information was reflected in the return.",
+    "outcome": "Chloe approved a return that considered both parts of the year. She could distinguish payroll deductions from the CIS deductions on her later work.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "CIS workers",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 25,
+    "name": "Haruto Sato",
+    "category": "MTD",
+    "service": "MTD support for a landlord",
+    "title": "The agent collected the rent. He still needed his own records.",
+    "slug": "haruto-sato-the-agent-collected-the-rent-he-still-needed-his-own-records",
+    "problem": "Haruto assumed his letting agent's statements covered everything. Preparing for MTD raised questions about separately paid repairs and other supporting documents.",
+    "support": "TaxSimba reviewed his circumstances and explained the records needed within the agreed MTD process. Agent statements and separately paid costs were brought into that workflow.",
+    "outcome": "Haruto knew what the agent provided and what he still needed to supply himself.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "MTD"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 26,
+    "name": "Rebecca Hughes",
+    "category": "Self Assessment",
+    "service": "Self Assessment review before submission",
+    "title": "An old email revealed income missing from her draft.",
+    "slug": "rebecca-hughes-an-old-email-revealed-income-missing-from-her-draft",
+    "problem": "Rebecca was reviewing her return when she found an invoice she hadn't included in the records sent to her accountant.",
+    "support": "TaxSimba checked the document against the existing figures to establish whether it had already been accounted for. The draft needed updating.",
+    "outcome": "Rebecca received a revised return and reviewed it again before approval. The omission was addressed while the return was still being prepared.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 27,
+    "name": "Ibrahim Diallo",
+    "category": "Freelancers",
+    "service": "Self Assessment for irregular freelance income",
+    "title": "One good month made the whole year difficult to judge.",
+    "slug": "ibrahim-diallo-one-good-month-made-the-whole-year-difficult-to-judge",
+    "problem": "Ibrahim's translation work was unpredictable. Some months were busy; others were quiet. His recent bank balance didn't tell him much about the tax year.",
+    "support": "TaxSimba reviewed the year's income and supporting records together, then explained the completed calculation rather than relying on a monthly estimate.",
+    "outcome": "Ibrahim had figures for the full year and a clearer basis for discussing what to set aside in future.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Freelancers",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 28,
+    "name": "Anika Rao",
+    "category": "Landlords",
+    "service": "Self Assessment review of property expenditure",
+    "title": "The invoices all said building work. The jobs were different.",
+    "slug": "anika-rao-the-invoices-all-said-building-work-the-jobs-were-different",
+    "problem": "Anika had paid for several jobs at her rental property. She wasn't sure whether they should all be treated in the same way.",
+    "support": "TaxSimba asked what each job involved and reviewed itemised invoices, following up where descriptions were too vague to establish the treatment.",
+    "outcome": "The property figures were prepared using the reviewed information. Anika understood why a clear description of the work mattered as much as the amount paid.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Landlords",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 29,
+    "name": "Mateusz Kowalski",
+    "category": "CIS workers",
+    "service": "Self Assessment with CIS statement reconciliation",
+    "title": "The same deduction appeared in two different places.",
+    "slug": "mateusz-kowalski-the-same-deduction-appeared-in-two-different-places",
+    "problem": "Mateusz kept a spreadsheet alongside his contractor statements. He worried he might have counted some entries twice when adding up the year.",
+    "support": "TaxSimba compared the spreadsheet with the supporting statements and checked the relevant periods, rather than simply combining the totals.",
+    "outcome": "Duplicate entries were removed from the working records before the return was finalised. Mateusz could trace the reported deductions back to the paperwork.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "CIS workers",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 30,
+    "name": "Fatima Noor",
+    "category": "MTD",
+    "service": "MTD setup for self-employment and rental income",
+    "title": "She had a business and a rental property to organise.",
+    "slug": "fatima-noor-she-had-a-business-and-a-rental-property-to-organise",
+    "problem": "Fatima kept shop income and rental records in different folders, but wasn't sure how the two fitted into her MTD responsibilities.",
+    "support": "TaxSimba reviewed the income sources, explained the requirements relevant to her and agreed the appropriate records and reporting workflow for each.",
+    "outcome": "Fatima knew what to supply for each part of her work. The process was planned around both sources rather than treating everything as one business.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "MTD"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 31,
+    "name": "David Evans",
+    "category": "Self Assessment",
+    "service": "Self Assessment when a business stops trading",
+    "title": "He stopped taking jobs. There was still paperwork to finish.",
+    "slug": "david-evans-he-stopped-taking-jobs-there-was-still-paperwork-to-finish",
+    "problem": "David closed his gardening business and returned to employment. Final customer payments and remaining bills continued to arrive after his last job.",
+    "support": "TaxSimba reviewed the dates, employment documents and remaining business records, then assessed the information needed for his return.",
+    "outcome": "David reviewed the completed return with an explanation of the final business figures and any matters that still needed attention.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 32,
+    "name": "Isabella Costa",
+    "category": "Freelancers",
+    "service": "Self Assessment for creative work through platforms",
+    "title": "The platform total didn't match the money in her account.",
+    "slug": "isabella-costa-the-platform-total-didn-t-match-the-money-in-her-account",
+    "problem": "Isabella sold illustration work through a platform and directly to clients. Fees and adjustments made the platform figures hard to compare with her deposits.",
+    "support": "TaxSimba reviewed the statements, direct invoices and bank records, checking how the platform presented the transactions before preparing the figures.",
+    "outcome": "Isabella could follow the calculation and knew which reports to save. She no longer relied on adding up deposits alone.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Freelancers",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 33,
+    "name": "Adeola Bello",
+    "category": "Landlords",
+    "service": "Self Assessment after a first tenancy partway through the year",
+    "title": "The property wasn't rented for the whole year.",
+    "slug": "adeola-bello-the-property-wasn-t-rented-for-the-whole-year",
+    "problem": "Adeola's first tenant moved in several months into the tax year. She had paperwork from before and after that date and wasn't sure what was relevant.",
+    "support": "TaxSimba reviewed the letting timeline and supporting records, asking about the nature and timing of costs before determining the treatment.",
+    "outcome": "Adeola received a return based on the reviewed facts. She understood why costs around the start of letting needed individual consideration.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Landlords",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 34,
+    "name": "George Harris",
+    "category": "CIS workers",
+    "service": "Self Assessment explanation after CIS deductions",
+    "title": "He thought the deductions meant everything was settled.",
+    "slug": "george-harris-he-thought-the-deductions-meant-everything-was-settled",
+    "problem": "George knew his contractor had deducted money from his payments. He assumed that meant there would be nothing left to do at year end.",
+    "support": "TaxSimba reviewed his circumstances, explained the reporting needed and prepared the return using the relevant income, expense and deduction records.",
+    "outcome": "George received an explanation of the final position. He understood why deductions during the year didn't automatically settle every part of his tax affairs.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "CIS workers",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 35,
+    "name": "Sana Mirza",
+    "category": "MTD",
+    "service": "MTD spreadsheet and software review",
+    "title": "She didn't want to abandon a spreadsheet she understood.",
+    "slug": "sana-mirza-she-didn-t-want-to-abandon-a-spreadsheet-she-understood",
+    "problem": "Sana had a spreadsheet she used consistently. She worried that MTD meant replacing it immediately with an unfamiliar system.",
+    "support": "TaxSimba reviewed how she kept records and explained the compatible software and connections needed for a suitable workflow. No setup was assumed to be compliant without checking it.",
+    "outcome": "Sana agreed a process she could use and understood how her records would support the required updates.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "MTD"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 36,
+    "name": "Gabriel Silva",
+    "category": "Self Assessment",
+    "service": "Self Assessment with incomplete records",
+    "title": "His laptop failed before he had sent the paperwork.",
+    "slug": "gabriel-silva-his-laptop-failed-before-he-had-sent-the-paperwork",
+    "problem": "Gabriel's invoice files and working spreadsheet were on a laptop that stopped switching on. He still had bank access and some records in his email.",
+    "support": "TaxSimba helped identify which documents he could recover from existing accounts, customers and suppliers. Missing information was discussed before the figures were finalised.",
+    "outcome": "Once sufficient records had been recovered, Gabriel reviewed his return. He also began keeping a separate backup of his documents.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 37,
+    "name": "Tara Singh",
+    "category": "Freelancers",
+    "service": "Self Assessment expense review for home working",
+    "title": "Her dining table was also her workspace.",
+    "slug": "tara-singh-her-dining-table-was-also-her-workspace",
+    "problem": "Tara edited copy from home and had read conflicting advice about household costs. She didn't want to claim too much or overlook something relevant.",
+    "support": "TaxSimba asked about her working arrangements, reviewed the supporting information and explained the treatment used in preparing her return.",
+    "outcome": "Tara could see which costs had been considered and why. She knew what records would help answer the same questions next year.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Freelancers",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 38,
+    "name": "Noura Saleh",
+    "category": "Landlords",
+    "service": "Self Assessment for employment and property income",
+    "title": "Her job was taxed through payroll. The rental flat was separate.",
+    "slug": "noura-saleh-her-job-was-taxed-through-payroll-the-rental-flat-was-separate",
+    "problem": "Noura had a full-time role and a rental flat. She wasn't sure which employment and property documents belonged in her tax return.",
+    "support": "TaxSimba gathered both sets of records, checked outstanding questions and explained how the figures appeared together in the completed return.",
+    "outcome": "Noura approved the return knowing that both sources had been considered. She kept the employment documents and rental records in separate, clearly named folders.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Landlords",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 39,
+    "name": "Sean O'Connor",
+    "category": "CIS workers",
+    "service": "Self Assessment after changing contractors",
+    "title": "Every site change seemed to create another missing document.",
+    "slug": "sean-o-connor-every-site-change-seemed-to-create-another-missing-document",
+    "problem": "Sean moved between contractors during the year. Statements arrived on different dates, and one set had gaps he hadn't noticed.",
+    "support": "TaxSimba assembled the year by contractor and period, identified missing documents and checked the records once Sean had obtained them.",
+    "outcome": "Sean reviewed the completed figures against an organised set of statements. He began checking for missing periods before the next year end.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "CIS workers",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 40,
+    "name": "Yasmin Osman",
+    "category": "MTD",
+    "service": "MTD quarterly update and annual return explanation",
+    "title": "She thought each update was another full tax return.",
+    "slug": "yasmin-osman-she-thought-each-update-was-another-full-tax-return",
+    "problem": "Yasmin was worried about repeating her annual paperwork every few months. She couldn't tell how the different MTD steps related to each other.",
+    "support": "TaxSimba explained the role of digital records, quarterly updates and the annual return, then set out the information needed under her service.",
+    "outcome": "Yasmin could distinguish the regular updates from the annual work. She knew when her input would be needed and what each stage was for.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "MTD"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 41,
+    "name": "Michael Grant",
+    "category": "Self Assessment",
+    "service": "Self Assessment near a filing deadline",
+    "title": "He had done most of it. One question brought him to a stop.",
+    "slug": "michael-grant-he-had-done-most-of-it-one-question-brought-him-to-a-stop",
+    "problem": "Michael started his return himself, then reached a section he couldn't confidently complete. By then, the deadline was approaching.",
+    "support": "TaxSimba assessed the available time and records before accepting the work. Michael received a focused list of the outstanding information to provide.",
+    "outcome": "He supplied it in time, reviewed the prepared return and approved submission before the deadline. A last-minute result wasn't promised before the work was assessed.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 42,
+    "name": "Camila Fernandes",
+    "category": "Freelancers",
+    "service": "Self Assessment for a first full freelance year",
+    "title": "Her old part-time spreadsheet no longer covered the business.",
+    "slug": "camila-fernandes-her-old-part-time-spreadsheet-no-longer-covered-the-business",
+    "problem": "Camila had previously freelanced occasionally. Her first full year brought more customers, larger projects and expenses she hadn't needed to track before.",
+    "support": "TaxSimba reviewed the full year's records, asked about changes in her work and followed up on items her earlier spreadsheet didn't explain.",
+    "outcome": "Camila approved a return based on the more complete records. She also updated her filing routine to suit the business she was now running.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Freelancers",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 43,
+    "name": "Ravi Desai",
+    "category": "Landlords",
+    "service": "Self Assessment for shared household and rental banking",
+    "title": "The rental payments disappeared among everyday transactions.",
+    "slug": "ravi-desai-the-rental-payments-disappeared-among-everyday-transactions",
+    "problem": "Ravi used the same account for rent, household bills and property spending. At year end, identifying the property transactions took repeated searches.",
+    "support": "TaxSimba asked him to mark the relevant entries and provide the supporting documents, querying unclear transfers and payments before preparing the property figures.",
+    "outcome": "Ravi reviewed the completed return and began keeping a separate record of rental activity, making future checks easier.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Landlords",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 44,
+    "name": "Leila Mansour",
+    "category": "CIS workers",
+    "service": "Self Assessment for a first year as a subcontractor",
+    "title": "Her first year on site came with unfamiliar paperwork.",
+    "slug": "leila-mansour-her-first-year-on-site-came-with-unfamiliar-paperwork",
+    "problem": "Leila had started self-employed installation work. She kept the payment statements but wasn't sure how they differed from the payslips at her previous job.",
+    "support": "TaxSimba explained which records were needed, reviewed her income and CIS deductions and asked about relevant business costs supported by documents.",
+    "outcome": "Leila reviewed and approved her first return as a subcontractor with the calculation explained. She knew which statements to keep and check during the next year.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "CIS workers",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 45,
+    "name": "Noah Wilson",
+    "category": "MTD",
+    "service": "MTD bank-transaction and document review",
+    "title": "Every transfer looked like another payment to the business.",
+    "slug": "noah-wilson-every-transfer-looked-like-another-payment-to-the-business",
+    "problem": "Noah moved money between accounts and sometimes paid business costs personally. Looking at a bank feed alone made his records seem busier than the business really was.",
+    "support": "TaxSimba reviewed the records within the agreed service and asked about transfers and unclear entries instead of treating every deposit as customer income.",
+    "outcome": "Noah's records were corrected before the update was prepared. He understood which transactions needed an explanation and why bank information still needed review.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "MTD"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 46,
+    "name": "Imani Campbell",
+    "category": "Freelancers",
+    "service": "Self Assessment after a change in freelance activity",
+    "title": "She changed the work she did. Her records hadn't caught up.",
+    "slug": "imani-campbell-she-changed-the-work-she-did-her-records-hadn-t-caught-up",
+    "problem": "Imani moved from freelance admin work into event coordination during the year. New suppliers and different types of customer payments made her old categories confusing.",
+    "support": "TaxSimba asked about the change, reviewed both sets of records and assessed how the activities should be reflected in her return.",
+    "outcome": "Imani received an explanation of the completed figures and reorganised her records around the work she was actually doing.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Freelancers",
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  },
+  {
+    "id": 47,
+    "name": "Hassan Farouk",
+    "category": "Self Assessment",
+    "service": "Self Assessment support with a plain-English review",
+    "title": "He understood his business. The tax language held him up.",
+    "slug": "hassan-farouk-he-understood-his-business-the-tax-language-held-him-up",
+    "problem": "Hassan had kept his records but found the wording on the return difficult to follow. He worried that asking basic questions would slow everything down.",
+    "support": "TaxSimba explained the unfamiliar terms using his own figures and answered the questions he wanted resolved before approval.",
+    "outcome": "Hassan reviewed and approved the return with the main figures explained. He kept a short note of the remaining payment steps alongside his copy.",
+    "status": "confirmed",
+    "nameApproved": true,
+    "tags": [
+      "Self Assessment"
+    ],
+    "caseApproved": true,
+    "confirmationBasis": "Business confirmation supplied by the user in this conversation; not independently verified."
+  }
+]

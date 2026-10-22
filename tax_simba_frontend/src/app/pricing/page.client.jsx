@@ -294,7 +294,9 @@ const PricingClient = () => {
                         ) : null}
                     </div>
 
+                    {/* pricing-section: Stories SA package CTA target for logged-out visitors (packages before registration). */}
                     <div id="sa-pricing" className="plans-display-section mt-5">
+                        <div id="pricing-section">
                         <Row className="justify-content-center">
                             {loading ? (
                                 <Col xs={12} className="text-center py-5">
@@ -317,6 +319,7 @@ const PricingClient = () => {
                                 ))
                             )}
                         </Row>
+                        </div>
                     </div>
                 </Container>
             </section>

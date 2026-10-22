@@ -255,6 +255,8 @@ const Navbar = () => {
   const isResourcesActive =
     pathname === "/blogs" ||
     pathname.startsWith("/blogs/") ||
+    pathname === "/stories" ||
+    pathname.startsWith("/stories/") ||
     pathname === "/mtd-information";
 
   useEffect(() => {
@@ -400,6 +402,9 @@ const Navbar = () => {
                                 <Link href="/blogs">
                                   Blog &amp; Guides
                                 </Link>
+                              </li>
+                              <li>
+                                <Link href="/stories">Client Stories</Link>
                               </li>
                               <li>
                                 <Link href="/mtd-information">MTD Information</Link>
@@ -731,6 +736,9 @@ const Navbar = () => {
             </li>
             <li>
               <Link href="/blogs" className={pathname === "/blogs" || pathname?.startsWith("/blogs/") ? "active" : ""} onClick={handleClose}>Blog &amp; Guides</Link>
+            </li>
+            <li>
+              <Link href="/stories" className={pathname === "/stories" || pathname?.startsWith("/stories/") ? "active" : ""} onClick={handleClose}>Client Stories</Link>
             </li>
             <li>
               <Link href="/mtd-information" className={pathname === "/mtd-information" ? "active" : ""} onClick={handleClose}>MTD information and Pricing</Link>
