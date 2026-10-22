@@ -1,16 +1,15 @@
 /**
  * HMRC Form 64-8 — Authorising your agent.
  *
- * Staff (accountant/admin) generate an auto-filled copy from client master data,
- * then send it for e-signature. Clients never edit the form — they only sign.
- *
- * Legal note: field labels mirror the official HMRC 64-8 boxes. Do not reword
- * HMRC instructional text. Layout is an HTML facsimile for e-sign; production
- * may swap in an immutable PDF template once counsel signs off.
+ * HARD RULE (HMRC rejection risk):
+ *   - Do NOT change the structure, section order, or HMRC box labels of form 64-8.
+ *   - Only CLIENT detail values (and firm agent identity from config) are filled in.
+ *   - Staff may correct client values before generate; they cannot redesign the form.
+ *   - Clients never edit boxes — they only sign.
  *
  * TODO(hmrc): integrate Agent Authorisation API when available for digital AA.
  * TODO(security): confirm object-storage encryption-at-rest for signed copies.
- * TODO(compliance): upload the current HMRC PDF template and map field coordinates.
+ * TODO(compliance): prefer immutable official HMRC PDF with coordinate-mapped fills.
  */
 import { randomUUID } from "crypto";
 
@@ -65,10 +64,43 @@ export interface Hmrc64FillFields {
   business_utr: string;
   vat_registration_number: string;
   company_registration_number: string;
+  /** Locked from firm config — not staff-editable via API. */
   agent_name: string;
   agent_address: string;
   agent_phone: string;
   agent_reference: string;
+}
+
+/** Only these keys may be overridden before generate (client / business boxes). */
+export const HMRC64_CLIENT_FILL_KEYS = [
+  "client_full_name",
+  "address_line_1",
+  "address_line_2",
+  "address_line_3",
+  "address_postcode",
+  "date_of_birth",
+  "ni_number",
+  "utr",
+  "business_name",
+  "business_utr",
+  "vat_registration_number",
+  "company_registration_number",
+] as const;
+
+export type Hmrc64ClientFillKey = (typeof HMRC64_CLIENT_FILL_KEYS)[number];
+
+/** Strip anything that is not a client box — agent fields always come from firm config. */
+export function sanitizeClientOverrides(
+  raw: Partial<Hmrc64FillFields> | Record<string, unknown> | null | undefined,
+): Partial<Pick<Hmrc64FillFields, Hmrc64ClientFillKey>> {
+  const out: Partial<Pick<Hmrc64FillFields, Hmrc64ClientFillKey>> = {};
+  if (!raw || typeof raw !== "object") return out;
+  for (const key of HMRC64_CLIENT_FILL_KEYS) {
+    if (raw[key] != null && String(raw[key]).trim() !== "") {
+      out[key] = String(raw[key]);
+    }
+  }
+  return out;
 }
 
 export interface Hmrc64Precheck {
@@ -100,7 +132,10 @@ function box(label: string, value: string, testId?: string): string {
 
 /**
  * Fixed HTML facsimile of HMRC 64-8 boxes.
- * Labels are HMRC-facing wording; only values are auto-filled.
+ *
+ * HARD RULE: do not reorder sections, reword HMRC labels, or alter instructional
+ * text — structural changes risk HMRC rejection. Only boxed VALUES are filled
+ * (client details + firm agent identity from config).
  */
 export function renderHmrc64Html(fields: Hmrc64FillFields, meta: { generated_at: string; our_ref?: string }): string {
   const css = `
@@ -121,7 +156,7 @@ export function renderHmrc64Html(fields: Hmrc64FillFields, meta: { generated_at:
 <html lang="en-GB">
 <head><meta charset="utf-8" /><title>HMRC 64-8 — Authorising your agent</title><style>${css}</style></head>
 <body>
-<article class="hmrc64" data-testid="hmrc64-form">
+<article class="hmrc64" data-testid="hmrc64-form" data-hmrc64-structure-locked="true">
   <h1>Authorising your agent</h1>
   <p class="sub">HMRC form 64-8 (facsimile for electronic signature) · Generated ${esc(meta.generated_at)}${meta.our_ref ? ` · Ref ${esc(meta.our_ref)}` : ""}</p>
   <p class="note">
