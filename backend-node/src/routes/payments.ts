@@ -29,6 +29,7 @@ import {
 import { logActivity, notify, nowIso } from "../domain/workflow";
 import { handler, httpError, parseBody } from "../http/errors";
 import { auth, user as authed } from "../middleware/auth";
+import { assertAmlApproved } from "../services/aml";
 import { createReceipt, renderHtml } from "../services/invoices";
 import { payments } from "../services/payments";
 
@@ -484,6 +485,8 @@ paymentsRouter.post(
     })) as Doc | null;
     if (!offer) throw httpError(404, "Offer not found");
     if (offer.status !== "PENDING") throw httpError(400, "Offer is no longer available");
+    const offerClient = (await col("clients").findOne({ id: offer.client_id })) as Doc | null;
+    if (offerClient) await assertAmlApproved(clean(offerClient) as Doc);
     const reuse = await inflight({ offer_id: offer.id, kind: "SERVICE_ACTIVATION" });
     if (reuse) {
       res.json(reuse);
@@ -531,6 +534,8 @@ paymentsRouter.post(
       throw httpError(400, "Unknown service type");
     }
     const client = await clientOf(me);
+    // Block checkout until AML/KYC is approved (CDD before service activation).
+    await assertAmlApproved(client);
     const svc = (await col("client_services").findOne({
       client_id: client.id,
       service_type: body.service_type,
