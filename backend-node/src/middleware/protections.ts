@@ -2,8 +2,14 @@
 import { createHash, randomUUID } from "crypto";
 
 import { NextFunction, Request, Response } from "express";
+import multer from "multer";
 
 import { intEnv } from "../config/env";
+import {
+  ALLOWED_EXTENSIONS,
+  ALLOWED_MIME_TYPES,
+  DEFAULT_MAX_UPLOAD_MB,
+} from "../domain/fileSecurity";
 import { col } from "../db/mongo";
 import { httpError } from "../http/errors";
 import { clientIp } from "../services/loginLockout";
@@ -74,22 +80,19 @@ export async function ensureRateIndexes(): Promise<void> {
 }
 
 // ------------------------------------------------------------------ upload validation
-export const ALLOWED_UPLOAD_TYPES = new Set([
-  "application/pdf",
-  "image/jpeg",
-  "image/png",
-  "image/heic",
-  "image/heif",
-  "text/csv",
-  "text/plain",
-  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-  "application/vnd.ms-excel",
-  "application/msword",
-]);
+/** @deprecated Prefer ALLOWED_MIME_TYPES from domain/fileSecurity — kept for older tests. */
+export const ALLOWED_UPLOAD_TYPES = ALLOWED_MIME_TYPES;
 
 export function maxUploadBytes(): number {
-  return intEnv("MAX_UPLOAD_MB", 25) * 1024 * 1024;
+  return intEnv("MAX_UPLOAD_MB", DEFAULT_MAX_UPLOAD_MB) * 1024 * 1024;
+}
+
+/** Shared multipart parser: memory storage + platform 20MB ceiling. */
+export function uploadMiddleware() {
+  return multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: maxUploadBytes(), files: 1 },
+  });
 }
 
 /** Strips any path component and anything that could be interpreted by a shell or path. */
@@ -102,17 +105,28 @@ export function safeFilename(name: string | undefined | null): string {
   return (cleaned || "file").slice(0, 120);
 }
 
+function extensionOf(filename: string): string {
+  const base = filename.replace(/\\/g, "/").split("/").pop() ?? "";
+  const dot = base.lastIndexOf(".");
+  return dot >= 0 ? base.slice(dot + 1).toLowerCase() : "";
+}
+
 export function validateUpload(contentType: string | undefined, size: number, filename: string) {
   const limit = maxUploadBytes();
+  const limitMb = Math.floor(limit / (1024 * 1024));
   if (size > limit) {
-    throw httpError(413, `Files must be ${Math.floor(limit / (1024 * 1024))}MB or smaller`);
+    throw httpError(
+      413,
+      `This file is too large. Maximum file size is ${limitMb}MB per file.`,
+    );
   }
   if (!size) throw httpError(400, "The file appears to be empty");
   const ct = (contentType ?? "").split(";")[0].trim().toLowerCase();
-  if (!ALLOWED_UPLOAD_TYPES.has(ct)) {
+  const ext = extensionOf(filename);
+  if (!ALLOWED_MIME_TYPES.has(ct) || !ALLOWED_EXTENSIONS.has(ext)) {
     throw httpError(
       415,
-      "Unsupported file type. Please upload a PDF, image, CSV, Word or Excel file",
+      "Unsupported file type. Please upload a PDF, JPG, PNG, Word (.doc/.docx) or Excel (.xls/.xlsx) file",
     );
   }
   return safeFilename(filename);
