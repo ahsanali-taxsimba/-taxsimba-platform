@@ -1,0 +1,982 @@
+[
+  {
+    "url": "https://www.gov.uk/apply-tax-free-interest-on-savings/how-much-is-tax-free",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/apply-tax-free-interest-on-savings/how-much-is-tax-free",
+    "result": "reachable",
+    "seconds": 5.61
+  },
+  {
+    "url": "https://www.gov.uk/apply-tax-free-interest-on-savings/how-you-pay-tax-on-savings-interest",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/apply-tax-free-interest-on-savings/how-you-pay-tax-on-savings-interest",
+    "result": "reachable",
+    "seconds": 5.51
+  },
+  {
+    "url": "https://www.gov.uk/become-sole-trader/register-sole-trader",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/become-sole-trader/register-sole-trader",
+    "result": "reachable",
+    "seconds": 5.63
+  },
+  {
+    "url": "https://www.gov.uk/capital-allowances",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/capital-allowances",
+    "result": "reachable",
+    "seconds": 5.43
+  },
+  {
+    "url": "https://www.gov.uk/capital-gains-tax/reporting-and-paying-capital-gains-tax",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/capital-gains-tax/reporting-and-paying-capital-gains-tax",
+    "result": "reachable",
+    "seconds": 5.32
+  },
+  {
+    "url": "https://www.gov.uk/check-if-you-need-tax-return",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/check-if-you-need-tax-return",
+    "result": "reachable",
+    "seconds": 5.6
+  },
+  {
+    "url": "https://www.gov.uk/child-benefit-tax-charge/pay-tax-charge-paye",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/child-benefit-tax-charge/pay-tax-charge-paye",
+    "result": "reachable",
+    "seconds": 5.62
+  },
+  {
+    "url": "https://www.gov.uk/difficulties-paying-hmrc",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/difficulties-paying-hmrc",
+    "result": "reachable",
+    "seconds": 5.5
+  },
+  {
+    "url": "https://www.gov.uk/difficulties-paying-hmrc/pay-in-instalments",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/difficulties-paying-hmrc/pay-in-instalments",
+    "result": "reachable",
+    "seconds": 5.3
+  },
+  {
+    "url": "https://www.gov.uk/donating-to-charity/gift-aid",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/donating-to-charity/gift-aid",
+    "result": "reachable",
+    "seconds": 4.79
+  },
+  {
+    "url": "https://www.gov.uk/expenses-if-youre-self-employed",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/expenses-if-youre-self-employed",
+    "result": "reachable",
+    "seconds": 5.26
+  },
+  {
+    "url": "https://www.gov.uk/expenses-if-youre-self-employed/clothing",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/expenses-if-youre-self-employed/clothing",
+    "result": "reachable",
+    "seconds": 4.68
+  },
+  {
+    "url": "https://www.gov.uk/expenses-if-youre-self-employed/legal-financial",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/expenses-if-youre-self-employed/legal-financial",
+    "result": "reachable",
+    "seconds": 5.04
+  },
+  {
+    "url": "https://www.gov.uk/expenses-if-youre-self-employed/office-property",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/expenses-if-youre-self-employed/office-property",
+    "result": "reachable",
+    "seconds": 4.53
+  },
+  {
+    "url": "https://www.gov.uk/expenses-if-youre-self-employed/office-property-equipment",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/expenses-if-youre-self-employed",
+    "result": "reachable",
+    "seconds": 9.27
+  },
+  {
+    "url": "https://www.gov.uk/expenses-if-youre-self-employed/travel",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/expenses-if-youre-self-employed/travel",
+    "result": "reachable",
+    "seconds": 4.7
+  },
+  {
+    "url": "https://www.gov.uk/expenses-if-youre-self-employed/vehicles-travel",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/expenses-if-youre-self-employed",
+    "result": "reachable",
+    "seconds": 9.44
+  },
+  {
+    "url": "https://www.gov.uk/find-hmrc-contacts/self-assessment-general-enquiries",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/find-hmrc-contacts/self-assessment-general-enquiries",
+    "result": "reachable",
+    "seconds": 5.39
+  },
+  {
+    "url": "https://www.gov.uk/find-utr-number",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/find-utr-number",
+    "result": "reachable",
+    "seconds": 5.23
+  },
+  {
+    "url": "https://www.gov.uk/government/collections/making-tax-digital-for-vat",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/government/collections/making-tax-digital-for-vat",
+    "result": "reachable",
+    "seconds": 5.17
+  },
+  {
+    "url": "https://www.gov.uk/government/news/pensioners-urged-to-be-alert-to-winter-fuel-payment-scams",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/government/news/pensioners-urged-to-be-alert-to-winter-fuel-payment-scams",
+    "result": "reachable",
+    "seconds": 4.94
+  },
+  {
+    "url": "https://www.gov.uk/government/publications/agent-update-issue-148/issue-148-of-agent-update",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/government/publications/agent-update-issue-148/issue-148-of-agent-update",
+    "result": "reachable",
+    "seconds": 4.44
+  },
+  {
+    "url": "https://www.gov.uk/government/publications/construction-industry-scheme-cis-340/construction-industry-scheme-a-guide-for-contractors-and-subcontractors-cis-340",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/government/publications/construction-industry-scheme-cis-340/construction-industry-scheme-a-guide-for-contractors-and-subcontractors-cis-340",
+    "result": "reachable",
+    "seconds": 5.07
+  },
+  {
+    "url": "https://www.gov.uk/government/publications/construction-industry-scheme-individuals-repayment-claim-cis40",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/government/publications/construction-industry-scheme-individuals-repayment-claim-cis40",
+    "result": "reachable",
+    "seconds": 5.29
+  },
+  {
+    "url": "https://www.gov.uk/government/publications/hmrc-your-guide-to-making-a-disclosure/your-guide-to-making-a-disclosure",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/government/publications/hmrc-your-guide-to-making-a-disclosure/your-guide-to-making-a-disclosure",
+    "result": "reachable",
+    "seconds": 4.8
+  },
+  {
+    "url": "https://www.gov.uk/government/publications/how-to-calculate-your-taxable-profits-hs222-self-assessment-helpsheet/hs222-how-to-calculate-your-taxable-profits-2026",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/government/publications/how-to-calculate-your-taxable-profits-hs222-self-assessment-helpsheet/hs222-how-to-calculate-your-taxable-profits-2026",
+    "result": "reachable",
+    "seconds": 4.63
+  },
+  {
+    "url": "https://www.gov.uk/government/publications/income-tax-charge-on-winter-fuel-payments/winter-fuel-payments-charge",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/government/publications/income-tax-charge-on-winter-fuel-payments/winter-fuel-payments-charge",
+    "result": "reachable",
+    "seconds": 4.74
+  },
+  {
+    "url": "https://www.gov.uk/government/publications/let-property-campaign-your-guide-to-making-a-disclosure/let-property-campaign-your-guide-to-making-a-disclosure",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/government/publications/let-property-campaign-your-guide-to-making-a-disclosure/let-property-campaign-your-guide-to-making-a-disclosure",
+    "result": "reachable",
+    "seconds": 4.78
+  },
+  {
+    "url": "https://www.gov.uk/government/publications/losses-hs227-self-assessment-helpsheet/hs227-losses-2026",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/government/publications/losses-hs227-self-assessment-helpsheet/hs227-losses-2026",
+    "result": "reachable",
+    "seconds": 4.19
+  },
+  {
+    "url": "https://www.gov.uk/government/publications/non-resident-landord-guidance-notes-for-letting-agents-and-tenants-non-resident-landlords-scheme-guidance-notes/what-the-non-resident-landlords-scheme-is",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/government/publications/non-resident-landord-guidance-notes-for-letting-agents-and-tenants-non-resident-landlords-scheme-guidance-notes/what-the-non-resident-landlords-scheme-is",
+    "result": "reachable",
+    "seconds": 4.17
+  },
+  {
+    "url": "https://www.gov.uk/government/publications/rates-and-allowances-income-tax/income-tax-rates-and-allowances-current-and-past",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/government/publications/rates-and-allowances-income-tax/income-tax-rates-and-allowances-current-and-past",
+    "result": "reachable",
+    "seconds": 5.07
+  },
+  {
+    "url": "https://www.gov.uk/government/publications/rates-and-allowances-national-insurance-contributions/rates-and-allowances-national-insurance-contributions",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/government/publications/rates-and-allowances-national-insurance-contributions/rates-and-allowances-national-insurance-contributions",
+    "result": "reachable",
+    "seconds": 5.41
+  },
+  {
+    "url": "https://www.gov.uk/government/publications/self-assessment-employment-sa102",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/government/publications/self-assessment-employment-sa102",
+    "result": "reachable",
+    "seconds": 5.11
+  },
+  {
+    "url": "https://www.gov.uk/government/publications/shares-and-capital-gains-tax-hs284-self-assessment-helpsheet/hs284-shares-and-capital-gains-tax-2026",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/government/publications/shares-and-capital-gains-tax-hs284-self-assessment-helpsheet/hs284-shares-and-capital-gains-tax-2026",
+    "result": "reachable",
+    "seconds": 5.03
+  },
+  {
+    "url": "https://www.gov.uk/guidance/add-your-client-authorisations-for-making-tax-digital-for-income-tax",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/add-your-client-authorisations-for-making-tax-digital-for-income-tax",
+    "result": "reachable",
+    "seconds": 4.97
+  },
+  {
+    "url": "https://www.gov.uk/guidance/adjusted-net-income",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/adjusted-net-income",
+    "result": "reachable",
+    "seconds": 4.85
+  },
+  {
+    "url": "https://www.gov.uk/guidance/apply-for-an-exemption-from-making-tax-digital-for-income-tax",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/apply-for-an-exemption-from-making-tax-digital-for-income-tax",
+    "result": "reachable",
+    "seconds": 4.78
+  },
+  {
+    "url": "https://www.gov.uk/guidance/authorising-an-agent-to-deal-with-your-tax-affairs",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/authorising-an-agent-to-deal-with-your-tax-affairs",
+    "result": "reachable",
+    "seconds": 4.75
+  },
+  {
+    "url": "https://www.gov.uk/guidance/capital-gains-tax-rates-and-allowances",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/capital-gains-tax-rates-and-allowances",
+    "result": "reachable",
+    "seconds": 4.79
+  },
+  {
+    "url": "https://www.gov.uk/guidance/changes-to-tax-relief-for-residential-landlords-how-its-worked-out-including-case-studies",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/changes-to-tax-relief-for-residential-landlords-how-its-worked-out-including-case-studies",
+    "result": "reachable",
+    "seconds": 4.36
+  },
+  {
+    "url": "https://www.gov.uk/guidance/check-employment-status-if-you-work-in-hair-and-beauty",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/check-employment-status-if-you-work-in-hair-and-beauty",
+    "result": "reachable",
+    "seconds": 4.29
+  },
+  {
+    "url": "https://www.gov.uk/guidance/check-how-much-tax-you-pay-on-dividends-and-interest-from-savings",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/check-how-much-tax-you-pay-on-dividends-and-interest-from-savings",
+    "result": "reachable",
+    "seconds": 3.9
+  },
+  {
+    "url": "https://www.gov.uk/guidance/check-if-you-can-claim-the-4-year-foreign-income-and-gains-regime",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/check-if-you-can-claim-the-4-year-foreign-income-and-gains-regime",
+    "result": "reachable",
+    "seconds": 4.3
+  },
+  {
+    "url": "https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets",
+    "result": "reachable",
+    "seconds": 4.13
+  },
+  {
+    "url": "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms",
+    "result": "reachable",
+    "seconds": 4.34
+  },
+  {
+    "url": "https://www.gov.uk/guidance/check-if-youll-need-to-report-cryptoasset-data-to-hmrc",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/check-if-youll-need-to-report-cryptoasset-data-to-hmrc",
+    "result": "reachable",
+    "seconds": 4.17
+  },
+  {
+    "url": "https://www.gov.uk/guidance/check-if-youre-eligible-for-making-tax-digital-for-income-tax",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+    "result": "reachable",
+    "seconds": 10.41
+  },
+  {
+    "url": "https://www.gov.uk/guidance/check-what-to-do-if-hmrc-has-signed-you-up-for-making-tax-digital-for-income-tax",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/check-what-to-do-if-hmrc-has-signed-you-up-for-making-tax-digital-for-income-tax",
+    "result": "reachable",
+    "seconds": 4.71
+  },
+  {
+    "url": "https://www.gov.uk/guidance/check-when-to-appeal-a-self-assessment-penalty-for-late-filing-or-late-payment",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/check-when-to-appeal-a-self-assessment-penalty-for-late-filing-or-late-payment",
+    "result": "reachable",
+    "seconds": 5.09
+  },
+  {
+    "url": "https://www.gov.uk/guidance/check-when-you-can-expect-a-reply-from-hmrc",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/check-when-you-can-expect-a-reply-from-hmrc",
+    "result": "reachable",
+    "seconds": 4.42
+  },
+  {
+    "url": "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax",
+    "result": "reachable",
+    "seconds": 4.61
+  },
+  {
+    "url": "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax",
+    "result": "reachable",
+    "seconds": 4.65
+  },
+  {
+    "url": "https://www.gov.uk/guidance/claim-tax-relief-on-your-private-pension-payments",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/claim-tax-relief-on-your-private-pension-payments",
+    "result": "reachable",
+    "seconds": 4.45
+  },
+  {
+    "url": "https://www.gov.uk/guidance/claim-to-reduce-payments-on-account",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/claim-to-reduce-payments-on-account",
+    "result": "reachable",
+    "seconds": 4.98
+  },
+  {
+    "url": "https://www.gov.uk/guidance/director-information-hub-self-assessment-for-directors--2",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/director-information-hub-self-assessment-for-directors--2",
+    "result": "reachable",
+    "seconds": 5.67
+  },
+  {
+    "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+    "result": "reachable",
+    "seconds": 5.44
+  },
+  {
+    "url": "https://www.gov.uk/guidance/find-out-if-you-can-get-an-exemption-from-making-tax-digital-for-income-tax",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/find-out-if-you-can-get-an-exemption-from-making-tax-digital-for-income-tax",
+    "result": "reachable",
+    "seconds": 4.84
+  },
+  {
+    "url": "https://www.gov.uk/guidance/find-software-that-works-with-making-tax-digital-for-income-tax",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/find-software-that-works-with-making-tax-digital-for-income-tax",
+    "result": "reachable",
+    "seconds": 4.95
+  },
+  {
+    "url": "https://www.gov.uk/guidance/help-with-charitable-giving-on-your-self-assessment-tax-return",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/help-with-charitable-giving-on-your-self-assessment-tax-return",
+    "result": "reachable",
+    "seconds": 4.95
+  },
+  {
+    "url": "https://www.gov.uk/guidance/how-to-complete-your-self-assessment-tax-return-for-last-tax-year",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/how-to-complete-your-self-assessment-tax-return-for-last-tax-year",
+    "result": "reachable",
+    "seconds": 4.83
+  },
+  {
+    "url": "https://www.gov.uk/guidance/how-your-state-pension-is-taxed",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/how-your-state-pension-is-taxed",
+    "result": "reachable",
+    "seconds": 4.84
+  },
+  {
+    "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+    "result": "reachable",
+    "seconds": 5.36
+  },
+  {
+    "url": "https://www.gov.uk/guidance/information-youll-need-to-give-to-uk-cryptoasset-service-providers",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/information-youll-need-to-give-to-uk-cryptoasset-service-providers",
+    "result": "reachable",
+    "seconds": 5.23
+  },
+  {
+    "url": "https://www.gov.uk/guidance/penalties-for-making-tax-digital-for-income-tax",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/penalties-for-making-tax-digital-for-income-tax",
+    "result": "reachable",
+    "seconds": 4.73
+  },
+  {
+    "url": "https://www.gov.uk/guidance/selling-goods-or-services-on-a-digital-platform",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/selling-goods-or-services-on-a-digital-platform",
+    "result": "reachable",
+    "seconds": 4.91
+  },
+  {
+    "url": "https://www.gov.uk/guidance/sign-up-for-making-tax-digital-for-income-tax",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/sign-up-for-making-tax-digital-for-income-tax",
+    "result": "reachable",
+    "seconds": 4.86
+  },
+  {
+    "url": "https://www.gov.uk/guidance/sign-up-your-client-for-making-tax-digital-for-income-tax",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/sign-up-your-client-for-making-tax-digital-for-income-tax",
+    "result": "reachable",
+    "seconds": 4.88
+  },
+  {
+    "url": "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+    "result": "reachable",
+    "seconds": 4.74
+  },
+  {
+    "url": "https://www.gov.uk/guidance/tell-hmrc-about-a-student-loan-in-your-tax-return",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/tell-hmrc-about-a-student-loan-in-your-tax-return",
+    "result": "reachable",
+    "seconds": 4.81
+  },
+  {
+    "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax",
+    "result": "reachable",
+    "seconds": 4.94
+  },
+  {
+    "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/add-or-cease-income-sources",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/add-or-cease-income-sources",
+    "result": "reachable",
+    "seconds": 4.76
+  },
+  {
+    "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/adjust-your-self-employment-and-property-income",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/adjust-your-self-employment-and-property-income",
+    "result": "reachable",
+    "seconds": 4.48
+  },
+  {
+    "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/before-you-use-this-guide",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/using-making-tax-digital-for-income-tax-for-the-first-time",
+    "result": "reachable",
+    "seconds": 9.26
+  },
+  {
+    "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+    "result": "reachable",
+    "seconds": 5.05
+  },
+  {
+    "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/get-your-software-ready",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/get-your-software-ready",
+    "result": "reachable",
+    "seconds": 4.7
+  },
+  {
+    "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/help-and-support",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/help-and-support",
+    "result": "reachable",
+    "seconds": 4.91
+  },
+  {
+    "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+    "result": "reachable",
+    "seconds": 4.39
+  },
+  {
+    "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/submit-your-tax-return",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/submit-your-tax-return",
+    "result": "reachable",
+    "seconds": 4.87
+  },
+  {
+    "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/using-making-tax-digital-for-income-tax-for-the-first-time",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/using-making-tax-digital-for-income-tax-for-the-first-time",
+    "result": "reachable",
+    "seconds": 4.76
+  },
+  {
+    "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+    "result": "reachable",
+    "seconds": 4.82
+  },
+  {
+    "url": "https://www.gov.uk/guidance/work-out-your-transition-profit",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/guidance/work-out-your-transition-profit",
+    "result": "reachable",
+    "seconds": 5.03
+  },
+  {
+    "url": "https://www.gov.uk/hmrc-internal-manuals/business-income-manual/bim46351",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/hmrc-internal-manuals/business-income-manual/bim46351",
+    "result": "reachable",
+    "seconds": 4.66
+  },
+  {
+    "url": "https://www.gov.uk/hmrc-internal-manuals/business-income-manual/bim81310",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/hmrc-internal-manuals/business-income-manual/bim81310",
+    "result": "reachable",
+    "seconds": 4.54
+  },
+  {
+    "url": "https://www.gov.uk/hmrc-internal-manuals/construction-industry-scheme-reform/cisr12160",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/hmrc-internal-manuals/construction-industry-scheme-reform/cisr12160",
+    "result": "reachable",
+    "seconds": 4.72
+  },
+  {
+    "url": "https://www.gov.uk/hmrc-internal-manuals/cryptoassets-manual/crypto10400",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/hmrc-internal-manuals/cryptoassets-manual/crypto10400",
+    "result": "reachable",
+    "seconds": 6.74
+  },
+  {
+    "url": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim1035",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim1035",
+    "result": "reachable",
+    "seconds": 6.38
+  },
+  {
+    "url": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim2510",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim2510",
+    "result": "reachable",
+    "seconds": 6.73
+  },
+  {
+    "url": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim3210",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim3210",
+    "result": "reachable",
+    "seconds": 6.29
+  },
+  {
+    "url": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim4001",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim4001",
+    "result": "reachable",
+    "seconds": 6.63
+  },
+  {
+    "url": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim4165",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim4165",
+    "result": "reachable",
+    "seconds": 6.22
+  },
+  {
+    "url": "https://www.gov.uk/national-insurance/national-insurance-classes",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/national-insurance/national-insurance-classes",
+    "result": "reachable",
+    "seconds": 5.88
+  },
+  {
+    "url": "https://www.gov.uk/pay-self-assessment-tax-bill",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/pay-self-assessment-tax-bill",
+    "result": "reachable",
+    "seconds": 6.4
+  },
+  {
+    "url": "https://www.gov.uk/pay-self-assessment-tax-bill/pay-weekly-monthly",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/pay-self-assessment-tax-bill/pay-weekly-monthly",
+    "result": "reachable",
+    "seconds": 5.1
+  },
+  {
+    "url": "https://www.gov.uk/pay-self-assessment-tax-bill/through-your-tax-code",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/pay-self-assessment-tax-bill/through-your-tax-code",
+    "result": "reachable",
+    "seconds": 5.47
+  },
+  {
+    "url": "https://www.gov.uk/personal-tax-account",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/personal-tax-account",
+    "result": "reachable",
+    "seconds": 5.48
+  },
+  {
+    "url": "https://www.gov.uk/register-for-self-assessment",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/register-for-self-assessment",
+    "result": "reachable",
+    "seconds": 4.86
+  },
+  {
+    "url": "https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme",
+    "result": "reachable",
+    "seconds": 5.13
+  },
+  {
+    "url": "https://www.gov.uk/renting-out-a-property/paying-tax",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/renting-out-a-property/paying-tax",
+    "result": "reachable",
+    "seconds": 5.08
+  },
+  {
+    "url": "https://www.gov.uk/repaying-your-student-loan/how-you-repay",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/repaying-your-student-loan/how-you-repay",
+    "result": "reachable",
+    "seconds": 4.85
+  },
+  {
+    "url": "https://www.gov.uk/report-and-pay-your-capital-gains-tax/if-you-sold-a-property-in-the-uk-on-or-after-6-april-2020",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/report-and-pay-your-capital-gains-tax/if-you-sold-a-property-in-the-uk-on-or-after-6-april-2020",
+    "result": "reachable",
+    "seconds": 4.47
+  },
+  {
+    "url": "https://www.gov.uk/sa302-tax-calculation",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/sa302-tax-calculation",
+    "result": "reachable",
+    "seconds": 5.36
+  },
+  {
+    "url": "https://www.gov.uk/self-assessment-tax-returns",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/self-assessment-tax-returns",
+    "result": "reachable",
+    "seconds": 5.49
+  },
+  {
+    "url": "https://www.gov.uk/self-assessment-tax-returns/claiming-a-tax-refund",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/self-assessment-tax-returns/claiming-a-tax-refund",
+    "result": "reachable",
+    "seconds": 5.3
+  },
+  {
+    "url": "https://www.gov.uk/self-assessment-tax-returns/corrections",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/self-assessment-tax-returns/corrections",
+    "result": "reachable",
+    "seconds": 4.62
+  },
+  {
+    "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+    "result": "reachable",
+    "seconds": 4.86
+  },
+  {
+    "url": "https://www.gov.uk/self-assessment-tax-returns/no-longer-need-to-send-a-tax-return",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/self-assessment-tax-returns/no-longer-need-to-send-a-tax-return",
+    "result": "reachable",
+    "seconds": 4.44
+  },
+  {
+    "url": "https://www.gov.uk/self-assessment-tax-returns/penalties",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/self-assessment-tax-returns/penalties",
+    "result": "reachable",
+    "seconds": 4.4
+  },
+  {
+    "url": "https://www.gov.uk/self-assessment-tax-returns/registering",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/self-assessment-tax-returns/registering",
+    "result": "reachable",
+    "seconds": 4.96
+  },
+  {
+    "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+    "result": "reachable",
+    "seconds": 5.49
+  },
+  {
+    "url": "https://www.gov.uk/self-employed-national-insurance-rates",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/self-employed-national-insurance-rates",
+    "result": "reachable",
+    "seconds": 5.06
+  },
+  {
+    "url": "https://www.gov.uk/self-employed-records",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/self-employed-records",
+    "result": "reachable",
+    "seconds": 5.46
+  },
+  {
+    "url": "https://www.gov.uk/self-employed-records/how-long-to-keep-your-records",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/self-employed-records/how-long-to-keep-your-records",
+    "result": "reachable",
+    "seconds": 4.52
+  },
+  {
+    "url": "https://www.gov.uk/self-employed-records/what-records-to-keep",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/self-employed-records/what-records-to-keep",
+    "result": "reachable",
+    "seconds": 4.47
+  },
+  {
+    "url": "https://www.gov.uk/simple-assessment",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/simple-assessment",
+    "result": "reachable",
+    "seconds": 4.56
+  },
+  {
+    "url": "https://www.gov.uk/simpler-income-tax-cash-basis",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/simpler-income-tax-cash-basis",
+    "result": "reachable",
+    "seconds": 4.94
+  },
+  {
+    "url": "https://www.gov.uk/simpler-income-tax-simplified-expenses/vehicles",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/simpler-income-tax-simplified-expenses/vehicles",
+    "result": "reachable",
+    "seconds": 4.35
+  },
+  {
+    "url": "https://www.gov.uk/simpler-income-tax-simplified-expenses/working-from-home",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/simpler-income-tax-simplified-expenses/working-from-home",
+    "result": "reachable",
+    "seconds": 5.34
+  },
+  {
+    "url": "https://www.gov.uk/stop-being-self-employed",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/stop-being-self-employed",
+    "result": "reachable",
+    "seconds": 4.9
+  },
+  {
+    "url": "https://www.gov.uk/tax-appeals",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/tax-appeals",
+    "result": "reachable",
+    "seconds": 5.29
+  },
+  {
+    "url": "https://www.gov.uk/tax-appeals/penalty",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/tax-appeals/penalty",
+    "result": "reachable",
+    "seconds": 5.26
+  },
+  {
+    "url": "https://www.gov.uk/tax-appeals/reasonable-excuses",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/tax-appeals/reasonable-excuses",
+    "result": "reachable",
+    "seconds": 5.09
+  },
+  {
+    "url": "https://www.gov.uk/tax-foreign-income",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/tax-foreign-income",
+    "result": "reachable",
+    "seconds": 4.59
+  },
+  {
+    "url": "https://www.gov.uk/tax-on-dividends",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/tax-on-dividends",
+    "result": "reachable",
+    "seconds": 4.79
+  },
+  {
+    "url": "https://www.gov.uk/tax-on-dividends/how-dividends-are-taxed",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/tax-on-dividends",
+    "result": "reachable",
+    "seconds": 9.17
+  },
+  {
+    "url": "https://www.gov.uk/tax-on-pension",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/tax-on-pension",
+    "result": "reachable",
+    "seconds": 5.45
+  },
+  {
+    "url": "https://www.gov.uk/tax-on-pension/how-your-tax-is-paid",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/tax-on-pension/how-your-tax-is-paid",
+    "result": "reachable",
+    "seconds": 5.1
+  },
+  {
+    "url": "https://www.gov.uk/tax-on-your-private-pension/pension-tax-relief",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/tax-on-your-private-pension/pension-tax-relief",
+    "result": "reachable",
+    "seconds": 5.12
+  },
+  {
+    "url": "https://www.gov.uk/tax-overpayments-and-underpayments",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/tax-overpayments-and-underpayments",
+    "result": "reachable",
+    "seconds": 4.55
+  },
+  {
+    "url": "https://www.gov.uk/tax-sell-shares/what-you-pay-it-on",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/tax-sell-shares/what-you-pay-it-on",
+    "result": "reachable",
+    "seconds": 5.12
+  },
+  {
+    "url": "https://www.gov.uk/tax-uk-income-live-abroad/rent",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/tax-uk-income-live-abroad/rent",
+    "result": "reachable",
+    "seconds": 5.03
+  },
+  {
+    "url": "https://www.gov.uk/understand-self-assessment-bill",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/understand-self-assessment-bill",
+    "result": "reachable",
+    "seconds": 4.63
+  },
+  {
+    "url": "https://www.gov.uk/understand-self-assessment-bill/payments-on-account",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/understand-self-assessment-bill/payments-on-account",
+    "result": "reachable",
+    "seconds": 5.41
+  },
+  {
+    "url": "https://www.gov.uk/understand-self-assessment-bill/tax-calculation-sa302",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/understand-self-assessment-bill/tax-calculation-sa302",
+    "result": "reachable",
+    "seconds": 5.27
+  },
+  {
+    "url": "https://www.gov.uk/what-is-the-construction-industry-scheme",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/what-is-the-construction-industry-scheme",
+    "result": "reachable",
+    "seconds": 5.13
+  },
+  {
+    "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor",
+    "result": "reachable",
+    "seconds": 4.97
+  },
+  {
+    "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid",
+    "result": "reachable",
+    "seconds": 4.78
+  },
+  {
+    "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/how-to-get-gross-payment-status",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor",
+    "result": "reachable",
+    "seconds": 9.05
+  },
+  {
+    "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/pay-tax-and-claim-back-deductions",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/pay-tax-and-claim-back-deductions",
+    "result": "reachable",
+    "seconds": 4.73
+  },
+  {
+    "url": "https://www.gov.uk/winter-fuel-payment/if-your-income-is-over-35000",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/winter-fuel-payment/if-your-income-is-over-35000",
+    "result": "reachable",
+    "seconds": 4.68
+  },
+  {
+    "url": "https://www.gov.uk/working-for-yourself",
+    "status": 200,
+    "finalURL": "https://www.gov.uk/working-for-yourself",
+    "result": "reachable",
+    "seconds": 4.45
+  }
+]

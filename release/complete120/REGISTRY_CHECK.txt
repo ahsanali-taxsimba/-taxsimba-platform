@@ -1,0 +1,22 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> my-next15-app@0.1.0 verify:articles
+> node scripts/verify-article-upsert.mjs
+
+(node:16) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/f0c452492fab/taxsimba/tax_simba_frontend/src/data/articles.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/f0c452492fab/taxsimba/tax_simba_frontend/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: 120 unique articles; original 38 preserved; 82 drafts unpublished; repeat upsert created no duplicates
+{
+  "total": 120,
+  "uniqueSlugs": 120,
+  "uniqueIds": 120,
+  "publishedCount": 38,
+  "draftCount": 82,
+  "releasedPublicCount": 38,
+  "releaseEnabled": false,
+  "repeatUpsertTotal": 120,
+  "originalBaseline": 38,
+  "next82Count": 82
+}

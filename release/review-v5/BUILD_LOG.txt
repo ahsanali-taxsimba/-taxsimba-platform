@@ -1,0 +1,213 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> my-next15-app@0.1.0 build
+> npm run release:deploy-build
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> my-next15-app@0.1.0 release:deploy-build
+> npm run verify:complete-release && npm run verify:priority20 && npm run verify:guide-depth && npm run verify:editorial-v2 && npm run verify:competitive-v3 && npm run verify:quality-v4 && npm run verify:review-v5 && npm run release:build
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> my-next15-app@0.1.0 verify:complete-release
+> node scripts/verify-editorial-batch.mjs --complete-release
+
+PASS: complete release: 120 guides have complete bodies, SEO metadata, quick answers, steps, sources, CTAs and responsive illustrations; 120 ready in total
+(node:46) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/57bc3a646f60/improved/TaxSimba_Source/tax_simba_frontend/src/data/articles.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/57bc3a646f60/improved/TaxSimba_Source/tax_simba_frontend/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> my-next15-app@0.1.0 verify:priority20
+> node scripts/verify-priority20-depth.mjs
+
+PASS: all twenty priority guides have distinct scenarios, decisions, forty follow-up answers and matching worksheets; enhancement is idempotent
+(node:67) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/57bc3a646f60/improved/TaxSimba_Source/tax_simba_frontend/src/data/articles.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/57bc3a646f60/improved/TaxSimba_Source/tax_simba_frontend/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> my-next15-app@0.1.0 verify:guide-depth
+> node scripts/verify-guide-depth.mjs
+
+PASS: 100 distinct remaining-guide examples and worksheets, correct large metadata images, official-source labels, idempotent full-body enhancements, and priority 20 retained
+(node:88) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/57bc3a646f60/improved/TaxSimba_Source/tax_simba_frontend/src/data/articles.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/57bc3a646f60/improved/TaxSimba_Source/tax_simba_frontend/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> my-next15-app@0.1.0 verify:editorial-v2
+> node scripts/verify-editorial-v2.mjs
+
+PASS: 120 editorial revisions; preserved order/links/assets; truthful reviewer labels; sourced cost examples; date-correct quick answers; SA/MTD destinations
+(node:109) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/57bc3a646f60/improved/TaxSimba_Source/tax_simba_frontend/src/data/articles.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/57bc3a646f60/improved/TaxSimba_Source/tax_simba_frontend/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> my-next15-app@0.1.0 verify:competitive-v3
+> node scripts/verify-competitive-v3.mjs
+
+PASS: all 120 targeted revisions and worksheets; calculator normal/invalid/leap-year cases; five specialist corrections; truthful review labels.
+(node:130) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/57bc3a646f60/improved/TaxSimba_Source/tax_simba_frontend/src/data/articles.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/57bc3a646f60/improved/TaxSimba_Source/tax_simba_frontend/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> my-next15-app@0.1.0 verify:quality-v4
+> node scripts/verify-quality-v4.mjs
+
+PASS: 120 UK/service/maintenance records; scope and free routes; metadata lengths; London deadline boundaries and expiry; no fabricated review or scarcity.
+(node:151) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/57bc3a646f60/improved/TaxSimba_Source/tax_simba_frontend/src/data/articles.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/57bc3a646f60/improved/TaxSimba_Source/tax_simba_frontend/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> my-next15-app@0.1.0 verify:review-v5
+> node scripts/verify-review-v5.mjs
+
+PASS: priority twenty unchanged; source qualifications; current-topic links and expiry; corrected MTD destination wording; no invented reviewer.
+(node:172) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/57bc3a646f60/improved/TaxSimba_Source/tax_simba_frontend/src/data/articles.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/57bc3a646f60/improved/TaxSimba_Source/tax_simba_frontend/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> my-next15-app@0.1.0 release:build
+> npm run release:prepare && set -a && . ./.env.production.local && set +a && npm run verify:premium && next build && node scripts/prepare-standalone.mjs
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> my-next15-app@0.1.0 release:prepare
+> node scripts/prepare-premium-release.mjs
+
+Premium 120 release prepared at 2026-10-21T19:50:59.693Z
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> my-next15-app@0.1.0 verify:premium
+> node scripts/verify-premium-articles.mjs
+
+PASS: 120 articles, priority 20, SEO fields and 360 responsive artworks verified
+(node:227) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/57bc3a646f60/improved/TaxSimba_Source/tax_simba_frontend/src/data/articles.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/57bc3a646f60/improved/TaxSimba_Source/tax_simba_frontend/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+   ▲ Next.js 15.5.22
+   - Environments: .env.production.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 14.9s
+   Skipping validation of types
+   Skipping linting
+   Collecting page data ...
+   Generating static pages (0/61) ...
+   Generating static pages (15/61) 
+Failed to load sitemap slugs [Error: Dynamic server usage: Route /sitemap.xml couldn't be rendered statically because it used revalidate: 0 fetch https://api.taxsimba.com/api/slugs /sitemap.xml. See more info here: https://nextjs.org/docs/messages/dynamic-server-error] {
+  description: "Route /sitemap.xml couldn't be rendered statically because it used revalidate: 0 fetch https://api.taxsimba.com/api/slugs /sitemap.xml. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Failed to load services list Error: Dynamic server usage: Route /services couldn't be rendered statically because it used revalidate: 0 fetch undefinedservices /services. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at r (.next/server/chunks/5873.js:1:28376)
+    at <unknown> (.next/server/chunks/5873.js:1:8883)
+    at <unknown> (.next/server/chunks/5873.js:15:2812)
+    at e.with (.next/server/chunks/5873.js:22:30212)
+    at i.with (.next/server/chunks/5873.js:22:24459)
+    at i.startActiveSpan (.next/server/chunks/5873.js:22:39425)
+    at e.startActiveSpan (.next/server/chunks/5873.js:22:39959)
+    at <unknown> (.next/server/chunks/5873.js:15:2340)
+    at e.with (.next/server/chunks/5873.js:22:30212)
+    at i.with (.next/server/chunks/5873.js:22:24459) {
+  description: "Route /services couldn't be rendered statically because it used revalidate: 0 fetch undefinedservices /services. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+services server page []
+services check []
+   Generating static pages (30/61) 
+   Generating static pages (45/61) 
+ ✓ Generating static pages (61/61)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                    13.5 kB         210 kB
+├ ○ /_not-found                            154 B         103 kB
+├ ƒ /[id]                                1.25 kB         107 kB
+├ ○ /about-us                            3.15 kB         136 kB
+├ ○ /blog-details                          154 B         103 kB
+├ ƒ /blogs                                  5 kB         111 kB
+├ ƒ /blogs/[slug]                        14.6 kB         401 kB
+├ ○ /calculators                         5.51 kB         152 kB
+├ ƒ /calculators/[slug]                  32.3 kB         545 kB
+├ ○ /capital-gains-service               2.28 kB         118 kB
+├ ○ /check-mtd                           9.83 kB         219 kB
+├ ○ /cis-service                         1.79 kB         117 kB
+├ ○ /contact-us                          6.81 kB         166 kB
+├ ○ /cookie-policy                       4.45 kB         110 kB
+├ ƒ /dashboard                             154 B         103 kB
+├ ƒ /dashboard/billing-history           1.38 kB         137 kB
+├ ƒ /dashboard/change-password           5.76 kB         152 kB
+├ ƒ /dashboard/delete-profile              661 B         143 kB
+├ ƒ /dashboard/edit-profile               5.1 kB         151 kB
+├ ƒ /dashboard/my-documents              4.13 kB         154 kB
+├ ƒ /dashboard/my-subscriptions          2.22 kB         166 kB
+├ ƒ /dashboard/my-tax-return              1.4 kB         298 kB
+├ ƒ /dashboard/notifications             3.71 kB         148 kB
+├ ƒ /dashboard/tax-tracker                 355 B         179 kB
+├ ○ /data-policy                         4.45 kB         110 kB
+├ ○ /engagement-letter                   10.2 kB         145 kB
+├ ○ /faq                                   637 B         418 kB
+├ ○ /forgot-password                     1.46 kB         155 kB
+├ ƒ /frontend-api/auth/[...nextauth]       154 B         103 kB
+├ ƒ /frontend-api/chat                     154 B         103 kB
+├ ƒ /frontend-api/translate                154 B         103 kB
+├ ○ /high-net-worth-service              1.73 kB         117 kB
+├ ○ /login                               3.39 kB         181 kB
+├ ○ /lp/making-tax-digital               6.16 kB         154 kB
+├ ○ /lp/self-assessment                  5.03 kB         149 kB
+├ ○ /making-tax-digital                  3.15 kB         119 kB
+├ ƒ /mtd-dashboard                       33.5 kB         251 kB
+├ ○ /mtd-information                     10.7 kB         220 kB
+├ ƒ /my-tax-return                       1.55 kB         318 kB
+├ ○ /planlist                            11.8 kB         205 kB
+├ ƒ /planlist/[id]                       5.15 kB         140 kB
+├ ○ /planlist/checkout-success           4.66 kB         139 kB
+├ ○ /pricing                               13 kB         207 kB
+├ ○ /privacy-policy                      2.75 kB         109 kB
+├ ○ /private-client-service              1.94 kB         117 kB
+├ ○ /register                            11.5 kB         180 kB
+├ ○ /rental-income-service               1.86 kB         117 kB
+├ ○ /rental-income-tax                   3.09 kB         118 kB
+├ ○ /reset-password                      1.98 kB         156 kB
+├ ○ /robots.txt                            154 B         103 kB
+├ ○ /self-assessment                     2.95 kB         118 kB
+├ ○ /self-assessment-guide               4.79 kB         117 kB
+├ ○ /self-employed-service               1.86 kB         117 kB
+├ ○ /self-employed-tax-return            2.83 kB         118 kB
+├ ƒ /services                            4.37 kB         140 kB
+├ ƒ /services/[slug]                     6.47 kB         640 kB
+├ ƒ /sitemap.xml                           154 B         103 kB
+├ ○ /tax-adviser                         2.14 kB         118 kB
+├ ○ /tax-filing                          4.17 kB         153 kB
+├ ○ /tax-for-freelancers                 4.82 kB         117 kB
+├ ○ /tax-return-form                     11.6 kB         148 kB
+├ ○ /tax-return-form/payment-complete    2.11 kB         135 kB
+├ ○ /terms-and-conditions                1.23 kB         104 kB
+├ ○ /testimonials                        8.38 kB         114 kB
+└ ○ /verify-email                        3.12 kB         134 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/1255-cf02c4775860a5ab.js        46 kB
+  ├ chunks/4bd1b696-100b9d70ed4e49c1.js  54.2 kB
+  └ other shared chunks (total)          2.17 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+Standalone static and public assets prepared

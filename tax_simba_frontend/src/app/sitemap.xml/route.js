@@ -30,6 +30,7 @@ export async function GET() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://taxsimba.co.uk";
   const today = formatDate();
   const staticUrls = [
+    { path: "/landlords", lastmod: "2026-10-21", changefreq: "monthly", priority: 0.9 },
     { path: "/", lastmod: today, changefreq: "daily", priority: 1.0 },
     { path: "/about-us", lastmod: today, changefreq: "weekly", priority: 0.9 },
     { path: "/contact-us", lastmod: today, changefreq: "weekly", priority: 0.9 },
@@ -60,7 +61,6 @@ export async function GET() {
     { path: "/high-net-worth-service", lastmod: today, changefreq: "weekly", priority: 0.7 },
     { path: "/services/self-employed-tax-return-services-uk", lastmod: today, changefreq: "weekly", priority: 0.8 },
     { path: "/services/cis-tax-returns", lastmod: today, changefreq: "weekly", priority: 0.8 },
-    { path: "/services/rental-income-tax-returns", lastmod: today, changefreq: "weekly", priority: 0.8 },
     { path: "/services/private-client-tax-returns", lastmod: today, changefreq: "weekly", priority: 0.7 },
     { path: "/services/capital-gains-tax-returns-advice", lastmod: today, changefreq: "weekly", priority: 0.7 },
     { path: "/services/high-net-worth-individuals-tax-returns", lastmod: today, changefreq: "weekly", priority: 0.7 },
@@ -115,6 +115,7 @@ export async function GET() {
   const byPath = new Map();
   for (const item of [...staticUrls, ...dynamicUrls]) {
     // PPC conversion LPs are noindex and must never enter the sitemap.
+    if (item.path === "/services/rental-income-tax-returns") continue;
     if (item.path === "/lp" || item.path.startsWith("/lp/")) continue;
     byPath.set(item.path, item);
   }

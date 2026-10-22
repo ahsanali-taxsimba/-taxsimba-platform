@@ -1,0 +1,30 @@
+{
+  "total": 120,
+  "completed": 10,
+  "remaining": 110,
+  "completedSlugs": [
+    "mtd-accountant-cost",
+    "self-assessment-accountant-cost",
+    "join-mtd-service-mid-year",
+    "switch-mtd-accountant-mid-year",
+    "mtd-quarterly-updates-tax-payments",
+    "self-assessment-2025-26-mtd-2026-27",
+    "mtd-cumulative-quarterly-updates",
+    "correct-mtd-quarterly-update",
+    "waiting-for-utr-tax-return",
+    "employed-and-self-employed-tax-return"
+  ],
+  "nextBatch": [
+    "uber-private-hire-driver-tax-return",
+    "delivery-driver-courier-tax-return",
+    "mtd-software-vs-accountant-service",
+    "authorise-mtd-accountant-safely",
+    "multiple-overdue-self-assessment-returns",
+    "appeal-self-assessment-late-penalty",
+    "sold-rental-property-60-day-tax",
+    "pay-self-assessment-through-tax-code-december",
+    "mtd-proof-quarterly-update-submitted",
+    "hmrc-signed-me-up-for-making-tax-digital"
+  ],
+  "finalReleaseReady": false
+}

@@ -1,0 +1,10 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> my-next15-app@0.1.0 verify:article-fields
+> node scripts/verify-article-fields.mjs
+
+(node:37) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/f0c452492fab/taxsimba/tax_simba_frontend/src/data/articles.next82.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/f0c452492fab/taxsimba/tax_simba_frontend/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: 82 drafts have complete bodies, SEO title/description, categories, stable slugs, reading times and iconKey illustrations

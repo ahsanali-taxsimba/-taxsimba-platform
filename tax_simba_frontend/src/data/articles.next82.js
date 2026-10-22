@@ -6,7 +6,7 @@ export const next82Articles = [
     "title": "How Much Does an MTD Accountant Cost? What to Compare Before You Buy",
     "excerpt": "An MTD price only makes sense when you know which jobs it covers. A software subscription, quarterly filing service and accountant-managed package can involve very different responsibilities.",
     "metaTitle": "How Much Does an MTD Accountant Cost? What to Compare Before You Buy",
-    "metaDescription": "An MTD price only makes sense when you know which jobs it covers. A software subscription, quarterly filing service and accountant-managed package can…",
+    "metaDescription": "An MTD price only makes sense when you know which jobs it covers.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -43,7 +43,7 @@ export const next82Articles = [
     "status": "draft",
     "editorialReference": 39,
     "researchCheckedAt": "2026-10-20",
-    "content": "<p>An MTD price only makes sense when you know which jobs it covers. A software subscription, quarterly filing service and accountant-managed package can involve very different responsibilities.</p>\n<h2>Compare the work, not just the monthly number</h2>\n<p>Ask who maintains your records, checks transactions, sends quarterly updates and prepares the annual Income Tax return. Check whether software is included and whether the advertised price covers one business, several trades or rental income. A low entry price is less useful if you still need to arrange the work you expected someone else to handle.</p>\n<h2>What TaxSimba currently lists</h2>\n<p>As checked on 20 October 2026, Simbian Comply is £29.99 monthly, Growth £59.99 and Elite £89.99. The live plans list accountant-maintained records, quarterly updates and the year-end return. Growth adds quarterly business reviews and an expenses and allowances check; Elite adds priority email support and proactive planning. Read the current package details before purchasing, because prices and scope can change.</p>\n<h2>Ask about work from earlier periods</h2>\n<p>Joining after the tax year begins can involve records or submissions that need separate attention. Tell the provider what has already been done and obtain agreement on any additional charge before work starts.</p>\n<p>Make a short comparison with four columns: ongoing fee, included tasks, your responsibilities and additional work. That is a more useful buying decision than choosing the smallest headline price.</p>\n<h2>A useful comparison example</h2>\n<p>Suppose one quote covers software access and another covers software plus maintaining records. Even if the first is cheaper, you still need to budget time or money for the bookkeeping. Write down the tasks you would otherwise have to do yourself before deciding which offers better value.</p>\n<h2>Questions to ask before paying</h2>\n<p>Does the price include the annual return for the same MTD tax year? Who deals with missing records? Are earlier periods included? How many businesses or properties are covered? When does the service start? Keep the answers with your purchase details.</p>\n<h2>Is a monthly fee the same as paying tax monthly?</h2>\n<p>No. The service fee pays for the work described in your engagement. Income Tax paid to HMRC is separate. Twelve payments of £29.99 total £359.88, but that arithmetic does not establish an annual commitment or the terms of a different annual-payment offer.</p>\n<p><strong>Next step:</strong> Compare TaxSimba’s current MTD packages and tell us about your business and any earlier submissions.</p>",
+    "content": "<p>An MTD price only makes sense when you know which jobs it covers. A software subscription, quarterly filing service and accountant-managed package can involve very different responsibilities.</p>\n<h2>Compare the work, not just the monthly number</h2>\n<p>Ask who maintains your records, checks transactions, sends quarterly updates and prepares the annual Income Tax return. Check whether software is included and whether the advertised price covers one business, several trades or rental income. A low entry price is less useful if you still need to arrange the work you expected someone else to handle.</p>\n<h2>Check TaxSimba’s current packages</h2>\n<p>Compare the current <a href=\"/mtd-information\">TaxSimba MTD packages</a> and confirm the fee, payment frequency and service scope before purchasing. Ask whether the quote covers maintaining records, quarterly updates and the annual return for the same tax year, and whether the number of trades or rental sources changes the price. Keep the agreed package details with your records.</p>\n<h2>Ask about work from earlier periods</h2>\n<p>Joining after the tax year begins can involve records or submissions that need separate attention. Tell the provider what has already been done and obtain agreement on any additional charge before work starts.</p>\n<p>Make a short comparison with four columns: ongoing fee, included tasks, your responsibilities and additional work. That is a more useful buying decision than choosing the smallest headline price.</p>\n<h2>A useful comparison example</h2>\n<p>Suppose one quote covers software access and another covers software plus maintaining records. Even if the first is cheaper, you still need to budget time or money for the bookkeeping. Write down the tasks you would otherwise have to do yourself before deciding which offers better value.</p>\n<h2>Questions to ask before paying</h2>\n<p>Does the price include the annual return for the same MTD tax year? Who deals with missing records? Are earlier periods included? How many businesses or properties are covered? When does the service start? Keep the answers with your purchase details.</p>\n<h2>Is a monthly fee the same as paying tax monthly?</h2>\n<p>No. The service fee pays for the work described in your engagement. Income Tax paid to HMRC is separate. For an illustrative fee of £29.99 a month, twelve payments total £359.88. This example is arithmetic, not a current TaxSimba quote or confirmation of an annual commitment. Check the live offer and payment terms.</p>\n<p><strong>Next step:</strong> Compare TaxSimba’s current MTD packages and tell us about your business and any earlier submissions.</p>",
     "editorialStatus": "final-copy",
     "wordCount": 394,
     "targetQuery": "MTD accountant cost",
@@ -65,7 +65,7 @@ export const next82Articles = [
     "title": "MTD Software or an Accountant-Managed Service: Which Do You Need?",
     "excerpt": "Buying MTD software gives you a tool. An accountant-managed service also provides professional work. The right choice depends on what you can confidently do yourself and what you want someone else to handle.",
     "metaTitle": "MTD Software or an Accountant-Managed Service: Which Do You Need?",
-    "metaDescription": "Buying MTD software gives you a tool. An accountant-managed service also provides professional work. The right choice depends on what you can confidently…",
+    "metaDescription": "Buying MTD software gives you a tool.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -102,7 +102,7 @@ export const next82Articles = [
     "status": "draft",
     "editorialReference": 40,
     "researchCheckedAt": "2026-10-20",
-    "content": "<p>Buying MTD software gives you a tool. An accountant-managed service also provides professional work. The right choice depends on what you can confidently do yourself and what you want someone else to handle.</p>\n<h2>Decide which tasks you want to keep</h2>\n<p>Write down how you will capture transactions, identify private spending, organise receipts and answer queries. Then decide who will prepare updates and complete the annual return. Software can support these tasks without taking responsibility for every judgement involved.</p>\n<p>HMRC allows you to use an agent with compatible software. That does not mean every advertised software plan includes bookkeeping or an accountant who prepares your return.</p>\n<h2>Compare three practical arrangements</h2>\n<p>You might keep the records and submit using software yourself. Alternatively, you could keep the records while an accountant reviews and submits agreed work. A more managed arrangement can include maintaining records as well as filing. Ask which arrangement a quoted price actually describes.</p>\n<p>Before choosing, consider the number of income sources, the quality of your existing records and how much time you can give the process. If you are moving from paper records or combining employment with rental income, explain that before accepting a quote.</p>\n<h2>How TaxSimba approaches it</h2>\n<p>TaxSimba is accountant-led. Its published MTD plans currently include maintained records and agreed filings, with clients providing information and responding to queries. It should not be compared with a software-only price as though the work were identical.</p>\n<h2>A quick decision test</h2>\n<p>If you enjoy maintaining records and can give it regular attention, a self-managed arrangement may be worth considering. If you would prefer to supply the documents and have someone maintain the books, compare managed services instead. Neither option removes your responsibility to provide complete, accurate information.</p>\n<h2>Will an accountant need information from me?</h2>\n<p>Yes. A managed service cannot identify every private payment, missing cash receipt or change in your circumstances without your input. Agree how queries will reach you and respond promptly.</p>\n<h2>Will every software product handle my situation?</h2>\n<p>Do not assume so. Check the income sources, tax year and required functions against HMRC’s software guidance and the provider’s current capabilities. Where more than one product is involved, ask who is responsible for bringing the information together. A software name on a pricing card should not be treated as a guarantee of unlimited service scope.</p>\n<p><strong>Next step:</strong> Review the package description and choose the level of help you need, rather than paying for features you will not use.</p>",
+    "content": "<p>Buying MTD software gives you a tool. An accountant-managed service also provides professional work. The right choice depends on what you can confidently do yourself and what you want someone else to handle.</p>\n<h2>Decide which tasks you want to keep</h2>\n<p>Write down how you will capture transactions, identify private spending, organise receipts and answer queries. Then decide who will prepare updates and complete the annual return. Software can support these tasks without taking responsibility for every judgement involved.</p>\n<p>HMRC allows you to use an agent with compatible software. That does not mean every advertised software plan includes bookkeeping or an accountant who prepares your return.</p>\n<h2>Compare three practical arrangements</h2>\n<p>You might keep the records and submit using software yourself. Alternatively, you could keep the records while an accountant reviews and submits agreed work. A more managed arrangement can include maintaining records as well as filing. Ask which arrangement a quoted price actually describes.</p>\n<p>Before choosing, consider the number of income sources, the quality of your existing records and how much time you can give the process. If you are moving from paper records or combining employment with rental income, explain that before accepting a quote.</p>\n<h2>How TaxSimba approaches it</h2>\n<p>TaxSimba is accountant-led. Check the current <a href=\"/mtd-information\">MTD packages</a> and agree which record-keeping, review and filing work is included. You still supply complete information and answer queries. Compare the agreed work with a software-only plan before deciding on price.</p>\n<h2>A quick decision test</h2>\n<p>If you enjoy maintaining records and can give it regular attention, a self-managed arrangement may be worth considering. If you would prefer to supply the documents and have someone maintain the books, compare managed services instead. Neither option removes your responsibility to provide complete, accurate information.</p>\n<h2>Will an accountant need information from me?</h2>\n<p>Yes. A managed service cannot identify every private payment, missing cash receipt or change in your circumstances without your input. Agree how queries will reach you and respond promptly.</p>\n<h2>Will every software product handle my situation?</h2>\n<p>Do not assume so. Check the income sources, tax year and required functions against HMRC’s software guidance and the provider’s current capabilities. Where more than one product is involved, ask who is responsible for bringing the information together. A software name on a pricing card should not be treated as a guarantee of unlimited service scope.</p>\n<p><strong>Next step:</strong> Review the package description and choose the level of help you need, rather than paying for features you will not use.</p>",
     "editorialStatus": "final-copy",
     "wordCount": 408,
     "targetQuery": "MTD software or accountant",
@@ -124,7 +124,7 @@ export const next82Articles = [
     "title": "Can I Switch MTD Accountants Halfway Through the Tax Year?",
     "excerpt": "You can explore changing your MTD accountant during the year, but a good handover matters more than the date you move. The incoming accountant needs to understand both the records and the work already submitted.",
     "metaTitle": "Can I Switch MTD Accountants Halfway Through the Tax Year? | TaxSimba",
-    "metaDescription": "You can explore changing your MTD accountant during the year, but a good handover matters more than the date you move. The incoming accountant needs to…",
+    "metaDescription": "You can explore changing your MTD accountant during the year, but a good handover matters more than the date you move.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -183,7 +183,7 @@ export const next82Articles = [
     "title": "Joining an MTD Service Mid-Year: What Happens to Earlier Quarters?",
     "excerpt": "Joining an MTD service during the tax year does not, by itself, explain what happened to earlier updates. Your new accountant needs a starting position before deciding what work remains.",
     "metaTitle": "Joining an MTD Service Mid-Year: What Happens to Earlier Quarters?",
-    "metaDescription": "Joining an MTD service during the tax year does not, by itself, explain what happened to earlier updates. Your new accountant needs a starting position…",
+    "metaDescription": "Joining an MTD service during the tax year does not, by itself, explain what happened to earlier updates.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -220,7 +220,7 @@ export const next82Articles = [
     "status": "draft",
     "editorialReference": 42,
     "researchCheckedAt": "2026-10-20",
-    "content": "<p>Joining an MTD service during the tax year does not, by itself, explain what happened to earlier updates. Your new accountant needs a starting position before deciding what work remains.</p>\n<h2>Separate three situations</h2>\n<p>Earlier updates may already have been submitted correctly. They may have been submitted but need review. Or they may still be outstanding. These situations involve different work and should not automatically receive the same quote.</p>\n<p>Prepare a list of the update periods, whether each was submitted, who handled it and where the underlying records are kept. If you are unsure, say so. A guess can create avoidable work later.</p>\n<h2>What happens at TaxSimba</h2>\n<p>During onboarding, identify the quarters already submitted for the tax year purchased. Under the agreed workflow, those periods are shown as previously submitted and locked, while the next outstanding period is available. The assigned accountant can review the position rather than treating those answers as independent proof of filing.</p>\n<p>If earlier work needs correction, the accountant requests an admin review. The client is told about the work and charge before a payment request. Only the relevant period is unlocked after the agreed payment process.</p>\n<h2>Ask about the full starting cost</h2>\n<p>Get a clear distinction between the ongoing subscription and any separately agreed catch-up or correction work. Do not assume a new monthly subscription clears every previous obligation.</p>\n<h2>Example: Q1 and Q2 already filed</h2>\n<p>If you join before Q3, earlier periods can remain visible as previously submitted while the current work begins. However, your accountant still needs the underlying year-to-date records. The locked display does not mean those records are irrelevant to the next cumulative update.</p>\n<h2>What if I selected the wrong quarter?</h2>\n<p>Tell the assigned accountant promptly. Do not try to solve the issue by buying another package or making a duplicate submission. The declaration and work allocation should be checked first.</p>\n<h2>Does a payment unlock amend HMRC’s records?</h2>\n<p>No. An unlock permits work inside the service workflow. The accountant must then choose the appropriate correction or filing action using compatible software. Ask what has actually been submitted and retain the relevant confirmation rather than treating an unlocked dashboard card as proof.</p>\n<p><strong>Next step:</strong> Have your submission history and records ready when choosing a package, and ask for any additional work to be explained before payment.</p>",
+    "content": "<p>Joining an MTD service during the tax year does not, by itself, explain what happened to earlier updates. Your new accountant needs a starting position before deciding what work remains.</p>\n<h2>Separate three situations</h2>\n<p>Earlier updates may already have been submitted correctly. They may have been submitted but need review. Or they may still be outstanding. These situations involve different work and should not automatically receive the same quote.</p>\n<p>Prepare a list of the update periods, whether each was submitted, who handled it and where the underlying records are kept. If you are unsure, say so. A guess can create avoidable work later.</p>\n<h2>What happens at TaxSimba</h2>\n<p>When arranging TaxSimba support, identify the update periods already submitted for the tax year you need help with. Share the confirmations and underlying year-to-date records. Your own description of a previous submission is useful starting information, but it is not independent proof that HMRC received it.</p>\n<p>If earlier work needs correction, ask the accountant to explain the proposed work and whether it is included or separately charged. Agree that scope before authorising additional work, and retain confirmation of what is eventually submitted.</p>\n<h2>Ask about the full starting cost</h2>\n<p>Get a clear distinction between the ongoing subscription and any separately agreed catch-up or correction work. Do not assume a new monthly subscription clears every previous obligation.</p>\n<h2>Example: Q1 and Q2 already filed</h2>\n<p>If you join before Q3 after Q1 and Q2 were filed, give the incoming accountant the earlier confirmations and the records from the tax-year start. The next cumulative update still needs the year-to-date position; earlier records do not become irrelevant because the first two updates were sent.</p>\n<h2>What if I selected the wrong quarter?</h2>\n<p>Tell the assigned accountant promptly. Do not try to solve the issue by buying another package or making a duplicate submission. The declaration and work allocation should be checked first.</p>\n<h2>Does a payment unlock amend HMRC’s records?</h2>\n<p>No. An unlock permits work inside the service workflow. The accountant must then choose the appropriate correction or filing action using compatible software. Ask what has actually been submitted and retain the relevant confirmation rather than treating an unlocked dashboard card as proof.</p>\n<p><strong>Next step:</strong> Have your submission history and records ready when choosing a package, and ask for any additional work to be explained before payment.</p>",
     "editorialStatus": "final-copy",
     "wordCount": 382,
     "targetQuery": "join MTD service mid year catch up",
@@ -242,7 +242,7 @@ export const next82Articles = [
     "title": "Are MTD Quarterly Updates Cumulative? A Simple Worked Example",
     "excerpt": "Yes. MTD quarterly updates report the tax year so far, rather than treating each submission as a separate three-month total. This distinction matters when you check what has been sent.",
     "metaTitle": "Are MTD Quarterly Updates Cumulative? A Simple Worked Example",
-    "metaDescription": "Yes. MTD quarterly updates report the tax year so far, rather than treating each submission as a separate three-month total. This distinction matters…",
+    "metaDescription": "Yes. MTD quarterly updates report the tax year so far, rather than treating each submission as a separate three-month total.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -297,7 +297,7 @@ export const next82Articles = [
     "title": "Found a Mistake After an MTD Update? How to Prepare for a Correction",
     "excerpt": "Finding an omitted receipt or wrongly categorised transaction after an MTD update does not mean you should start deleting submissions. First identify what needs correcting in the underlying records.",
     "metaTitle": "Found a Mistake After an MTD Update? How to Prepare for a Correction",
-    "metaDescription": "Finding an omitted receipt or wrongly categorised transaction after an MTD update does not mean you should start deleting submissions. First identify…",
+    "metaDescription": "Finding an omitted receipt or wrongly categorised transaction after an MTD update does not mean you should start deleting submissions.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -356,7 +356,7 @@ export const next82Articles = [
     "title": "No Income This Quarter: Do I Still Need an MTD Update?",
     "excerpt": "A quiet period does not automatically remove an MTD reporting obligation. HMRC says an update is still required where an income source has no income and no expenses during an update period.",
     "metaTitle": "No Income This Quarter: Do I Still Need an MTD Update? | TaxSimba",
-    "metaDescription": "A quiet period does not automatically remove an MTD reporting obligation. HMRC says an update is still required where an income source has no income and…",
+    "metaDescription": "A quiet period does not automatically remove an MTD reporting obligation.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -415,7 +415,7 @@ export const next82Articles = [
     "title": "Two Self-Employed Businesses: How Does MTD Reporting Work?",
     "excerpt": "Running two self-employed activities can mean more than keeping one combined bank total. Before arranging MTD support, tell your accountant about every trade and how the records are organised.",
     "metaTitle": "Two Self-Employed Businesses: How Does MTD Reporting Work? | TaxSimba",
-    "metaDescription": "Running two self-employed activities can mean more than keeping one combined bank total. Before arranging MTD support, tell your accountant about every…",
+    "metaDescription": "Running two self-employed activities can mean more than keeping one combined bank total.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -474,7 +474,7 @@ export const next82Articles = [
     "title": "Employed and a Landlord: Does Your Salary Count Towards MTD?",
     "excerpt": "A salary can affect your overall tax position without being part of the qualifying income used for MTD eligibility. Do not decide whether you need MTD by adding every amount that arrives in your bank account.",
     "metaTitle": "Employed and a Landlord: Does Your Salary Count Towards MTD?",
-    "metaDescription": "A salary can affect your overall tax position without being part of the qualifying income used for MTD eligibility. Do not decide whether you need MTD by…",
+    "metaDescription": "A salary can affect your overall tax position without being part of the qualifying income used for MTD eligibility.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -534,7 +534,7 @@ export const next82Articles = [
     "title": "MTD for Jointly Owned Rental Property: What Each Owner Should Check",
     "excerpt": "If you own a rental property with someone else, do not assume one person’s MTD arrangement automatically deals with both owners. Each person’s tax position and relevant share need checking.",
     "metaTitle": "MTD for Jointly Owned Rental Property: What Each Owner Should Check",
-    "metaDescription": "If you own a rental property with someone else, do not assume one person’s MTD arrangement automatically deals with both owners. Each person’s tax…",
+    "metaDescription": "If you own a rental property with someone else, do not assume one person’s MTD arrangement automatically deals with both owners.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -593,7 +593,7 @@ export const next82Articles = [
     "title": "CIS Subcontractors and MTD: Gross Income Is Not Your Bank Receipt",
     "excerpt": "CIS deductions and MTD reporting answer different questions. A deduction is an advance payment towards tax; it should not simply disappear because your bank receives a smaller amount.",
     "metaTitle": "CIS Subcontractors and MTD: Gross Income Is Not Your Bank Receipt",
-    "metaDescription": "CIS deductions and MTD reporting answer different questions. A deduction is an advance payment towards tax; it should not simply disappear because your…",
+    "metaDescription": "CIS deductions and MTD reporting answer different questions.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -657,7 +657,7 @@ export const next82Articles = [
     "title": "Bank Feeds and MTD: Why Connected Does Not Mean Complete",
     "excerpt": "Connecting a bank account can help collect information, but it is not proof that your books are complete. Your accountant still needs to understand the transactions and identify anything outside the connection.",
     "metaTitle": "Bank Feeds and MTD: Why Connected Does Not Mean Complete | TaxSimba",
-    "metaDescription": "Connecting a bank account can help collect information, but it is not proof that your books are complete. Your accountant still needs to understand the…",
+    "metaDescription": "Connecting a bank account can help collect information, but it is not proof that your books are complete.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -716,7 +716,7 @@ export const next82Articles = [
     "title": "Does MTD Mean Paying Income Tax Every Quarter?",
     "excerpt": "Quarterly MTD updates are not automatically quarterly tax bills. Reporting your business information and paying your Income Tax are separate parts of the process.",
     "metaTitle": "Does MTD Mean Paying Income Tax Every Quarter? | TaxSimba",
-    "metaDescription": "Quarterly MTD updates are not automatically quarterly tax bills. Reporting your business information and paying your Income Tax are separate parts of the…",
+    "metaDescription": "Quarterly MTD updates are not automatically quarterly tax bills.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -775,7 +775,7 @@ export const next82Articles = [
     "title": "My Income Has Fallen: Can I Stop Using MTD?",
     "excerpt": "A quieter trading year does not automatically switch off MTD. Once you are in the service, the rules for leaving need checking separately from the original eligibility test.",
     "metaTitle": "My Income Has Fallen: Can I Stop Using MTD? | TaxSimba",
-    "metaDescription": "A quieter trading year does not automatically switch off MTD. Once you are in the service, the rules for leaving need checking separately from the…",
+    "metaDescription": "A quieter trading year does not automatically switch off MTD.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -835,7 +835,7 @@ export const next82Articles = [
     "title": "Self Assessment for 2025/26 and MTD for 2026/27: Why Both May Be Due",
     "excerpt": "Starting MTD does not remove a return due for an earlier tax year. In autumn 2026, some people are managing 2026/27 MTD work while still preparing their 2025/26 Self Assessment.",
     "metaTitle": "Self Assessment for 2025/26 and MTD for 2026/27: Why Both May Be Due",
-    "metaDescription": "Starting MTD does not remove a return due for an earlier tax year. In autumn 2026, some people are managing 2026/27 MTD work while still preparing their…",
+    "metaDescription": "Starting MTD does not remove a return due for an earlier tax year.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -898,7 +898,7 @@ export const next82Articles = [
     "title": "Authorising Your MTD Accountant Without Sharing Your Password",
     "excerpt": "Your accountant needs the appropriate authority to act for you, not a casual message containing your Government Gateway password. The authorisation should match the tax service and work being undertaken.",
     "metaTitle": "Authorising Your MTD Accountant Without Sharing Your Password",
-    "metaDescription": "Your accountant needs the appropriate authority to act for you, not a casual message containing your Government Gateway password. The authorisation…",
+    "metaDescription": "Your accountant needs the appropriate authority to act for you, not a casual message containing your Government Gateway password.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -935,7 +935,7 @@ export const next82Articles = [
     "status": "draft",
     "editorialReference": 54,
     "researchCheckedAt": "2026-10-20",
-    "content": "<p>Your accountant needs the appropriate authority to act for you, not a casual message containing your Government Gateway password. The authorisation should match the tax service and work being undertaken.</p>\n<h2>Understand what you are approving</h2>\n<p>HMRC provides different authorisation routes for different services. For MTD, agent permissions can cover activities such as records, updates and the annual return. Ask the accountant which role and access they need, particularly if another firm remains involved.</p>\n<p>Read the authorisation request and check the firm’s identity. If something does not match the arrangement you agreed, confirm it through a known contact method before continuing.</p>\n<h2>Keep your sign-in details private</h2>\n<p>Complete your own part of the official process. Do not send passwords or one-time security codes by email or chat as a substitute for agent authorisation. If you cannot use the proposed route, ask what approved alternative applies.</p>\n<h2>Approval and responsibility remain important</h2>\n<p>Authorisation does not mean you should stop checking the information supplied for your return. HMRC says you remain responsible for your tax and must confirm the information is correct before an agent submits the return.</p>\n<p>If you change accountant, review permissions as well as the commercial handover.</p>\n<h2>Signing an engagement is a separate step</h2>\n<p>Your client care letter records the agreed service. HMRC authorisation gives the relevant agent permission to act through the appropriate process. Completing one should not be treated as evidence that the other has automatically happened.</p>\n<h2>What should I check on a request?</h2>\n<p>Confirm the accountant or firm, the service concerned and whether the request fits your engagement. Use a known contact channel if the sender or wording is unexpected. Never approve a request merely because a message says a deadline is close.</p>\n<h2>Can I remove access later?</h2>\n<p>HMRC provides processes for changing or removing agent authorisation. If an arrangement ends, discuss access and outstanding work as part of the handover. Removing permissions does not itself complete a return, cancel a tax liability or settle the commercial contract.</p>\n<p><strong>Next step:</strong> Follow the authorisation instructions from your assigned TaxSimba accountant and use HMRC’s guidance if you need to check the request.</p>",
+    "content": "<p>Your accountant needs the appropriate authority to act for you, not a casual message containing your Government Gateway password. The authorisation should match the tax service and work being undertaken.</p>\n<h2>Understand what you are approving</h2>\n<p>HMRC provides different authorisation routes for different services. For MTD for Income Tax, a main agent can finalise your overall tax position and submit the annual return. A supporting agent can help with records and quarterly updates but cannot submit that return. Ask which role is needed, particularly if another firm remains involved.</p>\n<p>Read the authorisation request and check the firm’s identity. If something does not match the arrangement you agreed, confirm it through a known contact method before continuing.</p>\n<h2>Keep your sign-in details private</h2>\n<p>Complete your own part of the official process. Do not send passwords or one-time security codes by email or chat as a substitute for agent authorisation. If you cannot use the proposed route, ask what approved alternative applies.</p>\n<h2>Approval and responsibility remain important</h2>\n<p>Authorisation does not mean you should stop checking the information supplied for your return. HMRC says you remain responsible for your tax and must confirm the information is correct before an agent submits the return.</p>\n<p>If you change accountant, review permissions as well as the commercial handover.</p>\n<h2>Signing an engagement is a separate step</h2>\n<p>Your client care letter records the agreed service. HMRC authorisation gives the relevant agent permission to act through the appropriate process. Completing one should not be treated as evidence that the other has automatically happened.</p>\n<h2>What should I check on a request?</h2>\n<p>Confirm the accountant or firm, the service concerned and whether the request fits your engagement. Use a known contact channel if the sender or wording is unexpected. Never approve a request merely because a message says a deadline is close.</p>\n<h2>Can I remove access later?</h2>\n<p>HMRC provides processes for changing or removing agent authorisation. If an arrangement ends, discuss access and outstanding work as part of the handover. Removing permissions does not itself complete a return, cancel a tax liability or settle the commercial contract.</p>\n<p><strong>Next step:</strong> Follow the authorisation instructions from your assigned TaxSimba accountant and use HMRC’s guidance if you need to check the request.</p>",
     "editorialStatus": "final-copy",
     "wordCount": 351,
     "targetQuery": "authorise accountant MTD HMRC",
@@ -957,7 +957,7 @@ export const next82Articles = [
     "title": "How Much Does a Self Assessment Accountant Cost? Compare the Full Service",
     "excerpt": "The right Self Assessment fee depends on the work you need, not simply the number of pages in a return. Before choosing an accountant, ask what the price covers and what could be additional.",
     "metaTitle": "How Much Does a Self Assessment Accountant Cost? Compare the Full",
-    "metaDescription": "The right Self Assessment fee depends on the work you need, not simply the number of pages in a return. Before choosing an accountant, ask what the price…",
+    "metaDescription": "The right Self Assessment fee depends on the work you need, not simply the number of pages in a return.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -994,7 +994,7 @@ export const next82Articles = [
     "status": "draft",
     "editorialReference": 55,
     "researchCheckedAt": "2026-10-20",
-    "content": "<p>The right Self Assessment fee depends on the work you need, not simply the number of pages in a return. Before choosing an accountant, ask what the price covers and what could be additional.</p>\n<h2>Compare preparation, review and submission</h2>\n<p>Check whether the accountant prepares the return, reviews your information and submits it after your approval. Ask how questions are handled and whether expenses, allowances or multiple income sources require a different package.</p>\n<p>A fee for filing an individual return is not automatically a fee for business bookkeeping, a company return or a separate Capital Gains Tax report. Describe the work before paying.</p>\n<h2>TaxSimba’s current prices</h2>\n<p>The live plan data checked on 20 October 2026 lists Simple at £119, Smart at £149 and Elite at £299 per tax year. Simple is described for straightforward income; Smart adds a multiple-income review and an expenses and allowances check. Elite lists a fuller review and planning conversation. Prices and package descriptions can change, so use the current pricing page for your decision.</p>\n<h2>Ask about complexity early</h2>\n<p>Tell the accountant about rental income, overseas matters, cryptoassets, disposals and previous errors. A lower advertised fee should not be taken as confirmation that every specialist calculation is included.</p>\n<p>Compare the total agreed cost and your own time commitment. An accountant who explains missing information before starting can be more useful than a headline discount with unclear scope.</p>\n<h2>A useful comparison checklist</h2>\n<p>Ask each provider to confirm the tax year, income sources covered, preparation and submission work, communication method and treatment of additional calculations. Comparing these answers is more useful than comparing the largest advertised discount.</p>\n<h2>Is the accountant’s fee deductible?</h2>\n<p>The business-related element of professional costs may need separate consideration from personal tax work. Do not assume every fee for an individual’s return is automatically a business expense. Give the invoice and work description to the accountant for review.</p>\n<h2>Does a low price guarantee a refund?</h2>\n<p>No. A refund depends on the actual tax position, including income, allowable costs, reliefs and tax already paid. The value of the service is correct preparation and agreed support, not a promise to manufacture a repayment.</p>\n<p><strong>Next step:</strong> Review TaxSimba’s current SA packages and describe your income sources so the appropriate service can be confirmed.</p>",
+    "content": "<p>The right Self Assessment fee depends on the work you need, not simply the number of pages in a return. Before choosing an accountant, ask what the price covers and what could be additional.</p>\n<h2>Compare preparation, review and submission</h2>\n<p>Check whether the accountant prepares the return, reviews your information and submits it after your approval. Ask how questions are handled and whether expenses, allowances or multiple income sources require a different package.</p>\n<p>A fee for filing an individual return is not automatically a fee for business bookkeeping, a company return or a separate Capital Gains Tax report. Describe the work before paying.</p>\n<h2>Check TaxSimba’s current prices</h2>\n<p>Use <a href=\"/pricing\">TaxSimba’s current Self Assessment pricing</a> to compare the fee and work included. Confirm which tax year and income sources the selected package covers, what review and submission work is included and whether any additional calculation needs a separate quote. Keep the agreed scope and price with your purchase details.</p>\n<h2>Ask about complexity early</h2>\n<p>Tell the accountant about rental income, overseas matters, cryptoassets, disposals and previous errors. A lower advertised fee should not be taken as confirmation that every specialist calculation is included.</p>\n<p>Compare the total agreed cost and your own time commitment. An accountant who explains missing information before starting can be more useful than a headline discount with unclear scope.</p>\n<h2>A useful comparison checklist</h2>\n<p>Ask each provider to confirm the tax year, income sources covered, preparation and submission work, communication method and treatment of additional calculations. Comparing these answers is more useful than comparing the largest advertised discount.</p>\n<h2>Is the accountant’s fee deductible?</h2>\n<p>HMRC distinguishes business accountancy costs from the cost of preparing and submitting a personal Self Assessment return, which it lists as a cost you cannot claim. If one invoice covers different jobs, give the work description to your accountant so any allowable business element can be assessed separately.</p>\n<h2>Does a low price guarantee a refund?</h2>\n<p>No. A refund depends on the actual tax position, including income, allowable costs, reliefs and tax already paid. The value of the service is correct preparation and agreed support, not a promise to manufacture a repayment.</p>\n<p><strong>Next step:</strong> Review TaxSimba’s current SA packages and describe your income sources so the appropriate service can be confirmed.</p>",
     "editorialStatus": "final-copy",
     "wordCount": 374,
     "targetQuery": "self assessment accountant cost",
@@ -1016,7 +1016,7 @@ export const next82Articles = [
     "title": "Employed and Self-Employed: What Your Accountant Needs for One Tax Return",
     "excerpt": "A job and a self-employed activity can belong in the same individual tax return. The accountant needs both sets of information to assess the complete position rather than treating the side business in isolation.",
     "metaTitle": "Employed and Self-Employed: What Your Accountant Needs for One Tax",
-    "metaDescription": "A job and a self-employed activity can belong in the same individual tax return. The accountant needs both sets of information to assess the complete…",
+    "metaDescription": "A job and a self-employed activity can belong in the same individual tax return.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -1075,7 +1075,7 @@ export const next82Articles = [
     "title": "Uber and Private-Hire Driver Tax Returns: A Record-Keeping Checklist",
     "excerpt": "For a self-employed private-hire driver, the amount paid into the bank may not tell the full story. Platform deductions and different payment methods can make a tax return harder to prepare from bank statements alone.",
     "metaTitle": "Uber and Private-Hire Driver Tax Returns: A Record-Keeping Checklist",
-    "metaDescription": "For a self-employed private-hire driver, the amount paid into the bank may not tell the full story. Platform deductions and different payment methods can…",
+    "metaDescription": "For a self-employed private-hire driver, the amount paid into the bank may not tell the full story.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -1138,7 +1138,7 @@ export const next82Articles = [
     "title": "Deliveroo, Uber Eats and Courier Tax Returns: Getting Your Records Ready",
     "excerpt": "Working across delivery apps can leave your tax information scattered between weekly statements, cash records and bank deposits. Organising it by platform is a useful first step towards a complete return.",
     "metaTitle": "Deliveroo, Uber Eats and Courier Tax Returns: Getting Your Records",
-    "metaDescription": "Working across delivery apps can leave your tax information scattered between weekly statements, cash records and bank deposits. Organising it by…",
+    "metaDescription": "Working across delivery apps can leave your tax information scattered between weekly statements, cash records and bank deposits.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -1201,7 +1201,7 @@ export const next82Articles = [
     "title": "Self-Employed Hairdressers and Beauty Professionals: Tax Return Preparation",
     "excerpt": "Salon work can involve employment, self-employment or a mixture of arrangements. Before preparing a tax return, make sure the accountant understands how you actually work.",
     "metaTitle": "Self-Employed Hairdressers and Beauty Professionals: Tax Return",
-    "metaDescription": "Salon work can involve employment, self-employment or a mixture of arrangements. Before preparing a tax return, make sure the accountant understands how…",
+    "metaDescription": "Salon work can involve employment, self-employment or a mixture of arrangements.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -1264,7 +1264,7 @@ export const next82Articles = [
     "title": "Company Directors: Your Personal Tax Return Is Different from Company Filing",
     "excerpt": "A company’s accounts and Corporation Tax return are separate from a director’s personal tax position. Completing one does not automatically complete the other.",
     "metaTitle": "Company Directors: Your Personal Tax Return Is Different from",
-    "metaDescription": "A company’s accounts and Corporation Tax return are separate from a director’s personal tax position. Completing one does not automatically complete the…",
+    "metaDescription": "A company’s accounts and Corporation Tax return are separate from a director’s personal tax position.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -1323,7 +1323,7 @@ export const next82Articles = [
     "title": "Vinted and eBay: Does Selling Your Own Clothes Mean You Owe Tax?",
     "excerpt": "Selling unwanted clothes is not automatically the same as running a resale business. The activity behind the sales matters more than a social-media headline about a fixed number of listings.",
     "metaTitle": "Vinted and eBay: Does Selling Your Own Clothes Mean You Owe Tax?",
-    "metaDescription": "Selling unwanted clothes is not automatically the same as running a resale business. The activity behind the sales matters more than a social-media…",
+    "metaDescription": "Selling unwanted clothes is not automatically the same as running a resale business.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -1383,7 +1383,7 @@ export const next82Articles = [
     "title": "Etsy Seller Tax Returns: Why Your Bank Payout Is Not the Whole Record",
     "excerpt": "An Etsy payout can combine sales, fees, refunds and adjustments. Preparing a tax return from the final bank deposit alone can make it difficult to understand what the shop earned and spent.",
     "metaTitle": "Etsy Seller Tax Returns: Why Your Bank Payout Is Not the Whole Record",
-    "metaDescription": "An Etsy payout can combine sales, fees, refunds and adjustments. Preparing a tax return from the final bank deposit alone can make it difficult to…",
+    "metaDescription": "An Etsy payout can combine sales, fees, refunds and adjustments.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -1446,7 +1446,7 @@ export const next82Articles = [
     "title": "Airbnb and Holiday-Let Tax Returns After the Furnished Holiday Lettings Changes",
     "excerpt": "If you previously treated a property as a furnished holiday letting, do not reuse an old tax calculation without review. The special furnished holiday lettings regime ended for Income Tax from 6 April 2025.",
     "metaTitle": "Airbnb and Holiday-Let Tax Returns After the Furnished Holiday",
-    "metaDescription": "If you previously treated a property as a furnished holiday letting, do not reuse an old tax calculation without review. The special furnished holiday…",
+    "metaDescription": "If you previously treated a property as a furnished holiday letting, do not reuse an old tax calculation without review.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -1509,7 +1509,7 @@ export const next82Articles = [
     "title": "Joint Rental Property on a Tax Return: Do Both Owners Report the Same Amount?",
     "excerpt": "Joint owners should not assume they can choose any rental-income split or that one owner’s return settles the other’s position. The ownership and relationship between the owners need to be understood first.",
     "metaTitle": "Joint Rental Property on a Tax Return: Do Both Owners Report the",
-    "metaDescription": "Joint owners should not assume they can choose any rental-income split or that one owner’s return settles the other’s position. The ownership and…",
+    "metaDescription": "Joint owners should not assume they can choose any rental-income split or that one owner’s return settles the other’s position.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -1568,7 +1568,7 @@ export const next82Articles = [
     "title": "Landlord Repairs or Improvements: What to Send Your Accountant",
     "excerpt": "A property invoice is not automatically an expense you can deduct from rental income. Repairs and capital improvements can have different tax treatment, and the description on the invoice may not tell the whole story.",
     "metaTitle": "Landlord Repairs or Improvements: What to Send Your Accountant",
-    "metaDescription": "A property invoice is not automatically an expense you can deduct from rental income. Repairs and capital improvements can have different tax treatment,…",
+    "metaDescription": "A property invoice is not automatically an expense you can deduct from rental income.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -1623,7 +1623,7 @@ export const next82Articles = [
     "title": "Savings Interest: When Do You Need to Tell HMRC or File a Return?",
     "excerpt": "Tax on savings interest does not always mean you need to purchase a Self Assessment service. Start by checking how HMRC expects your particular income to be reported.",
     "metaTitle": "Savings Interest: When Do You Need to Tell HMRC or File a Return?",
-    "metaDescription": "Tax on savings interest does not always mean you need to purchase a Self Assessment service. Start by checking how HMRC expects your particular income to…",
+    "metaDescription": "Tax on savings interest does not always mean you need to purchase a Self Assessment service.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -1682,7 +1682,7 @@ export const next82Articles = [
     "title": "Working from Home When Self-Employed: Preparing an Expense Claim",
     "excerpt": "Working from home can involve allowable business costs, but the whole household bill does not become deductible. The useful starting point is a clear explanation of how the home is used for work.",
     "metaTitle": "Working from Home When Self-Employed: Preparing an Expense Claim",
-    "metaDescription": "Working from home can involve allowable business costs, but the whole household bill does not become deductible. The useful starting point is a clear…",
+    "metaDescription": "Working from home can involve allowable business costs, but the whole household bill does not become deductible.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -1741,7 +1741,7 @@ export const next82Articles = [
     "title": "Mileage or Actual Vehicle Costs: Which Records Does Your Accountant Need?",
     "excerpt": "Mileage and actual-cost methods are not two allowances to add together. Before preparing a vehicle claim, your accountant needs to know which method is available and what has been claimed before.",
     "metaTitle": "Mileage or Actual Vehicle Costs: Which Records Does Your Accountant",
-    "metaDescription": "Mileage and actual-cost methods are not two allowances to add together. Before preparing a vehicle claim, your accountant needs to know which method is…",
+    "metaDescription": "Mileage and actual-cost methods are not two allowances to add together.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -1800,7 +1800,7 @@ export const next82Articles = [
     "title": "SA302 and Tax-Year Overview: Evidence for a Mortgage Application",
     "excerpt": "A mortgage lender may ask for a tax calculation and tax-year overview as evidence of self-employed income. These are related documents, but they are not the same thing as a bank statement or a promise that a loan will be approved.",
     "metaTitle": "SA302 and Tax-Year Overview: Evidence for a Mortgage Application",
-    "metaDescription": "A mortgage lender may ask for a tax calculation and tax-year overview as evidence of self-employed income. These are related documents, but they are not…",
+    "metaDescription": "A mortgage lender may ask for a tax calculation and tax-year overview as evidence of self-employed income.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -1859,7 +1859,7 @@ export const next82Articles = [
     "title": "High Salary Alone: Do You Actually Need Self Assessment?",
     "excerpt": "A high salary is not a reliable stand-alone rule for deciding whether you need Self Assessment. Filing rules have changed, and the relevant tax year and other circumstances matter.",
     "metaTitle": "High Salary Alone: Do You Actually Need Self Assessment? | TaxSimba",
-    "metaDescription": "A high salary is not a reliable stand-alone rule for deciding whether you need Self Assessment. Filing rules have changed, and the relevant tax year and…",
+    "metaDescription": "A high salary is not a reliable stand-alone rule for deciding whether you need Self Assessment.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -1918,7 +1918,7 @@ export const next82Articles = [
     "title": "Lost Receipts Before Your Tax Return? What to Do Next",
     "excerpt": "Missing receipts do not justify inventing expenses or ignoring the tax return. Start rebuilding the evidence and tell your accountant what is missing as early as possible.",
     "metaTitle": "Lost Receipts Before Your Tax Return? What to Do Next | TaxSimba",
-    "metaDescription": "Missing receipts do not justify inventing expenses or ignoring the tax return. Start rebuilding the evidence and tell your accountant what is missing as…",
+    "metaDescription": "Missing receipts do not justify inventing expenses or ignoring the tax return.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -1973,7 +1973,7 @@ export const next82Articles = [
     "title": "Waiting for a UTR Before January? Steps to Take While You Wait",
     "excerpt": "Waiting for a Unique Taxpayer Reference is a reason to act early, not a reason to leave every other part of the return until later. Registration and preparing your tax information can involve separate tasks.",
     "metaTitle": "Waiting for a UTR Before January? Steps to Take While You Wait",
-    "metaDescription": "Waiting for a Unique Taxpayer Reference is a reason to act early, not a reason to leave every other part of the return until later. Registration and…",
+    "metaDescription": "Waiting for a Unique Taxpayer Reference is a reason to act early, not a reason to leave every other part of the return until later.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -2032,7 +2032,7 @@ export const next82Articles = [
     "title": "Child Benefit and Self Assessment: Check Whether PAYE Is an Option",
     "excerpt": "A High Income Child Benefit Charge does not always mean you need Self Assessment solely for that charge. HMRC now provides a PAYE route where the qualifying conditions are met.",
     "metaTitle": "Child Benefit and Self Assessment: Check Whether PAYE Is an Option",
-    "metaDescription": "A High Income Child Benefit Charge does not always mean you need Self Assessment solely for that charge. HMRC now provides a PAYE route where the…",
+    "metaDescription": "A High Income Child Benefit Charge does not always mean you need Self Assessment solely for that charge.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -2095,7 +2095,7 @@ export const next82Articles = [
     "title": "Pension Contributions and Adjusted Net Income: What to Tell Your Accountant",
     "excerpt": "Pension contributions can affect a tax calculation, but the accountant needs to know how the contributions were made. A total described simply as “my pension payments” may not be enough.",
     "metaTitle": "Pension Contributions and Adjusted Net Income: What to Tell Your",
-    "metaDescription": "Pension contributions can affect a tax calculation, but the accountant needs to know how the contributions were made. A total described simply as “my…",
+    "metaDescription": "Pension contributions can affect a tax calculation, but the accountant needs to know how the contributions were made.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -2154,7 +2154,7 @@ export const next82Articles = [
     "title": "Crypto Swaps and Tax: Why Not Cashing Out Does Not Settle the Question",
     "excerpt": "Keeping money inside a crypto exchange does not automatically mean there is no tax event. Exchanging one token for another can require a Capital Gains Tax calculation even when no pounds reach your bank.",
     "metaTitle": "Crypto Swaps and Tax: Why Not Cashing Out Does Not Settle the Question",
-    "metaDescription": "Keeping money inside a crypto exchange does not automatically mean there is no tax event. Exchanging one token for another can require a Capital Gains…",
+    "metaDescription": "Keeping money inside a crypto exchange does not automatically mean there is no tax event.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -2213,7 +2213,7 @@ export const next82Articles = [
     "title": "Sold a Rental Property? Check the 60-Day Capital Gains Tax Deadline",
     "excerpt": "Selling a rental property can create a reporting obligation before the ordinary annual tax-return deadline. Waiting until January to tell the accountant may be too late for a separate property report.",
     "metaTitle": "Sold a Rental Property? Check the 60-Day Capital Gains Tax Deadline",
-    "metaDescription": "Selling a rental property can create a reporting obligation before the ordinary annual tax-return deadline. Waiting until January to tell the accountant…",
+    "metaDescription": "Selling a rental property can create a reporting obligation before the ordinary annual tax-return deadline.",
     "category": "Self Assessment",
     "audience": "individual-taxpayers",
     "tags": [
@@ -2272,7 +2272,7 @@ export const next82Articles = [
     "title": "MTD Standard or Calendar Update Periods: Which Should You Use?",
     "excerpt": "MTD update dates should match the reporting basis selected for your business. Standard and calendar update periods have the same submission deadlines, but cover different dates. Check the setting before your first update is sent.",
     "metaTitle": "MTD Standard or Calendar Update Periods: Which Should | TaxSimba",
-    "metaDescription": "MTD update dates should match the reporting basis selected for your business. Standard and calendar update periods have the same submission deadlines,…",
+    "metaDescription": "MTD update dates should match the reporting basis selected for your business.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -2324,7 +2324,7 @@ export const next82Articles = [
     "title": "MTD Records Below £90,000: When Simpler Categorisation Applies",
     "excerpt": "Some businesses can categorise MTD records in less detail. This can reduce the number of categories used, but it does not remove the need for digital records, accurate figures or quarterly updates.",
     "metaTitle": "MTD Records Below £90,000: When Simpler Categorisation | TaxSimba",
-    "metaDescription": "Some businesses can categorise MTD records in less detail. This can reduce the number of categories used, but it does not remove the need for digital…",
+    "metaDescription": "Some businesses can categorise MTD records in less detail.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -2377,7 +2377,7 @@ export const next82Articles = [
     "title": "Self-Employed and a Landlord: How Your MTD Updates Fit Together",
     "excerpt": "If you run a sole trader business and receive rental income, the income may be combined when checking whether MTD applies. That does not mean all the bookkeeping belongs in one business update.",
     "metaTitle": "Self-Employed and a Landlord: How Your MTD Updates Fit | TaxSimba",
-    "metaDescription": "If you run a sole trader business and receive rental income, the income may be combined when checking whether MTD applies. That does not mean all the…",
+    "metaDescription": "If you run a sole trader business and receive rental income, the income may be combined when checking whether MTD applies.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -2434,7 +2434,7 @@ export const next82Articles = [
     "title": "Main or Supporting MTD Accountant: Who Files Your Annual Return?",
     "excerpt": "MTD allows a main agent and supporting agents to help with different tasks. The distinction matters if one person keeps your books and another prepares your annual tax return. Agree who does what before authorising a new accountant.",
     "metaTitle": "Main or Supporting MTD Accountant: Who Files Your Annual | TaxSimba",
-    "metaDescription": "MTD allows a main agent and supporting agents to help with different tasks. The distinction matters if one person keeps your books and another…",
+    "metaDescription": "MTD allows a main agent and supporting agents to help with different tasks.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -2490,7 +2490,7 @@ export const next82Articles = [
     "title": "Has My MTD Update Been Submitted? How to Check the Evidence",
     "excerpt": "An uploaded document or completed bookkeeping task is not proof that HMRC has received your MTD update. Check the submission result, the business concerned and the reporting period before treating the job as complete.",
     "metaTitle": "Has My MTD Update Been Submitted? How to Check the Evidence | TaxSimba",
-    "metaDescription": "An uploaded document or completed bookkeeping task is not proof that HMRC has received your MTD update. Check the submission result, the business…",
+    "metaDescription": "An uploaded document or completed bookkeeping task is not proof that HMRC has received your MTD update.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -2542,7 +2542,7 @@ export const next82Articles = [
     "title": "Why Your MTD Tax Estimate May Differ From Your Final Bill",
     "excerpt": "The tax estimate displayed after an MTD update is a working estimate, not your final annual tax bill. Its usefulness depends on the records submitted and the other information HMRC has about you.",
     "metaTitle": "Why Your MTD Tax Estimate May Differ From Your Final Bill | TaxSimba",
-    "metaDescription": "The tax estimate displayed after an MTD update is a working estimate, not your final annual tax bill. Its usefulness depends on the records submitted…",
+    "metaDescription": "The tax estimate displayed after an MTD update is a working estimate, not your final annual tax bill.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -2594,7 +2594,7 @@ export const next82Articles = [
     "title": "Does Partnership Income Put You Into MTD for Income Tax?",
     "excerpt": "An individual partner's share of partnership profit is not the same as income from a separate sole trader business. Do not assume that a large partnership allocation automatically brings that income into the current MTD quarterly reporting rules.",
     "metaTitle": "Does Partnership Income Put You Into MTD for Income Tax? | TaxSimba",
-    "metaDescription": "An individual partner's share of partnership profit is not the same as income from a separate sole trader business. Do not assume that a large…",
+    "metaDescription": "An individual partner's share of partnership profit is not the same as income from a separate sole trader business.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -2650,7 +2650,7 @@ export const next82Articles = [
     "title": "MTD and Limited Company Directors: Which Income Counts?",
     "excerpt": "Being a limited company director does not automatically mean your company's turnover belongs in your personal MTD for Income Tax calculation. The company and you are separate taxpayers, with different reporting responsibilities.",
     "metaTitle": "MTD and Limited Company Directors: Which Income Counts? | TaxSimba",
-    "metaDescription": "Being a limited company director does not automatically mean your company's turnover belongs in your personal MTD for Income Tax calculation. The…",
+    "metaDescription": "Being a limited company director does not automatically mean your company's turnover belongs in your personal MTD for Income Tax calculation.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -2707,7 +2707,7 @@ export const next82Articles = [
     "title": "Starting a New Business or Rental Income While Already in MTD",
     "excerpt": "Starting another activity while you already use MTD does not always mean that its quarterly reporting starts immediately. First establish whether it is a genuinely new income source or an addition to an existing business.",
     "metaTitle": "Starting a New Business or Rental Income While Already | TaxSimba",
-    "metaDescription": "Starting another activity while you already use MTD does not always mean that its quarterly reporting starts immediately. First establish whether it…",
+    "metaDescription": "Starting another activity while you already use MTD does not always mean that its quarterly reporting starts immediately.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -2759,7 +2759,7 @@ export const next82Articles = [
     "title": "Letting Agent Statements and MTD: Record Gross Rent, Not Just the Payout",
     "excerpt": "The payment a letting agent sends to your bank may already have fees and property costs deducted. Recording only that payment can understate both rental income and expenses, making the bookkeeping difficult to reconcile.",
     "metaTitle": "Letting Agent Statements and MTD: Record Gross Rent, Not | TaxSimba",
-    "metaDescription": "The payment a letting agent sends to your bank may already have fees and property costs deducted. Recording only that payment can understate both…",
+    "metaDescription": "The payment a letting agent sends to your bank may already have fees and property costs deducted.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -2815,7 +2815,7 @@ export const next82Articles = [
     "title": "Should You Join MTD Voluntarily Before Your Compulsory Start Date?",
     "excerpt": "You may be able to join MTD voluntarily before it becomes compulsory for you. Starting early can give you time to establish a recording routine, but it also brings work forward. Check the full reporting commitment before signing up.",
     "metaTitle": "Should You Join MTD Voluntarily Before Your Compulsory | TaxSimba",
-    "metaDescription": "You may be able to join MTD voluntarily before it becomes compulsory for you. Starting early can give you time to establish a recording routine, but…",
+    "metaDescription": "You may be able to join MTD voluntarily before it becomes compulsory for you.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -2871,7 +2871,7 @@ export const next82Articles = [
     "title": "MTD From April 2028: What the £20,000 Threshold Means",
     "excerpt": "The MTD qualifying-income threshold is scheduled to fall again for April 2028. If your relevant income is above £20,000, that later start date may affect your planning. It does not mean everyone earning £20,000 must use MTD today.",
     "metaTitle": "MTD From April 2028: What the £20,000 Threshold Means | TaxSimba",
-    "metaDescription": "The MTD qualifying-income threshold is scheduled to fall again for April 2028. If your relevant income is above £20,000, that later start date may…",
+    "metaDescription": "The MTD qualifying-income threshold is scheduled to fall again for April 2028.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -2924,7 +2924,7 @@ export const next82Articles = [
     "title": "Is a Receipt Photo Enough for MTD? What Your Records Need",
     "excerpt": "A photograph of a receipt can support an expense, but it is not automatically the complete digital transaction record required for MTD. The image and the accounting entry do different jobs.",
     "metaTitle": "Is a Receipt Photo Enough for MTD? What Your Records Need | TaxSimba",
-    "metaDescription": "A photograph of a receipt can support an expense, but it is not automatically the complete digital transaction record required for MTD. The image and…",
+    "metaDescription": "A photograph of a receipt can support an expense, but it is not automatically the complete digital transaction record required for MTD.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -2980,7 +2980,7 @@ export const next82Articles = [
     "title": "MTD Software or HMRC Unavailable Near a Deadline: What to Do",
     "excerpt": "If MTD software stops working near a deadline, establish what failed and preserve the evidence. A failed login, missing authorisation and an HMRC service outage require different responses. None should be assumed from a general error message.",
     "metaTitle": "MTD Software or HMRC Unavailable Near a Deadline: What | TaxSimba",
-    "metaDescription": "If MTD software stops working near a deadline, establish what failed and preserve the evidence. A failed login, missing authorisation and an HMRC…",
+    "metaDescription": "If MTD software stops working near a deadline, establish what failed and preserve the evidence.",
     "category": "Making Tax Digital",
     "audience": "sole-traders-landlords",
     "tags": [
@@ -3040,7 +3040,7 @@ export const next82Articles = [
     "title": "Dividend Tax: Keep Your 2025/26 Return Separate From 2026/27 Rates",
     "excerpt": "Dividend tax rates changed from 6 April 2026. If you are preparing a 2025/26 return now, do not use the newer rates simply because they appear in a current tax calculator.",
     "metaTitle": "Dividend Tax: Keep Your 2025/26 Return Separate From | TaxSimba",
-    "metaDescription": "Dividend tax rates changed from 6 April 2026. If you are preparing a 2025/26 return now, do not use the newer rates simply because they appear in a…",
+    "metaDescription": "Dividend tax rates changed from 6 April 2026.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -3100,7 +3100,7 @@ export const next82Articles = [
     "title": "Student and Postgraduate Loans on Self Assessment: Avoid Double Counting",
     "excerpt": "Self Assessment can include student and postgraduate loan repayments as well as Income Tax. If repayments have already been deducted from your salary, the return must take those deductions into account correctly.",
     "metaTitle": "Student and Postgraduate Loans on Self Assessment: Avoid | TaxSimba",
-    "metaDescription": "Self Assessment can include student and postgraduate loan repayments as well as Income Tax. If repayments have already been deducted from your salary,…",
+    "metaDescription": "Self Assessment can include student and postgraduate loan repayments as well as Income Tax.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -3156,7 +3156,7 @@ export const next82Articles = [
     "title": "Self-Employed National Insurance for Your 2025/26 Tax Return",
     "excerpt": "Your Self Assessment bill may include National Insurance as well as Income Tax. For a 2025/26 sole trader return, use that year's thresholds rather than copying the figures currently displayed for 2026/27.",
     "metaTitle": "Self-Employed National Insurance for Your 2025/26 Tax | TaxSimba",
-    "metaDescription": "Your Self Assessment bill may include National Insurance as well as Income Tax. For a 2025/26 sole trader return, use that year's thresholds rather…",
+    "metaDescription": "Your Self Assessment bill may include National Insurance as well as Income Tax.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -3216,7 +3216,7 @@ export const next82Articles = [
     "title": "Cash Basis or Traditional Accounting: Which Figures Go on Your Return?",
     "excerpt": "Your accounting method affects when income and expenses appear in your tax calculation. Cash basis and traditional accounting can produce different figures even when they relate to the same business activity.",
     "metaTitle": "Cash Basis or Traditional Accounting: Which Figures Go | TaxSimba",
-    "metaDescription": "Your accounting method affects when income and expenses appear in your tax calculation. Cash basis and traditional accounting can produce different…",
+    "metaDescription": "Your accounting method affects when income and expenses appear in your tax calculation.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -3276,7 +3276,7 @@ export const next82Articles = [
     "title": "Made a Self-Employed Loss? What to Check Before Claiming Relief",
     "excerpt": "A business loss does not automatically produce a tax refund. First establish the tax-adjusted loss, then check which reliefs are available and whether a claim would actually benefit you.",
     "metaTitle": "Made a Self-Employed Loss? What to Check Before Claiming | TaxSimba",
-    "metaDescription": "A business loss does not automatically produce a tax refund. First establish the tax-adjusted loss, then check which reliefs are available and whether…",
+    "metaDescription": "A business loss does not automatically produce a tax refund.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -3328,7 +3328,7 @@ export const next82Articles = [
     "title": "Stopped Being Self-Employed? Your Final Return Still Matters",
     "excerpt": "Stopping work as a sole trader does not automatically close your Self Assessment obligations. You need to tell HMRC, complete the relevant final return and deal with records or amounts remaining after the business stops.",
     "metaTitle": "Stopped Being Self-Employed? Your Final Return Still | TaxSimba",
-    "metaDescription": "Stopping work as a sole trader does not automatically close your Self Assessment obligations. You need to tell HMRC, complete the relevant final…",
+    "metaDescription": "Stopping work as a sole trader does not automatically close your Self Assessment obligations.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -3384,7 +3384,7 @@ export const next82Articles = [
     "title": "Several Years of Unfiled Tax Returns: How to Put Them in Order",
     "excerpt": "If several returns are missing, start by identifying each affected tax year and what HMRC has asked you to file. A clear year-by-year record is more useful than submitting the latest return and hoping the earlier years disappear.",
     "metaTitle": "Several Years of Unfiled Tax Returns: How to Put Them in | TaxSimba",
-    "metaDescription": "If several returns are missing, start by identifying each affected tax year and what HMRC has asked you to file. A clear year-by-year record is more…",
+    "metaDescription": "If several returns are missing, start by identifying each affected tax year and what HMRC has asked you to file.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -3445,7 +3445,7 @@ export const next82Articles = [
     "title": "Content Creator Tax: Sponsorships, Platform Income and Gifted Products",
     "excerpt": "Content creation can produce taxable income even when a brand pays with products or services instead of cash. Keep records of the commercial arrangement, not just payments arriving in your bank account.",
     "metaTitle": "Content Creator Tax: Sponsorships, Platform Income and | TaxSimba",
-    "metaDescription": "Content creation can produce taxable income even when a brand pays with products or services instead of cash. Keep records of the commercial…",
+    "metaDescription": "Content creation can produce taxable income even when a brand pays with products or services instead of cash.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -3501,7 +3501,7 @@ export const next82Articles = [
     "title": "Private Tutor Tax Returns: Fees, Platforms and Term-Time Records",
     "excerpt": "Tutoring income can come from direct lessons, agencies and online platforms. Before preparing a return, establish whether each arrangement is employment or self-employment and keep the evidence supporting that treatment.",
     "metaTitle": "Private Tutor Tax Returns: Fees, Platforms and Term-Time | TaxSimba",
-    "metaDescription": "Tutoring income can come from direct lessons, agencies and online platforms. Before preparing a return, establish whether each arrangement is…",
+    "metaDescription": "Tutoring income can come from direct lessons, agencies and online platforms.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -3561,7 +3561,7 @@ export const next82Articles = [
     "title": "Personal Trainer Tax: Gym Fees, Client Packages and Online Coaching",
     "excerpt": "A personal trainer can be employed by a gym, self-employed, or have a mixture of arrangements. Your tax records should reflect the actual contracts and income sources rather than assuming every fitness payment is treated alike.",
     "metaTitle": "Personal Trainer Tax: Gym Fees, Client Packages and | TaxSimba",
-    "metaDescription": "A personal trainer can be employed by a gym, self-employed, or have a mixture of arrangements. Your tax records should reflect the actual contracts…",
+    "metaDescription": "A personal trainer can be employed by a gym, self-employed, or have a mixture of arrangements.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -3621,7 +3621,7 @@ export const next82Articles = [
     "title": "Self-Employed Cleaner Tax Returns: Cash Payments and Business Records",
     "excerpt": "Cash paid by customers is still business income. A self-employed cleaner needs records of cash and bank payments, along with evidence of genuine business costs, to prepare an accurate tax return.",
     "metaTitle": "Self-Employed Cleaner Tax Returns: Cash Payments and | TaxSimba",
-    "metaDescription": "Cash paid by customers is still business income. A self-employed cleaner needs records of cash and bank payments, along with evidence of genuine…",
+    "metaDescription": "Cash paid by customers is still business income.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -3681,7 +3681,7 @@ export const next82Articles = [
     "title": "Rent a Room Relief: When Lodger Income Needs a Tax Return",
     "excerpt": "Rent a Room relief can apply to furnished accommodation in your only or main home. It is different from the rules for an ordinary buy-to-let property, and the gross receipts matter when checking the threshold.",
     "metaTitle": "Rent a Room Relief: When Lodger Income Needs a Tax Return | TaxSimba",
-    "metaDescription": "Rent a Room relief can apply to furnished accommodation in your only or main home. It is different from the rules for an ordinary buy-to-let property,…",
+    "metaDescription": "Rent a Room relief can apply to furnished accommodation in your only or main home.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -3741,7 +3741,7 @@ export const next82Articles = [
     "title": "Landlord Furniture and Appliances: Replacement of Domestic Items Relief",
     "excerpt": "Replacing a tenant's worn-out appliance may qualify for a different tax treatment from buying furniture for a property for the first time. Check the replacement rules before claiming every furnishing purchase as a rental expense.",
     "metaTitle": "Landlord Furniture and Appliances: Replacement of | TaxSimba",
-    "metaDescription": "Replacing a tenant's worn-out appliance may qualify for a different tax treatment from buying furniture for a property for the first time. Check the…",
+    "metaDescription": "Replacing a tenant's worn-out appliance may qualify for a different tax treatment from buying furniture for a property for the first time.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -3797,7 +3797,7 @@ export const next82Articles = [
     "title": "Can Landlords Claim Expenses While a Rental Property Is Empty?",
     "excerpt": "A gap between tenants does not automatically end a rental business. Some costs during a genuine void period may remain allowable, but the purpose of the spending and what happens to the property matter.",
     "metaTitle": "Can Landlords Claim Expenses While a Rental Property Is | TaxSimba",
-    "metaDescription": "A gap between tenants does not automatically end a rental business. Some costs during a genuine void period may remain allowable, but the purpose of…",
+    "metaDescription": "A gap between tenants does not automatically end a rental business.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -3853,7 +3853,7 @@ export const next82Articles = [
     "title": "Living Abroad With UK Rental Income: Withholding and Your Tax Return",
     "excerpt": "Living outside the UK does not automatically make UK rental income tax-free. The Non-resident Landlords Scheme can affect how rent is paid, while the annual tax return establishes the wider liability.",
     "metaTitle": "Living Abroad With UK Rental Income: Withholding and | TaxSimba",
-    "metaDescription": "Living outside the UK does not automatically make UK rental income tax-free. The Non-resident Landlords Scheme can affect how rent is paid, while the…",
+    "metaDescription": "Living outside the UK does not automatically make UK rental income tax-free.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -3909,7 +3909,7 @@ export const next82Articles = [
     "title": "Foreign Income on a 2025/26 Tax Return: What Changed From April 2025?",
     "excerpt": "Foreign income can need reporting in the UK even when it stays in an overseas bank account. Rules changed from 6 April 2025, so advice based only on the old remittance basis may be unsuitable for your 2025/26 return.",
     "metaTitle": "Foreign Income on a 2025/26 Tax Return: What Changed | TaxSimba",
-    "metaDescription": "Foreign income can need reporting in the UK even when it stays in an overseas bank account. Rules changed from 6 April 2025, so advice based only on…",
+    "metaDescription": "Foreign income can need reporting in the UK even when it stays in an overseas bank account.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -3965,7 +3965,7 @@ export const next82Articles = [
     "title": "Sold Shares Outside an ISA? The Records Needed for Capital Gains Tax",
     "excerpt": "Selling investments outside an ISA can create a capital gain or loss. The taxable gain is not necessarily the amount withdrawn from the investment account or the profit shown by an app.",
     "metaTitle": "Sold Shares Outside an ISA? The Records Needed for | TaxSimba",
-    "metaDescription": "Selling investments outside an ISA can create a capital gain or loss. The taxable gain is not necessarily the amount withdrawn from the investment…",
+    "metaDescription": "Selling investments outside an ISA can create a capital gain or loss.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -4025,7 +4025,7 @@ export const next82Articles = [
     "title": "Crypto Reporting From 2026: What Providers Tell HMRC and What You Still Do",
     "excerpt": "New crypto reporting arrangements mean providers can collect and report information about users and transactions. That reporting does not replace your responsibility to work out whether you have taxable income or gains.",
     "metaTitle": "Crypto Reporting From 2026: What Providers Tell HMRC and | TaxSimba",
-    "metaDescription": "New crypto reporting arrangements mean providers can collect and report information about users and transactions. That reporting does not replace your…",
+    "metaDescription": "New crypto reporting arrangements mean providers can collect and report information about users and transactions.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -4085,7 +4085,7 @@ export const next82Articles = [
     "title": "Winter Fuel Payment and Your 2025/26 Self Assessment Return",
     "excerpt": "If you received a Winter Fuel Payment and your income exceeds the relevant threshold, HMRC may recover the payment through a tax charge. People already completing Self Assessment should check the treatment on the correct year's return.",
     "metaTitle": "Winter Fuel Payment and Your 2025/26 Self Assessment Return | TaxSimba",
-    "metaDescription": "If you received a Winter Fuel Payment and your income exceeds the relevant threshold, HMRC may recover the payment through a tax charge. People…",
+    "metaDescription": "If you received a Winter Fuel Payment and your income exceeds the relevant threshold, HMRC may recover the payment through a tax charge.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -4145,7 +4145,7 @@ export const next82Articles = [
     "title": "Pay Self Assessment Through Your Tax Code: The 30 December Deadline",
     "excerpt": "Some people can have a Self Assessment bill collected through their PAYE tax code. If that is the route you want for your 2025/26 return, the online filing deadline for consideration is 30 December 2026, earlier than the usual January deadline.",
     "metaTitle": "Pay Self Assessment Through Your Tax Code: The 30 | TaxSimba",
-    "metaDescription": "Some people can have a Self Assessment bill collected through their PAYE tax code. If that is the route you want for your 2025/26 return, the online…",
+    "metaDescription": "Some people can have a Self Assessment bill collected through their PAYE tax code.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -4197,7 +4197,7 @@ export const next82Articles = [
     "title": "Self Assessment Refund Pending: What to Check Before Chasing HMRC",
     "excerpt": "A credit in your Self Assessment account does not always mean a repayment has already been issued. Check whether a refund was requested, whether HMRC is checking it and whether any amount has been used against another liability.",
     "metaTitle": "Self Assessment Refund Pending: What to Check Before | TaxSimba",
-    "metaDescription": "A credit in your Self Assessment account does not always mean a repayment has already been issued. Check whether a refund was requested, whether HMRC…",
+    "metaDescription": "A credit in your Self Assessment account does not always mean a repayment has already been issued.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -4253,7 +4253,7 @@ export const next82Articles = [
     "title": "Appealing a Self Assessment Penalty: Evidence, Deadlines and Next Steps",
     "excerpt": "You may be able to challenge a Self Assessment penalty, but an appeal needs the right grounds and supporting facts. Start with the penalty notice and keep the filing or payment obligation separate from the appeal itself.",
     "metaTitle": "Appealing a Self Assessment Penalty: Evidence, Deadlines | TaxSimba",
-    "metaDescription": "You may be able to challenge a Self Assessment penalty, but an appeal needs the right grounds and supporting facts. Start with the penalty notice and…",
+    "metaDescription": "You may be able to challenge a Self Assessment penalty, but an appeal needs the right grounds and supporting facts.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -4313,7 +4313,7 @@ export const next82Articles = [
     "title": "Gift Aid on Self Assessment: Claim the Right Relief Without Double Counting",
     "excerpt": "Gift Aid can affect your personal tax calculation as well as the amount a charity receives. Keep an accurate record of eligible donations and distinguish them from Payroll Giving, business sponsorship and ordinary purchases.",
     "metaTitle": "Gift Aid on Self Assessment: Claim the Right Relief | TaxSimba",
-    "metaDescription": "Gift Aid can affect your personal tax calculation as well as the amount a charity receives. Keep an accurate record of eligible donations and…",
+    "metaDescription": "Gift Aid can affect your personal tax calculation as well as the amount a charity receives.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -4369,7 +4369,7 @@ export const next82Articles = [
     "title": "State Pension on Self Assessment: Why Bank Payments May Not Be the Right Figure",
     "excerpt": "State Pension is generally taxable, although it is normally paid without tax deducted. If you complete Self Assessment, use the correct tax-year figure rather than assuming the total deposited in your bank is always the amount to report.",
     "metaTitle": "State Pension on Self Assessment: Why Bank Payments May | TaxSimba",
-    "metaDescription": "State Pension is generally taxable, although it is normally paid without tax deducted. If you complete Self Assessment, use the correct tax-year…",
+    "metaDescription": "State Pension is generally taxable, although it is normally paid without tax deducted.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -4429,7 +4429,7 @@ export const next82Articles = [
     "title": "No Longer Need Self Assessment? Ask HMRC Before You Stop Filing",
     "excerpt": "You should not keep paying for unnecessary returns, but you should not ignore an HMRC notice to file either. If your circumstances have changed, check the requirement for the particular year and ask HMRC to confirm any withdrawal.",
     "metaTitle": "No Longer Need Self Assessment? Ask HMRC Before You Stop | TaxSimba",
-    "metaDescription": "You should not keep paying for unnecessary returns, but you should not ignore an HMRC notice to file either. If your circumstances have changed, check…",
+    "metaDescription": "You should not keep paying for unnecessary returns, but you should not ignore an HMRC notice to file either.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -4485,7 +4485,7 @@ export const next82Articles = [
     "title": "P800 or Simple Assessment PA302: Do You Also Need a Tax Return?",
     "excerpt": "A P800 tax calculation or PA302 Simple Assessment is not the same as a Self Assessment return. Check what HMRC has sent, the tax year concerned and whether you already file before deciding what to do next.",
     "metaTitle": "P800 or Simple Assessment PA302: Do You Also Need a Tax | TaxSimba",
-    "metaDescription": "A P800 tax calculation or PA302 Simple Assessment is not the same as a Self Assessment return. Check what HMRC has sent, the tax year concerned and…",
+    "metaDescription": "A P800 tax calculation or PA302 Simple Assessment is not the same as a Self Assessment return.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -4545,7 +4545,7 @@ export const next82Articles = [
     "title": "Business Loans on Self Assessment: Interest, Borrowing and Repayments",
     "excerpt": "A business loan affects cash flow differently from taxable profit. The money borrowed, the repayment of that borrowing and the interest charged should not all be entered as ordinary sales or expenses.",
     "metaTitle": "Business Loans on Self Assessment: Interest, Borrowing | TaxSimba",
-    "metaDescription": "A business loan affects cash flow differently from taxable profit. The money borrowed, the repayment of that borrowing and the interest charged should…",
+    "metaDescription": "A business loan affects cash flow differently from taxable profit.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -4601,7 +4601,7 @@ export const next82Articles = [
     "title": "Basis Period Transition Profits: What Still Goes on a 2025/26 Return?",
     "excerpt": "Some sole traders and partners still have transition profits to include in their 2025/26 tax calculation following basis period reform. These are separate from the ordinary profit calculation for the current tax year.",
     "metaTitle": "Basis Period Transition Profits: What Still Goes on a | TaxSimba",
-    "metaDescription": "Some sole traders and partners still have transition profits to include in their 2025/26 tax calculation following basis period reform. These are…",
+    "metaDescription": "Some sole traders and partners still have transition profits to include in their 2025/26 tax calculation following basis period reform.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -4657,7 +4657,7 @@ export const next82Articles = [
     "title": "Can You Claim Business Costs Paid Before You Started Trading?",
     "excerpt": "Some business costs paid before a trade begins can qualify for tax relief. The fact that a payment predates your first customer does not automatically exclude it, but the normal business-expense conditions still matter.",
     "metaTitle": "Can You Claim Business Costs Paid Before You Started | TaxSimba",
-    "metaDescription": "Some business costs paid before a trade begins can qualify for tax relief. The fact that a payment predates your first customer does not automatically…",
+    "metaDescription": "Some business costs paid before a trade begins can qualify for tax relief.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [
@@ -4713,7 +4713,7 @@ export const next82Articles = [
     "title": "Tools, Laptops and Equipment: Expenses or Capital Allowances?",
     "excerpt": "Business equipment can qualify for tax relief, but the route depends on the item, your accounting method and how it is used. Buying through a business bank account does not automatically make the full cost deductible.",
     "metaTitle": "Tools, Laptops and Equipment: Expenses or Capital | TaxSimba",
-    "metaDescription": "Business equipment can qualify for tax relief, but the route depends on the item, your accounting method and how it is used. Buying through a business…",
+    "metaDescription": "Business equipment can qualify for tax relief, but the route depends on the item, your accounting method and how it is used.",
     "category": "Self Assessment",
     "audience": "individuals",
     "tags": [

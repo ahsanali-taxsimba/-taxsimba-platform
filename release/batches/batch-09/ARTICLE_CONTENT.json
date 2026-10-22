@@ -1,0 +1,1199 @@
+[
+  {
+    "id": "seo-next44-mtd-standard-vs-calendar-update-periods",
+    "slug": "mtd-standard-vs-calendar-update-periods",
+    "title": "MTD Standard or Calendar Update Periods: Which Should You Use?",
+    "excerpt": "MTD update dates should match the reporting basis selected for your business. Standard and calendar update periods have the same submission deadlines, but cover different dates. Check the setting before your first update is sent.",
+    "metaTitle": "MTD Standard vs Calendar Periods: Check Before Filing | TaxSimba",
+    "metaDescription": "Compare MTD standard and calendar update periods, cumulative dates and shared deadlines, and check the software setting before the first submission.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/mtd-standard-vs-calendar-update-periods-1440.webp",
+    "featuredImageAlt": "A trader compares two calendars with different month boundaries while an accountant checks software period settings.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "mtd-cumulative-quarterly-updates"
+    ],
+    "relatedPages": [
+      {
+        "href": "/mtd-information",
+        "label": "Explore MTD accountant support"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Send quarterly updates - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 77,
+    "researchCheckedAt": "2026-10-20",
+    "editorialStatus": "completed-editorial-draft",
+    "content": "<p>MTD update dates should match the reporting basis selected for your business. Standard and calendar update periods have the same submission deadlines, but cover different dates. Check the setting before your first update is sent.</p>\n<h2>The two reporting options</h2>\n<p>Standard periods follow the tax year. For 2026/27, the cumulative second update covers 6 April to 5 October 2026 and is due by 7 November 2026. Calendar periods suit an accounting period from 1 April to 31 March. The corresponding second update covers 1 April to 30 September 2026 and has the same deadline.</p>\n<p>The later updates also build on the year so far. A third standard update covers 6 April 2026 to 5 January 2027; it is not just the transactions since October. The calendar equivalent runs from 1 April to 31 December 2026.</p>\n<h2>Can you switch after filing?</h2>\n<p>HMRC says to select calendar periods in compatible software before sending the first quarterly update. Once an update has been sent, you cannot change the periods for the rest of that tax year. If a previous accountant has already filed, check the existing setting before creating replacement records.</p>\n<h2>What to give your accountant</h2>\n<p>Provide your accounting year-end, the reporting basis already selected and copies of any earlier submission confirmations. A bank statement ending at month-end does not, by itself, establish which HMRC reporting periods you use.</p>\n<p>For example, a landlord keeping monthly records may prefer calendar periods. That preference still needs to be reflected correctly in the software; it should not be assumed from how the landlord names folders.</p>\n<h2>Keep the dashboard and submission dates consistent</h2>\n<p>Your service dashboard may display separate work stages for each quarter. Those stages should not be confused with the cumulative totals sent to HMRC. Ask your accountant to confirm both the period being reviewed and the year-to-date coverage of the submission.</p>\n<p>Before changing providers, tell TaxSimba whether any update has already been submitted. This helps the accountant continue the existing reporting basis without accidentally omitting or duplicating days.</p>\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>Same deadline, different date window</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>For the second 2026/27 update, a standard-period business checks cumulative records from 6 April to 5 October 2026. A calendar-period business checks 1 April to 30 September. Both have a 7 November send-by date. A new accountant asks for the period setting and earlier acknowledgements before importing records, so a month-end statement is not mistaken for proof of the chosen basis. Once an update has been sent, the year&#39;s period choice cannot simply be switched.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Which period option is actually selected?</th><td>Check the software and earlier submissions rather than inferring it from file names.</td></tr><tr><th scope=\"row\">Do records cover the cumulative window?</th><td>Reconcile from the relevant start of year through the update end date.</td></tr><tr><th scope=\"row\">Has the first update already been sent?</th><td>Confirm the existing setting before making a provider or software change.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Are calendar periods just different submission deadlines?</h3><p>No. They change the date coverage. The published submission deadlines are the same for the corresponding update.</p><h3>Can a new accountant choose a different basis mid-year?</h3><p>Not simply after an update has been sent. Supply the current setting and submission history so the year continues consistently.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Record the accounting year-end and chosen periods.</li><li>Save the current software setting.</li><li>List earlier update acknowledgements.</li><li>Check each cumulative start and end date.</li><li>Share the period choice during any handover.</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/mtd-standard-vs-calendar-update-periods-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "wordCount": 334,
+    "iconKey": "digital-tax",
+    "contentType": "Answer guide",
+    "readingMinutes": 4,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "Compare MTD standard and calendar update periods, cumulative dates and shared deadlines, and check the software setting before the first submission.",
+    "query": "mtd standard vs calendar periods  check before filing",
+    "answer": "MTD update dates should match the reporting basis selected for your business. Standard and calendar update periods have the same submission deadlines, but cover different dates. Check the setting before your first update is sent.",
+    "alt": "A trader compares two calendars with different month boundaries while an accountant checks software period settings.",
+    "details": [
+      "Check the software and earlier submissions rather than inferring it from file names.",
+      "Reconcile from the relevant start of year through the update end date.",
+      "Confirm the existing setting before making a provider or software change."
+    ],
+    "checklist": [
+      "Which period option is actually selected?",
+      "Do records cover the cumulative window?",
+      "Has the first update already been sent?"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:47:27.539Z",
+    "depth": {
+      "exampleTitle": "Same deadline, different date window",
+      "example": [
+        "For the second 2026/27 update, a standard-period business checks cumulative records from 6 April to 5 October 2026. A calendar-period business checks 1 April to 30 September. Both have a 7 November send-by date. A new accountant asks for the period setting and earlier acknowledgements before importing records, so a month-end statement is not mistaken for proof of the chosen basis. Once an update has been sent, the year's period choice cannot simply be switched."
+      ],
+      "decisionRows": [
+        [
+          "Which period option is actually selected?",
+          "Check the software and earlier submissions rather than inferring it from file names."
+        ],
+        [
+          "Do records cover the cumulative window?",
+          "Reconcile from the relevant start of year through the update end date."
+        ],
+        [
+          "Has the first update already been sent?",
+          "Confirm the existing setting before making a provider or software change."
+        ]
+      ],
+      "questions": [
+        [
+          "Are calendar periods just different submission deadlines?",
+          "No. They change the date coverage. The published submission deadlines are the same for the corresponding update."
+        ],
+        [
+          "Can a new accountant choose a different basis mid-year?",
+          "Not simply after an update has been sent. Supply the current setting and submission history so the year continues consistently."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Record the accounting year-end and chosen periods.",
+        "Save the current software setting.",
+        "List earlier update acknowledgements.",
+        "Check each cumulative start and end date.",
+        "Share the period choice during any handover."
+      ],
+      "downloadHref": "/downloads/guides/mtd-standard-vs-calendar-update-periods-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/mtd-standard-vs-calendar-update-periods-checklist.txt",
+    "premiumReady": true,
+    "artwork": {
+      "slug": "mtd-standard-vs-calendar-update-periods",
+      "src": "/images/articles/mtd-standard-vs-calendar-update-periods-960.webp",
+      "srcSet": "/images/articles/mtd-standard-vs-calendar-update-periods-480.webp 480w, /images/articles/mtd-standard-vs-calendar-update-periods-960.webp 960w, /images/articles/mtd-standard-vs-calendar-update-periods-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": null,
+    "releaseRank": 81
+  },
+  {
+    "id": "seo-next44-mtd-simpler-categorisation-under-90000",
+    "slug": "mtd-simpler-categorisation-under-90000",
+    "title": "MTD Records Below £90,000: When Simpler Categorisation Applies",
+    "excerpt": "Some businesses can categorise MTD records in less detail. This can reduce the number of categories used, but it does not remove the need for digital records, accurate figures or quarterly updates.",
+    "metaTitle": "MTD Simpler Categorisation: The £90,000 Test | TaxSimba",
+    "metaDescription": "Check eligibility for simpler MTD categories, keep supporting records and identify restricted property finance costs and any turnover-triggered change.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/mtd-simpler-categorisation-under-90000-1440.webp",
+    "featuredImageAlt": "A smaller business owner compares detailed expense categories with a simpler income-and-expense summary ledger.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "mtd-digital-records",
+      "mtd-income-tax-vs-mtd-vat"
+    ],
+    "relatedPages": [
+      {
+        "href": "/mtd-information",
+        "label": "Explore MTD accountant support"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 78,
+    "researchCheckedAt": "2026-10-20",
+    "editorialStatus": "completed-editorial-draft",
+    "content": "<p>Some businesses can categorise MTD records in less detail. This can reduce the number of categories used, but it does not remove the need for digital records, accurate figures or quarterly updates.</p>\n<h2>What the £90,000 figure means</h2>\n<p>HMRC permits simpler categorisation where turnover from a self-employment source, or total UK property turnover, is less than £90,000. The guidance applies the test to the relevant income source. Foreign property has its own treatment, so do not apply the UK turnover test automatically to overseas rent.</p>\n<p>For an eligible sole trader, a transaction may be recorded as income or an expense without selecting a detailed expense category. A UK residential landlord must still identify restricted finance costs separately. Mortgage interest should therefore not disappear into a single general expenses total.</p>\n<h2>Simpler categories still need supporting records</h2>\n<p>Keep invoices, receipts, statements and explanations of business use. A simpler category is not permission to claim personal spending or to report only the money left in the bank. Your accountant still needs to establish the correct taxable result at year-end.</p>\n<p>For example, a £70,000-turnover sole trader might qualify for less detailed categorisation. That does not establish whether the person must register for VAT, because VAT uses its own taxable-turnover rules and tests.</p>\n<h2>What if turnover reaches £90,000?</h2>\n<p>HMRC requires full categorisation for that income source, including records from the beginning of the current tax year and in the following tax year. Leaving the change until the next update can create extra bookkeeping work. If turnover is likely to reach the limit, detailed categories from the start may be more practical.</p>\n<h2>Agree a method before records are imported</h2>\n<p>Tell your accountant about every trade and property business, expected turnover and existing categories. Where you have several sources, check eligibility source by source against HMRC&#x27;s current conditions.</p>\n<p>TaxSimba&#x27;s accountant can maintain the agreed records from the information you provide. Ask which recording approach fits your business rather than assuming that being below a threshold removes the underlying work.</p>\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>Simpler categories do not simplify away the evidence</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>A trader with £72,000 turnover checks whether the relevant source qualifies for simpler categorisation. She still retains invoices and reconciles sales and costs. If turnover reaches the applicable limit, she checks the requirement to use full categories, including the records from the year&#39;s beginning. A landlord separately identifies restricted residential finance costs rather than burying mortgage interest in a general expense figure. Eligibility and records are reviewed for the actual income sources.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Which source and turnover test apply?</th><td>Check each relevant trade or property business under current HMRC conditions.</td></tr><tr><th scope=\"row\">Are restricted finance costs separate?</th><td>Keep residential property finance costs identifiable even where simpler categories are available.</td></tr><tr><th scope=\"row\">Is turnover approaching the limit?</th><td>Plan for full categorisation and any required review from the year&#39;s start.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Does simpler categorisation mean fewer records?</h3><p>No. The level of category detail may change, but complete income, costs and supporting evidence are still needed.</p><h3>Is this the same as a VAT-registration test?</h3><p>No. VAT has its own taxable-turnover rules. Do not use a simpler-record category decision to decide VAT registration.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>List each income source and expected turnover.</li><li>Check current simpler-category eligibility.</li><li>Identify restricted property finance costs.</li><li>Keep invoices and reconciliation evidence.</li><li>Set a turnover review trigger before the limit is reached.</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/mtd-simpler-categorisation-under-90000-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "wordCount": 339,
+    "iconKey": "document-check",
+    "contentType": "Checklist",
+    "readingMinutes": 4,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "Check eligibility for simpler MTD categories, keep supporting records and identify restricted property finance costs and any turnover-triggered change.",
+    "query": "mtd simpler categorisation  the  90 000 test",
+    "answer": "Some businesses can categorise MTD records in less detail. This can reduce the number of categories used, but it does not remove the need for digital records, accurate figures or quarterly updates.",
+    "alt": "A smaller business owner compares detailed expense categories with a simpler income-and-expense summary ledger.",
+    "details": [
+      "Check each relevant trade or property business under current HMRC conditions.",
+      "Keep residential property finance costs identifiable even where simpler categories are available.",
+      "Plan for full categorisation and any required review from the year's start."
+    ],
+    "checklist": [
+      "Which source and turnover test apply?",
+      "Are restricted finance costs separate?",
+      "Is turnover approaching the limit?"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:47:27.539Z",
+    "depth": {
+      "exampleTitle": "Simpler categories do not simplify away the evidence",
+      "example": [
+        "A trader with £72,000 turnover checks whether the relevant source qualifies for simpler categorisation. She still retains invoices and reconciles sales and costs. If turnover reaches the applicable limit, she checks the requirement to use full categories, including the records from the year's beginning. A landlord separately identifies restricted residential finance costs rather than burying mortgage interest in a general expense figure. Eligibility and records are reviewed for the actual income sources."
+      ],
+      "decisionRows": [
+        [
+          "Which source and turnover test apply?",
+          "Check each relevant trade or property business under current HMRC conditions."
+        ],
+        [
+          "Are restricted finance costs separate?",
+          "Keep residential property finance costs identifiable even where simpler categories are available."
+        ],
+        [
+          "Is turnover approaching the limit?",
+          "Plan for full categorisation and any required review from the year's start."
+        ]
+      ],
+      "questions": [
+        [
+          "Does simpler categorisation mean fewer records?",
+          "No. The level of category detail may change, but complete income, costs and supporting evidence are still needed."
+        ],
+        [
+          "Is this the same as a VAT-registration test?",
+          "No. VAT has its own taxable-turnover rules. Do not use a simpler-record category decision to decide VAT registration."
+        ]
+      ],
+      "worksheetPrompts": [
+        "List each income source and expected turnover.",
+        "Check current simpler-category eligibility.",
+        "Identify restricted property finance costs.",
+        "Keep invoices and reconciliation evidence.",
+        "Set a turnover review trigger before the limit is reached."
+      ],
+      "downloadHref": "/downloads/guides/mtd-simpler-categorisation-under-90000-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/mtd-simpler-categorisation-under-90000-checklist.txt",
+    "premiumReady": true,
+    "artwork": {
+      "slug": "mtd-simpler-categorisation-under-90000",
+      "src": "/images/articles/mtd-simpler-categorisation-under-90000-960.webp",
+      "srcSet": "/images/articles/mtd-simpler-categorisation-under-90000-480.webp 480w, /images/articles/mtd-simpler-categorisation-under-90000-960.webp 960w, /images/articles/mtd-simpler-categorisation-under-90000-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": null,
+    "releaseRank": 82
+  },
+  {
+    "id": "seo-next44-mtd-sole-trader-and-landlord-separate-updates",
+    "slug": "mtd-sole-trader-and-landlord-separate-updates",
+    "title": "Self-Employed and a Landlord: How Your MTD Updates Fit Together",
+    "excerpt": "If you run a sole trader business and receive rental income, the income may be combined when checking whether MTD applies. That does not mean all the bookkeeping belongs in one business update.",
+    "metaTitle": "Sole Trader and Landlord: Separate MTD Updates | TaxSimba",
+    "metaDescription": "Trade and rental income can combine for MTD eligibility while needing separate business records and updates. Plan the complete reporting workflow.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/mtd-sole-trader-and-landlord-separate-updates-1440.webp",
+    "featuredImageAlt": "A person with a trade and rental property maintains two separate update folders, tools and house model.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "mtd-two-self-employed-businesses",
+      "mtd-for-landlords-2026-27"
+    ],
+    "relatedPages": [
+      {
+        "href": "/mtd-information",
+        "label": "Explore MTD accountant support"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      },
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Send quarterly updates - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 79,
+    "researchCheckedAt": "2026-10-20",
+    "editorialStatus": "completed-editorial-draft",
+    "content": "<p>If you run a sole trader business and receive rental income, the income may be combined when checking whether MTD applies. That does not mean all the bookkeeping belongs in one business update.</p>\n<h2>Separate the income sources</h2>\n<p>An existing sole trader business and an existing UK property business need their own digital records and quarterly updates where those sources fall within your MTD obligations. UK rental properties generally form one UK property business, rather than a separate reporting business for each address.</p>\n<p>A foreign property business is separate again. Tell your accountant about it even if the money remains abroad. Residence, reliefs and software support need checking before the reporting route is agreed.</p>\n<h2>Why a shared bank account needs care</h2>\n<p>Imagine a self-employed consultant who also rents out a flat. A client invoice, tenant payment and personal transfer might all arrive in the same account. The accountant must identify which belongs to the trade, which belongs to the property business and which is not income at all.</p>\n<p>A single bank feed cannot make those decisions reliably without supporting information. Supply invoices, rental statements, property costs and explanations for transfers so the separate records can be maintained correctly.</p>\n<h2>One annual personal tax position</h2>\n<p>The quarterly updates are summaries for the relevant businesses. Your annual Income Tax return brings the wider tax position together, including other reportable income, adjustments and reliefs. Sending a property update does not complete the trade update or the annual return.</p>\n<p>Small sources, newly started businesses and particular reliefs can affect which records are required and when. Do not remove a source simply because its profit is low; explain the full position to your accountant.</p>\n<h2>Confirm scope at the start</h2>\n<p>Before buying support, identify how many trades you have, whether you receive UK or foreign rent, and what has already been submitted. Ask TaxSimba to confirm that the selected service covers those sources and any earlier work requiring attention. Clear scope helps prevent a second business being discovered only when a deadline approaches.</p>\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>One bank account, three kinds of receipt</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>A consultant receives a £1,200 client payment, £950 rent and a £500 transfer from savings into one account. She tags the first two to the appropriate trade and property records and marks the transfer as funding. She keeps invoices and agent statements to support that classification. Combining relevant gross income for the eligibility test does not mean adding every receipt into one quarterly business update. Her annual return later brings the wider personal tax position together.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Which trades and property businesses exist?</th><td>Identify separate sources and any UK or overseas property distinction.</td></tr><tr><th scope=\"row\">Can mixed transactions be explained?</th><td>Use source records and clear tags for trade, rent and non-income transfers.</td></tr><tr><th scope=\"row\">Who checks the whole annual position?</th><td>Agree responsibility for all required business updates, other income and year-end return work.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Does one property update complete my trade&#39;s reporting?</h3><p>No. Each relevant business needs its own required reporting. Track submissions by source and period.</p><h3>Do several UK flats mean several UK property businesses?</h3><p>They generally form one UK property business. Keep property-level evidence while checking the correct reporting structure.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>List every trade and property source.</li><li>Identify UK and overseas property records.</li><li>Tag mixed-account transactions.</li><li>Track updates by business and period.</li><li>Confirm the annual-return scope and responsible person.</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/mtd-sole-trader-and-landlord-separate-updates-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "wordCount": 335,
+    "iconKey": "home",
+    "contentType": "Practical guide",
+    "readingMinutes": 4,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "Trade and rental income can combine for MTD eligibility while needing separate business records and updates. Plan the complete reporting workflow.",
+    "query": "sole trader and landlord  separate mtd updates",
+    "answer": "If you run a sole trader business and receive rental income, the income may be combined when checking whether MTD applies. That does not mean all the bookkeeping belongs in one business update.",
+    "alt": "A person with a trade and rental property maintains two separate update folders, tools and house model.",
+    "details": [
+      "Identify separate sources and any UK or overseas property distinction.",
+      "Use source records and clear tags for trade, rent and non-income transfers.",
+      "Agree responsibility for all required business updates, other income and year-end return work."
+    ],
+    "checklist": [
+      "Which trades and property businesses exist?",
+      "Can mixed transactions be explained?",
+      "Who checks the whole annual position?"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:47:27.539Z",
+    "depth": {
+      "exampleTitle": "One bank account, three kinds of receipt",
+      "example": [
+        "A consultant receives a £1,200 client payment, £950 rent and a £500 transfer from savings into one account. She tags the first two to the appropriate trade and property records and marks the transfer as funding. She keeps invoices and agent statements to support that classification. Combining relevant gross income for the eligibility test does not mean adding every receipt into one quarterly business update. Her annual return later brings the wider personal tax position together."
+      ],
+      "decisionRows": [
+        [
+          "Which trades and property businesses exist?",
+          "Identify separate sources and any UK or overseas property distinction."
+        ],
+        [
+          "Can mixed transactions be explained?",
+          "Use source records and clear tags for trade, rent and non-income transfers."
+        ],
+        [
+          "Who checks the whole annual position?",
+          "Agree responsibility for all required business updates, other income and year-end return work."
+        ]
+      ],
+      "questions": [
+        [
+          "Does one property update complete my trade's reporting?",
+          "No. Each relevant business needs its own required reporting. Track submissions by source and period."
+        ],
+        [
+          "Do several UK flats mean several UK property businesses?",
+          "They generally form one UK property business. Keep property-level evidence while checking the correct reporting structure."
+        ]
+      ],
+      "worksheetPrompts": [
+        "List every trade and property source.",
+        "Identify UK and overseas property records.",
+        "Tag mixed-account transactions.",
+        "Track updates by business and period.",
+        "Confirm the annual-return scope and responsible person."
+      ],
+      "downloadHref": "/downloads/guides/mtd-sole-trader-and-landlord-separate-updates-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/mtd-sole-trader-and-landlord-separate-updates-checklist.txt",
+    "premiumReady": true,
+    "artwork": {
+      "slug": "mtd-sole-trader-and-landlord-separate-updates",
+      "src": "/images/articles/mtd-sole-trader-and-landlord-separate-updates-960.webp",
+      "srcSet": "/images/articles/mtd-sole-trader-and-landlord-separate-updates-480.webp 480w, /images/articles/mtd-sole-trader-and-landlord-separate-updates-960.webp 960w, /images/articles/mtd-sole-trader-and-landlord-separate-updates-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": null,
+    "releaseRank": 83
+  },
+  {
+    "id": "seo-next44-mtd-main-vs-supporting-accountant",
+    "slug": "mtd-main-vs-supporting-accountant",
+    "title": "Main or Supporting MTD Accountant: Who Files Your Annual Return?",
+    "excerpt": "MTD allows a main agent and supporting agents to help with different tasks. The distinction matters if one person keeps your books and another prepares your annual tax return. Agree who does what before authorising a new accountant.",
+    "metaTitle": "Main vs Supporting MTD Agent: Who Files the Return? | TaxSimba",
+    "metaDescription": "Check MTD agent roles, annual-return responsibility and record handovers before authorising an accountant or bookkeeper for quarterly work.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/mtd-main-vs-supporting-accountant-1440.webp",
+    "featuredImageAlt": "A main accountant and supporting bookkeeper divide records, updates and annual-return work at one desk.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "authorise-mtd-accountant-safely"
+    ],
+    "relatedPages": [
+      {
+        "href": "/mtd-information",
+        "label": "Explore MTD accountant support"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Choose agents for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Submit your tax return - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/submit-your-tax-return"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 80,
+    "researchCheckedAt": "2026-10-20",
+    "editorialStatus": "completed-editorial-draft",
+    "content": "<p>MTD allows a main agent and supporting agents to help with different tasks. The distinction matters if one person keeps your books and another prepares your annual tax return. Agree who does what before authorising a new accountant.</p>\n<h2>What a main agent does</h2>\n<p>A main agent can manage the overall MTD tax position and submit the annual return. HMRC allows only one main agent at a time. Replacing that authorisation can affect the accountant who was previously responsible, so tell both providers about a planned change.</p>\n<h2>What a supporting agent does</h2>\n<p>A supporting agent can help with tasks such as digital records and quarterly updates, but cannot submit the annual MTD Income Tax return as your main agent. There can be more than one supporting agent, and their access is more limited.</p>\n<p>Having someone authorised for quarterly work therefore does not establish that the annual return is covered. Check the engagement, the HMRC authorisation and the practical handover arrangements together.</p>\n<h2>Avoid two people filing overlapping figures</h2>\n<p>If several people work on the same business, HMRC requires one combined update for each update period. A bookkeeper should not send one version while an accountant independently sends another incomplete version of the same business totals.</p>\n<p>For example, you might maintain sales records while a supporting bookkeeper records expenses. Someone must reconcile the whole record before the agreed agent submits the update. Access to software is not a substitute for agreeing that responsibility.</p>\n<h2>Questions to settle in writing</h2>\n<p>Identify who maintains records, who sends updates, who deals with corrections, who gathers other personal income and who prepares the annual return. Confirm how records and submission evidence will pass between the people involved.</p>\n<p>When joining TaxSimba, disclose any existing accountant or bookkeeper and their current role. TaxSimba can then confirm the authorisation and work required for your agreed service. You should retain your own Government Gateway credentials; authorised agent access should not depend on giving another person your password or security codes.</p>\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>Quarterly support is not an annual-return agreement</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>A business owner appoints a supporting bookkeeper to maintain records and assist with updates. A separate main agent prepares the annual return. Before authorising either, she confirms who reconciles shared records, sends each combined business update and handles corrections. She also checks whether a proposed main-agent change will replace an existing authorisation. Her own Government Gateway password stays private; the agreed work uses the appropriate agent access and clear written responsibilities.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Main or supporting agent access?</th><td>Confirm the HMRC role and its permitted tasks.</td></tr><tr><th scope=\"row\">Who sends the combined business update?</th><td>Avoid independent incomplete submissions by people working on different parts of the same records.</td></tr><tr><th scope=\"row\">Who owns annual-return completion?</th><td>Name the main agent or responsible filer and confirm the service includes that work.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Can a supporting agent submit the annual MTD return?</h3><p>Not in the main-agent role required for that work. Confirm the appropriate authorisation and annual-return arrangement.</p><h3>Does software access prove a task is included in the fee?</h3><p>No. Check the engagement as well as technical permissions. An authorised person may still have a limited agreed scope.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>List all advisers and current authorisations.</li><li>Identify the main agent.</li><li>Allocate record, update and correction responsibilities.</li><li>Confirm annual-return work and handover dates.</li><li>Keep submission evidence accessible without sharing passwords.</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/mtd-main-vs-supporting-accountant-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "wordCount": 328,
+    "iconKey": "digital-tax",
+    "contentType": "Answer guide",
+    "readingMinutes": 4,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "Check MTD agent roles, annual-return responsibility and record handovers before authorising an accountant or bookkeeper for quarterly work.",
+    "query": "main vs supporting mtd agent  who files the return ",
+    "answer": "MTD allows a main agent and supporting agents to help with different tasks. The distinction matters if one person keeps your books and another prepares your annual tax return. Agree who does what before authorising a new accountant.",
+    "alt": "A main accountant and supporting bookkeeper divide records, updates and annual-return work at one desk.",
+    "details": [
+      "Confirm the HMRC role and its permitted tasks.",
+      "Avoid independent incomplete submissions by people working on different parts of the same records.",
+      "Name the main agent or responsible filer and confirm the service includes that work."
+    ],
+    "checklist": [
+      "Main or supporting agent access?",
+      "Who sends the combined business update?",
+      "Who owns annual-return completion?"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:47:27.539Z",
+    "depth": {
+      "exampleTitle": "Quarterly support is not an annual-return agreement",
+      "example": [
+        "A business owner appoints a supporting bookkeeper to maintain records and assist with updates. A separate main agent prepares the annual return. Before authorising either, she confirms who reconciles shared records, sends each combined business update and handles corrections. She also checks whether a proposed main-agent change will replace an existing authorisation. Her own Government Gateway password stays private; the agreed work uses the appropriate agent access and clear written responsibilities."
+      ],
+      "decisionRows": [
+        [
+          "Main or supporting agent access?",
+          "Confirm the HMRC role and its permitted tasks."
+        ],
+        [
+          "Who sends the combined business update?",
+          "Avoid independent incomplete submissions by people working on different parts of the same records."
+        ],
+        [
+          "Who owns annual-return completion?",
+          "Name the main agent or responsible filer and confirm the service includes that work."
+        ]
+      ],
+      "questions": [
+        [
+          "Can a supporting agent submit the annual MTD return?",
+          "Not in the main-agent role required for that work. Confirm the appropriate authorisation and annual-return arrangement."
+        ],
+        [
+          "Does software access prove a task is included in the fee?",
+          "No. Check the engagement as well as technical permissions. An authorised person may still have a limited agreed scope."
+        ]
+      ],
+      "worksheetPrompts": [
+        "List all advisers and current authorisations.",
+        "Identify the main agent.",
+        "Allocate record, update and correction responsibilities.",
+        "Confirm annual-return work and handover dates.",
+        "Keep submission evidence accessible without sharing passwords."
+      ],
+      "downloadHref": "/downloads/guides/mtd-main-vs-supporting-accountant-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/mtd-main-vs-supporting-accountant-checklist.txt",
+    "premiumReady": true,
+    "artwork": {
+      "slug": "mtd-main-vs-supporting-accountant",
+      "src": "/images/articles/mtd-main-vs-supporting-accountant-960.webp",
+      "srcSet": "/images/articles/mtd-main-vs-supporting-accountant-480.webp 480w, /images/articles/mtd-main-vs-supporting-accountant-960.webp 960w, /images/articles/mtd-main-vs-supporting-accountant-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": null,
+    "releaseRank": 84
+  },
+  {
+    "id": "seo-next44-mtd-estimated-tax-bill-not-final",
+    "slug": "mtd-estimated-tax-bill-not-final",
+    "title": "Why Your MTD Tax Estimate May Differ From Your Final Bill",
+    "excerpt": "The tax estimate displayed after an MTD update is a working estimate, not your final annual tax bill. Its usefulness depends on the records submitted and the other information HMRC has about you.",
+    "metaTitle": "MTD Tax Estimates: Why the Final Bill Can Differ | TaxSimba",
+    "metaDescription": "Understand the limits of an MTD tax estimate, identify missing income and adjustments, and distinguish estimated liability from the amount still payable.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/mtd-estimated-tax-bill-not-final-1440.webp",
+    "featuredImageAlt": "A trader compares a provisional tax estimate on screen with a fuller annual tax record, extra income papers arriving.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "mtd-quarterly-updates-tax-payments"
+    ],
+    "relatedPages": [
+      {
+        "href": "/mtd-information",
+        "label": "Explore MTD accountant support"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Send quarterly updates - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 82,
+    "researchCheckedAt": "2026-10-20",
+    "editorialStatus": "completed-editorial-draft",
+    "content": "<p>The tax estimate displayed after an MTD update is a working estimate, not your final annual tax bill. Its usefulness depends on the records submitted and the other information HMRC has about you.</p>\n<h2>What the estimate can include</h2>\n<p>HMRC uses the self-employment and property figures reported so far, together with other information it already holds. Depending on your software, additional income may also be supplied during the year. Information that has not yet been reported can leave the estimate incomplete.</p>\n<p>For example, a landlord may also have employment income, savings interest and dividends. A property update alone does not tell the whole story. If part of that wider income is missing, the estimate may not reflect the tax band that eventually applies.</p>\n<h2>Year-end adjustments can change the result</h2>\n<p>Quarterly updates summarise records; they do not require all the accounting and tax adjustments needed for the annual return. Business-use adjustments, reliefs and other year-end calculations can change the final liability. An accounting year that differs from the tax year may also make an interim estimate less straightforward.</p>\n<p>Avoid taking money out of your tax savings account solely because a screen shows a lower figure than expected. Ask your accountant which assumptions sit behind it and whether anything important is missing.</p>\n<h2>Tax liability and amount still to pay differ</h2>\n<p>An estimated liability is not necessarily the outstanding balance after payments, credits or payments on account. Check which figure you are looking at. The annual calculation and HMRC account need to be reconciled before deciding what remains payable.</p>\n<h2>Make the estimate more useful</h2>\n<p>Keep business records current and tell your accountant about other income, changes in employment, pensions, student loans and significant one-off transactions. Explain unusual entries rather than allowing an incorrect category to carry forward.</p>\n<p>TaxSimba&#x27;s accountant can review the figures available within the agreed service and explain what further information is needed. Use the estimate to support sensible planning, while keeping the final return, the payment position and the service subscription fee clearly separate.</p>\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>A property estimate can miss the wider tax picture</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>A landlord sees an in-year estimate after a property update. She also has employment income, dividends and pension contributions that may not all be reflected in that screen. She asks what information the estimate includes and retains a cautious tax reserve while year-end work continues. After the annual calculation, she reconciles payments and credits separately. A liability estimate is not necessarily an account balance or a reliable amount to withdraw from savings.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">What information underlies the estimate?</th><td>Check reported business figures and any other income or reliefs already included.</td></tr><tr><th scope=\"row\">Which year-end adjustments are outstanding?</th><td>Identify business-use, accounting and tax adjustments before treating the figure as final.</td></tr><tr><th scope=\"row\">Is the screen showing liability or balance due?</th><td>Reconcile payments, credits and dated charges separately.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Can an estimate change even if quarterly records were accurate?</h3><p>Yes. Other income, reliefs and year-end adjustments can affect the final result.</p><h3>Does an estimated bill mean tax is payable every quarter?</h3><p>No. Reporting and payment rules are separate. Check the actual HMRC statement and payment dates.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Record the estimate&#39;s date and period.</li><li>List information included and missing.</li><li>Identify outstanding year-end adjustments.</li><li>Reconcile prior payments and tax credits.</li><li>Review the reserve against the completed annual calculation.</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/mtd-estimated-tax-bill-not-final-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "wordCount": 335,
+    "iconKey": "digital-tax",
+    "contentType": "Answer guide",
+    "readingMinutes": 4,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "Understand the limits of an MTD tax estimate, identify missing income and adjustments, and distinguish estimated liability from the amount still payable.",
+    "query": "mtd tax estimates  why the final bill can differ",
+    "answer": "The tax estimate displayed after an MTD update is a working estimate, not your final annual tax bill. Its usefulness depends on the records submitted and the other information HMRC has about you.",
+    "alt": "A trader compares a provisional tax estimate on screen with a fuller annual tax record, extra income papers arriving.",
+    "details": [
+      "Check reported business figures and any other income or reliefs already included.",
+      "Identify business-use, accounting and tax adjustments before treating the figure as final.",
+      "Reconcile payments, credits and dated charges separately."
+    ],
+    "checklist": [
+      "What information underlies the estimate?",
+      "Which year-end adjustments are outstanding?",
+      "Is the screen showing liability or balance due?"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:47:27.539Z",
+    "depth": {
+      "exampleTitle": "A property estimate can miss the wider tax picture",
+      "example": [
+        "A landlord sees an in-year estimate after a property update. She also has employment income, dividends and pension contributions that may not all be reflected in that screen. She asks what information the estimate includes and retains a cautious tax reserve while year-end work continues. After the annual calculation, she reconciles payments and credits separately. A liability estimate is not necessarily an account balance or a reliable amount to withdraw from savings."
+      ],
+      "decisionRows": [
+        [
+          "What information underlies the estimate?",
+          "Check reported business figures and any other income or reliefs already included."
+        ],
+        [
+          "Which year-end adjustments are outstanding?",
+          "Identify business-use, accounting and tax adjustments before treating the figure as final."
+        ],
+        [
+          "Is the screen showing liability or balance due?",
+          "Reconcile payments, credits and dated charges separately."
+        ]
+      ],
+      "questions": [
+        [
+          "Can an estimate change even if quarterly records were accurate?",
+          "Yes. Other income, reliefs and year-end adjustments can affect the final result."
+        ],
+        [
+          "Does an estimated bill mean tax is payable every quarter?",
+          "No. Reporting and payment rules are separate. Check the actual HMRC statement and payment dates."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Record the estimate's date and period.",
+        "List information included and missing.",
+        "Identify outstanding year-end adjustments.",
+        "Reconcile prior payments and tax credits.",
+        "Review the reserve against the completed annual calculation."
+      ],
+      "downloadHref": "/downloads/guides/mtd-estimated-tax-bill-not-final-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/mtd-estimated-tax-bill-not-final-checklist.txt",
+    "premiumReady": true,
+    "artwork": {
+      "slug": "mtd-estimated-tax-bill-not-final",
+      "src": "/images/articles/mtd-estimated-tax-bill-not-final-960.webp",
+      "srcSet": "/images/articles/mtd-estimated-tax-bill-not-final-480.webp 480w, /images/articles/mtd-estimated-tax-bill-not-final-960.webp 960w, /images/articles/mtd-estimated-tax-bill-not-final-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": null,
+    "releaseRank": 85
+  },
+  {
+    "id": "seo-next44-mtd-partnership-income-individual-partners",
+    "slug": "mtd-partnership-income-individual-partners",
+    "title": "Does Partnership Income Put You Into MTD for Income Tax?",
+    "excerpt": "An individual partner's share of partnership profit is not the same as income from a separate sole trader business. Do not assume that a large partnership allocation automatically brings that income into the current MTD quarterly reporting rules.",
+    "metaTitle": "Partnership Income and MTD: Check Separate Sources | TaxSimba",
+    "metaDescription": "Distinguish partnership profit from sole-trader and property income for MTD, and gather the partnership statement for your complete personal return.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/mtd-partnership-income-individual-partners-1440.webp",
+    "featuredImageAlt": "Business partners review a partnership agreement while one partner keeps a separate sole-trade ledger.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "mtd-qualifying-income"
+    ],
+    "relatedPages": [
+      {
+        "href": "/mtd-information",
+        "label": "Explore MTD accountant support"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/check-if-youre-eligible-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 83,
+    "researchCheckedAt": "2026-10-20",
+    "editorialStatus": "completed-editorial-draft",
+    "content": "<p>An individual partner&#x27;s share of partnership profit is not the same as income from a separate sole trader business. Do not assume that a large partnership allocation automatically brings that income into the current MTD quarterly reporting rules.</p>\n<h2>Separate the partnership from your other work</h2>\n<p>HMRC&#x27;s current MTD guidance treats partnership profit differently from sole trader and property income. Your share of partnership profit does not itself require the same MTD digital records as an individual sole trader business. A partnership&#x27;s own return is also a separate obligation from your personal return.</p>\n<p>If you have a sole trader business or property income as well, those sources can still bring you into MTD. Check the relevant qualifying income and start-year rules for those activities rather than treating all income on your return as one turnover figure.</p>\n<h2>An example of mixed income</h2>\n<p>Suppose you receive an allocation of partnership profit and also rent out a personally owned flat. The partnership allocation and the rental business need to be identified separately. The rental income may affect MTD eligibility even though partnership profit does not follow the same quarterly-record rules.</p>\n<p>The annual personal return must still include all reportable income. Income being outside the quarterly records does not make it exempt from Income Tax.</p>\n<h2>Collect the partnership information early</h2>\n<p>Ask for the partnership&#x27;s tax reference, your partnership statement, the period covered and details of tax already deducted or reliefs relevant to your share. Do not substitute drawings from the partnership bank account for the taxable profit allocated to you.</p>\n<h2>Check future rules without assuming a start date</h2>\n<p>MTD expansion announcements should be distinguished from the rules currently applying to your circumstances. A threshold change for sole traders and landlords does not, by itself, establish a partnership reporting start date.</p>\n<p>Before appointing TaxSimba, explain any partnership involvement so the accountant can confirm whether your personal return and other income are within the proposed scope. Preparation of the partnership&#x27;s own accounts or return should be agreed separately if required; it should not be assumed from a personal tax package.</p>\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>Drawings are not the profit allocation</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>A partner withdraws £24,000 during the year but receives a partnership statement allocating £31,000 taxable profit. She supplies the statement rather than treating drawings as the return figure. She also owns a personally let flat, whose relevant income needs a separate MTD eligibility check. The partnership&#39;s own filing and her personal annual return remain distinct. A headline threshold for sole traders and landlords does not itself establish when partnership quarterly reporting starts.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">What does the partnership statement allocate?</th><td>Use the relevant tax statement and period, not bank drawings.</td></tr><tr><th scope=\"row\">Do you have separate trade or property income?</th><td>Assess those qualifying sources independently under current MTD rules.</td></tr><tr><th scope=\"row\">Which engagement covers the partnership return?</th><td>Agree entity-level accounts and filing separately from the personal return.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Does partnership profit automatically count as sole-trader turnover?</h3><p>No. Identify it as partnership income and check current HMRC treatment rather than combining every income source into one threshold total.</p><h3>Is income outside MTD quarterly records tax-free?</h3><p>No. The annual personal return still needs all reportable income, including the relevant partnership share.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Obtain the partnership statement and tax reference.</li><li>Record the profit allocation and period.</li><li>Keep drawings separate from taxable profit.</li><li>List personal trades and property sources.</li><li>Confirm personal and partnership filing responsibilities.</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/mtd-partnership-income-individual-partners-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "wordCount": 353,
+    "iconKey": "digital-tax",
+    "contentType": "Answer guide",
+    "readingMinutes": 4,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "Distinguish partnership profit from sole-trader and property income for MTD, and gather the partnership statement for your complete personal return.",
+    "query": "partnership income and mtd  check separate sources",
+    "answer": "An individual partner's share of partnership profit is not the same as income from a separate sole trader business. Do not assume that a large partnership allocation automatically brings that income into the current MTD quarterly reporting rules.",
+    "alt": "Business partners review a partnership agreement while one partner keeps a separate sole-trade ledger.",
+    "details": [
+      "Use the relevant tax statement and period, not bank drawings.",
+      "Assess those qualifying sources independently under current MTD rules.",
+      "Agree entity-level accounts and filing separately from the personal return."
+    ],
+    "checklist": [
+      "What does the partnership statement allocate?",
+      "Do you have separate trade or property income?",
+      "Which engagement covers the partnership return?"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:47:27.539Z",
+    "depth": {
+      "exampleTitle": "Drawings are not the profit allocation",
+      "example": [
+        "A partner withdraws £24,000 during the year but receives a partnership statement allocating £31,000 taxable profit. She supplies the statement rather than treating drawings as the return figure. She also owns a personally let flat, whose relevant income needs a separate MTD eligibility check. The partnership's own filing and her personal annual return remain distinct. A headline threshold for sole traders and landlords does not itself establish when partnership quarterly reporting starts."
+      ],
+      "decisionRows": [
+        [
+          "What does the partnership statement allocate?",
+          "Use the relevant tax statement and period, not bank drawings."
+        ],
+        [
+          "Do you have separate trade or property income?",
+          "Assess those qualifying sources independently under current MTD rules."
+        ],
+        [
+          "Which engagement covers the partnership return?",
+          "Agree entity-level accounts and filing separately from the personal return."
+        ]
+      ],
+      "questions": [
+        [
+          "Does partnership profit automatically count as sole-trader turnover?",
+          "No. Identify it as partnership income and check current HMRC treatment rather than combining every income source into one threshold total."
+        ],
+        [
+          "Is income outside MTD quarterly records tax-free?",
+          "No. The annual personal return still needs all reportable income, including the relevant partnership share."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Obtain the partnership statement and tax reference.",
+        "Record the profit allocation and period.",
+        "Keep drawings separate from taxable profit.",
+        "List personal trades and property sources.",
+        "Confirm personal and partnership filing responsibilities."
+      ],
+      "downloadHref": "/downloads/guides/mtd-partnership-income-individual-partners-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/mtd-partnership-income-individual-partners-checklist.txt",
+    "premiumReady": true,
+    "artwork": {
+      "slug": "mtd-partnership-income-individual-partners",
+      "src": "/images/articles/mtd-partnership-income-individual-partners-960.webp",
+      "srcSet": "/images/articles/mtd-partnership-income-individual-partners-480.webp 480w, /images/articles/mtd-partnership-income-individual-partners-960.webp 960w, /images/articles/mtd-partnership-income-individual-partners-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": null,
+    "releaseRank": 86
+  },
+  {
+    "id": "seo-next44-mtd-limited-company-director-income",
+    "slug": "mtd-limited-company-director-income",
+    "title": "MTD and Limited Company Directors: Which Income Counts?",
+    "excerpt": "Being a limited company director does not automatically mean your company's turnover belongs in your personal MTD for Income Tax calculation. The company and you are separate taxpayers, with different reporting responsibilities.",
+    "metaTitle": "MTD and Company Directors: Which Income Counts? | TaxSimba",
+    "metaDescription": "Separate company turnover, salary and dividends from personal trading and property income before checking a director's MTD obligations.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/mtd-limited-company-director-income-1440.webp",
+    "featuredImageAlt": "A limited-company director keeps company turnover separate from personal dividends, salary and a private rental folder.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "company-director-personal-tax-return",
+      "mtd-qualifying-income"
+    ],
+    "relatedPages": [
+      {
+        "href": "/mtd-information",
+        "label": "Explore MTD accountant support"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/check-if-youre-eligible-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Add or cease income sources - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/add-or-cease-income-sources"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 84,
+    "researchCheckedAt": "2026-10-20",
+    "editorialStatus": "completed-editorial-draft",
+    "content": "<p>Being a limited company director does not automatically mean your company&#x27;s turnover belongs in your personal MTD for Income Tax calculation. The company and you are separate taxpayers, with different reporting responsibilities.</p>\n<h2>Start with the type of income</h2>\n<p>A director might receive a salary and dividends from a company, while also running a separate sole trader activity or receiving personally owned rental income. Those categories must be distinguished before MTD eligibility can be assessed.</p>\n<p>Salary and dividends are not sole trader turnover. A company&#x27;s sales are not automatically the director&#x27;s personal business income either. Personally earned self-employment and property income are the sources to examine under the current MTD qualifying-income rules.</p>\n<h2>What if you own a rental property?</h2>\n<p>Company ownership and personal ownership produce different tax reporting. If you personally rent out a flat, its rental income may be relevant to your MTD position. If the company owns the property, do not place the company&#x27;s rent into your personal MTD records merely because you control the company.</p>\n<p>Provide the accountant with ownership documents and a clear explanation of which bank accounts receive the income. Where ownership or beneficial entitlement is uncertain, clarify it before preparing figures.</p>\n<h2>Personal and company returns remain separate</h2>\n<p>Your personal return may need salary, dividends, benefits and other income. The company can separately require accounts, a Corporation Tax return, payroll or other filings. Buying a personal Self Assessment or MTD service does not automatically purchase those company services.</p>\n<p>A director who also has an MTD sole trader business must still ensure the annual personal return includes the wider reportable income. Quarterly business summaries do not replace that review.</p>\n<h2>Tell your accountant about every role</h2>\n<p>Supply your P60 or employment figures, dividend vouchers, relevant benefit information and details of personal trades or property. Separate company transactions from personal expenses and explain any director&#x27;s loan account issues.</p>\n<p>TaxSimba can confirm the scope of the personal tax service after reviewing those facts. Ask for company work to be identified and priced separately where needed, so the responsibilities are clear before any filing deadline.</p>\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>Control of a company does not turn its sales into your trade</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>A director&#39;s company has substantial sales, pays her salary and dividends, and owns an office. She separately owns a rental flat personally. For her personal MTD check, she identifies the relevant personal trading and property sources rather than adding company turnover to salary. The company&#39;s accounts and tax filings remain separate. Her annual personal return may still include salary, dividends and benefits, even though those are not sole-trader turnover in the qualifying-income test.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Who legally owns the income source?</th><td>Separate personally held businesses or property from company-owned activity.</td></tr><tr><th scope=\"row\">What type of personal income is received?</th><td>Distinguish salary, dividends, benefits, sole-trader receipts and personal rent.</td></tr><tr><th scope=\"row\">Which services are included?</th><td>Confirm company accounts, payroll and loan work separately from personal SA or MTD support.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Does my company&#39;s rent belong in my personal MTD records?</h3><p>Not simply because you own the company. Establish ownership and the correct taxpayer before recording the source.</p><h3>Can a director also need MTD for a personal trade?</h3><p>Yes. A separate personal trade or property source can bring its own obligations. Check the relevant gross income and start rules.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>List company and personally owned activities.</li><li>Gather ownership and income-source evidence.</li><li>Collect salary, dividend and benefit records.</li><li>Check personal trading and property qualifying income.</li><li>Agree separate company and personal service scopes.</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/mtd-limited-company-director-income-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "wordCount": 354,
+    "iconKey": "digital-tax",
+    "contentType": "Answer guide",
+    "readingMinutes": 4,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "Separate company turnover, salary and dividends from personal trading and property income before checking a director's MTD obligations.",
+    "query": "mtd and company directors  which income counts ",
+    "answer": "Being a limited company director does not automatically mean your company's turnover belongs in your personal MTD for Income Tax calculation. The company and you are separate taxpayers, with different reporting responsibilities.",
+    "alt": "A limited-company director keeps company turnover separate from personal dividends, salary and a private rental folder.",
+    "details": [
+      "Separate personally held businesses or property from company-owned activity.",
+      "Distinguish salary, dividends, benefits, sole-trader receipts and personal rent.",
+      "Confirm company accounts, payroll and loan work separately from personal SA or MTD support."
+    ],
+    "checklist": [
+      "Who legally owns the income source?",
+      "What type of personal income is received?",
+      "Which services are included?"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:47:27.539Z",
+    "depth": {
+      "exampleTitle": "Control of a company does not turn its sales into your trade",
+      "example": [
+        "A director's company has substantial sales, pays her salary and dividends, and owns an office. She separately owns a rental flat personally. For her personal MTD check, she identifies the relevant personal trading and property sources rather than adding company turnover to salary. The company's accounts and tax filings remain separate. Her annual personal return may still include salary, dividends and benefits, even though those are not sole-trader turnover in the qualifying-income test."
+      ],
+      "decisionRows": [
+        [
+          "Who legally owns the income source?",
+          "Separate personally held businesses or property from company-owned activity."
+        ],
+        [
+          "What type of personal income is received?",
+          "Distinguish salary, dividends, benefits, sole-trader receipts and personal rent."
+        ],
+        [
+          "Which services are included?",
+          "Confirm company accounts, payroll and loan work separately from personal SA or MTD support."
+        ]
+      ],
+      "questions": [
+        [
+          "Does my company's rent belong in my personal MTD records?",
+          "Not simply because you own the company. Establish ownership and the correct taxpayer before recording the source."
+        ],
+        [
+          "Can a director also need MTD for a personal trade?",
+          "Yes. A separate personal trade or property source can bring its own obligations. Check the relevant gross income and start rules."
+        ]
+      ],
+      "worksheetPrompts": [
+        "List company and personally owned activities.",
+        "Gather ownership and income-source evidence.",
+        "Collect salary, dividend and benefit records.",
+        "Check personal trading and property qualifying income.",
+        "Agree separate company and personal service scopes."
+      ],
+      "downloadHref": "/downloads/guides/mtd-limited-company-director-income-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/mtd-limited-company-director-income-checklist.txt",
+    "premiumReady": true,
+    "artwork": {
+      "slug": "mtd-limited-company-director-income",
+      "src": "/images/articles/mtd-limited-company-director-income-960.webp",
+      "srcSet": "/images/articles/mtd-limited-company-director-income-480.webp 480w, /images/articles/mtd-limited-company-director-income-960.webp 960w, /images/articles/mtd-limited-company-director-income-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": null,
+    "releaseRank": 87
+  },
+  {
+    "id": "seo-next44-mtd-new-business-new-rental-income",
+    "slug": "mtd-new-business-new-rental-income",
+    "title": "Starting a New Business or Rental Income While Already in MTD",
+    "excerpt": "Starting another activity while you already use MTD does not always mean that its quarterly reporting starts immediately. First establish whether it is a genuinely new income source or an addition to an existing business.",
+    "metaTitle": "New Business or Rent While in MTD: Check Start Dates | TaxSimba",
+    "metaDescription": "Adding a trade or rental source while in MTD? Distinguish a new source from another UK property and check when digital records and updates become required.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/mtd-new-business-new-rental-income-1440.webp",
+    "featuredImageAlt": "A trader adds a new rental-property folder to an existing digital-records system, keys and fresh planner.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "mtd-two-self-employed-businesses"
+    ],
+    "relatedPages": [
+      {
+        "href": "/mtd-information",
+        "label": "Explore MTD accountant support"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Add or cease income sources - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/add-or-cease-income-sources"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 85,
+    "researchCheckedAt": "2026-10-20",
+    "editorialStatus": "completed-editorial-draft",
+    "content": "<p>Starting another activity while you already use MTD does not always mean that its quarterly reporting starts immediately. First establish whether it is a genuinely new income source or an addition to an existing business.</p>\n<h2>Another UK rental property is usually different</h2>\n<p>HMRC treats UK properties as one UK property business. If you already report that business through MTD and start receiving rent from another UK property, the new property&#x27;s income and expenses join the existing business records from the relevant start point.</p>\n<p>That is different from starting your first property business alongside an existing sole trade. It is also different from beginning a genuinely separate trade. Tell your accountant what changed rather than creating a second reporting source automatically.</p>\n<h2>A genuinely new income source has specific timing</h2>\n<p>HMRC&#x27;s current guidance says a new self-employment or property source normally begins compulsory digital records and quarterly updates after it has first been included in an annual return. The source must still be reported on the correct annual return before that quarterly obligation begins.</p>\n<p>In HMRC&#x27;s example, a new source starting on 1 July 2026 is first included in the 2026/27 return, due by 31 January 2028. Digital records and quarterly updates for that source then start from 6 April 2028. HMRC also allows a choice to start reporting it earlier through the appropriate account setting.</p>\n<h2>Keep ordinary records from the beginning</h2>\n<p>This timing rule does not make early income tax-free or remove normal record-keeping duties. Keep receipts, income records and the actual start date from the outset. Otherwise the first annual return will be difficult to prepare accurately.</p>\n<h2>Check the software and service scope</h2>\n<p>The new source needs to be added to the appropriate HMRC account and supported by the filing software. Ask your accountant which start date and reporting option apply before expecting it to appear in an existing dashboard.</p>\n<p>Tell TaxSimba before adding a new activity or property business. The accountant can distinguish the reporting obligation from the work needed to maintain your records and confirm any change to the agreed service.</p>\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>Another flat can join an existing property business</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>A taxpayer already reports a UK property business through MTD and begins letting a second UK flat. The new property&#39;s records normally join that existing UK property business. Starting a genuinely separate trade is a different change and can follow specific reporting-start rules. She tells the accountant the actual start dates, ownership and earlier business history before a new source is configured. Ordinary record keeping starts straight away even if compulsory quarterly reporting for a new source begins later.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">New source or expansion of an existing business?</th><td>Describe the activity and ownership before creating another reporting stream.</td></tr><tr><th scope=\"row\">What start timing does HMRC require?</th><td>Check the new-source rules and any permitted earlier reporting choice.</td></tr><tr><th scope=\"row\">Are ordinary records already being kept?</th><td>Capture receipts and costs from the start even before quarterly reporting becomes compulsory.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Does a new UK flat always need a new property-business update?</h3><p>No. It generally joins an existing UK property business. Check any different ownership or overseas facts.</p><h3>Is new-source income tax-free before its first quarterly update?</h3><p>No. It still belongs on the correct annual return. Quarterly reporting timing does not remove the underlying tax duties.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Describe the new activity and actual start date.</li><li>Identify existing trades and property businesses.</li><li>Provide ownership and first-transaction evidence.</li><li>Check annual-return and quarterly start timing.</li><li>Confirm software support and any service-scope change.</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/mtd-new-business-new-rental-income-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "wordCount": 350,
+    "iconKey": "home",
+    "contentType": "Practical guide",
+    "readingMinutes": 4,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "Adding a trade or rental source while in MTD? Distinguish a new source from another UK property and check when digital records and updates become required.",
+    "query": "new business or rent while in mtd  check start dates",
+    "answer": "Starting another activity while you already use MTD does not always mean that its quarterly reporting starts immediately. First establish whether it is a genuinely new income source or an addition to an existing business.",
+    "alt": "A trader adds a new rental-property folder to an existing digital-records system, keys and fresh planner.",
+    "details": [
+      "Describe the activity and ownership before creating another reporting stream.",
+      "Check the new-source rules and any permitted earlier reporting choice.",
+      "Capture receipts and costs from the start even before quarterly reporting becomes compulsory."
+    ],
+    "checklist": [
+      "New source or expansion of an existing business?",
+      "What start timing does HMRC require?",
+      "Are ordinary records already being kept?"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:47:27.539Z",
+    "depth": {
+      "exampleTitle": "Another flat can join an existing property business",
+      "example": [
+        "A taxpayer already reports a UK property business through MTD and begins letting a second UK flat. The new property's records normally join that existing UK property business. Starting a genuinely separate trade is a different change and can follow specific reporting-start rules. She tells the accountant the actual start dates, ownership and earlier business history before a new source is configured. Ordinary record keeping starts straight away even if compulsory quarterly reporting for a new source begins later."
+      ],
+      "decisionRows": [
+        [
+          "New source or expansion of an existing business?",
+          "Describe the activity and ownership before creating another reporting stream."
+        ],
+        [
+          "What start timing does HMRC require?",
+          "Check the new-source rules and any permitted earlier reporting choice."
+        ],
+        [
+          "Are ordinary records already being kept?",
+          "Capture receipts and costs from the start even before quarterly reporting becomes compulsory."
+        ]
+      ],
+      "questions": [
+        [
+          "Does a new UK flat always need a new property-business update?",
+          "No. It generally joins an existing UK property business. Check any different ownership or overseas facts."
+        ],
+        [
+          "Is new-source income tax-free before its first quarterly update?",
+          "No. It still belongs on the correct annual return. Quarterly reporting timing does not remove the underlying tax duties."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Describe the new activity and actual start date.",
+        "Identify existing trades and property businesses.",
+        "Provide ownership and first-transaction evidence.",
+        "Check annual-return and quarterly start timing.",
+        "Confirm software support and any service-scope change."
+      ],
+      "downloadHref": "/downloads/guides/mtd-new-business-new-rental-income-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/mtd-new-business-new-rental-income-checklist.txt",
+    "premiumReady": true,
+    "artwork": {
+      "slug": "mtd-new-business-new-rental-income",
+      "src": "/images/articles/mtd-new-business-new-rental-income-960.webp",
+      "srcSet": "/images/articles/mtd-new-business-new-rental-income-480.webp 480w, /images/articles/mtd-new-business-new-rental-income-960.webp 960w, /images/articles/mtd-new-business-new-rental-income-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": null,
+    "releaseRank": 88
+  },
+  {
+    "id": "seo-next44-mtd-letting-agent-gross-rent-net-payment",
+    "slug": "mtd-letting-agent-gross-rent-net-payment",
+    "title": "Letting Agent Statements and MTD: Record Gross Rent, Not Just the Payout",
+    "excerpt": "The payment a letting agent sends to your bank may already have fees and property costs deducted. Recording only that payment can understate both rental income and expenses, making the bookkeeping difficult to reconcile.",
+    "metaTitle": "Letting Agent Statements: Gross Rent vs Net Payout | TaxSimba",
+    "metaDescription": "Reconcile agent-collected rent, fees, repairs and bank payouts for MTD, identify unusual deductions and avoid counting the same rent twice.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/mtd-letting-agent-gross-rent-net-payment-1440.webp",
+    "featuredImageAlt": "A landlord reconciles gross rent, letting-agent fees and net deposit using a letting statement and calculator.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "mtd-bank-feeds-complete-records"
+    ],
+    "relatedPages": [
+      {
+        "href": "/mtd-information",
+        "label": "Explore MTD accountant support"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      },
+      {
+        "label": "GOV.UK — Work out your rental income when you let property",
+        "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 86,
+    "researchCheckedAt": "2026-10-20",
+    "editorialStatus": "completed-editorial-draft",
+    "content": "<p>The payment a letting agent sends to your bank may already have fees and property costs deducted. Recording only that payment can understate both rental income and expenses, making the bookkeeping difficult to reconcile.</p>\n<h2>Read the statement behind the deposit</h2>\n<p>Ask the agent for a statement showing rent collected, management fees, repairs paid on your behalf and the amount transferred to you. HMRC&#x27;s digital-record guidance says that where you know only net income, obtain the full income figure and create records for the income and expenses.</p>\n<p>For example, assume an agent collects £1,600 rent, deducts a £160 management charge and transfers £1,440. Recording only £1,440 as rent hides the gross income and the separate cost. Record the underlying amounts, then check whether the expense qualifies for tax relief.</p>\n<h2>Not every deduction has the same tax treatment</h2>\n<p>A management fee, a repair, an improvement and a residential mortgage finance cost can require different treatment. The fact that the agent has deducted an amount does not prove that it is an allowable expense against rental profit.</p>\n<p>Security deposits and money held for future costs also need explanation. Do not treat every item on the agent&#x27;s statement as current rental income or a deductible charge without checking what it represents.</p>\n<h2>Prevent the same rent being counted twice</h2>\n<p>Where the bank feed already contains the net transfer, the accountant should reconcile it to the statement. Adding gross rent as a separate sale without dealing with the transfer can duplicate income. The record should show how the collected rent, deductions and payout connect.</p>\n<p>Keep each statement with the relevant property and period. If an agent pays late or a statement spans a year-end, your accounting method also affects the correct reporting treatment.</p>\n<h2>Give your accountant the full picture</h2>\n<p>Provide all agent statements, supporting invoices for unusual costs, details of ownership shares and any direct payments from tenants. TaxSimba can maintain the agreed rental records from that evidence. Sending only the bank deposit is rarely enough to explain the underlying rental activity clearly.</p>\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>Reconcile every part of the statement</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>An agent collects £1,500 rent, deducts a £150 fee and a £220 repair payment, and transfers £1,130. The landlord keeps all four figures and the repair invoice. Recording only £1,130 as rent hides the underlying activity; adding £1,500 as income without dealing with the bank transfer can duplicate it. She also explains money held for future costs and any deposit items, since not every agent deduction is a current deductible expense.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">What rent was collected before deductions?</th><td>Obtain the full statement and include direct tenant receipts separately.</td></tr><tr><th scope=\"row\">What does each deduction represent?</th><td>Distinguish fees, repairs, capital work, retained money and deposits.</td></tr><tr><th scope=\"row\">Does the bank payout reconcile?</th><td>Bridge gross rent to the transfer without counting both as separate income.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Is every amount withheld by an agent deductible?</h3><p>No. Its nature and tax treatment still need checking. Keep invoices and explanations for unusual items.</p><h3>What if an agent statement crosses the tax-year end?</h3><p>Flag its coverage and payment dates. The accounting basis affects how amounts belong in the year.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Collect every full agent statement.</li><li>Record gross rent and direct receipts.</li><li>Identify each fee, cost or retained amount.</li><li>Obtain supporting invoices for unusual deductions.</li><li>Reconcile bank transfers and tax-year cut-offs.</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/mtd-letting-agent-gross-rent-net-payment-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "wordCount": 344,
+    "iconKey": "document-check",
+    "contentType": "Practical guide",
+    "readingMinutes": 4,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "Reconcile agent-collected rent, fees, repairs and bank payouts for MTD, identify unusual deductions and avoid counting the same rent twice.",
+    "query": "letting agent statements  gross rent vs net payout",
+    "answer": "The payment a letting agent sends to your bank may already have fees and property costs deducted. Recording only that payment can understate both rental income and expenses, making the bookkeeping difficult to reconcile.",
+    "alt": "A landlord reconciles gross rent, letting-agent fees and net deposit using a letting statement and calculator.",
+    "details": [
+      "Obtain the full statement and include direct tenant receipts separately.",
+      "Distinguish fees, repairs, capital work, retained money and deposits.",
+      "Bridge gross rent to the transfer without counting both as separate income."
+    ],
+    "checklist": [
+      "What rent was collected before deductions?",
+      "What does each deduction represent?",
+      "Does the bank payout reconcile?"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:47:27.539Z",
+    "depth": {
+      "exampleTitle": "Reconcile every part of the statement",
+      "example": [
+        "An agent collects £1,500 rent, deducts a £150 fee and a £220 repair payment, and transfers £1,130. The landlord keeps all four figures and the repair invoice. Recording only £1,130 as rent hides the underlying activity; adding £1,500 as income without dealing with the bank transfer can duplicate it. She also explains money held for future costs and any deposit items, since not every agent deduction is a current deductible expense."
+      ],
+      "decisionRows": [
+        [
+          "What rent was collected before deductions?",
+          "Obtain the full statement and include direct tenant receipts separately."
+        ],
+        [
+          "What does each deduction represent?",
+          "Distinguish fees, repairs, capital work, retained money and deposits."
+        ],
+        [
+          "Does the bank payout reconcile?",
+          "Bridge gross rent to the transfer without counting both as separate income."
+        ]
+      ],
+      "questions": [
+        [
+          "Is every amount withheld by an agent deductible?",
+          "No. Its nature and tax treatment still need checking. Keep invoices and explanations for unusual items."
+        ],
+        [
+          "What if an agent statement crosses the tax-year end?",
+          "Flag its coverage and payment dates. The accounting basis affects how amounts belong in the year."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Collect every full agent statement.",
+        "Record gross rent and direct receipts.",
+        "Identify each fee, cost or retained amount.",
+        "Obtain supporting invoices for unusual deductions.",
+        "Reconcile bank transfers and tax-year cut-offs."
+      ],
+      "downloadHref": "/downloads/guides/mtd-letting-agent-gross-rent-net-payment-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/mtd-letting-agent-gross-rent-net-payment-checklist.txt",
+    "premiumReady": true,
+    "artwork": {
+      "slug": "mtd-letting-agent-gross-rent-net-payment",
+      "src": "/images/articles/mtd-letting-agent-gross-rent-net-payment-960.webp",
+      "srcSet": "/images/articles/mtd-letting-agent-gross-rent-net-payment-480.webp 480w, /images/articles/mtd-letting-agent-gross-rent-net-payment-960.webp 960w, /images/articles/mtd-letting-agent-gross-rent-net-payment-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": null,
+    "releaseRank": 89
+  },
+  {
+    "id": "seo-next44-voluntary-mtd-before-compulsory-start",
+    "slug": "voluntary-mtd-before-compulsory-start",
+    "title": "Should You Join MTD Voluntarily Before Your Compulsory Start Date?",
+    "excerpt": "You may be able to join MTD voluntarily before it becomes compulsory for you. Starting early can give you time to establish a recording routine, but it also brings work forward. Check the full reporting commitment before signing up.",
+    "metaTitle": "Join MTD Voluntarily? Check the Full Commitment | TaxSimba",
+    "metaDescription": "Considering early MTD signup? Check eligibility, the chosen tax year, software readiness and any catch-up records before committing to quarterly reporting.",
+    "category": "Making Tax Digital",
+    "audience": "sole-traders-landlords",
+    "tags": [
+      "mtd",
+      "accountant-led"
+    ],
+    "publishedAt": null,
+    "reviewedAt": null,
+    "authorName": "TaxSimba",
+    "reviewerName": "",
+    "featuredImage": "/images/articles/voluntary-mtd-before-compulsory-start-1440.webp",
+    "featuredImageAlt": "A small landlord discusses voluntary digital-records adoption with an adviser, readiness checklist and laptop.",
+    "ctaType": "MTD",
+    "relatedSlugs": [
+      "mtd-30000-threshold-2027"
+    ],
+    "relatedPages": [
+      {
+        "href": "/mtd-information",
+        "label": "Explore MTD accountant support"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GOV.UK — Sign up for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/sign-up-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax - Using Making Tax Digital for Income Tax for the first time  - Guidance",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/using-making-tax-digital-for-income-tax-for-the-first-time"
+      }
+    ],
+    "curated": true,
+    "status": "draft",
+    "editorialReference": 87,
+    "researchCheckedAt": "2026-10-20",
+    "editorialStatus": "completed-editorial-draft",
+    "content": "<p>You may be able to join MTD voluntarily before it becomes compulsory for you. Starting early can give you time to establish a recording routine, but it also brings work forward. Check the full reporting commitment before signing up.</p>\n<h2>Confirm whether you are really volunteering</h2>\n<p>First check the income year and threshold that apply to you. A person already required to use MTD is not a volunteer simply because their accountant has not yet connected software. HMRC may also have signed up people within the compulsory 2026/27 population.</p>\n<p>If your compulsory start is later, check whether HMRC allows you to volunteer for the current or following tax year and whether your circumstances and software are supported.</p>\n<h2>What starting early involves</h2>\n<p>You need compatible software, the required digital records, quarterly updates and an annual return through the MTD route. Joining partway through a tax year can mean catching up records and updates for the earlier part of that year.</p>\n<p>For example, volunteering in autumn is not necessarily a promise to report only the remaining months. Establish the tax year selected and the records needed from its beginning before authorising the change.</p>\n<h2>Weigh the practical benefits</h2>\n<p>Early participation can help you test how records reach your accountant, how missing information is requested and how you review figures. It is most useful when the business information is available and both you and your accountant can support the reporting process.</p>\n<p>It may be less suitable when an unresolved ownership question, incomplete records or unsupported income source still needs attention. Preparing for MTD does not always require joining immediately.</p>\n<h2>Understand penalties and other obligations</h2>\n<p>HMRC provides particular late-quarterly-update treatment for volunteers, but that should not be read as permission to ignore annual returns or payment obligations. Check the current rules for the year concerned.</p>\n<p>Ask TaxSimba to confirm your proposed start year, available service and any catch-up work before purchase. A clear start plan is more useful than volunteering solely because an advert suggests that every taxpayer needs to join at once.</p>\n<!-- taxsimba-guide-depth -->\n<section class=\"article-worked-example\" aria-label=\"Worked example\">\n<p class=\"premium-kicker\">Put it into practice</p>\n<h2>Joining in autumn can require earlier records</h2>\n<p class=\"article-example-label\">Illustrative scenario — not a customer case or personal tax calculation.</p>\n<p>A trader whose compulsory start is later considers volunteering during autumn. Before signing up, he confirms the tax year selected and whether records or updates are needed from its beginning. He tests the record handover and checks that his income sources and annual return are supported. He weighs that work against preparing without joining immediately. He does not infer that volunteering means only the remaining months need attention or that all filing and payment penalties disappear.</p>\n</section>\n<section class=\"article-decision\" aria-label=\"Decision guide\">\n<h2>A decision guide for this situation</h2>\n<div class=\"article-decision-scroll\" role=\"region\" aria-label=\"Decision table\" tabindex=\"0\">\n<table><caption>What to check and how to act</caption><thead><tr><th scope=\"col\">Check</th><th scope=\"col\">Practical action</th></tr></thead>\n<tbody><tr><th scope=\"row\">Are you actually outside compulsory MTD today?</th><td>Check the relevant year and threshold first.</td></tr><tr><th scope=\"row\">What tax year are you joining for?</th><td>Identify records and earlier updates needed for that selected year.</td></tr><tr><th scope=\"row\">Can your software and adviser support the whole process?</th><td>Confirm sources, authorisation, annual-return work and any catch-up fee.</td></tr></tbody></table></div>\n</section>\n<section class=\"article-follow-up\" aria-label=\"Follow-up questions\">\n<h2>Two more questions you may have</h2>\n<h3>Must I volunteer to practise better digital records?</h3><p>No. You can improve records and prepare a workflow before deciding whether early signup is appropriate.</p><h3>Does voluntary participation remove annual-return duties?</h3><p>No. Check the current volunteer penalty treatment, but keep annual filing and payment obligations clear.</p>\n</section>\n<section class=\"article-preparation\" aria-label=\"Preparation worksheet\">\n<h2>Your preparation worksheet</h2><p>Use these prompts to prepare for a conversation with your accountant. No signup is needed to download the plain-text checklist.</p>\n<ul><li>Confirm compulsory and proposed start dates.</li><li>Check current voluntary-signup eligibility.</li><li>Identify the selected tax year&#39;s record coverage.</li><li>Agree catch-up and annual-return responsibilities.</li><li>Confirm software support and the complete service cost.</li></ul>\n<a class=\"article-worksheet-download\" href=\"/downloads/guides/voluntary-mtd-before-compulsory-start-checklist.txt\" download>Download the preparation checklist (.txt)</a>\n<p class=\"article-example-label\">Save completed notes securely. Keep passwords and security codes out of your notes.</p>\n</section>",
+    "wordCount": 338,
+    "iconKey": "digital-tax",
+    "contentType": "Answer guide",
+    "readingMinutes": 4,
+    "heroStyle": "editorial-illustration",
+    "visualGuidance": "Use the category icon and metadata; do not render a large hero image.",
+    "editorialReviewStatus": "verified-against-official-guidance",
+    "editorialReviewDate": "2026-10-20",
+    "editorialReviewBasis": "Current GOV.UK/HMRC guidance, internal consistency and TaxSimba service-scope review",
+    "releaseReadiness": "editorially-approved-publisher-release-required",
+    "dek": "Considering early MTD signup? Check eligibility, the chosen tax year, software readiness and any catch-up records before committing to quarterly reporting.",
+    "query": "join mtd voluntarily  check the full commitment",
+    "answer": "You may be able to join MTD voluntarily before it becomes compulsory for you. Starting early can give you time to establish a recording routine, but it also brings work forward. Check the full reporting commitment before signing up.",
+    "alt": "A small landlord discusses voluntary digital-records adoption with an adviser, readiness checklist and laptop.",
+    "details": [
+      "Check the relevant year and threshold first.",
+      "Identify records and earlier updates needed for that selected year.",
+      "Confirm sources, authorisation, annual-return work and any catch-up fee."
+    ],
+    "checklist": [
+      "Are you actually outside compulsory MTD today?",
+      "What tax year are you joining for?",
+      "Can your software and adviser support the whole process?"
+    ],
+    "contentUpdatedAt": "2026-10-21T05:47:27.539Z",
+    "depth": {
+      "exampleTitle": "Joining in autumn can require earlier records",
+      "example": [
+        "A trader whose compulsory start is later considers volunteering during autumn. Before signing up, he confirms the tax year selected and whether records or updates are needed from its beginning. He tests the record handover and checks that his income sources and annual return are supported. He weighs that work against preparing without joining immediately. He does not infer that volunteering means only the remaining months need attention or that all filing and payment penalties disappear."
+      ],
+      "decisionRows": [
+        [
+          "Are you actually outside compulsory MTD today?",
+          "Check the relevant year and threshold first."
+        ],
+        [
+          "What tax year are you joining for?",
+          "Identify records and earlier updates needed for that selected year."
+        ],
+        [
+          "Can your software and adviser support the whole process?",
+          "Confirm sources, authorisation, annual-return work and any catch-up fee."
+        ]
+      ],
+      "questions": [
+        [
+          "Must I volunteer to practise better digital records?",
+          "No. You can improve records and prepare a workflow before deciding whether early signup is appropriate."
+        ],
+        [
+          "Does voluntary participation remove annual-return duties?",
+          "No. Check the current volunteer penalty treatment, but keep annual filing and payment obligations clear."
+        ]
+      ],
+      "worksheetPrompts": [
+        "Confirm compulsory and proposed start dates.",
+        "Check current voluntary-signup eligibility.",
+        "Identify the selected tax year's record coverage.",
+        "Agree catch-up and annual-return responsibilities.",
+        "Confirm software support and the complete service cost."
+      ],
+      "downloadHref": "/downloads/guides/voluntary-mtd-before-compulsory-start-checklist.txt"
+    },
+    "priorityDepthVersion": 1,
+    "preparationDownload": "/downloads/guides/voluntary-mtd-before-compulsory-start-checklist.txt",
+    "premiumReady": true,
+    "artwork": {
+      "slug": "voluntary-mtd-before-compulsory-start",
+      "src": "/images/articles/voluntary-mtd-before-compulsory-start-960.webp",
+      "srcSet": "/images/articles/voluntary-mtd-before-compulsory-start-480.webp 480w, /images/articles/voluntary-mtd-before-compulsory-start-960.webp 960w, /images/articles/voluntary-mtd-before-compulsory-start-1440.webp 1440w",
+      "width": 1440,
+      "height": 480
+    },
+    "priorityRank": null,
+    "releaseRank": 90
+  }
+]

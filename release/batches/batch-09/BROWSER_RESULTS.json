@@ -1,0 +1,241 @@
+{
+  "releasePositions": [
+    81,
+    90
+  ],
+  "articles": [
+    {
+      "rank": 81,
+      "slug": "mtd-standard-vs-calendar-update-periods",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 82,
+      "slug": "mtd-simpler-categorisation-under-90000",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 83,
+      "slug": "mtd-sole-trader-and-landlord-separate-updates",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 84,
+      "slug": "mtd-main-vs-supporting-accountant",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 85,
+      "slug": "mtd-estimated-tax-bill-not-final",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 86,
+      "slug": "mtd-partnership-income-individual-partners",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 87,
+      "slug": "mtd-limited-company-director-income",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 88,
+      "slug": "mtd-new-business-new-rental-income",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 89,
+      "slug": "mtd-letting-agent-gross-rent-net-payment",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 90,
+      "slug": "voluntary-mtd-before-compulsory-start",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    }
+  ],
+  "hub": "pagination all 120, search, empty state, category passed",
+  "signup": "public routes passed; no account created or payment made",
+  "scope": "Full final release tested; this file identifies the ten guides in this incremental package."
+}

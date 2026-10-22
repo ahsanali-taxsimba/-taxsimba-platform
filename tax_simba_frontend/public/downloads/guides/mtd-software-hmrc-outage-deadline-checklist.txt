@@ -1,0 +1,38 @@
+TaxSimba — MTD Software or HMRC Unavailable Near a Deadline: What to Do
+Preparation worksheet
+
+Optional offline planning aid, not a tax return or filing confirmation.
+Keep completed notes securely; never include passwords or one-time codes.
+
+WORK THROUGH THIS EXAMPLE
+Record the attempted filing time, affected business, obligation, error message and support reference. Check whether authorisation, local connectivity or HMRC service status explains it. Keep the eventual successful submission separately; a support ticket alone does not prove the filing finished.
+
+DECISION TO RESOLVE
+Who owns the fault investigation and when will submission success be verified?
+
+YOUR POSITION
+Relevant year and source: ____________________
+Evidence supporting your answer: ____________________
+Missing item and who will obtain it: ____________________
+Deadline or next review date: ____________________
+
+1. Record the affected business, period and time.
+Notes: ______________________________
+
+2. Save the exact error and relevant status notice.
+Notes: ______________________________
+
+3. Check access and authorisation.
+Notes: ______________________________
+
+4. Retain provider or HMRC support references.
+Notes: ______________________________
+
+5. Confirm acceptance after recovery and save the acknowledgement.
+Notes: ______________________________
+
+Actions agreed and responsible person:
+____________________________________
+
+Guide: https://taxsimba.co.uk/blogs/mtd-software-hmrc-outage-deadline
+Check the current guide and official sources before relying on a deadline or process.

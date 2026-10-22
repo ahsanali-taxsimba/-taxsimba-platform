@@ -1,3 +1,11 @@
+> LATEST: Read README_LANDLORD_HUB_V6.md and release/hubs-v6/HANDOVER.md first. Earlier validation remains historical.
+
+> LATEST HANDOVER: Read README_REVIEWED_V5.md and release/review-v5/REVIEW_HANDOVER.md first. Older readiness statements below are historical. V5 has bounded AI review and test evidence; it does not invent independent professional approval. Toxel must validate its actual deployment/customer-flow environment.
+
+> CURRENT VERSION: Read README_QUALITY_V4.md and release/quality-v4 first. Older handover/publication statements below are superseded. Current status: integration and staging; qualified review and live validation remain open.
+
+> CURRENT VERSION: Read README_COMPETITIVE_V3.md and release/competitive-v3 first. This older handover is retained for history; its deployment/approval wording is superseded. Current status: integration and staging, not production publication.
+
 # TaxSimba — Node.js/TypeScript production source
 
 UK tax platform for Self Assessment and Making Tax Digital (MTD) case management. This branch is

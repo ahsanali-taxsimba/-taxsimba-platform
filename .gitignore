@@ -100,3 +100,8 @@ credentials.json
 parity/*.log
 parity/*-run.json
 parity/PARITY_REPORT.md
+
+# TaxSimba multipart upload packages (keep out of git)
+TaxSimba_V6.part*.bin
+TaxSimba_V6.zip
+**/TaxSimba_V6.part*.bin

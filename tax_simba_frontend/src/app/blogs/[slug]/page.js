@@ -29,8 +29,9 @@ export async function generateMetadata({ params }) {
     path: `/blogs/${slug}`,
     ogImage: blog.featuredImage || "/images/logo.png",
     ogImageAlt: blog.featuredImageAlt || blog.title,
+    ogImageWidth: blog.artwork?.width || 1200,
+    ogImageHeight: blog.artwork?.height || 628,
     type: "article",
-    keywords: [blog.title, blog.category, "TaxSimba", "UK tax"].filter(Boolean),
   });
 }
 
@@ -55,7 +56,7 @@ export default async function BlogPage({ params }) {
         <script
           key={i}
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
         />
       ))}
       <BlogDetailsClientPage blogDetails={blogDetails} canonicalUrl={absoluteUrl(`/blogs/${blog.slug}`)} />

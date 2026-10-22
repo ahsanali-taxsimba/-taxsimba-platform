@@ -1,0 +1,241 @@
+{
+  "releasePositions": [
+    101,
+    110
+  ],
+  "articles": [
+    {
+      "rank": 101,
+      "slug": "private-tutor-self-assessment-tax",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 102,
+      "slug": "personal-trainer-fitness-coach-tax",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 103,
+      "slug": "self-employed-cleaner-tax-return",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 104,
+      "slug": "rent-a-room-relief-lodger-tax",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 105,
+      "slug": "landlord-replacement-domestic-items-relief",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 106,
+      "slug": "landlord-expenses-empty-property-void-period",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 107,
+      "slug": "non-resident-landlord-uk-tax-return",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 108,
+      "slug": "foreign-income-tax-return-2025-26-fig",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 109,
+      "slug": "sold-shares-capital-gains-tax-records",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 110,
+      "slug": "crypto-hmrc-reporting-2026-carf",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    }
+  ],
+  "hub": "pagination all 120, search, empty state, category passed",
+  "signup": "public routes passed; no account created or payment made",
+  "scope": "Full final release tested; this file identifies the ten guides in this incremental package."
+}

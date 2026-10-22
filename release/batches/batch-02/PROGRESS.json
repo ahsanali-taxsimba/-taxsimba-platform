@@ -1,0 +1,13 @@
+{
+  "total": 120,
+  "priorityTotal": 20,
+  "completedPremium": 20,
+  "remaining": 100,
+  "batchesCompleted": [
+    1,
+    2
+  ],
+  "nextBatch": "first ten remaining inventory items excluding the priority twenty",
+  "pushed": false,
+  "deployed": false
+}

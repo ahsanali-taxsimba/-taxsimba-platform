@@ -1,0 +1,198 @@
+[
+  {
+    "releasePosition": 61,
+    "slug": "mtd-jointly-owned-rental-property",
+    "title": "MTD for Jointly Owned Rental Property: What Each Owner Should Check",
+    "category": "Making Tax Digital",
+    "metaTitle": "Joint Rental Property and MTD: Check Each Owner | TaxSimba",
+    "metaDescription": "Check MTD for jointly owned rental property using each owner's share, other qualifying income and the records needed for quarterly reporting.",
+    "sources": [
+      {
+        "label": "GOV.UK — pim1035",
+        "url": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim1035"
+      },
+      {
+        "label": "GOV.UK — send quarterly updates",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+      }
+    ]
+  },
+  {
+    "releasePosition": 62,
+    "slug": "cis-subcontractors-mtd-gross-income",
+    "title": "CIS Subcontractors and MTD: Gross Income Is Not Your Bank Receipt",
+    "category": "Making Tax Digital",
+    "metaTitle": "CIS and MTD: Use Gross Income, Not the Bank Payout | TaxSimba",
+    "metaDescription": "Check MTD qualifying income for CIS subcontractors using gross trading receipts before CIS deductions and expenses, with statements to support the totals.",
+    "sources": [
+      {
+        "label": "GOV.UK — what is the construction industry scheme",
+        "url": "https://www.gov.uk/what-is-the-construction-industry-scheme"
+      },
+      {
+        "label": "GOV.UK — get paid",
+        "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid"
+      },
+      {
+        "label": "GOV.UK — work out your qualifying income for making tax digital for income tax",
+        "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      }
+    ]
+  },
+  {
+    "releasePosition": 63,
+    "slug": "mtd-bank-feeds-complete-records",
+    "title": "Bank Feeds and MTD: Why Connected Does Not Mean Complete",
+    "category": "Making Tax Digital",
+    "metaTitle": "MTD Bank Feeds: Check Your Records Are Complete | TaxSimba",
+    "metaDescription": "A connected bank feed is only part of MTD bookkeeping. Check cash, platform deductions, private transfers and missing transactions before updates.",
+    "sources": [
+      {
+        "label": "GOV.UK — create digital records",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      },
+      {
+        "label": "GOV.UK — what records to keep",
+        "url": "https://www.gov.uk/self-employed-records/what-records-to-keep"
+      }
+    ]
+  },
+  {
+    "releasePosition": 64,
+    "slug": "mtd-income-fallen-opt-out",
+    "title": "My Income Has Fallen: Can I Stop Using MTD?",
+    "category": "Making Tax Digital",
+    "metaTitle": "Income Fallen: Can You Stop Using MTD? | TaxSimba",
+    "metaDescription": "Falling income does not automatically end MTD. Check qualifying-income history, ceased sources and HMRC's opt-out or exemption rules before stopping.",
+    "sources": [
+      {
+        "label": "GOV.UK — work out your qualifying income for making tax digital for income tax",
+        "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — add or cease income sources",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/add-or-cease-income-sources"
+      }
+    ]
+  },
+  {
+    "releasePosition": 65,
+    "slug": "hairdresser-beauty-self-assessment",
+    "title": "Self-Employed Hairdressers and Beauty Professionals: Tax Return Preparation",
+    "category": "Self Assessment",
+    "metaTitle": "Hairdresser and Beauty Tax Returns: Records to Prepare | TaxSimba",
+    "metaDescription": "Prepare self-employed hairdresser and beauty records: cash, card and platform income, chair rent, products, mixed costs and employment-status details.",
+    "sources": [
+      {
+        "label": "GOV.UK — check employment status if you work in hair and beauty",
+        "url": "https://www.gov.uk/guidance/check-employment-status-if-you-work-in-hair-and-beauty"
+      },
+      {
+        "label": "GOV.UK — expenses if youre self employed",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed"
+      },
+      {
+        "label": "GOV.UK — office property",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed/office-property"
+      }
+    ]
+  },
+  {
+    "releasePosition": 66,
+    "slug": "company-director-personal-tax-return",
+    "title": "Company Directors: Your Personal Tax Return Is Different from Company Filing",
+    "category": "Self Assessment",
+    "metaTitle": "Company Director Personal Tax Return: What to Prepare | TaxSimba",
+    "metaDescription": "Separate a director’s personal tax return from company filings. Gather salary, dividends, benefits, other income and the reason Self Assessment is needed.",
+    "sources": [
+      {
+        "label": "GOV.UK — director information hub self assessment for directors  2",
+        "url": "https://www.gov.uk/guidance/director-information-hub-self-assessment-for-directors--2"
+      },
+      {
+        "label": "GOV.UK — check if you need tax return",
+        "url": "https://www.gov.uk/check-if-you-need-tax-return"
+      }
+    ]
+  },
+  {
+    "releasePosition": 67,
+    "slug": "vinted-ebay-personal-items-tax",
+    "title": "Vinted and eBay: Does Selling Your Own Clothes Mean You Owe Tax?",
+    "category": "Self Assessment",
+    "metaTitle": "Vinted and eBay: Personal Items or Taxable Trading? | TaxSimba",
+    "metaDescription": "Selling online? Distinguish your own used possessions from trading, keep purchase and sale evidence and check valuable-item capital gains separately.",
+    "sources": [
+      {
+        "label": "GOV.UK — selling goods or services on a digital platform",
+        "url": "https://www.gov.uk/guidance/selling-goods-or-services-on-a-digital-platform"
+      },
+      {
+        "label": "GOV.UK — check if you need to tell hmrc about your income from online platforms",
+        "url": "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms"
+      }
+    ]
+  },
+  {
+    "releasePosition": 68,
+    "slug": "etsy-seller-tax-return",
+    "title": "Etsy Seller Tax Returns: Why Your Bank Payout Is Not the Whole Record",
+    "category": "Self Assessment",
+    "metaTitle": "Etsy Seller Tax Returns: Reconcile Sales and Payouts | TaxSimba",
+    "metaDescription": "Prepare Etsy tax records using gross sales, fees, refunds and payout reconciliations, plus materials, delivery and other business expense evidence.",
+    "sources": [
+      {
+        "label": "GOV.UK — selling goods or services on a digital platform",
+        "url": "https://www.gov.uk/guidance/selling-goods-or-services-on-a-digital-platform"
+      },
+      {
+        "label": "GOV.UK — what records to keep",
+        "url": "https://www.gov.uk/self-employed-records/what-records-to-keep"
+      },
+      {
+        "label": "GOV.UK — simpler income tax cash basis",
+        "url": "https://www.gov.uk/simpler-income-tax-cash-basis"
+      }
+    ]
+  },
+  {
+    "releasePosition": 69,
+    "slug": "airbnb-holiday-let-tax-2025-26",
+    "title": "Airbnb and Holiday-Let Tax Returns After the Furnished Holiday Lettings Changes",
+    "category": "Self Assessment",
+    "metaTitle": "Airbnb and Holiday Let Tax 2025/26: What Changed? | TaxSimba",
+    "metaDescription": "Prepare Airbnb and holiday-let tax records after the Furnished Holiday Lettings regime ended: gross bookings, platform fees, ownership and transition records.",
+    "sources": [
+      {
+        "label": "GOV.UK — pim4165",
+        "url": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim4165"
+      },
+      {
+        "label": "GOV.UK — income tax when you rent out a property working out your rental income",
+        "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+      },
+      {
+        "label": "GOV.UK — check if you need to tell hmrc about your income from online platforms",
+        "url": "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms"
+      }
+    ]
+  },
+  {
+    "releasePosition": 70,
+    "slug": "joint-rental-property-tax-return",
+    "title": "Joint Rental Property on a Tax Return: Do Both Owners Report the Same Amount?",
+    "category": "Self Assessment",
+    "metaTitle": "Joint Rental Property Tax Returns: Check Each Share | TaxSimba",
+    "metaDescription": "Prepare joint-property tax figures using ownership evidence, gross rent, shared costs and each owner's personal return rather than copying the same totals.",
+    "sources": [
+      {
+        "label": "GOV.UK — pim1035",
+        "url": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim1035"
+      },
+      {
+        "label": "GOV.UK — income tax when you rent out a property working out your rental income",
+        "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+      }
+    ]
+  }
+]

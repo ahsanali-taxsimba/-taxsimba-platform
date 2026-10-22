@@ -1,0 +1,241 @@
+{
+  "releasePositions": [
+    111,
+    120
+  ],
+  "articles": [
+    {
+      "rank": 111,
+      "slug": "winter-fuel-payment-self-assessment-2025-26",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 112,
+      "slug": "self-assessment-refund-pending",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 113,
+      "slug": "gift-aid-self-assessment-tax-relief",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 114,
+      "slug": "state-pension-self-assessment-income",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 115,
+      "slug": "leave-self-assessment-no-return-needed",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 116,
+      "slug": "p800-simple-assessment-pa302-vs-tax-return",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 117,
+      "slug": "self-employed-business-loan-interest-repayments",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 118,
+      "slug": "basis-period-transition-profit-2025-26",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 119,
+      "slug": "pre-trading-startup-expenses-self-employed",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 120,
+      "slug": "self-employed-equipment-cash-basis-capital-allowances",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    }
+  ],
+  "hub": "pagination all 120, search, empty state, category passed",
+  "signup": "public routes passed; no account created or payment made",
+  "scope": "Full final release tested; this file identifies the ten guides in this incremental package."
+}

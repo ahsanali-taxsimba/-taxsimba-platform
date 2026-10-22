@@ -1,0 +1,9 @@
+# TaxSimba batch 06: release positions 51–60
+
+Ten existing guides enhanced with individual illustrations, distinct worked examples, three-row decision tables, two follow-up answers and preparation worksheets. Original full article bodies and URLs are retained. This checkpoint has 60/120 premium guides installed. The selected launch twenty remain first.
+
+Apply only after the enhanced Top 20 and all preceding remaining-guide batches. Read the package-level integration manifest and compare file hashes before applying its patch. Preserve newer unrelated code and production configuration. ARTICLE_CONTENT.json contains these ten complete enhanced guide records; ARTICLE_MANIFEST.json gives the title, category and metadata mapping. WebP exports are 480, 960 and 1440 pixels wide. Downloads are optional plain-text planning aids.
+
+The final combined source pack is an alternative to applying the incremental ZIPs. Do not apply both routes blindly. Earlier checkpoints intentionally fail the all-120 build guard; only the completed final checkpoint is the intended deployment source. From tax_simba_frontend use npm ci then npm run build. npm run build now runs the completion, priority-twenty and guide-depth checks and enables the local release publication configuration before building. Keep the real host, API, payment and environment configuration.
+
+See BROWSER_RESULTS.json for the ten page checks in the tested final build. The final test covered all 120 pages, keyboard controls, desktop and 390px/320px layout checks, full bodies, metadata, structured data, artwork, worksheet downloads, release order, sitemap, search and public service/signup routes. No customer account or payment was created. Existing Next configuration skips lint and type checking. This is engineering/content validation, not independent accountant sign-off or a ranking guarantee.

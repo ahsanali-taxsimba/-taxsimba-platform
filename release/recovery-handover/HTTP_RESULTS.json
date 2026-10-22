@@ -1,0 +1,859 @@
+{
+  "articles": [
+    {
+      "slug": "mtd-accountant-cost",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "self-assessment-accountant-cost",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "join-mtd-service-mid-year",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "switch-mtd-accountant-mid-year",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-quarterly-updates-tax-payments",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "self-assessment-2025-26-mtd-2026-27",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-cumulative-quarterly-updates",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "correct-mtd-quarterly-update",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "waiting-for-utr-tax-return",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "employed-and-self-employed-tax-return",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "uber-private-hire-driver-tax-return",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "delivery-driver-courier-tax-return",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-software-vs-accountant-service",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "authorise-mtd-accountant-safely",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "multiple-overdue-self-assessment-returns",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "appeal-self-assessment-late-penalty",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "sold-rental-property-60-day-tax",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "pay-self-assessment-through-tax-code-december",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-proof-quarterly-update-submitted",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "hmrc-signed-me-up-for-making-tax-digital",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-qualifying-income",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-quarterly-updates",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "self-assessment-deadline",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "self-assessment-documents-checklist",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "understanding-self-assessment-uk",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "top-tax-saving-tips-uk",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "making-tax-digital-explained",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-accountant-or-agent",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-digital-records",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "missed-mtd-quarterly-update",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "payments-on-account-explained",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "late-self-assessment-penalties",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-quarterly-deadline-7-november-2026",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-for-landlords-2026-27",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-for-sole-traders-2026-27",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "hmrc-mtd-signup-wrong",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-30000-threshold-2027",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "does-mtd-replace-self-assessment",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-exemptions",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "self-assessment-for-landlords-2025-26",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "self-assessment-for-sole-traders-2025-26",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "self-assessment-register-by-5-october-2026",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "cannot-pay-self-assessment-tax-bill",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "reduce-self-assessment-payments-on-account",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "landlord-mortgage-interest-tax-relief",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "cis-deductions-self-assessment",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "undeclared-rental-income-hmrc",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "self-assessment-side-hustle",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "trading-allowance-1000-hmrc",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "amend-self-assessment-tax-return",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-income-tax-vs-mtd-vat",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "can-i-use-spreadsheets-for-mtd",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "cis-tax-refunds-subcontractors",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "cis-20-vs-30-percent-deductions",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "cis-payment-deduction-statements",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "cis-allowable-expenses-subcontractors",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "cis-gross-payment-status",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-no-income-quarter",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-two-self-employed-businesses",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-employed-landlord-salary",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-jointly-owned-rental-property",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "cis-subcontractors-mtd-gross-income",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-bank-feeds-complete-records",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-income-fallen-opt-out",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "hairdresser-beauty-self-assessment",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "company-director-personal-tax-return",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "vinted-ebay-personal-items-tax",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "etsy-seller-tax-return",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "airbnb-holiday-let-tax-2025-26",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "joint-rental-property-tax-return",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "landlord-repairs-vs-improvements",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "savings-interest-self-assessment",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "self-employed-working-from-home-expenses",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "self-employed-mileage-vs-actual-costs",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "sa302-tax-year-overview-mortgage",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "high-salary-self-assessment-needed",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "lost-receipts-self-assessment",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "child-benefit-charge-paye-or-self-assessment",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "pension-contributions-adjusted-net-income",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "crypto-swaps-tax-without-cashing-out",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-standard-vs-calendar-update-periods",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-simpler-categorisation-under-90000",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-sole-trader-and-landlord-separate-updates",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-main-vs-supporting-accountant",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-estimated-tax-bill-not-final",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-partnership-income-individual-partners",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-limited-company-director-income",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-new-business-new-rental-income",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-letting-agent-gross-rent-net-payment",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "voluntary-mtd-before-compulsory-start",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-20000-threshold-april-2028",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-receipt-photo-vs-digital-record",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "mtd-software-hmrc-outage-deadline",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "dividend-tax-2025-26-vs-2026-27",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "student-loan-postgraduate-self-assessment",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "self-employed-national-insurance-2025-26",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "cash-basis-vs-traditional-accounting",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "self-employed-trading-loss-tax-relief",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "stopped-self-employed-final-tax-return",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "content-creator-influencer-tax-return",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "private-tutor-self-assessment-tax",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "personal-trainer-fitness-coach-tax",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "self-employed-cleaner-tax-return",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "rent-a-room-relief-lodger-tax",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "landlord-replacement-domestic-items-relief",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "landlord-expenses-empty-property-void-period",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "non-resident-landlord-uk-tax-return",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "foreign-income-tax-return-2025-26-fig",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "sold-shares-capital-gains-tax-records",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "crypto-hmrc-reporting-2026-carf",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "winter-fuel-payment-self-assessment-2025-26",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "self-assessment-refund-pending",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "gift-aid-self-assessment-tax-relief",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "state-pension-self-assessment-income",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "leave-self-assessment-no-return-needed",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "p800-simple-assessment-pa302-vs-tax-return",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "self-employed-business-loan-interest-repayments",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "basis-period-transition-profit-2025-26",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "pre-trading-startup-expenses-self-employed",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    },
+    {
+      "slug": "self-employed-equipment-cash-basis-capital-allowances",
+      "status": 200,
+      "oneH1": true,
+      "canonical": true,
+      "assetsChecked": 2
+    }
+  ],
+  "routes": {
+    "/blogs": {
+      "status": 200
+    },
+    "/robots.txt": {
+      "status": 200
+    },
+    "/sitemap.xml": {
+      "status": 200,
+      "articleCoverage": 120
+    },
+    "/register": {
+      "status": 200
+    }
+  }
+}

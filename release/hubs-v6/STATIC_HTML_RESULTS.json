@@ -1,0 +1,66 @@
+{
+  "method": "Production prerendered HTML inspected with BeautifulSoup, not browser QA",
+  "pages": [
+    {
+      "route": "/landlords",
+      "h1": "Let the property. Get the tax sorted.",
+      "canonical": "https://taxsimba.co.uk/landlords",
+      "guideLinks": [
+        "/blogs/airbnb-holiday-let-tax-2025-26",
+        "/blogs/joint-rental-property-tax-return",
+        "/blogs/landlord-expenses-empty-property-void-period",
+        "/blogs/landlord-mortgage-interest-tax-relief",
+        "/blogs/landlord-repairs-vs-improvements",
+        "/blogs/landlord-replacement-domestic-items-relief",
+        "/blogs/mtd-employed-landlord-salary",
+        "/blogs/mtd-for-landlords-2026-27",
+        "/blogs/mtd-jointly-owned-rental-property",
+        "/blogs/mtd-letting-agent-gross-rent-net-payment",
+        "/blogs/mtd-new-business-new-rental-income",
+        "/blogs/mtd-sole-trader-and-landlord-separate-updates",
+        "/blogs/non-resident-landlord-uk-tax-return",
+        "/blogs/rent-a-room-relief-lodger-tax",
+        "/blogs/self-assessment-2025-26-mtd-2026-27",
+        "/blogs/self-assessment-for-landlords-2025-26",
+        "/blogs/sold-rental-property-60-day-tax",
+        "/blogs/undeclared-rental-income-hmrc"
+      ],
+      "structuredData": "parsed"
+    },
+    {
+      "route": "/rental-income-service",
+      "h1": "Your rental income. One properly prepared tax return.",
+      "canonical": "https://taxsimba.co.uk/rental-income-service",
+      "guideLinks": [
+        "/blogs/airbnb-holiday-let-tax-2025-26",
+        "/blogs/joint-rental-property-tax-return",
+        "/blogs/landlord-expenses-empty-property-void-period",
+        "/blogs/landlord-mortgage-interest-tax-relief",
+        "/blogs/landlord-repairs-vs-improvements",
+        "/blogs/landlord-replacement-domestic-items-relief",
+        "/blogs/mtd-letting-agent-gross-rent-net-payment",
+        "/blogs/non-resident-landlord-uk-tax-return",
+        "/blogs/rent-a-room-relief-lodger-tax",
+        "/blogs/self-assessment-for-landlords-2025-26"
+      ],
+      "structuredData": "parsed"
+    },
+    {
+      "route": "/rental-income-tax",
+      "h1": "Rental records in order. A clear plan for MTD.",
+      "canonical": "https://taxsimba.co.uk/rental-income-tax",
+      "guideLinks": [
+        "/blogs/mtd-employed-landlord-salary",
+        "/blogs/mtd-for-landlords-2026-27",
+        "/blogs/mtd-jointly-owned-rental-property",
+        "/blogs/mtd-letting-agent-gross-rent-net-payment",
+        "/blogs/mtd-new-business-new-rental-income",
+        "/blogs/mtd-sole-trader-and-landlord-separate-updates",
+        "/blogs/self-assessment-2025-26-mtd-2026-27"
+      ],
+      "structuredData": "parsed"
+    }
+  ],
+  "browserQA": "not completed: preview browser call stalled and was aborted",
+  "liveCustomerFlow": "not exercised"
+}

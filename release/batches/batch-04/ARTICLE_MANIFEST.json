@@ -1,0 +1,242 @@
+[
+  {
+    "releasePosition": 31,
+    "slug": "payments-on-account-explained",
+    "title": "Payments on Account Explained — Why Is HMRC Asking for More?",
+    "category": "Self Assessment",
+    "metaTitle": "Payments on Account: January and July Explained | TaxSimba",
+    "metaDescription": "Understand Self Assessment payments on account, the January balancing payment and how to check your HMRC statement before reducing an instalment.",
+    "sources": [
+      {
+        "label": "GOV.UK — Understand your Self Assessment bill: payments on account",
+        "url": "https://www.gov.uk/understand-self-assessment-bill/payments-on-account"
+      },
+      {
+        "label": "GOV.UK — Understand your Self Assessment bill",
+        "url": "https://www.gov.uk/understand-self-assessment-bill"
+      },
+      {
+        "label": "GOV.UK — Self Assessment tax returns: deadlines",
+        "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+      },
+      {
+        "label": "GOV.UK — Pay your Self Assessment tax bill",
+        "url": "https://www.gov.uk/pay-self-assessment-tax-bill"
+      }
+    ]
+  },
+  {
+    "releasePosition": 32,
+    "slug": "late-self-assessment-penalties",
+    "title": "Late Self Assessment Filing — Penalties and What To Do Now",
+    "category": "Self Assessment",
+    "metaTitle": "Late Self Assessment: Penalties and Next Steps | TaxSimba",
+    "metaDescription": "Late with Self Assessment? Check which penalty rules apply, separate filing from payment and prepare evidence before contacting HMRC or appealing.",
+    "sources": [
+      {
+        "label": "GOV.UK — Self Assessment tax returns: penalties",
+        "url": "https://www.gov.uk/self-assessment-tax-returns/penalties"
+      },
+      {
+        "label": "GOV.UK — Penalties for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/penalties-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Self Assessment tax returns: deadlines",
+        "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+      },
+      {
+        "label": "GOV.UK — Pay your Self Assessment tax bill",
+        "url": "https://www.gov.uk/pay-self-assessment-tax-bill"
+      }
+    ]
+  },
+  {
+    "releasePosition": 33,
+    "slug": "mtd-quarterly-deadline-7-november-2026",
+    "title": "MTD Quarterly Deadline: What You Need to Do Before 7 November 2026",
+    "category": "Making Tax Digital",
+    "metaTitle": "MTD Deadline 7 November 2026: Your Checklist | TaxSimba",
+    "metaDescription": "Prepare the MTD update due 7 November 2026: check the cumulative period, reconcile records, send through compatible software and retain confirmation.",
+    "sources": [
+      {
+        "label": "GOV.UK — Send quarterly updates (Making Tax Digital for Income Tax)",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+      },
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax (first-year dates)",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/before-you-use-this-guide"
+      },
+      {
+        "label": "GOV.UK — Penalties for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/penalties-for-making-tax-digital-for-income-tax"
+      }
+    ]
+  },
+  {
+    "releasePosition": 34,
+    "slug": "mtd-for-landlords-2026-27",
+    "title": "MTD for Landlords: What Landlords Need to Do in 2026/27",
+    "category": "Making Tax Digital",
+    "metaTitle": "MTD for Landlords 2026/27: Records and Updates | TaxSimba",
+    "metaDescription": "Check MTD for landlords in 2026/27: qualifying income, joint-property shares, digital rental records, quarterly updates and year-end preparation.",
+    "sources": [
+      {
+        "label": "GOV.UK — Create digital records (Making Tax Digital for Income Tax)",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      },
+      {
+        "label": "GOV.UK — Send quarterly updates",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+      },
+      {
+        "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Work out your qualifying income",
+        "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      }
+    ]
+  },
+  {
+    "releasePosition": 35,
+    "slug": "mtd-for-sole-traders-2026-27",
+    "title": "MTD for Sole Traders: What You Need to Do in 2026/27",
+    "category": "Making Tax Digital",
+    "metaTitle": "MTD for Sole Traders 2026/27: Practical Guide | TaxSimba",
+    "metaDescription": "Prepare your sole-trader MTD workflow: check qualifying turnover, keep digital records, reconcile quarterly updates and plan the annual tax return.",
+    "sources": [
+      {
+        "label": "GOV.UK — Create digital records (Making Tax Digital for Income Tax)",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      },
+      {
+        "label": "GOV.UK — Send quarterly updates",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+      },
+      {
+        "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Work out your qualifying income",
+        "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      }
+    ]
+  },
+  {
+    "releasePosition": 36,
+    "slug": "hmrc-mtd-signup-wrong",
+    "title": "HMRC Says I Need Making Tax Digital, But I Think They’re Wrong — What Should I Do?",
+    "category": "Making Tax Digital",
+    "metaTitle": "HMRC Says You Need MTD: How to Check a Mistake | TaxSimba",
+    "metaDescription": "Think HMRC signed you up for MTD incorrectly? Check the look-back income, ceased businesses and exemption evidence before contacting HMRC.",
+    "sources": [
+      {
+        "label": "GOV.UK — Check what to do if HMRC has signed you up for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/check-what-to-do-if-hmrc-has-signed-you-up-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Work out your qualifying income for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Apply for an exemption from Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/apply-for-an-exemption-from-making-tax-digital-for-income-tax"
+      }
+    ]
+  },
+  {
+    "releasePosition": 37,
+    "slug": "mtd-30000-threshold-2027",
+    "title": "Making Tax Digital £30,000 Rule: Who Needs to Prepare for April 2027?",
+    "category": "Making Tax Digital",
+    "metaTitle": "MTD £30,000 Threshold: Prepare for April 2027 | TaxSimba",
+    "metaDescription": "Check the MTD £30,000 threshold for April 2027 using 2025/26 gross trading and property income, then plan records, software and responsibilities.",
+    "sources": [
+      {
+        "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Work out your qualifying income for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax (before you use this guide)",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/before-you-use-this-guide"
+      }
+    ]
+  },
+  {
+    "releasePosition": 38,
+    "slug": "does-mtd-replace-self-assessment",
+    "title": "Does Making Tax Digital Replace Self Assessment?",
+    "category": "Making Tax Digital",
+    "metaTitle": "Does MTD Replace Self Assessment? What Changes | TaxSimba",
+    "metaDescription": "MTD changes how you do Self Assessment. Learn how quarterly updates, the annual software return and existing tax payment dates fit together.",
+    "sources": [
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax (before you use this guide)",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/before-you-use-this-guide"
+      },
+      {
+        "label": "GOV.UK — Submit your tax return (Making Tax Digital for Income Tax)",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/submit-your-tax-return"
+      },
+      {
+        "label": "GOV.UK — Send quarterly updates",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+      }
+    ]
+  },
+  {
+    "releasePosition": 39,
+    "slug": "mtd-exemptions",
+    "title": "Making Tax Digital Exemptions: Who Does Not Have to Use MTD?",
+    "category": "Making Tax Digital",
+    "metaTitle": "MTD Exemptions: Eligibility and Application Steps | TaxSimba",
+    "metaDescription": "Explore MTD exemptions, digital exclusion and the evidence HMRC may need. Check the official decision before changing your reporting routine.",
+    "sources": [
+      {
+        "label": "GOV.UK — Find out if you can get an exemption from Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/find-out-if-you-can-get-an-exemption-from-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Apply for an exemption from Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/apply-for-an-exemption-from-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      }
+    ]
+  },
+  {
+    "releasePosition": 40,
+    "slug": "self-assessment-for-landlords-2025-26",
+    "title": "Self Assessment for Landlords: What You Need for Your 2025/26 Tax Return",
+    "category": "Self Assessment",
+    "metaTitle": "Landlord Self Assessment 2025/26: Record Checklist | TaxSimba",
+    "metaDescription": "Prepare your 2025/26 landlord tax return with gross rent, agent statements, ownership shares, expenses and mortgage interest records in one pack.",
+    "sources": [
+      {
+        "label": "GOV.UK — Work out your rental income when you let property",
+        "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+      },
+      {
+        "label": "GOV.UK — Self Assessment tax returns: Deadlines",
+        "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+      },
+      {
+        "label": "GOV.UK — Check how to register for Self Assessment",
+        "url": "https://www.gov.uk/register-for-self-assessment"
+      }
+    ]
+  }
+]

@@ -1,0 +1,2684 @@
+[
+  {
+    "rank": 1,
+    "slug": "mtd-accountant-cost",
+    "coreAnswerReviewed": "MTD fees vary with the work included. Published offers checked on 21 October 2026 included Taxfix plans at £4.99 a month for self-service software and £39.99 for full support, both including VAT. Those are one provider’s advertised offers, not a market average or a TaxSimba quote. Compare bookkeeping, quarterly updates, the annual return and any catch-up fees.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "Rechecked advertised plan figures and removed redundant comparison example.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 2,
+    "slug": "self-assessment-accountant-cost",
+    "coreAnswerReviewed": "Published Self Assessment fees checked on 21 October 2026 included £179 plus VAT for RJ Accountancy’s basic return and £275 plus VAT at Sleek. These are examples, not an average or equivalent packages. Your quote depends on the income sources, records and extra calculations involved.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "Rechecked the two named advertised offers and their scope; not a market average.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/check-if-you-need-tax-return",
+      "https://www.gov.uk/expenses-if-youre-self-employed/legal-financial"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/check-if-you-need-tax-return",
+      "https://www.gov.uk/expenses-if-youre-self-employed/legal-financial"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 3,
+    "slug": "join-mtd-service-mid-year",
+    "coreAnswerReviewed": "You can join an MTD service during the year, but earlier records still matter. Give your new accountant the records from the tax-year start and proof of any updates already sent. Agree who will deal with outstanding updates, corrections and the annual return before the next deadline.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 4,
+    "slug": "switch-mtd-accountant-mid-year",
+    "coreAnswerReviewed": "Yes, you can change MTD accountants during the tax year. Arrange the records, HMRC permissions and next filing responsibility before the handover. Switching firms does not automatically correct old mistakes or transfer every software record.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/authorising-an-agent-to-deal-with-your-tax-affairs"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/authorising-an-agent-to-deal-with-your-tax-affairs"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 5,
+    "slug": "mtd-quarterly-updates-tax-payments",
+    "coreAnswerReviewed": "No. MTD quarterly updates report income and expenses; they are not quarterly Income Tax bills. Your tax payments, any payments on account and the fee you pay your accountant are separate. Check your HMRC statement for the amounts and dates you actually owe.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/using-making-tax-digital-for-income-tax-for-the-first-time",
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/using-making-tax-digital-for-income-tax-for-the-first-time",
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 6,
+    "slug": "self-assessment-2025-26-mtd-2026-27",
+    "coreAnswerReviewed": "Yes, both can be due because they cover different years. Your 2025/26 online Self Assessment return is normally due on 31 January 2027. Your 2026/27 MTD updates relate to the following tax year, whose annual return is due on 31 January 2028.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/using-making-tax-digital-for-income-tax-for-the-first-time",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/submit-your-tax-return"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/using-making-tax-digital-for-income-tax-for-the-first-time",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/submit-your-tax-return"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 7,
+    "slug": "mtd-cumulative-quarterly-updates",
+    "coreAnswerReviewed": "Yes. Each MTD update covers the tax year so far. If income is £12,000 in the first period and £15,000 in the second, the second update reports £27,000 of cumulative income—not another standalone £15,000. Expenses must also reflect the correct year-to-date records.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 8,
+    "slug": "correct-mtd-quarterly-update",
+    "coreAnswerReviewed": "Tell your accountant exactly which transaction is wrong and correct the digital records. HMRC’s next step depends on whether further updates or the annual return have already been sent. Avoid filing a duplicate or changing several copies of the records independently.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/adjust-your-self-employment-and-property-income",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/submit-your-tax-return"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/adjust-your-self-employment-and-property-income",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/submit-your-tax-return"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 9,
+    "slug": "waiting-for-utr-tax-return",
+    "coreAnswerReviewed": "Look for an existing UTR in your HMRC account, app or earlier correspondence before applying again. If you are waiting after registration, keep the acknowledgement and prepare your records now. A missing reference does not automatically postpone tax payment; follow any filing deadline HMRC gives you.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/register-for-self-assessment",
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "https://www.gov.uk/find-utr-number",
+      "https://www.gov.uk/guidance/check-when-you-can-expect-a-reply-from-hmrc",
+      "https://www.gov.uk/find-hmrc-contacts/self-assessment-general-enquiries"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/register-for-self-assessment",
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "https://www.gov.uk/find-utr-number",
+      "https://www.gov.uk/guidance/check-when-you-can-expect-a-reply-from-hmrc",
+      "https://www.gov.uk/find-hmrc-contacts/self-assessment-general-enquiries"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 10,
+    "slug": "employed-and-self-employed-tax-return",
+    "coreAnswerReviewed": "Employment and self-employment are normally reported together in one personal tax return when a return is required. Give the accountant your PAYE documents and your business records so income, expenses and tax already deducted are included once. You do not get a separate Personal Allowance for each activity.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/check-if-you-need-tax-return",
+      "https://www.gov.uk/self-employed-records/what-records-to-keep",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/check-if-you-need-tax-return",
+      "https://www.gov.uk/self-employed-records/what-records-to-keep",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 11,
+    "slug": "uber-private-hire-driver-tax-return",
+    "coreAnswerReviewed": "For a private-hire driver’s return, keep the full platform earnings statements, fees, cash fares and vehicle records. Net bank payouts alone can miss income and charges. The vehicle method and private use affect what you can claim, so keep mileage and purchase or lease details together.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/expenses-if-youre-self-employed/travel",
+      "https://www.gov.uk/simpler-income-tax-simplified-expenses/vehicles",
+      "https://www.gov.uk/self-employed-records/what-records-to-keep"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/expenses-if-youre-self-employed/travel",
+      "https://www.gov.uk/simpler-income-tax-simplified-expenses/vehicles",
+      "https://www.gov.uk/self-employed-records/what-records-to-keep"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 12,
+    "slug": "delivery-driver-courier-tax-return",
+    "coreAnswerReviewed": "Keep earnings and fee statements from every delivery app, plus direct bookings, tips and relevant costs. Reconcile the full earnings to the payouts. Platform deductions are not automatically tax, and a platform sending data to HMRC does not complete your personal return.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/selling-goods-or-services-on-a-digital-platform",
+      "https://www.gov.uk/expenses-if-youre-self-employed/travel",
+      "https://www.gov.uk/expenses-if-youre-self-employed/office-property"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/selling-goods-or-services-on-a-digital-platform",
+      "https://www.gov.uk/expenses-if-youre-self-employed/travel",
+      "https://www.gov.uk/expenses-if-youre-self-employed/office-property"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 13,
+    "slug": "mtd-software-vs-accountant-service",
+    "coreAnswerReviewed": "Choose software alone if you want to keep the records and handle the reporting yourself. Choose accountant support if you want agreed checking, bookkeeping or filing work. Compare who does each task; an MTD software subscription does not automatically include an accountant-managed return.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/authorising-an-agent-to-deal-with-your-tax-affairs"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/authorising-an-agent-to-deal-with-your-tax-affairs"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 14,
+    "slug": "authorise-mtd-accountant-safely",
+    "coreAnswerReviewed": "Authorise your accountant through the official HMRC process for the work they will do. Keep your Government Gateway password and security codes private. For MTD, confirm whether the accountant needs a main or supporting-agent role, especially if another firm remains involved.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/authorising-an-agent-to-deal-with-your-tax-affairs",
+      "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/add-your-client-authorisations-for-making-tax-digital-for-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/authorising-an-agent-to-deal-with-your-tax-affairs",
+      "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/add-your-client-authorisations-for-making-tax-digital-for-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 15,
+    "slug": "multiple-overdue-self-assessment-returns",
+    "coreAnswerReviewed": "Start with a list of the missing tax years and every HMRC notice. Keep records separate for each year. An outstanding return, an error in a filed return and undeclared income can need different routes, so agree the filing or disclosure plan before submitting figures.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "https://www.gov.uk/self-assessment-tax-returns/corrections",
+      "https://www.gov.uk/government/publications/let-property-campaign-your-guide-to-making-a-disclosure/let-property-campaign-your-guide-to-making-a-disclosure"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "https://www.gov.uk/self-assessment-tax-returns/corrections",
+      "https://www.gov.uk/government/publications/let-property-campaign-your-guide-to-making-a-disclosure/let-property-campaign-your-guide-to-making-a-disclosure"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 16,
+    "slug": "appeal-self-assessment-late-penalty",
+    "coreAnswerReviewed": "Read the penalty notice and its appeal instructions promptly. Appeals are normally due within 30 days. Explain what prevented you meeting the deadline, give relevant dated evidence and say what you did once the problem ended. Appealing does not file a missing return or pay the tax.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/check-when-to-appeal-a-self-assessment-penalty-for-late-filing-or-late-payment",
+      "https://www.gov.uk/tax-appeals/reasonable-excuses",
+      "https://www.gov.uk/tax-appeals",
+      "https://www.gov.uk/tax-appeals/penalty"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/check-when-to-appeal-a-self-assessment-penalty-for-late-filing-or-late-payment",
+      "https://www.gov.uk/tax-appeals/reasonable-excuses",
+      "https://www.gov.uk/tax-appeals",
+      "https://www.gov.uk/tax-appeals/penalty"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 17,
+    "slug": "sold-rental-property-60-day-tax",
+    "coreAnswerReviewed": "For a UK resident selling UK residential property, Capital Gains Tax due on the sale generally has to be reported and paid within 60 days of completion. Non-residents have wider reporting rules. Tell the accountant the completion date immediately; the annual return deadline may be too late.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/report-and-pay-your-capital-gains-tax/if-you-sold-a-property-in-the-uk-on-or-after-6-april-2020",
+      "https://www.gov.uk/capital-gains-tax/reporting-and-paying-capital-gains-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/report-and-pay-your-capital-gains-tax/if-you-sold-a-property-in-the-uk-on-or-after-6-april-2020",
+      "https://www.gov.uk/capital-gains-tax/reporting-and-paying-capital-gains-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 18,
+    "slug": "pay-self-assessment-through-tax-code-december",
+    "coreAnswerReviewed": "You may be able to pay through PAYE if you owe less than £3,000, already pay tax through PAYE and file online by 30 December. HMRC also checks whether enough PAYE income is available. Confirm what is collected through your code and what still needs paying separately.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/pay-self-assessment-tax-bill/through-your-tax-code"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/pay-self-assessment-tax-bill/through-your-tax-code"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 19,
+    "slug": "mtd-proof-quarterly-update-submitted",
+    "coreAnswerReviewed": "Match the HMRC activity and software confirmation to the correct business, tax year and update period. Uploading receipts or finishing bookkeeping is not proof of submission. If the evidence is missing or contradictory, ask the accountant to check before anyone sends a duplicate.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+      "https://www.gov.uk/personal-tax-account"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+      "https://www.gov.uk/personal-tax-account"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 20,
+    "slug": "hmrc-signed-me-up-for-making-tax-digital",
+    "coreAnswerReviewed": "Check the HMRC notice, confirm your business and property income sources and arrange compatible software or an authorised accountant. If HMRC has signed you up for 2026/27, organise digital records from the tax-year start and check which updates remain outstanding. Your earlier Self Assessment return can still be due.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "Added qualification that HMRC may check an already-filed 2025/26 return.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/check-what-to-do-if-hmrc-has-signed-you-up-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/check-what-to-do-if-hmrc-has-signed-you-up-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 21,
+    "slug": "mtd-qualifying-income",
+    "coreAnswerReviewed": "MTD qualifying income is the relevant gross self-employment and property income before expenses. Combine the sources and use the correct lookback year. PAYE salary does not count towards this total, and profit after expenses is not the threshold figure.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 22,
+    "slug": "mtd-quarterly-updates",
+    "coreAnswerReviewed": "Send cumulative income and expense category totals from your digital records through MTD-compatible software, or have your agent send them. It is not a full annual tax return or a folder of invoices. Keep the correct business, period and submission confirmation together.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 23,
+    "slug": "self-assessment-deadline",
+    "coreAnswerReviewed": "For 2025/26, the usual online Self Assessment filing and payment deadline is 31 January 2027. Paper returns are normally due on 31 October 2026. PAYE collection requests have an earlier online deadline, and a specific HMRC notice can change the filing date.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "https://www.gov.uk/self-assessment-tax-returns",
+      "https://www.gov.uk/understand-self-assessment-bill/payments-on-account"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "https://www.gov.uk/self-assessment-tax-returns",
+      "https://www.gov.uk/understand-self-assessment-bill/payments-on-account"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 24,
+    "slug": "self-assessment-documents-checklist",
+    "coreAnswerReviewed": "Gather your HMRC references, income statements, business or rental records, expense evidence and details of relevant pensions, donations, gains and loans. Use the tax year the return covers. Tell the accountant what is missing rather than waiting for a perfect folder.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/self-assessment-tax-returns",
+      "https://www.gov.uk/self-employed-records",
+      "https://www.gov.uk/expenses-if-youre-self-employed",
+      "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/self-assessment-tax-returns",
+      "https://www.gov.uk/self-employed-records",
+      "https://www.gov.uk/expenses-if-youre-self-employed",
+      "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 25,
+    "slug": "understanding-self-assessment-uk",
+    "coreAnswerReviewed": "Self Assessment is how you report income and gains that need an individual tax return. A PAYE job does not settle every other income source. Check whether a return is required, gather the records for the correct tax year and file and pay by the applicable deadlines.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/self-assessment-tax-returns",
+      "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/self-assessment-tax-returns",
+      "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 26,
+    "slug": "top-tax-saving-tips-uk",
+    "coreAnswerReviewed": "For a sole trader, useful tax-saving checks include allowable expenses, the choice between expenses and the trading allowance, pension relief and tax already deducted. Each depends on your circumstances. A deduction reduces taxable profit; it does not make a purchase free.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/expenses-if-youre-self-employed",
+      "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/expenses-if-youre-self-employed",
+      "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 27,
+    "slug": "making-tax-digital-explained",
+    "coreAnswerReviewed": "MTD for Income Tax means digital records, quarterly updates and an annual return through compatible software. It applies in phases based on relevant gross self-employment and property income. It changes the reporting process; quarterly updates do not automatically mean quarterly tax payments.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 28,
+    "slug": "mtd-accountant-or-agent",
+    "coreAnswerReviewed": "Yes. An authorised accountant can handle agreed MTD work using compatible software. Confirm who keeps the books, sends each update and submits the annual return. You still need to provide complete information and answer questions about it.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/sign-up-your-client-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/sign-up-your-client-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 29,
+    "slug": "mtd-digital-records",
+    "coreAnswerReviewed": "Keep digital entries showing the amount, relevant date and category for the business or property transactions in scope, supported by the underlying evidence. A receipt image or bank feed can help, but neither proves the books are complete. Check any simplified-recording rules that apply.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 30,
+    "slug": "missed-mtd-quarterly-update",
+    "coreAnswerReviewed": "Bring the records up to date and arrange the overdue update promptly. For 2026/27, HMRC does not apply penalty points for late quarterly updates, but the updates are still required. Annual-return deadlines and tax payments are separate obligations.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+      "https://www.gov.uk/guidance/penalties-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+      "https://www.gov.uk/guidance/penalties-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 31,
+    "slug": "payments-on-account-explained",
+    "coreAnswerReviewed": "Payments on account are advance payments towards the next Self Assessment liability, normally due on 31 January and 31 July. Each is usually half the relevant previous-year bill. Your first January can include the balance for one year and an advance payment for the next.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/understand-self-assessment-bill/payments-on-account",
+      "https://www.gov.uk/understand-self-assessment-bill",
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "https://www.gov.uk/pay-self-assessment-tax-bill",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/understand-self-assessment-bill/payments-on-account",
+      "https://www.gov.uk/understand-self-assessment-bill",
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "https://www.gov.uk/pay-self-assessment-tax-bill",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 32,
+    "slug": "late-self-assessment-penalties",
+    "coreAnswerReviewed": "File the outstanding return, check the penalty notice and deal with unpaid tax promptly. The penalty rules depend on the tax year and whether the new MTD regime applies. No tax to pay does not automatically remove a late-filing penalty.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/self-assessment-tax-returns/penalties",
+      "https://www.gov.uk/guidance/penalties-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "https://www.gov.uk/pay-self-assessment-tax-bill"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/self-assessment-tax-returns/penalties",
+      "https://www.gov.uk/guidance/penalties-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "https://www.gov.uk/pay-self-assessment-tax-bill"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 33,
+    "slug": "mtd-quarterly-deadline-7-november-2026",
+    "coreAnswerReviewed": "The second 2026/27 MTD update is due on 7 November 2026. Prepare cumulative records to 5 October for standard periods, or 30 September for calendar periods. If that date has passed, follow the catch-up steps rather than waiting for the annual return.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/before-you-use-this-guide",
+      "https://www.gov.uk/guidance/penalties-for-making-tax-digital-for-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/before-you-use-this-guide",
+      "https://www.gov.uk/guidance/penalties-for-making-tax-digital-for-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 34,
+    "slug": "mtd-for-landlords-2026-27",
+    "coreAnswerReviewed": "Landlords in MTD keep digital property records and send cumulative updates, then complete the annual return. Check your own share of qualifying income, any other trades and the correct lookback year. One jointly owned property does not automatically mean both owners have identical obligations.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+      "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+      "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 35,
+    "slug": "mtd-for-sole-traders-2026-27",
+    "coreAnswerReviewed": "Sole traders in MTD need digital business records, quarterly updates and an annual return through compatible software. Use gross qualifying income and the correct lookback year to check the start date. Keep the reporting dates separate from the tax payment schedule.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+      "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+      "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 36,
+    "slug": "hmrc-mtd-signup-wrong",
+    "coreAnswerReviewed": "Check the income figures, tax year and income sources HMRC used. If they are wrong, have ceased or an exemption applies, contact HMRC with evidence. Keep track of existing deadlines while the position is being resolved; do not simply ignore the notice.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/check-what-to-do-if-hmrc-has-signed-you-up-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/apply-for-an-exemption-from-making-tax-digital-for-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/check-what-to-do-if-hmrc-has-signed-you-up-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/apply-for-an-exemption-from-making-tax-digital-for-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 37,
+    "slug": "mtd-30000-threshold-2027",
+    "coreAnswerReviewed": "The April 2027 MTD phase uses qualifying self-employment and property income over £30,000 for 2025/26. That means the relevant gross income before expenses, not salary or take-home profit. Check exemptions and current HMRC guidance before signing up.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/before-you-use-this-guide"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/before-you-use-this-guide"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 38,
+    "slug": "does-mtd-replace-self-assessment",
+    "coreAnswerReviewed": "MTD for Income Tax changes how Self Assessment is done; it does not remove the annual return. You keep digital records and send updates during the year, then finalise the tax position through compatible software. A return for an earlier year can still follow the old process.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/before-you-use-this-guide",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/submit-your-tax-return",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/before-you-use-this-guide",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/submit-your-tax-return",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 39,
+    "slug": "mtd-exemptions",
+    "coreAnswerReviewed": "Some people are automatically exempt and others can apply, including on digital-exclusion grounds. Check the actual HMRC conditions and keep the decision. An exemption from MTD does not automatically remove ordinary tax-return and payment duties.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "Added temporary 2026/27 SA109 exemption and application distinction.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/find-out-if-you-can-get-an-exemption-from-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/apply-for-an-exemption-from-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/find-out-if-you-can-get-an-exemption-from-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/apply-for-an-exemption-from-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 40,
+    "slug": "self-assessment-for-landlords-2025-26",
+    "coreAnswerReviewed": "For a 2025/26 landlord return, gather gross rent, agent statements, allowable-cost evidence, finance costs, ownership details and periods of private use or vacancy. Keep any property sale separate because it can have an earlier reporting deadline. MTD work for 2026/27 covers a different year.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "https://www.gov.uk/register-for-self-assessment",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "https://www.gov.uk/register-for-self-assessment",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 41,
+    "slug": "self-assessment-for-sole-traders-2025-26",
+    "coreAnswerReviewed": "Prepare the sole-trade income and costs for 6 April 2025 to 5 April 2026, using the correct accounting method. Include any PAYE income and tax already paid, such as CIS deductions. Tell the accountant about the whole personal tax position, not just the business bank account.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "https://www.gov.uk/register-for-self-assessment",
+      "https://www.gov.uk/understand-self-assessment-bill/payments-on-account",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "https://www.gov.uk/register-for-self-assessment",
+      "https://www.gov.uk/understand-self-assessment-bill/payments-on-account",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 42,
+    "slug": "self-assessment-register-by-5-october-2026",
+    "coreAnswerReviewed": "The 5 October notification deadline concerns people who need a return but have not filed before, or need to reactivate after the relevant gap. If you missed 5 October 2026, register or reactivate promptly. Follow HMRC’s revised filing notice and keep the normal tax-payment deadline in view.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/register-for-self-assessment",
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "https://www.gov.uk/self-assessment-tax-returns/registering"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/register-for-self-assessment",
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "https://www.gov.uk/self-assessment-tax-returns/registering"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 43,
+    "slug": "cannot-pay-self-assessment-tax-bill",
+    "coreAnswerReviewed": "Contact HMRC early about payment support and file the return even if you cannot pay the whole bill. Check whether a Time to Pay arrangement is available. A payment plan is different from an appeal, and interest or penalties can still depend on when you act and the terms agreed.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/difficulties-paying-hmrc",
+      "https://www.gov.uk/difficulties-paying-hmrc/pay-in-instalments",
+      "https://www.gov.uk/pay-self-assessment-tax-bill/pay-weekly-monthly",
+      "https://www.gov.uk/pay-self-assessment-tax-bill"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/difficulties-paying-hmrc",
+      "https://www.gov.uk/difficulties-paying-hmrc/pay-in-instalments",
+      "https://www.gov.uk/pay-self-assessment-tax-bill/pay-weekly-monthly",
+      "https://www.gov.uk/pay-self-assessment-tax-bill"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 44,
+    "slug": "reduce-self-assessment-payments-on-account",
+    "coreAnswerReviewed": "You can ask HMRC to reduce payments on account if a supported estimate shows a lower relevant liability. Keep the calculation and revisit it when income changes. If you reduce the payments too far, interest can be charged on the shortfall.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/understand-self-assessment-bill/payments-on-account",
+      "https://www.gov.uk/guidance/claim-to-reduce-payments-on-account",
+      "https://www.gov.uk/understand-self-assessment-bill"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/understand-self-assessment-bill/payments-on-account",
+      "https://www.gov.uk/guidance/claim-to-reduce-payments-on-account",
+      "https://www.gov.uk/understand-self-assessment-bill"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 45,
+    "slug": "landlord-mortgage-interest-tax-relief",
+    "coreAnswerReviewed": "For individual residential landlords, mortgage finance costs generally receive a basic-rate tax reduction rather than a full deduction from rental profit. The reduction is subject to limits. Give the accountant the interest and finance-cost figures, not just the total mortgage payments.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/changes-to-tax-relief-for-residential-landlords-how-its-worked-out-including-case-studies",
+      "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+      "https://www.gov.uk/renting-out-a-property/paying-tax",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/changes-to-tax-relief-for-residential-landlords-how-its-worked-out-including-case-studies",
+      "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+      "https://www.gov.uk/renting-out-a-property/paying-tax",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 46,
+    "slug": "cis-deductions-self-assessment",
+    "coreAnswerReviewed": "Report the full CIS income before deductions and enter the CIS tax already withheld separately. HMRC sets that credit against the final liability. A company subcontractor uses a different repayment route, so do not apply a sole-trader checklist to company deductions.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/pay-tax-and-claim-back-deductions",
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor",
+      "https://www.gov.uk/government/publications/construction-industry-scheme-individuals-repayment-claim-cis40"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/pay-tax-and-claim-back-deductions",
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor",
+      "https://www.gov.uk/government/publications/construction-industry-scheme-individuals-repayment-claim-cis40"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 47,
+    "slug": "undeclared-rental-income-hmrc",
+    "coreAnswerReviewed": "Organise the rent and costs by tax year, then identify which years need a return, amendment or disclosure. The Let Property Campaign can apply to eligible undeclared residential rental income. Follow the official acknowledgment-based timetable and get suitable help where several years are involved.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/government/publications/let-property-campaign-your-guide-to-making-a-disclosure/let-property-campaign-your-guide-to-making-a-disclosure",
+      "https://www.gov.uk/government/publications/hmrc-your-guide-to-making-a-disclosure/your-guide-to-making-a-disclosure",
+      "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+      "https://www.gov.uk/register-for-self-assessment"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/government/publications/let-property-campaign-your-guide-to-making-a-disclosure/let-property-campaign-your-guide-to-making-a-disclosure",
+      "https://www.gov.uk/government/publications/hmrc-your-guide-to-making-a-disclosure/your-guide-to-making-a-disclosure",
+      "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+      "https://www.gov.uk/register-for-self-assessment"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 48,
+    "slug": "self-assessment-side-hustle",
+    "coreAnswerReviewed": "A genuine trading side hustle with gross income over £1,000 usually triggers Self Assessment, even if you also have a PAYE job. The threshold uses receipts before expenses. Selling your own unwanted possessions is a different question from buying or making things to sell.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "https://www.gov.uk/become-sole-trader/register-sole-trader",
+      "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "https://www.gov.uk/become-sole-trader/register-sole-trader",
+      "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 49,
+    "slug": "trading-allowance-1000-hmrc",
+    "coreAnswerReviewed": "The trading allowance can cover eligible receipts up to £1,000 or provide a deduction instead of actual expenses. Add relevant trades together and check exclusions. You cannot normally deduct both the allowance and the same trade’s actual expenses.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "https://www.gov.uk/become-sole-trader/register-sole-trader",
+      "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "https://www.gov.uk/become-sole-trader/register-sole-trader",
+      "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 50,
+    "slug": "amend-self-assessment-tax-return",
+    "coreAnswerReviewed": "You can normally amend a Self Assessment return within 12 months of its usual filing deadline. The route depends on how it was filed and the year concerned. If that window has closed, use the appropriate HMRC correction or claim process rather than submitting a duplicate return.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/self-assessment-tax-returns/corrections",
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/self-assessment-tax-returns/corrections",
+      "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 51,
+    "slug": "mtd-income-tax-vs-mtd-vat",
+    "coreAnswerReviewed": "MTD for VAT and MTD for Income Tax have different eligibility, reporting and authorisation rules. You may need one or both. Check the software supports the relevant taxes and income sources; completing a VAT return does not complete your personal Income Tax obligations.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/government/collections/making-tax-digital-for-vat",
+      "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/government/collections/making-tax-digital-for-vat",
+      "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 52,
+    "slug": "can-i-use-spreadsheets-for-mtd",
+    "coreAnswerReviewed": "Spreadsheets can form part of an MTD record-keeping system, but you still need suitable compatible software and digital links to send the required information. Emailing an Excel file to HMRC is not an MTD submission. Agree how the spreadsheet and filing software connect before relying on them.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/find-software-that-works-with-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/get-your-software-ready"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/find-software-that-works-with-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/get-your-software-ready"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 53,
+    "slug": "cis-tax-refunds-subcontractors",
+    "coreAnswerReviewed": "A CIS refund can arise when deductions already withheld exceed the final Income Tax and National Insurance liability. Keep payment statements and claim the credit through the correct route. Neither a refund nor its amount is guaranteed simply because 20% or 30% was deducted.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/pay-tax-and-claim-back-deductions",
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor",
+      "https://www.gov.uk/government/publications/construction-industry-scheme-individuals-repayment-claim-cis40"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/pay-tax-and-claim-back-deductions",
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor",
+      "https://www.gov.uk/government/publications/construction-industry-scheme-individuals-repayment-claim-cis40"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 54,
+    "slug": "cis-20-vs-30-percent-deductions",
+    "coreAnswerReviewed": "A 30% CIS deduction usually means the contractor could not verify you at the standard registered rate. Check the registration and identity details with the contractor. The deduction rate is an advance-payment rate, not the final tax rate on your profit.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor",
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid",
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/how-to-get-gross-payment-status"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor",
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid",
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/how-to-get-gross-payment-status"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 55,
+    "slug": "cis-payment-deduction-statements",
+    "coreAnswerReviewed": "Keep the contractor’s CIS payment and deduction statements for each tax month in which deductions were taken. They show the gross payment, relevant materials and tax withheld. If one is missing, request it and tell the accountant which period needs reconciling.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid",
+      "https://www.gov.uk/government/publications/construction-industry-scheme-cis-340/construction-industry-scheme-a-guide-for-contractors-and-subcontractors-cis-340",
+      "https://www.gov.uk/hmrc-internal-manuals/construction-industry-scheme-reform/cisr12160"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid",
+      "https://www.gov.uk/government/publications/construction-industry-scheme-cis-340/construction-industry-scheme-a-guide-for-contractors-and-subcontractors-cis-340",
+      "https://www.gov.uk/hmrc-internal-manuals/construction-industry-scheme-reform/cisr12160"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 56,
+    "slug": "cis-allowable-expenses-subcontractors",
+    "coreAnswerReviewed": "CIS subcontractors use the ordinary allowable-business-cost rules. Keep evidence for tools, qualifying travel, protective clothing and other genuine trade costs, with private use separated. Expenses reduce profit; CIS deductions are a tax credit and should not be entered as another expense.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/expenses-if-youre-self-employed",
+      "https://www.gov.uk/expenses-if-youre-self-employed/clothing",
+      "https://www.gov.uk/expenses-if-youre-self-employed/vehicles-travel",
+      "https://www.gov.uk/expenses-if-youre-self-employed/office-property-equipment"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/expenses-if-youre-self-employed",
+      "https://www.gov.uk/expenses-if-youre-self-employed/clothing",
+      "https://www.gov.uk/expenses-if-youre-self-employed/vehicles-travel",
+      "https://www.gov.uk/expenses-if-youre-self-employed/office-property-equipment"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 57,
+    "slug": "cis-gross-payment-status",
+    "coreAnswerReviewed": "Gross payment status means contractors pay qualifying CIS amounts without withholding deductions. You still have to report the income and pay the tax. Eligibility depends on HMRC’s business, turnover and compliance tests; approval is not a tax exemption.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/how-to-get-gross-payment-status",
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor",
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/how-to-get-gross-payment-status",
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor",
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 58,
+    "slug": "mtd-no-income-quarter",
+    "coreAnswerReviewed": "Yes, an MTD update is still required where an income source has no income and no expenses for the period. A quiet quarter does not erase earlier cumulative totals. If the business has permanently stopped, check the separate cessation process.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 59,
+    "slug": "mtd-two-self-employed-businesses",
+    "coreAnswerReviewed": "Separate sole-trader businesses normally need their own MTD records and updates. First establish whether the activities really are separate trades. Keep each trade’s income identifiable and allocate shared costs once; two bank accounts alone do not settle the question.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 60,
+    "slug": "mtd-employed-landlord-salary",
+    "coreAnswerReviewed": "No, PAYE salary is not part of MTD qualifying income. Relevant gross property and self-employment income are used instead. Salary still matters when your overall annual tax is calculated, so your accountant needs both the employment and rental documents.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 61,
+    "slug": "mtd-jointly-owned-rental-property",
+    "coreAnswerReviewed": "Each joint owner checks their own relevant income share and MTD position. One owner’s software or accountant does not automatically cover the other. Keep the full rent statements, ownership details and any agreed reporting arrangements consistent across both returns.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim1035",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim1035",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 62,
+    "slug": "cis-subcontractors-mtd-gross-income",
+    "coreAnswerReviewed": "Use the gross CIS income before tax deductions when checking relevant self-employment income for MTD. A smaller net bank receipt does not mean lower turnover. Keep the CIS statement so the gross income and tax credit can be reconciled separately.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/what-is-the-construction-industry-scheme",
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid",
+      "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/what-is-the-construction-industry-scheme",
+      "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid",
+      "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 63,
+    "slug": "mtd-bank-feeds-complete-records",
+    "coreAnswerReviewed": "No. A connected bank feed can miss cash, another account, platform fees and the explanation of private transfers. Keep invoices and other records, check the date range and reconcile duplicates. Connection is a way to collect data, not confirmation that the accounts are complete.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/self-employed-records/what-records-to-keep"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/self-employed-records/what-records-to-keep"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 64,
+    "slug": "mtd-income-fallen-opt-out",
+    "coreAnswerReviewed": "One lower-income year does not automatically end MTD. HMRC’s exit rules include qualifying income below the relevant threshold for three consecutive tax years, with separate rules for corrections and ceased sources. Confirm the position before stopping updates or cancelling support.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/add-or-cease-income-sources"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/add-or-cease-income-sources"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 65,
+    "slug": "hairdresser-beauty-self-assessment",
+    "coreAnswerReviewed": "Explain whether you are employed, self-employed or both, and keep salon, chair-rent, private-client and tip records separately. Record cash as well as card payments. Ordinary clothes or personal grooming do not become business costs just because appearance matters at work.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/check-employment-status-if-you-work-in-hair-and-beauty",
+      "https://www.gov.uk/expenses-if-youre-self-employed",
+      "https://www.gov.uk/expenses-if-youre-self-employed/office-property",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/check-employment-status-if-you-work-in-hair-and-beauty",
+      "https://www.gov.uk/expenses-if-youre-self-employed",
+      "https://www.gov.uk/expenses-if-youre-self-employed/office-property",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 66,
+    "slug": "company-director-personal-tax-return",
+    "coreAnswerReviewed": "Company accounts and a director’s personal return are separate tasks. Directorship alone does not mean every person must file a personal return. Check the filing requirement, then provide salary, dividend and other personal-income records where a return is needed.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/director-information-hub-self-assessment-for-directors--2",
+      "https://www.gov.uk/check-if-you-need-tax-return",
+      "https://www.gov.uk/government/publications/self-assessment-employment-sa102",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/director-information-hub-self-assessment-for-directors--2",
+      "https://www.gov.uk/check-if-you-need-tax-return",
+      "https://www.gov.uk/government/publications/self-assessment-employment-sa102",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 67,
+    "slug": "vinted-ebay-personal-items-tax",
+    "coreAnswerReviewed": "Selling your own unwanted clothes is not automatically trading. Buying stock to resell for profit is a different activity. Platform reporting thresholds are not tax allowances, and valuable possessions can raise separate capital-gains questions. Keep the evidence of what you sold and why.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/selling-goods-or-services-on-a-digital-platform",
+      "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/selling-goods-or-services-on-a-digital-platform",
+      "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 68,
+    "slug": "etsy-seller-tax-return",
+    "coreAnswerReviewed": "Start with Etsy’s full sales, fees, refunds and adjustments, then reconcile them to the bank payout. The final deposit is not necessarily your turnover. Include other selling platforms and align the records with the UK tax year rather than relying on a calendar-year total.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/selling-goods-or-services-on-a-digital-platform",
+      "https://www.gov.uk/self-employed-records/what-records-to-keep",
+      "https://www.gov.uk/simpler-income-tax-cash-basis"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/selling-goods-or-services-on-a-digital-platform",
+      "https://www.gov.uk/self-employed-records/what-records-to-keep",
+      "https://www.gov.uk/simpler-income-tax-cash-basis"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 69,
+    "slug": "airbnb-holiday-let-tax-2025-26",
+    "coreAnswerReviewed": "The furnished holiday lettings regime ended for Income Tax from 6 April 2025. A 2025/26 return should not simply reuse the old calculation. Give the accountant property-use dates, gross platform income, costs and any earlier allowances or losses needing review.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim4165",
+      "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+      "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim4165",
+      "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+      "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 70,
+    "slug": "joint-rental-property-tax-return",
+    "coreAnswerReviewed": "Joint owners cannot always choose whichever rent split produces the lowest tax. The ownership and relationship between the owners matter, with particular rules for spouses and civil partners. One person receiving the rent does not automatically make all of it that person’s income.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim1035",
+      "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim1035",
+      "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 71,
+    "slug": "landlord-repairs-vs-improvements",
+    "coreAnswerReviewed": "A repair maintains or restores what was there; an improvement can be capital expenditure. Real projects can contain both. Keep itemised invoices, before-and-after descriptions and the property history so the correct parts can be assessed rather than treating the whole bill as one expense.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 72,
+    "slug": "savings-interest-self-assessment",
+    "coreAnswerReviewed": "Savings interest does not always require a Self Assessment return. Add the relevant interest across accounts and check the allowance and reporting route for your circumstances. If you already file, give the accountant the required interest details even where a bank also reports them.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/apply-tax-free-interest-on-savings/how-you-pay-tax-on-savings-interest",
+      "https://www.gov.uk/guidance/check-how-much-tax-you-pay-on-dividends-and-interest-from-savings",
+      "https://www.gov.uk/apply-tax-free-interest-on-savings/how-much-is-tax-free"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/apply-tax-free-interest-on-savings/how-you-pay-tax-on-savings-interest",
+      "https://www.gov.uk/guidance/check-how-much-tax-you-pay-on-dividends-and-interest-from-savings",
+      "https://www.gov.uk/apply-tax-free-interest-on-savings/how-much-is-tax-free"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 73,
+    "slug": "self-employed-working-from-home-expenses",
+    "coreAnswerReviewed": "You can use actual allowable home-working costs or simplified expenses where eligible. Simplified rates depend on hours worked at home; they do not include phone and internet. Compare the permitted methods and do not claim the same household cost twice.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/expenses-if-youre-self-employed",
+      "https://www.gov.uk/expenses-if-youre-self-employed/office-property",
+      "https://www.gov.uk/simpler-income-tax-simplified-expenses/working-from-home",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/expenses-if-youre-self-employed",
+      "https://www.gov.uk/expenses-if-youre-self-employed/office-property",
+      "https://www.gov.uk/simpler-income-tax-simplified-expenses/working-from-home",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 74,
+    "slug": "self-employed-mileage-vs-actual-costs",
+    "coreAnswerReviewed": "Simplified mileage and actual vehicle costs are alternatives for the costs they cover. Keep business-mile records and previous-claim history before choosing. Do not add fuel and running costs to a mileage deduction for the same use or switch methods simply to maximise one year’s claim.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/simpler-income-tax-simplified-expenses/vehicles",
+      "https://www.gov.uk/expenses-if-youre-self-employed/travel",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/simpler-income-tax-simplified-expenses/vehicles",
+      "https://www.gov.uk/expenses-if-youre-self-employed/travel",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 75,
+    "slug": "sa302-tax-year-overview-mortgage",
+    "coreAnswerReviewed": "Ask the lender which tax years and documents it accepts. An SA302 tax calculation and a tax-year overview are different records. Make sure they reflect the filed return and any amendment; obtaining them does not guarantee a mortgage offer.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/sa302-tax-calculation",
+      "https://www.gov.uk/understand-self-assessment-bill/tax-calculation-sa302"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/sa302-tax-calculation",
+      "https://www.gov.uk/understand-self-assessment-bill/tax-calculation-sa302"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 76,
+    "slug": "high-salary-self-assessment-needed",
+    "coreAnswerReviewed": "High PAYE salary alone is not a blanket reason to file for 2025/26. Other income, gains, charges or an HMRC notice can still create a requirement. Use the current HMRC checker and obtain confirmation before ignoring a notice to file.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/check-if-you-need-tax-return",
+      "https://www.gov.uk/guidance/how-to-complete-your-self-assessment-tax-return-for-last-tax-year",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/check-if-you-need-tax-return",
+      "https://www.gov.uk/guidance/how-to-complete-your-self-assessment-tax-return-for-last-tax-year",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 77,
+    "slug": "lost-receipts-self-assessment",
+    "coreAnswerReviewed": "Rebuild the evidence from suppliers, bank records and other reliable documents, and tell the accountant what is missing. Do not invent costs. If figures remain uncertain near the deadline, check HMRC’s rules for estimates or provisional figures and correct them when the evidence arrives.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/self-employed-records/how-long-to-keep-your-records"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/self-employed-records/how-long-to-keep-your-records"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 78,
+    "slug": "child-benefit-charge-paye-or-self-assessment",
+    "coreAnswerReviewed": "You may be able to pay the High Income Child Benefit Charge through PAYE instead of filing solely for that charge. Check the current conditions and whether any other reason still requires Self Assessment. Do not stop filing an issued return without resolving the notice.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/child-benefit-tax-charge/pay-tax-charge-paye",
+      "https://www.gov.uk/guidance/adjusted-net-income",
+      "https://www.gov.uk/check-if-you-need-tax-return"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/child-benefit-tax-charge/pay-tax-charge-paye",
+      "https://www.gov.uk/guidance/adjusted-net-income",
+      "https://www.gov.uk/check-if-you-need-tax-return"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 79,
+    "slug": "pension-contributions-adjusted-net-income",
+    "coreAnswerReviewed": "Tell the accountant whether contributions used relief at source, net pay or salary sacrifice. The tax and adjusted-net-income treatment differs. Do not subtract a contribution twice or assume a payment made after the tax-year end can simply be backdated.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/claim-tax-relief-on-your-private-pension-payments",
+      "https://www.gov.uk/guidance/adjusted-net-income",
+      "https://www.gov.uk/tax-on-your-private-pension/pension-tax-relief",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/claim-tax-relief-on-your-private-pension-payments",
+      "https://www.gov.uk/guidance/adjusted-net-income",
+      "https://www.gov.uk/tax-on-your-private-pension/pension-tax-relief",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 80,
+    "slug": "crypto-swaps-tax-without-cashing-out",
+    "coreAnswerReviewed": "A token-to-token exchange can be a taxable disposal even if no pounds leave the exchange. Keep the GBP value, acquisition history, fees and transaction records. Income received in crypto can raise a separate question from any later gain or loss on disposal.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets",
+      "https://www.gov.uk/hmrc-internal-manuals/cryptoassets-manual/crypto10400"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets",
+      "https://www.gov.uk/hmrc-internal-manuals/cryptoassets-manual/crypto10400"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 81,
+    "slug": "mtd-standard-vs-calendar-update-periods",
+    "coreAnswerReviewed": "Standard and calendar MTD updates use different coverage dates but the same deadlines. Select calendar periods in the software before sending the first update if that is the correct basis. Once an update is sent, HMRC does not allow a change for the rest of that tax year.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 82,
+    "slug": "mtd-simpler-categorisation-under-90000",
+    "coreAnswerReviewed": "HMRC permits simpler income-and-expense categorisation below the applicable £90,000 turnover limit, subject to its conditions. This does not remove digital records or updates. Check the business, year and treatment when turnover reaches the limit before using the simplified categories.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 83,
+    "slug": "mtd-sole-trader-and-landlord-separate-updates",
+    "coreAnswerReviewed": "Relevant trade and property income can be added together for MTD eligibility while still needing separate updates. Keep the income-source records distinct and avoid counting transfers as fresh income. The annual return then brings the person’s wider tax position together.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 84,
+    "slug": "mtd-main-vs-supporting-accountant",
+    "coreAnswerReviewed": "A main MTD agent can handle the overall annual-return role; supporting agents have narrower permissions for the work they are authorised to do. Agree who keeps the books, sends updates and finalises the return. Authorising another firm is not a substitute for that handover agreement.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/submit-your-tax-return"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/submit-your-tax-return"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 85,
+    "slug": "mtd-estimated-tax-bill-not-final",
+    "coreAnswerReviewed": "An MTD estimate is not necessarily your final liability or the balance left to pay. Missing income, reliefs, year-end adjustments and tax already deducted can change those figures. Use it for planning, then check the final calculation and HMRC account.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 86,
+    "slug": "mtd-partnership-income-individual-partners",
+    "coreAnswerReviewed": "An individual’s share of partnership profits is generally outside the current MTD qualifying-income test. A separate personal trade or property business can still bring the individual into MTD. Do not confuse the partnership’s turnover with personal sole-trader income.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/check-if-youre-eligible-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/check-if-youre-eligible-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 87,
+    "slug": "mtd-limited-company-director-income",
+    "coreAnswerReviewed": "A company’s turnover is not its director’s personal sole-trade income. Salary and dividends do not count towards MTD qualifying income in the same way as personal trade and property receipts. Check any separate self-employment or rental activity and keep the company filings distinct.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/check-if-youre-eligible-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/add-or-cease-income-sources"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/check-if-youre-eligible-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/add-or-cease-income-sources"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 88,
+    "slug": "mtd-new-business-new-rental-income",
+    "coreAnswerReviewed": "If you are already in MTD and start a new trade or property source, keep its start date and transactions identifiable. HMRC has specific rules for when digital records and updates become compulsory for that new source; they do not necessarily start immediately. Check the first-return timing before setting its reporting schedule.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/add-or-cease-income-sources",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/add-or-cease-income-sources",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 89,
+    "slug": "mtd-letting-agent-gross-rent-net-payment",
+    "coreAnswerReviewed": "Record the gross rent and identify the agent’s fees and other deductions separately. The amount deposited in your bank is often net of those charges. Reconcile the statement so neither the rent nor the same expense is counted twice.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 90,
+    "slug": "voluntary-mtd-before-compulsory-start",
+    "coreAnswerReviewed": "You may be eligible to join MTD voluntarily before your compulsory date. Consider the record-keeping, software and reporting commitment as well as any benefit of starting early. Check your actual eligibility and future obligations before treating it as a trial with no consequences.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/sign-up-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/using-making-tax-digital-for-income-tax-for-the-first-time"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/sign-up-for-making-tax-digital-for-income-tax",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/using-making-tax-digital-for-income-tax-for-the-first-time"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 91,
+    "slug": "mtd-20000-threshold-april-2028",
+    "coreAnswerReviewed": "The April 2028 phase is based on relevant qualifying income over £20,000 for 2026/27. It does not mean every person earning £20,000 must use MTD today. Use gross trade and property income and recheck the applicable HMRC rules before the start date.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/check-if-youre-eligible-for-making-tax-digital-for-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/check-if-youre-eligible-for-making-tax-digital-for-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 92,
+    "slug": "mtd-receipt-photo-vs-digital-record",
+    "coreAnswerReviewed": "A receipt photograph is supporting evidence, not automatically a complete MTD transaction record. The accounting entry still needs the relevant amount, date and category. Link the image to the entry and reconcile it to the payment without claiming it twice.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/self-employed-records"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/self-employed-records"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 93,
+    "slug": "mtd-software-hmrc-outage-deadline",
+    "coreAnswerReviewed": "Identify whether the failure is in your software, authorisation, internet connection or HMRC’s service. Save dated evidence and use the appropriate support route. Complete the obligation as soon as possible; an error message alone does not guarantee a penalty appeal will succeed.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/help-and-support",
+      "https://www.gov.uk/tax-appeals/reasonable-excuses",
+      "https://www.gov.uk/government/publications/agent-update-issue-148/issue-148-of-agent-update"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/help-and-support",
+      "https://www.gov.uk/tax-appeals/reasonable-excuses",
+      "https://www.gov.uk/government/publications/agent-update-issue-148/issue-148-of-agent-update"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 94,
+    "slug": "dividend-tax-2025-26-vs-2026-27",
+    "coreAnswerReviewed": "Use the dividend rates for the year the dividends belong to. The ordinary and upper rates differ between 2025/26 and 2026/27, while the £500 allowance applies in both. Provide vouchers and investment statements so the return uses the right year and income bands.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/tax-on-dividends",
+      "https://www.gov.uk/government/publications/rates-and-allowances-income-tax/income-tax-rates-and-allowances-current-and-past",
+      "https://www.gov.uk/tax-on-dividends/how-dividends-are-taxed"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/tax-on-dividends",
+      "https://www.gov.uk/government/publications/rates-and-allowances-income-tax/income-tax-rates-and-allowances-current-and-past",
+      "https://www.gov.uk/tax-on-dividends/how-dividends-are-taxed"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 95,
+    "slug": "student-loan-postgraduate-self-assessment",
+    "coreAnswerReviewed": "Give the accountant your student-loan plan, any postgraduate loan and repayments already deducted through payroll. Self Assessment can include a further repayment calculation. A loan deduction on a payslip must not be ignored or confused with Income Tax already paid.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/tell-hmrc-about-a-student-loan-in-your-tax-return",
+      "https://www.gov.uk/repaying-your-student-loan/how-you-repay"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/tell-hmrc-about-a-student-loan-in-your-tax-return",
+      "https://www.gov.uk/repaying-your-student-loan/how-you-repay"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 96,
+    "slug": "self-employed-national-insurance-2025-26",
+    "coreAnswerReviewed": "For a 2025/26 sole trader return, Class 4 generally applies at 6% between £12,570 and £50,270 of profits and 2% above that. Class 2 can be treated as paid without a charge when the year’s conditions are met. Check the historic rates and your contribution position.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/government/publications/rates-and-allowances-national-insurance-contributions/rates-and-allowances-national-insurance-contributions",
+      "https://www.gov.uk/national-insurance/national-insurance-classes",
+      "https://www.gov.uk/self-employed-national-insurance-rates"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/government/publications/rates-and-allowances-national-insurance-contributions/rates-and-allowances-national-insurance-contributions",
+      "https://www.gov.uk/national-insurance/national-insurance-classes",
+      "https://www.gov.uk/self-employed-national-insurance-rates"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 97,
+    "slug": "cash-basis-vs-traditional-accounting",
+    "coreAnswerReviewed": "Cash basis generally follows money received and paid; traditional accounting follows income earned and expenses incurred. The method affects timing, not whether the bank balance is correct. Check eligibility and transition adjustments before changing methods or copying last year’s workings.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/self-employed-records",
+      "https://www.gov.uk/simpler-income-tax-cash-basis",
+      "https://www.gov.uk/government/publications/how-to-calculate-your-taxable-profits-hs222-self-assessment-helpsheet/hs222-how-to-calculate-your-taxable-profits-2026",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/self-employed-records",
+      "https://www.gov.uk/simpler-income-tax-cash-basis",
+      "https://www.gov.uk/government/publications/how-to-calculate-your-taxable-profits-hs222-self-assessment-helpsheet/hs222-how-to-calculate-your-taxable-profits-2026",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 98,
+    "slug": "self-employed-trading-loss-tax-relief",
+    "coreAnswerReviewed": "A trading loss is not automatically a refund. Work out the tax-adjusted loss, then compare the reliefs available, their deadlines and the other income involved. Keep the supporting accounts and earlier claims so the same loss is not used twice.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/government/publications/losses-hs227-self-assessment-helpsheet/hs227-losses-2026",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/government/publications/losses-hs227-self-assessment-helpsheet/hs227-losses-2026",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 99,
+    "slug": "stopped-self-employed-final-tax-return",
+    "coreAnswerReviewed": "Tell HMRC when you stop self-employment and complete the relevant final return. Outstanding receipts, costs, assets and MTD updates can still need attention. Stopping one trade also does not end Self Assessment if another income source requires it.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/stop-being-self-employed",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/add-or-cease-income-sources"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/stop-being-self-employed",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/add-or-cease-income-sources"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 100,
+    "slug": "content-creator-influencer-tax-return",
+    "coreAnswerReviewed": "Record platform earnings, sponsorships, affiliate fees and commercial payments made in products or services. A gifted item can need a different assessment from an unsolicited personal gift. Keep the agreement and valuation evidence rather than looking only at bank deposits.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms",
+      "https://www.gov.uk/guidance/selling-goods-or-services-on-a-digital-platform",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms",
+      "https://www.gov.uk/guidance/selling-goods-or-services-on-a-digital-platform",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 101,
+    "slug": "private-tutor-self-assessment-tax",
+    "coreAnswerReviewed": "Keep private lesson income separate from any employed teaching role. Record gross fees, cancellations, refunds and platform charges, including cash lessons. Explain the working arrangements before assuming every tutoring payment is self-employed income.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/working-for-yourself",
+      "https://www.gov.uk/expenses-if-youre-self-employed",
+      "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/working-for-yourself",
+      "https://www.gov.uk/expenses-if-youre-self-employed",
+      "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 102,
+    "slug": "personal-trainer-fitness-coach-tax",
+    "coreAnswerReviewed": "Identify gym employment, independent sessions, online coaching and prepaid packages separately. Keep the full receipts, refunds and business-cost evidence. Personal exercise, clothing or food does not automatically become deductible because you work in fitness.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/working-for-yourself",
+      "https://www.gov.uk/expenses-if-youre-self-employed",
+      "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/working-for-yourself",
+      "https://www.gov.uk/expenses-if-youre-self-employed",
+      "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 103,
+    "slug": "self-employed-cleaner-tax-return",
+    "coreAnswerReviewed": "Record all cleaning-business receipts, including cash, and keep evidence for genuine work costs. Check whether each working arrangement is self-employment or employment. A simple dated income log is more useful than reconstructing cash totals from memory at year end.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/working-for-yourself",
+      "https://www.gov.uk/self-employed-records",
+      "https://www.gov.uk/expenses-if-youre-self-employed",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/working-for-yourself",
+      "https://www.gov.uk/self-employed-records",
+      "https://www.gov.uk/expenses-if-youre-self-employed",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 104,
+    "slug": "rent-a-room-relief-lodger-tax",
+    "coreAnswerReviewed": "Rent a Room can cover qualifying furnished accommodation in your only or main home, with a £7,500 annual limit generally halved if someone else receives income from letting accommodation in the same residence. Check gross receipts, conditions and the alternative calculation if the limit is exceeded.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme",
+      "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim4001",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme",
+      "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim4001",
+      "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 105,
+    "slug": "landlord-replacement-domestic-items-relief",
+    "coreAnswerReviewed": "Replacement of domestic items relief can cover qualifying replacement furniture and appliances for tenants. It does not cover initial furnishing under that relief. Improvements, disposal proceeds and related costs affect the claim, so keep the old-item details with the new invoice.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+      "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim3210",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+      "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim3210",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 106,
+    "slug": "landlord-expenses-empty-property-void-period",
+    "coreAnswerReviewed": "Some costs can remain allowable during a genuine gap between tenants where the rental business continues. Private use, a property withdrawn from letting and first-ever letting costs can change the answer. Keep the dates, intention to let and purpose of each cost clear.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim2510",
+      "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim2510",
+      "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 107,
+    "slug": "non-resident-landlord-uk-tax-return",
+    "coreAnswerReviewed": "The Non-resident Landlords Scheme affects withholding on UK rent; it does not settle your final UK tax liability or residence status. Keep agent statements and tax certificates. Approval to receive rent without deductions is not an exemption from reporting or paying tax.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "Added temporary residence-related MTD exemption cross-link.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/tax-uk-income-live-abroad/rent",
+      "https://www.gov.uk/government/publications/non-resident-landord-guidance-notes-for-letting-agents-and-tenants-non-resident-landlords-scheme-guidance-notes/what-the-non-resident-landlords-scheme-is",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax",
+      "https://www.gov.uk/guidance/find-out-if-you-can-get-an-exemption-from-making-tax-digital-for-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/tax-uk-income-live-abroad/rent",
+      "https://www.gov.uk/government/publications/non-resident-landord-guidance-notes-for-letting-agents-and-tenants-non-resident-landlords-scheme-guidance-notes/what-the-non-resident-landlords-scheme-is",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax",
+      "https://www.gov.uk/guidance/find-out-if-you-can-get-an-exemption-from-making-tax-digital-for-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 108,
+    "slug": "foreign-income-tax-return-2025-26-fig",
+    "coreAnswerReviewed": "The UK treatment of foreign income depends first on residence and the relevant reliefs. The four-year FIG regime replaced the remittance basis for qualifying new residents from 6 April 2025. Money staying abroad does not by itself establish that it is exempt.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "Added temporary FIG-related MTD exemption cross-link.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/tax-foreign-income",
+      "https://www.gov.uk/guidance/check-if-you-can-claim-the-4-year-foreign-income-and-gains-regime",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax",
+      "https://www.gov.uk/guidance/find-out-if-you-can-get-an-exemption-from-making-tax-digital-for-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/tax-foreign-income",
+      "https://www.gov.uk/guidance/check-if-you-can-claim-the-4-year-foreign-income-and-gains-regime",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax",
+      "https://www.gov.uk/guidance/find-out-if-you-can-get-an-exemption-from-making-tax-digital-for-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 109,
+    "slug": "sold-shares-capital-gains-tax-records",
+    "coreAnswerReviewed": "For investments outside an ISA, a sale can create a gain or loss even if you reinvest the proceeds. Keep acquisition history, disposals, fees and corporate actions across relevant accounts. An app’s profit figure is not automatically the gain calculated under UK tax rules.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/tax-sell-shares/what-you-pay-it-on",
+      "https://www.gov.uk/government/publications/shares-and-capital-gains-tax-hs284-self-assessment-helpsheet/hs284-shares-and-capital-gains-tax-2026",
+      "https://www.gov.uk/guidance/capital-gains-tax-rates-and-allowances"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/tax-sell-shares/what-you-pay-it-on",
+      "https://www.gov.uk/government/publications/shares-and-capital-gains-tax-hs284-self-assessment-helpsheet/hs284-shares-and-capital-gains-tax-2026",
+      "https://www.gov.uk/guidance/capital-gains-tax-rates-and-allowances"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 110,
+    "slug": "crypto-hmrc-reporting-2026-carf",
+    "coreAnswerReviewed": "Relevant UK crypto providers collect CARF information for the 2026 calendar year and first report it in 2027. That provider report is separate from your personal return. Continue calculating income and disposals for the correct UK tax year rather than waiting for an exchange report.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/guidance/information-youll-need-to-give-to-uk-cryptoasset-service-providers",
+      "https://www.gov.uk/guidance/check-if-youll-need-to-report-cryptoasset-data-to-hmrc",
+      "https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/guidance/information-youll-need-to-give-to-uk-cryptoasset-service-providers",
+      "https://www.gov.uk/guidance/check-if-youll-need-to-report-cryptoasset-data-to-hmrc",
+      "https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 111,
+    "slug": "winter-fuel-payment-self-assessment-2025-26",
+    "coreAnswerReviewed": "HMRC takes back a Winter Fuel Payment where the relevant individual income is over £35,000, subject to the applicable rules. People already filing Self Assessment should check the charge for the correct year. Others may have PAYE recovery instead; receipt alone does not mean everyone needs a return.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "Added Scottish Pension Age Winter Heating Payment coverage.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/winter-fuel-payment/if-your-income-is-over-35000",
+      "https://www.gov.uk/government/news/pensioners-urged-to-be-alert-to-winter-fuel-payment-scams",
+      "https://www.gov.uk/government/publications/income-tax-charge-on-winter-fuel-payments/winter-fuel-payments-charge"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/winter-fuel-payment/if-your-income-is-over-35000",
+      "https://www.gov.uk/government/news/pensioners-urged-to-be-alert-to-winter-fuel-payment-scams",
+      "https://www.gov.uk/government/publications/income-tax-charge-on-winter-fuel-payments/winter-fuel-payments-charge"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 112,
+    "slug": "self-assessment-refund-pending",
+    "coreAnswerReviewed": "Check whether the return created a credit, whether a repayment was requested and whether HMRC has issued, checked or set it against another amount. Keep the account references and use the current HMRC checking route. A credit balance is not proof that money has reached your bank.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/self-assessment-tax-returns/claiming-a-tax-refund",
+      "https://www.gov.uk/guidance/check-when-you-can-expect-a-reply-from-hmrc"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/self-assessment-tax-returns/claiming-a-tax-refund",
+      "https://www.gov.uk/guidance/check-when-you-can-expect-a-reply-from-hmrc"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 113,
+    "slug": "gift-aid-self-assessment-tax-relief",
+    "coreAnswerReviewed": "Keep the actual eligible donation and any grossed-up figure separate. A £100 Gift Aid donation is generally £125 gross, and further relief depends on your tax position. Payroll Giving and other donation routes must not be claimed again as ordinary Gift Aid.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/donating-to-charity/gift-aid",
+      "https://www.gov.uk/guidance/help-with-charitable-giving-on-your-self-assessment-tax-return",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/donating-to-charity/gift-aid",
+      "https://www.gov.uk/guidance/help-with-charitable-giving-on-your-self-assessment-tax-return",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 114,
+    "slug": "state-pension-self-assessment-income",
+    "coreAnswerReviewed": "Use the State Pension amount attributable to the tax year, which may differ from the bank deposits received in it. Keep the entitlement information and other pension statements. State Pension is generally taxable, but receiving it does not automatically require Self Assessment.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/tax-on-pension",
+      "https://www.gov.uk/tax-on-pension/how-your-tax-is-paid",
+      "https://www.gov.uk/guidance/how-your-state-pension-is-taxed",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/tax-on-pension",
+      "https://www.gov.uk/tax-on-pension/how-your-tax-is-paid",
+      "https://www.gov.uk/guidance/how-your-state-pension-is-taxed",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 115,
+    "slug": "leave-self-assessment-no-return-needed",
+    "coreAnswerReviewed": "If your circumstances have changed, check whether a return is still required for that year and ask HMRC to withdraw the requirement where appropriate. Keep confirmation. Do not simply ignore a notice to file or assume an old liability disappears when you stop filing.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/self-assessment-tax-returns/no-longer-need-to-send-a-tax-return",
+      "https://www.gov.uk/check-if-you-need-tax-return"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/self-assessment-tax-returns/no-longer-need-to-send-a-tax-return",
+      "https://www.gov.uk/check-if-you-need-tax-return"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 116,
+    "slug": "p800-simple-assessment-pa302-vs-tax-return",
+    "coreAnswerReviewed": "A P800 and a PA302 Simple Assessment are different from a Self Assessment return. Check the year, income and tax already paid before acting. Query errors using the notice’s process and deadlines, especially if a second assessment or existing return could duplicate the same liability.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/tax-overpayments-and-underpayments",
+      "https://www.gov.uk/simple-assessment",
+      "https://www.gov.uk/government/publications/agent-update-issue-148/issue-148-of-agent-update"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/tax-overpayments-and-underpayments",
+      "https://www.gov.uk/simple-assessment",
+      "https://www.gov.uk/government/publications/agent-update-issue-148/issue-148-of-agent-update"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 117,
+    "slug": "self-employed-business-loan-interest-repayments",
+    "coreAnswerReviewed": "Borrowed money is not normally trading income, and repaying loan principal is not an ordinary deductible expense. Interest and finance charges need their own business-purpose assessment. Keep the agreement so the purchase, principal and interest are not claimed as the same cost several times.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/expenses-if-youre-self-employed/legal-financial",
+      "https://www.gov.uk/expenses-if-youre-self-employed",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/expenses-if-youre-self-employed/legal-financial",
+      "https://www.gov.uk/expenses-if-youre-self-employed",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 118,
+    "slug": "basis-period-transition-profit-2025-26",
+    "coreAnswerReviewed": "Some businesses still include part of their 2023/24 transition profits in 2025/26. Recover the original calculation and earlier allocations. Elections, prior amounts taxed and cessation can change what remains; do not apply a percentage to this year’s bank receipts.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/government/publications/how-to-calculate-your-taxable-profits-hs222-self-assessment-helpsheet/hs222-how-to-calculate-your-taxable-profits-2026",
+      "https://www.gov.uk/guidance/work-out-your-transition-profit",
+      "https://www.gov.uk/hmrc-internal-manuals/business-income-manual/bim81310",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/government/publications/how-to-calculate-your-taxable-profits-hs222-self-assessment-helpsheet/hs222-how-to-calculate-your-taxable-profits-2026",
+      "https://www.gov.uk/guidance/work-out-your-transition-profit",
+      "https://www.gov.uk/hmrc-internal-manuals/business-income-manual/bim81310",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 119,
+    "slug": "pre-trading-startup-expenses-self-employed",
+    "coreAnswerReviewed": "Qualifying revenue costs incurred within seven years before a trade starts can receive pre-trading relief if the conditions are met. That does not make every old purchase deductible. Record the trade start date, purpose, evidence and any private or capital element.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/hmrc-internal-manuals/business-income-manual/bim46351",
+      "https://www.gov.uk/expenses-if-youre-self-employed/office-property",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/hmrc-internal-manuals/business-income-manual/bim46351",
+      "https://www.gov.uk/expenses-if-youre-self-employed/office-property",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  },
+  {
+    "rank": 120,
+    "slug": "self-employed-equipment-cash-basis-capital-allowances",
+    "coreAnswerReviewed": "The tax treatment of equipment depends on the item, accounting method and business use. Cash basis can treat many qualifying purchases as expenses; traditional accounting may use capital allowances. Keep private use, finance, previous ownership and later disposals in the same record.",
+    "reviewMethod": "AI editorial/source comparison of the core answer, supporting preparation logic and selected material qualifications; not an exhaustive sentence-by-sentence legal opinion",
+    "coreFinding": "consistent with retrieved official guidance within the stated general scope; qualifications retained",
+    "findingOrEdit": "No material correction to the core answer identified in this pass.",
+    "officialSourceURLs": [
+      "https://www.gov.uk/expenses-if-youre-self-employed/office-property",
+      "https://www.gov.uk/capital-allowances",
+      "https://www.gov.uk/simpler-income-tax-cash-basis",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "retrievedOfficialSources": [
+      "https://www.gov.uk/expenses-if-youre-self-employed/office-property",
+      "https://www.gov.uk/capital-allowances",
+      "https://www.gov.uk/simpler-income-tax-cash-basis",
+      "https://www.gov.uk/scottish-income-tax",
+      "https://www.gov.uk/welsh-income-tax"
+    ],
+    "reviewDate": "2026-10-21",
+    "reviewerType": "AI assistant",
+    "independentProfessionalApproval": false,
+    "allPersonalCircumstancesCovered": false
+  }
+]

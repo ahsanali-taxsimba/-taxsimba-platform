@@ -1,0 +1,206 @@
+[
+  {
+    "releasePosition": 21,
+    "slug": "mtd-qualifying-income",
+    "title": "MTD Qualifying Income Explained — Does the £50,000 Rule Apply to Me?",
+    "category": "Making Tax Digital",
+    "metaTitle": "MTD Qualifying Income: Which Income Counts? | TaxSimba",
+    "metaDescription": "Check MTD qualifying income using gross self-employment and property income. Separate PAYE and other income, then match the correct tax year and threshold.",
+    "sources": [
+      {
+        "label": "GOV.UK — Work out your qualifying income for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      }
+    ]
+  },
+  {
+    "releasePosition": 22,
+    "slug": "mtd-quarterly-updates",
+    "title": "MTD Quarterly Updates — What Do I Actually Need to Send?",
+    "category": "Making Tax Digital",
+    "metaTitle": "MTD Quarterly Updates: Records, Totals and Evidence | TaxSimba",
+    "metaDescription": "Understand what MTD quarterly updates contain, how cumulative periods work and what evidence to keep after compatible software sends the summary.",
+    "sources": [
+      {
+        "label": "GOV.UK — Send quarterly updates (Making Tax Digital for Income Tax)",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+      },
+      {
+        "label": "GOV.UK — Create digital records",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      },
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax"
+      }
+    ]
+  },
+  {
+    "releasePosition": 23,
+    "slug": "self-assessment-deadline",
+    "title": "Self Assessment Deadline 2027 — Dates You Need to Know",
+    "category": "Self Assessment",
+    "metaTitle": "Self Assessment Deadline 2027: Filing and Payment | TaxSimba",
+    "metaDescription": "Prepare for the 2025/26 Self Assessment deadlines. Distinguish online filing, payment, paper returns and the earlier PAYE collection cutoff.",
+    "sources": [
+      {
+        "label": "GOV.UK — Self Assessment tax returns: deadlines",
+        "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+      },
+      {
+        "label": "GOV.UK — Self Assessment tax returns",
+        "url": "https://www.gov.uk/self-assessment-tax-returns"
+      },
+      {
+        "label": "GOV.UK — Understand your Self Assessment bill: payments on account",
+        "url": "https://www.gov.uk/understand-self-assessment-bill/payments-on-account"
+      }
+    ]
+  },
+  {
+    "releasePosition": 24,
+    "slug": "self-assessment-documents-checklist",
+    "title": "What Documents Do I Need for My Self Assessment Tax Return?",
+    "category": "Self Assessment",
+    "metaTitle": "Self Assessment Documents: Build a Complete Record Pack | TaxSimba",
+    "metaDescription": "Gather Self Assessment documents by income source: PAYE, business, property, savings, investments and other relevant records. Identify gaps before filing.",
+    "sources": [
+      {
+        "label": "GOV.UK — Self Assessment tax returns",
+        "url": "https://www.gov.uk/self-assessment-tax-returns"
+      },
+      {
+        "label": "GOV.UK — Self-employed records",
+        "url": "https://www.gov.uk/self-employed-records"
+      },
+      {
+        "label": "GOV.UK — Expenses if you're self-employed",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed"
+      },
+      {
+        "label": "GOV.UK — Income Tax when you rent out a property: working out your rental income",
+        "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+      }
+    ]
+  },
+  {
+    "releasePosition": 25,
+    "slug": "understanding-self-assessment-uk",
+    "title": "A Simple Guide to UK Self Assessment",
+    "category": "Self Assessment",
+    "metaTitle": "UK Self Assessment: Who Files and What Happens | TaxSimba",
+    "metaDescription": "Understand UK Self Assessment, when to check whether a return is needed, what records to prepare and how filing differs from paying the bill.",
+    "sources": [
+      {
+        "label": "GOV.UK — Self Assessment tax returns",
+        "url": "https://www.gov.uk/self-assessment-tax-returns"
+      }
+    ]
+  },
+  {
+    "releasePosition": 26,
+    "slug": "top-tax-saving-tips-uk",
+    "title": "Top Tax-Saving Tips for Small Businesses in the UK",
+    "category": "Self Assessment",
+    "metaTitle": "Small Business Tax: Evidence-Based Expense Checks | TaxSimba",
+    "metaDescription": "Improve small-business tax records by checking genuine expenses, private use and supporting evidence. Avoid assuming every business payment is deductible.",
+    "sources": [
+      {
+        "label": "GOV.UK — Expenses if you're self-employed",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed"
+      }
+    ]
+  },
+  {
+    "releasePosition": 27,
+    "slug": "making-tax-digital-explained",
+    "title": "Making Tax Digital (MTD): What You Need to Know",
+    "category": "Making Tax Digital",
+    "metaTitle": "Making Tax Digital for Income Tax: Practical Overview | TaxSimba",
+    "metaDescription": "Understand MTD for Income Tax: qualifying income, digital records, quarterly updates and the annual return. Check the rules for your actual start year.",
+    "sources": [
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      }
+    ]
+  },
+  {
+    "releasePosition": 28,
+    "slug": "mtd-accountant-or-agent",
+    "title": "Can an Accountant Handle Making Tax Digital for Me?",
+    "category": "Making Tax Digital",
+    "metaTitle": "Can an Accountant Manage MTD? Tasks and Responsibilities | TaxSimba",
+    "metaDescription": "Check what an MTD accountant or agent can do, which permissions are needed and what records and answers you still need to provide.",
+    "sources": [
+      {
+        "label": "GOV.UK — Use Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Sign up your client for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/sign-up-your-client-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Choose the right software for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Create digital records",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      }
+    ]
+  },
+  {
+    "releasePosition": 29,
+    "slug": "mtd-digital-records",
+    "title": "MTD Digital Records — What You Actually Need to Keep",
+    "category": "Making Tax Digital",
+    "metaTitle": "MTD Digital Records: Evidence, Categories and Links | TaxSimba",
+    "metaDescription": "Keep useful MTD digital records with dates, amounts and categories. Preserve receipts and check digital links where records move between software products.",
+    "sources": [
+      {
+        "label": "GOV.UK — Create digital records (Making Tax Digital for Income Tax)",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      },
+      {
+        "label": "GOV.UK — Choose the right software for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Send quarterly updates",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+      }
+    ]
+  },
+  {
+    "releasePosition": 30,
+    "slug": "missed-mtd-quarterly-update",
+    "title": "I Missed an MTD Quarterly Update — What Should I Do Now?",
+    "category": "Making Tax Digital",
+    "metaTitle": "Missed an MTD Update? Catch-Up Steps and Evidence | TaxSimba",
+    "metaDescription": "Missed an MTD quarterly update? Identify the business and period, repair the records and check submission evidence. Confirm the rules for the relevant year.",
+    "sources": [
+      {
+        "label": "GOV.UK — Send quarterly updates (Making Tax Digital for Income Tax)",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+      },
+      {
+        "label": "GOV.UK — Penalties for Making Tax Digital for Income Tax",
+        "url": "https://www.gov.uk/guidance/penalties-for-making-tax-digital-for-income-tax"
+      },
+      {
+        "label": "GOV.UK — Create digital records",
+        "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+      }
+    ]
+  }
+]

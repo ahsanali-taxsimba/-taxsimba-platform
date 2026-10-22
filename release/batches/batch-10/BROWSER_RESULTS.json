@@ -1,0 +1,241 @@
+{
+  "releasePositions": [
+    91,
+    100
+  ],
+  "articles": [
+    {
+      "rank": 91,
+      "slug": "mtd-20000-threshold-april-2028",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 92,
+      "slug": "mtd-receipt-photo-vs-digital-record",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 93,
+      "slug": "mtd-software-hmrc-outage-deadline",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 94,
+      "slug": "dividend-tax-2025-26-vs-2026-27",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 95,
+      "slug": "student-loan-postgraduate-self-assessment",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 96,
+      "slug": "self-employed-national-insurance-2025-26",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 97,
+      "slug": "cash-basis-vs-traditional-accounting",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 98,
+      "slug": "self-employed-trading-loss-tax-relief",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 99,
+      "slug": "stopped-self-employed-final-tax-return",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    },
+    {
+      "rank": 100,
+      "slug": "content-creator-influencer-tax-return",
+      "status": "passed",
+      "checks": [
+        "HTTP 200",
+        "full body",
+        "one H1",
+        "canonical",
+        "unique description",
+        "loaded artwork and alt",
+        "JSON-LD parses",
+        "sources",
+        "keyboard expandable steps",
+        "390px and 320px no horizontal overflow",
+        "worked example",
+        "decision table",
+        "two follow-up answers",
+        "real worksheet download",
+        "contents targets",
+        "visible and structured update date"
+      ]
+    }
+  ],
+  "hub": "pagination all 120, search, empty state, category passed",
+  "signup": "public routes passed; no account created or payment made",
+  "scope": "Full final release tested; this file identifies the ten guides in this incremental package."
+}

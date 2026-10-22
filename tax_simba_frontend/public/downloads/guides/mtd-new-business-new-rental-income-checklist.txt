@@ -1,0 +1,42 @@
+TaxSimba — Starting a New Business or Rental Income While Already in MTD
+Preparation worksheet
+
+Optional offline planning aid, not a tax return or filing confirmation.
+Keep completed notes securely; never include passwords or one-time codes.
+
+WORK THROUGH THIS EXAMPLE
+Record the new source’s actual start date and keep its transactions identifiable. If you are already in MTD, check HMRC’s rules for when digital-record and quarterly duties start for that new source. An existing subscription alone does not answer that timing question.
+
+DECISION TO RESOLVE
+When is the new source first included in a return, and when do its MTD record duties start?
+
+YOUR POSITION
+Relevant year and source: ____________________
+Evidence supporting your answer: ____________________
+Missing item and who will obtain it: ____________________
+Deadline or next review date: ____________________
+
+1. Describe the new activity and actual start date.
+Notes: ______________________________
+
+2. Identify existing trades and property businesses.
+Notes: ______________________________
+
+3. Provide ownership and first-transaction evidence.
+Notes: ______________________________
+
+4. Check annual-return and quarterly start timing.
+Notes: ______________________________
+
+5. Confirm software support and any service-scope change.
+Notes: ______________________________
+
+Actions agreed and responsible person:
+____________________________________
+
+Guide: https://taxsimba.co.uk/blogs/mtd-new-business-new-rental-income
+Check the current guide and official sources before relying on a deadline or process.
+
+ADDITIONAL CHECK
+ HMRC says an existing MTD user can choose to create digital records for a new source earlier, but does not have to do so until after submitting the first MTD tax return containing that source’s income or expenses. Keep the underlying ordinary tax records in the meantime.  For example, HMRC describes a business started in May 2027 whose first return includes 2027/28 income, due by 31 January 2029; compulsory digital records for that new business start from 6 April 2029. Confirm the timing for your own source rather than assuming every new business needs immediate quarterly updates. 
+Source: https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records

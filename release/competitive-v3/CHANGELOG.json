@@ -1,0 +1,962 @@
+[
+  {
+    "rank": 1,
+    "slug": "mtd-accountant-cost",
+    "change": "expanded main guidance and practical worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": true,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 2,
+    "slug": "self-assessment-accountant-cost",
+    "change": "expanded main guidance and practical worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": true,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 3,
+    "slug": "join-mtd-service-mid-year",
+    "change": "expanded main guidance and practical worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 4,
+    "slug": "switch-mtd-accountant-mid-year",
+    "change": "expanded main guidance and practical worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 5,
+    "slug": "mtd-quarterly-updates-tax-payments",
+    "change": "expanded main guidance and practical worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 6,
+    "slug": "self-assessment-2025-26-mtd-2026-27",
+    "change": "expanded main guidance and practical worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 7,
+    "slug": "mtd-cumulative-quarterly-updates",
+    "change": "expanded main guidance and practical worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": true,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 8,
+    "slug": "correct-mtd-quarterly-update",
+    "change": "expanded main guidance and practical worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": true,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 9,
+    "slug": "waiting-for-utr-tax-return",
+    "change": "expanded main guidance and practical worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 10,
+    "slug": "employed-and-self-employed-tax-return",
+    "change": "expanded main guidance and practical worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 11,
+    "slug": "uber-private-hire-driver-tax-return",
+    "change": "expanded main guidance and practical worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 12,
+    "slug": "delivery-driver-courier-tax-return",
+    "change": "expanded main guidance and practical worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 13,
+    "slug": "mtd-software-vs-accountant-service",
+    "change": "expanded main guidance and practical worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 14,
+    "slug": "authorise-mtd-accountant-safely",
+    "change": "expanded main guidance and practical worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 15,
+    "slug": "multiple-overdue-self-assessment-returns",
+    "change": "expanded main guidance and practical worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 16,
+    "slug": "appeal-self-assessment-late-penalty",
+    "change": "expanded main guidance and practical worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 17,
+    "slug": "sold-rental-property-60-day-tax",
+    "change": "expanded main guidance and practical worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": true,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 18,
+    "slug": "pay-self-assessment-through-tax-code-december",
+    "change": "expanded main guidance and practical worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 19,
+    "slug": "mtd-proof-quarterly-update-submitted",
+    "change": "expanded main guidance and practical worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 20,
+    "slug": "hmrc-signed-me-up-for-making-tax-digital",
+    "change": "expanded main guidance and practical worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 21,
+    "slug": "mtd-qualifying-income",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 22,
+    "slug": "mtd-quarterly-updates",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 23,
+    "slug": "self-assessment-deadline",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 24,
+    "slug": "self-assessment-documents-checklist",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 25,
+    "slug": "understanding-self-assessment-uk",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 26,
+    "slug": "top-tax-saving-tips-uk",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 27,
+    "slug": "making-tax-digital-explained",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 28,
+    "slug": "mtd-accountant-or-agent",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 29,
+    "slug": "mtd-digital-records",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 30,
+    "slug": "missed-mtd-quarterly-update",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 31,
+    "slug": "payments-on-account-explained",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 32,
+    "slug": "late-self-assessment-penalties",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 33,
+    "slug": "mtd-quarterly-deadline-7-november-2026",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 34,
+    "slug": "mtd-for-landlords-2026-27",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 35,
+    "slug": "mtd-for-sole-traders-2026-27",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 36,
+    "slug": "hmrc-mtd-signup-wrong",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 37,
+    "slug": "mtd-30000-threshold-2027",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 38,
+    "slug": "does-mtd-replace-self-assessment",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 39,
+    "slug": "mtd-exemptions",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 40,
+    "slug": "self-assessment-for-landlords-2025-26",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 41,
+    "slug": "self-assessment-for-sole-traders-2025-26",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 42,
+    "slug": "self-assessment-register-by-5-october-2026",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 43,
+    "slug": "cannot-pay-self-assessment-tax-bill",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 44,
+    "slug": "reduce-self-assessment-payments-on-account",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 45,
+    "slug": "landlord-mortgage-interest-tax-relief",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 46,
+    "slug": "cis-deductions-self-assessment",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 47,
+    "slug": "undeclared-rental-income-hmrc",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 48,
+    "slug": "self-assessment-side-hustle",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 49,
+    "slug": "trading-allowance-1000-hmrc",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 50,
+    "slug": "amend-self-assessment-tax-return",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 51,
+    "slug": "mtd-income-tax-vs-mtd-vat",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 52,
+    "slug": "can-i-use-spreadsheets-for-mtd",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 53,
+    "slug": "cis-tax-refunds-subcontractors",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 54,
+    "slug": "cis-20-vs-30-percent-deductions",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 55,
+    "slug": "cis-payment-deduction-statements",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": true,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 56,
+    "slug": "cis-allowable-expenses-subcontractors",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 57,
+    "slug": "cis-gross-payment-status",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 58,
+    "slug": "mtd-no-income-quarter",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 59,
+    "slug": "mtd-two-self-employed-businesses",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 60,
+    "slug": "mtd-employed-landlord-salary",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 61,
+    "slug": "mtd-jointly-owned-rental-property",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 62,
+    "slug": "cis-subcontractors-mtd-gross-income",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 63,
+    "slug": "mtd-bank-feeds-complete-records",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 64,
+    "slug": "mtd-income-fallen-opt-out",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 65,
+    "slug": "hairdresser-beauty-self-assessment",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 66,
+    "slug": "company-director-personal-tax-return",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": true,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 67,
+    "slug": "vinted-ebay-personal-items-tax",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 68,
+    "slug": "etsy-seller-tax-return",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 69,
+    "slug": "airbnb-holiday-let-tax-2025-26",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 70,
+    "slug": "joint-rental-property-tax-return",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 71,
+    "slug": "landlord-repairs-vs-improvements",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 72,
+    "slug": "savings-interest-self-assessment",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 73,
+    "slug": "self-employed-working-from-home-expenses",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 74,
+    "slug": "self-employed-mileage-vs-actual-costs",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 75,
+    "slug": "sa302-tax-year-overview-mortgage",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 76,
+    "slug": "high-salary-self-assessment-needed",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 77,
+    "slug": "lost-receipts-self-assessment",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 78,
+    "slug": "child-benefit-charge-paye-or-self-assessment",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 79,
+    "slug": "pension-contributions-adjusted-net-income",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 80,
+    "slug": "crypto-swaps-tax-without-cashing-out",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 81,
+    "slug": "mtd-standard-vs-calendar-update-periods",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 82,
+    "slug": "mtd-simpler-categorisation-under-90000",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 83,
+    "slug": "mtd-sole-trader-and-landlord-separate-updates",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 84,
+    "slug": "mtd-main-vs-supporting-accountant",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 85,
+    "slug": "mtd-estimated-tax-bill-not-final",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 86,
+    "slug": "mtd-partnership-income-individual-partners",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 87,
+    "slug": "mtd-limited-company-director-income",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 88,
+    "slug": "mtd-new-business-new-rental-income",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": true,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 89,
+    "slug": "mtd-letting-agent-gross-rent-net-payment",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 90,
+    "slug": "voluntary-mtd-before-compulsory-start",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 91,
+    "slug": "mtd-20000-threshold-april-2028",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 92,
+    "slug": "mtd-receipt-photo-vs-digital-record",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 93,
+    "slug": "mtd-software-hmrc-outage-deadline",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 94,
+    "slug": "dividend-tax-2025-26-vs-2026-27",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 95,
+    "slug": "student-loan-postgraduate-self-assessment",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 96,
+    "slug": "self-employed-national-insurance-2025-26",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 97,
+    "slug": "cash-basis-vs-traditional-accounting",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 98,
+    "slug": "self-employed-trading-loss-tax-relief",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": true,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 99,
+    "slug": "stopped-self-employed-final-tax-return",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 100,
+    "slug": "content-creator-influencer-tax-return",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 101,
+    "slug": "private-tutor-self-assessment-tax",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 102,
+    "slug": "personal-trainer-fitness-coach-tax",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 103,
+    "slug": "self-employed-cleaner-tax-return",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 104,
+    "slug": "rent-a-room-relief-lodger-tax",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 105,
+    "slug": "landlord-replacement-domestic-items-relief",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 106,
+    "slug": "landlord-expenses-empty-property-void-period",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 107,
+    "slug": "non-resident-landlord-uk-tax-return",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 108,
+    "slug": "foreign-income-tax-return-2025-26-fig",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 109,
+    "slug": "sold-shares-capital-gains-tax-records",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 110,
+    "slug": "crypto-hmrc-reporting-2026-carf",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 111,
+    "slug": "winter-fuel-payment-self-assessment-2025-26",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 112,
+    "slug": "self-assessment-refund-pending",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 113,
+    "slug": "gift-aid-self-assessment-tax-relief",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 114,
+    "slug": "state-pension-self-assessment-income",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 115,
+    "slug": "leave-self-assessment-no-return-needed",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 116,
+    "slug": "p800-simple-assessment-pa302-vs-tax-return",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 117,
+    "slug": "self-employed-business-loan-interest-repayments",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 118,
+    "slug": "basis-period-transition-profit-2025-26",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": true,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 119,
+    "slug": "pre-trading-startup-expenses-self-employed",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  },
+  {
+    "rank": 120,
+    "slug": "self-employed-equipment-cash-basis-capital-allowances",
+    "change": "replaced example with a targeted preparation exercise and upgraded worksheet",
+    "specialistSourceUpdate": false,
+    "interactiveTool": false,
+    "independentReview": "not-performed"
+  }
+]

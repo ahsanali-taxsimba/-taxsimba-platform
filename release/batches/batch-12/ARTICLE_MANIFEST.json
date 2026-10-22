@@ -1,0 +1,198 @@
+[
+  {
+    "releasePosition": 111,
+    "slug": "winter-fuel-payment-self-assessment-2025-26",
+    "title": "Winter Fuel Payment and Your 2025/26 Self Assessment Return",
+    "category": "Self Assessment",
+    "metaTitle": "Winter Fuel Payment and Your 2025/26 Tax Return | TaxSimba",
+    "metaDescription": "Check the 2025/26 Winter Fuel Payment recovery position using the payment notice, complete income and any HMRC pre-filled figures or tax-code changes.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — if your income is over 35000",
+        "url": "https://www.gov.uk/winter-fuel-payment/if-your-income-is-over-35000"
+      },
+      {
+        "label": "HMRC / GOV.UK — pensioners urged to be alert to winter fuel payment scams",
+        "url": "https://www.gov.uk/government/news/pensioners-urged-to-be-alert-to-winter-fuel-payment-scams"
+      },
+      {
+        "label": "HMRC / GOV.UK — winter fuel payments charge",
+        "url": "https://www.gov.uk/government/publications/income-tax-charge-on-winter-fuel-payments/winter-fuel-payments-charge"
+      }
+    ]
+  },
+  {
+    "releasePosition": 112,
+    "slug": "self-assessment-refund-pending",
+    "title": "Self Assessment Refund Pending: What to Check Before Chasing HMRC",
+    "category": "Self Assessment",
+    "metaTitle": "Self Assessment Refund Pending: What to Check | TaxSimba",
+    "metaDescription": "Refund pending? Reconcile the tax calculation with your HMRC account, check whether repayment was requested and retain references before following up.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — claiming a tax refund",
+        "url": "https://www.gov.uk/self-assessment-tax-returns/claiming-a-tax-refund"
+      },
+      {
+        "label": "HMRC / GOV.UK — check when you can expect a reply from hmrc",
+        "url": "https://www.gov.uk/guidance/check-when-you-can-expect-a-reply-from-hmrc"
+      }
+    ]
+  },
+  {
+    "releasePosition": 113,
+    "slug": "gift-aid-self-assessment-tax-relief",
+    "title": "Gift Aid on Self Assessment: Claim the Right Relief Without Double Counting",
+    "category": "Self Assessment",
+    "metaTitle": "Gift Aid on Self Assessment: Avoid Double Relief | TaxSimba",
+    "metaDescription": "Prepare Gift Aid donation dates and cash amounts, distinguish gross figures and Payroll Giving, and check the tax-paid condition and any carry-back timing.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — gift aid",
+        "url": "https://www.gov.uk/donating-to-charity/gift-aid"
+      },
+      {
+        "label": "HMRC / GOV.UK — help with charitable giving on your self assessment tax return",
+        "url": "https://www.gov.uk/guidance/help-with-charitable-giving-on-your-self-assessment-tax-return"
+      }
+    ]
+  },
+  {
+    "releasePosition": 114,
+    "slug": "state-pension-self-assessment-income",
+    "title": "State Pension on Self Assessment: Why Bank Payments May Not Be the Right Figure",
+    "category": "Self Assessment",
+    "metaTitle": "State Pension on Self Assessment: Use the Right Figure | TaxSimba",
+    "metaDescription": "Prepare the correct State Pension tax-year entitlement, start dates and uprating notices, and separate workplace pension income and PAYE deductions.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — tax on pension",
+        "url": "https://www.gov.uk/tax-on-pension"
+      },
+      {
+        "label": "HMRC / GOV.UK — how your tax is paid",
+        "url": "https://www.gov.uk/tax-on-pension/how-your-tax-is-paid"
+      },
+      {
+        "label": "HMRC / GOV.UK — how your state pension is taxed",
+        "url": "https://www.gov.uk/guidance/how-your-state-pension-is-taxed"
+      }
+    ]
+  },
+  {
+    "releasePosition": 115,
+    "slug": "leave-self-assessment-no-return-needed",
+    "title": "No Longer Need Self Assessment? Ask HMRC Before You Stop Filing",
+    "category": "Self Assessment",
+    "metaTitle": "Leave Self Assessment: Get HMRC Confirmation First | TaxSimba",
+    "metaDescription": "No longer need a return? Review all income, identify the tax year and ask HMRC to withdraw the requirement while checking final and earlier liabilities.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — no longer need to send a tax return",
+        "url": "https://www.gov.uk/self-assessment-tax-returns/no-longer-need-to-send-a-tax-return"
+      },
+      {
+        "label": "HMRC / GOV.UK — check if you need tax return",
+        "url": "https://www.gov.uk/check-if-you-need-tax-return"
+      }
+    ]
+  },
+  {
+    "releasePosition": 116,
+    "slug": "p800-simple-assessment-pa302-vs-tax-return",
+    "title": "P800 or Simple Assessment PA302: Do You Also Need a Tax Return?",
+    "category": "Self Assessment",
+    "metaTitle": "P800 or Simple Assessment PA302: Check Before Paying | TaxSimba",
+    "metaDescription": "Understand a P800 or PA302, compare the tax year and figures with your records and check for overlap with Self Assessment or an earlier assessment.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — tax overpayments and underpayments",
+        "url": "https://www.gov.uk/tax-overpayments-and-underpayments"
+      },
+      {
+        "label": "HMRC / GOV.UK — simple assessment",
+        "url": "https://www.gov.uk/simple-assessment"
+      },
+      {
+        "label": "HMRC / GOV.UK — issue 148 of agent update",
+        "url": "https://www.gov.uk/government/publications/agent-update-issue-148/issue-148-of-agent-update"
+      }
+    ]
+  },
+  {
+    "releasePosition": 117,
+    "slug": "self-employed-business-loan-interest-repayments",
+    "title": "Business Loans on Self Assessment: Interest, Borrowing and Repayments",
+    "category": "Self Assessment",
+    "metaTitle": "Business Loans on Self Assessment: Capital vs Interest | TaxSimba",
+    "metaDescription": "Separate business borrowing, loan repayments and interest, retain the use-of-funds evidence and avoid claiming the same equipment cost more than once.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — legal financial",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed/legal-financial"
+      },
+      {
+        "label": "HMRC / GOV.UK — expenses if youre self employed",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed"
+      }
+    ]
+  },
+  {
+    "releasePosition": 118,
+    "slug": "basis-period-transition-profit-2025-26",
+    "title": "Basis Period Transition Profits: What Still Goes on a 2025/26 Return?",
+    "category": "Self Assessment",
+    "metaTitle": "Basis Period Transition Profit: Check Your 2025/26 Return | TaxSimba",
+    "metaDescription": "Prepare transition-profit schedules for 2025/26, reconcile amounts already taxed and identify elections or cessation before applying any remaining spread.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — hs222 how to calculate your taxable profits 2026",
+        "url": "https://www.gov.uk/government/publications/how-to-calculate-your-taxable-profits-hs222-self-assessment-helpsheet/hs222-how-to-calculate-your-taxable-profits-2026"
+      },
+      {
+        "label": "HMRC / GOV.UK — work out your transition profit",
+        "url": "https://www.gov.uk/guidance/work-out-your-transition-profit"
+      }
+    ]
+  },
+  {
+    "releasePosition": 119,
+    "slug": "pre-trading-startup-expenses-self-employed",
+    "title": "Can You Claim Business Costs Paid Before You Started Trading?",
+    "category": "Self Assessment",
+    "metaTitle": "Pre-Trading Startup Expenses: Dates and Evidence | TaxSimba",
+    "metaDescription": "Prepare qualifying startup costs with dates, business purpose and commencement evidence, while separating equipment, private costs and previous relief.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — bim46351",
+        "url": "https://www.gov.uk/hmrc-internal-manuals/business-income-manual/bim46351"
+      },
+      {
+        "label": "HMRC / GOV.UK — office property",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed/office-property"
+      }
+    ]
+  },
+  {
+    "releasePosition": 120,
+    "slug": "self-employed-equipment-cash-basis-capital-allowances",
+    "title": "Tools, Laptops and Equipment: Expenses or Capital Allowances?",
+    "category": "Self Assessment",
+    "metaTitle": "Tools and Laptops: Expenses or Capital Allowances? | TaxSimba",
+    "metaDescription": "Check equipment relief using the accounting method, asset type, business use and finance details, and retain records of later disposals and replacements.",
+    "sources": [
+      {
+        "label": "HMRC / GOV.UK — office property",
+        "url": "https://www.gov.uk/expenses-if-youre-self-employed/office-property"
+      },
+      {
+        "label": "HMRC / GOV.UK — capital allowances",
+        "url": "https://www.gov.uk/capital-allowances"
+      },
+      {
+        "label": "HMRC / GOV.UK — simpler income tax cash basis",
+        "url": "https://www.gov.uk/simpler-income-tax-cash-basis"
+      }
+    ]
+  }
+]

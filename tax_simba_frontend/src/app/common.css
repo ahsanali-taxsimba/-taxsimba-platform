@@ -882,6 +882,20 @@ body {
     transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
+.article-artwork { margin: 0; overflow: hidden; background: #f2eadc; }
+.article-artwork img { display: block; width: 100%; height: auto; aspect-ratio: 12 / 5; object-fit: contain; }
+.article-artwork-card { margin: -1.25rem -1.25rem 1.1rem; border-bottom: 1px solid rgba(20, 78, 61, .12); }
+.article-artwork-hero { margin: 2rem 0 0; border-radius: 24px; box-shadow: 0 20px 60px rgba(19, 63, 50, .16); border: 1px solid rgba(20, 78, 61, .12); }
+.premium-kicker { color: #1d7258; font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; margin-bottom: .45rem; }
+.premium-checklist, .premium-comparison { margin: 0 0 2rem; padding: 1.5rem; border-radius: 20px; background: #f4f8f3; border: 1px solid #d6e7dc; }
+.premium-checklist h2, .premium-comparison h2 { color: #123f32; margin: 0 0 1rem; }
+.premium-checklist ol { margin: 0; padding-left: 1.35rem; }
+.premium-checklist li { padding: .35rem 0 .35rem .3rem; }
+.premium-table-wrap { overflow-x: auto; }
+.premium-comparison table { width: 100%; border-collapse: collapse; min-width: 540px; }
+.premium-comparison th, .premium-comparison td { padding: .85rem; border-bottom: 1px solid #d6e7dc; text-align: left; vertical-align: top; }
+.premium-comparison th { color: #123f32; background: #e7f2eb; }
+
 .article-card-link:hover .article-card,
 .article-card-link:focus-visible .article-card {
     border-color: #25a767;
@@ -1503,3 +1517,104 @@ body {
         padding: 40px 0;
     }
 }
+
+@media (max-width: 767px) {
+  .article-artwork-hero { margin-top: 1.25rem; border-radius: 16px; }
+  .article-artwork-card { margin: -1rem -1rem 1rem; }
+  .premium-checklist, .premium-comparison { padding: 1.1rem; border-radius: 16px; }
+}
+
+/* Premium editorial template: verified launch batch 01. */
+.premium-article { background: #fffefb; color: #173f35; }
+.premium-article .compact-article-hero { background: #fffefb; padding-top: 48px; }
+.premium-article .compact-article-hero-inner { max-width: 1120px; }
+.premium-article .compact-article-title-row .article-icon-tile { display: none; }
+.premium-article .compact-article-title { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(2.25rem, 4.5vw, 3.8rem); line-height: 1.09; letter-spacing: -.035em; color: #083d32; max-width: 1000px; }
+.premium-article .compact-article-dek { font-size: 1.25rem; color: #617168; margin-top: 18px; }
+.premium-article .article-artwork-hero { box-shadow: none; border: none; border-radius: 18px; }
+.premium-article .article-artwork img { aspect-ratio: 3/1; object-fit: cover; }
+.premium-article .compact-article-main { max-width: 1120px; gap: 48px; }
+.premium-article .compact-article-body { font-size: 1.08rem; line-height: 1.8; min-width: 0; }
+.premium-article :is(h1, h2, h3, summary) { overflow-wrap: anywhere; }
+.premium-article .compact-article-body h2 { font-family: Georgia, 'Times New Roman', serif; color: #103f33; font-size: 1.85rem; line-height: 1.2; margin-top: 2rem; }
+.premium-answer { display: flex; gap: 20px; align-items: flex-start; padding: 28px; background: #faf3e7; border-radius: 18px; margin: 0 0 32px; }
+.premium-answer .premium-answer-icon { font-size: 2.5rem; color: #1a6c50; line-height: 1; }
+.premium-answer h2 { margin-top: 0 !important; }
+.premium-answer p { margin: 0; }
+.premium-article .premium-checklist { background: #edf6ef; }
+.premium-article details { padding: .6rem 0; }
+.premium-article summary { cursor: pointer; font-weight: 650; color: #124f3c; }
+.premium-article details p { margin: .75rem 0 .25rem; font-size: 1rem; }
+.premium-article summary:focus-visible { outline: 3px solid #249d76; outline-offset: 5px; border-radius: 4px; }
+.premium-article .compact-article-service { background: #073f32; color: #fff; padding: 32px; border-radius: 18px; }
+.premium-article .compact-article-service h2, .premium-article .compact-article-service-kicker { color: #fff; }
+.premium-article .compact-article-sources a { overflow-wrap: anywhere; }
+@media(max-width: 760px) {
+ .premium-article .compact-article-hero { padding-top: 24px; }
+ .premium-article .compact-article-title { font-size: 2.3rem; }
+ .premium-article .article-artwork-hero img { aspect-ratio: 3/2; object-fit: cover; object-position: center; }
+ .premium-article .compact-article-body { font-size: 1rem; }
+ .premium-answer { padding: 22px; gap: 12px; }
+ .premium-answer .premium-answer-icon { display:none; }
+ .premium-article .compact-article-body h2 { font-size: 1.65rem; }
+}
+.premium-article .compact-article-title-row { display: block; }
+.premium-article .compact-article-dek, .premium-article .compact-article-meta, .premium-article .compact-article-checked { margin-left: 0; }
+.premium-article .compact-article-service p { color: #e5f2eb; }
+.premium-article .get-started-btn { max-width: 100%; min-height: 48px; height: auto; gap: 12px; padding: 12px 8px 12px 20px; }
+.premium-article .get-started-btn__text { white-space: normal; min-width: 0; }
+@media(max-width: 991px) {
+ .site-header:not(.menu_active) .menu-xxx-container { display: none; }
+}
+
+/* Editorial guide hub: ten cards per page, priority twenty first. */
+.editorial-guide-hub { background: #fffefa; }
+.guide-hub-masthead { background: linear-gradient(135deg,#fbf7ed,#eef5eb); border-bottom: 1px solid #e0e8dc; }
+.guide-hub-intro { max-width: 850px; margin: 0 auto; }
+.guide-hub-intro h1, .editorial-guide-hub .common-title h2, .editorial-guide-hub .article-card-title { font-family: Georgia, 'Times New Roman', serif; color: #123f32; text-transform: none; }
+.guide-hub-intro h1 { display: block; font-size: clamp(2.2rem,4.5vw,3.9rem); line-height: 1.1; letter-spacing: -.035em; }
+.guide-hub-intro p { color: #4b6258; }
+.editorial-guide-hub .article-card { background: #fffdf7; overflow: hidden; }
+.editorial-guide-hub .article-card-title { font-size: clamp(1.3rem,2vw,1.65rem); font-weight: 600; }
+.editorial-guide-hub .article-card-excerpt { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.editorial-guide-hub .premium-guide-card .article-artwork img { aspect-ratio: 2.4 / 1; object-fit: cover; }
+.editorial-guide-hub .article-card-cta::after { content: ' →'; }
+.editorial-guide-hub input[type=search] { border-radius: 28px; padding: .9rem 1.2rem; border-color: #d4dfd6; }
+.editorial-guide-hub a:focus-visible, .editorial-guide-hub button:focus-visible { outline: 3px solid #247458; outline-offset: 4px; }
+@media(max-width:575px) { .guide-hub-masthead { padding: 44px 0; } .editorial-guide-hub .blog-sec { padding: 36px 0; } }
+
+/* Practical editorial additions to the selected twenty guides. */
+.article-worked-example { margin: 2rem 0; padding: 1.4rem; background: #fbf5e8; border-left: 4px solid #3e8062; border-radius: 0 16px 16px 0; }
+.article-example-label { font-size: .88rem; color: #59675f; }
+.article-decision, .article-follow-up, .article-preparation { margin: 2rem 0; }
+.article-decision-scroll { overflow-x: auto; border: 1px solid #d8e5da; border-radius: 12px; }
+.article-decision-scroll:focus-visible { outline: 3px solid #267558; outline-offset: 3px; }
+.article-decision table { border-collapse: collapse; width: 100%; font-size: .96rem; }
+.article-decision caption { caption-side: top; color: #24523f; background: #edf5ed; padding: .8rem 1rem; }
+.article-decision th, .article-decision td { padding: .8rem; text-align: left; vertical-align: top; border-bottom: 1px solid #d8e5da; overflow-wrap: anywhere; }
+.article-decision thead { background: #edf5ed; }
+.article-decision th[scope=row] { width: 34%; font-weight: 600; }
+.article-follow-up h3 { font-family: Georgia, 'Times New Roman', serif; color: #123f32; font-size: 1.3rem; margin-top: 1.4rem; }
+.article-preparation { padding: 1.4rem; background: #f0f6ee; border: 1px solid #d8e5da; border-radius: 16px; }
+.article-worksheet-download { display: inline-block; background: #15543f; color: #fff; padding: .85rem 1rem; border-radius: 10px; line-height: 1.4; overflow-wrap: anywhere; }
+.article-worksheet-download:hover { background: #0c3c2e; color: #fff; }
+.article-worksheet-download:focus-visible { outline: 3px solid #278361; outline-offset: 4px; }
+.article-preparation .article-example-label { margin: .9rem 0 0; }
+.article-contents-disclosure summary { cursor: pointer; color: #154f3b; font-weight: 700; }
+.article-contents-disclosure ol { margin-top: .8rem; }
+.article-contents-disclosure summary:focus-visible { outline: 3px solid #267558; outline-offset: 4px; }
+
+.article-timing{margin:0 0 2rem;padding:1.25rem;border-left:4px solid #9b6b19;border-radius:0 12px 12px 0;background:#fff8e8;color:#453511}.article-timing h2{margin-top:0!important}.article-timing a{color:#5d420d;text-decoration:underline}.article-official-action{display:inline-block;padding:.75rem 1rem;border-radius:9px;background:#fff;color:#073f32!important;font-weight:650;text-decoration:underline}.compact-article-service a:not(.get-started-btn){color:#e5f2eb}.article-official-action:focus-visible{outline:3px solid #eac979;outline-offset:3px}
+
+.guide-seasonal-focus{padding:24px 0;background:#eef6ef;border-block:1px solid #d9e7dc}.guide-seasonal-focus h2{font-family:Georgia,serif;color:#083d32}.guide-seasonal-focus ul{display:flex;flex-wrap:wrap;gap:12px 30px;margin-bottom:0}.guide-seasonal-focus a{color:#075a3c;text-decoration:underline;font-weight:600}
+
+/* Reviewed article links and actions: distinguish links without colour alone. */
+.premium-article a:not(.get-started-btn):not(.article-official-action){color:#075a3c;text-decoration:underline;text-underline-offset:.15em}
+.premium-article .compact-article-service a:not(.get-started-btn):not(.article-official-action){color:#e5f2eb}
+.premium-article a.get-started-btn--pro-blue{background-color:#075a3c;color:#fff;text-decoration:none}
+.premium-article a.get-started-btn--pro-blue:hover{background-color:#083d32;color:#fff}
+.premium-article a:focus-visible{outline:3px solid #075a3c;outline-offset:4px}
+.premium-article .compact-article-service a:focus-visible{outline-color:#eac979}
+.premium-article .article-preparation a.article-worksheet-download{color:#fff!important;background-color:#15543f;text-decoration:underline}
+
+.landlord-guide-return{border:1px solid #b8cbbd;border-radius:12px;background:#f0f5ed;padding:24px;margin:30px 0}.landlord-guide-return p{margin:0}
