@@ -3372,22 +3372,69 @@ export function normalizeApiArticle(raw = {}) {
 }
 
 /**
- * Merge curated registry with CMS/API articles.
- * Curated slugs always win so SEO content cannot disappear if the API is empty.
+ * Merge curated registry with CMS/API articles and HMRC automation overlays.
+ *
+ * - New automated slugs are added when absent from the 120-article registry.
+ * - Automated overlays that target an existing registry slug update content /
+ *   metadata while preserving the original publishedAt (first-publication date)
+ *   and releaseRank / listing priority from the curated record.
+ * - Empty API responses never remove curated SEO content.
+ * - Overlays are applied after enhanceArticle so editorial revision helpers cannot
+ *   wipe a newly published automated revision.
  */
 export function mergeArticlesWithApi(apiArticles = []) {
   const map = new Map();
   for (const article of getPublishedArticles()) {
-    map.set(article.slug, article);
+    map.set(article.slug, enhanceArticle(article));
   }
+
+  const overlays = [];
   for (const raw of apiArticles) {
     if (!raw?.slug) continue;
-    if (articles.some((article) => article.slug === raw.slug)) continue;
     const normalized = normalizeApiArticle(raw);
+    const isAutomationOverlay =
+      Boolean(raw.isAutomatedOverlay) || Boolean(raw.preservesCuratedSlug);
+
+    if (map.has(raw.slug) && isAutomationOverlay) {
+      // Curated page is already public; apply overlay when the automation marks it published.
+      if (raw.status && raw.status !== "published") continue;
+      if (!normalized.content) continue;
+      overlays.push({ raw, normalized });
+      continue;
+    }
+
     if (!isPubliclyVisibleArticle(normalized)) continue;
-    if (!map.has(raw.slug)) map.set(raw.slug, normalized);
+    if (articles.some((article) => article.slug === raw.slug)) continue;
+    if (!map.has(raw.slug)) map.set(raw.slug, enhanceArticle(normalized));
   }
-  return Array.from(map.values()).map(enhanceArticle).sort(compareArticlePriority);
+
+  for (const { raw, normalized } of overlays) {
+    const existing = map.get(raw.slug);
+    map.set(raw.slug, {
+      ...existing,
+      title: normalized.title || existing.title,
+      excerpt: normalized.excerpt || existing.excerpt,
+      content: normalized.content || existing.content,
+      metaTitle: normalized.metaTitle || existing.metaTitle,
+      metaDescription: normalized.metaDescription || existing.metaDescription,
+      sources:
+        normalized.sources?.length > 0 ? normalized.sources : existing.sources,
+      featuredImage: normalized.featuredImage || existing.featuredImage,
+      featuredImageAlt: normalized.featuredImageAlt || existing.featuredImageAlt,
+      contentUpdatedAt:
+        normalized.contentUpdatedAt ||
+        raw.contentUpdatedAt ||
+        existing.contentUpdatedAt,
+      reviewedAt: normalized.reviewedAt || existing.reviewedAt,
+      publishedAt: existing.publishedAt,
+      releaseRank: existing.releaseRank,
+      priorityRank: existing.priorityRank,
+      curated: true,
+      automatedOverlayRevisionId: raw.revisionId || null,
+    });
+  }
+
+  return Array.from(map.values()).sort(compareArticlePriority);
 }
 
 export function getFeaturedArticles(limit = 3) {

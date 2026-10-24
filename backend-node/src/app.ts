@@ -11,6 +11,8 @@ import { authRouter } from "./routes/auth";
 import { casesRouter } from "./routes/cases";
 import { collaborationRouter } from "./routes/collaboration";
 import { contentRouter } from "./routes/content";
+import { blogsRouter } from "./routes/blogs";
+import { contentAutomationRouter } from "./routes/contentAutomation";
 import { documentsRouter } from "./routes/documents";
 import { mtdRouter } from "./routes/mtd";
 import { mtdOnboardingRouter } from "./routes/mtdOnboarding";
@@ -27,6 +29,7 @@ import { ensureEmailIndexes } from "./services/email";
 import { ensureAuthTokenIndexes } from "./services/emailVerification";
 import { ensureEngagementIndexes } from "./services/engagement";
 import { ensureReminderIndexes } from "./jobs/reminders";
+import { ensureContentAutomationIndexes } from "./content-automation/store";
 import { ensureIndexes as ensureLoginIndexes } from "./services/loginLockout";
 import { ensureMfaIndexes } from "./services/security";
 
@@ -104,6 +107,7 @@ export async function startup(): Promise<void> {
   await ensureReminderIndexes();
   await ensurePricingIndexes();
   await ensureContentIndexes();
+  await ensureContentAutomationIndexes();
 }
 
 export function createApp(): Express {
@@ -138,6 +142,8 @@ export function createApp(): Express {
   app.use("/api", adminRouter);
   app.use("/api", profileRouter);
   app.use("/api", contentRouter);
+  app.use("/api", blogsRouter);
+  app.use("/api", contentAutomationRouter);
 
   // Toxel compatibility layer (K.1+). Native routes above are unchanged.
   // Compat has its own error middleware; unhandled compat errors must not fall through

@@ -1,0 +1,59 @@
+[
+  {
+    "base_path": "/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+    "content_id": "fixture-mtd-eligibility",
+    "title": "Find out if and when you need to use Making Tax Digital for Income Tax",
+    "description": "Check if Making Tax Digital for Income Tax applies to you and when you need to start.",
+    "public_updated_at": "2026-10-01T09:00:00.000Z",
+    "discovery": false
+  },
+  {
+    "base_path": "/self-assessment-tax-returns/deadlines",
+    "content_id": "fixture-sa-deadlines",
+    "title": "Self Assessment tax returns: deadlines",
+    "description": "Deadlines for registering, filing and paying Self Assessment.",
+    "public_updated_at": "2026-04-06T08:00:00.000Z",
+    "discovery": false
+  },
+  {
+    "base_path": "/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+    "content_id": "fixture-qualifying-income",
+    "title": "Work out your qualifying income for Making Tax Digital for Income Tax",
+    "description": "How to work out qualifying income for MTD for Income Tax thresholds.",
+    "public_updated_at": "2026-09-15T10:00:00.000Z",
+    "discovery": false
+  },
+  {
+    "base_path": "/guidance/send-quarterly-updates-making-tax-digital-for-income-tax",
+    "content_id": "fixture-quarterly",
+    "title": "Send quarterly updates (Making Tax Digital for Income Tax)",
+    "description": "How and when to send quarterly updates under MTD for Income Tax.",
+    "public_updated_at": "2026-10-20T11:00:00.000Z",
+    "discovery": true
+  },
+  {
+    "base_path": "/guidance/expenses-if-youre-self-employed",
+    "content_id": "fixture-expenses",
+    "title": "Expenses if you're self-employed",
+    "description": "What expenses you can claim if you are self-employed.",
+    "public_updated_at": "2026-03-01T09:00:00.000Z",
+    "discovery": false
+  },
+  {
+    "base_path": "/guidance/withdrawn-example-mtd-pilot-page",
+    "content_id": "fixture-withdrawn",
+    "title": "Withdrawn MTD pilot page",
+    "description": "This guidance has been withdrawn.",
+    "public_updated_at": "2025-01-01T00:00:00.000Z",
+    "withdrawn_notice": { "explanation": "Guidance withdrawn" },
+    "discovery": false
+  },
+  {
+    "base_path": "/guidance/national-insurance-for-self-employed",
+    "content_id": "fixture-ni-new",
+    "title": "National Insurance for the self-employed",
+    "description": "How Class 2 and Class 4 National Insurance work for self-employed people.",
+    "public_updated_at": "2026-10-22T08:00:00.000Z",
+    "discovery": true
+  }
+]
