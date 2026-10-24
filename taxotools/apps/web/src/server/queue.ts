@@ -18,11 +18,10 @@ export function getRedisConnection() {
       lazyConnect: true,
       connectTimeout: REDIS_CONNECT_MS,
       commandTimeout: REDIS_OP_MS,
-      // Fail fast in serverless — do not retry forever when Redis is unreachable.
       retryStrategy: () => null,
     });
     connection.on("error", () => {
-      // Swallow reconnect noise; enqueueJob already falls back to DB-only queueing.
+      // Swallow reconnect noise; enqueueJob falls back to DB-only queueing.
     });
   }
   return connection;
@@ -60,13 +59,21 @@ function getQueue(name: JobQueueName | string) {
   return queues.get(name)!;
 }
 
+export type EnqueuedJob = Awaited<ReturnType<typeof prisma.backgroundJob.create>> & {
+  transport: "redis" | "db";
+};
+
+/**
+ * Enqueue a background job.
+ * - Redis available → BullMQ + jobId set (worker consumes)
+ * - Redis down → jobId left null so DB poller / inline runners can claim it
+ */
 export async function enqueueJob(params: {
   queue: JobQueueName | string;
   name: string;
   payload: Record<string, unknown>;
   maxAttempts?: number;
-}) {
-  // Stable unique jobId up front — avoids Redis id collisions on BackgroundJob.jobId
+}): Promise<EnqueuedJob> {
   const record = await prisma.backgroundJob.create({
     data: {
       queue: params.queue,
@@ -74,12 +81,11 @@ export async function enqueueJob(params: {
       status: "QUEUED",
       payload: params.payload as Prisma.InputJsonValue,
       maxAttempts: params.maxAttempts ?? 3,
-      jobId: `bq-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`,
+      jobId: null,
     },
   });
 
   try {
-    // Skip Redis when unset/disabled so Vercel serverless never waits on a dead broker.
     if (
       process.env.REDIS_DISABLED === "1" ||
       !process.env.REDIS_URL ||
@@ -91,7 +97,7 @@ export async function enqueueJob(params: {
     if (conn.status !== "ready") {
       await withTimeout(conn.connect(), REDIS_CONNECT_MS, "Redis connect");
     }
-    await withTimeout(
+    const bullJob = await withTimeout(
       getQueue(params.queue).add(params.name, {
         ...params.payload,
         backgroundJobId: record.id,
@@ -99,9 +105,13 @@ export async function enqueueJob(params: {
       REDIS_OP_MS,
       "Redis enqueue",
     );
+    const updated = await prisma.backgroundJob.update({
+      where: { id: record.id },
+      data: { jobId: String(bullJob.id) },
+    });
+    return Object.assign(updated, { transport: "redis" as const });
   } catch (err) {
-    // Redis optional in local/dev/Vercel — worker can poll BackgroundJob table
-    await prisma.backgroundJob.update({
+    const updated = await prisma.backgroundJob.update({
       where: { id: record.id },
       data: {
         errorMessage:
@@ -110,9 +120,8 @@ export async function enqueueJob(params: {
             : "Queued in DB only",
       },
     });
+    return Object.assign(updated, { transport: "db" as const });
   }
-
-  return record;
 }
 
 export { JOB_QUEUES };

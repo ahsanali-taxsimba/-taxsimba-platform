@@ -31,19 +31,28 @@ export default async function TechnicalPage({
           </Link>{" "}
           / Technical
         </p>
-        <h1 className="font-display text-3xl font-semibold">Crawler Master</h1>
+        <h1 className="font-display text-3xl font-semibold">Technical SEO</h1>
         <p className="text-ink-500">
           Health score: {health.healthScore ?? "—"} · Critical:{" "}
           {health.issueCounts.CRITICAL} · High: {health.issueCounts.HIGH}
+          {" · "}
+          <span className="font-medium text-ink-700">
+            {health.dataSource === "live-http" ? "Live HTTP data" : "Awaiting first live crawl"}
+          </span>
         </p>
       </div>
-      <CrawlerMasterPanel siteId={siteId} />
       <div>
-        <h2 className="font-display text-xl font-semibold">Site audit history</h2>
+        <h2 className="font-display text-xl font-semibold">Live site audit</h2>
         <div className="mt-4">
-          <CrawlPanel siteId={siteId} crawls={crawls} healthScore={health.healthScore} />
+          <CrawlPanel
+            siteId={siteId}
+            crawls={crawls}
+            healthScore={health.healthScore}
+            dataSource={health.dataSource}
+          />
         </div>
       </div>
+      <CrawlerMasterPanel siteId={siteId} />
     </div>
   );
 }

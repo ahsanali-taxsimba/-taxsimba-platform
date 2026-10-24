@@ -111,9 +111,8 @@ export async function initBacklinkEngine(
     }
   }
 
-  // Queue provider refresh instead of awaiting it — keeps signup/testing APIs
-  // responsive when external backlink APIs are slow or unavailable.
-  await enqueueJob({
+  // Queue provider refresh; when Redis is down, run live provider fetch inline.
+  const queued = await enqueueJob({
     queue: JOB_QUEUES.BACKLINK_REFRESH,
     name: "backlink-engine-init",
     payload: {
@@ -125,6 +124,49 @@ export async function initBacklinkEngine(
       runRefresh: true,
     },
   });
+
+  if (queued.transport === "db") {
+    try {
+      await prisma.backgroundJob.update({
+        where: { id: queued.id },
+        data: { status: "RUNNING", startedAt: new Date(), attempts: { increment: 1 } },
+      });
+      const refreshed = await refreshBacklinks(userId, siteId);
+      await prisma.backgroundJob.update({
+        where: { id: queued.id },
+        data: {
+          status: "COMPLETED",
+          finishedAt: new Date(),
+          result: { transport: "inline", siteId },
+          errorMessage: null,
+        },
+      });
+      return {
+        init: {
+          command: "seo.backlinks.init",
+          sourceApis,
+          crawlMode: config.crawlMode,
+          refreshInterval: config.refreshInterval,
+          scoreFormula: config.scoreFormula,
+          toxicThreshold: `spam>${config.toxicSpamGt} || risk>${config.toxicRiskGt}`,
+          highValueThreshold: `authority>${config.highValueAuthorityGt} && relevance>${config.highValueRelevanceGt}`,
+          alertRules: `velocity_spike>${config.alertVelocitySpikePct}%,anchor_repeat>${config.alertAnchorRepeatPct}`,
+          enableDisavow: config.enableDisavow,
+          enableCompetitorMonitoring: config.enableCompetitorMonitoring,
+          refreshQueued: false,
+          refreshInline: true,
+        },
+        ...refreshed,
+        config,
+      };
+    } catch (e) {
+      const message = e instanceof Error ? e.message : "inline backlink refresh failed";
+      await prisma.backgroundJob.update({
+        where: { id: queued.id },
+        data: { status: "FAILED", finishedAt: new Date(), errorMessage: message },
+      });
+    }
+  }
 
   const summary = await summarizeBacklinks(siteId);
 

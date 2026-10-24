@@ -318,11 +318,14 @@ export async function runHealthScoreboard(userId: string, siteId: string) {
     aeoShareOfVoice(userId, siteId),
     prisma.autoSeoAction.count({ where: { siteId, status: "DEPLOYED" } }),
   ]);
-  const technical = Math.min(98, Math.round(health.healthScore || 62));
+  const technicalLive = health.dataSource === "live-http" && health.healthScore != null;
+  const technical = Math.min(98, Math.round(health.healthScore ?? 0));
   const content = Math.min(98, 50 + Math.min(40, keywords.length * 4));
   const authority = Math.min(98, 45 + (hash(site.domain) % 35));
   const ux = Math.min(98, 55 + (hash(site.url) % 30));
-  const overall = Math.round((technical + content + authority + ux) / 4);
+  const overall = technicalLive
+    ? Math.round((technical * 2 + content + authority + ux) / 5)
+    : Math.round((content + authority + ux) / 3);
   const snap = await prisma.healthScoreSnapshot.create({
     data: {
       siteId,
@@ -336,18 +339,28 @@ export async function runHealthScoreboard(userId: string, siteId: string) {
       metadata: {
         aeoShare:
           sov.length === 0 ? 0 : sov.reduce((a, s) => a + s.shareOfVoice, 0) / sov.length,
+        technicalSource: technicalLive ? "live-http" : "awaiting-crawl",
+        issueCounts: health.issueCounts,
       },
     },
   });
   return {
     tool: "health-scoreboard",
-    summary: `Overall health ${overall}`,
+    summary: technicalLive
+      ? `Overall health ${overall} (technical from live crawl)`
+      : `Overall health ${overall} — run a live crawl for real technical score`,
+    dataSource: technicalLive ? "live-http" : "partial",
     snapshot: snap,
     pages: [
-      { name: "Content", score: content, status: "pillar", note: "Depth + freshness" },
-      { name: "Authority", score: authority, status: "pillar", note: "Domain Power + links" },
-      { name: "Technical", score: technical, status: "pillar", note: "Crawl + indexability" },
-      { name: "UX", score: ux, status: "pillar", note: "CWV + engagement" },
+      {
+        name: "Technical",
+        score: technical,
+        status: technicalLive ? "live" : "awaiting-crawl",
+        note: technicalLive ? "From live HTTP crawl issues" : "Start a live crawl first",
+      },
+      { name: "Content", score: content, status: "partial", note: "Keyword coverage (live crawl content pending)" },
+      { name: "Authority", score: authority, status: "partial", note: "Domain Power + links (pending live graph)" },
+      { name: "UX", score: ux, status: "partial", note: "CWV proxies until RUM connected" },
       { name: "Issues fixed", metric: deployed, status: "autopilot" },
       { name: "Hours saved", metric: snap.timeSavedHours, status: "roi" },
     ],
