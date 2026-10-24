@@ -18,9 +18,13 @@ This candidate is **not** approved by Cursor. Do **not** merge or deploy product
 | **Final branch** | `cursor/hmrc-content-automation-df9b` |
 | **PR** | https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/33 |
 | **Base branch** | `cursor/taxsimba-v6-integration-df9b` |
-| **Tested / deploy tip SHA** | See `docs/content-automation/CANDIDATE_SHA.txt` and `git rev-parse origin/cursor/hmrc-content-automation-df9b` (must match) |
+| **Deploy tip SHA** | `git rev-parse origin/cursor/hmrc-content-automation-df9b` (authoritative) |
+| **Verified check package SHA** | `de340748192dcb150273087d705789d328fb9b11` — full suite re-run PASS on this commit |
 
-Checks were re-run on this tip after stamping. Content/demos landed in `a75deacccaee0e17d31d61e34ac91a0afb61c0d9`; this tip adds the SHA stamp only.
+Before staging deploy: tip must equal the verified package SHA **or** `git diff de340748192dcb150273087d705789d328fb9b11..TIP -- . ':!docs/content-automation'` must be empty (docs-only delta under `docs/content-automation/` only).  
+`docs/content-automation/CANDIDATE_SHA.txt` is a helper stamp; prefer `git rev-parse`.
+
+Content/demos package: `a75deacccaee0e17d31d61e34ac91a0afb61c0d9`.
 
 Alias note: `feature/hmrc-content-automation` is kept **fast-forward identical** to the forge branch for historical naming only. **Use only `cursor/hmrc-content-automation-df9b` + PR #33.**
 
@@ -157,7 +161,17 @@ Restore:   POST /api/content-automation/backup/restore
 
 ## 5. Checks re-run on the final tip
 
-Recorded in the final PR update after this document lands. Required suite:
+Re-run on tip `de340748192dcb150273087d705789d328fb9b11` (pass):
+
+| Check | Result |
+|---|---|
+| `backend-node` `npm run typecheck` | PASS |
+| `CONTENT_AUTOMATION_FIXTURE_MODE=true` vitest `pipeline.test.ts` | **15/15 PASS** |
+| `verify:quality-v4` | PASS (120) |
+| `verify:review-v5` | PASS (priority twenty) |
+| `verify:landlord-hub-v6` | PASS |
+| `verify:premium` | PASS (120 + 360 artworks) |
+| `tax_simba_frontend` `npm run build` (full release:deploy-build) | PASS |
 
 ```bash
 # Backend
@@ -174,7 +188,7 @@ npm run verify:premium
 npm run build
 ```
 
-Preserve expectations: **120** unique articles, **first-20** = `PRIORITY_ARTICLE_SLUGS`, artwork library untouched.
+Preserve expectations: **120** unique articles, **first-20** priority order, artwork library untouched.
 
 ---
 
