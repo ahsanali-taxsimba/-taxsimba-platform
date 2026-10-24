@@ -1,0 +1,2 @@
+Deploy tip: run git rev-parse origin/cursor/hmrc-content-automation-df9b
+Verified package tip at handoff write: 973fdaeae0bf72b17a21dc87e7ef6312a394cff3

@@ -18,7 +18,7 @@ This candidate is **not** approved by Cursor. Do **not** merge or deploy product
 | **Final branch** | `cursor/hmrc-content-automation-df9b` |
 | **PR** | https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/33 |
 | **Base branch** | `cursor/taxsimba-v6-integration-df9b` |
-| **Tested / deploy tip SHA** | `bc3d6f603a51afb2fe99e63dfd3e5a0bd9a04bb3` — confirm with `git rev-parse origin/cursor/hmrc-content-automation-df9b` before deploy |
+| **Tested / deploy tip SHA** | See `docs/content-automation/CANDIDATE_SHA.txt` and `git rev-parse origin/cursor/hmrc-content-automation-df9b` (must match) |
 
 Checks were re-run on this tip after stamping. Content/demos landed in `a75deacccaee0e17d31d61e34ac91a0afb61c0d9`; this tip adds the SHA stamp only.
 
