@@ -1,0 +1,76 @@
+# DigitalOcean App Platform fragment for TaxSimba HMRC content automation.
+# Attach to the existing backend-node service (or run as a second worker instance).
+# Values marked REPLACE_IN_DO_DASHBOARD are secret NAMES only — enter values in DO.
+#
+# Schedule: the worker inside backend-node arms itself for 08:00 Europe/London when
+# CONTENT_AUTOMATION_ENABLED=true. Alternatively use a DO Job with cron "0 8 * * *"
+# in timezone Europe/London calling POST /api/content-automation/run-now with a
+# SUPER_ADMIN token (not required if the in-process worker is enabled on one instance).
+
+name: taxsimba-content-automation
+services:
+  - name: taxsimba-api
+    github:
+      repo: ahsanali-taxsimba/-taxsimba-platform
+      branch: feature/hmrc-content-automation
+      deploy_on_push: false
+    source_dir: backend-node
+    http_port: 8002
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    run_command: npm run start
+    build_command: npm ci && npm run build
+    envs:
+      - key: CONTENT_AUTOMATION_ENABLED
+        value: "false"
+        type: GENERAL
+        scope: RUN_TIME
+      - key: CONTENT_AUTOMATION_PAUSED
+        value: "false"
+        type: GENERAL
+        scope: RUN_TIME
+      - key: CONTENT_AUTOMATION_FIXTURE_MODE
+        value: "false"
+        type: GENERAL
+        scope: RUN_TIME
+      - key: CONTENT_AUTOMATION_DAILY_JOB_LIMIT
+        value: "5"
+        type: GENERAL
+        scope: RUN_TIME
+      - key: CONTENT_AUTOMATION_API_BUDGET
+        value: "40"
+        type: GENERAL
+        scope: RUN_TIME
+      - key: CONTENT_AUTOMATION_PUBLIC_BASE_URL
+        value: "https://taxsimba.co.uk"
+        type: GENERAL
+        scope: RUN_TIME
+      - key: CONTENT_AUTOMATION_GENERATION_API_BASE
+        value: "https://api.openai.com/v1"
+        type: GENERAL
+        scope: RUN_TIME
+      - key: CONTENT_AUTOMATION_GENERATION_MODEL
+        value: "gpt-4.1-mini"
+        type: GENERAL
+        scope: RUN_TIME
+      - key: MONGO_URL
+        type: SECRET
+        scope: RUN_TIME
+      - key: CONTENT_AUTOMATION_GENERATION_API_KEY
+        type: SECRET
+        scope: RUN_TIME
+      - key: CONTENT_AUTOMATION_IMAGE_API_KEY
+        type: SECRET
+        scope: RUN_TIME
+      - key: CONTENT_AUTOMATION_ALERT_WEBHOOK_URL
+        type: SECRET
+        scope: RUN_TIME
+
+jobs:
+  - name: content-automation-watchdog
+    kind: CRON
+    # Safety net if the in-process timer fails. Cron expression is interpreted by DO;
+    # set the job timezone to Europe/London in the dashboard.
+    crontab: "15 8 * * *"
+    source_dir: backend-node
+    run_command: node -e "console.log('Enable CONTENT_AUTOMATION_ENABLED on the API service; optional cron can POST /api/content-automation/run-now')"

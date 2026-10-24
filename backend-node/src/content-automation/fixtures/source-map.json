@@ -1,0 +1,3877 @@
+{
+  "generatedAt": "2026-10-24T02:46:40.810Z",
+  "articleCount": 120,
+  "first20": [
+    "mtd-accountant-cost",
+    "self-assessment-accountant-cost",
+    "join-mtd-service-mid-year",
+    "switch-mtd-accountant-mid-year",
+    "mtd-quarterly-updates-tax-payments",
+    "self-assessment-2025-26-mtd-2026-27",
+    "mtd-cumulative-quarterly-updates",
+    "correct-mtd-quarterly-update",
+    "waiting-for-utr-tax-return",
+    "employed-and-self-employed-tax-return",
+    "uber-private-hire-driver-tax-return",
+    "delivery-driver-courier-tax-return",
+    "mtd-software-vs-accountant-service",
+    "authorise-mtd-accountant-safely",
+    "multiple-overdue-self-assessment-returns",
+    "appeal-self-assessment-late-penalty",
+    "sold-rental-property-60-day-tax",
+    "pay-self-assessment-through-tax-code-december",
+    "mtd-proof-quarterly-update-submitted",
+    "hmrc-signed-me-up-for-making-tax-digital"
+  ],
+  "govukSourceCount": 142,
+  "govukSources": [
+    "https://www.gov.uk/guidance/check-what-to-do-if-hmrc-has-signed-you-up-for-making-tax-digital-for-income-tax",
+    "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+    "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax",
+    "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+    "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates",
+    "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records",
+    "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+    "https://www.gov.uk/self-assessment-tax-returns",
+    "https://www.gov.uk/understand-self-assessment-bill/payments-on-account",
+    "https://www.gov.uk/self-employed-records",
+    "https://www.gov.uk/expenses-if-youre-self-employed",
+    "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+    "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+    "https://www.gov.uk/scottish-income-tax",
+    "https://www.gov.uk/welsh-income-tax",
+    "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+    "https://www.gov.uk/guidance/sign-up-your-client-for-making-tax-digital-for-income-tax",
+    "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax",
+    "https://www.gov.uk/guidance/penalties-for-making-tax-digital-for-income-tax",
+    "https://www.gov.uk/understand-self-assessment-bill",
+    "https://www.gov.uk/pay-self-assessment-tax-bill",
+    "https://www.gov.uk/self-assessment-tax-returns/penalties",
+    "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/before-you-use-this-guide",
+    "https://www.gov.uk/guidance/apply-for-an-exemption-from-making-tax-digital-for-income-tax",
+    "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/submit-your-tax-return",
+    "https://www.gov.uk/guidance/find-out-if-you-can-get-an-exemption-from-making-tax-digital-for-income-tax",
+    "https://www.gov.uk/register-for-self-assessment",
+    "https://www.gov.uk/self-assessment-tax-returns/registering",
+    "https://www.gov.uk/difficulties-paying-hmrc",
+    "https://www.gov.uk/difficulties-paying-hmrc/pay-in-instalments",
+    "https://www.gov.uk/pay-self-assessment-tax-bill/pay-weekly-monthly",
+    "https://www.gov.uk/guidance/claim-to-reduce-payments-on-account",
+    "https://www.gov.uk/guidance/changes-to-tax-relief-for-residential-landlords-how-its-worked-out-including-case-studies",
+    "https://www.gov.uk/renting-out-a-property/paying-tax",
+    "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/pay-tax-and-claim-back-deductions",
+    "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor",
+    "https://www.gov.uk/government/publications/construction-industry-scheme-individuals-repayment-claim-cis40",
+    "https://www.gov.uk/government/publications/let-property-campaign-your-guide-to-making-a-disclosure/let-property-campaign-your-guide-to-making-a-disclosure",
+    "https://www.gov.uk/government/publications/hmrc-your-guide-to-making-a-disclosure/your-guide-to-making-a-disclosure",
+    "https://www.gov.uk/become-sole-trader/register-sole-trader",
+    "https://www.gov.uk/self-assessment-tax-returns/corrections",
+    "https://www.gov.uk/government/collections/making-tax-digital-for-vat",
+    "https://www.gov.uk/guidance/find-software-that-works-with-making-tax-digital-for-income-tax",
+    "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/get-your-software-ready",
+    "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid",
+    "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/how-to-get-gross-payment-status",
+    "https://www.gov.uk/government/publications/construction-industry-scheme-cis-340/construction-industry-scheme-a-guide-for-contractors-and-subcontractors-cis-340",
+    "https://www.gov.uk/hmrc-internal-manuals/construction-industry-scheme-reform/cisr12160",
+    "https://www.gov.uk/expenses-if-youre-self-employed/clothing",
+    "https://www.gov.uk/expenses-if-youre-self-employed/vehicles-travel",
+    "https://www.gov.uk/expenses-if-youre-self-employed/office-property-equipment",
+    "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax",
+    "https://www.gov.uk/guidance/authorising-an-agent-to-deal-with-your-tax-affairs",
+    "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/adjust-your-self-employment-and-property-income",
+    "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim1035",
+    "https://www.gov.uk/what-is-the-construction-industry-scheme",
+    "https://www.gov.uk/self-employed-records/what-records-to-keep",
+    "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/using-making-tax-digital-for-income-tax-for-the-first-time",
+    "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/add-or-cease-income-sources",
+    "https://www.gov.uk/guidance/add-your-client-authorisations-for-making-tax-digital-for-income-tax",
+    "https://www.gov.uk/check-if-you-need-tax-return",
+    "https://www.gov.uk/expenses-if-youre-self-employed/legal-financial",
+    "https://www.gov.uk/expenses-if-youre-self-employed/travel",
+    "https://www.gov.uk/simpler-income-tax-simplified-expenses/vehicles",
+    "https://www.gov.uk/guidance/selling-goods-or-services-on-a-digital-platform",
+    "https://www.gov.uk/expenses-if-youre-self-employed/office-property",
+    "https://www.gov.uk/guidance/check-employment-status-if-you-work-in-hair-and-beauty",
+    "https://www.gov.uk/guidance/director-information-hub-self-assessment-for-directors--2",
+    "https://www.gov.uk/government/publications/self-assessment-employment-sa102",
+    "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms",
+    "https://www.gov.uk/simpler-income-tax-cash-basis",
+    "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim4165",
+    "https://www.gov.uk/apply-tax-free-interest-on-savings/how-you-pay-tax-on-savings-interest",
+    "https://www.gov.uk/guidance/check-how-much-tax-you-pay-on-dividends-and-interest-from-savings",
+    "https://www.gov.uk/apply-tax-free-interest-on-savings/how-much-is-tax-free",
+    "https://www.gov.uk/simpler-income-tax-simplified-expenses/working-from-home",
+    "https://www.gov.uk/sa302-tax-calculation",
+    "https://www.gov.uk/understand-self-assessment-bill/tax-calculation-sa302",
+    "https://www.gov.uk/guidance/how-to-complete-your-self-assessment-tax-return-for-last-tax-year",
+    "https://www.gov.uk/self-employed-records/how-long-to-keep-your-records",
+    "https://www.gov.uk/find-utr-number",
+    "https://www.gov.uk/guidance/check-when-you-can-expect-a-reply-from-hmrc",
+    "https://www.gov.uk/find-hmrc-contacts/self-assessment-general-enquiries",
+    "https://www.gov.uk/child-benefit-tax-charge/pay-tax-charge-paye",
+    "https://www.gov.uk/guidance/adjusted-net-income",
+    "https://www.gov.uk/guidance/claim-tax-relief-on-your-private-pension-payments",
+    "https://www.gov.uk/tax-on-your-private-pension/pension-tax-relief",
+    "https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets",
+    "https://www.gov.uk/hmrc-internal-manuals/cryptoassets-manual/crypto10400",
+    "https://www.gov.uk/report-and-pay-your-capital-gains-tax/if-you-sold-a-property-in-the-uk-on-or-after-6-april-2020",
+    "https://www.gov.uk/capital-gains-tax/reporting-and-paying-capital-gains-tax",
+    "https://www.gov.uk/personal-tax-account",
+    "https://www.gov.uk/guidance/check-if-youre-eligible-for-making-tax-digital-for-income-tax",
+    "https://www.gov.uk/guidance/sign-up-for-making-tax-digital-for-income-tax",
+    "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/help-and-support",
+    "https://www.gov.uk/tax-appeals/reasonable-excuses",
+    "https://www.gov.uk/government/publications/agent-update-issue-148/issue-148-of-agent-update",
+    "https://www.gov.uk/tax-on-dividends",
+    "https://www.gov.uk/government/publications/rates-and-allowances-income-tax/income-tax-rates-and-allowances-current-and-past",
+    "https://www.gov.uk/tax-on-dividends/how-dividends-are-taxed",
+    "https://www.gov.uk/guidance/tell-hmrc-about-a-student-loan-in-your-tax-return",
+    "https://www.gov.uk/repaying-your-student-loan/how-you-repay",
+    "https://www.gov.uk/government/publications/rates-and-allowances-national-insurance-contributions/rates-and-allowances-national-insurance-contributions",
+    "https://www.gov.uk/national-insurance/national-insurance-classes",
+    "https://www.gov.uk/self-employed-national-insurance-rates",
+    "https://www.gov.uk/government/publications/how-to-calculate-your-taxable-profits-hs222-self-assessment-helpsheet/hs222-how-to-calculate-your-taxable-profits-2026",
+    "https://www.gov.uk/government/publications/losses-hs227-self-assessment-helpsheet/hs227-losses-2026",
+    "https://www.gov.uk/stop-being-self-employed",
+    "https://www.gov.uk/working-for-yourself",
+    "https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme",
+    "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim4001",
+    "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim3210",
+    "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim2510",
+    "https://www.gov.uk/tax-uk-income-live-abroad/rent",
+    "https://www.gov.uk/government/publications/non-resident-landord-guidance-notes-for-letting-agents-and-tenants-non-resident-landlords-scheme-guidance-notes/what-the-non-resident-landlords-scheme-is",
+    "https://www.gov.uk/tax-foreign-income",
+    "https://www.gov.uk/guidance/check-if-you-can-claim-the-4-year-foreign-income-and-gains-regime",
+    "https://www.gov.uk/tax-sell-shares/what-you-pay-it-on",
+    "https://www.gov.uk/government/publications/shares-and-capital-gains-tax-hs284-self-assessment-helpsheet/hs284-shares-and-capital-gains-tax-2026",
+    "https://www.gov.uk/guidance/capital-gains-tax-rates-and-allowances",
+    "https://www.gov.uk/guidance/information-youll-need-to-give-to-uk-cryptoasset-service-providers",
+    "https://www.gov.uk/guidance/check-if-youll-need-to-report-cryptoasset-data-to-hmrc",
+    "https://www.gov.uk/winter-fuel-payment/if-your-income-is-over-35000",
+    "https://www.gov.uk/government/news/pensioners-urged-to-be-alert-to-winter-fuel-payment-scams",
+    "https://www.gov.uk/government/publications/income-tax-charge-on-winter-fuel-payments/winter-fuel-payments-charge",
+    "https://www.gov.uk/pay-self-assessment-tax-bill/through-your-tax-code",
+    "https://www.gov.uk/self-assessment-tax-returns/claiming-a-tax-refund",
+    "https://www.gov.uk/guidance/check-when-to-appeal-a-self-assessment-penalty-for-late-filing-or-late-payment",
+    "https://www.gov.uk/tax-appeals",
+    "https://www.gov.uk/tax-appeals/penalty",
+    "https://www.gov.uk/donating-to-charity/gift-aid",
+    "https://www.gov.uk/guidance/help-with-charitable-giving-on-your-self-assessment-tax-return",
+    "https://www.gov.uk/tax-on-pension",
+    "https://www.gov.uk/tax-on-pension/how-your-tax-is-paid",
+    "https://www.gov.uk/guidance/how-your-state-pension-is-taxed",
+    "https://www.gov.uk/self-assessment-tax-returns/no-longer-need-to-send-a-tax-return",
+    "https://www.gov.uk/tax-overpayments-and-underpayments",
+    "https://www.gov.uk/simple-assessment",
+    "https://www.gov.uk/guidance/work-out-your-transition-profit",
+    "https://www.gov.uk/hmrc-internal-manuals/business-income-manual/bim81310",
+    "https://www.gov.uk/hmrc-internal-manuals/business-income-manual/bim46351",
+    "https://www.gov.uk/capital-allowances"
+  ],
+  "articles": [
+    {
+      "slug": "hmrc-signed-me-up-for-making-tax-digital",
+      "title": "HMRC Signed Me Up for Making Tax Digital — What Do I Do Next?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "publishedAt": "2026-09-14T14:00:00.000Z",
+      "releaseRank": 20,
+      "priorityRank": 20,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Check what to do if HMRC has signed you up for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/check-what-to-do-if-hmrc-has-signed-you-up-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "hmrc-mtd-signup-wrong",
+        "mtd-exemptions",
+        "mtd-qualifying-income",
+        "mtd-quarterly-updates",
+        "mtd-accountant-or-agent",
+        "does-mtd-replace-self-assessment"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-qualifying-income",
+      "title": "MTD Qualifying Income Explained — Does the £50,000 Rule Apply to Me?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "publishedAt": "2026-09-14T13:30:00.000Z",
+      "releaseRank": 21,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Work out your qualifying income for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-30000-threshold-2027",
+        "hmrc-signed-me-up-for-making-tax-digital",
+        "mtd-quarterly-updates",
+        "mtd-accountant-or-agent",
+        "mtd-digital-records",
+        "making-tax-digital-explained"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-quarterly-updates",
+      "title": "MTD Quarterly Updates — What Do I Actually Need to Send?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "publishedAt": "2026-09-14T13:00:00.000Z",
+      "releaseRank": 22,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Send quarterly updates - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-quarterly-deadline-7-november-2026",
+        "mtd-qualifying-income",
+        "hmrc-signed-me-up-for-making-tax-digital",
+        "mtd-digital-records",
+        "missed-mtd-quarterly-update",
+        "making-tax-digital-explained"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "self-assessment-deadline",
+      "title": "Self Assessment Deadline 2027 — Dates You Need to Know",
+      "category": "Self Assessment",
+      "audience": "self-assessment",
+      "publishedAt": "2026-09-14T12:30:00.000Z",
+      "releaseRank": 23,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Self Assessment tax returns: Deadlines",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+        },
+        {
+          "label": "GOV.UK — Self Assessment tax returns: Overview",
+          "url": "https://www.gov.uk/self-assessment-tax-returns"
+        },
+        {
+          "label": "GOV.UK — Understand your Self Assessment tax bill: Payments on account",
+          "url": "https://www.gov.uk/understand-self-assessment-bill/payments-on-account"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-register-by-5-october-2026",
+        "self-assessment-documents-checklist",
+        "payments-on-account-explained",
+        "late-self-assessment-penalties",
+        "self-assessment-for-sole-traders-2025-26",
+        "amend-self-assessment-tax-return"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "self-assessment-documents-checklist",
+      "title": "What Documents Do I Need for My Self Assessment Tax Return?",
+      "category": "Self Assessment",
+      "audience": "self-assessment",
+      "publishedAt": "2026-09-14T12:00:00.000Z",
+      "releaseRank": 24,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Self Assessment tax returns: Overview",
+          "url": "https://www.gov.uk/self-assessment-tax-returns"
+        },
+        {
+          "label": "GOV.UK — Business records if you're self-employed: Overview",
+          "url": "https://www.gov.uk/self-employed-records"
+        },
+        {
+          "label": "GOV.UK — Expenses if you're self-employed: Overview",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed"
+        },
+        {
+          "label": "GOV.UK — Work out your rental income when you let property",
+          "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-for-landlords-2025-26",
+        "self-assessment-for-sole-traders-2025-26",
+        "self-assessment-deadline",
+        "self-assessment-register-by-5-october-2026",
+        "payments-on-account-explained",
+        "amend-self-assessment-tax-return"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "understanding-self-assessment-uk",
+      "title": "A Simple Guide to UK Self Assessment",
+      "category": "Self Assessment",
+      "audience": "self-assessment",
+      "publishedAt": "2024-03-20T10:00:00.000Z",
+      "releaseRank": 25,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Self Assessment tax returns: Overview",
+          "url": "https://www.gov.uk/self-assessment-tax-returns"
+        },
+        {
+          "label": "GOV.UK — Who must send a tax return",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+        },
+        {
+          "label": "GOV.UK — Self Assessment deadlines",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-deadline",
+        "self-assessment-documents-checklist",
+        "hmrc-signed-me-up-for-making-tax-digital"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "top-tax-saving-tips-uk",
+      "title": "Six Tax-Saving Checks for UK Sole Traders",
+      "category": "Self Assessment",
+      "audience": "sole-traders",
+      "publishedAt": "2024-04-15T09:00:00.000Z",
+      "releaseRank": 26,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Expenses if you're self-employed: Overview",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed"
+        },
+        {
+          "label": "GOV.UK — Tax-free allowances on property and trading income",
+          "url": "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-documents-checklist",
+        "understanding-self-assessment-uk",
+        "making-tax-digital-explained"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "making-tax-digital-explained",
+      "title": "Making Tax Digital (MTD): What You Need to Know",
+      "category": "Making Tax Digital",
+      "audience": "mtd",
+      "publishedAt": "2024-05-02T11:30:00.000Z",
+      "releaseRank": 27,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — MTD quarterly updates",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+        }
+      ],
+      "relatedSlugs": [
+        "does-mtd-replace-self-assessment",
+        "mtd-exemptions",
+        "mtd-for-sole-traders-2026-27",
+        "mtd-for-landlords-2026-27",
+        "mtd-qualifying-income"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-accountant-or-agent",
+      "title": "Can an Accountant Handle Making Tax Digital for Me?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "publishedAt": "2026-09-15T10:00:00.000Z",
+      "releaseRank": 28,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Sign up your client for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/sign-up-your-client-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Choose the right software for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+        }
+      ],
+      "relatedSlugs": [
+        "hmrc-signed-me-up-for-making-tax-digital",
+        "mtd-qualifying-income",
+        "mtd-quarterly-updates",
+        "mtd-digital-records",
+        "making-tax-digital-explained"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-digital-records",
+      "title": "MTD Digital Records — What You Actually Need to Keep",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "publishedAt": "2026-09-15T09:30:00.000Z",
+      "releaseRank": 29,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+        },
+        {
+          "label": "GOV.UK — Choose the right software for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Send quarterly updates - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-for-sole-traders-2026-27",
+        "mtd-for-landlords-2026-27",
+        "mtd-quarterly-updates",
+        "missed-mtd-quarterly-update",
+        "mtd-qualifying-income",
+        "mtd-accountant-or-agent",
+        "hmrc-signed-me-up-for-making-tax-digital"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "missed-mtd-quarterly-update",
+      "title": "I Missed an MTD Quarterly Update — What Should I Do Now?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "publishedAt": "2026-09-15T09:00:00.000Z",
+      "releaseRank": 30,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Send quarterly updates - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+        },
+        {
+          "label": "GOV.UK — Penalties for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/penalties-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-quarterly-deadline-7-november-2026",
+        "mtd-quarterly-updates",
+        "mtd-digital-records",
+        "hmrc-signed-me-up-for-making-tax-digital",
+        "mtd-accountant-or-agent"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "payments-on-account-explained",
+      "title": "Payments on Account Explained — Why Is HMRC Asking for More?",
+      "category": "Self Assessment",
+      "audience": "self-assessment",
+      "publishedAt": "2026-09-15T08:30:00.000Z",
+      "releaseRank": 31,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Understand your Self Assessment tax bill: Payments on account",
+          "url": "https://www.gov.uk/understand-self-assessment-bill/payments-on-account"
+        },
+        {
+          "label": "GOV.UK — Understand your Self Assessment tax bill: Overview",
+          "url": "https://www.gov.uk/understand-self-assessment-bill"
+        },
+        {
+          "label": "GOV.UK — Self Assessment tax returns: Deadlines",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+        },
+        {
+          "label": "GOV.UK — Pay your Self Assessment tax bill: Overview",
+          "url": "https://www.gov.uk/pay-self-assessment-tax-bill"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-deadline",
+        "self-assessment-documents-checklist",
+        "late-self-assessment-penalties",
+        "reduce-self-assessment-payments-on-account",
+        "understanding-self-assessment-uk"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "late-self-assessment-penalties",
+      "title": "Late Self Assessment Filing — Penalties and What To Do Now",
+      "category": "Self Assessment",
+      "audience": "self-assessment",
+      "publishedAt": "2026-09-15T08:00:00.000Z",
+      "releaseRank": 32,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Self Assessment tax returns: Penalties",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/penalties"
+        },
+        {
+          "label": "GOV.UK — Penalties for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/penalties-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Self Assessment tax returns: Deadlines",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+        },
+        {
+          "label": "GOV.UK — Pay your Self Assessment tax bill: Overview",
+          "url": "https://www.gov.uk/pay-self-assessment-tax-bill"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-deadline",
+        "payments-on-account-explained",
+        "cannot-pay-self-assessment-tax-bill",
+        "self-assessment-documents-checklist",
+        "amend-self-assessment-tax-return",
+        "understanding-self-assessment-uk"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "mtd-quarterly-deadline-7-november-2026",
+      "title": "MTD Quarterly Deadline: What You Need to Do Before 7 November 2026",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "publishedAt": "2026-09-15T16:00:00.000Z",
+      "releaseRank": 33,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Send quarterly updates - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Using Making Tax Digital for Income Tax for the first time  - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/before-you-use-this-guide"
+        },
+        {
+          "label": "GOV.UK — Penalties for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/penalties-for-making-tax-digital-for-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-quarterly-updates",
+        "missed-mtd-quarterly-update",
+        "mtd-digital-records",
+        "mtd-accountant-or-agent",
+        "hmrc-signed-me-up-for-making-tax-digital"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-for-landlords-2026-27",
+      "title": "MTD for Landlords: What Landlords Need to Do in 2026/27",
+      "category": "Making Tax Digital",
+      "audience": "landlords",
+      "publishedAt": "2026-09-15T15:45:00.000Z",
+      "releaseRank": 34,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Send quarterly updates - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+        },
+        {
+          "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Work out your qualifying income for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-digital-records",
+        "mtd-quarterly-updates",
+        "mtd-qualifying-income",
+        "mtd-accountant-or-agent",
+        "mtd-for-sole-traders-2026-27"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-for-sole-traders-2026-27",
+      "title": "MTD for Sole Traders: What You Need to Do in 2026/27",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders",
+      "publishedAt": "2026-09-15T15:30:00.000Z",
+      "releaseRank": 35,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Send quarterly updates - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+        },
+        {
+          "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Work out your qualifying income for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-digital-records",
+        "mtd-quarterly-updates",
+        "mtd-qualifying-income",
+        "mtd-accountant-or-agent",
+        "mtd-for-landlords-2026-27"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "hmrc-mtd-signup-wrong",
+      "title": "HMRC Says I Need Making Tax Digital, But I Think They’re Wrong — What Should I Do?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "publishedAt": "2026-09-15T15:15:00.000Z",
+      "releaseRank": 36,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Check what to do if HMRC has signed you up for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/check-what-to-do-if-hmrc-has-signed-you-up-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Work out your qualifying income for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Apply for an exemption from Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/apply-for-an-exemption-from-making-tax-digital-for-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "hmrc-signed-me-up-for-making-tax-digital",
+        "mtd-exemptions",
+        "mtd-qualifying-income",
+        "mtd-accountant-or-agent",
+        "mtd-digital-records"
+      ],
+      "ctaType": "CHECK"
+    },
+    {
+      "slug": "mtd-30000-threshold-2027",
+      "title": "Making Tax Digital £30,000 Rule: Who Needs to Prepare for April 2027?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "publishedAt": "2026-09-15T15:00:00.000Z",
+      "releaseRank": 37,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Work out your qualifying income for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Using Making Tax Digital for Income Tax for the first time  - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/before-you-use-this-guide"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-qualifying-income",
+        "mtd-digital-records",
+        "mtd-quarterly-updates",
+        "mtd-accountant-or-agent",
+        "making-tax-digital-explained"
+      ],
+      "ctaType": "CHECK"
+    },
+    {
+      "slug": "does-mtd-replace-self-assessment",
+      "title": "Does Making Tax Digital Replace Self Assessment?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "publishedAt": "2026-09-15T11:30:00.000Z",
+      "releaseRank": 38,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Using Making Tax Digital for Income Tax for the first time  - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/before-you-use-this-guide"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Submit your tax return - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/submit-your-tax-return"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Send quarterly updates - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+        }
+      ],
+      "relatedSlugs": [
+        "making-tax-digital-explained",
+        "mtd-quarterly-updates",
+        "self-assessment-deadline",
+        "mtd-accountant-or-agent",
+        "understanding-self-assessment-uk"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-exemptions",
+      "title": "Making Tax Digital Exemptions: Who Does Not Have to Use MTD?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "publishedAt": "2026-09-15T11:28:00.000Z",
+      "releaseRank": 39,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Find out if you can get an exemption from Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/find-out-if-you-can-get-an-exemption-from-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Apply for an exemption from Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/apply-for-an-exemption-from-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "hmrc-mtd-signup-wrong",
+        "mtd-qualifying-income",
+        "hmrc-signed-me-up-for-making-tax-digital",
+        "does-mtd-replace-self-assessment",
+        "mtd-30000-threshold-2027"
+      ],
+      "ctaType": "CHECK"
+    },
+    {
+      "slug": "self-assessment-for-landlords-2025-26",
+      "title": "Self Assessment for Landlords: What You Need for Your 2025/26 Tax Return",
+      "category": "Self Assessment",
+      "audience": "landlords",
+      "publishedAt": "2026-09-15T11:26:00.000Z",
+      "releaseRank": 40,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Work out your rental income when you let property",
+          "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+        },
+        {
+          "label": "GOV.UK — Self Assessment tax returns: Deadlines",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+        },
+        {
+          "label": "GOV.UK — Check how to register for Self Assessment",
+          "url": "https://www.gov.uk/register-for-self-assessment"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-documents-checklist",
+        "self-assessment-deadline",
+        "self-assessment-for-sole-traders-2025-26",
+        "landlord-mortgage-interest-tax-relief",
+        "undeclared-rental-income-hmrc",
+        "mtd-for-landlords-2026-27"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "self-assessment-for-sole-traders-2025-26",
+      "title": "Self Assessment for Sole Traders: What You Need for Your 2025/26 Tax Return",
+      "category": "Self Assessment",
+      "audience": "sole-traders",
+      "publishedAt": "2026-09-15T11:24:00.000Z",
+      "releaseRank": 41,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Self Assessment tax returns: Deadlines",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+        },
+        {
+          "label": "GOV.UK — Check how to register for Self Assessment",
+          "url": "https://www.gov.uk/register-for-self-assessment"
+        },
+        {
+          "label": "GOV.UK — Understand your Self Assessment tax bill: Payments on account",
+          "url": "https://www.gov.uk/understand-self-assessment-bill/payments-on-account"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-documents-checklist",
+        "self-assessment-deadline",
+        "self-assessment-for-landlords-2025-26",
+        "cis-deductions-self-assessment",
+        "payments-on-account-explained",
+        "mtd-for-sole-traders-2026-27"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "self-assessment-register-by-5-october-2026",
+      "title": "Do I Need to Register for Self Assessment by 5 October 2026?",
+      "category": "Self Assessment",
+      "audience": "sole-traders-landlords",
+      "publishedAt": "2026-09-15T11:22:00.000Z",
+      "releaseRank": 42,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Check how to register for Self Assessment",
+          "url": "https://www.gov.uk/register-for-self-assessment"
+        },
+        {
+          "label": "GOV.UK — Self Assessment tax returns: Deadlines",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+        },
+        {
+          "label": "GOV.UK — Self Assessment tax returns: Registering for Self Assessment",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/registering"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-deadline",
+        "late-self-assessment-penalties",
+        "self-assessment-documents-checklist",
+        "self-assessment-for-sole-traders-2025-26",
+        "self-assessment-for-landlords-2025-26"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "cannot-pay-self-assessment-tax-bill",
+      "title": "I Cannot Pay My Self Assessment Tax Bill — What Should I Do?",
+      "category": "Self Assessment",
+      "audience": "self-assessment",
+      "publishedAt": "2026-09-15T13:08:29.000Z",
+      "releaseRank": 43,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — If you cannot pay your tax bill on time: Overview",
+          "url": "https://www.gov.uk/difficulties-paying-hmrc"
+        },
+        {
+          "label": "GOV.UK — If you cannot pay your tax bill on time: Setting up a payment plan",
+          "url": "https://www.gov.uk/difficulties-paying-hmrc/pay-in-instalments"
+        },
+        {
+          "label": "GOV.UK — Pay your Self Assessment tax bill: Pay weekly or monthly",
+          "url": "https://www.gov.uk/pay-self-assessment-tax-bill/pay-weekly-monthly"
+        },
+        {
+          "label": "GOV.UK — Pay your Self Assessment tax bill: Overview",
+          "url": "https://www.gov.uk/pay-self-assessment-tax-bill"
+        }
+      ],
+      "relatedSlugs": [
+        "late-self-assessment-penalties",
+        "payments-on-account-explained",
+        "reduce-self-assessment-payments-on-account",
+        "self-assessment-deadline"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "reduce-self-assessment-payments-on-account",
+      "title": "How to Reduce Self Assessment Payments on Account",
+      "category": "Self Assessment",
+      "audience": "self-assessment",
+      "publishedAt": "2026-09-15T13:08:29.000Z",
+      "releaseRank": 44,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Understand your Self Assessment tax bill: Payments on account",
+          "url": "https://www.gov.uk/understand-self-assessment-bill/payments-on-account"
+        },
+        {
+          "label": "GOV.UK — Claim to reduce payments on account",
+          "url": "https://www.gov.uk/guidance/claim-to-reduce-payments-on-account"
+        },
+        {
+          "label": "GOV.UK — Understand your Self Assessment tax bill: Overview",
+          "url": "https://www.gov.uk/understand-self-assessment-bill"
+        }
+      ],
+      "relatedSlugs": [
+        "payments-on-account-explained",
+        "cannot-pay-self-assessment-tax-bill",
+        "self-assessment-deadline",
+        "self-assessment-for-sole-traders-2025-26"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "landlord-mortgage-interest-tax-relief",
+      "title": "Landlord Mortgage Interest Tax Relief: How Finance Costs Work Now",
+      "category": "Self Assessment",
+      "audience": "landlords",
+      "publishedAt": "2026-09-15T13:08:29.000Z",
+      "releaseRank": 45,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Tax relief for residential landlords: how it's worked out",
+          "url": "https://www.gov.uk/guidance/changes-to-tax-relief-for-residential-landlords-how-its-worked-out-including-case-studies"
+        },
+        {
+          "label": "GOV.UK — Work out your rental income when you let property",
+          "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+        },
+        {
+          "label": "GOV.UK — Renting out your property: Paying tax and National Insurance",
+          "url": "https://www.gov.uk/renting-out-a-property/paying-tax"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-for-landlords-2025-26",
+        "undeclared-rental-income-hmrc",
+        "mtd-for-landlords-2026-27",
+        "self-assessment-documents-checklist"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "cis-deductions-self-assessment",
+      "title": "CIS Deductions on Your Self Assessment Return: How Subcontractors Reclaim Tax",
+      "category": "Self Assessment",
+      "audience": "sole-traders",
+      "publishedAt": "2026-09-15T13:08:29.000Z",
+      "releaseRank": 46,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — What you must do as a Construction Industry Scheme (CIS) subcontractor: Pay tax and claim back deductions",
+          "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/pay-tax-and-claim-back-deductions"
+        },
+        {
+          "label": "GOV.UK — What you must do as a Construction Industry Scheme (CIS) subcontractor: Overview",
+          "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor"
+        },
+        {
+          "label": "GOV.UK — Claim repayment of subcontractor deductions",
+          "url": "https://www.gov.uk/government/publications/construction-industry-scheme-individuals-repayment-claim-cis40"
+        }
+      ],
+      "relatedSlugs": [
+        "cis-tax-refunds-subcontractors",
+        "cis-20-vs-30-percent-deductions",
+        "cis-payment-deduction-statements",
+        "cis-allowable-expenses-subcontractors",
+        "cis-gross-payment-status",
+        "self-assessment-for-sole-traders-2025-26",
+        "self-assessment-documents-checklist"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "undeclared-rental-income-hmrc",
+      "title": "I Haven’t Declared Rental Income to HMRC — What Should I Do?",
+      "category": "Self Assessment",
+      "audience": "landlords",
+      "publishedAt": "2026-09-15T13:08:29.000Z",
+      "releaseRank": 47,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Let Property Campaign: your guide to making a disclosure",
+          "url": "https://www.gov.uk/government/publications/let-property-campaign-your-guide-to-making-a-disclosure/let-property-campaign-your-guide-to-making-a-disclosure"
+        },
+        {
+          "label": "GOV.UK — Make a voluntary disclosure to HMRC",
+          "url": "https://www.gov.uk/government/publications/hmrc-your-guide-to-making-a-disclosure/your-guide-to-making-a-disclosure"
+        },
+        {
+          "label": "GOV.UK — Work out your rental income when you let property",
+          "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+        },
+        {
+          "label": "GOV.UK — Check how to register for Self Assessment",
+          "url": "https://www.gov.uk/register-for-self-assessment"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-for-landlords-2025-26",
+        "landlord-mortgage-interest-tax-relief",
+        "self-assessment-register-by-5-october-2026",
+        "mtd-for-landlords-2026-27"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "self-assessment-side-hustle",
+      "title": "Do I Need Self Assessment for a Side Hustle?",
+      "category": "Self Assessment",
+      "audience": "sole-traders-employees",
+      "publishedAt": "2026-09-15T15:23:30.000Z",
+      "releaseRank": 48,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Self Assessment tax returns: Who must send a tax return",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+        },
+        {
+          "label": "GOV.UK — Become a sole trader: Register as a sole trader",
+          "url": "https://www.gov.uk/become-sole-trader/register-sole-trader"
+        },
+        {
+          "label": "GOV.UK — Tax-free allowances on property and trading income",
+          "url": "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+        }
+      ],
+      "relatedSlugs": [
+        "trading-allowance-1000-hmrc",
+        "self-assessment-for-sole-traders-2025-26",
+        "self-assessment-register-by-5-october-2026",
+        "self-assessment-documents-checklist",
+        "understanding-self-assessment-uk"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "trading-allowance-1000-hmrc",
+      "title": "Trading Allowance £1,000: Do I Still Need to Tell HMRC?",
+      "category": "Self Assessment",
+      "audience": "sole-traders-side-hustles",
+      "publishedAt": "2026-09-15T15:23:30.000Z",
+      "releaseRank": 49,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Tax-free allowances on property and trading income",
+          "url": "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+        },
+        {
+          "label": "GOV.UK — Become a sole trader: Register as a sole trader",
+          "url": "https://www.gov.uk/become-sole-trader/register-sole-trader"
+        },
+        {
+          "label": "GOV.UK — Self Assessment tax returns: Who must send a tax return",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-side-hustle",
+        "self-assessment-for-sole-traders-2025-26",
+        "self-assessment-documents-checklist",
+        "top-tax-saving-tips-uk",
+        "understanding-self-assessment-uk"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "amend-self-assessment-tax-return",
+      "title": "How to Amend a Self Assessment Tax Return",
+      "category": "Self Assessment",
+      "audience": "self-assessment",
+      "publishedAt": "2026-09-15T15:23:30.000Z",
+      "releaseRank": 50,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Self Assessment tax returns: If you need to change your return",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/corrections"
+        },
+        {
+          "label": "GOV.UK — Self Assessment tax returns: Deadlines",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-deadline",
+        "self-assessment-documents-checklist",
+        "late-self-assessment-penalties",
+        "payments-on-account-explained",
+        "cannot-pay-self-assessment-tax-bill"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "mtd-income-tax-vs-mtd-vat",
+      "title": "MTD for Income Tax vs MTD for VAT: What’s the Difference?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords-vat",
+      "publishedAt": "2026-09-15T15:23:30.000Z",
+      "releaseRank": 51,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Making Tax Digital for VAT",
+          "url": "https://www.gov.uk/government/collections/making-tax-digital-for-vat"
+        },
+        {
+          "label": "GOV.UK — Choose the right software for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "making-tax-digital-explained",
+        "mtd-qualifying-income",
+        "can-i-use-spreadsheets-for-mtd",
+        "mtd-for-sole-traders-2026-27",
+        "does-mtd-replace-self-assessment"
+      ],
+      "ctaType": "CHECK"
+    },
+    {
+      "slug": "can-i-use-spreadsheets-for-mtd",
+      "title": "Can I Use Spreadsheets for Making Tax Digital?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "publishedAt": "2026-09-15T15:23:30.000Z",
+      "releaseRank": 52,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Choose the right software for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Find software that works with Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/find-software-that-works-with-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Get your software ready   - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/get-your-software-ready"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-digital-records",
+        "mtd-income-tax-vs-mtd-vat",
+        "mtd-accountant-or-agent",
+        "mtd-quarterly-updates",
+        "making-tax-digital-explained"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "cis-tax-refunds-subcontractors",
+      "title": "CIS Tax Refunds: How Subcontractors Claim Back CIS Deductions",
+      "category": "Self Assessment",
+      "audience": "cis-subcontractors",
+      "publishedAt": "2026-09-15T15:51:14.000Z",
+      "releaseRank": 53,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — What you must do as a Construction Industry Scheme (CIS) subcontractor: Pay tax and claim back deductions",
+          "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/pay-tax-and-claim-back-deductions"
+        },
+        {
+          "label": "GOV.UK — What you must do as a Construction Industry Scheme (CIS) subcontractor: Overview",
+          "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor"
+        },
+        {
+          "label": "GOV.UK — Claim repayment of subcontractor deductions",
+          "url": "https://www.gov.uk/government/publications/construction-industry-scheme-individuals-repayment-claim-cis40"
+        }
+      ],
+      "relatedSlugs": [
+        "cis-deductions-self-assessment",
+        "cis-payment-deduction-statements",
+        "cis-20-vs-30-percent-deductions",
+        "cis-allowable-expenses-subcontractors",
+        "cis-gross-payment-status"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "cis-20-vs-30-percent-deductions",
+      "title": "20% vs 30% CIS Deductions: Why Am I Paying More?",
+      "category": "Self Assessment",
+      "audience": "cis-subcontractors",
+      "publishedAt": "2026-09-15T15:51:14.000Z",
+      "releaseRank": 54,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — What you must do as a Construction Industry Scheme (CIS) subcontractor: Overview",
+          "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor"
+        },
+        {
+          "label": "GOV.UK — What you must do as a Construction Industry Scheme (CIS) subcontractor: Get paid",
+          "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid"
+        },
+        {
+          "label": "GOV.UK — What you must do as a Construction Industry Scheme (CIS) subcontractor: Overview",
+          "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/how-to-get-gross-payment-status"
+        }
+      ],
+      "relatedSlugs": [
+        "cis-tax-refunds-subcontractors",
+        "cis-deductions-self-assessment",
+        "cis-gross-payment-status",
+        "cis-payment-deduction-statements",
+        "cis-allowable-expenses-subcontractors"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "cis-payment-deduction-statements",
+      "title": "CIS Payment and Deduction Statements: What Subcontractors Need to Keep",
+      "category": "Self Assessment",
+      "audience": "cis-subcontractors",
+      "publishedAt": "2026-09-15T15:51:14.000Z",
+      "releaseRank": 55,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — What you must do as a Construction Industry Scheme (CIS) subcontractor: Get paid",
+          "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid"
+        },
+        {
+          "label": "GOV.UK — Construction Industry Scheme: a guide for contractors and subcontractors (CIS 340)",
+          "url": "https://www.gov.uk/government/publications/construction-industry-scheme-cis-340/construction-industry-scheme-a-guide-for-contractors-and-subcontractors-cis-340"
+        },
+        {
+          "label": "GOV.UK — CISR12160 - The Scheme: contractors: subcontractor's payment and deduction statement - HMRC internal manual",
+          "url": "https://www.gov.uk/hmrc-internal-manuals/construction-industry-scheme-reform/cisr12160"
+        }
+      ],
+      "relatedSlugs": [
+        "cis-tax-refunds-subcontractors",
+        "cis-deductions-self-assessment",
+        "cis-20-vs-30-percent-deductions",
+        "cis-allowable-expenses-subcontractors",
+        "self-assessment-documents-checklist"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "cis-allowable-expenses-subcontractors",
+      "title": "CIS Allowable Expenses for Subcontractors: What Can You Claim?",
+      "category": "Self Assessment",
+      "audience": "cis-subcontractors",
+      "publishedAt": "2026-09-15T15:51:14.000Z",
+      "releaseRank": 56,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Expenses if you're self-employed: Overview",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed"
+        },
+        {
+          "label": "GOV.UK — Expenses if you're self-employed: Clothing expenses",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed/clothing"
+        },
+        {
+          "label": "GOV.UK — Expenses if you're self-employed: Overview",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed/vehicles-travel"
+        },
+        {
+          "label": "GOV.UK — Expenses if you're self-employed: Overview",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed/office-property-equipment"
+        }
+      ],
+      "relatedSlugs": [
+        "cis-tax-refunds-subcontractors",
+        "cis-deductions-self-assessment",
+        "cis-payment-deduction-statements",
+        "self-assessment-for-sole-traders-2025-26",
+        "top-tax-saving-tips-uk"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "cis-gross-payment-status",
+      "title": "CIS Gross Payment Status: What It Means and Who Can Apply",
+      "category": "Self Assessment",
+      "audience": "cis-subcontractors",
+      "publishedAt": "2026-09-15T15:51:14.000Z",
+      "releaseRank": 57,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — What you must do as a Construction Industry Scheme (CIS) subcontractor: Overview",
+          "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/how-to-get-gross-payment-status"
+        },
+        {
+          "label": "GOV.UK — What you must do as a Construction Industry Scheme (CIS) subcontractor: Overview",
+          "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor"
+        },
+        {
+          "label": "GOV.UK — What you must do as a Construction Industry Scheme (CIS) subcontractor: Get paid",
+          "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid"
+        }
+      ],
+      "relatedSlugs": [
+        "cis-20-vs-30-percent-deductions",
+        "cis-tax-refunds-subcontractors",
+        "cis-deductions-self-assessment",
+        "cis-payment-deduction-statements",
+        "cis-allowable-expenses-subcontractors"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "mtd-accountant-cost",
+      "title": "How Much Does an MTD Accountant Cost? What to Compare Before You Buy",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 1,
+      "priorityRank": 1,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — choose the right software for making tax digital for income tax",
+          "url": "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — choose agents for making tax digital for income tax",
+          "url": "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "Taxfix — advertised MTD plans",
+          "url": "https://taxfix.com/en-uk/making-tax-digital/"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-accountant-or-agent"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-software-vs-accountant-service",
+      "title": "MTD Software or an Accountant-Managed Service: Which Do You Need?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 13,
+      "priorityRank": 13,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — choose the right software for making tax digital for income tax",
+          "url": "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — authorising an agent to deal with your tax affairs",
+          "url": "https://www.gov.uk/guidance/authorising-an-agent-to-deal-with-your-tax-affairs"
+        }
+      ],
+      "relatedSlugs": [
+        "making-tax-digital-explained"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "switch-mtd-accountant-mid-year",
+      "title": "Can I Switch MTD Accountants Halfway Through the Tax Year?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 4,
+      "priorityRank": 4,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — choose agents for making tax digital for income tax",
+          "url": "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — authorising an agent to deal with your tax affairs",
+          "url": "https://www.gov.uk/guidance/authorising-an-agent-to-deal-with-your-tax-affairs"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-accountant-or-agent"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "join-mtd-service-mid-year",
+      "title": "Joining an MTD Service Mid-Year: What Happens to Earlier Quarters?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 3,
+      "priorityRank": 3,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — create digital records",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+        },
+        {
+          "label": "GOV.UK — choose agents for making tax digital for income tax",
+          "url": "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "missed-mtd-quarterly-update"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-cumulative-quarterly-updates",
+      "title": "Are MTD Quarterly Updates Cumulative? A Simple Worked Example",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 7,
+      "priorityRank": 7,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — send quarterly updates",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-quarterly-updates"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "correct-mtd-quarterly-update",
+      "title": "Found a Mistake After an MTD Update? How to Prepare for a Correction",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 8,
+      "priorityRank": 8,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — create digital records",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+        },
+        {
+          "label": "GOV.UK — adjust your self employment and property income",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/adjust-your-self-employment-and-property-income"
+        },
+        {
+          "label": "GOV.UK — Submit and amend your MTD tax return",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/submit-your-tax-return"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-quarterly-updates"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-no-income-quarter",
+      "title": "No Income This Quarter: Do I Still Need an MTD Update?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 58,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Send quarterly updates - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-quarterly-updates"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-two-self-employed-businesses",
+      "title": "Two Self-Employed Businesses: How Does MTD Reporting Work?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 59,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Work out your qualifying income for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Choose the right software for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-for-sole-traders-2026-27"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-employed-landlord-salary",
+      "title": "Employed and a Landlord: Does Your Salary Count Towards MTD?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 60,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Work out your qualifying income for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-qualifying-income",
+        "self-assessment-for-landlords-2025-26"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-jointly-owned-rental-property",
+      "title": "MTD for Jointly Owned Rental Property: What Each Owner Should Check",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 61,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — PIM1035 - Introduction: Jointly owned property and partnerships - HMRC internal manual",
+          "url": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim1035"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Send quarterly updates - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-for-landlords-2026-27"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "cis-subcontractors-mtd-gross-income",
+      "title": "CIS Subcontractors and MTD: Gross Income Is Not Your Bank Receipt",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 62,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Construction Industry Scheme (CIS)",
+          "url": "https://www.gov.uk/what-is-the-construction-industry-scheme"
+        },
+        {
+          "label": "GOV.UK — What you must do as a Construction Industry Scheme (CIS) subcontractor: Get paid",
+          "url": "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/get-paid"
+        },
+        {
+          "label": "GOV.UK — Work out your qualifying income for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "cis-deductions-self-assessment",
+        "mtd-qualifying-income"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-bank-feeds-complete-records",
+      "title": "Bank Feeds and MTD: Why Connected Does Not Mean Complete",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 63,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+        },
+        {
+          "label": "GOV.UK — Business records if you're self-employed: What records to keep",
+          "url": "https://www.gov.uk/self-employed-records/what-records-to-keep"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-digital-records"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-quarterly-updates-tax-payments",
+      "title": "Does MTD Mean Paying Income Tax Every Quarter?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 5,
+      "priorityRank": 5,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — using making tax digital for income tax for the first time",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/using-making-tax-digital-for-income-tax-for-the-first-time"
+        },
+        {
+          "label": "GOV.UK — deadlines",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+        }
+      ],
+      "relatedSlugs": [
+        "payments-on-account-explained"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-income-fallen-opt-out",
+      "title": "My Income Has Fallen: Can I Stop Using MTD?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 64,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Work out your qualifying income for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Add or cease income sources - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/add-or-cease-income-sources"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-qualifying-income",
+        "mtd-exemptions"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "self-assessment-2025-26-mtd-2026-27",
+      "title": "Self Assessment for 2025/26 and MTD for 2026/27: Why Both May Be Due",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 6,
+      "priorityRank": 6,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — deadlines",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+        },
+        {
+          "label": "GOV.UK — using making tax digital for income tax for the first time",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/using-making-tax-digital-for-income-tax-for-the-first-time"
+        },
+        {
+          "label": "GOV.UK — submit your tax return",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/submit-your-tax-return"
+        }
+      ],
+      "relatedSlugs": [
+        "does-mtd-replace-self-assessment"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "authorise-mtd-accountant-safely",
+      "title": "Authorising Your MTD Accountant Without Sharing Your Password",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 14,
+      "priorityRank": 14,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — authorising an agent to deal with your tax affairs",
+          "url": "https://www.gov.uk/guidance/authorising-an-agent-to-deal-with-your-tax-affairs"
+        },
+        {
+          "label": "GOV.UK — choose agents for making tax digital for income tax",
+          "url": "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Existing client authorisations for MTD",
+          "url": "https://www.gov.uk/guidance/add-your-client-authorisations-for-making-tax-digital-for-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-accountant-or-agent"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "self-assessment-accountant-cost",
+      "title": "How Much Does a Self Assessment Accountant Cost? Compare the Full Service",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 2,
+      "priorityRank": 2,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — check if you need tax return",
+          "url": "https://www.gov.uk/check-if-you-need-tax-return"
+        },
+        {
+          "label": "GOV.UK — legal financial",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed/legal-financial"
+        },
+        {
+          "label": "RJ Accountancy — advertised fees",
+          "url": "https://rjaccountancy.co.uk/fees/"
+        },
+        {
+          "label": "Sleek — advertised Self Assessment offer",
+          "url": "https://sleek.com/uk/resources/how-much-do-accountants-charge-for-self-assessment/"
+        }
+      ],
+      "relatedSlugs": [
+        "understanding-self-assessment-uk"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "employed-and-self-employed-tax-return",
+      "title": "Employed and Self-Employed: What Your Accountant Needs for One Tax Return",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 10,
+      "priorityRank": 10,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — check if you need tax return",
+          "url": "https://www.gov.uk/check-if-you-need-tax-return"
+        },
+        {
+          "label": "GOV.UK — what records to keep",
+          "url": "https://www.gov.uk/self-employed-records/what-records-to-keep"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-for-sole-traders-2025-26"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "uber-private-hire-driver-tax-return",
+      "title": "Uber and Private-Hire Driver Tax Returns: A Record-Keeping Checklist",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 11,
+      "priorityRank": 11,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — travel",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed/travel"
+        },
+        {
+          "label": "GOV.UK — vehicles",
+          "url": "https://www.gov.uk/simpler-income-tax-simplified-expenses/vehicles"
+        },
+        {
+          "label": "GOV.UK — what records to keep",
+          "url": "https://www.gov.uk/self-employed-records/what-records-to-keep"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-for-sole-traders-2025-26"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "delivery-driver-courier-tax-return",
+      "title": "Deliveroo, Uber Eats and Courier Tax Returns: Getting Your Records Ready",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 12,
+      "priorityRank": 12,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — selling goods or services on a digital platform",
+          "url": "https://www.gov.uk/guidance/selling-goods-or-services-on-a-digital-platform"
+        },
+        {
+          "label": "GOV.UK — travel",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed/travel"
+        },
+        {
+          "label": "GOV.UK — office property",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed/office-property"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-documents-checklist"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "hairdresser-beauty-self-assessment",
+      "title": "Self-Employed Hairdressers and Beauty Professionals: Tax Return Preparation",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 65,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Check employment status if you work in hair and beauty",
+          "url": "https://www.gov.uk/guidance/check-employment-status-if-you-work-in-hair-and-beauty"
+        },
+        {
+          "label": "GOV.UK — Expenses if you're self-employed: Overview",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed"
+        },
+        {
+          "label": "GOV.UK — Expenses if you're self-employed: Office, property and equipment",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed/office-property"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-for-sole-traders-2025-26"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "company-director-personal-tax-return",
+      "title": "Company Directors: Your Personal Tax Return Is Different from Company Filing",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 66,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Director information hub: Self Assessment for directors",
+          "url": "https://www.gov.uk/guidance/director-information-hub-self-assessment-for-directors--2"
+        },
+        {
+          "label": "GOV.UK — Check if you need to send a Self Assessment tax return",
+          "url": "https://www.gov.uk/check-if-you-need-tax-return"
+        },
+        {
+          "label": "GOV.UK — Employment SA102 and 2025/26 notes",
+          "url": "https://www.gov.uk/government/publications/self-assessment-employment-sa102"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "understanding-self-assessment-uk"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "vinted-ebay-personal-items-tax",
+      "title": "Vinted and eBay: Does Selling Your Own Clothes Mean You Owe Tax?",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 67,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Selling goods or services on a digital platform",
+          "url": "https://www.gov.uk/guidance/selling-goods-or-services-on-a-digital-platform"
+        },
+        {
+          "label": "GOV.UK — Check if you need to tell HMRC about your income from online platforms",
+          "url": "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-side-hustle",
+        "trading-allowance-1000-hmrc"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "etsy-seller-tax-return",
+      "title": "Etsy Seller Tax Returns: Why Your Bank Payout Is Not the Whole Record",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 68,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Selling goods or services on a digital platform",
+          "url": "https://www.gov.uk/guidance/selling-goods-or-services-on-a-digital-platform"
+        },
+        {
+          "label": "GOV.UK — Business records if you're self-employed: What records to keep",
+          "url": "https://www.gov.uk/self-employed-records/what-records-to-keep"
+        },
+        {
+          "label": "GOV.UK — Cash basis: Overview",
+          "url": "https://www.gov.uk/simpler-income-tax-cash-basis"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-side-hustle"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "airbnb-holiday-let-tax-2025-26",
+      "title": "Airbnb and Holiday-Let Tax Returns After the Furnished Holiday Lettings Changes",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 69,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — PIM4165 - Repeal of Furnished Holiday Lettings rules : Overview - HMRC internal manual",
+          "url": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim4165"
+        },
+        {
+          "label": "GOV.UK — Work out your rental income when you let property",
+          "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+        },
+        {
+          "label": "GOV.UK — Check if you need to tell HMRC about your income from online platforms",
+          "url": "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-for-landlords-2025-26"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "joint-rental-property-tax-return",
+      "title": "Joint Rental Property on a Tax Return: Do Both Owners Report the Same Amount?",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 70,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — PIM1035 - Introduction: Jointly owned property and partnerships - HMRC internal manual",
+          "url": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim1035"
+        },
+        {
+          "label": "GOV.UK — Work out your rental income when you let property",
+          "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-for-landlords-2025-26"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "landlord-repairs-vs-improvements",
+      "title": "Landlord Repairs or Improvements: What to Send Your Accountant",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 71,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Work out your rental income when you let property",
+          "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "landlord-mortgage-interest-tax-relief"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "savings-interest-self-assessment",
+      "title": "Savings Interest: When Do You Need to Tell HMRC or File a Return?",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 72,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Tax on savings interest: How you pay tax on savings interest",
+          "url": "https://www.gov.uk/apply-tax-free-interest-on-savings/how-you-pay-tax-on-savings-interest"
+        },
+        {
+          "label": "GOV.UK — Check how much tax you pay on dividends and interest from savings",
+          "url": "https://www.gov.uk/guidance/check-how-much-tax-you-pay-on-dividends-and-interest-from-savings"
+        },
+        {
+          "label": "GOV.UK — Savings interest allowances",
+          "url": "https://www.gov.uk/apply-tax-free-interest-on-savings/how-much-is-tax-free"
+        }
+      ],
+      "relatedSlugs": [
+        "understanding-self-assessment-uk"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "self-employed-working-from-home-expenses",
+      "title": "Working from Home When Self-Employed: Preparing an Expense Claim",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 73,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Expenses if you're self-employed: Overview",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed"
+        },
+        {
+          "label": "GOV.UK — Expenses if you're self-employed: Office, property and equipment",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed/office-property"
+        },
+        {
+          "label": "GOV.UK — Simplified home-working expenses",
+          "url": "https://www.gov.uk/simpler-income-tax-simplified-expenses/working-from-home"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "top-tax-saving-tips-uk"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "self-employed-mileage-vs-actual-costs",
+      "title": "Mileage or Actual Vehicle Costs: Which Records Does Your Accountant Need?",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 74,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Simplified expenses if you're self-employed: Vehicles",
+          "url": "https://www.gov.uk/simpler-income-tax-simplified-expenses/vehicles"
+        },
+        {
+          "label": "GOV.UK — Expenses if you're self-employed: Car, van and travel expenses",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed/travel"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "top-tax-saving-tips-uk"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "sa302-tax-year-overview-mortgage",
+      "title": "SA302 and Tax-Year Overview: Evidence for a Mortgage Application",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 75,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Get your SA302 tax calculation",
+          "url": "https://www.gov.uk/sa302-tax-calculation"
+        },
+        {
+          "label": "GOV.UK — Understand your Self Assessment tax bill: Tax calculation (SA302)",
+          "url": "https://www.gov.uk/understand-self-assessment-bill/tax-calculation-sa302"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-documents-checklist"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "high-salary-self-assessment-needed",
+      "title": "High Salary Alone: Do You Actually Need Self Assessment?",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 76,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Check if you need to send a Self Assessment tax return",
+          "url": "https://www.gov.uk/check-if-you-need-tax-return"
+        },
+        {
+          "label": "GOV.UK — Complete your Self Assessment tax return for the last tax year",
+          "url": "https://www.gov.uk/guidance/how-to-complete-your-self-assessment-tax-return-for-last-tax-year"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "understanding-self-assessment-uk"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "lost-receipts-self-assessment",
+      "title": "Lost Receipts Before Your Tax Return? What to Do Next",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 77,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Business records if you're self-employed: How long to keep your records",
+          "url": "https://www.gov.uk/self-employed-records/how-long-to-keep-your-records"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-documents-checklist"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "waiting-for-utr-tax-return",
+      "title": "Waiting for a UTR Before January? Steps to Take While You Wait",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 9,
+      "priorityRank": 9,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — register for self assessment",
+          "url": "https://www.gov.uk/register-for-self-assessment"
+        },
+        {
+          "label": "GOV.UK — deadlines",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+        },
+        {
+          "label": "GOV.UK — Find your UTR number",
+          "url": "https://www.gov.uk/find-utr-number"
+        },
+        {
+          "label": "GOV.UK — Check when to expect an HMRC reply",
+          "url": "https://www.gov.uk/guidance/check-when-you-can-expect-a-reply-from-hmrc"
+        },
+        {
+          "label": "GOV.UK — Self Assessment enquiries",
+          "url": "https://www.gov.uk/find-hmrc-contacts/self-assessment-general-enquiries"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-register-by-5-october-2026"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "child-benefit-charge-paye-or-self-assessment",
+      "title": "Child Benefit and Self Assessment: Check Whether PAYE Is an Option",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 78,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — High Income Child Benefit Charge: Pay the tax charge through PAYE",
+          "url": "https://www.gov.uk/child-benefit-tax-charge/pay-tax-charge-paye"
+        },
+        {
+          "label": "GOV.UK — Personal Allowances: adjusted net income",
+          "url": "https://www.gov.uk/guidance/adjusted-net-income"
+        },
+        {
+          "label": "GOV.UK — Check if you need to send a Self Assessment tax return",
+          "url": "https://www.gov.uk/check-if-you-need-tax-return"
+        }
+      ],
+      "relatedSlugs": [
+        "understanding-self-assessment-uk"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "pension-contributions-adjusted-net-income",
+      "title": "Pension Contributions and Adjusted Net Income: What to Tell Your Accountant",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 79,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Claim tax relief on your private pension payments",
+          "url": "https://www.gov.uk/guidance/claim-tax-relief-on-your-private-pension-payments"
+        },
+        {
+          "label": "GOV.UK — Personal Allowances: adjusted net income",
+          "url": "https://www.gov.uk/guidance/adjusted-net-income"
+        },
+        {
+          "label": "GOV.UK — Private pension tax relief",
+          "url": "https://www.gov.uk/tax-on-your-private-pension/pension-tax-relief"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "top-tax-saving-tips-uk"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "crypto-swaps-tax-without-cashing-out",
+      "title": "Crypto Swaps and Tax: Why Not Cashing Out Does Not Settle the Question",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 80,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Check if you need to pay tax when you sell cryptoassets",
+          "url": "https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets"
+        },
+        {
+          "label": "GOV.UK — CRYPTO10400 - Introduction to cryptoassets: record keeping - HMRC internal manual",
+          "url": "https://www.gov.uk/hmrc-internal-manuals/cryptoassets-manual/crypto10400"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-documents-checklist"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "sold-rental-property-60-day-tax",
+      "title": "Sold a Rental Property? Check the 60-Day Capital Gains Tax Deadline",
+      "category": "Self Assessment",
+      "audience": "individual-taxpayers",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 17,
+      "priorityRank": 17,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — if you sold a property in the uk on or after 6 april 2020",
+          "url": "https://www.gov.uk/report-and-pay-your-capital-gains-tax/if-you-sold-a-property-in-the-uk-on-or-after-6-april-2020"
+        },
+        {
+          "label": "GOV.UK — reporting and paying capital gains tax",
+          "url": "https://www.gov.uk/capital-gains-tax/reporting-and-paying-capital-gains-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-for-landlords-2025-26"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "mtd-standard-vs-calendar-update-periods",
+      "title": "MTD Standard or Calendar Update Periods: Which Should You Use?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 81,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Send quarterly updates - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-cumulative-quarterly-updates"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-simpler-categorisation-under-90000",
+      "title": "MTD Records Below £90,000: When Simpler Categorisation Applies",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 82,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-digital-records",
+        "mtd-income-tax-vs-mtd-vat"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-sole-trader-and-landlord-separate-updates",
+      "title": "Self-Employed and a Landlord: How Your MTD Updates Fit Together",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 83,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Send quarterly updates - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-two-self-employed-businesses",
+        "mtd-for-landlords-2026-27"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-main-vs-supporting-accountant",
+      "title": "Main or Supporting MTD Accountant: Who Files Your Annual Return?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 84,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Choose agents for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Submit your tax return - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/submit-your-tax-return"
+        }
+      ],
+      "relatedSlugs": [
+        "authorise-mtd-accountant-safely"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-proof-quarterly-update-submitted",
+      "title": "Has My MTD Update Been Submitted? How to Check the Evidence",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 19,
+      "priorityRank": 19,
+      "curated": true,
+      "sources": [
+        {
+          "label": "HMRC / GOV.UK — send quarterly updates",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+        },
+        {
+          "label": "GOV.UK — Personal tax account",
+          "url": "https://www.gov.uk/personal-tax-account"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-quarterly-updates"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-estimated-tax-bill-not-final",
+      "title": "Why Your MTD Tax Estimate May Differ From Your Final Bill",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 85,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Send quarterly updates - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-quarterly-updates-tax-payments"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-partnership-income-individual-partners",
+      "title": "Does Partnership Income Put You Into MTD for Income Tax?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 86,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/check-if-youre-eligible-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-qualifying-income"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-limited-company-director-income",
+      "title": "MTD and Limited Company Directors: Which Income Counts?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 87,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/check-if-youre-eligible-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Add or cease income sources - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/add-or-cease-income-sources"
+        }
+      ],
+      "relatedSlugs": [
+        "company-director-personal-tax-return",
+        "mtd-qualifying-income"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-new-business-new-rental-income",
+      "title": "Starting a New Business or Rental Income While Already in MTD",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 88,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Add or cease income sources - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/add-or-cease-income-sources"
+        },
+        {
+          "label": "GOV.UK — New income sources and digital records",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-two-self-employed-businesses"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-letting-agent-gross-rent-net-payment",
+      "title": "Letting Agent Statements and MTD: Record Gross Rent, Not Just the Payout",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 89,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+        },
+        {
+          "label": "GOV.UK — Work out your rental income when you let property",
+          "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-bank-feeds-complete-records"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "voluntary-mtd-before-compulsory-start",
+      "title": "Should You Join MTD Voluntarily Before Your Compulsory Start Date?",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 90,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Sign up for Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/sign-up-for-making-tax-digital-for-income-tax"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Using Making Tax Digital for Income Tax for the first time  - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/using-making-tax-digital-for-income-tax-for-the-first-time"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-30000-threshold-2027"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-20000-threshold-april-2028",
+      "title": "MTD From April 2028: What the £20,000 Threshold Means",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 91,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Find out if and when you need to use Making Tax Digital for Income Tax",
+          "url": "https://www.gov.uk/guidance/check-if-youre-eligible-for-making-tax-digital-for-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-qualifying-income",
+        "mtd-30000-threshold-2027"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-receipt-photo-vs-digital-record",
+      "title": "Is a Receipt Photo Enough for MTD? What Your Records Need",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 92,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+        },
+        {
+          "label": "GOV.UK — Business records if you're self-employed: Overview",
+          "url": "https://www.gov.uk/self-employed-records"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-digital-records"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "mtd-software-hmrc-outage-deadline",
+      "title": "MTD Software or HMRC Unavailable Near a Deadline: What to Do",
+      "category": "Making Tax Digital",
+      "audience": "sole-traders-landlords",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 93,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Help and support - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/help-and-support"
+        },
+        {
+          "label": "GOV.UK — Disagree with a tax decision or penalty: Reasonable excuses",
+          "url": "https://www.gov.uk/tax-appeals/reasonable-excuses"
+        },
+        {
+          "label": "GOV.UK — Issue 148 of agent update",
+          "url": "https://www.gov.uk/government/publications/agent-update-issue-148/issue-148-of-agent-update"
+        }
+      ],
+      "relatedSlugs": [
+        "missed-mtd-quarterly-update"
+      ],
+      "ctaType": "MTD"
+    },
+    {
+      "slug": "dividend-tax-2025-26-vs-2026-27",
+      "title": "Dividend Tax: Keep Your 2025/26 Return Separate From 2026/27 Rates",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 94,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Tax on dividends: Check if you have to pay tax on dividends",
+          "url": "https://www.gov.uk/tax-on-dividends"
+        },
+        {
+          "label": "GOV.UK — Income Tax rates and allowances for current and previous tax years",
+          "url": "https://www.gov.uk/government/publications/rates-and-allowances-income-tax/income-tax-rates-and-allowances-current-and-past"
+        },
+        {
+          "label": "GOV.UK — Tax on dividends: Check if you have to pay tax on dividends",
+          "url": "https://www.gov.uk/tax-on-dividends/how-dividends-are-taxed"
+        }
+      ],
+      "relatedSlugs": [
+        "company-director-personal-tax-return"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "student-loan-postgraduate-self-assessment",
+      "title": "Student and Postgraduate Loans on Self Assessment: Avoid Double Counting",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 95,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Tell HMRC about a student or postgraduate loan in your tax return",
+          "url": "https://www.gov.uk/guidance/tell-hmrc-about-a-student-loan-in-your-tax-return"
+        },
+        {
+          "label": "GOV.UK — Repaying your student loan: How to repay",
+          "url": "https://www.gov.uk/repaying-your-student-loan/how-you-repay"
+        }
+      ],
+      "relatedSlugs": [
+        "employed-and-self-employed-tax-return"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "self-employed-national-insurance-2025-26",
+      "title": "Self-Employed National Insurance for Your 2025/26 Tax Return",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 96,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Rates and allowances: National Insurance contributions",
+          "url": "https://www.gov.uk/government/publications/rates-and-allowances-national-insurance-contributions/rates-and-allowances-national-insurance-contributions"
+        },
+        {
+          "label": "GOV.UK — National Insurance: introduction: National Insurance classes",
+          "url": "https://www.gov.uk/national-insurance/national-insurance-classes"
+        },
+        {
+          "label": "GOV.UK — Self-employed National Insurance rates",
+          "url": "https://www.gov.uk/self-employed-national-insurance-rates"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-for-sole-traders-2025-26"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "cash-basis-vs-traditional-accounting",
+      "title": "Cash Basis or Traditional Accounting: Which Figures Go on Your Return?",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 97,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Business records if you're self-employed: Overview",
+          "url": "https://www.gov.uk/self-employed-records"
+        },
+        {
+          "label": "GOV.UK — Cash basis: Overview",
+          "url": "https://www.gov.uk/simpler-income-tax-cash-basis"
+        },
+        {
+          "label": "GOV.UK — HS222 How to calculate your taxable profits (2026)",
+          "url": "https://www.gov.uk/government/publications/how-to-calculate-your-taxable-profits-hs222-self-assessment-helpsheet/hs222-how-to-calculate-your-taxable-profits-2026"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-for-sole-traders-2025-26"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "self-employed-trading-loss-tax-relief",
+      "title": "Made a Self-Employed Loss? What to Check Before Claiming Relief",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 98,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — HS227 Losses (2026)",
+          "url": "https://www.gov.uk/government/publications/losses-hs227-self-assessment-helpsheet/hs227-losses-2026"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-for-sole-traders-2025-26"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "stopped-self-employed-final-tax-return",
+      "title": "Stopped Being Self-Employed? Your Final Return Still Matters",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 99,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Stop being self-employed",
+          "url": "https://www.gov.uk/stop-being-self-employed"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Add or cease income sources - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/add-or-cease-income-sources"
+        }
+      ],
+      "relatedSlugs": [
+        "mtd-income-fallen-opt-out"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "multiple-overdue-self-assessment-returns",
+      "title": "Several Years of Unfiled Tax Returns: How to Put Them in Order",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 15,
+      "priorityRank": 15,
+      "curated": true,
+      "sources": [
+        {
+          "label": "HMRC / GOV.UK — deadlines",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+        },
+        {
+          "label": "HMRC / GOV.UK — corrections",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/corrections"
+        },
+        {
+          "label": "HMRC / GOV.UK — let property campaign your guide to making a disclosure",
+          "url": "https://www.gov.uk/government/publications/let-property-campaign-your-guide-to-making-a-disclosure/let-property-campaign-your-guide-to-making-a-disclosure"
+        }
+      ],
+      "relatedSlugs": [
+        "late-self-assessment-penalties",
+        "cannot-pay-self-assessment-tax-bill"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "content-creator-influencer-tax-return",
+      "title": "Content Creator Tax: Sponsorships, Platform Income and Gifted Products",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 100,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Check if you need to tell HMRC about your income from online platforms",
+          "url": "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms"
+        },
+        {
+          "label": "GOV.UK — Selling goods or services on a digital platform",
+          "url": "https://www.gov.uk/guidance/selling-goods-or-services-on-a-digital-platform"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-side-hustle"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "private-tutor-self-assessment-tax",
+      "title": "Private Tutor Tax Returns: Fees, Platforms and Term-Time Records",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 101,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Working for yourself",
+          "url": "https://www.gov.uk/working-for-yourself"
+        },
+        {
+          "label": "GOV.UK — Expenses if you're self-employed: Overview",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed"
+        },
+        {
+          "label": "GOV.UK — Check if you need to tell HMRC about your income from online platforms",
+          "url": "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "employed-and-self-employed-tax-return"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "personal-trainer-fitness-coach-tax",
+      "title": "Personal Trainer Tax: Gym Fees, Client Packages and Online Coaching",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 102,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Working for yourself",
+          "url": "https://www.gov.uk/working-for-yourself"
+        },
+        {
+          "label": "GOV.UK — Expenses if you're self-employed: Overview",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed"
+        },
+        {
+          "label": "GOV.UK — Check if you need to tell HMRC about your income from online platforms",
+          "url": "https://www.gov.uk/guidance/check-if-you-need-to-tell-hmrc-about-your-income-from-online-platforms"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-for-sole-traders-2025-26"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "self-employed-cleaner-tax-return",
+      "title": "Self-Employed Cleaner Tax Returns: Cash Payments and Business Records",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 103,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Working for yourself",
+          "url": "https://www.gov.uk/working-for-yourself"
+        },
+        {
+          "label": "GOV.UK — Business records if you're self-employed: Overview",
+          "url": "https://www.gov.uk/self-employed-records"
+        },
+        {
+          "label": "GOV.UK — Expenses if you're self-employed: Overview",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-for-sole-traders-2025-26"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "rent-a-room-relief-lodger-tax",
+      "title": "Rent a Room Relief: When Lodger Income Needs a Tax Return",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 104,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Rent a room in your home: The Rent a Room Scheme",
+          "url": "https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme"
+        },
+        {
+          "label": "GOV.UK — PIM4001 - Rent-a-room: overview - HMRC internal manual",
+          "url": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim4001"
+        },
+        {
+          "label": "GOV.UK — Use Making Tax Digital for Income Tax - Create digital records - Guidance",
+          "url": "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/create-digital-records"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-for-landlords-2025-26"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "landlord-replacement-domestic-items-relief",
+      "title": "Landlord Furniture and Appliances: Replacement of Domestic Items Relief",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 105,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Work out your rental income when you let property",
+          "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+        },
+        {
+          "label": "GOV.UK — PIM3210 - Furnished lettings: Replacement of domestic items relief: 2016-17 onwards - HMRC internal manual",
+          "url": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim3210"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "landlord-repairs-vs-improvements"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "landlord-expenses-empty-property-void-period",
+      "title": "Can Landlords Claim Expenses While a Rental Property Is Empty?",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 106,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — PIM2510 - Beginning and end of a property business: cessation - HMRC internal manual",
+          "url": "https://www.gov.uk/hmrc-internal-manuals/property-income-manual/pim2510"
+        },
+        {
+          "label": "GOV.UK — Work out your rental income when you let property",
+          "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "landlord-repairs-vs-improvements"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "non-resident-landlord-uk-tax-return",
+      "title": "Living Abroad With UK Rental Income: Withholding and Your Tax Return",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 107,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Tax on your UK income if you live abroad: Rental income",
+          "url": "https://www.gov.uk/tax-uk-income-live-abroad/rent"
+        },
+        {
+          "label": "GOV.UK — What the Non-resident Landlords Scheme is",
+          "url": "https://www.gov.uk/government/publications/non-resident-landord-guidance-notes-for-letting-agents-and-tenants-non-resident-landlords-scheme-guidance-notes/what-the-non-resident-landlords-scheme-is"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        },
+        {
+          "label": "GOV.UK — MTD exemptions and residence pages",
+          "url": "https://www.gov.uk/guidance/find-out-if-you-can-get-an-exemption-from-making-tax-digital-for-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-for-landlords-2025-26"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "foreign-income-tax-return-2025-26-fig",
+      "title": "Foreign Income on a 2025/26 Tax Return: What Changed From April 2025?",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 108,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Tax on foreign income: Overview",
+          "url": "https://www.gov.uk/tax-foreign-income"
+        },
+        {
+          "label": "GOV.UK — Check if you can claim the 4-year foreign income and gains regime",
+          "url": "https://www.gov.uk/guidance/check-if-you-can-claim-the-4-year-foreign-income-and-gains-regime"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        },
+        {
+          "label": "GOV.UK — MTD exemptions and FIG cases",
+          "url": "https://www.gov.uk/guidance/find-out-if-you-can-get-an-exemption-from-making-tax-digital-for-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-documents-checklist"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "sold-shares-capital-gains-tax-records",
+      "title": "Sold Shares Outside an ISA? The Records Needed for Capital Gains Tax",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 109,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Tax when you sell shares: What you pay it on",
+          "url": "https://www.gov.uk/tax-sell-shares/what-you-pay-it-on"
+        },
+        {
+          "label": "GOV.UK — HS284 Shares and Capital Gains Tax (2026)",
+          "url": "https://www.gov.uk/government/publications/shares-and-capital-gains-tax-hs284-self-assessment-helpsheet/hs284-shares-and-capital-gains-tax-2026"
+        },
+        {
+          "label": "GOV.UK — Capital Gains Tax rates and allowances",
+          "url": "https://www.gov.uk/guidance/capital-gains-tax-rates-and-allowances"
+        }
+      ],
+      "relatedSlugs": [
+        "crypto-swaps-tax-without-cashing-out"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "crypto-hmrc-reporting-2026-carf",
+      "title": "Crypto Reporting From 2026: What Providers Tell HMRC and What You Still Do",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 110,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Information you need to give to UK cryptoasset service providers",
+          "url": "https://www.gov.uk/guidance/information-youll-need-to-give-to-uk-cryptoasset-service-providers"
+        },
+        {
+          "label": "GOV.UK — Check if you need to report cryptoasset data to HMRC",
+          "url": "https://www.gov.uk/guidance/check-if-youll-need-to-report-cryptoasset-data-to-hmrc"
+        },
+        {
+          "label": "GOV.UK — Check if you need to pay tax when you sell cryptoassets",
+          "url": "https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets"
+        }
+      ],
+      "relatedSlugs": [
+        "crypto-swaps-tax-without-cashing-out"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "winter-fuel-payment-self-assessment-2025-26",
+      "title": "Winter Fuel Payment and Your 2025/26 Self Assessment Return",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 111,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Winter Fuel Payment: If your income is over £35,000",
+          "url": "https://www.gov.uk/winter-fuel-payment/if-your-income-is-over-35000"
+        },
+        {
+          "label": "GOV.UK — Pensioners urged to be alert to Winter Fuel Payment scams",
+          "url": "https://www.gov.uk/government/news/pensioners-urged-to-be-alert-to-winter-fuel-payment-scams"
+        },
+        {
+          "label": "GOV.UK — Winter Fuel Payments charge",
+          "url": "https://www.gov.uk/government/publications/income-tax-charge-on-winter-fuel-payments/winter-fuel-payments-charge"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-documents-checklist"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "pay-self-assessment-through-tax-code-december",
+      "title": "Pay Self Assessment Through Your Tax Code: The 30 December Deadline",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 18,
+      "priorityRank": 18,
+      "curated": true,
+      "sources": [
+        {
+          "label": "HMRC / GOV.UK — through your tax code",
+          "url": "https://www.gov.uk/pay-self-assessment-tax-bill/through-your-tax-code"
+        }
+      ],
+      "relatedSlugs": [
+        "cannot-pay-self-assessment-tax-bill"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "self-assessment-refund-pending",
+      "title": "Self Assessment Refund Pending: What to Check Before Chasing HMRC",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 112,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Self Assessment tax returns: Claiming a tax refund",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/claiming-a-tax-refund"
+        },
+        {
+          "label": "GOV.UK — Check when you can expect a reply from HMRC",
+          "url": "https://www.gov.uk/guidance/check-when-you-can-expect-a-reply-from-hmrc"
+        }
+      ],
+      "relatedSlugs": [
+        "cis-tax-refunds-subcontractors"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "appeal-self-assessment-late-penalty",
+      "title": "Appealing a Self Assessment Penalty: Evidence, Deadlines and Next Steps",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 16,
+      "priorityRank": 16,
+      "curated": true,
+      "sources": [
+        {
+          "label": "HMRC / GOV.UK — check when to appeal a self assessment penalty for late filing or late payment",
+          "url": "https://www.gov.uk/guidance/check-when-to-appeal-a-self-assessment-penalty-for-late-filing-or-late-payment"
+        },
+        {
+          "label": "HMRC / GOV.UK — reasonable excuses",
+          "url": "https://www.gov.uk/tax-appeals/reasonable-excuses"
+        },
+        {
+          "label": "HMRC / GOV.UK — tax appeals",
+          "url": "https://www.gov.uk/tax-appeals"
+        },
+        {
+          "label": "GOV.UK — Disagree with a penalty",
+          "url": "https://www.gov.uk/tax-appeals/penalty"
+        }
+      ],
+      "relatedSlugs": [
+        "late-self-assessment-penalties"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "gift-aid-self-assessment-tax-relief",
+      "title": "Gift Aid on Self Assessment: Claim the Right Relief Without Double Counting",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 113,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Tax relief when you donate to a charity: Gift Aid",
+          "url": "https://www.gov.uk/donating-to-charity/gift-aid"
+        },
+        {
+          "label": "GOV.UK — Help with charitable giving on your Self Assessment tax return",
+          "url": "https://www.gov.uk/guidance/help-with-charitable-giving-on-your-self-assessment-tax-return"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "pension-contributions-adjusted-net-income"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "state-pension-self-assessment-income",
+      "title": "State Pension on Self Assessment: Why Bank Payments May Not Be the Right Figure",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 114,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Tax when you get a pension: Overview",
+          "url": "https://www.gov.uk/tax-on-pension"
+        },
+        {
+          "label": "GOV.UK — Tax when you get a pension: How your tax is paid",
+          "url": "https://www.gov.uk/tax-on-pension/how-your-tax-is-paid"
+        },
+        {
+          "label": "GOV.UK — How your State Pension is taxed",
+          "url": "https://www.gov.uk/guidance/how-your-state-pension-is-taxed"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "savings-interest-self-assessment"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "leave-self-assessment-no-return-needed",
+      "title": "No Longer Need Self Assessment? Ask HMRC Before You Stop Filing",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 115,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Self Assessment tax returns: If you no longer need to send a tax return",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/no-longer-need-to-send-a-tax-return"
+        },
+        {
+          "label": "GOV.UK — Check if you need to send a Self Assessment tax return",
+          "url": "https://www.gov.uk/check-if-you-need-tax-return"
+        }
+      ],
+      "relatedSlugs": [
+        "stopped-self-employed-final-tax-return"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "p800-simple-assessment-pa302-vs-tax-return",
+      "title": "P800 or Simple Assessment PA302: Do You Also Need a Tax Return?",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 116,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Tax overpayments and underpayments: If you’ve not paid the right amount of tax",
+          "url": "https://www.gov.uk/tax-overpayments-and-underpayments"
+        },
+        {
+          "label": "GOV.UK — Pay your Simple Assessment tax bill: Overview",
+          "url": "https://www.gov.uk/simple-assessment"
+        },
+        {
+          "label": "GOV.UK — Issue 148 of agent update",
+          "url": "https://www.gov.uk/government/publications/agent-update-issue-148/issue-148-of-agent-update"
+        }
+      ],
+      "relatedSlugs": [
+        "savings-interest-self-assessment"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "self-employed-business-loan-interest-repayments",
+      "title": "Business Loans on Self Assessment: Interest, Borrowing and Repayments",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 117,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Expenses if you're self-employed: Legal and financial costs",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed/legal-financial"
+        },
+        {
+          "label": "GOV.UK — Expenses if you're self-employed: Overview",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "cash-basis-vs-traditional-accounting"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "basis-period-transition-profit-2025-26",
+      "title": "Basis Period Transition Profits: What Still Goes on a 2025/26 Return?",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 118,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — HS222 How to calculate your taxable profits (2026)",
+          "url": "https://www.gov.uk/government/publications/how-to-calculate-your-taxable-profits-hs222-self-assessment-helpsheet/hs222-how-to-calculate-your-taxable-profits-2026"
+        },
+        {
+          "label": "GOV.UK — Work out your Basis Period Reform transition profit",
+          "url": "https://www.gov.uk/guidance/work-out-your-transition-profit"
+        },
+        {
+          "label": "GOV.UK — Spreading transition profits, BIM81310",
+          "url": "https://www.gov.uk/hmrc-internal-manuals/business-income-manual/bim81310"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "cash-basis-vs-traditional-accounting"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "pre-trading-startup-expenses-self-employed",
+      "title": "Can You Claim Business Costs Paid Before You Started Trading?",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 119,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — BIM46351 - Specific deductions: pre-trading expenditure: scope - HMRC internal manual",
+          "url": "https://www.gov.uk/hmrc-internal-manuals/business-income-manual/bim46351"
+        },
+        {
+          "label": "GOV.UK — Expenses if you're self-employed: Office, property and equipment",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed/office-property"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "self-assessment-for-sole-traders-2025-26"
+      ],
+      "ctaType": "SA"
+    },
+    {
+      "slug": "self-employed-equipment-cash-basis-capital-allowances",
+      "title": "Tools, Laptops and Equipment: Expenses or Capital Allowances?",
+      "category": "Self Assessment",
+      "audience": "individuals",
+      "status": "draft",
+      "publishedAt": null,
+      "releaseRank": 120,
+      "priorityRank": null,
+      "curated": true,
+      "sources": [
+        {
+          "label": "GOV.UK — Expenses if you're self-employed: Office, property and equipment",
+          "url": "https://www.gov.uk/expenses-if-youre-self-employed/office-property"
+        },
+        {
+          "label": "GOV.UK — Claim capital allowances: Overview",
+          "url": "https://www.gov.uk/capital-allowances"
+        },
+        {
+          "label": "GOV.UK — Cash basis: Overview",
+          "url": "https://www.gov.uk/simpler-income-tax-cash-basis"
+        },
+        {
+          "label": "GOV.UK — Scottish Income Tax",
+          "url": "https://www.gov.uk/scottish-income-tax"
+        },
+        {
+          "label": "GOV.UK — Welsh Income Tax",
+          "url": "https://www.gov.uk/welsh-income-tax"
+        }
+      ],
+      "relatedSlugs": [
+        "cash-basis-vs-traditional-accounting",
+        "pre-trading-startup-expenses-self-employed"
+      ],
+      "ctaType": "SA"
+    }
+  ]
+}

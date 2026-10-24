@@ -66,8 +66,45 @@ export async function getMergedBlogList({ page = 1, limit = 9, category } = {}) 
 
 export async function getBlogBySlug(slug) {
   const curatedAny = getArticleBySlug(slug, { includeUnpublished: true });
+
+  // Prefer a published automation overlay when it targets this slug so live
+  // HMRC updates appear without a frontend rebuild, while drafts stay gated.
+  try {
+    const url = `${apiBase()}resources/blogs/${slug}`;
+    const data = await fetchJSON(url, { next: { revalidate: 0 }, cache: "no-store" });
+    if (data?.data?.blog || data?.data) {
+      const payload = data.data.blog ? data.data : { blog: data.data, recentBlogs: [] };
+      const raw = payload.blog;
+      const overlay = normalizeApiArticle(raw);
+      if (isPubliclyVisibleArticle(overlay)) {
+        if (curatedAny && isPubliclyVisibleArticle(curatedAny)) {
+          const merged = mergeArticlesWithApi([raw]).find((a) => a.slug === slug) || {
+            ...curatedAny,
+            ...overlay,
+            publishedAt: curatedAny.publishedAt,
+            releaseRank: curatedAny.releaseRank,
+            priorityRank: curatedAny.priorityRank,
+            curated: true,
+          };
+          return {
+            blog: withResolvedArticleContent(merged),
+            recentBlogs: getRelatedArticles(curatedAny, 4),
+          };
+        }
+        if (!curatedAny) {
+          const recent = Array.isArray(payload.recentBlogs)
+            ? payload.recentBlogs.map(normalizeApiArticle).filter(isPubliclyVisibleArticle)
+            : getRelatedArticles(overlay, 4);
+          return { blog: withResolvedArticleContent(overlay), recentBlogs: recent };
+        }
+      }
+    }
+  } catch (err) {
+    console.error("Failed to fetch blog via API", err);
+  }
+
   if (curatedAny) {
-    // Draft / unpublished curated records must not resolve via API fallback.
+    // Draft / unpublished curated records must not resolve via empty API fallback.
     if (!isPubliclyVisibleArticle(curatedAny)) {
       return null;
     }
@@ -76,22 +113,6 @@ export async function getBlogBySlug(slug) {
       blog,
       recentBlogs: getRelatedArticles(curatedAny, 4),
     };
-  }
-
-  try {
-    const url = `${apiBase()}resources/blogs/${slug}`;
-    const data = await fetchJSON(url, { next: { revalidate: 0 }, cache: "no-store" });
-    if (data?.data?.blog || data?.data) {
-      const payload = data.data.blog ? data.data : { blog: data.data, recentBlogs: [] };
-      const blog = normalizeApiArticle(payload.blog);
-      if (!isPubliclyVisibleArticle(blog)) return null;
-      const recent = Array.isArray(payload.recentBlogs)
-        ? payload.recentBlogs.map(normalizeApiArticle).filter(isPubliclyVisibleArticle)
-        : getRelatedArticles(blog, 4);
-      return { blog, recentBlogs: recent };
-    }
-  } catch (err) {
-    console.error("Failed to fetch blog via API", err);
   }
 
   return null;
