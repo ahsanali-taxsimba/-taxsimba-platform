@@ -11,7 +11,7 @@ This candidate is **not** marked approved by Cursor. Do **not** merge or deploy 
 | Repository | `github.com/ahsanali-taxsimba/-taxsimba-platform` |
 | **Base used for this work** | `cursor/taxsimba-v6-integration-df9b` @ `294a615de9919fde82a98c10b8685d155bc2685e` |
 | **Candidate branch** | `feature/hmrc-content-automation` |
-| **Candidate SHA** | _(see commit after push — `git rev-parse HEAD` on the branch)_ |
+| **Candidate SHA** | `540a1e03568aebc472dc8841ed4635b80a26391d` |
 | PR | _(URL filled after open)_ |
 
 ### Why this base (not an older ZIP / SHA)
