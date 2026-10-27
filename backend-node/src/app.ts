@@ -29,6 +29,7 @@ import { ensureEngagementIndexes } from "./services/engagement";
 import { ensureReminderIndexes } from "./jobs/reminders";
 import { ensureIndexes as ensureLoginIndexes } from "./services/loginLockout";
 import { ensureMfaIndexes } from "./services/security";
+import { ensureMarketingHubBoot, marketingHubRouter } from "./marketing-hub/router";
 
 /**
  * Indexes for every hot query path. Without these each list endpoint scans the whole
@@ -104,6 +105,7 @@ export async function startup(): Promise<void> {
   await ensureReminderIndexes();
   await ensurePricingIndexes();
   await ensureContentIndexes();
+  await ensureMarketingHubBoot();
 }
 
 export function createApp(): Express {
@@ -138,6 +140,7 @@ export function createApp(): Express {
   app.use("/api", adminRouter);
   app.use("/api", profileRouter);
   app.use("/api", contentRouter);
+  app.use("/api", marketingHubRouter);
 
   // Toxel compatibility layer (K.1+). Native routes above are unchanged.
   // Compat has its own error middleware; unhandled compat errors must not fall through

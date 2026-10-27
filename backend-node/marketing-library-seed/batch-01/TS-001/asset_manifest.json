@@ -1,0 +1,27 @@
+{
+  "id": "TS-001",
+  "source_filename": "TS-001.png",
+  "sha256": "da5a4feba0e71289bd4f1ed804a50c1cf224f18029984a0c93b1acbb2f47b675",
+  "approved_pricing": {
+    "self_assessment": "from GBP 119 one-off",
+    "mtd_income_tax": "from GBP 29.99/month"
+  },
+  "source_metadata": {
+    "id": "TS-001",
+    "subject": "SA Deadline",
+    "filename": "TS-001.png",
+    "width": "1024",
+    "height": "1536",
+    "sha256": "da5a4feba0e71289bd4f1ed804a50c1cf224f18029984a0c93b1acbb2f47b675",
+    "visual_status": "LOCKED",
+    "pricing_status": "OWNER_APPROVED_AS_SHOWN",
+    "checkout_verification": "PENDING_TOXEL_STAGING",
+    "publication_status": "HOLD_UNTIL_FINAL_QA"
+  },
+  "byte_size": 2092735,
+  "replacement": {
+    "status": "OWNER_APPROVED",
+    "previous_sha256": "7ba0b611de8a1abe260895160378588d920e30b6c5905e0f9b4821eddfb2e0c1",
+    "note": "Approved TS-001 replacement \u2014 preserve library ID; Draft/Awaiting QA"
+  }
+}

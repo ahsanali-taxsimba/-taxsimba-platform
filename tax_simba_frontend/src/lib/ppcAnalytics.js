@@ -161,6 +161,39 @@ export function trackRegistrationCompleted({ service, planId } = {}) {
     utm_medium: ctx.utm_medium,
     utm_campaign: ctx.utm_campaign,
   });
+  // Best-effort server attribution (non-PII). Failures must not block registration UX.
+  void postAttributionPublic({
+    kind: "lead_registration",
+    service: service === "MTD" ? "MTD" : "SA",
+    plan_id: planId,
+    landing_page: ctx.landing_page,
+    utm_source: ctx.utm_source,
+    utm_medium: ctx.utm_medium,
+    utm_campaign: ctx.utm_campaign,
+    utm_content: ctx.utm_content,
+    utm_term: ctx.utm_term,
+    gclid: ctx.gclid,
+  });
+}
+
+async function postAttributionPublic(payload) {
+  try {
+    const base =
+      (typeof process !== "undefined" && process.env.NEXT_PUBLIC_API_URL) ||
+      (typeof process !== "undefined" && process.env.NEXT_PUBLIC_NODE_JS_URL) ||
+      "";
+    if (!base) return;
+    // Native marketing-hub path (not compat). If API_URL ends with /api/compat, strip it.
+    const root = String(base).replace(/\/api\/compat\/?$/, "").replace(/\/$/, "");
+    await fetch(`${root}/api/marketing-hub/attribution/public`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      keepalive: true,
+    });
+  } catch {
+    /* ignore */
+  }
 }
 
 export function trackCheckoutStarted({ service, planId, planName, value, currency } = {}) {
@@ -214,12 +247,58 @@ export function trackPurchaseConfirmed({
     utm_campaign: ctx.utm_campaign,
   });
 
+  // Server-side attribution for Marketing Hub (authenticated path preferred via caller).
+  // Public path rejected for payment_confirmed — checkout page should call postAttributionPaid.
+  void postAttributionPaid({
+    kind: "payment_confirmed",
+    service: service === "MTD" || ctx.service === "MTD" ? "MTD" : "SA",
+    plan_id: planId,
+    landing_page: ctx.landing_page,
+    utm_source: ctx.utm_source,
+    utm_medium: ctx.utm_medium,
+    utm_campaign: ctx.utm_campaign,
+    utm_content: ctx.utm_content,
+    utm_term: ctx.utm_term,
+    gclid: ctx.gclid,
+    session_id: sessionId,
+    amount_gbp: typeof value === "number" && Number.isFinite(value) ? value : undefined,
+    currency: currency || "GBP",
+  });
+
   try {
     w.sessionStorage.setItem(firedKey, "1");
   } catch {
     /* ignore */
   }
   return true;
+}
+
+async function postAttributionPaid(payload) {
+  try {
+    const base =
+      (typeof process !== "undefined" && process.env.NEXT_PUBLIC_API_URL) || "";
+    if (!base) return;
+    const root = String(base).replace(/\/api\/compat\/?$/, "").replace(/\/$/, "");
+    // Prefer session access token from next-auth if available on window store; otherwise skip.
+    let token = null;
+    try {
+      const { getSession } = await import("next-auth/react");
+      const session = await getSession();
+      token = session?.user?.accessToken || session?.accessToken || null;
+    } catch {
+      token = null;
+    }
+    if (!token) return;
+    const auth = String(token).startsWith("Bearer ") ? token : `Bearer ${token}`;
+    await fetch(`${root}/api/marketing-hub/attribution`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: auth },
+      body: JSON.stringify(payload),
+      keepalive: true,
+    });
+  } catch {
+    /* ignore */
+  }
 }
 
 export function isPpcPath(pathname) {

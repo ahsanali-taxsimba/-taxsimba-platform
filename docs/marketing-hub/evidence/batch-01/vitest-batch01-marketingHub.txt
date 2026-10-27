@@ -1,0 +1,11 @@
+
+ RUN  v2.1.1 /workspace/backend-node
+
+ ✓ tests/integration/marketingHub.test.ts  (11 tests) 1972ms
+ ✓ tests/integration/batch01Library.test.ts  (6 tests) 1850ms
+
+ Test Files  2 passed (2)
+      Tests  17 passed (17)
+   Start at  04:37:07
+   Duration  2.29s (transform 435ms, setup 0ms, collect 398ms, tests 3.82s, environment 0ms, prepare 74ms)
+

@@ -1,0 +1,21 @@
+{
+  "id": "TS-010",
+  "source_filename": "TS-010.png",
+  "sha256": "2883ff9567fde84d05db42b377698b79d26d1ff050a868a65b87d93190b30563",
+  "approved_pricing": {
+    "self_assessment": "from GBP 119 one-off",
+    "mtd_income_tax": "from GBP 29.99/month"
+  },
+  "source_metadata": {
+    "id": "TS-010",
+    "subject": "Brand Message",
+    "filename": "TS-010.png",
+    "width": "1024",
+    "height": "1536",
+    "sha256": "2883ff9567fde84d05db42b377698b79d26d1ff050a868a65b87d93190b30563",
+    "visual_status": "LOCKED",
+    "pricing_status": "OWNER_APPROVED_AS_SHOWN",
+    "checkout_verification": "PENDING_TOXEL_STAGING",
+    "publication_status": "HOLD_UNTIL_FINAL_QA"
+  }
+}

@@ -17,6 +17,7 @@ const authConfig = {
     "/home-page-settings",
     "/about-page-settings",
     "/user-profile",
+    "/marketing-hub",
   ],
   adminOnlyRoutes: [
     "/manage-client",
@@ -26,6 +27,7 @@ const authConfig = {
     "/package-pricing",
     "/home-page-settings",
     "/about-page-settings",
+    "/marketing-hub",
   ],
   sharedRoutes: [
     "/overview",

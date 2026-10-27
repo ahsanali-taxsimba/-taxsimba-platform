@@ -1,0 +1,21 @@
+{
+  "id": "TS-006",
+  "source_filename": "TS-006.png",
+  "sha256": "19ab85cbd8acea73c0cc80710d6e85e12848e4152ceae23da5672873900750d6",
+  "approved_pricing": {
+    "self_assessment": "from GBP 119 one-off",
+    "mtd_income_tax": "from GBP 29.99/month"
+  },
+  "source_metadata": {
+    "id": "TS-006",
+    "subject": "MTD Overview",
+    "filename": "TS-006.png",
+    "width": "1024",
+    "height": "1536",
+    "sha256": "19ab85cbd8acea73c0cc80710d6e85e12848e4152ceae23da5672873900750d6",
+    "visual_status": "LOCKED",
+    "pricing_status": "OWNER_APPROVED_AS_SHOWN",
+    "checkout_verification": "PENDING_TOXEL_STAGING",
+    "publication_status": "HOLD_UNTIL_FINAL_QA"
+  }
+}

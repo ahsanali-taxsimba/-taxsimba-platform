@@ -1,0 +1,21 @@
+{
+  "id": "TS-009",
+  "source_filename": "TS-009.png",
+  "sha256": "0fa6637e7427c18802cf4e20665e186bd03ead45e6eac61b44024989ee41c3d2",
+  "approved_pricing": {
+    "self_assessment": "from GBP 119 one-off",
+    "mtd_income_tax": "from GBP 29.99/month"
+  },
+  "source_metadata": {
+    "id": "TS-009",
+    "subject": "Customer Support",
+    "filename": "TS-009.png",
+    "width": "1024",
+    "height": "1536",
+    "sha256": "0fa6637e7427c18802cf4e20665e186bd03ead45e6eac61b44024989ee41c3d2",
+    "visual_status": "LOCKED",
+    "pricing_status": "OWNER_APPROVED_AS_SHOWN",
+    "checkout_verification": "PENDING_TOXEL_STAGING",
+    "publication_status": "HOLD_UNTIL_FINAL_QA"
+  }
+}
