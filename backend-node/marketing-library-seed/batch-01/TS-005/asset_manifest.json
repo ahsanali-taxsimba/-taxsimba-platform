@@ -1,0 +1,21 @@
+{
+  "id": "TS-005",
+  "source_filename": "TS-005.png",
+  "sha256": "c907ff22baf9395d89dfcadfa28e3ab7ee42c2afcb2aafa58b1070f913e088f7",
+  "approved_pricing": {
+    "self_assessment": "from GBP 119 one-off",
+    "mtd_income_tax": "from GBP 29.99/month"
+  },
+  "source_metadata": {
+    "id": "TS-005",
+    "subject": "CIS Workers",
+    "filename": "TS-005.png",
+    "width": "1024",
+    "height": "1536",
+    "sha256": "c907ff22baf9395d89dfcadfa28e3ab7ee42c2afcb2aafa58b1070f913e088f7",
+    "visual_status": "LOCKED",
+    "pricing_status": "OWNER_APPROVED_AS_SHOWN",
+    "checkout_verification": "PENDING_TOXEL_STAGING",
+    "publication_status": "HOLD_UNTIL_FINAL_QA"
+  }
+}

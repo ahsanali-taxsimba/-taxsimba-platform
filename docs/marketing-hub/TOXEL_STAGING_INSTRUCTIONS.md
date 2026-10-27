@@ -33,6 +33,22 @@ STORAGE_DRIVER=local   # or s3 with Spaces for assets
 9. Emergency pause ON → engine paused; pause OFF.  
 10. Optional: set generation key + `FIXTURE_MODE=false` → real drafts; remove key → 409 disconnected.  
 
+## Batch 01 Content Library (TS-001…TS-010)
+
+1. After deploy, import locked originals (idempotent):
+
+```bash
+cd backend-node
+STORAGE_DRIVER=local LOCAL_STORAGE_DIR=./.data/marketing-library \
+  MARKETING_HUB_ENABLED=true \
+  npx ts-node --transpile-only scripts/import-batch-01-library.ts
+```
+
+2. SUPER_ADMIN → **AI Marketing Hub → Content Library**.  
+3. Expect exactly ten records, all `draft_awaiting_qa`, checksum-verified, Auto-publish OFF.  
+4. Confirm visible prices: SA from £119; MTD from £29.99/month. Flag “HMRC compliant” on TS-001 and checkout VAT before any publish.  
+5. Full evidence: `docs/marketing-hub/BATCH_01_IMPORT_REPORT.md`.
+
 ## Live publishing
 
 Keep **disabled**. Only after OAuth credentials + a real platform confirmation id on staging may `MARKETING_HUB_ORGANIC_PUBLISH_AUTHORISED` be considered — still owner-gated for Google Ads spend.

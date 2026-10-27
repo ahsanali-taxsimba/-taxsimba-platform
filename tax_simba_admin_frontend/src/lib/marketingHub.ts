@@ -52,6 +52,21 @@ export const marketingHubApi = {
     get<{ items: Array<Record<string, unknown>>; summary: Record<string, unknown> }>(
       "/api/marketing-hub/assets",
     ),
+  assetsLibrary: (opts?: { q?: string; category?: string; uploadedOnly?: boolean }) => {
+    const params = new URLSearchParams();
+    if (opts?.q) params.set("q", opts.q);
+    if (opts?.category) params.set("category", opts.category);
+    if (opts?.uploadedOnly !== false) params.set("library", "true");
+    const qs = params.toString();
+    return get<{ items: Array<Record<string, unknown>>; summary: Record<string, unknown> }>(
+      `/api/marketing-hub/assets${qs ? `?${qs}` : ""}`,
+    );
+  },
+  setAssetPublication: (id: string, status: string) =>
+    post<{ asset: Record<string, unknown> }>(
+      `/api/marketing-hub/assets/${id}/publication-status`,
+      { status },
+    ),
   approveAsset: (id: string, approve = true) =>
     post<{ asset: Record<string, unknown> }>(`/api/marketing-hub/assets/${id}/approve`, { approve }),
   uploadAsset: async (id: string, file: File, notes?: string) => {

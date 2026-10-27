@@ -1,0 +1,21 @@
+{
+  "id": "TS-003",
+  "source_filename": "TS-003.png",
+  "sha256": "1e4a6d0f7818dd3d94d07adfb39ac6f625857eb8988580395f620cbd7abf41ae",
+  "approved_pricing": {
+    "self_assessment": "from GBP 119 one-off",
+    "mtd_income_tax": "from GBP 29.99/month"
+  },
+  "source_metadata": {
+    "id": "TS-003",
+    "subject": "Landlord Tax",
+    "filename": "TS-003.png",
+    "width": "1024",
+    "height": "1536",
+    "sha256": "1e4a6d0f7818dd3d94d07adfb39ac6f625857eb8988580395f620cbd7abf41ae",
+    "visual_status": "LOCKED",
+    "pricing_status": "OWNER_APPROVED_AS_SHOWN",
+    "checkout_verification": "PENDING_TOXEL_STAGING",
+    "publication_status": "HOLD_UNTIL_FINAL_QA"
+  }
+}

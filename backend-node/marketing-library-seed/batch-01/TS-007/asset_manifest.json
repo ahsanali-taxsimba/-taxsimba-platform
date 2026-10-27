@@ -1,0 +1,21 @@
+{
+  "id": "TS-007",
+  "source_filename": "TS-007.png",
+  "sha256": "ac71e8dcdd6c4f0b7794b8f40d08476dee017d6e21ede92c427fee6d817026f2",
+  "approved_pricing": {
+    "self_assessment": "from GBP 119 one-off",
+    "mtd_income_tax": "from GBP 29.99/month"
+  },
+  "source_metadata": {
+    "id": "TS-007",
+    "subject": "MTD Eligibility",
+    "filename": "TS-007.png",
+    "width": "1024",
+    "height": "1536",
+    "sha256": "ac71e8dcdd6c4f0b7794b8f40d08476dee017d6e21ede92c427fee6d817026f2",
+    "visual_status": "LOCKED",
+    "pricing_status": "OWNER_APPROVED_AS_SHOWN",
+    "checkout_verification": "PENDING_TOXEL_STAGING",
+    "publication_status": "HOLD_UNTIL_FINAL_QA"
+  }
+}

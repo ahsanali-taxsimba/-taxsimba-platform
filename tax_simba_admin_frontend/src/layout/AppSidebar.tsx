@@ -110,6 +110,7 @@ const navItems: NavItem[] = [
     adminOnly: true,
     subItems: [
       { name: "Dashboard", path: "/marketing-hub/dashboard", pro: false, adminOnly: true },
+      { name: "Content Library", path: "/marketing-hub/content-library", pro: false, adminOnly: true },
       { name: "AI Marketing", path: "/marketing-hub/ai-marketing", pro: false, adminOnly: true },
       { name: "Auto SEO", path: "/marketing-hub/auto-seo", pro: false, adminOnly: true },
       { name: "Results & Connections", path: "/marketing-hub/results", pro: false, adminOnly: true },

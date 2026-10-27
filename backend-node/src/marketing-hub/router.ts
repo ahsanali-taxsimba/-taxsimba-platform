@@ -12,9 +12,13 @@ import {
   bulkImportAssets,
   ensureAssetIndexes,
   getAsset,
+  importOriginalAsset,
   listAssets,
   readAssetBinary,
+  setPublicationStatus,
   uploadAsset,
+  verifyStoredChecksum,
+  type AssetPublicationStatus,
 } from "./assets";
 import { buildAttributionReport, ensureAttributionIndexes, recordAttribution } from "./attribution";
 import { scanDraftClaims } from "./claims";
@@ -455,10 +459,23 @@ marketingHubRouter.get(
 marketingHubRouter.get(
   "/marketing-hub/assets",
   auth(...STAFF),
-  handler(async (_req, res) => {
+  handler(async (req, res) => {
     requireEnabled();
-    const [items, summary] = await Promise.all([listAssets(), assetSummary()]);
-    res.json({ items, summary });
+    const q = typeof req.query.q === "string" ? req.query.q : undefined;
+    const category = typeof req.query.category === "string" ? req.query.category : undefined;
+    const publicationStatus =
+      typeof req.query.publicationStatus === "string" ? req.query.publicationStatus : undefined;
+    const uploadedOnly = req.query.uploadedOnly === "true" || req.query.library === "true";
+    const [items, summary] = await Promise.all([
+      listAssets({ q, category, publicationStatus, uploadedOnly }),
+      assetSummary(),
+    ]);
+    res.json({
+      items,
+      summary,
+      libraryNote:
+        "Content Library — Batch 01 imports remain Draft / Awaiting Final QA. Auto-publish and paid ads disabled.",
+    });
   }),
 );
 
@@ -470,8 +487,33 @@ marketingHubRouter.get(
     const bin = await readAssetBinary(req.params.id);
     if (!bin) throw httpError(404, "No uploaded asset for this slot");
     res.setHeader("Content-Type", bin.contentType);
+    res.setHeader("Cache-Control", "private, max-age=60");
+    res.setHeader("X-Content-SHA256", bin.sha256);
     res.setHeader("Content-Disposition", `inline; filename="${bin.filename.replace(/"/g, "")}"`);
     res.send(bin.data);
+  }),
+);
+
+marketingHubRouter.get(
+  "/marketing-hub/assets/:id/download",
+  auth(...STAFF),
+  handler(async (req, res) => {
+    requireEnabled();
+    const bin = await readAssetBinary(req.params.id);
+    if (!bin) throw httpError(404, "No uploaded asset for this slot");
+    res.setHeader("Content-Type", bin.contentType);
+    res.setHeader("X-Content-SHA256", bin.sha256);
+    res.setHeader("Content-Disposition", `attachment; filename="${bin.filename.replace(/"/g, "")}"`);
+    res.send(bin.data);
+  }),
+);
+
+marketingHubRouter.get(
+  "/marketing-hub/assets/:id/verify",
+  auth(...STAFF),
+  handler(async (req, res) => {
+    requireEnabled();
+    res.json(await verifyStoredChecksum(req.params.id));
   }),
 );
 
@@ -567,7 +609,65 @@ marketingHubRouter.get(
     requireEnabled();
     const asset = await getAsset(req.params.id);
     if (!asset) throw httpError(404, "Unknown asset id");
-    res.json({ asset });
+    const checksum = asset.storedPath ? await verifyStoredChecksum(req.params.id) : null;
+    res.json({ asset, checksum });
+  }),
+);
+
+const PubStatusIn = z.object({
+  status: z.enum(["draft_awaiting_qa", "approved", "scheduled", "published"]),
+});
+
+marketingHubRouter.post(
+  "/marketing-hub/assets/:id/publication-status",
+  auth(...SUPER),
+  handler(async (req, res) => {
+    requireEnabled();
+    const body = parseBody(PubStatusIn, req.body);
+    try {
+      const asset = await setPublicationStatus(
+        req.params.id,
+        body.status as AssetPublicationStatus,
+        actorOf(req),
+      );
+      res.json({ asset });
+    } catch (e) {
+      throw httpError(400, e instanceof Error ? e.message : "Status update failed");
+    }
+  }),
+);
+
+/** Explicit permanent import with optional expected SHA-256 (Batch 01). */
+marketingHubRouter.post(
+  "/marketing-hub/assets/:id/import-original",
+  auth(...SUPER),
+  upload.single("file"),
+  handler(async (req, res) => {
+    requireEnabled();
+    const file = req.file;
+    if (!file) throw httpError(400, "file field required");
+    try {
+      const result = await importOriginalAsset({
+        id: req.params.id,
+        file: {
+          buffer: file.buffer,
+          mimetype: file.mimetype,
+          originalname: file.originalname,
+          size: file.size,
+        },
+        actor: actorOf(req),
+        title: typeof req.body?.title === "string" ? req.body.title : req.params.id,
+        category: typeof req.body?.category === "string" ? req.body.category : "Uncategorised",
+        altText: typeof req.body?.altText === "string" ? req.body.altText : undefined,
+        batchId: typeof req.body?.batchId === "string" ? req.body.batchId : undefined,
+        expectedSha256:
+          typeof req.body?.expectedSha256 === "string" ? req.body.expectedSha256 : undefined,
+        notes: typeof req.body?.notes === "string" ? req.body.notes : undefined,
+      });
+      res.json(result);
+    } catch (e) {
+      throw httpError(400, e instanceof Error ? e.message : "Import failed");
+    }
   }),
 );
 

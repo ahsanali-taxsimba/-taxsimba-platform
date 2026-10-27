@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TaxSimba Content Library — Batch 01 Evidence</title>
+<style>
+  :root{--forest:#031f18;--green:#37A267;--mint:#EAF6F0;--lime:#B3ED97;--amber:#f59e0b;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:ui-sans-serif,system-ui,Segoe UI,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,#f7fbf8,#fff);color:var(--forest)}
+  header{background:var(--mint);border-bottom:2px solid var(--lime);padding:1rem 1.25rem}
+  header .brand{display:flex;align-items:center;gap:.75rem}
+  header img.logo{height:28px}
+  header h1{font-size:1.25rem;margin:.35rem 0 0}
+  .muted{color:#4b5563;font-size:.85rem}
+  nav{display:flex;flex-wrap:wrap;gap:.5rem;padding:.75rem 1.25rem}
+  nav span{padding:.4rem .75rem;border-radius:.5rem;border:1px solid var(--lime);font-size:.85rem}
+  nav span.active{background:var(--forest);color:#fff;border-color:var(--forest)}
+  .toolbar{display:flex;flex-wrap:wrap;gap:.75rem;align-items:end;padding:0 1.25rem 1rem}
+  .toolbar label{font-size:.85rem}
+  .toolbar input,.toolbar select{margin-left:.35rem;padding:.35rem .5rem;border:1px solid #d1d5db;border-radius:.4rem}
+  .pill{display:inline-block;padding:.15rem .5rem;border-radius:999px;background:#fde68a;font-size:.7rem;font-weight:700}
+  main{padding:0 1.25rem 2rem}
+  .grid{display:grid;gap:1rem;grid-template-columns:repeat(2,minmax(0,1fr))}
+  @media(min-width:900px){.grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
+  article{background:#fff;border:1px solid #e5e7eb;border-radius:1rem;overflow:hidden}
+  article img.thumb{width:100%;height:220px;object-fit:cover;background:#f3f4f6;display:block}
+  article .meta{padding:.75rem}
+  article .id{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.75rem;color:#6b7280}
+  article h3{margin:.2rem 0;font-size:.95rem}
+  article .cat{font-size:.75rem;color:#6b7280}
+  article .status{font-size:.7rem;color:#92400e;margin-top:.25rem}
+  .detail{margin-top:1.5rem;background:#fff;border:1px solid #e5e7eb;border-radius:1rem;padding:1rem}
+  .detail img.full{max-width:100%;max-height:80vh;height:auto;border:1px solid #e5e7eb;border-radius:.5rem;display:block;margin-top:.75rem}
+  .note{background:#fffbeb;border:1px solid var(--amber);border-radius:.75rem;padding:.75rem;margin:0 1.25rem 1rem;font-size:.85rem}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img class="logo" src="./logo.svg" alt="TaxSimba"/>
+    <span class="pill">Auto-publish OFF</span>
+  </div>
+  <p class="muted" style="margin:.35rem 0 0">AI Marketing Hub → Content Library</p>
+  <h1>Batch 01 originals TS-001–TS-010</h1>
+  <p class="muted">Draft / Awaiting Final QA · Permanent library records · Checksum-verified PNG bytes</p>
+</header>
+<nav aria-label="Hub sections">
+  <span>Dashboard</span>
+  <span>AI Marketing</span>
+  <span class="active">Content Library</span>
+  <span>Auto SEO</span>
+  <span>Results &amp; Connections</span>
+</nav>
+<p class="note" role="status">Evidence render of the Content Library grid using the ten imported original PNGs (byte-identical to source packs). Live admin requires authenticated staging session.</p>
+<div class="toolbar">
+  <label>Search <input value="TS-00" readonly aria-label="Search"/></label>
+  <label>Category
+    <select aria-label="Category">
+      <option>All</option>
+      <option>Self Assessment</option>
+      <option>Making Tax Digital</option>
+      <option>Services</option>
+      <option>Support</option>
+      <option>Brand</option>
+    </select>
+  </label>
+  <span class="muted">10 uploaded asset(s)</span>
+</div>
+<main>
+  <div class="grid" data-testid="content-library-grid" aria-label="Content Library grid">
+    <article>
+      <img class="thumb" src="./TS-001.png" alt="TS-001 SA Deadline"/>
+      <div class="meta"><p class="id">TS-001</p><h3>SA Deadline</h3><p class="cat">Self Assessment</p><p class="status">draft_awaiting_qa</p></div>
+    </article>
+    <article>
+      <img class="thumb" src="./TS-002.png" alt="TS-002 First-Time Filing"/>
+      <div class="meta"><p class="id">TS-002</p><h3>First-Time Filing</h3><p class="cat">Self Assessment</p><p class="status">draft_awaiting_qa</p></div>
+    </article>
+    <article>
+      <img class="thumb" src="./TS-003.png" alt="TS-003 Landlord Tax"/>
+      <div class="meta"><p class="id">TS-003</p><h3>Landlord Tax</h3><p class="cat">Self Assessment</p><p class="status">draft_awaiting_qa</p></div>
+    </article>
+    <article>
+      <img class="thumb" src="./TS-004.png" alt="TS-004 Self-Employed"/>
+      <div class="meta"><p class="id">TS-004</p><h3>Self-Employed</h3><p class="cat">Self Assessment</p><p class="status">draft_awaiting_qa</p></div>
+    </article>
+    <article>
+      <img class="thumb" src="./TS-005.png" alt="TS-005 CIS Workers"/>
+      <div class="meta"><p class="id">TS-005</p><h3>CIS Workers</h3><p class="cat">Self Assessment</p><p class="status">draft_awaiting_qa</p></div>
+    </article>
+    <article>
+      <img class="thumb" src="./TS-006.png" alt="TS-006 MTD Overview"/>
+      <div class="meta"><p class="id">TS-006</p><h3>MTD Overview</h3><p class="cat">Making Tax Digital</p><p class="status">draft_awaiting_qa</p></div>
+    </article>
+    <article>
+      <img class="thumb" src="./TS-007.png" alt="TS-007 MTD Eligibility"/>
+      <div class="meta"><p class="id">TS-007</p><h3>MTD Eligibility</h3><p class="cat">Making Tax Digital</p><p class="status">draft_awaiting_qa</p></div>
+    </article>
+    <article>
+      <img class="thumb" src="./TS-008.png" alt="TS-008 Services at a Glance"/>
+      <div class="meta"><p class="id">TS-008</p><h3>Services at a Glance</h3><p class="cat">Services</p><p class="status">draft_awaiting_qa</p></div>
+    </article>
+    <article>
+      <img class="thumb" src="./TS-009.png" alt="TS-009 Customer Support"/>
+      <div class="meta"><p class="id">TS-009</p><h3>Customer Support</h3><p class="cat">Support</p><p class="status">draft_awaiting_qa</p></div>
+    </article>
+    <article>
+      <img class="thumb" src="./TS-010.png" alt="TS-010 Brand Message"/>
+      <div class="meta"><p class="id">TS-010</p><h3>Brand Message</h3><p class="cat">Brand</p><p class="status">draft_awaiting_qa</p></div>
+    </article>
+  </div>
+
+  <section class="detail" id="ts-001-full" aria-labelledby="d1">
+    <h2 id="d1">TS-001 — SA Deadline (full-size preview)</h2>
+    <p class="muted">Visible price: from £119 · Status: draft_awaiting_qa · Category: Self Assessment</p>
+    <img class="full" src="./TS-001.png" alt="TS-001 full-size preview"/>
+  </section>
+
+  <section class="detail" id="ts-006-full" aria-labelledby="d6">
+    <h2 id="d6">TS-006 — MTD Overview (full-size preview)</h2>
+    <p class="muted">Visible price: from £29.99/month · Status: draft_awaiting_qa · Category: Making Tax Digital</p>
+    <img class="full" src="./TS-006.png" alt="TS-006 full-size preview"/>
+  </section>
+</main>
+</body>
+</html>

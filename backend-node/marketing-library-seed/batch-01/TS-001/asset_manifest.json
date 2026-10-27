@@ -1,0 +1,21 @@
+{
+  "id": "TS-001",
+  "source_filename": "TS-001.png",
+  "sha256": "7ba0b611de8a1abe260895160378588d920e30b6c5905e0f9b4821eddfb2e0c1",
+  "approved_pricing": {
+    "self_assessment": "from GBP 119 one-off",
+    "mtd_income_tax": "from GBP 29.99/month"
+  },
+  "source_metadata": {
+    "id": "TS-001",
+    "subject": "SA Deadline",
+    "filename": "TS-001.png",
+    "width": "1024",
+    "height": "1536",
+    "sha256": "7ba0b611de8a1abe260895160378588d920e30b6c5905e0f9b4821eddfb2e0c1",
+    "visual_status": "LOCKED",
+    "pricing_status": "OWNER_APPROVED_AS_SHOWN",
+    "checkout_verification": "PENDING_TOXEL_STAGING",
+    "publication_status": "HOLD_UNTIL_FINAL_QA"
+  }
+}

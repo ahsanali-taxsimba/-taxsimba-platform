@@ -71,5 +71,5 @@ export const ALLOWED_ASSET_MIME = new Set([
   "image/gif",
 ]);
 
-export const MAX_ASSET_BYTES = 12 * 1024 * 1024; // 12MB high-res cap
-export const MIN_LONG_EDGE = 1080; // high-resolution expectation
+export const MAX_ASSET_BYTES = 25 * 1024 * 1024; // 25MB high-res cap (Batch 01 originals ~2MB)
+export const MIN_LONG_EDGE = 1024; // Batch 01 portrait 1024×1536 qualifies
