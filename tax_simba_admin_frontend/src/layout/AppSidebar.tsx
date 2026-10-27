@@ -104,6 +104,17 @@ const navItems: NavItem[] = [
     adminOnly: true,
     p0Hide: true, // deferred until compat audit-log adapter
   },
+  {
+    icon: <PieChartIcon />,
+    name: "AI Marketing Hub",
+    adminOnly: true,
+    subItems: [
+      { name: "Dashboard", path: "/marketing-hub/dashboard", pro: false, adminOnly: true },
+      { name: "AI Marketing", path: "/marketing-hub/ai-marketing", pro: false, adminOnly: true },
+      { name: "Auto SEO", path: "/marketing-hub/auto-seo", pro: false, adminOnly: true },
+      { name: "Results & Connections", path: "/marketing-hub/results", pro: false, adminOnly: true },
+    ],
+  },
 ];
 
 const othersItems: NavItem[] = [
