@@ -99,8 +99,8 @@ Visible prices in artwork: TS-001 **from £119**; TS-006 **from £29.99/month**.
 | Live Content Library UI (authenticated) | Staging credentials not available here | **BLOCKED** |
 | Checkout VAT vs artwork wording | Live SA/MTD checkout not exercised here | **BLOCKED** |
 
-Vitest log: [`evidence/batch-01/vitest-batch01-marketingHub.log`](./evidence/batch-01/vitest-batch01-marketingHub.log)  
-Import log: [`evidence/batch-01/import-run.log`](./evidence/batch-01/import-run.log)
+Vitest log: [`evidence/batch-01/vitest-batch01-marketingHub.txt`](./evidence/batch-01/vitest-batch01-marketingHub.txt)  
+Import log: [`evidence/batch-01/import-run.txt`](./evidence/batch-01/import-run.txt)
 
 ---
 
@@ -182,7 +182,7 @@ npx tsc --noEmit
 | Field | Value |
 |---|---|
 | Branch | `cursor/ai-marketing-hub-df9b` |
-| Commit SHA (tip) | `cdc29c6d2aa88213e7d2530b7ba9df112a47ee20` |
+| Commit SHA (tip) | `be77897bacdc75beedb4e7175c9b64a8be4a0aaa` — verify with `git rev-parse origin/cursor/ai-marketing-hub-df9b` |
 | Import implementation commit | `5bb98d2480535fe55bd2de28df86ed0a9a727ef3` |
 | PR | https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/34 |
 
