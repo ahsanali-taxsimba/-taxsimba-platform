@@ -46,7 +46,7 @@ STORAGE_DRIVER=local LOCAL_STORAGE_DIR=./.data/marketing-library \
 
 2. SUPER_ADMIN → **AI Marketing Hub → Content Library**.  
 3. Expect exactly ten records, all `draft_awaiting_qa`, checksum-verified, Auto-publish OFF.  
-4. Confirm visible prices: SA from £119; MTD from £29.99/month. Flag “HMRC compliant” on TS-001 and checkout VAT before any publish.  
+4. Confirm TS-001 shows TaxSimba logo, “Accountant-led service”, from £119, deadline 31 January 2027; MTD from £29.99/month on TS-006/008. Checkout VAT still pending.  
 5. Full evidence: `docs/marketing-hub/BATCH_01_IMPORT_REPORT.md`.
 
 ## Live publishing

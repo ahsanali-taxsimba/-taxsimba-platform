@@ -36,7 +36,7 @@ All ten originals were imported without regeneration, crop, or recompression. St
 
 | ID | Source SHA-256 | Stored SHA-256 | Result |
 |---|---|---|---|
-| TS-001 | `7ba0b611de8a1abe260895160378588d920e30b6c5905e0f9b4821eddfb2e0c1` | same | **PASS** |
+| TS-001 | `da5a4feba0e71289bd4f1ed804a50c1cf224f18029984a0c93b1acbb2f47b675` | same | **PASS** (approved replacement) |
 | TS-002 | `07ab42e2f2ae8998f0b6ba8941515dc807bcfb1d8e8f9d5b834f8ccd002a37b9` | same | **PASS** |
 | TS-003 | `1e4a6d0f7818dd3d94d07adfb39ac6f625857eb8988580395f620cbd7abf41ae` | same | **PASS** |
 | TS-004 | `8f0c9e0013674ef3a52df4fe6f36530f5d2981454b0f9be060a12c26c1deacbd` | same | **PASS** |
@@ -87,7 +87,7 @@ Visible prices in artwork: TS-001 **from £119**; TS-006 **from £29.99/month**.
 
 | Test | How executed | Result |
 |---|---|---|
-| Exactly 10 unique records TS-001…TS-010 | `vitest` `batch01Library.test.ts` | **PASS** |
+| Exactly 10 unique records TS-001…TS-010 | `vitest` `batch01Library.test.ts` (7) | **PASS** |
 | Stored SHA matches source for all 10 | vitest + `sha256sum` + byte compare | **PASS** |
 | Idempotent reimport (no duplicates) | vitest + evidence script second pass (`action=unchanged`) | **PASS** |
 | Preview returns exact original bytes | vitest HTTP `/assets/TS-006/preview` | **PASS** |
@@ -133,7 +133,7 @@ Import log: [`evidence/batch-01/import-run.txt`](./evidence/batch-01/import-run.
 | Finding | Assets | Severity |
 |---|---|---|
 | Exact phrase “Accountant-led tax support” is **not** present on every creative; TS-002 uses “Accountant-led support”; others use “Dedicated accountant” / similar | Batch 01 | FLAG — owner/copy decision; **do not silently edit PNG** |
-| TS-001 bullet: **“HMRC compliant”** (not “HMRC approved/certified/endorsed”) | TS-001 | FLAG — review before publish; not an endorsement claim but close |
+| TS-001 bullet: **“Accountant-led service”** (approved replacement; HMRC compliant removed) | TS-001 | **PASS** — owner-approved artwork |
 | No artwork states VAT inclusive/exclusive | All with prices | FLAG — confirm checkout VAT messaging on staging (**BLOCKED** here) |
 | No “HMRC approved / certified / endorsed” wording found | All ten | PASS (none introduced) |
 | Paid advertising / organic publish | — | Disabled; all `draft_awaiting_qa` |
@@ -170,7 +170,7 @@ npx tsc --noEmit
 
 1. **BLOCKED — staging authenticated UI:** Content Library React page is implemented; live login/screenshot on deployed staging needs Toxel credentials.  
 2. **BLOCKED — checkout VAT alignment:** Confirm SA £119 and MTD £29.99/month checkout copy (incl. VAT) against artwork before any publish.  
-3. **FLAG — “HMRC compliant” on TS-001:** Owner QA before approval.  
+3. **RESOLVED — TS-001 approved replacement** displays Accountant-led service; previous “HMRC compliant” artwork retired.  
 4. **FLAG — “Accountant-led tax support” phrase coverage:** Prefer future creatives use the exact phrase; existing locked Batch 01 art preserved.  
 5. Seed + evidence PNGs are large (~21MB seed + evidence copies). Git content-hashes dedupe identical blobs. Runtime storage under `backend-node/.data/` is gitignored.  
 6. No production deploy, merge, or ad launch performed.
@@ -182,7 +182,7 @@ npx tsc --noEmit
 | Field | Value |
 |---|---|
 | Branch | `cursor/ai-marketing-hub-df9b` |
-| Commit SHA (tip) | `be77897bacdc75beedb4e7175c9b64a8be4a0aaa` — verify with `git rev-parse origin/cursor/ai-marketing-hub-df9b` |
+| Commit SHA (tip) | see `git rev-parse origin/cursor/ai-marketing-hub-df9b` after TS-001 replacement push |
 | Import implementation commit | `5bb98d2480535fe55bd2de28df86ed0a9a727ef3` |
 | PR | https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/34 |
 
@@ -194,3 +194,21 @@ npx tsc --noEmit
    (with staging `MONGO_URL` / `DB_NAME`).  
 3. Open **AI Marketing Hub → Content Library**; confirm ten Draft / Awaiting Final QA cards.  
 4. Do **not** publish or enable ads until price/VAT/HMRC-compliant flags cleared.
+
+## 11. TS-001 approved replacement (PR #34 correction)
+
+| Field | Value |
+|---|---|
+| Previous SHA-256 | `7ba0b611de8a1abe260895160378588d920e30b6c5905e0f9b4821eddfb2e0c1` |
+| Approved SHA-256 | `da5a4feba0e71289bd4f1ed804a50c1cf224f18029984a0c93b1acbb2f47b675` |
+| Library ID | `TS-001` (preserved) |
+| Title / category | SA Deadline / Self Assessment (preserved) |
+| Publication | `draft_awaiting_qa` (unchanged; publish disabled) |
+| TS-002…TS-010 | Unchanged (checksums verified) |
+| Visual QA | TaxSimba logo **PASS** · Accountant-led service **PASS** · from £119 **PASS** · 31 January 2027 **PASS** |
+| Card screenshot | [`evidence/batch-01/TS-001-content-library-card.png`](./evidence/batch-01/TS-001-content-library-card.png) |
+| Full-size preview | [`evidence/batch-01/TS-001-fullsize-preview.png`](./evidence/batch-01/TS-001-fullsize-preview.png) |
+| Replacement results | [`evidence/batch-01/ts001-replacement-results.json`](./evidence/batch-01/ts001-replacement-results.json) |
+
+Tests after replacement: `batch01Library` + `marketingHub` → **18/18 PASS**.
+

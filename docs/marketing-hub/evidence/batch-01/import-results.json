@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-27T04:22:20.352Z",
+  "timestamp": "2026-10-27T05:00:45.626Z",
   "storageDir": "/workspace/backend-node/.data/marketing-library",
   "imported": [
     {
@@ -7,15 +7,15 @@
       "title": "SA Deadline",
       "category": "Self Assessment",
       "action": "created",
-      "sourceSha256": "7ba0b611de8a1abe260895160378588d920e30b6c5905e0f9b4821eddfb2e0c1",
-      "storedSha256": "7ba0b611de8a1abe260895160378588d920e30b6c5905e0f9b4821eddfb2e0c1",
+      "sourceSha256": "da5a4feba0e71289bd4f1ed804a50c1cf224f18029984a0c93b1acbb2f47b675",
+      "storedSha256": "da5a4feba0e71289bd4f1ed804a50c1cf224f18029984a0c93b1acbb2f47b675",
       "checksumMatch": true,
       "storedPath": "taxsimba/marketing-library/TS-001/original/TS-001.png",
       "publicationStatus": "draft_awaiting_qa",
-      "databaseId": "e8148768-377a-44f0-9505-89d0b3d71348",
+      "databaseId": "6af2ef8d-2e92-4d38-b5f1-43f04990b10c",
       "width": 1024,
       "height": 1536,
-      "byteSize": 2142035
+      "byteSize": 2092735
     },
     {
       "id": "TS-002",
@@ -27,7 +27,7 @@
       "checksumMatch": true,
       "storedPath": "taxsimba/marketing-library/TS-002/original/TS-002.png",
       "publicationStatus": "draft_awaiting_qa",
-      "databaseId": "9f6c88fe-ff5e-49d1-86ea-20b74717c742",
+      "databaseId": "5f60a2a3-6fc8-421c-85b9-34bb932fed23",
       "width": 1024,
       "height": 1536,
       "byteSize": 2118671
@@ -42,7 +42,7 @@
       "checksumMatch": true,
       "storedPath": "taxsimba/marketing-library/TS-003/original/TS-003.png",
       "publicationStatus": "draft_awaiting_qa",
-      "databaseId": "57648bd5-057c-4197-a69c-7d0ebda79f84",
+      "databaseId": "716cc8c2-2a0e-4e17-bb3e-4cab867dc583",
       "width": 1024,
       "height": 1536,
       "byteSize": 2165895
@@ -57,7 +57,7 @@
       "checksumMatch": true,
       "storedPath": "taxsimba/marketing-library/TS-004/original/TS-004.png",
       "publicationStatus": "draft_awaiting_qa",
-      "databaseId": "e8f00a5b-cf9e-486c-80b4-71c45a8ad091",
+      "databaseId": "35ad72c4-f373-4870-9595-a73633fca689",
       "width": 1024,
       "height": 1536,
       "byteSize": 2157731
@@ -72,7 +72,7 @@
       "checksumMatch": true,
       "storedPath": "taxsimba/marketing-library/TS-005/original/TS-005.png",
       "publicationStatus": "draft_awaiting_qa",
-      "databaseId": "3efffc40-b3fd-4c37-a0a9-2f5b91a142a3",
+      "databaseId": "c1b71d02-8199-48c6-8427-984a35def3d5",
       "width": 1024,
       "height": 1536,
       "byteSize": 2178234
@@ -87,7 +87,7 @@
       "checksumMatch": true,
       "storedPath": "taxsimba/marketing-library/TS-006/original/TS-006.png",
       "publicationStatus": "draft_awaiting_qa",
-      "databaseId": "f799c900-435a-44c9-8ea6-34f1e4031a97",
+      "databaseId": "bc6c5421-c630-4a4f-b455-67f6464b4398",
       "width": 1024,
       "height": 1536,
       "byteSize": 2170033
@@ -102,7 +102,7 @@
       "checksumMatch": true,
       "storedPath": "taxsimba/marketing-library/TS-007/original/TS-007.png",
       "publicationStatus": "draft_awaiting_qa",
-      "databaseId": "0c39a314-7128-45a8-bec0-89e9c2fa2e98",
+      "databaseId": "c235398b-e896-45f3-a3b9-6193e885b5af",
       "width": 1024,
       "height": 1536,
       "byteSize": 2107149
@@ -117,7 +117,7 @@
       "checksumMatch": true,
       "storedPath": "taxsimba/marketing-library/TS-008/original/TS-008.png",
       "publicationStatus": "draft_awaiting_qa",
-      "databaseId": "64f68b10-2485-4493-acbd-ff01bdceb291",
+      "databaseId": "99279d1c-d947-4a6a-8589-5fb59c771cc0",
       "width": 1024,
       "height": 1536,
       "byteSize": 1915605
@@ -132,7 +132,7 @@
       "checksumMatch": true,
       "storedPath": "taxsimba/marketing-library/TS-009/original/TS-009.png",
       "publicationStatus": "draft_awaiting_qa",
-      "databaseId": "d31221fd-453e-47ae-8a27-621f737e5e94",
+      "databaseId": "2b086218-704e-4fbb-adda-86959bf04180",
       "width": 1024,
       "height": 1536,
       "byteSize": 2108177
@@ -147,7 +147,7 @@
       "checksumMatch": true,
       "storedPath": "taxsimba/marketing-library/TS-010/original/TS-010.png",
       "publicationStatus": "draft_awaiting_qa",
-      "databaseId": "bfec5600-bff2-490c-9277-899d621422ca",
+      "databaseId": "386500e2-864a-4ae7-80d3-63ae9656cf81",
       "width": 1024,
       "height": 1536,
       "byteSize": 2275626
@@ -157,52 +157,52 @@
     {
       "id": "TS-001",
       "action": "unchanged",
-      "databaseId": "6ae026fc899737dbd6f706d1"
+      "databaseId": "6ae02ffd6f247b54fd1a2f5b"
     },
     {
       "id": "TS-002",
       "action": "unchanged",
-      "databaseId": "6ae026fc899737dbd6f706d6"
+      "databaseId": "6ae02ffd6f247b54fd1a2f60"
     },
     {
       "id": "TS-003",
       "action": "unchanged",
-      "databaseId": "6ae026fc899737dbd6f706db"
+      "databaseId": "6ae02ffd6f247b54fd1a2f65"
     },
     {
       "id": "TS-004",
       "action": "unchanged",
-      "databaseId": "6ae026fc899737dbd6f706e0"
+      "databaseId": "6ae02ffd6f247b54fd1a2f6a"
     },
     {
       "id": "TS-005",
       "action": "unchanged",
-      "databaseId": "6ae026fc899737dbd6f706e5"
+      "databaseId": "6ae02ffd6f247b54fd1a2f6f"
     },
     {
       "id": "TS-006",
       "action": "unchanged",
-      "databaseId": "6ae026fc899737dbd6f706ea"
+      "databaseId": "6ae02ffd6f247b54fd1a2f74"
     },
     {
       "id": "TS-007",
       "action": "unchanged",
-      "databaseId": "6ae026fc899737dbd6f706ef"
+      "databaseId": "6ae02ffd6f247b54fd1a2f79"
     },
     {
       "id": "TS-008",
       "action": "unchanged",
-      "databaseId": "6ae026fc899737dbd6f706f4"
+      "databaseId": "6ae02ffd6f247b54fd1a2f7e"
     },
     {
       "id": "TS-009",
       "action": "unchanged",
-      "databaseId": "6ae026fc899737dbd6f706f9"
+      "databaseId": "6ae02ffd6f247b54fd1a2f83"
     },
     {
       "id": "TS-010",
       "action": "unchanged",
-      "databaseId": "6ae026fc899737dbd6f706fe"
+      "databaseId": "6ae02ffd6f247b54fd1a2f88"
     }
   ],
   "uniqueCount": 10,

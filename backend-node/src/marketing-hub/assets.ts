@@ -152,7 +152,8 @@ function docToAsset(row: Doc): MarketingAsset {
     notes: row.notes as string | undefined,
     batchId: (row.batchId as string) ?? null,
     isFinishedArtwork: hasFile && approval === "approved",
-    databaseId: row._id ? String(row._id) : String(row.databaseId || row.id),
+    // Prefer stable library UUID (survives approved artwork replacement); fall back to Mongo _id.
+    databaseId: row.databaseId ? String(row.databaseId) : row._id ? String(row._id) : String(row.id),
   };
 }
 
@@ -190,7 +191,7 @@ export function originalStoragePath(id: string, originalFilename: string): strin
 
 export type ImportResult = {
   asset: MarketingAsset;
-  action: "created" | "unchanged" | "updated";
+  action: "created" | "unchanged" | "replaced";
   sourceSha256: string;
   storedSha256: string;
   checksumMatch: boolean;
@@ -199,8 +200,13 @@ export type ImportResult = {
 /**
  * Idempotent permanent import:
  * - same id + same sha256 → no duplicate, return existing
- * - same id + different sha256 → conflict (refuse silent overwrite of locked artwork)
+ * - same id + different sha256 → conflict unless allowApprovedReplacement
  * - new → store exact bytes, draft_awaiting_qa
+ *
+ * Approved replacement (allowApprovedReplacement=true):
+ * - overwrites stored bytes + checksum/dimensions
+ * - preserves id, databaseId, title, category, publicationStatus, batchId
+ * - remains draft_awaiting_qa / not finished artwork
  */
 export async function importOriginalAsset(opts: {
   id: string;
@@ -212,6 +218,8 @@ export async function importOriginalAsset(opts: {
   batchId?: string;
   expectedSha256?: string;
   notes?: string;
+  /** Explicit owner-approved artwork swap — never silent. Preserves library id/metadata. */
+  allowApprovedReplacement?: boolean;
 }): Promise<ImportResult> {
   const m = /^TS-(\d{3})$/.exec(opts.id);
   if (!m) throw new Error("Asset id must be TS-001 … TS-120");
@@ -245,9 +253,11 @@ export async function importOriginalAsset(opts: {
         checksumMatch: true,
       };
     }
-    throw new Error(
-      `Hash conflict for ${opts.id}: library has ${existing.sha256}, import offers ${sourceSha256}. Refusing overwrite of locked artwork.`,
-    );
+    if (!opts.allowApprovedReplacement) {
+      throw new Error(
+        `Hash conflict for ${opts.id}: library has ${existing.sha256}, import offers ${sourceSha256}. Refusing overwrite of locked artwork.`,
+      );
+    }
   }
 
   const storedPath = originalStoragePath(opts.id, opts.file.originalname);
@@ -259,15 +269,19 @@ export async function importOriginalAsset(opts: {
     throw new Error(`Post-write checksum failed for ${opts.id}`);
   }
 
+  const isReplacement = Boolean(existing?.sha256 && existing.storedPath && String(existing.sha256) !== sourceSha256);
   const version = Number(existing?.version ?? 0) + 1;
-  const databaseId = randomUUID();
+  const databaseId = existing?.databaseId ? String(existing.databaseId) : randomUUID();
   const next: Doc = {
     id: opts.id,
     slot,
     databaseId,
-    title: opts.title,
-    category: opts.category,
-    altText: opts.altText || `${opts.title} — TaxSimba marketing creative`,
+    title: isReplacement ? (existing!.title ?? opts.title) : opts.title,
+    category: isReplacement ? (existing!.category ?? opts.category) : opts.category,
+    altText:
+      (isReplacement ? existing!.altText : null) ||
+      opts.altText ||
+      `${opts.title} — TaxSimba marketing creative`,
     originalFilename: opts.file.originalname,
     storedPath,
     contentType: opts.file.mimetype,
@@ -278,18 +292,29 @@ export async function importOriginalAsset(opts: {
     approvalStatus: "pending_review",
     publicationStatus: "draft_awaiting_qa",
     version,
-    uploadedAt: new Date().toISOString(),
-    notes: opts.notes ?? "Batch import — Draft / Awaiting Final QA. Auto-publish disabled.",
-    batchId: opts.batchId ?? null,
+    uploadedAt: isReplacement
+      ? (existing!.uploadedAt ?? new Date().toISOString())
+      : new Date().toISOString(),
+    replacedAt: isReplacement ? new Date().toISOString() : undefined,
+    notes:
+      opts.notes ??
+      (isReplacement
+        ? "Approved artwork replacement — Draft / Awaiting Final QA. Auto-publish disabled."
+        : "Batch import — Draft / Awaiting Final QA. Auto-publish disabled."),
+    batchId: isReplacement ? (existing!.batchId ?? opts.batchId ?? null) : (opts.batchId ?? null),
     updatedAt: new Date().toISOString(),
     isFinishedArtwork: false,
     visualStatus: "LOCKED",
   };
   await col(ASSET_COLLECTION).updateOne({ id: opts.id }, { $set: next }, { upsert: true });
-  await appendAudit(opts.actor, "asset_import", `${opts.id} sha=${sourceSha256}`);
+  await appendAudit(
+    opts.actor,
+    isReplacement ? "asset_approved_replacement" : "asset_import",
+    `${opts.id} sha=${sourceSha256}`,
+  );
   return {
     asset: docToAsset(next),
-    action: "created",
+    action: isReplacement ? "replaced" : "created",
     sourceSha256,
     storedSha256,
     checksumMatch: true,

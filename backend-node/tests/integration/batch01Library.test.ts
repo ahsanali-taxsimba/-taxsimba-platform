@@ -15,7 +15,7 @@ import { importOriginalAsset, listAssets, verifyStoredChecksum } from "../../src
 const SEED = path.resolve(__dirname, "../../marketing-library-seed/batch-01");
 
 const EXPECT: Record<string, string> = {
-  "TS-001": "7ba0b611de8a1abe260895160378588d920e30b6c5905e0f9b4821eddfb2e0c1",
+  "TS-001": "da5a4feba0e71289bd4f1ed804a50c1cf224f18029984a0c93b1acbb2f47b675",
   "TS-002": "07ab42e2f2ae8998f0b6ba8941515dc807bcfb1d8e8f9d5b834f8ccd002a37b9",
   "TS-003": "1e4a6d0f7818dd3d94d07adfb39ac6f625857eb8988580395f620cbd7abf41ae",
   "TS-004": "8f0c9e0013674ef3a52df4fe6f36530f5d2981454b0f9be060a12c26c1deacbd",
@@ -110,6 +110,81 @@ describe("Batch 01 Content Library import", () => {
     expect(again.action).toBe("unchanged");
     const uploaded = (await listAssets({ uploadedOnly: true })).filter((a) => a.id === id);
     expect(uploaded).toHaveLength(1);
+  });
+
+  it("approved TS-001 replacement preserves library id/databaseId and updates checksum", async () => {
+    const id = "TS-001";
+    const PREV =
+      "7ba0b611de8a1abe260895160378588d920e30b6c5905e0f9b4821eddfb2e0c1";
+    const previousPath = path.resolve("/tmp/ts001-previous.png");
+    const before = (await listAssets({ uploadedOnly: true })).find((a) => a.id === id)!;
+    expect(before.databaseId).toBeTruthy();
+    expect(before.sha256).toBe(EXPECT[id]);
+
+    // Roll library back to previous artwork (explicit approved replacement), then re-apply approved bytes.
+    const previous = readFileSync(previousPath);
+    const rolled = await importOriginalAsset({
+      id,
+      file: {
+        buffer: previous,
+        mimetype: "image/png",
+        originalname: `${id}.png`,
+        size: previous.length,
+      },
+      actor: "test:batch01-replacement",
+      title: META[id].title,
+      category: META[id].category,
+      batchId: "batch-01",
+      expectedSha256: PREV,
+      allowApprovedReplacement: true,
+    });
+    expect(rolled.action).toBe("replaced");
+    expect(rolled.asset.databaseId).toBe(before.databaseId);
+    expect(rolled.asset.sha256).toBe(PREV);
+    expect(rolled.asset.title).toBe(META[id].title);
+    expect(rolled.asset.category).toBe(META[id].category);
+    expect(rolled.asset.publicationStatus).toBe("draft_awaiting_qa");
+
+    const approved = readFileSync(path.join(SEED, `${id}.png`));
+    const replaced = await importOriginalAsset({
+      id,
+      file: {
+        buffer: approved,
+        mimetype: "image/png",
+        originalname: `${id}.png`,
+        size: approved.length,
+      },
+      actor: "test:batch01-replacement",
+      title: "SHOULD_NOT_OVERWRITE_TITLE",
+      category: "SHOULD_NOT_OVERWRITE_CATEGORY",
+      batchId: "batch-01",
+      expectedSha256: EXPECT[id],
+      allowApprovedReplacement: true,
+    });
+    expect(replaced.action).toBe("replaced");
+    expect(replaced.asset.databaseId).toBe(before.databaseId);
+    expect(replaced.asset.title).toBe(META[id].title);
+    expect(replaced.asset.category).toBe(META[id].category);
+    expect(replaced.asset.publicationStatus).toBe("draft_awaiting_qa");
+    expect(replaced.asset.sha256).toBe(EXPECT[id]);
+    expect(replaced.checksumMatch).toBe(true);
+    expect((await listAssets({ uploadedOnly: true })).filter((a) => a.id === id)).toHaveLength(1);
+    // Without allow flag, different hash must refuse
+    await expect(
+      importOriginalAsset({
+        id,
+        file: {
+          buffer: previous,
+          mimetype: "image/png",
+          originalname: `${id}.png`,
+          size: previous.length,
+        },
+        actor: "test:batch01-replacement",
+        title: META[id].title,
+        category: META[id].category,
+        expectedSha256: PREV,
+      }),
+    ).rejects.toThrow(/Hash conflict/);
   });
 
   it("preview and download return exact original bytes", async () => {
