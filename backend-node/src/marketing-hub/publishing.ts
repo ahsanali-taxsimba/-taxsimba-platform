@@ -1,26 +1,26 @@
 /**
- * Publishing engine:
- * AI Draft → Content QA → Approval → Scheduled → Platform Publishing → Confirmed Published → Performance Tracking
+ * Publishing workflow:
+ * Draft → Review → Approved → Scheduled → Published | Failed
  *
- * Never marks Published until a platform confirmation is recorded.
+ * Live publishing remains disabled unless ORGANIC_PUBLISH_AUTHORISED and real platform confirmation.
  */
 
 import { randomUUID } from "crypto";
 
 import { col } from "../db/mongo";
-import {
-  marketingHubPaused,
-  organicPublishAuthorised,
-  type PlatformId,
-} from "./config";
+import { organicPublishAuthorised, type PlatformId } from "./config";
+import { assertPublishableCopy, scanDraftClaims } from "./claims";
 import {
   appendAudit,
   COLLECTIONS,
   getDraft,
+  isMarketingPaused,
   listConnections,
+  setSetting,
   updateDraftStage,
 } from "./store";
 import type { MarketingDraft, PublishStage } from "./types";
+import { WORKFLOW_LABELS } from "./types";
 
 const FORWARD: PublishStage[] = [
   "ai_draft",
@@ -33,13 +33,17 @@ const FORWARD: PublishStage[] = [
 
 export function assertTransition(from: PublishStage, to: PublishStage): void {
   if (to === "failed" || to === "paused") return;
-  if (from === "failed" && to === "ai_draft") return;
-  if (from === "paused" && (to === "scheduled" || to === "ai_draft")) return;
+  if (from === "failed" && (to === "ai_draft" || to === "scheduled")) return;
+  if (from === "paused" && (to === "scheduled" || to === "ai_draft" || to === "content_qa")) return;
   const fi = FORWARD.indexOf(from);
   const ti = FORWARD.indexOf(to);
   if (fi < 0 || ti < 0 || ti !== fi + 1) {
     throw new Error(`Illegal stage transition ${from} → ${to}`);
   }
+}
+
+export function workflowLabel(stage: PublishStage): string {
+  return WORKFLOW_LABELS[stage] || stage;
 }
 
 export async function advanceDraft(
@@ -48,31 +52,38 @@ export async function advanceDraft(
   actor: string,
   detail?: string,
 ): Promise<MarketingDraft> {
-  if (marketingHubPaused() && (to === "platform_publishing" || to === "scheduled")) {
-    throw new Error("Marketing Hub is paused — cannot schedule or publish.");
+  if (await isMarketingPaused()) {
+    if (to === "platform_publishing" || to === "scheduled" || to === "confirmed_published") {
+      throw new Error("Marketing Hub is paused — cannot schedule or publish.");
+    }
   }
   const draft = await getDraft(draftId);
   if (!draft) throw new Error("Draft not found");
   assertTransition(draft.stage, to);
 
-  if (to === "approval" && !draft.artworkApproved) {
-    // Soft rule: may enter approval queue for copy, but cannot leave approval to scheduled without artwork OR explicit copy-only flag.
-  }
-  if (to === "scheduled") {
-    if (!draft.approvedBy && actor !== "system:test") {
-      // require prior approval stage completion
-      if (draft.stage !== "approval") throw new Error("Draft must be in approval before scheduling");
+  // Content QA / approval / schedule: block unsupported claims
+  if (to === "content_qa" || to === "approval" || to === "scheduled") {
+    const issues = scanDraftClaims(draft);
+    if (issues.length && (to === "approval" || to === "scheduled")) {
+      throw new Error(issues.map((i) => i.message).join(" "));
     }
   }
-  if (to === "platform_publishing") {
+  if (to === "scheduled") {
+    assertPublishableCopy(draft);
+    if (draft.stage !== "approval") throw new Error("Draft must be Approved before scheduling");
+  }
+  // Live publish still gated — even advancing into platform_publishing requires auth flag
+  if (to === "platform_publishing" || to === "confirmed_published") {
     if (!organicPublishAuthorised()) {
       throw new Error(
-        "Organic auto-publish is not authorised. Set MARKETING_HUB_ORGANIC_PUBLISH_AUTHORISED=true after staging verification.",
+        "Live publishing is disabled. MARKETING_HUB_ORGANIC_PUBLISH_AUTHORISED must remain false until staging verifies real platform confirmations.",
       );
     }
   }
 
-  const extra: Partial<MarketingDraft> = {};
+  const extra: Partial<MarketingDraft> = {
+    workflowLabel: workflowLabel(to),
+  };
   if (to === "approval") {
     extra.approvedBy = actor;
     extra.approvedAt = new Date().toISOString();
@@ -83,35 +94,52 @@ export async function advanceDraft(
 
   const next = await updateDraftStage(draftId, to, actor, detail, extra);
   if (!next) throw new Error("Draft update failed");
-  await appendAudit(actor, `advance:${to}`, draftId);
+  await appendAudit(actor, `advance:${to}`, `${draftId} (${workflowLabel(to)})`);
   return next;
 }
 
 /**
- * Attempts platform publish. Without live credentials, records failure / skip — never claims Published.
+ * Attempts platform publish. Live publishing stays disabled by default.
+ * Never marks Published without an external confirmation id.
  */
 export async function attemptPlatformPublish(
   draftId: string,
   actor: string,
   platforms: PlatformId[],
 ): Promise<MarketingDraft> {
-  if (marketingHubPaused()) throw new Error("Marketing Hub is paused");
+  if (await isMarketingPaused()) throw new Error("Marketing Hub is paused");
   if (!organicPublishAuthorised()) {
-    throw new Error("Organic auto-publish not authorised");
+    throw new Error("Live publishing is disabled (ORGANIC_PUBLISH_AUTHORISED=false).");
   }
 
   let draft = await getDraft(draftId);
   if (!draft) throw new Error("Draft not found");
-  if (draft.stage !== "scheduled" && draft.stage !== "platform_publishing") {
-    throw new Error(`Draft must be scheduled before publishing (current: ${draft.stage})`);
+  assertPublishableCopy(draft);
+  if (draft.stage !== "scheduled" && draft.stage !== "platform_publishing" && draft.stage !== "failed") {
+    throw new Error(`Draft must be Scheduled before publishing (current: ${workflowLabel(draft.stage)})`);
   }
 
-  draft = (await updateDraftStage(draftId, "platform_publishing", actor, "publish_attempt"))!;
+  // From failed → retry back through platform_publishing
+  if (draft.stage === "failed") {
+    draft = (await updateDraftStage(
+      draftId,
+      "scheduled",
+      actor,
+      "retry_requeue",
+      { retryCount: (draft.retryCount ?? 0) + 1, workflowLabel: "Scheduled" },
+    ))!;
+  }
+
+  draft = (await updateDraftStage(draftId, "platform_publishing", actor, "publish_attempt", {
+    workflowLabel: "Publishing",
+  }))!;
+
   const connections = await listConnections();
   const idempotencyKey = draft.publishIdempotencyKey ?? `pub-${draft.id}`;
 
   const existingJob = await col(COLLECTIONS.publishJobs).findOne({ idempotencyKey });
   if (existingJob && existingJob.status === "confirmed_published") {
+    // Duplicate prevention — already published
     return (await getDraft(draftId))!;
   }
 
@@ -124,13 +152,17 @@ export async function attemptPlatformPublish(
         idempotencyKey,
         createdAt: new Date().toISOString(),
       },
-      $set: { status: "platform_publishing", updatedAt: new Date().toISOString(), actor },
+      $set: {
+        status: "platform_publishing",
+        updatedAt: new Date().toISOString(),
+        actor,
+        attempt: Number(existingJob?.attempt || 0) + 1,
+      },
     },
     { upsert: true },
   );
 
   const results: MarketingDraft["platformResults"] = [];
-  let anyConfirmed = false;
 
   for (const platform of platforms) {
     if (platform === "tiktok_manual") {
@@ -158,19 +190,19 @@ export async function attemptPlatformPublish(
       });
       continue;
     }
-    // Live Graph/LinkedIn APIs are staging-gated. Without a real external confirmation id we MUST NOT mark published.
     results.push({
       platform,
       status: "failed",
       error:
-        "Live publisher adapter not confirmed in this environment. Connect credentials on staging and verify a real platform response before enabling production.",
+        "Live publisher adapter not confirmed. Staging must verify a real platform response before production.",
     });
   }
 
-  anyConfirmed = results.some((r) => r.status === "published" && r.externalId);
+  const anyConfirmed = results.some((r) => r.status === "published" && r.externalId);
   const nextStage: PublishStage = anyConfirmed ? "confirmed_published" : "failed";
   const next = await updateDraftStage(draftId, nextStage, actor, "publish_result", {
     platformResults: results,
+    workflowLabel: workflowLabel(nextStage),
   });
 
   await col(COLLECTIONS.publishJobs).updateOne(
@@ -187,6 +219,12 @@ export async function attemptPlatformPublish(
   return next!;
 }
 
-export async function globalPause(actor: string): Promise<void> {
-  await appendAudit(actor, "global_pause", "MARKETING_HUB_PAUSED should be set true in env for durable pause");
+export async function emergencyPause(actor: string, paused: boolean): Promise<{ paused: boolean }> {
+  await setSetting("emergency_pause", paused, actor);
+  await appendAudit(actor, paused ? "emergency_pause_on" : "emergency_pause_off", "durable");
+  return { paused };
+}
+
+export async function listAudit(limit = 100): Promise<unknown[]> {
+  return col(COLLECTIONS.audit).find({}).sort({ at: -1 }).limit(limit).toArray();
 }

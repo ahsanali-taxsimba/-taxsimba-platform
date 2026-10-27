@@ -29,7 +29,7 @@ import { ensureEngagementIndexes } from "./services/engagement";
 import { ensureReminderIndexes } from "./jobs/reminders";
 import { ensureIndexes as ensureLoginIndexes } from "./services/loginLockout";
 import { ensureMfaIndexes } from "./services/security";
-import { ensureMarketingIndexes, marketingHubRouter } from "./marketing-hub/router";
+import { ensureMarketingHubBoot, marketingHubRouter } from "./marketing-hub/router";
 
 /**
  * Indexes for every hot query path. Without these each list endpoint scans the whole
@@ -105,7 +105,7 @@ export async function startup(): Promise<void> {
   await ensureReminderIndexes();
   await ensurePricingIndexes();
   await ensureContentIndexes();
-  await ensureMarketingIndexes();
+  await ensureMarketingHubBoot();
 }
 
 export function createApp(): Express {

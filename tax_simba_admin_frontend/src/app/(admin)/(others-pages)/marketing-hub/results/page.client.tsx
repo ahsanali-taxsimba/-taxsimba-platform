@@ -36,11 +36,11 @@ export default function ResultsClient() {
     refresh().catch((e) => setError(String(e?.message || e)));
   }, [refresh]);
 
-  const begin = async (platform: string, mockConnect?: boolean) => {
+  const begin = async (platform: string, mockUiPreview?: boolean) => {
     setError(null);
     setMessage(null);
     try {
-      const res = await marketingHubApi.beginConnect(platform, mockConnect);
+      const res = await marketingHubApi.beginConnect(platform, mockUiPreview);
       setMessage(JSON.stringify(res, null, 2));
       await refresh();
     } catch (e: unknown) {
@@ -142,9 +142,9 @@ export default function ResultsClient() {
                         type="button"
                         className="rounded border px-2 py-1 text-xs text-gray-600"
                         onClick={() => begin(platform, true)}
-                        title="UI/testing only — does not enable live publish"
+                        title="UI preview only — remains Not Connected"
                       >
-                        Mock UI connect
+                        UI preview (not connected)
                       </button>
                       <button
                         type="button"
@@ -202,17 +202,30 @@ export default function ResultsClient() {
         ) : null}
       </section>
 
-      <button
-        type="button"
-        className="rounded-lg px-4 py-2 text-sm font-semibold text-white"
-        style={{ background: BRAND.forest }}
-        onClick={async () => {
-          const res = await marketingHubApi.pause();
-          setMessage(String(res.instruction || "Paused"));
-        }}
-      >
-        Global pause instruction
-      </button>
+      <div className="flex flex-wrap gap-2">
+        <button
+          type="button"
+          className="rounded-lg px-4 py-2 text-sm font-semibold text-white"
+          style={{ background: BRAND.forest }}
+          onClick={async () => {
+            const res = await marketingHubApi.pause(true);
+            setMessage(JSON.stringify(res, null, 2));
+          }}
+        >
+          Emergency pause ON
+        </button>
+        <button
+          type="button"
+          className="rounded-lg border px-4 py-2 text-sm font-semibold"
+          style={{ color: BRAND.forest, borderColor: BRAND.lime }}
+          onClick={async () => {
+            const res = await marketingHubApi.pause(false);
+            setMessage(JSON.stringify(res, null, 2));
+          }}
+        >
+          Emergency pause OFF
+        </button>
+      </div>
     </HubShell>
   );
 }

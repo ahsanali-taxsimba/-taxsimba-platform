@@ -1,43 +1,55 @@
-# Toxel — AI Marketing Hub staging instructions
+# Toxel — AI Marketing Hub staging instructions (hardened)
 
-**Branch:** `cursor/ai-marketing-hub-df9b`  
-**Base:** `content/taxsimba-82-articles`  
-**Do not merge to production until critical checklist items pass.**
+**Single branch:** `cursor/ai-marketing-hub-df9b`  
+**PR:** https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/34  
+**Do not merge or deploy production until critical checklist items pass.**
 
-## What this branch adds
+## Deploy
 
-Admin Marketing Hub under `/admin/marketing-hub/*` plus native API `/api/marketing-hub/*`.
+1. Deploy `backend-node` + `tax_simba_admin_frontend` (+ client if picking up UTM hooks) from this tip.  
+2. Env defaults for first staging pass:
 
-## Enablement (staging)
+```text
+MARKETING_HUB_ENABLED=true
+MARKETING_HUB_PAUSED=false
+MARKETING_HUB_FIXTURE_MODE=true
+MARKETING_HUB_ORGANIC_PUBLISH_AUTHORISED=false
+MARKETING_HUB_DAILY_DRAFT_LIMIT=5
+STORAGE_DRIVER=local   # or s3 with Spaces for assets
+```
 
-1. Deploy `backend-node` and `tax_simba_admin_frontend` from this branch tip.  
-2. Set env (see `backend-node/.env.example` Marketing Hub block):
-   - `MARKETING_HUB_ENABLED=true`
-   - `MARKETING_HUB_PAUSED=false` (use `true` as kill switch)
-   - `MARKETING_HUB_FIXTURE_MODE=true` until generation key is ready
-   - `MARKETING_HUB_ORGANIC_PUBLISH_AUTHORISED=false` until OAuth + approval + first confirmed publish succeed
-3. Sign in as `SUPER_ADMIN` → sidebar **AI Marketing Hub**.
-4. Confirm Dashboard shows **Not Connected / No Data** for traffic until GA4/GSC are connected (must not show fabricated numbers).
-5. AI Marketing → Run daily engine (fixture) → advance draft through QA → Approval → Schedule.
-6. Results → Begin OAuth only after Meta/LinkedIn/Google client IDs are in secrets. Mock UI connect is **not** live publish.
-7. Attempt publish must **fail or skip** until `ORGANIC_PUBLISH_AUTHORISED=true` **and** real platform confirmation IDs exist.
-8. TikTok: download posting packs only — never auto-publish.
-9. Google Ads: never automate bids/budgets.
-10. Verify proposed prices (£119 SA / £29.99 MTD) are **not** shown as live until checkout/VAT/terms verified.
+3. Sign in as **SUPER_ADMIN** → **AI Marketing Hub**.
+
+## Verify (order)
+
+1. **Dashboard** — traffic Not Connected; leads/paid/revenue distinct; no fabricated stats.  
+2. **AI Marketing** — generation banner shows fixture_demo OR disconnected (never silent fake success).  
+3. Run daily engine (fixture) → Draft → Review → Approved → Schedule.  
+4. Attempt publish → must fail while `ORGANIC_PUBLISH_AUTHORISED=false`.  
+5. Upload high-res asset to `TS-001` (≥1080px) → pending_review → approve → only then `isFinishedArtwork=true`.  
+6. Reject a 1×1 image.  
+7. Auto SEO — 120/120 preserved; GSC/GA4 Not Connected.  
+8. Results — Begin OAuth without client IDs → Not Connected; UI preview is **not** Connected.  
+9. Emergency pause ON → engine paused; pause OFF.  
+10. Optional: set generation key + `FIXTURE_MODE=false` → real drafts; remove key → 409 disconnected.  
+
+## Live publishing
+
+Keep **disabled**. Only after OAuth credentials + a real platform confirmation id on staging may `MARKETING_HUB_ORGANIC_PUBLISH_AUTHORISED` be considered — still owner-gated for Google Ads spend.
 
 ## Rollback
 
-- Set `MARKETING_HUB_PAUSED=true` or `MARKETING_HUB_ENABLED=false`.
-- Disconnect platforms via Results UI / `POST /api/marketing-hub/connections/:platform/disconnect`.
-- Redeploy previous admin+API tip without this branch.
+- `MARKETING_HUB_PAUSED=true` and/or emergency pause API  
+- `MARKETING_HUB_ENABLED=false`  
+- Redeploy previous tip  
 
-## Credentials still required (blockers)
+## Credentials still required
 
-| Integration | Env / secret |
+| Need | Env |
 |---|---|
-| Meta FB/IG | `META_APP_ID`, `META_APP_SECRET` + Page tokens |
+| Real AI drafts | `MARKETING_HUB_GENERATION_API_KEY` (+ base/model) |
+| Meta FB/IG | `META_APP_ID`, `META_APP_SECRET` |
 | LinkedIn | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET` |
-| Google OAuth (GSC/GA4) | `GOOGLE_OAUTH_CLIENT_ID`, `GOOGLE_OAUTH_CLIENT_SECRET` |
-| Google Ads | `GOOGLE_ADS_CLIENT_ID`, `GOOGLE_ADS_CLIENT_SECRET` + owner MCC auth |
-| Generation (optional) | `MARKETING_HUB_GENERATION_API_KEY` + `FIXTURE_MODE=false` |
+| Google GSC/GA4 | `GOOGLE_OAUTH_CLIENT_ID`, `GOOGLE_OAUTH_CLIENT_SECRET` |
+| Google Ads | `GOOGLE_ADS_CLIENT_*` + owner auth |
 | Alerts | `MARKETING_HUB_ALERT_WEBHOOK_URL` |

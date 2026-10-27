@@ -1,5 +1,9 @@
 import type { PlatformId } from "./config";
 
+/**
+ * Internal stages. Public workflow labels:
+ * Draft → Review → Approved → Scheduled → Published | Failed
+ */
 export type PublishStage =
   | "ai_draft"
   | "content_qa"
@@ -9,6 +13,17 @@ export type PublishStage =
   | "confirmed_published"
   | "failed"
   | "paused";
+
+export const WORKFLOW_LABELS: Record<PublishStage, string> = {
+  ai_draft: "Draft",
+  content_qa: "Review",
+  approval: "Approved",
+  scheduled: "Scheduled",
+  platform_publishing: "Publishing",
+  confirmed_published: "Published",
+  failed: "Failed",
+  paused: "Paused",
+};
 
 export type TemplateStatus = "draft" | "pending_artwork" | "approved" | "retired";
 
@@ -49,13 +64,18 @@ export interface MarketingDraft {
   landingCta?: string;
   videoScript?: string;
   templateId?: string;
+  /** Linked high-res asset slot TS-001…TS-120 when present */
+  assetId?: string;
   sources: Array<{ label: string; url: string }>;
   nation: "UK" | "England" | "Scotland" | "Wales" | "Northern Ireland";
   fixtureMode: boolean;
+  /** Human-readable workflow label aligned to Draft → Review → Approved → Scheduled → Published/Failed */
+  workflowLabel?: string;
   approvedBy?: string;
   approvedAt?: string;
   scheduledFor?: string;
   publishIdempotencyKey?: string;
+  retryCount?: number;
   platformResults?: Array<{
     platform: PlatformId;
     status: "pending" | "published" | "failed" | "skipped";

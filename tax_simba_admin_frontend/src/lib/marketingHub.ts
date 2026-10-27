@@ -1,6 +1,5 @@
 /**
  * Marketing Hub API client — native `/api/marketing-hub/*` routes.
- * Admin NEXT_PUBLIC_API_URL often points at `/api/compat/`, so we use absolute `/api/...` paths.
  */
 import { clientAxios } from "@/lib/axios-client";
 
@@ -37,12 +36,46 @@ export const marketingHubApi = {
     ),
   tiktokPack: (id: string) => get<Record<string, unknown>>(`/api/marketing-hub/drafts/${id}/tiktok-pack`),
   seo: () => get<Record<string, unknown>>("/api/marketing-hub/seo"),
-  connections: () => get<{ items: Array<Record<string, unknown>>; oauthNote: string }>("/api/marketing-hub/connections"),
-  beginConnect: (platform: string, mockConnect?: boolean) =>
-    post<Record<string, unknown>>("/api/marketing-hub/connections/begin", { platform, mockConnect }),
+  attribution: () => get<Record<string, unknown>>("/api/marketing-hub/attribution"),
+  audit: () => get<{ items: unknown[] }>("/api/marketing-hub/audit"),
+  connections: () =>
+    get<{ items: Array<Record<string, unknown>>; oauthNote: string }>("/api/marketing-hub/connections"),
+  beginConnect: (platform: string, mockUiPreview?: boolean) =>
+    post<Record<string, unknown>>("/api/marketing-hub/connections/begin", {
+      platform,
+      mockUiPreview,
+    }),
   disconnect: (platform: string) =>
     post<Record<string, unknown>>(`/api/marketing-hub/connections/${platform}/disconnect`),
-  pause: () => post<Record<string, unknown>>("/api/marketing-hub/pause"),
+  pause: (paused = true) => post<Record<string, unknown>>("/api/marketing-hub/pause", { paused }),
+  assets: () =>
+    get<{ items: Array<Record<string, unknown>>; summary: Record<string, unknown> }>(
+      "/api/marketing-hub/assets",
+    ),
+  approveAsset: (id: string, approve = true) =>
+    post<{ asset: Record<string, unknown> }>(`/api/marketing-hub/assets/${id}/approve`, { approve }),
+  uploadAsset: async (id: string, file: File, notes?: string) => {
+    const form = new FormData();
+    form.append("file", file);
+    if (notes) form.append("notes", notes);
+    const { getSession } = await import("next-auth/react");
+    const session = await getSession();
+    const raw = session?.user?.accessToken as string | undefined;
+    const auth = raw ? (raw.startsWith("Bearer ") ? raw : `Bearer ${raw}`) : "";
+    const base = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/api\/compat\/?$/, "");
+    const res = await fetch(`${base}/api/marketing-hub/assets/${id}/upload`, {
+      method: "POST",
+      headers: auth ? { Authorization: auth } : {},
+      body: form,
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      throw Object.assign(new Error(data?.detail || "Upload failed"), {
+        response: { data, status: res.status },
+      });
+    }
+    return data as { asset: Record<string, unknown> };
+  },
 };
 
 export function stateLabel(state: MetricState | string | undefined): string {

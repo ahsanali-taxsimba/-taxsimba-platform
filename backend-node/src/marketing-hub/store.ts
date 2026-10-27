@@ -21,6 +21,28 @@ export async function ensureMarketingIndexes(): Promise<void> {
   await col(COLLECTIONS.publishJobs).createIndex({ idempotencyKey: 1 }, { unique: true });
   await col(COLLECTIONS.connections).createIndex({ platform: 1 }, { unique: true });
   await col(COLLECTIONS.audit).createIndex({ at: -1 });
+  await col(COLLECTIONS.settings).createIndex({ key: 1 }, { unique: true });
+}
+
+export async function getSetting<T = unknown>(key: string): Promise<T | null> {
+  const row = (await col(COLLECTIONS.settings).findOne({ key })) as Doc | null;
+  return row ? ((row.value as T) ?? null) : null;
+}
+
+export async function setSetting(key: string, value: unknown, actor: string): Promise<void> {
+  await col(COLLECTIONS.settings).updateOne(
+    { key },
+    { $set: { key, value, updatedAt: new Date().toISOString(), updatedBy: actor } },
+    { upsert: true },
+  );
+}
+
+/** Env pause OR durable Mongo emergency pause. */
+export async function isMarketingPaused(): Promise<boolean> {
+  const { marketingHubPausedEnv } = await import("./config");
+  if (marketingHubPausedEnv()) return true;
+  const durable = await getSetting<boolean>("emergency_pause");
+  return durable === true;
 }
 
 export async function appendAudit(actor: string, action: string, detail?: string): Promise<void> {

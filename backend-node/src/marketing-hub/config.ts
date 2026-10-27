@@ -30,9 +30,14 @@ export function marketingHubEnabled(): boolean {
   return (env("MARKETING_HUB_ENABLED") ?? "true").toLowerCase() !== "false";
 }
 
-/** Global pause / kill switch — blocks auto-publish and daily engine writes. */
-export function marketingHubPaused(): boolean {
+/** Env kill switch — also OR'd with durable Mongo pause via `isMarketingPaused()`. */
+export function marketingHubPausedEnv(): boolean {
   return (env("MARKETING_HUB_PAUSED") ?? "false").toLowerCase() === "true";
+}
+
+/** @deprecated Prefer `isMarketingPaused()` which includes durable Mongo pause. */
+export function marketingHubPaused(): boolean {
+  return marketingHubPausedEnv();
 }
 
 /** When true, drafts use deterministic British-English fixtures (no external LLM). */

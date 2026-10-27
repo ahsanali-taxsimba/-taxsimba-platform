@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TaxSimba AI Marketing Hub — UI evidence (static preview)</title>
+<style>
+  :root{--forest:#031f18;--green:#37A267;--mint:#EAF6F0;--lime:#B3ED97;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Georgia,"Times New Roman",serif;background:linear-gradient(180deg,#f7fbf8,#fff);color:var(--forest)}
+  header{background:var(--mint);border-bottom:2px solid var(--lime);padding:1.25rem 1.5rem}
+  header img{height:28px}
+  nav{display:flex;flex-wrap:wrap;gap:.5rem;padding:1rem 1.5rem}
+  nav a{padding:.5rem .9rem;border-radius:.5rem;text-decoration:none;color:var(--forest);border:1px solid var(--lime);font-size:.9rem}
+  nav a.active{background:var(--forest);color:#fff;border-color:var(--forest)}
+  main{padding:0 1.5rem 2rem;display:grid;gap:1rem}
+  .card{background:#fff;border:1px solid #e5e7eb;border-radius:1rem;padding:1.1rem}
+  .pill{display:inline-block;padding:.15rem .55rem;border-radius:999px;background:#fde68a;font-size:.75rem;font-weight:700}
+  .pill.ok{background:var(--lime)}
+  .grid{display:grid;gap:1rem;grid-template-columns:1fr}
+  @media(min-width:768px){.grid{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:1fr 1fr 1fr}}
+  h1{font-size:1.4rem;margin:.4rem 0 0}
+  h2{font-size:1.05rem;margin:0 0 .5rem}
+  .muted{color:#4b5563;font-size:.85rem}
+  .alert{background:#fffbeb;border:1px solid #f59e0b;border-radius:.75rem;padding:.75rem;font-size:.9rem}
+  .sa{border-left:4px solid var(--green)}
+  .mtd{border-left:4px solid var(--forest)}
+</style>
+</head>
+<body>
+<header>
+  <img src="./logo.svg" alt="TaxSimba"/>
+  <p class="muted" style="margin:.35rem 0 0">AI Marketing Hub — static evidence preview (not live data)</p>
+  <h1>Dashboard</h1>
+</header>
+<nav aria-label="Hub sections">
+  <a class="active" href="#dash">Dashboard</a>
+  <a href="#ai">AI Marketing</a>
+  <a href="#seo">Auto SEO</a>
+  <a href="#results">Results &amp; Connections</a>
+</nav>
+<main>
+  <section id="dash" class="grid grid3" aria-label="Dashboard metrics">
+    <div class="card"><h2>UK website traffic</h2><span class="pill">Not Connected</span><p class="muted">Connect GA4 to load real traffic.</p></div>
+    <div class="card"><h2>Leads (UTM)</h2><p style="font-size:1.6rem;font-weight:700;margin:.4rem 0">— / No Data</p><p class="muted">Distinct from paid customers.</p></div>
+    <div class="card"><h2>Paid / Revenue</h2><p style="font-size:1.6rem;font-weight:700;margin:.4rem 0">—</p><span class="pill">No Data</span></div>
+    <div class="card sa"><h2>Self Assessment paying</h2><p>— / 5000</p><p class="muted">Annual filing target (not a guarantee)</p></div>
+    <div class="card mtd"><h2>MTD paying</h2><p>— / 1000</p><p class="muted">Ongoing reporting target (not a guarantee)</p></div>
+  </section>
+
+  <section id="ai" class="card" aria-labelledby="ai-h">
+    <h2 id="ai-h">AI Marketing</h2>
+    <div class="alert" role="status"><strong>Generation: disconnected</strong> when FIXTURE_MODE=false without API key — no simulated success. Fixture demo mode is labelled separately.</div>
+    <p class="muted">Workflow: Draft → Review → Approved → Scheduled → Published/Failed. Live publishing disabled.</p>
+    <p class="muted">Assets TS-001…TS-120: placeholders never marked finished artwork until approved high-res upload (≥1080px).</p>
+  </section>
+
+  <section id="seo" class="card" aria-labelledby="seo-h">
+    <h2 id="seo-h">Auto SEO</h2>
+    <p><span class="pill ok">OK</span> 120 / 120 guides preserved · URLs &amp; priority order intact</p>
+    <p><span class="pill">Not Connected</span> Google Search Console · <span class="pill">Not Connected</span> GA4</p>
+    <p class="muted">Recommendations require human review. No invented volumes. No mass AI publish.</p>
+  </section>
+
+  <section id="results" class="card" aria-labelledby="res-h">
+    <h2 id="res-h">Results &amp; Connections</h2>
+    <ul class="muted">
+      <li>Facebook / Instagram / LinkedIn / GSC / GA4 — Not Connected without OAuth credentials</li>
+      <li>Google Ads — owner-controlled spend only</li>
+      <li>TikTok — manual 9:16 packs only</li>
+      <li>Emergency pause + env kill switch</li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>
