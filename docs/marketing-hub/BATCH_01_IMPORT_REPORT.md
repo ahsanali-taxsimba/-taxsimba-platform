@@ -182,7 +182,7 @@ npx tsc --noEmit
 | Field | Value |
 |---|---|
 | Branch | `cursor/ai-marketing-hub-df9b` |
-| Commit SHA | *(filled after commit — see git tip below)* |
+| Commit SHA | `5bb98d2480535fe55bd2de28df86ed0a9a727ef3` |
 | PR | https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/34 |
 
 ### Staging handoff for Toxel
