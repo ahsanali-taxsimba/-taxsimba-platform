@@ -8,7 +8,7 @@
 **Date:** 2026-11-13 (Europe/London)  
 **Release gate:** **HOLD** — do not merge, do not deploy, not production-ready while external integrations remain BLOCKED.
 
-> Authoritative tip: PR #35 head on `cursor/ai-tax-concierge-v2-phase1-0f84`. Evidence content commit: `ce047840ec97dc847a842634c71f900aecd8a8d0`.
+> Evidence content commit: `ce047840ec97dc847a842634c71f900aecd8a8d0`. Tip: PR #35 head after push.
 
 ---
 
@@ -240,7 +240,7 @@ Handover pack: `docs/toxel/HANDOVER.md`, `EMBEDDING.md`, `INTEGRATION_CONTRACTS.
 
 ## K. Exact commit SHA and reproducible verification steps
 
-**Commit SHA:** PR #35 head (`git rev-parse origin/cursor/ai-tax-concierge-v2-phase1-0f84` after push). Evidence content: `ce047840ec97dc847a842634c71f900aecd8a8d0`.
+**Commit SHA:** `ce047840ec97dc847a842634c71f900aecd8a8d0` (evidence); tip = PR #35 head
 
 ### Reproduce locally
 ```bash
