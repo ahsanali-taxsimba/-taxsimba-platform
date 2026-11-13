@@ -20,7 +20,7 @@ Accepted local evidence: **426** Vitest · **150** tax scenarios · **50** packa
 
 **Do not** invent inclusions or change prices (£119/£149/£299 · £29.99/£59.99/£89.99 VAT incl. · £99/30min).
 
-**Note for Toxel:** Portal seed (`backend/phase1b.py`) uses Elite **£249** and MTD Essential/Plus quarterly — **different** from SIMBA consumer SKUs. Confirm mapping before wiring portal checkout.
+**Catalogue sync (2026-11-13):** Portal seed now matches SIMBA — SA **£119/£149/£299**; MTD **Starter/Growth/Complete** **£29.99/£59.99/£89.99**/month VAT included. Legacy Elite £249 and MTD Essential/Plus are retired in code; restart portal so `ensure_phase1b_data()` rewrites Mongo prices used by Stripe `unit_amount`.
 
 ---
 

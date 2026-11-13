@@ -57,8 +57,8 @@ async def activate_mtd(user, client):
     """Genuine post-payment fulfilment path: confirmed payment -> ACTIVE service + case + periods."""
     tx = {"id": str(uuid.uuid4()), "session_id": f"qa_{uuid.uuid4().hex[:12]}",
           "user_id": user["id"], "client_id": client["id"], "kind": "SERVICE_ACTIVATION",
-          "service_type": MTD, "previous_package": None, "new_package": "MTD_ESSENTIAL",
-          "amount": 240.0, "currency": "gbp", "status": "complete", "payment_status": "paid",
+          "service_type": MTD, "previous_package": None, "new_package": "MTD_STARTER",
+          "amount": 29.99, "currency": "gbp", "status": "complete", "payment_status": "paid",
           "fulfilled": False, "created_at": now_iso(), "updated_at": now_iso()}
     await db.payment_transactions.insert_one(dict(tx))
     await _fulfil(tx)

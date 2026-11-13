@@ -42,7 +42,8 @@ Local Node evidence is accepted. Staging integrations and **approved package inc
 
 **Attempted sources:** SIMBA catalogues, portal `DEFAULT_PACKAGES`, live taxsimba.co.uk pricing/SA/MTD pages.  
 
-**Outcome:** No authoritative per-SKU inclusion lists for SA Simple/Smart/Elite or MTD Starter/Growth/Complete. Portal seed also diverges (Elite £249; MTD Essential/Plus quarterly).
+**Outcome:** No authoritative per-SKU inclusion lists for SA Simple/Smart/Elite or MTD Starter/Growth/Complete.  
+**Price sync (follow-up):** Portal Elite **£249 → £299** fixed; MTD Essential/Plus retired in favour of Starter/Growth/Complete monthly — see [`price_fix/ELITE_299_PRICE_CORRECTION_REPORT.md`](./price_fix/ELITE_299_PRICE_CORRECTION_REPORT.md).
 
 **Action taken:**
 - Did **not** invent inclusions; prices unchanged  

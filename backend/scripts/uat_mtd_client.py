@@ -30,8 +30,8 @@ async def setup():
               "is_uat": True, "created_at": now_iso()}
     await db.clients.insert_one(dict(client))
     await bootstrap_client_services(client)
-    result = await activate_service(client, user, MTD, "MTD_ESSENTIAL",
-                                    reason="Disposable UAT activation", amount=240.0)
+    result = await activate_service(client, user, MTD, "MTD_STARTER",
+                                    reason="Disposable UAT activation", amount=29.99)
     case = result["case"]
     await db.cases.update_one({"id": case["id"]}, {"$set": {"is_uat": True}})
     svcs = {s["service_type"]: s["status"] async for s in

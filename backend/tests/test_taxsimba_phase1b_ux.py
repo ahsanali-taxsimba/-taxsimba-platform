@@ -152,13 +152,13 @@ class TestScenarioC_Approve:
         # admin approves
         r = requests.post(f"{API}/recommendations/{rec_id}/approve",
                           headers=_h(tokens["admin"]),
-                          json={"package_code": "MTD_PLUS", "price": 360, "credit": 0,
+                          json={"package_code": "MTD_COMPLETE", "price": 89.99, "credit": 0,
                                 "explanation": "You now meet the MTD threshold — plain English."})
         assert r.status_code == 200, r.text
         offer = r.json()
         assert offer["service_type"] == "MTD_INCOME_TAX"
         assert offer["status"] == "PENDING"
-        assert offer["amount_due"] == 360
+        assert offer["amount_due"] == 89.99
         assert "meet the MTD threshold" in (offer.get("explanation") or "")
 
         # client now sees the recommendation offer
@@ -184,7 +184,7 @@ class TestScenarioC_Approve:
         # double-approve rejected
         r = requests.post(f"{API}/recommendations/{rec_id}/approve",
                           headers=_h(tokens["admin"]),
-                          json={"package_code": "MTD_PLUS", "price": 360, "credit": 0,
+                          json={"package_code": "MTD_COMPLETE", "price": 89.99, "credit": 0,
                                 "explanation": "again"})
         assert r.status_code == 400, r.text
 
@@ -224,7 +224,7 @@ class TestScenarioE_AccountantPrivacy:
         assert requests.get(f"{API}/overview", headers=_h(tokens["acc_a"])).status_code == 403
         assert requests.get(f"{API}/recommendations", headers=_h(tokens["acc_a"])).status_code == 403
         assert requests.post(f"{API}/recommendations/x/approve",
-                             headers=_h(tokens["acc_a"]), json={"package_code": "MTD_PLUS"}).status_code == 403
+                             headers=_h(tokens["acc_a"]), json={"package_code": "MTD_COMPLETE"}).status_code == 403
         assert requests.post(f"{API}/recommendations/x/reject",
                              headers=_h(tokens["acc_a"]), json={"reason": "x"}).status_code == 403
 

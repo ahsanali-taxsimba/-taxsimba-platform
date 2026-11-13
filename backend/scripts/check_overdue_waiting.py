@@ -61,7 +61,7 @@ async def main():
               "email": EMAIL, "is_test": False, "client_ref": "CHK", "created_at": now_iso()}
     await db.clients.insert_one(dict(client))
     await bootstrap_client_services(client)
-    case = (await activate_service(client, cu, MTD, "MTD_ESSENTIAL"))["case"]
+    case = (await activate_service(client, cu, MTD, "MTD_STARTER"))["case"]
     acct_user = await db.users.find_one({"email": "accountant.a@taxsimba.co.uk"})
     await db.cases.update_one({"id": case["id"]},
                               {"$set": {"assigned_accountant_id": acct_user["id"],

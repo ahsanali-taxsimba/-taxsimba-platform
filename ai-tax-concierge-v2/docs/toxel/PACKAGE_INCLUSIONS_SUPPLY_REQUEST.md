@@ -12,7 +12,7 @@
 |--------|--------|
 | `ai-tax-concierge-v2/backend-node/data/catalog/packages.json` | Prices only; `inclusions: null` |
 | `ai-tax-concierge-v2/backend/app/catalog/packages.json` | Same — no inclusions |
-| Portal seed `backend/phase1b.py` `DEFAULT_PACKAGES` | SA Simple/Smart/Elite names+prices only (**Elite £249** in portal seed ≠ SIMBA **£299**); MTD **Essential/Plus** quarterly — **different SKUs** from SIMBA MTD Starter/Growth/Complete |
+| Portal seed `backend/phase1b.py` `DEFAULT_PACKAGES` | **Corrected:** SA Simple/Smart/Elite **£119/£149/£299**; MTD **Starter/Growth/Complete** **£29.99/£59.99/£89.99** per month VAT included (legacy Essential/Plus retired). Inclusions still `_TBD_`. |
 | Live taxsimba.co.uk (`/`, `/pricing`, `/self-assessment`, `/mtd`) | Marketing copy; **no per-SKU inclusion bullet lists** extracted for SA £119/£149/£299 or MTD £29.99/£59.99/£89.99 |
 | Stripe / Mongo seeds in repo | No approved SIMBA inclusion text |
 
@@ -49,10 +49,9 @@ Complete one row per SKU. Use exact customer-facing wording (British English). M
 
 ### Also confirm
 
-1. Mapping (if any) between portal codes `SIMPLE`/`SMART`/`ELITE` / `MTD_ESSENTIAL`/`MTD_PLUS` and SIMBA consumer SKUs above.  
-2. Whether portal Elite **£249** is obsolete vs SIMBA **£299**.  
-3. Soft registration / checkout paths for each SKU (must be `live_verified` or `stub` in `routes.json`).  
-4. Sign-off that this text may be spoken by **SIMBA AI Tax Assistant** verbatim.
+1. Soft registration / checkout paths for each SKU (must be `live_verified` or `stub` in `routes.json`).  
+2. Sign-off that this text may be spoken by **SIMBA AI Tax Assistant** verbatim.  
+3. Confirm staging Mongo has been re-synced via `ensure_phase1b_data()` after the Elite £299 / MTD monthly catalogue fix (obsolete Elite £249 and MTD Essential/Plus are retired in code).
 
 ---
 

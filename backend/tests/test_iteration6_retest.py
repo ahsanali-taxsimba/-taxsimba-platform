@@ -65,7 +65,7 @@ class TestNewClientBootstrap:
         up = requests.get(f"{BASE}/api/my-upgrade-options",
                           headers=fresh_admin_client['headers']).json()
         elite = [o for o in up['options'] if o['code'] == 'ELITE']
-        assert elite and elite[0]['additional_amount_payable'] == 100
+        assert elite and elite[0]['additional_amount_payable'] == 150
 
     def test_selfreg_client_has_sa_active_mtd_not_active(self, fresh_selfreg_client):
         ms = requests.get(f"{BASE}/api/my-services",
@@ -80,7 +80,7 @@ class TestNewClientBootstrap:
         up = requests.get(f"{BASE}/api/my-upgrade-options",
                           headers=fresh_selfreg_client['headers']).json()
         elite = [o for o in up['options'] if o['code'] == 'ELITE']
-        assert elite and elite[0]['additional_amount_payable'] == 100
+        assert elite and elite[0]['additional_amount_payable'] == 150
 
 
 class TestScenarioA_NoMTD:
@@ -131,7 +131,7 @@ class TestSendOfferAlias:
 
         # First send-offer call
         r1 = requests.post(f"{BASE}/api/recommendations/{rid}/send-offer",
-                           json={"package_code": "MTD_ESSENTIAL",
+                           json={"package_code": "MTD_STARTER",
                                  "explanation": "You need MTD"},
                            headers=sa_headers)
         assert r1.status_code == 200, r1.text
@@ -141,7 +141,7 @@ class TestSendOfferAlias:
         assert rec_after['status'] == 'APPROVED'
         # Second call rejected 400
         r2 = requests.post(f"{BASE}/api/recommendations/{rid}/send-offer",
-                           json={"package_code": "MTD_ESSENTIAL",
+                           json={"package_code": "MTD_STARTER",
                                  "explanation": "second"},
                            headers=sa_headers)
         assert r2.status_code == 400

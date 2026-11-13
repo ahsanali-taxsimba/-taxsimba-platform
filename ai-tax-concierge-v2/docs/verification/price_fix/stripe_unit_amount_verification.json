@@ -1,0 +1,61 @@
+{
+  "status": "PASS",
+  "elite_price_gbp": 299.0,
+  "obsolete_249_rejected": true,
+  "sa": {
+    "SIMPLE": 119.0,
+    "SMART": 149.0,
+    "ELITE": 299.0
+  },
+  "mtd": {
+    "MTD_STARTER": {
+      "price": 29.99,
+      "billing": "Per month"
+    },
+    "MTD_GROWTH": {
+      "price": 59.99,
+      "billing": "Per month"
+    },
+    "MTD_COMPLETE": {
+      "price": 89.99,
+      "billing": "Per month"
+    }
+  },
+  "stripe_sessions": [
+    {
+      "label": "Elite full",
+      "amount_gbp": 299.0,
+      "unit_amount_pence": 29900,
+      "expected": 29900,
+      "pass": true
+    },
+    {
+      "label": "Smart\u2192Elite upgrade",
+      "amount_gbp": 150.0,
+      "unit_amount_pence": 15000,
+      "expected": 15000,
+      "pass": true
+    },
+    {
+      "label": "MTD Starter",
+      "amount_gbp": 29.99,
+      "unit_amount_pence": 2999,
+      "expected": 2999,
+      "pass": true
+    },
+    {
+      "label": "MTD Growth",
+      "amount_gbp": 59.99,
+      "unit_amount_pence": 5999,
+      "expected": 5999,
+      "pass": true
+    },
+    {
+      "label": "MTD Complete",
+      "amount_gbp": 89.99,
+      "unit_amount_pence": 8999,
+      "expected": 8999,
+      "pass": true
+    }
+  ]
+}
