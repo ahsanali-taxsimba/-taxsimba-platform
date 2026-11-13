@@ -1,4 +1,4 @@
-# Architecture — TaxSimba AI Tax Concierge V2 (Phase 1)
+# Architecture — TaxSimba AI Tax Concierge V2 (Phase 1–2)
 
 ## Isolation
 
@@ -15,18 +15,17 @@ Existing TaxSimba portal and TaxoTools remain untouched. External systems (live 
 ## High-level components
 
 ```
-┌──────────────┐     ┌─────────────────────┐     ┌──────────────────┐
-│  Client UI   │────▶│  FastAPI API layer  │────▶│ Conversational   │
-│  (Phase 2+)  │     │  /api/v1/chat       │     │ Engine           │
-└──────────────┘     └─────────────────────┘     └────────┬─────────┘
-                                                          │
-                         ┌────────────────────────────────┼────────────┐
-                         ▼                                ▼            ▼
-               ┌──────────────────┐            ┌────────────────┐  ┌────────────┐
-               │ Knowledge        │            │ LLM Adapter    │  │ Analytics  │
-               │ Retrieval +      │            │ (OpenAI | Mock)│  │ (privacy)  │
-               │ Source Verify    │            └────────────────┘  └────────────┘
-               └──────────────────┘
+┌────────────────────┐   ┌──────────────────────┐   ┌──────────────────┐
+│ Embeddable widget  │──▶│ FastAPI /api/v1/*    │──▶│ Conversational   │
+│ /widget + embed.js │   │ chat, journeys,      │   │ Engine + journeys│
+└────────────────────┘   │ bootstrap, catalog   │   └────────┬─────────┘
+                         └──────────────────────┘            │
+                ┌────────────────────────────────────────────┼────────────┐
+                ▼                        ▼                   ▼            ▼
+      ┌──────────────────┐   ┌────────────────┐   ┌──────────────┐  ┌────────────┐
+      │ Knowledge +      │   │ Catalogue      │   │ LLM Adapter  │  │ Analytics  │
+      │ source verify    │   │ packages/calcs │   │ OpenAI|Mock  │  │ (privacy)  │
+      └──────────────────┘   └────────────────┘   └──────────────┘  └────────────┘
 ```
 
 ## Request flow (chat)

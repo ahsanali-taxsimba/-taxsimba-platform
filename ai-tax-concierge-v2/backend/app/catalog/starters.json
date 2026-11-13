@@ -1,0 +1,58 @@
+{
+  "starters": [
+    {
+      "id": "sa_deadline",
+      "label": "When is the Self Assessment deadline?",
+      "message": "When is the Self Assessment online filing deadline?"
+    },
+    {
+      "id": "need_sa",
+      "label": "Do I need to file a tax return?",
+      "message": "Do I need to send a Self Assessment tax return?"
+    },
+    {
+      "id": "mtd",
+      "label": "What is Making Tax Digital?",
+      "message": "What is Making Tax Digital for Income Tax and who does it apply to?"
+    },
+    {
+      "id": "personal_allowance",
+      "label": "What is the Personal Allowance?",
+      "message": "What is the Personal Allowance for the current tax year?"
+    },
+    {
+      "id": "landlord",
+      "label": "I'm a landlord — where do I start?",
+      "message": "I am a UK landlord. What tax basics should I know?",
+      "journey": "landlord"
+    },
+    {
+      "id": "freelancer",
+      "label": "I'm self-employed / freelance",
+      "message": "I am a freelancer. Help me understand Self Assessment.",
+      "journey": "freelancer"
+    },
+    {
+      "id": "cis",
+      "label": "I work under CIS",
+      "message": "I am a CIS subcontractor. What should I know about tax?",
+      "journey": "cis"
+    },
+    {
+      "id": "first_time",
+      "label": "First time filing taxes",
+      "message": "This is my first time dealing with UK Self Assessment. Where should I start?",
+      "journey": "first_time"
+    },
+    {
+      "id": "packages",
+      "label": "What do TaxSimba packages cost?",
+      "message": "What Self Assessment and MTD packages does TaxSimba offer?"
+    },
+    {
+      "id": "consult",
+      "label": "Book a £99 accountant chat",
+      "message": "Can I book a £99 accountant consultation?"
+    }
+  ]
+}

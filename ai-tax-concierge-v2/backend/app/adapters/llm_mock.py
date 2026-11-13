@@ -25,9 +25,17 @@ class MockLLMAdapter(LLMAdapter):
             grounded = grounded.split("INSTRUCTIONS:", 1)[0].strip()
 
         if grounded:
-            first_line = grounded.splitlines()[0].strip(" -")
+            lines = [ln.strip(" -") for ln in grounded.splitlines() if ln.strip()]
+            q = user_message.lower()
+            best = lines[0]
+            best_score = -1
+            for ln in lines:
+                score = sum(1 for token in q.split() if len(token) > 3 and token in ln.lower())
+                if score > best_score:
+                    best_score = score
+                    best = ln
             return (
-                f"Based on verified HMRC / GOV.UK guidance: {first_line}\n\n"
+                f"Based on verified HMRC / GOV.UK guidance: {best}\n\n"
                 "This is general information, not personal tax advice. "
                 "If your situation is complex, TaxSimba can arrange a £99 "
                 "accountant consultation."

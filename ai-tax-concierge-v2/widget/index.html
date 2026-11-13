@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en-GB" data-api-base="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TaxSimba AI Tax Concierge</title>
+  <link rel="stylesheet" href="./css/concierge.css" />
+</head>
+<body>
+  <div class="ts-shell" role="region" aria-label="TaxSimba AI Tax Concierge">
+    <header class="ts-header">
+      <div class="ts-brand">
+        <strong>TaxSimba Concierge</strong>
+        <span>UK tax guidance · source-backed</span>
+      </div>
+      <div class="ts-meta" aria-hidden="false">
+        <span class="ts-pill">Tax year <span id="ts-year">…</span></span>
+        <span class="ts-pill" id="ts-mode">…</span>
+      </div>
+    </header>
+
+    <div id="ts-body" class="ts-body" aria-live="polite"></div>
+    <div id="ts-live" class="visually-hidden" style="position:absolute;left:-9999px" aria-live="assertive"></div>
+
+    <form id="ts-form" class="ts-composer" autocomplete="off">
+      <label class="visually-hidden" for="ts-input" style="position:absolute;left:-9999px">Ask a tax question</label>
+      <textarea id="ts-input" rows="1" maxlength="4000" placeholder="Ask a UK tax question…" required></textarea>
+      <button class="ts-send" id="ts-send" type="submit">Send</button>
+    </form>
+    <div class="ts-footer">
+      General information only — not personalised tax advice. Verified GOV.UK / HMRC sources shown when available.
+    </div>
+  </div>
+  <script src="./js/concierge.js" defer></script>
+</body>
+</html>

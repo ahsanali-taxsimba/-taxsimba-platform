@@ -55,7 +55,7 @@ def test_chat_invalid_tax_year(client):
 def test_root(client):
     res = client.get("/")
     assert res.status_code == 200
-    assert res.json()["phase"] == 1
+    assert res.json()["phase"] == 2
 
 
 def test_settings_never_expose_key_in_safe_config():

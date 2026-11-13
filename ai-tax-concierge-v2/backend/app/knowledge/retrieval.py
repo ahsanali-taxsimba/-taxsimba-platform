@@ -53,18 +53,22 @@ def _tokens(text: str) -> set[str]:
 
 def score_fact(query: str, fact: KnowledgeFact, tax_year: str) -> RankedFact:
     q = _tokens(query)
+    title_tokens = _tokens(fact.title)
     haystack = _tokens(
         " ".join([fact.title, fact.summary, " ".join(fact.keywords), fact.category])
     )
     overlap = q & haystack
+    title_overlap = q & title_tokens
     # Prefer multi-word keyword phrases present in the query
     phrase_bonus = 0.0
     q_lower = query.lower()
     for kw in fact.keywords:
         if kw.lower() in q_lower:
-            phrase_bonus += 2.0
+            phrase_bonus += 2.5
+    if fact.title.lower() in q_lower:
+        phrase_bonus += 3.0
     year_match = applies_to_year(fact.tax_years, tax_year)
-    score = float(len(overlap)) + phrase_bonus
+    score = float(len(overlap)) + (2.0 * len(title_overlap)) + phrase_bonus
     if year_match:
         score += 1.5
     else:

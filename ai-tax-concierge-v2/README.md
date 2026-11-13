@@ -1,40 +1,51 @@
 # TaxSimba AI Tax Concierge V2
 
-Standalone UK tax assistant for TaxSimba. This project is **fully isolated** from the existing TaxSimba portal (`backend/`, `frontend/`) and TaxoTools (`taxotools/`).
+Standalone UK tax assistant for TaxSimba. Fully isolated from the existing TaxSimba portal (`backend/`, `frontend/`), TaxoTools (`taxotools/`), and Marketing Hub.
 
-## Phase 1 scope (this branch)
+## Phase status
 
-1. Isolated project + feature branch
-2. Architecture and project structure
-3. Secure server-side OpenAI integration + conversational engine
-4. Foundational UK tax knowledge retrieval with HMRC source verification
-5. Automated tests for those components
+- **Phase 1:** Secure AI backend, knowledge retrieval, source verification — done
+- **Phase 2:** Embeddable chatbot UI + guided journeys + catalogue recommendations — this branch
+- **Phase 3:** Not started (awaiting approval)
 
-Later phases (chatbot UI, guided journeys, packages, £99 consultation, website/payment/Calendly adapters, embed) are **out of scope** until Phase 1 is approved.
-
-## Quick start
+## Quick start (local preview)
 
 ```bash
 cd ai-tax-concierge-v2/backend
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-cp ../.env.example .env   # optional: set OPENAI_API_KEY for live AI
+# optional: export OPENAI_API_KEY=... for live AI; otherwise mock mode
+uvicorn app.main:app --reload --host 127.0.0.1 --port 8090
+```
 
-# Run API (mock AI if no key)
-uvicorn app.main:app --reload --port 8090
+Open:
 
-# Run tests
+- Preview host page: http://127.0.0.1:8090/widget/preview.html
+- Full panel: http://127.0.0.1:8090/widget/index.html
+- API docs: http://127.0.0.1:8090/docs
+
+### Embed on a host page (does not change host design)
+
+```html
+<script
+  src="http://127.0.0.1:8090/widget/embed.js"
+  data-api-base="http://127.0.0.1:8090"
+  async></script>
+```
+
+## Tests
+
+```bash
+cd ai-tax-concierge-v2/backend
+source .venv/bin/activate
 pytest -q
 ```
 
 ## Security notes
 
-- OpenAI API keys are read **only** from server environment variables.
-- Keys are never returned in API responses or logged.
-- Chat endpoints accept user text only; no client-supplied model overrides.
-- PII redaction is applied before analytics events are recorded.
-
-## Isolation guarantee
-
-All code lives under `ai-tax-concierge-v2/`. No files outside this directory are modified for this product.
+- OpenAI keys are server-side only and never returned by `/api/v1/config` or `/bootstrap`
+- Chat endpoints are rate-limited
+- Analytics store redacted text only
+- Package prices come from `app/catalog/packages.json` — inclusions are not invented
+- Calculator / booking / payment integrations remain stubbed until Phase 3 wiring

@@ -1,0 +1,46 @@
+{
+  "version": "2026-03-phase2",
+  "disclaimer": "Calculator links are configuration stubs until wired to the live TaxSimba website. Do not treat stub paths as confirmed public URLs.",
+  "items": [
+    {
+      "id": "income_tax_estimator",
+      "title": "Income tax estimator",
+      "description": "Roughly estimate Income Tax for employment or self-employment income.",
+      "topics": ["income tax", "personal allowance", "self employed", "freelancer"],
+      "url_status": "stub",
+      "path": "/calculators/income-tax"
+    },
+    {
+      "id": "sa_deadline_checker",
+      "title": "Self Assessment deadline checker",
+      "description": "See key Self Assessment filing and payment dates for a tax year.",
+      "topics": ["self assessment", "deadline", "31 january", "payments on account"],
+      "url_status": "stub",
+      "path": "/calculators/self-assessment-deadlines"
+    },
+    {
+      "id": "mtd_readiness",
+      "title": "MTD readiness checklist",
+      "description": "Check whether Making Tax Digital for Income Tax may apply to you.",
+      "topics": ["mtd", "making tax digital", "landlord", "quarterly"],
+      "url_status": "stub",
+      "path": "/calculators/mtd-readiness"
+    },
+    {
+      "id": "cis_refund_helper",
+      "title": "CIS tax overview helper",
+      "description": "Understand CIS deductions and when a Self Assessment reclaim may be relevant.",
+      "topics": ["cis", "construction", "subcontractor", "deduction"],
+      "url_status": "stub",
+      "path": "/calculators/cis"
+    },
+    {
+      "id": "property_income_helper",
+      "title": "Property income helper",
+      "description": "Guidance prompts for UK property rental income and allowable costs.",
+      "topics": ["landlord", "property", "rental", "rent a room"],
+      "url_status": "stub",
+      "path": "/calculators/property-income"
+    }
+  ]
+}

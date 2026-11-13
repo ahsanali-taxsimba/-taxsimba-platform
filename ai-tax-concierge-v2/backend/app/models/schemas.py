@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
-from typing import List, Literal, Optional
+from typing import Any, Dict, List, Literal, Optional
 from uuid import uuid4
 
 from pydantic import BaseModel, Field, field_validator
@@ -24,6 +24,49 @@ class ChatMessage(BaseModel):
     content: str
 
 
+class JourneyStepView(BaseModel):
+    step_id: str
+    prompt: Optional[str] = None
+    options: List[Dict[str, str]] = Field(default_factory=list)
+
+
+class JourneyState(BaseModel):
+    journey_id: str
+    journey_title: str
+    step_id: str
+    complete: bool = False
+    answers: Dict[str, str] = Field(default_factory=dict)
+    tags: List[str] = Field(default_factory=list)
+    current: Optional[JourneyStepView] = None
+    summary: Optional[str] = None
+    suggested_package_codes: List[str] = Field(default_factory=list)
+    suggested_calculator_ids: List[str] = Field(default_factory=list)
+    follow_ups: List[str] = Field(default_factory=list)
+
+
+class PackageCard(BaseModel):
+    code: str
+    name: str
+    price_gbp: float
+    billing: str
+    vat_note: str
+    family: str
+    inclusions_status: str = "not_specified_in_catalog"
+    pressure_free_note: str = (
+        "Optional support — only if useful. Full inclusions are confirmed with TaxSimba, "
+        "not invented by this assistant."
+    )
+
+
+class CalculatorCard(BaseModel):
+    id: str
+    title: str
+    description: str
+    url_status: str
+    url: Optional[str] = None
+    note: Optional[str] = None
+
+
 class ChatRequest(BaseModel):
     session_id: str = Field(default_factory=lambda: str(uuid4()))
     message: str = Field(..., min_length=1, max_length=4000)
@@ -32,6 +75,9 @@ class ChatRequest(BaseModel):
         description="UK tax year label e.g. 2025-26. Defaults to current.",
     )
     history: List[ChatMessage] = Field(default_factory=list, max_length=20)
+    journey_id: Optional[str] = None
+    journey_option_id: Optional[str] = None
+    journey_state: Optional[JourneyState] = None
 
     @field_validator("message")
     @classmethod
@@ -47,7 +93,6 @@ class ChatRequest(BaseModel):
         if value is None:
             return None
         value = value.strip()
-        # Accept 2025-26 or 2025/26
         normalised = value.replace("/", "-")
         parts = normalised.split("-")
         if len(parts) != 2 or not parts[0].isdigit() or len(parts[0]) != 4:
@@ -72,13 +117,29 @@ class ChatResponse(BaseModel):
     confidence: Literal["high", "medium", "low"]
     disclaimer: str
     consultation_hint: Optional[str] = None
+    follow_ups: List[str] = Field(default_factory=list)
+    packages: List[PackageCard] = Field(default_factory=list)
+    calculators: List[CalculatorCard] = Field(default_factory=list)
+    journey: Optional[JourneyState] = None
     llm_mode: Literal["openai", "mock"]
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+class JourneyStartRequest(BaseModel):
+    session_id: str = Field(default_factory=lambda: str(uuid4()))
+    journey_id: str
+
+
+class JourneyAdvanceRequest(BaseModel):
+    session_id: str
+    option_id: str
+    journey_state: JourneyState
 
 
 class HealthResponse(BaseModel):
     status: Literal["ok"] = "ok"
     version: str
+    phase: int = 2
     llm_mode: Literal["openai", "mock"]
     current_tax_year: str
 
@@ -93,3 +154,7 @@ class KnowledgeFact(BaseModel):
     publisher: str
     category: str
     last_verified: str
+
+
+class ErrorBody(BaseModel):
+    error: Dict[str, Any]

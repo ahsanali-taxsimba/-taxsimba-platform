@@ -17,6 +17,7 @@ async def health(request: Request) -> HealthResponse:
     settings: Settings = request.app.state.settings
     return HealthResponse(
         version=__version__,
+        phase=2,
         llm_mode="mock" if settings.use_mock_llm else "openai",
         current_tax_year=tax_year_label(),
     )

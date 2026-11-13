@@ -23,7 +23,12 @@ class Settings(BaseSettings):
 
     concierge_env: str = Field(default="development", alias="CONCIERGE_ENV")
     concierge_cors_origins: str = Field(
-        default="http://localhost:3000,http://127.0.0.1:3000",
+        default=(
+            "http://localhost:3000,http://127.0.0.1:3000,"
+            "http://localhost:8090,http://127.0.0.1:8090,"
+            "http://localhost:8091,http://127.0.0.1:8091,"
+            "null"
+        ),
         alias="CONCIERGE_CORS_ORIGINS",
     )
     concierge_log_level: str = Field(default="INFO", alias="CONCIERGE_LOG_LEVEL")
@@ -61,11 +66,14 @@ class Settings(BaseSettings):
         """Config safe to expose — never includes API keys."""
         return {
             "env": self.concierge_env,
+            "phase": 2,
             "llm_mode": "mock" if self.use_mock_llm else "openai",
             "model": self.openai_model if not self.use_mock_llm else "mock-concierge-v1",
             "website_base_url": self.website_base_url,
             "consultation_available": True,
             "consultation_price_gbp": 99,
+            "consultation_booking_status": "stub",
+            "payment_status": "mock_unavailable",
         }
 
 
