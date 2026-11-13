@@ -4,7 +4,7 @@
 **Repository:** ahsanali-taxsimba/-taxsimba-platform  
 **Working tree:** `ai-tax-concierge-v2/`  
 **PR #35:** HOLD — do not merge without explicit owner authorisation  
-**Commit:**   
+**Commit:** `0dff1db3352012e1f2c889fb790da2f65db37955` (implementation; docs tip may advance)  
 **This branch:** `cursor/simba-final-toxel-handover-6522` (stacked on `cursor/ai-tax-concierge-v2-phase1-0f84`)  
 **Runtime:** Node.js v22.23.4 (`backend-node/`), Python FastAPI retained (not deleted)
 
