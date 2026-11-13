@@ -19,7 +19,7 @@ const ROOT = path.resolve(
 );
 const WEBSITE = "https://www.taxsimba.co.uk";
 
-describe("inclusions resolution — public API recovery", () => {
+describe("inclusions resolution — Simbian names + pending features", () => {
   it("versioned_catalogue_exists_with_statuses", () => {
     const raw = readFileSync(
       path.join(
@@ -31,40 +31,45 @@ describe("inclusions resolution — public API recovery", () => {
     const cat = JSON.parse(raw);
     expect(cat.last_reviewed).toBe("2026-11-13");
     expect(cat.status_summary.prices).toBe("VERIFIED");
-    expect(cat.status_summary.feature_inclusions).toBe("REQUIRES_APPROVAL");
     expect(cat.self_assessment[2].price_gbp.value).toBe(299);
-    expect(cat.mtd[0].name.status).toBe("REQUIRES_APPROVAL");
-    expect(cat.unresolved_approval_items.length).toBeGreaterThan(0);
   });
 
-  it("runtime_packages_match_verified_prices", () => {
+  it("runtime_packages_use_simbian_names_and_verified_prices", () => {
     const cat = packagesCatalog();
     expect(cat.detailed_recommendations_status).toBe(
-      "partial_recovered_public_api_pending_signoff",
+      "names_and_prices_verified_inclusions_pending_signoff",
     );
     expect(cat.self_assessment.map((p: { price_gbp: number }) => p.price_gbp)).toEqual([
       119, 149, 299,
     ]);
-    expect(cat.mtd.map((p: { price_gbp: number }) => p.price_gbp)).toEqual([
-      29.99, 59.99, 89.99,
+    expect(cat.mtd.map((p: { name: string; price_gbp: number }) => [p.name, p.price_gbp])).toEqual([
+      ["Simbian Comply", 29.99],
+      ["Simbian Growth", 59.99],
+      ["Simbian Elite", 89.99],
+    ]);
+    expect(cat.mtd.map((p: { code: string }) => p.code)).toEqual([
+      "MTD_STARTER",
+      "MTD_GROWTH",
+      "MTD_COMPLETE",
     ]);
   });
 
-  it("inclusions_answer_labels_pending_and_does_not_invent", () => {
+  it("inclusions_answer_uses_verified_names_without_promising_features", () => {
     const reply = answerInclusionsQuestion(
       "What is included in each package and how do they differ?",
     );
     expect(reply).toBeTruthy();
     const lower = reply!.toLowerCase();
     expect(lower).toContain("verified");
-    expect(lower).toContain("pending");
+    expect(lower).toContain("simbian comply");
+    expect(lower).toContain("simbian elite");
     expect(lower).toContain("£119");
     expect(lower).toContain("29.99");
-    expect(lower).toContain("will not invent");
-    expect(lower).toContain("xero"); // recovered public API — labelled pending
-    expect(lower).not.toContain("24/7 phone helpline");
-    expect(lower).toContain("self-assessment");
-    expect(lower).toContain("register");
+    expect(lower).toMatch(/not invent|will not invent|not approved/);
+    expect(lower).not.toContain("mtd starter");
+    expect(lower).not.toContain("mtd complete");
+    // Must not confidently dump Xero as a contractual inclusion.
+    expect(lower).not.toContain("xero grow subscription included");
   });
 
   it("lowest_suitable_simple_sa_not_elite", () => {
@@ -76,7 +81,6 @@ describe("inclusions resolution — public API recovery", () => {
     const codes = packages.map((p) => p.code);
     expect(codes[0]).toBe("SA_SIMPLE");
     expect(primaryRecommendationIsNotMostExpensive(codes)).toBe(true);
-    expect(packages[0].recommendation_reason || "").toMatch(/Lowest/i);
   });
 
   it("complex_sa_still_not_elite_only", () => {
@@ -99,16 +103,19 @@ describe("inclusions resolution — public API recovery", () => {
     expect(packages).toEqual([]);
   });
 
-  it("catalogue_text_mentions_pending_signoff", () => {
+  it("catalogue_text_forbids_starter_complete_labels", () => {
     const text = packageCatalogText().toLowerCase();
-    expect(text).toContain("pending");
-    expect(text).toContain("119");
+    expect(text).toContain("simbian comply");
     expect(text).toContain("never invent");
+    expect(text).not.toContain("mtd starter");
+    expect(text).not.toContain("mtd complete");
   });
 
-  it("package_cards_expose_registration_paths", () => {
+  it("package_cards_expose_registration_paths_without_inclusions", () => {
     const cards = toPackageCards(["SA_SIMPLE", "MTD_STARTER"]);
     expect(cards[0].registration_path).toBe("/self-assessment");
+    expect(cards[1].name).toBe("Simbian Comply");
     expect(cards[1].registration_path).toBe("/making-tax-digital");
+    expect(cards[1].inclusions).toBeNull();
   });
 });

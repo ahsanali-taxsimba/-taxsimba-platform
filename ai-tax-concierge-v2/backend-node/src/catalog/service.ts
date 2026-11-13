@@ -62,40 +62,18 @@ export function formatPackageLine(pkg: Record<string, unknown>): string {
 export function packageCatalogText(): string {
   const cat = packagesCatalog();
   const lines = [
-    "Self Assessment packages (prices VERIFIED; feature bullets pending TaxSimba sign-off):",
+    "Self Assessment packages (names + prices VERIFIED):",
   ];
   for (const p of cat.self_assessment as Record<string, unknown>[]) {
     lines.push(`- ${formatPackageLine(p)}`);
-    if (p.description && p.description_status === "pending_taxsimba_signoff") {
-      lines.push(
-        `  Published description (pending sign-off): ${String(p.description)}`,
-      );
-    }
-    const incs = p.inclusions as string[] | null;
-    if (incs?.length && p.inclusions_status === "pending_taxsimba_signoff") {
-      lines.push(
-        `  Published inclusions (pending sign-off): ${incs.join("; ")}`,
-      );
-    }
   }
   lines.push(
-    "MTD plans (prices VERIFIED VAT included; names may conflict with public Simbian labels — pending approval):",
+    "MTD plans (customer-facing names VERIFIED; prices VERIFIED; VAT included):",
   );
   for (const p of cat.mtd as Record<string, unknown>[]) {
     lines.push(`- ${formatPackageLine(p)}`);
-    if (p.name_conflict_note) {
-      lines.push(`  Name conflict: ${String(p.name_conflict_note)}`);
-    }
-    if (p.description && p.description_status === "pending_taxsimba_signoff") {
-      lines.push(
-        `  Published description (pending sign-off): ${String(p.description)}`,
-      );
-    }
-    const incs = p.inclusions as string[] | null;
-    if (incs?.length && p.inclusions_status === "pending_taxsimba_signoff") {
-      lines.push(
-        `  Published inclusions (pending sign-off): ${incs.join("; ")}`,
-      );
+    if (p.internal_code_note) {
+      lines.push(`  Internal mapping: ${String(p.internal_code_note)}`);
     }
   }
   const c = cat.consultation as Record<string, unknown>;
@@ -103,8 +81,12 @@ export function packageCatalogText(): string {
     `Consultation: ${formatPackageLine(c)} (booking status: ${c.booking_status || "unknown"})`,
   );
   lines.push(
-    "Never invent benefits beyond this catalogue. Prefer the lowest suitable package. " +
-      "If a recommendation depends on an unapproved inclusion, say so and offer TaxSimba confirmation. " +
+    "CRITICAL: Do NOT list feature inclusions, software licences, support channels or exclusions as facts. " +
+      "Recovered website wording exists for TaxSimba approval only — it is NOT approved for contractual promises. " +
+      "Recommend the lowest suitable package using verified names/prices and circumstance heuristics only; " +
+      "explain uncertainty and offer TaxSimba confirmation or a £99 consultation when booking is connected. " +
+      "Never invent benefits. Use only Simbian Comply / Simbian Growth / Simbian Elite for MTD customer-facing names " +
+      "(do not use retired starter/complete labels). " +
       `Catalogue note: ${cat.disclaimer}`,
   );
   return lines.join("\n");

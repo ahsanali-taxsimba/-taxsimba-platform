@@ -22,13 +22,15 @@ const EXISTING_CLIENT =
   /\b(existing (taxsimba )?client|already (a )?taxsimba|logged ?in|my dashboard|message my (assigned )?accountant|my assigned accountant)\b/i;
 
 const DEFAULT_PRESSURE_NOTE =
-  "Optional support — only if useful. Verified items are prices (and SA names). " +
-  "Feature inclusions are recovered from TaxSimba’s public plan API and still need TaxSimba confirmation before you rely on them.";
+  "Optional support — only if useful. Verified items are package names and prices. " +
+  "Feature inclusions are not approved contractual promises yet — confirm with TaxSimba before relying on specific benefits.";
 
 const PENDING_STATUSES = new Set([
   "pending_taxsimba_signoff",
+  "requires_approval",
   "blocked_pending_taxsimba_approval",
   "missing_requires_approval",
+  "unknown",
   "conflict_pending_approval",
 ]);
 
@@ -44,13 +46,13 @@ function circumstanceReason(code: string, message: string): string {
     return "Highest Self Assessment price — only suggested when complexity clearly exceeds mid-tier needs (price verified at £299; inclusions pending confirmation).";
   }
   if (code === "MTD_STARTER") {
-    return "Lowest MTD monthly price when Making Tax Digital support is needed (price verified VAT included; plan name/features pending confirmation).";
+    return "Lowest Simbian Comply (£29.99/mo VAT included) when Making Tax Digital support is needed — features still require TaxSimba confirmation.";
   }
   if (code === "MTD_GROWTH") {
-    return "Mid MTD monthly price when more dedicated review is likely (price verified VAT included; features pending confirmation).";
+    return "Mid Simbian Growth (£59.99/mo VAT included) when more dedicated review is likely — features still require TaxSimba confirmation.";
   }
   if (code === "MTD_COMPLETE") {
-    return "Highest MTD monthly price — only if mid-tier is clearly insufficient (price verified VAT included; name/features pending confirmation).";
+    return "Highest Simbian Elite (£89.99/mo VAT included) only if mid-tier is clearly insufficient — features still require TaxSimba confirmation.";
   }
   if (code === "ACCOUNTANT_CONSULT_99") {
     return "£99 / 30-minute consultation when a human review is the safer next step (booking stub until Calendly is connected).";
@@ -81,11 +83,12 @@ export function toPackageCards(
       vat_note: String(pkg.vat_note || ""),
       family: String(pkg.family),
       inclusions_status: String(
-        pkg.inclusions_status || "pending_taxsimba_signoff",
+        pkg.inclusions_status || "requires_approval",
       ),
       pressure_free_note: DEFAULT_PRESSURE_NOTE,
-      description: pkg.description ? String(pkg.description) : null,
-      inclusions,
+      // Do not surface unapproved descriptions/inclusions on cards as promises.
+      description: null,
+      inclusions: pkg.customer_facing_inclusions ? inclusions : null,
       recommendation_reason: circumstanceReason(String(pkg.code), message),
       name_status: pkg.name_status ? String(pkg.name_status) : null,
       price_status: pkg.price_status ? String(pkg.price_status) : "verified",
@@ -323,57 +326,35 @@ export function answerInclusionsQuestion(message: string): string | null {
 
   const cat = packagesCatalog();
   const lines: string[] = [
-    "Here is what is currently in the SIMBA catalogue (last reviewed 2026-11-13).",
+    "Here is what SIMBA can state confidently (VERIFIED names and prices):",
     "",
-    "VERIFIED: Self Assessment Simple £119, Smart £149, Elite £299 (per tax year); " +
-      "MTD £29.99 / £59.99 / £89.99 per month (VAT included); consultation £99 / 30 minutes.",
+    "Self Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.",
+    "Making Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.",
+    "Private accountant consultation: £99 for 30 minutes (Google Meet; booking stub until Calendly is connected).",
     "",
-    "Feature descriptions below were recovered from TaxSimba’s public subscription-plans API. " +
-      "They are PENDING TaxSimba/accountant sign-off for SIMBA — please confirm with the TaxSimba team before purchasing. " +
-      "I will not invent extra benefits.",
+    "Feature inclusions, exclusions, software licences and support commitments are NOT approved contractual promises in SIMBA. " +
+      "Recovered public-website wording exists for TaxSimba review only (status: REQUIRES APPROVAL / UNKNOWN). " +
+      "I will not invent benefits, and I will not present unapproved website copy as a guarantee.",
     "",
+    "I can recommend the lowest suitable package using verified prices and your circumstances, " +
+      "and explain where confirmation from TaxSimba is still needed. " +
+      "Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, " +
+      "or start registration at https://www.taxsimba.co.uk/register (registration path soft/generic until staging verifies).",
   ];
 
+  // Names listed for orientation only — no feature dump.
   for (const p of cat.self_assessment as Record<string, any>[]) {
-    lines.push(`${p.name} — £${p.price_gbp} (${p.billing}) [price VERIFIED]`);
-    if (p.description) {
-      lines.push(`  Published description (PENDING APPROVAL): ${p.description}`);
-    }
-    if (Array.isArray(p.inclusions) && p.inclusions.length) {
-      lines.push(
-        `  Published inclusions (PENDING APPROVAL): ${p.inclusions.join("; ")}`,
-      );
-    }
-  }
-  lines.push("");
-  for (const p of cat.mtd as Record<string, any>[]) {
-    const conflict =
-      p.name_status === "conflict_pending_approval"
-        ? ` [name conflict vs public “${p.public_api_name}” — PENDING APPROVAL]`
-        : "";
     lines.push(
-      `${p.name} — £${Number(p.price_gbp).toFixed(2)} (${p.billing}; VAT included) [price VERIFIED]${conflict}`,
+      `- ${p.name}: £${p.price_gbp} (${p.billing}) — inclusions status: ${p.inclusions_status}`,
     );
-    if (p.description) {
-      lines.push(`  Published description (PENDING APPROVAL): ${p.description}`);
-    }
-    if (Array.isArray(p.inclusions) && p.inclusions.length) {
-      lines.push(
-        `  Published inclusions (PENDING APPROVAL): ${p.inclusions.join("; ")}`,
-      );
-    }
   }
-  lines.push("");
-  lines.push(
-    "Explicit exclusions are MISSING and also require TaxSimba approval. " +
-      "If your choice depends on a pending inclusion (for example a named Xero plan or priority support), " +
-      "I must treat that as unconfirmed and recommend asking TaxSimba to confirm — " +
-      "or book a £99 consultation when booking is connected. " +
-      "You can review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, " +
-      "or start registration at https://www.taxsimba.co.uk/register (registration path status: soft/generic until staging verifies).",
-  );
+  for (const p of cat.mtd as Record<string, any>[]) {
+    lines.push(
+      `- ${p.name}: £${Number(p.price_gbp).toFixed(2)} (${p.billing}; VAT included) — inclusions status: ${p.inclusions_status}`,
+    );
+  }
 
-  // Keep unused helper referenced for clarity in audits
   void PENDING_STATUSES;
+  void cat;
   return lines.join("\n");
 }

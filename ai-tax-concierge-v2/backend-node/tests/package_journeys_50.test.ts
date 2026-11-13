@@ -74,9 +74,11 @@ describe("package recommendation journeys 50", () => {
         expect(primaryRecommendationIsNotMostExpensive(codes)).toBe(true);
         for (const card of toPackageCards(codes)) {
           expect(
-            card.inclusions_status === "pending_taxsimba_signoff" ||
+            card.inclusions_status === "requires_approval" ||
+              card.inclusions_status === "unknown" ||
               card.inclusions_status === "missing_requires_approval",
           ).toBe(true);
+          expect(card.name).not.toMatch(/MTD Starter|MTD Complete/);
         }
         return;
       }
@@ -86,10 +88,11 @@ describe("package recommendation journeys 50", () => {
         const guard = answerInclusionsQuestion(j.message!);
         expect(guard).toBeTruthy();
         expect(guard!.toLowerCase()).toMatch(
-          /not invent|will not invent|pending|approval|verified/,
+          /not invent|will not invent|requires approval|verified|not approved/,
         );
         expect(guard!.toLowerCase()).toContain("£119");
-        expect(guard!.toLowerCase()).toContain("pending");
+        expect(guard!.toLowerCase()).toContain("simbian comply");
+        expect(guard!.toLowerCase()).not.toContain("mtd starter");
         return;
       }
 
@@ -113,7 +116,8 @@ describe("package recommendation journeys 50", () => {
       expect(
         packages.every(
           (p) =>
-            p.inclusions_status === "pending_taxsimba_signoff" ||
+            p.inclusions_status === "requires_approval" ||
+            p.inclusions_status === "unknown" ||
             p.inclusions_status === "missing_requires_approval" ||
             packages.length === 0,
         ),

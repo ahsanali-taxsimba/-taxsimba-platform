@@ -10,23 +10,22 @@ Final audit: [`../verification/pre_toxel_final/PRE_TOXEL_FINAL_AUDIT.md`](../ver
 
 ---
 
-## 0. Package inclusions — partial resolution (still needs TaxSimba sign-off)
+## 0. Package catalogue alignment (names VERIFIED; inclusions still need sign-off)
 
 | Item | Status |
 |------|--------|
-| Verified prices / SA names | **PASS** — £119/£149/**£299** · MTD £29.99/£59.99/£89.99 VAT incl. · £99/30min |
-| Recovered public-API descriptions & feature bullets | **LOADED** as `pending_taxsimba_signoff` (must keep PENDING label) |
-| MTD display names vs Simbian Comply/Elite | **CONFLICT — REQUIRES APPROVAL** |
-| Explicit exclusions | **MISSING — REQUIRES APPROVAL** |
-| Fully approved inclusion wording | **BLOCKED** until TaxSimba signs supply form |
+| SA names + prices | **VERIFIED** — Simple £119 / Smart £149 / Elite **£299** |
+| MTD customer-facing names + prices | **VERIFIED** — **Simbian Comply / Growth / Elite** £29.99 / £59.99 / £89.99 VAT incl. |
+| Internal MTD codes | **Preserved** — `MTD_STARTER` / `MTD_GROWTH` / `MTD_COMPLETE` (portal/Stripe; no duplicates; amounts unchanged) |
+| Recovered feature bullets / descriptions | **REQUIRES APPROVAL** — not used as contractual promises in SIMBA |
+| Explicit exclusions | **UNKNOWN** |
+| Consultation £99 / 30 min | **VERIFIED** price/duration; inclusions **UNKNOWN**; booking stub |
+| Six-package approval matrix | [`../verification/inclusions_resolution/SIX_PACKAGE_APPROVAL_MATRIX.md`](../verification/inclusions_resolution/SIX_PACKAGE_APPROVAL_MATRIX.md) |
 | Supply / sign-off form | [`PACKAGE_INCLUSIONS_SUPPLY_REQUEST.md`](./PACKAGE_INCLUSIONS_SUPPLY_REQUEST.md) |
-| Resolution report | [`../verification/inclusions_resolution/INCLUSIONS_RESOLUTION_REPORT.md`](../verification/inclusions_resolution/INCLUSIONS_RESOLUTION_REPORT.md) |
-| Catalogue flag | `detailed_recommendations_status: partial_recovered_public_api_pending_signoff` |
-| SIMBA behaviour now | Quote **verified prices**; quote recovered features **only with PENDING APPROVAL**; recommend **lowest suitable** tier; never invent |
+| Catalogue flag | `names_and_prices_verified_inclusions_pending_signoff` |
+| SIMBA behaviour | State verified names/prices; recommend **lowest suitable**; explain uncertainty; never invent; never say “MTD Starter/Complete” to customers |
 
-**Do not** invent inclusions or change prices (£119/£149/£299 · £29.99/£59.99/£89.99 VAT incl. · £99/30min).
-
-**Catalogue sync (2026-11-13):** Portal seed matches SIMBA prices — SA **£119/£149/£299**; MTD **Starter/Growth/Complete** **£29.99/£59.99/£89.99**/month VAT included. Public API uses Simbian Comply/Growth/Elite at the same MTD prices — naming equivalence is **not** assumed.
+**Do not** invent inclusions or change prices.
 
 ---
 

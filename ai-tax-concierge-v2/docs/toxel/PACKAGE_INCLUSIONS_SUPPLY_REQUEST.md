@@ -1,60 +1,46 @@
 # Package inclusions — TaxSimba / Toxel supply request
 
-**Status:** **PARTIAL** — public subscription-plans API recovered (2026-11-13). Feature text is loaded as **PENDING APPROVAL**, not signed off.  
-**Rule:** SIMBA must **not invent** beyond the recovered catalogue and must **not change** verified prices.  
-**Runtime flag:** `detailed_recommendations_status: partial_recovered_public_api_pending_signoff`  
-**Versioned catalogue:** `backend-node/data/catalog/packages_inclusions_catalogue.v2026-11-13.json`  
-**Report:** `docs/verification/inclusions_resolution/INCLUSIONS_RESOLUTION_REPORT.md`
+**Status:** **NAMES & PRICES VERIFIED** · feature inclusions still **REQUIRES APPROVAL**  
+**Customer-facing MTD names (confirmed):** Simbian Comply / Simbian Growth / Simbian Elite  
+**Internal codes (unchanged):** `MTD_STARTER` / `MTD_GROWTH` / `MTD_COMPLETE`  
+**Matrix:** [`../verification/inclusions_resolution/SIX_PACKAGE_APPROVAL_MATRIX.md`](../verification/inclusions_resolution/SIX_PACKAGE_APPROVAL_MATRIX.md)
 
 ---
 
-## Recovered sources
+## Verified catalogue (do not change without product owner)
 
-| Source | URL / path |
-|--------|------------|
-| Public SA plans | https://taxsimba.co.uk/api/compat/subscription-plans?category=taxSimba |
-| Public MTD plans | https://taxsimba.co.uk/api/compat/subscription-plans?category=mtd |
-| Evidence JSON | `docs/verification/inclusions_resolution/public_api_*.json` |
-
----
-
-## What still needs TaxSimba sign-off
-
-Tick and sign to promote each row from `pending_taxsimba_signoff` → `approved_by_taxsimba`.
-
-### Self Assessment (prices VERIFIED)
-
-| Code | Name | Price | Approve description? | Approve inclusions? | Approve exclusions? | Approved by | Date |
-|------|------|------:|----------------------|---------------------|---------------------|-------------|------|
-| SA_SIMPLE | Self Assessment Simple | £119 | ☐ | ☐ | ☐ (missing) | | |
-| SA_SMART | Self Assessment Smart | £149 | ☐ | ☐ | ☐ (missing) | | |
-| SA_ELITE | Self Assessment Elite | £299 | ☐ | ☐ | ☐ (missing) | | |
-
-### Making Tax Digital (prices VERIFIED; **names conflict**)
-
-| Code (SIMBA) | SIMBA name | Public API | Price | Approve **name**? | Approve description/inclusions? | Approved by | Date |
-|--------------|------------|------------|------:|-------------------|----------------------------------|-------------|------|
-| MTD_STARTER | MTD Starter | Simbian Comply / MTD_COMPLY | £29.99 | ☐ | ☐ | | |
-| MTD_GROWTH | MTD Growth | Simbian Growth / MTD_GROWTH | £59.99 | ☐ | ☐ | | |
-| MTD_COMPLETE | MTD Complete | Simbian Elite / MTD_ELITE | £89.99 | ☐ | ☐ | | |
-
-### Consultation
-
-| Code | Price | Approve inclusions? | Calendly URL | Approved by | Date |
-|------|------:|---------------------|--------------|-------------|------|
-| ACCOUNTANT_CONSULT_99 | £99 / 30 min | ☐ | _TBD_ | | |
-
-### Also confirm
-
-1. Soft registration / checkout paths (`routes.json`) → mark `live_verified` after staging check.  
-2. Sign-off that pending public-API text may be spoken by SIMBA **without** the pending disclaimer.  
-3. Staging Stripe Checkout `amount_total` for Elite **29900** and MTD **2999/5999/8999**.
+| Family | Customer-facing name | Internal code | Price | Billing |
+|--------|----------------------|---------------|------:|---------|
+| SA | Self Assessment Simple | SA_SIMPLE / portal SIMPLE | £119 | per tax year |
+| SA | Self Assessment Smart | SA_SMART / portal SMART | £149 | per tax year |
+| SA | Self Assessment Elite | SA_ELITE / portal ELITE | £299 | per tax year |
+| MTD | Simbian Comply | MTD_STARTER | £29.99 | per month, VAT included |
+| MTD | Simbian Growth | MTD_GROWTH | £59.99 | per month, VAT included |
+| MTD | Simbian Elite | MTD_COMPLETE | £89.99 | per month, VAT included |
+| Consult | Private accountant consultation | ACCOUNTANT_CONSULT_99 | £99 | 30 minutes |
 
 ---
 
-## How SIMBA consumes data today
+## Still needs TaxSimba sign-off
 
-- **VERIFIED** prices/names spoken confidently.  
-- Recovered inclusions spoken **only** with PENDING APPROVAL labelling.  
-- Lowest suitable package recommended from circumstance heuristics.  
-- After sign-off: set `inclusions_status` / `description_status` to `approved_by_taxsimba`, resolve MTD name conflicts, flip `detailed_recommendations_status` to `approved_by_taxsimba`.
+For each SKU, approve or rewrite recovered public-API descriptions/features in the matrix. Until signed:
+
+- SIMBA must **not** present them as contractual inclusions  
+- SIMBA may recommend lowest suitable package using verified names/prices only  
+
+| Area | Owner | Action |
+|------|-------|--------|
+| SA/MTD descriptions & feature bullets | TaxSimba / accountant | Approve / edit / reject matrix REQUIRES APPROVAL rows |
+| Exclusions | TaxSimba / accountant | Supply explicit exclusions (currently UNKNOWN) |
+| £99 consult inclusions | TaxSimba / accountant | Define coverage |
+| Stripe Checkout live amounts | Toxel | Verify staging `amount_total` |
+| Calendly / register / dashboard | Toxel | Staging E2E |
+
+---
+
+## After approval
+
+1. Set approved rows to `approved_by_taxsimba` in `packages.json`  
+2. Optionally enable `customer_facing_inclusions: true` for approved bullets only  
+3. Flip `detailed_recommendations_status` to `approved_by_taxsimba`  
+4. Re-run `npm test` + live probes  

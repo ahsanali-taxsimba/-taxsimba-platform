@@ -35,9 +35,12 @@ class TestApprovedSAPrices:
 
 
 class TestApprovedMTDPrices:
-    def test_mtd_starter_growth_complete_monthly(self):
+    def test_mtd_simbian_comply_growth_elite_monthly(self):
         mtd = _by_code(MTD)
         assert set(mtd) == {"MTD_STARTER", "MTD_GROWTH", "MTD_COMPLETE"}
+        assert mtd["MTD_STARTER"]["name"] == "Simbian Comply"
+        assert mtd["MTD_GROWTH"]["name"] == "Simbian Growth"
+        assert mtd["MTD_COMPLETE"]["name"] == "Simbian Elite"
         assert mtd["MTD_STARTER"]["price"] == 29.99
         assert mtd["MTD_GROWTH"]["price"] == 59.99
         assert mtd["MTD_COMPLETE"]["price"] == 89.99

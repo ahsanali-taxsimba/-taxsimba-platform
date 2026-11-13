@@ -39,7 +39,7 @@ describe("recommendations catalog", () => {
     const card = toPackageCards([code])[0];
     expect(card.price_gbp).toBe(price);
     expect(card.price_status).toBe("verified");
-    expect(card.inclusions_status).toBe("pending_taxsimba_signoff");
+    expect(card.inclusions_status).toBe("requires_approval");
   });
 
   it.each(MTD_PRICE_CASES)(
@@ -58,26 +58,30 @@ describe("recommendations catalog", () => {
     expect(cat.consultation.booking_status).toBe("stub");
   });
 
-  it("detailed_recommendations_partial_pending_signoff", () => {
+  it("mtd_customer_facing_simbian_names_verified", () => {
     const cat = packagesCatalog();
     expect(cat.detailed_recommendations_status).toBe(
-      "partial_recovered_public_api_pending_signoff",
+      "names_and_prices_verified_inclusions_pending_signoff",
     );
-    expect(
-      cat.self_assessment.every(
-        (p: { inclusions: unknown; inclusions_status: string }) =>
-          Array.isArray(p.inclusions) &&
-          p.inclusions_status === "pending_taxsimba_signoff",
-      ),
-    ).toBe(true);
+    expect(cat.mtd.map((p: { name: string }) => p.name)).toEqual([
+      "Simbian Comply",
+      "Simbian Growth",
+      "Simbian Elite",
+    ]);
     expect(
       cat.mtd.every(
-        (p: { inclusions: unknown; inclusions_status: string; name_status: string }) =>
-          Array.isArray(p.inclusions) &&
-          p.inclusions_status === "pending_taxsimba_signoff" &&
-          p.name_status === "conflict_pending_approval",
+        (p: { name_status: string; price_status: string; inclusions_status: string }) =>
+          p.name_status === "verified" &&
+          p.price_status === "verified" &&
+          p.inclusions_status === "requires_approval",
       ),
     ).toBe(true);
+    // Internal codes preserved for portal/Stripe compatibility.
+    expect(cat.mtd.map((p: { code: string }) => p.code)).toEqual([
+      "MTD_STARTER",
+      "MTD_GROWTH",
+      "MTD_COMPLETE",
+    ]);
   });
 
   it.each([
@@ -90,10 +94,12 @@ describe("recommendations catalog", () => {
     expect(
       packages.every(
         (p) =>
-          p.inclusions_status === "pending_taxsimba_signoff" ||
+          p.inclusions_status === "requires_approval" ||
+          p.inclusions_status === "unknown" ||
           p.inclusions_status === "missing_requires_approval",
       ),
     ).toBe(true);
+    expect(packages.every((p) => p.inclusions == null)).toBe(true);
   });
 
   it("calculator_recommendations_use_live_verified_paths", () => {

@@ -35,10 +35,12 @@ describe("recommendations", () => {
     expect(
       packages.every(
         (p) =>
-          p.inclusions_status === "pending_taxsimba_signoff" ||
+          p.inclusions_status === "requires_approval" ||
+          p.inclusions_status === "unknown" ||
           p.inclusions_status === "missing_requires_approval",
       ),
     ).toBe(true);
+    expect(packages.every((p) => p.name !== "MTD Starter")).toBe(true);
     expect(follow_ups.length).toBeGreaterThan(0);
   });
 

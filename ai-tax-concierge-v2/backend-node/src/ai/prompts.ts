@@ -105,14 +105,13 @@ export function mockPackageReply(message: string): string | null {
         lower.includes("plan")))
   ) {
     return (
-      "VERIFIED TaxSimba prices:\n\n" +
+      "VERIFIED TaxSimba names and prices:\n\n" +
       "Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.\n" +
-      "MTD plans (per month, VAT included): £29.99 / £59.99 / £89.99 " +
-      "(SIMBA labels Starter / Growth / Complete — public API also lists Simbian Comply / Growth / Elite at the same prices; naming needs TaxSimba confirmation).\n" +
+      "Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\n" +
       "Private accountant consultation: £99 for 30 minutes on Google Meet " +
       "(booking not live until Calendly is connected).\n\n" +
-      "Published feature bullets were recovered from TaxSimba’s public plan API and remain PENDING APPROVAL — " +
-      "ask me “what’s included?” for that labelled list, or tell me your situation and I’ll suggest the lowest suitable price tier. No pressure to buy."
+      "Feature inclusions are not approved contractual promises in SIMBA yet — I will not invent benefits; confirm specifics with TaxSimba. " +
+      "Tell me your situation and I’ll suggest the lowest suitable package using verified prices only. No pressure to buy."
     );
   }
   if (lower.includes("consult") || lower.includes("accountant")) {

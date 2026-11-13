@@ -30,7 +30,9 @@ SERVICE_LABELS = {SELF_ASSESSMENT: "Self Assessment", MTD: "MTD for Income Tax"}
 
 # Approved TaxSimba consumer catalogue (must match SIMBA AI Tax Assistant).
 # SA: Simple £119 / Smart £149 / Elite £299 per tax year.
-# MTD: Starter £29.99 / Growth £59.99 / Complete £89.99 per month (VAT included).
+# MTD customer-facing: Simbian Comply / Growth / Elite at £29.99 / £59.99 / £89.99
+# per month (VAT included). Internal codes MTD_STARTER / MTD_GROWTH / MTD_COMPLETE
+# are preserved for portal/Stripe compatibility (no duplicate SKUs, no price changes).
 DEFAULT_PACKAGES = [
     {"service_type": SELF_ASSESSMENT, "code": "SIMPLE", "name": "Simple", "price": 119.0,
      "rank": 1, "billing_frequency": "Per tax year", "vat_note": "Confirm VAT treatment on checkout"},
@@ -38,11 +40,11 @@ DEFAULT_PACKAGES = [
      "rank": 2, "billing_frequency": "Per tax year", "vat_note": "Confirm VAT treatment on checkout"},
     {"service_type": SELF_ASSESSMENT, "code": "ELITE", "name": "Elite", "price": 299.0,
      "rank": 3, "billing_frequency": "Per tax year", "vat_note": "Confirm VAT treatment on checkout"},
-    {"service_type": MTD, "code": "MTD_STARTER", "name": "MTD Starter", "price": 29.99,
+    {"service_type": MTD, "code": "MTD_STARTER", "name": "Simbian Comply", "price": 29.99,
      "rank": 1, "billing_frequency": "Per month", "vat_note": "VAT included"},
-    {"service_type": MTD, "code": "MTD_GROWTH", "name": "MTD Growth", "price": 59.99,
+    {"service_type": MTD, "code": "MTD_GROWTH", "name": "Simbian Growth", "price": 59.99,
      "rank": 2, "billing_frequency": "Per month", "vat_note": "VAT included"},
-    {"service_type": MTD, "code": "MTD_COMPLETE", "name": "MTD Complete", "price": 89.99,
+    {"service_type": MTD, "code": "MTD_COMPLETE", "name": "Simbian Elite", "price": 89.99,
      "rank": 3, "billing_frequency": "Per month", "vat_note": "VAT included"},
 ]
 
@@ -215,7 +217,7 @@ async def ensure_phase1b_data():
         {"service_type": MTD, "code": {"$in": list(LEGACY_MTD_CODES)}},
         {"$set": {
             "is_active": False,
-            "retired_reason": "Replaced by MTD Starter/Growth/Complete monthly catalogue",
+            "retired_reason": "Replaced by Simbian Comply/Growth/Elite monthly catalogue (codes MTD_STARTER/GROWTH/COMPLETE)",
             "updated_at": now_iso(),
         }},
     )

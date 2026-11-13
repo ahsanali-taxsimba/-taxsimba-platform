@@ -1,8 +1,9 @@
 {
-  "version": "2026-11-simba-v2-inclusions-partial",
+  "version": "2026-11-simba-v3-simbian-names",
   "inclusions_catalogue": "packages_inclusions_catalogue.v2026-11-13.json",
-  "disclaimer": "Prices and SA package names are verified across SIMBA, portal seed and the public subscription-plans API. Feature inclusions below are recovered from taxsimba.co.uk public API (2026-11-13) and remain pending TaxSimba sign-off — SIMBA must not invent further benefits. MTD display names conflict with public 'Simbian' branding and also require approval. Confirm with TaxSimba before purchase. Checkout and booking are not live until integrations are connected.",
-  "detailed_recommendations_status": "partial_recovered_public_api_pending_signoff",
+  "approval_matrix_doc": "docs/verification/inclusions_resolution/SIX_PACKAGE_APPROVAL_MATRIX.md",
+  "disclaimer": "VERIFIED: SA Simple/Smart/Elite prices and names; Simbian Comply/Growth/Elite MTD names and VAT-included monthly prices; £99/30min consultation. Feature bullets recovered from public subscription-plans API remain REQUIRES APPROVAL — not contractual promises. Do not invent benefits. Checkout and booking are not live until integrations are connected.",
+  "detailed_recommendations_status": "names_and_prices_verified_inclusions_pending_signoff",
   "inclusions_supply_doc": "docs/toxel/PACKAGE_INCLUSIONS_SUPPLY_REQUEST.md",
   "inclusions_resolution_doc": "docs/verification/inclusions_resolution/INCLUSIONS_RESOLUTION_REPORT.md",
   "self_assessment": [
@@ -15,7 +16,7 @@
       "price_status": "verified",
       "name_status": "verified",
       "description": "A straightforward Self Assessment for employed and simple self-employed income, prepared and checked by a qualified accountant.",
-      "description_status": "pending_taxsimba_signoff",
+      "description_status": "requires_approval",
       "inclusions": [
         "Self Assessment prepared by an accountant",
         "Secure document upload",
@@ -23,8 +24,9 @@
         "Email and in-app updates"
       ],
       "exclusions": null,
-      "inclusions_status": "pending_taxsimba_signoff",
-      "exclusions_status": "missing_requires_approval",
+      "inclusions_status": "requires_approval",
+      "exclusions_status": "unknown",
+      "customer_facing_inclusions": false,
       "source_public_api_code": "SIMPLE",
       "registration_route_id": "sa_packages"
     },
@@ -37,7 +39,7 @@
       "price_status": "verified",
       "name_status": "verified",
       "description": "For clients with several income sources who want their allowances and expenses reviewed in detail before filing.",
-      "description_status": "pending_taxsimba_signoff",
+      "description_status": "requires_approval",
       "inclusions": [
         "Everything in Simple",
         "Multiple income sources reviewed",
@@ -45,8 +47,9 @@
         "Priority accountant messaging"
       ],
       "exclusions": null,
-      "inclusions_status": "pending_taxsimba_signoff",
-      "exclusions_status": "missing_requires_approval",
+      "inclusions_status": "requires_approval",
+      "exclusions_status": "unknown",
+      "customer_facing_inclusions": false,
       "source_public_api_code": "SMART",
       "registration_route_id": "sa_packages"
     },
@@ -59,7 +62,7 @@
       "price_status": "verified",
       "name_status": "verified",
       "description": "Our most thorough Self Assessment service, including planning conversations and a full review of your position for the year.",
-      "description_status": "pending_taxsimba_signoff",
+      "description_status": "requires_approval",
       "inclusions": [
         "Everything in Smart",
         "Full review of your tax position",
@@ -67,8 +70,9 @@
         "Priority turnaround"
       ],
       "exclusions": null,
-      "inclusions_status": "pending_taxsimba_signoff",
-      "exclusions_status": "missing_requires_approval",
+      "inclusions_status": "requires_approval",
+      "exclusions_status": "unknown",
+      "customer_facing_inclusions": false,
       "source_public_api_code": "ELITE",
       "registration_route_id": "sa_packages"
     }
@@ -76,17 +80,18 @@
   "mtd": [
     {
       "code": "MTD_STARTER",
-      "name": "MTD Starter",
+      "name": "Simbian Comply",
       "price_gbp": 29.99,
       "billing": "per month",
       "vat_note": "VAT included",
       "price_status": "verified",
-      "name_status": "conflict_pending_approval",
-      "name_conflict_note": "Public API lists Simbian Comply (MTD_COMPLY) at £29.99 — do not treat as renamed-equivalent without TaxSimba approval.",
+      "name_status": "verified",
+      "internal_code_note": "Portal/Stripe identity remains MTD_STARTER for compatibility — customer-facing name is Simbian Comply.",
       "public_api_name": "Simbian Comply",
       "source_public_api_code": "MTD_COMPLY",
+      "legacy_customer_names": ["MTD Starter"],
       "description": "Your accountant maintains your records and handles your quarterly updates and year-end tax return.",
-      "description_status": "pending_taxsimba_signoff",
+      "description_status": "requires_approval",
       "inclusions": [
         "Xero Simple subscription included",
         "MTD registration and setup support",
@@ -98,23 +103,25 @@
         "Accountant support by email only"
       ],
       "exclusions": null,
-      "inclusions_status": "pending_taxsimba_signoff",
-      "exclusions_status": "missing_requires_approval",
+      "inclusions_status": "requires_approval",
+      "exclusions_status": "unknown",
+      "customer_facing_inclusions": false,
       "registration_route_id": "mtd_packages"
     },
     {
       "code": "MTD_GROWTH",
-      "name": "MTD Growth",
+      "name": "Simbian Growth",
       "price_gbp": 59.99,
       "billing": "per month",
       "vat_note": "VAT included",
       "price_status": "verified",
-      "name_status": "conflict_pending_approval",
-      "name_conflict_note": "Public API lists Simbian Growth at £59.99 — display name confirmation required.",
+      "name_status": "verified",
+      "internal_code_note": "Portal/Stripe identity remains MTD_GROWTH.",
       "public_api_name": "Simbian Growth",
       "source_public_api_code": "MTD_GROWTH",
+      "legacy_customer_names": ["MTD Growth"],
       "description": "A dedicated accountant maintains your records, handles your filings and reviews your business each quarter.",
-      "description_status": "pending_taxsimba_signoff",
+      "description_status": "requires_approval",
       "inclusions": [
         "Xero Ignite subscription included",
         "MTD registration and setup support",
@@ -127,23 +134,25 @@
         "Secure document exchange and deadline reminders"
       ],
       "exclusions": null,
-      "inclusions_status": "pending_taxsimba_signoff",
-      "exclusions_status": "missing_requires_approval",
+      "inclusions_status": "requires_approval",
+      "exclusions_status": "unknown",
+      "customer_facing_inclusions": false,
       "registration_route_id": "mtd_packages"
     },
     {
       "code": "MTD_COMPLETE",
-      "name": "MTD Complete",
+      "name": "Simbian Elite",
       "price_gbp": 89.99,
       "billing": "per month",
       "vat_note": "VAT included",
       "price_status": "verified",
-      "name_status": "conflict_pending_approval",
-      "name_conflict_note": "Public API lists Simbian Elite (MTD_ELITE) at £89.99 — do not treat as renamed-equivalent without TaxSimba approval.",
+      "name_status": "verified",
+      "internal_code_note": "Portal/Stripe identity remains MTD_COMPLETE for compatibility — customer-facing name is Simbian Elite (public API code MTD_ELITE).",
       "public_api_name": "Simbian Elite",
       "source_public_api_code": "MTD_ELITE",
+      "legacy_customer_names": ["MTD Complete"],
       "description": "Dedicated accountant care with maintained records, complete agreed filings and proactive tax planning.",
-      "description_status": "pending_taxsimba_signoff",
+      "description_status": "requires_approval",
       "inclusions": [
         "Xero Grow subscription included",
         "MTD registration and setup support",
@@ -158,8 +167,9 @@
         "Secure document exchange and deadline reminders"
       ],
       "exclusions": null,
-      "inclusions_status": "pending_taxsimba_signoff",
-      "exclusions_status": "missing_requires_approval",
+      "inclusions_status": "requires_approval",
+      "exclusions_status": "unknown",
+      "customer_facing_inclusions": false,
       "registration_route_id": "mtd_packages"
     }
   ],
@@ -178,7 +188,9 @@
     "description": null,
     "inclusions": null,
     "exclusions": null,
-    "inclusions_status": "missing_requires_approval",
+    "inclusions_status": "unknown",
+    "exclusions_status": "unknown",
+    "customer_facing_inclusions": false,
     "registration_route_id": "register"
   }
 }
