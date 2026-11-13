@@ -126,15 +126,28 @@
   {
     "id": "vat-threshold-overview",
     "title": "VAT registration threshold",
-    "summary": "Businesses must register for VAT if their VAT taxable turnover is more than £90,000. They can also choose to register voluntarily if turnover is less than £90,000. The former £85,000 threshold is outdated and must not be used. Always confirm the current figure on GOV.UK if guidance may have changed.",
-    "keywords": ["vat", "registration", "threshold", "turnover", "90000", "90,000", "£90,000", "not 85000", "not £85,000"],
+    "summary": "You must register for VAT if either (1) your total taxable turnover for the last 12 months goes over £90,000 (the rolling / backward look, checked at month-end), or (2) you expect your taxable turnover to go over £90,000 in the next 30 days alone (the forward look). You can also register voluntarily below £90,000. The former £85,000 threshold is outdated and must not be used. Confirm current figures on GOV.UK.",
+    "keywords": ["vat", "registration", "threshold", "turnover", "90000", "90,000", "£90,000", "rolling", "12 months", "30 days", "forward look", "backward look", "not 85000", "not £85,000"],
     "tax_years": ["2024-25", "2025-26", "2026-27"],
-    "source_url": "https://www.gov.uk/vat-registration-thresholds",
+    "source_url": "https://www.gov.uk/register-for-vat",
     "publisher": "GOV.UK / HMRC",
     "category": "vat",
     "effective_date": "2024-04-01",
     "last_verified": "2026-11-13",
-    "knowledge_version": "2026-11-simba-v2",
+    "knowledge_version": "2026-11-simba-v3",
+    "review_status": "verified_against_govuk_summary"
+  },
+  {
+    "id": "vat-registration-timing-tests",
+    "title": "VAT registration timing — rolling 12 months and 30-day forward look",
+    "summary": "Rolling 12-month (backward) test: if at the end of any month your taxable supplies in the previous 12 months (or less) exceed £90,000, you must notify HMRC within 30 days of that month-end. Effective date of registration is typically the first day of the second month after you went over the threshold. Forward-looking 30-day test: if at any time you expect taxable supplies in the next 30 days alone to exceed £90,000, you must register by the end of that 30-day period; the effective date is the date you first formed that expectation. These are separate tests — do not confuse an 11-month build-up plus next month with the forward look. Always confirm on GOV.UK / VAT Notice 700/1.",
+    "keywords": ["vat", "register", "30 days", "12 months", "rolling", "forward look", "backward look", "effective date", "edr", "threshold", "90000"],
+    "tax_years": ["2024-25", "2025-26", "2026-27"],
+    "source_url": "https://www.gov.uk/register-for-vat",
+    "publisher": "GOV.UK / HMRC",
+    "category": "vat",
+    "last_verified": "2026-11-13",
+    "knowledge_version": "2026-11-simba-v3",
     "review_status": "verified_against_govuk_summary"
   },
   {

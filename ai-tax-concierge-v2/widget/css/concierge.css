@@ -498,7 +498,292 @@ html, body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ts-topic, .ts-chip, .ts-option, .ts-follow, .ts-send, .ts-header-btn {
+  .ts-topic, .ts-chip, .ts-option, .ts-follow, .ts-send, .ts-header-btn, .ts-nav-item {
     transition: none !important;
   }
+}
+
+/* —— Expanded workspace + left sidebar —— */
+.ts-workspace {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  background: var(--ts-bg-soft);
+}
+.ts-sidebar {
+  width: 232px;
+  flex: 0 0 232px;
+  background: var(--ts-surface);
+  border-right: 1px solid var(--ts-border);
+  padding: 14px 12px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ts-sidebar-kicker {
+  margin: 0 6px 2px;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ts-text-secondary);
+  font-weight: 700;
+  font-family: var(--ts-font-heading);
+}
+.ts-side-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ts-nav-item {
+  appearance: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ts-text);
+  border-radius: 10px;
+  padding: 10px 10px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  font-family: var(--ts-font-heading);
+  cursor: pointer;
+}
+.ts-nav-item:hover,
+.ts-nav-item:focus-visible {
+  background: var(--ts-mint);
+  outline: 2px solid rgba(7, 138, 75, 0.28);
+  outline-offset: 1px;
+}
+.ts-nav-item.is-active {
+  background: var(--ts-mint);
+  border-color: var(--ts-border);
+  color: var(--ts-primary);
+}
+.ts-nav-ico {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--ts-mint);
+  color: var(--ts-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+.ts-nav-ico svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ts-sidebar-card {
+  margin-top: auto;
+  padding: 12px;
+  border: 1px solid var(--ts-border);
+  border-radius: 12px;
+  background: var(--ts-mint);
+}
+.ts-sidebar-card strong {
+  display: block;
+  font-family: var(--ts-font-heading);
+  font-size: 0.8rem;
+  color: var(--ts-primary);
+  margin-bottom: 4px;
+}
+.ts-sidebar-card p {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--ts-text-secondary);
+  line-height: 1.4;
+}
+.ts-sidebar-card-muted {
+  margin-top: 0;
+  background: var(--ts-surface);
+}
+.ts-side-link {
+  appearance: none;
+  margin-top: 8px;
+  border: 0;
+  background: none;
+  color: var(--ts-primary);
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+.ts-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.ts-panel {
+  flex: 1;
+  min-height: 0;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+}
+.ts-panel.is-active { display: flex; }
+.ts-panel-scroll {
+  flex: 1;
+  overflow: auto;
+  padding: 14px;
+  -webkit-overflow-scrolling: touch;
+}
+.ts-panel h2 {
+  margin: 0 0 8px;
+  font-family: var(--ts-font-heading);
+  font-size: 1.05rem;
+  color: var(--ts-primary);
+}
+.ts-panel .ts-lead {
+  margin: 0 0 14px;
+  color: var(--ts-text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+.ts-list-card {
+  background: var(--ts-surface);
+  border: 1px solid var(--ts-border);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+.ts-list-card strong {
+  display: block;
+  color: var(--ts-primary);
+  font-family: var(--ts-font-heading);
+  margin-bottom: 2px;
+}
+.ts-list-card a {
+  color: var(--ts-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+.ts-list-card a:hover { text-decoration: underline; }
+.ts-price-row {
+  color: var(--ts-primary-action);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.ts-status-pill {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: #fff8eb;
+  color: #7a5a18;
+  border: 1px solid #f0d9a8;
+}
+.ts-status-pill.ok {
+  background: var(--ts-mint);
+  color: var(--ts-primary);
+  border-color: var(--ts-border);
+}
+
+.ts-mobile-nav {
+  display: none;
+  gap: 4px;
+  padding: 8px;
+  border-bottom: 1px solid var(--ts-border);
+  background: var(--ts-surface);
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+.ts-mnav {
+  appearance: none;
+  border: 1px solid var(--ts-border);
+  background: var(--ts-surface);
+  color: var(--ts-primary);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: var(--ts-font-heading);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.ts-mnav.is-active {
+  background: var(--ts-mint);
+  border-color: var(--ts-primary-action);
+}
+
+.ts-nav-toggle {
+  display: none;
+  appearance: none;
+  border: 1px solid rgba(255,255,255,0.28);
+  background: rgba(255,255,255,0.12);
+  border-radius: 8px;
+  width: 34px;
+  height: 32px;
+  padding: 0;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+.ts-nav-toggle-bars,
+.ts-nav-toggle-bars::before,
+.ts-nav-toggle-bars::after {
+  display: block;
+  width: 14px;
+  height: 2px;
+  background: #fff;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 1px;
+}
+.ts-nav-toggle-bars::before,
+.ts-nav-toggle-bars::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+.ts-nav-toggle-bars::before { top: -5px; }
+.ts-nav-toggle-bars::after { top: 5px; }
+.ts-sidebar-backdrop {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: rgba(22, 27, 24, 0.28);
+  z-index: 4;
+}
+
+#ts-panel-chat .ts-body { flex: 1; }
+
+@media (min-width: 720px) {
+  .ts-workspace-shell { min-width: 0; }
+}
+
+@media (max-width: 719px) {
+  .ts-nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  .ts-sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 5;
+    transform: translateX(-105%);
+    box-shadow: 0 10px 28px rgba(0, 77, 44, 0.16);
+  }
+  .ts-shell.nav-open .ts-sidebar { transform: translateX(0); }
+  .ts-shell.nav-open .ts-sidebar-backdrop { display: block; }
+  .ts-mobile-nav { display: flex; }
+}
+
+@media (max-width: 430px) {
+  .ts-mnav { padding: 6px 8px; font-size: 0.68rem; }
 }

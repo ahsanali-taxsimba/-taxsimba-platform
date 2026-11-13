@@ -2,56 +2,29 @@
   const root = document.documentElement;
   const params = new URLSearchParams(window.location.search);
   const API_BASE = (params.get("api") || root.dataset.apiBase || "").replace(/\/$/, "");
+  const WEBSITE = "https://www.taxsimba.co.uk";
 
   const TOPICS = [
-    {
-      id: "sa",
-      title: "Self Assessment",
-      blurb: "Who needs to file and key deadlines",
-      journey: "first_time",
-      icon: "file",
-    },
-    {
-      id: "mtd",
-      title: "Making Tax Digital",
-      blurb: "Thresholds, start dates and plans",
-      journey: "mtd",
-      icon: "calendar",
-    },
-    {
-      id: "landlord",
-      title: "Landlords",
-      blurb: "Rental income and property tax",
-      journey: "landlord",
-      icon: "home",
-    },
-    {
-      id: "freelancer_cis",
-      title: "Freelancers & CIS",
-      blurb: "Self-employed and construction tax",
-      journey: "freelancer",
-      icon: "briefcase",
-    },
-    {
-      id: "vat",
-      title: "VAT",
-      blurb: "Registration threshold and rules",
-      message: "What is the UK VAT registration threshold and when do I need to register?",
-      icon: "percent",
-    },
-    {
-      id: "calculators",
-      title: "Tax Calculators",
-      blurb: "Estimate tax with TaxSimba tools",
-      message: "Which TaxSimba tax calculators should I use for Income Tax, NI or rental income?",
-      icon: "calc",
-    },
+    { id: "sa", title: "Self Assessment", blurb: "Who needs to file and key deadlines", journey: "first_time", icon: "file" },
+    { id: "mtd", title: "Making Tax Digital", blurb: "Thresholds, start dates and plans", journey: "mtd", icon: "calendar" },
+    { id: "landlord", title: "Landlords", blurb: "Rental income and property tax", journey: "landlord", icon: "home" },
+    { id: "freelancer_cis", title: "Freelancers & CIS", blurb: "Self-employed and construction tax", journey: "freelancer", icon: "briefcase" },
+    { id: "vat", title: "VAT", blurb: "£90k threshold, 12-month & 30-day tests", message: "Explain UK VAT registration using the £90,000 threshold, the rolling 12-month test and the forward-looking 30-day test.", icon: "percent" },
+    { id: "calculators", title: "Tax Calculators", blurb: "Estimate tax with TaxSimba tools", message: "Which TaxSimba tax calculators should I use for Income Tax, NI or rental income?", icon: "calc" },
   ];
 
   const SUGGESTIONS = [
     { label: "Do I need to file a tax return?", message: "Do I need to send a Self Assessment tax return?" },
     { label: "When is the SA deadline?", message: "When is the Self Assessment online filing deadline?" },
     { label: "What do packages cost?", message: "What Self Assessment and MTD packages does TaxSimba offer?" },
+  ];
+
+  const FAQ_ITEMS = [
+    { q: "Do I need Self Assessment?", message: "Do I need to send a Self Assessment tax return?" },
+    { q: "What is Making Tax Digital?", message: "What is Making Tax Digital for Income Tax and who does it apply to?" },
+    { q: "VAT registration — 12 months vs 30 days?", message: "Explain UK VAT registration using the £90,000 threshold, the rolling 12-month test and the forward-looking 30-day test." },
+    { q: "I don’t want to buy anything", message: "I don't want to buy anything. Just explain the Self Assessment online filing deadline for 2025-26." },
+    { q: "I’m an existing TaxSimba client", message: "I am an existing TaxSimba client. How do I contact my assigned accountant?" },
   ];
 
   const ICONS = {
@@ -70,9 +43,11 @@
     bootstrap: null,
     busy: false,
     view: "welcome",
+    panel: "chat",
   };
 
   const els = {
+    shell: document.querySelector(".ts-shell"),
     body: document.getElementById("ts-body"),
     year: document.getElementById("ts-year"),
     mode: document.getElementById("ts-mode"),
@@ -82,6 +57,9 @@
     live: document.getElementById("ts-live"),
     del: document.getElementById("ts-delete"),
     topicsBtn: document.getElementById("ts-topics-btn"),
+    navToggle: document.getElementById("ts-nav-toggle"),
+    sidebar: document.getElementById("ts-sidebar"),
+    backdrop: document.getElementById("ts-sidebar-backdrop"),
   };
 
   function api(path, options) {
@@ -117,10 +95,16 @@
     els.live.textContent = text;
   }
 
+  function setNavOpen(open) {
+    els.shell?.classList.toggle("nav-open", open);
+    if (els.navToggle) els.navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    if (els.backdrop) els.backdrop.hidden = !open;
+  }
+
   function setView(view) {
     state.view = view;
     if (els.topicsBtn) els.topicsBtn.hidden = view !== "chat";
-    document.querySelector(".ts-shell")?.classList.toggle("is-chat", view === "chat");
+    els.shell?.classList.toggle("is-chat", view === "chat");
   }
 
   function enterChatView() {
@@ -130,7 +114,168 @@
     }
   }
 
+  function showPanel(panelId) {
+    state.panel = panelId;
+    document.querySelectorAll(".ts-panel").forEach((p) => {
+      const active = p.dataset.panelView === panelId;
+      p.classList.toggle("is-active", active);
+      p.hidden = !active;
+    });
+    document.querySelectorAll(".ts-nav-item, .ts-mnav").forEach((btn) => {
+      btn.classList.toggle("is-active", btn.dataset.panel === panelId);
+    });
+    setNavOpen(false);
+    if (panelId === "chat") {
+      els.input?.focus();
+    } else {
+      renderStaticPanel(panelId);
+    }
+  }
+
+  function websiteUrl(path) {
+    return `${WEBSITE}${path}`;
+  }
+
+  function renderStaticPanel(panelId) {
+    const boot = state.bootstrap || {};
+    const packages = boot.packages || {};
+    const routes = boot.routes?.routes || [];
+      const calcs = boot.calculators?.items || [];
+
+    if (panelId === "guided") {
+      const topicsHtml = TOPICS.map((t) => {
+        const attrs = t.journey
+          ? `data-topic-journey="${escapeHtml(t.journey)}" data-topic-label="${escapeHtml(t.title)}"`
+          : `data-topic-message="${escapeHtml(t.message || "")}"`;
+        return `<button type="button" class="ts-topic" ${attrs}>
+          <span class="ts-topic-icon">${ICONS[t.icon] || ""}</span>
+          <strong>${escapeHtml(t.title)}</strong>
+          <small>${escapeHtml(t.blurb)}</small>
+        </button>`;
+      }).join("");
+      document.getElementById("ts-panel-guided").innerHTML = `
+        <div class="ts-panel-scroll">
+          <h2>Guided Help</h2>
+          <p class="ts-lead">Choose a topic. SIMBA will ask only the clarifying questions needed, then explain the rules in plain English.</p>
+          <div class="ts-topics">${topicsHtml}</div>
+        </div>`;
+      return;
+    }
+
+    if (panelId === "calculators") {
+      let items = calcs;
+      if (!items.length) {
+        // Fallback from routes registry calculator entries
+        items = routes.filter((r) => r.kind === "calculator").map((r) => ({
+          title: r.label,
+          path: r.path,
+          url_status: r.status,
+          description: "TaxSimba calculator",
+        }));
+      }
+      const cards = items.map((c) => {
+        const href = c.url || (c.path ? websiteUrl(c.path) : null);
+        const title = href
+          ? `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(c.title || c.label)}</a>`
+          : `<strong>${escapeHtml(c.title || c.label)}</strong>`;
+        const status = (c.url_status || c.status || "") === "live_verified"
+          ? `<span class="ts-status-pill ok">Verified link</span>`
+          : `<span class="ts-status-pill">${escapeHtml(c.url_status || c.status || "configured")}</span>`;
+        return `<div class="ts-list-card">${title}
+          <div class="ts-note">${escapeHtml(c.description || c.path || "")}</div>${status}</div>`;
+      }).join("");
+      document.getElementById("ts-panel-calculators").innerHTML = `
+        <div class="ts-panel-scroll">
+          <h2>Tax Calculators</h2>
+          <p class="ts-lead">Seventeen TaxSimba calculators. Links open on taxsimba.co.uk — SIMBA does not run the calculators itself.</p>
+          <div class="ts-list-card"><a href="${websiteUrl("/calculators")}" target="_blank" rel="noopener noreferrer">Open calculators hub</a></div>
+          ${cards || '<p class="ts-lead">Calculator catalogue loading…</p>'}
+        </div>`;
+      return;
+    }
+
+    if (panelId === "packages") {
+      const sa = packages.self_assessment || [];
+      const mtd = packages.mtd || [];
+      const saCards = sa.map((p) => `<div class="ts-list-card"><strong>${escapeHtml(p.name)}</strong>
+        <div class="ts-price-row">£${Number(p.price_gbp)} · ${escapeHtml(p.billing)}</div>
+        <div class="ts-note">${escapeHtml(p.vat_note || "")}. Inclusions are not invented by SIMBA.</div>
+        <button type="button" class="ts-follow" data-package="${escapeHtml(p.code)}" style="margin-top:8px">Ask SIMBA about this</button></div>`).join("");
+      const mtdCards = mtd.map((p) => `<div class="ts-list-card"><strong>${escapeHtml(p.name)}</strong>
+        <div class="ts-price-row">£${Number(p.price_gbp).toFixed(2)} · ${escapeHtml(p.billing)}</div>
+        <div class="ts-note">${escapeHtml(p.vat_note || "VAT included")}</div>
+        <button type="button" class="ts-follow" data-package="${escapeHtml(p.code)}" style="margin-top:8px">Ask SIMBA about this</button></div>`).join("");
+      document.getElementById("ts-panel-packages").innerHTML = `
+        <div class="ts-panel-scroll">
+          <h2>Our Packages</h2>
+          <p class="ts-lead">Accountant-led TaxSimba services. Checkout is completed on TaxSimba systems — SIMBA never confirms payment.</p>
+          <div class="ts-section-label">Self Assessment</div>
+          ${saCards}
+          <div class="ts-section-label">Making Tax Digital (VAT included)</div>
+          ${mtdCards}
+          <div class="ts-list-card"><a href="${websiteUrl("/self-assessment")}" target="_blank" rel="noopener noreferrer">Self Assessment page</a>
+            · <a href="${websiteUrl("/pricing")}" target="_blank" rel="noopener noreferrer">Pricing</a>
+            · <a href="${websiteUrl("/making-tax-digital")}" target="_blank" rel="noopener noreferrer">MTD information</a></div>
+        </div>`;
+      return;
+    }
+
+    if (panelId === "consultation") {
+      const c = packages.consultation || {};
+      document.getElementById("ts-panel-consultation").innerHTML = `
+        <div class="ts-panel-scroll">
+          <h2>Book a Consultation</h2>
+          <p class="ts-lead">Private accountant consultation — not automatic booking inside this chat.</p>
+          <div class="ts-list-card">
+            <strong>${escapeHtml(c.name || "Private accountant consultation")}</strong>
+            <div class="ts-price-row">£${Number(c.price_gbp || 99)} · ${escapeHtml(c.billing || "one-off")}</div>
+            <div class="ts-note">${escapeHtml(String(c.duration_minutes || 30))} minutes · ${escapeHtml(c.meeting || "Google Meet")}</div>
+            <span class="ts-status-pill">Booking status: ${escapeHtml(c.booking_status || "stub")} — Calendly/Stripe not confirmed live</span>
+          </div>
+          <div class="ts-list-card">
+            <strong>Accountant-led care</strong>
+            <div class="ts-note">A TaxSimba accountant leads the session. SIMBA will never claim a consultation is booked or paid until TaxSimba systems confirm it.</div>
+            <button type="button" class="ts-follow" data-consult="1" style="margin-top:8px">Ask SIMBA about booking</button>
+          </div>
+          <div class="ts-list-card"><a href="${websiteUrl("/book-consultation")}" target="_blank" rel="noopener noreferrer">Open consultation page</a>
+            <div class="ts-note">Destination is soft/generic until Toxel confirms the live booking flow.</div></div>
+        </div>`;
+      return;
+    }
+
+    if (panelId === "faqs") {
+      const chips = FAQ_ITEMS.map(
+        (f) => `<button type="button" class="ts-chip" data-starter="${escapeHtml(f.message)}">${escapeHtml(f.q)}</button>`
+      ).join("");
+      document.getElementById("ts-panel-faqs").innerHTML = `
+        <div class="ts-panel-scroll">
+          <h2>FAQs</h2>
+          <p class="ts-lead">Common questions. Tap one to chat with SIMBA, or open TaxSimba FAQs on the website.</p>
+          <div class="ts-chips" style="margin-bottom:14px">${chips}</div>
+          <div class="ts-list-card"><a href="${websiteUrl("/faqs")}" target="_blank" rel="noopener noreferrer">TaxSimba FAQs page</a>
+            <div class="ts-note">Soft/generic destination until Toxel confirms content.</div></div>
+        </div>`;
+      return;
+    }
+
+    if (panelId === "existing") {
+      document.getElementById("ts-panel-existing").innerHTML = `
+        <div class="ts-panel-scroll">
+          <h2>Existing clients</h2>
+          <p class="ts-lead">If you already have a TaxSimba account, contact your assigned accountant through your secure dashboard messaging — not through a new public consultation unless you specifically need one.</p>
+          <div class="ts-list-card">
+            <strong>Dashboard messaging</strong>
+            <div class="ts-note">Authenticated portal access is required. SIMBA does not open other clients’ data.</div>
+            <a href="${websiteUrl("/login")}" target="_blank" rel="noopener noreferrer">Client login</a>
+            <span class="ts-status-pill">Staging auth E2E BLOCKED</span>
+          </div>
+          <button type="button" class="ts-follow" data-starter="I am an existing TaxSimba client. How do I contact my assigned accountant?">Ask SIMBA for guidance</button>
+        </div>`;
+    }
+  }
+
   function appendUser(text) {
+    showPanel("chat");
     enterChatView();
     const row = document.createElement("div");
     row.className = "ts-msg user";
@@ -140,6 +285,7 @@
   }
 
   function typing() {
+    showPanel("chat");
     enterChatView();
     const row = document.createElement("div");
     row.className = "ts-msg assistant";
@@ -165,10 +311,10 @@
 
   function renderAssistant(payload) {
     clearTyping();
+    showPanel("chat");
     enterChatView();
     const wrap = document.createElement("div");
     wrap.className = "ts-msg assistant";
-
     let html = `<div class="ts-bubble">${escapeHtml(payload.reply)}</div>`;
 
     if (payload.journey?.current?.options?.length) {
@@ -245,6 +391,7 @@
 
   function showError(message) {
     clearTyping();
+    showPanel("chat");
     enterChatView();
     const err = document.createElement("div");
     err.className = "ts-error";
@@ -284,7 +431,10 @@
     if (state.busy) return;
     setBusy(true);
     if (userLabel) appendUser(userLabel);
-    else enterChatView();
+    else {
+      showPanel("chat");
+      enterChatView();
+    }
     typing();
     try {
       const data = await api("/api/v1/journeys/start", {
@@ -343,10 +493,8 @@
         <small>${escapeHtml(t.blurb)}</small>
       </button>`;
     }).join("");
-
     const chips = SUGGESTIONS.map(
-      (s) =>
-        `<button type="button" class="ts-chip" data-starter="${escapeHtml(s.message)}">${escapeHtml(s.label)}</button>`
+      (s) => `<button type="button" class="ts-chip" data-starter="${escapeHtml(s.message)}">${escapeHtml(s.label)}</button>`
     ).join("");
 
     els.body.innerHTML = `
@@ -366,32 +514,42 @@
     `;
   }
 
-  els.body.addEventListener("click", (ev) => {
+  function onActionClick(ev) {
     const t = ev.target.closest("button");
     if (!t) return;
+    if (t.dataset.panel) {
+      showPanel(t.dataset.panel);
+      return;
+    }
     if (t.dataset.topicJourney) {
       track("topic_click", { journey: t.dataset.topicJourney });
-      startJourney(t.dataset.topicJourney, t.dataset.topicLabel || t.querySelector("strong")?.textContent || "");
+      startJourney(t.dataset.topicJourney, t.dataset.topicLabel || "");
     } else if (t.dataset.topicMessage) {
       track("topic_click", { message: t.dataset.topicMessage.slice(0, 80) });
       sendChat(t.dataset.topicMessage);
     } else if (t.dataset.starter) {
+      showPanel("chat");
       sendChat(t.dataset.starter);
     } else if (t.dataset.option) {
       advanceJourney(t.dataset.option, t.textContent.trim());
     } else if (t.dataset.follow) {
+      showPanel("chat");
       sendChat(t.dataset.follow);
     } else if (t.dataset.package) {
       track("package_click", { code: t.dataset.package });
+      showPanel("chat");
       sendChat(`Tell me more about the ${t.dataset.package} option without inventing inclusions.`);
     } else if (t.dataset.consult) {
       track("consultation_click", { code: "ACCOUNTANT_CONSULT_99" });
+      showPanel("chat");
       sendChat("Can I book a £99 accountant consultation?");
     } else if (t.dataset.retry) {
       const lastUser = [...state.history].reverse().find((m) => m.role === "user");
       if (lastUser) sendChat(lastUser.content);
     }
-  });
+  }
+
+  document.addEventListener("click", onActionClick);
 
   els.form.addEventListener("submit", (ev) => {
     ev.preventDefault();
@@ -421,14 +579,22 @@
     state.sessionId = crypto.randomUUID();
     state.history = [];
     state.journey = null;
+    showPanel("chat");
     if (state.bootstrap) renderWelcome(state.bootstrap);
     announce("Chat deleted");
   });
 
   els.topicsBtn?.addEventListener("click", () => {
+    showPanel("chat");
     if (state.bootstrap) renderWelcome(state.bootstrap);
     announce("Returned to topics");
   });
+
+  els.navToggle?.addEventListener("click", () => {
+    const open = !els.shell?.classList.contains("nav-open");
+    setNavOpen(open);
+  });
+  els.backdrop?.addEventListener("click", () => setNavOpen(false));
 
   async function init() {
     try {
