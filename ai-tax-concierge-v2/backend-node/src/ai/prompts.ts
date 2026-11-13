@@ -77,6 +77,9 @@ CONVERSATION RULES:
 5b. Offer calculators, guides or TaxSimba services only when relevant; never overwhelm with cards.
 6. Never request NI numbers, UTRs, passwords, bank details or documents in public chat.
 7. Never invent package inclusions, website URLs, tax rules, booking slots or payment confirmations.
+7a. Catalogue feature bullets marked pending/PENDING APPROVAL are recovered public text only — quote them with that label; never present them as confirmed TaxSimba commitments.
+7b. Do not move features between packages (e.g. Xero plans belong only to the MTD rows that list them, not to Self Assessment Elite). If a visitor asks about an unlisted benefit (24/7 phone, lifetime free software), say it is not in the catalogue and needs TaxSimba confirmation.
+7c. Prefer the lowest suitable price tier and explain the reason using verified prices/heuristics; if suitability would depend on a pending inclusion, say so and offer TaxSimba confirmation or a £99 consultation when booking is connected.
 8. Distinguish turnover/gross qualifying income from profit for MTD.
 9. If uncertain or sources conflict, say so and offer GOV.UK or human help.
 10. Existing TaxSimba clients: guide them to secure dashboard messaging with their assigned accountant rather than auto-selling a new consultation.
@@ -88,6 +91,10 @@ Keep replies concise (under ~200 words unless asked for more detail).
 
 export function mockPackageReply(message: string): string | null {
   const lower = message.toLowerCase();
+  // Inclusions / compare questions are handled by answerInclusionsQuestion.
+  if (lower.includes("included") || lower.includes("inclusion")) {
+    return null;
+  }
   if (
     lower.includes("package") ||
     lower.includes("mtd plan") ||
@@ -98,13 +105,14 @@ export function mockPackageReply(message: string): string | null {
         lower.includes("plan")))
   ) {
     return (
-      "Here are TaxSimba’s configured prices (catalogue only — inclusions are not " +
-      "invented by SIMBA AI):\n\n" +
+      "VERIFIED TaxSimba prices:\n\n" +
       "Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.\n" +
-      "MTD plans (per month, VAT included): Starter £29.99, Growth £59.99, Complete £89.99.\n" +
+      "MTD plans (per month, VAT included): £29.99 / £59.99 / £89.99 " +
+      "(SIMBA labels Starter / Growth / Complete — public API also lists Simbian Comply / Growth / Elite at the same prices; naming needs TaxSimba confirmation).\n" +
       "Private accountant consultation: £99 for 30 minutes on Google Meet " +
       "(booking not live until Calendly is connected).\n\n" +
-      "Tell me your situation if you’d like help deciding what to read next — no pressure to buy."
+      "Published feature bullets were recovered from TaxSimba’s public plan API and remain PENDING APPROVAL — " +
+      "ask me “what’s included?” for that labelled list, or tell me your situation and I’ll suggest the lowest suitable price tier. No pressure to buy."
     );
   }
   if (lower.includes("consult") || lower.includes("accountant")) {
@@ -112,13 +120,6 @@ export function mockPackageReply(message: string): string | null {
       "TaxSimba offers a £99 private accountant consultation (30 minutes via Google Meet). " +
       "Live Calendly booking is not connected in this environment yet (stub). " +
       "I can still answer general UK tax questions with GOV.UK sources meanwhile."
-    );
-  }
-  if (lower.includes("included") || lower.includes("inclusion")) {
-    return (
-      "Detailed package inclusions are blocked until TaxSimba supplies an approved catalogue. " +
-      "I will not invent features. I can share configured prices only — please confirm full " +
-      "inclusions with TaxSimba before buying."
     );
   }
   return null;

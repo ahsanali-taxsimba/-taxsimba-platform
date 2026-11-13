@@ -1,8 +1,10 @@
 {
-  "version": "2026-11-simba-v1",
-  "disclaimer": "Prices are taken from the TaxSimba SIMBA AI product catalogue configuration. Package feature inclusions are not invented here — confirm with TaxSimba before purchasing. Checkout and booking are not live until integrations are connected.",
-  "detailed_recommendations_status": "blocked_pending_approved_inclusions",
+  "version": "2026-11-simba-v2-inclusions-partial",
+  "inclusions_catalogue": "packages_inclusions_catalogue.v2026-11-13.json",
+  "disclaimer": "Prices and SA package names are verified across SIMBA, portal seed and the public subscription-plans API. Feature inclusions below are recovered from taxsimba.co.uk public API (2026-11-13) and remain pending TaxSimba sign-off — SIMBA must not invent further benefits. MTD display names conflict with public 'Simbian' branding and also require approval. Confirm with TaxSimba before purchase. Checkout and booking are not live until integrations are connected.",
+  "detailed_recommendations_status": "partial_recovered_public_api_pending_signoff",
   "inclusions_supply_doc": "docs/toxel/PACKAGE_INCLUSIONS_SUPPLY_REQUEST.md",
+  "inclusions_resolution_doc": "docs/verification/inclusions_resolution/INCLUSIONS_RESOLUTION_REPORT.md",
   "self_assessment": [
     {
       "code": "SA_SIMPLE",
@@ -10,10 +12,21 @@
       "price_gbp": 119,
       "billing": "per tax year",
       "vat_note": "Confirm VAT treatment on checkout",
-      "description": null,
-      "inclusions": null,
+      "price_status": "verified",
+      "name_status": "verified",
+      "description": "A straightforward Self Assessment for employed and simple self-employed income, prepared and checked by a qualified accountant.",
+      "description_status": "pending_taxsimba_signoff",
+      "inclusions": [
+        "Self Assessment prepared by an accountant",
+        "Secure document upload",
+        "Review and approval before submission",
+        "Email and in-app updates"
+      ],
       "exclusions": null,
-      "inclusions_status": "blocked_pending_taxsimba_approval"
+      "inclusions_status": "pending_taxsimba_signoff",
+      "exclusions_status": "missing_requires_approval",
+      "source_public_api_code": "SIMPLE",
+      "registration_route_id": "sa_packages"
     },
     {
       "code": "SA_SMART",
@@ -21,10 +34,21 @@
       "price_gbp": 149,
       "billing": "per tax year",
       "vat_note": "Confirm VAT treatment on checkout",
-      "description": null,
-      "inclusions": null,
+      "price_status": "verified",
+      "name_status": "verified",
+      "description": "For clients with several income sources who want their allowances and expenses reviewed in detail before filing.",
+      "description_status": "pending_taxsimba_signoff",
+      "inclusions": [
+        "Everything in Simple",
+        "Multiple income sources reviewed",
+        "Expenses and allowances check",
+        "Priority accountant messaging"
+      ],
       "exclusions": null,
-      "inclusions_status": "blocked_pending_taxsimba_approval"
+      "inclusions_status": "pending_taxsimba_signoff",
+      "exclusions_status": "missing_requires_approval",
+      "source_public_api_code": "SMART",
+      "registration_route_id": "sa_packages"
     },
     {
       "code": "SA_ELITE",
@@ -32,10 +56,21 @@
       "price_gbp": 299,
       "billing": "per tax year",
       "vat_note": "Confirm VAT treatment on checkout",
-      "description": null,
-      "inclusions": null,
+      "price_status": "verified",
+      "name_status": "verified",
+      "description": "Our most thorough Self Assessment service, including planning conversations and a full review of your position for the year.",
+      "description_status": "pending_taxsimba_signoff",
+      "inclusions": [
+        "Everything in Smart",
+        "Full review of your tax position",
+        "Tax planning conversation",
+        "Priority turnaround"
+      ],
       "exclusions": null,
-      "inclusions_status": "blocked_pending_taxsimba_approval"
+      "inclusions_status": "pending_taxsimba_signoff",
+      "exclusions_status": "missing_requires_approval",
+      "source_public_api_code": "ELITE",
+      "registration_route_id": "sa_packages"
     }
   ],
   "mtd": [
@@ -45,10 +80,27 @@
       "price_gbp": 29.99,
       "billing": "per month",
       "vat_note": "VAT included",
-      "description": null,
-      "inclusions": null,
+      "price_status": "verified",
+      "name_status": "conflict_pending_approval",
+      "name_conflict_note": "Public API lists Simbian Comply (MTD_COMPLY) at £29.99 — do not treat as renamed-equivalent without TaxSimba approval.",
+      "public_api_name": "Simbian Comply",
+      "source_public_api_code": "MTD_COMPLY",
+      "description": "Your accountant maintains your records and handles your quarterly updates and year-end tax return.",
+      "description_status": "pending_taxsimba_signoff",
+      "inclusions": [
+        "Xero Simple subscription included",
+        "MTD registration and setup support",
+        "Accountant-maintained bookkeeping and digital records",
+        "Quarterly MTD updates prepared and submitted",
+        "Year-end Income Tax return prepared and submitted",
+        "Automated tax deadline reminders",
+        "Secure digital document exchange",
+        "Accountant support by email only"
+      ],
       "exclusions": null,
-      "inclusions_status": "blocked_pending_taxsimba_approval"
+      "inclusions_status": "pending_taxsimba_signoff",
+      "exclusions_status": "missing_requires_approval",
+      "registration_route_id": "mtd_packages"
     },
     {
       "code": "MTD_GROWTH",
@@ -56,10 +108,28 @@
       "price_gbp": 59.99,
       "billing": "per month",
       "vat_note": "VAT included",
-      "description": null,
-      "inclusions": null,
+      "price_status": "verified",
+      "name_status": "conflict_pending_approval",
+      "name_conflict_note": "Public API lists Simbian Growth at £59.99 — display name confirmation required.",
+      "public_api_name": "Simbian Growth",
+      "source_public_api_code": "MTD_GROWTH",
+      "description": "A dedicated accountant maintains your records, handles your filings and reviews your business each quarter.",
+      "description_status": "pending_taxsimba_signoff",
+      "inclusions": [
+        "Xero Ignite subscription included",
+        "MTD registration and setup support",
+        "Accountant-maintained bookkeeping and digital records",
+        "Quarterly MTD updates prepared and submitted",
+        "Year-end Income Tax return prepared and submitted",
+        "Dedicated accountant support by email only",
+        "Quarterly business reviews",
+        "Expenses and allowances check",
+        "Secure document exchange and deadline reminders"
+      ],
       "exclusions": null,
-      "inclusions_status": "blocked_pending_taxsimba_approval"
+      "inclusions_status": "pending_taxsimba_signoff",
+      "exclusions_status": "missing_requires_approval",
+      "registration_route_id": "mtd_packages"
     },
     {
       "code": "MTD_COMPLETE",
@@ -67,10 +137,30 @@
       "price_gbp": 89.99,
       "billing": "per month",
       "vat_note": "VAT included",
-      "description": null,
-      "inclusions": null,
+      "price_status": "verified",
+      "name_status": "conflict_pending_approval",
+      "name_conflict_note": "Public API lists Simbian Elite (MTD_ELITE) at £89.99 — do not treat as renamed-equivalent without TaxSimba approval.",
+      "public_api_name": "Simbian Elite",
+      "source_public_api_code": "MTD_ELITE",
+      "description": "Dedicated accountant care with maintained records, complete agreed filings and proactive tax planning.",
+      "description_status": "pending_taxsimba_signoff",
+      "inclusions": [
+        "Xero Grow subscription included",
+        "MTD registration and setup support",
+        "Accountant-maintained bookkeeping and digital records",
+        "Quarterly MTD updates prepared and submitted",
+        "Year-end Income Tax return prepared and submitted",
+        "Dedicated accountant with priority email support",
+        "Quarterly business reviews",
+        "Expenses and allowances check",
+        "Full review of your tax position",
+        "Proactive tax planning advice",
+        "Secure document exchange and deadline reminders"
+      ],
       "exclusions": null,
-      "inclusions_status": "blocked_pending_taxsimba_approval"
+      "inclusions_status": "pending_taxsimba_signoff",
+      "exclusions_status": "missing_requires_approval",
+      "registration_route_id": "mtd_packages"
     }
   ],
   "consultation": {
@@ -83,9 +173,12 @@
     "vat_note": "Confirm VAT treatment when booking",
     "booking_status": "stub",
     "booking_provider": "calendly",
+    "price_status": "verified",
+    "name_status": "verified",
     "description": null,
     "inclusions": null,
     "exclusions": null,
-    "inclusions_status": "blocked_pending_taxsimba_approval"
+    "inclusions_status": "missing_requires_approval",
+    "registration_route_id": "register"
   }
 }

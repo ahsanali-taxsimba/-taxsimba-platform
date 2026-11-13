@@ -10,18 +10,23 @@ Final audit: [`../verification/pre_toxel_final/PRE_TOXEL_FINAL_AUDIT.md`](../ver
 
 ---
 
-## 0. Immediate blocker — package inclusions
+## 0. Package inclusions — partial resolution (still needs TaxSimba sign-off)
 
 | Item | Status |
 |------|--------|
-| Approved SA/MTD inclusion text | **BLOCKED** — not found in repo or crawlable public pages |
-| Supply form | [`PACKAGE_INCLUSIONS_SUPPLY_REQUEST.md`](./PACKAGE_INCLUSIONS_SUPPLY_REQUEST.md) |
-| Catalogue flag | `detailed_recommendations_status: blocked_pending_approved_inclusions` |
-| SIMBA behaviour until supplied | Quote **prices only**; refuse to invent features; circumstance-based **tier suggestions** only |
+| Verified prices / SA names | **PASS** — £119/£149/**£299** · MTD £29.99/£59.99/£89.99 VAT incl. · £99/30min |
+| Recovered public-API descriptions & feature bullets | **LOADED** as `pending_taxsimba_signoff` (must keep PENDING label) |
+| MTD display names vs Simbian Comply/Elite | **CONFLICT — REQUIRES APPROVAL** |
+| Explicit exclusions | **MISSING — REQUIRES APPROVAL** |
+| Fully approved inclusion wording | **BLOCKED** until TaxSimba signs supply form |
+| Supply / sign-off form | [`PACKAGE_INCLUSIONS_SUPPLY_REQUEST.md`](./PACKAGE_INCLUSIONS_SUPPLY_REQUEST.md) |
+| Resolution report | [`../verification/inclusions_resolution/INCLUSIONS_RESOLUTION_REPORT.md`](../verification/inclusions_resolution/INCLUSIONS_RESOLUTION_REPORT.md) |
+| Catalogue flag | `detailed_recommendations_status: partial_recovered_public_api_pending_signoff` |
+| SIMBA behaviour now | Quote **verified prices**; quote recovered features **only with PENDING APPROVAL**; recommend **lowest suitable** tier; never invent |
 
 **Do not** invent inclusions or change prices (£119/£149/£299 · £29.99/£59.99/£89.99 VAT incl. · £99/30min).
 
-**Catalogue sync (2026-11-13):** Portal seed now matches SIMBA — SA **£119/£149/£299**; MTD **Starter/Growth/Complete** **£29.99/£59.99/£89.99**/month VAT included. Legacy Elite £249 and MTD Essential/Plus are retired in code; restart portal so `ensure_phase1b_data()` rewrites Mongo prices used by Stripe `unit_amount`.
+**Catalogue sync (2026-11-13):** Portal seed matches SIMBA prices — SA **£119/£149/£299**; MTD **Starter/Growth/Complete** **£29.99/£59.99/£89.99**/month VAT included. Public API uses Simbian Comply/Growth/Elite at the same MTD prices — naming equivalence is **not** assumed.
 
 ---
 

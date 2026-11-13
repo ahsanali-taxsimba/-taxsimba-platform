@@ -47,6 +47,12 @@ export type PackageCard = {
   family: string;
   inclusions_status: string;
   pressure_free_note?: string;
+  description?: string | null;
+  inclusions?: string[] | null;
+  recommendation_reason?: string | null;
+  name_status?: string | null;
+  price_status?: string | null;
+  registration_path?: string | null;
 };
 
 export type CalculatorCard = {

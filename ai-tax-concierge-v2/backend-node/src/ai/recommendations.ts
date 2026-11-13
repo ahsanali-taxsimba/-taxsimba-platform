@@ -22,15 +22,57 @@ const EXISTING_CLIENT =
   /\b(existing (taxsimba )?client|already (a )?taxsimba|logged ?in|my dashboard|message my (assigned )?accountant|my assigned accountant)\b/i;
 
 const DEFAULT_PRESSURE_NOTE =
-  "Optional support — only if useful. Full inclusions are confirmed with TaxSimba, " +
-  "not invented by this assistant.";
+  "Optional support — only if useful. Verified items are prices (and SA names). " +
+  "Feature inclusions are recovered from TaxSimba’s public plan API and still need TaxSimba confirmation before you rely on them.";
 
-export function toPackageCards(codes: string[]): PackageCard[] {
+const PENDING_STATUSES = new Set([
+  "pending_taxsimba_signoff",
+  "blocked_pending_taxsimba_approval",
+  "missing_requires_approval",
+  "conflict_pending_approval",
+]);
+
+function circumstanceReason(code: string, message: string): string {
+  const lower = (message || "").toLowerCase();
+  if (code === "SA_SIMPLE") {
+    return "Lowest Self Assessment price that usually fits straightforward / single simple income situations (price verified; inclusions pending confirmation).";
+  }
+  if (code === "SA_SMART") {
+    return "Mid Self Assessment price when several income sources or more review is likely (price verified; inclusions pending confirmation).";
+  }
+  if (code === "SA_ELITE") {
+    return "Highest Self Assessment price — only suggested when complexity clearly exceeds mid-tier needs (price verified at £299; inclusions pending confirmation).";
+  }
+  if (code === "MTD_STARTER") {
+    return "Lowest MTD monthly price when Making Tax Digital support is needed (price verified VAT included; plan name/features pending confirmation).";
+  }
+  if (code === "MTD_GROWTH") {
+    return "Mid MTD monthly price when more dedicated review is likely (price verified VAT included; features pending confirmation).";
+  }
+  if (code === "MTD_COMPLETE") {
+    return "Highest MTD monthly price — only if mid-tier is clearly insufficient (price verified VAT included; name/features pending confirmation).";
+  }
+  if (code === "ACCOUNTANT_CONSULT_99") {
+    return "£99 / 30-minute consultation when a human review is the safer next step (booking stub until Calendly is connected).";
+  }
+  if (lower.includes("unsure") || lower.includes("not sure")) {
+    return "Suggested as a cautious next option while we clarify your circumstances.";
+  }
+  return "Suggested from verified catalogue prices for your stated circumstances — confirm inclusions with TaxSimba before purchasing.";
+}
+
+export function toPackageCards(
+  codes: string[],
+  message = "",
+): PackageCard[] {
   const flat = allPackagesFlat();
   const cards: PackageCard[] = [];
   for (const code of codes) {
     const pkg = flat[code];
     if (!pkg) continue;
+    const inclusions = Array.isArray(pkg.inclusions)
+      ? (pkg.inclusions as string[])
+      : null;
     cards.push({
       code: String(pkg.code),
       name: String(pkg.name),
@@ -39,10 +81,22 @@ export function toPackageCards(codes: string[]): PackageCard[] {
       vat_note: String(pkg.vat_note || ""),
       family: String(pkg.family),
       inclusions_status: String(
-        pkg.inclusions_status ||
-          "blocked_pending_taxsimba_approval",
+        pkg.inclusions_status || "pending_taxsimba_signoff",
       ),
       pressure_free_note: DEFAULT_PRESSURE_NOTE,
+      description: pkg.description ? String(pkg.description) : null,
+      inclusions,
+      recommendation_reason: circumstanceReason(String(pkg.code), message),
+      name_status: pkg.name_status ? String(pkg.name_status) : null,
+      price_status: pkg.price_status ? String(pkg.price_status) : "verified",
+      registration_path:
+        pkg.registration_route_id === "sa_packages"
+          ? "/self-assessment"
+          : pkg.registration_route_id === "mtd_packages"
+            ? "/making-tax-digital"
+            : pkg.registration_route_id === "register"
+              ? "/register"
+              : null,
     });
   }
   return cards;
@@ -99,7 +153,7 @@ export function recommendForMessage(
   if (journey && journey.complete) {
     packages = declineSales
       ? []
-      : toPackageCards(journey.suggested_package_codes || []);
+      : toPackageCards(journey.suggested_package_codes || [], message);
     const calcIds = new Set(journey.suggested_calculator_ids || []);
     const calcItems = (
       calculatorsCatalog().items as Record<string, unknown>[]
@@ -142,8 +196,7 @@ export function recommendForMessage(
       "How do I upload documents to TaxSimba?",
     ];
   } else if (circumstanceCodes.length) {
-    // Prefer circumstance-aware tiers over dumping every catalogue price.
-    packages = toPackageCards(circumstanceCodes);
+    packages = toPackageCards(circumstanceCodes, message);
     if (circumstanceCodes.includes("ACCOUNTANT_CONSULT_99")) {
       followUps = [
         "What can an accountant consultation help with?",
@@ -153,29 +206,33 @@ export function recommendForMessage(
       followUps = [
         "What is Making Tax Digital for Income Tax?",
         "Do landlords need MTD?",
-        "Can you ask a couple of questions to narrow the plan?",
+        "Can you ask one question to narrow the plan?",
       ];
     } else {
       followUps = [
-        "Can you ask a couple of questions to check which package fits?",
+        "Can you ask one question to check which package fits?",
         "Do I need Self Assessment this year?",
-        "Can I book a £99 accountant consultation instead?",
+        "Where do I register on TaxSimba?",
       ];
     }
   } else if (SA_PRICE.test(message) && !MTD_PRICE.test(message)) {
     packages = toPackageCards(
       (cat.self_assessment as { code: string }[]).map((p) => p.code),
+      message,
     );
     followUps = [
-      "What is included in each Self Assessment package?",
+      "What is published for each Self Assessment package?",
       "Do I need Self Assessment this year?",
       "Can I book a £99 accountant consultation instead?",
     ];
   } else if (MTD_PRICE.test(message) && SA_PRICE.test(message)) {
-    packages = toPackageCards([
-      ...(cat.self_assessment as { code: string }[]).map((p) => p.code),
-      ...(cat.mtd as { code: string }[]).map((p) => p.code),
-    ]);
+    packages = toPackageCards(
+      [
+        ...(cat.self_assessment as { code: string }[]).map((p) => p.code),
+        ...(cat.mtd as { code: string }[]).map((p) => p.code),
+      ],
+      message,
+    );
     followUps = [
       "Who needs Making Tax Digital?",
       "How do MTD plans differ from Self Assessment packages?",
@@ -188,15 +245,17 @@ export function recommendForMessage(
   ) {
     packages = toPackageCards(
       (cat.mtd as { code: string }[]).map((p) => p.code),
+      message,
     );
     followUps = [
       "What is Making Tax Digital for Income Tax?",
       "Do landlords need MTD?",
     ];
   } else if (CONSULT.test(message)) {
-    packages = toPackageCards([
-      String((cat.consultation as { code: string }).code),
-    ]);
+    packages = toPackageCards(
+      [String((cat.consultation as { code: string }).code)],
+      message,
+    );
     followUps = [
       "What can an accountant consultation help with?",
       "What Self Assessment packages are available?",
@@ -238,22 +297,83 @@ export function recommendForMessage(
   return { packages, calculators, follow_ups: followUps };
 }
 
+/** Build a safe inclusions answer from catalogue only (pending items clearly labelled). */
 export function answerInclusionsQuestion(message: string): string | null {
   const lower = message.toLowerCase();
   if (
-    lower.includes("included") ||
-    lower.includes("inclusion") ||
-    lower.includes("what do i get") ||
-    lower.includes("what's included") ||
-    lower.includes("whats included")
+    !(
+      lower.includes("included") ||
+      lower.includes("inclusion") ||
+      /\binclud(e|es|ing)\b/.test(lower) ||
+      lower.includes("what do i get") ||
+      lower.includes("what's included") ||
+      lower.includes("whats included") ||
+      lower.includes("difference between") ||
+      lower.includes("how do they differ") ||
+      lower.includes("compare package") ||
+      lower.includes("compare the package") ||
+      lower.includes("xero") ||
+      lower.includes("helpline") ||
+      lower.includes("24/7") ||
+      lower.includes("phone support")
+    )
   ) {
-    return (
-      "Detailed package inclusions are blocked until TaxSimba supplies an approved catalogue. " +
-      "I will not invent features. I can share configured prices only: Self Assessment Simple £119, " +
-      "Smart £149, Elite £299 (per tax year); MTD Starter £29.99, Growth £59.99, Complete £89.99 " +
-      "(per month, VAT included); or a £99 / 30-minute accountant consultation. " +
-      "Please confirm full inclusions with TaxSimba or book a consultation when booking is connected."
-    );
+    return null;
   }
-  return null;
+
+  const cat = packagesCatalog();
+  const lines: string[] = [
+    "Here is what is currently in the SIMBA catalogue (last reviewed 2026-11-13).",
+    "",
+    "VERIFIED: Self Assessment Simple £119, Smart £149, Elite £299 (per tax year); " +
+      "MTD £29.99 / £59.99 / £89.99 per month (VAT included); consultation £99 / 30 minutes.",
+    "",
+    "Feature descriptions below were recovered from TaxSimba’s public subscription-plans API. " +
+      "They are PENDING TaxSimba/accountant sign-off for SIMBA — please confirm with the TaxSimba team before purchasing. " +
+      "I will not invent extra benefits.",
+    "",
+  ];
+
+  for (const p of cat.self_assessment as Record<string, any>[]) {
+    lines.push(`${p.name} — £${p.price_gbp} (${p.billing}) [price VERIFIED]`);
+    if (p.description) {
+      lines.push(`  Published description (PENDING APPROVAL): ${p.description}`);
+    }
+    if (Array.isArray(p.inclusions) && p.inclusions.length) {
+      lines.push(
+        `  Published inclusions (PENDING APPROVAL): ${p.inclusions.join("; ")}`,
+      );
+    }
+  }
+  lines.push("");
+  for (const p of cat.mtd as Record<string, any>[]) {
+    const conflict =
+      p.name_status === "conflict_pending_approval"
+        ? ` [name conflict vs public “${p.public_api_name}” — PENDING APPROVAL]`
+        : "";
+    lines.push(
+      `${p.name} — £${Number(p.price_gbp).toFixed(2)} (${p.billing}; VAT included) [price VERIFIED]${conflict}`,
+    );
+    if (p.description) {
+      lines.push(`  Published description (PENDING APPROVAL): ${p.description}`);
+    }
+    if (Array.isArray(p.inclusions) && p.inclusions.length) {
+      lines.push(
+        `  Published inclusions (PENDING APPROVAL): ${p.inclusions.join("; ")}`,
+      );
+    }
+  }
+  lines.push("");
+  lines.push(
+    "Explicit exclusions are MISSING and also require TaxSimba approval. " +
+      "If your choice depends on a pending inclusion (for example a named Xero plan or priority support), " +
+      "I must treat that as unconfirmed and recommend asking TaxSimba to confirm — " +
+      "or book a £99 consultation when booking is connected. " +
+      "You can review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, " +
+      "or start registration at https://www.taxsimba.co.uk/register (registration path status: soft/generic until staging verifies).",
+  );
+
+  // Keep unused helper referenced for clarity in audits
+  void PENDING_STATUSES;
+  return lines.join("\n");
 }

@@ -34,7 +34,9 @@ describe("recommendations", () => {
     expect(packages).toHaveLength(3);
     expect(
       packages.every(
-        (p) => p.inclusions_status === "blocked_pending_taxsimba_approval",
+        (p) =>
+          p.inclusions_status === "pending_taxsimba_signoff" ||
+          p.inclusions_status === "missing_requires_approval",
       ),
     ).toBe(true);
     expect(follow_ups.length).toBeGreaterThan(0);

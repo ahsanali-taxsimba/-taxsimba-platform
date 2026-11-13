@@ -38,7 +38,8 @@ describe("recommendations catalog", () => {
   it.each(SA_PRICE_CASES)("sa_package_prices %s = %s", (code, price) => {
     const card = toPackageCards([code])[0];
     expect(card.price_gbp).toBe(price);
-    expect(card.inclusions_status).toBe("blocked_pending_taxsimba_approval");
+    expect(card.price_status).toBe("verified");
+    expect(card.inclusions_status).toBe("pending_taxsimba_signoff");
   });
 
   it.each(MTD_PRICE_CASES)(
@@ -57,15 +58,26 @@ describe("recommendations catalog", () => {
     expect(cat.consultation.booking_status).toBe("stub");
   });
 
-  it("detailed_recommendations_blocked_until_inclusions_approved", () => {
+  it("detailed_recommendations_partial_pending_signoff", () => {
     const cat = packagesCatalog();
     expect(cat.detailed_recommendations_status).toBe(
-      "blocked_pending_approved_inclusions",
+      "partial_recovered_public_api_pending_signoff",
     );
-    expect(cat.self_assessment.every((p: { inclusions: unknown }) => p.inclusions == null)).toBe(
-      true,
-    );
-    expect(cat.mtd.every((p: { inclusions: unknown }) => p.inclusions == null)).toBe(true);
+    expect(
+      cat.self_assessment.every(
+        (p: { inclusions: unknown; inclusions_status: string }) =>
+          Array.isArray(p.inclusions) &&
+          p.inclusions_status === "pending_taxsimba_signoff",
+      ),
+    ).toBe(true);
+    expect(
+      cat.mtd.every(
+        (p: { inclusions: unknown; inclusions_status: string; name_status: string }) =>
+          Array.isArray(p.inclusions) &&
+          p.inclusions_status === "pending_taxsimba_signoff" &&
+          p.name_status === "conflict_pending_approval",
+      ),
+    ).toBe(true);
   });
 
   it.each([
@@ -77,7 +89,9 @@ describe("recommendations catalog", () => {
     expect(packages.length).toBeGreaterThan(0);
     expect(
       packages.every(
-        (p) => p.inclusions_status === "blocked_pending_taxsimba_approval",
+        (p) =>
+          p.inclusions_status === "pending_taxsimba_signoff" ||
+          p.inclusions_status === "missing_requires_approval",
       ),
     ).toBe(true);
   });

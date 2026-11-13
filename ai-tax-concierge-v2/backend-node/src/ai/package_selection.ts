@@ -164,13 +164,15 @@ export function selectPackagesForMessage(message: string): string[] {
   }
 
   if (wantsMtd && (lower.includes("plan") || lower.includes("price") || lower.includes("cost") || lower.includes("package"))) {
+    // Always lead with the lowest suitable MTD price.
     if (complex) return ["MTD_GROWTH", "MTD_COMPLETE"];
     return ["MTD_STARTER", "MTD_GROWTH"];
   }
 
   if (landlord) {
-    if (complex) return ["SA_SMART", "SA_ELITE", "MTD_GROWTH"];
-    return ["SA_SMART", "MTD_GROWTH"];
+    // Landlords: start with mid SA; add MTD Growth as optional — never Elite alone.
+    if (complex) return ["SA_SMART", "MTD_GROWTH", "SA_ELITE"];
+    return ["SA_SMART", "MTD_STARTER", "MTD_GROWTH"];
   }
 
   if (cis) return ["SA_SIMPLE", "SA_SMART"];

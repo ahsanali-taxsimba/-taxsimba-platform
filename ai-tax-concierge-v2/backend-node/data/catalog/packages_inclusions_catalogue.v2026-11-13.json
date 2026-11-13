@@ -1,0 +1,554 @@
+{
+  "catalogue_id": "packages_inclusions_catalogue.v2026-11-13",
+  "last_reviewed": "2026-11-13",
+  "reviewed_by": "SIMBA pre-Toxel audit (automated recovery + cross-check)",
+  "sources": [
+    {
+      "id": "public_api_sa",
+      "url": "https://taxsimba.co.uk/api/compat/subscription-plans?category=taxSimba",
+      "retrieved_at": "2026-11-13T16:00:00Z",
+      "role": "recovered_public_historical_catalogue"
+    },
+    {
+      "id": "public_api_mtd",
+      "url": "https://taxsimba.co.uk/api/compat/subscription-plans?category=mtd",
+      "retrieved_at": "2026-11-13T16:00:00Z",
+      "role": "recovered_public_historical_catalogue"
+    },
+    {
+      "id": "simba_packages_json",
+      "path": "ai-tax-concierge-v2/backend-node/data/catalog/packages.json",
+      "role": "simba_runtime_catalogue"
+    },
+    {
+      "id": "portal_phase1b",
+      "path": "backend/phase1b.py DEFAULT_PACKAGES",
+      "role": "portal_mongo_seed_and_stripe_unit_amount"
+    }
+  ],
+  "approval_policy": {
+    "verified_may_be_spoken_by_simba": true,
+    "pending_taxsimba_signoff_may_be_quoted_with_disclaimer_only": true,
+    "invented_content_forbidden": true,
+    "do_not_assume_mtd_name_equivalence": true
+  },
+  "status_summary": {
+    "detailed_recommendations_status": "partial_recovered_public_api_pending_signoff",
+    "prices": "VERIFIED",
+    "sa_display_names": "VERIFIED",
+    "mtd_display_names": "REQUIRES_APPROVAL_NAME_CONFLICT",
+    "feature_inclusions": "REQUIRES_APPROVAL",
+    "exclusions": "MISSING_REQUIRES_APPROVAL"
+  },
+  "self_assessment": [
+    {
+      "simba_code": "SA_SIMPLE",
+      "portal_code": "SIMPLE",
+      "public_api_code": "SIMPLE",
+      "name": {
+        "value": "Self Assessment Simple",
+        "public_api_name": "Tax Simba Simple",
+        "status": "VERIFIED",
+        "evidence": ["simba_packages_json", "portal_phase1b", "public_api_sa"]
+      },
+      "price_gbp": {
+        "value": 119,
+        "status": "VERIFIED",
+        "evidence": ["simba_packages_json", "portal_phase1b", "public_api_sa"]
+      },
+      "billing": {
+        "value": "per tax year",
+        "status": "VERIFIED",
+        "evidence": ["simba_packages_json", "portal_phase1b"]
+      },
+      "vat_note": {
+        "value": "Confirm VAT treatment on checkout",
+        "status": "VERIFIED",
+        "evidence": ["simba_packages_json", "portal_phase1b"]
+      },
+      "description": {
+        "value": "A straightforward Self Assessment for employed and simple self-employed income, prepared and checked by a qualified accountant.",
+        "status": "REQUIRES_APPROVAL",
+        "source": "public_api_sa",
+        "note": "Recovered from live public subscription-plans API; not yet signed off for SIMBA verbatim use."
+      },
+      "inclusions": [
+        {
+          "text": "Self Assessment prepared by an accountant",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_sa"
+        },
+        {
+          "text": "Secure document upload",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_sa"
+        },
+        {
+          "text": "Review and approval before submission",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_sa"
+        },
+        {
+          "text": "Email and in-app updates",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_sa"
+        }
+      ],
+      "exclusions": [],
+      "exclusions_status": "MISSING_REQUIRES_APPROVAL",
+      "suitability_heuristic_verified": {
+        "value": "Lowest SA tier for straightforward / single simple income situations",
+        "status": "VERIFIED",
+        "note": "Circumstance heuristic for ranking only — not a service guarantee."
+      }
+    },
+    {
+      "simba_code": "SA_SMART",
+      "portal_code": "SMART",
+      "public_api_code": "SMART",
+      "name": {
+        "value": "Self Assessment Smart",
+        "public_api_name": "Tax Simba Smart",
+        "status": "VERIFIED",
+        "evidence": ["simba_packages_json", "portal_phase1b", "public_api_sa"]
+      },
+      "price_gbp": {
+        "value": 149,
+        "status": "VERIFIED",
+        "evidence": ["simba_packages_json", "portal_phase1b", "public_api_sa"]
+      },
+      "billing": {
+        "value": "per tax year",
+        "status": "VERIFIED",
+        "evidence": ["simba_packages_json", "portal_phase1b"]
+      },
+      "vat_note": {
+        "value": "Confirm VAT treatment on checkout",
+        "status": "VERIFIED",
+        "evidence": ["simba_packages_json", "portal_phase1b"]
+      },
+      "description": {
+        "value": "For clients with several income sources who want their allowances and expenses reviewed in detail before filing.",
+        "status": "REQUIRES_APPROVAL",
+        "source": "public_api_sa"
+      },
+      "inclusions": [
+        {
+          "text": "Everything in Simple",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_sa"
+        },
+        {
+          "text": "Multiple income sources reviewed",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_sa"
+        },
+        {
+          "text": "Expenses and allowances check",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_sa"
+        },
+        {
+          "text": "Priority accountant messaging",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_sa"
+        }
+      ],
+      "exclusions": [],
+      "exclusions_status": "MISSING_REQUIRES_APPROVAL",
+      "suitability_heuristic_verified": {
+        "value": "Mid SA tier when there are multiple income sources or more review is likely needed",
+        "status": "VERIFIED"
+      }
+    },
+    {
+      "simba_code": "SA_ELITE",
+      "portal_code": "ELITE",
+      "public_api_code": "ELITE",
+      "name": {
+        "value": "Self Assessment Elite",
+        "public_api_name": "Tax Simba Elite",
+        "status": "VERIFIED",
+        "evidence": ["simba_packages_json", "portal_phase1b", "public_api_sa"]
+      },
+      "price_gbp": {
+        "value": 299,
+        "status": "VERIFIED",
+        "evidence": ["simba_packages_json", "portal_phase1b", "public_api_sa"],
+        "note": "Must remain £299 (not £249)."
+      },
+      "billing": {
+        "value": "per tax year",
+        "status": "VERIFIED",
+        "evidence": ["simba_packages_json", "portal_phase1b"]
+      },
+      "vat_note": {
+        "value": "Confirm VAT treatment on checkout",
+        "status": "VERIFIED",
+        "evidence": ["simba_packages_json", "portal_phase1b"]
+      },
+      "description": {
+        "value": "Our most thorough Self Assessment service, including planning conversations and a full review of your position for the year.",
+        "status": "REQUIRES_APPROVAL",
+        "source": "public_api_sa"
+      },
+      "inclusions": [
+        {
+          "text": "Everything in Smart",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_sa"
+        },
+        {
+          "text": "Full review of your tax position",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_sa"
+        },
+        {
+          "text": "Tax planning conversation",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_sa"
+        },
+        {
+          "text": "Priority turnaround",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_sa"
+        }
+      ],
+      "exclusions": [],
+      "exclusions_status": "MISSING_REQUIRES_APPROVAL",
+      "suitability_heuristic_verified": {
+        "value": "Highest SA tier only when complexity clearly warrants more than mid-tier support; never auto-default",
+        "status": "VERIFIED"
+      }
+    }
+  ],
+  "mtd": [
+    {
+      "simba_code": "MTD_STARTER",
+      "portal_code": "MTD_STARTER",
+      "public_api_code": "MTD_COMPLY",
+      "name": {
+        "value": "MTD Starter",
+        "public_api_name": "Simbian Comply",
+        "status": "REQUIRES_APPROVAL",
+        "conflict": "SIMBA/portal use 'MTD Starter'; public API uses 'Simbian Comply' / MTD_COMPLY at the same £29.99 price. Do not assume equivalence without TaxSimba sign-off.",
+        "evidence": ["simba_packages_json", "portal_phase1b", "public_api_mtd"]
+      },
+      "price_gbp": {
+        "value": 29.99,
+        "status": "VERIFIED",
+        "evidence": ["simba_packages_json", "portal_phase1b", "public_api_mtd"]
+      },
+      "billing": {
+        "value": "per month",
+        "status": "VERIFIED",
+        "evidence": ["simba_packages_json", "portal_phase1b"]
+      },
+      "vat_note": {
+        "value": "VAT included",
+        "status": "VERIFIED",
+        "evidence": ["simba_packages_json", "portal_phase1b"]
+      },
+      "description": {
+        "value": "Your accountant maintains your records and handles your quarterly updates and year-end tax return.",
+        "status": "REQUIRES_APPROVAL",
+        "source": "public_api_mtd"
+      },
+      "inclusions": [
+        {
+          "text": "Xero Simple subscription included",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "MTD registration and setup support",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Accountant-maintained bookkeeping and digital records",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Quarterly MTD updates prepared and submitted",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Year-end Income Tax return prepared and submitted",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Automated tax deadline reminders",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Secure digital document exchange",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Accountant support by email only",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        }
+      ],
+      "exclusions": [],
+      "exclusions_status": "MISSING_REQUIRES_APPROVAL",
+      "suitability_heuristic_verified": {
+        "value": "Lowest MTD monthly price point when MTD support is needed",
+        "status": "VERIFIED"
+      }
+    },
+    {
+      "simba_code": "MTD_GROWTH",
+      "portal_code": "MTD_GROWTH",
+      "public_api_code": "MTD_GROWTH",
+      "name": {
+        "value": "MTD Growth",
+        "public_api_name": "Simbian Growth",
+        "status": "REQUIRES_APPROVAL",
+        "conflict": "Display naming differs ('MTD Growth' vs 'Simbian Growth') though code MTD_GROWTH and £59.99 align.",
+        "evidence": ["simba_packages_json", "portal_phase1b", "public_api_mtd"]
+      },
+      "price_gbp": {
+        "value": 59.99,
+        "status": "VERIFIED",
+        "evidence": ["simba_packages_json", "portal_phase1b", "public_api_mtd"]
+      },
+      "billing": {
+        "value": "per month",
+        "status": "VERIFIED",
+        "evidence": ["simba_packages_json", "portal_phase1b"]
+      },
+      "vat_note": {
+        "value": "VAT included",
+        "status": "VERIFIED",
+        "evidence": ["simba_packages_json", "portal_phase1b"]
+      },
+      "description": {
+        "value": "A dedicated accountant maintains your records, handles your filings and reviews your business each quarter.",
+        "status": "REQUIRES_APPROVAL",
+        "source": "public_api_mtd"
+      },
+      "inclusions": [
+        {
+          "text": "Xero Ignite subscription included",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "MTD registration and setup support",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Accountant-maintained bookkeeping and digital records",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Quarterly MTD updates prepared and submitted",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Year-end Income Tax return prepared and submitted",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Dedicated accountant support by email only",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Quarterly business reviews",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Expenses and allowances check",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Secure document exchange and deadline reminders",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        }
+      ],
+      "exclusions": [],
+      "exclusions_status": "MISSING_REQUIRES_APPROVAL",
+      "suitability_heuristic_verified": {
+        "value": "Mid MTD tier when more dedicated review is likely needed",
+        "status": "VERIFIED"
+      }
+    },
+    {
+      "simba_code": "MTD_COMPLETE",
+      "portal_code": "MTD_COMPLETE",
+      "public_api_code": "MTD_ELITE",
+      "name": {
+        "value": "MTD Complete",
+        "public_api_name": "Simbian Elite",
+        "status": "REQUIRES_APPROVAL",
+        "conflict": "SIMBA/portal use 'MTD Complete' / MTD_COMPLETE; public API uses 'Simbian Elite' / MTD_ELITE at the same £89.99 price. Do not assume equivalence without TaxSimba sign-off.",
+        "evidence": ["simba_packages_json", "portal_phase1b", "public_api_mtd"]
+      },
+      "price_gbp": {
+        "value": 89.99,
+        "status": "VERIFIED",
+        "evidence": ["simba_packages_json", "portal_phase1b", "public_api_mtd"]
+      },
+      "billing": {
+        "value": "per month",
+        "status": "VERIFIED",
+        "evidence": ["simba_packages_json", "portal_phase1b"]
+      },
+      "vat_note": {
+        "value": "VAT included",
+        "status": "VERIFIED",
+        "evidence": ["simba_packages_json", "portal_phase1b"]
+      },
+      "description": {
+        "value": "Dedicated accountant care with maintained records, complete agreed filings and proactive tax planning.",
+        "status": "REQUIRES_APPROVAL",
+        "source": "public_api_mtd"
+      },
+      "inclusions": [
+        {
+          "text": "Xero Grow subscription included",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "MTD registration and setup support",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Accountant-maintained bookkeeping and digital records",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Quarterly MTD updates prepared and submitted",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Year-end Income Tax return prepared and submitted",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Dedicated accountant with priority email support",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Quarterly business reviews",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Expenses and allowances check",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Full review of your tax position",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Proactive tax planning advice",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        },
+        {
+          "text": "Secure document exchange and deadline reminders",
+          "status": "REQUIRES_APPROVAL",
+          "source": "public_api_mtd"
+        }
+      ],
+      "exclusions": [],
+      "exclusions_status": "MISSING_REQUIRES_APPROVAL",
+      "suitability_heuristic_verified": {
+        "value": "Highest MTD price point only when complexity clearly warrants more than mid-tier; never auto-default",
+        "status": "VERIFIED"
+      }
+    }
+  ],
+  "consultation": {
+    "simba_code": "ACCOUNTANT_CONSULT_99",
+    "name": {
+      "value": "Private accountant consultation",
+      "status": "VERIFIED",
+      "evidence": ["simba_packages_json"]
+    },
+    "price_gbp": {
+      "value": 99,
+      "status": "VERIFIED",
+      "evidence": ["simba_packages_json"]
+    },
+    "duration_minutes": {
+      "value": 30,
+      "status": "VERIFIED",
+      "evidence": ["simba_packages_json"]
+    },
+    "meeting": {
+      "value": "Google Meet",
+      "status": "VERIFIED",
+      "evidence": ["simba_packages_json"]
+    },
+    "inclusions": [],
+    "inclusions_status": "MISSING_REQUIRES_APPROVAL",
+    "booking_status": {
+      "value": "stub",
+      "status": "VERIFIED",
+      "note": "Calendly URL not live until Toxel connects CONSULTATION_BOOKING_URL"
+    }
+  },
+  "unresolved_approval_items": [
+    {
+      "id": "APPROVE-SA-DESCRIPTIONS",
+      "owner": "TaxSimba / accountant",
+      "items": "SA Simple/Smart/Elite short descriptions from public API"
+    },
+    {
+      "id": "APPROVE-SA-INCLUSIONS",
+      "owner": "TaxSimba / accountant",
+      "items": "All SA feature bullets (incl. priority messaging / planning / turnaround)"
+    },
+    {
+      "id": "APPROVE-MTD-NAMES",
+      "owner": "TaxSimba / accountant",
+      "items": "Confirm whether customer-facing names are MTD Starter/Growth/Complete or Simbian Comply/Growth/Elite (and codes MTD_COMPLY / MTD_ELITE)"
+    },
+    {
+      "id": "APPROVE-MTD-INCLUSIONS",
+      "owner": "TaxSimba / accountant",
+      "items": "All MTD feature bullets including Xero Simple/Ignite/Grow entitlements and support channels"
+    },
+    {
+      "id": "APPROVE-EXCLUSIONS",
+      "owner": "TaxSimba / accountant",
+      "items": "Explicit exclusions for every SKU (currently missing from public API)"
+    },
+    {
+      "id": "APPROVE-CONSULT-INCLUSIONS",
+      "owner": "TaxSimba / accountant",
+      "items": "What the £99 / 30-minute consultation does and does not cover"
+    },
+    {
+      "id": "VERIFY-STRIPE-AMOUNTS-STAGING",
+      "owner": "Toxel",
+      "items": "Live Stripe test Checkout amount_total for Elite 29900 and MTD 2999/5999/8999"
+    }
+  ]
+}

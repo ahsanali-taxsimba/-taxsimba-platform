@@ -61,20 +61,50 @@ export function formatPackageLine(pkg: Record<string, unknown>): string {
 
 export function packageCatalogText(): string {
   const cat = packagesCatalog();
-  const lines = ["Self Assessment packages:"];
+  const lines = [
+    "Self Assessment packages (prices VERIFIED; feature bullets pending TaxSimba sign-off):",
+  ];
   for (const p of cat.self_assessment as Record<string, unknown>[]) {
     lines.push(`- ${formatPackageLine(p)}`);
+    if (p.description && p.description_status === "pending_taxsimba_signoff") {
+      lines.push(
+        `  Published description (pending sign-off): ${String(p.description)}`,
+      );
+    }
+    const incs = p.inclusions as string[] | null;
+    if (incs?.length && p.inclusions_status === "pending_taxsimba_signoff") {
+      lines.push(
+        `  Published inclusions (pending sign-off): ${incs.join("; ")}`,
+      );
+    }
   }
-  lines.push("MTD plans:");
+  lines.push(
+    "MTD plans (prices VERIFIED VAT included; names may conflict with public Simbian labels — pending approval):",
+  );
   for (const p of cat.mtd as Record<string, unknown>[]) {
     lines.push(`- ${formatPackageLine(p)}`);
+    if (p.name_conflict_note) {
+      lines.push(`  Name conflict: ${String(p.name_conflict_note)}`);
+    }
+    if (p.description && p.description_status === "pending_taxsimba_signoff") {
+      lines.push(
+        `  Published description (pending sign-off): ${String(p.description)}`,
+      );
+    }
+    const incs = p.inclusions as string[] | null;
+    if (incs?.length && p.inclusions_status === "pending_taxsimba_signoff") {
+      lines.push(
+        `  Published inclusions (pending sign-off): ${incs.join("; ")}`,
+      );
+    }
   }
   const c = cat.consultation as Record<string, unknown>;
   lines.push(
     `Consultation: ${formatPackageLine(c)} (booking status: ${c.booking_status || "unknown"})`,
   );
   lines.push(
-    "Do not invent inclusions, discounts, or live availability. " +
+    "Never invent benefits beyond this catalogue. Prefer the lowest suitable package. " +
+      "If a recommendation depends on an unapproved inclusion, say so and offer TaxSimba confirmation. " +
       `Catalogue note: ${cat.disclaimer}`,
   );
   return lines.join("\n");

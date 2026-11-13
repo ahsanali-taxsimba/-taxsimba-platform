@@ -75,8 +75,11 @@ describe("phase2 / phase3 API", () => {
         lower.includes("not invent") ||
         lower.includes("don't invent") ||
         lower.includes("will not invent") ||
-        lower.includes("blocked"),
+        lower.includes("pending"),
     ).toBe(true);
+    expect(lower.includes("299") || lower.includes("£299")).toBe(true);
+    // Must not invent benefits outside the recovered catalogue (e.g. fake phone SLA).
+    expect(lower.includes("24/7 phone")).toBe(false);
   });
 
   it("journey_api_flow", async () => {
