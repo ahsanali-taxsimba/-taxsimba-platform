@@ -8,7 +8,7 @@
 **Date:** 2026-11-13 (Europe/London)  
 **Release gate:** **HOLD** — do not merge, do not deploy, not production-ready while external integrations remain BLOCKED.
 
-> Commit SHA is recorded in section **K** after the verification push for this document.
+> Evidence commit: 
 
 ---
 
@@ -240,7 +240,7 @@ Handover pack: `docs/toxel/HANDOVER.md`, `EMBEDDING.md`, `INTEGRATION_CONTRACTS.
 
 ## K. Exact commit SHA and reproducible verification steps
 
-**Commit SHA:** _(filled at push — see git log on PR #35 head)_
+**Commit SHA:** 
 
 ### Reproduce locally
 ```bash
