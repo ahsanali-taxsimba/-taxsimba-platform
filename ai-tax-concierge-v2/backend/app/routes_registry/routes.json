@@ -1,0 +1,33 @@
+{
+  "version": "2026-11-simba-v1",
+  "disclaimer": "All routes are configuration stubs until Toxel confirms production URLs. Never invent live production paths.",
+  "base_url_status": "configurable",
+  "routes": [
+    {"id": "home", "label": "Home", "path": "/", "status": "stub", "topics": ["general"]},
+    {"id": "sa_packages", "label": "Self Assessment packages", "path": "/self-assessment", "status": "stub", "topics": ["self assessment", "packages", "pricing"]},
+    {"id": "mtd_packages", "label": "MTD packages", "path": "/making-tax-digital", "status": "stub", "topics": ["mtd", "packages"]},
+    {"id": "register", "label": "Registration", "path": "/register", "status": "stub", "topics": ["register", "sign up"]},
+    {"id": "login", "label": "Client login", "path": "/login", "status": "stub", "topics": ["login", "dashboard", "existing client"]},
+    {"id": "dashboard", "label": "Client dashboard", "path": "/dashboard", "status": "stub", "topics": ["dashboard", "messages", "accountant"]},
+    {"id": "consultation", "label": "£99 consultation", "path": "/book-consultation", "status": "stub", "topics": ["consultation", "accountant", "calendly"]},
+    {"id": "faq", "label": "FAQs", "path": "/faqs", "status": "stub", "topics": ["faq"]},
+    {"id": "articles", "label": "Tax articles", "path": "/articles", "status": "stub", "topics": ["article", "guide"]},
+    {"id": "calc_income_tax", "label": "Income tax calculator", "path": "/calculators/income-tax", "status": "stub", "topics": ["calculator", "income tax"], "kind": "calculator"},
+    {"id": "calc_sa_deadline", "label": "SA deadline calculator", "path": "/calculators/self-assessment-deadlines", "status": "stub", "topics": ["calculator", "deadline"], "kind": "calculator"},
+    {"id": "calc_mtd", "label": "MTD readiness", "path": "/calculators/mtd-readiness", "status": "stub", "topics": ["calculator", "mtd"], "kind": "calculator"},
+    {"id": "calc_cis", "label": "CIS helper", "path": "/calculators/cis", "status": "stub", "topics": ["calculator", "cis"], "kind": "calculator"},
+    {"id": "calc_property", "label": "Property income helper", "path": "/calculators/property-income", "status": "stub", "topics": ["calculator", "landlord"], "kind": "calculator"},
+    {"id": "calc_take_home", "label": "Take-home pay calculator", "path": "/calculators/take-home-pay", "status": "stub", "topics": ["calculator", "paye"], "kind": "calculator"},
+    {"id": "calc_vat", "label": "VAT calculator", "path": "/calculators/vat", "status": "stub", "topics": ["calculator", "vat"], "kind": "calculator"},
+    {"id": "calc_cgt", "label": "CGT estimator", "path": "/calculators/capital-gains", "status": "stub", "topics": ["calculator", "capital gains"], "kind": "calculator"},
+    {"id": "calc_dividend", "label": "Dividend tax calculator", "path": "/calculators/dividend-tax", "status": "stub", "topics": ["calculator", "dividend"], "kind": "calculator"},
+    {"id": "calc_ni", "label": "NI calculator", "path": "/calculators/national-insurance", "status": "stub", "topics": ["calculator", "national insurance"], "kind": "calculator"},
+    {"id": "calc_student_loan", "label": "Student loan calculator", "path": "/calculators/student-loan", "status": "stub", "topics": ["calculator", "student loan"], "kind": "calculator"},
+    {"id": "calc_pension", "label": "Pension tax relief helper", "path": "/calculators/pension-relief", "status": "stub", "topics": ["calculator", "pension"], "kind": "calculator"},
+    {"id": "calc_mileage", "label": "Mileage allowance helper", "path": "/calculators/mileage", "status": "stub", "topics": ["calculator", "mileage"], "kind": "calculator"},
+    {"id": "calc_trading_allowance", "label": "Trading allowance helper", "path": "/calculators/trading-allowance", "status": "stub", "topics": ["calculator", "trading allowance"], "kind": "calculator"},
+    {"id": "calc_property_allowance", "label": "Property allowance helper", "path": "/calculators/property-allowance", "status": "stub", "topics": ["calculator", "property allowance"], "kind": "calculator"},
+    {"id": "calc_crypto", "label": "Crypto tax helper", "path": "/calculators/crypto", "status": "stub", "topics": ["calculator", "crypto"], "kind": "calculator"},
+    {"id": "calc_penalty", "label": "Penalty interest helper", "path": "/calculators/penalties", "status": "stub", "topics": ["calculator", "penalty"], "kind": "calculator"}
+  ]
+}

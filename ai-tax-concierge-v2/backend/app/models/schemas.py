@@ -109,6 +109,16 @@ class ChatRequest(BaseModel):
         raise ValueError("tax_year must look like 2025-26")
 
 
+class RouteCard(BaseModel):
+    id: str
+    label: str
+    path: str
+    status: str
+    url: Optional[str] = None
+    note: Optional[str] = None
+    kind: Optional[str] = None
+
+
 class ChatResponse(BaseModel):
     session_id: str
     reply: str
@@ -116,12 +126,18 @@ class ChatResponse(BaseModel):
     sources: List[SourceReference]
     confidence: Literal["high", "medium", "low"]
     disclaimer: str
+    assistant_name: str = "SIMBA AI"
+    is_ai_disclosure: str = (
+        "I am SIMBA AI — an AI assistant, not a qualified human accountant or HMRC representative."
+    )
     consultation_hint: Optional[str] = None
     follow_ups: List[str] = Field(default_factory=list)
     packages: List[PackageCard] = Field(default_factory=list)
     calculators: List[CalculatorCard] = Field(default_factory=list)
+    routes: List[RouteCard] = Field(default_factory=list)
     journey: Optional[JourneyState] = None
     llm_mode: Literal["openai", "mock"]
+    mock_notice: Optional[str] = None
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
@@ -139,9 +155,11 @@ class JourneyAdvanceRequest(BaseModel):
 class HealthResponse(BaseModel):
     status: Literal["ok"] = "ok"
     version: str
-    phase: int = 2
+    phase: int = 3
+    product: str = "SIMBA AI"
     llm_mode: Literal["openai", "mock"]
     current_tax_year: str
+    mock_notice: Optional[str] = None
 
 
 class KnowledgeFact(BaseModel):
@@ -154,6 +172,9 @@ class KnowledgeFact(BaseModel):
     publisher: str
     category: str
     last_verified: str
+    effective_date: Optional[str] = None
+    knowledge_version: Optional[str] = None
+    review_status: Optional[str] = None
 
 
 class ErrorBody(BaseModel):

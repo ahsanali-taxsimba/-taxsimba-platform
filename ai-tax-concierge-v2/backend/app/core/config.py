@@ -66,14 +66,19 @@ class Settings(BaseSettings):
         """Config safe to expose — never includes API keys."""
         return {
             "env": self.concierge_env,
-            "phase": 2,
+            "phase": 3,
+            "product": "SIMBA AI",
+            "subtitle": "Your UK Tax Assistant",
             "llm_mode": "mock" if self.use_mock_llm else "openai",
-            "model": self.openai_model if not self.use_mock_llm else "mock-concierge-v1",
+            "model": self.openai_model if not self.use_mock_llm else "mock-simba-v1",
             "website_base_url": self.website_base_url,
             "consultation_available": True,
             "consultation_price_gbp": 99,
+            "consultation_duration_minutes": 30,
+            "consultation_meeting": "Google Meet",
             "consultation_booking_status": "stub",
             "payment_status": "mock_unavailable",
+            "mock_notice": "MOCK MODE — not live OpenAI." if self.use_mock_llm else None,
         }
 
 

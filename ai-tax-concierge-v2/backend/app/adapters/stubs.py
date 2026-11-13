@@ -50,8 +50,12 @@ class ConfigCalendlyAdapter(CalendlyAdapter):
         return {
             "status": "stub",
             "price_gbp": price_gbp,
+            "duration_minutes": 30,
+            "meeting": "Google Meet",
             "booking_url": self._url,
-            "label": f"£{price_gbp} accountant consultation",
+            "availability": "not_live",
+            "label": f"£{price_gbp} accountant consultation (30 min Google Meet)",
+            "note": "Calendly not connected — do not claim a booking is confirmed",
         }
 
 

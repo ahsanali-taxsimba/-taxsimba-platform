@@ -15,11 +15,14 @@ router = APIRouter(tags=["health"])
 @router.get("/health", response_model=HealthResponse)
 async def health(request: Request) -> HealthResponse:
     settings: Settings = request.app.state.settings
+    mode = "mock" if settings.use_mock_llm else "openai"
     return HealthResponse(
         version=__version__,
-        phase=2,
-        llm_mode="mock" if settings.use_mock_llm else "openai",
+        phase=3,
+        product="SIMBA AI",
+        llm_mode=mode,
         current_tax_year=tax_year_label(),
+        mock_notice="MOCK MODE — not live OpenAI." if mode == "mock" else None,
     )
 
 

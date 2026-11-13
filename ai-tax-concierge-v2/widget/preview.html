@@ -3,72 +3,39 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TaxSimba Concierge — Local Preview</title>
+  <title>SIMBA AI — Local Preview</title>
   <style>
-    :root { color-scheme: light; }
     body {
       margin: 0;
       font-family: Georgia, "Times New Roman", serif;
-      color: #1f2937;
-      background:
-        linear-gradient(180deg, #f8fafc 0%, #eef2ff 120px, #f8fafc 120px);
+      color: #15231c;
+      background: linear-gradient(180deg, #f8fbf9 0%, #eef6f2 140px, #f8fbf9 140px);
     }
-    .fake-site {
-      max-width: 920px;
-      margin: 0 auto;
-      padding: 28px 20px 120px;
-    }
+    .fake-site { max-width: 920px; margin: 0 auto; padding: 28px 20px 120px; }
     .fake-site header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      border-bottom: 1px solid #dbe3f0;
-      padding-bottom: 12px;
-      margin-bottom: 24px;
-      font-family: Segoe UI, Helvetica Neue, Arial, sans-serif;
+      display: flex; justify-content: space-between; align-items: baseline;
+      border-bottom: 1px solid #d5e0db; padding-bottom: 12px; margin-bottom: 24px;
+      font-family: Avenir Next, Segoe UI, Helvetica Neue, Arial, sans-serif;
     }
-    .fake-site h1 {
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      line-height: 1.15;
-      color: #0A2A6A;
-      margin: 0 0 12px;
-    }
-    .fake-site p { line-height: 1.6; max-width: 62ch; }
+    .fake-site h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); color: #0B3D2E; margin: 0 0 12px; }
     .note {
-      margin-top: 24px;
-      padding: 12px 14px;
-      background: #ecfeff;
-      border: 1px solid #a5f3fc;
-      border-radius: 12px;
-      font-family: Segoe UI, Helvetica Neue, Arial, sans-serif;
-      font-size: 0.9rem;
+      margin-top: 24px; padding: 12px 14px; background: #f3ead2; border: 1px solid #e0cfa0;
+      border-radius: 12px; font-family: Avenir Next, Segoe UI, Helvetica Neue, Arial, sans-serif; font-size: 0.9rem;
     }
-    .direct {
-      margin-top: 18px;
-      font-family: Segoe UI, Helvetica Neue, Arial, sans-serif;
-    }
-    .direct a { color: #0A2A6A; }
   </style>
 </head>
 <body>
   <div class="fake-site">
     <header>
-      <strong style="color:#0A2A6A">Example host page</strong>
-      <span>Embed preview only — not the live TaxSimba site</span>
+      <strong style="color:#0B3D2E">Example host page</strong>
+      <span>Embed preview — not the live TaxSimba site</span>
     </header>
-    <h1>Local preview of the embeddable Tax Concierge</h1>
-    <p>
-      This page simulates a third-party host. The floating “Ask TaxSimba” button is injected
-      by <code>embed.js</code> without changing this page’s layout system. The real TaxSimba
-      website is not modified.
-    </p>
+    <h1>SIMBA AI local embed preview</h1>
+    <p>Floating launcher injects without changing this page’s design system. Live website is not modified.</p>
     <div class="note">
-      Open the launcher (bottom-right), try a starter question or a guided journey.
-      Demo mode uses the mock AI unless <code>OPENAI_API_KEY</code> is configured.
+      Open <strong>Ask SIMBA</strong>. Demo/mock mode is used unless <code>OPENAI_API_KEY</code> is configured server-side.
+      Emblem is a temporary placeholder pending approved TaxSimba brand asset.
     </div>
-    <p class="direct">
-      Full-panel view: <a href="./index.html">/widget/index.html</a>
-    </p>
   </div>
   <script src="/widget/embed.js" data-api-base="http://127.0.0.1:8090"></script>
 </body>

@@ -1,6 +1,6 @@
 {
-  "version": "2026-03-phase2",
-  "disclaimer": "Prices are taken from the TaxSimba Concierge product catalogue configuration. Package feature inclusions are not invented here — ask TaxSimba or check the live website for full details before purchasing. Checkout is not live in Phase 2.",
+  "version": "2026-11-simba-v1",
+  "disclaimer": "Prices are taken from the TaxSimba SIMBA AI product catalogue configuration. Package feature inclusions are not invented here — confirm with TaxSimba before purchasing. Checkout and booking are not live until integrations are connected.",
   "self_assessment": [
     {
       "code": "SA_SIMPLE",
@@ -61,11 +61,14 @@
   ],
   "consultation": {
     "code": "ACCOUNTANT_CONSULT_99",
-    "name": "Accountant consultation",
+    "name": "Private accountant consultation",
     "price_gbp": 99,
     "billing": "one-off",
+    "duration_minutes": 30,
+    "meeting": "Google Meet",
     "vat_note": "Confirm VAT treatment when booking",
     "booking_status": "stub",
+    "booking_provider": "calendly",
     "inclusions": null,
     "inclusions_status": "not_specified_in_catalog"
   }
