@@ -7,11 +7,13 @@
 ## Five confirmed decisions
 
 ### 1. Xero software licences
-Xero software licences **are included** in the advertised MTD monthly package prices, **subject to confirmation** of the exact licences, entitlements and commercial arrangements.
+Xero software **is included** in the advertised monthly subscription price of all three Simbian MTD packages (**APPROVED**).
 
-- SIMBA may say: a Xero licence is included in the Simbian monthly price.
-- SIMBA must **not** invent which Xero plan, seat count, duration, or “forever free” terms.
-- Status for exact Simple/Ignite/Grow mapping: **APPROVED SUBJECT TO SCOPE** / remaining commercial table 1.
+- Prices unchanged: Comply **£29.99** / Growth **£59.99** / Elite **£89.99** per month, VAT included.
+- Customers **do not** pay separately for their included Xero licence.
+- Do **not** reopen this commercial decision.
+- SIMBA must **not** invent which exact Xero plan, seat count, duration, or “forever free” terms.
+- Exact Xero licence mapping only: **PENDING APPROVAL** (remaining decision table 1).
 
 ### 2. Bookkeeping
 TaxSimba **maintains clients’ digital bookkeeping records within defined limits** for each MTD tier. The **numerical limits are NOT yet approved**.
@@ -51,8 +53,8 @@ The £99 consultation is **one 30-minute accountant-led Google Meet advice sessi
 ## SIMBA speaking rules (post-decision)
 
 1. State approved names and prices confidently.  
-2. State decisions 1–3 only with conditional / subject-to-scope wording.  
-3. Never invent bookkeeping limits, licence specifics, response times, tax-planning benefits or extra charges.  
+2. State decision 1 (Xero-in-price) as approved; state decisions 2–3 with conditional / subject-to-scope wording. Exact Xero mapping remains pending.  
+3. Never invent bookkeeping limits, named Xero plan details, response times, tax-planning benefits or separate Xero charges.  
 4. Never promise removed premium claims.  
 5. When a recommendation depends on an unresolved entitlement, say TaxSimba must confirm the detail.  
 6. Recommend the lowest suitable package; explain SA vs MTD; ask one clarifying question at a time; give correct package-page / register links.

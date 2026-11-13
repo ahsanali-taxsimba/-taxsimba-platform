@@ -1,18 +1,18 @@
 {
-  "version": "2026-11-simba-v4-owner-decisions",
+  "version": "2026-11-simba-v4.1-xero-approved",
   "inclusions_catalogue": "packages_inclusions_catalogue.v2026-11-13.json",
   "approval_matrix_doc": "docs/verification/inclusions_resolution/SIX_PACKAGE_APPROVAL_MATRIX.md",
   "owner_decisions_doc": "docs/verification/inclusions_resolution/OWNER_COMMERCIAL_DECISIONS_2026-11-13.md",
   "remaining_decisions_doc": "docs/verification/inclusions_resolution/REMAINING_OWNER_DECISION_TABLES.md",
   "proposed_copy_doc": "docs/verification/inclusions_resolution/PROPOSED_FINAL_PACKAGE_COPY.md",
-  "disclaimer": "APPROVED: SA Simple/Smart/Elite names and prices; Simbian Comply/Growth/Elite names and VAT-included monthly prices; \u00a399/30min consultation scope (advice session only \u2014 no filing, bookkeeping or written report). APPROVED SUBJECT TO SCOPE: Xero licence included in MTD monthly prices (exact licence TBD); bookkeeping within unpublished tier limits; annual SA filing in all MTD plans subject to agreed scope and timely records. REMOVED from customer copy: priority support/turnaround, quarterly business reviews, proactive tax planning. Never invent limits, licence specifics, SLAs or extra charges. Checkout and booking are not live until integrations are connected.",
+  "disclaimer": "APPROVED: SA Simple/Smart/Elite names and prices; Simbian Comply/Growth/Elite names and VAT-included monthly prices (\u00a329.99 / \u00a359.99 / \u00a389.99); Xero software included in each Simbian monthly subscription price (customers do not pay separately for the included Xero licence); \u00a399/30min consultation scope (advice session only \u2014 no filing, bookkeeping or written report). PENDING (not the price-inclusion decision): exact Xero licence mapping per tier; bookkeeping transaction limits; additional-work exclusions. APPROVED SUBJECT TO SCOPE: bookkeeping within unpublished tier limits; annual SA filing in all MTD plans subject to agreed scope and timely records. REMOVED from customer copy: priority support/turnaround, quarterly business reviews, proactive tax planning. Never invent limits, named Xero plan details, SLAs or extra charges. Checkout and booking are not live until integrations are connected.",
   "detailed_recommendations_status": "owner_decisions_applied_remaining_scope_pending",
   "inclusions_supply_doc": "docs/toxel/PACKAGE_INCLUSIONS_SUPPLY_REQUEST.md",
   "inclusions_resolution_doc": "docs/verification/inclusions_resolution/INCLUSIONS_RESOLUTION_REPORT.md",
   "owner_decisions": {
     "recorded_at": "2026-11-13",
     "timezone": "Europe/London",
-    "xero_included_in_mtd_price": "approved_subject_to_scope",
+    "xero_included_in_mtd_price": "approved",
     "bookkeeping_within_tier_limits": "approved_subject_to_scope",
     "bookkeeping_numerical_limits_approved": false,
     "mtd_includes_annual_sa_subject_to_scope": "approved_subject_to_scope",
@@ -22,7 +22,10 @@
       "quarterly business reviews",
       "proactive tax planning"
     ],
-    "consultation_scope_approved": true
+    "consultation_scope_approved": true,
+    "xero_customers_pay_separately": false,
+    "xero_exact_licence_mapping": "pending_approval",
+    "correction_note": "2026-11-13 correction: Xero included in advertised monthly Simbian prices is APPROVED. Do not reopen or suggest separate customer Xero payment. Exact licence mapping remains pending."
   },
   "approved_customer_facts": [
     {
@@ -32,8 +35,8 @@
         "MTD_GROWTH",
         "MTD_COMPLETE"
       ],
-      "status": "approved_subject_to_scope",
-      "text": "A Xero software licence is included in each Simbian monthly price. TaxSimba must confirm the exact licence, entitlements and commercial arrangements before treating any named Xero plan as guaranteed."
+      "status": "approved",
+      "text": "Xero software is included in the advertised monthly subscription price of Simbian Comply (\u00a329.99), Simbian Growth (\u00a359.99) and Simbian Elite (\u00a389.99), VAT included. Customers do not pay separately for their included Xero licence. The exact Xero licence mapping for each tier is still being confirmed \u2014 do not invent named plan, seat or \u2018forever\u2019 details."
     },
     {
       "id": "bookkeeping_tier_limits",
@@ -181,10 +184,10 @@
       "legacy_customer_names": [
         "MTD Starter"
       ],
-      "description": "Making Tax Digital support with accountant-maintained digital records within Comply limits, a Xero licence included in the monthly price (exact licence to confirm), and year-end Self Assessment filing subject to agreed scope and timely records.",
+      "description": "Making Tax Digital support with accountant-maintained digital records within Comply limits, Xero software included in the monthly subscription price (no separate Xero charge; exact licence mapping to confirm), and year-end Self Assessment filing subject to agreed scope and timely records.",
       "description_status": "pending_approval",
       "inclusions": [
-        "Xero software licence included in monthly price (exact licence to be confirmed)",
+        "Xero software included in the monthly subscription price (customers do not pay separately; exact licence mapping to be confirmed)",
         "Accountant-maintained bookkeeping within Comply limits (limits not yet published)",
         "Year-end Income Tax / Self Assessment return prepared and submitted (subject to agreed scope and timely client records)",
         "MTD registration and setup support",
@@ -194,7 +197,7 @@
         "Accountant support by email only"
       ],
       "inclusion_item_statuses": {
-        "Xero software licence included in monthly price (exact licence to be confirmed)": "approved_subject_to_scope",
+        "Xero software included in the monthly subscription price (customers do not pay separately; exact licence mapping to be confirmed)": "approved",
         "Accountant-maintained bookkeeping within Comply limits (limits not yet published)": "approved_subject_to_scope",
         "Year-end Income Tax / Self Assessment return prepared and submitted (subject to agreed scope and timely client records)": "approved_subject_to_scope",
         "MTD registration and setup support": "pending_approval",
@@ -227,11 +230,11 @@
       "legacy_customer_names": [
         "MTD Growth"
       ],
-      "description": "Making Tax Digital support with accountant-maintained digital records within Growth limits, a Xero licence included in the monthly price (exact licence to confirm), and year-end Self Assessment filing subject to agreed scope and timely records. Further Growth-only benefits remain pending approval.",
+      "description": "Making Tax Digital support with accountant-maintained digital records within Growth limits, Xero software included in the monthly subscription price (no separate Xero charge; exact licence mapping to confirm), and year-end Self Assessment filing subject to agreed scope and timely records. Further Growth-only benefits remain pending approval.",
       "description_status": "pending_approval",
       "description_note": "Previous public-API description promising quarterly business reviews was REMOVED under owner decision 4.",
       "inclusions": [
-        "Xero software licence included in monthly price (exact licence to be confirmed)",
+        "Xero software included in the monthly subscription price (customers do not pay separately; exact licence mapping to be confirmed)",
         "Accountant-maintained bookkeeping within Growth limits (limits not yet published)",
         "Year-end Income Tax / Self Assessment return prepared and submitted (subject to agreed scope and timely client records)",
         "MTD registration and setup support",
@@ -241,7 +244,7 @@
         "Secure document exchange and deadline reminders"
       ],
       "inclusion_item_statuses": {
-        "Xero software licence included in monthly price (exact licence to be confirmed)": "approved_subject_to_scope",
+        "Xero software included in the monthly subscription price (customers do not pay separately; exact licence mapping to be confirmed)": "approved",
         "Accountant-maintained bookkeeping within Growth limits (limits not yet published)": "approved_subject_to_scope",
         "Year-end Income Tax / Self Assessment return prepared and submitted (subject to agreed scope and timely client records)": "approved_subject_to_scope",
         "MTD registration and setup support": "pending_approval",
@@ -276,11 +279,11 @@
       "legacy_customer_names": [
         "MTD Complete"
       ],
-      "description": "Making Tax Digital support with accountant-maintained digital records within Elite limits, a Xero licence included in the monthly price (exact licence to confirm), and year-end Self Assessment filing subject to agreed scope and timely records. Further Elite-only benefits remain pending approval.",
+      "description": "Making Tax Digital support with accountant-maintained digital records within Elite limits, Xero software included in the monthly subscription price (no separate Xero charge; exact licence mapping to confirm), and year-end Self Assessment filing subject to agreed scope and timely records. Further Elite-only benefits remain pending approval.",
       "description_status": "pending_approval",
       "description_note": "Previous public-API description promising proactive tax planning was REMOVED under owner decision 4.",
       "inclusions": [
-        "Xero software licence included in monthly price (exact licence to be confirmed)",
+        "Xero software included in the monthly subscription price (customers do not pay separately; exact licence mapping to be confirmed)",
         "Accountant-maintained bookkeeping within Elite limits (limits not yet published)",
         "Year-end Income Tax / Self Assessment return prepared and submitted (subject to agreed scope and timely client records)",
         "MTD registration and setup support",
@@ -290,7 +293,7 @@
         "Secure document exchange and deadline reminders"
       ],
       "inclusion_item_statuses": {
-        "Xero software licence included in monthly price (exact licence to be confirmed)": "approved_subject_to_scope",
+        "Xero software included in the monthly subscription price (customers do not pay separately; exact licence mapping to be confirmed)": "approved",
         "Accountant-maintained bookkeeping within Elite limits (limits not yet published)": "approved_subject_to_scope",
         "Year-end Income Tax / Self Assessment return prepared and submitted (subject to agreed scope and timely client records)": "approved_subject_to_scope",
         "MTD registration and setup support": "pending_approval",

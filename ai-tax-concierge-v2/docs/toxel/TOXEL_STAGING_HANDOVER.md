@@ -17,18 +17,19 @@ Owner decisions: [`../verification/inclusions_resolution/OWNER_COMMERCIAL_DECISI
 | SA names + prices | **APPROVED** — Simple £119 / Smart £149 / Elite **£299** |
 | MTD customer-facing names + prices | **APPROVED** — **Simbian Comply / Growth / Elite** £29.99 / £59.99 / £89.99 VAT incl. |
 | Internal MTD codes | **Preserved** — `MTD_STARTER` / `MTD_GROWTH` / `MTD_COMPLETE` (portal/Stripe; no duplicates; amounts unchanged) |
-| Xero in MTD monthly price | **APPROVED SUBJECT TO SCOPE** — exact licence/entitlements still pending |
-| Bookkeeping within tier limits | **APPROVED SUBJECT TO SCOPE** — numerical limits **not** approved |
+| Xero in MTD monthly price | **APPROVED** — included in £29.99 / £59.99 / £89.99; customers do **not** pay separately |
+| Exact Xero licence mapping | **PENDING** — do not invent named plans |
+| Bookkeeping within tier limits | **APPROVED SUBJECT TO SCOPE** — transaction limits **not** approved |
 | Annual SA filing inside all MTD plans | **APPROVED SUBJECT TO SCOPE** — agreed scope + timely records |
 | Priority support / turnaround / QBR / proactive tax planning | **REMOVED** from customer-facing copy |
 | Consultation £99 / 30 min | **APPROVED** — one accountant-led Google Meet advice session; **no** filing, bookkeeping or written report; booking stub |
-| Explicit package exclusions / amendments / refunds | Still **PENDING / UNKNOWN** — see remaining decision tables |
+| Additional-work exclusions / amendments / refunds | Still **PENDING / UNKNOWN** — see remaining decision tables |
 | Owner decisions | [`../verification/inclusions_resolution/OWNER_COMMERCIAL_DECISIONS_2026-11-13.md`](../verification/inclusions_resolution/OWNER_COMMERCIAL_DECISIONS_2026-11-13.md) |
 | Six-package approval matrix | [`../verification/inclusions_resolution/SIX_PACKAGE_APPROVAL_MATRIX.md`](../verification/inclusions_resolution/SIX_PACKAGE_APPROVAL_MATRIX.md) |
 | Remaining decision tables 1–8 | [`../verification/inclusions_resolution/REMAINING_OWNER_DECISION_TABLES.md`](../verification/inclusions_resolution/REMAINING_OWNER_DECISION_TABLES.md) |
 | Proposed copy | [`../verification/inclusions_resolution/PROPOSED_FINAL_PACKAGE_COPY.md`](../verification/inclusions_resolution/PROPOSED_FINAL_PACKAGE_COPY.md) |
 | Catalogue flag | `owner_decisions_applied_remaining_scope_pending` |
-| SIMBA behaviour | Approved names/prices + subject-to-scope MTD facts; lowest suitable; SA vs MTD explained; never invent limits/licence specifics/SLAs; never promise removed premium claims |
+| SIMBA behaviour | Approved names/prices + Xero-in-price; subject-to-scope bookkeeping/year-end SA; lowest suitable; SA vs MTD explained; never invent limits/named Xero mapping/SLAs or separate Xero charges; never promise removed premium claims |
 
 **Do not** invent unresolved commercial terms or change approved prices. **Do not** silently change live website / portal billing / Stripe products.
 
@@ -189,7 +190,7 @@ Run after HTTPS deploy. Record PASS/FAIL with screenshots.
 | A5 | SA prices | £119 / £149 / £299 |
 | A6 | MTD prices | £29.99 / £59.99 / £89.99 VAT included |
 | A7 | Consultation | £99 / 30 min advice session; no filing/bookkeeping/written report; booking stub or live URL only if configured |
-| A8 | Inclusions question | States subject-to-scope Xero/bookkeeping/year-end SA; refuses invented limits, priority/QBR/planning |
+| A8 | Inclusions question | States Xero included in monthly price (no separate charge); subject-to-scope bookkeeping/year-end SA; refuses invented mapping/limits, priority/QBR/planning |
 | A9 | Existing client journey | Dashboard messaging; no paid consult push |
 | A10 | Decline sales | Information only; no packages |
 | A11 | Mobile Safari | Sidebar/drawer + chat usable |

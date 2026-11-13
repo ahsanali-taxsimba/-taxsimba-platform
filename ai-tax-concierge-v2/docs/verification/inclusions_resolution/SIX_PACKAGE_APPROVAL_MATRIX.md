@@ -68,7 +68,7 @@
 | # | Field | Proposed / recovered wording | Evidence | Status |
 |---|-------|------------------------------|----------|--------|
 | 19 | `description` | Your accountant maintains your records and handles your quarterly updates and year-end tax return. | public API mtd; partially superseded by decisions 2–3 | **PENDING APPROVAL** (use subject-to-scope safe wording meantime) |
-| 20 | `inclusion` | Xero Simple subscription included | public API mtd; owner decision 1 | **APPROVED SUBJECT TO SCOPE** (Xero licence in price; exact “Simple” mapping still pending) |
+| 20 | `inclusion` | Xero software included in monthly subscription price (historical public API: “Xero Simple”) | owner decision 1 (corrected); public API mtd | **APPROVED** for price inclusion (no separate Xero charge). Exact “Simple” mapping **PENDING APPROVAL** |
 | 21 | `inclusion` | MTD registration and setup support | public API mtd | **PENDING APPROVAL** |
 | 22 | `inclusion` | Accountant-maintained bookkeeping and digital records | public API mtd; owner decision 2 | **APPROVED SUBJECT TO SCOPE** (limits not approved) |
 | 23 | `inclusion` | Quarterly MTD updates prepared and submitted | public API mtd | **PENDING APPROVAL** |
@@ -83,7 +83,7 @@
 | # | Field | Proposed / recovered wording | Evidence | Status |
 |---|-------|------------------------------|----------|--------|
 | 29 | `description` | A dedicated accountant maintains your records, handles your filings and reviews your business each quarter. | public API mtd; QBR conflicts with decision 4 | **REMOVED** (quarterly review claim); replacement **PENDING APPROVAL** |
-| 30 | `inclusion` | Xero Ignite subscription included | public API mtd; owner decision 1 | **APPROVED SUBJECT TO SCOPE** (licence in price; exact “Ignite” mapping pending) |
+| 30 | `inclusion` | Xero software included in monthly subscription price (historical public API: “Xero Ignite”) | owner decision 1 (corrected); public API mtd | **APPROVED** for price inclusion (no separate Xero charge). Exact “Ignite” mapping **PENDING APPROVAL** |
 | 31 | `inclusion` | MTD registration and setup support | public API mtd | **PENDING APPROVAL** |
 | 32 | `inclusion` | Accountant-maintained bookkeeping and digital records | public API mtd; owner decision 2 | **APPROVED SUBJECT TO SCOPE** |
 | 33 | `inclusion` | Quarterly MTD updates prepared and submitted | public API mtd | **PENDING APPROVAL** |
@@ -99,7 +99,7 @@
 | # | Field | Proposed / recovered wording | Evidence | Status |
 |---|-------|------------------------------|----------|--------|
 | 40 | `description` | Dedicated accountant care with maintained records, complete agreed filings and proactive tax planning. | public API mtd; planning conflicts with decision 4 | **REMOVED** (proactive planning claim); replacement **PENDING APPROVAL** |
-| 41 | `inclusion` | Xero Grow subscription included | public API mtd; owner decision 1 | **APPROVED SUBJECT TO SCOPE** (licence in price; exact “Grow” mapping pending) |
+| 41 | `inclusion` | Xero software included in monthly subscription price (historical public API: “Xero Grow”) | owner decision 1 (corrected); public API mtd | **APPROVED** for price inclusion (no separate Xero charge). Exact “Grow” mapping **PENDING APPROVAL** |
 | 42 | `inclusion` | MTD registration and setup support | public API mtd | **PENDING APPROVAL** |
 | 43 | `inclusion` | Accountant-maintained bookkeeping and digital records | public API mtd; owner decision 2 | **APPROVED SUBJECT TO SCOPE** |
 | 44 | `inclusion` | Quarterly MTD updates prepared and submitted | public API mtd | **PENDING APPROVAL** |
@@ -125,23 +125,23 @@
 
 | Status | Count |
 |--------|------:|
-| APPROVED | 2 |
-| APPROVED SUBJECT TO SCOPE | 9 |
+| APPROVED | 5 |
+| APPROVED SUBJECT TO SCOPE | 6 |
 | REMOVED | 10 |
 | PENDING APPROVAL | 27 |
 | UNKNOWN | 6 |
 | **Total** | **54** |
 
-Notes on count: row 13 counted as REMOVED (planning description withdrawn); replacement SA Elite description is tracked as pending in proposed copy, not as a second matrix row. Rows 29 and 40 counted REMOVED for withdrawn QBR/planning descriptions.
+Notes on count: rows 20/30/41 counted **APPROVED** for Xero-in-price (exact named mapping tracked as pending in remaining table 1, not as extra matrix rows). Row 13 counted as REMOVED (planning description withdrawn). Rows 29 and 40 counted REMOVED for withdrawn QBR/planning descriptions. Subject-to-scope rows are bookkeeping (22/32/43) and year-end SA (24/34/45).
 
 ## Controlled customer-facing facts SIMBA may use now
 
-1. **Names & prices** — APPROVED.  
-2. **Xero** — “A Xero software licence is included in the Simbian monthly price; TaxSimba must confirm the exact licence and entitlements.” — APPROVED SUBJECT TO SCOPE.  
-3. **Bookkeeping** — “TaxSimba maintains digital bookkeeping records within defined tier limits; the numerical limits are not yet published.” — APPROVED SUBJECT TO SCOPE.  
+1. **Names & prices** — APPROVED (incl. Simbian £29.99 / £59.99 / £89.99 VAT included).  
+2. **Xero-in-price** — “Xero software is included in the advertised monthly Simbian subscription price; customers do not pay separately for that included licence.” — **APPROVED**. Exact licence mapping still pending — do not invent named plans.  
+3. **Bookkeeping** — “TaxSimba maintains digital bookkeeping records within defined tier limits; the numerical/transaction limits are not yet published.” — APPROVED SUBJECT TO SCOPE.  
 4. **MTD year-end SA** — “Annual Self Assessment preparation and submission are included in all three Simbian subscriptions, subject to agreed scope and timely client records.” — APPROVED SUBJECT TO SCOPE.  
 5. **Consultation** — decision 5 wording — APPROVED.  
-6. **Must not say** — priority support/turnaround, quarterly business reviews, proactive tax planning (or equivalent).
+6. **Must not say** — separate customer Xero charges; priority support/turnaround; quarterly business reviews; proactive tax planning; invented transaction limits.
 
 ## Release gate
 

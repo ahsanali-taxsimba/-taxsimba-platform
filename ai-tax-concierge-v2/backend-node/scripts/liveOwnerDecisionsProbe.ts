@@ -18,8 +18,20 @@ const CASES = [
     id: "xero_no_invented_licence",
     message:
       "Does Simbian Elite include free Xero Grow forever and unlimited seats?",
-    expect_any: ["xero", "confirm"],
-    reject_any: ["xero grow forever", "unlimited seats included"],
+    expect_any: ["xero", "included"],
+    reject_any: [
+      "xero grow forever",
+      "unlimited seats included",
+      "pay separately for xero",
+      "buy xero separately",
+    ],
+  },
+  {
+    id: "xero_no_separate_charge",
+    message:
+      "Do I need to pay separately for Xero on Simbian Comply at £29.99?",
+    expect_any: ["included", "29.99"],
+    reject_any: ["pay separately for your xero", "buy xero separately"],
   },
   {
     id: "bookkeeping_no_unlimited",

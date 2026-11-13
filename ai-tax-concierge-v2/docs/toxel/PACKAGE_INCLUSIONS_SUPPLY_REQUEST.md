@@ -5,8 +5,8 @@
 
 ## Already decided (do not re-ask)
 
-1. Xero licences included in MTD monthly prices — exact licences TBD  
-2. Bookkeeping within tier limits — numerical limits TBD  
+1. Xero software included in advertised Simbian monthly prices (£29.99 / £59.99 / £89.99 VAT incl.) — **APPROVED**; customers do **not** pay separately. Exact licence mapping still TBD (do not reopen price-inclusion)  
+2. Bookkeeping within tier limits — transaction limits TBD  
 3. Annual SA filing included in all three MTD plans — subject to scope + timely records  
 4. Priority support / turnaround / QBR / proactive tax planning — **REMOVED** from customer copy  
 5. £99 consultation = one 30-minute accountant-led Google Meet advice session; no filing, bookkeeping or written report  
@@ -23,8 +23,9 @@
 
 | Item | Owner | Action |
 |------|-------|--------|
-| Exact Xero licence mapping + commercial terms | TaxSimba owner | Complete remaining decision table 1 |
-| Numerical bookkeeping limits per tier | Accountant lead | Complete table 2 |
+| Exact Xero licence mapping (price inclusion already APPROVED) | TaxSimba owner | Complete remaining decision table 1 |
+| Bookkeeping transaction limits per tier | Accountant lead | Complete table 2 |
+| Additional-work exclusions | TaxSimba owner + Accountant | Complete table 5 |
 | Quarterly update responsibility + SA scope document | Accountant lead | Complete table 3 |
 | SA differentiation / complex-income scope | Accountant lead | Complete table 4 |
 | Amendments, exclusions, add-on charges | TaxSimba owner + Accountant | Complete table 5 |

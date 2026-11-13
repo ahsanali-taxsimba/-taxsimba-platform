@@ -19,9 +19,10 @@ No duplicate Stripe products; amounts unchanged.
 ## C. SIMBA behaviour
 
 - Speaks approved names/prices  
-- Speaks Xero / bookkeeping / MTD year-end SA only with **subject-to-scope** wording  
+- Speaks **Xero-in-price as APPROVED** (no separate customer Xero charge); exact licence mapping still pending  
+- Speaks bookkeeping / MTD year-end SA with **subject-to-scope** wording  
 - Consultation boundaries APPROVED  
-- Never invents limits, licence specifics, SLAs, tax-planning benefits or extra charges  
+- Never invents limits, named Xero plan details, SLAs, tax-planning benefits or separate Xero charges  
 - Removed premium claims never promised  
 - Lowest suitable recommendation; SA vs MTD explained; one question at a time; correct package/register links  
 
@@ -37,8 +38,8 @@ No duplicate Stripe products; amounts unchanged.
 
 | Status | Count |
 |--------|------:|
-| APPROVED | 2 |
-| APPROVED SUBJECT TO SCOPE | 9 |
+| APPROVED | 5 |
+| APPROVED SUBJECT TO SCOPE | 6 |
 | REMOVED | 10 |
 | PENDING APPROVAL | 27 |
 | UNKNOWN | 6 |
@@ -51,7 +52,7 @@ No duplicate Stripe products; amounts unchanged.
 | Security suite | **26/26** (inside Vitest) | `tests/security_suite.test.ts` |
 | Owner-decision tests | **13/13** | `tests/owner_commercial_decisions.test.ts` |
 | Typecheck | pass | `npm run typecheck` |
-| Live OpenAI owner-decisions probe | **8/8** pass | `docs/verification/inclusions_resolution/live_owner_decisions_probe.json` |
+| Live OpenAI owner-decisions probe | **9/9** pass | `docs/verification/inclusions_resolution/live_owner_decisions_probe.json` |
 | Portal display names | Simbian + prices unchanged | `backend/phase1b.py` |
 | Stripe mappings | codes/amounts unchanged | no SKU/price edits |
 
@@ -72,7 +73,8 @@ Exact steps remain in `docs/toxel/TOXEL_STAGING_HANDOVER.md`. Must still verify:
 **HOLD**
 
 Reasons:
-- Remaining commercial tables 1–8 unresolved (exact Xero mapping, bookkeeping numbers, quarterly duties, SA differentiation, amendments/exclusions, support hours, cancel/refund, consultation booking extras)  
+- Remaining commercial items unresolved: exact Xero mapping, bookkeeping transaction limits, additional-work exclusions, quarterly duties, SA differentiation, amendments, support hours, cancel/refund, consultation booking extras  
+- Xero-in-price commercial decision is **closed / APPROVED** — do not reopen or imply separate Xero payment  
 - Toxel E2E (Stripe test, Calendly, register, dashboard, production embed) not signed  
 - Release gate forbids merge, production deploy, live payment activation, and deletion of existing components  
 

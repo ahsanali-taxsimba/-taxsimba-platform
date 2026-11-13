@@ -63,34 +63,32 @@ Our most thorough Self Assessment service for complex income, with a full review
 
 ## Simbian Comply — £29.99 / month (VAT included) · `MTD_STARTER`
 
-**Customer-facing now (APPROVED / APPROVED SUBJECT TO SCOPE):**  
-- Name + price (VAT included)  
-- A Xero software licence is included in the monthly price; TaxSimba must confirm the exact licence and entitlements  
-- TaxSimba maintains digital bookkeeping records within defined Comply limits (limits not yet published)  
-- Annual Self Assessment preparation and submission are included, subject to agreed scope and timely client records  
+**Customer-facing now:**  
+- Name + price **£29.99/month VAT included** (APPROVED)  
+- Xero software included in that monthly price — customers do **not** pay separately (APPROVED)  
+- TaxSimba maintains digital bookkeeping records within defined Comply limits (limits not yet published) — APPROVED SUBJECT TO SCOPE  
+- Annual Self Assessment preparation and submission included, subject to agreed scope and timely client records — APPROVED SUBJECT TO SCOPE  
 
 **Proposed description (PENDING APPROVAL):**  
-Making Tax Digital support with accountant-maintained digital records within Comply limits, a Xero licence included in the monthly price (exact licence to confirm), and year-end Self Assessment filing subject to agreed scope and timely records.
+Making Tax Digital support with accountant-maintained digital records within Comply limits, Xero software included in the £29.99 monthly price (no separate Xero charge; exact licence mapping to confirm), and year-end Self Assessment filing subject to agreed scope and timely records.
 
-**Still PENDING (not customer promises yet):** MTD registration/setup · quarterly updates prepared/submitted · automated reminders · secure document exchange · email-only support · exact “Xero Simple” label.
-
-**REMOVED:** none specific beyond global premium list (Comply had no priority/QBR/planning bullets).
+**Still PENDING:** exact Xero licence mapping · bookkeeping transaction limits · additional-work exclusions · MTD registration/setup · quarterly updates · reminders · document exchange · email-only support.
 
 **Proposed exclusions (draft PENDING):**  
-- Unlimited bookkeeping beyond Comply limits  
+- Unlimited bookkeeping beyond Comply limits / additional-work charges  
 - Priority support / phone helpline  
 - Quarterly business reviews / proactive tax planning  
-- Exact Xero plan features until mapping approved  
+- Named Xero plan features until mapping approved  
 - Amendments / prior-year catch-up unless agreed  
 
 ---
 
 ## Simbian Growth — £59.99 / month (VAT included) · `MTD_GROWTH`
 
-**Customer-facing now:** same subject-to-scope Xero / bookkeeping / year-end SA facts as Comply (tier = Growth).
+**Customer-facing now:** £59.99/month VAT included; Xero included in that price (no separate charge); same subject-to-scope bookkeeping / year-end SA facts as Comply (tier = Growth).
 
 **Proposed description (PENDING APPROVAL — replaces REMOVED quarterly-review wording):**  
-Making Tax Digital support with accountant-maintained digital records within Growth limits, a Xero licence included in the monthly price (exact licence to confirm), and year-end Self Assessment filing subject to agreed scope and timely records. Differentiation vs Comply (e.g. dedicated accountant, expenses check) remains pending approval.
+Making Tax Digital support with accountant-maintained digital records within Growth limits, Xero software included in the £59.99 monthly price (no separate Xero charge; exact licence mapping to confirm), and year-end Self Assessment filing subject to agreed scope and timely records. Differentiation vs Comply remains pending approval.
 
 **REMOVED:** Quarterly business reviews · “reviews your business each quarter” description claim.
 
@@ -100,10 +98,10 @@ Making Tax Digital support with accountant-maintained digital records within Gro
 
 ## Simbian Elite — £89.99 / month (VAT included) · `MTD_COMPLETE`
 
-**Customer-facing now:** same subject-to-scope Xero / bookkeeping / year-end SA facts as Comply (tier = Elite).
+**Customer-facing now:** £89.99/month VAT included; Xero included in that price (no separate charge); same subject-to-scope bookkeeping / year-end SA facts as Comply (tier = Elite).
 
 **Proposed description (PENDING APPROVAL — replaces REMOVED proactive-planning wording):**  
-Making Tax Digital support with accountant-maintained digital records within Elite limits, a Xero licence included in the monthly price (exact licence to confirm), and year-end Self Assessment filing subject to agreed scope and timely records. Further Elite-only benefits remain pending approval.
+Making Tax Digital support with accountant-maintained digital records within Elite limits, Xero software included in the £89.99 monthly price (no separate Xero charge; exact licence mapping to confirm), and year-end Self Assessment filing subject to agreed scope and timely records. Further Elite-only benefits remain pending approval.
 
 **REMOVED:** Priority email · Quarterly business reviews · Proactive tax planning advice · “proactive tax planning” description claim.
 

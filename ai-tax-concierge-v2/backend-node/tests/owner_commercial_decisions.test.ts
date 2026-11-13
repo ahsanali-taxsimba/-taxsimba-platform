@@ -15,7 +15,7 @@ const WEBSITE = "https://www.taxsimba.co.uk";
 describe("owner commercial decisions — controlled approval", () => {
   it("preserves_approved_catalogue_names_prices_and_skus", () => {
     const cat = packagesCatalog();
-    expect(cat.version).toContain("owner-decisions");
+    expect(cat.version).toMatch(/owner-decisions|xero-approved/);
     expect(cat.detailed_recommendations_status).toBe(
       "owner_decisions_applied_remaining_scope_pending",
     );
@@ -37,8 +37,10 @@ describe("owner commercial decisions — controlled approval", () => {
 
   it("records_five_owner_decisions_and_removed_claims", () => {
     const cat = packagesCatalog();
-    expect(cat.owner_decisions.xero_included_in_mtd_price).toBe(
-      "approved_subject_to_scope",
+    expect(cat.owner_decisions.xero_included_in_mtd_price).toBe("approved");
+    expect(cat.owner_decisions.xero_customers_pay_separately).toBe(false);
+    expect(cat.owner_decisions.xero_exact_licence_mapping).toBe(
+      "pending_approval",
     );
     expect(cat.owner_decisions.bookkeeping_numerical_limits_approved).toBe(false);
     expect(cat.owner_decisions.mtd_includes_annual_sa_subject_to_scope).toBe(
@@ -77,12 +79,30 @@ describe("owner commercial decisions — controlled approval", () => {
     );
     expect(reply).toBeTruthy();
     const lower = reply!.toLowerCase();
-    expect(lower).toContain("xero software licence is included");
-    expect(lower).toContain("exact licence");
+    expect(lower).toContain("xero software is included");
+    expect(lower).toMatch(/do not pay separately|no separate/);
+    expect(lower).toContain("exact xero licence mapping");
     expect(lower).not.toContain("xero grow forever");
     expect(lower).not.toContain("xero grow subscription included");
     expect(lower).toMatch(/helpline|priority support/);
     expect(lower).toContain("not approved");
+  });
+
+  it("xero_inclusion_does_not_suggest_separate_customer_charge", () => {
+    const fact = packagesCatalog().approved_customer_facts.find(
+      (f: { id: string }) => f.id === "xero_in_mtd_price",
+    );
+    expect(fact.status).toBe("approved");
+    expect(fact.text.toLowerCase()).toContain("do not pay separately");
+    expect(fact.text).toContain("29.99");
+    expect(fact.text).toContain("59.99");
+    expect(fact.text).toContain("89.99");
+    const reply = answerInclusionsQuestion(
+      "Do I need to buy Xero separately on Simbian Comply?",
+    );
+    const lower = reply!.toLowerCase();
+    expect(lower).toMatch(/do not pay separately|included in the .* monthly/);
+    expect(lower).not.toMatch(/you must buy xero separately|pay extra for xero/);
   });
 
   it("inclusions_answer_bookkeeping_without_unlimited_promise", () => {
@@ -210,7 +230,8 @@ describe("owner commercial decisions — controlled approval", () => {
     expect(reply).toBeTruthy();
     const lower = reply!.toLowerCase();
     expect(lower).toContain("29.99");
-    expect(lower).toContain("xero licence");
+    expect(lower).toContain("xero software is included");
+    expect(lower).toContain("do not pay separately");
     expect(lower).toContain("subject to agreed scope");
     expect(lower).toContain("will not invent");
   });

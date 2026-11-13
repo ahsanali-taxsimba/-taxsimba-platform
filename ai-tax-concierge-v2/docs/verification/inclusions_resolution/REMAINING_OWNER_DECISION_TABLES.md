@@ -7,17 +7,18 @@ Approver key: **TaxSimba owner** · **Accountant lead** · **Toxel** (ops/integr
 
 ---
 
-## 1. Xero licence mapping, costs and eligibility
+## 1. Xero licence mapping (price inclusion already APPROVED)
+
+**Do not reopen:** Xero software is included in the advertised Simbian monthly prices (£29.99 / £59.99 / £89.99 VAT incl.). Customers do **not** pay separately for that included licence.
 
 | Proposed wording | Existing evidence | Remaining decision | Approver | Status |
 |------------------|-------------------|--------------------|----------|--------|
-| Xero licence included in Simbian monthly prices | Owner decision 1 | Confirm commercial arrangements with Xero partner / billing | TaxSimba owner | APPROVED SUBJECT TO SCOPE |
-| Comply → “Xero Simple” | public API MTD_COMPLY | Confirm exact Xero product name, seats, apps | TaxSimba owner | PENDING APPROVAL |
-| Growth → “Xero Ignite” | public API MTD_GROWTH | Confirm exact product / eligibility | TaxSimba owner | PENDING APPROVAL |
-| Elite → “Xero Grow” | public API MTD_ELITE | Confirm exact product / eligibility | TaxSimba owner | PENDING APPROVAL |
+| Xero included in Simbian monthly subscription prices; no separate customer Xero charge | Owner decision 1 (corrected) | — | TaxSimba owner | **APPROVED** |
+| Comply → exact licence (historical “Xero Simple”) | public API MTD_COMPLY | Confirm exact Xero product name, seats, apps | TaxSimba owner | PENDING APPROVAL |
+| Growth → exact licence (historical “Xero Ignite”) | public API MTD_GROWTH | Confirm exact product / eligibility | TaxSimba owner | PENDING APPROVAL |
+| Elite → exact licence (historical “Xero Grow”) | public API MTD_ELITE | Confirm exact product / eligibility | TaxSimba owner | PENDING APPROVAL |
 | Licence duration (while subscribed / fixed term) | none | Define entitlement length and what happens on cancel | TaxSimba owner | PENDING APPROVAL |
-| Who absorbs Xero price rises | none | Firm vs client; notice period | TaxSimba owner | PENDING APPROVAL |
-| Multi-org / multi-user seats | none | Caps and add-on pricing | TaxSimba owner + Accountant | PENDING APPROVAL |
+| Multi-org / multi-user seats | none | Caps and any *additional-work* seat add-ons (not a separate base Xero charge) | TaxSimba owner + Accountant | PENDING APPROVAL |
 | Eligibility (sole trader only, UK only, etc.) | none | Publish eligibility rules | TaxSimba owner | PENDING APPROVAL |
 
 ---
@@ -116,6 +117,6 @@ Approver key: **TaxSimba owner** · **Accountant lead** · **Toxel** (ops/integr
 
 ## Priority order for owner action
 
-1. **P0 — Commercial blockers:** Table 1 (exact Xero mapping) · Table 2 (bookkeeping numbers) · Table 3 (quarterly + scope doc)  
+1. **P0 — Remaining blockers:** Table 1 (exact Xero mapping only — price inclusion already APPROVED) · Table 2 (bookkeeping transaction limits) · Table 3 (quarterly + scope doc) · Table 5 (additional-work exclusions)  
 2. **P1 — Customer clarity:** Table 4 (SA differentiation) · Table 5 (exclusions/amendments) · Table 8 remaining booking terms  
 3. **P2 — Ops polish:** Table 6 (support hours) · Table 7 (cancel/upgrade/refund) · Toxel Stripe/Calendly E2E

@@ -70,7 +70,8 @@ describe("inclusions resolution — Simbian names + owner decisions", () => {
     expect(lower).not.toContain("mtd complete");
     // Must not invent exact named Xero plan as unconditional.
     expect(lower).not.toContain("xero grow subscription included");
-    expect(lower).toContain("xero software licence is included");
+    expect(lower).toContain("xero software is included");
+    expect(lower).toMatch(/do not pay separately|no separate/);
   });
 
   it("lowest_suitable_simple_sa_not_elite", () => {
