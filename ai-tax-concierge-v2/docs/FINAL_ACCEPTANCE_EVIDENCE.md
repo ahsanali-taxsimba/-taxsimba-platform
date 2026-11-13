@@ -8,7 +8,7 @@
 **Date:** 2026-11-13 (Europe/London)  
 **Release gate:** **HOLD** — do not merge, do not deploy, not production-ready while external integrations remain BLOCKED.
 
-> Evidence commit: 
+> Primary evidence commit: `ce047840ec97dc847a842634c71f900aecd8a8d0` (polish + artifacts). Doc SHA stamp commit follows.
 
 ---
 
@@ -240,7 +240,7 @@ Handover pack: `docs/toxel/HANDOVER.md`, `EMBEDDING.md`, `INTEGRATION_CONTRACTS.
 
 ## K. Exact commit SHA and reproducible verification steps
 
-**Commit SHA:** 
+**Commit SHA:** `ce047840ec97dc847a842634c71f900aecd8a8d0` (evidence content); tip after this doc stamp: see `git rev-parse HEAD` on PR branch.
 
 ### Reproduce locally
 ```bash
