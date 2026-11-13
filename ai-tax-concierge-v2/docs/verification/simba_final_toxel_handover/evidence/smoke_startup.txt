@@ -1,0 +1,8 @@
+
+> @taxsimba/ai-tax-concierge-v2-backend-node@0.1.0 start:dev
+> node --import tsx src/server.ts
+
+SIMBA AI Node listening on http://127.0.0.1:8099 (v0.3.0, llm=mock)
+Dual-run tip: Python often uses :8090; Node defaults to :8091. Set PORT to override.
+HMRC knowledge scheduler: enabled=false next_due=null
+Catalogue sync: source=local status=ok version=2026-11-simba-v6-no-txn-caps-dynamic
