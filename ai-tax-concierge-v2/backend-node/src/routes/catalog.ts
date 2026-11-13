@@ -23,7 +23,7 @@ export function catalogRouter(): Router {
     const packages = catalog.packages as Record<string, any>;
     res.json({
       product: "SIMBA AI",
-      subtitle: "Your UK Tax Assistant",
+      subtitle: "SIMBA AI Tax Assistant",
       phase: 3,
       assistant_name: "SIMBA AI",
       welcome_message: WELCOME_MESSAGE,

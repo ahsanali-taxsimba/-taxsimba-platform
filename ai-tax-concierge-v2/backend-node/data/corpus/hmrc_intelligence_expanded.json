@@ -1,0 +1,429 @@
+[
+  {
+    "id": "marriage-allowance",
+    "title": "Marriage Allowance",
+    "summary": "Marriage Allowance lets a spouse or civil partner transfer £1,260 of their Personal Allowance to their partner if they earn less than the Personal Allowance and the partner is a basic-rate taxpayer. Confirm eligibility and the tax year on GOV.UK.",
+    "keywords": [
+      "marriage allowance",
+      "transfer allowance",
+      "spouse",
+      "civil partner",
+      "1260"
+    ],
+    "tax_years": [
+      "2024-25",
+      "2025-26",
+      "2026-27"
+    ],
+    "source_url": "https://www.gov.uk/marriage-allowance",
+    "publisher": "GOV.UK / HMRC",
+    "category": "allowances",
+    "last_verified": "2026-11-13",
+    "review_status": "verified_against_govuk_summary"
+  },
+  {
+    "id": "dividend-tax-overview",
+    "title": "Tax on dividends",
+    "summary": "Dividends above the Dividend Allowance are taxed at dividend tax rates which differ from employment income rates. The Dividend Allowance and rates can change by tax year — always confirm the current figures on GOV.UK before relying on them.",
+    "keywords": [
+      "dividend",
+      "dividends",
+      "shares",
+      "dividend allowance",
+      "dividend tax"
+    ],
+    "tax_years": [
+      "2024-25",
+      "2025-26",
+      "2026-27"
+    ],
+    "source_url": "https://www.gov.uk/tax-on-dividends",
+    "publisher": "GOV.UK / HMRC",
+    "category": "income_tax",
+    "last_verified": "2026-11-13",
+    "review_status": "verified_against_govuk_summary"
+  },
+  {
+    "id": "student-loan-repayment",
+    "title": "Student loan repayments",
+    "summary": "Student loan repayments are usually collected through PAYE or Self Assessment once income is above the plan-specific threshold. Different plans (for example Plan 1, Plan 2, Plan 4, Postgraduate) have different thresholds. Check GOV.UK for your plan.",
+    "keywords": [
+      "student loan",
+      "repayment",
+      "plan 2",
+      "plan 1",
+      "postgraduate loan"
+    ],
+    "tax_years": [
+      "2024-25",
+      "2025-26",
+      "2026-27"
+    ],
+    "source_url": "https://www.gov.uk/repaying-your-student-loan",
+    "publisher": "GOV.UK / HMRC",
+    "category": "employment",
+    "last_verified": "2026-11-13",
+    "review_status": "verified_against_govuk_summary"
+  },
+  {
+    "id": "high-income-child-benefit",
+    "title": "High Income Child Benefit Charge",
+    "summary": "If you or your partner have an individual income over £60,000 you may have to pay the High Income Child Benefit Charge. The charge can reduce Child Benefit; at higher incomes it can remove the benefit entirely. Confirm thresholds on GOV.UK for the tax year.",
+    "keywords": [
+      "child benefit",
+      "high income child benefit charge",
+      "hicbc",
+      "60000"
+    ],
+    "tax_years": [
+      "2024-25",
+      "2025-26",
+      "2026-27"
+    ],
+    "source_url": "https://www.gov.uk/child-benefit-tax-charge",
+    "publisher": "GOV.UK / HMRC",
+    "category": "income_tax",
+    "last_verified": "2026-11-13",
+    "review_status": "verified_against_govuk_summary"
+  },
+  {
+    "id": "company-directors-sa",
+    "title": "Company directors and Self Assessment",
+    "summary": "Company directors often need to complete a Self Assessment tax return, for example for dividends, benefits, or other untaxed income. Corporation Tax for the company is separate from the director’s personal Self Assessment. Confirm on GOV.UK.",
+    "keywords": [
+      "company director",
+      "director",
+      "dividends",
+      "self assessment",
+      "limited company"
+    ],
+    "tax_years": [
+      "2024-25",
+      "2025-26",
+      "2026-27"
+    ],
+    "source_url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+    "publisher": "GOV.UK / HMRC",
+    "category": "self_assessment",
+    "last_verified": "2026-11-13",
+    "review_status": "verified_against_govuk_summary"
+  },
+  {
+    "id": "employment-expenses",
+    "title": "Employment expenses claim",
+    "summary": "Employees may claim tax relief on certain unreimbursed job expenses if they were necessary for work and not covered by the employer. Rules are strict — check GOV.UK for what qualifies and how to claim.",
+    "keywords": [
+      "employment expenses",
+      "job expenses",
+      "tax relief",
+      "employee expenses",
+      "uniform"
+    ],
+    "tax_years": [
+      "2024-25",
+      "2025-26",
+      "2026-27"
+    ],
+    "source_url": "https://www.gov.uk/tax-relief-for-employees",
+    "publisher": "GOV.UK / HMRC",
+    "category": "employment",
+    "last_verified": "2026-11-13",
+    "review_status": "verified_against_govuk_summary"
+  },
+  {
+    "id": "mileage-amap",
+    "title": "Approved mileage allowance payments",
+    "summary": "If you use your own car for business, approved mileage allowance payments (AMAPs) set HMRC rates for tax-free mileage payments. Cars and vans commonly use 45p per mile for the first 10,000 business miles in a tax year and 25p thereafter — confirm current rates on GOV.UK.",
+    "keywords": [
+      "mileage",
+      "amap",
+      "45p",
+      "business miles",
+      "car expenses"
+    ],
+    "tax_years": [
+      "2024-25",
+      "2025-26",
+      "2026-27"
+    ],
+    "source_url": "https://www.gov.uk/expenses-and-benefits-business-travel-mileage/rules-for-tax",
+    "publisher": "GOV.UK / HMRC",
+    "category": "expenses",
+    "last_verified": "2026-11-13",
+    "review_status": "verified_against_govuk_summary"
+  },
+  {
+    "id": "pension-tax-relief",
+    "title": "Pension tax relief overview",
+    "summary": "Most people get tax relief on pension contributions. Relief depends on how you pay in (relief at source, net pay, or Self Assessment) and on annual allowance rules. Confirm details for your scheme on GOV.UK.",
+    "keywords": [
+      "pension",
+      "tax relief",
+      "annual allowance",
+      "pension contribution"
+    ],
+    "tax_years": [
+      "2024-25",
+      "2025-26",
+      "2026-27"
+    ],
+    "source_url": "https://www.gov.uk/tax-on-your-private-pension/pension-tax-relief",
+    "publisher": "GOV.UK / HMRC",
+    "category": "pensions",
+    "last_verified": "2026-11-13",
+    "review_status": "verified_against_govuk_summary"
+  },
+  {
+    "id": "gift-aid",
+    "title": "Gift Aid",
+    "summary": "Gift Aid lets charities claim basic-rate tax on donations. Donors must pay enough UK Income Tax or Capital Gains Tax to cover the tax the charity reclaims. Higher-rate taxpayers may claim extra relief via Self Assessment or PAYE.",
+    "keywords": [
+      "gift aid",
+      "charity",
+      "donation",
+      "charitable giving"
+    ],
+    "tax_years": [
+      "2024-25",
+      "2025-26",
+      "2026-27"
+    ],
+    "source_url": "https://www.gov.uk/donating-to-charity/gift-aid",
+    "publisher": "GOV.UK / HMRC",
+    "category": "allowances",
+    "last_verified": "2026-11-13",
+    "review_status": "verified_against_govuk_summary"
+  },
+  {
+    "id": "capital-allowances-overview",
+    "title": "Capital allowances overview",
+    "summary": "Capital allowances let businesses claim tax relief on certain equipment and assets instead of deducting the full cost as an expense. Annual Investment Allowance and other reliefs may apply — confirm current limits on GOV.UK.",
+    "keywords": [
+      "capital allowances",
+      "annual investment allowance",
+      "equipment",
+      "plant and machinery"
+    ],
+    "tax_years": [
+      "2024-25",
+      "2025-26",
+      "2026-27"
+    ],
+    "source_url": "https://www.gov.uk/capital-allowances",
+    "publisher": "GOV.UK / HMRC",
+    "category": "business",
+    "last_verified": "2026-11-13",
+    "review_status": "verified_against_govuk_summary"
+  },
+  {
+    "id": "vat-flat-rate-scheme",
+    "title": "VAT Flat Rate Scheme",
+    "summary": "The VAT Flat Rate Scheme lets eligible small businesses pay VAT as a percentage of turnover. Eligibility and percentages depend on business type. Confirm whether the scheme suits you on GOV.UK — it is not suitable for every business.",
+    "keywords": [
+      "vat flat rate",
+      "flat rate scheme",
+      "frs",
+      "vat scheme"
+    ],
+    "tax_years": [
+      "2024-25",
+      "2025-26",
+      "2026-27"
+    ],
+    "source_url": "https://www.gov.uk/vat-flat-rate-scheme",
+    "publisher": "GOV.UK / HMRC",
+    "category": "vat",
+    "last_verified": "2026-11-13",
+    "review_status": "verified_against_govuk_summary"
+  },
+  {
+    "id": "corporation-tax-overview",
+    "title": "Corporation Tax overview",
+    "summary": "Limited companies pay Corporation Tax on profits. Rates and thresholds can change by financial year. Company tax is separate from the directors’ personal Income Tax and Self Assessment. Confirm current rates on GOV.UK.",
+    "keywords": [
+      "corporation tax",
+      "limited company",
+      "company profits",
+      "ct"
+    ],
+    "tax_years": [
+      "2024-25",
+      "2025-26",
+      "2026-27"
+    ],
+    "source_url": "https://www.gov.uk/corporation-tax",
+    "publisher": "GOV.UK / HMRC",
+    "category": "business",
+    "last_verified": "2026-11-13",
+    "review_status": "verified_against_govuk_summary"
+  },
+  {
+    "id": "scottish-income-tax",
+    "title": "Scottish Income Tax",
+    "summary": "If you live in Scotland, Scottish Income Tax rates and bands set by the Scottish Government apply to non-savings, non-dividend income. They differ from the rest of the UK. Always check the Scottish rates for the tax year on GOV.UK.",
+    "keywords": [
+      "scotland",
+      "scottish income tax",
+      "scottish rates",
+      "bands scotland"
+    ],
+    "tax_years": [
+      "2024-25",
+      "2025-26",
+      "2026-27"
+    ],
+    "source_url": "https://www.gov.uk/scottish-income-tax",
+    "publisher": "GOV.UK / HMRC",
+    "category": "income_tax",
+    "last_verified": "2026-11-13",
+    "review_status": "verified_against_govuk_summary"
+  },
+  {
+    "id": "off-payroll-ir35-overview",
+    "title": "Off-payroll working (IR35) overview",
+    "summary": "Off-payroll working rules (often called IR35) affect people who provide services through their own limited company. Medium and large clients usually decide employment status for tax. Confirm current rules and responsibilities on GOV.UK — this is a complex area.",
+    "keywords": [
+      "ir35",
+      "off-payroll",
+      "umbrella",
+      "personal service company",
+      "employment status"
+    ],
+    "tax_years": [
+      "2024-25",
+      "2025-26",
+      "2026-27"
+    ],
+    "source_url": "https://www.gov.uk/guidance/understanding-off-payroll-working-ir35",
+    "publisher": "GOV.UK / HMRC",
+    "category": "employment",
+    "last_verified": "2026-11-13",
+    "review_status": "verified_against_govuk_summary"
+  },
+  {
+    "id": "paye-overview",
+    "title": "PAYE overview",
+    "summary": "Pay As You Earn (PAYE) is how HMRC collects Income Tax and National Insurance from employment income. Having PAYE tax deducted does not always mean you avoid Self Assessment if you have other untaxed income.",
+    "keywords": [
+      "paye",
+      "employment tax",
+      "salary",
+      "payslip",
+      "tax code"
+    ],
+    "tax_years": [
+      "2024-25",
+      "2025-26",
+      "2026-27"
+    ],
+    "source_url": "https://www.gov.uk/income-tax",
+    "publisher": "GOV.UK / HMRC",
+    "category": "employment",
+    "last_verified": "2026-11-13",
+    "review_status": "verified_against_govuk_summary"
+  },
+  {
+    "id": "national-minimum-wage-note",
+    "title": "National Minimum Wage and National Living Wage",
+    "summary": "UK employers must pay at least the National Minimum Wage or National Living Wage for the worker’s age band. Rates usually change each April. Confirm current hourly rates on GOV.UK — this is employment law as well as payroll.",
+    "keywords": [
+      "national minimum wage",
+      "national living wage",
+      "hourly rate",
+      "nmw"
+    ],
+    "tax_years": [
+      "2024-25",
+      "2025-26",
+      "2026-27"
+    ],
+    "source_url": "https://www.gov.uk/national-minimum-wage-rates",
+    "publisher": "GOV.UK",
+    "category": "employment",
+    "last_verified": "2026-11-13",
+    "review_status": "verified_against_govuk_summary"
+  },
+  {
+    "id": "vat-schemes-overview",
+    "title": "VAT schemes overview",
+    "summary": "Besides standard VAT accounting, HMRC offers schemes such as Flat Rate, Cash Accounting, and Annual Accounting for eligible businesses. Choosing a scheme affects how you account for VAT — check eligibility on GOV.UK.",
+    "keywords": [
+      "vat schemes",
+      "cash accounting",
+      "annual accounting",
+      "vat accounting"
+    ],
+    "tax_years": [
+      "2024-25",
+      "2025-26",
+      "2026-27"
+    ],
+    "source_url": "https://www.gov.uk/vat-schemes",
+    "publisher": "GOV.UK / HMRC",
+    "category": "vat",
+    "last_verified": "2026-11-13",
+    "review_status": "verified_against_govuk_summary"
+  },
+  {
+    "id": "sa-payment-deadlines",
+    "title": "Self Assessment payment deadlines",
+    "summary": "Balancing payment for Self Assessment is normally due by 31 January following the tax year. Payments on account are usually due by 31 January and 31 July. Confirm your personal payment schedule in your HMRC account or on GOV.UK.",
+    "keywords": [
+      "payment deadline",
+      "31 january payment",
+      "balancing payment",
+      "self assessment pay"
+    ],
+    "tax_years": [
+      "2024-25",
+      "2025-26",
+      "2026-27"
+    ],
+    "source_url": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+    "publisher": "GOV.UK / HMRC",
+    "category": "self_assessment",
+    "last_verified": "2026-11-13",
+    "review_status": "verified_against_govuk_summary"
+  },
+  {
+    "id": "blind-persons-allowance",
+    "title": "Blind Person's Allowance",
+    "summary": "Blind Person’s Allowance is an extra tax-free allowance for people who meet HMRC’s criteria relating to blindness or severe sight impairment. Confirm the amount for the tax year on GOV.UK.",
+    "keywords": [
+      "blind person's allowance",
+      "blind allowance",
+      "sight impairment"
+    ],
+    "tax_years": [
+      "2024-25",
+      "2025-26",
+      "2026-27"
+    ],
+    "source_url": "https://www.gov.uk/blind-persons-allowance",
+    "publisher": "GOV.UK / HMRC",
+    "category": "allowances",
+    "last_verified": "2026-11-13",
+    "review_status": "verified_against_govuk_summary"
+  },
+  {
+    "id": "savings-interest-tax",
+    "title": "Tax on savings interest",
+    "summary": "Interest from savings can be tax-free within Personal Savings Allowance limits, which depend on whether you are a basic, higher or additional-rate taxpayer. Confirm current allowances on GOV.UK.",
+    "keywords": [
+      "savings interest",
+      "personal savings allowance",
+      "bank interest",
+      "savings tax"
+    ],
+    "tax_years": [
+      "2024-25",
+      "2025-26",
+      "2026-27"
+    ],
+    "source_url": "https://www.gov.uk/apply-tax-free-interest-on-savings",
+    "publisher": "GOV.UK / HMRC",
+    "category": "income_tax",
+    "last_verified": "2026-11-13",
+    "review_status": "verified_against_govuk_summary"
+  }
+]

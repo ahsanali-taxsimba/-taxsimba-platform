@@ -55,7 +55,7 @@
 
     var frame = document.createElement("iframe");
     frame.id = "simba-panel";
-    frame.title = "SIMBA AI — Your UK Tax Assistant";
+    frame.title = "SIMBA AI Tax Assistant";
     frame.setAttribute("aria-hidden", "true");
     frame.src = apiBase + "/widget/index.html?api=" + encodeURIComponent(apiBase);
     frame.style.display = "none";

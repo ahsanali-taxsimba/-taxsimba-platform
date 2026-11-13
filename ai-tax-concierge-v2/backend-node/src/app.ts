@@ -111,7 +111,7 @@ export function createApp(settings?: Settings): Express {
   app.get("/", (_req, res) => {
     res.json({
       product: "SIMBA AI",
-      subtitle: "Your UK Tax Assistant",
+      subtitle: "SIMBA AI Tax Assistant",
       phase: "master-completion",
       version: VERSION,
       preview: "/widget/preview.html",

@@ -98,7 +98,7 @@ export class Settings {
       env: this.conciergeEnv,
       phase: 3,
       product: "SIMBA AI",
-      subtitle: "Your UK Tax Assistant",
+      subtitle: "SIMBA AI Tax Assistant",
       llm_mode: this.useMockLlm ? "mock" : "openai",
       model: this.useMockLlm ? "mock-simba-v1" : this.openaiModel,
       website_base_url: this.websiteBaseUrl,

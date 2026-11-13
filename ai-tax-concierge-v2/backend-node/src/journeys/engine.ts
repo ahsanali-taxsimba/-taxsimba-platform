@@ -3,6 +3,7 @@
 import { readFileSync } from "node:fs";
 import { JOURNEYS_DEFINITIONS } from "../paths.js";
 import { resolvePackages } from "../catalog/service.js";
+import { refineJourneyPackages } from "../ai/package_selection.js";
 import type { JourneyState, JourneyStepView } from "../models/schemas.js";
 
 let cache: Record<string, any> | null = null;
@@ -92,9 +93,13 @@ export function advanceJourney(
   if (!nextStep) throw new Error("Journey graph error: missing next step");
 
   if (nextStep.prompt === null || nextStep.prompt === undefined) {
-    const packages = resolvePackages(
+    const refined = refineJourneyPackages(
       (nextStep.suggest_packages || []) as string[],
+      tags,
+      answers,
+      state.journey_id,
     );
+    const packages = resolvePackages(refined);
     return {
       journey_id: state.journey_id,
       journey_title: journey.title,

@@ -82,7 +82,9 @@ curl -s https://STAGING_HOST/api/v1/health
 ```
 
 Parity evidence: `docs/PYTHON_VS_NODE_PARITY_REPORT.md`  
-Independent audit (2026-11-13): `docs/verification/FINAL_INDEPENDENT_VERIFICATION.md`
+Independent audit (2026-11-13): `docs/verification/FINAL_INDEPENDENT_VERIFICATION.md`  
+Intelligence & sales audit (2026-11-13): `docs/verification/COMPREHENSIVE_INTELLIGENCE_SALES_AUDIT.md`  
+Automated tests: **425** Vitest (includes 150 tax + 50 package journey suites)
 
 ---
 

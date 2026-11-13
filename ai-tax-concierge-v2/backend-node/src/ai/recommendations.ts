@@ -11,12 +11,15 @@ import type {
   JourneyState,
   PackageCard,
 } from "../models/schemas.js";
+import { selectPackagesForMessage } from "./package_selection.js";
 
 const SA_PRICE = /\b(package|packages|pricing|price|cost|how much)\b/i;
 const MTD_PRICE = /\bmtd\b|\bmaking tax digital\b/i;
 const CONSULT = /\b(consult|accountant|book|speak to|talk to)\b/i;
 const NO_BUY =
-  /\b(don'?t want to buy|do not want to buy|not looking to buy|no sales|just information|information only|not interested in (a )?package|don'?t sell|no pressure|just asking|curious only)\b/i;
+  /\b(don'?t want to buy|do not want to buy|not looking to buy|no sales|just information|information only|only want information|not interested in (a )?package|don'?t sell|do not sell|no pressure|just asking|curious only)\b/i;
+const EXISTING_CLIENT =
+  /\b(existing (taxsimba )?client|already (a )?taxsimba|logged ?in|my dashboard|message my (assigned )?accountant|my assigned accountant)\b/i;
 
 const DEFAULT_PRESSURE_NOTE =
   "Optional support — only if useful. Full inclusions are confirmed with TaxSimba, " +
@@ -120,6 +123,9 @@ export function recommendForMessage(
 
   const cat = packagesCatalog();
   const lower = message.toLowerCase();
+  const existingClient = EXISTING_CLIENT.test(message);
+  const circumstanceCodes =
+    declineSales || existingClient ? [] : selectPackagesForMessage(message);
 
   if (declineSales) {
     followUps = [
@@ -127,6 +133,34 @@ export function recommendForMessage(
       "How does Making Tax Digital work in plain English?",
       "Where should I check this on GOV.UK?",
     ];
+  } else if (existingClient) {
+    packages = [];
+    followUps = [
+      "How do I send a secure message to my accountant in the dashboard?",
+      "Where do I check my return status?",
+      "How do I upload documents to TaxSimba?",
+    ];
+  } else if (circumstanceCodes.length) {
+    // Prefer circumstance-aware tiers over dumping every catalogue price.
+    packages = toPackageCards(circumstanceCodes);
+    if (circumstanceCodes.includes("ACCOUNTANT_CONSULT_99")) {
+      followUps = [
+        "What can an accountant consultation help with?",
+        "What Self Assessment packages are available?",
+      ];
+    } else if (circumstanceCodes.some((c) => c.startsWith("MTD_"))) {
+      followUps = [
+        "What is Making Tax Digital for Income Tax?",
+        "Do landlords need MTD?",
+        "Can you ask a couple of questions to narrow the plan?",
+      ];
+    } else {
+      followUps = [
+        "Can you ask a couple of questions to check which package fits?",
+        "Do I need Self Assessment this year?",
+        "Can I book a £99 accountant consultation instead?",
+      ];
+    }
   } else if (SA_PRICE.test(message) && !MTD_PRICE.test(message)) {
     packages = toPackageCards(
       (cat.self_assessment as { code: string }[]).map((p) => p.code),

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "SIMBA AI Tax Concierge V2 — Node.js Express backend (parity with Python FastAPI)",
+  "description": "SIMBA AI Tax Assistant V2 — Node.js Express backend (parity with Python FastAPI)",
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc -p tsconfig.build.json",

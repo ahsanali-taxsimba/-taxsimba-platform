@@ -1,0 +1,1506 @@
+{
+  "version": "2026-11",
+  "count": 150,
+  "scenarios": [
+    {
+      "id": "ti-001",
+      "query": "When is the Self Assessment online deadline?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-deadline-online",
+      "must_include_any": [
+        "31 january"
+      ],
+      "official_ref_hint": "sa-deadline-online"
+    },
+    {
+      "id": "ti-002",
+      "query": "Please explain: When is the Self Assessment online deadline?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-deadline-online",
+      "must_include_any": [
+        "31 january"
+      ],
+      "official_ref_hint": "sa-deadline-online"
+    },
+    {
+      "id": "ti-003",
+      "query": "In plain English, when is the Self Assessment online deadline?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-deadline-online",
+      "must_include_any": [
+        "31 january"
+      ],
+      "official_ref_hint": "sa-deadline-online"
+    },
+    {
+      "id": "ti-004",
+      "query": "For UK tax, when is the Self Assessment online deadline?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-deadline-online",
+      "must_include_any": [
+        "31 january"
+      ],
+      "official_ref_hint": "sa-deadline-online"
+    },
+    {
+      "id": "ti-005",
+      "query": "SA filing date for online returns",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-deadline-online",
+      "must_include_any": [
+        "31 january"
+      ],
+      "official_ref_hint": "sa-deadline-online"
+    },
+    {
+      "id": "ti-006",
+      "query": "Please explain: SA filing date for online returns",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-deadline-online",
+      "must_include_any": [
+        "31 january"
+      ],
+      "official_ref_hint": "sa-deadline-online"
+    },
+    {
+      "id": "ti-007",
+      "query": "In plain English, sA filing date for online returns",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-deadline-online",
+      "must_include_any": [
+        "31 january"
+      ],
+      "official_ref_hint": "sa-deadline-online"
+    },
+    {
+      "id": "ti-008",
+      "query": "For UK tax, sA filing date for online returns",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-deadline-online",
+      "must_include_any": [
+        "31 january"
+      ],
+      "official_ref_hint": "sa-deadline-online"
+    },
+    {
+      "id": "ti-009",
+      "query": "Do I need to send a Self Assessment tax return?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-who-needs-to-file",
+      "must_include_any": [
+        "self assessment"
+      ],
+      "official_ref_hint": "sa-who-needs-to-file"
+    },
+    {
+      "id": "ti-010",
+      "query": "Please explain: Do I need to send a Self Assessment tax return?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-who-needs-to-file",
+      "must_include_any": [
+        "self assessment"
+      ],
+      "official_ref_hint": "sa-who-needs-to-file"
+    },
+    {
+      "id": "ti-011",
+      "query": "In plain English, do I need to send a Self Assessment tax return?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-who-needs-to-file",
+      "must_include_any": [
+        "self assessment"
+      ],
+      "official_ref_hint": "sa-who-needs-to-file"
+    },
+    {
+      "id": "ti-012",
+      "query": "For UK tax, do I need to send a Self Assessment tax return?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-who-needs-to-file",
+      "must_include_any": [
+        "self assessment"
+      ],
+      "official_ref_hint": "sa-who-needs-to-file"
+    },
+    {
+      "id": "ti-013",
+      "query": "Who must file SA if self-employed?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-who-needs-to-file",
+      "must_include_any": [
+        "self-employed"
+      ],
+      "official_ref_hint": "sa-who-needs-to-file"
+    },
+    {
+      "id": "ti-014",
+      "query": "Please explain: Who must file SA if self-employed?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-who-needs-to-file",
+      "must_include_any": [
+        "self-employed"
+      ],
+      "official_ref_hint": "sa-who-needs-to-file"
+    },
+    {
+      "id": "ti-015",
+      "query": "In plain English, who must file SA if self-employed?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-who-needs-to-file",
+      "must_include_any": [
+        "self-employed"
+      ],
+      "official_ref_hint": "sa-who-needs-to-file"
+    },
+    {
+      "id": "ti-016",
+      "query": "For UK tax, who must file SA if self-employed?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-who-needs-to-file",
+      "must_include_any": [
+        "self-employed"
+      ],
+      "official_ref_hint": "sa-who-needs-to-file"
+    },
+    {
+      "id": "ti-017",
+      "query": "Paper Self Assessment deadline 31 October",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-paper-deadline",
+      "must_include_any": [
+        "31 october"
+      ],
+      "official_ref_hint": "sa-paper-deadline"
+    },
+    {
+      "id": "ti-018",
+      "query": "Please explain: Paper Self Assessment deadline 31 October",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-paper-deadline",
+      "must_include_any": [
+        "31 october"
+      ],
+      "official_ref_hint": "sa-paper-deadline"
+    },
+    {
+      "id": "ti-019",
+      "query": "In plain English, paper Self Assessment deadline 31 October",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-paper-deadline",
+      "must_include_any": [
+        "31 october"
+      ],
+      "official_ref_hint": "sa-paper-deadline"
+    },
+    {
+      "id": "ti-020",
+      "query": "For UK tax, paper Self Assessment deadline 31 October",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-paper-deadline",
+      "must_include_any": [
+        "31 october"
+      ],
+      "official_ref_hint": "sa-paper-deadline"
+    },
+    {
+      "id": "ti-021",
+      "query": "Late filing Self Assessment penalties",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-penalties-overview",
+      "must_include_any": [
+        "penalt"
+      ],
+      "official_ref_hint": "sa-penalties-overview"
+    },
+    {
+      "id": "ti-022",
+      "query": "Please explain: Late filing Self Assessment penalties",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-penalties-overview",
+      "must_include_any": [
+        "penalt"
+      ],
+      "official_ref_hint": "sa-penalties-overview"
+    },
+    {
+      "id": "ti-023",
+      "query": "In plain English, late filing Self Assessment penalties",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-penalties-overview",
+      "must_include_any": [
+        "penalt"
+      ],
+      "official_ref_hint": "sa-penalties-overview"
+    },
+    {
+      "id": "ti-024",
+      "query": "For UK tax, late filing Self Assessment penalties",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-penalties-overview",
+      "must_include_any": [
+        "penalt"
+      ],
+      "official_ref_hint": "sa-penalties-overview"
+    },
+    {
+      "id": "ti-025",
+      "query": "What happens if I miss SA deadline penalties",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-penalties-overview",
+      "must_include_any": [
+        "penalt"
+      ],
+      "official_ref_hint": "sa-penalties-overview"
+    },
+    {
+      "id": "ti-026",
+      "query": "Please explain: What happens if I miss SA deadline penalties",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-penalties-overview",
+      "must_include_any": [
+        "penalt"
+      ],
+      "official_ref_hint": "sa-penalties-overview"
+    },
+    {
+      "id": "ti-027",
+      "query": "In plain English, what happens if I miss SA deadline penalties",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-penalties-overview",
+      "must_include_any": [
+        "penalt"
+      ],
+      "official_ref_hint": "sa-penalties-overview"
+    },
+    {
+      "id": "ti-028",
+      "query": "For UK tax, what happens if I miss SA deadline penalties",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-penalties-overview",
+      "must_include_any": [
+        "penalt"
+      ],
+      "official_ref_hint": "sa-penalties-overview"
+    },
+    {
+      "id": "ti-029",
+      "query": "Register for Self Assessment UTR",
+      "tax_year": "2025-26",
+      "expected_fact_id": "register-self-assessment",
+      "must_include_any": [
+        "register"
+      ],
+      "official_ref_hint": "register-self-assessment"
+    },
+    {
+      "id": "ti-030",
+      "query": "Please explain: Register for Self Assessment UTR",
+      "tax_year": "2025-26",
+      "expected_fact_id": "register-self-assessment",
+      "must_include_any": [
+        "register"
+      ],
+      "official_ref_hint": "register-self-assessment"
+    },
+    {
+      "id": "ti-031",
+      "query": "In plain English, register for Self Assessment UTR",
+      "tax_year": "2025-26",
+      "expected_fact_id": "register-self-assessment",
+      "must_include_any": [
+        "register"
+      ],
+      "official_ref_hint": "register-self-assessment"
+    },
+    {
+      "id": "ti-032",
+      "query": "For UK tax, register for Self Assessment UTR",
+      "tax_year": "2025-26",
+      "expected_fact_id": "register-self-assessment",
+      "must_include_any": [
+        "register"
+      ],
+      "official_ref_hint": "register-self-assessment"
+    },
+    {
+      "id": "ti-033",
+      "query": "How do I register as self-employed with HMRC",
+      "tax_year": "2025-26",
+      "expected_fact_id": "self-employed-register",
+      "must_include_any": [
+        "self"
+      ],
+      "official_ref_hint": "self-employed-register"
+    },
+    {
+      "id": "ti-034",
+      "query": "Please explain: How do I register as self-employed with HMRC",
+      "tax_year": "2025-26",
+      "expected_fact_id": "self-employed-register",
+      "must_include_any": [
+        "self"
+      ],
+      "official_ref_hint": "self-employed-register"
+    },
+    {
+      "id": "ti-035",
+      "query": "In plain English, how do I register as self-employed with HMRC",
+      "tax_year": "2025-26",
+      "expected_fact_id": "self-employed-register",
+      "must_include_any": [
+        "self"
+      ],
+      "official_ref_hint": "self-employed-register"
+    },
+    {
+      "id": "ti-036",
+      "query": "For UK tax, how do I register as self-employed with HMRC",
+      "tax_year": "2025-26",
+      "expected_fact_id": "self-employed-register",
+      "must_include_any": [
+        "self"
+      ],
+      "official_ref_hint": "self-employed-register"
+    },
+    {
+      "id": "ti-037",
+      "query": "Payments on account 31 July",
+      "tax_year": "2025-26",
+      "expected_fact_id": "payment-on-account",
+      "must_include_any": [
+        "31 july"
+      ],
+      "official_ref_hint": "payment-on-account"
+    },
+    {
+      "id": "ti-038",
+      "query": "Please explain: Payments on account 31 July",
+      "tax_year": "2025-26",
+      "expected_fact_id": "payment-on-account",
+      "must_include_any": [
+        "31 july"
+      ],
+      "official_ref_hint": "payment-on-account"
+    },
+    {
+      "id": "ti-039",
+      "query": "In plain English, payments on account 31 July",
+      "tax_year": "2025-26",
+      "expected_fact_id": "payment-on-account",
+      "must_include_any": [
+        "31 july"
+      ],
+      "official_ref_hint": "payment-on-account"
+    },
+    {
+      "id": "ti-040",
+      "query": "For UK tax, payments on account 31 July",
+      "tax_year": "2025-26",
+      "expected_fact_id": "payment-on-account",
+      "must_include_any": [
+        "31 july"
+      ],
+      "official_ref_hint": "payment-on-account"
+    },
+    {
+      "id": "ti-041",
+      "query": "When do I pay Self Assessment balancing payment",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-payment-deadlines",
+      "must_include_any": [
+        "31 january"
+      ],
+      "official_ref_hint": "sa-payment-deadlines"
+    },
+    {
+      "id": "ti-042",
+      "query": "Please explain: When do I pay Self Assessment balancing payment",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-payment-deadlines",
+      "must_include_any": [
+        "31 january"
+      ],
+      "official_ref_hint": "sa-payment-deadlines"
+    },
+    {
+      "id": "ti-043",
+      "query": "In plain English, when do I pay Self Assessment balancing payment",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-payment-deadlines",
+      "must_include_any": [
+        "31 january"
+      ],
+      "official_ref_hint": "sa-payment-deadlines"
+    },
+    {
+      "id": "ti-044",
+      "query": "For UK tax, when do I pay Self Assessment balancing payment",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-payment-deadlines",
+      "must_include_any": [
+        "31 january"
+      ],
+      "official_ref_hint": "sa-payment-deadlines"
+    },
+    {
+      "id": "ti-045",
+      "query": "Self Assessment payment deadlines January July",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-payment-deadlines",
+      "must_include_any": [
+        "payment"
+      ],
+      "official_ref_hint": "sa-payment-deadlines"
+    },
+    {
+      "id": "ti-046",
+      "query": "Please explain: Self Assessment payment deadlines January July",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-payment-deadlines",
+      "must_include_any": [
+        "payment"
+      ],
+      "official_ref_hint": "sa-payment-deadlines"
+    },
+    {
+      "id": "ti-047",
+      "query": "In plain English, self Assessment payment deadlines January July",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-payment-deadlines",
+      "must_include_any": [
+        "payment"
+      ],
+      "official_ref_hint": "sa-payment-deadlines"
+    },
+    {
+      "id": "ti-048",
+      "query": "For UK tax, self Assessment payment deadlines January July",
+      "tax_year": "2025-26",
+      "expected_fact_id": "sa-payment-deadlines",
+      "must_include_any": [
+        "payment"
+      ],
+      "official_ref_hint": "sa-payment-deadlines"
+    },
+    {
+      "id": "ti-049",
+      "query": "When does the UK tax year start and end?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "tax-year-dates",
+      "must_include_any": [
+        "6 april"
+      ],
+      "official_ref_hint": "tax-year-dates"
+    },
+    {
+      "id": "ti-050",
+      "query": "Please explain: When does the UK tax year start and end?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "tax-year-dates",
+      "must_include_any": [
+        "6 april"
+      ],
+      "official_ref_hint": "tax-year-dates"
+    },
+    {
+      "id": "ti-051",
+      "query": "In plain English, when does the UK tax year start and end?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "tax-year-dates",
+      "must_include_any": [
+        "6 april"
+      ],
+      "official_ref_hint": "tax-year-dates"
+    },
+    {
+      "id": "ti-052",
+      "query": "For UK tax, when does the UK tax year start and end?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "tax-year-dates",
+      "must_include_any": [
+        "6 april"
+      ],
+      "official_ref_hint": "tax-year-dates"
+    },
+    {
+      "id": "ti-053",
+      "query": "Personal Allowance 2025-26 amount",
+      "tax_year": "2025-26",
+      "expected_fact_id": "personal-allowance-2025-26",
+      "must_include_any": [
+        "personal allowance"
+      ],
+      "official_ref_hint": "personal-allowance-2025-26"
+    },
+    {
+      "id": "ti-054",
+      "query": "Please explain: Personal Allowance 2025-26 amount",
+      "tax_year": "2025-26",
+      "expected_fact_id": "personal-allowance-2025-26",
+      "must_include_any": [
+        "personal allowance"
+      ],
+      "official_ref_hint": "personal-allowance-2025-26"
+    },
+    {
+      "id": "ti-055",
+      "query": "In plain English, personal Allowance 2025-26 amount",
+      "tax_year": "2025-26",
+      "expected_fact_id": "personal-allowance-2025-26",
+      "must_include_any": [
+        "personal allowance"
+      ],
+      "official_ref_hint": "personal-allowance-2025-26"
+    },
+    {
+      "id": "ti-056",
+      "query": "For UK tax, personal Allowance 2025-26 amount",
+      "tax_year": "2025-26",
+      "expected_fact_id": "personal-allowance-2025-26",
+      "must_include_any": [
+        "personal allowance"
+      ],
+      "official_ref_hint": "personal-allowance-2025-26"
+    },
+    {
+      "id": "ti-057",
+      "query": "Is Personal Allowance still 12570?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "personal-allowance-2025-26",
+      "must_include_any": [
+        "12570"
+      ],
+      "official_ref_hint": "personal-allowance-2025-26"
+    },
+    {
+      "id": "ti-058",
+      "query": "Please explain: Is Personal Allowance still 12570?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "personal-allowance-2025-26",
+      "must_include_any": [
+        "12570"
+      ],
+      "official_ref_hint": "personal-allowance-2025-26"
+    },
+    {
+      "id": "ti-059",
+      "query": "In plain English, is Personal Allowance still 12570?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "personal-allowance-2025-26",
+      "must_include_any": [
+        "12570"
+      ],
+      "official_ref_hint": "personal-allowance-2025-26"
+    },
+    {
+      "id": "ti-060",
+      "query": "For UK tax, is Personal Allowance still 12570?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "personal-allowance-2025-26",
+      "must_include_any": [
+        "12570"
+      ],
+      "official_ref_hint": "personal-allowance-2025-26"
+    },
+    {
+      "id": "ti-061",
+      "query": "Income tax basic and higher rate bands England",
+      "tax_year": "2025-26",
+      "expected_fact_id": "income-tax-bands-england-2025-26",
+      "must_include_any": [
+        "20%"
+      ],
+      "official_ref_hint": "income-tax-bands-england-2025-26"
+    },
+    {
+      "id": "ti-062",
+      "query": "Please explain: Income tax basic and higher rate bands England",
+      "tax_year": "2025-26",
+      "expected_fact_id": "income-tax-bands-england-2025-26",
+      "must_include_any": [
+        "20%"
+      ],
+      "official_ref_hint": "income-tax-bands-england-2025-26"
+    },
+    {
+      "id": "ti-063",
+      "query": "In plain English, income tax basic and higher rate bands England",
+      "tax_year": "2025-26",
+      "expected_fact_id": "income-tax-bands-england-2025-26",
+      "must_include_any": [
+        "20%"
+      ],
+      "official_ref_hint": "income-tax-bands-england-2025-26"
+    },
+    {
+      "id": "ti-064",
+      "query": "For UK tax, income tax basic and higher rate bands England",
+      "tax_year": "2025-26",
+      "expected_fact_id": "income-tax-bands-england-2025-26",
+      "must_include_any": [
+        "20%"
+      ],
+      "official_ref_hint": "income-tax-bands-england-2025-26"
+    },
+    {
+      "id": "ti-065",
+      "query": "Trading allowance £1000",
+      "tax_year": "2025-26",
+      "expected_fact_id": "trading-allowance",
+      "must_include_any": [
+        "trading allowance"
+      ],
+      "official_ref_hint": "trading-allowance"
+    },
+    {
+      "id": "ti-066",
+      "query": "Please explain: Trading allowance £1000",
+      "tax_year": "2025-26",
+      "expected_fact_id": "trading-allowance",
+      "must_include_any": [
+        "trading allowance"
+      ],
+      "official_ref_hint": "trading-allowance"
+    },
+    {
+      "id": "ti-067",
+      "query": "In plain English, trading allowance £1000",
+      "tax_year": "2025-26",
+      "expected_fact_id": "trading-allowance",
+      "must_include_any": [
+        "trading allowance"
+      ],
+      "official_ref_hint": "trading-allowance"
+    },
+    {
+      "id": "ti-068",
+      "query": "For UK tax, trading allowance £1000",
+      "tax_year": "2025-26",
+      "expected_fact_id": "trading-allowance",
+      "must_include_any": [
+        "trading allowance"
+      ],
+      "official_ref_hint": "trading-allowance"
+    },
+    {
+      "id": "ti-069",
+      "query": "Property allowance for landlords £1000",
+      "tax_year": "2025-26",
+      "expected_fact_id": "property-allowance",
+      "must_include_any": [
+        "property allowance"
+      ],
+      "official_ref_hint": "property-allowance"
+    },
+    {
+      "id": "ti-070",
+      "query": "Please explain: Property allowance for landlords £1000",
+      "tax_year": "2025-26",
+      "expected_fact_id": "property-allowance",
+      "must_include_any": [
+        "property allowance"
+      ],
+      "official_ref_hint": "property-allowance"
+    },
+    {
+      "id": "ti-071",
+      "query": "In plain English, property allowance for landlords £1000",
+      "tax_year": "2025-26",
+      "expected_fact_id": "property-allowance",
+      "must_include_any": [
+        "property allowance"
+      ],
+      "official_ref_hint": "property-allowance"
+    },
+    {
+      "id": "ti-072",
+      "query": "For UK tax, property allowance for landlords £1000",
+      "tax_year": "2025-26",
+      "expected_fact_id": "property-allowance",
+      "must_include_any": [
+        "property allowance"
+      ],
+      "official_ref_hint": "property-allowance"
+    },
+    {
+      "id": "ti-073",
+      "query": "Marriage Allowance transfer to spouse",
+      "tax_year": "2025-26",
+      "expected_fact_id": "marriage-allowance",
+      "must_include_any": [
+        "marriage allowance"
+      ],
+      "official_ref_hint": "marriage-allowance"
+    },
+    {
+      "id": "ti-074",
+      "query": "Please explain: Marriage Allowance transfer to spouse",
+      "tax_year": "2025-26",
+      "expected_fact_id": "marriage-allowance",
+      "must_include_any": [
+        "marriage allowance"
+      ],
+      "official_ref_hint": "marriage-allowance"
+    },
+    {
+      "id": "ti-075",
+      "query": "In plain English, marriage Allowance transfer to spouse",
+      "tax_year": "2025-26",
+      "expected_fact_id": "marriage-allowance",
+      "must_include_any": [
+        "marriage allowance"
+      ],
+      "official_ref_hint": "marriage-allowance"
+    },
+    {
+      "id": "ti-076",
+      "query": "For UK tax, marriage Allowance transfer to spouse",
+      "tax_year": "2025-26",
+      "expected_fact_id": "marriage-allowance",
+      "must_include_any": [
+        "marriage allowance"
+      ],
+      "official_ref_hint": "marriage-allowance"
+    },
+    {
+      "id": "ti-077",
+      "query": "Blind Person Allowance claim",
+      "tax_year": "2025-26",
+      "expected_fact_id": "blind-persons-allowance",
+      "must_include_any": [
+        "blind"
+      ],
+      "official_ref_hint": "blind-persons-allowance"
+    },
+    {
+      "id": "ti-078",
+      "query": "Please explain: Blind Person Allowance claim",
+      "tax_year": "2025-26",
+      "expected_fact_id": "blind-persons-allowance",
+      "must_include_any": [
+        "blind"
+      ],
+      "official_ref_hint": "blind-persons-allowance"
+    },
+    {
+      "id": "ti-079",
+      "query": "In plain English, blind Person Allowance claim",
+      "tax_year": "2025-26",
+      "expected_fact_id": "blind-persons-allowance",
+      "must_include_any": [
+        "blind"
+      ],
+      "official_ref_hint": "blind-persons-allowance"
+    },
+    {
+      "id": "ti-080",
+      "query": "For UK tax, blind Person Allowance claim",
+      "tax_year": "2025-26",
+      "expected_fact_id": "blind-persons-allowance",
+      "must_include_any": [
+        "blind"
+      ],
+      "official_ref_hint": "blind-persons-allowance"
+    },
+    {
+      "id": "ti-081",
+      "query": "Making Tax Digital overview sole trader",
+      "tax_year": "2025-26",
+      "expected_fact_id": "mtd-income-tax-overview",
+      "must_include_any": [
+        "making tax digital"
+      ],
+      "official_ref_hint": "mtd-income-tax-overview"
+    },
+    {
+      "id": "ti-082",
+      "query": "Please explain: Making Tax Digital overview sole trader",
+      "tax_year": "2025-26",
+      "expected_fact_id": "mtd-income-tax-overview",
+      "must_include_any": [
+        "making tax digital"
+      ],
+      "official_ref_hint": "mtd-income-tax-overview"
+    },
+    {
+      "id": "ti-083",
+      "query": "In plain English, making Tax Digital overview sole trader",
+      "tax_year": "2025-26",
+      "expected_fact_id": "mtd-income-tax-overview",
+      "must_include_any": [
+        "making tax digital"
+      ],
+      "official_ref_hint": "mtd-income-tax-overview"
+    },
+    {
+      "id": "ti-084",
+      "query": "For UK tax, making Tax Digital overview sole trader",
+      "tax_year": "2025-26",
+      "expected_fact_id": "mtd-income-tax-overview",
+      "must_include_any": [
+        "making tax digital"
+      ],
+      "official_ref_hint": "mtd-income-tax-overview"
+    },
+    {
+      "id": "ti-085",
+      "query": "MTD who and when thresholds",
+      "tax_year": "2025-26",
+      "expected_fact_id": "mtd-who-and-when",
+      "must_include_any": [
+        "mtd"
+      ],
+      "official_ref_hint": "mtd-who-and-when"
+    },
+    {
+      "id": "ti-086",
+      "query": "Please explain: MTD who and when thresholds",
+      "tax_year": "2025-26",
+      "expected_fact_id": "mtd-who-and-when",
+      "must_include_any": [
+        "mtd"
+      ],
+      "official_ref_hint": "mtd-who-and-when"
+    },
+    {
+      "id": "ti-087",
+      "query": "In plain English, mTD who and when thresholds",
+      "tax_year": "2025-26",
+      "expected_fact_id": "mtd-who-and-when",
+      "must_include_any": [
+        "mtd"
+      ],
+      "official_ref_hint": "mtd-who-and-when"
+    },
+    {
+      "id": "ti-088",
+      "query": "For UK tax, mTD who and when thresholds",
+      "tax_year": "2025-26",
+      "expected_fact_id": "mtd-who-and-when",
+      "must_include_any": [
+        "mtd"
+      ],
+      "official_ref_hint": "mtd-who-and-when"
+    },
+    {
+      "id": "ti-089",
+      "query": "MTD £50000 from April 2026",
+      "tax_year": "2025-26",
+      "expected_fact_id": "mtd-threshold-50k-april-2026",
+      "must_include_any": [
+        "50000"
+      ],
+      "official_ref_hint": "mtd-threshold-50k-april-2026"
+    },
+    {
+      "id": "ti-090",
+      "query": "Please explain: MTD £50000 from April 2026",
+      "tax_year": "2025-26",
+      "expected_fact_id": "mtd-threshold-50k-april-2026",
+      "must_include_any": [
+        "50000"
+      ],
+      "official_ref_hint": "mtd-threshold-50k-april-2026"
+    },
+    {
+      "id": "ti-091",
+      "query": "In plain English, mTD £50000 from April 2026",
+      "tax_year": "2025-26",
+      "expected_fact_id": "mtd-threshold-50k-april-2026",
+      "must_include_any": [
+        "50000"
+      ],
+      "official_ref_hint": "mtd-threshold-50k-april-2026"
+    },
+    {
+      "id": "ti-092",
+      "query": "For UK tax, mTD £50000 from April 2026",
+      "tax_year": "2025-26",
+      "expected_fact_id": "mtd-threshold-50k-april-2026",
+      "must_include_any": [
+        "50000"
+      ],
+      "official_ref_hint": "mtd-threshold-50k-april-2026"
+    },
+    {
+      "id": "ti-093",
+      "query": "Making Tax Digital £30000 April 2027",
+      "tax_year": "2026-27",
+      "expected_fact_id": "mtd-threshold-30k-april-2027",
+      "must_include_any": [
+        "30000"
+      ],
+      "official_ref_hint": "mtd-threshold-30k-april-2027"
+    },
+    {
+      "id": "ti-094",
+      "query": "Please explain: Making Tax Digital £30000 April 2027",
+      "tax_year": "2026-27",
+      "expected_fact_id": "mtd-threshold-30k-april-2027",
+      "must_include_any": [
+        "30000"
+      ],
+      "official_ref_hint": "mtd-threshold-30k-april-2027"
+    },
+    {
+      "id": "ti-095",
+      "query": "In plain English, making Tax Digital £30000 April 2027",
+      "tax_year": "2026-27",
+      "expected_fact_id": "mtd-threshold-30k-april-2027",
+      "must_include_any": [
+        "30000"
+      ],
+      "official_ref_hint": "mtd-threshold-30k-april-2027"
+    },
+    {
+      "id": "ti-096",
+      "query": "For UK tax, making Tax Digital £30000 April 2027",
+      "tax_year": "2026-27",
+      "expected_fact_id": "mtd-threshold-30k-april-2027",
+      "must_include_any": [
+        "30000"
+      ],
+      "official_ref_hint": "mtd-threshold-30k-april-2027"
+    },
+    {
+      "id": "ti-097",
+      "query": "MTD £20000 threshold 2028",
+      "tax_year": "2027-28",
+      "expected_fact_id": "mtd-threshold-20k-april-2028",
+      "must_include_any": [
+        "20000"
+      ],
+      "official_ref_hint": "mtd-threshold-20k-april-2028"
+    },
+    {
+      "id": "ti-098",
+      "query": "Please explain: MTD £20000 threshold 2028",
+      "tax_year": "2027-28",
+      "expected_fact_id": "mtd-threshold-20k-april-2028",
+      "must_include_any": [
+        "20000"
+      ],
+      "official_ref_hint": "mtd-threshold-20k-april-2028"
+    },
+    {
+      "id": "ti-099",
+      "query": "In plain English, mTD £20000 threshold 2028",
+      "tax_year": "2027-28",
+      "expected_fact_id": "mtd-threshold-20k-april-2028",
+      "must_include_any": [
+        "20000"
+      ],
+      "official_ref_hint": "mtd-threshold-20k-april-2028"
+    },
+    {
+      "id": "ti-100",
+      "query": "For UK tax, mTD £20000 threshold 2028",
+      "tax_year": "2027-28",
+      "expected_fact_id": "mtd-threshold-20k-april-2028",
+      "must_include_any": [
+        "20000"
+      ],
+      "official_ref_hint": "mtd-threshold-20k-april-2028"
+    },
+    {
+      "id": "ti-101",
+      "query": "Is MTD based on turnover or profit?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "mtd-qualifying-income-definition",
+      "must_include_any": [
+        "turnover"
+      ],
+      "official_ref_hint": "mtd-qualifying-income-definition"
+    },
+    {
+      "id": "ti-102",
+      "query": "Please explain: Is MTD based on turnover or profit?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "mtd-qualifying-income-definition",
+      "must_include_any": [
+        "turnover"
+      ],
+      "official_ref_hint": "mtd-qualifying-income-definition"
+    },
+    {
+      "id": "ti-103",
+      "query": "In plain English, is MTD based on turnover or profit?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "mtd-qualifying-income-definition",
+      "must_include_any": [
+        "turnover"
+      ],
+      "official_ref_hint": "mtd-qualifying-income-definition"
+    },
+    {
+      "id": "ti-104",
+      "query": "For UK tax, is MTD based on turnover or profit?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "mtd-qualifying-income-definition",
+      "must_include_any": [
+        "turnover"
+      ],
+      "official_ref_hint": "mtd-qualifying-income-definition"
+    },
+    {
+      "id": "ti-105",
+      "query": "MTD quarterly updates digital records",
+      "tax_year": "2026-27",
+      "expected_fact_id": "mtd-digital-records-quarterly",
+      "must_include_any": [
+        "quarterly"
+      ],
+      "official_ref_hint": "mtd-digital-records-quarterly"
+    },
+    {
+      "id": "ti-106",
+      "query": "Please explain: MTD quarterly updates digital records",
+      "tax_year": "2026-27",
+      "expected_fact_id": "mtd-digital-records-quarterly",
+      "must_include_any": [
+        "quarterly"
+      ],
+      "official_ref_hint": "mtd-digital-records-quarterly"
+    },
+    {
+      "id": "ti-107",
+      "query": "In plain English, mTD quarterly updates digital records",
+      "tax_year": "2026-27",
+      "expected_fact_id": "mtd-digital-records-quarterly",
+      "must_include_any": [
+        "quarterly"
+      ],
+      "official_ref_hint": "mtd-digital-records-quarterly"
+    },
+    {
+      "id": "ti-108",
+      "query": "For UK tax, mTD quarterly updates digital records",
+      "tax_year": "2026-27",
+      "expected_fact_id": "mtd-digital-records-quarterly",
+      "must_include_any": [
+        "quarterly"
+      ],
+      "official_ref_hint": "mtd-digital-records-quarterly"
+    },
+    {
+      "id": "ti-109",
+      "query": "Do landlords need Making Tax Digital?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "mtd-income-tax-overview",
+      "must_include_any": [
+        "landlord"
+      ],
+      "official_ref_hint": "mtd-income-tax-overview"
+    },
+    {
+      "id": "ti-110",
+      "query": "Please explain: Do landlords need Making Tax Digital?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "mtd-income-tax-overview",
+      "must_include_any": [
+        "landlord"
+      ],
+      "official_ref_hint": "mtd-income-tax-overview"
+    },
+    {
+      "id": "ti-111",
+      "query": "In plain English, do landlords need Making Tax Digital?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "mtd-income-tax-overview",
+      "must_include_any": [
+        "landlord"
+      ],
+      "official_ref_hint": "mtd-income-tax-overview"
+    },
+    {
+      "id": "ti-112",
+      "query": "For UK tax, do landlords need Making Tax Digital?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "mtd-income-tax-overview",
+      "must_include_any": [
+        "landlord"
+      ],
+      "official_ref_hint": "mtd-income-tax-overview"
+    },
+    {
+      "id": "ti-113",
+      "query": "VAT registration threshold amount",
+      "tax_year": "2025-26",
+      "expected_fact_id": "vat-threshold-overview",
+      "must_include_any": [
+        "90000"
+      ],
+      "official_ref_hint": "vat-threshold-overview"
+    },
+    {
+      "id": "ti-114",
+      "query": "Please explain: VAT registration threshold amount",
+      "tax_year": "2025-26",
+      "expected_fact_id": "vat-threshold-overview",
+      "must_include_any": [
+        "90000"
+      ],
+      "official_ref_hint": "vat-threshold-overview"
+    },
+    {
+      "id": "ti-115",
+      "query": "In plain English, vAT registration threshold amount",
+      "tax_year": "2025-26",
+      "expected_fact_id": "vat-threshold-overview",
+      "must_include_any": [
+        "90000"
+      ],
+      "official_ref_hint": "vat-threshold-overview"
+    },
+    {
+      "id": "ti-116",
+      "query": "For UK tax, vAT registration threshold amount",
+      "tax_year": "2025-26",
+      "expected_fact_id": "vat-threshold-overview",
+      "must_include_any": [
+        "90000"
+      ],
+      "official_ref_hint": "vat-threshold-overview"
+    },
+    {
+      "id": "ti-117",
+      "query": "Is VAT threshold still 90000?",
+      "tax_year": "2026-27",
+      "expected_fact_id": "vat-threshold-overview",
+      "must_include_any": [
+        "90000"
+      ],
+      "official_ref_hint": "vat-threshold-overview"
+    },
+    {
+      "id": "ti-118",
+      "query": "Please explain: Is VAT threshold still 90000?",
+      "tax_year": "2026-27",
+      "expected_fact_id": "vat-threshold-overview",
+      "must_include_any": [
+        "90000"
+      ],
+      "official_ref_hint": "vat-threshold-overview"
+    },
+    {
+      "id": "ti-119",
+      "query": "In plain English, is VAT threshold still 90000?",
+      "tax_year": "2026-27",
+      "expected_fact_id": "vat-threshold-overview",
+      "must_include_any": [
+        "90000"
+      ],
+      "official_ref_hint": "vat-threshold-overview"
+    },
+    {
+      "id": "ti-120",
+      "query": "For UK tax, is VAT threshold still 90000?",
+      "tax_year": "2026-27",
+      "expected_fact_id": "vat-threshold-overview",
+      "must_include_any": [
+        "90000"
+      ],
+      "official_ref_hint": "vat-threshold-overview"
+    },
+    {
+      "id": "ti-121",
+      "query": "VAT rolling 12 month and 30 day tests",
+      "tax_year": "2025-26",
+      "expected_fact_id": "vat-registration-timing-tests",
+      "must_include_any": [
+        "30"
+      ],
+      "official_ref_hint": "vat-registration-timing-tests"
+    },
+    {
+      "id": "ti-122",
+      "query": "Please explain: VAT rolling 12 month and 30 day tests",
+      "tax_year": "2025-26",
+      "expected_fact_id": "vat-registration-timing-tests",
+      "must_include_any": [
+        "30"
+      ],
+      "official_ref_hint": "vat-registration-timing-tests"
+    },
+    {
+      "id": "ti-123",
+      "query": "In plain English, vAT rolling 12 month and 30 day tests",
+      "tax_year": "2025-26",
+      "expected_fact_id": "vat-registration-timing-tests",
+      "must_include_any": [
+        "30"
+      ],
+      "official_ref_hint": "vat-registration-timing-tests"
+    },
+    {
+      "id": "ti-124",
+      "query": "For UK tax, vAT rolling 12 month and 30 day tests",
+      "tax_year": "2025-26",
+      "expected_fact_id": "vat-registration-timing-tests",
+      "must_include_any": [
+        "30"
+      ],
+      "official_ref_hint": "vat-registration-timing-tests"
+    },
+    {
+      "id": "ti-125",
+      "query": "VAT Flat Rate Scheme for small business",
+      "tax_year": "2025-26",
+      "expected_fact_id": "vat-flat-rate-scheme",
+      "must_include_any": [
+        "flat rate"
+      ],
+      "official_ref_hint": "vat-flat-rate-scheme"
+    },
+    {
+      "id": "ti-126",
+      "query": "Please explain: VAT Flat Rate Scheme for small business",
+      "tax_year": "2025-26",
+      "expected_fact_id": "vat-flat-rate-scheme",
+      "must_include_any": [
+        "flat rate"
+      ],
+      "official_ref_hint": "vat-flat-rate-scheme"
+    },
+    {
+      "id": "ti-127",
+      "query": "In plain English, vAT Flat Rate Scheme for small business",
+      "tax_year": "2025-26",
+      "expected_fact_id": "vat-flat-rate-scheme",
+      "must_include_any": [
+        "flat rate"
+      ],
+      "official_ref_hint": "vat-flat-rate-scheme"
+    },
+    {
+      "id": "ti-128",
+      "query": "For UK tax, vAT Flat Rate Scheme for small business",
+      "tax_year": "2025-26",
+      "expected_fact_id": "vat-flat-rate-scheme",
+      "must_include_any": [
+        "flat rate"
+      ],
+      "official_ref_hint": "vat-flat-rate-scheme"
+    },
+    {
+      "id": "ti-129",
+      "query": "What VAT schemes does HMRC offer?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "vat-schemes-overview",
+      "must_include_any": [
+        "vat"
+      ],
+      "official_ref_hint": "vat-schemes-overview"
+    },
+    {
+      "id": "ti-130",
+      "query": "Please explain: What VAT schemes does HMRC offer?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "vat-schemes-overview",
+      "must_include_any": [
+        "vat"
+      ],
+      "official_ref_hint": "vat-schemes-overview"
+    },
+    {
+      "id": "ti-131",
+      "query": "In plain English, what VAT schemes does HMRC offer?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "vat-schemes-overview",
+      "must_include_any": [
+        "vat"
+      ],
+      "official_ref_hint": "vat-schemes-overview"
+    },
+    {
+      "id": "ti-132",
+      "query": "For UK tax, what VAT schemes does HMRC offer?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "vat-schemes-overview",
+      "must_include_any": [
+        "vat"
+      ],
+      "official_ref_hint": "vat-schemes-overview"
+    },
+    {
+      "id": "ti-133",
+      "query": "Landlord rental income Self Assessment",
+      "tax_year": "2025-26",
+      "expected_fact_id": "property-income-overview",
+      "must_include_any": [
+        "property"
+      ],
+      "official_ref_hint": "property-income-overview"
+    },
+    {
+      "id": "ti-134",
+      "query": "Please explain: Landlord rental income Self Assessment",
+      "tax_year": "2025-26",
+      "expected_fact_id": "property-income-overview",
+      "must_include_any": [
+        "property"
+      ],
+      "official_ref_hint": "property-income-overview"
+    },
+    {
+      "id": "ti-135",
+      "query": "In plain English, landlord rental income Self Assessment",
+      "tax_year": "2025-26",
+      "expected_fact_id": "property-income-overview",
+      "must_include_any": [
+        "property"
+      ],
+      "official_ref_hint": "property-income-overview"
+    },
+    {
+      "id": "ti-136",
+      "query": "For UK tax, landlord rental income Self Assessment",
+      "tax_year": "2025-26",
+      "expected_fact_id": "property-income-overview",
+      "must_include_any": [
+        "property"
+      ],
+      "official_ref_hint": "property-income-overview"
+    },
+    {
+      "id": "ti-137",
+      "query": "Rent a Room scheme £7500",
+      "tax_year": "2025-26",
+      "expected_fact_id": "rent-a-room",
+      "must_include_any": [
+        "rent a room"
+      ],
+      "official_ref_hint": "rent-a-room"
+    },
+    {
+      "id": "ti-138",
+      "query": "Please explain: Rent a Room scheme £7500",
+      "tax_year": "2025-26",
+      "expected_fact_id": "rent-a-room",
+      "must_include_any": [
+        "rent a room"
+      ],
+      "official_ref_hint": "rent-a-room"
+    },
+    {
+      "id": "ti-139",
+      "query": "In plain English, rent a Room scheme £7500",
+      "tax_year": "2025-26",
+      "expected_fact_id": "rent-a-room",
+      "must_include_any": [
+        "rent a room"
+      ],
+      "official_ref_hint": "rent-a-room"
+    },
+    {
+      "id": "ti-140",
+      "query": "For UK tax, rent a Room scheme £7500",
+      "tax_year": "2025-26",
+      "expected_fact_id": "rent-a-room",
+      "must_include_any": [
+        "rent a room"
+      ],
+      "official_ref_hint": "rent-a-room"
+    },
+    {
+      "id": "ti-141",
+      "query": "Do I pay tax on UK property rent?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "property-income-overview",
+      "must_include_any": [
+        "rent"
+      ],
+      "official_ref_hint": "property-income-overview"
+    },
+    {
+      "id": "ti-142",
+      "query": "Please explain: Do I pay tax on UK property rent?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "property-income-overview",
+      "must_include_any": [
+        "rent"
+      ],
+      "official_ref_hint": "property-income-overview"
+    },
+    {
+      "id": "ti-143",
+      "query": "In plain English, do I pay tax on UK property rent?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "property-income-overview",
+      "must_include_any": [
+        "rent"
+      ],
+      "official_ref_hint": "property-income-overview"
+    },
+    {
+      "id": "ti-144",
+      "query": "For UK tax, do I pay tax on UK property rent?",
+      "tax_year": "2025-26",
+      "expected_fact_id": "property-income-overview",
+      "must_include_any": [
+        "rent"
+      ],
+      "official_ref_hint": "property-income-overview"
+    },
+    {
+      "id": "ti-145",
+      "query": "CIS subcontractor deduction rate",
+      "tax_year": "2025-26",
+      "expected_fact_id": "cis-overview",
+      "must_include_any": [
+        "cis"
+      ],
+      "official_ref_hint": "cis-overview"
+    },
+    {
+      "id": "ti-146",
+      "query": "Please explain: CIS subcontractor deduction rate",
+      "tax_year": "2025-26",
+      "expected_fact_id": "cis-overview",
+      "must_include_any": [
+        "cis"
+      ],
+      "official_ref_hint": "cis-overview"
+    },
+    {
+      "id": "ti-147",
+      "query": "In plain English, cIS subcontractor deduction rate",
+      "tax_year": "2025-26",
+      "expected_fact_id": "cis-overview",
+      "must_include_any": [
+        "cis"
+      ],
+      "official_ref_hint": "cis-overview"
+    },
+    {
+      "id": "ti-148",
+      "query": "For UK tax, cIS subcontractor deduction rate",
+      "tax_year": "2025-26",
+      "expected_fact_id": "cis-overview",
+      "must_include_any": [
+        "cis"
+      ],
+      "official_ref_hint": "cis-overview"
+    },
+    {
+      "id": "ti-149",
+      "query": "Construction Industry Scheme Self Assessment",
+      "tax_year": "2025-26",
+      "expected_fact_id": "cis-overview",
+      "must_include_any": [
+        "cis"
+      ],
+      "official_ref_hint": "cis-overview"
+    },
+    {
+      "id": "ti-150",
+      "query": "Please explain: Construction Industry Scheme Self Assessment",
+      "tax_year": "2025-26",
+      "expected_fact_id": "cis-overview",
+      "must_include_any": [
+        "cis"
+      ],
+      "official_ref_hint": "cis-overview"
+    }
+  ]
+}
