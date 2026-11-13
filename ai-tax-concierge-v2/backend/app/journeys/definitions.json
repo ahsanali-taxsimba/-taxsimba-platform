@@ -1,133 +1,113 @@
 {
   "journeys": [
     {
-      "id": "self_assessment",
-      "title": "Self Assessment",
-      "description": "Find out if you need to file and what to prepare.",
+      "id": "first_time",
+      "title": "First-time Self Assessment filers",
+      "description": "A calm starting point if Self Assessment is new to you.",
       "steps": [
         {
-          "id": "sa_situation",
-          "prompt": "Which best describes you this tax year?",
+          "id": "ft_why",
+          "prompt": "What brought you here today?",
           "options": [
-            {"id": "employed_extra", "label": "Employed with extra income", "next": "sa_extra_type"},
-            {"id": "self_employed", "label": "Self-employed / sole trader", "next": "sa_register"},
-            {"id": "both", "label": "Both employment and self-employment", "next": "sa_register"},
-            {"id": "unsure", "label": "Not sure", "next": "sa_unsure"}
+            {"id": "letter", "label": "HMRC letter or notice to file", "next": "ft_confidence", "tags": ["first_time", "sa"]},
+            {"id": "new_work", "label": "New self-employment or side income", "next": "ft_confidence", "tags": ["first_time", "sa"]},
+            {"id": "curious", "label": "I want to understand the basics", "next": "ft_confidence", "tags": ["first_time"]},
+            {"id": "deadline", "label": "I am worried about a deadline", "next": "ft_confidence", "tags": ["first_time", "sa"]}
           ]
         },
         {
-          "id": "sa_extra_type",
-          "prompt": "What extra income do you have?",
+          "id": "ft_confidence",
+          "prompt": "How familiar are you with Self Assessment?",
           "options": [
-            {"id": "property", "label": "Property / rental", "next": "sa_wrap", "tags": ["landlord", "sa"]},
-            {"id": "side", "label": "Side hustle / freelance", "next": "sa_wrap", "tags": ["freelancer", "sa"]},
-            {"id": "investments", "label": "Investments / other", "next": "sa_wrap", "tags": ["sa"]},
-            {"id": "hmrc_letter", "label": "HMRC asked me to file", "next": "sa_wrap", "tags": ["sa"]}
+            {"id": "none", "label": "Complete beginner", "next": "ft_wrap", "tags": ["first_time"]},
+            {"id": "some", "label": "I know a little", "next": "ft_wrap", "tags": ["first_time"]},
+            {"id": "help", "label": "I want step-by-step guidance", "next": "ft_wrap", "tags": ["first_time", "sa"]}
           ]
         },
         {
-          "id": "sa_register",
-          "prompt": "Are you already registered for Self Assessment?",
-          "options": [
-            {"id": "yes", "label": "Yes", "next": "sa_wrap", "tags": ["sa"]},
-            {"id": "no", "label": "No / not sure", "next": "sa_wrap", "tags": ["sa", "register"]}
-          ]
-        },
-        {
-          "id": "sa_unsure",
-          "prompt": "Did HMRC send you a notice to file, or do you have untaxed income?",
-          "options": [
-            {"id": "notice", "label": "Yes — notice or untaxed income", "next": "sa_wrap", "tags": ["sa"]},
-            {"id": "maybe", "label": "Possibly", "next": "sa_wrap", "tags": ["sa"]},
-            {"id": "no", "label": "No", "next": "sa_wrap", "tags": ["general"]}
-          ]
-        },
-        {
-          "id": "sa_wrap",
+          "id": "ft_wrap",
           "prompt": null,
-          "summary_template": "Based on your answers, Self Assessment may be relevant. I can explain deadlines, registration, or TaxSimba SA package prices — without pressure to buy.",
-          "suggest_packages": ["SA_SIMPLE", "SA_SMART", "SA_ELITE"],
+          "summary_template": "Starting with Self Assessment can feel overwhelming. We can take it one step at a time: whether you need to register, key deadlines on GOV.UK, and what records to keep. I can explain TaxSimba Self Assessment package prices if you want — no pressure to buy.",
+          "suggest_packages": ["SA_SIMPLE", "SA_SMART"],
           "suggest_calculators": ["sa_deadline_checker"],
           "follow_ups": [
-            "When is the online filing deadline?",
-            "How do I register for Self Assessment?",
+            "Do I need to send a Self Assessment tax return?",
+            "When is the Self Assessment deadline?",
+            "How do I register for Self Assessment?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "self_employed",
+      "title": "Self-employed individuals",
+      "description": "Self Assessment, records, and support options for self-employed income.",
+      "steps": [
+        {
+          "id": "se_income",
+          "prompt": "Is self-employment your main income or alongside employment?",
+          "options": [
+            {"id": "main", "label": "Main income", "next": "se_register", "tags": ["self_employed", "sa"]},
+            {"id": "side", "label": "Side income with a job", "next": "se_register", "tags": ["self_employed", "sa"]},
+            {"id": "unsure", "label": "Not sure yet", "next": "se_register", "tags": ["self_employed"]}
+          ]
+        },
+        {
+          "id": "se_register",
+          "prompt": "Are you registered for Self Assessment with HMRC?",
+          "options": [
+            {"id": "yes", "label": "Yes", "next": "se_wrap", "tags": ["self_employed", "sa"]},
+            {"id": "no", "label": "No", "next": "se_wrap", "tags": ["self_employed", "sa", "register"]},
+            {"id": "unsure", "label": "Not sure", "next": "se_wrap", "tags": ["self_employed", "sa"]}
+          ]
+        },
+        {
+          "id": "se_wrap",
+          "prompt": null,
+          "summary_template": "Self-employed income is usually reported through Self Assessment. Keep business records, note registration and filing deadlines on GOV.UK, and consider National Insurance. I can outline deadlines or TaxSimba SA package prices if helpful.",
+          "suggest_packages": ["SA_SIMPLE", "SA_SMART", "SA_ELITE"],
+          "suggest_calculators": ["income_tax_estimator", "sa_deadline_checker"],
+          "follow_ups": [
+            "When do self-employed people need to register for Self Assessment?",
+            "What records should self-employed people keep?",
             "What do TaxSimba Self Assessment packages cost?"
           ]
         }
       ]
     },
     {
-      "id": "mtd",
-      "title": "Making Tax Digital",
-      "description": "Understand MTD for Income Tax at a high level.",
+      "id": "sole_trader",
+      "title": "Sole traders",
+      "description": "Tax basics for UK sole traders running their own business.",
       "steps": [
         {
-          "id": "mtd_role",
-          "prompt": "Are you mainly self-employed, a landlord, or both?",
+          "id": "st_stage",
+          "prompt": "Where are you with your sole trade?",
           "options": [
-            {"id": "self_employed", "label": "Self-employed", "next": "mtd_records", "tags": ["mtd"]},
-            {"id": "landlord", "label": "Landlord", "next": "mtd_records", "tags": ["mtd", "landlord"]},
-            {"id": "both", "label": "Both", "next": "mtd_records", "tags": ["mtd"]},
-            {"id": "unsure", "label": "Not sure yet", "next": "mtd_wrap", "tags": ["mtd"]}
+            {"id": "starting", "label": "Just starting", "next": "st_records", "tags": ["sole_trader", "register"]},
+            {"id": "active", "label": "Already trading", "next": "st_records", "tags": ["sole_trader", "sa"]},
+            {"id": "winding", "label": "Stopping or pausing the business", "next": "st_records", "tags": ["sole_trader", "sa"]}
           ]
         },
         {
-          "id": "mtd_records",
-          "prompt": "Do you already keep digital records (software or spreadsheets suited to MTD)?",
+          "id": "st_records",
+          "prompt": "Do you keep income and expense records for your sole trade?",
           "options": [
-            {"id": "yes", "label": "Yes", "next": "mtd_wrap", "tags": ["mtd"]},
-            {"id": "no", "label": "No", "next": "mtd_wrap", "tags": ["mtd"]},
-            {"id": "unsure", "label": "Not sure", "next": "mtd_wrap", "tags": ["mtd"]}
+            {"id": "yes", "label": "Yes — organised records", "next": "st_wrap", "tags": ["sole_trader"]},
+            {"id": "partial", "label": "Some records, not complete", "next": "st_wrap", "tags": ["sole_trader"]},
+            {"id": "no", "label": "Not really yet", "next": "st_wrap", "tags": ["sole_trader"]}
           ]
         },
         {
-          "id": "mtd_wrap",
+          "id": "st_wrap",
           "prompt": null,
-          "summary_template": "MTD for Income Tax involves digital records and quarterly updates for eligible people. Exact start dates and thresholds depend on HMRC rules for your situation — always check GOV.UK. I can share TaxSimba MTD plan prices if helpful.",
-          "suggest_packages": ["MTD_STARTER", "MTD_GROWTH", "MTD_COMPLETE"],
-          "suggest_calculators": ["mtd_readiness"],
+          "summary_template": "Sole traders typically report profits through Self Assessment and may need to register with HMRC. Good records make filing easier; MTD for Income Tax may apply later depending on HMRC rules. I can explain SA basics or share TaxSimba package prices without pushing a purchase.",
+          "suggest_packages": ["SA_SIMPLE", "SA_SMART"],
+          "suggest_calculators": ["income_tax_estimator", "mtd_readiness"],
           "follow_ups": [
-            "What is Making Tax Digital for Income Tax?",
-            "What do TaxSimba MTD plans cost?",
-            "How does MTD relate to Self Assessment?"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "landlord",
-      "title": "Landlords",
-      "description": "Property income tax basics for UK landlords.",
-      "steps": [
-        {
-          "id": "ll_type",
-          "prompt": "What kind of property income do you have?",
-          "options": [
-            {"id": "uk_rent", "label": "UK residential rental", "next": "ll_sa", "tags": ["landlord"]},
-            {"id": "multiple", "label": "More than one property", "next": "ll_sa", "tags": ["landlord"]},
-            {"id": "room", "label": "Rent a Room / lodging", "next": "ll_sa", "tags": ["landlord"]},
-            {"id": "unsure", "label": "Not sure how to classify it", "next": "ll_sa", "tags": ["landlord"]}
-          ]
-        },
-        {
-          "id": "ll_sa",
-          "prompt": "Do you already file Self Assessment for your property income?",
-          "options": [
-            {"id": "yes", "label": "Yes", "next": "ll_wrap", "tags": ["landlord", "sa"]},
-            {"id": "no", "label": "No", "next": "ll_wrap", "tags": ["landlord", "sa", "register"]},
-            {"id": "unsure", "label": "Not sure", "next": "ll_wrap", "tags": ["landlord", "sa"]}
-          ]
-        },
-        {
-          "id": "ll_wrap",
-          "prompt": null,
-          "summary_template": "UK property income is often reported through Self Assessment. Keep records of rent and allowable costs. MTD may also become relevant depending on HMRC rules. I can explain SA basics or share package prices if you want.",
-          "suggest_packages": ["SA_SMART", "SA_ELITE", "MTD_GROWTH"],
-          "suggest_calculators": ["property_income_helper", "mtd_readiness"],
-          "follow_ups": [
-            "Do landlords need to file Self Assessment?",
-            "What is Making Tax Digital for landlords?",
-            "Can I speak to an accountant for £99?"
+            "Do sole traders need to register for Self Assessment?",
+            "What is Making Tax Digital for sole traders?",
+            "What does TaxSimba Self Assessment Simple cost?"
           ]
         }
       ]
@@ -170,6 +150,44 @@
       ]
     },
     {
+      "id": "landlord",
+      "title": "Landlords",
+      "description": "Property income tax basics for UK landlords.",
+      "steps": [
+        {
+          "id": "ll_type",
+          "prompt": "What kind of property income do you have?",
+          "options": [
+            {"id": "uk_rent", "label": "UK residential rental", "next": "ll_sa", "tags": ["landlord"]},
+            {"id": "multiple", "label": "More than one property", "next": "ll_sa", "tags": ["landlord"]},
+            {"id": "room", "label": "Rent a Room or lodging", "next": "ll_sa", "tags": ["landlord"]},
+            {"id": "unsure", "label": "Not sure how to classify it", "next": "ll_sa", "tags": ["landlord"]}
+          ]
+        },
+        {
+          "id": "ll_sa",
+          "prompt": "Do you already file Self Assessment for your property income?",
+          "options": [
+            {"id": "yes", "label": "Yes", "next": "ll_wrap", "tags": ["landlord", "sa"]},
+            {"id": "no", "label": "No", "next": "ll_wrap", "tags": ["landlord", "sa", "register"]},
+            {"id": "unsure", "label": "Not sure", "next": "ll_wrap", "tags": ["landlord", "sa"]}
+          ]
+        },
+        {
+          "id": "ll_wrap",
+          "prompt": null,
+          "summary_template": "UK property income is often reported through Self Assessment. Keep records of rent and allowable costs. MTD may also become relevant depending on HMRC rules. I can explain SA basics or share package prices if you want.",
+          "suggest_packages": ["SA_SMART", "SA_ELITE", "MTD_GROWTH"],
+          "suggest_calculators": ["property_income_helper", "mtd_readiness"],
+          "follow_ups": [
+            "Do landlords need to file Self Assessment?",
+            "What is Making Tax Digital for landlords?",
+            "What records should landlords keep?"
+          ]
+        }
+      ]
+    },
+    {
       "id": "cis",
       "title": "CIS workers",
       "description": "Construction Industry Scheme tax pointers.",
@@ -201,45 +219,235 @@
           "follow_ups": [
             "Do CIS subcontractors need Self Assessment?",
             "What records should CIS workers keep?",
-            "Can I book a £99 accountant consultation?"
+            "How do CIS refunds work?"
           ]
         }
       ]
     },
     {
-      "id": "first_time",
-      "title": "First-time taxpayers",
-      "description": "A calm starting point if Self Assessment is new.",
+      "id": "mtd",
+      "title": "MTD enquiries",
+      "description": "Understand Making Tax Digital for Income Tax at a high level.",
       "steps": [
         {
-          "id": "ft_why",
-          "prompt": "What brought you here today?",
+          "id": "mtd_role",
+          "prompt": "Are you mainly self-employed, a landlord, or both?",
           "options": [
-            {"id": "letter", "label": "HMRC letter / notice", "next": "ft_confidence", "tags": ["first_time", "sa"]},
-            {"id": "new_work", "label": "New self-employment or side income", "next": "ft_confidence", "tags": ["first_time", "sa"]},
-            {"id": "curious", "label": "I want to understand the basics", "next": "ft_confidence", "tags": ["first_time"]},
-            {"id": "deadline", "label": "I'm worried about a deadline", "next": "ft_confidence", "tags": ["first_time", "sa"]}
+            {"id": "self_employed", "label": "Self-employed", "next": "mtd_records", "tags": ["mtd"]},
+            {"id": "landlord", "label": "Landlord", "next": "mtd_records", "tags": ["mtd", "landlord"]},
+            {"id": "both", "label": "Both", "next": "mtd_records", "tags": ["mtd"]},
+            {"id": "unsure", "label": "Not sure yet", "next": "mtd_wrap", "tags": ["mtd"]}
           ]
         },
         {
-          "id": "ft_confidence",
-          "prompt": "How familiar are you with Self Assessment?",
+          "id": "mtd_records",
+          "prompt": "Do you already keep digital records suited to MTD?",
           "options": [
-            {"id": "none", "label": "Complete beginner", "next": "ft_wrap", "tags": ["first_time"]},
-            {"id": "some", "label": "I know a little", "next": "ft_wrap", "tags": ["first_time"]},
-            {"id": "help", "label": "I want an accountant to guide me", "next": "ft_wrap", "tags": ["first_time", "consult"]}
+            {"id": "yes", "label": "Yes", "next": "mtd_wrap", "tags": ["mtd"]},
+            {"id": "no", "label": "No", "next": "mtd_wrap", "tags": ["mtd"]},
+            {"id": "unsure", "label": "Not sure", "next": "mtd_wrap", "tags": ["mtd"]}
           ]
         },
         {
-          "id": "ft_wrap",
+          "id": "mtd_wrap",
           "prompt": null,
-          "summary_template": "Starting with Self Assessment can feel overwhelming. We can take it one step at a time: whether you need to register, key deadlines, and what support options exist — including a £99 consultation if you want a human.",
-          "suggest_packages": ["SA_SIMPLE", "ACCOUNTANT_CONSULT_99"],
+          "summary_template": "MTD for Income Tax involves digital records and quarterly updates for eligible people. Exact start dates and thresholds depend on HMRC rules for your situation — always check GOV.UK. I can share TaxSimba MTD plan prices if helpful.",
+          "suggest_packages": ["MTD_STARTER", "MTD_GROWTH", "MTD_COMPLETE"],
+          "suggest_calculators": ["mtd_readiness"],
+          "follow_ups": [
+            "What is Making Tax Digital for Income Tax?",
+            "What do TaxSimba MTD plans cost?",
+            "How does MTD relate to Self Assessment?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "multiple_income",
+      "title": "People with multiple income sources",
+      "description": "When employment, self-employment, property, or other income overlap.",
+      "steps": [
+        {
+          "id": "mi_mix",
+          "prompt": "Which income types do you have this tax year?",
+          "options": [
+            {"id": "job_plus_self", "label": "Employment plus self-employment", "next": "mi_file", "tags": ["multiple_income", "sa"]},
+            {"id": "job_plus_property", "label": "Employment plus property rent", "next": "mi_file", "tags": ["multiple_income", "sa", "landlord"]},
+            {"id": "several", "label": "Several types (self-employed, rent, investments, etc.)", "next": "mi_file", "tags": ["multiple_income", "sa"]},
+            {"id": "unsure", "label": "Not sure what counts", "next": "mi_file", "tags": ["multiple_income"]}
+          ]
+        },
+        {
+          "id": "mi_file",
+          "prompt": "Do you already file a Self Assessment return?",
+          "options": [
+            {"id": "yes", "label": "Yes", "next": "mi_wrap", "tags": ["multiple_income", "sa"]},
+            {"id": "no", "label": "No", "next": "mi_wrap", "tags": ["multiple_income", "sa", "register"]},
+            {"id": "unsure", "label": "Not sure if I need to", "next": "mi_wrap", "tags": ["multiple_income", "sa"]}
+          ]
+        },
+        {
+          "id": "mi_wrap",
+          "prompt": null,
+          "summary_template": "Multiple income streams often mean Self Assessment is needed even if PAYE covers your job. Keep separate records per income type and check GOV.UK for what must be reported. I can explain how returns fit together or share TaxSimba SA and MTD prices if you want.",
+          "suggest_packages": ["SA_SMART", "SA_ELITE", "MTD_GROWTH"],
+          "suggest_calculators": ["income_tax_estimator", "sa_deadline_checker"],
+          "follow_ups": [
+            "Do I need Self Assessment if I am employed and have side income?",
+            "How do I report rental income with a salary?",
+            "What do TaxSimba Self Assessment packages cost?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "missed_deadline",
+      "title": "People who missed deadlines",
+      "description": "Calm next steps if a filing or payment deadline has passed.",
+      "steps": [
+        {
+          "id": "md_type",
+          "prompt": "What deadline are you worried about?",
+          "options": [
+            {"id": "sa_file", "label": "Self Assessment filing deadline", "next": "md_status", "tags": ["missed_deadline", "sa"]},
+            {"id": "sa_pay", "label": "Self Assessment payment deadline", "next": "md_status", "tags": ["missed_deadline", "sa"]},
+            {"id": "mtd", "label": "MTD quarterly update", "next": "md_status", "tags": ["missed_deadline", "mtd"]},
+            {"id": "unsure", "label": "Not sure which one", "next": "md_status", "tags": ["missed_deadline"]}
+          ]
+        },
+        {
+          "id": "md_status",
+          "prompt": "Have you already filed or paid for this tax year, or not yet?",
+          "options": [
+            {"id": "not_filed", "label": "Not filed yet", "next": "md_wrap", "tags": ["missed_deadline", "sa"]},
+            {"id": "filed_late", "label": "Filed but late", "next": "md_wrap", "tags": ["missed_deadline", "sa"]},
+            {"id": "hmrc_contact", "label": "HMRC has contacted me", "next": "md_wrap", "tags": ["missed_deadline", "sa"]}
+          ]
+        },
+        {
+          "id": "md_wrap",
+          "prompt": null,
+          "summary_template": "Missing a deadline can be stressful, but filing late is usually better than not filing. Penalties and interest depend on HMRC rules and your facts — check GOV.UK for official guidance. I can explain typical next steps and TaxSimba support options without guaranteeing outcomes.",
+          "suggest_packages": ["SA_SMART", "SA_ELITE", "ACCOUNTANT_CONSULT_99"],
           "suggest_calculators": ["sa_deadline_checker"],
           "follow_ups": [
-            "Do I need to send a Self Assessment tax return?",
-            "When is the Self Assessment deadline?",
+            "What happens if I file Self Assessment late?",
+            "How do HMRC late filing penalties work?",
+            "Can an accountant help after a missed deadline?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unsure_service",
+      "title": "Visitors unsure which service they need",
+      "description": "A short path to point you toward the right kind of help.",
+      "steps": [
+        {
+          "id": "us_need",
+          "prompt": "What are you mainly trying to do?",
+          "options": [
+            {"id": "file_sa", "label": "File or understand Self Assessment", "next": "us_depth", "tags": ["unsure_service", "sa"]},
+            {"id": "mtd_help", "label": "Understand or prepare for MTD", "next": "us_depth", "tags": ["unsure_service", "mtd"]},
+            {"id": "talk_human", "label": "Talk to an accountant", "next": "us_depth", "tags": ["unsure_service", "consult"]},
+            {"id": "existing", "label": "I already use TaxSimba", "next": "us_depth", "tags": ["unsure_service", "existing_client"]}
+          ]
+        },
+        {
+          "id": "us_depth",
+          "prompt": "How hands-on do you want to be?",
+          "options": [
+            {"id": "diy", "label": "Guidance so I can do most of it myself", "next": "us_wrap", "tags": ["unsure_service"]},
+            {"id": "done_for_me", "label": "Someone to handle the return or MTD", "next": "us_wrap", "tags": ["unsure_service"]},
+            {"id": "explore", "label": "Just exploring options for now", "next": "us_wrap", "tags": ["unsure_service"]}
+          ]
+        },
+        {
+          "id": "us_wrap",
+          "prompt": null,
+          "summary_template": "Based on your goals, Self Assessment packages, MTD plans, or a one-off accountant call may fit — or your TaxSimba dashboard may already be the right place. I can compare package prices and suggest a more specific guided journey if you want to continue.",
+          "suggest_packages": ["SA_SIMPLE", "SA_SMART", "MTD_STARTER", "ACCOUNTANT_CONSULT_99"],
+          "suggest_calculators": ["sa_deadline_checker", "mtd_readiness"],
+          "follow_ups": [
+            "What is the difference between SA Simple and SA Smart?",
+            "What do TaxSimba MTD plans cost?",
             "How does the £99 accountant consultation work?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "existing_client",
+      "title": "Existing TaxSimba customers",
+      "description": "Get to the right place in your TaxSimba account for support.",
+      "steps": [
+        {
+          "id": "ec_topic",
+          "prompt": "What do you need help with today?",
+          "options": [
+            {"id": "message", "label": "Message my assigned accountant", "next": "ec_urgency", "tags": ["existing_client"]},
+            {"id": "return_status", "label": "Status of my tax return or MTD", "next": "ec_urgency", "tags": ["existing_client"]},
+            {"id": "documents", "label": "Upload or find documents", "next": "ec_urgency", "tags": ["existing_client"]},
+            {"id": "billing", "label": "Billing or package question", "next": "ec_urgency", "tags": ["existing_client"]}
+          ]
+        },
+        {
+          "id": "ec_urgency",
+          "prompt": "Is this urgent (deadline or HMRC letter within days)?",
+          "options": [
+            {"id": "urgent", "label": "Yes — time-sensitive", "next": "ec_wrap", "tags": ["existing_client"]},
+            {"id": "routine", "label": "No — routine question", "next": "ec_wrap", "tags": ["existing_client"]},
+            {"id": "unsure", "label": "Not sure", "next": "ec_wrap", "tags": ["existing_client"]}
+          ]
+        },
+        {
+          "id": "ec_wrap",
+          "prompt": null,
+          "summary_template": "The fastest route is usually your TaxSimba dashboard: sign in and use secure messaging to reach your assigned accountant. They can see your account context and reply there. I am not pushing a new paid consultation — your existing relationship is the right channel.",
+          "suggest_packages": [],
+          "suggest_calculators": ["sa_deadline_checker"],
+          "follow_ups": [
+            "How do I send a secure message to my accountant in the dashboard?",
+            "Where do I check my return status?",
+            "How do I upload documents to TaxSimba?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "consultation",
+      "title": "Accountant consultation (£99)",
+      "description": "Thirty-minute Google Meet with a TaxSimba accountant — booking is a Phase 2 stub.",
+      "steps": [
+        {
+          "id": "co_topic",
+          "prompt": "What would you like the consultation to focus on?",
+          "options": [
+            {"id": "sa", "label": "Self Assessment", "next": "co_timing", "tags": ["consult"]},
+            {"id": "mtd", "label": "Making Tax Digital", "next": "co_timing", "tags": ["consult", "mtd"]},
+            {"id": "cis_landlord", "label": "CIS or property income", "next": "co_timing", "tags": ["consult"]},
+            {"id": "general", "label": "General tax question", "next": "co_timing", "tags": ["consult"]}
+          ]
+        },
+        {
+          "id": "co_timing",
+          "prompt": "When are you hoping to speak to someone?",
+          "options": [
+            {"id": "soon", "label": "This week if possible", "next": "co_wrap", "tags": ["consult"]},
+            {"id": "flex", "label": "Flexible over the next few weeks", "next": "co_wrap", "tags": ["consult"]},
+            {"id": "planning", "label": "Planning ahead — no rush", "next": "co_wrap", "tags": ["consult"]}
+          ]
+        },
+        {
+          "id": "co_wrap",
+          "prompt": null,
+          "summary_template": "The TaxSimba Accountant consultation is £99 for about 30 minutes by Google Meet. In this Phase 2 build, booking_status is stub — checkout and live scheduling are not wired yet; I can still explain what is included and list the consultation package.",
+          "suggest_packages": ["ACCOUNTANT_CONSULT_99"],
+          "suggest_calculators": [],
+          "follow_ups": [
+            "What is included in the £99 accountant consultation?",
+            "How long is the consultation and how is it delivered?",
+            "When will online booking be available?"
           ]
         }
       ]
