@@ -3,14 +3,18 @@ from app.journeys.engine import advance_journey, list_journeys, start_journey
 
 def test_list_journeys_covers_required_personas():
     ids = {j["id"] for j in list_journeys()}
-    assert ids == {
-        "self_assessment",
-        "mtd",
-        "landlord",
-        "freelancer",
-        "cis",
+    assert len(ids) == 12
+    for required in (
         "first_time",
-    }
+        "freelancer",
+        "landlord",
+        "cis",
+        "mtd",
+        "consultation",
+        "existing_client",
+        "missed_deadline",
+    ):
+        assert required in ids
 
 
 def test_journey_asks_one_question_at_a_time():

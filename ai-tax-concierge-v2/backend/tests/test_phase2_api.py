@@ -2,19 +2,22 @@ def test_bootstrap(client):
     res = client.get("/api/v1/bootstrap")
     assert res.status_code == 200
     body = res.json()
-    assert body["phase"] == 2
+    assert body["phase"] == 3
+    assert body["product"] == "SIMBA AI"
     assert body["llm_mode"] == "mock"
     assert len(body["starters"]) >= 5
-    assert len(body["journeys"]) == 6
+    assert len(body["journeys"]) == 12
     assert body["packages"]["self_assessment"][0]["price_gbp"] == 119
     assert body["integrations"]["payment"] == "mock_unavailable"
     assert "api_key" not in str(body).lower()
+    assert body["brand"]["primary"].upper() == "#0B3D2E"
 
 
 def test_health_phase2(client):
     res = client.get("/api/v1/health")
     assert res.status_code == 200
-    assert res.json()["phase"] == 2
+    assert res.json()["phase"] == 3
+    assert res.json()["product"] == "SIMBA AI"
 
 
 def test_chat_returns_sources_and_follow_ups(client):
@@ -91,7 +94,7 @@ def test_widget_allows_embedding(client):
 
 def test_root_points_to_preview(client):
     res = client.get("/")
-    assert res.json()["phase"] == 2
+    assert res.json()["phase"] == "master-completion"
     assert "/widget/preview.html" in res.json()["preview"]
 
 
