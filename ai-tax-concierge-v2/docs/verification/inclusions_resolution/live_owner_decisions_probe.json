@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T20:49:58.530Z",
+  "generated_at": "2026-11-13T23:12:35.113Z",
   "passed": 11,
   "total": 11,
   "results": [
@@ -43,7 +43,7 @@
       "pass": true,
       "expectOk": true,
       "rejectHit": null,
-      "reply_excerpt": "Unfortunately, TaxSimba does not offer telephone onboarding support. Instead, assistance is provided through approved email and client-dashboard messaging channels. If you have any questions about the packages or need help with onboarding, feel free to ask here!"
+      "reply_excerpt": "Unfortunately, TaxSimba does not offer telephone onboarding support. Assistance is provided through approved email and client-dashboard messaging channels. If you have any questions about the packages or need help with anything specific, feel free to ask!"
     },
     {
       "id": "no_priority_qbr_planning",
@@ -64,21 +64,21 @@
       "pass": true,
       "expectOk": true,
       "rejectHit": null,
-      "reply_excerpt": "As a first-time sole trader with simple income, the **Self Assessment Simple** package at **£119 per tax year** would likely be the most suitable option for you. This package is designed for individuals with straightforward tax situations, making it a cost-effective choice for your needs.\n\nIf you have any specific questions about what the package includes or about the Self Assessment process, feel free to ask! You can also find more details on our [Self Assessment page](https://www.taxsimba.co.u"
+      "reply_excerpt": "As a first-time sole trader with simple income, the **Self Assessment Simple** package at **£119 per tax year** would likely be the most suitable option for you. This package is designed for individuals with straightforward tax situations, making it a good fit for your needs.\n\nThis package will help you with your Self Assessment tax return, which you need to submit annually if you're self-employed. \n\nIf you have any questions about the registration process or need further assistance, feel free t"
     },
     {
       "id": "landlord_mtd_comply",
       "pass": true,
       "expectOk": true,
       "rejectHit": null,
-      "reply_excerpt": "As a landlord needing to comply with Making Tax Digital (MTD), the lowest suitable Simbian plan is **Simbian Comply**, which costs **£29.99 per month (VAT included)**. This plan includes the necessary digital bookkeeping and quarterly updates required under MTD.\n\nJust to clarify, you will need to use MTD if your qualifying income from property exceeds £30,000 in the 2025-26 tax year, starting from **6 April 2027**. \n\nIf you have any further questions or need assistance with the registration proc"
+      "reply_excerpt": "As a landlord needing Making Tax Digital (MTD), the lowest suitable Simbian plan is **Simbian Comply**, which costs **£29.99 per month (VAT included)**. This plan includes the necessary tools for MTD compliance, such as quarterly updates and year-end Self Assessment preparation, all while ensuring you keep your digital records in order.\n\nSince MTD for Income Tax applies to landlords with qualifying income over £30,000 in the 2025-26 tax year, you would need to start using MTD from **6 April 2027"
     },
     {
       "id": "signup_links",
       "pass": true,
       "expectOk": true,
       "rejectHit": null,
-      "reply_excerpt": "You can sign up for Self Assessment or Making Tax Digital (MTD) packages on the TaxSimba website. Here are the links for each:\n\n- For Self Assessment packages, visit: [Self Assessment Packages](https://www.taxsimba.co.uk/self-assessment)\n- For MTD packages, check out: [Making Tax Digital Packages](https://www.taxsimba.co.uk/making-tax-digital)\n\nIf you have any specific questions about the packages or need help deciding which one is right for you, feel free to ask!"
+      "reply_excerpt": "You can sign up for Self Assessment or Making Tax Digital (MTD) packages on the TaxSimba website. Here are the links for each:\n\n- For Self Assessment packages, visit: [Self Assessment](https://www.taxsimba.co.uk/self-assessment)\n- For Making Tax Digital packages, check out: [Making Tax Digital](https://www.taxsimba.co.uk/making-tax-digital)\n- To register, you can go to: [Register](https://www.taxsimba.co.uk/register)\n\nIf you have any specific questions about the packages or need help deciding wh"
     }
   ]
 }

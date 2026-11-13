@@ -1,0 +1,100 @@
+{
+  "govuk_spotchecks": {
+    "mtd_when": {
+      "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "status": "ok",
+      "len": 95700,
+      "findings": {
+        "6 April 2026": true,
+        "6 April 2027": true,
+        "6 April 2028": true,
+        "\u00a350,000": true,
+        "\u00a330,000": true,
+        "\u00a320,000": true,
+        "\u00a390,000": false,
+        "\u00a385,000": false,
+        "31 January": false,
+        "\u00a312,570": false,
+        "12,570": false
+      }
+    },
+    "vat": {
+      "url": "https://www.gov.uk/vat-registration-thresholds",
+      "status": "ok",
+      "len": 87357,
+      "findings": {
+        "6 April 2026": false,
+        "6 April 2027": false,
+        "6 April 2028": false,
+        "\u00a350,000": false,
+        "\u00a330,000": false,
+        "\u00a320,000": false,
+        "\u00a390,000": true,
+        "\u00a385,000": false,
+        "31 January": false,
+        "\u00a312,570": false,
+        "12,570": false
+      }
+    },
+    "sa_deadlines": {
+      "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "status": "ok",
+      "len": 86272,
+      "findings": {
+        "6 April 2026": true,
+        "6 April 2027": false,
+        "6 April 2028": false,
+        "\u00a350,000": false,
+        "\u00a330,000": false,
+        "\u00a320,000": false,
+        "\u00a390,000": false,
+        "\u00a385,000": false,
+        "31 January": true,
+        "\u00a312,570": false,
+        "12,570": false
+      }
+    },
+    "personal_allowance": {
+      "url": "https://www.gov.uk/income-tax-rates",
+      "status": "ok",
+      "len": 87854,
+      "findings": {
+        "6 April 2026": true,
+        "6 April 2027": false,
+        "6 April 2028": false,
+        "\u00a350,000": false,
+        "\u00a330,000": false,
+        "\u00a320,000": false,
+        "\u00a390,000": false,
+        "\u00a385,000": false,
+        "31 January": false,
+        "\u00a312,570": true,
+        "12,570": true
+      }
+    }
+  },
+  "corpus_mtd_ids": [
+    "mtd-who-and-when",
+    "mtd-threshold-50k-april-2026",
+    "mtd-threshold-30k-april-2027",
+    "mtd-threshold-20k-april-2028",
+    "mtd-qualifying-income-definition",
+    "mtd-digital-records-quarterly"
+  ],
+  "corpus_vat_related": [
+    {
+      "id": "vat-threshold-overview",
+      "title": "VAT registration threshold",
+      "summary": "You must register for VAT if either (1) your total taxable turnover for the last 12 months goes over \u00a390,000 (the rolling / backward look, checked at month-end), or (2) you expect your taxable turnover to go over \u00a390,000"
+    },
+    {
+      "id": "vat-registration-timing-tests",
+      "title": "VAT registration timing \u2014 rolling 12 months and 30-day forward look",
+      "summary": "Rolling 12-month (backward) test: if at the end of any month your taxable supplies in the previous 12 months (or less) exceed \u00a390,000, you must notify HMRC within 30 days of that month-end. Effective date of registration"
+    }
+  ],
+  "dynamic_hmrc_updates_implemented": false,
+  "automatic_package_runtime_sync_implemented": false,
+  "package_alignment_method": "curated packages.json reconciled to live subscription-plans API",
+  "hmrc_update_method": "versioned curated corpus JSON + retrieval/grounding guards; not live HMRC crawl"
+}

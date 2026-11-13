@@ -2,10 +2,12 @@
 
 **Date:** 2026-11-13 (Europe/London)  
 **Branch / PR:** `cursor/ai-tax-concierge-v2-phase1-0f84` / #35  
-**Isolation:** `ai-tax-concierge-v2/` only — portal / taxotools / Marketing Hub / website untouched  
-**Harness:** `backend/scripts/live_openai_verification.py`  
-**Machine report:** `docs/verification/live_openai_report_latest.json` (status `COMPLETED`)  
-**Also saved as:** `docs/verification/live_openai_report_20261113T052107Z.json`
+**Isolation:** primary product under `ai-tax-concierge-v2/`; portal catalogue sync only in `backend/phase1b.py` — frontend / taxotools / Marketing Hub / live HTML untouched  
+**Harness (Node, current):** `backend-node/scripts/liveOpenAIVerification.ts` (`npm run live:openai`)  
+**Harness (Python reference):** `backend/scripts/live_openai_verification.py`  
+**Latest machine report:** `docs/verification/live_openai_report_latest.json` (= `live_openai_report_20261113T230918Z.json`, status `COMPLETED`)  
+**Live key re-run write-up:** `docs/verification/live_key_rerun_20261113/LIVE_KEY_RERUN_REPORT.md`  
+**Earlier completed snapshot:** `docs/verification/live_openai_report_20261113T052107Z.json`
 
 ## 0. Official GOV.UK verification (approved accuracy fixes)
 
@@ -39,12 +41,13 @@
 
 | Check | Result |
 |-------|--------|
-| `os.environ["OPENAI_API_KEY"]` present | **True** |
+| `OPENAI_API_KEY` present (Python earlier + Node 2026-11-13T23:09Z re-run) | **True** |
 | Key length | **164** |
 | Key prefix shape | **sk-like** |
-| `use_mock_llm` with force-mock false | **False** |
+| `use_mock_llm` / `CONCIERGE_FORCE_MOCK_LLM=false` | live mode |
 | Adapter | **`openai`** |
 | Mock substituted? | **No** |
+| Note on intermittent Cloud Agent absence | Some earlier pods reported the key missing; this re-run confirms the Cursor runtime secret **is** injected when the environment receives it. Never log the value. |
 
 ## 4. Live connectivity / coverage (post-fix re-run)
 
@@ -93,6 +96,17 @@ Command: `pytest -q` in `ai-tax-concierge-v2/backend`
 2. Live Stripe / Calendly / confirmed production URLs not connected
 3. No public iPhone staging URL yet
 
-## 8. Approval wait
+## 8. Latest Node live re-run (2026-11-13 evening, Europe/London)
 
-Accuracy fixes verified with live OpenAI. **No merge. No deploy.** Awaiting approval.
+| Item | Result |
+|------|--------|
+| Connectivity | **PASS** |
+| Single-turn | **33/33 live**, accuracy flags **0** |
+| Multi-turn | **3/3** |
+| Journeys | **4/4** |
+| Owner commercial probe | **11/11** |
+| Vitest | **476/476** |
+
+## 9. Approval wait
+
+Accuracy fixes re-verified with live OpenAI after key availability confirmation. **No merge. No deploy.** Awaiting approval. Staging only.

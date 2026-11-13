@@ -1,0 +1,87 @@
+{
+  "success": true,
+  "data": [
+    {
+      "id": "997a13b0-e0c5-41eb-9359-b52282a5c27e",
+      "code": "SIMPLE",
+      "name": "Tax Simba Simple",
+      "price": 119,
+      "priceAvailable": true,
+      "originalPrice": 199,
+      "savePercentage": 40,
+      "rank": 1,
+      "serviceType": "SELF_ASSESSMENT",
+      "billingFrequency": "Per tax year",
+      "billingType": "ONE_OFF",
+      "vatTreatment": "INCLUSIVE",
+      "category": "taxSimba",
+      "description": "A straightforward Self Assessment for employed and simple self-employed income, prepared and checked by a qualified accountant.",
+      "features": [
+        "Self Assessment prepared by an accountant",
+        "Secure document upload",
+        "Review and approval before submission",
+        "Email and in-app updates"
+      ],
+      "isPopular": false,
+      "priceId": "997a13b0-e0c5-41eb-9359-b52282a5c27e",
+      "stripePriceId": null,
+      "currency": "GBP",
+      "vatPercentage": 0
+    },
+    {
+      "id": "cac7e792-10c7-44a2-8860-8effeee8319b",
+      "code": "SMART",
+      "name": "Tax Simba Smart",
+      "price": 149,
+      "priceAvailable": true,
+      "originalPrice": 229,
+      "savePercentage": 35,
+      "rank": 2,
+      "serviceType": "SELF_ASSESSMENT",
+      "billingFrequency": "Per tax year",
+      "billingType": "ONE_OFF",
+      "vatTreatment": "INCLUSIVE",
+      "category": "taxSimba",
+      "description": "For clients with several income sources who want their allowances and expenses reviewed in detail before filing.",
+      "features": [
+        "Everything in Simple",
+        "Multiple income sources reviewed",
+        "Expenses and allowances check",
+        "Priority accountant messaging"
+      ],
+      "isPopular": true,
+      "priceId": "cac7e792-10c7-44a2-8860-8effeee8319b",
+      "stripePriceId": null,
+      "currency": "GBP",
+      "vatPercentage": 0
+    },
+    {
+      "id": "876574cf-008d-4b31-9abe-27ad0bc6f3d1",
+      "code": "ELITE",
+      "name": "Tax Simba Elite",
+      "price": 299,
+      "priceAvailable": true,
+      "originalPrice": 399,
+      "savePercentage": 25,
+      "rank": 3,
+      "serviceType": "SELF_ASSESSMENT",
+      "billingFrequency": "Per tax year",
+      "billingType": "ONE_OFF",
+      "vatTreatment": "INCLUSIVE",
+      "category": "taxSimba",
+      "description": "Our most thorough Self Assessment service, including planning conversations and a full review of your position for the year.",
+      "features": [
+        "Everything in Smart",
+        "Full review of your tax position",
+        "Tax planning conversation",
+        "Priority turnaround"
+      ],
+      "isPopular": false,
+      "priceId": "876574cf-008d-4b31-9abe-27ad0bc6f3d1",
+      "stripePriceId": null,
+      "currency": "GBP",
+      "vatPercentage": 0
+    }
+  ],
+  "message": "OK"
+}

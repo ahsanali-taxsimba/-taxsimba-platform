@@ -3,7 +3,8 @@
 **Date:** 2026-11-13 (Europe/London)  
 **Repository:** `ahsanali-taxsimba/-taxsimba-platform`  
 **PR:** [#35](https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/35) — **do not merge / do not deploy**  
-**Scope respected:** changes confined to `ai-tax-concierge-v2/`
+**Scope respected:** SIMBA under `ai-tax-concierge-v2/`; portal catalogue price sync only in `backend/phase1b.py` (+ tests). Frontend / taxotools / Marketing Hub untouched.  
+**Latest live key re-run:** [`live_key_rerun_20261113/LIVE_KEY_RERUN_REPORT.md`](./live_key_rerun_20261113/LIVE_KEY_RERUN_REPORT.md)
 
 ---
 
@@ -14,8 +15,8 @@ Core AI concierge, TaxSimba branding, tax grounding and calculator link map are 
 
 | Gate | Status |
 |------|--------|
-| Automated regression | **PASS — 196 passed / 0 failed** |
-| Live OpenAI tax Q&A (prior harness) | **PASS — 33/33, accuracy flags 0** (MTD £30k / VAT £90k fixed) |
+| Automated regression (Node Vitest, 2026-11-13 re-run) | **PASS — 476 passed / 0 failed** |
+| Live OpenAI tax Q&A (Node harness re-run) | **PASS — 33/33, accuracy flags 0** (MTD £30k / VAT £90k) |
 | Brand match TaxSimba.co.uk / design tokens | **PASS** (official logo + `#006B3C` / `#078A4B` / Manrope / Public Sans) |
 | Checkout / payment E2E | **BLOCKED** |
 | Calendly booking E2E | **BLOCKED** |
@@ -40,8 +41,9 @@ Core AI concierge, TaxSimba branding, tax grounding and calculator link map are 
 
 | Suite | Result |
 |-------|--------|
-| `pytest -q` | **196 passed / 0 failed** |
-| Live OpenAI harness (previous completed run on this PR) | 33 singles + 3 multiturn + 4 journeys; accuracy flags **0** |
+| Node `npm test` (Vitest) | **476 passed / 0 failed** |
+| Live OpenAI harness (Node, `live_openai_report_20261113T230918Z.json`) | 33 singles + 3 multiturn + 4 journeys; accuracy flags **0** |
+| Owner commercial / package / £99 live probe | **11/11 PASS** |
 | Helpful-first unit/API tests | **PASS** |
 | Public calculator HTTP title checks | **17/17 live_verified** |
 | Stripe / Calendly / portal staging E2E | **BLOCKED — not simulated** |

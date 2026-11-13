@@ -5,7 +5,8 @@
 **Customer-facing name:** **SIMBA AI Tax Assistant** (Emerald Signature UI — do not restyle)  
 **Release gate:** **STAGING ONLY** — no production merge/deploy; **do not delete Python** (`ai-tax-concierge-v2/backend/`) until staging acceptance is signed separately.
 
-Accepted local evidence (2026-11-13 website reconciliation): **476** Vitest · security **26** · live probe **11/11** · widget + live-site screenshots under `docs/verification/final_website_reconciliation/screenshots/`. Node independent of Python.  
+Accepted local evidence (2026-11-13 website reconciliation + live key re-run): **476** Vitest · security **26** · live OpenAI harness **33/33** (accuracy flags **0**) · owner commercial live probe **11/11** · widget + live-site screenshots under `docs/verification/final_website_reconciliation/screenshots/`. Node independent of Python.  
+Live key re-run: [`../verification/live_key_rerun_20261113/LIVE_KEY_RERUN_REPORT.md`](../verification/live_key_rerun_20261113/LIVE_KEY_RERUN_REPORT.md).  
 Reconciliation: [`../verification/final_website_reconciliation/FINAL_SIX_PACKAGE_RECONCILIATION_REPORT.md`](../verification/final_website_reconciliation/FINAL_SIX_PACKAGE_RECONCILIATION_REPORT.md).
 
 ---
@@ -227,7 +228,21 @@ Evidence already on PR: `docs/verification/COMPREHENSIVE_INTELLIGENCE_SALES_AUDI
 
 ## 10. Isolation
 
-Do **not** modify TaxSimba portal (`backend/`, `frontend/`), taxotools, Marketing Hub, or live production site from this package without a separate ticket. SIMBA staging is an isolated service + embed.
+SIMBA product code lives under `ai-tax-concierge-v2/`. Do **not** modify `frontend/`, taxotools, Marketing Hub, or the live production site from this package without a separate ticket.
+
+**Exception already on PR #35:** portal `backend/phase1b.py` (+ related tests/scripts) syncs the approved SA/MTD catalogue prices into Mongo on boot so Stripe `unit_amount` cannot remain stuck at obsolete Elite £249 / legacy Essential/Plus SKUs. That change is catalogue-only — not a website redesign.
+
+### Knowledge / package sync reality (2026-11-13 live re-run)
+
+| Mechanism | Status |
+|-----------|--------|
+| Curated HMRC corpus + grounding (GOV.UK-aligned) | **PASS** — live answers + GOV.UK spot-checks |
+| Continuous automatic HMRC crawl into SIMBA | **Not built** — treat as future work |
+| SIMBA `packages.json` vs live subscription-plans API prices/names | **PASS** — re-fetched this run |
+| Automatic SIMBA Node pull from website API each request | **Not built** — vendored JSON |
+| Portal Mongo catalogue boot sync | **Code on PR** — staging DB E2E still required |
+
+SIMBA staging remains an isolated service + embed until Toxel signs A/B suites.
 
 ---
 

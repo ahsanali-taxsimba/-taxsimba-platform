@@ -21,12 +21,14 @@ Local Node evidence is accepted. Staging integrations and **approved package inc
 
 | Area | Status | Evidence / notes |
 |------|--------|------------------|
-| Automated Vitest | **PASS** (426) | Prior: `intelligence_audit/vitest_426_results.txt` — re-run this commit below |
+| Automated Vitest | **PASS** (476) | 2026-11-13 live key re-run: `npm test` 26 files |
+| Live OpenAI harness | **PASS** (33/33, flags 0) | `live_openai_report_20261113T230918Z.json` |
+| Owner commercial live probe | **PASS** (11/11) | package / Xero / £99 consultation |
 | Tax intelligence 150 | **PASS** | Accepted prior evidence |
 | Package journeys 50 | **PASS** | Price-tier suggestions only; feature-level recs blocked |
 | Node without Python | **PASS** | Vendored data; `npm run build && npm start` |
 | Emerald + SIMBA AI Tax Assistant branding | **PASS** | Widget + bootstrap subtitle |
-| Portal/website code isolation | **PASS** | Changes under `ai-tax-concierge-v2/` only |
+| Portal/website code isolation | **PASS** (with note) | SIMBA in `ai-tax-concierge-v2/`; portal catalogue sync only in `backend/phase1b.py` |
 | Approved SA/MTD **inclusions** | **BLOCKED** | Search exhausted — see supply request |
 | Detailed feature-based package recommendations | **BLOCKED** | Catalogue `detailed_recommendations_status` |
 | Stripe checkout + webhooks | **BLOCKED** | Staging E2E required |
