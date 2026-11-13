@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Ask SIMBA — AI Tax Assistant</title>
+  <link rel="stylesheet" href="/widget/css/chat-panel.css" />
+</head>
+<body>
+  <div class="sp-shell" role="dialog" aria-label="Ask SIMBA AI Tax Assistant">
+    <header class="sp-header">
+      <div class="sp-brand">
+        <div class="sp-logo-chip">
+          <img class="sp-logo" src="/widget/assets/taxsimba-logo.svg" alt="TaxSimba" width="92" height="18" />
+        </div>
+        <div class="sp-titles">
+          <strong>SIMBA</strong>
+          <span>AI Tax Assistant</span>
+        </div>
+      </div>
+      <div class="sp-actions">
+        <button type="button" id="sp-expand" class="sp-icon-btn" aria-label="Open full SIMBA workspace">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        </button>
+        <button type="button" id="sp-close" class="sp-icon-btn" aria-label="Close chat">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div id="sp-live" class="sp-live" aria-live="polite"></div>
+
+    <main id="sp-body" class="sp-body" tabindex="-1">
+      <section class="sp-intro" aria-label="Quick actions">
+        <h1>How can SIMBA help?</h1>
+        <p>General UK tax information from verified GOV.UK sources — not personalised advice.</p>
+        <div class="sp-quick" role="list">
+          <button type="button" class="sp-quick-btn" data-action="sa" role="listitem">Self Assessment</button>
+          <button type="button" class="sp-quick-btn" data-action="mtd" role="listitem">Making Tax Digital</button>
+          <button type="button" class="sp-quick-btn" data-action="package" role="listitem">Choose the right package</button>
+          <button type="button" class="sp-quick-btn" data-action="consult" role="listitem">Book a £99 accountant consultation</button>
+          <button type="button" class="sp-quick-btn" data-action="ask" role="listitem">Ask a tax question</button>
+        </div>
+      </section>
+      <div id="sp-messages" class="sp-messages" aria-label="Conversation"></div>
+    </main>
+
+    <form id="sp-form" class="sp-composer" autocomplete="off">
+      <label class="sp-sr" for="sp-input">Ask about your UK tax situation</label>
+      <textarea id="sp-input" rows="1" placeholder="Ask about your UK tax situation…" maxlength="2000" enterkeyhint="send"></textarea>
+      <button type="submit" id="sp-send" class="sp-send">Send</button>
+    </form>
+    <p class="sp-foot">
+      SIMBA AI Tax Assistant — general information only.
+      <a id="sp-workspace" href="#">Open full workspace</a>
+    </p>
+  </div>
+  <script src="/widget/js/chat-panel.js" defer></script>
+</body>
+</html>

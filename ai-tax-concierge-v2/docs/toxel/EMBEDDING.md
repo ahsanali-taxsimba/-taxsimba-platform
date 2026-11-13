@@ -30,10 +30,14 @@ No lions, mascots, gold accent scheme, or decorative bouncing animations.
 
 Behaviour:
 
-- Floating **Ask SIMBA** button bottom-right  
-- Opens **only** on user click (never auto-popup)  
+- Floating premium **Ask SIMBA / AI Tax Assistant** button (bottom-right by default)  
+- Session welcome card (“Need help with your tax?”) — once per visitor session; dismissible; launcher stays available  
+- Opens compact chat (`/widget/chat.html`) **only** on user click (never auto-popup)  
+- Compact chat quick actions: Self Assessment · Making Tax Digital · Choose the right package · Book a £99 accountant consultation · Ask a tax question  
+- Expand control opens the full SIMBA workspace (`/widget/index.html`) — do not remove it  
 - Escape closes the panel and returns focus to the button  
-- Mobile: panel uses safe widths; does not replace site nav  
+- Mobile: fullscreen drawer when open; host page clicks pass through empty overlay space (`pointer-events`)  
+- No unread badges, lions, or mascots
 
 ## Local preview (Node — preferred)
 

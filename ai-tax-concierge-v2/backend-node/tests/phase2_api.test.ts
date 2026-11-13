@@ -110,8 +110,11 @@ describe("phase2 / phase3 API", () => {
       "/widget/index.html",
       "/widget/preview.html",
       "/widget/embed.js",
+      "/widget/chat.html",
       "/widget/css/concierge.css",
+      "/widget/css/chat-panel.css",
       "/widget/js/concierge.js",
+      "/widget/js/chat-panel.js",
     ]) {
       const res = await api(app).get(path);
       expect(res.status).toBe(200);
