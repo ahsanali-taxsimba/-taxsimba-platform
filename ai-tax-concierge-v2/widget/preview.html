@@ -2,54 +2,211 @@
 <html lang="en-GB">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SIMBA AI — Emerald Signature Preview</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700&family=Public+Sans:wght@400;500;600&display=swap" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>TaxSimba — Self Assessment from £119 (SIMBA embed preview)</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" />
   <style>
+    :root {
+      --brand: #006b3c;
+      --action: #078a4b;
+      --deep: #004d2c;
+      --ink: #161b18;
+      --muted: #626a65;
+      --line: #e3e7e4;
+      --mint: #eaf5ee;
+      --bg: #f4f7f5;
+    }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: "Public Sans", "Segoe UI", sans-serif;
-      color: #161b18;
-      background: #f7f8f7;
+      color: var(--ink);
+      background: var(--bg);
     }
-    .fake-site { max-width: 920px; margin: 0 auto; padding: 28px 20px 140px; }
-    .fake-site header {
-      display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 1px solid #e3e7e4; padding-bottom: 12px; margin-bottom: 24px;
+    .promo {
+      background: linear-gradient(90deg, var(--deep), var(--brand));
+      color: #fff;
+      text-align: center;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 8px 12px;
     }
-    .fake-site header img { height: 28px; width: auto; }
-    .fake-site h1 {
-      font-family: Manrope, Public Sans, sans-serif;
-      font-size: clamp(1.5rem, 3.5vw, 2rem);
-      color: #006b3c; margin: 0 0 12px;
+    .promo strong { color: #b8f0cf; }
+    .site-header {
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 20;
     }
-    .note {
-      margin-top: 24px; padding: 12px 14px; background: #eaf5ee; border: 1px solid #e3e7e4;
-      border-radius: 12px; font-size: 0.9rem; color: #626a65;
+    .site-header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
     }
+    .site-header img { height: 28px; width: auto; display: block; }
+    .site-nav { display: flex; flex-wrap: wrap; gap: 8px 14px; }
     .site-nav a {
-      margin-left: 14px; color: #006b3c; text-decoration: none; font-weight: 600; font-size: 0.9rem;
+      color: var(--brand);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+    }
+    .hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 16px 48px;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--mint);
+      color: var(--deep);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 6px 10px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    .hero h1 {
+      font-family: Manrope, Public Sans, sans-serif;
+      font-size: clamp(1.7rem, 4.5vw, 2.6rem);
+      line-height: 1.15;
+      color: var(--deep);
+      margin: 0 0 12px;
+      max-width: 16ch;
+    }
+    .hero p.lead {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 1.02rem;
+      max-width: 42ch;
+      line-height: 1.5;
+    }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+    .btn {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font: 700 0.95rem/1 Manrope, Public Sans, sans-serif;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+    .btn-primary { background: var(--action); color: #fff; }
+    .btn-secondary { background: #fff; color: var(--brand); border: 1.5px solid #b9d7c6; }
+    .offer {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px 16px;
+      max-width: 420px;
+      box-shadow: 0 8px 24px rgba(0, 77, 44, 0.06);
+    }
+    .offer .price {
+      font-family: Manrope, sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--brand);
+      margin: 4px 0 6px;
+    }
+    .offer .price span { font-size: 0.95rem; font-weight: 600; color: var(--muted); }
+    .offer p { margin: 0; color: var(--muted); font-size: 0.9rem; line-height: 1.45; }
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 8px 16px 120px;
+    }
+    .section h2 {
+      font-family: Manrope, sans-serif;
+      color: var(--deep);
+      font-size: 1.25rem;
+      margin: 0 0 10px;
+    }
+    .section p { color: var(--muted); margin: 0 0 10px; line-height: 1.5; }
+    .note {
+      margin-top: 18px;
+      padding: 12px 14px;
+      background: var(--mint);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    @media (max-width: 640px) {
+      .site-nav { display: none; }
+      .hero { padding-top: 20px; }
+      .cta-row .btn { width: 100%; justify-content: center; }
     }
   </style>
 </head>
 <body>
-  <div class="fake-site">
-    <header>
+  <div class="promo">Limited offer — Self Assessment from <strong>£119</strong> · Accountant-led UK tax support</div>
+  <header class="site-header">
+    <div class="site-header-inner">
       <img src="/widget/assets/taxsimba-logo.svg" alt="TaxSimba" height="28" />
-      <nav class="site-nav" aria-label="Example host navigation">
+      <nav class="site-nav" aria-label="Primary">
         <a href="#packages">Packages</a>
+        <a href="#mtd">Making Tax Digital</a>
         <a href="#calculators">Calculators</a>
+        <a href="#consult">Consultation</a>
         <a href="#help">Help</a>
       </nav>
-    </header>
-    <h1>SIMBA AI Emerald Signature preview</h1>
-    <p>Sandbox host page only — live TaxSimba website is not modified. Chat opens on tap, never automatically.</p>
-    <div class="note" id="packages">
-      Open <strong>Ask SIMBA</strong> to review the premium emerald header, topic cards and conversation layout.
     </div>
-    <p id="calculators" style="margin-top:20px;color:#626a65">Secondary content confirms the launcher does not hide primary navigation.</p>
-    <p id="help" style="color:#626a65">Keyboard: Tab → Ask SIMBA → Enter to open · Escape to close.</p>
-  </div>
-  <script src="/widget/embed.js" data-api-base="http://127.0.0.1:8090"></script>
+  </header>
+
+  <main class="hero">
+    <div class="hero-badge">UK Self Assessment</div>
+    <h1>File with confidence from £119</h1>
+    <p class="lead">Accountant-supported Self Assessment and Making Tax Digital — plain English guidance, clear packages, and a £99 consultation when you need a human.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#packages">View Self Assessment packages</a>
+      <a class="btn btn-secondary" href="#consult">Book a £99 consultation</a>
+    </div>
+    <div class="offer" id="packages">
+      <div style="font-weight:700;color:var(--deep);font-size:0.85rem;">Self Assessment · Simple</div>
+      <div class="price">£119 <span>inc. VAT where applicable</span></div>
+      <p>Plus Smart £149 and Elite £299. MTD Starter/Growth/Complete from £29.99 / £59.99 / £89.99 monthly (VAT included).</p>
+    </div>
+  </main>
+
+  <section class="section" id="mtd">
+    <h2>Making Tax Digital</h2>
+    <p>Thresholds from 6 April 2026 (£50,000) and 6 April 2027 (£30,000). Ask SIMBA for plain-English thresholds — then register on TaxSimba when ready.</p>
+  </section>
+  <section class="section" id="calculators" style="padding-top:0;">
+    <h2>Tax calculators</h2>
+    <p>Income Tax, NI and rental estimates stay on the TaxSimba site. SIMBA can point you to the right tool.</p>
+  </section>
+  <section class="section" id="consult" style="padding-top:0;">
+    <h2>£99 accountant consultation</h2>
+    <p>30 minutes with a TaxSimba accountant — book via Calendly when available on staging.</p>
+  </section>
+  <section class="section" id="help" style="padding-top:0;padding-bottom:140px;">
+    <h2>Need help?</h2>
+    <p>Use <strong>Ask SIMBA</strong> (bottom right) for UK tax questions and package guidance. The full SIMBA workspace remains available separately.</p>
+    <div class="note">
+      Sandbox host page for embed QA only — live TaxSimba website CSS/HTML is not replaced by this preview.
+      Keyboard: Tab → Ask SIMBA → Enter to open · Escape to close. Welcome card dismisses for the browser session.
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var api = new URLSearchParams(location.search).get("api") || location.origin;
+      var s = document.createElement("script");
+      s.src = "/widget/embed.js";
+      s.setAttribute("data-api-base", api);
+      s.setAttribute("data-position", "bottom-right");
+      document.body.appendChild(s);
+    })();
+  </script>
 </body>
 </html>

@@ -5,7 +5,8 @@
 **Customer-facing name:** **SIMBA AI Tax Assistant** (Emerald Signature UI — do not restyle)  
 **Release gate:** **STAGING ONLY** — no production merge/deploy; **do not delete Python** (`ai-tax-concierge-v2/backend/`) until staging acceptance is signed separately.
 
-Accepted local evidence: **426** Vitest · **150** tax scenarios · **50** package journeys · Node independent of Python.
+Accepted local evidence (2026-11-13 pre-Toxel pass): **450** Vitest · live OpenAI **33/33** · security **26** · Ask SIMBA launcher + welcome card + compact chat evidenced under `docs/verification/pre_toxel_final/`. Node independent of Python.  
+Final audit: [`../verification/pre_toxel_final/PRE_TOXEL_FINAL_AUDIT.md`](../verification/pre_toxel_final/PRE_TOXEL_FINAL_AUDIT.md).
 
 ---
 
@@ -80,7 +81,9 @@ npm start              # node dist/server.js
 ></script>
 ```
 
-- Floating **Ask SIMBA** — opens **only** on user click  
+- Floating **Ask SIMBA / AI Tax Assistant** — opens **only** on user click  
+- Session welcome card (dismissible once per visitor session); launcher remains  
+- Compact panel: `/widget/chat.html` · five actions · expand to full workspace `/widget/index.html`  
 - Branding: **SIMBA AI Tax Assistant** · Emerald tokens (`#006B3C`) — see [`EMBEDDING.md`](./EMBEDDING.md)  
 - Preview: `https://STAGING_HOST/widget/preview.html`  
 - **BLOCKED:** production taxsimba.co.uk embed until staging E2E signed  

@@ -5,8 +5,11 @@ const WIDGET_ASSET_PATHS = [
   "/widget/index.html",
   "/widget/preview.html",
   "/widget/embed.js",
+  "/widget/chat.html",
   "/widget/css/concierge.css",
+  "/widget/css/chat-panel.css",
   "/widget/js/concierge.js",
+  "/widget/js/chat-panel.js",
   "/widget/assets/taxsimba-logo.svg",
 ];
 

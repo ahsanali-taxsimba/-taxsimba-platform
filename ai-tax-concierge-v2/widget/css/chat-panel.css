@@ -1,0 +1,234 @@
+/* Compact Ask SIMBA embed panel — Emerald Signature (does not replace full workspace) */
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap");
+
+:root {
+  --sp-primary: #006b3c;
+  --sp-action: #078a4b;
+  --sp-deep: #004d2c;
+  --sp-text: #161b18;
+  --sp-muted: #626a65;
+  --sp-border: #e3e7e4;
+  --sp-mint: #eaf5ee;
+  --sp-bg: #f7f8f7;
+  --sp-surface: #fff;
+  --sp-radius: 14px;
+  --sp-shadow: 0 10px 28px rgba(0, 77, 44, 0.12);
+  --sp-font-h: "Manrope", "Public Sans", sans-serif;
+  --sp-font: "Public Sans", "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: var(--sp-font);
+  color: var(--sp-text);
+  background: var(--sp-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+.sp-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 360px;
+  background: var(--sp-bg);
+}
+
+.sp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 14px;
+  background: linear-gradient(160deg, var(--sp-primary) 0%, var(--sp-deep) 100%);
+  color: #fff;
+  flex-shrink: 0;
+}
+.sp-brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.sp-logo-chip {
+  background: #fff;
+  border-radius: 8px;
+  padding: 5px 8px;
+  display: flex;
+  align-items: center;
+  height: 32px;
+}
+.sp-logo { height: 18px; width: auto; display: block; }
+.sp-titles { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
+.sp-titles strong { font-family: var(--sp-font-h); font-size: 0.95rem; }
+.sp-titles span { font-size: 0.72rem; opacity: 0.92; }
+.sp-actions { display: flex; gap: 6px; }
+.sp-icon-btn {
+  appearance: none;
+  border: 1px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+.sp-icon-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.sp-icon-btn:hover { background: rgba(255,255,255,0.22); }
+.sp-icon-btn:focus-visible { outline: 3px solid rgba(255,255,255,0.55); outline-offset: 2px; }
+
+.sp-live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+.sp-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.sp-body {
+  flex: 1;
+  overflow: auto;
+  padding: 14px 14px 8px;
+  -webkit-overflow-scrolling: touch;
+}
+.sp-intro h1 {
+  margin: 0 0 6px;
+  font-family: var(--sp-font-h);
+  font-size: 1.15rem;
+  color: var(--sp-primary);
+}
+.sp-intro p {
+  margin: 0 0 12px;
+  color: var(--sp-muted);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+.sp-quick {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.sp-quick-btn {
+  appearance: none;
+  text-align: left;
+  border: 1px solid var(--sp-border);
+  background: var(--sp-surface);
+  color: var(--sp-text);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font: 600 0.92rem/1.3 var(--sp-font);
+  cursor: pointer;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+}
+.sp-quick-btn:hover { border-color: #b9d7c6; background: var(--sp-mint); }
+.sp-quick-btn:focus-visible { outline: 3px solid rgba(7,138,75,0.35); outline-offset: 2px; }
+
+.sp-messages { display: flex; flex-direction: column; gap: 10px; }
+.sp-msg { max-width: 95%; }
+.sp-msg.user { align-self: flex-end; }
+.sp-msg.assistant { align-self: flex-start; }
+.sp-bubble {
+  border-radius: 14px;
+  padding: 10px 12px;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.sp-msg.user .sp-bubble {
+  background: var(--sp-primary);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.sp-msg.assistant .sp-bubble {
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-border);
+  border-bottom-left-radius: 4px;
+}
+.sp-bubble.loading { color: var(--sp-muted); font-style: italic; }
+.sp-bubble.error {
+  border-color: #f0c2c2;
+  background: #fff5f5;
+  color: #8a1f1f;
+}
+.sp-pkgs {
+  margin-top: 8px;
+  display: grid;
+  gap: 6px;
+}
+.sp-pkg {
+  border: 1px solid var(--sp-border);
+  border-radius: 10px;
+  padding: 8px 10px;
+  background: var(--sp-mint);
+  font-size: 0.85rem;
+}
+.sp-pkg strong { color: var(--sp-primary); }
+
+.sp-composer {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--sp-border);
+  background: var(--sp-surface);
+  flex-shrink: 0;
+}
+#sp-input {
+  flex: 1;
+  resize: none;
+  min-height: 42px;
+  max-height: 120px;
+  border: 1px solid var(--sp-border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font: 400 0.95rem/1.35 var(--sp-font);
+  color: var(--sp-text);
+  background: #fff;
+}
+#sp-input:focus {
+  outline: 3px solid rgba(7,138,75,0.28);
+  border-color: var(--sp-action);
+}
+.sp-send {
+  appearance: none;
+  border: 0;
+  border-radius: 12px;
+  background: var(--sp-action);
+  color: #fff;
+  font: 700 0.9rem/1 var(--sp-font-h);
+  padding: 12px 14px;
+  cursor: pointer;
+  min-height: 42px;
+}
+.sp-send:hover { background: var(--sp-primary); }
+.sp-send:disabled { opacity: 0.55; cursor: not-allowed; }
+.sp-send:focus-visible { outline: 3px solid rgba(7,138,75,0.35); outline-offset: 2px; }
+
+.sp-foot {
+  margin: 0;
+  padding: 6px 12px 10px;
+  font-size: 0.72rem;
+  color: var(--sp-muted);
+  background: var(--sp-surface);
+  border-top: 1px solid #f0f2f1;
+}
+.sp-foot a { color: var(--sp-primary); font-weight: 600; }
+
+@media (max-width: 480px) {
+  .sp-intro h1 { font-size: 1.05rem; }
+  .sp-quick-btn { padding: 11px 12px; }
+}
