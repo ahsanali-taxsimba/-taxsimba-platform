@@ -61,6 +61,6 @@ describe("conversational engine", () => {
     const payload = analytics.all()[0].payload;
     expect(payload.message_redacted).not.toContain("secret@example.com");
     expect(payload.message_redacted).not.toContain("1234567890");
-    expect(payload.pii_flags.email).toBe(true);
+    expect((payload.pii_flags as { email: boolean }).email).toBe(true);
   });
 });

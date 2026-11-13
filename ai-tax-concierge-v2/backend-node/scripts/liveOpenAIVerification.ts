@@ -597,8 +597,9 @@ async function main(): Promise<number> {
     multiturn: multiturns,
     journeys,
     usage:
-      typeof (llm as { usageSnapshot?: () => unknown }).usageSnapshot === "function"
-        ? (llm as { usageSnapshot: () => unknown }).usageSnapshot()
+      typeof (llm as unknown as { usageSnapshot?: () => unknown }).usageSnapshot ===
+      "function"
+        ? (llm as unknown as { usageSnapshot: () => unknown }).usageSnapshot()
         : null,
   };
   writeReport(reportPath, report);

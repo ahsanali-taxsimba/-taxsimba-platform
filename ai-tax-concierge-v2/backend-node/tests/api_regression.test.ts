@@ -57,7 +57,14 @@ describe("API regression — bootstrap, health, widget, sessions", () => {
   it("official_taxsimba_logo_served", async () => {
     const res = await api(app).get("/widget/assets/taxsimba-logo.svg");
     expect(res.status).toBe(200);
-    const text = String(res.text).toLowerCase();
+    // SuperTest treats image/* as binary (Buffer body); Python httpx exposes .text.
+    const raw =
+      typeof res.text === "string"
+        ? res.text
+        : Buffer.isBuffer(res.body)
+          ? res.body.toString("utf8")
+          : String(res.body ?? "");
+    const text = raw.toLowerCase();
     expect(text).toContain("<svg");
     expect(text).not.toContain("lion");
     expect(text).not.toContain("placeholder");

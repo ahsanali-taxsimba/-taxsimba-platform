@@ -1,0 +1,220 @@
+/** Non-pushy package / calculator / follow-up recommendations from config only. */
+
+import {
+  allPackagesFlat,
+  calculatorsCatalog,
+  matchCalculators,
+  packagesCatalog,
+} from "../catalog/service.js";
+import type {
+  CalculatorCard,
+  JourneyState,
+  PackageCard,
+} from "../models/schemas.js";
+
+const SA_PRICE = /\b(package|packages|pricing|price|cost|how much)\b/i;
+const MTD_PRICE = /\bmtd\b|\bmaking tax digital\b/i;
+const CONSULT = /\b(consult|accountant|book|speak to|talk to)\b/i;
+const NO_BUY =
+  /\b(don'?t want to buy|do not want to buy|not looking to buy|no sales|just information|information only|not interested in (a )?package|don'?t sell|no pressure|just asking|curious only)\b/i;
+
+const DEFAULT_PRESSURE_NOTE =
+  "Optional support — only if useful. Full inclusions are confirmed with TaxSimba, " +
+  "not invented by this assistant.";
+
+export function toPackageCards(codes: string[]): PackageCard[] {
+  const flat = allPackagesFlat();
+  const cards: PackageCard[] = [];
+  for (const code of codes) {
+    const pkg = flat[code];
+    if (!pkg) continue;
+    cards.push({
+      code: String(pkg.code),
+      name: String(pkg.name),
+      price_gbp: Number(pkg.price_gbp),
+      billing: String(pkg.billing),
+      vat_note: String(pkg.vat_note || ""),
+      family: String(pkg.family),
+      inclusions_status: String(
+        pkg.inclusions_status || "not_specified_in_catalog",
+      ),
+      pressure_free_note: DEFAULT_PRESSURE_NOTE,
+    });
+  }
+  return cards;
+}
+
+export function visitorDeclinesSales(message: string): boolean {
+  return NO_BUY.test(message || "");
+}
+
+export function toCalculatorCards(
+  items: Record<string, unknown>[],
+  websiteBase: string,
+): CalculatorCard[] {
+  const cards: CalculatorCard[] = [];
+  for (const item of items) {
+    let url: string | null = null;
+    let note: string | null = null;
+    const status = String(item.url_status || "stub");
+    if (status === "live_verified") {
+      url = `${websiteBase.replace(/\/$/, "")}${item.path || ""}`;
+      note = "Verified public calculator on taxsimba.co.uk";
+    } else if (status === "soft_or_generic") {
+      url = `${websiteBase.replace(/\/$/, "")}${item.path || ""}`;
+      note = "Reachable path — confirm destination before relying in production.";
+    } else {
+      note =
+        "Calculator path configured but not confirmed on the live website yet.";
+    }
+    cards.push({
+      id: String(item.id),
+      title: String(item.title),
+      description: String(item.description),
+      url_status: status,
+      url,
+      note,
+    });
+  }
+  return cards;
+}
+
+export function recommendForMessage(
+  message: string,
+  journey: JourneyState | null,
+  websiteBase: string,
+): {
+  packages: PackageCard[];
+  calculators: CalculatorCard[];
+  follow_ups: string[];
+} {
+  let packages: PackageCard[] = [];
+  let followUps: string[] = [];
+  const declineSales = visitorDeclinesSales(message);
+
+  if (journey && journey.complete) {
+    packages = declineSales
+      ? []
+      : toPackageCards(journey.suggested_package_codes || []);
+    const calcIds = new Set(journey.suggested_calculator_ids || []);
+    const calcItems = (
+      calculatorsCatalog().items as Record<string, unknown>[]
+    ).filter((c) => calcIds.has(String(c.id)));
+    const calculators = toCalculatorCards(calcItems, websiteBase);
+    followUps = [...(journey.follow_ups || [])];
+    if (declineSales) {
+      followUps = [
+        "What Self Assessment deadlines should I know?",
+        "Where can I check this on GOV.UK?",
+        ...followUps.filter(
+          (f) => !f.includes("£99") && !f.toLowerCase().includes("package"),
+        ),
+      ];
+    }
+    return {
+      packages,
+      calculators,
+      follow_ups: followUps.slice(0, 4),
+    };
+  }
+
+  const cat = packagesCatalog();
+  const lower = message.toLowerCase();
+
+  if (declineSales) {
+    followUps = [
+      "What Self Assessment deadlines should I know?",
+      "How does Making Tax Digital work in plain English?",
+      "Where should I check this on GOV.UK?",
+    ];
+  } else if (SA_PRICE.test(message) && !MTD_PRICE.test(message)) {
+    packages = toPackageCards(
+      (cat.self_assessment as { code: string }[]).map((p) => p.code),
+    );
+    followUps = [
+      "What is included in each Self Assessment package?",
+      "Do I need Self Assessment this year?",
+      "Can I book a £99 accountant consultation instead?",
+    ];
+  } else if (MTD_PRICE.test(message) && SA_PRICE.test(message)) {
+    packages = toPackageCards([
+      ...(cat.self_assessment as { code: string }[]).map((p) => p.code),
+      ...(cat.mtd as { code: string }[]).map((p) => p.code),
+    ]);
+    followUps = [
+      "Who needs Making Tax Digital?",
+      "How do MTD plans differ from Self Assessment packages?",
+    ];
+  } else if (
+    MTD_PRICE.test(message) &&
+    (lower.includes("plan") ||
+      lower.includes("price") ||
+      lower.includes("cost"))
+  ) {
+    packages = toPackageCards(
+      (cat.mtd as { code: string }[]).map((p) => p.code),
+    );
+    followUps = [
+      "What is Making Tax Digital for Income Tax?",
+      "Do landlords need MTD?",
+    ];
+  } else if (CONSULT.test(message)) {
+    packages = toPackageCards([
+      String((cat.consultation as { code: string }).code),
+    ]);
+    followUps = [
+      "What can an accountant consultation help with?",
+      "What Self Assessment packages are available?",
+    ];
+  }
+
+  if (!followUps.length) {
+    if (lower.includes("deadline")) {
+      followUps = [
+        "Do I need to send a Self Assessment tax return?",
+        "What are payments on account?",
+      ];
+    } else if (lower.includes("landlord") || lower.includes("rental")) {
+      followUps = [
+        "Do landlords need Self Assessment?",
+        "What is Making Tax Digital for landlords?",
+      ];
+    } else if (lower.includes("cis")) {
+      followUps = [
+        "Do CIS subcontractors need Self Assessment?",
+        "What records should I keep under CIS?",
+      ];
+    } else if (
+      lower.includes("freelancer") ||
+      lower.includes("self-employed") ||
+      lower.includes("self employed")
+    ) {
+      followUps = [
+        "How do I register as self-employed?",
+        "When is the Self Assessment deadline?",
+      ];
+    }
+  }
+
+  const calculators = toCalculatorCards(
+    matchCalculators(message),
+    websiteBase,
+  );
+  return { packages, calculators, follow_ups: followUps };
+}
+
+export function answerInclusionsQuestion(message: string): string | null {
+  const lower = message.toLowerCase();
+  if (
+    lower.includes("included") ||
+    lower.includes("inclusion") ||
+    lower.includes("what do i get")
+  ) {
+    return (
+      "I do not invent package inclusions. TaxSimba's catalogue for this assistant " +
+      "lists prices and billing only. For a full inclusions list, please check with " +
+      "TaxSimba directly or ask during a £99 accountant consultation."
+    );
+  }
+  return null;
+}
