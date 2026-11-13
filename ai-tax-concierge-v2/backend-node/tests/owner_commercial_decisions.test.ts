@@ -15,9 +15,9 @@ const WEBSITE = "https://www.taxsimba.co.uk";
 describe("owner commercial decisions — controlled approval", () => {
   it("preserves_approved_catalogue_names_prices_and_skus", () => {
     const cat = packagesCatalog();
-    expect(cat.version).toMatch(/owner-decisions|xero-approved/);
+    expect(cat.version).toMatch(/owner-decisions|xero-approved|website-reconciliation/);
     expect(cat.detailed_recommendations_status).toBe(
-      "owner_decisions_applied_remaining_scope_pending",
+      "website_reconciled_owner_decisions_applied",
     );
     expect(cat.self_assessment.map((p: { price_gbp: number }) => p.price_gbp)).toEqual([
       119, 149, 299,
@@ -40,11 +40,12 @@ describe("owner commercial decisions — controlled approval", () => {
     expect(cat.owner_decisions.xero_included_in_mtd_price).toBe("approved");
     expect(cat.owner_decisions.xero_customers_pay_separately).toBe(false);
     expect(cat.owner_decisions.xero_exact_licence_mapping).toBe(
-      "pending_approval",
+      "verified_from_website_catalogue",
     );
     expect(cat.owner_decisions.bookkeeping_numerical_limits_approved).toBe(false);
+    expect(cat.owner_decisions.bookkeeping_transaction_limits).toBe("UNDECIDED");
     expect(cat.owner_decisions.mtd_includes_annual_sa_subject_to_scope).toBe(
-      "approved_subject_to_scope",
+      "approved_subject_to_customer_responsibilities",
     );
     expect(cat.owner_decisions.consultation_scope_approved).toBe(true);
     expect(cat.removed_customer_claims).toEqual(
@@ -81,11 +82,10 @@ describe("owner commercial decisions — controlled approval", () => {
     const lower = reply!.toLowerCase();
     expect(lower).toContain("xero software is included");
     expect(lower).toMatch(/do not pay separately|no separate/);
-    expect(lower).toContain("exact xero licence mapping");
+    expect(lower).toContain("xero grow");
     expect(lower).not.toContain("xero grow forever");
-    expect(lower).not.toContain("xero grow subscription included");
     expect(lower).toMatch(/helpline|priority support/);
-    expect(lower).toContain("not approved");
+    expect(lower).toContain("removed");
   });
 
   it("xero_inclusion_does_not_suggest_separate_customer_charge", () => {
@@ -111,8 +111,8 @@ describe("owner commercial decisions — controlled approval", () => {
     );
     expect(reply).toBeTruthy();
     const lower = reply!.toLowerCase();
-    expect(lower).toContain("tier limits");
-    expect(lower).toContain("not yet published");
+    expect(lower).toContain("package limits");
+    expect(lower).toContain("undecided");
     expect(lower).not.toMatch(/unlimited bookkeeping is included/);
   });
 
@@ -122,9 +122,8 @@ describe("owner commercial decisions — controlled approval", () => {
     );
     expect(reply).toBeTruthy();
     const lower = reply!.toLowerCase();
-    expect(lower).toContain("annual self assessment");
-    expect(lower).toContain("subject to agreed scope");
-    expect(lower).toContain("timely");
+    expect(lower).toContain("year-end self assessment");
+    expect(lower).toContain("customer responsibilities");
   });
 
   it("no_priority_or_qbr_or_planning_promises", () => {
@@ -230,9 +229,9 @@ describe("owner commercial decisions — controlled approval", () => {
     expect(reply).toBeTruthy();
     const lower = reply!.toLowerCase();
     expect(lower).toContain("29.99");
-    expect(lower).toContain("xero software is included");
-    expect(lower).toContain("do not pay separately");
-    expect(lower).toContain("subject to agreed scope");
+    expect(lower).toContain("xero");
+    expect(lower).toContain("xero simple");
+    expect(lower).toContain("customer responsibilities");
     expect(lower).toContain("will not invent");
   });
 

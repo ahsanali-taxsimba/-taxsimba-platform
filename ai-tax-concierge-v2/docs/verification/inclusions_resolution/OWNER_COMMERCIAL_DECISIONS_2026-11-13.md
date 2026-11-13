@@ -13,21 +13,19 @@ Xero software **is included** in the advertised monthly subscription price of al
 - Customers **do not** pay separately for their included Xero licence.
 - Do **not** reopen this commercial decision.
 - SIMBA must **not** invent which exact Xero plan, seat count, duration, or “forever free” terms.
-- Exact Xero licence mapping only: **PENDING APPROVAL** (remaining decision table 1).
+- Website catalogue mapping **verified**: Comply→**Xero Simple**, Growth→**Xero Ignite**, Elite→**Xero Grow**.
+- Do **not** invent “forever”, unlimited seats, or separate Xero charges.
 
 ### 2. Bookkeeping
-TaxSimba **maintains clients’ digital bookkeeping records within defined limits** for each MTD tier. The **numerical limits are NOT yet approved**.
+TaxSimba **maintains clients’ digital bookkeeping records within agreed package limits**.
 
-- SIMBA may say: bookkeeping is maintained within tier limits that TaxSimba will confirm.
-- SIMBA must **not** promise unlimited bookkeeping or invent transaction caps.
-- Status: **APPROVED SUBJECT TO SCOPE**.
+- **Transaction/numerical limits remain UNDECIDED** for Comply, Growth and Elite.
+- SIMBA must **not** promise unlimited bookkeeping or invent caps.
 
-### 3. Annual Self Assessment inside MTD
-Preparation and submission of the **annual Self Assessment return are included** in all three MTD subscriptions, **subject to an agreed scope and timely client records**.
+### 3. Quarterly updates + annual Self Assessment inside MTD
+**Quarterly MTD updates** and **year-end Self Assessment** preparation/submission are included in all three MTD packages, **subject to documented customer responsibilities**.
 
-- SIMBA may say: year-end SA filing is included in Simbian Comply/Growth/Elite under those conditions.
-- SIMBA must **not** present it as unconditional or invent scope boundaries.
-- Status: **APPROVED SUBJECT TO SCOPE**.
+- SIMBA must not present these as unconditional guarantees without the responsibilities caveat.
 
 ### 4. Removed premium claims (customer-facing)
 **Remove** all customer-facing promises of:
@@ -43,27 +41,31 @@ until operational capability and precise entitlements are approved.
 - Status: **REMOVED**.
 
 ### 5. £99 consultation
-The £99 consultation is **one 30-minute accountant-led Google Meet advice session**.
+The £99 consultation is **a 30-minute accountant advice session via Google Meet**.
 
 **Not included:** tax return filing, bookkeeping, or a written report.
 
 - Status: **APPROVED** (scope + exclusions).
 - Booking remains stub until Calendly is connected (Toxel).
 
+### 6. Support channels
+Support is through **approved email and client-dashboard messaging** channels, **not telephone onboarding**.
+
 ## SIMBA speaking rules (post-decision)
 
 1. State approved names and prices confidently.  
-2. State decision 1 (Xero-in-price) as approved; state decisions 2–3 with conditional / subject-to-scope wording. Exact Xero mapping remains pending.  
-3. Never invent bookkeeping limits, named Xero plan details, response times, tax-planning benefits or separate Xero charges.  
-4. Never promise removed premium claims.  
-5. When a recommendation depends on an unresolved entitlement, say TaxSimba must confirm the detail.  
-6. Recommend the lowest suitable package; explain SA vs MTD; ask one clarifying question at a time; give correct package-page / register links.
+2. State Xero-in-price + Simple/Ignite/Grow mapping confidently; never invent forever/unlimited seats.  
+3. State quarterly + year-end with customer-responsibilities caveat; bookkeeping limits UNDECIDED.  
+4. Never invent response times, tax-planning benefits, telephone onboarding or separate Xero charges.  
+5. Never promise removed premium claims.  
+6. When a recommendation depends on an unresolved entitlement, say TaxSimba must confirm the detail.  
+7. Recommend the lowest suitable package; explain SA vs MTD; ask one clarifying question at a time; give correct package-page / register links.
 
 ## Related artefacts
 
 | Doc | Path |
 |-----|------|
-| Updated 54-item matrix | `SIX_PACKAGE_APPROVAL_MATRIX.md` |
+| Final website reconciliation | `../final_website_reconciliation/FINAL_SIX_PACKAGE_RECONCILIATION_REPORT.md` |
+| Reclassified 54-item matrix | `../final_website_reconciliation/RECLASSIFIED_54_ITEM_MATRIX.md` |
 | Remaining decision tables (1–8) | `REMAINING_OWNER_DECISION_TABLES.md` |
-| Proposed descriptions & exclusions | `PROPOSED_FINAL_PACKAGE_COPY.md` |
 | Staging handover | `../../toxel/TOXEL_STAGING_HANDOVER.md` |

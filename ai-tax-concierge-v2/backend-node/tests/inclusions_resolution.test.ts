@@ -37,7 +37,7 @@ describe("inclusions resolution — Simbian names + owner decisions", () => {
   it("runtime_packages_use_simbian_names_and_verified_prices", () => {
     const cat = packagesCatalog();
     expect(cat.detailed_recommendations_status).toBe(
-      "owner_decisions_applied_remaining_scope_pending",
+      "website_reconciled_owner_decisions_applied",
     );
     expect(cat.self_assessment.map((p: { price_gbp: number }) => p.price_gbp)).toEqual([
       119, 149, 299,
@@ -69,8 +69,8 @@ describe("inclusions resolution — Simbian names + owner decisions", () => {
     expect(lower).not.toContain("mtd starter");
     expect(lower).not.toContain("mtd complete");
     // Must not invent exact named Xero plan as unconditional.
-    expect(lower).not.toContain("xero grow subscription included");
     expect(lower).toContain("xero software is included");
+    expect(lower).toContain("xero grow");
     expect(lower).toMatch(/do not pay separately|no separate/);
   });
 

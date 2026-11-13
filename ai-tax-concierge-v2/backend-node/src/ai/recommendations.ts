@@ -22,10 +22,10 @@ const EXISTING_CLIENT =
   /\b(existing (taxsimba )?client|already (a )?taxsimba|logged ?in|my dashboard|message my (assigned )?accountant|my assigned accountant)\b/i;
 
 const DEFAULT_PRESSURE_NOTE =
-  "Optional support — only if useful. Approved items include package names and prices, and Xero software included in each " +
-  "Simbian monthly price (no separate Xero charge). Subject-to-scope: bookkeeping within unpublished limits; annual SA filing " +
-  "subject to scope/timely records. Exact Xero licence mapping and transaction limits still need TaxSimba confirmation. " +
-  "No priority support, quarterly business reviews or proactive tax planning.";
+  "Optional support — only if useful. Approved: package names/prices; Xero included in each Simbian monthly price " +
+  "(Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow; no separate Xero charge); quarterly MTD updates and year-end SA " +
+  "subject to documented customer responsibilities; email + dashboard messaging (not phone onboarding). " +
+  "Bookkeeping transaction limits remain UNDECIDED. No priority support, quarterly business reviews or proactive tax planning.";
 
 const PENDING_STATUSES = new Set([
   "pending_taxsimba_signoff",
@@ -50,13 +50,13 @@ function circumstanceReason(code: string, message: string): string {
     return "Highest Self Assessment price — only suggested when complexity clearly exceeds mid-tier needs (price approved at £299; no priority/planning promises).";
   }
   if (code === "MTD_STARTER") {
-    return "Lowest Simbian Comply (£29.99/mo VAT included, Xero included in that price) when Making Tax Digital support is needed — bookkeeping limits and year-end SA remain subject to scope; exact Xero mapping still pending confirmation.";
+    return "Lowest Simbian Comply (£29.99/mo VAT included, Xero Simple included in that price) when Making Tax Digital support is needed — quarterly updates and year-end SA included subject to customer responsibilities; bookkeeping transaction limits UNDECIDED.";
   }
   if (code === "MTD_GROWTH") {
-    return "Mid Simbian Growth (£59.99/mo VAT included, Xero included in that price) when more support is likely — bookkeeping/year-end SA subject to scope; Growth-only extras still pending confirmation.";
+    return "Mid Simbian Growth (£59.99/mo VAT included, Xero Ignite included in that price) when more support is likely — quarterly updates and year-end SA included subject to customer responsibilities; bookkeeping transaction limits UNDECIDED.";
   }
   if (code === "MTD_COMPLETE") {
-    return "Highest Simbian Elite (£89.99/mo VAT included, Xero included in that price) only if mid-tier is clearly insufficient — no priority/QBR/planning promises; confirm remaining entitlements with TaxSimba.";
+    return "Highest Simbian Elite (£89.99/mo VAT included, Xero Grow included in that price) only if mid-tier is clearly insufficient — no priority/QBR/planning promises; bookkeeping transaction limits UNDECIDED.";
   }
   if (code === "ACCOUNTANT_CONSULT_99") {
     return "£99 for one 30-minute accountant-led Google Meet advice session (no filing, bookkeeping or written report; booking stub until Calendly is connected).";
@@ -341,16 +341,19 @@ export function answerInclusionsQuestion(message: string): string | null {
       "for people who need digital records and MTD support.",
     "",
     "Approved:",
-    "- Xero software is included in the advertised monthly Simbian prices (£29.99 / £59.99 / £89.99 VAT included). Customers do not pay separately for their included Xero licence.",
+    "- Xero software is included in the advertised monthly Simbian prices (£29.99 / £59.99 / £89.99 VAT included). Customers do not pay separately.",
+    "- Website catalogue mapping: Simbian Comply → Xero Simple; Simbian Growth → Xero Ignite; Simbian Elite → Xero Grow.",
+    "- Support is via email and the client dashboard messaging channels — not telephone onboarding.",
+    "- £99 consultation: 30-minute accountant advice session on Google Meet (no filing, bookkeeping or written report).",
     "",
-    "Approved subject to scope (do not present as unconditional beyond the stated conditions):",
-    "- TaxSimba maintains digital bookkeeping within defined tier limits — numerical/transaction limits are not yet published; I will not invent them.",
-    "- Annual Self Assessment preparation and submission are included in all three Simbian plans, subject to agreed scope and timely client records.",
+    "Approved with conditions:",
+    "- TaxSimba maintains digital bookkeeping within agreed package limits — transaction/numerical limits remain UNDECIDED; I will not invent them.",
+    "- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.",
     "",
-    "Still pending confirmation (not a reopening of Xero-in-price): exact Xero licence mapping per tier; bookkeeping transaction limits; additional-work exclusions.",
-    "Removed from customer promises until re-approved: priority support, priority turnaround, quarterly business reviews, and proactive tax planning.",
-    "I will not invent bookkeeping limits, named Xero plan details, response times, tax-planning benefits or extra charges. " +
-      "Where an entitlement is still pending or unknown, TaxSimba must confirm the detail.",
+    "Genuine outstanding items (not invented): package exclusions lists, extra-work charges, amendments, cancellation/refund conditions, and bookkeeping transaction caps.",
+    "Removed from SIMBA customer promises until re-approved (even if older website bullets mention them): priority support, priority turnaround, quarterly business reviews, and proactive tax planning.",
+    "I will not invent bookkeeping limits, response times, tax-planning benefits or extra charges. " +
+      "Where an entitlement still requires clarification, TaxSimba must confirm the detail.",
     "",
     "I can recommend the lowest suitable package for your circumstances and share the right next link. " +
       "Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, " +
@@ -373,9 +376,9 @@ export function answerInclusionsQuestion(message: string): string | null {
   if (lower.includes("xero")) {
     lines.push(
       "",
-      "Xero software is included in the Simbian monthly subscription price — customers do not pay separately for that included licence. " +
-        "The exact Xero licence mapping (and any seat/entitlement detail) still needs TaxSimba confirmation. " +
-        "I will not invent “Xero Simple/Ignite/Grow forever” or suggest a separate Xero charge.",
+      "Xero software is included in the Simbian monthly subscription price — customers do not pay separately. " +
+        "Catalogue mapping: Comply includes Xero Simple, Growth includes Xero Ignite, Elite includes Xero Grow. " +
+        "I will not invent “forever free”, unlimited seats, or a separate Xero charge.",
     );
   }
 

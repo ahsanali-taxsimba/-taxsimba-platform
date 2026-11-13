@@ -39,6 +39,10 @@ describe("recommendations", () => {
           p.inclusions_status === "pending_approval" ||
           p.inclusions_status ===
             "mixed_approved_subject_to_scope_and_pending" ||
+          p.inclusions_status ===
+            "mixed_approved_and_requires_clarification" ||
+          p.inclusions_status ===
+            "mixed_verified_from_website_and_requires_clarification" ||
           p.inclusions_status === "approved" ||
           p.inclusions_status === "unknown" ||
           p.inclusions_status === "missing_requires_approval",

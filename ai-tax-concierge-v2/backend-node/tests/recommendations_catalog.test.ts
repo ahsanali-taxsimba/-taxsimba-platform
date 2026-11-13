@@ -39,7 +39,9 @@ describe("recommendations catalog", () => {
     const card = toPackageCards([code])[0];
     expect(card.price_gbp).toBe(price);
     expect(card.price_status).toBe("verified");
-    expect(card.inclusions_status).toBe("pending_approval");
+    expect(card.inclusions_status).toMatch(
+      /pending_approval|mixed_verified_from_website|requires_clarification/,
+    );
   });
 
   it.each(MTD_PRICE_CASES)(
@@ -61,7 +63,7 @@ describe("recommendations catalog", () => {
   it("mtd_customer_facing_simbian_names_verified", () => {
     const cat = packagesCatalog();
     expect(cat.detailed_recommendations_status).toBe(
-      "owner_decisions_applied_remaining_scope_pending",
+      "website_reconciled_owner_decisions_applied",
     );
     expect(cat.mtd.map((p: { name: string }) => p.name)).toEqual([
       "Simbian Comply",
@@ -73,6 +75,8 @@ describe("recommendations catalog", () => {
         (p: { name_status: string; price_status: string; inclusions_status: string }) =>
           p.name_status === "verified" &&
           p.price_status === "verified" &&
+          p.inclusions_status ===
+            "mixed_approved_and_requires_clarification" ||
           p.inclusions_status ===
             "mixed_approved_subject_to_scope_and_pending",
       ),
@@ -99,6 +103,10 @@ describe("recommendations catalog", () => {
           p.inclusions_status === "pending_approval" ||
           p.inclusions_status ===
             "mixed_approved_subject_to_scope_and_pending" ||
+          p.inclusions_status ===
+            "mixed_approved_and_requires_clarification" ||
+          p.inclusions_status ===
+            "mixed_verified_from_website_and_requires_clarification" ||
           p.inclusions_status === "approved" ||
           p.inclusions_status === "unknown" ||
           p.inclusions_status === "missing_requires_approval",

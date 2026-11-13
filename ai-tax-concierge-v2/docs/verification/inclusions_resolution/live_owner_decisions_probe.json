@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-13T20:20:12.474Z",
-  "passed": 9,
-  "total": 9,
+  "generated_at": "2026-11-13T20:49:58.530Z",
+  "passed": 11,
+  "total": 11,
   "results": [
     {
       "id": "xero_no_invented_licence",
@@ -32,6 +32,20 @@
       "reply_excerpt": "Here is what SIMBA can state from approved catalogue decisions:\n\nSelf Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.\nPrivate accountant consultation: £99 for one 30-minute accountant-led Google Meet advice session (no tax return filing, bookkeeping or written report; booking stub until Calendly is connected).\n\nSelf Assessment is usually a once-a-year tax return s"
     },
     {
+      "id": "quarterly_updates_included",
+      "pass": true,
+      "expectOk": true,
+      "rejectHit": null,
+      "reply_excerpt": "Here is what SIMBA can state from approved catalogue decisions:\n\nSelf Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.\nPrivate accountant consultation: £99 for one 30-minute accountant-led Google Meet advice session (no tax return filing, bookkeeping or written report; booking stub until Calendly is connected).\n\nSelf Assessment is usually a once-a-year tax return s"
+    },
+    {
+      "id": "support_channels_not_phone",
+      "pass": true,
+      "expectOk": true,
+      "rejectHit": null,
+      "reply_excerpt": "Unfortunately, TaxSimba does not offer telephone onboarding support. Instead, assistance is provided through approved email and client-dashboard messaging channels. If you have any questions about the packages or need help with onboarding, feel free to ask here!"
+    },
+    {
       "id": "no_priority_qbr_planning",
       "pass": true,
       "expectOk": true,
@@ -50,14 +64,14 @@
       "pass": true,
       "expectOk": true,
       "rejectHit": null,
-      "reply_excerpt": "As a first-time sole trader with simple income, the **Self Assessment Simple** package at £119 per tax year would likely be the most suitable option for you. This package is designed for straightforward tax situations, making it a good fit for someone just starting out.\n\nIf you have any specific questions about what’s included in the package or need help with the registration process, feel free to ask! You can also find more details about the Self Assessment packages [here](https://www.taxsimba."
+      "reply_excerpt": "As a first-time sole trader with simple income, the **Self Assessment Simple** package at **£119 per tax year** would likely be the most suitable option for you. This package is designed for individuals with straightforward tax situations, making it a cost-effective choice for your needs.\n\nIf you have any specific questions about what the package includes or about the Self Assessment process, feel free to ask! You can also find more details on our [Self Assessment page](https://www.taxsimba.co.u"
     },
     {
       "id": "landlord_mtd_comply",
       "pass": true,
       "expectOk": true,
       "rejectHit": null,
-      "reply_excerpt": "As a landlord needing Making Tax Digital (MTD), the lowest suitable plan is **Simbian Comply**, which costs **£29.99 per month** (VAT included). This plan includes the necessary digital bookkeeping and preparation for your MTD obligations.\n\nSince you’re a landlord, you’ll need to keep digital records and submit quarterly updates if your qualifying income exceeds the relevant threshold. For the 2025-26 tax year, if your qualifying income is more than £30,000, you’ll need to comply with MTD starti"
+      "reply_excerpt": "As a landlord needing to comply with Making Tax Digital (MTD), the lowest suitable Simbian plan is **Simbian Comply**, which costs **£29.99 per month (VAT included)**. This plan includes the necessary digital bookkeeping and quarterly updates required under MTD.\n\nJust to clarify, you will need to use MTD if your qualifying income from property exceeds £30,000 in the 2025-26 tax year, starting from **6 April 2027**. \n\nIf you have any further questions or need assistance with the registration proc"
     },
     {
       "id": "signup_links",

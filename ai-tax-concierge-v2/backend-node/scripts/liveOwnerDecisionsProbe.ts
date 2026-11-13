@@ -43,8 +43,21 @@ const CASES = [
     id: "mtd_annual_sa_scope",
     message:
       "Do all Simbian MTD plans include preparing and submitting my annual Self Assessment?",
-    expect_any: ["self assessment", "scope"],
+    expect_any: ["self assessment", "responsibilities"],
     reject_any: ["includes priority turnaround"],
+  },
+  {
+    id: "quarterly_updates_included",
+    message:
+      "Do Simbian Comply, Growth and Elite include quarterly MTD updates?",
+    expect_any: ["quarterly", "responsibilities"],
+    reject_any: ["includes quarterly business reviews"],
+  },
+  {
+    id: "support_channels_not_phone",
+    message: "Can I call TaxSimba on the phone for package onboarding support?",
+    expect_any: ["email", "dashboard"],
+    reject_any: ["telephone onboarding is available", "call us for onboarding"],
   },
   {
     id: "no_priority_qbr_planning",

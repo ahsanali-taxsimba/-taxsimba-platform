@@ -5,8 +5,8 @@
 **Customer-facing name:** **SIMBA AI Tax Assistant** (Emerald Signature UI — do not restyle)  
 **Release gate:** **STAGING ONLY** — no production merge/deploy; **do not delete Python** (`ai-tax-concierge-v2/backend/`) until staging acceptance is signed separately.
 
-Accepted local evidence (2026-11-13 owner-decisions pass): **471** Vitest · security **26** · live owner-decisions probe **8/8** · Ask SIMBA launcher + welcome card + compact chat evidenced under `docs/verification/pre_toxel_final/`. Node independent of Python.  
-Owner decisions: [`../verification/inclusions_resolution/OWNER_COMMERCIAL_DECISIONS_2026-11-13.md`](../verification/inclusions_resolution/OWNER_COMMERCIAL_DECISIONS_2026-11-13.md) · Final report: [`../verification/inclusions_resolution/FINAL_COMMERCIAL_DECISIONS_REPORT.md`](../verification/inclusions_resolution/FINAL_COMMERCIAL_DECISIONS_REPORT.md).
+Accepted local evidence (2026-11-13 website reconciliation): **476** Vitest · security **26** · live probe **11/11** · widget + live-site screenshots under `docs/verification/final_website_reconciliation/screenshots/`. Node independent of Python.  
+Reconciliation: [`../verification/final_website_reconciliation/FINAL_SIX_PACKAGE_RECONCILIATION_REPORT.md`](../verification/final_website_reconciliation/FINAL_SIX_PACKAGE_RECONCILIATION_REPORT.md).
 
 ---
 
@@ -18,12 +18,14 @@ Owner decisions: [`../verification/inclusions_resolution/OWNER_COMMERCIAL_DECISI
 | MTD customer-facing names + prices | **APPROVED** — **Simbian Comply / Growth / Elite** £29.99 / £59.99 / £89.99 VAT incl. |
 | Internal MTD codes | **Preserved** — `MTD_STARTER` / `MTD_GROWTH` / `MTD_COMPLETE` (portal/Stripe; no duplicates; amounts unchanged) |
 | Xero in MTD monthly price | **APPROVED** — included in £29.99 / £59.99 / £89.99; customers do **not** pay separately |
-| Exact Xero licence mapping | **PENDING** — do not invent named plans |
-| Bookkeeping within tier limits | **APPROVED SUBJECT TO SCOPE** — transaction limits **not** approved |
-| Annual SA filing inside all MTD plans | **APPROVED SUBJECT TO SCOPE** — agreed scope + timely records |
-| Priority support / turnaround / QBR / proactive tax planning | **REMOVED** from customer-facing copy |
-| Consultation £99 / 30 min | **APPROVED** — one accountant-led Google Meet advice session; **no** filing, bookkeeping or written report; booking stub |
-| Additional-work exclusions / amendments / refunds | Still **PENDING / UNKNOWN** — see remaining decision tables |
+| Xero mapping | **VERIFIED FROM WEBSITE** — Comply→Simple, Growth→Ignite, Elite→Grow |
+| Bookkeeping within package limits | **APPROVED**; **transaction caps UNDECIDED** |
+| Quarterly MTD updates + year-end SA | **APPROVED** subject to documented customer responsibilities |
+| Support channels | **APPROVED** — email + client-dashboard messaging; **not** telephone onboarding |
+| Priority support / turnaround / QBR / proactive tax planning | **REMOVED** from SIMBA copy (may still appear on public API — do not auto-approve) |
+| Consultation £99 / 30 min | **APPROVED** — Google Meet advice session; **no** filing/bookkeeping/written report; booking stub |
+| Exclusions / amendments / cancel-refund / extra-work | **NOT IMPLEMENTED** on website — owner must supply |
+| Final website reconciliation | [`../verification/final_website_reconciliation/FINAL_SIX_PACKAGE_RECONCILIATION_REPORT.md`](../verification/final_website_reconciliation/FINAL_SIX_PACKAGE_RECONCILIATION_REPORT.md) |
 | Owner decisions | [`../verification/inclusions_resolution/OWNER_COMMERCIAL_DECISIONS_2026-11-13.md`](../verification/inclusions_resolution/OWNER_COMMERCIAL_DECISIONS_2026-11-13.md) |
 | Six-package approval matrix | [`../verification/inclusions_resolution/SIX_PACKAGE_APPROVAL_MATRIX.md`](../verification/inclusions_resolution/SIX_PACKAGE_APPROVAL_MATRIX.md) |
 | Remaining decision tables 1–8 | [`../verification/inclusions_resolution/REMAINING_OWNER_DECISION_TABLES.md`](../verification/inclusions_resolution/REMAINING_OWNER_DECISION_TABLES.md) |
@@ -195,7 +197,9 @@ Run after HTTPS deploy. Record PASS/FAIL with screenshots.
 | A10 | Decline sales | Information only; no packages |
 | A11 | Mobile Safari | Sidebar/drawer + chat usable |
 | A12 | Embed on staging page | Launcher click-to-open; Escape closes |
-| A13 | `npm test` in CI/image | 471 pass |
+| A13 | `npm test` in CI/image | 476 pass |
+| A14 | Live MTD package page | Flag if `/making-tax-digital` still lacks Simbian cards (known contradiction) |
+| A15 | Live `/pricing` | Must not show service error |
 
 ### B. Integrations (remain BLOCKED until each passes)
 

@@ -78,6 +78,10 @@ describe("package recommendation journeys 50", () => {
               card.inclusions_status === "pending_approval" ||
               card.inclusions_status ===
                 "mixed_approved_subject_to_scope_and_pending" ||
+              card.inclusions_status ===
+                "mixed_approved_and_requires_clarification" ||
+              card.inclusions_status ===
+                "mixed_verified_from_website_and_requires_clarification" ||
               card.inclusions_status === "approved" ||
               card.inclusions_status === "unknown" ||
               card.inclusions_status === "missing_requires_approval",
@@ -127,6 +131,10 @@ describe("package recommendation journeys 50", () => {
             p.inclusions_status === "pending_approval" ||
             p.inclusions_status ===
               "mixed_approved_subject_to_scope_and_pending" ||
+            p.inclusions_status ===
+              "mixed_approved_and_requires_clarification" ||
+            p.inclusions_status ===
+              "mixed_verified_from_website_and_requires_clarification" ||
             p.inclusions_status === "approved" ||
             p.inclusions_status === "unknown" ||
             p.inclusions_status === "missing_requires_approval" ||

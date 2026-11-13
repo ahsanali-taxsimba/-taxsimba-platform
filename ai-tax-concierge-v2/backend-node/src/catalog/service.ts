@@ -97,14 +97,15 @@ export function packageCatalogText(): string {
     );
   }
   lines.push(
-    "CRITICAL: Never invent bookkeeping numerical limits, named Xero plan entitlements, response-time SLAs, " +
-      "tax-planning packages, quarterly business reviews, priority support, or extra charges. " +
-      "Pending/unknown entitlements require TaxSimba confirmation. " +
+    "CRITICAL: Never invent bookkeeping transaction limits, response-time SLAs, tax-planning packages, " +
+      "quarterly business reviews, priority support, telephone onboarding, or extra charges. " +
+      "Xero-in-price is approved with website mapping Comply→Simple, Growth→Ignite, Elite→Grow. " +
+      "Items requiring clarification need TaxSimba confirmation — do not auto-approve website bullets. " +
       "Recommend the lowest suitable package; explain SA vs MTD; ask one clarifying question at a time; " +
       "give https://www.taxsimba.co.uk/self-assessment, https://www.taxsimba.co.uk/making-tax-digital, " +
       "or https://www.taxsimba.co.uk/register as appropriate. " +
-      "Use only Simbian Comply / Simbian Growth / Simbian Elite for MTD customer-facing names " +
-      "(do not use retired starter/complete labels). " +
+      "Note: the public /making-tax-digital marketing page SEO currently mismatches the Simbian catalogue API — " +
+      "prefer verified API catalogue facts. Use only Simbian Comply / Growth / Elite for MTD names. " +
       `Catalogue note: ${cat.disclaimer}`,
   );
   return lines.join("\n");
