@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html><head><title>Force Open</title></head><body>
+<script>
+window.onload = function() {
+  var iframe = window.opener ? window.opener.document.getElementById('simba-panel') : null;
+  var btn = window.opener ? window.opener.document.getElementById('simba-btn') : null;
+  
+  if (iframe && btn) {
+    iframe.style.display = 'block';
+    iframe.setAttribute('aria-hidden', 'false');
+    btn.setAttribute('aria-expanded', 'true');
+    btn.querySelector('span').textContent = 'Close';
+    window.close();
+  } else {
+    document.body.innerHTML = '<h1>Please open this from the preview page</h1><p>Or copy this code to browser console:</p><pre>document.getElementById("simba-panel").style.display="block";document.getElementById("simba-panel").setAttribute("aria-hidden","false");document.getElementById("simba-btn").setAttribute("aria-expanded","true");document.getElementById("simba-btn").querySelector("span").textContent="Close";</pre>';
+  }
+};
+</script>
+</body></html>

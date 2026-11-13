@@ -2,12 +2,74 @@
   const root = document.documentElement;
   const params = new URLSearchParams(window.location.search);
   const API_BASE = (params.get("api") || root.dataset.apiBase || "").replace(/\/$/, "");
+
+  const TOPICS = [
+    {
+      id: "sa",
+      title: "Self Assessment",
+      blurb: "Who needs to file and key deadlines",
+      journey: "first_time",
+      icon: "file",
+    },
+    {
+      id: "mtd",
+      title: "Making Tax Digital",
+      blurb: "Thresholds, start dates and plans",
+      journey: "mtd",
+      icon: "calendar",
+    },
+    {
+      id: "landlord",
+      title: "Landlords",
+      blurb: "Rental income and property tax",
+      journey: "landlord",
+      icon: "home",
+    },
+    {
+      id: "freelancer_cis",
+      title: "Freelancers & CIS",
+      blurb: "Self-employed and construction tax",
+      journey: "freelancer",
+      icon: "briefcase",
+    },
+    {
+      id: "vat",
+      title: "VAT",
+      blurb: "Registration threshold and rules",
+      message: "What is the UK VAT registration threshold and when do I need to register?",
+      icon: "percent",
+    },
+    {
+      id: "calculators",
+      title: "Tax Calculators",
+      blurb: "Estimate tax with TaxSimba tools",
+      message: "Which TaxSimba tax calculators should I use for Income Tax, NI or rental income?",
+      icon: "calc",
+    },
+  ];
+
+  const SUGGESTIONS = [
+    { label: "Do I need to file a tax return?", message: "Do I need to send a Self Assessment tax return?" },
+    { label: "When is the SA deadline?", message: "When is the Self Assessment online filing deadline?" },
+    { label: "What do packages cost?", message: "What Self Assessment and MTD packages does TaxSimba offer?" },
+  ];
+
+  const ICONS = {
+    file: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>',
+    calendar: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+    home: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10.5V20h14v-9.5"/></svg>',
+    briefcase: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="3" y1="13" x2="21" y2="13"/></svg>',
+    percent: '<svg viewBox="0 0 24 24" aria-hidden="true"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="7.5" cy="7.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg>',
+    calc: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="11" x2="8" y2="11.01"/><line x1="12" y1="11" x2="12" y2="11.01"/><line x1="16" y1="11" x2="16" y2="11.01"/><line x1="8" y1="16" x2="8" y2="16.01"/><line x1="12" y1="16" x2="12" y2="16.01"/><line x1="16" y1="16" x2="16" y2="16.01"/></svg>',
+  };
+
   const state = {
     sessionId: crypto.randomUUID(),
     history: [],
     journey: null,
     bootstrap: null,
     busy: false,
+    view: "welcome",
   };
 
   const els = {
@@ -19,6 +81,7 @@
     send: document.getElementById("ts-send"),
     live: document.getElementById("ts-live"),
     del: document.getElementById("ts-delete"),
+    topicsBtn: document.getElementById("ts-topics-btn"),
   };
 
   function api(path, options) {
@@ -54,7 +117,21 @@
     els.live.textContent = text;
   }
 
+  function setView(view) {
+    state.view = view;
+    if (els.topicsBtn) els.topicsBtn.hidden = view !== "chat";
+    document.querySelector(".ts-shell")?.classList.toggle("is-chat", view === "chat");
+  }
+
+  function enterChatView() {
+    if (state.view === "welcome") {
+      els.body.innerHTML = "";
+      setView("chat");
+    }
+  }
+
   function appendUser(text) {
+    enterChatView();
     const row = document.createElement("div");
     row.className = "ts-msg user";
     row.innerHTML = `<div class="ts-bubble">${escapeHtml(text)}</div>`;
@@ -63,6 +140,7 @@
   }
 
   function typing() {
+    enterChatView();
     const row = document.createElement("div");
     row.className = "ts-msg assistant";
     row.id = "ts-typing";
@@ -87,8 +165,10 @@
 
   function renderAssistant(payload) {
     clearTyping();
+    enterChatView();
     const wrap = document.createElement("div");
     wrap.className = "ts-msg assistant";
+
     let html = `<div class="ts-bubble">${escapeHtml(payload.reply)}</div>`;
 
     if (payload.journey?.current?.options?.length) {
@@ -99,49 +179,54 @@
       html += `</div>`;
     }
 
-    if (payload.sources?.length) {
-      html += `<div class="ts-sources" aria-label="Sources">`;
-      for (const s of payload.sources) {
+    const sources = (payload.sources || []).slice(0, 2);
+    if (sources.length) {
+      html += `<div class="ts-resources" aria-label="Official sources">`;
+      for (const s of sources) {
         html += `<div class="ts-source"><a href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(s.title)}</a>
-          <div class="ts-note">${escapeHtml(s.publisher)} · ${escapeHtml((s.tax_years || []).join(", "))}</div></div>`;
+          <div class="ts-note">${escapeHtml(s.publisher)}</div></div>`;
       }
       html += `</div>`;
     }
 
-    if (payload.packages?.length) {
-      html += `<div class="ts-section-label">Optional support (no pressure)</div><div class="ts-cards">`;
-      for (const p of payload.packages) {
+    const calculators = (payload.calculators || []).slice(0, 2).filter((c) => c.url);
+    if (calculators.length) {
+      html += `<div class="ts-section-label">Useful tools</div><div class="ts-resources">`;
+      for (const c of calculators) {
+        html += `<div class="ts-card"><a href="${escapeHtml(c.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(c.title)}</a>
+          <div class="ts-note">${escapeHtml(c.description || "")}</div></div>`;
+      }
+      html += `</div>`;
+    }
+
+    const routes = (payload.routes || []).slice(0, 1).filter((r) => r.url);
+    if (routes.length) {
+      html += `<div class="ts-resources">`;
+      for (const r of routes) {
+        html += `<div class="ts-card"><a href="${escapeHtml(r.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(r.label)}</a>
+          <div class="ts-note">Continue on TaxSimba</div></div>`;
+      }
+      html += `</div>`;
+    }
+
+    const packages = (payload.packages || []).slice(0, 3);
+    if (packages.length) {
+      html += `<div class="ts-section-label">Optional TaxSimba support</div><div class="ts-resources">`;
+      for (const p of packages) {
         const price = Number(p.price_gbp);
         const priceLabel = Number.isInteger(price) ? `£${price}` : `£${price.toFixed(2)}`;
         html += `<div class="ts-card"><strong>${escapeHtml(p.name)}</strong>
           <div class="price">${priceLabel} · ${escapeHtml(p.billing)}</div>
-          <div class="ts-note">${escapeHtml(p.vat_note || "")}. Inclusions not invented by SIMBA.</div>
-          <button type="button" class="ts-follow" data-package="${escapeHtml(p.code)}" style="margin-top:6px">View option</button></div>`;
+          <div class="ts-note">${escapeHtml(p.vat_note || "")}</div>
+          <button type="button" class="ts-follow" data-package="${escapeHtml(p.code)}" style="margin-top:6px">Tell me more</button></div>`;
       }
       html += `</div>`;
     }
 
-    if (payload.calculators?.length) {
-      html += `<div class="ts-section-label">Calculator suggestions</div><div class="ts-cards">`;
-      for (const c of payload.calculators) {
-        html += `<div class="ts-card"><strong>${escapeHtml(c.title)}</strong><div>${escapeHtml(c.description)}</div>
-          <div class="ts-note">${escapeHtml(c.note || c.url_status || "")}</div></div>`;
-      }
-      html += `</div>`;
-    }
-
-    if (payload.routes?.length) {
-      html += `<div class="ts-section-label">Related TaxSimba pages</div><div class="ts-cards">`;
-      for (const r of payload.routes) {
-        html += `<div class="ts-card"><strong>${escapeHtml(r.label)}</strong>
-          <div class="ts-note">${escapeHtml(r.path)} · ${escapeHtml(r.note || r.status)}</div></div>`;
-      }
-      html += `</div>`;
-    }
-
-    if (payload.follow_ups?.length) {
-      html += `<div class="ts-section-label">Suggested follow-ups</div><div class="ts-chips">`;
-      for (const f of payload.follow_ups) {
+    const followUps = (payload.follow_ups || []).slice(0, 2);
+    if (followUps.length) {
+      html += `<div class="ts-chips">`;
+      for (const f of followUps) {
         html += `<button type="button" class="ts-follow" data-follow="${escapeHtml(f)}">${escapeHtml(f)}</button>`;
       }
       html += `</div>`;
@@ -160,6 +245,7 @@
 
   function showError(message) {
     clearTyping();
+    enterChatView();
     const err = document.createElement("div");
     err.className = "ts-error";
     err.setAttribute("role", "alert");
@@ -194,9 +280,11 @@
     }
   }
 
-  async function startJourney(journeyId) {
+  async function startJourney(journeyId, userLabel) {
     if (state.busy) return;
     setBusy(true);
+    if (userLabel) appendUser(userLabel);
+    else enterChatView();
     typing();
     try {
       const data = await api("/api/v1/journeys/start", {
@@ -204,12 +292,14 @@
         body: JSON.stringify({ session_id: state.sessionId, journey_id: journeyId }),
       });
       state.journey = data.journey;
+      if (userLabel) state.history.push({ role: "user", content: userLabel });
       state.history.push({ role: "assistant", content: data.reply });
       renderAssistant(data);
     } catch (e) {
       showError(e.message || "Could not start guided journey.");
     } finally {
       setBusy(false);
+      els.input.focus();
     }
   }
 
@@ -239,43 +329,54 @@
   }
 
   function renderWelcome(boot) {
-    const starters = (boot.starters || []).slice(0, 6);
-    const journeys = boot.journeys || [];
+    setView("welcome");
     const mock = boot.mock_notice
       ? `<div class="ts-mock-banner" role="status">${escapeHtml(boot.mock_notice)}</div>`
       : "";
-    const integrationNote =
-      `<div class="ts-blocked-banner" role="note">` +
-      `Checkout, Calendly booking and live dashboard messaging stay with TaxSimba systems. ` +
-      `SIMBA will not claim a payment or booking is complete unless those systems confirm it.` +
-      `</div>`;
+    const topicsHtml = TOPICS.map((t) => {
+      const attrs = t.journey
+        ? `data-topic-journey="${escapeHtml(t.journey)}" data-topic-label="${escapeHtml(t.title)}"`
+        : `data-topic-message="${escapeHtml(t.message || "")}"`;
+      return `<button type="button" class="ts-topic" ${attrs}>
+        <span class="ts-topic-icon">${ICONS[t.icon] || ""}</span>
+        <strong>${escapeHtml(t.title)}</strong>
+        <small>${escapeHtml(t.blurb)}</small>
+      </button>`;
+    }).join("");
+
+    const chips = SUGGESTIONS.map(
+      (s) =>
+        `<button type="button" class="ts-chip" data-starter="${escapeHtml(s.message)}">${escapeHtml(s.label)}</button>`
+    ).join("");
+
     els.body.innerHTML = `
       ${mock}
-      ${integrationNote}
       <div class="ts-welcome">
-        <h1>${escapeHtml(boot.welcome_message || "Hello, I’m Simba.")}</h1>
-        <p>Clear UK tax guidance first. Optional TaxSimba support only when it helps.</p>
-        <div class="ts-disclosure">${escapeHtml(boot.ai_disclosure || "")}</div>
+        <h1>Hello — I’m SIMBA, your UK tax assistant</h1>
+        <p>Tell me what you need help with. I’ll explain the rules in plain English, then point you to the right TaxSimba tools or services if useful.</p>
+        <div class="ts-disclosure">${escapeHtml(
+          boot.ai_disclosure ||
+            "SIMBA is an AI assistant from TaxSimba — not a qualified human accountant, not HMRC, and not government-approved AI."
+        )}</div>
       </div>
-      <div class="ts-section-label">Starter questions</div>
-      <div class="ts-chips">
-        ${starters.map((s) => `<button type="button" class="ts-chip" data-starter="${escapeHtml(s.message)}" data-journey="${escapeHtml(s.journey || "")}">${escapeHtml(s.label)}</button>`).join("")}
-      </div>
-      <div class="ts-section-label">Guided journeys</div>
-      <div class="ts-chips" style="display:grid;gap:8px">
-        ${journeys.map((j) => `<button type="button" class="ts-journey" data-journey-start="${escapeHtml(j.id)}"><strong>${escapeHtml(j.title)}</strong><small>${escapeHtml(j.description)}</small></button>`).join("")}
-      </div>
+      <div class="ts-section-label">How can I help?</div>
+      <div class="ts-topics" role="group" aria-label="Tax topics">${topicsHtml}</div>
+      <div class="ts-section-label">Suggested questions</div>
+      <div class="ts-chips">${chips}</div>
     `;
   }
 
   els.body.addEventListener("click", (ev) => {
     const t = ev.target.closest("button");
     if (!t) return;
-    if (t.dataset.starter) {
-      if (t.dataset.journey) startJourney(t.dataset.journey);
-      else sendChat(t.dataset.starter);
-    } else if (t.dataset.journeyStart) {
-      startJourney(t.dataset.journeyStart);
+    if (t.dataset.topicJourney) {
+      track("topic_click", { journey: t.dataset.topicJourney });
+      startJourney(t.dataset.topicJourney, t.dataset.topicLabel || t.querySelector("strong")?.textContent || "");
+    } else if (t.dataset.topicMessage) {
+      track("topic_click", { message: t.dataset.topicMessage.slice(0, 80) });
+      sendChat(t.dataset.topicMessage);
+    } else if (t.dataset.starter) {
+      sendChat(t.dataset.starter);
     } else if (t.dataset.option) {
       advanceJourney(t.dataset.option, t.textContent.trim());
     } else if (t.dataset.follow) {
@@ -307,6 +408,11 @@
     }
   });
 
+  els.input.addEventListener("input", () => {
+    els.input.style.height = "auto";
+    els.input.style.height = Math.min(els.input.scrollHeight, 128) + "px";
+  });
+
   els.del?.addEventListener("click", async () => {
     await api("/api/v1/sessions/delete", {
       method: "POST",
@@ -319,6 +425,11 @@
     announce("Chat deleted");
   });
 
+  els.topicsBtn?.addEventListener("click", () => {
+    if (state.bootstrap) renderWelcome(state.bootstrap);
+    announce("Returned to topics");
+  });
+
   async function init() {
     try {
       const boot = await api("/api/v1/bootstrap");
@@ -328,7 +439,7 @@
         els.mode.textContent = "Live AI";
         els.mode.classList.remove("mock");
       } else {
-        els.mode.textContent = "Demo / mock";
+        els.mode.textContent = "Demo";
         els.mode.classList.add("mock");
       }
       renderWelcome(boot);

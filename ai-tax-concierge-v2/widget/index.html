@@ -10,7 +10,9 @@
   <div class="ts-shell" role="region" aria-label="SIMBA AI — Your UK Tax Assistant">
     <header class="ts-header">
       <div class="ts-brand">
-        <img class="ts-logo" src="./assets/taxsimba-logo.svg" width="140" height="28" alt="TaxSimba" />
+        <div class="ts-logo-chip">
+          <img class="ts-logo" src="./assets/taxsimba-logo.svg" width="108" height="18" alt="TaxSimba" />
+        </div>
         <div class="ts-brand-text">
           <strong>SIMBA AI</strong>
           <span>Your UK Tax Assistant</span>
@@ -19,6 +21,7 @@
       <div class="ts-meta">
         <span class="ts-pill">Tax year <span id="ts-year">…</span></span>
         <span class="ts-pill" id="ts-mode">…</span>
+        <button type="button" class="ts-header-btn" id="ts-topics-btn" hidden>Topics</button>
       </div>
     </header>
 
@@ -27,11 +30,11 @@
 
     <form id="ts-form" class="ts-composer" autocomplete="off">
       <label class="visually-hidden" for="ts-input" style="position:absolute;left:-9999px">Ask SIMBA a tax question</label>
-      <textarea id="ts-input" rows="1" maxlength="4000" placeholder="Ask about UK tax…" required></textarea>
+      <textarea id="ts-input" rows="1" maxlength="4000" placeholder="Ask about your UK tax situation…" required></textarea>
       <button class="ts-send" id="ts-send" type="submit">Send</button>
     </form>
     <div class="ts-footer">
-      SIMBA AI is an AI assistant — not a human accountant or HMRC. General information only.
+      SIMBA AI is an AI assistant — not a human accountant, HMRC, or officially approved AI. General information only.
       <button type="button" id="ts-delete">Delete chat</button>
     </div>
   </div>

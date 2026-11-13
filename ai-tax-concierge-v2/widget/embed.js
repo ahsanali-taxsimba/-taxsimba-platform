@@ -1,7 +1,6 @@
 /**
- * SIMBA AI embeddable launcher (TaxSimba brand).
+ * SIMBA AI embeddable launcher — Emerald Signature.
  * Opens only on user interaction — never auto-pops.
- * <script src="https://HOST/widget/embed.js" data-api-base="https://HOST"></script>
  */
 (function () {
   if (window.TaxSimbaConciergeV2 && window.TaxSimbaConciergeV2.__booted) return;
@@ -26,12 +25,12 @@
       style.id = STYLE_ID;
       style.textContent = [
         "#simba-launcher{position:fixed;right:16px;bottom:16px;z-index:2147483000;font-family:Public Sans,Segoe UI,sans-serif}",
-        "#simba-btn{appearance:none;border:1px solid #E3E7E4;border-radius:12px;background:#078A4B;color:#fff;padding:10px 14px;font-weight:600;box-shadow:0 8px 20px rgba(22,27,24,.12);cursor:pointer;display:flex;align-items:center;gap:8px;font-family:Manrope,Public Sans,Segoe UI,sans-serif}",
+        "#simba-btn{appearance:none;border:1px solid #E3E7E4;border-radius:14px;background:#078A4B;color:#fff;padding:11px 15px;font-weight:700;box-shadow:0 10px 24px rgba(0,77,44,.16);cursor:pointer;display:flex;align-items:center;gap:9px;font-family:Manrope,Public Sans,Segoe UI,sans-serif}",
         "#simba-btn:hover{background:#006B3C}",
-        "#simba-btn img{height:18px;width:auto;max-width:92px;object-fit:contain;background:#fff;border-radius:4px;padding:2px 4px}",
+        "#simba-btn img{height:18px;width:auto;max-width:92px;object-fit:contain;background:#fff;border-radius:6px;padding:3px 5px}",
         "#simba-btn:focus-visible{outline:3px solid rgba(7,138,75,.45);outline-offset:2px}",
-        "#simba-panel{position:fixed;right:16px;bottom:70px;width:min(390px,calc(100vw - 20px));height:min(640px,calc(100vh - 100px));border:1px solid #E3E7E4;border-radius:16px;overflow:hidden;box-shadow:0 12px 32px rgba(22,27,24,.14);background:#fff;z-index:2147483000}",
-        "@media (max-width:480px){#simba-panel{right:8px;left:8px;width:auto;bottom:66px;height:min(78vh,640px)}#simba-launcher{right:10px;bottom:10px}}",
+        "#simba-panel{position:fixed;right:16px;bottom:72px;width:min(400px,calc(100vw - 20px));height:min(680px,calc(100vh - 96px));border:1px solid #E3E7E4;border-radius:18px;overflow:hidden;box-shadow:0 14px 36px rgba(0,77,44,.16);background:#fff;z-index:2147483000}",
+        "@media (max-width:480px){#simba-panel{right:8px;left:8px;width:auto;bottom:68px;height:min(82vh,700px)}#simba-launcher{right:10px;bottom:10px}}",
       ].join("");
       document.head.appendChild(style);
     }
@@ -72,7 +71,6 @@
       var currentlyHidden = frame.style.display === "none" || frame.style.display === "";
       setOpen(currentlyHidden);
     }
-    // Single handler only — binding both click listener and onclick toggled the panel open then closed.
     btn.addEventListener("click", onToggle);
 
     document.addEventListener("keydown", function (ev) {
