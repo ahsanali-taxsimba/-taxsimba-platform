@@ -2,25 +2,23 @@
 
 **Date:** 2026-11-13 (Europe/London)  
 **Branch / PR:** `cursor/ai-tax-concierge-v2-phase1-0f84` / #35  
-**Isolation:** `ai-tax-concierge-v2/` only — portal / taxotools / Marketing Hub untouched  
+**Isolation:** `ai-tax-concierge-v2/` only — portal / taxotools / Marketing Hub / website untouched  
+**Harness:** `backend/scripts/live_openai_verification.py`  
+**Machine report:** `docs/verification/live_openai_report_latest.json` (status `COMPLETED`)  
+**Also saved as:** `docs/verification/live_openai_report_20261113T050627Z.json`
 
 ## 1. Secret availability check (no value exposed)
 
 | Check | Result |
 |-------|--------|
-| `os.environ["OPENAI_API_KEY"]` present | **False** |
-| Key length | **0** |
-| `Settings().openai_api_key` present | **False** |
-| `Settings().use_mock_llm` | **True** |
-| `list-available-secrets` for `ai-tax-concierge-v2` | No secret values held / available to this VM |
-| Process env names containing OPENAI/API_KEY/SECRET | **None** |
+| `os.environ["OPENAI_API_KEY"]` present | **True** |
+| Key length | **164** |
+| Key prefix shape | **sk-like** |
+| `Settings(...).use_mock_llm` with `CONCIERGE_FORCE_MOCK_LLM=false` | **False** |
+| Adapter resolved | **`OpenAIAdapter` / mode=`openai`** |
+| Mock substituted for live? | **No** |
 
-**Conclusion:** The running Cloud Agent session does **not** have `OPENAI_API_KEY` injected. Live OpenAI calls were **not** made.
-
-Likely configuration causes:
-1. Secret saved in a different Cursor surface than this environment’s runtime secrets (e.g. App Secrets for publish vs Cloud Agent environment secrets).
-2. Secret saved after this agent booted — Cloud Agent env vars are typically injected at session start; a relaunch may be required.
-3. Secret name mismatch (must be exactly `OPENAI_API_KEY`).
+**Conclusion:** Runtime secret is present in this Cloud Agent process. Live OpenAI calls were executed.
 
 ## 2. OpenAI adapter configuration (code inspection)
 
@@ -29,55 +27,112 @@ Likely configuration causes:
 | Client | `openai.AsyncOpenAI` |
 | Default API base | `https://api.openai.com/v1` |
 | Call | `chat.completions.create` |
-| Default model | `gpt-4o-mini` (`OPENAI_MODEL`) |
-| Timeout | `OPENAI_TIMEOUT_SECONDS` (default 30) |
+| Model used | `gpt-4o-mini` |
+| Timeout | 30s |
 | Retries | 2 |
 | Daily token budget | 250,000 |
-| Mock selection | Forced when key empty or `CONCIERGE_FORCE_MOCK_LLM=true` |
+| Tokens used this live run | **44,900** |
+| Mock selection | Forced only when key empty or `CONCIERGE_FORCE_MOCK_LLM=true` |
 
-Source: `backend/app/adapters/llm_openai.py`, `backend/app/adapters/factory.py`, `backend/app/core/config.py`.
-
-## 3. Live connectivity / 30+ conversation tests
+## 3. Live connectivity
 
 | Item | Result |
 |------|--------|
-| Live connectivity ping | **NOT RUN** (blocked) |
-| 30+ live UK tax questions | **NOT RUN** (blocked) |
-| Multi-turn live conversations | **NOT RUN** (blocked) |
-| Journey / package / £99 pathway under live LLM | **NOT RUN** (blocked) |
-| Mock substituted as live? | **No** — harness refused to proceed |
+| Ping | **OK** (`LIVE_OK`) |
+| Latency | **1514 ms** |
+| Endpoint | `https://api.openai.com/v1/chat/completions` |
+| Mode | `openai` |
 
-Harness: `backend/scripts/live_openai_verification.py`  
-Machine report: `docs/verification/live_openai_report_latest.json` (status `BLOCKED`)
+## 4. Live conversation coverage
 
-The harness is ready to execute **genuine** OpenAI calls once `OPENAI_API_KEY` is present. It exits code `2` when the key is missing and will not call the mock adapter as a substitute.
+| Suite | Count | Live mode | Failures |
+|-------|-------|-----------|----------|
+| Single-turn UK tax questions | **33** (≥30 required) | **All `openai`** | **0 harness exceptions** |
+| Multi-turn conversations | **3** (9 turns total) | **All `openai`** | **0** |
+| Customer journeys under live LLM | **4** (`consultation`, `existing_client`, `mtd`, `freelancer`) | start `openai`; first-step advanced | **0** |
+| Security / injection probe | **1** (`injection_probe`) | refused system-prompt disclosure; still answered SA deadline | **Pass** |
 
-## 4. Automated regression (mock)
+### Latency / confidence / sources (single-turn)
 
-Command: `pytest -q` in `ai-tax-concierge-v2/backend`
+| Metric | Value |
+|--------|-------|
+| Latency min / avg / max | 0 / 3050 / 6862 ms |
+| Confidence | **high** on all 33 |
+| Verified sources per answer | **3** on all 33 (no zero-source answers) |
+| Package recommendations surfaced | `packages_sa`, `packages_mtd`, `consultation_99`, `inclusions_guard` |
+| £99 consultation hint | `consultation_99` |
+
+Note: `inclusions_guard` returned in **0 ms** via deterministic catalogue guard (no LLM call) — expected; still recorded with `llm_mode=openai` session context and correct refusal to invent Elite inclusions.
+
+### Multi-turn behaviour (summary)
+
+- **mt_landlord_mtd:** retained £55k rental context; correctly concluded MTD from April 2026 for >£50k qualifying income.
+- **mt_freelancer_deadline:** retained July 2025 start; cited register-by **5 October 2026** and SA deadlines.
+- **mt_cis_correct:** accepted correction from contractor → subcontractor; advised SA still typically required.
+
+### Journey behaviour (summary)
+
+All four journeys started under live mode and advanced the first option successfully. `existing_client` surfaced `ACCOUNTANT_CONSULT_99` after the first step.
+
+## 5. Tax accuracy findings (spot-check vs corpus / known GOV.UK figures)
+
+Spot-checks use reply excerpts only (full replies truncated in JSON to 400 chars). Human accountant review still required before production.
+
+| Case | Finding | Severity |
+|------|---------|----------|
+| `sa_deadline` | Online deadline **31 January 2027** for 2025-26 — matches corpus | OK |
+| `sa_paper` | Paper deadline **31 October 2026** — matches | OK |
+| `personal_allowance_2526` | **£12,570** stated — matches | OK |
+| `mtd_threshold_50k` | >£50k in 2024-25 → from **6 April 2026** — matches corpus | OK |
+| `mtd_threshold_30k` | Model said start from **April 2026**; corpus/GOV.UK summary: >£30k in 2025-26 → from **6 April 2027** | **FAIL — factual error** |
+| `mtd_threshold_20k` | Referenced **April 2028** — matches | OK |
+| `mtd_qualifying_vs_profit` | Correctly distinguished turnover vs profit | OK |
+| `mtd_paye_excluded` | Correctly excluded PAYE from qualifying income | OK |
+| `trading_allowance` / `property_allowance` | **£1,000** stated — matches | OK |
+| `vat_threshold` | Model stated **£85,000**; current GOV.UK threshold is **£90,000** (corpus intentionally unpinned “confirm on GOV.UK”) | **FAIL — stale/hallucinated figure** |
+| `rent_a_room` | Deferred to GOV.UK without stating £7,500 (corpus also unpinned) | Soft / incomplete — not a hard fail |
+| `packages_*` / `consultation_99` | Catalogue prices and £99 / 30-min Google Meet path surfaced | OK |
+| `inclusions_guard` | Refused to invent Elite inclusions | OK |
+| `injection_probe` | Refused system prompt; answered SA deadline with sources | OK |
+
+**Machine accuracy flags on live excerpts:** `accuracy_flagged_count=2` → `mtd_threshold_30k`, `vat_threshold`  
+(`rent_a_room` deferred to GOV.UK without a hard expected figure — not flagged as fail.)
+
+### Accountant review pack (auto-flagged by harness)
+
+Figures that must be confirmed on GOV.UK before production reliance:  
+`personal_allowance_2526`, `mtd_threshold_50k`, `mtd_threshold_30k`, `mtd_threshold_20k`, `property_allowance`, `trading_allowance`, `vat_threshold`, `ni_self_employed`.
+
+## 6. Automated regression (mock)
+
+Command: `pytest -q` in `ai-tax-concierge-v2/backend` with forced mock fixtures.
 
 | Result | Count |
 |--------|-------|
 | Passed | **175** |
 | Failed | **0** |
 
-These are **mock / unit / integration** tests. They are **not** proof of live OpenAI behaviour.
+These are **mock / unit / integration** tests. They complement — and do not replace — the live OpenAI run above.
 
-## 5. Distinction summary
+## 7. Distinction summary
 
 | Evidence class | Status |
 |----------------|--------|
-| Mock automated suite | Pass (175) |
-| Live OpenAI connectivity | Blocked |
-| Live 30+ tax conversations | Blocked |
-| Live tax-source accountant review pack | Blocked pending live answers |
+| Mock automated suite | **Pass (175)** |
+| Live OpenAI connectivity | **Pass** |
+| Live 30+ tax conversations | **Completed (33/33 live; 0 exceptions)** |
+| Live multi-turn + journeys | **Completed** |
+| Live security injection probe | **Pass** |
+| Tax-source accuracy | **2 material factual issues found** (MTD £30k date; VAT threshold figure) |
+| Human accountant sign-off | **Still required** |
 
-## 6. Unresolved blockers
+## 8. Remaining blockers (do not merge / do not deploy)
 
-1. **High:** Inject `OPENAI_API_KEY` into this Cloud Agent environment and relaunch/continue so `os.environ` contains it.
-2. After injection: rerun `python scripts/live_openai_verification.py` and attach the completed JSON report.
-3. Human accountant review of material live answers still required before production.
+1. **High:** Human accountant review of live answers, especially MTD thresholds and VAT registration threshold.
+2. **High:** Consider corpus/prompt hardening so MTD £30k → April 2027 and VAT threshold cannot drift to stale figures.
+3. **High:** Live Stripe / Calendly / confirmed production URLs still not connected.
+4. **Medium:** No public iPhone staging URL yet.
 
-## 7. Approval wait
+## 9. Approval wait
 
-Stopped here per instructions. No merge. No deploy. No mock results labelled as live.
+Live verification evidence recorded. **No merge. No deploy.** Awaiting approval before any production wiring or further scope expansion.
