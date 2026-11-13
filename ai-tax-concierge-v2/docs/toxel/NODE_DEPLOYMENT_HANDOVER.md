@@ -1,9 +1,13 @@
 # Toxel — SIMBA Node.js Deployment Handover
 
-**Product:** SIMBA AI (Node Express + TypeScript)  
+**Product:** SIMBA AI Tax Assistant (Node Express + TypeScript)  
 **Path:** `ai-tax-concierge-v2/backend-node/`  
 **PR #35 — DO NOT MERGE / DO NOT DEPLOY TO PRODUCTION**  
 **Python fallback retained:** `ai-tax-concierge-v2/backend/`
+
+**Full staging pack (preferred):** [`TOXEL_STAGING_HANDOVER.md`](./TOXEL_STAGING_HANDOVER.md)  
+**Inclusions supply (BLOCKED):** [`PACKAGE_INCLUSIONS_SUPPLY_REQUEST.md`](./PACKAGE_INCLUSIONS_SUPPLY_REQUEST.md)  
+**Status report:** [`../verification/TOXEL_STAGING_HANDOVER_REPORT.md`](../verification/TOXEL_STAGING_HANDOVER_REPORT.md)
 
 ---
 
@@ -75,16 +79,17 @@ Terminate TLS at load balancer / reverse proxy. Forward to Node. Ensure iframe e
 ## 5. Verification commands
 
 ```bash
-npm test                 # 212 Vitest behaviours
+npm test                 # 426 Vitest behaviours
 npm run build && npm start
 npm run live:openai      # 33 live cases (needs key; mock disabled)
 curl -s https://STAGING_HOST/api/v1/health
 ```
 
 Parity evidence: `docs/PYTHON_VS_NODE_PARITY_REPORT.md`  
-Independent audit (2026-11-13): `docs/verification/FINAL_INDEPENDENT_VERIFICATION.md`  
-Intelligence & sales audit (2026-11-13): `docs/verification/COMPREHENSIVE_INTELLIGENCE_SALES_AUDIT.md`  
-Automated tests: **425** Vitest (includes 150 tax + 50 package journey suites)
+Independent audit: `docs/verification/FINAL_INDEPENDENT_VERIFICATION.md`  
+Intelligence & sales audit: `docs/verification/COMPREHENSIVE_INTELLIGENCE_SALES_AUDIT.md`  
+Staging handover report: `docs/verification/TOXEL_STAGING_HANDOVER_REPORT.md`  
+Automated tests: **426** Vitest (includes 150 tax + 50 package journey suites)
 
 ---
 
@@ -98,6 +103,8 @@ Automated tests: **425** Vitest (includes 150 tax + 50 package journey suites)
 
 ## 7. Still blocked until you test on HTTPS staging
 
+- **Approved package inclusions** (complete `PACKAGE_INCLUSIONS_SUPPLY_REQUEST.md`)  
+- Detailed feature-based package recommendations  
 - Stripe test checkout + webhooks (verified conversion)  
 - Calendly £99 / 30-min Google Meet booking confirmation  
 - Registration + email verification  

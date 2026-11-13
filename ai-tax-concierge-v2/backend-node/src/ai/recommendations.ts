@@ -39,7 +39,8 @@ export function toPackageCards(codes: string[]): PackageCard[] {
       vat_note: String(pkg.vat_note || ""),
       family: String(pkg.family),
       inclusions_status: String(
-        pkg.inclusions_status || "not_specified_in_catalog",
+        pkg.inclusions_status ||
+          "blocked_pending_taxsimba_approval",
       ),
       pressure_free_note: DEFAULT_PRESSURE_NOTE,
     });
@@ -242,12 +243,16 @@ export function answerInclusionsQuestion(message: string): string | null {
   if (
     lower.includes("included") ||
     lower.includes("inclusion") ||
-    lower.includes("what do i get")
+    lower.includes("what do i get") ||
+    lower.includes("what's included") ||
+    lower.includes("whats included")
   ) {
     return (
-      "I do not invent package inclusions. TaxSimba's catalogue for this assistant " +
-      "lists prices and billing only. For a full inclusions list, please check with " +
-      "TaxSimba directly or ask during a £99 accountant consultation."
+      "Detailed package inclusions are blocked until TaxSimba supplies an approved catalogue. " +
+      "I will not invent features. I can share configured prices only: Self Assessment Simple £119, " +
+      "Smart £149, Elite £299 (per tax year); MTD Starter £29.99, Growth £59.99, Complete £89.99 " +
+      "(per month, VAT included); or a £99 / 30-minute accountant consultation. " +
+      "Please confirm full inclusions with TaxSimba or book a consultation when booking is connected."
     );
   }
   return null;

@@ -35,15 +35,18 @@ Behaviour:
 - Escape closes the panel and returns focus to the button  
 - Mobile: panel uses safe widths; does not replace site nav  
 
-## Local preview
+## Local preview (Node — preferred)
 
 ```bash
-cd ai-tax-concierge-v2/backend && source .venv/bin/activate
+cd ai-tax-concierge-v2/backend-node
+npm ci && npm run build
 export CONCIERGE_FORCE_MOCK_LLM=false   # only if OPENAI_API_KEY is set
-uvicorn app.main:app --host 127.0.0.1 --port 8090
+PORT=8091 npm start
 ```
 
-Open http://127.0.0.1:8090/widget/preview.html
+Open http://127.0.0.1:8091/widget/preview.html
+
+Python reference (optional dual-run): `uvicorn` on `:8090` under `ai-tax-concierge-v2/backend/`.
 
 ## Do not
 

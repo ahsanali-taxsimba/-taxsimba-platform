@@ -73,7 +73,9 @@ describe("phase2 / phase3 API", () => {
     expect(
       lower.includes("invent") ||
         lower.includes("not invent") ||
-        lower.includes("don't invent"),
+        lower.includes("don't invent") ||
+        lower.includes("will not invent") ||
+        lower.includes("blocked"),
     ).toBe(true);
   });
 

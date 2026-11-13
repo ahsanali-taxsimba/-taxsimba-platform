@@ -116,8 +116,9 @@ export function mockPackageReply(message: string): string | null {
   }
   if (lower.includes("included") || lower.includes("inclusion")) {
     return (
-      "I don’t invent package inclusions. The catalogue used by SIMBA AI lists " +
-      "prices and billing only. Please confirm full inclusions with TaxSimba before buying."
+      "Detailed package inclusions are blocked until TaxSimba supplies an approved catalogue. " +
+      "I will not invent features. I can share configured prices only — please confirm full " +
+      "inclusions with TaxSimba before buying."
     );
   }
   return null;

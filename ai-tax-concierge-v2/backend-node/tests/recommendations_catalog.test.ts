@@ -38,7 +38,7 @@ describe("recommendations catalog", () => {
   it.each(SA_PRICE_CASES)("sa_package_prices %s = %s", (code, price) => {
     const card = toPackageCards([code])[0];
     expect(card.price_gbp).toBe(price);
-    expect(card.inclusions_status).toBe("not_specified_in_catalog");
+    expect(card.inclusions_status).toBe("blocked_pending_taxsimba_approval");
   });
 
   it.each(MTD_PRICE_CASES)(
@@ -57,6 +57,17 @@ describe("recommendations catalog", () => {
     expect(cat.consultation.booking_status).toBe("stub");
   });
 
+  it("detailed_recommendations_blocked_until_inclusions_approved", () => {
+    const cat = packagesCatalog();
+    expect(cat.detailed_recommendations_status).toBe(
+      "blocked_pending_approved_inclusions",
+    );
+    expect(cat.self_assessment.every((p: { inclusions: unknown }) => p.inclusions == null)).toBe(
+      true,
+    );
+    expect(cat.mtd.every((p: { inclusions: unknown }) => p.inclusions == null)).toBe(true);
+  });
+
   it.each([
     "What do TaxSimba Self Assessment packages cost?",
     "MTD plan prices for landlords",
@@ -65,7 +76,9 @@ describe("recommendations catalog", () => {
     const { packages } = recommendForMessage(message, null, WEBSITE);
     expect(packages.length).toBeGreaterThan(0);
     expect(
-      packages.every((p) => p.inclusions_status === "not_specified_in_catalog"),
+      packages.every(
+        (p) => p.inclusions_status === "blocked_pending_taxsimba_approval",
+      ),
     ).toBe(true);
   });
 

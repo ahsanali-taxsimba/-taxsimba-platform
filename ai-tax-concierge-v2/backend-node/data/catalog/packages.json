@@ -1,6 +1,8 @@
 {
   "version": "2026-11-simba-v1",
   "disclaimer": "Prices are taken from the TaxSimba SIMBA AI product catalogue configuration. Package feature inclusions are not invented here — confirm with TaxSimba before purchasing. Checkout and booking are not live until integrations are connected.",
+  "detailed_recommendations_status": "blocked_pending_approved_inclusions",
+  "inclusions_supply_doc": "docs/toxel/PACKAGE_INCLUSIONS_SUPPLY_REQUEST.md",
   "self_assessment": [
     {
       "code": "SA_SIMPLE",
@@ -8,8 +10,10 @@
       "price_gbp": 119,
       "billing": "per tax year",
       "vat_note": "Confirm VAT treatment on checkout",
+      "description": null,
       "inclusions": null,
-      "inclusions_status": "not_specified_in_catalog"
+      "exclusions": null,
+      "inclusions_status": "blocked_pending_taxsimba_approval"
     },
     {
       "code": "SA_SMART",
@@ -17,8 +21,10 @@
       "price_gbp": 149,
       "billing": "per tax year",
       "vat_note": "Confirm VAT treatment on checkout",
+      "description": null,
       "inclusions": null,
-      "inclusions_status": "not_specified_in_catalog"
+      "exclusions": null,
+      "inclusions_status": "blocked_pending_taxsimba_approval"
     },
     {
       "code": "SA_ELITE",
@@ -26,8 +32,10 @@
       "price_gbp": 299,
       "billing": "per tax year",
       "vat_note": "Confirm VAT treatment on checkout",
+      "description": null,
       "inclusions": null,
-      "inclusions_status": "not_specified_in_catalog"
+      "exclusions": null,
+      "inclusions_status": "blocked_pending_taxsimba_approval"
     }
   ],
   "mtd": [
@@ -37,8 +45,10 @@
       "price_gbp": 29.99,
       "billing": "per month",
       "vat_note": "VAT included",
+      "description": null,
       "inclusions": null,
-      "inclusions_status": "not_specified_in_catalog"
+      "exclusions": null,
+      "inclusions_status": "blocked_pending_taxsimba_approval"
     },
     {
       "code": "MTD_GROWTH",
@@ -46,8 +56,10 @@
       "price_gbp": 59.99,
       "billing": "per month",
       "vat_note": "VAT included",
+      "description": null,
       "inclusions": null,
-      "inclusions_status": "not_specified_in_catalog"
+      "exclusions": null,
+      "inclusions_status": "blocked_pending_taxsimba_approval"
     },
     {
       "code": "MTD_COMPLETE",
@@ -55,8 +67,10 @@
       "price_gbp": 89.99,
       "billing": "per month",
       "vat_note": "VAT included",
+      "description": null,
       "inclusions": null,
-      "inclusions_status": "not_specified_in_catalog"
+      "exclusions": null,
+      "inclusions_status": "blocked_pending_taxsimba_approval"
     }
   ],
   "consultation": {
@@ -69,7 +83,9 @@
     "vat_note": "Confirm VAT treatment when booking",
     "booking_status": "stub",
     "booking_provider": "calendly",
+    "description": null,
     "inclusions": null,
-    "inclusions_status": "not_specified_in_catalog"
+    "exclusions": null,
+    "inclusions_status": "blocked_pending_taxsimba_approval"
   }
 }

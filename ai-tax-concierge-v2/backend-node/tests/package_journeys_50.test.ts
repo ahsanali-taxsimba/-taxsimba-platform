@@ -73,7 +73,9 @@ describe("package recommendation journeys 50", () => {
         }
         expect(primaryRecommendationIsNotMostExpensive(codes)).toBe(true);
         for (const card of toPackageCards(codes)) {
-          expect(card.inclusions_status).toBe("not_specified_in_catalog");
+          expect(card.inclusions_status).toBe(
+            "blocked_pending_taxsimba_approval",
+          );
         }
         return;
       }
@@ -82,7 +84,7 @@ describe("package recommendation journeys 50", () => {
       if (j.expect_inclusions_guard) {
         const guard = answerInclusionsQuestion(j.message!);
         expect(guard).toBeTruthy();
-        expect(guard!.toLowerCase()).toContain("not invent");
+        expect(guard!.toLowerCase()).toMatch(/not invent|will not invent|blocked/);
         return;
       }
 
@@ -104,7 +106,9 @@ describe("package recommendation journeys 50", () => {
         expect(packages.some((p) => p.price_gbp === j.expect_price)).toBe(true);
       }
       expect(
-        packages.every((p) => p.inclusions_status === "not_specified_in_catalog"),
+        packages.every(
+          (p) => p.inclusions_status === "blocked_pending_taxsimba_approval",
+        ),
       ).toBe(true);
     },
   );
