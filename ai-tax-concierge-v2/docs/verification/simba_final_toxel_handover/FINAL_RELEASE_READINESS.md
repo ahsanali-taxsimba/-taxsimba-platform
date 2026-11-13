@@ -1,4 +1,5 @@
 # Final Release Readiness
+**Commit:** `0dff1db3352012e1f2c889fb790da2f65db37955`
 
 | Gate | Verdict | Condition |
 |------|---------|-----------|
