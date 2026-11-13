@@ -1,6 +1,6 @@
 # SIMBA AI — Integration contracts (stubs → live)
 
-All adapters currently return stub/mock payloads unless noted.
+Adapters remain stub/mock unless noted. Clicks are never verified conversions.
 
 ## OpenAI
 
@@ -12,12 +12,14 @@ All adapters currently return stub/mock payloads unless noted.
 ## Website / navigation
 
 - Registry: `backend/app/routes_registry/routes.json`
-- Status `stub` until Toxel sets confirmed production paths
+- Statuses: `live_verified` | `soft_or_generic` | `stub`
 - Never auto-redirect; user click required
 
-## Calculators (17+ configured stubs)
+## Calculators (17)
 
-Listed in route registry with `kind: calculator`. Suggest only; URLs null until confirmed.
+- Catalogue: `backend/app/catalog/calculators.json`
+- Paths title-verified on taxsimba.co.uk (`url_status: live_verified`)
+- Suggest + deep-link only; SIMBA does not execute calculators
 
 ## Stripe / payments
 
@@ -34,7 +36,12 @@ Listed in route registry with `kind: calculator`. Suggest only; URLs null until 
 - Existing clients: guide to secure dashboard messaging
 - Do not expose client data without authenticated portal integration
 
-## Analytics
+## Analytics (in-memory)
 
-- Distinguish `*_click` vs `*_conversion_verified`
+Engagement (allowed): `launcher_open`, `conversation_started`, `panel_view`, `topic_click`, `journey_start`, `package_click`, `calculator_click`, `consultation_click`, `route_click`, `registration_click`
+
+Verified conversions (server-only, not emitted by widget): `*_conversion_verified`
+
+- Distinguish clicks vs conversions
 - Only authoritative systems may emit conversion-verified events
+- Durable analytics / CRM remains a Toxel concern

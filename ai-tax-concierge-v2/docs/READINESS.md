@@ -5,7 +5,7 @@
 
 ## Automated tests
 
-- **196 passed / 0 failed** (mock LLM + branding + helpful-first + grounding regressions)
+- **212 passed / 0 failed** (mock LLM + branding + helpful-first + grounding + security regressions)
 
 ## Real OpenAI verification
 
@@ -39,3 +39,5 @@
 
 **Not production-ready.** Suitable for **approved Toxel staging embed** after payment/booking/portal wiring.  
 See `docs/verification/FINAL_HANDOVER_REPORT.md`.
+
+Canonical evidence pack: `docs/FINAL_ACCEPTANCE_EVIDENCE.md`.

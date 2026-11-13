@@ -60,11 +60,26 @@
     frame.src = apiBase + "/widget/index.html?api=" + encodeURIComponent(apiBase);
     frame.style.display = "none";
 
+    function trackLauncher(eventName) {
+      try {
+        fetch(apiBase + "/api/v1/analytics/track", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            session_id: "launcher-" + String(Date.now()),
+            event: eventName,
+            meta: { label: "embed" },
+          }),
+        }).catch(function () {});
+      } catch (e) {}
+    }
+
     function setOpen(open) {
       frame.style.display = open ? "block" : "none";
       frame.setAttribute("aria-hidden", open ? "false" : "true");
       btn.setAttribute("aria-expanded", open ? "true" : "false");
       btn.querySelector("span").textContent = open ? "Close" : "Ask SIMBA";
+      if (open) trackLauncher("launcher_open");
     }
 
     function onToggle(ev) {

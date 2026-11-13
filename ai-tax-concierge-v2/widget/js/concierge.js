@@ -62,18 +62,34 @@
     backdrop: document.getElementById("ts-sidebar-backdrop"),
   };
 
-  function api(path, options) {
+  function api(path, options = {}) {
+    const controller = new AbortController();
+    const timeoutMs = options.timeoutMs || 35000;
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    const { timeoutMs: _ignored, ...fetchOpts } = options;
     return fetch(`${API_BASE}${path}`, {
       headers: { "Content-Type": "application/json", Accept: "application/json" },
-      ...options,
-    }).then(async (res) => {
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        const msg = data?.error?.message || data?.detail?.[0]?.msg || data?.detail || `Request failed (${res.status})`;
-        throw new Error(typeof msg === "string" ? msg : "Something went wrong");
-      }
-      return data;
-    });
+      signal: controller.signal,
+      ...fetchOpts,
+    })
+      .then(async (res) => {
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          const msg = data?.error?.message || data?.detail?.[0]?.msg || data?.detail || `Request failed (${res.status})`;
+          throw new Error(typeof msg === "string" ? msg : "Something went wrong");
+        }
+        return data;
+      })
+      .catch((err) => {
+        if (err && err.name === "AbortError") {
+          throw new Error("SIMBA timed out. Please retry in a moment.");
+        }
+        if (!navigator.onLine) {
+          throw new Error("You appear to be offline. Check your connection and retry.");
+        }
+        throw err instanceof Error ? err : new Error("Unable to reach SIMBA.");
+      })
+      .finally(() => clearTimeout(timer));
   }
 
   function escapeHtml(str) {
@@ -125,6 +141,7 @@
       btn.classList.toggle("is-active", btn.dataset.panel === panelId);
     });
     setNavOpen(false);
+    track("panel_view", { panel: panelId });
     if (panelId === "chat") {
       els.input?.focus();
     } else {
@@ -176,7 +193,7 @@
       const cards = items.map((c) => {
         const href = c.url || (c.path ? websiteUrl(c.path) : null);
         const title = href
-          ? `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(c.title || c.label)}</a>`
+          ? `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer" data-calc-id="${escapeHtml(c.id || c.path || "")}">${escapeHtml(c.title || c.label)}</a>`
           : `<strong>${escapeHtml(c.title || c.label)}</strong>`;
         const status = (c.url_status || c.status || "") === "live_verified"
           ? `<span class="ts-status-pill ok">Verified link</span>`
@@ -403,6 +420,9 @@
 
   async function sendChat(message, extra = {}) {
     if (!message || state.busy) return;
+    if (state.history.length === 0) {
+      track("conversation_started", { label: "chat" });
+    }
     setBusy(true);
     appendUser(message);
     typing();
@@ -515,6 +535,10 @@
   }
 
   function onActionClick(ev) {
+    const calcLink = ev.target.closest("a[data-calc-id]");
+    if (calcLink) {
+      track("calculator_click", { id: calcLink.dataset.calcId, path: calcLink.getAttribute("href") || "" });
+    }
     const t = ev.target.closest("button");
     if (!t) return;
     if (t.dataset.panel) {
@@ -523,9 +547,10 @@
     }
     if (t.dataset.topicJourney) {
       track("topic_click", { journey: t.dataset.topicJourney });
+      track("journey_start", { journey: t.dataset.topicJourney });
       startJourney(t.dataset.topicJourney, t.dataset.topicLabel || "");
     } else if (t.dataset.topicMessage) {
-      track("topic_click", { message: t.dataset.topicMessage.slice(0, 80) });
+      track("topic_click", { label: t.dataset.topicMessage.slice(0, 40) });
       sendChat(t.dataset.topicMessage);
     } else if (t.dataset.starter) {
       showPanel("chat");
@@ -595,6 +620,11 @@
     setNavOpen(open);
   });
   els.backdrop?.addEventListener("click", () => setNavOpen(false));
+  document.addEventListener("keydown", (ev) => {
+    if (ev.key === "Escape" && els.shell?.classList.contains("nav-open")) {
+      setNavOpen(false);
+    }
+  });
 
   async function init() {
     try {

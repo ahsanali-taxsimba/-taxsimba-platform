@@ -23,14 +23,16 @@ Statuses: **PASS** / **PARTIAL** / **BLOCKED** / **NOT TESTED** / **FAIL**
 | R13 | TaxSimba.co.uk branding (logo, colours, fonts) | widget CSS/HTML/embed + official logo | accessibility/brand tests + screenshots | PASS |
 | R14 | No lions/mascots/decorative motion | logo SVG; static loading | accessibility tests | PASS |
 | R15 | Discreet launcher; no auto-popup | `embed.js` | code review + UI screenshots | PASS |
-| R16 | Responsive + a11y basics | CSS + ARIA + Escape close | widget tests; manual screenshots | PARTIAL (full SR NOT TESTED) |
+| R16 | Responsive + a11y basics | CSS + ARIA + Escape closes mobile drawer | widget tests; manual screenshots | PARTIAL (full SR NOT TESTED) |
 | R17 | Stripe checkout E2E | stub adapter only | — | BLOCKED |
 | R18 | Calendly booking E2E | stub adapter only | — | BLOCKED |
 | R19 | Registration / email verify / dashboard E2E | no staging credentials | — | BLOCKED |
 | R20 | Authenticated customer context | portal adapter mock | — | BLOCKED |
 | R21 | Rate limit, injection, privacy | security modules | `test_security_suite.py` | PASS |
-| R22 | Durable analytics / monitoring | in-memory only | — | PARTIAL |
+| R22 | Analytics clicks ≠ conversions | allowlisted track events + contracts | analytics route + widget | PARTIAL (durable sink still Toxel) |
 | R23 | Embedded on live staging host | local preview only | — | BLOCKED |
+| R24 | Expanded desktop sidebar + mobile drawer (6 sections) | `widget/index.html` + CSS/JS | screenshots + capture script | PASS |
+| R25 | Loading / offline / timeout / error UX | `concierge.js` AbortController | screenshots | PASS |
 
 ## Honest distinction (journey layers)
 
