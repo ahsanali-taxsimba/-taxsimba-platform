@@ -26,36 +26,56 @@ def test_mtd_facts_carry_review_status():
     facts = {f.id: f for f in load_facts()}
     for mtd_id in (
         "mtd-who-and-when",
+        "mtd-threshold-50k-april-2026",
+        "mtd-threshold-30k-april-2027",
+        "mtd-threshold-20k-april-2028",
         "mtd-qualifying-income-definition",
         "mtd-digital-records-quarterly",
     ):
         fact = facts[mtd_id]
         assert fact.review_status
         assert "govuk" in fact.review_status.lower()
-        assert "2025-26" in fact.tax_years
+        assert "2025-26" in fact.tax_years or "2026-27" in fact.tax_years
+
+
+def test_vat_threshold_fact_is_90000_not_85000():
+    facts = {f.id: f for f in load_facts()}
+    vat = facts["vat-threshold-overview"]
+    assert "£90,000" in vat.summary
+    assert "outdated" in vat.summary.lower()
+    assert "£85,000" in vat.summary  # mentioned only as outdated
+    # Authoritative current figure appears before the outdated warning
+    assert vat.summary.index("£90,000") < vat.summary.index("£85,000")
 
 
 KNOWLEDGE_CASES = [
     pytest.param(
         "MTD £50000 qualifying income threshold 6 April 2026",
         "2025-26",
-        "mtd-who-and-when",
+        "mtd-threshold-50k-april-2026",
         ("50000", "april 2026"),
         id="mtd-50k-2026",
     ),
     pytest.param(
         "Making Tax Digital £30000 threshold from 6 April 2027",
         "2026-27",
-        "mtd-who-and-when",
+        "mtd-threshold-30k-april-2027",
         ("30000", "april 2027"),
         id="mtd-30k-2027",
     ),
     pytest.param(
         "MTD income tax £20000 threshold April 2028",
         "2027-28",
-        "mtd-who-and-when",
+        "mtd-threshold-20k-april-2028",
         ("20000", "april 2028"),
         id="mtd-20k-2028",
+    ),
+    pytest.param(
+        "When do I need to register for VAT taxable turnover threshold",
+        "2025-26",
+        "vat-threshold-overview",
+        ("90000", "vat"),
+        id="vat-90000",
     ),
     pytest.param(
         "qualifying income turnover gross not profit expenses MTD",
@@ -191,15 +211,15 @@ def test_mtd_threshold_fact_year_applicability(tax_year):
 
 
 @pytest.mark.parametrize(
-    "phrase,year",
+    "phrase,year,expected_id",
     [
-        ("£50,000", "2025-26"),
-        ("£30,000", "2026-27"),
-        ("£20,000", "2027-28"),
+        ("£50,000", "2025-26", "mtd-threshold-50k-april-2026"),
+        ("£30,000", "2026-27", "mtd-threshold-30k-april-2027"),
+        ("£20,000", "2027-28", "mtd-threshold-20k-april-2028"),
     ],
 )
-def test_mtd_threshold_phrases_in_top_fact(phrase, year):
+def test_mtd_threshold_phrases_in_top_fact(phrase, year, expected_id):
     ranked = retrieve(f"MTD threshold {phrase}", year)
     top = ranked[0]
-    assert top.fact.id == "mtd-who-and-when"
+    assert top.fact.id == expected_id
     assert phrase.replace(",", "") in top.fact.summary.replace(",", "")

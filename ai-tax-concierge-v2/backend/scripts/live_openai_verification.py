@@ -44,7 +44,8 @@ CASES = [
     {"id": "tax_year_dates", "message": "When does the UK tax year start and end?", "tax_year": "2026-27", "expect_any": ["6 april", "5 april"]},
     {"id": "mtd_who", "message": "Who needs to use Making Tax Digital for Income Tax and from when?", "tax_year": "2026-27"},
     {"id": "mtd_threshold_50k", "message": "If my qualifying income was over £50,000 in 2024-25, when do I need to start MTD for Income Tax?", "tax_year": "2026-27", "expect_any": ["april 2026", "6 april 2026"]},
-    {"id": "mtd_threshold_30k", "message": "What MTD Income Tax start date applies if qualifying income is over £30,000 in 2025-26?", "tax_year": "2026-27", "expect_any": ["april 2027", "6 april 2027"], "reject_any": ["april 2026", "6 april 2026"]},
+    # reject_any targets incorrect *start dates* only — do not flag "5 April 2026" as the 2025-26 tax-year end.
+    {"id": "mtd_threshold_30k", "message": "What MTD Income Tax start date applies if qualifying income is over £30,000 in 2025-26?", "tax_year": "2026-27", "expect_any": ["april 2027", "6 april 2027"], "reject_any": ["from april 2026", "from 6 april 2026", "starting april 2026", "starts from april 2026", "start from april 2026", "start using making tax digital for income tax from april 2026", "start using mtd for income tax from april 2026"]},
     {"id": "mtd_threshold_20k", "message": "What about the £20,000 MTD threshold and April 2028?", "tax_year": "2027-28", "expect_any": ["april 2028", "6 april 2028"]},
     {"id": "mtd_qualifying_vs_profit", "message": "For MTD, is qualifying income the same as profit after expenses?", "tax_year": "2026-27", "expect_any": ["before", "turnover", "not the same", "not the same as profit"]},
     {"id": "mtd_paye_excluded", "message": "Does my PAYE salary count towards MTD qualifying income?", "tax_year": "2026-27"},

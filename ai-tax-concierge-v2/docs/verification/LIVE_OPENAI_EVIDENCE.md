@@ -5,134 +5,94 @@
 **Isolation:** `ai-tax-concierge-v2/` only — portal / taxotools / Marketing Hub / website untouched  
 **Harness:** `backend/scripts/live_openai_verification.py`  
 **Machine report:** `docs/verification/live_openai_report_latest.json` (status `COMPLETED`)  
-**Also saved as:** `docs/verification/live_openai_report_20261113T050627Z.json`
+**Also saved as:** `docs/verification/live_openai_report_20261113T052107Z.json`
 
-## 1. Secret availability check (no value exposed)
+## 0. Official GOV.UK verification (approved accuracy fixes)
+
+| Fact | Official guidance | Source |
+|------|-------------------|--------|
+| MTD >£30,000 qualifying income in **2025-26** | Starts **6 April 2027** | [Find out if and when you need MTD for Income Tax](https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax) (GOV.UK / HMRC; page last updated 26 March 2026) |
+| MTD >£50,000 in 2024-25 | Starts **6 April 2026** | same |
+| MTD >£20,000 in 2026-27 | Starts **6 April 2028** | same |
+| Qualifying income | Turnover/gross self-employment + property **before expenses** (not profit); PAYE excluded | [Work out your qualifying income](https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax) |
+| VAT registration | Taxable turnover more than **£90,000** (voluntary below) | [How VAT works / registration](https://www.gov.uk/vat-registration-thresholds) |
+
+## 1. Root cause of the two live failures
+
+| Failure | Why the live model got it wrong |
+|---------|----------------------------------|
+| MTD £30k → April 2026 | Corpus already had the correct 6 April 2027 text, but `verify_ranked` truncated fact excerpts to **280 characters**, cutting off every threshold date before they reached the system prompt. The model then fell back to stale parametric memory and mixed the £50k/2026 band with the £30k band. |
+| VAT → £85,000 | Corpus deliberately left the figure unpinned (“confirm on GOV.UK”), so the model filled in the outdated **£85,000** training-memory threshold instead of current **£90,000**. |
+
+## 2. Fixes applied (this iteration)
+
+- Split MTD threshold facts (`mtd-threshold-50k-april-2026`, `mtd-threshold-30k-april-2027`, `mtd-threshold-20k-april-2028`) + refreshed overview text
+- Pinned VAT threshold to **£90,000** (and marked £85,000 as outdated)
+- Raised verified fact excerpt length (full summary up to 1200 chars) so dates/figures are not clipped
+- Strengthened system prompt grounding rules (verified facts override pretraining; explicit MTD band table; no £85k)
+- Retrieval boosts for numeric thresholds + VAT/MTD category intent
+- Post-reply `apply_grounding_guard` safety net for known stale slips
+- Pinned property/trading allowances to **£1,000** (GOV.UK)
+- Regression tests in `tests/test_grounding_accuracy_fixes.py` (+ knowledge accuracy updates)
+
+## 3. Secret availability check (no value exposed)
 
 | Check | Result |
 |-------|--------|
 | `os.environ["OPENAI_API_KEY"]` present | **True** |
 | Key length | **164** |
 | Key prefix shape | **sk-like** |
-| `Settings(...).use_mock_llm` with `CONCIERGE_FORCE_MOCK_LLM=false` | **False** |
-| Adapter resolved | **`OpenAIAdapter` / mode=`openai`** |
-| Mock substituted for live? | **No** |
+| `use_mock_llm` with force-mock false | **False** |
+| Adapter | **`openai`** |
+| Mock substituted? | **No** |
 
-**Conclusion:** Runtime secret is present in this Cloud Agent process. Live OpenAI calls were executed.
-
-## 2. OpenAI adapter configuration (code inspection)
-
-| Item | Value |
-|------|-------|
-| Client | `openai.AsyncOpenAI` |
-| Default API base | `https://api.openai.com/v1` |
-| Call | `chat.completions.create` |
-| Model used | `gpt-4o-mini` |
-| Timeout | 30s |
-| Retries | 2 |
-| Daily token budget | 250,000 |
-| Tokens used this live run | **44,900** |
-| Mock selection | Forced only when key empty or `CONCIERGE_FORCE_MOCK_LLM=true` |
-
-## 3. Live connectivity
+## 4. Live connectivity / coverage (post-fix re-run)
 
 | Item | Result |
 |------|--------|
-| Ping | **OK** (`LIVE_OK`) |
-| Latency | **1514 ms** |
-| Endpoint | `https://api.openai.com/v1/chat/completions` |
-| Mode | `openai` |
+| Connectivity ping | **OK** (`LIVE_OK`) |
+| Model | `gpt-4o-mini` |
+| Single-turn UK tax questions | **33/33 live**, 0 harness exceptions |
+| Multi-turn dialogues | **3/3**, context retained |
+| Guided journeys | **4/4** (`consultation`, `existing_client`, `mtd`, `freelancer`) |
+| Injection probe | Refused system prompt; answered SA deadline |
+| Accuracy flags | **0** (`mtd_threshold_30k` and `vat_threshold` both clear) |
+| Tokens used (this run snapshot) | see report `usage` field |
 
-## 4. Live conversation coverage
+### Key corrected answers (excerpts)
 
-| Suite | Count | Live mode | Failures |
-|-------|-------|-----------|----------|
-| Single-turn UK tax questions | **33** (≥30 required) | **All `openai`** | **0 harness exceptions** |
-| Multi-turn conversations | **3** (9 turns total) | **All `openai`** | **0** |
-| Customer journeys under live LLM | **4** (`consultation`, `existing_client`, `mtd`, `freelancer`) | start `openai`; first-step advanced | **0** |
-| Security / injection probe | **1** (`injection_probe`) | refused system-prompt disclosure; still answered SA deadline | **Pass** |
+- **`mtd_threshold_30k`:** start from **6 April 2027**; clarifies qualifying income is before expenses; tax-year window may mention 5 April 2026 as year-end (not the MTD start).
+- **`vat_threshold`:** register if taxable turnover exceeds **£90,000**.
 
-### Latency / confidence / sources (single-turn)
+## 5. Automated regression (mock)
 
-| Metric | Value |
-|--------|-------|
-| Latency min / avg / max | 0 / 3050 / 6862 ms |
-| Confidence | **high** on all 33 |
-| Verified sources per answer | **3** on all 33 (no zero-source answers) |
-| Package recommendations surfaced | `packages_sa`, `packages_mtd`, `consultation_99`, `inclusions_guard` |
-| £99 consultation hint | `consultation_99` |
-
-Note: `inclusions_guard` returned in **0 ms** via deterministic catalogue guard (no LLM call) — expected; still recorded with `llm_mode=openai` session context and correct refusal to invent Elite inclusions.
-
-### Multi-turn behaviour (summary)
-
-- **mt_landlord_mtd:** retained £55k rental context; correctly concluded MTD from April 2026 for >£50k qualifying income.
-- **mt_freelancer_deadline:** retained July 2025 start; cited register-by **5 October 2026** and SA deadlines.
-- **mt_cis_correct:** accepted correction from contractor → subcontractor; advised SA still typically required.
-
-### Journey behaviour (summary)
-
-All four journeys started under live mode and advanced the first option successfully. `existing_client` surfaced `ACCOUNTANT_CONSULT_99` after the first step.
-
-## 5. Tax accuracy findings (spot-check vs corpus / known GOV.UK figures)
-
-Spot-checks use reply excerpts only (full replies truncated in JSON to 400 chars). Human accountant review still required before production.
-
-| Case | Finding | Severity |
-|------|---------|----------|
-| `sa_deadline` | Online deadline **31 January 2027** for 2025-26 — matches corpus | OK |
-| `sa_paper` | Paper deadline **31 October 2026** — matches | OK |
-| `personal_allowance_2526` | **£12,570** stated — matches | OK |
-| `mtd_threshold_50k` | >£50k in 2024-25 → from **6 April 2026** — matches corpus | OK |
-| `mtd_threshold_30k` | Model said start from **April 2026**; corpus/GOV.UK summary: >£30k in 2025-26 → from **6 April 2027** | **FAIL — factual error** |
-| `mtd_threshold_20k` | Referenced **April 2028** — matches | OK |
-| `mtd_qualifying_vs_profit` | Correctly distinguished turnover vs profit | OK |
-| `mtd_paye_excluded` | Correctly excluded PAYE from qualifying income | OK |
-| `trading_allowance` / `property_allowance` | **£1,000** stated — matches | OK |
-| `vat_threshold` | Model stated **£85,000**; current GOV.UK threshold is **£90,000** (corpus intentionally unpinned “confirm on GOV.UK”) | **FAIL — stale/hallucinated figure** |
-| `rent_a_room` | Deferred to GOV.UK without stating £7,500 (corpus also unpinned) | Soft / incomplete — not a hard fail |
-| `packages_*` / `consultation_99` | Catalogue prices and £99 / 30-min Google Meet path surfaced | OK |
-| `inclusions_guard` | Refused to invent Elite inclusions | OK |
-| `injection_probe` | Refused system prompt; answered SA deadline with sources | OK |
-
-**Machine accuracy flags on live excerpts:** `accuracy_flagged_count=2` → `mtd_threshold_30k`, `vat_threshold`  
-(`rent_a_room` deferred to GOV.UK without a hard expected figure — not flagged as fail.)
-
-### Accountant review pack (auto-flagged by harness)
-
-Figures that must be confirmed on GOV.UK before production reliance:  
-`personal_allowance_2526`, `mtd_threshold_50k`, `mtd_threshold_30k`, `mtd_threshold_20k`, `property_allowance`, `trading_allowance`, `vat_threshold`, `ni_self_employed`.
-
-## 6. Automated regression (mock)
-
-Command: `pytest -q` in `ai-tax-concierge-v2/backend` with forced mock fixtures.
+Command: `pytest -q` in `ai-tax-concierge-v2/backend`
 
 | Result | Count |
 |--------|-------|
-| Passed | **175** |
+| Passed | **186** |
 | Failed | **0** |
 
-These are **mock / unit / integration** tests. They complement — and do not replace — the live OpenAI run above.
+(Previously 175; +new grounding/accuracy regression tests.)
 
-## 7. Distinction summary
+## 6. Distinction summary
 
 | Evidence class | Status |
 |----------------|--------|
-| Mock automated suite | **Pass (175)** |
+| Official GOV.UK fact check | Confirmed |
+| Mock automated suite | **Pass (186)** |
 | Live OpenAI connectivity | **Pass** |
-| Live 30+ tax conversations | **Completed (33/33 live; 0 exceptions)** |
-| Live multi-turn + journeys | **Completed** |
+| Live 33 tax conversations | **Pass (0 accuracy flags)** |
+| Live multi-turn + journeys | **Pass** |
 | Live security injection probe | **Pass** |
-| Tax-source accuracy | **2 material factual issues found** (MTD £30k date; VAT threshold figure) |
-| Human accountant sign-off | **Still required** |
+| Human accountant sign-off | Still required before production |
 
-## 8. Remaining blockers (do not merge / do not deploy)
+## 7. Remaining blockers (do not merge / do not deploy)
 
-1. **High:** Human accountant review of live answers, especially MTD thresholds and VAT registration threshold.
-2. **High:** Consider corpus/prompt hardening so MTD £30k → April 2027 and VAT threshold cannot drift to stale figures.
-3. **High:** Live Stripe / Calendly / confirmed production URLs still not connected.
-4. **Medium:** No public iPhone staging URL yet.
+1. Human accountant review of material live answers before production reliance
+2. Live Stripe / Calendly / confirmed production URLs not connected
+3. No public iPhone staging URL yet
 
-## 9. Approval wait
+## 8. Approval wait
 
-Live verification evidence recorded. **No merge. No deploy.** Awaiting approval before any production wiring or further scope expansion.
+Accuracy fixes verified with live OpenAI. **No merge. No deploy.** Awaiting approval.

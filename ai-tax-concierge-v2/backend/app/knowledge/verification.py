@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Iterable, List
 from urllib.parse import urlparse
 
+from app.knowledge.grounding import fact_excerpt
 from app.knowledge.retrieval import RankedFact
 from app.models.schemas import SourceReference
 
@@ -33,7 +34,11 @@ def _publisher_allowed(publisher: str) -> bool:
 
 
 def verify_ranked(ranked: Iterable[RankedFact]) -> List[SourceReference]:
-    """Convert ranked facts into verified source references; drop unverified."""
+    """Convert ranked facts into verified source references; drop unverified.
+
+    Uses a long excerpt (full summary up to grounding.MAX_FACT_EXCERPT_CHARS)
+    so threshold dates and figures are not clipped out of the LLM prompt.
+    """
     out: List[SourceReference] = []
     for item in ranked:
         fact = item.fact
@@ -53,7 +58,7 @@ def verify_ranked(ranked: Iterable[RankedFact]) -> List[SourceReference]:
                 url=fact.source_url,
                 tax_years=list(fact.tax_years),
                 verified=True,
-                excerpt=fact.summary[:280],
+                excerpt=fact_excerpt(fact.summary),
             )
         )
     return out

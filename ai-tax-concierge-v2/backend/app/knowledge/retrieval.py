@@ -51,6 +51,13 @@ def _tokens(text: str) -> set[str]:
     return {t.lower() for t in _TOKEN.findall(text) if t.lower() not in _STOP and len(t) > 1}
 
 
+def _normalize_amounts(text: str) -> str:
+    """Collapse £30,000 / 30,000 / 30000 style forms for matching."""
+    compact = text.lower().replace(",", "").replace("£", "")
+    compact = re.sub(r"\s+", " ", compact)
+    return compact
+
+
 def score_fact(query: str, fact: KnowledgeFact, tax_year: str) -> RankedFact:
     q = _tokens(query)
     title_tokens = _tokens(fact.title)
@@ -62,10 +69,26 @@ def score_fact(query: str, fact: KnowledgeFact, tax_year: str) -> RankedFact:
     # Prefer multi-word keyword phrases present in the query
     phrase_bonus = 0.0
     q_lower = query.lower()
+    q_amounts = _normalize_amounts(query)
     for kw in fact.keywords:
         if kw.lower() in q_lower:
             phrase_bonus += 2.5
+        kw_amount = _normalize_amounts(kw)
+        if kw_amount and kw_amount in q_amounts and any(ch.isdigit() for ch in kw_amount):
+            phrase_bonus += 4.0
     if fact.title.lower() in q_lower:
+        phrase_bonus += 3.0
+    # Strong boost when a precise threshold figure in the summary matches the query
+    for amount in ("50000", "30000", "20000", "90000", "12570"):
+        if amount in q_amounts and amount in _normalize_amounts(fact.summary + " " + " ".join(fact.keywords)):
+            phrase_bonus += 5.0
+    # Category intent boost (e.g. VAT questions must not lose to generic "register" SA facts)
+    category = (fact.category or "").lower()
+    if category and category.replace("_", " ") in q_lower:
+        phrase_bonus += 4.0
+    if "vat" in q_lower and category == "vat":
+        phrase_bonus += 6.0
+    if ("mtd" in q_lower or "making tax digital" in q_lower) and category == "mtd":
         phrase_bonus += 3.0
     year_match = applies_to_year(fact.tax_years, tax_year)
     score = float(len(overlap)) + (2.0 * len(title_overlap)) + phrase_bonus

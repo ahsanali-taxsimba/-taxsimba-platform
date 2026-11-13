@@ -68,13 +68,16 @@
   {
     "id": "mtd-income-tax-overview",
     "title": "Making Tax Digital for Income Tax",
-    "summary": "Making Tax Digital (MTD) for Income Tax will require eligible self-employed people and landlords to keep digital records and submit quarterly updates. Start dates and income thresholds depend on HMRC rules for your circumstances — check GOV.UK for the latest qualifying criteria.",
-    "keywords": ["mtd", "making tax digital", "quarterly", "digital records", "landlord", "self-employed"],
-    "tax_years": ["2025-26", "2026-27"],
-    "source_url": "https://www.gov.uk/government/publications/making-tax-digital/making-tax-digital-for-business-income-tax",
+    "summary": "Making Tax Digital (MTD) for Income Tax requires eligible self-employed people and landlords to keep digital records and submit quarterly updates. Start dates depend on qualifying income (turnover/gross, not profit): more than £50,000 in 2024-25 from 6 April 2026; more than £30,000 in 2025-26 from 6 April 2027; more than £20,000 in 2026-27 from 6 April 2028. Confirm details on GOV.UK.",
+    "keywords": ["mtd", "making tax digital", "quarterly", "digital records", "landlord", "self-employed", "30000", "50000", "20000"],
+    "tax_years": ["2025-26", "2026-27", "2027-28"],
+    "source_url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
     "publisher": "GOV.UK / HMRC",
     "category": "mtd",
-    "last_verified": "2026-03-01"
+    "effective_date": "2026-04-06",
+    "last_verified": "2026-11-13",
+    "knowledge_version": "2026-11-simba-v2",
+    "review_status": "verified_against_govuk_summary"
   },
   {
     "id": "class2-class4-nic-overview",
@@ -123,13 +126,16 @@
   {
     "id": "vat-threshold-overview",
     "title": "VAT registration threshold",
-    "summary": "You must register for VAT if your taxable turnover exceeds the VAT registration threshold. Thresholds can change — always confirm the current figure on GOV.UK before deciding.",
-    "keywords": ["vat", "registration", "threshold", "turnover"],
-    "tax_years": ["2024-25", "2025-26"],
+    "summary": "Businesses must register for VAT if their VAT taxable turnover is more than £90,000. They can also choose to register voluntarily if turnover is less than £90,000. The former £85,000 threshold is outdated and must not be used. Always confirm the current figure on GOV.UK if guidance may have changed.",
+    "keywords": ["vat", "registration", "threshold", "turnover", "90000", "90,000", "£90,000", "not 85000", "not £85,000"],
+    "tax_years": ["2024-25", "2025-26", "2026-27"],
     "source_url": "https://www.gov.uk/vat-registration-thresholds",
     "publisher": "GOV.UK / HMRC",
     "category": "vat",
-    "last_verified": "2026-03-01"
+    "effective_date": "2024-04-01",
+    "last_verified": "2026-11-13",
+    "knowledge_version": "2026-11-simba-v2",
+    "review_status": "verified_against_govuk_summary"
   },
   {
     "id": "cis-overview",

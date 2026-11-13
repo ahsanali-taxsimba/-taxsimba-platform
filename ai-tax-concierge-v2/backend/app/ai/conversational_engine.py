@@ -19,6 +19,7 @@ from app.journeys.engine import (
     journey_context_blurb,
     start_journey,
 )
+from app.knowledge.grounding import apply_grounding_guard
 from app.knowledge.retrieval import retrieve
 from app.knowledge.tax_year import resolve_tax_year
 from app.knowledge.verification import confidence_from_sources, verify_ranked
@@ -146,6 +147,15 @@ class ConversationalEngine:
                 messages=history,
                 user_message=user_message,
             )
+            reply, grounding_flags = apply_grounding_guard(
+                reply, request.message, sources
+            )
+            if grounding_flags:
+                logger.info(
+                    "grounding_guard session=%s flags=%s",
+                    request.session_id,
+                    grounding_flags,
+                )
 
         packages, calculators, follow_ups = recommend_for_message(
             request.message,
