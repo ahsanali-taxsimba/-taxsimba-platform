@@ -1,6 +1,6 @@
 # Architecture — TaxSimba AI Tax Concierge V2 (Phase 1–2)
 
-> **Node.js direction:** Toxel has confirmed TaxSimba backends should be Node.js. SIMBA’s API is Python FastAPI today. A full audit and migration plan (no code migration until approved) is in [`PYTHON_TO_NODE_MIGRATION_PLAN.md`](./PYTHON_TO_NODE_MIGRATION_PLAN.md). Widget JS remains in scope to preserve.
+> **Node.js runtime (approved migration in progress):** Primary implementation is Express + TypeScript under [`backend-node/`](../backend-node/). Python FastAPI under `backend/` is retained for dual-run comparison until staging cutover. Widget JS/CSS/HTML is unchanged. See [`PYTHON_VS_NODE_PARITY_REPORT.md`](./PYTHON_VS_NODE_PARITY_REPORT.md) and [`ARCHITECTURE_DECISION_NODEJS.md`](./ARCHITECTURE_DECISION_NODEJS.md).
 
 ## Isolation
 

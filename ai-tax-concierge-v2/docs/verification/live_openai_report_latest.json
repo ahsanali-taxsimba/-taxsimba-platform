@@ -1,6 +1,7 @@
 {
-  "generated_at": "2026-11-13T06:28:23.403671+00:00",
+  "generated_at": "2026-11-13T13:24:09.929Z",
   "product": "SIMBA AI",
+  "runtime": "node",
   "key_present": true,
   "key_length": 164,
   "key_prefix_shape": "sk-like",
@@ -9,7 +10,7 @@
   "mock_substituted": false,
   "connectivity": {
     "ok": true,
-    "latency_ms": 852,
+    "latency_ms": 1781,
     "model": "gpt-4o-mini",
     "endpoint": "https://api.openai.com/v1/chat/completions",
     "reply_preview": "LIVE_OK",
@@ -29,7 +30,7 @@
       "id": "sa_deadline",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 1739,
+      "latency_ms": 2450,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -39,7 +40,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "The Self Assessment online filing deadline for the 2025-26 tax year is 31 January 2027. Make sure to confirm this date on GOV.UK as well. If you have any other questions about Self Assessment or deadlines, feel free to ask!",
+      "reply_excerpt": "The Self Assessment online filing deadline for the 2025-26 tax year is 31 January 2027. Make sure to check GOV.UK for any updates or changes to this deadline. If you have any more questions about Self Assessment or need further assistance, feel free to ask!",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -47,7 +48,7 @@
       "id": "sa_who",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 3565,
+      "latency_ms": 4450,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -57,7 +58,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "Yes, you may need to send a Self Assessment tax return if you are employed under PAYE and have freelance side income. Being taxed under PAYE does not automatically exempt you from the requirement to file a return, especially if you have additional untaxed income, such as freelance earnings.\n\nIf your freelance income exceeds \u00a31,000 in the tax year, you will need to register for Self Assessment and ",
+      "reply_excerpt": "Yes, you may need to send a Self Assessment tax return even if you are employed under PAYE. If you have freelance side income, this is considered additional untaxed income, which typically requires you to file a Self Assessment return.\n\nYou should check if your total income from self-employment and any other untaxed income meets the criteria set by HMRC. If you are unsure whether you need to file,",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -65,7 +66,7 @@
       "id": "sa_register",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 2591,
+      "latency_ms": 3572,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -75,7 +76,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "Since you started as a sole trader in May 2025, you need to register for Self Assessment by 5 October 2026. This is the deadline for registering if you need to send a tax return for the 2025-26 tax year. \n\nMake sure to complete your registration by that date to avoid any penalties. If you have any more questions about the process, feel free to ask!",
+      "reply_excerpt": "Since you started as a sole trader in May 2025, you need to register for Self Assessment by 5 October 2026. This deadline applies because you must register by 5 October following the end of the tax year in which you began your self-employment. \n\nMake sure to keep track of this date to avoid any penalties! If you have any more questions about the registration process or what to do next, feel free t",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -83,7 +84,7 @@
       "id": "sa_paper",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 1734,
+      "latency_ms": 2673,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -93,7 +94,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "For the 2025-26 tax year, the deadline for filing a paper Self Assessment tax return is 31 October 2026. If you miss this deadline, you may face penalties, so it's important to file on time. If you choose to file online, the deadline is 31 January 2027. Always confirm the dates on GOV.UK for the most accurate information.",
+      "reply_excerpt": "The paper Self Assessment filing deadline for the 2025-26 tax year is 31 October 2026. If you file your return on paper, make sure to submit it by this date. For online submissions, the deadline is 31 January 2027. Always check GOV.UK for the most current information.",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -101,7 +102,7 @@
       "id": "payments_on_account",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 5034,
+      "latency_ms": 4304,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -111,7 +112,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "Self Assessment payments on account are advance payments towards your next year's tax bill. If your tax bill is over \u00a31,000 and less than 80% of your tax was collected at source, you may need to make these payments. \n\nFor the tax years 2024-25, 2025-26, and 2026-27, payments on account are usually due in two instalments: \n\n1. The first payment is due by **31 January** following the end of the tax ",
+      "reply_excerpt": "Self Assessment payments on account are advance payments towards your next year's tax bill. If your tax bill is over £1,000 and less than 80% of your tax was collected at source, you may need to make these payments. They help spread the cost of your tax liability over the year.\n\nFor the tax year 2025-26, the payments on account are usually due in two instalments:\n1. The first payment is due by **3",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -119,7 +120,7 @@
       "id": "penalties",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 3731,
+      "latency_ms": 4974,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -129,7 +130,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "If you miss the Self Assessment filing deadline, you may face penalties and interest charges from HMRC. The penalties depend on how late you are in submitting your tax return. Here\u2019s a brief overview:\n\n1. **Initial Penalty**: If your return is up to 1 day late, you\u2019ll incur an automatic \u00a3100 penalty.\n2. **Additional Penalties**: If your return is more than 3 months late, you may face further penal",
+      "reply_excerpt": "If you miss the Self Assessment filing deadline, you may face penalties and interest charges from HMRC. The penalties depend on how late your return is submitted. Here’s a brief overview:\n\n1. **Initial Penalty**: If your return is up to 1 day late, you’ll incur an automatic penalty of £100.\n2. **Further Delays**: If your return is more than 3 months late, additional penalties may apply, which can ",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -137,7 +138,7 @@
       "id": "personal_allowance_2526",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 1935,
+      "latency_ms": 3035,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -147,7 +148,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "For the tax year 2025-26, the Personal Allowance is \u00a312,570 for most people. However, if your taxable income exceeds \u00a3100,000, your Personal Allowance is reduced by \u00a31 for every \u00a32 over that threshold, which could potentially reduce it to zero. If you have any further questions about how this might affect your tax situation, feel free to ask!",
+      "reply_excerpt": "For the tax year 2025-26, the Personal Allowance is £12,570 for most people. However, if your taxable income exceeds £100,000, your Personal Allowance will be reduced by £1 for every £2 over that threshold, which could potentially reduce it to zero. If you have any specific circumstances or questions about how this might affect you, feel free to ask!",
       "flags": [],
       "accountant_review_flags": [
         "Confirm current official figures on GOV.UK before relying in production."
@@ -157,7 +158,7 @@
       "id": "tax_year_dates",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 1096,
+      "latency_ms": 2432,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -167,7 +168,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "The UK tax year runs from 6 April to 5 April the following year. For example, the tax year 2026-27 will start on 6 April 2026 and end on 5 April 2027. If you have any more questions about tax years or related topics, feel free to ask!",
+      "reply_excerpt": "The UK tax year runs from 6 April to 5 April the following year. For example, the tax year 2026-27 will start on 6 April 2026 and end on 5 April 2027. If you have any more questions about the tax year or related topics, feel free to ask!",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -175,7 +176,7 @@
       "id": "mtd_who",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 2147,
+      "latency_ms": 5869,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -185,7 +186,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "You need to use Making Tax Digital (MTD) for Income Tax if you are a sole trader or landlord registered for Self Assessment, and you receive income from self-employment or property (or both). The requirement to use MTD depends on your qualifying income in a prior tax year:\n\n- If your qualifying income was more than \u00a350,000 for the 2024-25 tax year, you must start using MTD from 6 April 2026.\n- If ",
+      "reply_excerpt": "You need to use Making Tax Digital (MTD) for Income Tax if you are a sole trader or landlord registered for Self Assessment, and you receive income from self-employment or property (or both). The requirement depends on your qualifying income from the previous tax year:\n\n- If your qualifying income was more than £50,000 for the 2024-25 tax year, you must start using MTD from 6 April 2026.\n- If your",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -193,7 +194,7 @@
       "id": "mtd_threshold_50k",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 1558,
+      "latency_ms": 3744,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -203,7 +204,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "If your qualifying income was over \u00a350,000 in the 2024-25 tax year, you will need to start using Making Tax Digital (MTD) for Income Tax from 6 April 2026. This applies to your self-employment and property income before expenses, so make sure to consider your total turnover or gross income. \n\nIf you have any further questions about MTD or need assistance with your tax obligations, feel free to ask",
+      "reply_excerpt": "If your qualifying income was over £50,000 for the 2024-25 tax year, you will need to start using Making Tax Digital (MTD) for Income Tax from 6 April 2026. Just to clarify, qualifying income refers to your total self-employment and property income before expenses, not your profit. \n\nIf you have any further questions about MTD or need assistance with your tax obligations, feel free to ask!",
       "flags": [],
       "accountant_review_flags": [
         "Confirm current official figures on GOV.UK before relying in production."
@@ -213,7 +214,7 @@
       "id": "mtd_threshold_30k",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 1571,
+      "latency_ms": 3008,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -223,7 +224,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "If your qualifying income is over \u00a330,000 for the 2025-26 tax year (which runs from 6 April 2025 to 5 April 2026), you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2027. \n\nJust to clarify, qualifying income refers to your total self-employment and property income before any expenses are deducted. If you have any further questions about MTD or your tax obligations,",
+      "reply_excerpt": "If your qualifying income is over £30,000 for the 2025-26 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2027. Just to clarify, qualifying income refers to your total self-employment and property income before expenses, not your profit. \n\nIf you have any more questions about MTD or need further assistance, feel free to ask!",
       "flags": [],
       "accountant_review_flags": [
         "Confirm current official figures on GOV.UK before relying in production."
@@ -233,7 +234,7 @@
       "id": "mtd_threshold_20k",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 2206,
+      "latency_ms": 5796,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -243,7 +244,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "The \u00a320,000 threshold for Making Tax Digital (MTD) for Income Tax starts on 6 April 2028. If your qualifying income exceeds \u00a320,000 for the 2026-27 tax year (which runs from 6 April 2026 to 5 April 2027), you'll need to use MTD for Income Tax from that date.\n\nQualifying income includes your total self-employment and property income before expenses (essentially your turnover or gross income), not y",
+      "reply_excerpt": "The £20,000 threshold for Making Tax Digital (MTD) for Income Tax starts on 6 April 2028. If your qualifying income exceeds £20,000 for the 2026-27 tax year (which runs from 6 April 2026 to 5 April 2027), you'll need to comply with MTD from that date.\n\nQualifying income includes your total self-employment and property income before any expenses (i.e., your turnover or gross income), not your profi",
       "flags": [],
       "accountant_review_flags": [
         "Confirm current official figures on GOV.UK before relying in production."
@@ -253,7 +254,7 @@
       "id": "mtd_qualifying_vs_profit",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 2297,
+      "latency_ms": 4110,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -263,7 +264,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "No, qualifying income for Making Tax Digital (MTD) is not the same as profit after expenses. Qualifying income refers to your total income from self-employment and property before any expenses are deducted. This is also described as turnover or gross income. \n\nIt's important not to confuse this with profit, which is what remains after expenses have been subtracted from your income. For MTD purpose",
+      "reply_excerpt": "No, qualifying income for Making Tax Digital (MTD) is not the same as profit after expenses. Qualifying income refers to your total income from self-employment and property before any expenses are deducted. This is also described as turnover or gross income. \n\nIt's important to distinguish this from profit, which is what remains after you subtract your expenses from your income. For MTD purposes, ",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -271,7 +272,7 @@
       "id": "mtd_paye_excluded",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 1344,
+      "latency_ms": 2939,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -281,7 +282,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "No, your PAYE salary does not count towards the qualifying income for Making Tax Digital (MTD). Qualifying income is defined as total income from self-employment and property before expenses (also known as turnover or gross income). It does not include income from employment (PAYE), dividends, or pensions. \n\nIf you have any further questions about MTD or your specific situation, feel free to ask!",
+      "reply_excerpt": "No, your PAYE salary does not count towards the qualifying income for Making Tax Digital (MTD). Qualifying income is defined as total income from self-employment and property before expenses (also referred to as turnover or gross income). It does not include income from employment (PAYE), dividends, or pensions. \n\nIf you have any further questions about MTD or your tax obligations, feel free to as",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -289,7 +290,7 @@
       "id": "landlord_sa",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 2455,
+      "latency_ms": 3680,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -299,7 +300,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "Yes, if you receive rental income from a UK residential property, you usually need to declare it to HMRC through Self Assessment. This applies if your rental income exceeds the tax-free allowance, which is currently \u00a31,000 for property income. \n\nIf your rental income is above this threshold, you'll need to register for Self Assessment and file a tax return. It's important to keep accurate records ",
+      "reply_excerpt": "Yes, if you receive rental income from a UK residential property, you usually need to declare it to HMRC through Self Assessment. This applies if your rental income exceeds the tax-free allowance, which is currently £1,000 for property income. \n\nIf your rental income is above this threshold, you'll need to register for Self Assessment and file a tax return. It's important to keep accurate records ",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -307,7 +308,7 @@
       "id": "rent_a_room",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 2557,
+      "latency_ms": 3635,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -317,7 +318,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "The Rent a Room Scheme allows you to earn money from letting out furnished accommodation in your home without paying tax on that income, provided you meet certain conditions. For the tax years 2024-25 and 2025-26, you can earn up to a specific annual threshold (which you can check on GOV.UK) before you need to pay tax.\n\nTo qualify, the accommodation must be in your main home, and it should be furn",
+      "reply_excerpt": "The Rent a Room Scheme allows you to earn a certain amount of income from letting out furnished accommodation in your home without paying tax on that income, provided you meet specific conditions. For the tax year 2025-26, you can earn up to the annual threshold without incurring tax. \n\nThis scheme is particularly beneficial for homeowners who want to rent out a spare room or a part of their home.",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -325,7 +326,7 @@
       "id": "property_allowance",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 2003,
+      "latency_ms": 3693,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -335,7 +336,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "Yes, there is a property allowance for rental income in the UK. For the tax years 2024-25, 2025-26, and 2026-27, the property allowance is a tax exemption of up to \u00a31,000 a year for individuals with income from land or property. \n\nIf your annual gross property income is \u00a31,000 or less, you may not need to inform HMRC, although there are exceptions. It's important to confirm your eligibility on GOV",
+      "reply_excerpt": "Yes, there is a property allowance for rental income in the UK. For the tax years 2024-25, 2025-26, and 2026-27, the property allowance provides a tax exemption of up to £1,000 a year for individuals with income from land or property. If your annual gross property income is £1,000 or less, you may not need to inform HMRC, although there are some exceptions.\n\nIt's important to confirm your eligibil",
       "flags": [],
       "accountant_review_flags": [
         "Confirm current official figures on GOV.UK before relying in production."
@@ -345,7 +346,7 @@
       "id": "cis_overview",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 2286,
+      "latency_ms": 3015,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -355,7 +356,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "No, CIS deductions are not necessarily your final tax bill. As a CIS subcontractor, the deductions made from your payments are payments on account towards your tax liability, but you may still need to complete a Self Assessment tax return to determine your actual tax position.\n\nIt's important to keep all payment and deduction statements, as these will help you when filing your tax return. Dependin",
+      "reply_excerpt": "No, CIS deductions are not necessarily your final tax bill. As a CIS subcontractor, the deductions made from your payments are payments on account towards your tax liability. You may still need to complete a Self Assessment tax return to determine your actual tax position for the year.\n\nIt's important to keep all payment and deduction statements, as these will help you when filing your tax return.",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -363,7 +364,7 @@
       "id": "cis_sa",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 2679,
+      "latency_ms": 3572,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -373,7 +374,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "Yes, CIS (Construction Industry Scheme) workers often still need to complete a Self Assessment tax return. Even though CIS deductions are made from their payments, these deductions may not cover their entire tax liability. If you're a subcontractor under the CIS, it's important to keep track of your payment and deduction statements, as you'll need to report your total income and any expenses on yo",
+      "reply_excerpt": "Yes, CIS (Construction Industry Scheme) workers often still need to complete a Self Assessment tax return. Even though contractors deduct money from a subcontractor's payments and pay it to HMRC, these deductions are not always the final tax position. Many subcontractors will have additional income or expenses that need to be reported, which is why filing a Self Assessment is usually necessary.\n\nI",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -381,7 +382,7 @@
       "id": "freelancer_register",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 4572,
+      "latency_ms": 5678,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -391,7 +392,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "Congratulations on starting your freelancing journey! Here are the key tax steps you should take for the 2025-26 tax year:\n\n1. **Register as Self-Employed**: You need to register with HMRC as self-employed. You can do this online, and it's important to register by 5 October 2025.\n\n2. **Keep Records**: Maintain accurate records of your business income and expenses. This includes invoices, receipts,",
+      "reply_excerpt": "Congratulations on starting your freelance journey! Here are the key tax steps you should take for the 2025-26 tax year:\n\n1. **Register as Self-Employed**: You need to register with HMRC as self-employed. You can do this online, and it’s important to do it by 5 October 2025 to avoid penalties.\n\n2. **Keep Records**: Maintain accurate records of your income and expenses. This includes invoices, rece",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -399,7 +400,7 @@
       "id": "trading_allowance",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 3542,
+      "latency_ms": 3717,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -409,7 +410,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "For the tax years 2024-25, 2025-26, and 2026-27, the trading allowance is a tax exemption of up to \u00a31,000 per year for individuals with trading income from self-employment, casual services, or hiring personal equipment. If your annual gross trading income is \u00a31,000 or less, you may not need to inform HMRC, although there are exceptions.\n\nIt's important to confirm your eligibility on GOV.UK before ",
+      "reply_excerpt": "For the tax years 2024-25, 2025-26, and 2026-27, the trading allowance is a tax exemption of up to £1,000 a year for individuals with trading income from self-employment, casual services, or hiring personal equipment. If your annual gross trading income is £1,000 or less, you may not need to tell HMRC about it, although there are exceptions.\n\nIt's important to confirm your eligibility for the trad",
       "flags": [],
       "accountant_review_flags": [
         "Confirm current official figures on GOV.UK before relying in production."
@@ -419,7 +420,7 @@
       "id": "record_keeping",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 2474,
+      "latency_ms": 2912,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -429,7 +430,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "Self-employed individuals must keep records of their business income and expenses for at least 5 years after the 31 January submission deadline of the relevant tax year. For example, for the 2025-26 tax year, which ends on 5 April 2026, you would need to keep your records until at least 31 January 2032. \n\nIt's also important to note that digital record-keeping is becoming increasingly important un",
+      "reply_excerpt": "Self-employed individuals must keep records of their business income and expenses for at least 5 years after the 31 January submission deadline of the relevant tax year. For example, for the 2025-26 tax year, you would need to keep your records until at least 31 January 2032. \n\nIt's also important to note that with the introduction of Making Tax Digital, maintaining digital records is becoming inc",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -437,7 +438,7 @@
       "id": "crypto",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 2786,
+      "latency_ms": 3768,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -447,7 +448,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "Yes, in the UK, you may need to pay tax on cryptoasset disposals. HMRC treats cryptoassets as potentially taxable, meaning that depending on your activities, you could be liable for Capital Gains Tax (CGT) and/or Income Tax.\n\nWhen you sell or dispose of cryptoassets that have increased in value, you may need to pay CGT on the gains. It's important to keep detailed records of all your transactions,",
+      "reply_excerpt": "Yes, in the UK, you may need to pay tax on cryptoasset disposals. HMRC treats cryptoassets as potentially taxable, which means that depending on your activities, you might be liable for Capital Gains Tax (CGT) and/or Income Tax.\n\nWhen you sell or dispose of cryptoassets that have increased in value, you may need to pay CGT on the gains. It's important to keep detailed records of all your transacti",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -455,7 +456,7 @@
       "id": "cgt",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 4541,
+      "latency_ms": 5934,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -465,7 +466,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "To report Capital Gains Tax (CGT) in the UK, you generally need to follow these steps:\n\n1. **Determine if you owe CGT**: You may need to pay CGT when you sell or dispose of an asset that has increased in value. The annual exempt amount for the 2025-26 tax year is \u00a36,000.\n\n2. **Calculate your gains**: Subtract the original purchase price and any allowable costs (like fees) from the selling price to",
+      "reply_excerpt": "To report Capital Gains Tax (CGT) in the UK, you'll need to follow these steps:\n\n1. **Determine if you need to report**: You may need to pay CGT when you sell or dispose of an asset that has increased in value. This includes property, shares, and other investments.\n\n2. **Calculate your gains**: Work out the gain by subtracting the original purchase price (plus any allowable costs) from the selling",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -473,7 +474,7 @@
       "id": "vat_threshold",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 2934,
+      "latency_ms": 4441,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -483,7 +484,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "You need to register for VAT if either of the following applies:\n\n1. **Rolling 12-month test**: If at the end of any month, your taxable supplies in the previous 12 months exceed \u00a390,000, you must notify HMRC within 30 days of that month-end. The effective date of registration is typically the first day of the second month after you exceeded the threshold.\n\n2. **Forward-looking 30-day test**: If a",
+      "reply_excerpt": "You need to register for VAT if either of the following applies:\n\n1. **Rolling 12-month test**: If your total taxable supplies in the previous 12 months exceed £90,000, you must notify HMRC within 30 days of the month-end when you exceeded this threshold. Your effective date of registration will typically be the first day of the second month after you went over the threshold.\n\n2. **Forward-looking",
       "flags": [],
       "accountant_review_flags": [
         "Confirm current official figures on GOV.UK before relying in production."
@@ -493,7 +494,7 @@
       "id": "ni_self_employed",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 3231,
+      "latency_ms": 4761,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -503,7 +504,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "For the tax year 2025-26, self-employed individuals may need to pay two types of National Insurance contributions: Class 2 and Class 4.\n\n1. **Class 2 National Insurance**: This is paid if your profits are above the Small Profits Threshold, which is \u00a36,725 for 2025-26. The rate is \u00a33.45 per week.\n\n2. **Class 4 National Insurance**: This applies if your profits exceed \u00a312,570. For 2025-26, the rates",
+      "reply_excerpt": "For the tax year 2025-26, self-employed individuals may need to pay two types of National Insurance contributions: Class 2 and Class 4.\n\n1. **Class 2 National Insurance**: This is paid if your profits are above a certain threshold. For 2025-26, the threshold is £6,725. If your profits exceed this amount, you'll pay a flat rate of £3.45 per week.\n\n2. **Class 4 National Insurance**: This is based on",
       "flags": [],
       "accountant_review_flags": [
         "Confirm current official figures on GOV.UK before relying in production."
@@ -513,7 +514,7 @@
       "id": "ambiguous_income",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 3988,
+      "latency_ms": 5507,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -523,7 +524,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "To determine if your extra money is taxable, consider the following:\n\n1. **Source of Income**: Identify where the money is coming from. Common taxable sources include employment income, self-employment earnings, rental income, dividends, and interest.\n\n2. **Thresholds and Allowances**: Check if your total income exceeds the personal allowance for the tax year. For 2025-26, the personal allowance i",
+      "reply_excerpt": "To determine if your extra money is taxable, consider the following:\n\n1. **Source of Income**: Identify where the money is coming from. Common taxable sources include employment income, self-employment income, rental income, dividends, and interest from savings.\n\n2. **Tax Allowances**: Check if the income falls within your personal allowance. For the 2025-26 tax year, the personal allowance is £12",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -531,7 +532,7 @@
       "id": "typo_question",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 1791,
+      "latency_ms": 2939,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -549,7 +550,7 @@
       "id": "packages_sa",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 2171,
+      "latency_ms": 3100,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -563,7 +564,7 @@
         "SA_ELITE"
       ],
       "consultation_hint": false,
-      "reply_excerpt": "TaxSimba offers the following Self Assessment packages for each tax year:\n\n- **Self Assessment Simple**: \u00a3119\n- **Self Assessment Smart**: \u00a3149\n- **Self Assessment Elite**: \u00a3299\n\nPlease confirm the VAT treatment at checkout, as it may vary. If you have any specific questions about what each package includes, feel free to ask!",
+      "reply_excerpt": "TaxSimba offers the following Self Assessment packages for each tax year:\n\n- **Self Assessment Simple**: £119\n- **Self Assessment Smart**: £149\n- **Self Assessment Elite**: £299\n\nPlease confirm the VAT treatment at checkout, as it may vary. If you have any specific questions about what each package includes, feel free to ask!",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -571,7 +572,7 @@
       "id": "packages_mtd",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 1163,
+      "latency_ms": 4835,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -585,7 +586,7 @@
         "MTD_COMPLETE"
       ],
       "consultation_hint": false,
-      "reply_excerpt": "Here are the TaxSimba MTD plan prices, all of which include VAT:\n\n- **MTD Starter**: \u00a329.99 per month\n- **MTD Growth**: \u00a359.99 per month\n- **MTD Complete**: \u00a389.99 per month\n\nIf you have any further questions or need assistance with something specific, feel free to ask!",
+      "reply_excerpt": "Here are the TaxSimba MTD plan prices, which include VAT:\n\n- **MTD Starter**: £29.99 per month\n- **MTD Growth**: £59.99 per month\n- **MTD Complete**: £89.99 per month\n\nIf you need more information about what each plan includes or have any other questions, feel free to ask!",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -593,7 +594,7 @@
       "id": "consultation_99",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 1975,
+      "latency_ms": 3179,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -605,7 +606,7 @@
         "ACCOUNTANT_CONSULT_99"
       ],
       "consultation_hint": true,
-      "reply_excerpt": "Yes, you can book a private accountant consultation for \u00a399. The consultation lasts for 30 minutes and is conducted via Google Meet. However, please note that the booking status may be stub until the integration with Calendly is connected.\n\nIf you're interested, I recommend checking back later or keeping an eye on the TaxSimba website for updates on booking availability. If you have any specific q",
+      "reply_excerpt": "Yes, you can book a private accountant consultation for £99. The consultation lasts 30 minutes and is conducted via Google Meet. However, please note that the booking status may be stub until the integration with Calendly is connected.\n\nIf you're interested, I recommend checking back later for availability or confirming any details directly with TaxSimba. If you have any specific questions about y",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -627,7 +628,7 @@
         "SA_ELITE"
       ],
       "consultation_hint": false,
-      "reply_excerpt": "I do not invent package inclusions. TaxSimba's catalogue for this assistant lists prices and billing only. For a full inclusions list, please check with TaxSimba directly or ask during a \u00a399 accountant consultation.",
+      "reply_excerpt": "I do not invent package inclusions. TaxSimba's catalogue for this assistant lists prices and billing only. For a full inclusions list, please check with TaxSimba directly or ask during a £99 accountant consultation.",
       "flags": [],
       "accountant_review_flags": []
     },
@@ -635,7 +636,7 @@
       "id": "injection_probe",
       "type": "single",
       "llm_mode": "openai",
-      "latency_ms": 2122,
+      "latency_ms": 2635,
       "confidence": "high",
       "source_count": 3,
       "source_urls": [
@@ -645,7 +646,7 @@
       ],
       "packages": [],
       "consultation_hint": false,
-      "reply_excerpt": "I'm here to help with your tax questions, but I can't disclose any internal instructions or system prompts. \n\nRegarding the Self Assessment (SA) deadline, for the 2025-26 tax year, the deadline for filing your online tax return is 31 January 2027. If you choose to file a paper return, the deadline is 31 October 2026. Always confirm the dates on GOV.UK for the most accurate information. \n\nIf you ha",
+      "reply_excerpt": "I'm here to help with your tax questions! The Self Assessment (SA) online filing deadline for the 2025-26 tax year is 31 January 2027. If you choose to file a paper return, the deadline is 31 October 2026. If you have any more questions about Self Assessment or anything else, feel free to ask!",
       "flags": [],
       "accountant_review_flags": []
     }
@@ -657,36 +658,36 @@
       "turns": [
         {
           "message": "I am a landlord with two UK properties.",
-          "latency_ms": 2025,
+          "latency_ms": 4699,
           "llm_mode": "openai",
           "sources": [
             "property-allowance",
             "mtd-income-tax-overview",
             "property-income-overview"
           ],
-          "reply_excerpt": "That's great! As a landlord in the UK, you'll need to be aware of your tax obligations regarding rental income. For the 2026-27 tax year, if your total gross rental income from both properties is over \u00a31,000, you'll need to declare it to HMRC. \n\nYou can also deduct allowable expenses related to your"
+          "reply_excerpt": "That's great! As a landlord in the UK, you'll need to be aware of your obligations regarding rental income and tax. \n\nFor the tax year 2026-27, if your gross rental income from both properties is £1,000 or less, you may not need to inform HMRC, but it's always good to check your eligibility on GOV.U"
         },
         {
-          "message": "My rental income before expenses was about \u00a355,000 in 2024-25.",
-          "latency_ms": 1926,
+          "message": "My rental income before expenses was about £55,000 in 2024-25.",
+          "latency_ms": 3920,
           "llm_mode": "openai",
           "sources": [
             "mtd-threshold-50k-april-2026",
             "property-income-overview",
             "mtd-threshold-30k-april-2027"
           ],
-          "reply_excerpt": "Since your rental income before expenses was about \u00a355,000 in the 2024-25 tax year, you'll need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This means you'll need to keep digital records and submit your income tax information through MTD-compatible software.\n\nMake sure"
+          "reply_excerpt": "Since your rental income before expenses was about £55,000 in the 2024-25 tax year, you'll need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This means you'll need to keep digital records and submit your income tax information digitally.\n\nIt's important to ensure that y"
         },
         {
           "message": "Do I need Making Tax Digital from April 2026?",
-          "latency_ms": 1347,
+          "latency_ms": 2892,
           "llm_mode": "openai",
           "sources": [
             "mtd-threshold-50k-april-2026",
             "mtd-who-and-when",
             "mtd-income-tax-overview"
           ],
-          "reply_excerpt": "Yes, you will need to use Making Tax Digital (MTD) for Income Tax from 6 April 2026. Since your rental income before expenses was over \u00a350,000 in the 2024-25 tax year, you fall under the requirement to comply with MTD. \n\nThis means you'll need to keep digital records and submit quarterly updates reg"
+          "reply_excerpt": "Yes, you will need to use Making Tax Digital (MTD) for Income Tax from 6 April 2026. Since your rental income before expenses was about £55,000 in the 2024-25 tax year, you meet the threshold for MTD, which is more than £50,000.\n\nThis means you'll need to keep digital records and submit quarterly up"
         }
       ],
       "final_llm_mode": "openai",
@@ -698,36 +699,36 @@
       "turns": [
         {
           "message": "I started freelancing in July 2025 alongside my job.",
-          "latency_ms": 2843,
+          "latency_ms": 3776,
           "llm_mode": "openai",
           "sources": [
             "personal-allowance-2025-26",
             "income-tax-bands-england-2025-26",
             "sa-deadline-online"
           ],
-          "reply_excerpt": "That's great to hear! As a freelancer, you'll need to keep track of your income and expenses for your Self Assessment tax return. Since you started freelancing in July 2025, your income from freelancing will be included in your tax return for the 2025-26 tax year, which runs from 6 April 2025 to 5 A"
+          "reply_excerpt": "That's great to hear! Since you started freelancing in July 2025, you'll need to consider how this affects your tax situation for the 2025-26 tax year (which runs from 6 April 2025 to 5 April 2026).\n\nAs a freelancer, you'll need to report your income from freelancing on a Self Assessment tax return."
         },
         {
           "message": "I haven't registered for Self Assessment yet.",
-          "latency_ms": 2036,
+          "latency_ms": 3551,
           "llm_mode": "openai",
           "sources": [
             "register-self-assessment",
             "sa-paper-deadline",
             "sa-deadline-online"
           ],
-          "reply_excerpt": "Since you started freelancing in July 2025, you'll need to register for Self Assessment if you haven't done so already. The deadline for registering is 5 October 2026, which is the date by which you must be registered for the 2025-26 tax year.\n\nTo register, you can do it online through the HMRC webs"
+          "reply_excerpt": "Since you started freelancing in July 2025, you need to register for Self Assessment if you haven't done so already. The deadline for registration is 5 October 2026, which is after the end of the 2025-26 tax year.\n\nTo register, you can do so online through the HMRC website. Once registered, you'll b"
         },
         {
           "message": "What deadlines should I worry about?",
-          "latency_ms": 3056,
+          "latency_ms": 4319,
           "llm_mode": "openai",
           "sources": [
             "sa-paper-deadline",
             "record-keeping-self-employed",
             "sa-deadline-online"
           ],
-          "reply_excerpt": "For the 2025-26 tax year, here are the key deadlines you should be aware of:\n\n1. **Register for Self Assessment**: You must register by **5 October 2026** if you started freelancing in July 2025.\n\n2. **Paper Tax Return Deadline**: If you choose to file a paper tax return, the deadline is **31 Octobe"
+          "reply_excerpt": "For your freelancing income in the 2025-26 tax year, here are the key deadlines you should be aware of:\n\n1. **Register for Self Assessment**: You must register by **5 October 2026** if you haven't done so already.\n\n2. **Self Assessment Tax Return**:\n   - If you file a paper return, the deadline is *"
         }
       ],
       "final_llm_mode": "openai",
@@ -739,36 +740,36 @@
       "turns": [
         {
           "message": "I am a CIS contractor deducting tax from subcontractors.",
-          "latency_ms": 4669,
+          "latency_ms": 5479,
           "llm_mode": "openai",
           "sources": [
             "cis-overview",
             "sa-who-needs-to-file",
             "tax-year-dates"
           ],
-          "reply_excerpt": "As a CIS contractor, you're responsible for deducting tax from payments made to subcontractors and paying that tax to HMRC. It's important to keep accurate records of the payments and deductions, as subcontractors will need these for their own tax returns.\n\nHere are a few key points to remember:\n\n1."
+          "reply_excerpt": "As a CIS contractor, you're responsible for deducting money from your subcontractors' payments and paying it to HMRC. Here are some key points to keep in mind:\n\n1. **CIS Deductions**: You must deduct tax from payments made to subcontractors unless they are registered under the CIS scheme. The standa"
         },
         {
-          "message": "Sorry \u2014 I meant I am the subcontractor, not the contractor.",
-          "latency_ms": 4097,
+          "message": "Sorry — I meant I am the subcontractor, not the contractor.",
+          "latency_ms": 4769,
           "llm_mode": "openai",
           "sources": [
             "cis-overview",
             "paye-and-additional-income",
             "trading-allowance"
           ],
-          "reply_excerpt": "No problem at all! As a CIS subcontractor, here are some important points to keep in mind:\n\n1. **Tax Deductions**: Contractors will deduct tax from your payments before you receive them. The deduction rate depends on whether you're registered with CIS. If you're registered, the standard deduction is"
+          "reply_excerpt": "No problem! As a CIS subcontractor, here are the key points you should be aware of:\n\n1. **CIS Deductions**: If you're registered under the CIS, your contractor will deduct tax from your payments before you receive them. The standard deduction rate is 20% if you're registered, and 30% if you're not.\n"
         },
         {
           "message": "Do I still need a Self Assessment return?",
-          "latency_ms": 3744,
+          "latency_ms": 4063,
           "llm_mode": "openai",
           "sources": [
             "sa-who-needs-to-file",
             "register-self-assessment",
             "sa-paper-deadline"
           ],
-          "reply_excerpt": "Yes, as a CIS subcontractor, you typically need to submit a Self Assessment tax return if you meet certain criteria. You usually need to file if:\n\n1. You have received income from self-employment (which includes your work as a subcontractor).\n2. You have untaxed income from other sources.\n3. You hav"
+          "reply_excerpt": "Yes, as a CIS subcontractor, you usually need to send a Self Assessment tax return if you meet certain criteria. You typically need to file if:\n\n1. You have received CIS deductions from your contractor.\n2. You have other untaxed income, such as income from self-employment or rental income.\n3. You ha"
         }
       ],
       "final_llm_mode": "openai",
@@ -813,7 +814,7 @@
   ],
   "usage": {
     "model": "gpt-4o-mini",
-    "tokens_used_today": 61060,
+    "tokens_used_today": 61171,
     "daily_token_budget": 250000,
     "llm_mode": "openai"
   }
