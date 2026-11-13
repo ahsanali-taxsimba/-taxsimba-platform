@@ -1,0 +1,134 @@
+[
+  {
+    "id": "sa-deadline-online",
+    "title": "Self Assessment online filing deadline",
+    "summary": "The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year the online filing and balancing payment deadline is 31 January 2026.",
+    "keywords": ["self assessment", "deadline", "filing", "31 january", "online return", "sa"],
+    "tax_years": ["2024-25", "2025-26"],
+    "source_url": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+    "publisher": "GOV.UK / HMRC",
+    "category": "self_assessment",
+    "last_verified": "2026-03-01"
+  },
+  {
+    "id": "sa-who-needs-to-file",
+    "title": "Who needs to send a Self Assessment tax return",
+    "summary": "You usually need to send a Self Assessment tax return if you were self-employed, a partner in a partnership, had untaxed income, or received notice from HMRC to file. Being employed does not automatically remove the requirement if other criteria apply.",
+    "keywords": ["who needs", "self assessment", "self-employed", "partnership", "untaxed income", "file"],
+    "tax_years": ["2024-25", "2025-26"],
+    "source_url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+    "publisher": "GOV.UK / HMRC",
+    "category": "self_assessment",
+    "last_verified": "2026-03-01"
+  },
+  {
+    "id": "tax-year-dates",
+    "title": "UK tax year dates",
+    "summary": "The UK tax year runs from 6 April to 5 April the following year. For example, tax year 2025-26 runs from 6 April 2025 to 5 April 2026.",
+    "keywords": ["tax year", "6 april", "5 april", "dates", "when does tax year"],
+    "tax_years": ["2024-25", "2025-26", "2026-27"],
+    "source_url": "https://www.gov.uk/income-tax",
+    "publisher": "GOV.UK / HMRC",
+    "category": "general",
+    "last_verified": "2026-03-01"
+  },
+  {
+    "id": "personal-allowance-2025-26",
+    "title": "Personal Allowance 2025-26",
+    "summary": "For most people the Personal Allowance for 2025-26 is £12,570. It is reduced if taxable income is over £100,000, by £1 for every £2 over that threshold, and can be reduced to zero.",
+    "keywords": ["personal allowance", "12570", "tax-free", "allowance", "income tax"],
+    "tax_years": ["2025-26"],
+    "source_url": "https://www.gov.uk/income-tax-rates",
+    "publisher": "GOV.UK / HMRC",
+    "category": "income_tax",
+    "last_verified": "2026-03-01"
+  },
+  {
+    "id": "personal-allowance-2024-25",
+    "title": "Personal Allowance 2024-25",
+    "summary": "For most people the Personal Allowance for 2024-25 is £12,570. It is reduced if taxable income is over £100,000, by £1 for every £2 over that threshold.",
+    "keywords": ["personal allowance", "12570", "tax-free", "allowance", "income tax"],
+    "tax_years": ["2024-25"],
+    "source_url": "https://www.gov.uk/income-tax-rates",
+    "publisher": "GOV.UK / HMRC",
+    "category": "income_tax",
+    "last_verified": "2026-03-01"
+  },
+  {
+    "id": "income-tax-bands-england-2025-26",
+    "title": "Income Tax bands (England, Wales, Northern Ireland) 2025-26",
+    "summary": "Basic rate 20% on income from £12,571 to £50,270; higher rate 40% from £50,271 to £125,140; additional rate 45% above £125,140. Scotland has different bands. Always check the tax year and nation.",
+    "keywords": ["income tax rates", "basic rate", "higher rate", "bands", "40%", "20%"],
+    "tax_years": ["2025-26"],
+    "source_url": "https://www.gov.uk/income-tax-rates",
+    "publisher": "GOV.UK / HMRC",
+    "category": "income_tax",
+    "last_verified": "2026-03-01"
+  },
+  {
+    "id": "mtd-income-tax-overview",
+    "title": "Making Tax Digital for Income Tax",
+    "summary": "Making Tax Digital (MTD) for Income Tax will require eligible self-employed people and landlords to keep digital records and submit quarterly updates. Start dates and income thresholds depend on HMRC rules for your circumstances — check GOV.UK for the latest qualifying criteria.",
+    "keywords": ["mtd", "making tax digital", "quarterly", "digital records", "landlord", "self-employed"],
+    "tax_years": ["2025-26", "2026-27"],
+    "source_url": "https://www.gov.uk/government/publications/making-tax-digital/making-tax-digital-for-business-income-tax",
+    "publisher": "GOV.UK / HMRC",
+    "category": "mtd",
+    "last_verified": "2026-03-01"
+  },
+  {
+    "id": "class2-class4-nic-overview",
+    "title": "National Insurance for the self-employed",
+    "summary": "Self-employed people may pay Class 2 and Class 4 National Insurance depending on profits. Thresholds and rates change by tax year; check GOV.UK National Insurance rates for the year that applies.",
+    "keywords": ["national insurance", "class 2", "class 4", "self-employed", "nic", "ni"],
+    "tax_years": ["2024-25", "2025-26"],
+    "source_url": "https://www.gov.uk/national-insurance/how-much-you-pay",
+    "publisher": "GOV.UK / HMRC",
+    "category": "national_insurance",
+    "last_verified": "2026-03-01"
+  },
+  {
+    "id": "payment-on-account",
+    "title": "Payments on account",
+    "summary": "If your tax bill is over £1,000 and less than 80% of your tax was collected at source, you may need to make payments on account towards next year's bill. These are usually due by 31 January and 31 July.",
+    "keywords": ["payments on account", "31 july", "advance payment", "tax bill"],
+    "tax_years": ["2024-25", "2025-26"],
+    "source_url": "https://www.gov.uk/understand-self-assessment-bill/payments-on-account",
+    "publisher": "GOV.UK / HMRC",
+    "category": "self_assessment",
+    "last_verified": "2026-03-01"
+  },
+  {
+    "id": "register-self-assessment",
+    "title": "Register for Self Assessment",
+    "summary": "If you need to send a tax return and are not already registered, you must register for Self Assessment. New sole traders usually need to register by 5 October after the end of the tax year in which they started.",
+    "keywords": ["register", "self assessment", "sole trader", "5 october", "utr"],
+    "tax_years": ["2024-25", "2025-26"],
+    "source_url": "https://www.gov.uk/register-for-self-assessment",
+    "publisher": "GOV.UK / HMRC",
+    "category": "self_assessment",
+    "last_verified": "2026-03-01"
+  },
+  {
+    "id": "capital-gains-overview",
+    "title": "Capital Gains Tax overview",
+    "summary": "You may need to pay Capital Gains Tax when you sell or dispose of an asset that has increased in value. Annual exempt amounts and rates depend on the tax year and your income. Report gains via Self Assessment or the dedicated CGT service where required.",
+    "keywords": ["capital gains", "cgt", "sell asset", "annual exempt", "property"],
+    "tax_years": ["2024-25", "2025-26"],
+    "source_url": "https://www.gov.uk/capital-gains-tax",
+    "publisher": "GOV.UK / HMRC",
+    "category": "capital_gains",
+    "last_verified": "2026-03-01"
+  },
+  {
+    "id": "vat-threshold-overview",
+    "title": "VAT registration threshold",
+    "summary": "You must register for VAT if your taxable turnover exceeds the VAT registration threshold. Thresholds can change — always confirm the current figure on GOV.UK before deciding.",
+    "keywords": ["vat", "registration", "threshold", "turnover"],
+    "tax_years": ["2024-25", "2025-26"],
+    "source_url": "https://www.gov.uk/vat-registration-thresholds",
+    "publisher": "GOV.UK / HMRC",
+    "category": "vat",
+    "last_verified": "2026-03-01"
+  }
+]
