@@ -22,45 +22,48 @@ const EXISTING_CLIENT =
   /\b(existing (taxsimba )?client|already (a )?taxsimba|logged ?in|my dashboard|message my (assigned )?accountant|my assigned accountant)\b/i;
 
 const DEFAULT_PRESSURE_NOTE =
-  "Optional support — only if useful. Verified items are package names and prices. " +
-  "Feature inclusions are not approved contractual promises yet — confirm with TaxSimba before relying on specific benefits.";
+  "Optional support — only if useful. Approved items are package names and prices, plus subject-to-scope MTD facts " +
+  "(Xero licence in price, bookkeeping within unpublished limits, annual SA filing subject to scope/timely records). " +
+  "Other entitlements still need TaxSimba confirmation. No priority support, quarterly business reviews or proactive tax planning.";
 
 const PENDING_STATUSES = new Set([
   "pending_taxsimba_signoff",
   "requires_approval",
+  "pending_approval",
   "blocked_pending_taxsimba_approval",
   "missing_requires_approval",
   "unknown",
   "conflict_pending_approval",
+  "mixed_approved_subject_to_scope_and_pending",
 ]);
 
 function circumstanceReason(code: string, message: string): string {
   const lower = (message || "").toLowerCase();
   if (code === "SA_SIMPLE") {
-    return "Lowest Self Assessment price that usually fits straightforward / single simple income situations (price verified; inclusions pending confirmation).";
+    return "Lowest Self Assessment price that usually fits straightforward / single simple income situations (price approved; detailed inclusions pending confirmation).";
   }
   if (code === "SA_SMART") {
-    return "Mid Self Assessment price when several income sources or more review is likely (price verified; inclusions pending confirmation).";
+    return "Mid Self Assessment price when several income sources or more review is likely (price approved; detailed inclusions pending confirmation).";
   }
   if (code === "SA_ELITE") {
-    return "Highest Self Assessment price — only suggested when complexity clearly exceeds mid-tier needs (price verified at £299; inclusions pending confirmation).";
+    return "Highest Self Assessment price — only suggested when complexity clearly exceeds mid-tier needs (price approved at £299; no priority/planning promises).";
   }
   if (code === "MTD_STARTER") {
-    return "Lowest Simbian Comply (£29.99/mo VAT included) when Making Tax Digital support is needed — features still require TaxSimba confirmation.";
+    return "Lowest Simbian Comply (£29.99/mo VAT included) when Making Tax Digital support is needed — Xero/bookkeeping/year-end SA are subject to scope; other features need TaxSimba confirmation.";
   }
   if (code === "MTD_GROWTH") {
-    return "Mid Simbian Growth (£59.99/mo VAT included) when more dedicated review is likely — features still require TaxSimba confirmation.";
+    return "Mid Simbian Growth (£59.99/mo VAT included) when more support is likely — same subject-to-scope core as Comply; Growth-only extras still pending confirmation.";
   }
   if (code === "MTD_COMPLETE") {
-    return "Highest Simbian Elite (£89.99/mo VAT included) only if mid-tier is clearly insufficient — features still require TaxSimba confirmation.";
+    return "Highest Simbian Elite (£89.99/mo VAT included) only if mid-tier is clearly insufficient — no priority/QBR/planning promises; confirm remaining entitlements with TaxSimba.";
   }
   if (code === "ACCOUNTANT_CONSULT_99") {
-    return "£99 / 30-minute consultation when a human review is the safer next step (booking stub until Calendly is connected).";
+    return "£99 for one 30-minute accountant-led Google Meet advice session (no filing, bookkeeping or written report; booking stub until Calendly is connected).";
   }
   if (lower.includes("unsure") || lower.includes("not sure")) {
     return "Suggested as a cautious next option while we clarify your circumstances.";
   }
-  return "Suggested from verified catalogue prices for your stated circumstances — confirm inclusions with TaxSimba before purchasing.";
+  return "Suggested from approved catalogue prices for your stated circumstances — confirm unresolved entitlements with TaxSimba before purchasing.";
 }
 
 export function toPackageCards(
@@ -326,26 +329,65 @@ export function answerInclusionsQuestion(message: string): string | null {
 
   const cat = packagesCatalog();
   const lines: string[] = [
-    "Here is what SIMBA can state confidently (VERIFIED names and prices):",
+    "Here is what SIMBA can state from approved catalogue decisions:",
     "",
     "Self Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.",
     "Making Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.",
-    "Private accountant consultation: £99 for 30 minutes (Google Meet; booking stub until Calendly is connected).",
+    "Private accountant consultation: £99 for one 30-minute accountant-led Google Meet advice session " +
+      "(no tax return filing, bookkeeping or written report; booking stub until Calendly is connected).",
     "",
-    "Feature inclusions, exclusions, software licences and support commitments are NOT approved contractual promises in SIMBA. " +
-      "Recovered public-website wording exists for TaxSimba review only (status: REQUIRES APPROVAL / UNKNOWN). " +
-      "I will not invent benefits, and I will not present unapproved website copy as a guarantee.",
+    "Self Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service " +
+      "for people who need digital records and MTD support.",
     "",
-    "I can recommend the lowest suitable package using verified prices and your circumstances, " +
-      "and explain where confirmation from TaxSimba is still needed. " +
+    "Approved subject to scope (not unconditional guarantees):",
+    "- A Xero software licence is included in each Simbian monthly price — TaxSimba must confirm the exact licence and entitlements.",
+    "- TaxSimba maintains digital bookkeeping within defined tier limits — numerical limits are not yet published; I will not invent them.",
+    "- Annual Self Assessment preparation and submission are included in all three Simbian plans, subject to agreed scope and timely client records.",
+    "",
+    "Removed from customer promises until re-approved: priority support, priority turnaround, quarterly business reviews, and proactive tax planning.",
+    "I will not invent bookkeeping limits, named Xero plan details, response times, tax-planning benefits or extra charges. " +
+      "Where an entitlement is still pending or unknown, TaxSimba must confirm the detail.",
+    "",
+    "I can recommend the lowest suitable package for your circumstances and share the right next link. " +
       "Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, " +
-      "or start registration at https://www.taxsimba.co.uk/register (registration path soft/generic until staging verifies).",
+      "or start registration at https://www.taxsimba.co.uk/register.",
   ];
 
-  // Names listed for orientation only — no feature dump.
+  if (
+    lower.includes("priority") ||
+    lower.includes("quarterly business") ||
+    lower.includes("tax planning") ||
+    lower.includes("helpline") ||
+    lower.includes("24/7")
+  ) {
+    lines.push(
+      "",
+      "I cannot promise priority support, quarterly business reviews, proactive tax planning or a phone helpline — those are not approved customer entitlements in SIMBA.",
+    );
+  }
+
+  if (lower.includes("xero")) {
+    lines.push(
+      "",
+      "Xero is included in the Simbian monthly price, but the exact Xero licence name, seats and commercial terms still need TaxSimba confirmation. " +
+        "I will not invent “Xero Simple/Ignite/Grow forever” or similar specifics.",
+    );
+  }
+
+  if (
+    lower.includes("bookkeep") ||
+    lower.includes("unlimited") ||
+    lower.includes("transaction")
+  ) {
+    lines.push(
+      "",
+      "Bookkeeping is accountant-maintained within tier limits. Those numerical limits are not approved yet, so I will not claim unlimited bookkeeping.",
+    );
+  }
+
   for (const p of cat.self_assessment as Record<string, any>[]) {
     lines.push(
-      `- ${p.name}: £${p.price_gbp} (${p.billing}) — inclusions status: ${p.inclusions_status}`,
+      `- ${p.name}: £${p.price_gbp} (${p.billing}) — detailed inclusions status: ${p.inclusions_status}`,
     );
   }
   for (const p of cat.mtd as Record<string, any>[]) {
@@ -355,6 +397,5 @@ export function answerInclusionsQuestion(message: string): string | null {
   }
 
   void PENDING_STATUSES;
-  void cat;
   return lines.join("\n");
 }

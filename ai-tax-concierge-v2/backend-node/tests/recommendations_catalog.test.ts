@@ -39,7 +39,7 @@ describe("recommendations catalog", () => {
     const card = toPackageCards([code])[0];
     expect(card.price_gbp).toBe(price);
     expect(card.price_status).toBe("verified");
-    expect(card.inclusions_status).toBe("requires_approval");
+    expect(card.inclusions_status).toBe("pending_approval");
   });
 
   it.each(MTD_PRICE_CASES)(
@@ -61,7 +61,7 @@ describe("recommendations catalog", () => {
   it("mtd_customer_facing_simbian_names_verified", () => {
     const cat = packagesCatalog();
     expect(cat.detailed_recommendations_status).toBe(
-      "names_and_prices_verified_inclusions_pending_signoff",
+      "owner_decisions_applied_remaining_scope_pending",
     );
     expect(cat.mtd.map((p: { name: string }) => p.name)).toEqual([
       "Simbian Comply",
@@ -73,7 +73,8 @@ describe("recommendations catalog", () => {
         (p: { name_status: string; price_status: string; inclusions_status: string }) =>
           p.name_status === "verified" &&
           p.price_status === "verified" &&
-          p.inclusions_status === "requires_approval",
+          p.inclusions_status ===
+            "mixed_approved_subject_to_scope_and_pending",
       ),
     ).toBe(true);
     // Internal codes preserved for portal/Stripe compatibility.
@@ -95,11 +96,20 @@ describe("recommendations catalog", () => {
       packages.every(
         (p) =>
           p.inclusions_status === "requires_approval" ||
+          p.inclusions_status === "pending_approval" ||
+          p.inclusions_status ===
+            "mixed_approved_subject_to_scope_and_pending" ||
+          p.inclusions_status === "approved" ||
           p.inclusions_status === "unknown" ||
           p.inclusions_status === "missing_requires_approval",
       ),
     ).toBe(true);
-    expect(packages.every((p) => p.inclusions == null)).toBe(true);
+    expect(
+      packages.every(
+        (p) =>
+          p.code === "ACCOUNTANT_CONSULT_99" || p.inclusions == null,
+      ),
+    ).toBe(true);
   });
 
   it("calculator_recommendations_use_live_verified_paths", () => {

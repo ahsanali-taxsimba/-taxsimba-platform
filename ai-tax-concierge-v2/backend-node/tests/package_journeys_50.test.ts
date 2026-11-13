@@ -75,10 +75,17 @@ describe("package recommendation journeys 50", () => {
         for (const card of toPackageCards(codes)) {
           expect(
             card.inclusions_status === "requires_approval" ||
+              card.inclusions_status === "pending_approval" ||
+              card.inclusions_status ===
+                "mixed_approved_subject_to_scope_and_pending" ||
+              card.inclusions_status === "approved" ||
               card.inclusions_status === "unknown" ||
               card.inclusions_status === "missing_requires_approval",
           ).toBe(true);
           expect(card.name).not.toMatch(/MTD Starter|MTD Complete/);
+          if (card.code !== "ACCOUNTANT_CONSULT_99") {
+            expect(card.inclusions).toBeNull();
+          }
         }
         return;
       }
@@ -88,7 +95,7 @@ describe("package recommendation journeys 50", () => {
         const guard = answerInclusionsQuestion(j.message!);
         expect(guard).toBeTruthy();
         expect(guard!.toLowerCase()).toMatch(
-          /not invent|will not invent|requires approval|verified|not approved/,
+          /not invent|will not invent|requires approval|verified|not approved|must confirm|subject to|removed/,
         );
         expect(guard!.toLowerCase()).toContain("£119");
         expect(guard!.toLowerCase()).toContain("simbian comply");
@@ -117,9 +124,19 @@ describe("package recommendation journeys 50", () => {
         packages.every(
           (p) =>
             p.inclusions_status === "requires_approval" ||
+            p.inclusions_status === "pending_approval" ||
+            p.inclusions_status ===
+              "mixed_approved_subject_to_scope_and_pending" ||
+            p.inclusions_status === "approved" ||
             p.inclusions_status === "unknown" ||
             p.inclusions_status === "missing_requires_approval" ||
             packages.length === 0,
+        ),
+      ).toBe(true);
+      expect(
+        packages.every(
+          (p) =>
+            p.code === "ACCOUNTANT_CONSULT_99" || p.inclusions == null,
         ),
       ).toBe(true);
     },

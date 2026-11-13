@@ -62,13 +62,13 @@ export function formatPackageLine(pkg: Record<string, unknown>): string {
 export function packageCatalogText(): string {
   const cat = packagesCatalog();
   const lines = [
-    "Self Assessment packages (names + prices VERIFIED):",
+    "Self Assessment packages (names + prices APPROVED):",
   ];
   for (const p of cat.self_assessment as Record<string, unknown>[]) {
     lines.push(`- ${formatPackageLine(p)}`);
   }
   lines.push(
-    "MTD plans (customer-facing names VERIFIED; prices VERIFIED; VAT included):",
+    "MTD / Simbian plans (names + prices APPROVED; VAT included):",
   );
   for (const p of cat.mtd as Record<string, unknown>[]) {
     lines.push(`- ${formatPackageLine(p)}`);
@@ -80,12 +80,30 @@ export function packageCatalogText(): string {
   lines.push(
     `Consultation: ${formatPackageLine(c)} (booking status: ${c.booking_status || "unknown"})`,
   );
+  const facts = (cat.approved_customer_facts || []) as Array<{
+    status?: string;
+    text?: string;
+  }>;
+  if (facts.length) {
+    lines.push("Approved customer facts (use exact conditional wording; never upgrade to unconditional guarantees):");
+    for (const fact of facts) {
+      lines.push(`- [${String(fact.status || "approved")}] ${String(fact.text || "")}`);
+    }
+  }
+  const removed = (cat.removed_customer_claims || []) as string[];
+  if (removed.length) {
+    lines.push(
+      `REMOVED — never promise: ${removed.join("; ")}.`,
+    );
+  }
   lines.push(
-    "CRITICAL: Do NOT list feature inclusions, software licences, support channels or exclusions as facts. " +
-      "Recovered website wording exists for TaxSimba approval only — it is NOT approved for contractual promises. " +
-      "Recommend the lowest suitable package using verified names/prices and circumstance heuristics only; " +
-      "explain uncertainty and offer TaxSimba confirmation or a £99 consultation when booking is connected. " +
-      "Never invent benefits. Use only Simbian Comply / Simbian Growth / Simbian Elite for MTD customer-facing names " +
+    "CRITICAL: Never invent bookkeeping numerical limits, named Xero plan entitlements, response-time SLAs, " +
+      "tax-planning packages, quarterly business reviews, priority support, or extra charges. " +
+      "Pending/unknown entitlements require TaxSimba confirmation. " +
+      "Recommend the lowest suitable package; explain SA vs MTD; ask one clarifying question at a time; " +
+      "give https://www.taxsimba.co.uk/self-assessment, https://www.taxsimba.co.uk/making-tax-digital, " +
+      "or https://www.taxsimba.co.uk/register as appropriate. " +
+      "Use only Simbian Comply / Simbian Growth / Simbian Elite for MTD customer-facing names " +
       "(do not use retired starter/complete labels). " +
       `Catalogue note: ${cat.disclaimer}`,
   );

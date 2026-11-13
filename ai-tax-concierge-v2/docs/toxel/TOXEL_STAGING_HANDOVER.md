@@ -5,27 +5,32 @@
 **Customer-facing name:** **SIMBA AI Tax Assistant** (Emerald Signature UI — do not restyle)  
 **Release gate:** **STAGING ONLY** — no production merge/deploy; **do not delete Python** (`ai-tax-concierge-v2/backend/`) until staging acceptance is signed separately.
 
-Accepted local evidence (2026-11-13 pre-Toxel pass): **450** Vitest · live OpenAI **33/33** · security **26** · Ask SIMBA launcher + welcome card + compact chat evidenced under `docs/verification/pre_toxel_final/`. Node independent of Python.  
-Final audit: [`../verification/pre_toxel_final/PRE_TOXEL_FINAL_AUDIT.md`](../verification/pre_toxel_final/PRE_TOXEL_FINAL_AUDIT.md).
+Accepted local evidence (2026-11-13 owner-decisions pass): **471** Vitest · security **26** · live owner-decisions probe **8/8** · Ask SIMBA launcher + welcome card + compact chat evidenced under `docs/verification/pre_toxel_final/`. Node independent of Python.  
+Owner decisions: [`../verification/inclusions_resolution/OWNER_COMMERCIAL_DECISIONS_2026-11-13.md`](../verification/inclusions_resolution/OWNER_COMMERCIAL_DECISIONS_2026-11-13.md) · Final report: [`../verification/inclusions_resolution/FINAL_COMMERCIAL_DECISIONS_REPORT.md`](../verification/inclusions_resolution/FINAL_COMMERCIAL_DECISIONS_REPORT.md).
 
 ---
 
-## 0. Package catalogue alignment (names VERIFIED; inclusions still need sign-off)
+## 0. Package catalogue alignment (owner decisions applied 2026-11-13)
 
 | Item | Status |
 |------|--------|
-| SA names + prices | **VERIFIED** — Simple £119 / Smart £149 / Elite **£299** |
-| MTD customer-facing names + prices | **VERIFIED** — **Simbian Comply / Growth / Elite** £29.99 / £59.99 / £89.99 VAT incl. |
+| SA names + prices | **APPROVED** — Simple £119 / Smart £149 / Elite **£299** |
+| MTD customer-facing names + prices | **APPROVED** — **Simbian Comply / Growth / Elite** £29.99 / £59.99 / £89.99 VAT incl. |
 | Internal MTD codes | **Preserved** — `MTD_STARTER` / `MTD_GROWTH` / `MTD_COMPLETE` (portal/Stripe; no duplicates; amounts unchanged) |
-| Recovered feature bullets / descriptions | **REQUIRES APPROVAL** — not used as contractual promises in SIMBA |
-| Explicit exclusions | **UNKNOWN** |
-| Consultation £99 / 30 min | **VERIFIED** price/duration; inclusions **UNKNOWN**; booking stub |
+| Xero in MTD monthly price | **APPROVED SUBJECT TO SCOPE** — exact licence/entitlements still pending |
+| Bookkeeping within tier limits | **APPROVED SUBJECT TO SCOPE** — numerical limits **not** approved |
+| Annual SA filing inside all MTD plans | **APPROVED SUBJECT TO SCOPE** — agreed scope + timely records |
+| Priority support / turnaround / QBR / proactive tax planning | **REMOVED** from customer-facing copy |
+| Consultation £99 / 30 min | **APPROVED** — one accountant-led Google Meet advice session; **no** filing, bookkeeping or written report; booking stub |
+| Explicit package exclusions / amendments / refunds | Still **PENDING / UNKNOWN** — see remaining decision tables |
+| Owner decisions | [`../verification/inclusions_resolution/OWNER_COMMERCIAL_DECISIONS_2026-11-13.md`](../verification/inclusions_resolution/OWNER_COMMERCIAL_DECISIONS_2026-11-13.md) |
 | Six-package approval matrix | [`../verification/inclusions_resolution/SIX_PACKAGE_APPROVAL_MATRIX.md`](../verification/inclusions_resolution/SIX_PACKAGE_APPROVAL_MATRIX.md) |
-| Supply / sign-off form | [`PACKAGE_INCLUSIONS_SUPPLY_REQUEST.md`](./PACKAGE_INCLUSIONS_SUPPLY_REQUEST.md) |
-| Catalogue flag | `names_and_prices_verified_inclusions_pending_signoff` |
-| SIMBA behaviour | State verified names/prices; recommend **lowest suitable**; explain uncertainty; never invent; never say “MTD Starter/Complete” to customers |
+| Remaining decision tables 1–8 | [`../verification/inclusions_resolution/REMAINING_OWNER_DECISION_TABLES.md`](../verification/inclusions_resolution/REMAINING_OWNER_DECISION_TABLES.md) |
+| Proposed copy | [`../verification/inclusions_resolution/PROPOSED_FINAL_PACKAGE_COPY.md`](../verification/inclusions_resolution/PROPOSED_FINAL_PACKAGE_COPY.md) |
+| Catalogue flag | `owner_decisions_applied_remaining_scope_pending` |
+| SIMBA behaviour | Approved names/prices + subject-to-scope MTD facts; lowest suitable; SA vs MTD explained; never invent limits/licence specifics/SLAs; never promise removed premium claims |
 
-**Do not** invent inclusions or change prices.
+**Do not** invent unresolved commercial terms or change approved prices. **Do not** silently change live website / portal billing / Stripe products.
 
 ---
 
@@ -129,7 +134,7 @@ Acceptance: complete test payment → portal shows paid package → SIMBA does *
 
 | Rule | Detail |
 |------|--------|
-| Catalogue | £99 · 30 minutes · Google Meet · `booking_status: stub` |
+| Catalogue | £99 · one 30-minute accountant-led Google Meet advice session · **excludes** filing, bookkeeping, written report · `booking_status: stub` |
 | Staging work | Real Calendly event URL → `CONSULTATION_BOOKING_URL` |
 | Success criterion | Visitor books; Meet link issued; SIMBA does not invent “booking confirmed” without Calendly webhook/API |
 
@@ -183,13 +188,13 @@ Run after HTTPS deploy. Record PASS/FAIL with screenshots.
 | A4 | MTD £30k | Starts **6 April 2027** |
 | A5 | SA prices | £119 / £149 / £299 |
 | A6 | MTD prices | £29.99 / £59.99 / £89.99 VAT included |
-| A7 | Consultation | £99 / 30 min; booking stub or live URL only if configured |
-| A8 | Inclusions question | Refuses to invent until catalogue approved |
+| A7 | Consultation | £99 / 30 min advice session; no filing/bookkeeping/written report; booking stub or live URL only if configured |
+| A8 | Inclusions question | States subject-to-scope Xero/bookkeeping/year-end SA; refuses invented limits, priority/QBR/planning |
 | A9 | Existing client journey | Dashboard messaging; no paid consult push |
 | A10 | Decline sales | Information only; no packages |
 | A11 | Mobile Safari | Sidebar/drawer + chat usable |
 | A12 | Embed on staging page | Launcher click-to-open; Escape closes |
-| A13 | `npm test` in CI/image | 426 pass |
+| A13 | `npm test` in CI/image | 471 pass |
 
 ### B. Integrations (remain BLOCKED until each passes)
 

@@ -1,11 +1,80 @@
 {
-  "version": "2026-11-simba-v3-simbian-names",
+  "version": "2026-11-simba-v4-owner-decisions",
   "inclusions_catalogue": "packages_inclusions_catalogue.v2026-11-13.json",
   "approval_matrix_doc": "docs/verification/inclusions_resolution/SIX_PACKAGE_APPROVAL_MATRIX.md",
-  "disclaimer": "VERIFIED: SA Simple/Smart/Elite prices and names; Simbian Comply/Growth/Elite MTD names and VAT-included monthly prices; £99/30min consultation. Feature bullets recovered from public subscription-plans API remain REQUIRES APPROVAL — not contractual promises. Do not invent benefits. Checkout and booking are not live until integrations are connected.",
-  "detailed_recommendations_status": "names_and_prices_verified_inclusions_pending_signoff",
+  "owner_decisions_doc": "docs/verification/inclusions_resolution/OWNER_COMMERCIAL_DECISIONS_2026-11-13.md",
+  "remaining_decisions_doc": "docs/verification/inclusions_resolution/REMAINING_OWNER_DECISION_TABLES.md",
+  "proposed_copy_doc": "docs/verification/inclusions_resolution/PROPOSED_FINAL_PACKAGE_COPY.md",
+  "disclaimer": "APPROVED: SA Simple/Smart/Elite names and prices; Simbian Comply/Growth/Elite names and VAT-included monthly prices; \u00a399/30min consultation scope (advice session only \u2014 no filing, bookkeeping or written report). APPROVED SUBJECT TO SCOPE: Xero licence included in MTD monthly prices (exact licence TBD); bookkeeping within unpublished tier limits; annual SA filing in all MTD plans subject to agreed scope and timely records. REMOVED from customer copy: priority support/turnaround, quarterly business reviews, proactive tax planning. Never invent limits, licence specifics, SLAs or extra charges. Checkout and booking are not live until integrations are connected.",
+  "detailed_recommendations_status": "owner_decisions_applied_remaining_scope_pending",
   "inclusions_supply_doc": "docs/toxel/PACKAGE_INCLUSIONS_SUPPLY_REQUEST.md",
   "inclusions_resolution_doc": "docs/verification/inclusions_resolution/INCLUSIONS_RESOLUTION_REPORT.md",
+  "owner_decisions": {
+    "recorded_at": "2026-11-13",
+    "timezone": "Europe/London",
+    "xero_included_in_mtd_price": "approved_subject_to_scope",
+    "bookkeeping_within_tier_limits": "approved_subject_to_scope",
+    "bookkeeping_numerical_limits_approved": false,
+    "mtd_includes_annual_sa_subject_to_scope": "approved_subject_to_scope",
+    "removed_customer_claims": [
+      "priority support",
+      "priority turnaround",
+      "quarterly business reviews",
+      "proactive tax planning"
+    ],
+    "consultation_scope_approved": true
+  },
+  "approved_customer_facts": [
+    {
+      "id": "xero_in_mtd_price",
+      "applies_to": [
+        "MTD_STARTER",
+        "MTD_GROWTH",
+        "MTD_COMPLETE"
+      ],
+      "status": "approved_subject_to_scope",
+      "text": "A Xero software licence is included in each Simbian monthly price. TaxSimba must confirm the exact licence, entitlements and commercial arrangements before treating any named Xero plan as guaranteed."
+    },
+    {
+      "id": "bookkeeping_tier_limits",
+      "applies_to": [
+        "MTD_STARTER",
+        "MTD_GROWTH",
+        "MTD_COMPLETE"
+      ],
+      "status": "approved_subject_to_scope",
+      "text": "TaxSimba maintains clients\u2019 digital bookkeeping records within defined limits for each MTD tier. The numerical limits are not yet approved or published \u2014 do not invent caps or promise unlimited bookkeeping."
+    },
+    {
+      "id": "mtd_annual_sa",
+      "applies_to": [
+        "MTD_STARTER",
+        "MTD_GROWTH",
+        "MTD_COMPLETE"
+      ],
+      "status": "approved_subject_to_scope",
+      "text": "Preparation and submission of the annual Self Assessment return are included in all three Simbian subscriptions, subject to an agreed scope and timely client records."
+    },
+    {
+      "id": "consultation_scope",
+      "applies_to": [
+        "ACCOUNTANT_CONSULT_99"
+      ],
+      "status": "approved",
+      "text": "The \u00a399 consultation is one 30-minute accountant-led Google Meet advice session. It does not include tax return filing, bookkeeping or a written report."
+    }
+  ],
+  "removed_customer_claims": [
+    "priority support",
+    "priority accountant messaging",
+    "priority turnaround",
+    "priority email support",
+    "quarterly business reviews",
+    "reviews your business each quarter",
+    "proactive tax planning",
+    "proactive tax planning advice",
+    "tax planning conversation"
+  ],
   "self_assessment": [
     {
       "code": "SA_SIMPLE",
@@ -16,15 +85,21 @@
       "price_status": "verified",
       "name_status": "verified",
       "description": "A straightforward Self Assessment for employed and simple self-employed income, prepared and checked by a qualified accountant.",
-      "description_status": "requires_approval",
+      "description_status": "pending_approval",
       "inclusions": [
         "Self Assessment prepared by an accountant",
         "Secure document upload",
         "Review and approval before submission",
         "Email and in-app updates"
       ],
+      "inclusion_item_statuses": {
+        "Self Assessment prepared by an accountant": "pending_approval",
+        "Secure document upload": "pending_approval",
+        "Review and approval before submission": "pending_approval",
+        "Email and in-app updates": "pending_approval"
+      },
       "exclusions": null,
-      "inclusions_status": "requires_approval",
+      "inclusions_status": "pending_approval",
       "exclusions_status": "unknown",
       "customer_facing_inclusions": false,
       "source_public_api_code": "SIMPLE",
@@ -39,15 +114,22 @@
       "price_status": "verified",
       "name_status": "verified",
       "description": "For clients with several income sources who want their allowances and expenses reviewed in detail before filing.",
-      "description_status": "requires_approval",
+      "description_status": "pending_approval",
       "inclusions": [
         "Everything in Simple",
         "Multiple income sources reviewed",
-        "Expenses and allowances check",
+        "Expenses and allowances check"
+      ],
+      "inclusion_item_statuses": {
+        "Everything in Simple": "pending_approval",
+        "Multiple income sources reviewed": "pending_approval",
+        "Expenses and allowances check": "pending_approval"
+      },
+      "removed_inclusions": [
         "Priority accountant messaging"
       ],
       "exclusions": null,
-      "inclusions_status": "requires_approval",
+      "inclusions_status": "pending_approval",
       "exclusions_status": "unknown",
       "customer_facing_inclusions": false,
       "source_public_api_code": "SMART",
@@ -61,16 +143,23 @@
       "vat_note": "Confirm VAT treatment on checkout",
       "price_status": "verified",
       "name_status": "verified",
-      "description": "Our most thorough Self Assessment service, including planning conversations and a full review of your position for the year.",
-      "description_status": "requires_approval",
+      "description": "Our most thorough Self Assessment service for complex income, with a full review of your tax position for the year (scope to be confirmed). Does not include priority turnaround or proactive tax-planning packages.",
+      "description_status": "pending_approval",
+      "description_note": "Previous public-API description that promised planning conversations was REMOVED under owner decision 4.",
       "inclusions": [
         "Everything in Smart",
-        "Full review of your tax position",
+        "Full review of your tax position"
+      ],
+      "inclusion_item_statuses": {
+        "Everything in Smart": "pending_approval",
+        "Full review of your tax position": "pending_approval"
+      },
+      "removed_inclusions": [
         "Tax planning conversation",
         "Priority turnaround"
       ],
       "exclusions": null,
-      "inclusions_status": "requires_approval",
+      "inclusions_status": "pending_approval",
       "exclusions_status": "unknown",
       "customer_facing_inclusions": false,
       "source_public_api_code": "ELITE",
@@ -86,24 +175,40 @@
       "vat_note": "VAT included",
       "price_status": "verified",
       "name_status": "verified",
-      "internal_code_note": "Portal/Stripe identity remains MTD_STARTER for compatibility — customer-facing name is Simbian Comply.",
+      "internal_code_note": "Portal/Stripe identity remains MTD_STARTER for compatibility \u2014 customer-facing name is Simbian Comply.",
       "public_api_name": "Simbian Comply",
       "source_public_api_code": "MTD_COMPLY",
-      "legacy_customer_names": ["MTD Starter"],
-      "description": "Your accountant maintains your records and handles your quarterly updates and year-end tax return.",
-      "description_status": "requires_approval",
+      "legacy_customer_names": [
+        "MTD Starter"
+      ],
+      "description": "Making Tax Digital support with accountant-maintained digital records within Comply limits, a Xero licence included in the monthly price (exact licence to confirm), and year-end Self Assessment filing subject to agreed scope and timely records.",
+      "description_status": "pending_approval",
       "inclusions": [
-        "Xero Simple subscription included",
+        "Xero software licence included in monthly price (exact licence to be confirmed)",
+        "Accountant-maintained bookkeeping within Comply limits (limits not yet published)",
+        "Year-end Income Tax / Self Assessment return prepared and submitted (subject to agreed scope and timely client records)",
         "MTD registration and setup support",
-        "Accountant-maintained bookkeeping and digital records",
         "Quarterly MTD updates prepared and submitted",
-        "Year-end Income Tax return prepared and submitted",
         "Automated tax deadline reminders",
         "Secure digital document exchange",
         "Accountant support by email only"
       ],
+      "inclusion_item_statuses": {
+        "Xero software licence included in monthly price (exact licence to be confirmed)": "approved_subject_to_scope",
+        "Accountant-maintained bookkeeping within Comply limits (limits not yet published)": "approved_subject_to_scope",
+        "Year-end Income Tax / Self Assessment return prepared and submitted (subject to agreed scope and timely client records)": "approved_subject_to_scope",
+        "MTD registration and setup support": "pending_approval",
+        "Quarterly MTD updates prepared and submitted": "pending_approval",
+        "Automated tax deadline reminders": "pending_approval",
+        "Secure digital document exchange": "pending_approval",
+        "Accountant support by email only": "pending_approval"
+      },
+      "historical_public_api_inclusions": [
+        "Xero Simple subscription included"
+      ],
+      "removed_inclusions": [],
       "exclusions": null,
-      "inclusions_status": "requires_approval",
+      "inclusions_status": "mixed_approved_subject_to_scope_and_pending",
       "exclusions_status": "unknown",
       "customer_facing_inclusions": false,
       "registration_route_id": "mtd_packages"
@@ -119,22 +224,40 @@
       "internal_code_note": "Portal/Stripe identity remains MTD_GROWTH.",
       "public_api_name": "Simbian Growth",
       "source_public_api_code": "MTD_GROWTH",
-      "legacy_customer_names": ["MTD Growth"],
-      "description": "A dedicated accountant maintains your records, handles your filings and reviews your business each quarter.",
-      "description_status": "requires_approval",
+      "legacy_customer_names": [
+        "MTD Growth"
+      ],
+      "description": "Making Tax Digital support with accountant-maintained digital records within Growth limits, a Xero licence included in the monthly price (exact licence to confirm), and year-end Self Assessment filing subject to agreed scope and timely records. Further Growth-only benefits remain pending approval.",
+      "description_status": "pending_approval",
+      "description_note": "Previous public-API description promising quarterly business reviews was REMOVED under owner decision 4.",
       "inclusions": [
-        "Xero Ignite subscription included",
+        "Xero software licence included in monthly price (exact licence to be confirmed)",
+        "Accountant-maintained bookkeeping within Growth limits (limits not yet published)",
+        "Year-end Income Tax / Self Assessment return prepared and submitted (subject to agreed scope and timely client records)",
         "MTD registration and setup support",
-        "Accountant-maintained bookkeeping and digital records",
         "Quarterly MTD updates prepared and submitted",
-        "Year-end Income Tax return prepared and submitted",
         "Dedicated accountant support by email only",
-        "Quarterly business reviews",
         "Expenses and allowances check",
         "Secure document exchange and deadline reminders"
       ],
+      "inclusion_item_statuses": {
+        "Xero software licence included in monthly price (exact licence to be confirmed)": "approved_subject_to_scope",
+        "Accountant-maintained bookkeeping within Growth limits (limits not yet published)": "approved_subject_to_scope",
+        "Year-end Income Tax / Self Assessment return prepared and submitted (subject to agreed scope and timely client records)": "approved_subject_to_scope",
+        "MTD registration and setup support": "pending_approval",
+        "Quarterly MTD updates prepared and submitted": "pending_approval",
+        "Dedicated accountant support by email only": "pending_approval",
+        "Expenses and allowances check": "pending_approval",
+        "Secure document exchange and deadline reminders": "pending_approval"
+      },
+      "historical_public_api_inclusions": [
+        "Xero Ignite subscription included"
+      ],
+      "removed_inclusions": [
+        "Quarterly business reviews"
+      ],
       "exclusions": null,
-      "inclusions_status": "requires_approval",
+      "inclusions_status": "mixed_approved_subject_to_scope_and_pending",
       "exclusions_status": "unknown",
       "customer_facing_inclusions": false,
       "registration_route_id": "mtd_packages"
@@ -147,27 +270,45 @@
       "vat_note": "VAT included",
       "price_status": "verified",
       "name_status": "verified",
-      "internal_code_note": "Portal/Stripe identity remains MTD_COMPLETE for compatibility — customer-facing name is Simbian Elite (public API code MTD_ELITE).",
+      "internal_code_note": "Portal/Stripe identity remains MTD_COMPLETE for compatibility \u2014 customer-facing name is Simbian Elite (public API code MTD_ELITE).",
       "public_api_name": "Simbian Elite",
       "source_public_api_code": "MTD_ELITE",
-      "legacy_customer_names": ["MTD Complete"],
-      "description": "Dedicated accountant care with maintained records, complete agreed filings and proactive tax planning.",
-      "description_status": "requires_approval",
+      "legacy_customer_names": [
+        "MTD Complete"
+      ],
+      "description": "Making Tax Digital support with accountant-maintained digital records within Elite limits, a Xero licence included in the monthly price (exact licence to confirm), and year-end Self Assessment filing subject to agreed scope and timely records. Further Elite-only benefits remain pending approval.",
+      "description_status": "pending_approval",
+      "description_note": "Previous public-API description promising proactive tax planning was REMOVED under owner decision 4.",
       "inclusions": [
-        "Xero Grow subscription included",
+        "Xero software licence included in monthly price (exact licence to be confirmed)",
+        "Accountant-maintained bookkeeping within Elite limits (limits not yet published)",
+        "Year-end Income Tax / Self Assessment return prepared and submitted (subject to agreed scope and timely client records)",
         "MTD registration and setup support",
-        "Accountant-maintained bookkeeping and digital records",
         "Quarterly MTD updates prepared and submitted",
-        "Year-end Income Tax return prepared and submitted",
-        "Dedicated accountant with priority email support",
-        "Quarterly business reviews",
         "Expenses and allowances check",
         "Full review of your tax position",
-        "Proactive tax planning advice",
         "Secure document exchange and deadline reminders"
       ],
+      "inclusion_item_statuses": {
+        "Xero software licence included in monthly price (exact licence to be confirmed)": "approved_subject_to_scope",
+        "Accountant-maintained bookkeeping within Elite limits (limits not yet published)": "approved_subject_to_scope",
+        "Year-end Income Tax / Self Assessment return prepared and submitted (subject to agreed scope and timely client records)": "approved_subject_to_scope",
+        "MTD registration and setup support": "pending_approval",
+        "Quarterly MTD updates prepared and submitted": "pending_approval",
+        "Expenses and allowances check": "pending_approval",
+        "Full review of your tax position": "pending_approval",
+        "Secure document exchange and deadline reminders": "pending_approval"
+      },
+      "historical_public_api_inclusions": [
+        "Xero Grow subscription included"
+      ],
+      "removed_inclusions": [
+        "Dedicated accountant with priority email support",
+        "Quarterly business reviews",
+        "Proactive tax planning advice"
+      ],
       "exclusions": null,
-      "inclusions_status": "requires_approval",
+      "inclusions_status": "mixed_approved_subject_to_scope_and_pending",
       "exclusions_status": "unknown",
       "customer_facing_inclusions": false,
       "registration_route_id": "mtd_packages"
@@ -185,12 +326,19 @@
     "booking_provider": "calendly",
     "price_status": "verified",
     "name_status": "verified",
-    "description": null,
-    "inclusions": null,
-    "exclusions": null,
-    "inclusions_status": "unknown",
-    "exclusions_status": "unknown",
-    "customer_facing_inclusions": false,
+    "description": "One 30-minute accountant-led Google Meet advice session.",
+    "description_status": "approved",
+    "inclusions": [
+      "One 30-minute accountant-led Google Meet advice session"
+    ],
+    "exclusions": [
+      "Tax return filing",
+      "Bookkeeping",
+      "Written report"
+    ],
+    "inclusions_status": "approved",
+    "exclusions_status": "approved",
+    "customer_facing_inclusions": true,
     "registration_route_id": "register"
   }
 }

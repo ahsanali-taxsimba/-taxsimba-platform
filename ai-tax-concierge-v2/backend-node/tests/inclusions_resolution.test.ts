@@ -19,7 +19,7 @@ const ROOT = path.resolve(
 );
 const WEBSITE = "https://www.taxsimba.co.uk";
 
-describe("inclusions resolution — Simbian names + pending features", () => {
+describe("inclusions resolution — Simbian names + owner decisions", () => {
   it("versioned_catalogue_exists_with_statuses", () => {
     const raw = readFileSync(
       path.join(
@@ -37,7 +37,7 @@ describe("inclusions resolution — Simbian names + pending features", () => {
   it("runtime_packages_use_simbian_names_and_verified_prices", () => {
     const cat = packagesCatalog();
     expect(cat.detailed_recommendations_status).toBe(
-      "names_and_prices_verified_inclusions_pending_signoff",
+      "owner_decisions_applied_remaining_scope_pending",
     );
     expect(cat.self_assessment.map((p: { price_gbp: number }) => p.price_gbp)).toEqual([
       119, 149, 299,
@@ -60,16 +60,17 @@ describe("inclusions resolution — Simbian names + pending features", () => {
     );
     expect(reply).toBeTruthy();
     const lower = reply!.toLowerCase();
-    expect(lower).toContain("verified");
+    expect(lower).toMatch(/approved|subject to/);
     expect(lower).toContain("simbian comply");
     expect(lower).toContain("simbian elite");
     expect(lower).toContain("£119");
     expect(lower).toContain("29.99");
-    expect(lower).toMatch(/not invent|will not invent|not approved/);
+    expect(lower).toMatch(/not invent|will not invent|must confirm/);
     expect(lower).not.toContain("mtd starter");
     expect(lower).not.toContain("mtd complete");
-    // Must not confidently dump Xero as a contractual inclusion.
+    // Must not invent exact named Xero plan as unconditional.
     expect(lower).not.toContain("xero grow subscription included");
+    expect(lower).toContain("xero software licence is included");
   });
 
   it("lowest_suitable_simple_sa_not_elite", () => {

@@ -36,6 +36,10 @@ describe("recommendations", () => {
       packages.every(
         (p) =>
           p.inclusions_status === "requires_approval" ||
+          p.inclusions_status === "pending_approval" ||
+          p.inclusions_status ===
+            "mixed_approved_subject_to_scope_and_pending" ||
+          p.inclusions_status === "approved" ||
           p.inclusions_status === "unknown" ||
           p.inclusions_status === "missing_requires_approval",
       ),

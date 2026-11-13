@@ -8,8 +8,9 @@ export const DISCLAIMER =
   "SIMBA AI provides general UK tax information based on verified HMRC / GOV.UK sources. " +
   "I am an AI assistant from TaxSimba — not a qualified human accountant, not an HMRC " +
   "representative, and not government-approved AI. This is not personalised tax, legal or " +
-  "financial advice. For tailored advice, consider a £99 accountant consultation (30 minutes " +
-  "via Google Meet) when booking is connected.";
+  "financial advice. For tailored advice, consider a £99 accountant consultation: one " +
+  "30-minute accountant-led Google Meet advice session (no tax return filing, bookkeeping " +
+  "or written report) when booking is connected.";
 
 export const WELCOME_MESSAGE =
   "Hello, I’m Simba, TaxSimba’s AI assistant. What can I help you understand about UK tax today?";
@@ -59,9 +60,12 @@ GROUNDING RULES (mandatory):
 - Qualifying income for MTD = turnover/gross self-employment + property income BEFORE expenses — not profit.
 - If VERIFIED FACTS lack a figure, say so and point to GOV.UK; do not guess.
 
-TAXSIMBA CATALOGUE (authoritative for prices — do not invent other prices or inclusions):
+TAXSIMBA CATALOGUE (authoritative for prices and approved facts — do not invent other prices or inclusions):
 ${packageCatalogText()}
-Consultation: £99, 30 minutes, Google Meet — booking status may be stub until Calendly is connected.
+Consultation: £99 — one 30-minute accountant-led Google Meet advice session (no filing, bookkeeping or written report). Booking may be stub until Calendly is connected.
+
+Explain Self Assessment (usually once-a-year return) versus Making Tax Digital (ongoing digital records / quarterly obligations where required) in plain English when relevant.
+Provide package-page links: https://www.taxsimba.co.uk/self-assessment · https://www.taxsimba.co.uk/making-tax-digital · https://www.taxsimba.co.uk/register
 
 GUIDED JOURNEY CONTEXT:
 ${journeyBlock}
@@ -77,9 +81,10 @@ CONVERSATION RULES:
 5b. Offer calculators, guides or TaxSimba services only when relevant; never overwhelm with cards.
 6. Never request NI numbers, UTRs, passwords, bank details or documents in public chat.
 7. Never invent package inclusions, website URLs, tax rules, booking slots or payment confirmations.
-7a. Catalogue feature bullets marked pending/PENDING APPROVAL are recovered public text only — quote them with that label; never present them as confirmed TaxSimba commitments.
-7b. Do not move features between packages (e.g. Xero plans belong only to the MTD rows that list them, not to Self Assessment Elite). If a visitor asks about an unlisted benefit (24/7 phone, lifetime free software), say it is not in the catalogue and needs TaxSimba confirmation.
-7c. Prefer the lowest suitable price tier and explain the reason using verified prices/heuristics; if suitability would depend on a pending inclusion, say so and offer TaxSimba confirmation or a £99 consultation when booking is connected.
+7a. Never invent bookkeeping limits, named Xero plan entitlements, accountant response times, tax-planning benefits or additional charges.
+7b. Do not promise priority support, priority turnaround, quarterly business reviews or proactive tax planning — those claims are REMOVED until re-approved.
+7c. Prefer the lowest suitable price tier and explain the reason using approved prices/heuristics; if suitability depends on an unresolved entitlement, say TaxSimba must confirm the detail. Do not present conditional/subject-to-scope benefits as unconditional guarantees.
+7d. Use only Simbian Comply / Simbian Growth / Simbian Elite for MTD customer-facing names (never “MTD Starter/Complete”).
 8. Distinguish turnover/gross qualifying income from profit for MTD.
 9. If uncertain or sources conflict, say so and offer GOV.UK or human help.
 10. Existing TaxSimba clients: guide them to secure dashboard messaging with their assigned accountant rather than auto-selling a new consultation.
@@ -105,18 +110,21 @@ export function mockPackageReply(message: string): string | null {
         lower.includes("plan")))
   ) {
     return (
-      "VERIFIED TaxSimba names and prices:\n\n" +
+      "APPROVED TaxSimba names and prices:\n\n" +
       "Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.\n" +
       "Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\n" +
-      "Private accountant consultation: £99 for 30 minutes on Google Meet " +
-      "(booking not live until Calendly is connected).\n\n" +
-      "Feature inclusions are not approved contractual promises in SIMBA yet — I will not invent benefits; confirm specifics with TaxSimba. " +
-      "Tell me your situation and I’ll suggest the lowest suitable package using verified prices only. No pressure to buy."
+      "Private accountant consultation: £99 for one 30-minute accountant-led Google Meet advice session " +
+      "(no filing, bookkeeping or written report; booking not live until Calendly is connected).\n\n" +
+      "For MTD plans, a Xero licence and accountant-maintained bookkeeping within unpublished tier limits are included in the monthly price, " +
+      "and annual Self Assessment filing is included subject to agreed scope and timely records — TaxSimba must confirm exact licence and limits. " +
+      "I will not invent benefits, priority support, quarterly business reviews or tax-planning packages. " +
+      "Tell me your situation and I’ll suggest the lowest suitable package. No pressure to buy."
     );
   }
   if (lower.includes("consult") || lower.includes("accountant")) {
     return (
-      "TaxSimba offers a £99 private accountant consultation (30 minutes via Google Meet). " +
+      "TaxSimba offers a £99 private accountant consultation: one 30-minute accountant-led Google Meet advice session. " +
+      "It does not include tax return filing, bookkeeping or a written report. " +
       "Live Calendly booking is not connected in this environment yet (stub). " +
       "I can still answer general UK tax questions with GOV.UK sources meanwhile."
     );
