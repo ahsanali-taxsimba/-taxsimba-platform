@@ -1,0 +1,75 @@
+{
+  "version": "2026-11-simba-v1",
+  "disclaimer": "Prices are taken from the TaxSimba SIMBA AI product catalogue configuration. Package feature inclusions are not invented here — confirm with TaxSimba before purchasing. Checkout and booking are not live until integrations are connected.",
+  "self_assessment": [
+    {
+      "code": "SA_SIMPLE",
+      "name": "Self Assessment Simple",
+      "price_gbp": 119,
+      "billing": "per tax year",
+      "vat_note": "Confirm VAT treatment on checkout",
+      "inclusions": null,
+      "inclusions_status": "not_specified_in_catalog"
+    },
+    {
+      "code": "SA_SMART",
+      "name": "Self Assessment Smart",
+      "price_gbp": 149,
+      "billing": "per tax year",
+      "vat_note": "Confirm VAT treatment on checkout",
+      "inclusions": null,
+      "inclusions_status": "not_specified_in_catalog"
+    },
+    {
+      "code": "SA_ELITE",
+      "name": "Self Assessment Elite",
+      "price_gbp": 299,
+      "billing": "per tax year",
+      "vat_note": "Confirm VAT treatment on checkout",
+      "inclusions": null,
+      "inclusions_status": "not_specified_in_catalog"
+    }
+  ],
+  "mtd": [
+    {
+      "code": "MTD_STARTER",
+      "name": "MTD Starter",
+      "price_gbp": 29.99,
+      "billing": "per month",
+      "vat_note": "VAT included",
+      "inclusions": null,
+      "inclusions_status": "not_specified_in_catalog"
+    },
+    {
+      "code": "MTD_GROWTH",
+      "name": "MTD Growth",
+      "price_gbp": 59.99,
+      "billing": "per month",
+      "vat_note": "VAT included",
+      "inclusions": null,
+      "inclusions_status": "not_specified_in_catalog"
+    },
+    {
+      "code": "MTD_COMPLETE",
+      "name": "MTD Complete",
+      "price_gbp": 89.99,
+      "billing": "per month",
+      "vat_note": "VAT included",
+      "inclusions": null,
+      "inclusions_status": "not_specified_in_catalog"
+    }
+  ],
+  "consultation": {
+    "code": "ACCOUNTANT_CONSULT_99",
+    "name": "Private accountant consultation",
+    "price_gbp": 99,
+    "billing": "one-off",
+    "duration_minutes": 30,
+    "meeting": "Google Meet",
+    "vat_note": "Confirm VAT treatment when booking",
+    "booking_status": "stub",
+    "booking_provider": "calendly",
+    "inclusions": null,
+    "inclusions_status": "not_specified_in_catalog"
+  }
+}

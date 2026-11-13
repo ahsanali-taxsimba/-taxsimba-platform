@@ -11,7 +11,8 @@
 
 ```bash
 cd ai-tax-concierge-v2/backend-node
-npm ci          # or npm install
+npm ci                             # or npm install
+npm run build                      # tsc → dist/ (required before npm start)
 export OPENAI_API_KEY=***          # secret store only — never commit
 export CONCIERGE_FORCE_MOCK_LLM=false
 export CONCIERGE_CORS_ORIGINS=https://staging.example,https://www.taxsimba.co.uk
@@ -19,7 +20,7 @@ export WEBSITE_BASE_URL=https://www.taxsimba.co.uk
 export CONSULTATION_BOOKING_URL=https://calendly.com/<real-event>
 export PORT=8090                   # or behind reverse proxy
 export HOST=0.0.0.0
-npm start
+npm start                          # node dist/server.js — no tsx / no Python
 ```
 
 - Preview: `https://STAGING_HOST/widget/preview.html`  
@@ -28,6 +29,8 @@ npm start
 - Embed: `/widget/embed.js` with `data-api-base="https://STAGING_HOST"`
 
 Node ≥ **20** required (`package.json` engines).
+
+**Data:** HMRC catalog, corpus, journeys and routes are **vendored JSON copies** under `backend-node/data/` (no symlinks to the Python tree; Python process not required at runtime). Widget static files are served from `../widget` relative to `backend-node`.
 
 ---
 
@@ -73,11 +76,13 @@ Terminate TLS at load balancer / reverse proxy. Forward to Node. Ensure iframe e
 
 ```bash
 npm test                 # 212 Vitest behaviours
+npm run build && npm start
 npm run live:openai      # 33 live cases (needs key; mock disabled)
 curl -s https://STAGING_HOST/api/v1/health
 ```
 
-Parity evidence: `docs/PYTHON_VS_NODE_PARITY_REPORT.md`
+Parity evidence: `docs/PYTHON_VS_NODE_PARITY_REPORT.md`  
+Independent audit (2026-11-13): `docs/verification/FINAL_INDEPENDENT_VERIFICATION.md`
 
 ---
 

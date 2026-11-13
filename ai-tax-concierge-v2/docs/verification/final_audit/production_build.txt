@@ -1,0 +1,4 @@
+
+> @taxsimba/ai-tax-concierge-v2-backend-node@0.1.0 build
+> tsc -p tsconfig.build.json
+
