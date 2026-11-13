@@ -66,7 +66,10 @@
     const row = document.createElement("div");
     row.className = "ts-msg assistant";
     row.id = "ts-typing";
-    row.innerHTML = `<div class="ts-typing" aria-label="SIMBA is preparing a reply"><i></i><i></i><i></i></div>`;
+    row.innerHTML =
+      `<div class="ts-typing" role="status" aria-label="SIMBA is preparing a reply">` +
+      `<span class="ts-typing-dot" aria-hidden="true"></span>` +
+      `<span>Preparing a reply…</span></div>`;
     els.body.appendChild(row);
     els.body.scrollTop = els.body.scrollHeight;
   }
@@ -128,7 +131,7 @@
     }
 
     if (payload.routes?.length) {
-      html += `<div class="ts-section-label">Related TaxSimba pages (configured stubs)</div><div class="ts-cards">`;
+      html += `<div class="ts-section-label">Related TaxSimba pages</div><div class="ts-cards">`;
       for (const r of payload.routes) {
         html += `<div class="ts-card"><strong>${escapeHtml(r.label)}</strong>
           <div class="ts-note">${escapeHtml(r.path)} · ${escapeHtml(r.note || r.status)}</div></div>`;
@@ -241,11 +244,17 @@
     const mock = boot.mock_notice
       ? `<div class="ts-mock-banner" role="status">${escapeHtml(boot.mock_notice)}</div>`
       : "";
+    const integrationNote =
+      `<div class="ts-blocked-banner" role="note">` +
+      `Checkout, Calendly booking and live dashboard messaging stay with TaxSimba systems. ` +
+      `SIMBA will not claim a payment or booking is complete unless those systems confirm it.` +
+      `</div>`;
     els.body.innerHTML = `
       ${mock}
+      ${integrationNote}
       <div class="ts-welcome">
         <h1>${escapeHtml(boot.welcome_message || "Hello, I’m Simba.")}</h1>
-        <p>Clear, source-backed guidance for Self Assessment, MTD and more.</p>
+        <p>Clear UK tax guidance first. Optional TaxSimba support only when it helps.</p>
         <div class="ts-disclosure">${escapeHtml(boot.ai_disclosure || "")}</div>
       </div>
       <div class="ts-section-label">Starter questions</div>

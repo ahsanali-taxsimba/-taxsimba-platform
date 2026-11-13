@@ -19,7 +19,7 @@ def list_routes() -> dict:
     return _raw()
 
 
-def match_routes(message: str, *, limit: int = 3) -> List[dict]:
+def match_routes(message: str, *, limit: int = 3, website_base: str = "https://www.taxsimba.co.uk") -> List[dict]:
     text = message.lower()
     scored = []
     for route in _raw()["routes"]:
@@ -30,8 +30,19 @@ def match_routes(message: str, *, limit: int = 3) -> List[dict]:
     out = []
     for _, route in scored[:limit]:
         item = dict(route)
-        item["url"] = None
-        item["note"] = "Route configured but not confirmed against live website"
+        status = route.get("status", "stub")
+        path = route.get("path", "")
+        if status == "live_verified":
+            item["url"] = f"{website_base.rstrip('/')}{path}"
+            item["note"] = route.get("note") or "Public page title verified on taxsimba.co.uk"
+        elif status == "soft_or_generic":
+            item["url"] = f"{website_base.rstrip('/')}{path}"
+            item["note"] = route.get("note") or (
+                "HTTP reachable but destination not fully confirmed — verify before production handoff"
+            )
+        else:
+            item["url"] = None
+            item["note"] = route.get("note") or "Route configured but not confirmed against live website"
         out.append(item)
     return out
 

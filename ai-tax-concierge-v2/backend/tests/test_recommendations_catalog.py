@@ -8,14 +8,21 @@ from app.ai.recommendations import recommend_for_message, to_package_cards
 from app.catalog.service import packages_catalog
 from app.routes_registry.service import calculator_count, match_routes, list_routes
 
-WEBSITE = "https://www.taxsimba.com"
+WEBSITE = "https://www.taxsimba.co.uk"
 
 
 @pytest.fixture(autouse=True)
 def _clear_catalog_cache():
+    from app.catalog.service import calculators_catalog
+    from app.routes_registry.service import _raw
+
     packages_catalog.cache_clear()
+    calculators_catalog.cache_clear()
+    _raw.cache_clear()
     yield
     packages_catalog.cache_clear()
+    calculators_catalog.cache_clear()
+    _raw.cache_clear()
 
 
 SA_PRICE_CASES = [
@@ -66,15 +73,15 @@ def test_recommendations_inclusions_status_not_invented(message):
     assert all(p.inclusions_status == "not_specified_in_catalog" for p in packages)
 
 
-def test_calculator_recommendations_are_stubs():
+def test_calculator_recommendations_use_live_verified_paths():
     _, calculators, _ = recommend_for_message(
         "CIS subcontractor quarterly income",
         journey=None,
         website_base=WEBSITE,
     )
     assert calculators
-    assert all(c.url_status == "stub" for c in calculators)
-    assert all(c.url is None for c in calculators)
+    assert all(c.url_status == "live_verified" for c in calculators)
+    assert all(c.url and "/calculators/" in c.url for c in calculators)
 
 
 def test_route_registry_has_seventeen_calculator_routes():
@@ -92,8 +99,14 @@ def test_route_registry_has_seventeen_calculator_routes():
     ],
 )
 def test_match_routes_for_landlord_and_mtd(message, topic):
-    routes = match_routes(message, limit=5)
+    routes = match_routes(message, limit=5, website_base=WEBSITE)
     assert routes
     topics_hit = {t for r in routes for t in r.get("topics", [])}
     assert topic in topics_hit
-    assert all(r["url"] is None for r in routes)
+    for r in routes:
+        if r.get("status") == "live_verified":
+            assert r["url"] and r["url"].startswith(WEBSITE)
+        elif r.get("status") == "stub":
+            assert r["url"] is None
+        else:
+            assert r.get("note")

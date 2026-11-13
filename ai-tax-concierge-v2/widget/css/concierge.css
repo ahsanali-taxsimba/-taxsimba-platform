@@ -1,18 +1,26 @@
+/* SIMBA AI widget — TaxSimba brand tokens from design_guidelines.json + live site (#006B3C).
+   No invented emerald/gold palette. No mascot animations. */
+
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap");
+
 :root {
-  --simba-emerald: #0b3d2e;
-  --simba-emerald-deep: #07281e;
-  --simba-emerald-soft: #e7f2ed;
-  --simba-gold: #c6a75e;
-  --simba-gold-soft: #f3ead2;
-  --simba-ink: #15231c;
-  --simba-muted: #5d6b64;
-  --simba-line: #d5e0db;
-  --simba-surface: #ffffff;
-  --simba-bg: #f6faf8;
-  --simba-radius: 16px;
-  --simba-shadow: 0 16px 40px rgba(7, 40, 30, 0.16);
-  --simba-font: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
-  --simba-sans: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --ts-primary: #006b3c;
+  --ts-primary-action: #078a4b;
+  --ts-success: #16a05d;
+  --ts-bg-soft: #f1f8f4;
+  --ts-nav-selected: #eaf5ee;
+  --ts-bg-main: #f7f8f7;
+  --ts-surface: #ffffff;
+  --ts-text: #161b18;
+  --ts-text-secondary: #626a65;
+  --ts-border: #e3e7e4;
+  --ts-warning: #e6a23c;
+  --ts-error: #d64545;
+  --ts-radius: 12px;
+  --ts-radius-lg: 16px;
+  --ts-shadow: 0 8px 24px rgba(22, 27, 24, 0.10);
+  --ts-font-heading: "Manrope", "Public Sans", "Segoe UI", sans-serif;
+  --ts-font-body: "Public Sans", "Segoe UI", sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -20,9 +28,10 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: var(--simba-sans);
-  color: var(--simba-ink);
+  font-family: var(--ts-font-body);
+  color: var(--ts-text);
   background: transparent;
+  -webkit-font-smoothing: antialiased;
 }
 
 .ts-shell {
@@ -30,13 +39,11 @@ html, body {
   flex-direction: column;
   height: 100%;
   min-height: 420px;
-  background:
-    radial-gradient(900px 320px at 100% -10%, rgba(198, 167, 94, 0.14), transparent 50%),
-    linear-gradient(180deg, #f8fbf9 0%, var(--simba-bg) 100%);
-  border-radius: var(--simba-radius);
+  background: var(--ts-bg-main);
+  border-radius: var(--ts-radius-lg);
   overflow: hidden;
-  border: 1px solid var(--simba-line);
-  box-shadow: var(--simba-shadow);
+  border: 1px solid var(--ts-border);
+  box-shadow: var(--ts-shadow);
 }
 
 .ts-header {
@@ -45,8 +52,9 @@ html, body {
   justify-content: space-between;
   gap: 10px;
   padding: 12px 14px;
-  background: linear-gradient(135deg, var(--simba-emerald) 0%, var(--simba-emerald-deep) 100%);
-  color: #fff;
+  background: var(--ts-surface);
+  border-bottom: 1px solid var(--ts-border);
+  color: var(--ts-text);
 }
 .ts-brand {
   display: flex;
@@ -54,13 +62,12 @@ html, body {
   gap: 10px;
   min-width: 0;
 }
-.ts-emblem {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: 1px solid rgba(198, 167, 94, 0.7);
+.ts-logo {
+  height: 28px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
   flex: 0 0 auto;
-  background: #fff;
 }
 .ts-brand-text {
   display: flex;
@@ -69,14 +76,15 @@ html, body {
   min-width: 0;
 }
 .ts-brand strong {
-  font-family: var(--simba-font);
-  font-size: 1.02rem;
-  letter-spacing: 0.02em;
+  font-family: var(--ts-font-heading);
+  font-size: 0.95rem;
   font-weight: 700;
+  color: var(--ts-primary);
+  letter-spacing: 0.01em;
 }
 .ts-brand span {
   font-size: 0.72rem;
-  opacity: 0.88;
+  color: var(--ts-text-secondary);
 }
 .ts-meta {
   display: flex;
@@ -87,81 +95,87 @@ html, body {
 .ts-pill {
   font-size: 0.66rem;
   padding: 4px 8px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(198, 167, 94, 0.45);
+  border-radius: 8px;
+  background: var(--ts-nav-selected);
+  border: 1px solid var(--ts-border);
+  color: var(--ts-primary);
   white-space: nowrap;
+  font-weight: 600;
 }
 .ts-pill.mock {
-  background: rgba(198, 167, 94, 0.22);
-  color: #fff7e6;
+  background: #fff8eb;
+  border-color: #f0d9a8;
+  color: #7a5a18;
 }
 
 .ts-body {
   flex: 1;
   overflow: auto;
   padding: 12px;
-  scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+  background: var(--ts-bg-soft);
 }
 
 .ts-welcome {
-  background: var(--simba-surface);
-  border: 1px solid var(--simba-line);
-  border-radius: 14px;
-  padding: 12px 14px;
+  background: var(--ts-surface);
+  border: 1px solid var(--ts-border);
+  border-radius: var(--ts-radius);
+  padding: 14px;
   margin-bottom: 10px;
 }
 .ts-welcome h1 {
   margin: 0 0 6px;
-  font-family: var(--simba-font);
+  font-family: var(--ts-font-heading);
   font-size: 1.05rem;
-  color: var(--simba-emerald);
+  font-weight: 700;
+  color: var(--ts-primary);
 }
 .ts-welcome p {
   margin: 0;
-  color: var(--simba-muted);
+  color: var(--ts-text-secondary);
   font-size: 0.88rem;
   line-height: 1.45;
 }
 .ts-disclosure {
   margin-top: 8px;
   font-size: 0.75rem;
-  color: var(--simba-muted);
-  border-left: 3px solid var(--simba-gold);
+  color: var(--ts-text-secondary);
+  border-left: 3px solid var(--ts-primary-action);
   padding-left: 8px;
+  line-height: 1.4;
 }
 
 .ts-section-label {
   margin: 12px 2px 8px;
   font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.07em;
-  color: var(--simba-muted);
+  letter-spacing: 0.06em;
+  color: var(--ts-text-secondary);
   font-weight: 700;
+  font-family: var(--ts-font-heading);
 }
 
 .ts-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .ts-chip, .ts-journey, .ts-option, .ts-follow {
   appearance: none;
-  border: 1px solid var(--simba-line);
-  background: var(--simba-surface);
-  color: var(--simba-emerald);
-  border-radius: 999px;
+  border: 1px solid var(--ts-border);
+  background: var(--ts-surface);
+  color: var(--ts-primary);
+  border-radius: 10px;
   padding: 8px 12px;
   font-size: 0.82rem;
   cursor: pointer;
-  transition: border-color 120ms ease, background 120ms ease;
+  font-family: inherit;
+  transition: border-color 160ms ease, background-color 160ms ease;
 }
 .ts-chip:hover, .ts-journey:hover, .ts-option:hover, .ts-follow:hover,
 .ts-chip:focus-visible, .ts-journey:focus-visible, .ts-option:focus-visible, .ts-follow:focus-visible {
-  border-color: var(--simba-emerald);
-  background: var(--simba-emerald-soft);
-  outline: 2px solid rgba(11, 61, 46, 0.22);
+  border-color: var(--ts-primary-action);
+  background: var(--ts-nav-selected);
+  outline: 2px solid rgba(7, 138, 75, 0.35);
   outline-offset: 1px;
 }
 .ts-journey {
-  border-radius: 12px;
   text-align: left;
   padding: 10px 12px;
   width: 100%;
@@ -169,154 +183,190 @@ html, body {
   flex-direction: column;
   gap: 2px;
 }
-.ts-journey small { color: var(--simba-muted); font-size: 0.74rem; }
+.ts-journey small { color: var(--ts-text-secondary); font-size: 0.74rem; }
 
 .ts-msg { display: flex; margin: 10px 0; }
 .ts-msg.user { justify-content: flex-end; }
+.ts-msg.assistant {
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
 .ts-bubble {
   max-width: min(92%, 420px);
   padding: 10px 12px;
-  border-radius: 14px;
+  border-radius: 12px;
   line-height: 1.45;
   font-size: 0.91rem;
   white-space: pre-wrap;
   word-break: break-word;
 }
 .ts-msg.assistant .ts-bubble {
-  background: var(--simba-surface);
-  border: 1px solid var(--simba-line);
+  background: var(--ts-surface);
+  border: 1px solid var(--ts-border);
   border-bottom-left-radius: 4px;
 }
 .ts-msg.user .ts-bubble {
-  background: var(--simba-emerald);
+  background: var(--ts-primary-action);
   color: #fff;
   border-bottom-right-radius: 4px;
 }
 
 .ts-sources, .ts-cards { display: grid; gap: 8px; margin: 8px 0 4px; }
 .ts-source, .ts-card {
-  background: var(--simba-surface);
-  border: 1px solid var(--simba-line);
-  border-radius: 12px;
+  background: var(--ts-surface);
+  border: 1px solid var(--ts-border);
+  border-radius: var(--ts-radius);
   padding: 10px 12px;
   font-size: 0.82rem;
 }
 .ts-source a, .ts-card a {
-  color: var(--simba-emerald);
+  color: var(--ts-primary);
   font-weight: 600;
   text-decoration: none;
 }
 .ts-source a:hover, .ts-card a:hover { text-decoration: underline; }
-.ts-card strong { display: block; color: var(--simba-emerald); margin-bottom: 2px; }
-.ts-card .price { color: #8a6d2d; font-weight: 700; }
-.ts-note { color: var(--simba-muted); font-size: 0.74rem; margin-top: 4px; }
+.ts-card strong {
+  display: block;
+  color: var(--ts-primary);
+  margin-bottom: 2px;
+  font-family: var(--ts-font-heading);
+}
+.ts-card .price { color: var(--ts-primary-action); font-weight: 700; }
+.ts-note { color: var(--ts-text-secondary); font-size: 0.74rem; margin-top: 4px; }
 .ts-hint {
   margin-top: 8px;
   padding: 8px 10px;
-  background: var(--simba-gold-soft);
-  color: #5c4a1f;
+  background: var(--ts-nav-selected);
+  color: var(--ts-text);
+  border: 1px solid var(--ts-border);
   border-radius: 10px;
   font-size: 0.8rem;
 }
 .ts-mock-banner {
   margin: 0 0 10px;
   padding: 8px 10px;
-  background: #fff7e6;
-  border: 1px solid #e8d19a;
-  color: #6b5420;
+  background: #fff8eb;
+  border: 1px solid #f0d9a8;
+  color: #7a5a18;
   border-radius: 10px;
   font-size: 0.78rem;
   font-weight: 600;
 }
+.ts-blocked-banner {
+  margin: 0 0 10px;
+  padding: 8px 10px;
+  background: #f4f6f5;
+  border: 1px solid var(--ts-border);
+  color: var(--ts-text-secondary);
+  border-radius: 10px;
+  font-size: 0.76rem;
+}
 
 .ts-options { display: grid; gap: 8px; margin: 8px 0; }
-.ts-option { border-radius: 12px; text-align: left; width: 100%; }
+.ts-option { border-radius: 10px; text-align: left; width: 100%; }
 
 .ts-composer {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 8px;
   padding: 10px 12px;
-  border-top: 1px solid var(--simba-line);
-  background: rgba(255,255,255,0.94);
+  border-top: 1px solid var(--ts-border);
+  background: var(--ts-surface);
 }
 .ts-composer textarea {
   resize: none;
   min-height: 44px;
   max-height: 120px;
-  border: 1px solid var(--simba-line);
-  border-radius: 12px;
+  border: 1px solid var(--ts-border);
+  border-radius: 10px;
   padding: 10px 12px;
   font: inherit;
-  color: var(--simba-ink);
+  color: var(--ts-text);
+  background: var(--ts-surface);
 }
 .ts-composer textarea:focus {
-  outline: 2px solid rgba(11, 61, 46, 0.28);
-  border-color: var(--simba-emerald);
+  outline: 2px solid rgba(7, 138, 75, 0.35);
+  border-color: var(--ts-primary-action);
 }
 .ts-send {
   appearance: none;
   border: 0;
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 0 16px;
-  background: var(--simba-emerald);
+  background: var(--ts-primary-action);
   color: #fff;
   font-weight: 600;
+  font-family: var(--ts-font-heading);
   cursor: pointer;
   min-width: 72px;
+  transition: background-color 160ms ease;
 }
+.ts-send:hover:not(:disabled) { background: var(--ts-primary); }
 .ts-send:disabled { opacity: 0.55; cursor: not-allowed; }
 .ts-send:focus-visible {
-  outline: 2px solid rgba(198, 167, 94, 0.7);
+  outline: 2px solid rgba(7, 138, 75, 0.45);
   outline-offset: 2px;
 }
 
 .ts-footer {
   padding: 0 12px 10px;
   font-size: 0.68rem;
-  color: var(--simba-muted);
+  color: var(--ts-text-secondary);
   line-height: 1.35;
+  background: var(--ts-surface);
 }
+.ts-footer button {
+  margin-left: 8px;
+  border: 0;
+  background: none;
+  color: var(--ts-primary);
+  text-decoration: underline;
+  cursor: pointer;
+  font: inherit;
+  font-size: inherit;
+}
+
 .ts-error {
   margin: 8px 0;
   padding: 10px 12px;
   border-radius: 10px;
-  background: #fff1f2;
-  color: #9a3412;
-  border: 1px solid #fecdd3;
+  background: #fdecec;
+  color: var(--ts-error);
+  border: 1px solid #f5c2c2;
   font-size: 0.85rem;
 }
+
+/* Static loading indicator — no bounce/pulse (respects professional UI rules) */
 .ts-typing {
   display: inline-flex;
-  gap: 4px;
   align-items: center;
+  gap: 8px;
   padding: 10px 12px;
-  background: var(--simba-surface);
-  border: 1px solid var(--simba-line);
-  border-radius: 14px;
+  background: var(--ts-surface);
+  border: 1px solid var(--ts-border);
+  border-radius: 12px;
+  color: var(--ts-text-secondary);
+  font-size: 0.84rem;
 }
-.ts-typing i {
-  width: 6px;
-  height: 6px;
+.ts-typing-dot {
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--simba-muted);
-  animation: ts-bounce 1s infinite ease-in-out;
-}
-.ts-typing i:nth-child(2) { animation-delay: 0.15s; }
-.ts-typing i:nth-child(3) { animation-delay: 0.3s; }
-
-@keyframes ts-bounce {
-  0%, 80%, 100% { transform: translateY(0); opacity: 0.45; }
-  40% { transform: translateY(-3px); opacity: 1; }
+  background: var(--ts-primary-action);
+  opacity: 0.7;
 }
 
 @media (max-width: 480px) {
   .ts-header { padding: 10px; }
   .ts-body { padding: 10px; }
   .ts-bubble { max-width: 96%; font-size: 0.9rem; }
+  .ts-logo { height: 24px; max-width: 110px; }
   .ts-composer { padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ts-typing i { animation: none !important; }
+  .ts-chip, .ts-journey, .ts-option, .ts-follow, .ts-send {
+    transition: none !important;
+  }
 }

@@ -4,38 +4,53 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SIMBA AI — Local Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700&family=Public+Sans:wght@400;500;600&display=swap" />
   <style>
     body {
       margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      color: #15231c;
-      background: linear-gradient(180deg, #f8fbf9 0%, #eef6f2 140px, #f8fbf9 140px);
+      font-family: "Public Sans", "Segoe UI", sans-serif;
+      color: #161b18;
+      background: #f7f8f7;
     }
     .fake-site { max-width: 920px; margin: 0 auto; padding: 28px 20px 120px; }
     .fake-site header {
-      display: flex; justify-content: space-between; align-items: baseline;
-      border-bottom: 1px solid #d5e0db; padding-bottom: 12px; margin-bottom: 24px;
-      font-family: Avenir Next, Segoe UI, Helvetica Neue, Arial, sans-serif;
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid #e3e7e4; padding-bottom: 12px; margin-bottom: 24px;
     }
-    .fake-site h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); color: #0B3D2E; margin: 0 0 12px; }
+    .fake-site header img { height: 28px; width: auto; }
+    .fake-site h1 {
+      font-family: Manrope, Public Sans, sans-serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.1rem);
+      color: #006b3c; margin: 0 0 12px;
+    }
     .note {
-      margin-top: 24px; padding: 12px 14px; background: #f3ead2; border: 1px solid #e0cfa0;
-      border-radius: 12px; font-family: Avenir Next, Segoe UI, Helvetica Neue, Arial, sans-serif; font-size: 0.9rem;
+      margin-top: 24px; padding: 12px 14px; background: #eaf5ee; border: 1px solid #e3e7e4;
+      border-radius: 12px; font-size: 0.9rem; color: #626a65;
+    }
+    .site-nav a {
+      margin-left: 14px; color: #006b3c; text-decoration: none; font-weight: 600; font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
   <div class="fake-site">
     <header>
-      <strong style="color:#0B3D2E">Example host page</strong>
-      <span>Embed preview — not the live TaxSimba site</span>
+      <img src="/widget/assets/taxsimba-logo.svg" alt="TaxSimba" height="28" />
+      <nav class="site-nav" aria-label="Example host navigation">
+        <a href="#packages">Packages</a>
+        <a href="#calculators">Calculators</a>
+        <a href="#help">Help</a>
+      </nav>
     </header>
     <h1>SIMBA AI local embed preview</h1>
-    <p>Floating launcher injects without changing this page’s design system. Live website is not modified.</p>
-    <div class="note">
-      Open <strong>Ask SIMBA</strong>. Demo/mock mode is used unless <code>OPENAI_API_KEY</code> is configured server-side.
-      Emblem is a temporary placeholder pending approved TaxSimba brand asset.
+    <p>Floating launcher uses official TaxSimba branding. This host page is a sandbox — the live TaxSimba website is not modified.</p>
+    <div class="note" id="packages">
+      Open <strong>Ask SIMBA</strong> when ready. The chat never auto-opens. Demo/mock mode is used unless
+      <code>OPENAI_API_KEY</code> is configured server-side.
     </div>
+    <p id="calculators" style="margin-top:20px;color:#626a65">Example content below the fold so you can check the launcher does not hide primary controls.</p>
+    <p id="help" style="color:#626a65">Keyboard: Tab to Ask SIMBA, Enter to open, Escape to close.</p>
   </div>
   <script src="/widget/embed.js" data-api-base="http://127.0.0.1:8090"></script>
 </body>

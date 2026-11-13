@@ -5,44 +5,37 @@
 
 ## Automated tests
 
-- **186 passed / 0 failed** (mock LLM suite, including new grounding accuracy regressions)
-- Includes knowledge, journeys, security, recommendations, multiturn, API, accessibility/widget checks
+- **196 passed / 0 failed** (mock LLM + branding + helpful-first + grounding regressions)
 
 ## Real OpenAI verification
 
-- **COMPLETED** — `OPENAI_API_KEY` present; mock disabled; adapter mode=`openai`
-- Connectivity OK; **33** live single-turns; **3** multi-turn; **4** journeys; injection probe refused prompt disclosure
-- **Accuracy flags: 0** after grounding fixes (MTD £30k → 6 April 2027; VAT → £90,000)
-- Evidence: `docs/verification/LIVE_OPENAI_EVIDENCE.md` + `docs/verification/live_openai_report_latest.json`
+- Prior full harness: **33/33 live**, accuracy flags **0** (MTD £30k → 6 April 2027; VAT → £90,000)
+- Focused re-check this audit: no-buy conversation (no packages), MTD £30k, VAT £90k — all live `openai`
+- Evidence: `docs/verification/LIVE_OPENAI_EVIDENCE.md`, `live_focused_audit_20261113.json`
+
+## Branding
+
+- Official TaxSimba logo (`taxsimba-logo.svg` from taxsimba.co.uk)
+- Colours `#006B3C` / `#078A4B` from `design_guidelines.json` + live CSS
+- Fonts Manrope + Public Sans
+- No lion/mascot; no decorative bounce animations; launcher opens on click only
 
 ## Tax accuracy
 
-- Official GOV.UK confirmation recorded for MTD bands and VAT £90,000 threshold
-- Root cause of prior live failures: 280-char excerpt truncation + unpinned VAT figure allowing stale model memory
-- Fixes: longer verified excerpts, dedicated MTD threshold facts, pinned VAT/allowances, stronger prompts, retrieval boosts, grounding guard
-- **Outstanding gate:** human accountant review of material answers before production
+- GOV.UK-confirmed MTD bands and VAT £90,000 preserved
+- 17 calculator paths title-verified on taxsimba.co.uk
 
-## Security
+## Integrations
 
-- Core app controls implemented (see `docs/toxel/SECURITY_CHECKLIST.md`)
-- Live injection probe did not disclose system prompt
-- Production edge/auth/DPIA items remain for Toxel/legal
-
-## Mobile / iPhone staging
-
-- Widget responsive; embed launcher available
-- **No public iPhone URL** from this agent — staging host required (`docs/toxel/STAGING_IPHONE.md`)
-
-## Defect summary
-
-| Severity | Status |
-|----------|--------|
-| Critical | None open in isolated app code paths covered by tests |
-| High | Live payment/booking/URLs not connected; human tax review pending |
-| Medium | Temporary emblem placeholder; in-memory sessions/analytics not durable |
-| Low | Some calculator stubs beyond confirmed site inventory pending Toxel URL map |
+| System | Status |
+|--------|--------|
+| OpenAI | Live-verified in this environment |
+| Stripe / payment | **BLOCKED** (stub) |
+| Calendly / Meet booking | **BLOCKED** (stub) |
+| Client portal auth | **BLOCKED** (stub) |
+| Website staging embed | **BLOCKED** (local preview only) |
 
 ## Production recommendation
 
-**Not production-ready** until High gates above are cleared.  
-Core engine + widget are integration-ready for Toxel staging. Live OpenAI connectivity and the two approved accuracy defects are now evidenced as fixed.
+**Not production-ready.** Suitable for **approved Toxel staging embed** after payment/booking/portal wiring.  
+See `docs/verification/FINAL_HANDOVER_REPORT.md`.

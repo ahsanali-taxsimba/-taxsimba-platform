@@ -1,0 +1,27 @@
+{
+  "live": true,
+  "mock": false,
+  "cases": [
+    {
+      "id": "no_buy",
+      "llm_mode": "openai",
+      "packages": [],
+      "consultation_hint": false,
+      "reply_excerpt": "The Self Assessment online filing deadline for the 2025-26 tax year is 31 January 2027. This is the date by which you need to submit your online tax return to HMRC. Always double-check the deadlines on GOV.UK to ensure you have the most current information. If you have any more q"
+    },
+    {
+      "id": "mtd_30k",
+      "llm_mode": "openai",
+      "packages": [],
+      "consultation_hint": false,
+      "reply_excerpt": "If your qualifying income is over \u00a330,000 for the 2025-26 tax year (which runs from 6 April 2025 to 5 April 2026), you will need to start using Making Tax Digital (MTD) for Income Tax from 6 April 2027. \n\nJust to clarify, qualifying income refers to your total self-employment and"
+    },
+    {
+      "id": "vat",
+      "llm_mode": "openai",
+      "packages": [],
+      "consultation_hint": false,
+      "reply_excerpt": "You need to register for VAT if your VAT taxable turnover exceeds \u00a390,000 in a 12-month period. You can also choose to register voluntarily if your turnover is below this threshold. \n\nIf you reach the threshold, you must register by the end of the month following the month in whi"
+    }
+  ]
+}

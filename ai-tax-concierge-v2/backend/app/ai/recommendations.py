@@ -39,21 +39,38 @@ def to_package_cards(codes: List[str]) -> List[PackageCard]:
     return cards
 
 
+_NO_BUY = re.compile(
+    r"\b(don'?t want to buy|do not want to buy|not looking to buy|no sales|"
+    r"just information|information only|not interested in (a )?package|"
+    r"don'?t sell|no pressure|just asking|curious only)\b",
+    re.I,
+)
+
+
+def visitor_declines_sales(message: str) -> bool:
+    return bool(_NO_BUY.search(message or ""))
+
+
 def to_calculator_cards(items: List[dict], website_base: str) -> List[CalculatorCard]:
     cards: List[CalculatorCard] = []
     for item in items:
         url = None
         note = None
-        if item.get("url_status") == "stub":
-            note = "Calculator path configured but not confirmed on the live website yet."
-        else:
+        status = item.get("url_status", "stub")
+        if status == "live_verified":
             url = f"{website_base.rstrip('/')}{item.get('path', '')}"
+            note = "Verified public calculator on taxsimba.co.uk"
+        elif status == "soft_or_generic":
+            url = f"{website_base.rstrip('/')}{item.get('path', '')}"
+            note = "Reachable path — confirm destination before relying in production."
+        else:
+            note = "Calculator path configured but not confirmed on the live website yet."
         cards.append(
             CalculatorCard(
                 id=item["id"],
                 title=item["title"],
                 description=item["description"],
-                url_status=item.get("url_status", "stub"),
+                url_status=status,
                 url=url,
                 note=note,
             )
@@ -69,19 +86,31 @@ def recommend_for_message(
 ) -> Tuple[List[PackageCard], List[CalculatorCard], List[str]]:
     packages: List[PackageCard] = []
     follow_ups: List[str] = []
+    decline_sales = visitor_declines_sales(message)
 
     if journey and journey.complete:
-        packages = to_package_cards(journey.suggested_package_codes)
+        packages = [] if decline_sales else to_package_cards(journey.suggested_package_codes)
         calc_ids = set(journey.suggested_calculator_ids)
         calc_items = [c for c in calculators_catalog()["items"] if c["id"] in calc_ids]
         calculators = to_calculator_cards(calc_items, website_base)
         follow_ups = list(journey.follow_ups)
-        return packages, calculators, follow_ups
+        if decline_sales:
+            follow_ups = [
+                "What Self Assessment deadlines should I know?",
+                "Where can I check this on GOV.UK?",
+            ] + [f for f in follow_ups if "£99" not in f and "package" not in f.lower()]
+        return packages, calculators, follow_ups[:4]
 
     cat = packages_catalog()
     lower = message.lower()
 
-    if _SA_PRICE.search(message) and not _MTD_PRICE.search(message):
+    if decline_sales:
+        follow_ups = [
+            "What Self Assessment deadlines should I know?",
+            "How does Making Tax Digital work in plain English?",
+            "Where should I check this on GOV.UK?",
+        ]
+    elif _SA_PRICE.search(message) and not _MTD_PRICE.search(message):
         packages = to_package_cards([p["code"] for p in cat["self_assessment"]])
         follow_ups = [
             "What is included in each Self Assessment package?",

@@ -86,12 +86,18 @@ def public_catalog_payload(website_base_url: str) -> dict:
     items = []
     for item in calc["items"]:
         entry = dict(item)
-        if item.get("url_status") == "stub":
+        status = item.get("url_status", "stub")
+        if status == "live_verified":
+            entry["url"] = f"{website_base_url.rstrip('/')}{item.get('path', '')}"
+            entry["note"] = "Public calculator page title verified on taxsimba.co.uk"
+        elif status == "soft_or_generic":
+            entry["url"] = f"{website_base_url.rstrip('/')}{item.get('path', '')}"
+            entry["note"] = "Reachable but not fully confirmed"
+            entry["configured_path"] = item.get("path")
+        else:
             entry["url"] = None
             entry["note"] = "URL not confirmed against live website yet"
             entry["configured_path"] = item.get("path")
-        else:
-            entry["url"] = f"{website_base_url.rstrip('/')}{item.get('path', '')}"
         items.append(entry)
     return {
         "packages": packages_catalog(),

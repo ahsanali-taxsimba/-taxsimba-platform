@@ -70,7 +70,7 @@ Preview: `/widget/preview.html` · Panel: `/widget/index.html` · API docs: `/do
 4. Wire Stripe checkout confirmation webhooks (do not process cards in SIMBA)
 5. Wire Calendly booking + availability (do not invent slots)
 6. Auth boundary for existing clients → dashboard messaging
-7. Replace temporary lion emblem with approved TaxSimba brand asset
+7. Embed widget on staging host using official logo already in `widget/assets/taxsimba-logo.svg`
 8. Staging host with HTTPS for iPhone preview
 9. Human accountant review of material tax answers
 10. Production deploy + rollback plan (see `DEPLOYMENT_CHECKLIST.md`)

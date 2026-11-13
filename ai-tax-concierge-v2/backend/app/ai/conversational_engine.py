@@ -7,7 +7,12 @@ from typing import List, Optional
 
 from app.adapters.base import LLMAdapter
 from app.ai.prompts import DISCLAIMER, WELCOME_MESSAGE, build_system_prompt, mock_package_reply
-from app.ai.recommendations import answer_inclusions_question, recommend_for_message, to_package_cards
+from app.ai.recommendations import (
+    answer_inclusions_question,
+    recommend_for_message,
+    to_package_cards,
+    visitor_declines_sales,
+)
 from app.analytics.events import AnalyticsRecorder
 from app.catalog.service import all_packages_flat
 from app.core.config import Settings, get_settings
@@ -164,11 +169,17 @@ class ConversationalEngine:
         )
 
         consultation_hint = None
+        decline_sales = visitor_declines_sales(request.message)
+        if decline_sales:
+            packages = []
         if (
-            confidence == "low"
-            or "consult" in request.message.lower()
-            or "accountant" in request.message.lower()
-            or (journey_state and "consult" in journey_state.tags)
+            not decline_sales
+            and (
+                confidence == "low"
+                or "consult" in request.message.lower()
+                or "accountant" in request.message.lower()
+                or (journey_state and "consult" in journey_state.tags)
+            )
         ):
             # Existing clients: do not auto-sell consultation
             if journey_state and journey_state.journey_id == "existing_client":
@@ -252,7 +263,9 @@ class ConversationalEngine:
                 note=r.get("note"),
                 kind=r.get("kind"),
             )
-            for r in match_routes(route_query)
+            for r in match_routes(
+                route_query, website_base=self._settings.website_base_url
+            )
         ]
         return ChatResponse(
             session_id=session_id,

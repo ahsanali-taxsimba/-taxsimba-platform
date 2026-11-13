@@ -25,7 +25,7 @@
 - [ ] UK GDPR DPIA / privacy notice review
 - [ ] Consent model for lead capture (if added)
 - [ ] WAF / abuse controls at edge
-- [ ] Replace temporary emblem asset
+- [x] Official TaxSimba logo asset in widget (no mascot)
 - [ ] Penetration test before production
 
 ## Classification note

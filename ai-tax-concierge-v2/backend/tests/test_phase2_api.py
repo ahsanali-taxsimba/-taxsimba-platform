@@ -10,7 +10,7 @@ def test_bootstrap(client):
     assert body["packages"]["self_assessment"][0]["price_gbp"] == 119
     assert body["integrations"]["payment"] == "mock_unavailable"
     assert "api_key" not in str(body).lower()
-    assert body["brand"]["primary"].upper() == "#0B3D2E"
+    assert body["brand"]["primary"].upper() == "#006B3C"
 
 
 def test_health_phase2(client):

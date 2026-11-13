@@ -39,7 +39,7 @@ class Settings(BaseSettings):
         alias="CONSULTATION_BOOKING_URL",
     )
     website_base_url: str = Field(
-        default="https://www.taxsimba.com",
+        default="https://www.taxsimba.co.uk",
         alias="WEBSITE_BASE_URL",
     )
 

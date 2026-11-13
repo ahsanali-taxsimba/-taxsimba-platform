@@ -16,8 +16,10 @@ def test_bootstrap_simba_branding(client):
     assert body["product"] == "SIMBA AI"
     assert body["assistant_name"] == "SIMBA AI"
     assert body["phase"] == 3
-    assert body["brand"]["primary"].upper() == "#0B3D2E"
-    assert "temporary_placeholder" in body["brand"]["emblem_status"]
+    assert body["brand"]["primary"].upper() == "#006B3C"
+    assert body["brand"]["primary_action"].upper() == "#078A4B"
+    assert "official" in body["brand"]["logo_status"]
+    assert "taxsimba-logo.svg" in body["brand"]["logo"]
     assert body["calculator_registry_count"] >= 17
 
 
@@ -47,7 +49,7 @@ WIDGET_ASSET_PATHS = [
     "/widget/embed.js",
     "/widget/css/concierge.css",
     "/widget/js/concierge.js",
-    "/widget/assets/simba-emblem.svg",
+    "/widget/assets/taxsimba-logo.svg",
 ]
 
 
@@ -57,12 +59,13 @@ def test_widget_assets_served(client, path):
     assert res.status_code == 200, path
 
 
-def test_emblem_svg_placeholder_text(client):
-    res = client.get("/widget/assets/simba-emblem.svg")
-    text = res.text
-    assert "TEMPORARY PLACEHOLDER" in text
-    assert "#0B3D2E" in text.upper()
-    assert "aria-label" in text
+def test_official_taxsimba_logo_served(client):
+    res = client.get("/widget/assets/taxsimba-logo.svg")
+    assert res.status_code == 200
+    text = res.text.lower()
+    assert "<svg" in text
+    assert "lion" not in text
+    assert "placeholder" not in text
 
 
 def test_analytics_summary_shape(client):

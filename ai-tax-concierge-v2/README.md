@@ -30,4 +30,4 @@ See `docs/toxel/HANDOVER.md` and `docs/READINESS.md`.
 
 ## Brand note
 
-The lion-head SVG under `widget/assets/simba-emblem.svg` is a **temporary placeholder** for an approved TaxSimba brand asset.
+Branding uses the official TaxSimba logo (`widget/assets/taxsimba-logo.svg`) and design tokens `#006B3C` / `#078A4B` (Manrope + Public Sans).

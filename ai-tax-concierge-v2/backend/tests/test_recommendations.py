@@ -30,12 +30,12 @@ def test_recommend_packages_without_inventing_inclusions():
     assert follow_ups
 
 
-def test_calculator_urls_are_stubbed():
+def test_calculator_urls_are_live_verified_when_confirmed():
     _, calculators, _ = recommend_for_message(
         "I am a CIS subcontractor",
         journey=None,
-        website_base="https://www.taxsimba.com",
+        website_base="https://www.taxsimba.co.uk",
     )
     assert calculators
-    assert all(c.url_status == "stub" for c in calculators)
-    assert all(c.url is None for c in calculators)
+    assert all(c.url_status == "live_verified" for c in calculators)
+    assert all(c.url and "/calculators/" in c.url for c in calculators)
