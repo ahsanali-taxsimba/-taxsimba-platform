@@ -124,7 +124,7 @@ Also under `/opt/cursor/artifacts/node-*.png`
 | Grounded long answer | `node-desktop-long-answer.png` |
 | Packages / consultation / calculators / guided | `node-desktop-*.png` |
 | Mobile welcome / drawer | `node-mobile-welcome.png`, `node-mobile-drawer.png` |
-| Journey recording | `docs/verification/recordings/simba_node_visitor_journey_demo.webm` · `/opt/cursor/artifacts/simba_node_visitor_journey_demo.webm` |
+| Journey recording | `simba_node_visitor_journey_with_answer.webm` (preferred) + `simba_node_visitor_journey_demo.webm` under `docs/verification/recordings/` · artifacts `/opt/cursor/artifacts/` |
 
 Health at capture: `llm_mode=openai`, `version=0.3.0`, port **8091**.
 
