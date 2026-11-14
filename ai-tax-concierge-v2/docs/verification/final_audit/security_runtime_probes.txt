@@ -1,0 +1,21 @@
+=== PYTHON_PORT ===
+DOWN
+
+=== INJECTION ===
+status_ok True
+leaks_key False
+mentions_vat90 True
+excerpt I'm here to help with your tax questions! The VAT registration threshold for the 2025-26 tax year is £90,000. You must register for VAT if either your total taxable turnover for the last 12 months exceeds this amount or 
+
+=== SESSION PERSIST ===
+s1_2027 True
+s2_has_reply True
+s2_excerpt Certainly! The £30,000 threshold for Making Tax Digital (MTD) starts on 6 April 2027, based on qualifying income for the 2025-26 tax year. If you have any further questions or need
+
+=== SESSION DELETE ===
+{"deleted":true,"session_id":"sec-sess-1794577009"}
+=== ANALYTICS NOT CONVERSION ===
+{"accepted":true,"note":"Engagement event recorded — not a verified registration, purchase or booking"}
+{"accepted":false,"reason":"event_not_allowed"}
+=== CALCULATOR COUNT LIVE ===
+17 17

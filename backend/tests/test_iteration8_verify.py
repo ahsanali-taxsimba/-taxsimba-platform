@@ -117,7 +117,7 @@ class TestRecommendationGuards:
                           json={"reason": "first"}, headers=_h(tokens["acca"]))
         rec_id = r1.json()["id"]
         ra = requests.post(f"{BASE}/api/recommendations/{rec_id}/approve",
-                          json={"package_code": "MTD_ESSENTIAL"},
+                          json={"package_code": "MTD_STARTER"},
                           headers=_h(tokens["adm"]))
         assert ra.status_code == 200, ra.text
         r3 = requests.post(f"{BASE}/api/cases/{c['case_id']}/recommend-mtd",
@@ -151,7 +151,7 @@ class TestPaymentReuse:
                           json={"reason": "please"}, headers=_h(tokens["acca"]))
         rid = r1.json()["id"]
         ra = requests.post(f"{BASE}/api/recommendations/{rid}/approve",
-                          json={"package_code": "MTD_ESSENTIAL"},
+                          json={"package_code": "MTD_STARTER"},
                           headers=_h(tokens["adm"]))
         assert ra.status_code == 200, ra.text
         # client fetches offers

@@ -1,0 +1,185 @@
+{
+  "captured_at": "2026-11-13T16:12:00Z",
+  "server_catalogue_version": "2026-11-simba-v2-inclusions-partial",
+  "cases": [
+    {
+      "id": "simple_sa",
+      "message": "I am a first-time sole trader with simple PAYE plus a small side hustle \u2014 which Self Assessment package fits and why?",
+      "llm_mode": "openai",
+      "reply": "For a first-time sole trader with simple PAYE income and a small side hustle, the **Self Assessment Simple** package at \u00a3119 per tax year would be a suitable choice. \n\nThis package is designed for individuals like you who have straightforward income sources. It includes the preparation of your Self Assessment tax return by a qualified accountant, ensuring that everything is checked and submitted correctly. \n\nSince you have a side hustle, it's important to ensure that your additional income is reported accurately, and this package will cover that without unnecessary complexity. \n\nIf your side hustle grows or if you have multiple income sources in the future, you might consider upgrading to the **Self Assessment Smart** package for more detailed expense and allowance reviews. \n\nWould you like to know more about what\u2019s included in the Self Assessment Simple package?",
+      "packages": [
+        {
+          "code": "SA_SIMPLE",
+          "price": 119,
+          "inclusions_status": "pending_taxsimba_signoff",
+          "reason": "Lowest Self Assessment price that usually fits straightforward / single simple income situations (price verified; inclusions pending confirmation)."
+        },
+        {
+          "code": "SA_SMART",
+          "price": 149,
+          "inclusions_status": "pending_taxsimba_signoff",
+          "reason": "Mid Self Assessment price when several income sources or more review is likely (price verified; inclusions pending confirmation)."
+        }
+      ]
+    },
+    {
+      "id": "complex_sa",
+      "message": "I have employment, two rental properties, CIS income and dividends \u2014 compare packages and recommend the lowest suitable.",
+      "llm_mode": "openai",
+      "reply": "Here is what is currently in the SIMBA catalogue (last reviewed 2026-11-13).\n\nVERIFIED: Self Assessment Simple \u00a3119, Smart \u00a3149, Elite \u00a3299 (per tax year); MTD \u00a329.99 / \u00a359.99 / \u00a389.99 per month (VAT included); consultation \u00a399 / 30 minutes.\n\nFeature descriptions below were recovered from TaxSimba\u2019s public subscription-plans API. They are PENDING TaxSimba/accountant sign-off for SIMBA \u2014 please confirm with the TaxSimba team before purchasing. I will not invent extra benefits.\n\nSelf Assessment Simple \u2014 \u00a3119 (per tax year) [price VERIFIED]\n  Published description (PENDING APPROVAL): A straightforward Self Assessment for employed and simple self-employed income, prepared and checked by a qualified accountant.\n  Published inclusions (PENDING APPROVAL): Self Assessment prepared by an accountant; Secure document upload; Review and approval before submission; Email and in-app updates\nSelf Assessment Smart \u2014 \u00a3149 (per tax year) [price VERIFIED]\n  Published description (PENDING APPROVAL): For clients with several income sources who want their allowances and expenses reviewed in detail before filing.\n  Published inclusions (PENDING APPROVAL): Everything in Simple; Multiple income sources reviewed; Expenses and allowances check; Priority accountant messaging\nSelf Assessment Elite \u2014 \u00a3299 (per tax year) [price VERIFIED]\n  Published description (PENDING APPROVAL): Our most thorough Self Assessment service, including planning conversations and a full review of your position for the year.\n  Published inclusions (PENDING APPROVAL): Everything in Smart; Full review of your tax position; Tax planning conversation; Priority turnaround\n\nMTD Starter \u2014 \u00a329.99 (per month; VAT included) [price VERIFIED] [name conflict vs public \u201cSimbian Comply\u201d \u2014 PENDING APPROVAL]\n  Published description (PENDING APPROVAL): Your accountant maintains your records and handles your quarterly updates and year-end tax return.\n  Published inclusions (PENDING APPROVAL): Xero Simple subscription included; MTD registration and setup support; Accountant-maintained bookkeeping and digital records; Quarterly MTD updates prepared and submitted; Year-end Income Tax return prepared and submitted; Automated tax deadline reminders; Secure digital document exchange; Accountant support by email only\nMTD Growth \u2014 \u00a359.99 (per month; VAT included) [price VERIFIED] [name conflict vs public \u201cSimbian Growth\u201d \u2014 PENDING APPROVAL]\n  Published description (PENDING APPROVAL): A dedicated accountant maintains your records, handles your filings and reviews your business each quarter.\n  Published inclusions (PENDING APPROVAL): Xero Ignite subscription included; MTD registration and setup support; Accountant-maintained bookkeeping and digital records; Quarterly MTD updates prepared and submitted; Year-end Income Tax return prepared and submitted; Dedicated accountant support by email only; Quarterly business reviews; Expenses and allowances check; Secure document exchange and deadline reminders\nMTD Complete \u2014 \u00a389.99 (per month; VAT included) [price VERIFIED] [name conflict vs public \u201cSimbian Elite\u201d \u2014 PENDING APPROVAL]\n  Published description (PENDING APPROVAL): Dedicated accountant care with maintained records, complete agreed filings and proactive tax planning.\n  Published inclusions (PENDING APPROVAL): Xero Grow subscription included; MTD registration and setup support; Accountant-maintained bookkeeping and digital records; Quarterly MTD updates prepared and submitted; Year-end Income Tax return prepared and submitted; Dedicated accountant with priority email support; Quarterly business reviews; Expenses and allowances check; Full review of your tax position; Proactive tax planning advice; Secure document exchange and deadline reminders\n\nExplicit exclusions are MISSING and also require TaxSimba approval. If your choice depends on a pending inclusion (for example a named Xero plan or priority support), I must treat that as unconfirmed and recommend asking TaxSimba to confirm \u2014 or book a \u00a399 consultation when booking is connected. You can review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register (registration path status: soft/generic until staging verifies).",
+      "packages": [
+        {
+          "code": "SA_SMART",
+          "price": 149,
+          "inclusions_status": "pending_taxsimba_signoff",
+          "reason": "Mid Self Assessment price when several income sources or more review is likely (price verified; inclusions pending confirmation)."
+        },
+        {
+          "code": "MTD_STARTER",
+          "price": 29.99,
+          "inclusions_status": "pending_taxsimba_signoff",
+          "reason": "Lowest MTD monthly price when Making Tax Digital support is needed (price verified VAT included; plan name/features pending confirmation)."
+        },
+        {
+          "code": "MTD_GROWTH",
+          "price": 59.99,
+          "inclusions_status": "pending_taxsimba_signoff",
+          "reason": "Mid MTD monthly price when more dedicated review is likely (price verified VAT included; features pending confirmation)."
+        }
+      ]
+    },
+    {
+      "id": "mtd_elig",
+      "message": "I think I need Making Tax Digital from April 2026 \u2014 which MTD plan should I start with and what is verified vs pending?",
+      "llm_mode": "openai",
+      "reply": "If you need to use Making Tax Digital (MTD) from 6 April 2026, it means your qualifying income for the 2024-25 tax year was over \u00a350,000. \n\nFor your needs, the **MTD Starter** plan at **\u00a329.99 per month** is a good option. It includes:\n\n- Your accountant maintains your records and handles your quarterly updates and year-end tax return.\n- MTD registration and setup support.\n- Quarterly MTD updates prepared and submitted.\n- Secure digital document exchange.\n\nThis plan is suitable for straightforward MTD compliance.\n\nRegarding the terms \"verified\" and \"pending\": \n- **Verified** means the information is confirmed and accurate.\n- **Pending** indicates that the details are awaiting final approval and may not be fully confirmed yet.\n\nIf you have any further questions or need assistance with the next steps, feel free to ask!",
+      "packages": [
+        {
+          "code": "MTD_STARTER",
+          "price": 29.99,
+          "inclusions_status": "pending_taxsimba_signoff",
+          "reason": "Lowest MTD monthly price when Making Tax Digital support is needed (price verified VAT included; plan name/features pending confirmation)."
+        },
+        {
+          "code": "MTD_GROWTH",
+          "price": 59.99,
+          "inclusions_status": "pending_taxsimba_signoff",
+          "reason": "Mid MTD monthly price when more dedicated review is likely (price verified VAT included; features pending confirmation)."
+        }
+      ]
+    },
+    {
+      "id": "landlord",
+      "message": "I am a landlord with one UK rental property \u2014 help me choose without pressure.",
+      "llm_mode": "openai",
+      "reply": "As a landlord with one rental property, you\u2019ll need to declare your rental income to HMRC, typically through Self Assessment. If your annual gross property income is \u00a31,000 or less, you may not need to tell HMRC, thanks to the property allowance.\n\nFor your Self Assessment needs, I recommend the **Self Assessment Simple package** at \u00a3119 per tax year. This package is designed for straightforward situations like yours, where you have simple self-employed income or rental income. It includes preparation and checking by a qualified accountant, secure document upload, and updates throughout the process.\n\nIf you have any specific questions about your rental income or expenses, feel free to ask!",
+      "packages": [
+        {
+          "code": "SA_SMART",
+          "price": 149,
+          "inclusions_status": "pending_taxsimba_signoff",
+          "reason": "Mid Self Assessment price when several income sources or more review is likely (price verified; inclusions pending confirmation)."
+        },
+        {
+          "code": "MTD_STARTER",
+          "price": 29.99,
+          "inclusions_status": "pending_taxsimba_signoff",
+          "reason": "Lowest MTD monthly price when Making Tax Digital support is needed (price verified VAT included; plan name/features pending confirmation)."
+        },
+        {
+          "code": "MTD_GROWTH",
+          "price": 59.99,
+          "inclusions_status": "pending_taxsimba_signoff",
+          "reason": "Mid MTD monthly price when more dedicated review is likely (price verified VAT included; features pending confirmation)."
+        }
+      ]
+    },
+    {
+      "id": "cis",
+      "message": "I am a CIS subcontractor \u2014 what package should I look at?",
+      "llm_mode": "openai",
+      "reply": "As a CIS subcontractor, you may want to consider the **Self Assessment Smart** package at \u00a3149 per tax year. This package is suitable for clients with multiple income sources, which is often the case for subcontractors. It includes a detailed review of your allowances and expenses before filing, ensuring you maximise your tax position.\n\nHowever, if your income situation is straightforward, the **Self Assessment Simple** package at \u00a3119 could also be a good fit, as it covers the essentials for employed and simple self-employed income.\n\nIf you have any specific needs or complexities, let me know, and I can help you decide further!",
+      "packages": [
+        {
+          "code": "SA_SIMPLE",
+          "price": 119,
+          "inclusions_status": "pending_taxsimba_signoff",
+          "reason": "Lowest Self Assessment price that usually fits straightforward / single simple income situations (price verified; inclusions pending confirmation)."
+        },
+        {
+          "code": "SA_SMART",
+          "price": 149,
+          "inclusions_status": "pending_taxsimba_signoff",
+          "reason": "Mid Self Assessment price when several income sources or more review is likely (price verified; inclusions pending confirmation)."
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "message": "What is included in each TaxSimba package and how do they differ?",
+      "llm_mode": "openai",
+      "reply": "Here is what is currently in the SIMBA catalogue (last reviewed 2026-11-13).\n\nVERIFIED: Self Assessment Simple \u00a3119, Smart \u00a3149, Elite \u00a3299 (per tax year); MTD \u00a329.99 / \u00a359.99 / \u00a389.99 per month (VAT included); consultation \u00a399 / 30 minutes.\n\nFeature descriptions below were recovered from TaxSimba\u2019s public subscription-plans API. They are PENDING TaxSimba/accountant sign-off for SIMBA \u2014 please confirm with the TaxSimba team before purchasing. I will not invent extra benefits.\n\nSelf Assessment Simple \u2014 \u00a3119 (per tax year) [price VERIFIED]\n  Published description (PENDING APPROVAL): A straightforward Self Assessment for employed and simple self-employed income, prepared and checked by a qualified accountant.\n  Published inclusions (PENDING APPROVAL): Self Assessment prepared by an accountant; Secure document upload; Review and approval before submission; Email and in-app updates\nSelf Assessment Smart \u2014 \u00a3149 (per tax year) [price VERIFIED]\n  Published description (PENDING APPROVAL): For clients with several income sources who want their allowances and expenses reviewed in detail before filing.\n  Published inclusions (PENDING APPROVAL): Everything in Simple; Multiple income sources reviewed; Expenses and allowances check; Priority accountant messaging\nSelf Assessment Elite \u2014 \u00a3299 (per tax year) [price VERIFIED]\n  Published description (PENDING APPROVAL): Our most thorough Self Assessment service, including planning conversations and a full review of your position for the year.\n  Published inclusions (PENDING APPROVAL): Everything in Smart; Full review of your tax position; Tax planning conversation; Priority turnaround\n\nMTD Starter \u2014 \u00a329.99 (per month; VAT included) [price VERIFIED] [name conflict vs public \u201cSimbian Comply\u201d \u2014 PENDING APPROVAL]\n  Published description (PENDING APPROVAL): Your accountant maintains your records and handles your quarterly updates and year-end tax return.\n  Published inclusions (PENDING APPROVAL): Xero Simple subscription included; MTD registration and setup support; Accountant-maintained bookkeeping and digital records; Quarterly MTD updates prepared and submitted; Year-end Income Tax return prepared and submitted; Automated tax deadline reminders; Secure digital document exchange; Accountant support by email only\nMTD Growth \u2014 \u00a359.99 (per month; VAT included) [price VERIFIED] [name conflict vs public \u201cSimbian Growth\u201d \u2014 PENDING APPROVAL]\n  Published description (PENDING APPROVAL): A dedicated accountant maintains your records, handles your filings and reviews your business each quarter.\n  Published inclusions (PENDING APPROVAL): Xero Ignite subscription included; MTD registration and setup support; Accountant-maintained bookkeeping and digital records; Quarterly MTD updates prepared and submitted; Year-end Income Tax return prepared and submitted; Dedicated accountant support by email only; Quarterly business reviews; Expenses and allowances check; Secure document exchange and deadline reminders\nMTD Complete \u2014 \u00a389.99 (per month; VAT included) [price VERIFIED] [name conflict vs public \u201cSimbian Elite\u201d \u2014 PENDING APPROVAL]\n  Published description (PENDING APPROVAL): Dedicated accountant care with maintained records, complete agreed filings and proactive tax planning.\n  Published inclusions (PENDING APPROVAL): Xero Grow subscription included; MTD registration and setup support; Accountant-maintained bookkeeping and digital records; Quarterly MTD updates prepared and submitted; Year-end Income Tax return prepared and submitted; Dedicated accountant with priority email support; Quarterly business reviews; Expenses and allowances check; Full review of your tax position; Proactive tax planning advice; Secure document exchange and deadline reminders\n\nExplicit exclusions are MISSING and also require TaxSimba approval. If your choice depends on a pending inclusion (for example a named Xero plan or priority support), I must treat that as unconfirmed and recommend asking TaxSimba to confirm \u2014 or book a \u00a399 consultation when booking is connected. You can review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register (registration path status: soft/generic until staging verifies).",
+      "packages": [
+        {
+          "code": "SA_SIMPLE",
+          "price": 119,
+          "inclusions_status": "pending_taxsimba_signoff",
+          "reason": "Lowest Self Assessment price that usually fits straightforward / single simple income situations (price verified; inclusions pending confirmation)."
+        },
+        {
+          "code": "SA_SMART",
+          "price": 149,
+          "inclusions_status": "pending_taxsimba_signoff",
+          "reason": "Mid Self Assessment price when several income sources or more review is likely (price verified; inclusions pending confirmation)."
+        },
+        {
+          "code": "SA_ELITE",
+          "price": 299,
+          "inclusions_status": "pending_taxsimba_signoff",
+          "reason": "Highest Self Assessment price \u2014 only suggested when complexity clearly exceeds mid-tier needs (price verified at \u00a3299; inclusions pending confirmation)."
+        }
+      ]
+    },
+    {
+      "id": "existing",
+      "message": "I am an existing TaxSimba client \u2014 how do I message my assigned accountant?",
+      "llm_mode": "openai",
+      "reply": "As an existing TaxSimba client, you can message your assigned accountant through the secure dashboard. Simply log in to your TaxSimba account, and you should find an option to send messages or communicate with your accountant directly. If you have any trouble accessing the dashboard, please let me know!",
+      "packages": []
+    },
+    {
+      "id": "unsure",
+      "message": "I am not sure if I need Self Assessment or MTD \u2014 ask me one question.",
+      "llm_mode": "openai",
+      "reply": "To help determine whether you need Self Assessment or Making Tax Digital (MTD), could you please tell me if you have self-employment or property income, and if so, what your total qualifying income was for the last tax year (2025-26)?",
+      "packages": [
+        {
+          "code": "SA_SIMPLE",
+          "price": 119,
+          "inclusions_status": "pending_taxsimba_signoff",
+          "reason": "Lowest Self Assessment price that usually fits straightforward / single simple income situations (price verified; inclusions pending confirmation)."
+        },
+        {
+          "code": "SA_SMART",
+          "price": 149,
+          "inclusions_status": "pending_taxsimba_signoff",
+          "reason": "Mid Self Assessment price when several income sources or more review is likely (price verified; inclusions pending confirmation)."
+        }
+      ]
+    },
+    {
+      "id": "upgrade",
+      "message": "I currently pay for Smart at \u00a3149 \u2014 when would Elite \u00a3299 make sense?",
+      "llm_mode": "openai",
+      "reply": "Upgrading from the Smart package (\u00a3149) to the Elite package (\u00a3299) could make sense if you find yourself needing more comprehensive support and tax planning. Here are a few scenarios where Elite might be beneficial:\n\n1. **Complex Income Sources**: If your financial situation has become more complex, such as having multiple income streams or investments that require detailed tax planning.\n\n2. **Tax Planning Conversations**: If you want to have proactive discussions about your tax position and strategies to minimise your tax liability.\n\n3. **Full Review of Tax Position**: If you prefer a thorough review of your tax situation to ensure you\u2019re optimising your allowances and expenses.\n\n4. **Priority Turnaround**: If you need faster responses and turnaround times for your tax filings and queries.\n\nIf any of these apply to you, it might be worth considering the Elite package. Otherwise, if your needs are being met with the Smart package, you may not need to upgrade just yet.",
+      "packages": []
+    },
+    {
+      "id": "invent",
+      "message": "Does Elite include free Xero Grow forever and a 24/7 phone helpline?",
+      "llm_mode": "openai",
+      "reply": "Here is what is currently in the SIMBA catalogue (last reviewed 2026-11-13).\n\nVERIFIED: Self Assessment Simple \u00a3119, Smart \u00a3149, Elite \u00a3299 (per tax year); MTD \u00a329.99 / \u00a359.99 / \u00a389.99 per month (VAT included); consultation \u00a399 / 30 minutes.\n\nFeature descriptions below were recovered from TaxSimba\u2019s public subscription-plans API. They are PENDING TaxSimba/accountant sign-off for SIMBA \u2014 please confirm with the TaxSimba team before purchasing. I will not invent extra benefits.\n\nSelf Assessment Simple \u2014 \u00a3119 (per tax year) [price VERIFIED]\n  Published description (PENDING APPROVAL): A straightforward Self Assessment for employed and simple self-employed income, prepared and checked by a qualified accountant.\n  Published inclusions (PENDING APPROVAL): Self Assessment prepared by an accountant; Secure document upload; Review and approval before submission; Email and in-app updates\nSelf Assessment Smart \u2014 \u00a3149 (per tax year) [price VERIFIED]\n  Published description (PENDING APPROVAL): For clients with several income sources who want their allowances and expenses reviewed in detail before filing.\n  Published inclusions (PENDING APPROVAL): Everything in Simple; Multiple income sources reviewed; Expenses and allowances check; Priority accountant messaging\nSelf Assessment Elite \u2014 \u00a3299 (per tax year) [price VERIFIED]\n  Published description (PENDING APPROVAL): Our most thorough Self Assessment service, including planning conversations and a full review of your position for the year.\n  Published inclusions (PENDING APPROVAL): Everything in Smart; Full review of your tax position; Tax planning conversation; Priority turnaround\n\nMTD Starter \u2014 \u00a329.99 (per month; VAT included) [price VERIFIED] [name conflict vs public \u201cSimbian Comply\u201d \u2014 PENDING APPROVAL]\n  Published description (PENDING APPROVAL): Your accountant maintains your records and handles your quarterly updates and year-end tax return.\n  Published inclusions (PENDING APPROVAL): Xero Simple subscription included; MTD registration and setup support; Accountant-maintained bookkeeping and digital records; Quarterly MTD updates prepared and submitted; Year-end Income Tax return prepared and submitted; Automated tax deadline reminders; Secure digital document exchange; Accountant support by email only\nMTD Growth \u2014 \u00a359.99 (per month; VAT included) [price VERIFIED] [name conflict vs public \u201cSimbian Growth\u201d \u2014 PENDING APPROVAL]\n  Published description (PENDING APPROVAL): A dedicated accountant maintains your records, handles your filings and reviews your business each quarter.\n  Published inclusions (PENDING APPROVAL): Xero Ignite subscription included; MTD registration and setup support; Accountant-maintained bookkeeping and digital records; Quarterly MTD updates prepared and submitted; Year-end Income Tax return prepared and submitted; Dedicated accountant support by email only; Quarterly business reviews; Expenses and allowances check; Secure document exchange and deadline reminders\nMTD Complete \u2014 \u00a389.99 (per month; VAT included) [price VERIFIED] [name conflict vs public \u201cSimbian Elite\u201d \u2014 PENDING APPROVAL]\n  Published description (PENDING APPROVAL): Dedicated accountant care with maintained records, complete agreed filings and proactive tax planning.\n  Published inclusions (PENDING APPROVAL): Xero Grow subscription included; MTD registration and setup support; Accountant-maintained bookkeeping and digital records; Quarterly MTD updates prepared and submitted; Year-end Income Tax return prepared and submitted; Dedicated accountant with priority email support; Quarterly business reviews; Expenses and allowances check; Full review of your tax position; Proactive tax planning advice; Secure document exchange and deadline reminders\n\nExplicit exclusions are MISSING and also require TaxSimba approval. If your choice depends on a pending inclusion (for example a named Xero plan or priority support), I must treat that as unconfirmed and recommend asking TaxSimba to confirm \u2014 or book a \u00a399 consultation when booking is connected. You can review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register (registration path status: soft/generic until staging verifies).",
+      "packages": []
+    }
+  ]
+}

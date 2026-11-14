@@ -54,7 +54,7 @@ async def main():
               "email": EMAIL, "is_test": True, "client_ref": "CHK", "created_at": now_iso()}
     await db.clients.insert_one(dict(client))
     await bootstrap_client_services(client)
-    result = await activate_service(client, client_user, MTD, "MTD_ESSENTIAL")
+    result = await activate_service(client, client_user, MTD, "MTD_STARTER")
     case = result["case"]
     await db.cases.update_one({"id": case["id"]},
                               {"$set": {"assigned_accountant_id": user["id"],

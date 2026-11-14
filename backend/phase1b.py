@@ -28,18 +28,28 @@ SELF_ASSESSMENT = "SELF_ASSESSMENT"
 MTD = "MTD_INCOME_TAX"
 SERVICE_LABELS = {SELF_ASSESSMENT: "Self Assessment", MTD: "MTD for Income Tax"}
 
+# Approved TaxSimba consumer catalogue (must match SIMBA AI Tax Assistant).
+# SA: Simple £119 / Smart £149 / Elite £299 per tax year.
+# MTD customer-facing: Simbian Comply / Growth / Elite at £29.99 / £59.99 / £89.99
+# per month (VAT included). Internal codes MTD_STARTER / MTD_GROWTH / MTD_COMPLETE
+# are preserved for portal/Stripe compatibility (no duplicate SKUs, no price changes).
 DEFAULT_PACKAGES = [
     {"service_type": SELF_ASSESSMENT, "code": "SIMPLE", "name": "Simple", "price": 119.0,
-     "rank": 1, "billing_frequency": "Per tax year"},
+     "rank": 1, "billing_frequency": "Per tax year", "vat_note": "Confirm VAT treatment on checkout"},
     {"service_type": SELF_ASSESSMENT, "code": "SMART", "name": "Smart", "price": 149.0,
-     "rank": 2, "billing_frequency": "Per tax year"},
-    {"service_type": SELF_ASSESSMENT, "code": "ELITE", "name": "Elite", "price": 249.0,
-     "rank": 3, "billing_frequency": "Per tax year"},
-    {"service_type": MTD, "code": "MTD_ESSENTIAL", "name": "MTD Essential", "price": 240.0,
-     "rank": 1, "billing_frequency": "Quarterly billing"},
-    {"service_type": MTD, "code": "MTD_PLUS", "name": "MTD Plus", "price": 360.0,
-     "rank": 2, "billing_frequency": "Quarterly billing"},
+     "rank": 2, "billing_frequency": "Per tax year", "vat_note": "Confirm VAT treatment on checkout"},
+    {"service_type": SELF_ASSESSMENT, "code": "ELITE", "name": "Elite", "price": 299.0,
+     "rank": 3, "billing_frequency": "Per tax year", "vat_note": "Confirm VAT treatment on checkout"},
+    {"service_type": MTD, "code": "MTD_STARTER", "name": "Simbian Comply", "price": 29.99,
+     "rank": 1, "billing_frequency": "Per month", "vat_note": "VAT included"},
+    {"service_type": MTD, "code": "MTD_GROWTH", "name": "Simbian Growth", "price": 59.99,
+     "rank": 2, "billing_frequency": "Per month", "vat_note": "VAT included"},
+    {"service_type": MTD, "code": "MTD_COMPLETE", "name": "Simbian Elite", "price": 89.99,
+     "rank": 3, "billing_frequency": "Per month", "vat_note": "VAT included"},
 ]
+
+# Legacy portal SKUs — deactivated; do not sell or recommend.
+LEGACY_MTD_CODES = ("MTD_ESSENTIAL", "MTD_PLUS")
 
 # Configurable late-stage lock: client-initiated package changes are disabled from these statuses.
 DEFAULT_LOCK_STATUSES = ["READY_FOR_ADMIN_REVIEW", "ADMIN_REVIEW", "ADMIN_APPROVED",
@@ -172,13 +182,46 @@ async def activate_service(client: dict, user: Optional[dict], service_type: str
 
 # ------------------------------------------------------------------ bootstrap
 async def ensure_phase1b_data():
+    """Seed and continuously sync approved catalogue prices into Mongo.
+
+    `$setOnInsert` alone left Elite stuck at the obsolete £249 for existing DBs.
+    We now always `$set` name/price/billing/vat/rank/is_active for approved SKUs so
+    Stripe Checkout `unit_amount` (derived from package.price) stays correct.
+    """
     for p in DEFAULT_PACKAGES:
-        await db.packages.update_one(
-            {"service_type": p["service_type"], "code": p["code"]},
-            {"$setOnInsert": {**p, "id": str(uuid.uuid4()), "is_active": True,
-                              "created_at": now_iso()}},
-            upsert=True,
+        existing = await db.packages.find_one(
+            {"service_type": p["service_type"], "code": p["code"]}
         )
+        fields = {
+            "name": p["name"],
+            "price": float(p["price"]),
+            "rank": p["rank"],
+            "billing_frequency": p["billing_frequency"],
+            "vat_note": p.get("vat_note"),
+            "is_active": True,
+            "catalogue_version": "2026-11-approved-sa-mtd",
+            "updated_at": now_iso(),
+        }
+        if existing:
+            await db.packages.update_one({"id": existing["id"]}, {"$set": fields})
+        else:
+            await db.packages.insert_one({
+                **p,
+                **fields,
+                "id": str(uuid.uuid4()),
+                "created_at": now_iso(),
+            })
+
+    # Retire obsolete MTD Essential/Plus so checkout cannot sell them as active.
+    await db.packages.update_many(
+        {"service_type": MTD, "code": {"$in": list(LEGACY_MTD_CODES)}},
+        {"$set": {
+            "is_active": False,
+            "retired_reason": "Replaced by Simbian Comply/Growth/Elite monthly catalogue (codes MTD_STARTER/GROWTH/COMPLETE)",
+            "updated_at": now_iso(),
+        }},
+    )
+
     await db.settings.update_one(
         {"key": "package_change_lock"},
         {"$setOnInsert": {"key": "package_change_lock", "locked_statuses": DEFAULT_LOCK_STATUSES}},

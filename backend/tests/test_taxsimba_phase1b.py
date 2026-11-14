@@ -237,7 +237,7 @@ class TestRecommendations:
         # fake id ok — it will 403 on role check first
         assert requests.post(f"{API}/recommendations/x/send-offer",
                              headers=_hdr(tokens["acc_a"]),
-                             json={"package_code": "MTD_PLUS"}).status_code == 403
+                             json={"package_code": "MTD_COMPLETE"}).status_code == 403
         assert requests.get(f"{API}/payments",
                             headers=_hdr(tokens["acc_a"])).status_code == 403
         assert requests.get(f"{API}/my-payments",
@@ -277,11 +277,11 @@ class TestAdminOffer:
             pytest.skip("no pending MTD recommendation available on this case")
         r = requests.post(f"{API}/recommendations/{mtd_rec['id']}/send-offer",
                           headers=_hdr(tokens["admin"]),
-                          json={"package_code": "MTD_PLUS", "price": 360,
+                          json={"package_code": "MTD_COMPLETE", "price": 89.99,
                                 "credit": 0, "message": "Please add MTD"})
         assert r.status_code == 200, r.text
         offer = r.json()
-        assert offer["amount_due"] == 360
+        assert offer["amount_due"] == 89.99
         assert offer["status"] == "PENDING"
         # rec now OFFER_SENT
         r2 = requests.get(f"{API}/recommendations", headers=_hdr(tokens["admin"]))
@@ -362,7 +362,7 @@ class TestOverride:
 class TestPricing:
     def test_super_admin_can_patch_price(self, tokens):
         packages = requests.get(f"{API}/packages", headers=_hdr(tokens["admin"])).json()
-        p = next(x for x in packages if x["code"] == "MTD_ESSENTIAL")
+        p = next(x for x in packages if x["code"] == "MTD_STARTER")
         original = p["price"]
         r = requests.patch(f"{API}/packages/{p['id']}/price",
                            headers=_hdr(tokens["super"]),

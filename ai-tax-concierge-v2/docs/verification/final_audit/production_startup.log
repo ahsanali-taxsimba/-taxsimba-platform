@@ -1,0 +1,6 @@
+
+> @taxsimba/ai-tax-concierge-v2-backend-node@0.1.0 start
+> node dist/server.js
+
+SIMBA AI Node listening on http://127.0.0.1:8091 (v0.3.0, llm=openai)
+Dual-run tip: Python often uses :8090; Node defaults to :8091. Set PORT to override.

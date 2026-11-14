@@ -1,0 +1,84 @@
+{
+  "generated_at": "2026-11-14T02:05:01.601Z",
+  "passed": 11,
+  "total": 11,
+  "results": [
+    {
+      "id": "xero_no_invented_licence",
+      "pass": true,
+      "expectOk": true,
+      "rejectHit": null,
+      "reply_excerpt": "Here is what SIMBA can state from approved catalogue decisions:\n\nSelf Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.\nPrivate accountant consultation: £99 for one 30-minute accountant-led Google Meet advice session (no tax return filing, bookkeeping or written report; booking stub until Calendly is connected).\n\nSelf Assessment is usually a once-a-year tax return s"
+    },
+    {
+      "id": "xero_no_separate_charge",
+      "pass": true,
+      "expectOk": true,
+      "rejectHit": null,
+      "reply_excerpt": "Here is what SIMBA can state from approved catalogue decisions:\n\nSelf Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.\nPrivate accountant consultation: £99 for one 30-minute accountant-led Google Meet advice session (no tax return filing, bookkeeping or written report; booking stub until Calendly is connected).\n\nSelf Assessment is usually a once-a-year tax return s"
+    },
+    {
+      "id": "bookkeeping_no_unlimited",
+      "pass": true,
+      "expectOk": true,
+      "rejectHit": null,
+      "reply_excerpt": "Here is what SIMBA can state from approved catalogue decisions:\n\nSelf Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.\nPrivate accountant consultation: £99 for one 30-minute accountant-led Google Meet advice session (no tax return filing, bookkeeping or written report; booking stub until Calendly is connected).\n\nSelf Assessment is usually a once-a-year tax return s"
+    },
+    {
+      "id": "mtd_annual_sa_scope",
+      "pass": true,
+      "expectOk": true,
+      "rejectHit": null,
+      "reply_excerpt": "Here is what SIMBA can state from approved catalogue decisions:\n\nSelf Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.\nPrivate accountant consultation: £99 for one 30-minute accountant-led Google Meet advice session (no tax return filing, bookkeeping or written report; booking stub until Calendly is connected).\n\nSelf Assessment is usually a once-a-year tax return s"
+    },
+    {
+      "id": "quarterly_updates_included",
+      "pass": true,
+      "expectOk": true,
+      "rejectHit": null,
+      "reply_excerpt": "Here is what SIMBA can state from approved catalogue decisions:\n\nSelf Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.\nPrivate accountant consultation: £99 for one 30-minute accountant-led Google Meet advice session (no tax return filing, bookkeeping or written report; booking stub until Calendly is connected).\n\nSelf Assessment is usually a once-a-year tax return s"
+    },
+    {
+      "id": "support_channels_not_phone",
+      "pass": true,
+      "expectOk": true,
+      "rejectHit": null,
+      "reply_excerpt": "No, TaxSimba does not offer telephone onboarding support. Assistance is provided through approved email and client-dashboard messaging channels. If you have questions about a package or need help, feel free to ask here!"
+    },
+    {
+      "id": "no_priority_qbr_planning",
+      "pass": true,
+      "expectOk": true,
+      "rejectHit": null,
+      "reply_excerpt": "Here is what SIMBA can state from approved catalogue decisions:\n\nSelf Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.\nPrivate accountant consultation: £99 for one 30-minute accountant-led Google Meet advice session (no tax return filing, bookkeeping or written report; booking stub until Calendly is connected).\n\nSelf Assessment is usually a once-a-year tax return s"
+    },
+    {
+      "id": "consultation_boundaries",
+      "pass": true,
+      "expectOk": true,
+      "rejectHit": null,
+      "reply_excerpt": "Here is what SIMBA can state from approved catalogue decisions:\n\nSelf Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.\nPrivate accountant consultation: £99 for one 30-minute accountant-led Google Meet advice session (no tax return filing, bookkeeping or written report; booking stub until Calendly is connected).\n\nSelf Assessment is usually a once-a-year tax return s"
+    },
+    {
+      "id": "lowest_sa_simple",
+      "pass": true,
+      "expectOk": true,
+      "rejectHit": null,
+      "reply_excerpt": "As a first-time sole trader with simple income, the **Self Assessment Simple** package at £119 per tax year would likely be the best fit for you. This package is designed for straightforward tax situations and should cover your needs effectively.\n\nIf you have any specific questions about what’s included in the package or how to register for Self Assessment, feel free to ask! You can also find more details on the Self Assessment packages [here](https://www.taxsimba.co.uk/self-assessment)."
+    },
+    {
+      "id": "landlord_mtd_comply",
+      "pass": true,
+      "expectOk": true,
+      "rejectHit": null,
+      "reply_excerpt": "As a landlord needing Making Tax Digital (MTD), the lowest suitable Simbian plan is **Simbian Comply**, which costs **£29.99 per month** (VAT included). This plan includes the necessary digital bookkeeping services and quarterly MTD updates, along with year-end Self Assessment preparation and submission, provided you meet the documented responsibilities.\n\nSince you're a landlord, please ensure your qualifying income exceeds the relevant threshold for MTD. For the 2025-26 tax year, if your qualif"
+    },
+    {
+      "id": "signup_links",
+      "pass": true,
+      "expectOk": true,
+      "rejectHit": null,
+      "reply_excerpt": "You can sign up for Self Assessment or Making Tax Digital (MTD) packages on the TaxSimba website. Here are the links for each:\n\n- For Self Assessment packages, visit: [Self Assessment Packages](https://www.taxsimba.co.uk/self-assessment)\n- For MTD packages, check out: [Making Tax Digital Packages](https://www.taxsimba.co.uk/making-tax-digital)\n\nIf you have any specific questions about the packages or need help deciding which one is right for you, feel free to ask!"
+    }
+  ]
+}

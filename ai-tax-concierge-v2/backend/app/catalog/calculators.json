@@ -1,0 +1,142 @@
+{
+  "version": "2026-11-simba-v3",
+  "disclaimer": "Calculator paths verified against public taxsimba.co.uk titles on 2026-11-13. url_status live_verified means the page title confirmed a real calculator; stub means not confirmed.",
+  "items": [
+    {
+      "id": "income_tax",
+      "title": "Income tax calculator",
+      "description": "Estimate UK Income Tax for employment or self-employment income.",
+      "topics": ["income tax", "personal allowance", "self employed", "freelancer"],
+      "url_status": "live_verified",
+      "path": "/calculators/income-tax"
+    },
+    {
+      "id": "ni",
+      "title": "National Insurance calculator",
+      "description": "Estimate National Insurance contributions.",
+      "topics": ["national insurance", "ni", "class 2", "class 4"],
+      "url_status": "live_verified",
+      "path": "/calculators/ni"
+    },
+    {
+      "id": "dividend_tax",
+      "title": "Dividend tax calculator",
+      "description": "Estimate tax on dividend income.",
+      "topics": ["dividend", "shares", "investment"],
+      "url_status": "live_verified",
+      "path": "/calculators/dividend-tax"
+    },
+    {
+      "id": "salary_after_tax",
+      "title": "Salary after tax calculator",
+      "description": "Estimate take-home pay after tax and NI.",
+      "topics": ["take home", "salary", "paye", "net pay"],
+      "url_status": "live_verified",
+      "path": "/calculators/salary-after-tax"
+    },
+    {
+      "id": "corporation_tax",
+      "title": "Corporation tax calculator",
+      "description": "Estimate Corporation Tax for limited companies.",
+      "topics": ["corporation tax", "limited company", "company"],
+      "url_status": "live_verified",
+      "path": "/calculators/corporation-tax"
+    },
+    {
+      "id": "pension_tax_relief",
+      "title": "Pension tax relief calculator",
+      "description": "Estimate tax relief on pension contributions.",
+      "topics": ["pension", "tax relief", "retirement"],
+      "url_status": "live_verified",
+      "path": "/calculators/pension-tax-relief"
+    },
+    {
+      "id": "rental_tax",
+      "title": "Rental tax calculator",
+      "description": "Estimate tax on UK property rental income.",
+      "topics": ["landlord", "property", "rental", "rent"],
+      "url_status": "live_verified",
+      "path": "/calculators/rental-tax"
+    },
+    {
+      "id": "cis_rebate",
+      "title": "CIS rebate calculator",
+      "description": "Estimate possible CIS tax reclaim positions.",
+      "topics": ["cis", "construction", "subcontractor", "rebate"],
+      "url_status": "live_verified",
+      "path": "/calculators/cis-rebate"
+    },
+    {
+      "id": "mileage_tax",
+      "title": "Mileage tax calculator",
+      "description": "Estimate mileage allowance claims.",
+      "topics": ["mileage", "vehicle", "expenses"],
+      "url_status": "live_verified",
+      "path": "/calculators/mileage-tax"
+    },
+    {
+      "id": "crypto_tax",
+      "title": "Crypto tax calculator",
+      "description": "Estimate tax on cryptoasset disposals.",
+      "topics": ["crypto", "cryptoasset", "bitcoin", "capital gains"],
+      "url_status": "live_verified",
+      "path": "/calculators/crypto-tax"
+    },
+    {
+      "id": "late_penalty",
+      "title": "Late penalty calculator",
+      "description": "Estimate Self Assessment late filing or payment penalties.",
+      "topics": ["penalty", "late filing", "interest", "deadline"],
+      "url_status": "live_verified",
+      "path": "/calculators/late-penalty"
+    },
+    {
+      "id": "stamp_duty",
+      "title": "Stamp duty calculator",
+      "description": "Estimate Stamp Duty Land Tax for property purchases.",
+      "topics": ["stamp duty", "sdlt", "property purchase"],
+      "url_status": "live_verified",
+      "path": "/calculators/stamp-duty"
+    },
+    {
+      "id": "tax_code",
+      "title": "Tax code checker",
+      "description": "Understand common UK PAYE tax codes.",
+      "topics": ["tax code", "paye", "employment"],
+      "url_status": "live_verified",
+      "path": "/calculators/tax-code"
+    },
+    {
+      "id": "combined_tax",
+      "title": "Combined tax calculator",
+      "description": "Estimate combined tax across multiple income types.",
+      "topics": ["combined", "multiple income", "tax estimator"],
+      "url_status": "live_verified",
+      "path": "/calculators/combined-tax"
+    },
+    {
+      "id": "child_benefit",
+      "title": "Child benefit calculator",
+      "description": "Estimate Child Benefit and high-income charge interactions.",
+      "topics": ["child benefit", "hicbc", "family"],
+      "url_status": "live_verified",
+      "path": "/calculators/child-benefit"
+    },
+    {
+      "id": "ebay_tax",
+      "title": "eBay / marketplace tax helper",
+      "description": "Guidance prompts for online marketplace trading income.",
+      "topics": ["ebay", "marketplace", "trading", "side hustle"],
+      "url_status": "live_verified",
+      "path": "/calculators/ebay-tax"
+    },
+    {
+      "id": "uber_tax",
+      "title": "Uber / gig tax helper",
+      "description": "Guidance prompts for gig-economy self-employment tax.",
+      "topics": ["uber", "gig", "courier", "driver", "self employed"],
+      "url_status": "live_verified",
+      "path": "/calculators/uber-tax"
+    }
+  ]
+}

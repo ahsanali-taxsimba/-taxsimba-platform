@@ -73,7 +73,7 @@ async def main():
 
     # 2. MTD-only without touching SA
     u2, c2 = await new_account(EMAILS[1])
-    await activate_service(c2, u2, MTD, "MTD_ESSENTIAL")
+    await activate_service(c2, u2, MTD, "MTD_STARTER")
     svcs2, cases2, periods2 = await state(c2)
     results["2 new MTD-only client"] = (
         svcs2 == {SELF_ASSESSMENT: "NOT_ACTIVE", MTD: "ACTIVE"}
@@ -83,7 +83,7 @@ async def main():
     # 3. second service later, same account
     u3, c3 = await new_account(EMAILS[2])
     await activate_service(c3, u3, SELF_ASSESSMENT, "SMART")
-    await activate_service(c3, u3, MTD, "MTD_PLUS")
+    await activate_service(c3, u3, MTD, "MTD_COMPLETE")
     svcs3, cases3, periods3 = await state(c3)
     users_for_email = await db.users.count_documents({"email": EMAILS[2]})
     clients_for_user = await db.clients.count_documents({"user_id": u3["id"]})
@@ -95,8 +95,8 @@ async def main():
 
     # 4. idempotency: repeat activation (webhook replay) must not duplicate anything
     for _ in range(2):
-        await activate_service(c3, u3, MTD, "MTD_PLUS")
-        await activate_service(c2, u2, MTD, "MTD_ESSENTIAL")
+        await activate_service(c3, u3, MTD, "MTD_COMPLETE")
+        await activate_service(c2, u2, MTD, "MTD_STARTER")
     svcs3b, cases3b, periods3b = await state(c3)
     svcs2b, cases2b, periods2b = await state(c2)
     services_rows = await db.client_services.count_documents({"client_id": c3["id"]})

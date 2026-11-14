@@ -98,12 +98,12 @@ async def run():
 
     # ---------- 1 signup / activation
     u, c = await make_client(AUTO, "Ahsan Ali")
-    res = await activate_service(c, u, MTD, "MTD_ESSENTIAL", reason="UAT activation", amount=240.0)
+    res = await activate_service(c, u, MTD, "MTD_STARTER", reason="UAT activation", amount=29.99)
     case = res["case"]
     await make_client(UI, "Uma Iqbal")
     ui_client = await db.clients.find_one({"email": UI})
     ui_user = await db.users.find_one({"email": UI})
-    ui_case = (await activate_service(ui_client, ui_user, MTD, "MTD_ESSENTIAL"))["case"]
+    ui_case = (await activate_service(ui_client, ui_user, MTD, "MTD_STARTER"))["case"]
     cli = login(AUTO, PW)
     svc = {s["service_type"]: s["status"] for s in
            requests.get(f"{API}/my-services", headers=cli).json()["services"]}
@@ -117,7 +117,7 @@ async def run():
         and case["tax_year"] == "2026/27" and len(periods) == 5
         and sorted(p["label"] for p in periods) == ["Final Declaration", "Quarter 1",
                                                     "Quarter 2", "Quarter 3", "Quarter 4"])
-    dup = await activate_service(c, u, MTD, "MTD_ESSENTIAL")
+    dup = await activate_service(c, u, MTD, "MTD_STARTER")
     R["1 no duplicate periods/case on repeat activation"] = (
         dup["periods_created"] == 0 and dup["created_case"] is False
         and await db.mtd_periods.count_documents({"case_id": case["id"]}) == 5

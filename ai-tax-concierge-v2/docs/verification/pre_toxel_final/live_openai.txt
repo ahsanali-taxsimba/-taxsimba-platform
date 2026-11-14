@@ -1,0 +1,13 @@
+
+> @taxsimba/ai-tax-concierge-v2-backend-node@0.1.0 live:openai
+> tsx scripts/liveOpenAIVerification.ts
+
+{
+  "status": "COMPLETED",
+  "report": "/agent/repos/-taxsimba-platform/ai-tax-concierge-v2/docs/verification/live_openai_report_20261113T154937Z.json",
+  "single_turn_count": 33,
+  "all_live": true,
+  "connectivity_ok": true,
+  "accuracy_flagged_count": 0,
+  "accuracy_flagged_case_ids": []
+}

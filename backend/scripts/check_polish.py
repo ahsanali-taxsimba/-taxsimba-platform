@@ -66,7 +66,7 @@ async def main():
               "is_test": True, "client_ref": "CHK", "created_at": now_iso()}
     await db.clients.insert_one(dict(client))
     await bootstrap_client_services(client)
-    case = (await activate_service(client, cu, MTD, "MTD_ESSENTIAL"))["case"]
+    case = (await activate_service(client, cu, MTD, "MTD_STARTER"))["case"]
     cli = login(EMAIL, PW)
     acct_user = await db.users.find_one({"email": "accountant.a@taxsimba.co.uk"})
     await db.cases.update_one({"id": case["id"]},
@@ -102,7 +102,7 @@ async def main():
     R["Open request shows Action required"] = q1b["stage_label"] == "Action required"
 
     # --- Part B pricing
-    pkg = await db.packages.find_one({"service_type": MTD, "code": "MTD_ESSENTIAL"})
+    pkg = await db.packages.find_one({"service_type": MTD, "code": "MTD_STARTER"})
     svc_before = requests.get(f"{API}/my-services", headers=cli).json()["services"]
     agreed_before = next(s for s in svc_before if s["service_type"] == MTD)["agreed_price"]
     new_price = round(float(pkg["price"]) + 60, 2)
@@ -129,7 +129,7 @@ async def main():
     await db.users.insert_one(dict(u2))
     await db.clients.insert_one(dict(c2))
     await bootstrap_client_services(c2)
-    await activate_service(c2, u2, MTD, "MTD_ESSENTIAL")
+    await activate_service(c2, u2, MTD, "MTD_STARTER")
     new_row = await db.client_services.find_one({"client_id": c2["id"], "service_type": MTD})
     R["New purchase gets current price"] = new_row["agreed_price"] == new_price
     await db.packages.update_one({"id": pkg["id"]},

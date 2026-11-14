@@ -1,0 +1,725 @@
+{
+  "version": "2026-11",
+  "count": 50,
+  "journeys": [
+    {
+      "id": "pj-01",
+      "kind": "guided",
+      "journey_id": "first_time",
+      "path": [
+        "letter",
+        "none"
+      ],
+      "expect_any": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ],
+      "forbid": [
+        "SA_ELITE"
+      ],
+      "note": "beginner first-time → not Elite"
+    },
+    {
+      "id": "pj-02",
+      "kind": "guided",
+      "journey_id": "first_time",
+      "path": [
+        "new_work",
+        "some"
+      ],
+      "expect_any": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ],
+      "forbid": [
+        "SA_ELITE"
+      ],
+      "note": "first-time some knowledge"
+    },
+    {
+      "id": "pj-03",
+      "kind": "guided",
+      "journey_id": "first_time",
+      "path": [
+        "curious",
+        "help"
+      ],
+      "expect_any": [
+        "SA_SIMPLE"
+      ],
+      "forbid": [
+        "MTD_COMPLETE"
+      ],
+      "note": "curious first-time"
+    },
+    {
+      "id": "pj-04",
+      "kind": "guided",
+      "journey_id": "first_time",
+      "path": [
+        "deadline",
+        "help"
+      ],
+      "expect_any": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ],
+      "forbid": [
+        "SA_ELITE"
+      ],
+      "note": "deadline worry beginner"
+    },
+    {
+      "id": "pj-05",
+      "kind": "guided",
+      "journey_id": "self_employed",
+      "path": [
+        "main",
+        "yes"
+      ],
+      "expect_any": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ],
+      "forbid": [],
+      "note": "self-employed registered"
+    },
+    {
+      "id": "pj-06",
+      "kind": "guided",
+      "journey_id": "self_employed",
+      "path": [
+        "side",
+        "no"
+      ],
+      "expect_any": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ],
+      "forbid": [
+        "SA_ELITE"
+      ],
+      "note": "side income not registered"
+    },
+    {
+      "id": "pj-07",
+      "kind": "guided",
+      "journey_id": "self_employed",
+      "path": [
+        "unsure",
+        "unsure"
+      ],
+      "expect_any": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ],
+      "forbid": [],
+      "note": "self-employed unsure"
+    },
+    {
+      "id": "pj-08",
+      "kind": "guided",
+      "journey_id": "sole_trader",
+      "path": [
+        "starting",
+        "no"
+      ],
+      "expect_any": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ],
+      "forbid": [
+        "SA_ELITE"
+      ],
+      "note": "starting sole trader"
+    },
+    {
+      "id": "pj-09",
+      "kind": "guided",
+      "journey_id": "sole_trader",
+      "path": [
+        "active",
+        "yes"
+      ],
+      "expect_any": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ],
+      "forbid": [],
+      "note": "active sole trader"
+    },
+    {
+      "id": "pj-10",
+      "kind": "guided",
+      "journey_id": "sole_trader",
+      "path": [
+        "winding",
+        "partial"
+      ],
+      "expect_any": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ],
+      "forbid": [],
+      "note": "winding down"
+    },
+    {
+      "id": "pj-11",
+      "kind": "guided",
+      "journey_id": "freelancer",
+      "path": [
+        "new",
+        "side"
+      ],
+      "expect_any": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ],
+      "forbid": [
+        "SA_ELITE"
+      ],
+      "note": "new side freelance"
+    },
+    {
+      "id": "pj-12",
+      "kind": "guided",
+      "journey_id": "freelancer",
+      "path": [
+        "ongoing",
+        "main"
+      ],
+      "expect_any": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ],
+      "forbid": [],
+      "note": "ongoing main freelance"
+    },
+    {
+      "id": "pj-13",
+      "kind": "guided",
+      "journey_id": "freelancer",
+      "path": [
+        "side",
+        "prefer_not"
+      ],
+      "expect_any": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ],
+      "forbid": [],
+      "note": "side hustle"
+    },
+    {
+      "id": "pj-14",
+      "kind": "guided",
+      "journey_id": "landlord",
+      "path": [
+        "uk_rent",
+        "yes"
+      ],
+      "expect_any": [
+        "SA_SMART",
+        "MTD_GROWTH"
+      ],
+      "forbid": [],
+      "note": "single property landlord"
+    },
+    {
+      "id": "pj-15",
+      "kind": "guided",
+      "journey_id": "landlord",
+      "path": [
+        "multiple",
+        "no"
+      ],
+      "expect_any": [
+        "SA_SMART",
+        "SA_ELITE"
+      ],
+      "forbid": [],
+      "note": "portfolio landlord"
+    },
+    {
+      "id": "pj-16",
+      "kind": "guided",
+      "journey_id": "landlord",
+      "path": [
+        "room",
+        "unsure"
+      ],
+      "expect_any": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ],
+      "forbid": [
+        "SA_ELITE"
+      ],
+      "note": "rent a room"
+    },
+    {
+      "id": "pj-17",
+      "kind": "guided",
+      "journey_id": "cis",
+      "path": [
+        "sub",
+        "yes"
+      ],
+      "expect_any": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ],
+      "forbid": [
+        "SA_ELITE"
+      ],
+      "note": "CIS subcontractor"
+    },
+    {
+      "id": "pj-18",
+      "kind": "guided",
+      "journey_id": "cis",
+      "path": [
+        "contractor",
+        "no"
+      ],
+      "expect_any": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ],
+      "forbid": [
+        "MTD_COMPLETE"
+      ],
+      "note": "CIS contractor"
+    },
+    {
+      "id": "pj-19",
+      "kind": "guided",
+      "journey_id": "mtd",
+      "path": [
+        "self_employed",
+        "yes"
+      ],
+      "expect_any": [
+        "MTD_STARTER",
+        "MTD_GROWTH"
+      ],
+      "forbid": [
+        "MTD_COMPLETE"
+      ],
+      "note": "MTD ready records"
+    },
+    {
+      "id": "pj-20",
+      "kind": "guided",
+      "journey_id": "mtd",
+      "path": [
+        "landlord",
+        "no"
+      ],
+      "expect_any": [
+        "MTD_GROWTH",
+        "MTD_COMPLETE"
+      ],
+      "forbid": [],
+      "note": "MTD no digital records"
+    },
+    {
+      "id": "pj-21",
+      "kind": "guided",
+      "journey_id": "mtd",
+      "path": [
+        "both",
+        "unsure"
+      ],
+      "expect_any": [
+        "MTD_STARTER",
+        "MTD_GROWTH"
+      ],
+      "forbid": [],
+      "note": "MTD both unsure records"
+    },
+    {
+      "id": "pj-22",
+      "kind": "guided",
+      "journey_id": "mtd",
+      "path": [
+        "unsure"
+      ],
+      "expect_any": [
+        "MTD_STARTER",
+        "MTD_GROWTH"
+      ],
+      "forbid": [],
+      "note": "MTD unsure role short path"
+    },
+    {
+      "id": "pj-23",
+      "kind": "guided",
+      "journey_id": "multiple_income",
+      "path": [
+        "job_plus_self",
+        "yes"
+      ],
+      "expect_any": [
+        "SA_SMART",
+        "SA_ELITE"
+      ],
+      "forbid": [],
+      "note": "job + self-employed"
+    },
+    {
+      "id": "pj-24",
+      "kind": "guided",
+      "journey_id": "multiple_income",
+      "path": [
+        "job_plus_property",
+        "no"
+      ],
+      "expect_any": [
+        "SA_SMART",
+        "SA_ELITE"
+      ],
+      "forbid": [],
+      "note": "job + property"
+    },
+    {
+      "id": "pj-25",
+      "kind": "guided",
+      "journey_id": "multiple_income",
+      "path": [
+        "several",
+        "unsure"
+      ],
+      "expect_any": [
+        "SA_SMART",
+        "SA_ELITE"
+      ],
+      "forbid": [],
+      "note": "several income types"
+    },
+    {
+      "id": "pj-26",
+      "kind": "guided",
+      "journey_id": "missed_deadline",
+      "path": [
+        "sa_file",
+        "not_filed"
+      ],
+      "expect_any": [
+        "SA_SMART",
+        "ACCOUNTANT_CONSULT_99"
+      ],
+      "forbid": [],
+      "note": "missed filing"
+    },
+    {
+      "id": "pj-27",
+      "kind": "guided",
+      "journey_id": "missed_deadline",
+      "path": [
+        "sa_pay",
+        "filed_late"
+      ],
+      "expect_any": [
+        "SA_SMART",
+        "ACCOUNTANT_CONSULT_99"
+      ],
+      "forbid": [],
+      "note": "late filed"
+    },
+    {
+      "id": "pj-28",
+      "kind": "guided",
+      "journey_id": "missed_deadline",
+      "path": [
+        "mtd",
+        "hmrc_contact"
+      ],
+      "expect_any": [
+        "SA_ELITE",
+        "ACCOUNTANT_CONSULT_99"
+      ],
+      "forbid": [],
+      "note": "HMRC contacted"
+    },
+    {
+      "id": "pj-29",
+      "kind": "guided",
+      "journey_id": "unsure_service",
+      "path": [
+        "file_sa",
+        "diy"
+      ],
+      "expect_any": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ],
+      "forbid": [
+        "SA_ELITE"
+      ],
+      "note": "unsure DIY SA"
+    },
+    {
+      "id": "pj-30",
+      "kind": "guided",
+      "journey_id": "unsure_service",
+      "path": [
+        "file_sa",
+        "done_for_me"
+      ],
+      "expect_any": [
+        "SA_SMART",
+        "SA_ELITE"
+      ],
+      "forbid": [],
+      "note": "unsure done-for-me SA"
+    },
+    {
+      "id": "pj-31",
+      "kind": "guided",
+      "journey_id": "unsure_service",
+      "path": [
+        "mtd_help",
+        "explore"
+      ],
+      "expect_any": [
+        "MTD_STARTER",
+        "MTD_GROWTH"
+      ],
+      "forbid": [],
+      "note": "unsure MTD explore"
+    },
+    {
+      "id": "pj-32",
+      "kind": "guided",
+      "journey_id": "unsure_service",
+      "path": [
+        "talk_human",
+        "explore"
+      ],
+      "expect_any": [
+        "ACCOUNTANT_CONSULT_99"
+      ],
+      "forbid": [
+        "SA_ELITE"
+      ],
+      "note": "wants accountant"
+    },
+    {
+      "id": "pj-33",
+      "kind": "guided",
+      "journey_id": "unsure_service",
+      "path": [
+        "existing",
+        "explore"
+      ],
+      "expect_codes": [],
+      "forbid": [
+        "ACCOUNTANT_CONSULT_99",
+        "SA_SIMPLE",
+        "SA_SMART",
+        "SA_ELITE"
+      ],
+      "note": "existing client via unsure"
+    },
+    {
+      "id": "pj-34",
+      "kind": "guided",
+      "journey_id": "existing_client",
+      "path": [
+        "message",
+        "urgent"
+      ],
+      "expect_codes": [],
+      "forbid": [
+        "ACCOUNTANT_CONSULT_99"
+      ],
+      "note": "existing message accountant"
+    },
+    {
+      "id": "pj-35",
+      "kind": "guided",
+      "journey_id": "existing_client",
+      "path": [
+        "billing",
+        "routine"
+      ],
+      "expect_codes": [],
+      "forbid": [
+        "SA_ELITE"
+      ],
+      "note": "existing billing"
+    },
+    {
+      "id": "pj-36",
+      "kind": "guided",
+      "journey_id": "consultation",
+      "path": [
+        "sa",
+        "soon"
+      ],
+      "expect_any": [
+        "ACCOUNTANT_CONSULT_99"
+      ],
+      "forbid": [],
+      "note": "consult SA"
+    },
+    {
+      "id": "pj-37",
+      "kind": "guided",
+      "journey_id": "consultation",
+      "path": [
+        "mtd",
+        "flex"
+      ],
+      "expect_any": [
+        "ACCOUNTANT_CONSULT_99"
+      ],
+      "forbid": [],
+      "note": "consult MTD"
+    },
+    {
+      "id": "pj-38",
+      "kind": "message",
+      "message": "I am a first-time Self Assessment filer — which package fits a simple case?",
+      "expect_any": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ],
+      "forbid_only_most_expensive": true,
+      "note": "message simple SA"
+    },
+    {
+      "id": "pj-39",
+      "kind": "message",
+      "message": "Complex multiple income director needing Self Assessment package help",
+      "expect_any": [
+        "SA_SMART",
+        "SA_ELITE"
+      ],
+      "forbid_only_most_expensive": true,
+      "note": "message complex SA"
+    },
+    {
+      "id": "pj-40",
+      "kind": "message",
+      "message": "What do TaxSimba MTD plans cost for a sole trader starting digital records?",
+      "expect_any": [
+        "MTD_STARTER",
+        "MTD_GROWTH"
+      ],
+      "forbid_only_most_expensive": true,
+      "note": "message MTD starter leaning"
+    },
+    {
+      "id": "pj-41",
+      "kind": "message",
+      "message": "Landlord with a property portfolio — MTD plan prices please",
+      "expect_any": [
+        "MTD_GROWTH",
+        "MTD_COMPLETE"
+      ],
+      "forbid_only_most_expensive": true,
+      "note": "message landlord MTD"
+    },
+    {
+      "id": "pj-42",
+      "kind": "message",
+      "message": "I am a CIS subcontractor — which SA package should I look at?",
+      "expect_any": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ],
+      "forbid": [
+        "SA_ELITE"
+      ],
+      "note": "message CIS"
+    },
+    {
+      "id": "pj-43",
+      "kind": "message",
+      "message": "I only want information, do not sell me a package",
+      "expect_codes": [],
+      "forbid": [
+        "SA_SIMPLE",
+        "SA_SMART",
+        "SA_ELITE"
+      ],
+      "note": "decline sales"
+    },
+    {
+      "id": "pj-44",
+      "kind": "message",
+      "message": "I am an existing TaxSimba client — how do I message my accountant?",
+      "expect_codes": [],
+      "forbid": [
+        "ACCOUNTANT_CONSULT_99"
+      ],
+      "note": "existing client message"
+    },
+    {
+      "id": "pj-45",
+      "kind": "message",
+      "message": "Book a £99 accountant consultation please",
+      "expect_any": [
+        "ACCOUNTANT_CONSULT_99"
+      ],
+      "forbid": [],
+      "note": "consult price"
+    },
+    {
+      "id": "pj-46",
+      "kind": "message",
+      "message": "What do Self Assessment packages cost?",
+      "expect_any": [
+        "SA_SIMPLE",
+        "SA_SMART",
+        "SA_ELITE"
+      ],
+      "forbid_only_most_expensive": true,
+      "note": "price list SA"
+    },
+    {
+      "id": "pj-47",
+      "kind": "message",
+      "message": "Freelancer just started this year — package recommendation",
+      "expect_any": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ],
+      "forbid": [
+        "SA_ELITE"
+      ],
+      "note": "new freelancer"
+    },
+    {
+      "id": "pj-48",
+      "kind": "message",
+      "message": "I missed a deadline and got an HMRC letter — need help packages",
+      "expect_any": [
+        "SA_SMART",
+        "SA_ELITE",
+        "ACCOUNTANT_CONSULT_99"
+      ],
+      "forbid_only_most_expensive": true,
+      "note": "missed deadline message"
+    },
+    {
+      "id": "pj-49",
+      "kind": "message",
+      "message": "What is included in SA Elite?",
+      "expect_inclusions_guard": true,
+      "note": "inclusions not invented"
+    },
+    {
+      "id": "pj-50",
+      "kind": "message",
+      "message": "How much is the private accountant consultation and how long?",
+      "expect_any": [
+        "ACCOUNTANT_CONSULT_99"
+      ],
+      "expect_price": 99,
+      "note": "consult 99/30"
+    }
+  ]
+}

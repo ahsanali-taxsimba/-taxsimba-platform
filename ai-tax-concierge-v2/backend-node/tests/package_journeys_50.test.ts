@@ -1,0 +1,152 @@
+/**
+ * 50 realistic package / sales journeys — circumstance-aware, not most-expensive-first.
+ */
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { describe, expect, it } from "vitest";
+import {
+  advanceJourney,
+  startJourney,
+} from "../src/journeys/engine.js";
+import {
+  answerInclusionsQuestion,
+  recommendForMessage,
+  toPackageCards,
+} from "../src/ai/recommendations.js";
+import { primaryRecommendationIsNotMostExpensive } from "../src/ai/package_selection.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const fixture = JSON.parse(
+  readFileSync(
+    path.join(__dirname, "fixtures/package_journeys_50.json"),
+    "utf-8",
+  ),
+) as {
+  journeys: Array<{
+    id: string;
+    kind: "guided" | "message";
+    journey_id?: string;
+    path?: string[];
+    message?: string;
+    expect_any?: string[];
+    expect_codes?: string[];
+    forbid?: string[];
+    forbid_only_most_expensive?: boolean;
+    expect_inclusions_guard?: boolean;
+    expect_price?: number;
+    note?: string;
+  }>;
+};
+
+const WEBSITE = "https://www.taxsimba.co.uk";
+
+function runGuided(journeyId: string, optionPath: string[]) {
+  let state = startJourney(journeyId);
+  for (const opt of optionPath) {
+    expect(state.complete).toBe(false);
+    state = advanceJourney(state, opt);
+  }
+  expect(state.complete).toBe(true);
+  return state;
+}
+
+describe("package recommendation journeys 50", () => {
+  it("fixture_has_50_journeys", () => {
+    expect(fixture.journeys.length).toBe(50);
+  });
+
+  it.each(fixture.journeys.map((j) => [j.id, j] as const))(
+    "journey_%s",
+    (_id, j) => {
+      if (j.kind === "guided") {
+        const state = runGuided(j.journey_id!, j.path || []);
+        const codes = state.suggested_package_codes || [];
+        if (j.expect_codes) {
+          expect(codes).toEqual(j.expect_codes);
+        }
+        if (j.expect_any?.length) {
+          expect(j.expect_any.some((c) => codes.includes(c))).toBe(true);
+        }
+        for (const bad of j.forbid || []) {
+          expect(codes).not.toContain(bad);
+        }
+        expect(primaryRecommendationIsNotMostExpensive(codes)).toBe(true);
+        for (const card of toPackageCards(codes)) {
+          expect(
+            card.inclusions_status === "requires_approval" ||
+              card.inclusions_status === "pending_approval" ||
+              card.inclusions_status ===
+                "mixed_approved_subject_to_scope_and_pending" ||
+              card.inclusions_status ===
+                "mixed_approved_and_requires_clarification" ||
+              card.inclusions_status ===
+                "mixed_verified_from_website_and_requires_clarification" ||
+              card.inclusions_status === "approved" ||
+              card.inclusions_status === "unknown" ||
+              card.inclusions_status === "missing_requires_approval",
+          ).toBe(true);
+          expect(card.name).not.toMatch(/MTD Starter|MTD Complete/);
+          if (card.code !== "ACCOUNTANT_CONSULT_99") {
+            expect(card.inclusions).toBeNull();
+          }
+        }
+        return;
+      }
+
+      // message journeys
+      if (j.expect_inclusions_guard) {
+        const guard = answerInclusionsQuestion(j.message!);
+        expect(guard).toBeTruthy();
+        expect(guard!.toLowerCase()).toMatch(
+          /not invent|will not invent|requires approval|verified|not approved|must confirm|subject to|removed/,
+        );
+        expect(guard!.toLowerCase()).toContain("£119");
+        expect(guard!.toLowerCase()).toContain("simbian comply");
+        expect(guard!.toLowerCase()).not.toContain("mtd starter");
+        return;
+      }
+
+      const { packages } = recommendForMessage(j.message!, null, WEBSITE);
+      const codes = packages.map((p) => p.code);
+      if (j.expect_codes) {
+        expect(codes).toEqual(j.expect_codes);
+      }
+      if (j.expect_any?.length) {
+        expect(j.expect_any.some((c) => codes.includes(c))).toBe(true);
+      }
+      for (const bad of j.forbid || []) {
+        expect(codes).not.toContain(bad);
+      }
+      if (j.forbid_only_most_expensive) {
+        expect(primaryRecommendationIsNotMostExpensive(codes)).toBe(true);
+      }
+      if (j.expect_price != null) {
+        expect(packages.some((p) => p.price_gbp === j.expect_price)).toBe(true);
+      }
+      expect(
+        packages.every(
+          (p) =>
+            p.inclusions_status === "requires_approval" ||
+            p.inclusions_status === "pending_approval" ||
+            p.inclusions_status ===
+              "mixed_approved_subject_to_scope_and_pending" ||
+            p.inclusions_status ===
+              "mixed_approved_and_requires_clarification" ||
+            p.inclusions_status ===
+              "mixed_verified_from_website_and_requires_clarification" ||
+            p.inclusions_status === "approved" ||
+            p.inclusions_status === "unknown" ||
+            p.inclusions_status === "missing_requires_approval" ||
+            packages.length === 0,
+        ),
+      ).toBe(true);
+      expect(
+        packages.every(
+          (p) =>
+            p.code === "ACCOUNTANT_CONSULT_99" || p.inclusions == null,
+        ),
+      ).toBe(true);
+    },
+  );
+});

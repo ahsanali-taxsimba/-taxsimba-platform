@@ -1,0 +1,48 @@
+{
+  "detailed_recommendations_status": "blocked_pending_approved_inclusions",
+  "sa_prices": [
+    {
+      "code": "SA_SIMPLE",
+      "price": 119,
+      "inc": null,
+      "status": "blocked_pending_taxsimba_approval"
+    },
+    {
+      "code": "SA_SMART",
+      "price": 149,
+      "inc": null,
+      "status": "blocked_pending_taxsimba_approval"
+    },
+    {
+      "code": "SA_ELITE",
+      "price": 299,
+      "inc": null,
+      "status": "blocked_pending_taxsimba_approval"
+    }
+  ],
+  "mtd_prices": [
+    {
+      "code": "MTD_STARTER",
+      "price": 29.99,
+      "inc": null,
+      "status": "blocked_pending_taxsimba_approval"
+    },
+    {
+      "code": "MTD_GROWTH",
+      "price": 59.99,
+      "inc": null,
+      "status": "blocked_pending_taxsimba_approval"
+    },
+    {
+      "code": "MTD_COMPLETE",
+      "price": 89.99,
+      "inc": null,
+      "status": "blocked_pending_taxsimba_approval"
+    }
+  ],
+  "inclusions_reply": "Detailed package inclusions are blocked until TaxSimba supplies an approved catalogue. I will not invent features. I can share configured prices only: Self Assessment Simple £119, Smart £149, Elite £299 (per tax year); MTD Starter £29.99, Growth £59.99, Complete £89.99 (per month, VAT included); or a £99 / 30-minute accountant consultation. Please confirm full inclusions with TaxSimba or book a consultation when booking is connected.",
+  "cards_status": [
+    "blocked_pending_taxsimba_approval",
+    "blocked_pending_taxsimba_approval"
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "count": 7,
+  "cases": [
+    {
+      "id": "live-vat",
+      "q": "What is the VAT registration threshold and both timing tests?",
+      "reply_excerpt": "For the 2026-27 tax year, the VAT registration threshold is \u00a390,000. You must register for VAT if either:\n\n1. **Rolling 12-month (backward) test**: Your total taxable turnover for the last 12 months exceeds \u00a390,000 at the end of any month. You must notify HMRC within 30 days of that month-end, and your registration will be effective from the first day of the second month after you exceed the threshold.\n\n2. **30-day forward look test**: If at any time you expect your taxable turnover to exceed \u00a39",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/register-for-vat",
+        "https://www.gov.uk/register-for-vat",
+        "https://www.gov.uk/vat-flat-rate-scheme"
+      ]
+    },
+    {
+      "id": "live-mtd30",
+      "q": "When does MTD start for qualifying income over \u00a330,000?",
+      "reply_excerpt": "Making Tax Digital (MTD) for Income Tax will start on 6 April 2027 for individuals whose qualifying income is more than \u00a330,000 for the 2025-26 tax year. Qualifying income includes your total self-employment and property income before expenses, not your profit after expenses. \n\nIf you have any further questions about MTD or need assistance with your tax obligations, feel free to ask!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "live-sa-price",
+      "q": "What do Self Assessment packages cost?",
+      "reply_excerpt": "The Self Assessment packages from TaxSimba are priced as follows:\n\n- **Self Assessment Simple**: \u00a3119 per tax year\n- **Self Assessment Smart**: \u00a3149 per tax year\n- **Self Assessment Elite**: \u00a3299 per tax year\n\nPlease confirm the VAT treatment at checkout, as it may vary. If you have any specific questions about what each package includes, feel free to ask!",
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART",
+        "SA_ELITE"
+      ],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "live-recommend",
+      "q": "I am a first-time sole trader with simple books \u2014 which TaxSimba SA package should I look at first?",
+      "reply_excerpt": "As a first-time sole trader with simple books, the **Self Assessment Simple** package at \u00a3119 per tax year would be a suitable choice for you. It\u2019s designed for individuals with straightforward tax situations, making it easier to manage your Self Assessment requirements.\n\nIf you have any specific questions about what\u2019s included in this package or need help with your registration as a sole trader, feel free to ask!",
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ],
+      "sources": [
+        "https://www.gov.uk/register-for-vat",
+        "https://www.gov.uk/set-up-sole-trader",
+        "https://www.gov.uk/register-for-self-assessment"
+      ]
+    },
+    {
+      "id": "live-existing",
+      "q": "I am an existing TaxSimba client \u2014 how do I message my assigned accountant?",
+      "reply_excerpt": "As an existing TaxSimba client, you can message your assigned accountant through the secure dashboard on the TaxSimba platform. Simply log in to your account, navigate to the messaging section, and select your accountant to start a conversation. If you have any specific questions or need assistance with the dashboard, feel free to ask!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/self-employed-records"
+      ]
+    },
+    {
+      "id": "live-inclusions",
+      "q": "What is included in SA Elite?",
+      "reply_excerpt": "I do not invent package inclusions. TaxSimba's catalogue for this assistant lists prices and billing only. For a full inclusions list, please check with TaxSimba directly or ask during a \u00a399 accountant consultation.",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/self-employed-records"
+      ]
+    },
+    {
+      "id": "live-consult",
+      "q": "How much is the private accountant consultation and how long is it?",
+      "reply_excerpt": "The private accountant consultation costs \u00a399 for a 30-minute session. It typically takes place via Google Meet. If you're interested, I recommend confirming the VAT treatment when booking. Let me know if you have any other questions!",
+      "packages": [
+        "ACCOUNTANT_CONSULT_99"
+      ],
+      "sources": [
+        "https://www.gov.uk/register-for-vat",
+        "https://www.gov.uk/register-for-vat",
+        "https://www.gov.uk/vat-flat-rate-scheme"
+      ]
+    }
+  ]
+}
