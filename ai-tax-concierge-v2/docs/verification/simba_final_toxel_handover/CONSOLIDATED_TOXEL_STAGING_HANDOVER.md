@@ -2,7 +2,7 @@
 
 **Date:** 2026-11-14 (Europe/London)  
 **FINAL STAGING BRANCH:** `cursor/simba-final-toxel-handover-6522`  
-**COMMIT SHA:** _(set to `git rev-parse HEAD` on this branch tip)_  
+**COMMIT SHA:** `8fb4d2c707649a2f1cb22f774a9b52bd4d207622`  
 **PR (staging):** [#36](https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/36) — base `cursor/ai-tax-concierge-v2-phase1-0f84`  
 **PR (parent / HOLD):** [#35](https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/35) — base `main`  
 **Product path:** `ai-tax-concierge-v2/backend-node/` + `ai-tax-concierge-v2/widget/`  
@@ -162,7 +162,7 @@ Detail packs (supporting, same folder): `DYNAMIC_HMRC_KNOWLEDGE_SYSTEM.md`, `DYN
 
 ```
 FINAL STAGING BRANCH: cursor/simba-final-toxel-handover-6522
-COMMIT SHA:           <see git rev-parse HEAD on this branch>
+COMMIT SHA:           8fb4d2c707649a2f1cb22f774a9b52bd4d207622
 TEST RESULTS:         Vitest 482 PASS · Security 26 PASS · Live OpenAI 33/33 flags 0 ·
                       Auto-publish OpenAI PASS · Dynamic demo PASS · Owner probe 11/11 PASS
 OUTSTANDING BLOCKERS: HTTPS staging · Stripe · Calendly · Registration · Dashboard messaging ·
