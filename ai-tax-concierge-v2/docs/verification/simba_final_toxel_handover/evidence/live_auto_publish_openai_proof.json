@@ -1,0 +1,53 @@
+{
+  "status": "PASS",
+  "generated_at": "2026-11-14T02:53:23.657Z",
+  "timezone_note": "Report timestamps UTC; owner reporting Europe/London",
+  "publication_policy": "automatic_verified_official_changes; quarantine only ambiguous/conflicting/withdrawn",
+  "marker": "SIMBA-AUTO-PUB-MARKER-2026-11-14-MTD30K",
+  "auto_publish_cycle": {
+    "auto_published": 5,
+    "quarantined": 0,
+    "authenticity_failures": 0,
+    "errors": 0,
+    "published_versions": [
+      "auto-1794624800715",
+      "auto-1794624800718",
+      "auto-1794624800720",
+      "auto-1794624800721",
+      "auto-1794624800722"
+    ]
+  },
+  "live_openai": {
+    "model": "gpt-4o-mini",
+    "llm_mode": "openai",
+    "question": "If my qualifying income was more than £30,000 in 2025-26, when do I need to start Making Tax Digital for Income Tax? If the verified facts show an auto-publish token, repeat that exact token in your answer.",
+    "reply_excerpt": "If your qualifying income was more than £30,000 for the tax year 2025-26, you will need to start using Making Tax Digital for Income Tax from 6 April 2027. \n\nThis is confirmed by the auto-publish token: SIMBA-AUTO-PUB-MARKER-2026-11-14-MTD30K. Always check the details on GOV.UK for the most accurate information.",
+    "used_auto_publish_marker_in_reply": true,
+    "retrieved_source_has_marker": true,
+    "retrieved_published_fact": true,
+    "used_april_2027": true,
+    "used_30000": true,
+    "cites_govuk_or_source": true,
+    "source_ids": [
+      "mtd-threshold-30k-april-2027",
+      "mtd-who-and-when",
+      "mtd-income-tax-overview"
+    ],
+    "response_llm_mode": "openai",
+    "accountant_boundary_ok": true
+  },
+  "conflict_quarantine": {
+    "quarantined": 1,
+    "blocked_includes_vat": true,
+    "vat_absent_from_retrieval": true,
+    "unaffected_mtd_still_available": true
+  },
+  "checks": {
+    "auto_publish_without_manual_approval": true,
+    "live_retrieval_used_published_overlay": true,
+    "live_openai_answer_used_published_rule": true,
+    "live_openai_repeated_overlay_marker": true,
+    "conflict_quarantines_only_affected_fact": true,
+    "accountant_only_boundary_preserved": true
+  }
+}

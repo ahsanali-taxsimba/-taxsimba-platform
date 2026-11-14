@@ -1,6 +1,8 @@
 # SIMBA Final Toxel Handover Package
-**Commit:** `0dff1db3352012e1f2c889fb790da2f65db37955`
 
-Generated 2026-11-13 (Europe/London). Start with `FINAL_EXECUTIVE_SUMMARY.md`.
+**FINAL STAGING BRANCH:** `cursor/simba-final-toxel-handover-6522`  
+**Start here:** [`CONSOLIDATED_TOXEL_STAGING_HANDOVER.md`](./CONSOLIDATED_TOXEL_STAGING_HANDOVER.md)
+
+Supporting detail docs in this folder remain for checklist depth. Canonical HMRC + catalogue runtime code is from PR #35 (`src/knowledge/monitor/*`, `src/catalog/sync/*`) — not a second engine.
 
 Evidence: `evidence/` · Screenshots: `screenshots/`

@@ -255,7 +255,7 @@ async function main() {
       used_30000: used30k,
       cites_govuk_or_source: citesGov,
       source_ids: (response.sources || []).map((s) => s.id),
-      llm_mode: response.llm_mode,
+      response_llm_mode: response.llm_mode,
       accountant_boundary_ok: accountantBoundaryOk,
     },
     conflict_quarantine: {

@@ -1,23 +1,31 @@
-# Dynamic Package Catalogue
+# Dynamic Package Catalogue (canonical)
 
 ## Authority
 
-Owner-approved TaxSimba catalogue is authoritative for SIMBA. Live public compat API (2026-11-13 recheck):
+Owner-approved TaxSimba catalogue is authoritative for SIMBA. Live public compat API:
 
-- SA: Simple £119 / Smart £149 / Elite £299 (API names Tax Simba Simple/Smart/Elite)
-- MTD: Simbian Comply £29.99 / Growth £59.99 / Elite £89.99 VAT inclusive monthly
-- Consultation: £99 / 30 minutes (SIMBA catalogue)
+- SA: Simple £119 / Smart £149 / Elite £299  
+- MTD: Simbian Comply £29.99 / Growth £59.99 / Elite £89.99 VAT inclusive monthly  
+- Consultation: £99 / 30 minutes  
 
 Internal SKUs preserved: `SA_*`, `MTD_STARTER|GROWTH|COMPLETE`, `ACCOUNTANT_CONSULT_99`.
 
-## Sync behaviour
+Bookkeeping: **NO FIXED MONTHLY TRANSACTION CAPS** (not unlimited out-of-scope). Xero included in Simbian monthly price.
 
-- Local file: `data/catalog/packages.json`
-- Optional remote: `CATALOGUE_SOURCE_URL`
-- Staging override file: `data/catalog/remote/staging_override.json` (never production)
-- Cache invalidation via `packagesCatalog.clearCache`
-- Failure: do not guess prices; `getCheckoutAuthorisedAmount` returns `authorised:false`
+## Sync behaviour (canonical)
 
-## Staging price proof
+| Module | Role |
+|--------|------|
+| `src/catalog/sync/*` | Pull approved subscription-plans APIs → runtime overlay |
+| `data/catalog/packages.json` | Baseline catalogue |
+| `data/runtime/catalog/` (or `CONCIERGE_RUNTIME_DIR`) | Live overlay without redeploy |
+| Ops | `POST /api/v1/ops/catalog/sync` · rollback |
+| Env | `CONCIERGE_CATALOGUE_SYNC_ENABLED=true` |
 
-`evidence/dynamic_catalogue_staging_price_proof.json` — Growth £59.99 → £64.99 → restore without redeploy; production override refused.
+Preserves stable package IDs / checkout mappings; strips unpublished / removed claims; refuses inventing prices.
+
+## Proof
+
+- Unit: `tests/catalog_sync.test.ts`  
+- Live sync + staging Elite price change/revert: `evidence/dynamic_systems_demo_report.json`  
+- Historical Growth staging harness evidence (prior #36): `evidence/dynamic_catalogue_staging_price_proof.json`

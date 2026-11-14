@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-14T02:25:35.590Z",
+  "generated_at": "2026-11-14T02:53:23.870Z",
   "timezone_note": "Europe/London for owner reporting",
-  "runtime_dir": "/tmp/simba-dyn-demo-NHgclj",
+  "runtime_dir": "/tmp/simba-dyn-demo-50anDR",
   "hmrc_live_cycle": {
     "publication_policy": "automatic_verified_official_changes; quarantine only ambiguous/conflicting/withdrawn",
     "checked": 5,
@@ -12,11 +12,11 @@
     "errors": 0,
     "quarantine_ids": [],
     "published_versions": [
-      "auto-1794623135763",
-      "auto-1794623136243",
-      "auto-1794623136254",
-      "auto-1794623136955",
-      "auto-1794623137437"
+      "auto-1794624804075",
+      "auto-1794624804213",
+      "auto-1794624804326",
+      "auto-1794624804867",
+      "auto-1794624804982"
     ],
     "blocked_fact_ids": [],
     "sample_snapshots": [
@@ -86,19 +86,19 @@
     "approved": false,
     "auto_publish_rollback_demo": true,
     "rolled_back": true,
-    "restored_version": "auto-1794623136955"
+    "restored_version": "auto-1794624804867"
   },
   "hmrc_scheduler": {
     "enabled": true,
     "interval_ms": 60000
   },
   "catalog_live_sync": {
-    "started_at": "2026-11-14T02:25:37.440Z",
-    "finished_at": "2026-11-14T02:25:38.221Z",
+    "started_at": "2026-11-14T02:53:24.986Z",
+    "finished_at": "2026-11-14T02:53:25.706Z",
     "source_sa": "https://taxsimba.co.uk/api/compat/subscription-plans?category=taxSimba",
     "source_mtd": "https://taxsimba.co.uk/api/compat/subscription-plans?category=mtd",
     "applied": true,
-    "overlay_version": "live-sync-1794623138221",
+    "overlay_version": "live-sync-1794624805706",
     "stable_codes_preserved": [
       "SA_SIMPLE",
       "SA_SMART",
@@ -165,7 +165,7 @@
     "reverted_elite_price": 299,
     "rollback": {
       "rolled_back": true,
-      "restored_from": "packages.live.1794623138622.json"
+      "restored_from": "packages.live.1794624806101.json"
     }
   },
   "catalog_scheduler": {
@@ -175,7 +175,7 @@
   "hmrc_status": {
     "system": "hmrc_knowledge_monitor",
     "publication_policy": "automatic_verified_official_changes; quarantine only ambiguous/conflicting/withdrawn",
-    "last_cycle_at": "2026-11-14T02:25:37.438Z",
+    "last_cycle_at": "2026-11-14T02:53:24.984Z",
     "last_cycle_summary": {
       "checked": 5,
       "unchanged": 0,
@@ -185,7 +185,7 @@
       "errors": 0,
       "blocked_fact_ids": []
     },
-    "published_version": "auto-1794623136955",
+    "published_version": "auto-1794624804867",
     "quarantined_open": 0,
     "blocked_fact_ids": [],
     "scheduler": {
@@ -195,7 +195,7 @@
     },
     "recent_alerts": [
       {
-        "at": "2026-11-14T02:25:37.440Z",
+        "at": "2026-11-14T02:53:24.986Z",
         "system": "hmrc",
         "level": "info",
         "code": "hmrc_scheduler_started",
@@ -203,36 +203,36 @@
         "details": {}
       },
       {
-        "at": "2026-11-14T02:25:37.440Z",
+        "at": "2026-11-14T02:53:24.985Z",
         "system": "hmrc",
         "level": "warn",
         "code": "hmrc_overlay_rollback",
-        "message": "Rolled back published overlay auto-1794623137437.json",
+        "message": "Rolled back published overlay auto-1794624804982.json",
         "details": {
-          "restored_version": "auto-1794623136955.json"
+          "restored_version": "auto-1794624804867.json"
         }
       },
       {
-        "at": "2026-11-14T02:25:37.438Z",
+        "at": "2026-11-14T02:53:24.984Z",
         "system": "hmrc",
         "level": "info",
         "code": "hmrc_auto_published",
         "message": "Auto-published 1 facts from income_tax_rates",
         "details": {
-          "version": "auto-1794623137437",
+          "version": "auto-1794624804982",
           "fact_ids": [
             "personal-allowance-2025-26"
           ]
         }
       },
       {
-        "at": "2026-11-14T02:25:36.956Z",
+        "at": "2026-11-14T02:53:24.868Z",
         "system": "hmrc",
         "level": "info",
         "code": "hmrc_auto_published",
         "message": "Auto-published 2 facts from sa_deadlines",
         "details": {
-          "version": "auto-1794623136955",
+          "version": "auto-1794624804867",
           "fact_ids": [
             "sa-deadline-online",
             "sa-paper-deadline"
@@ -240,13 +240,13 @@
         }
       },
       {
-        "at": "2026-11-14T02:25:36.254Z",
+        "at": "2026-11-14T02:53:24.327Z",
         "system": "hmrc",
         "level": "info",
         "code": "hmrc_auto_published",
         "message": "Auto-published 2 facts from vat_registration_thresholds",
         "details": {
-          "version": "auto-1794623136254",
+          "version": "auto-1794624804326",
           "fact_ids": [
             "vat-threshold-overview",
             "vat-registration-timing-tests"
@@ -254,26 +254,26 @@
         }
       },
       {
-        "at": "2026-11-14T02:25:36.244Z",
+        "at": "2026-11-14T02:53:24.214Z",
         "system": "hmrc",
         "level": "info",
         "code": "hmrc_auto_published",
         "message": "Auto-published 1 facts from mtd_qualifying_income",
         "details": {
-          "version": "auto-1794623136243",
+          "version": "auto-1794624804213",
           "fact_ids": [
             "mtd-qualifying-income-definition"
           ]
         }
       },
       {
-        "at": "2026-11-14T02:25:35.763Z",
+        "at": "2026-11-14T02:53:24.075Z",
         "system": "hmrc",
         "level": "info",
         "code": "hmrc_auto_published",
         "message": "Auto-published 4 facts from mtd_if_and_when",
         "details": {
-          "version": "auto-1794623135763",
+          "version": "auto-1794624804075",
           "fact_ids": [
             "mtd-threshold-50k-april-2026",
             "mtd-threshold-30k-april-2027",
@@ -288,8 +288,8 @@
   "catalog_status": {
     "system": "taxsimba_catalogue_sync",
     "live_overlay_present": true,
-    "overlay_version": "live-sync-1794623138423",
-    "last_sync_at": "2026-11-14T02:25:38.622Z",
+    "overlay_version": "live-sync-1794624805901",
+    "last_sync_at": "2026-11-14T02:53:26.101Z",
     "last_sync_summary": {
       "price_changes": [],
       "name_changes": [],
@@ -341,7 +341,7 @@
     },
     "recent_alerts": [
       {
-        "at": "2026-11-14T02:25:38.624Z",
+        "at": "2026-11-14T02:53:26.103Z",
         "system": "catalog",
         "level": "info",
         "code": "catalog_scheduler_started",
@@ -349,30 +349,30 @@
         "details": {}
       },
       {
-        "at": "2026-11-14T02:25:38.624Z",
+        "at": "2026-11-14T02:53:26.102Z",
         "system": "catalog",
         "level": "warn",
         "code": "catalog_overlay_rollback",
-        "message": "Restored catalogue overlay from packages.live.1794623138622.json",
+        "message": "Restored catalogue overlay from packages.live.1794624806101.json",
         "details": {}
       },
       {
-        "at": "2026-11-14T02:25:38.622Z",
+        "at": "2026-11-14T02:53:26.101Z",
         "system": "catalog",
         "level": "info",
         "code": "catalog_sync_applied",
-        "message": "Catalogue overlay live-sync-1794623138622 applied",
+        "message": "Catalogue overlay live-sync-1794624806101 applied",
         "details": {
           "price_changes": [],
           "name_changes": []
         }
       },
       {
-        "at": "2026-11-14T02:25:38.424Z",
+        "at": "2026-11-14T02:53:25.902Z",
         "system": "catalog",
         "level": "info",
         "code": "catalog_sync_applied",
-        "message": "Catalogue overlay live-sync-1794623138423 applied",
+        "message": "Catalogue overlay live-sync-1794624805901 applied",
         "details": {
           "price_changes": [
             {
@@ -385,11 +385,11 @@
         }
       },
       {
-        "at": "2026-11-14T02:25:38.221Z",
+        "at": "2026-11-14T02:53:25.707Z",
         "system": "catalog",
         "level": "info",
         "code": "catalog_sync_applied",
-        "message": "Catalogue overlay live-sync-1794623138221 applied",
+        "message": "Catalogue overlay live-sync-1794624805706 applied",
         "details": {
           "price_changes": [],
           "name_changes": []
