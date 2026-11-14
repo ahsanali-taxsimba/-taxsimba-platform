@@ -2,7 +2,7 @@
 
 **Date:** 2026-11-14 (Europe/London)  
 **FINAL STAGING BRANCH:** `cursor/simba-final-toxel-handover-6522`  
-**COMMIT SHA:** `bdf68c494cf17077011234c09e85196534dda7d9` 1699e41611e5cb7ee9b495553bbf8ff84b7c7e59  
+**COMMIT SHA:** _(set to `git rev-parse HEAD` on this branch tip)_  
 **PR (staging):** [#36](https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/36) — base `cursor/ai-tax-concierge-v2-phase1-0f84`  
 **PR (parent / HOLD):** [#35](https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/35) — base `main`  
 **Product path:** `ai-tax-concierge-v2/backend-node/` + `ai-tax-concierge-v2/widget/`  
@@ -26,19 +26,19 @@ Do **not** claim 100% tax accuracy. Unverified legal interpretations are not pub
 |------|--------|------------------------|
 | Source branch | `cursor/ai-tax-concierge-v2-phase1-0f84` | `cursor/simba-final-toxel-handover-6522` |
 | Base | `main` | `cursor/ai-tax-concierge-v2-phase1-0f84` |
-| Pre-consolidation tip | `9e0a538` (auto-publish) | `5bc3b4d` (behind #35; merge dirty) |
+| Pre-consolidation tip | `9e0a538` (risk-based auto-publish) | `5bc3b4d` (behind #35; merge dirty) |
 | Post-consolidation | ancestor of staging tip | **contains all of #35** + consolidated handover |
 
-**Verification:** `9e0a538` is an ancestor of the staging tip. Canonical runtime systems from #35 are present; PR #36’s parallel `knowledge/dynamic` + single-file `catalog/sync.ts` duplicates were **not** retained (owner: no duplicate chatbot/systems). Handover package + screenshots from #36 retained and updated.
+**Verification:** `9e0a538` is an ancestor of the staging tip. Canonical runtime systems from #35 are present; PR #36’s parallel `knowledge/dynamic` + single-file `catalog/sync.ts` duplicates were **not** retained (no duplicate systems). Handover package + screenshots from #36 retained and refreshed.
 
 ### Included capabilities
 
-1. Full SIMBA Node + Emerald widget (Phase 1+2)  
-2. Risk-based **automatic HMRC/GOV.UK publication** (Content API, structured extraction, per-fact quarantine)  
-3. **Dynamic TaxSimba catalogue sync** without redeploy  
-4. Accountant-only MTD boundary (no client MTD reviews / bookkeeping corrections / return prep / HMRC submissions)  
-5. Commercial rules: Simbian names/prices, Xero-in-price, **NO FIXED MONTHLY TRANSACTION CAPS** (not unlimited out-of-scope)  
-6. Ops routes, schedulers, alerts, rollback  
+1. Full SIMBA Node + Emerald widget (Phase 1+2)
+2. Risk-based **automatic HMRC/GOV.UK publication** (Content API, structured extraction, per-fact quarantine)
+3. **Dynamic TaxSimba catalogue sync** without redeploy
+4. Accountant-only MTD boundary (no client MTD reviews / bookkeeping corrections / return prep / HMRC submissions)
+5. Commercial rules: Simbian names/prices, Xero-in-price, **NO FIXED MONTHLY TRANSACTION CAPS** (not unlimited out-of-scope)
+6. Ops routes, schedulers, alerts, rollback
 
 ---
 
@@ -162,7 +162,7 @@ Detail packs (supporting, same folder): `DYNAMIC_HMRC_KNOWLEDGE_SYSTEM.md`, `DYN
 
 ```
 FINAL STAGING BRANCH: cursor/simba-final-toxel-handover-6522
-COMMIT SHA:           1699e41611e5cb7ee9b495553bbf8ff84b7c7e59
+COMMIT SHA:           <see git rev-parse HEAD on this branch>
 TEST RESULTS:         Vitest 482 PASS · Security 26 PASS · Live OpenAI 33/33 flags 0 ·
                       Auto-publish OpenAI PASS · Dynamic demo PASS · Owner probe 11/11 PASS
 OUTSTANDING BLOCKERS: HTTPS staging · Stripe · Calendly · Registration · Dashboard messaging ·
