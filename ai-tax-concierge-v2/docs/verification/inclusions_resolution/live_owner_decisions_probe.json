@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T02:05:01.601Z",
+  "generated_at": "2026-11-14T02:55:52.287Z",
   "passed": 11,
   "total": 11,
   "results": [
@@ -43,7 +43,7 @@
       "pass": true,
       "expectOk": true,
       "rejectHit": null,
-      "reply_excerpt": "No, TaxSimba does not offer telephone onboarding support. Assistance is provided through approved email and client-dashboard messaging channels. If you have questions about a package or need help, feel free to ask here!"
+      "reply_excerpt": "No, TaxSimba provides support through approved email and client-dashboard messaging channels only, not via telephone. If you have questions about a package or need assistance, feel free to ask here or check the relevant pages on the TaxSimba website."
     },
     {
       "id": "no_priority_qbr_planning",
@@ -64,14 +64,14 @@
       "pass": true,
       "expectOk": true,
       "rejectHit": null,
-      "reply_excerpt": "As a first-time sole trader with simple income, the **Self Assessment Simple** package at £119 per tax year would likely be the best fit for you. This package is designed for straightforward tax situations and should cover your needs effectively.\n\nIf you have any specific questions about what’s included in the package or how to register for Self Assessment, feel free to ask! You can also find more details on the Self Assessment packages [here](https://www.taxsimba.co.uk/self-assessment)."
+      "reply_excerpt": "As a first-time sole trader with simple income, the **Self Assessment Simple** package at **£119 per tax year** would likely be the most suitable option for you. This package is designed for straightforward tax situations and should cover your needs effectively.\n\nIf you have any specific questions about what the package includes or about the Self Assessment process itself, feel free to ask! You can also find more details about the package [here](https://www.taxsimba.co.uk/self-assessment)."
     },
     {
       "id": "landlord_mtd_comply",
       "pass": true,
       "expectOk": true,
       "rejectHit": null,
-      "reply_excerpt": "As a landlord needing Making Tax Digital (MTD), the lowest suitable Simbian plan is **Simbian Comply**, which costs **£29.99 per month** (VAT included). This plan includes the necessary digital bookkeeping services and quarterly MTD updates, along with year-end Self Assessment preparation and submission, provided you meet the documented responsibilities.\n\nSince you're a landlord, please ensure your qualifying income exceeds the relevant threshold for MTD. For the 2025-26 tax year, if your qualif"
+      "reply_excerpt": "As a landlord needing to comply with Making Tax Digital (MTD), the lowest suitable Simbian plan is **Simbian Comply**, which costs **£29.99 per month** (VAT included). This plan includes the necessary digital bookkeeping services, quarterly MTD updates, and year-end Self Assessment preparation, all subject to your responsibilities for providing timely records.\n\nSince MTD for Income Tax applies if your qualifying income exceeds £30,000 in the 2025-26 tax year, you would need to start using MTD fr"
     },
     {
       "id": "signup_links",

@@ -1,0 +1,73 @@
+{
+  "started_at": "2026-11-13T22:22:51.429Z",
+  "step1_2_baseline": {
+    "checked": 1,
+    "changed": 1,
+    "published": 1,
+    "change_types": [
+      "new"
+    ],
+    "decisions": [
+      "publish"
+    ]
+  },
+  "step4_version_v1": "dyn-govuk-mtd-eligibility-20261113222251-e793a870d4",
+  "step5_answer_grounding": {
+    "hit_count": 5,
+    "top_ids": [
+      "mtd-threshold-50k-april-2026",
+      "mtd-who-and-when",
+      "mtd-income-tax-overview"
+    ],
+    "mentions_april_2026": true,
+    "mentions_50000": true
+  },
+  "step6_historical": {
+    "total_facts": 52,
+    "has_vat_fact": true,
+    "active_version": "dyn-govuk-mtd-eligibility-20261113222251-e793a870d4"
+  },
+  "step2_3_safe_update": {
+    "changed": 1,
+    "published": 1,
+    "new_hash": "8cfee52fc3d3ce6f060b191a107107568ec5ae468eb5b7ef922320dc1dbbd156",
+    "previous_hash": "e793a870d49520f2a01cb5393fa9343c2ee51a9e484ec6a2c7eb387a40433782",
+    "decision": "publish"
+  },
+  "step4_version_v2": "dyn-govuk-mtd-eligibility-20261113222251-8cfee52fc3",
+  "step7_consultation_quarantine": {
+    "changed": 1,
+    "published": 0,
+    "quarantined": 1,
+    "decision": "quarantine",
+    "reason": "Consultations/announcements must not auto-publish as enacted rules",
+    "alerts": [
+      "ALERT: critical source govuk-mtd-eligibility quarantined — Consultations/announcements must not auto-publish as enacted rules"
+    ]
+  },
+  "step7b_threshold_mixup_quarantine": {
+    "published": 0,
+    "quarantined": 1,
+    "decision": "quarantine",
+    "validators": [
+      "mtd_30k_2027",
+      "mtd_20k_2028",
+      "mtd_no_30k_april_2026_confusion"
+    ],
+    "alerts": [
+      "ALERT: critical source govuk-mtd-eligibility quarantined — Failed validators: mtd_30k_2027, mtd_20k_2028, mtd_no_30k_april_2026_confusion"
+    ]
+  },
+  "step8_rollback": {
+    "rolled_back_to": "dyn-govuk-mtd-eligibility-20261113222251-e793a870d4",
+    "active_after": "dyn-govuk-mtd-eligibility-20261113222251-e793a870d4",
+    "audit_tail": [
+      "knowledge_rollback",
+      "monitor_run_complete",
+      "change_quarantined",
+      "monitor_run_complete",
+      "change_quarantined"
+    ]
+  },
+  "finished_at": "2026-11-13T22:22:51.451Z"
+}

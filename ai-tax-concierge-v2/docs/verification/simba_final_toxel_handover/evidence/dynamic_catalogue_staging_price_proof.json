@@ -1,0 +1,52 @@
+{
+  "started_note": "STAGING ONLY — not production",
+  "before_price": 59.99,
+  "after_price": 64.99,
+  "checkout_after": {
+    "code": "MTD_GROWTH",
+    "price_gbp": 64.99,
+    "currency": "GBP",
+    "billing": "per month",
+    "vat_note": "VAT included",
+    "catalogue_version": "2026-11-simba-v6-no-txn-caps-dynamic-staging-growth-64.99",
+    "authorised": true
+  },
+  "restored_price": 59.99,
+  "checkout_restored": {
+    "code": "MTD_GROWTH",
+    "price_gbp": 59.99,
+    "currency": "GBP",
+    "billing": "per month",
+    "vat_note": "VAT included",
+    "catalogue_version": "2026-11-simba-v6-no-txn-caps-dynamic",
+    "authorised": true
+  },
+  "sync_up": {
+    "last_refresh_at": "2026-11-13T22:22:52.361Z",
+    "source": "staging_override",
+    "source_url": "/agent/repos/-taxsimba-platform/ai-tax-concierge-v2/backend-node/data/catalog/remote/staging_override.json",
+    "content_hash": "d9d6b1934b4c401a0d9a8986b05e0d3267c4c2d765b7c01d81b116a1e21a3bc3",
+    "catalogue_version": "2026-11-simba-v6-no-txn-caps-dynamic-staging-growth-64.99",
+    "status": "ok",
+    "error": null
+  },
+  "sync_restore": {
+    "last_refresh_at": "2026-11-13T22:22:52.363Z",
+    "source": "local",
+    "source_url": null,
+    "content_hash": "fbaa7bb11e5706ee6881ef5d776b351eb7325db7c837cf8bd48d082839ef47c0",
+    "catalogue_version": "2026-11-simba-v6-no-txn-caps-dynamic",
+    "status": "ok",
+    "error": null
+  },
+  "meta": {
+    "last_refresh_at": "2026-11-13T22:22:52.363Z",
+    "source": "local",
+    "source_url": null,
+    "content_hash": "fbaa7bb11e5706ee6881ef5d776b351eb7325db7c837cf8bd48d082839ef47c0",
+    "catalogue_version": "2026-11-simba-v6-no-txn-caps-dynamic",
+    "status": "ok",
+    "error": null
+  },
+  "finished_at": "2026-11-13T22:22:52.363Z"
+}

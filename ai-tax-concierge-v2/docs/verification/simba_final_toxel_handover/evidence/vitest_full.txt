@@ -1,0 +1,41 @@
+
+> @taxsimba/ai-tax-concierge-v2-backend-node@0.1.0 test
+> vitest run
+
+
+ RUN  v2.1.9 /agent/repos/-taxsimba-platform/ai-tax-concierge-v2/backend-node
+
+ ✓ tests/owner_commercial_decisions.test.ts (14 tests) 12ms
+ ✓ tests/grounding_accuracy_fixes.test.ts (9 tests) 41ms
+ ✓ tests/hmrc_monitor.test.ts (3 tests) 103ms
+ ✓ tests/catalog_sync.test.ts (3 tests) 17ms
+ ✓ tests/knowledge_accuracy.test.ts (28 tests) 57ms
+ ✓ tests/recommendations_catalog.test.ts (16 tests) 10ms
+ ✓ tests/package_journeys_50.test.ts (51 tests) 25ms
+ ✓ tests/conversion_quality_audit.test.ts (10 tests) 94ms
+ ✓ tests/security_suite.test.ts (26 tests) 56ms
+ ✓ tests/inclusions_resolution.test.ts (8 tests) 17ms
+ ✓ tests/website_reconciliation.test.ts (4 tests) 8ms
+ ✓ tests/phase2_api.test.ts (11 tests) 97ms
+ ✓ tests/api_regression.test.ts (19 tests) 100ms
+ ✓ tests/conversation_multiturn.test.ts (7 tests) 21ms
+ ✓ tests/journeys_full.test.ts (24 tests) 50ms
+ ✓ tests/accessibility_widget.test.ts (47 tests) 9ms
+ ✓ tests/embed_launcher.test.ts (6 tests) 3ms
+ ✓ tests/workspace_sidebar.test.ts (5 tests) 9ms
+ ✓ tests/retrieval_and_verification.test.ts (5 tests) 11ms
+ ✓ tests/conversational_engine.test.ts (3 tests) 17ms
+ ✓ tests/recommendations.test.ts (5 tests) 8ms
+ ✓ tests/helpful_first_no_pressure.test.ts (4 tests) 10ms
+ ✓ tests/api.test.ts (7 tests) 43ms
+ ✓ tests/adapters.test.ts (3 tests) 3ms
+ ✓ tests/journeys.test.ts (4 tests) 4ms
+ ✓ tests/tax_year.test.ts (5 tests) 2ms
+ ✓ tests/tax_intelligence_150.test.ts (152 tests) 304ms
+ ✓ tests/privacy.test.ts (3 tests) 4ms
+
+ Test Files  28 passed (28)
+      Tests  482 passed (482)
+   Start at  02:53:05
+   Duration  2.71s (transform 604ms, setup 84ms, collect 2.28s, tests 1.13s, environment 4ms, prepare 1.28s)
+
