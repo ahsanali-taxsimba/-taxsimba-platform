@@ -87,6 +87,10 @@ export type KnowledgeFact = {
   effective_date?: string | null;
   knowledge_version?: string | null;
   review_status?: string | null;
+  /** Optional structured publication metadata from HMRC monitor overlays. */
+  publication_date?: string | null;
+  applicable_conditions?: string | null;
+  superseded_summary?: string | null;
 };
 
 export type ChatResponse = {

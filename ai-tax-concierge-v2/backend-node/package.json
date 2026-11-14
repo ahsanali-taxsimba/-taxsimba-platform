@@ -12,6 +12,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "live:openai": "tsx scripts/liveOpenAIVerification.ts",
+    "live:auto-publish": "tsx scripts/liveAutoPublishOpenAIProof.ts",
     "demo:dynamic": "tsx scripts/dynamicSystemsDemo.ts",
     "typecheck": "tsc --noEmit"
   },

@@ -95,7 +95,9 @@ export async function fetchWatchPage(
       url: entry.url,
       fetched_at,
       http_status: 0,
+      source_mode: "error",
       content_hash: "",
+      version_token: "",
       title: "",
       text_excerpt: "",
       text_length: 0,
@@ -120,7 +122,9 @@ export async function fetchWatchPage(
         url: entry.url,
         fetched_at,
         http_status: status,
+        source_mode: "error",
         content_hash: "",
+        version_token: "",
         title: "",
         text_excerpt: "",
         text_length: 0,
@@ -162,12 +166,15 @@ export async function fetchWatchPage(
       authenticity.host_ok &&
       authenticity.publisher_markers_ok &&
       authenticity.title_markers_ok;
+    const hash = contentHash(text);
     return {
       watch_id: entry.id,
       url: entry.url,
       fetched_at,
       http_status: status,
-      content_hash: contentHash(text),
+      source_mode: "html_fallback",
+      content_hash: hash,
+      version_token: hash,
       title,
       text_excerpt: text.slice(0, 800),
       text_length: text.length,
@@ -186,7 +193,9 @@ export async function fetchWatchPage(
       url: entry.url,
       fetched_at,
       http_status: 0,
+      source_mode: "error",
       content_hash: "",
+      version_token: "",
       title: "",
       text_excerpt: "",
       text_length: 0,

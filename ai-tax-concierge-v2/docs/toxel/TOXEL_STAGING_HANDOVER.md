@@ -5,8 +5,10 @@
 **Customer-facing name:** **SIMBA AI Tax Assistant** (Emerald Signature UI — do not restyle)  
 **Release gate:** **STAGING ONLY** — no production merge/deploy; **do not delete Python** (`ai-tax-concierge-v2/backend/`) until staging acceptance is signed separately.
 
-Accepted local evidence (2026-11-14 dynamic systems + live re-run): **481** Vitest · security **26** · live OpenAI **33/33** (accuracy flags **0**) · owner commercial live probe **11/11** · HMRC monitor + catalogue sync demos **PASS**. Node independent of Python.  
+Accepted local evidence (2026-11-14 owner auto-publish approval): **482** Vitest · security **26** · live OpenAI **33/33** (accuracy flags **0**) · live auto-publish OpenAI proof **PASS** · owner commercial live probe **11/11** · HMRC Content API auto-publish + catalogue sync demos **PASS**. Node independent of Python.  
+Does **not** claim 100% accuracy; unverified legal interpretations are not published.  
 Dynamic systems: [`../verification/dynamic_systems_20261114/DYNAMIC_SYSTEMS_IMPLEMENTATION_REPORT.md`](../verification/dynamic_systems_20261114/DYNAMIC_SYSTEMS_IMPLEMENTATION_REPORT.md).  
+Auto-publish owner report: [`../verification/auto_publish_20261114/AUTO_PUBLISH_OWNER_APPROVAL_REPORT.md`](../verification/auto_publish_20261114/AUTO_PUBLISH_OWNER_APPROVAL_REPORT.md).  
 Live key re-run: [`../verification/live_key_rerun_20261113/LIVE_KEY_RERUN_REPORT.md`](../verification/live_key_rerun_20261113/LIVE_KEY_RERUN_REPORT.md).  
 Reconciliation: [`../verification/final_website_reconciliation/FINAL_SIX_PACKAGE_RECONCILIATION_REPORT.md`](../verification/final_website_reconciliation/FINAL_SIX_PACKAGE_RECONCILIATION_REPORT.md).
 
@@ -27,7 +29,7 @@ Reconciliation: [`../verification/final_website_reconciliation/FINAL_SIX_PACKAGE
 | Priority support / turnaround / QBR / proactive tax planning | **REMOVED** from SIMBA copy (may still appear on public API — do not auto-approve) |
 | Consultation £99 / 30 min | **APPROVED** — Google Meet advice session; **no** filing/bookkeeping/written report; booking stub |
 | Exclusions / amendments / cancel-refund / extra-work | **NOT IMPLEMENTED** on website — owner/legal must supply |
-| Automatic HMRC knowledge monitor | **IMPLEMENTED** — quarantine → accountant approve → publish/rollback |
+| Automatic HMRC knowledge monitor | **IMPLEMENTED** — Content API + risk-based **auto-publish** of verified facts; quarantine only ambiguous/conflicting/withdrawn; accountant path retained for those; rollback + alerts |
 | Automatic catalogue sync (no redeploy) | **IMPLEMENTED** — live overlay from approved subscription-plans APIs |
 | Final website reconciliation | [`../verification/final_website_reconciliation/FINAL_SIX_PACKAGE_RECONCILIATION_REPORT.md`](../verification/final_website_reconciliation/FINAL_SIX_PACKAGE_RECONCILIATION_REPORT.md) |
 | Owner decisions | [`../verification/inclusions_resolution/OWNER_COMMERCIAL_DECISIONS_2026-11-13.md`](../verification/inclusions_resolution/OWNER_COMMERCIAL_DECISIONS_2026-11-13.md) |
@@ -122,10 +124,13 @@ npm start              # node dist/server.js
 | `WEBSITE_BASE_URL` | Required | Deep links |
 | `CONSULTATION_BOOKING_URL` | When Calendly live | |
 | `CONCIERGE_OPS_TOKEN` | Required for ops | Protects HMRC/catalogue ops routes |
-| `CONCIERGE_HMRC_MONITOR_ENABLED` | `true` on staging | Schedules GOV.UK monitor |
+| `CONCIERGE_HMRC_MONITOR_ENABLED` | `true` on staging | Schedules GOV.UK Content API monitor |
+| `CONCIERGE_HMRC_MONITOR_INTERVAL_MS` | Optional | Default 6 hours |
+| `GOVUK_CONTENT_API_BASE` | Optional | Default `https://www.gov.uk/api/content` |
 | `CONCIERGE_CATALOGUE_SYNC_ENABLED` | `true` on staging | Schedules catalogue sync |
+| `CONCIERGE_CATALOGUE_SYNC_INTERVAL_MS` | Optional | Default 6 hours |
 | `TAXSIMBA_CATALOGUE_API_BASE` | Optional | Defaults from website base |
-| `CONCIERGE_RUNTIME_DIR` | Optional | Writable overlays path |
+| `CONCIERGE_RUNTIME_DIR` | Optional | Writable overlays / alerts / history |
 | `PORT` / `HOST` | As needed | |
 | Stripe / portal secrets | **Not in SIMBA Node yet** | Wire via portal/backend when integrating |
 
@@ -208,11 +213,12 @@ Run after HTTPS deploy. Record PASS/FAIL with screenshots.
 | A10 | Decline sales | Information only; no packages |
 | A11 | Mobile Safari | Sidebar/drawer + chat usable |
 | A12 | Embed on staging page | Launcher click-to-open; Escape closes |
-| A13 | `npm test` in CI/image | 481 pass |
+| A13 | `npm test` in CI/image | 482 pass |
 | A14 | Live MTD package page | Flag if `/making-tax-digital` still lacks Simbian cards (known contradiction) |
 | A15 | Live `/pricing` | Must not show service error |
-| A16 | HMRC monitor cycle + quarantine gate | `POST /ops/hmrc/run`; no unverified publish |
+| A16 | HMRC monitor auto-publish + targeted quarantine | `POST /ops/hmrc/run`; verified facts auto-publish; conflicts quarantine affected IDs only; alerts + rollback |
 | A17 | Catalogue sync without redeploy | `POST /ops/catalog/sync`; prices match approved API |
+| A18 | Live OpenAI uses published overlay | `npm run live:auto-publish` marker proof |
 
 ### B. Integrations (remain BLOCKED until each passes)
 
@@ -248,9 +254,10 @@ SIMBA product code lives under `ai-tax-concierge-v2/`. Do **not** modify `fronte
 
 | Mechanism | Status |
 |-----------|--------|
-| HMRC/GOV.UK monitor (hash detect, authenticity, effective dates) | **PASS** — live cycle + unit tests |
-| Quarantine → accountant approve → versioned publish | **PASS** — unverified never customer-facing |
-| Alerts + rollback | **PASS** |
+| HMRC/GOV.UK Content API monitor (hash + version token, authenticity, structured extraction) | **PASS** — live cycle auto_published 5 |
+| Risk-based auto-publish (no routine accountant approval) | **PASS** — Vitest + live demo + live OpenAI marker proof |
+| Quarantine only ambiguous/conflicting/withdrawn facts | **PASS** — per-fact block list; unaffected knowledge remains |
+| Accountant approve path (quarantined only) + alerts + rollback | **PASS** |
 | Scheduled HMRC monitor | **PASS** (enable with env on staging) |
 | Catalogue sync from approved TaxSimba APIs | **PASS** — live sync + staging price change/revert without redeploy |
 | Stable package IDs / checkout mappings preserved | **PASS** |

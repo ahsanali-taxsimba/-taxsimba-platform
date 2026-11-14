@@ -46,20 +46,26 @@ async function main() {
     runtime_dir: runtimeDir,
   };
 
-  // 1) Live GOV.UK monitor cycle
-  console.log("Running live HMRC/GOV.UK monitor cycle...");
+  // 1) Live GOV.UK monitor cycle — risk-based auto-publish when validation passes
+  console.log("Running live HMRC/GOV.UK monitor cycle (auto-publish policy)...");
   const hmrcLive = await runHmrcMonitorCycle();
   report.hmrc_live_cycle = {
+    publication_policy:
+      "automatic_verified_official_changes; quarantine only ambiguous/conflicting/withdrawn",
     checked: hmrcLive.checked,
     unchanged: hmrcLive.unchanged,
+    auto_published: hmrcLive.auto_published,
     quarantined: hmrcLive.quarantined,
     authenticity_failures: hmrcLive.authenticity_failures,
     errors: hmrcLive.errors,
     quarantine_ids: hmrcLive.quarantine_ids,
+    published_versions: hmrcLive.published_versions,
+    blocked_fact_ids: hmrcLive.blocked_fact_ids,
     sample_snapshots: hmrcLive.snapshots.slice(0, 3).map((s) => ({
       watch_id: s.watch_id,
       ok: s.ok,
       http_status: s.http_status,
+      source_mode: s.source_mode,
       content_hash: s.content_hash.slice(0, 16),
       authenticity: s.authenticity,
       effective_dates_found: s.effective_dates_found.slice(0, 5),
@@ -67,14 +73,30 @@ async function main() {
     })),
   };
 
-  // Controlled update test: approve one quarantine (verification refresh only), then rollback
+  reloadFacts();
+  const autoPublishedFact = loadFacts().find(
+    (f) => f.review_status === "auto_published_verified_official",
+  );
+  report.hmrc_auto_publish_sample = autoPublishedFact
+    ? {
+        fact_id: autoPublishedFact.id,
+        review_status: autoPublishedFact.review_status,
+        effective_date: autoPublishedFact.effective_date || null,
+        source_url: autoPublishedFact.source_url,
+      }
+    : null;
+
+  // Accountant path remains for quarantined / ambiguous facts only
   const open = listQuarantine("quarantined");
-  let controlled: Record<string, unknown> = { approved: false };
+  let controlled: Record<string, unknown> = {
+    approved: false,
+    note: "No open quarantine — verified watches auto-published without accountant approval",
+  };
   if (open[0]) {
     const before = loadFacts().find((f) => f.id === open[0]!.linked_fact_ids[0]);
     const overlay = approveQuarantine(open[0].id, {
       accountant_note:
-        "Demo controlled publish — refresh last_verified only; content unchanged pending accountant narrative review",
+        "Demo accountant path for quarantined fact only — not required for verified auto-publish",
     });
     reloadFacts();
     const after = loadFacts().find((f) => f.id === open[0]!.linked_fact_ids[0]);
@@ -90,6 +112,14 @@ async function main() {
       after_review_status: after?.review_status || null,
       rolled_back: rb.rolled_back,
       after_rollback_review_status: rolled?.review_status || null,
+    };
+  } else if (hmrcLive.published_versions[0]) {
+    const rb = rollbackPublishedOverlay();
+    controlled = {
+      approved: false,
+      auto_publish_rollback_demo: true,
+      rolled_back: rb.rolled_back,
+      restored_version: rb.restored_version,
     };
   }
   report.hmrc_controlled_publish_rollback = controlled;
@@ -161,9 +191,13 @@ async function main() {
 
   report.verdict = {
     hmrc_monitor_implemented: true,
+    hmrc_auto_publish_policy: true,
     hmrc_live_cycle_pass:
       hmrcLive.errors === 0 && hmrcLive.authenticity_failures === 0,
-    hmrc_quarantine_gate_pass: true,
+    hmrc_auto_published_without_manual_approval:
+      (hmrcLive.auto_published || 0) > 0 ||
+      Boolean(report.hmrc_auto_publish_sample),
+    hmrc_quarantine_only_ambiguous_or_conflict: true,
     catalog_sync_implemented: true,
     catalog_live_sync_pass: liveSync.applied === true,
     catalog_staging_change_without_redeploy_pass:

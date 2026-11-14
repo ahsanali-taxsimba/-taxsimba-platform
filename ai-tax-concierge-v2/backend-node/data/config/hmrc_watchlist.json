@@ -1,11 +1,13 @@
 {
-  "version": "2026-11-14",
-  "description": "Official GOV.UK / HMRC pages monitored by SIMBA. Only these hosts are allowed.",
+  "version": "2026-11-14-auto-publish",
+  "description": "Official GOV.UK / HMRC sources monitored by SIMBA via Content API (HTML fallback). Risk-based automatic publication when validation passes.",
   "allowed_host_suffixes": [".gov.uk"],
+  "content_api_base": "https://www.gov.uk/api/content",
   "entries": [
     {
       "id": "mtd_if_and_when",
       "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "base_path": "/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
       "title_markers": ["Making Tax Digital", "Income Tax"],
       "linked_fact_ids": [
         "mtd-who-and-when",
@@ -14,38 +16,47 @@
         "mtd-threshold-20k-april-2028"
       ],
       "impact": "high",
+      "extractor": "mtd_thresholds",
       "expected_phrases": ["6 April 2026", "6 April 2027", "6 April 2028", "£50,000", "£30,000", "£20,000"]
     },
     {
       "id": "mtd_qualifying_income",
       "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+      "base_path": "/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
       "title_markers": ["qualifying income", "Making Tax Digital"],
       "linked_fact_ids": ["mtd-qualifying-income-definition"],
       "impact": "high",
+      "extractor": "mtd_qualifying_income",
       "expected_phrases": ["before", "expenses"]
     },
     {
       "id": "vat_registration_thresholds",
-      "url": "https://www.gov.uk/vat-registration-thresholds",
-      "title_markers": ["VAT", "threshold"],
+      "url": "https://www.gov.uk/register-for-vat",
+      "base_path": "/register-for-vat",
+      "title_markers": ["VAT", "register"],
       "linked_fact_ids": ["vat-threshold-overview", "vat-registration-timing-tests"],
       "impact": "high",
+      "extractor": "vat_threshold",
       "expected_phrases": ["£90,000"]
     },
     {
       "id": "sa_deadlines",
       "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
-      "title_markers": ["Self Assessment", "deadline"],
+      "base_path": "/self-assessment-tax-returns/deadlines",
+      "title_markers": ["Self Assessment"],
       "linked_fact_ids": ["sa-deadline-online", "sa-paper-deadline"],
       "impact": "high",
+      "extractor": "sa_deadlines",
       "expected_phrases": ["31 January", "31 October"]
     },
     {
       "id": "income_tax_rates",
       "url": "https://www.gov.uk/income-tax-rates",
+      "base_path": "/income-tax-rates",
       "title_markers": ["Income Tax", "Personal Allowance"],
       "linked_fact_ids": ["personal-allowance-2025-26"],
       "impact": "high",
+      "extractor": "personal_allowance",
       "expected_phrases": ["£12,570"]
     }
   ]

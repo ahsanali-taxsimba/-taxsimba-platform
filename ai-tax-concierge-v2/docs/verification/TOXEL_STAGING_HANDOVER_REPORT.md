@@ -1,6 +1,6 @@
 # Toxel staging handover — PASS / FAIL / BLOCKED report
 
-**Date:** 2026-11-13 (Europe/London)  
+**Date:** 2026-11-14 (Europe/London)  
 **PR:** [#35](https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/35)  
 **Scope:** Controlled **staging** handover only  
 **Rules observed:** No merge · No production deploy · No Python deletion · No invented inclusions · Prices unchanged  
@@ -13,7 +13,7 @@
 
 Local Node evidence is accepted. Staging integrations and **approved package inclusions** remain **BLOCKED** until Toxel/TaxSimba supply and verify them.
 
-**Not production-ready.** Do not claim 100% tax accuracy or live conversion capability.
+**Not production-ready.** Do not claim 100% tax accuracy or live conversion capability. Verified official HMRC changes auto-publish under documented gates; ambiguous facts quarantine.
 
 ---
 
@@ -21,11 +21,12 @@ Local Node evidence is accepted. Staging integrations and **approved package inc
 
 | Area | Status | Evidence / notes |
 |------|--------|------------------|
-| Automated Vitest | **PASS** (481) | 2026-11-14 dynamic systems + regression |
+| Automated Vitest | **PASS** (482) | 2026-11-14 auto-publish + regression |
 | Live OpenAI harness | **PASS** (33/33, flags 0) | `live_openai_report_20261114T020133Z.json` |
+| Live OpenAI uses auto-published knowledge | **PASS** | `auto_publish_20261114/live_auto_publish_openai_proof.json` |
 | Security suite | **PASS** (26) | preserved |
 | Owner commercial live probe | **PASS** (11/11) | package / Xero / £99 / no fixed caps |
-| HMRC knowledge monitor | **PASS** | quarantine/publish/rollback + live GOV.UK cycle |
+| HMRC knowledge monitor (risk-based auto-publish) | **PASS** | Content API; auto_published 5 live; conflict quarantine; rollback |
 | Catalogue auto-sync (no redeploy) | **PASS** | live sync + staging Elite price change/revert |
 | Tax intelligence 150 | **PASS** | Accepted prior evidence |
 | Package journeys 50 | **PASS** | Price-tier suggestions only; feature-level recs blocked |

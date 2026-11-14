@@ -15,9 +15,9 @@ Core AI concierge, TaxSimba branding, tax grounding and calculator link map are 
 
 | Gate | Status |
 |------|--------|
-| Automated regression (Node Vitest, 2026-11-14) | **PASS — 481 passed / 0 failed** |
+| Automated regression (Node Vitest, 2026-11-14) | **PASS — 482 passed / 0 failed** |
 | Live OpenAI tax Q&A (Node harness re-run) | **PASS — 33/33, accuracy flags 0** (MTD £30k / VAT £90k) |
-| HMRC dynamic knowledge monitor | **PASS** — implemented + evidenced |
+| HMRC risk-based auto-publish (owner approval) | **PASS** — Content API + live OpenAI overlay marker proof |
 | Catalogue auto-sync without redeploy | **PASS** — implemented + evidenced |
 | Brand match TaxSimba.co.uk / design tokens | **PASS** (official logo + `#006B3C` / `#078A4B` / Manrope / Public Sans) |
 | Checkout / payment E2E | **BLOCKED** |

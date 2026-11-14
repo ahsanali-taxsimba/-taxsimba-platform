@@ -1,9 +1,9 @@
 /**
- * HMRC / GOV.UK knowledge monitor.
+ * HMRC / GOV.UK knowledge monitor — risk-based automatic publication.
  *
- * Detects official-page changes, quarantines ambiguous/high-impact diffs for
- * accountant approval, and only then publishes versioned overlays customers see.
- * Baseline corpus remains historical source of truth until overlay publishes.
+ * Verified official changes auto-publish into SIMBA customer answers (runtime
+ * overlays, no redeploy). Ambiguous/conflicting/withdrawn updates quarantine
+ * only affected facts; unaffected verified knowledge remains available.
  */
 
 import {
@@ -23,8 +23,12 @@ import {
 } from "../../ops/runtime_paths.js";
 import { loadFacts, reloadFacts } from "../loader.js";
 import type { KnowledgeFact } from "../../models/schemas.js";
-import { fetchWatchPage } from "./fetcher.js";
+import { fetchOfficialContent } from "./content_api.js";
+import { decidePublication, detectInternalConflicts } from "./decision.js";
+import { extractFactUpdates } from "./extract.js";
 import type {
+  ExtractedFactUpdate,
+  FetchContentApiFn,
   FetchPageFn,
   HmrcMonitorCycleResult,
   PageSnapshot,
@@ -52,14 +56,20 @@ type HmrcState = {
   last_cycle_at?: string | null;
   last_cycle_summary?: Record<string, unknown> | null;
   snapshot_hashes: Record<string, string>;
+  snapshot_version_tokens: Record<string, string>;
   published_version?: string | null;
+  blocked_fact_ids: string[];
   scheduler?: { enabled: boolean; interval_ms: number; runs: number };
+  publication_policy?: string;
 };
 
 function loadState(): HmrcState {
   return readJson<HmrcState>(runtimePaths.hmrcState(), {
     snapshot_hashes: {},
-    scheduler: { enabled: false, interval_ms: 0, runs: 0 },
+    snapshot_version_tokens: {},
+    blocked_fact_ids: [],
+    publication_policy:
+      "automatic_verified_official_changes; quarantine only ambiguous/conflicting/withdrawn",
   });
 }
 
@@ -67,36 +77,12 @@ function saveState(state: HmrcState): void {
   writeJson(runtimePaths.hmrcState(), state);
 }
 
-export function loadPublishedFacts(): KnowledgeFact[] {
-  ensureRuntimeDirs();
-  const dir = runtimePaths.hmrcPublished();
-  if (!existsSync(dir)) return [];
-  const files = readdirSync(dir)
-    .filter((f) => f.endsWith(".json"))
-    .sort();
-  if (!files.length) return [];
-  const latest = files[files.length - 1]!;
-  const overlay = readJson<PublishedOverlay>(path.join(dir, latest), {
-    version: "",
-    published_at: "",
-    facts: [],
-  });
-  return overlay.facts || [];
-}
-
-export function listQuarantine(status?: string): QuarantineItem[] {
-  ensureRuntimeDirs();
-  const dir = runtimePaths.hmrcQuarantine();
-  if (!existsSync(dir)) return [];
-  return readdirSync(dir)
-    .filter((f) => f.endsWith(".json"))
-    .map((f) => readJson<QuarantineItem>(path.join(dir, f), null as unknown as QuarantineItem))
-    .filter(Boolean)
-    .filter((q) => (status ? q.status === status : true))
-    .sort((a, b) => a.created_at.localeCompare(b.created_at));
-}
-
-function alert(level: "info" | "warn" | "critical", code: string, message: string, details?: Record<string, unknown>) {
+function alert(
+  level: "info" | "warn" | "critical",
+  code: string,
+  message: string,
+  details?: Record<string, unknown>,
+) {
   return writeAlert(runtimePaths.hmrcAlerts(), {
     system: "hmrc",
     level,
@@ -106,9 +92,150 @@ function alert(level: "info" | "warn" | "critical", code: string, message: strin
   });
 }
 
+export function getBlockedFactIds(): string[] {
+  return [...(loadState().blocked_fact_ids || [])];
+}
+
+export function listQuarantine(status?: string): QuarantineItem[] {
+  ensureRuntimeDirs();
+  const dir = runtimePaths.hmrcQuarantine();
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir)
+    .filter((f) => f.endsWith(".json"))
+    .map((f) =>
+      readJson<QuarantineItem>(path.join(dir, f), null as unknown as QuarantineItem),
+    )
+    .filter(Boolean)
+    .filter((q) => (status ? q.status === status : true))
+    .sort((a, b) => a.created_at.localeCompare(b.created_at));
+}
+
+function persistQuarantine(item: QuarantineItem): void {
+  writeJson(path.join(runtimePaths.hmrcQuarantine(), `${item.id}.json`), item);
+}
+
+function blockFacts(state: HmrcState, ids: string[]): void {
+  const set = new Set([...(state.blocked_fact_ids || []), ...ids]);
+  state.blocked_fact_ids = [...set];
+}
+
+function unblockFacts(state: HmrcState, ids: string[]): void {
+  const remove = new Set(ids);
+  state.blocked_fact_ids = (state.blocked_fact_ids || []).filter((id) => !remove.has(id));
+}
+
+function updatesToFacts(
+  updates: ExtractedFactUpdate[],
+  baseline: KnowledgeFact[],
+  mode: PublishedOverlay["publication_mode"],
+): KnowledgeFact[] {
+  const byId = new Map(baseline.map((f) => [f.id, f]));
+  const out: KnowledgeFact[] = [];
+  for (const u of updates) {
+    const prev = byId.get(u.fact_id);
+    if (!prev) continue; // never invent new fact ids
+    out.push({
+      ...prev,
+      title: u.title || prev.title,
+      summary: u.summary,
+      tax_years: u.tax_years.length ? u.tax_years : prev.tax_years,
+      source_url: u.source_url || prev.source_url,
+      publisher: prev.publisher,
+      effective_date: u.effective_date ?? prev.effective_date,
+      last_verified: new Date().toISOString().slice(0, 10),
+      knowledge_version: `${mode}-${Date.now()}`,
+      review_status:
+        mode === "automatic_verified"
+          ? "auto_published_verified_official"
+          : "accountant_approved_overlay",
+      // Extended structured metadata (optional fields tolerated by TS structural typing)
+      ...( {
+        publication_date: u.publication_date,
+        applicable_conditions: u.applicable_conditions,
+        superseded_summary: u.superseded_summary,
+      } as Partial<KnowledgeFact>),
+    });
+  }
+  return out;
+}
+
+function writePublishedOverlay(overlay: PublishedOverlay): void {
+  const pubDir = runtimePaths.hmrcPublished();
+  if (existsSync(pubDir)) {
+    for (const f of readdirSync(pubDir).filter((x) => x.endsWith(".json"))) {
+      writeJson(
+        path.join(runtimePaths.hmrcHistory(), `hist-${f}`),
+        readJson(path.join(pubDir, f), {}),
+      );
+    }
+  }
+  // Merge with previous published facts so unrelated watches stay published
+  const prevFacts = loadPublishedFactsRaw();
+  const byId = new Map(prevFacts.map((f) => [f.id, f]));
+  for (const f of overlay.facts) byId.set(f.id, f);
+  const merged: PublishedOverlay = {
+    ...overlay,
+    facts: [...byId.values()],
+  };
+  writeJson(path.join(pubDir, `${overlay.version}.json`), merged);
+}
+
+function loadPublishedFactsRaw(): KnowledgeFact[] {
+  ensureRuntimeDirs();
+  const dir = runtimePaths.hmrcPublished();
+  if (!existsSync(dir)) return [];
+  const files = readdirSync(dir).filter((f) => f.endsWith(".json")).sort();
+  if (!files.length) return [];
+  const overlay = readJson<PublishedOverlay>(path.join(dir, files[files.length - 1]!), {
+    version: "",
+    published_at: "",
+    publication_mode: "automatic_verified",
+    facts: [],
+  });
+  return overlay.facts || [];
+}
+
+export function loadPublishedFacts(): KnowledgeFact[] {
+  return loadPublishedFactsRaw();
+}
+
+function autoPublish(
+  state: HmrcState,
+  entryId: string,
+  updates: ExtractedFactUpdate[],
+  note: string,
+  audit?: Record<string, unknown>,
+): string {
+  const baseline = loadFacts({ includePublishedOverlay: false });
+  const facts = updatesToFacts(updates, baseline, "automatic_verified");
+  const overlay: PublishedOverlay = {
+    version: `auto-${Date.now()}`,
+    published_at: new Date().toISOString(),
+    publication_mode: "automatic_verified",
+    watch_id: entryId,
+    facts,
+    note,
+    audit,
+  };
+  writePublishedOverlay(overlay);
+  unblockFacts(
+    state,
+    updates.map((u) => u.fact_id),
+  );
+  state.published_version = overlay.version;
+  reloadFacts();
+  alert("info", "hmrc_auto_published", `Auto-published ${facts.length} facts from ${entryId}`, {
+    version: overlay.version,
+    fact_ids: facts.map((f) => f.id),
+  });
+  return overlay.version;
+}
+
 export async function runHmrcMonitorCycle(opts?: {
   fetchPage?: FetchPageFn;
-  forceQuarantineWatchId?: string;
+  fetchContentApi?: FetchContentApiFn;
+  /** Injected extra snapshots/text for conflict tests */
+  conflictUpdates?: ExtractedFactUpdate[];
 }): Promise<HmrcMonitorCycleResult> {
   ensureRuntimeDirs();
   const started_at = new Date().toISOString();
@@ -116,110 +243,168 @@ export async function runHmrcMonitorCycle(opts?: {
   const state = loadState();
   const snapshots: PageSnapshot[] = [];
   const quarantine_ids: string[] = [];
+  const published_versions: string[] = [];
   const alerts: HmrcMonitorCycleResult["alerts"] = [];
   let unchanged = 0;
+  let auto_published = 0;
   let quarantined = 0;
   let authenticity_failures = 0;
   let errors = 0;
 
-  for (const entry of watchlist.entries) {
-    const snap = await fetchWatchPage(
-      entry,
-      watchlist.allowed_host_suffixes,
-      opts?.fetchPage,
-    );
-    snapshots.push(snap);
-    writeJson(
-      path.join(runtimePaths.hmrcSnapshots(), `${entry.id}.json`),
-      snap,
-    );
+  const baseline = loadFacts({ includePublishedOverlay: false });
 
-    if (!snap.ok) {
+  for (const entry of watchlist.entries) {
+    const snap = await fetchOfficialContent(entry, watchlist.allowed_host_suffixes, {
+      fetchContentApi: opts?.fetchContentApi,
+      fetchPage: opts?.fetchPage,
+    });
+    // Persist snapshot without huge full_text
+    const stored = { ...snap };
+    delete (stored as { full_text?: string }).full_text;
+    snapshots.push(stored);
+    writeJson(path.join(runtimePaths.hmrcSnapshots(), `${entry.id}.json`), stored);
+
+    if (!snap.ok && snap.source_mode === "error") {
       authenticity_failures += 1;
       errors += 1;
       const a = alert(
         "critical",
-        "hmrc_authenticity_or_fetch_failed",
-        `Monitor failed for ${entry.id}: ${snap.error || "unknown"}`,
+        "hmrc_source_outage_or_auth_failed",
+        `Monitor failed for ${entry.id}: ${snap.error}`,
         { watch_id: entry.id, url: entry.url },
       );
       alerts.push({ level: a.level, code: a.code, message: a.message });
+      // Keep previous published knowledge; do not wipe.
       continue;
     }
 
-    const prevHash = state.snapshot_hashes[entry.id];
-    const changed =
-      !prevHash ||
-      prevHash !== snap.content_hash ||
-      opts?.forceQuarantineWatchId === entry.id;
-
-    if (!changed) {
-      unchanged += 1;
-      // bump last_verified on published overlay copies only when hash unchanged — no content change
-      continue;
-    }
-
-    // Any content change that could affect customer answers is quarantined.
-    const reasonParts = [
-      prevHash
-        ? `Content hash changed (${prevHash.slice(0, 8)} → ${snap.content_hash.slice(0, 8)})`
-        : "First snapshot captured — baseline recorded; awaiting accountant review before overlay publish",
-    ];
-    if (!snap.authenticity.expected_phrases_ok) {
-      reasonParts.push(
-        `Missing expected phrases: ${snap.authenticity.missing_phrases.join(", ")}`,
-      );
-    }
-    if (entry.impact === "high") {
-      reasonParts.push("High-impact tax guidance — accountant approval required");
-    }
-    if (!snap.effective_dates_found.length) {
-      reasonParts.push("No clear effective dates extracted — ambiguous");
-    }
-
-    const item: QuarantineItem = {
-      id: `q-${entry.id}-${Date.now()}`,
-      created_at: new Date().toISOString(),
-      watch_id: entry.id,
-      url: entry.url,
-      impact: entry.impact,
-      reason: reasonParts.join(". "),
-      previous_hash: prevHash || null,
-      new_snapshot: snap,
-      linked_fact_ids: [...entry.linked_fact_ids],
-      status: "quarantined",
-    };
-    writeJson(path.join(runtimePaths.hmrcQuarantine(), `${item.id}.json`), item);
-    quarantine_ids.push(item.id);
-    quarantined += 1;
-
-    // Store hash so we do not repeatedly re-open identical diffs, but
-    // customers still see baseline/previous published overlay until approval.
-    state.snapshot_hashes[entry.id] = snap.content_hash;
-
-    const a = alert(
-      entry.impact === "high" ? "critical" : "warn",
-      "hmrc_change_quarantined",
-      `Quarantined GOV.UK change for ${entry.id}; not published to customers`,
-      {
-        quarantine_id: item.id,
-        linked_fact_ids: item.linked_fact_ids,
-        impact: entry.impact,
-      },
+    const { updates, errors: extractErrors } = extractFactUpdates(
+      entry,
+      snap,
+      baseline,
     );
-    alerts.push({ level: a.level, code: a.code, message: a.message });
+    // Conflict fixtures only attach to watches that own the conflicting fact IDs —
+    // never publish injected contradictions via an unrelated watch's auto-publish path.
+    const relevantConflicts = (opts?.conflictUpdates || []).filter((c) =>
+      entry.linked_fact_ids.includes(c.fact_id),
+    );
+    const allUpdates =
+      relevantConflicts.length > 0 ? [...updates, ...relevantConflicts] : updates;
+    const conflicts = detectInternalConflicts(allUpdates);
+    const decision = decidePublication({
+      entry,
+      snap,
+      previousHash: relevantConflicts.length
+        ? null
+        : state.snapshot_hashes[entry.id],
+      previousVersionToken: relevantConflicts.length
+        ? null
+        : state.snapshot_version_tokens[entry.id],
+      updates: allUpdates,
+      extractionErrors: extractErrors,
+      conflictingFactIds: conflicts,
+    });
+
+    if (decision.action === "unchanged") {
+      unchanged += 1;
+      continue;
+    }
+
+    // Record latest hash/token even when quarantining so identical noise does not loop forever
+    if (snap.content_hash) {
+      state.snapshot_hashes[entry.id] = snap.content_hash;
+      state.snapshot_version_tokens[entry.id] = snap.version_token;
+    }
+
+    if (decision.action === "auto_publish") {
+      // Partial failures: quarantine only failed linked facts mentioned in reason
+      const failedMatch = decision.reason.match(/failed: ([^)]+)\)/);
+      if (failedMatch) {
+        const failedIds = failedMatch[1]!.split(",").map((s) => s.trim()).filter(Boolean);
+        if (failedIds.length) {
+          const q: QuarantineItem = {
+            id: `q-${entry.id}-partial-${Date.now()}`,
+            created_at: new Date().toISOString(),
+            watch_id: entry.id,
+            url: entry.url,
+            impact: entry.impact,
+            reason: `Partial extraction failure for ${failedIds.join(", ")}`,
+            previous_hash: state.snapshot_hashes[entry.id] || null,
+            new_snapshot: stored,
+            linked_fact_ids: [...entry.linked_fact_ids],
+            affected_fact_ids: failedIds,
+            status: "quarantined",
+            requires_accountant_review: entry.impact === "high",
+          };
+          persistQuarantine(q);
+          quarantine_ids.push(q.id);
+          blockFacts(state, failedIds);
+          quarantined += 1;
+        }
+      }
+      const version = autoPublish(state, entry.id, decision.updates, decision.reason, {
+        source_mode: snap.source_mode,
+        version_token: snap.version_token,
+        public_updated_at: snap.content_api?.public_updated_at || null,
+      });
+      published_versions.push(version);
+      auto_published += 1;
+      continue;
+    }
+
+    if (decision.action === "quarantine" || decision.action === "error") {
+      const affected =
+        decision.affected_fact_ids?.length
+          ? decision.affected_fact_ids
+          : [...entry.linked_fact_ids];
+      const q: QuarantineItem = {
+        id: `q-${entry.id}-${Date.now()}`,
+        created_at: new Date().toISOString(),
+        watch_id: entry.id,
+        url: entry.url,
+        impact: entry.impact,
+        reason: decision.reason,
+        previous_hash: state.snapshot_hashes[entry.id] || null,
+        new_snapshot: stored,
+        linked_fact_ids: [...entry.linked_fact_ids],
+        affected_fact_ids: affected,
+        status: "quarantined",
+        requires_accountant_review:
+          decision.action === "quarantine"
+            ? Boolean(decision.requires_accountant_review)
+            : true,
+      };
+      persistQuarantine(q);
+      quarantine_ids.push(q.id);
+      blockFacts(state, affected);
+      quarantined += 1;
+      if (decision.action === "error") {
+        authenticity_failures += 1;
+        errors += 1;
+      }
+      const a = alert(
+        decision.action === "error" ? "critical" : "warn",
+        decision.action === "error" ? "hmrc_monitor_error" : "hmrc_fact_quarantined",
+        `Quarantined affected facts for ${entry.id}: ${affected.join(", ")}`,
+        { quarantine_id: q.id, affected },
+      );
+      alerts.push({ level: a.level, code: a.code, message: a.message });
+      reloadFacts();
+      continue;
+    }
   }
 
   const finished_at = new Date().toISOString();
-  const summary = {
+  state.last_cycle_at = finished_at;
+  state.last_cycle_summary = {
     checked: watchlist.entries.length,
     unchanged,
+    auto_published,
     quarantined,
     authenticity_failures,
     errors,
+    blocked_fact_ids: state.blocked_fact_ids,
   };
-  state.last_cycle_at = finished_at;
-  state.last_cycle_summary = summary;
   saveState(state);
 
   return {
@@ -227,43 +412,37 @@ export async function runHmrcMonitorCycle(opts?: {
     finished_at,
     checked: watchlist.entries.length,
     unchanged,
+    auto_published,
     quarantined,
     authenticity_failures,
     errors,
     snapshots,
     quarantine_ids,
+    published_versions,
+    blocked_fact_ids: [...state.blocked_fact_ids],
     alerts,
   };
 }
 
-/**
- * Accountant approval publishes a versioned overlay of linked facts with
- * refreshed last_verified / knowledge_version. Historical baseline corpus
- * files are never deleted.
- */
+/** Accountant approval for quarantined / ambiguous facts only. */
 export function approveQuarantine(
   quarantineId: string,
   opts?: { accountant_note?: string; fact_patches?: Partial<KnowledgeFact>[] },
 ): PublishedOverlay {
   ensureRuntimeDirs();
   const qPath = path.join(runtimePaths.hmrcQuarantine(), `${quarantineId}.json`);
-  if (!existsSync(qPath)) {
-    throw new Error(`Quarantine item not found: ${quarantineId}`);
-  }
+  if (!existsSync(qPath)) throw new Error(`Quarantine item not found: ${quarantineId}`);
   const item = readJson<QuarantineItem>(qPath, null as unknown as QuarantineItem);
   if (item.status !== "quarantined") {
     throw new Error(`Quarantine item is ${item.status}, not quarantined`);
   }
-
-  // Load baseline facts for linked ids (without overlays — see loader baseline mode)
   const baseline = loadFacts({ includePublishedOverlay: false });
   const byId = new Map(baseline.map((f) => [f.id, f]));
-  const patches = new Map(
-    (opts?.fact_patches || []).map((p) => [String(p.id), p]),
-  );
-
+  const patches = new Map((opts?.fact_patches || []).map((p) => [String(p.id), p]));
   const facts: KnowledgeFact[] = [];
-  for (const id of item.linked_fact_ids) {
+  for (const id of item.affected_fact_ids.length
+    ? item.affected_fact_ids
+    : item.linked_fact_ids) {
     const base = byId.get(id);
     if (!base) continue;
     const patch = patches.get(id) || {};
@@ -274,51 +453,34 @@ export function approveQuarantine(
       source_url: base.source_url,
       publisher: base.publisher,
       last_verified: new Date().toISOString().slice(0, 10),
-      knowledge_version: `overlay-${Date.now()}`,
+      knowledge_version: `accountant-${Date.now()}`,
       review_status: "accountant_approved_overlay",
-      effective_date:
-        patch.effective_date ??
-        item.new_snapshot.effective_dates_found[0] ??
-        base.effective_date,
     });
   }
-
   const overlay: PublishedOverlay = {
-    version: `pub-${Date.now()}`,
+    version: `acct-${Date.now()}`,
     published_at: new Date().toISOString(),
+    publication_mode: "accountant_approved",
     quarantine_id: quarantineId,
     facts,
-    note: opts?.accountant_note || "Accountant approved quarantine publication",
+    note: opts?.accountant_note || "Accountant approved quarantined facts",
   };
-
-  // Preserve prior published as history
-  const pubDir = runtimePaths.hmrcPublished();
-  if (existsSync(pubDir)) {
-    for (const f of readdirSync(pubDir).filter((x) => x.endsWith(".json"))) {
-      const src = path.join(pubDir, f);
-      writeJson(
-        path.join(runtimePaths.hmrcHistory(), `hist-${f}`),
-        readJson(src, {}),
-      );
-    }
-  }
-  writeJson(path.join(pubDir, `${overlay.version}.json`), overlay);
-
+  writePublishedOverlay(overlay);
   item.status = "approved";
   item.decided_at = new Date().toISOString();
   item.accountant_note = opts?.accountant_note || null;
-  writeJson(qPath, item);
-
+  persistQuarantine(item);
   const state = loadState();
+  unblockFacts(
+    state,
+    facts.map((f) => f.id),
+  );
   state.published_version = overlay.version;
   saveState(state);
-
-  alert("info", "hmrc_overlay_published", `Published knowledge overlay ${overlay.version}`, {
-    quarantine_id: quarantineId,
-    fact_ids: facts.map((f) => f.id),
-  });
-
   reloadFacts();
+  alert("info", "hmrc_accountant_published", `Accountant published ${overlay.version}`, {
+    quarantine_id: quarantineId,
+  });
   return overlay;
 }
 
@@ -329,10 +491,13 @@ export function rejectQuarantine(quarantineId: string, note?: string): Quarantin
   item.status = "rejected";
   item.decided_at = new Date().toISOString();
   item.accountant_note = note || null;
-  writeJson(qPath, item);
-  alert("warn", "hmrc_quarantine_rejected", `Rejected quarantine ${quarantineId}`, {
-    note,
-  });
+  persistQuarantine(item);
+  // Keep affected facts blocked so SIMBA does not invent answers
+  const state = loadState();
+  blockFacts(state, item.affected_fact_ids);
+  saveState(state);
+  reloadFacts();
+  alert("warn", "hmrc_quarantine_rejected", `Rejected quarantine ${quarantineId}`, { note });
   return item;
 }
 
@@ -346,17 +511,13 @@ export function rollbackPublishedOverlay(): {
   const published = existsSync(pubDir)
     ? readdirSync(pubDir).filter((f) => f.endsWith(".json")).sort()
     : [];
-  if (!published.length) {
-    return { rolled_back: false, restored_version: null };
-  }
+  if (!published.length) return { rolled_back: false, restored_version: null };
   const current = published[published.length - 1]!;
-  // archive current
   writeJson(
     path.join(histDir, `rollback-from-${current}`),
     readJson(path.join(pubDir, current), {}),
   );
   unlinkSync(path.join(pubDir, current));
-
   const remaining = readdirSync(pubDir).filter((f) => f.endsWith(".json")).sort();
   const restored = remaining.length ? remaining[remaining.length - 1]! : null;
   const state = loadState();
@@ -377,14 +538,18 @@ export function hmrcStatus(): Record<string, unknown> {
   const state = loadState();
   return {
     system: "hmrc_knowledge_monitor",
+    publication_policy:
+      state.publication_policy ||
+      "automatic_verified_official_changes; quarantine only ambiguous/conflicting/withdrawn",
     last_cycle_at: state.last_cycle_at || null,
     last_cycle_summary: state.last_cycle_summary || null,
     published_version: state.published_version || null,
     quarantined_open: listQuarantine("quarantined").length,
+    blocked_fact_ids: state.blocked_fact_ids || [],
     scheduler: state.scheduler || null,
     recent_alerts: readRecentAlerts(runtimePaths.hmrcAlerts(), 10),
     customer_facing_rule:
-      "Only baseline corpus + accountant-approved published overlays are served. Quarantined changes never reach customers.",
+      "Verified official updates auto-publish. Quarantined/blocked fact IDs are omitted from retrieval; unaffected verified knowledge remains available. SIMBA does not perform client MTD reviews, bookkeeping corrections, tax-return preparation or HMRC submissions.",
   };
 }
 
@@ -393,6 +558,7 @@ let timer: NodeJS.Timeout | null = null;
 export function startHmrcScheduler(opts?: {
   intervalMs?: number;
   fetchPage?: FetchPageFn;
+  fetchContentApi?: FetchContentApiFn;
 }): { enabled: boolean; interval_ms: number } {
   const enabled =
     String(process.env.CONCIERGE_HMRC_MONITOR_ENABLED || "")
@@ -409,11 +575,13 @@ export function startHmrcScheduler(opts?: {
   };
   saveState(state);
   if (!enabled) return { enabled: false, interval_ms };
-
   if (timer) clearInterval(timer);
   const tick = async () => {
     try {
-      await runHmrcMonitorCycle({ fetchPage: opts?.fetchPage });
+      await runHmrcMonitorCycle({
+        fetchPage: opts?.fetchPage,
+        fetchContentApi: opts?.fetchContentApi,
+      });
       const s = loadState();
       s.scheduler = {
         enabled: true,
@@ -425,7 +593,6 @@ export function startHmrcScheduler(opts?: {
       alert("critical", "hmrc_scheduler_error", (err as Error).message);
     }
   };
-  // Run once shortly after start, then on interval
   setTimeout(() => void tick(), 2_000);
   timer = setInterval(() => void tick(), interval_ms);
   if (typeof timer.unref === "function") timer.unref();

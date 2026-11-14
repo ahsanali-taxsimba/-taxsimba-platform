@@ -1,4 +1,4 @@
-/** Load curated knowledge corpus from disk + accountant-approved overlays. */
+/** Load curated knowledge corpus from disk + accountant/auto-approved overlays. */
 
 import { readdirSync, readFileSync, existsSync } from "node:fs";
 import path from "node:path";
@@ -41,28 +41,43 @@ function loadLatestPublishedOverlayFacts(): KnowledgeFact[] {
   }
 }
 
+function loadBlockedFactIds(): Set<string> {
+  const statePath = runtimePaths.hmrcState();
+  if (!existsSync(statePath)) return new Set();
+  try {
+    const state = JSON.parse(readFileSync(statePath, "utf-8")) as {
+      blocked_fact_ids?: string[];
+    };
+    return new Set(state.blocked_fact_ids || []);
+  } catch {
+    return new Set();
+  }
+}
+
 /**
  * Customer-facing facts = baseline historical corpus merged with the latest
- * accountant-approved published overlay. Quarantined changes are never merged.
+ * verified published overlay, minus blocked/quarantined fact IDs.
  */
 export function loadFacts(opts?: {
   includePublishedOverlay?: boolean;
+  includeBlocked?: boolean;
 }): KnowledgeFact[] {
   const includeOverlay = opts?.includePublishedOverlay !== false;
-  if (includeOverlay && cache) return cache;
+  if (includeOverlay && opts?.includeBlocked !== true && cache) return cache;
 
   const byId = new Map<string, KnowledgeFact>();
   for (const f of loadBaselineFacts()) byId.set(f.id, f);
   if (includeOverlay) {
     for (const f of loadLatestPublishedOverlayFacts()) {
-      // Overlay may refresh verification metadata / effective dates, but never
-      // invents a fact id that was not already in the curated baseline.
       if (!byId.has(f.id)) continue;
       byId.set(f.id, { ...byId.get(f.id)!, ...f, id: f.id });
     }
   }
-  const facts = [...byId.values()];
-  if (includeOverlay) cache = facts;
+
+  const blocked =
+    opts?.includeBlocked === true ? new Set<string>() : loadBlockedFactIds();
+  const facts = [...byId.values()].filter((f) => !blocked.has(f.id));
+  if (includeOverlay && opts?.includeBlocked !== true) cache = facts;
   return facts;
 }
 

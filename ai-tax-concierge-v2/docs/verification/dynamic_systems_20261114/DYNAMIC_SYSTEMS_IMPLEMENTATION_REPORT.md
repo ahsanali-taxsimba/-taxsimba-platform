@@ -23,32 +23,34 @@ Working chat/live OpenAI path preserved (no duplicate chatbot).
 ```
 Baseline (committed)          Runtime (writable, no redeploy)
 ─────────────────────         ────────────────────────────────
-data/corpus/*.json      →     data/runtime/hmrc/published/*.json  (accountant-approved only)
+data/corpus/*.json      →     data/runtime/hmrc/published/*.json  (auto-verified + accountant-approved)
 data/catalog/packages.json →  data/runtime/catalog/overlays/packages.live.json
 data/config/hmrc_watchlist.json
 ```
 
-- Customers see **baseline + approved published overlays only**.
-- Quarantined HMRC changes **never** reach `loadFacts()` until accountant approval.
+- Customers see **baseline + verified published overlays**, minus blocked/quarantined fact IDs.
+- **Owner policy (2026-11-14):** verified official changes **auto-publish** when authenticity + structured extraction + validation pass. Quarantine only ambiguous / conflicting / withdrawn / interpretation-heavy facts.
 - Catalogue sync writes a live overlay; `packagesCatalog()` prefers it when present.
 - Rollback restores prior overlay / baseline without rebuilding the Node image.
+- Does **not** claim 100% accuracy; unverified legal interpretations are not published.
 
 ---
 
-## 2. HMRC / GOV.UK monitor
+## 2. HMRC / GOV.UK monitor (risk-based auto-publish)
 
 | Capability | Status | Evidence |
 |------------|--------|----------|
+| GOV.UK Content API (+ HTML fallback) | **PASS** | `content_api.ts`; live cycle `source_mode: content_api` |
 | Official `.gov.uk` sources only | **PASS** | Watchlist + host checks; non-gov rejected in tests |
-| Automatic change detection (content hash) | **PASS** | Live cycle quarantined first snapshots |
+| Change detection (hash + version token) | **PASS** | `content_hash` + `version_token` |
 | Authenticity (host, title markers, expected phrases) | **PASS** | Live: `authenticity_failures: 0` |
-| Effective-date extraction | **PASS** | Dates captured on MTD/SA pages |
-| Preserve historical tax rules | **PASS** | Baseline corpus never deleted; overlays versioned; history dir |
-| Quarantine high-impact / ambiguous changes | **PASS** | All content changes quarantine until approval |
-| Prevent unverified info to customers | **PASS** | Unit test: overlay status absent until approve |
-| Monitoring / alerts | **PASS** | `data/runtime/hmrc/alerts/*.jsonl` |
-| Rollback | **PASS** | Demo approve → rollback restores baseline review_status |
-| Scheduled execution | **PASS** | `CONCIERGE_HMRC_MONITOR_ENABLED=true` + interval; demo started scheduler |
+| Structured extraction (URL, tax year, effective/publication dates, conditions, superseded) | **PASS** | `extract.ts` + unit fixtures |
+| Auto-publish without routine accountant approval | **PASS** | Live demo `auto_published: 5`; Vitest fixtures |
+| Quarantine only affected facts on conflict/ambiguity | **PASS** | Vitest conflict + live OpenAI proof |
+| Preserve historical + future-dated tax rules | **PASS** | Baseline retained; 2028 MTD band preserved |
+| Live OpenAI uses published overlay | **PASS** | `../auto_publish_20261114/live_auto_publish_openai_proof.json` |
+| Monitoring / alerts / rollback | **PASS** | alerts JSONL + rollback demo |
+| Scheduled execution | **PASS** | `CONCIERGE_HMRC_MONITOR_ENABLED=true` + interval |
 
 Ops (token-protected):
 
@@ -60,7 +62,9 @@ Ops (token-protected):
 
 Machine report: `dynamic_systems_demo_report.json`
 
-**Verdict: PASS (implemented + tested)** — staging must set `CONCIERGE_OPS_TOKEN` + enable scheduler.
+Owner auto-publish report: [`../auto_publish_20261114/AUTO_PUBLISH_OWNER_APPROVAL_REPORT.md`](../auto_publish_20261114/AUTO_PUBLISH_OWNER_APPROVAL_REPORT.md).
+
+**Verdict: PASS (risk-based auto-publish implemented + tested)** — staging must set `CONCIERGE_OPS_TOKEN` + enable scheduler.
 
 ---
 
@@ -102,11 +106,12 @@ Updated: `packages.json` (Node + Python reference), recommendations, prompts, Vi
 
 | Suite | Result |
 |-------|--------|
-| Vitest | **481/481 PASS** (was 476; +dynamic system tests) |
+| Vitest | **482/482 PASS** (+ auto-publish / conflict / rollback fixtures) |
 | Security suite | **26/26 PASS** |
 | Live OpenAI harness | **33/33 PASS**, accuracy flags **0** (`live_openai_report_20261114T020133Z.json`) |
+| Live OpenAI uses auto-published overlay | **PASS** (`../auto_publish_20261114/live_auto_publish_openai_proof.json`) |
 | Owner commercial live probe | **11/11 PASS** |
-| Dynamic systems demo | **PASS** (see verdict block in JSON report) |
+| Dynamic systems demo (Content API auto-publish) | **PASS** — live `auto_published: 5`, authenticity failures 0 |
 
 ---
 

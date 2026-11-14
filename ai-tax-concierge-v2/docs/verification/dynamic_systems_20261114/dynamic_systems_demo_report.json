@@ -1,26 +1,31 @@
 {
-  "generated_at": "2026-11-14T02:01:22.078Z",
+  "generated_at": "2026-11-14T02:25:35.590Z",
   "timezone_note": "Europe/London for owner reporting",
-  "runtime_dir": "/tmp/simba-dyn-demo-ejFYYL",
+  "runtime_dir": "/tmp/simba-dyn-demo-NHgclj",
   "hmrc_live_cycle": {
+    "publication_policy": "automatic_verified_official_changes; quarantine only ambiguous/conflicting/withdrawn",
     "checked": 5,
     "unchanged": 0,
-    "quarantined": 5,
+    "auto_published": 5,
+    "quarantined": 0,
     "authenticity_failures": 0,
     "errors": 0,
-    "quarantine_ids": [
-      "q-mtd_if_and_when-1794621682199",
-      "q-mtd_qualifying_income-1794621682340",
-      "q-vat_registration_thresholds-1794621682538",
-      "q-sa_deadlines-1794621682546",
-      "q-income_tax_rates-1794621682847"
+    "quarantine_ids": [],
+    "published_versions": [
+      "auto-1794623135763",
+      "auto-1794623136243",
+      "auto-1794623136254",
+      "auto-1794623136955",
+      "auto-1794623137437"
     ],
+    "blocked_fact_ids": [],
     "sample_snapshots": [
       {
         "watch_id": "mtd_if_and_when",
         "ok": true,
         "http_status": 200,
-        "content_hash": "0fd557aab2a82825",
+        "source_mode": "content_api",
+        "content_hash": "752c4aa166b04e83",
         "authenticity": {
           "host_ok": true,
           "publisher_markers_ok": true,
@@ -29,19 +34,18 @@
           "missing_phrases": []
         },
         "effective_dates_found": [
-          "2021-09-23",
-          "2021-10-07",
-          "2021-10-11",
-          "2022-08-26",
-          "2022-12-19"
+          "2026-04-06",
+          "2027-04-06",
+          "2028-04-06"
         ],
-        "title": "Find out if and when you need to use Making Tax Digital for Income Tax - GOV.UK"
+        "title": "Find out if and when you need to use Making Tax Digital for Income Tax"
       },
       {
         "watch_id": "mtd_qualifying_income",
         "ok": true,
         "http_status": 200,
-        "content_hash": "0a12496dc9e1ec9b",
+        "source_mode": "content_api",
+        "content_hash": "c7592c7e7c30117c",
         "authenticity": {
           "host_ok": true,
           "publisher_markers_ok": true,
@@ -50,19 +54,16 @@
           "missing_phrases": []
         },
         "effective_dates_found": [
-          "2024-10-16",
-          "2025-02-25",
-          "2025-11-24",
-          "2026-01-06",
-          "2026-01-29"
+          "2026-04-06"
         ],
-        "title": "Work out your qualifying income for Making Tax Digital for Income Tax - GOV.UK"
+        "title": "Work out your qualifying income for Making Tax Digital for Income Tax"
       },
       {
         "watch_id": "vat_registration_thresholds",
         "ok": true,
         "http_status": 200,
-        "content_hash": "46404a7cb3474f19",
+        "source_mode": "content_api",
+        "content_hash": "4093194ee8a8a1a1",
         "authenticity": {
           "host_ok": true,
           "publisher_markers_ok": true,
@@ -71,31 +72,33 @@
           "missing_phrases": []
         },
         "effective_dates_found": [],
-        "title": "How VAT works: Overview - GOV.UK"
+        "title": "Register for VAT"
       }
     ]
   },
+  "hmrc_auto_publish_sample": {
+    "fact_id": "sa-paper-deadline",
+    "review_status": "auto_published_verified_official",
+    "effective_date": "2024-04-06",
+    "source_url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+  },
   "hmrc_controlled_publish_rollback": {
-    "approved": true,
-    "quarantine_id": "q-mtd_if_and_when-1794621682199",
-    "overlay_version": "pub-1794621682859",
-    "fact_id": "mtd-who-and-when",
-    "before_review_status": "verified_against_govuk_summary",
-    "after_review_status": "accountant_approved_overlay",
+    "approved": false,
+    "auto_publish_rollback_demo": true,
     "rolled_back": true,
-    "after_rollback_review_status": "verified_against_govuk_summary"
+    "restored_version": "auto-1794623136955"
   },
   "hmrc_scheduler": {
     "enabled": true,
     "interval_ms": 60000
   },
   "catalog_live_sync": {
-    "started_at": "2026-11-14T02:01:22.866Z",
-    "finished_at": "2026-11-14T02:01:23.584Z",
+    "started_at": "2026-11-14T02:25:37.440Z",
+    "finished_at": "2026-11-14T02:25:38.221Z",
     "source_sa": "https://taxsimba.co.uk/api/compat/subscription-plans?category=taxSimba",
     "source_mtd": "https://taxsimba.co.uk/api/compat/subscription-plans?category=mtd",
     "applied": true,
-    "overlay_version": "live-sync-1794621683583",
+    "overlay_version": "live-sync-1794623138221",
     "stable_codes_preserved": [
       "SA_SIMPLE",
       "SA_SMART",
@@ -162,7 +165,7 @@
     "reverted_elite_price": 299,
     "rollback": {
       "rolled_back": true,
-      "restored_from": "packages.live.1794621683989.json"
+      "restored_from": "packages.live.1794623138622.json"
     }
   },
   "catalog_scheduler": {
@@ -171,16 +174,20 @@
   },
   "hmrc_status": {
     "system": "hmrc_knowledge_monitor",
-    "last_cycle_at": "2026-11-14T02:01:22.847Z",
+    "publication_policy": "automatic_verified_official_changes; quarantine only ambiguous/conflicting/withdrawn",
+    "last_cycle_at": "2026-11-14T02:25:37.438Z",
     "last_cycle_summary": {
       "checked": 5,
       "unchanged": 0,
-      "quarantined": 5,
+      "auto_published": 5,
+      "quarantined": 0,
       "authenticity_failures": 0,
-      "errors": 0
+      "errors": 0,
+      "blocked_fact_ids": []
     },
-    "published_version": null,
-    "quarantined_open": 4,
+    "published_version": "auto-1794623136955",
+    "quarantined_open": 0,
+    "blocked_fact_ids": [],
     "scheduler": {
       "enabled": true,
       "interval_ms": 60000,
@@ -188,7 +195,7 @@
     },
     "recent_alerts": [
       {
-        "at": "2026-11-14T02:01:22.865Z",
+        "at": "2026-11-14T02:25:37.440Z",
         "system": "hmrc",
         "level": "info",
         "code": "hmrc_scheduler_started",
@@ -196,114 +203,93 @@
         "details": {}
       },
       {
-        "at": "2026-11-14T02:01:22.865Z",
+        "at": "2026-11-14T02:25:37.440Z",
         "system": "hmrc",
         "level": "warn",
         "code": "hmrc_overlay_rollback",
-        "message": "Rolled back published overlay pub-1794621682859.json",
+        "message": "Rolled back published overlay auto-1794623137437.json",
         "details": {
-          "restored_version": null
+          "restored_version": "auto-1794623136955.json"
         }
       },
       {
-        "at": "2026-11-14T02:01:22.859Z",
+        "at": "2026-11-14T02:25:37.438Z",
         "system": "hmrc",
         "level": "info",
-        "code": "hmrc_overlay_published",
-        "message": "Published knowledge overlay pub-1794621682859",
+        "code": "hmrc_auto_published",
+        "message": "Auto-published 1 facts from income_tax_rates",
         "details": {
-          "quarantine_id": "q-mtd_if_and_when-1794621682199",
+          "version": "auto-1794623137437",
           "fact_ids": [
-            "mtd-who-and-when",
-            "mtd-threshold-50k-april-2026",
-            "mtd-threshold-30k-april-2027",
-            "mtd-threshold-20k-april-2028"
+            "personal-allowance-2025-26"
           ]
         }
       },
       {
-        "at": "2026-11-14T02:01:22.847Z",
+        "at": "2026-11-14T02:25:36.956Z",
         "system": "hmrc",
-        "level": "critical",
-        "code": "hmrc_change_quarantined",
-        "message": "Quarantined GOV.UK change for income_tax_rates; not published to customers",
+        "level": "info",
+        "code": "hmrc_auto_published",
+        "message": "Auto-published 2 facts from sa_deadlines",
         "details": {
-          "quarantine_id": "q-income_tax_rates-1794621682847",
-          "linked_fact_ids": [
-            "personal-allowance-2025-26"
-          ],
-          "impact": "high"
-        }
-      },
-      {
-        "at": "2026-11-14T02:01:22.546Z",
-        "system": "hmrc",
-        "level": "critical",
-        "code": "hmrc_change_quarantined",
-        "message": "Quarantined GOV.UK change for sa_deadlines; not published to customers",
-        "details": {
-          "quarantine_id": "q-sa_deadlines-1794621682546",
-          "linked_fact_ids": [
+          "version": "auto-1794623136955",
+          "fact_ids": [
             "sa-deadline-online",
             "sa-paper-deadline"
-          ],
-          "impact": "high"
+          ]
         }
       },
       {
-        "at": "2026-11-14T02:01:22.538Z",
+        "at": "2026-11-14T02:25:36.254Z",
         "system": "hmrc",
-        "level": "critical",
-        "code": "hmrc_change_quarantined",
-        "message": "Quarantined GOV.UK change for vat_registration_thresholds; not published to customers",
+        "level": "info",
+        "code": "hmrc_auto_published",
+        "message": "Auto-published 2 facts from vat_registration_thresholds",
         "details": {
-          "quarantine_id": "q-vat_registration_thresholds-1794621682538",
-          "linked_fact_ids": [
+          "version": "auto-1794623136254",
+          "fact_ids": [
             "vat-threshold-overview",
             "vat-registration-timing-tests"
-          ],
-          "impact": "high"
+          ]
         }
       },
       {
-        "at": "2026-11-14T02:01:22.340Z",
+        "at": "2026-11-14T02:25:36.244Z",
         "system": "hmrc",
-        "level": "critical",
-        "code": "hmrc_change_quarantined",
-        "message": "Quarantined GOV.UK change for mtd_qualifying_income; not published to customers",
+        "level": "info",
+        "code": "hmrc_auto_published",
+        "message": "Auto-published 1 facts from mtd_qualifying_income",
         "details": {
-          "quarantine_id": "q-mtd_qualifying_income-1794621682340",
-          "linked_fact_ids": [
+          "version": "auto-1794623136243",
+          "fact_ids": [
             "mtd-qualifying-income-definition"
-          ],
-          "impact": "high"
+          ]
         }
       },
       {
-        "at": "2026-11-14T02:01:22.199Z",
+        "at": "2026-11-14T02:25:35.763Z",
         "system": "hmrc",
-        "level": "critical",
-        "code": "hmrc_change_quarantined",
-        "message": "Quarantined GOV.UK change for mtd_if_and_when; not published to customers",
+        "level": "info",
+        "code": "hmrc_auto_published",
+        "message": "Auto-published 4 facts from mtd_if_and_when",
         "details": {
-          "quarantine_id": "q-mtd_if_and_when-1794621682199",
-          "linked_fact_ids": [
-            "mtd-who-and-when",
+          "version": "auto-1794623135763",
+          "fact_ids": [
             "mtd-threshold-50k-april-2026",
             "mtd-threshold-30k-april-2027",
-            "mtd-threshold-20k-april-2028"
-          ],
-          "impact": "high"
+            "mtd-threshold-20k-april-2028",
+            "mtd-who-and-when"
+          ]
         }
       }
     ],
-    "customer_facing_rule": "Only baseline corpus + accountant-approved published overlays are served. Quarantined changes never reach customers."
+    "customer_facing_rule": "Verified official updates auto-publish. Quarantined/blocked fact IDs are omitted from retrieval; unaffected verified knowledge remains available. SIMBA does not perform client MTD reviews, bookkeeping corrections, tax-return preparation or HMRC submissions."
   },
   "catalog_status": {
     "system": "taxsimba_catalogue_sync",
     "live_overlay_present": true,
-    "overlay_version": "live-sync-1794621683785",
-    "last_sync_at": "2026-11-14T02:01:23.989Z",
+    "overlay_version": "live-sync-1794623138423",
+    "last_sync_at": "2026-11-14T02:25:38.622Z",
     "last_sync_summary": {
       "price_changes": [],
       "name_changes": [],
@@ -355,7 +341,7 @@
     },
     "recent_alerts": [
       {
-        "at": "2026-11-14T02:01:23.990Z",
+        "at": "2026-11-14T02:25:38.624Z",
         "system": "catalog",
         "level": "info",
         "code": "catalog_scheduler_started",
@@ -363,30 +349,30 @@
         "details": {}
       },
       {
-        "at": "2026-11-14T02:01:23.990Z",
+        "at": "2026-11-14T02:25:38.624Z",
         "system": "catalog",
         "level": "warn",
         "code": "catalog_overlay_rollback",
-        "message": "Restored catalogue overlay from packages.live.1794621683989.json",
+        "message": "Restored catalogue overlay from packages.live.1794623138622.json",
         "details": {}
       },
       {
-        "at": "2026-11-14T02:01:23.989Z",
+        "at": "2026-11-14T02:25:38.622Z",
         "system": "catalog",
         "level": "info",
         "code": "catalog_sync_applied",
-        "message": "Catalogue overlay live-sync-1794621683989 applied",
+        "message": "Catalogue overlay live-sync-1794623138622 applied",
         "details": {
           "price_changes": [],
           "name_changes": []
         }
       },
       {
-        "at": "2026-11-14T02:01:23.786Z",
+        "at": "2026-11-14T02:25:38.424Z",
         "system": "catalog",
         "level": "info",
         "code": "catalog_sync_applied",
-        "message": "Catalogue overlay live-sync-1794621683785 applied",
+        "message": "Catalogue overlay live-sync-1794623138423 applied",
         "details": {
           "price_changes": [
             {
@@ -399,11 +385,11 @@
         }
       },
       {
-        "at": "2026-11-14T02:01:23.584Z",
+        "at": "2026-11-14T02:25:38.221Z",
         "system": "catalog",
         "level": "info",
         "code": "catalog_sync_applied",
-        "message": "Catalogue overlay live-sync-1794621683583 applied",
+        "message": "Catalogue overlay live-sync-1794623138221 applied",
         "details": {
           "price_changes": [],
           "name_changes": []
@@ -413,8 +399,10 @@
   },
   "verdict": {
     "hmrc_monitor_implemented": true,
+    "hmrc_auto_publish_policy": true,
     "hmrc_live_cycle_pass": true,
-    "hmrc_quarantine_gate_pass": true,
+    "hmrc_auto_published_without_manual_approval": true,
+    "hmrc_quarantine_only_ambiguous_or_conflict": true,
     "catalog_sync_implemented": true,
     "catalog_live_sync_pass": true,
     "catalog_staging_change_without_redeploy_pass": true,
