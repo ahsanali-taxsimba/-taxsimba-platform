@@ -40,7 +40,7 @@ describe("final website catalogue reconciliation", () => {
     expect(mtd[2].features).toContain("Proactive tax planning advice");
   });
 
-  it("simba_catalogue_preserves_owner_decisions_and_undecided_limits", () => {
+  it("simba_catalogue_preserves_owner_decisions_and_no_fixed_caps", () => {
     const cat = packagesCatalog();
     expect(cat.detailed_recommendations_status).toBe(
       "website_reconciled_owner_decisions_applied",
@@ -52,7 +52,9 @@ describe("final website catalogue reconciliation", () => {
       MTD_COMPLETE: "Xero Grow",
       source: "public API category=mtd recovered 2026-11-13",
     });
-    expect(cat.owner_decisions.bookkeeping_transaction_limits).toBe("UNDECIDED");
+    expect(cat.owner_decisions.bookkeeping_transaction_limits).toBe(
+      "NO_FIXED_MONTHLY_TRANSACTION_CAPS",
+    );
     expect(cat.owner_decisions.mtd_quarterly_updates_included).toBe(
       "approved_subject_to_customer_responsibilities",
     );
@@ -71,7 +73,8 @@ describe("final website catalogue reconciliation", () => {
     expect(lower).toContain("do not pay separately");
     expect(lower).toContain("quarterly");
     expect(lower).toContain("customer responsibilities");
-    expect(lower).toContain("undecided");
+    expect(lower).toContain("no fixed monthly transaction caps");
+    expect(lower).not.toContain("undecided");
     expect(lower).toContain("removed");
     expect(lower).not.toMatch(/includes quarterly business reviews/);
     expect(lower).not.toMatch(/includes proactive tax planning advice/);

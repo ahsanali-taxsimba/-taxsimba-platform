@@ -11,8 +11,12 @@ import "dotenv/config";
 import { createApp } from "./app.js";
 import { createSettings } from "./config/settings.js";
 import { VERSION } from "./version.js";
+import { startHmrcScheduler } from "./knowledge/monitor/service.js";
+import { startCatalogueScheduler } from "./catalog/sync/service.js";
+import { ensureRuntimeDirs } from "./ops/runtime_paths.js";
 
 const settings = createSettings();
+ensureRuntimeDirs();
 const app = createApp(settings);
 
 const port = Number(process.env.PORT || 8091);
@@ -24,5 +28,10 @@ app.listen(port, host, () => {
   );
   console.log(
     `Dual-run tip: Python often uses :8090; Node defaults to :8091. Set PORT to override.`,
+  );
+  const hmrc = startHmrcScheduler();
+  const catalog = startCatalogueScheduler();
+  console.log(
+    `Dynamic systems: hmrc_monitor=${hmrc.enabled ? `on/${hmrc.interval_ms}ms` : "off"} catalogue_sync=${catalog.enabled ? `on/${catalog.interval_ms}ms` : "off"}`,
   );
 });

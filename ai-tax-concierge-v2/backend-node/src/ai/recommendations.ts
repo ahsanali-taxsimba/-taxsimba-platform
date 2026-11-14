@@ -25,7 +25,7 @@ const DEFAULT_PRESSURE_NOTE =
   "Optional support — only if useful. Approved: package names/prices; Xero included in each Simbian monthly price " +
   "(Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow; no separate Xero charge); quarterly MTD updates and year-end SA " +
   "subject to documented customer responsibilities; email + dashboard messaging (not phone onboarding). " +
-  "Bookkeeping transaction limits remain UNDECIDED. No priority support, quarterly business reviews or proactive tax planning.";
+  "No fixed monthly transaction caps on Simbian packages (not unlimited out-of-scope work). No priority support, quarterly business reviews or proactive tax planning.";
 
 const PENDING_STATUSES = new Set([
   "pending_taxsimba_signoff",
@@ -50,13 +50,13 @@ function circumstanceReason(code: string, message: string): string {
     return "Highest Self Assessment price — only suggested when complexity clearly exceeds mid-tier needs (price approved at £299; no priority/planning promises).";
   }
   if (code === "MTD_STARTER") {
-    return "Lowest Simbian Comply (£29.99/mo VAT included, Xero Simple included in that price) when Making Tax Digital support is needed — quarterly updates and year-end SA included subject to customer responsibilities; bookkeeping transaction limits UNDECIDED.";
+    return "Lowest Simbian Comply (£29.99/mo VAT included, Xero Simple included in that price) when Making Tax Digital support is needed — quarterly updates and year-end SA included subject to customer responsibilities; no fixed monthly transaction caps (not unlimited out-of-scope work).";
   }
   if (code === "MTD_GROWTH") {
-    return "Mid Simbian Growth (£59.99/mo VAT included, Xero Ignite included in that price) when more support is likely — quarterly updates and year-end SA included subject to customer responsibilities; bookkeeping transaction limits UNDECIDED.";
+    return "Mid Simbian Growth (£59.99/mo VAT included, Xero Ignite included in that price) when more support is likely — quarterly updates and year-end SA included subject to customer responsibilities; no fixed monthly transaction caps (not unlimited out-of-scope work).";
   }
   if (code === "MTD_COMPLETE") {
-    return "Highest Simbian Elite (£89.99/mo VAT included, Xero Grow included in that price) only if mid-tier is clearly insufficient — no priority/QBR/planning promises; bookkeeping transaction limits UNDECIDED.";
+    return "Highest Simbian Elite (£89.99/mo VAT included, Xero Grow included in that price) only if mid-tier is clearly insufficient — no priority/QBR/planning promises; no fixed monthly transaction caps (not unlimited out-of-scope work).";
   }
   if (code === "ACCOUNTANT_CONSULT_99") {
     return "£99 for one 30-minute accountant-led Google Meet advice session (no filing, bookkeeping or written report; booking stub until Calendly is connected).";
@@ -347,12 +347,12 @@ export function answerInclusionsQuestion(message: string): string | null {
     "- £99 consultation: 30-minute accountant advice session on Google Meet (no filing, bookkeeping or written report).",
     "",
     "Approved with conditions:",
-    "- TaxSimba maintains digital bookkeeping within agreed package limits — transaction/numerical limits remain UNDECIDED; I will not invent them.",
+    "- TaxSimba maintains digital bookkeeping with no fixed monthly transaction caps on Simbian Comply, Growth and Elite (owner-approved). This does not mean unlimited out-of-scope work.",
     "- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.",
     "",
-    "Genuine outstanding items (not invented): package exclusions lists, extra-work charges, amendments, cancellation/refund conditions, and bookkeeping transaction caps.",
+    "Genuine outstanding items (not invented): package exclusions lists, extra-work charges, amendments, and cancellation/refund conditions.",
     "Removed from SIMBA customer promises until re-approved (even if older website bullets mention them): priority support, priority turnaround, quarterly business reviews, and proactive tax planning.",
-    "I will not invent bookkeeping limits, response times, tax-planning benefits or extra charges. " +
+    "I will not invent fixed monthly caps, unlimited out-of-scope work, response times, tax-planning benefits or extra charges. " +
       "Where an entitlement still requires clarification, TaxSimba must confirm the detail.",
     "",
     "I can recommend the lowest suitable package for your circumstances and share the right next link. " +
@@ -389,7 +389,7 @@ export function answerInclusionsQuestion(message: string): string | null {
   ) {
     lines.push(
       "",
-      "Bookkeeping is accountant-maintained within tier limits. Those numerical limits are not approved yet, so I will not claim unlimited bookkeeping.",
+      "Bookkeeping is accountant-maintained. There are no fixed monthly transaction caps on Simbian packages, but that is not a promise of unlimited out-of-scope work.",
     );
   }
 

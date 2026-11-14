@@ -23,17 +23,17 @@ Approver key: **TaxSimba owner** · **Accountant lead** · **Toxel** (ops/integr
 
 ---
 
-## 2. Bookkeeping volume limits for Comply, Growth and Elite
+## 2. Bookkeeping volume / out-of-scope work for Comply, Growth and Elite
 
 | Proposed wording | Existing evidence | Remaining decision | Approver | Status |
 |------------------|-------------------|--------------------|----------|--------|
-| TaxSimba maintains digital bookkeeping within defined limits per MTD tier | Owner decision 2 | Approve numerical limits | TaxSimba owner + Accountant | APPROVED SUBJECT TO SCOPE |
-| Comply monthly transaction / bank-feed cap | none | Set number (or band) | Accountant lead | PENDING APPROVAL |
-| Growth monthly transaction / bank-feed cap | none | Set number (or band) | Accountant lead | PENDING APPROVAL |
-| Elite monthly transaction / bank-feed cap | none | Set number (or band) | Accountant lead | PENDING APPROVAL |
+| No fixed monthly transaction caps on Simbian Comply / Growth / Elite | Owner correction 2026-11-14 | — | TaxSimba owner | **APPROVED** |
+| Not a promise of unlimited out-of-scope work | Owner correction 2026-11-14 | — | TaxSimba owner | **APPROVED** |
 | Client duties (upload receipts, bank feeds connected) | none | Publish client responsibilities | Accountant lead | PENDING APPROVAL |
-| Overage / out-of-scope bookkeeping charges | none | Pricing and notice | TaxSimba owner | PENDING APPROVAL |
+| Definition / pricing of out-of-scope bookkeeping | none | Pricing and notice | TaxSimba owner | PENDING APPROVAL |
 | Catch-up bookkeeping for prior periods | none | Included vs charged | Accountant lead | PENDING APPROVAL |
+
+**Removed from outstanding decisions:** fixed monthly transaction / bank-feed numerical caps for Comply, Growth and Elite.
 
 ---
 

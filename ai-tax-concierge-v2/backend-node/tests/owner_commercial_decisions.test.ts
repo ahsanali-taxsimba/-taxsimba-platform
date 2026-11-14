@@ -42,8 +42,10 @@ describe("owner commercial decisions — controlled approval", () => {
     expect(cat.owner_decisions.xero_exact_licence_mapping).toBe(
       "verified_from_website_catalogue",
     );
-    expect(cat.owner_decisions.bookkeeping_numerical_limits_approved).toBe(false);
-    expect(cat.owner_decisions.bookkeeping_transaction_limits).toBe("UNDECIDED");
+    expect(cat.owner_decisions.bookkeeping_numerical_limits_approved).toBe(true);
+    expect(cat.owner_decisions.bookkeeping_transaction_limits).toBe(
+      "NO_FIXED_MONTHLY_TRANSACTION_CAPS",
+    );
     expect(cat.owner_decisions.mtd_includes_annual_sa_subject_to_scope).toBe(
       "approved_subject_to_customer_responsibilities",
     );
@@ -111,9 +113,11 @@ describe("owner commercial decisions — controlled approval", () => {
     );
     expect(reply).toBeTruthy();
     const lower = reply!.toLowerCase();
-    expect(lower).toContain("package limits");
-    expect(lower).toContain("undecided");
+    expect(lower).toContain("no fixed monthly transaction caps");
+    expect(lower).toContain("not");
+    expect(lower).toMatch(/not (mean |a promise of )?unlimited|not unlimited/);
     expect(lower).not.toMatch(/unlimited bookkeeping is included/);
+    expect(lower).not.toContain("undecided");
   });
 
   it("inclusions_answer_mtd_annual_sa_subject_to_scope", () => {

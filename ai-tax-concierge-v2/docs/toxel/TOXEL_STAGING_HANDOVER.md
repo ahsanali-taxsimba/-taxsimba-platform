@@ -5,13 +5,14 @@
 **Customer-facing name:** **SIMBA AI Tax Assistant** (Emerald Signature UI — do not restyle)  
 **Release gate:** **STAGING ONLY** — no production merge/deploy; **do not delete Python** (`ai-tax-concierge-v2/backend/`) until staging acceptance is signed separately.
 
-Accepted local evidence (2026-11-13 website reconciliation + live key re-run): **476** Vitest · security **26** · live OpenAI harness **33/33** (accuracy flags **0**) · owner commercial live probe **11/11** · widget + live-site screenshots under `docs/verification/final_website_reconciliation/screenshots/`. Node independent of Python.  
+Accepted local evidence (2026-11-14 dynamic systems + live re-run): **481** Vitest · security **26** · live OpenAI **33/33** (accuracy flags **0**) · owner commercial live probe **11/11** · HMRC monitor + catalogue sync demos **PASS**. Node independent of Python.  
+Dynamic systems: [`../verification/dynamic_systems_20261114/DYNAMIC_SYSTEMS_IMPLEMENTATION_REPORT.md`](../verification/dynamic_systems_20261114/DYNAMIC_SYSTEMS_IMPLEMENTATION_REPORT.md).  
 Live key re-run: [`../verification/live_key_rerun_20261113/LIVE_KEY_RERUN_REPORT.md`](../verification/live_key_rerun_20261113/LIVE_KEY_RERUN_REPORT.md).  
 Reconciliation: [`../verification/final_website_reconciliation/FINAL_SIX_PACKAGE_RECONCILIATION_REPORT.md`](../verification/final_website_reconciliation/FINAL_SIX_PACKAGE_RECONCILIATION_REPORT.md).
 
 ---
 
-## 0. Package catalogue alignment (owner decisions applied 2026-11-13)
+## 0. Package catalogue alignment (owner decisions)
 
 | Item | Status |
 |------|--------|
@@ -20,21 +21,20 @@ Reconciliation: [`../verification/final_website_reconciliation/FINAL_SIX_PACKAGE
 | Internal MTD codes | **Preserved** — `MTD_STARTER` / `MTD_GROWTH` / `MTD_COMPLETE` (portal/Stripe; no duplicates; amounts unchanged) |
 | Xero in MTD monthly price | **APPROVED** — included in £29.99 / £59.99 / £89.99; customers do **not** pay separately |
 | Xero mapping | **VERIFIED FROM WEBSITE** — Comply→Simple, Growth→Ignite, Elite→Grow |
-| Bookkeeping within package limits | **APPROVED**; **transaction caps UNDECIDED** |
+| Bookkeeping | **APPROVED** — **NO FIXED MONTHLY TRANSACTION CAPS** on all three Simbian packages; **not** unlimited out-of-scope work |
 | Quarterly MTD updates + year-end SA | **APPROVED** subject to documented customer responsibilities |
 | Support channels | **APPROVED** — email + client-dashboard messaging; **not** telephone onboarding |
 | Priority support / turnaround / QBR / proactive tax planning | **REMOVED** from SIMBA copy (may still appear on public API — do not auto-approve) |
 | Consultation £99 / 30 min | **APPROVED** — Google Meet advice session; **no** filing/bookkeeping/written report; booking stub |
-| Exclusions / amendments / cancel-refund / extra-work | **NOT IMPLEMENTED** on website — owner must supply |
+| Exclusions / amendments / cancel-refund / extra-work | **NOT IMPLEMENTED** on website — owner/legal must supply |
+| Automatic HMRC knowledge monitor | **IMPLEMENTED** — quarantine → accountant approve → publish/rollback |
+| Automatic catalogue sync (no redeploy) | **IMPLEMENTED** — live overlay from approved subscription-plans APIs |
 | Final website reconciliation | [`../verification/final_website_reconciliation/FINAL_SIX_PACKAGE_RECONCILIATION_REPORT.md`](../verification/final_website_reconciliation/FINAL_SIX_PACKAGE_RECONCILIATION_REPORT.md) |
 | Owner decisions | [`../verification/inclusions_resolution/OWNER_COMMERCIAL_DECISIONS_2026-11-13.md`](../verification/inclusions_resolution/OWNER_COMMERCIAL_DECISIONS_2026-11-13.md) |
-| Six-package approval matrix | [`../verification/inclusions_resolution/SIX_PACKAGE_APPROVAL_MATRIX.md`](../verification/inclusions_resolution/SIX_PACKAGE_APPROVAL_MATRIX.md) |
-| Remaining decision tables 1–8 | [`../verification/inclusions_resolution/REMAINING_OWNER_DECISION_TABLES.md`](../verification/inclusions_resolution/REMAINING_OWNER_DECISION_TABLES.md) |
-| Proposed copy | [`../verification/inclusions_resolution/PROPOSED_FINAL_PACKAGE_COPY.md`](../verification/inclusions_resolution/PROPOSED_FINAL_PACKAGE_COPY.md) |
-| Catalogue flag | `owner_decisions_applied_remaining_scope_pending` |
-| SIMBA behaviour | Approved names/prices + Xero-in-price; subject-to-scope bookkeeping/year-end SA; lowest suitable; SA vs MTD explained; never invent limits/named Xero mapping/SLAs or separate Xero charges; never promise removed premium claims |
+| Remaining decision tables | [`../verification/inclusions_resolution/REMAINING_OWNER_DECISION_TABLES.md`](../verification/inclusions_resolution/REMAINING_OWNER_DECISION_TABLES.md) |
+| SIMBA behaviour | Approved names/prices + Xero-in-price; no fixed monthly caps (not unlimited out-of-scope); subject-to-scope year-end SA; lowest suitable; never invent SLAs or separate Xero charges; never promise removed premium claims |
 
-**Do not** invent unresolved commercial terms or change approved prices. **Do not** silently change live website / portal billing / Stripe products.
+**Do not** invent unresolved commercial/legal terms. **Do not** silently change live website HTML or Stripe products outside approved catalogue sync.
 
 ---
 
@@ -51,6 +51,10 @@ export CONCIERGE_ENV=staging
 export CONCIERGE_CORS_ORIGINS=https://STAGING_HOST,https://www.taxsimba.co.uk
 export WEBSITE_BASE_URL=https://www.taxsimba.co.uk
 export CONSULTATION_BOOKING_URL=https://calendly.com/<staging-event>
+export CONCIERGE_OPS_TOKEN=***          # staging ops only — never expose to widget
+export CONCIERGE_HMRC_MONITOR_ENABLED=true
+export CONCIERGE_CATALOGUE_SYNC_ENABLED=true
+# optional: TAXSIMBA_CATALOGUE_API_BASE=https://taxsimba.co.uk
 export PORT=8090
 export HOST=0.0.0.0
 npm start              # node dist/server.js
@@ -59,10 +63,11 @@ npm start              # node dist/server.js
 | Check | Expect |
 |-------|--------|
 | Node ≥ 20 | `engines` in package.json |
-| `GET /api/v1/health` | `product: SIMBA AI`, `llm_mode: openai`, no `mock_notice` |
-| `GET /api/v1/bootstrap` | `subtitle: SIMBA AI Tax Assistant`; **no** API key fields |
-| Data | Vendored JSON under `backend-node/data/` (no Python process) |
+| `GET /api/v1/health` | `product: SIMBA AI`, `llm_mode: openai`, no `mock_notice`; `dynamic_systems` flags |
+| `GET /api/v1/bootstrap` | `subtitle: SIMBA AI Tax Assistant`; **no** API key / ops token fields |
+| Data | Vendored JSON + writable `data/runtime/` overlays (no Python process) |
 | TLS | Terminate at reverse proxy / load balancer → Node HTTP |
+| Ops | `POST /api/v1/ops/hmrc/run` and `/ops/catalog/sync` with `x-concierge-ops-token` |
 
 ### Routes
 
@@ -116,6 +121,11 @@ npm start              # node dist/server.js
 | `CONCIERGE_LOG_LEVEL` | Optional | |
 | `WEBSITE_BASE_URL` | Required | Deep links |
 | `CONSULTATION_BOOKING_URL` | When Calendly live | |
+| `CONCIERGE_OPS_TOKEN` | Required for ops | Protects HMRC/catalogue ops routes |
+| `CONCIERGE_HMRC_MONITOR_ENABLED` | `true` on staging | Schedules GOV.UK monitor |
+| `CONCIERGE_CATALOGUE_SYNC_ENABLED` | `true` on staging | Schedules catalogue sync |
+| `TAXSIMBA_CATALOGUE_API_BASE` | Optional | Defaults from website base |
+| `CONCIERGE_RUNTIME_DIR` | Optional | Writable overlays path |
 | `PORT` / `HOST` | As needed | |
 | Stripe / portal secrets | **Not in SIMBA Node yet** | Wire via portal/backend when integrating |
 
@@ -198,9 +208,11 @@ Run after HTTPS deploy. Record PASS/FAIL with screenshots.
 | A10 | Decline sales | Information only; no packages |
 | A11 | Mobile Safari | Sidebar/drawer + chat usable |
 | A12 | Embed on staging page | Launcher click-to-open; Escape closes |
-| A13 | `npm test` in CI/image | 476 pass |
+| A13 | `npm test` in CI/image | 481 pass |
 | A14 | Live MTD package page | Flag if `/making-tax-digital` still lacks Simbian cards (known contradiction) |
 | A15 | Live `/pricing` | Must not show service error |
+| A16 | HMRC monitor cycle + quarantine gate | `POST /ops/hmrc/run`; no unverified publish |
+| A17 | Catalogue sync without redeploy | `POST /ops/catalog/sync`; prices match approved API |
 
 ### B. Integrations (remain BLOCKED until each passes)
 
@@ -232,15 +244,19 @@ SIMBA product code lives under `ai-tax-concierge-v2/`. Do **not** modify `fronte
 
 **Exception already on PR #35:** portal `backend/phase1b.py` (+ related tests/scripts) syncs the approved SA/MTD catalogue prices into Mongo on boot so Stripe `unit_amount` cannot remain stuck at obsolete Elite £249 / legacy Essential/Plus SKUs. That change is catalogue-only — not a website redesign.
 
-### Knowledge / package sync reality (2026-11-13 live re-run)
+### Dynamic systems (2026-11-14 — implemented + evidenced)
 
 | Mechanism | Status |
 |-----------|--------|
-| Curated HMRC corpus + grounding (GOV.UK-aligned) | **PASS** — live answers + GOV.UK spot-checks |
-| Continuous automatic HMRC crawl into SIMBA | **Not built** — treat as future work |
-| SIMBA `packages.json` vs live subscription-plans API prices/names | **PASS** — re-fetched this run |
-| Automatic SIMBA Node pull from website API each request | **Not built** — vendored JSON |
-| Portal Mongo catalogue boot sync | **Code on PR** — staging DB E2E still required |
+| HMRC/GOV.UK monitor (hash detect, authenticity, effective dates) | **PASS** — live cycle + unit tests |
+| Quarantine → accountant approve → versioned publish | **PASS** — unverified never customer-facing |
+| Alerts + rollback | **PASS** |
+| Scheduled HMRC monitor | **PASS** (enable with env on staging) |
+| Catalogue sync from approved TaxSimba APIs | **PASS** — live sync + staging price change/revert without redeploy |
+| Stable package IDs / checkout mappings preserved | **PASS** |
+| Portal Mongo catalogue boot sync (`backend/phase1b.py`) | **Code on PR** — staging DB E2E still required |
+
+Evidence: [`../verification/dynamic_systems_20261114/DYNAMIC_SYSTEMS_IMPLEMENTATION_REPORT.md`](../verification/dynamic_systems_20261114/DYNAMIC_SYSTEMS_IMPLEMENTATION_REPORT.md).
 
 SIMBA staging remains an isolated service + embed until Toxel signs A/B suites.
 

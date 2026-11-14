@@ -1,0 +1,52 @@
+{
+  "version": "2026-11-14",
+  "description": "Official GOV.UK / HMRC pages monitored by SIMBA. Only these hosts are allowed.",
+  "allowed_host_suffixes": [".gov.uk"],
+  "entries": [
+    {
+      "id": "mtd_if_and_when",
+      "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "title_markers": ["Making Tax Digital", "Income Tax"],
+      "linked_fact_ids": [
+        "mtd-who-and-when",
+        "mtd-threshold-50k-april-2026",
+        "mtd-threshold-30k-april-2027",
+        "mtd-threshold-20k-april-2028"
+      ],
+      "impact": "high",
+      "expected_phrases": ["6 April 2026", "6 April 2027", "6 April 2028", "£50,000", "£30,000", "£20,000"]
+    },
+    {
+      "id": "mtd_qualifying_income",
+      "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+      "title_markers": ["qualifying income", "Making Tax Digital"],
+      "linked_fact_ids": ["mtd-qualifying-income-definition"],
+      "impact": "high",
+      "expected_phrases": ["before", "expenses"]
+    },
+    {
+      "id": "vat_registration_thresholds",
+      "url": "https://www.gov.uk/vat-registration-thresholds",
+      "title_markers": ["VAT", "threshold"],
+      "linked_fact_ids": ["vat-threshold-overview", "vat-registration-timing-tests"],
+      "impact": "high",
+      "expected_phrases": ["£90,000"]
+    },
+    {
+      "id": "sa_deadlines",
+      "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+      "title_markers": ["Self Assessment", "deadline"],
+      "linked_fact_ids": ["sa-deadline-online", "sa-paper-deadline"],
+      "impact": "high",
+      "expected_phrases": ["31 January", "31 October"]
+    },
+    {
+      "id": "income_tax_rates",
+      "url": "https://www.gov.uk/income-tax-rates",
+      "title_markers": ["Income Tax", "Personal Allowance"],
+      "linked_fact_ids": ["personal-allowance-2025-26"],
+      "impact": "high",
+      "expected_phrases": ["£12,570"]
+    }
+  ]
+}

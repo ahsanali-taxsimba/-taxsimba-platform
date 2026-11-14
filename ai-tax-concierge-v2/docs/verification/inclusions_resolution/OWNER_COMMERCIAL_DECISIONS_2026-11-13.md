@@ -17,10 +17,11 @@ Xero software **is included** in the advertised monthly subscription price of al
 - Do **not** invent “forever”, unlimited seats, or separate Xero charges.
 
 ### 2. Bookkeeping
-TaxSimba **maintains clients’ digital bookkeeping records within agreed package limits**.
+TaxSimba **maintains clients’ digital bookkeeping records**.
 
-- **Transaction/numerical limits remain UNDECIDED** for Comply, Growth and Elite.
-- SIMBA must **not** promise unlimited bookkeeping or invent caps.
+- **Correction 2026-11-14 (Europe/London):** Owner approved **NO FIXED MONTHLY TRANSACTION CAPS** for Simbian Comply, Growth and Elite.
+- This does **not** mean unlimited out-of-scope work outside the agreed service.
+- SIMBA must **not** invent fixed monthly caps or promise unlimited out-of-scope bookkeeping.
 
 ### 3. Quarterly updates + annual Self Assessment inside MTD
 **Quarterly MTD updates** and **year-end Self Assessment** preparation/submission are included in all three MTD packages, **subject to documented customer responsibilities**.
@@ -55,7 +56,7 @@ Support is through **approved email and client-dashboard messaging** channels, *
 
 1. State approved names and prices confidently.  
 2. State Xero-in-price + Simple/Ignite/Grow mapping confidently; never invent forever/unlimited seats.  
-3. State quarterly + year-end with customer-responsibilities caveat; bookkeeping limits UNDECIDED.  
+3. State quarterly + year-end with customer-responsibilities caveat; state no fixed monthly transaction caps (not unlimited out-of-scope work).  
 4. Never invent response times, tax-planning benefits, telephone onboarding or separate Xero charges.  
 5. Never promise removed premium claims.  
 6. When a recommendation depends on an unresolved entitlement, say TaxSimba must confirm the detail.  

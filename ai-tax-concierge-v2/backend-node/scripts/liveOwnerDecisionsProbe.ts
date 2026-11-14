@@ -36,8 +36,8 @@ const CASES = [
   {
     id: "bookkeeping_no_unlimited",
     message: "Is unlimited bookkeeping included in Simbian Comply?",
-    expect_any: ["limit"],
-    reject_any: ["unlimited bookkeeping is included"],
+    expect_any: ["no fixed monthly", "transaction caps"],
+    reject_any: ["unlimited bookkeeping is included", "undecided"],
   },
   {
     id: "mtd_annual_sa_scope",

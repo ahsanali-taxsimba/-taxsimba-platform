@@ -21,9 +21,12 @@ Local Node evidence is accepted. Staging integrations and **approved package inc
 
 | Area | Status | Evidence / notes |
 |------|--------|------------------|
-| Automated Vitest | **PASS** (476) | 2026-11-13 live key re-run: `npm test` 26 files |
-| Live OpenAI harness | **PASS** (33/33, flags 0) | `live_openai_report_20261113T230918Z.json` |
-| Owner commercial live probe | **PASS** (11/11) | package / Xero / £99 consultation |
+| Automated Vitest | **PASS** (481) | 2026-11-14 dynamic systems + regression |
+| Live OpenAI harness | **PASS** (33/33, flags 0) | `live_openai_report_20261114T020133Z.json` |
+| Security suite | **PASS** (26) | preserved |
+| Owner commercial live probe | **PASS** (11/11) | package / Xero / £99 / no fixed caps |
+| HMRC knowledge monitor | **PASS** | quarantine/publish/rollback + live GOV.UK cycle |
+| Catalogue auto-sync (no redeploy) | **PASS** | live sync + staging Elite price change/revert |
 | Tax intelligence 150 | **PASS** | Accepted prior evidence |
 | Package journeys 50 | **PASS** | Price-tier suggestions only; feature-level recs blocked |
 | Node without Python | **PASS** | Vendored data; `npm run build && npm start` |

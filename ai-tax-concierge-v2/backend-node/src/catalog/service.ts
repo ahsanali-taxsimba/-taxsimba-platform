@@ -1,8 +1,9 @@
 /** Load product catalogue, starters and calculators from config. */
 
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { CATALOG_DIR } from "../paths.js";
+import { runtimePaths } from "../ops/runtime_paths.js";
 
 type CatalogFn<T> = (() => T) & { clearCache?: () => void };
 
@@ -10,6 +11,19 @@ function readJson(name: string): Record<string, unknown> {
   return JSON.parse(
     readFileSync(path.join(CATALOG_DIR, name), "utf-8"),
   ) as Record<string, unknown>;
+}
+
+/** Prefer runtime live overlay when present (auto-synced; no redeploy). */
+function readPackagesCatalog(): Record<string, unknown> {
+  const live = runtimePaths.catalogLive();
+  if (existsSync(live)) {
+    try {
+      return JSON.parse(readFileSync(live, "utf-8")) as Record<string, unknown>;
+    } catch {
+      // fall through to baseline
+    }
+  }
+  return readJson("packages.json");
 }
 
 function cachedLoader<T>(loader: () => T): CatalogFn<T> {
@@ -25,7 +39,7 @@ function cachedLoader<T>(loader: () => T): CatalogFn<T> {
 }
 
 export const packagesCatalog: CatalogFn<Record<string, any>> = cachedLoader(
-  () => readJson("packages.json"),
+  () => readPackagesCatalog(),
 );
 
 export const calculatorsCatalog: CatalogFn<Record<string, any>> = cachedLoader(
@@ -97,7 +111,9 @@ export function packageCatalogText(): string {
     );
   }
   lines.push(
-    "CRITICAL: Never invent bookkeeping transaction limits, response-time SLAs, tax-planning packages, " +
+    "CRITICAL: Never invent fixed monthly transaction caps or unlimited out-of-scope work. " +
+      "Owner approved: no fixed monthly transaction caps on Simbian packages. " +
+      "Never invent response-time SLAs, tax-planning packages, " +
       "quarterly business reviews, priority support, telephone onboarding, or extra charges. " +
       "Xero-in-price is approved with website mapping Comply→Simple, Growth→Ignite, Elite→Grow. " +
       "Items requiring clarification need TaxSimba confirmation — do not auto-approve website bullets. " +

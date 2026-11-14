@@ -22,13 +22,16 @@ import { journeysRouter } from "./routes/journeys.js";
 import { catalogRouter } from "./routes/catalog.js";
 import { sessionsRouter } from "./routes/sessions.js";
 import { analyticsRouter } from "./routes/analytics.js";
+import { opsRouter } from "./routes/ops.js";
 import { sessionStore } from "./sessions/store.js";
 import { VERSION } from "./version.js";
 import type { AppLocals } from "./appTypes.js";
+import { ensureRuntimeDirs } from "./ops/runtime_paths.js";
 
 export function createApp(settings?: Settings): Express {
   const resolved = settings ?? getSettings();
   const app = express();
+  ensureRuntimeDirs();
 
   const llm = buildLlmAdapter(resolved);
   const analyticsRecorder = new AnalyticsRecorder();
@@ -96,6 +99,7 @@ export function createApp(settings?: Settings): Express {
   app.use(prefix, catalogRouter());
   app.use(prefix, sessionsRouter());
   app.use(prefix, analyticsRouter());
+  app.use(prefix, opsRouter());
 
   const widgetPath = path.resolve(WIDGET_DIR);
   if (existsSync(widgetPath)) {
