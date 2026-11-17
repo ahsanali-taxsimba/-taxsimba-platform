@@ -3,7 +3,8 @@
 **Date:** 2026-11-17 (Europe/London)  
 **Branch:** `cursor/simba-v2-final-corrected-6522`  
 **Baseline:** PR #36 `cursor/simba-final-toxel-handover-6522` @ `5cea956`  
-**Commit SHA:** `78d1b1c02165cd9085b0ff853f10565b83ea4968`  
+**Commit SHA (branch tip):** `b8ee8bdb78f300a83419d549acb5eb3d528ee663`  
+**Remediation code commit:** `78d1b1c02165cd9085b0ff853f10565b83ea4968`  
 **PR base:** `cursor/simba-final-toxel-handover-6522`  
 **Production:** **HOLD** — do not merge to `main`, do not deploy production.
 
