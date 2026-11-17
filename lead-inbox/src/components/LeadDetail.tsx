@@ -31,10 +31,12 @@ export function LeadDetail({ id }: { id: string }) {
   const [sampleDatabase, setSampleDatabase] = useState(false);
   const [notes, setNotes] = useState("");
   const [busy, setBusy] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   const load = useCallback(async () => {
     setError("");
+    setLoading(true);
     try {
       const [meRes, leadRes] = await Promise.all([fetch("/api/me"), fetch(`/api/leads/${id}`)]);
       if (!meRes.ok) throw new Error("Auth failed");
@@ -51,6 +53,8 @@ export function LeadDetail({ id }: { id: string }) {
       setNotes(data.lead.notes || "");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Load failed");
+    } finally {
+      setLoading(false);
     }
   }, [id]);
 
@@ -114,7 +118,13 @@ export function LeadDetail({ id }: { id: string }) {
           </p>
         ) : null}
 
-        {!lead ? (
+        {loading ? (
+          <div className="rounded-2xl border border-[var(--line)] bg-[var(--paper)] p-8 shadow-[var(--shadow)]">
+            <p data-testid="lead-loading" className="text-[var(--muted)]">
+              Loading lead…
+            </p>
+          </div>
+        ) : !lead ? (
           <div className="rounded-2xl border border-[var(--line)] bg-[var(--paper)] p-8 shadow-[var(--shadow)]">
             <p data-testid="lead-not-found">Lead not found.</p>
           </div>
