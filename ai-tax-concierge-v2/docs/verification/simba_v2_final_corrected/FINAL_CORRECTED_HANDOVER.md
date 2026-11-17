@@ -3,7 +3,7 @@
 **Date:** 2026-11-17 (Europe/London)  
 **Branch:** `cursor/simba-v2-final-corrected-6522`  
 **Baseline:** PR #36 `cursor/simba-final-toxel-handover-6522` @ `5cea956`  
-**Commit SHA:** *(filled after commit — see git tip of this branch)*  
+**Commit SHA:** `78d1b1c02165cd9085b0ff853f10565b83ea4968`  
 **PR base:** `cursor/simba-final-toxel-handover-6522`  
 **Production:** **HOLD** — do not merge to `main`, do not deploy production.
 
