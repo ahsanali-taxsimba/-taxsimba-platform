@@ -14,7 +14,7 @@ describe("phase2 / phase3 API", () => {
     expect(body.starters.length).toBeGreaterThanOrEqual(5);
     expect(body.journeys).toHaveLength(12);
     expect(body.packages.self_assessment[0].price_gbp).toBe(119);
-    expect(body.integrations.payment).toBe("mock_unavailable");
+    expect(body.integrations.payment).toBe("unavailable");
     expect(JSON.stringify(body).toLowerCase()).not.toContain("api_key");
     expect(String(body.brand.primary).toUpperCase()).toBe("#006B3C");
   });

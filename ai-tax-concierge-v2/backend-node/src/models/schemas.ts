@@ -45,11 +45,13 @@ export type PackageCard = {
   billing: string;
   vat_note: string;
   family: string;
+  /** Public-safe only: "approved" | "not_listed" — never internal workflow codes. */
   inclusions_status: string;
   pressure_free_note?: string;
   description?: string | null;
   inclusions?: string[] | null;
   recommendation_reason?: string | null;
+  /** Deprecated on public cards — kept optional for internal tests. */
   name_status?: string | null;
   price_status?: string | null;
   registration_path?: string | null;

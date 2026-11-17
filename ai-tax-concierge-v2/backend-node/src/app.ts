@@ -60,11 +60,13 @@ export function createApp(settings?: Settings): Express {
     cors({
       origin: (origin, cb) => {
         const allowed = resolved.corsOrigins;
+        const allowWildcard =
+          !resolved.isProductionLike && allowed.includes("*");
         if (!origin) {
           cb(null, true);
           return;
         }
-        if (allowed.includes(origin) || allowed.includes("*")) {
+        if (allowed.includes(origin) || allowWildcard) {
           cb(null, true);
           return;
         }
@@ -73,7 +75,7 @@ export function createApp(settings?: Settings): Express {
       },
       credentials: false,
       methods: ["GET", "POST", "OPTIONS"],
-      allowedHeaders: ["Content-Type", "Accept"],
+      allowedHeaders: ["Content-Type", "Accept", "X-Simba-Ops-Token"],
     }),
   );
 

@@ -82,12 +82,12 @@ describe("owner commercial decisions — controlled approval", () => {
     );
     expect(reply).toBeTruthy();
     const lower = reply!.toLowerCase();
-    expect(lower).toContain("xero software is included");
+    expect(lower).toMatch(/xero (software )?is included/);
     expect(lower).toMatch(/do not pay separately|no separate/);
     expect(lower).toContain("xero grow");
     expect(lower).not.toContain("xero grow forever");
     expect(lower).toMatch(/helpline|priority support/);
-    expect(lower).toContain("removed");
+    expect(lower).toMatch(/will not invent|cannot promise|not approved/);
   });
 
   it("xero_inclusion_does_not_suggest_separate_customer_charge", () => {
@@ -136,19 +136,19 @@ describe("owner commercial decisions — controlled approval", () => {
     );
     expect(reply).toBeTruthy();
     const lower = reply!.toLowerCase();
-    expect(lower).toContain("removed");
+    expect(lower).toMatch(/will not invent|cannot promise|not approved/);
     expect(lower).not.toMatch(/includes priority accountant messaging/);
     expect(lower).not.toMatch(/includes quarterly business reviews/);
     expect(lower).not.toMatch(/includes proactive tax planning advice/);
 
     const text = packageCatalogText().toLowerCase();
-    expect(text).toContain("removed");
+    expect(text).toContain("never promise priority support");
     expect(text).toContain("never invent");
     expect(text).toContain("simbian comply");
 
     const prompt = buildSystemPrompt("2025-26", [], "mock").toLowerCase();
     expect(prompt).toContain("priority support");
-    expect(prompt).toContain("removed");
+    expect(prompt).toMatch(/never invent priority support|never promise priority/);
   });
 
   it("sa_packages_do_not_retain_removed_premium_bullets", () => {

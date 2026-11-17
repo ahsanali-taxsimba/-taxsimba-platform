@@ -84,11 +84,14 @@ describe("package recommendation journeys 50", () => {
                 "mixed_verified_from_website_and_requires_clarification" ||
               card.inclusions_status === "approved" ||
               card.inclusions_status === "unknown" ||
-              card.inclusions_status === "missing_requires_approval",
+              card.inclusions_status === "missing_requires_approval" ||
+              card.inclusions_status === "not_listed" ||
+              card.inclusions_status === "approved",
           ).toBe(true);
           expect(card.name).not.toMatch(/MTD Starter|MTD Complete/);
-          if (card.code !== "ACCOUNTANT_CONSULT_99") {
-            expect(card.inclusions).toBeNull();
+          if (card.inclusions != null) {
+            expect(Array.isArray(card.inclusions)).toBe(true);
+            expect(card.inclusions_status).toBe("approved");
           }
         }
         return;
@@ -138,13 +141,16 @@ describe("package recommendation journeys 50", () => {
             p.inclusions_status === "approved" ||
             p.inclusions_status === "unknown" ||
             p.inclusions_status === "missing_requires_approval" ||
+          p.inclusions_status === "not_listed" ||
+          p.inclusions_status === "approved" ||
             packages.length === 0,
         ),
       ).toBe(true);
       expect(
         packages.every(
           (p) =>
-            p.code === "ACCOUNTANT_CONSULT_99" || p.inclusions == null,
+            p.inclusions == null ||
+            (Array.isArray(p.inclusions) && p.inclusions_status === "approved"),
         ),
       ).toBe(true);
     },

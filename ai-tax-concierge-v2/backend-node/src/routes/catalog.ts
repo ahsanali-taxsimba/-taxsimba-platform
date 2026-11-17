@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { Router } from "express";
+import { Router, type NextFunction, type Request, type Response } from "express";
 import type { AppLocals } from "../appTypes.js";
 import { WELCOME_MESSAGE } from "../ai/prompts.js";
 import {
@@ -8,19 +8,43 @@ import {
 } from "../catalog/service.js";
 import { listJourneys } from "../journeys/engine.js";
 import { taxYearLabel } from "../knowledge/tax_year.js";
-import {
-  calculatorCount,
-  listRoutes,
-} from "../routes_registry/service.js";
+import { listRoutes } from "../routes_registry/service.js";
+import { publicApiLimiter } from "../security/ratelimit.js";
+
+function limitPublic(req: Request, _res: Response, next: NextFunction) {
+  try {
+    publicApiLimiter.check(req.ip || "unknown");
+    next();
+  } catch (err) {
+    next(err);
+  }
+}
+
+function publicRoutes(websiteBaseUrl: string) {
+  const raw = listRoutes();
+  const routes = (raw.routes || []) as Array<Record<string, any>>;
+  return routes
+    .filter(
+      (r) => r.status === "live_verified" || r.status === "soft_or_generic",
+    )
+    .map((r) => ({
+      id: r.id,
+      label: r.label,
+      path: r.path,
+      url: `${websiteBaseUrl.replace(/\/$/, "")}${r.path}`,
+    }));
+}
 
 export function catalogRouter(): Router {
   const router = Router();
+  router.use(limitPublic);
 
   router.get("/bootstrap", (req, res) => {
     const { settings } = req.app.locals as AppLocals;
     const catalog = publicCatalogPayload(settings.websiteBaseUrl);
     const llmMode = settings.useMockLlm ? "mock" : "openai";
     const packages = catalog.packages as Record<string, any>;
+    const bookingLive = settings.consultationBookingLive;
     res.json({
       product: "SIMBA AI",
       subtitle: "SIMBA AI Tax Assistant",
@@ -37,15 +61,33 @@ export function catalogRouter(): Router {
         "General UK tax information only — not personalised advice. " +
         "Sources are verified GOV.UK / HMRC links when available.",
       starters: catalog.starters,
-      journeys: listJourneys(),
-      packages: catalog.packages,
+      journeys: listJourneys().map((j) => ({
+        id: j.id,
+        title: j.title,
+      })),
+      packages,
       calculators: catalog.calculators,
-      routes: listRoutes(),
-      calculator_registry_count: calculatorCount(),
+      routes: publicRoutes(settings.websiteBaseUrl),
       consultation: {
-        ...packages.consultation,
+        code: packages.consultation?.code || "ACCOUNTANT_CONSULT_99",
+        name: packages.consultation?.name,
+        price_gbp: packages.consultation?.price_gbp ?? 99,
+        billing: packages.consultation?.billing || "one-off",
+        vat_note: packages.consultation?.vat_note || "",
         duration_minutes: packages.consultation?.duration_minutes ?? 30,
         meeting: packages.consultation?.meeting ?? "Google Meet",
+        booking_available: bookingLive,
+        booking_note: bookingLive
+          ? "Online booking is available."
+          : "Online booking is not connected yet.",
+        inclusions: packages.consultation?.inclusions || [
+          "One 30-minute accountant-led Google Meet advice session",
+        ],
+        exclusions: packages.consultation?.exclusions || [
+          "Tax return filing",
+          "Bookkeeping",
+          "Written report",
+        ],
       },
       brand: {
         primary: "#006B3C",
@@ -55,16 +97,12 @@ export function catalogRouter(): Router {
         text: "#161B18",
         fonts: { heading: "Manrope", body: "Public Sans" },
         logo: "/widget/assets/taxsimba-logo.svg",
-        logo_status: "official_taxsimba_co_uk_asset",
-        source: "design_guidelines.json + taxsimba.co.uk/images/logo.svg",
       },
       integrations: {
         openai: llmMode,
-        payment: "mock_unavailable",
-        calendly: "stub",
-        website_nav: "partial_live_verified",
-        client_portal: "mock_unavailable",
-        analytics: "in_memory",
+        payment: "unavailable",
+        calendly: bookingLive ? "live" : "not_connected",
+        client_portal: "not_connected_in_chat",
       },
       embed: {
         script_path: "/widget/embed.js",
@@ -91,8 +129,9 @@ export function catalogRouter(): Router {
     res.json(startersCatalog());
   });
 
-  router.get("/catalog/routes", (_req, res) => {
-    res.json(listRoutes());
+  router.get("/catalog/routes", (req, res) => {
+    const { settings } = req.app.locals as AppLocals;
+    res.json(publicRoutes(settings.websiteBaseUrl));
   });
 
   return router;

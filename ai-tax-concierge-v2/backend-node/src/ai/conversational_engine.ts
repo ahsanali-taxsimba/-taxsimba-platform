@@ -23,7 +23,9 @@ import {
   journeyContextBlurb,
   startJourney,
 } from "../journeys/engine.js";
+import { scrubCustomerReply } from "../catalog/public.js";
 import { applyGroundingGuard } from "../knowledge/grounding.js";
+import { answerMtdEligibility } from "../knowledge/mtd_eligibility.js";
 import { retrieve } from "../knowledge/retrieval.js";
 import { resolveTaxYear } from "../knowledge/tax_year.js";
 import {
@@ -45,7 +47,7 @@ import { SessionStore, sessionStore } from "../sessions/store.js";
 
 const CONSULTATION_HINT =
   "Need personalised help? TaxSimba offers a £99 private accountant consultation " +
-  "(30 minutes via Google Meet). Live booking is not connected until Calendly is wired.";
+  "(30 minutes via Google Meet). Online booking is not connected yet.";
 
 export type EngineChatRequest = {
   session_id: string;
@@ -146,21 +148,43 @@ export class ConversationalEngine {
 
     const inclusions = answerInclusionsQuestion(request.message);
     const catalogFast = mockPackageReply(request.message);
+    const mtdEligibility = answerMtdEligibility(request.message);
 
     let query = request.message;
     if (journeyState?.tags?.length) {
       query = journeyState.tags.join(" ") + " " + request.message;
     }
     const ranked = retrieve(query, taxYear);
-    const sources: SourceReference[] = verifyRanked(ranked);
+    let sources: SourceReference[] = verifyRanked(ranked);
     const sourceIds = new Set(sources.map((s) => s.id));
     const yearMatches = ranked.filter(
       (r) => r.year_match && sourceIds.has(r.fact.id),
     ).length;
-    const confidence = confidenceFromSources(sources, yearMatches);
+    let confidence = confidenceFromSources(sources, yearMatches);
 
     let reply: string;
-    if (inclusions) {
+    if (mtdEligibility?.handled) {
+      // Deterministic eligibility — model must not override.
+      reply = mtdEligibility.customer_reply;
+      confidence = mtdEligibility.confidence;
+      if (
+        !sources.some((s) => /mtd|making tax digital/i.test(s.title))
+      ) {
+        sources = [
+          {
+            id: "mtd-eligibility-govuk",
+            title: "Find out if and when you need to use Making Tax Digital for Income Tax",
+            publisher: "GOV.UK / HMRC",
+            url: "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+            tax_years: ["2025-26", "2026-27", "2027-28"],
+            verified: true,
+            excerpt:
+              "Qualifying income thresholds use “more than” £50,000 / £30,000 / £20,000 with start dates 6 April 2026 / 2027 / 2028.",
+          },
+          ...sources,
+        ];
+      }
+    } else if (inclusions) {
       reply = inclusions;
     } else if (catalogFast && this.llm.mode === "mock") {
       reply = catalogFast;
@@ -209,6 +233,8 @@ export class ConversationalEngine {
         // intentional: keep parity with Python logging path
       }
     }
+
+    reply = scrubCustomerReply(reply);
 
     let { packages, calculators, follow_ups: followUps } =
       recommendForMessage(

@@ -141,7 +141,11 @@ export function selectPackagesForMessage(message: string): string[] {
     /\bconsult|accountant consultation|speak to (an )?accountant|talk to (an )?accountant|book a call|£99|99 consultation\b/.test(
       lower,
     );
-  const wantsMtd = /\bmtd\b|\bmaking tax digital\b/.test(lower);
+  const wantsMtd =
+    /\bmtd\b|\bmaking tax digital\b|\bsimbian\b/.test(lower);
+  const namedSimbianGrowth = /\bsimbian growth\b/.test(lower);
+  const namedSimbianComply = /\bsimbian comply\b/.test(lower);
+  const namedSimbianElite = /\bsimbian elite\b/.test(lower);
   const wantsSa =
     /\bself assessment\b|\bsa package\b|\bfiling\b|\btax return\b/.test(lower);
   const complex =
@@ -163,7 +167,19 @@ export function selectPackagesForMessage(message: string): string[] {
     return ["ACCOUNTANT_CONSULT_99"];
   }
 
-  if (wantsMtd && (lower.includes("plan") || lower.includes("price") || lower.includes("cost") || lower.includes("package"))) {
+  if (namedSimbianComply) return ["MTD_STARTER", "MTD_GROWTH"];
+  if (namedSimbianGrowth) return ["MTD_GROWTH", "MTD_STARTER"];
+  if (namedSimbianElite) return ["MTD_COMPLETE", "MTD_GROWTH"];
+
+  if (
+    wantsMtd &&
+    (lower.includes("plan") ||
+      lower.includes("price") ||
+      lower.includes("cost") ||
+      lower.includes("package") ||
+      lower.includes("include") ||
+      lower.includes("simbian"))
+  ) {
     // Always lead with the lowest suitable MTD price.
     if (complex) return ["MTD_GROWTH", "MTD_COMPLETE"];
     return ["MTD_STARTER", "MTD_GROWTH"];

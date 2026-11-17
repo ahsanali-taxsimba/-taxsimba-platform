@@ -144,7 +144,7 @@ describe("security suite", () => {
     expect(settings.corsOrigins).toContain("http://localhost:3000");
     const pub = settings.safePublicConfig();
     expect(pub.consultation_price_gbp).toBe(99);
-    expect(pub.payment_status).toBe("mock_unavailable");
+    expect(pub.payment_status).toBe("unavailable");
     expect(JSON.stringify(pub)).not.toContain("sk-");
     expect(settings.useMockLlm).toBe(true);
   });

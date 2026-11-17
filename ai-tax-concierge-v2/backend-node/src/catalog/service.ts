@@ -4,6 +4,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { CATALOG_DIR } from "../paths.js";
 import { runtimePaths } from "../ops/runtime_paths.js";
+import { publicPackagesCatalogue } from "./public.js";
 
 type CatalogFn<T> = (() => T) & { clearCache?: () => void };
 
@@ -73,56 +74,47 @@ export function formatPackageLine(pkg: Record<string, unknown>): string {
   return `${pkg.name}: ${priceStr} (${pkg.billing}; ${pkg.vat_note || ""})`.trim();
 }
 
+/**
+ * Customer-safe catalogue text for the LLM — no internal codes, docs, or raw disclaimers.
+ */
 export function packageCatalogText(): string {
   const cat = packagesCatalog();
   const lines = [
-    "Self Assessment packages (names + prices APPROVED):",
+    "Approved customer-facing TaxSimba packages (do not invent other prices or benefits):",
+    "Self Assessment (per tax year):",
   ];
   for (const p of cat.self_assessment as Record<string, unknown>[]) {
     lines.push(`- ${formatPackageLine(p)}`);
   }
-  lines.push(
-    "MTD / Simbian plans (names + prices APPROVED; VAT included):",
-  );
+  lines.push("Making Tax Digital / Simbian (per month, VAT included):");
   for (const p of cat.mtd as Record<string, unknown>[]) {
-    lines.push(`- ${formatPackageLine(p)}`);
-    if (p.internal_code_note) {
-      lines.push(`  Internal mapping: ${String(p.internal_code_note)}`);
-    }
+    const xero =
+      p.code === "MTD_STARTER"
+        ? "Xero Simple"
+        : p.code === "MTD_GROWTH"
+          ? "Xero Ignite"
+          : "Xero Grow";
+    lines.push(`- ${formatPackageLine(p)} — includes ${xero} in the monthly price`);
   }
   const c = cat.consultation as Record<string, unknown>;
+  const bookingLive = c.booking_status === "live";
   lines.push(
-    `Consultation: ${formatPackageLine(c)} (booking status: ${c.booking_status || "unknown"})`,
+    `Consultation: ${formatPackageLine(c)} — 30-minute accountant Google Meet advice only ` +
+      `(no filing, bookkeeping or written report). ` +
+      (bookingLive
+        ? "Online booking is available."
+        : "Online booking is not connected yet — do not claim a live booking link or free callback."),
   );
-  const facts = (cat.approved_customer_facts || []) as Array<{
-    status?: string;
-    text?: string;
-  }>;
-  if (facts.length) {
-    lines.push("Approved customer facts (use exact conditional wording; never upgrade to unconditional guarantees):");
-    for (const fact of facts) {
-      lines.push(`- [${String(fact.status || "approved")}] ${String(fact.text || "")}`);
-    }
-  }
-  const removed = (cat.removed_customer_claims || []) as string[];
-  if (removed.length) {
-    lines.push(
-      `REMOVED — never promise: ${removed.join("; ")}.`,
-    );
-  }
   lines.push(
-    "CRITICAL: Never invent fixed monthly transaction caps or unlimited out-of-scope work. " +
-      "Owner approved: no fixed monthly transaction caps on Simbian packages. " +
-      "Never invent response-time SLAs, tax-planning packages, " +
-      "quarterly business reviews, priority support, telephone onboarding, or extra charges. " +
-      "Xero-in-price is approved with website mapping Comply→Simple, Growth→Ignite, Elite→Grow. " +
-      "Items requiring clarification need TaxSimba confirmation — do not auto-approve website bullets. " +
-      "Recommend the lowest suitable package; explain SA vs MTD; ask one clarifying question at a time; " +
-      "give https://www.taxsimba.co.uk/self-assessment, https://www.taxsimba.co.uk/making-tax-digital, " +
-      "or https://www.taxsimba.co.uk/register as appropriate. " +
-      "Note: the public /making-tax-digital marketing page SEO currently mismatches the Simbian catalogue API — " +
-      "prefer verified API catalogue facts. Use only Simbian Comply / Growth / Elite for MTD names. " +
-      `Catalogue note: ${cat.disclaimer}`,
+    "Approved facts only: Xero is included in each Simbian monthly price (no separate customer Xero charge). " +
+      "Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. " +
+      "Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps " +
+      "(not unlimited historical reconstruction or out-of-scope work). " +
+      "Support is email and client-dashboard messaging — not telephone onboarding. " +
+      "Never promise priority support, quarterly business reviews or proactive tax planning. " +
+      "Never invent inclusions. Recommend the lowest suitable package. " +
+      "Use only the names Simbian Comply, Simbian Growth and Simbian Elite for MTD. " +
+      "Links: https://www.taxsimba.co.uk/self-assessment · https://www.taxsimba.co.uk/making-tax-digital · https://www.taxsimba.co.uk/register",
   );
   return lines.join("\n");
 }
@@ -153,26 +145,23 @@ export function publicCatalogPayload(websiteBaseUrl: string): Record<string, unk
   const calc = calculatorsCatalog();
   const items = [];
   for (const item of calc.items as Record<string, unknown>[]) {
-    const entry = { ...item };
+    const entry: Record<string, unknown> = {
+      id: item.id,
+      title: item.title,
+      description: item.description,
+      topics: item.topics,
+    };
     const status = String(item.url_status || "stub");
-    if (status === "live_verified") {
+    if (status === "live_verified" || status === "soft_or_generic") {
       entry.url = `${websiteBaseUrl.replace(/\/$/, "")}${item.path || ""}`;
-      entry.note =
-        "Public calculator page title verified on taxsimba.co.uk";
-    } else if (status === "soft_or_generic") {
-      entry.url = `${websiteBaseUrl.replace(/\/$/, "")}${item.path || ""}`;
-      entry.note = "Reachable but not fully confirmed";
-      entry.configured_path = item.path;
     } else {
       entry.url = null;
-      entry.note = "URL not confirmed against live website yet";
-      entry.configured_path = item.path;
     }
     items.push(entry);
   }
   return {
-    packages: packagesCatalog(),
-    calculators: { ...calc, items },
+    packages: publicPackagesCatalogue(packagesCatalog()),
+    calculators: { items },
     starters: (startersCatalog() as { starters: unknown }).starters,
   };
 }

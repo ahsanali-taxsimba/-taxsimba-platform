@@ -45,7 +45,9 @@ describe("recommendations", () => {
             "mixed_verified_from_website_and_requires_clarification" ||
           p.inclusions_status === "approved" ||
           p.inclusions_status === "unknown" ||
-          p.inclusions_status === "missing_requires_approval",
+          p.inclusions_status === "missing_requires_approval" ||
+          p.inclusions_status === "not_listed" ||
+          p.inclusions_status === "approved",
       ),
     ).toBe(true);
     expect(packages.every((p) => p.name !== "MTD Starter")).toBe(true);

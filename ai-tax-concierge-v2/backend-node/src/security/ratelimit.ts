@@ -33,3 +33,5 @@ export class RateLimiter {
 }
 
 export const chatLimiter = new RateLimiter(40, 60.0);
+/** Slightly stricter public catalogue/bootstrap limiter. */
+export const publicApiLimiter = new RateLimiter(120, 60.0);

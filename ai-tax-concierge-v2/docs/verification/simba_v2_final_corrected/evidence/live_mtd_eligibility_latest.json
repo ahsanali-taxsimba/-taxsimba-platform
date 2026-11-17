@@ -1,0 +1,81 @@
+{
+  "generated_at": "2026-11-17T23:37:47.972Z",
+  "llm_mode": "openai",
+  "total": 8,
+  "passed": 8,
+  "failed": 0,
+  "results": [
+    {
+      "id": "exact_50k_2024_25_not_in_scope",
+      "pass": true,
+      "ms": 18,
+      "missing": [],
+      "leaked": [],
+      "error": null,
+      "reply_preview": "No — qualifying income of exactly £50,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £50,000”, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than £50,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-dig"
+    },
+    {
+      "id": "over_50k_april_2026",
+      "pass": true,
+      "ms": 4,
+      "missing": [],
+      "leaked": [],
+      "error": null,
+      "reply_preview": "Yes — if your qualifying income was more than £50,000 for 2024-25, you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+    },
+    {
+      "id": "exact_30k_2025_26",
+      "pass": true,
+      "ms": 3,
+      "missing": [],
+      "leaked": [],
+      "error": null,
+      "reply_preview": "No — qualifying income of exactly £30,000 for 2025-26 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £30,000”, so the threshold is exclusive of the exact amount. The 6 April 2027 start date applies only if qualifying income was more than £30,000 for 2025-26.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-dig"
+    },
+    {
+      "id": "over_30k_april_2027",
+      "pass": true,
+      "ms": 1,
+      "missing": [],
+      "leaked": [],
+      "error": null,
+      "reply_preview": "Yes — if your qualifying income was more than £30,000 for 2025-26, you need to use Making Tax Digital for Income Tax from 6 April 2027. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+    },
+    {
+      "id": "exact_20k_2026_27",
+      "pass": true,
+      "ms": 1,
+      "missing": [],
+      "leaked": [],
+      "error": null,
+      "reply_preview": "No — qualifying income of exactly £20,000 for 2026-27 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £20,000”, so the threshold is exclusive of the exact amount. The 6 April 2028 start date applies only if qualifying income was more than £20,000 for 2026-27.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-dig"
+    },
+    {
+      "id": "paye_only",
+      "pass": true,
+      "ms": 2,
+      "missing": [],
+      "leaked": [],
+      "error": null,
+      "reply_preview": "If your only income is PAYE employment, Making Tax Digital for Income Tax does not apply to you. MTD for Income Tax is aimed at sole traders and landlords in Self Assessment with qualifying income above the thresholds. Employment (PAYE) does not count towards qualifying income.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+    },
+    {
+      "id": "limited_company",
+      "pass": true,
+      "ms": 1,
+      "missing": [],
+      "leaked": [],
+      "error": null,
+      "reply_preview": "Making Tax Digital for Income Tax (for individuals) applies to sole traders and landlords in Self Assessment, not to limited companies as companies. Company filing and MTD for VAT/Corporation Tax are separate. If you also have self-employment or property income personally, tell me that qualifying turnover and tax year and I can check the individual MTD rules.\n\nOfficial guidance: https://www.gov.uk"
+    },
+    {
+      "id": "profit_not_gross",
+      "pass": true,
+      "ms": 1,
+      "missing": [],
+      "leaked": [],
+      "error": null,
+      "reply_preview": "For Making Tax Digital, HMRC uses qualifying income — that is turnover/gross from self-employment and property before expenses, not profit after expenses. I shouldn’t decide your start date from a profit figure alone.\n\nWhat was your total self-employment and property income before expenses for the relevant tax year?"
+    }
+  ]
+}

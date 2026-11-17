@@ -113,11 +113,13 @@ describe("inclusions resolution — Simbian names + owner decisions", () => {
     expect(text).not.toContain("mtd complete");
   });
 
-  it("package_cards_expose_registration_paths_without_inclusions", () => {
+  it("package_cards_expose_registration_paths_with_approved_inclusions", () => {
     const cards = toPackageCards(["SA_SIMPLE", "MTD_STARTER"]);
     expect(cards[0].registration_path).toBe("/self-assessment");
     expect(cards[1].name).toBe("Simbian Comply");
     expect(cards[1].registration_path).toBe("/making-tax-digital");
-    expect(cards[1].inclusions).toBeNull();
+    expect(Array.isArray(cards[1].inclusions)).toBe(true);
+    expect(cards[1].inclusions!.length).toBeGreaterThan(0);
+    expect(cards[1].inclusions_status).toBe("approved");
   });
 });
