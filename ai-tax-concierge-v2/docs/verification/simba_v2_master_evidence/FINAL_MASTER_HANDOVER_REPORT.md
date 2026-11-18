@@ -97,7 +97,7 @@ See `REQUIREMENTS_TO_EVIDENCE_MATRIX.md`.
 
 ## 25. Final commit SHA
 
-See git tip after push (recorded in PR #39).  
+`4376ee1b94722aa69a6a693d0fd374634cb0163b`  
 
 ## 26. GO / NO-GO
 
