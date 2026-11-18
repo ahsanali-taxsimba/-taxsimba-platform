@@ -1,0 +1,1132 @@
+{
+  "generated_at": "2026-11-18T04:10:00Z",
+  "baseline_commit": "84da383",
+  "baseline_summary": {
+    "generated_at": "2026-11-18T00:12:15.006Z",
+    "llm_mode": "mock",
+    "obtained_via": "mock_llm_deterministic_handlers",
+    "single_turn": {
+      "total": 537,
+      "passed": 504,
+      "failed": 33,
+      "critical_failed": 0
+    },
+    "multiturn": {
+      "total": 50,
+      "passed": 50,
+      "failed": 0
+    }
+  },
+  "after_fix_summary": {
+    "generated_at": "2026-11-18T03:28:05.453Z",
+    "llm_mode": "mock",
+    "obtained_via": "mock_llm_deterministic_handlers",
+    "single_turn": {
+      "total": 537,
+      "passed": 537,
+      "failed": 0,
+      "critical_failed": 0
+    },
+    "multiturn": {
+      "total": 50,
+      "passed": 50,
+      "failed": 0
+    }
+  },
+  "failure_count": 33,
+  "all_retested_pass": true,
+  "failures": [
+    {
+      "id": "MS-0024",
+      "category": "paye_employment",
+      "prompt": "My employer deducts tax. Do I still need to file? (variant 2)",
+      "expected_behaviour": {
+        "expect_any": [
+          "self assessment",
+          "paye",
+          "return"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "Based on verified HMRC / GOV.UK guidance: [cryptoassets-tax] Cryptoassets and tax overview (2024-25, 2025-26, 2026-27): HMRC treats cryptoassets as potentially taxable. Depending on your activity you may need to consider Capital Gains Tax and/or Income Tax. Keep detailed records of transactions. Check GOV.UK cryptoassets tax guidance for how your situation may be treated. (source: https://www.gov.uk/guidance/tax-on-cryptoassets)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (\u00a399 for 20 minutes) or an Extended Tax Consultation (\u00a3149 for 40 minutes), or email info@taxsimba.co.uk.",
+      "actual_after": "If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return \u2014 for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return \u2014 or tell me what other income you have and I can help narrow it down.",
+      "failure_flag": "EXPECT_MISS:self assessment",
+      "themes": [
+        "retrieval_misroute_paye_to_crypto"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "PAYE filing handler + retrieval boosts; prevent crypto corpus win"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0029",
+      "category": "paye_employment",
+      "prompt": "My employer deducts tax. Do I still need to file? (variant 7)",
+      "expected_behaviour": {
+        "expect_any": [
+          "self assessment",
+          "paye",
+          "return"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "Based on verified HMRC / GOV.UK guidance: [cryptoassets-tax] Cryptoassets and tax overview (2024-25, 2025-26, 2026-27): HMRC treats cryptoassets as potentially taxable. Depending on your activity you may need to consider Capital Gains Tax and/or Income Tax. Keep detailed records of transactions. Check GOV.UK cryptoassets tax guidance for how your situation may be treated. (source: https://www.gov.uk/guidance/tax-on-cryptoassets)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (\u00a399 for 20 minutes) or an Extended Tax Consultation (\u00a3149 for 40 minutes), or email info@taxsimba.co.uk.",
+      "actual_after": "If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return \u2014 for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return \u2014 or tell me what other income you have and I can help narrow it down.",
+      "failure_flag": "EXPECT_MISS:self assessment",
+      "themes": [
+        "retrieval_misroute_paye_to_crypto"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "PAYE filing handler + retrieval boosts; prevent crypto corpus win"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0034",
+      "category": "paye_employment",
+      "prompt": "My employer deducts tax. Do I still need to file? (variant 12)",
+      "expected_behaviour": {
+        "expect_any": [
+          "self assessment",
+          "paye",
+          "return"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "Based on verified HMRC / GOV.UK guidance: [cryptoassets-tax] Cryptoassets and tax overview (2024-25, 2025-26, 2026-27): HMRC treats cryptoassets as potentially taxable. Depending on your activity you may need to consider Capital Gains Tax and/or Income Tax. Keep detailed records of transactions. Check GOV.UK cryptoassets tax guidance for how your situation may be treated. (source: https://www.gov.uk/guidance/tax-on-cryptoassets)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (\u00a399 for 20 minutes) or an Extended Tax Consultation (\u00a3149 for 40 minutes), or email info@taxsimba.co.uk.",
+      "actual_after": "If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return \u2014 for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return \u2014 or tell me what other income you have and I can help narrow it down.",
+      "failure_flag": "EXPECT_MISS:self assessment",
+      "themes": [
+        "retrieval_misroute_paye_to_crypto"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "PAYE filing handler + retrieval boosts; prevent crypto corpus win"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0039",
+      "category": "paye_employment",
+      "prompt": "My employer deducts tax. Do I still need to file? (variant 17)",
+      "expected_behaviour": {
+        "expect_any": [
+          "self assessment",
+          "paye",
+          "return"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "Based on verified HMRC / GOV.UK guidance: [cryptoassets-tax] Cryptoassets and tax overview (2024-25, 2025-26, 2026-27): HMRC treats cryptoassets as potentially taxable. Depending on your activity you may need to consider Capital Gains Tax and/or Income Tax. Keep detailed records of transactions. Check GOV.UK cryptoassets tax guidance for how your situation may be treated. (source: https://www.gov.uk/guidance/tax-on-cryptoassets)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (\u00a399 for 20 minutes) or an Extended Tax Consultation (\u00a3149 for 40 minutes), or email info@taxsimba.co.uk.",
+      "actual_after": "If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return \u2014 for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return \u2014 or tell me what other income you have and I can help narrow it down.",
+      "failure_flag": "EXPECT_MISS:self assessment",
+      "themes": [
+        "retrieval_misroute_paye_to_crypto"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "PAYE filing handler + retrieval boosts; prevent crypto corpus win"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0044",
+      "category": "paye_employment",
+      "prompt": "My employer deducts tax. Do I still need to file? (variant 22)",
+      "expected_behaviour": {
+        "expect_any": [
+          "self assessment",
+          "paye",
+          "return"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "Based on verified HMRC / GOV.UK guidance: [cryptoassets-tax] Cryptoassets and tax overview (2024-25, 2025-26, 2026-27): HMRC treats cryptoassets as potentially taxable. Depending on your activity you may need to consider Capital Gains Tax and/or Income Tax. Keep detailed records of transactions. Check GOV.UK cryptoassets tax guidance for how your situation may be treated. (source: https://www.gov.uk/guidance/tax-on-cryptoassets)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (\u00a399 for 20 minutes) or an Extended Tax Consultation (\u00a3149 for 40 minutes), or email info@taxsimba.co.uk.",
+      "actual_after": "If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return \u2014 for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return \u2014 or tell me what other income you have and I can help narrow it down.",
+      "failure_flag": "EXPECT_MISS:self assessment",
+      "themes": [
+        "retrieval_misroute_paye_to_crypto"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "PAYE filing handler + retrieval boosts; prevent crypto corpus win"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0054",
+      "category": "paye_employment",
+      "prompt": "My employer deducts tax. Do I still need to file? (variant 32)",
+      "expected_behaviour": {
+        "expect_any": [
+          "self assessment",
+          "paye",
+          "return"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "Based on verified HMRC / GOV.UK guidance: [cryptoassets-tax] Cryptoassets and tax overview (2024-25, 2025-26, 2026-27): HMRC treats cryptoassets as potentially taxable. Depending on your activity you may need to consider Capital Gains Tax and/or Income Tax. Keep detailed records of transactions. Check GOV.UK cryptoassets tax guidance for how your situation may be treated. (source: https://www.gov.uk/guidance/tax-on-cryptoassets)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (\u00a399 for 20 minutes) or an Extended Tax Consultation (\u00a3149 for 40 minutes), or email info@taxsimba.co.uk.",
+      "actual_after": "If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return \u2014 for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return \u2014 or tell me what other income you have and I can help narrow it down.",
+      "failure_flag": "EXPECT_MISS:self assessment",
+      "themes": [
+        "retrieval_misroute_paye_to_crypto"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "PAYE filing handler + retrieval boosts; prevent crypto corpus win"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0155",
+      "category": "landlords",
+      "prompt": "Rent a room scheme and PAYE salary #4",
+      "expected_behaviour": {
+        "expect_any": [
+          "property",
+          "rental",
+          "landlord",
+          "self assessment",
+          "mtd",
+          "making tax"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "Based on verified HMRC / GOV.UK guidance: [rent-a-room] Rent a Room Scheme (2024-25, 2025-26): The Rent a Room Scheme lets you earn a certain amount from letting out furnished accommodation in your home without paying tax on that income, if you meet the conditions. Check the current annual threshold on GOV.UK. (source: https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (\u00a399 for 20 minutes) or an Extended Tax Consultation (\u00a3149 for 40 minutes), or email info@taxsimba.co.uk.",
+      "actual_after": "The Rent a Room Scheme can let you earn a set amount from letting furnished accommodation in your home without paying tax on that rental income, if you qualify. It still sits in the wider property/rental landscape \u2014 you may need Self Assessment depending on your overall income. Confirm the current limit and rules on https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme. Do you also have other rental property or only a lodger in your home?",
+      "failure_flag": "EXPECT_MISS:property",
+      "themes": [
+        "retrieval_misroute_landlord",
+        "rent_a_room"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "Landlord/rent-a-room handlers + corpus scoring",
+        "rent-a-room deterministic explainer"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0160",
+      "category": "landlords",
+      "prompt": "Rent a room scheme and PAYE salary #9",
+      "expected_behaviour": {
+        "expect_any": [
+          "property",
+          "rental",
+          "landlord",
+          "self assessment",
+          "mtd",
+          "making tax"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "Based on verified HMRC / GOV.UK guidance: [rent-a-room] Rent a Room Scheme (2024-25, 2025-26): The Rent a Room Scheme lets you earn a certain amount from letting out furnished accommodation in your home without paying tax on that income, if you meet the conditions. Check the current annual threshold on GOV.UK. (source: https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (\u00a399 for 20 minutes) or an Extended Tax Consultation (\u00a3149 for 40 minutes), or email info@taxsimba.co.uk.",
+      "actual_after": "The Rent a Room Scheme can let you earn a set amount from letting furnished accommodation in your home without paying tax on that rental income, if you qualify. It still sits in the wider property/rental landscape \u2014 you may need Self Assessment depending on your overall income. Confirm the current limit and rules on https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme. Do you also have other rental property or only a lodger in your home?",
+      "failure_flag": "EXPECT_MISS:property",
+      "themes": [
+        "retrieval_misroute_landlord",
+        "rent_a_room"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "Landlord/rent-a-room handlers + corpus scoring",
+        "rent-a-room deterministic explainer"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0165",
+      "category": "landlords",
+      "prompt": "Rent a room scheme and PAYE salary #14",
+      "expected_behaviour": {
+        "expect_any": [
+          "property",
+          "rental",
+          "landlord",
+          "self assessment",
+          "mtd",
+          "making tax"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "Based on verified HMRC / GOV.UK guidance: [rent-a-room] Rent a Room Scheme (2024-25, 2025-26): The Rent a Room Scheme lets you earn a certain amount from letting out furnished accommodation in your home without paying tax on that income, if you meet the conditions. Check the current annual threshold on GOV.UK. (source: https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (\u00a399 for 20 minutes) or an Extended Tax Consultation (\u00a3149 for 40 minutes), or email info@taxsimba.co.uk.",
+      "actual_after": "The Rent a Room Scheme can let you earn a set amount from letting furnished accommodation in your home without paying tax on that rental income, if you qualify. It still sits in the wider property/rental landscape \u2014 you may need Self Assessment depending on your overall income. Confirm the current limit and rules on https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme. Do you also have other rental property or only a lodger in your home?",
+      "failure_flag": "EXPECT_MISS:property",
+      "themes": [
+        "retrieval_misroute_landlord",
+        "rent_a_room"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "Landlord/rent-a-room handlers + corpus scoring",
+        "rent-a-room deterministic explainer"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0170",
+      "category": "landlords",
+      "prompt": "Rent a room scheme and PAYE salary #19",
+      "expected_behaviour": {
+        "expect_any": [
+          "property",
+          "rental",
+          "landlord",
+          "self assessment",
+          "mtd",
+          "making tax"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "Based on verified HMRC / GOV.UK guidance: [rent-a-room] Rent a Room Scheme (2024-25, 2025-26): The Rent a Room Scheme lets you earn a certain amount from letting out furnished accommodation in your home without paying tax on that income, if you meet the conditions. Check the current annual threshold on GOV.UK. (source: https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (\u00a399 for 20 minutes) or an Extended Tax Consultation (\u00a3149 for 40 minutes), or email info@taxsimba.co.uk.",
+      "actual_after": "The Rent a Room Scheme can let you earn a set amount from letting furnished accommodation in your home without paying tax on that rental income, if you qualify. It still sits in the wider property/rental landscape \u2014 you may need Self Assessment depending on your overall income. Confirm the current limit and rules on https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme. Do you also have other rental property or only a lodger in your home?",
+      "failure_flag": "EXPECT_MISS:property",
+      "themes": [
+        "retrieval_misroute_landlord",
+        "rent_a_room"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "Landlord/rent-a-room handlers + corpus scoring",
+        "rent-a-room deterministic explainer"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0175",
+      "category": "landlords",
+      "prompt": "Rent a room scheme and PAYE salary #24",
+      "expected_behaviour": {
+        "expect_any": [
+          "property",
+          "rental",
+          "landlord",
+          "self assessment",
+          "mtd",
+          "making tax"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "Based on verified HMRC / GOV.UK guidance: [rent-a-room] Rent a Room Scheme (2024-25, 2025-26): The Rent a Room Scheme lets you earn a certain amount from letting out furnished accommodation in your home without paying tax on that income, if you meet the conditions. Check the current annual threshold on GOV.UK. (source: https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (\u00a399 for 20 minutes) or an Extended Tax Consultation (\u00a3149 for 40 minutes), or email info@taxsimba.co.uk.",
+      "actual_after": "The Rent a Room Scheme can let you earn a set amount from letting furnished accommodation in your home without paying tax on that rental income, if you qualify. It still sits in the wider property/rental landscape \u2014 you may need Self Assessment depending on your overall income. Confirm the current limit and rules on https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme. Do you also have other rental property or only a lodger in your home?",
+      "failure_flag": "EXPECT_MISS:property",
+      "themes": [
+        "retrieval_misroute_landlord",
+        "rent_a_room"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "Landlord/rent-a-room handlers + corpus scoring",
+        "rent-a-room deterministic explainer"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0180",
+      "category": "landlords",
+      "prompt": "Rent a room scheme and PAYE salary #29",
+      "expected_behaviour": {
+        "expect_any": [
+          "property",
+          "rental",
+          "landlord",
+          "self assessment",
+          "mtd",
+          "making tax"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "Based on verified HMRC / GOV.UK guidance: [rent-a-room] Rent a Room Scheme (2024-25, 2025-26): The Rent a Room Scheme lets you earn a certain amount from letting out furnished accommodation in your home without paying tax on that income, if you meet the conditions. Check the current annual threshold on GOV.UK. (source: https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (\u00a399 for 20 minutes) or an Extended Tax Consultation (\u00a3149 for 40 minutes), or email info@taxsimba.co.uk.",
+      "actual_after": "The Rent a Room Scheme can let you earn a set amount from letting furnished accommodation in your home without paying tax on that rental income, if you qualify. It still sits in the wider property/rental landscape \u2014 you may need Self Assessment depending on your overall income. Confirm the current limit and rules on https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme. Do you also have other rental property or only a lodger in your home?",
+      "failure_flag": "EXPECT_MISS:property",
+      "themes": [
+        "retrieval_misroute_landlord",
+        "rent_a_room"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "Landlord/rent-a-room handlers + corpus scoring",
+        "rent-a-room deterministic explainer"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0185",
+      "category": "landlords",
+      "prompt": "Rent a room scheme and PAYE salary #34",
+      "expected_behaviour": {
+        "expect_any": [
+          "property",
+          "rental",
+          "landlord",
+          "self assessment",
+          "mtd",
+          "making tax"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "Based on verified HMRC / GOV.UK guidance: [rent-a-room] Rent a Room Scheme (2024-25, 2025-26): The Rent a Room Scheme lets you earn a certain amount from letting out furnished accommodation in your home without paying tax on that income, if you meet the conditions. Check the current annual threshold on GOV.UK. (source: https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (\u00a399 for 20 minutes) or an Extended Tax Consultation (\u00a3149 for 40 minutes), or email info@taxsimba.co.uk.",
+      "actual_after": "The Rent a Room Scheme can let you earn a set amount from letting furnished accommodation in your home without paying tax on that rental income, if you qualify. It still sits in the wider property/rental landscape \u2014 you may need Self Assessment depending on your overall income. Confirm the current limit and rules on https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme. Do you also have other rental property or only a lodger in your home?",
+      "failure_flag": "EXPECT_MISS:property",
+      "themes": [
+        "retrieval_misroute_landlord",
+        "rent_a_room"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "Landlord/rent-a-room handlers + corpus scoring",
+        "rent-a-room deterministic explainer"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0190",
+      "category": "landlords",
+      "prompt": "Rent a room scheme and PAYE salary #39",
+      "expected_behaviour": {
+        "expect_any": [
+          "property",
+          "rental",
+          "landlord",
+          "self assessment",
+          "mtd",
+          "making tax"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "Based on verified HMRC / GOV.UK guidance: [rent-a-room] Rent a Room Scheme (2024-25, 2025-26): The Rent a Room Scheme lets you earn a certain amount from letting out furnished accommodation in your home without paying tax on that income, if you meet the conditions. Check the current annual threshold on GOV.UK. (source: https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (\u00a399 for 20 minutes) or an Extended Tax Consultation (\u00a3149 for 40 minutes), or email info@taxsimba.co.uk.",
+      "actual_after": "The Rent a Room Scheme can let you earn a set amount from letting furnished accommodation in your home without paying tax on that rental income, if you qualify. It still sits in the wider property/rental landscape \u2014 you may need Self Assessment depending on your overall income. Confirm the current limit and rules on https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme. Do you also have other rental property or only a lodger in your home?",
+      "failure_flag": "EXPECT_MISS:property",
+      "themes": [
+        "retrieval_misroute_landlord",
+        "rent_a_room"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "Landlord/rent-a-room handlers + corpus scoring",
+        "rent-a-room deterministic explainer"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0236",
+      "category": "mtd_operations",
+      "prompt": "Do I need Xero for MTD? (2)",
+      "expected_behaviour": {
+        "expect_any": [
+          "quarter",
+          "xero",
+          "year-end",
+          "self assessment",
+          "cannot",
+          "can't",
+          "hmrc",
+          "simbian"
+        ],
+        "reject_any": [
+          "i will submit your return to hmrc now"
+        ],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "I can work out your Making Tax Digital start date once I know your qualifying income. That\u2019s total self-employment and property income before expenses for a specific tax year \u2014 not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+      "actual_after": "For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba\u2019s Simbian plans include a Xero subscription in the monthly price (Comply\u2192Xero Simple, Growth\u2192Xero Ignite, Elite\u2192Xero Grow) \u2014 customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC \u2014 a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply \u00a329.99, Growth \u00a359.99, Elite \u00a389.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital \u2014 or tell me your qualifying income and tax year if you\u2019re checking eligibility.",
+      "failure_flag": "EXPECT_MISS:quarter",
+      "themes": [
+        "mtd_eligibility_overmatch_ops"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "mtd_operations short-circuit; exclude Xero/software from eligibility matcher"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0241",
+      "category": "mtd_operations",
+      "prompt": "Do I need Xero for MTD? (7)",
+      "expected_behaviour": {
+        "expect_any": [
+          "quarter",
+          "xero",
+          "year-end",
+          "self assessment",
+          "cannot",
+          "can't",
+          "hmrc",
+          "simbian"
+        ],
+        "reject_any": [
+          "i will submit your return to hmrc now"
+        ],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "I can work out your Making Tax Digital start date once I know your qualifying income. That\u2019s total self-employment and property income before expenses for a specific tax year \u2014 not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+      "actual_after": "For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba\u2019s Simbian plans include a Xero subscription in the monthly price (Comply\u2192Xero Simple, Growth\u2192Xero Ignite, Elite\u2192Xero Grow) \u2014 customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC \u2014 a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply \u00a329.99, Growth \u00a359.99, Elite \u00a389.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital \u2014 or tell me your qualifying income and tax year if you\u2019re checking eligibility.",
+      "failure_flag": "EXPECT_MISS:quarter",
+      "themes": [
+        "mtd_eligibility_overmatch_ops"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "mtd_operations short-circuit; exclude Xero/software from eligibility matcher"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0246",
+      "category": "mtd_operations",
+      "prompt": "Do I need Xero for MTD? (12)",
+      "expected_behaviour": {
+        "expect_any": [
+          "quarter",
+          "xero",
+          "year-end",
+          "self assessment",
+          "cannot",
+          "can't",
+          "hmrc",
+          "simbian"
+        ],
+        "reject_any": [
+          "i will submit your return to hmrc now"
+        ],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "I can work out your Making Tax Digital start date once I know your qualifying income. That\u2019s total self-employment and property income before expenses for a specific tax year \u2014 not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+      "actual_after": "For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba\u2019s Simbian plans include a Xero subscription in the monthly price (Comply\u2192Xero Simple, Growth\u2192Xero Ignite, Elite\u2192Xero Grow) \u2014 customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC \u2014 a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply \u00a329.99, Growth \u00a359.99, Elite \u00a389.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital \u2014 or tell me your qualifying income and tax year if you\u2019re checking eligibility.",
+      "failure_flag": "EXPECT_MISS:quarter",
+      "themes": [
+        "mtd_eligibility_overmatch_ops"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "mtd_operations short-circuit; exclude Xero/software from eligibility matcher"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0251",
+      "category": "mtd_operations",
+      "prompt": "Do I need Xero for MTD? (17)",
+      "expected_behaviour": {
+        "expect_any": [
+          "quarter",
+          "xero",
+          "year-end",
+          "self assessment",
+          "cannot",
+          "can't",
+          "hmrc",
+          "simbian"
+        ],
+        "reject_any": [
+          "i will submit your return to hmrc now"
+        ],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "I can work out your Making Tax Digital start date once I know your qualifying income. That\u2019s total self-employment and property income before expenses for a specific tax year \u2014 not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+      "actual_after": "For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba\u2019s Simbian plans include a Xero subscription in the monthly price (Comply\u2192Xero Simple, Growth\u2192Xero Ignite, Elite\u2192Xero Grow) \u2014 customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC \u2014 a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply \u00a329.99, Growth \u00a359.99, Elite \u00a389.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital \u2014 or tell me your qualifying income and tax year if you\u2019re checking eligibility.",
+      "failure_flag": "EXPECT_MISS:quarter",
+      "themes": [
+        "mtd_eligibility_overmatch_ops"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "mtd_operations short-circuit; exclude Xero/software from eligibility matcher"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0256",
+      "category": "mtd_operations",
+      "prompt": "Do I need Xero for MTD? (22)",
+      "expected_behaviour": {
+        "expect_any": [
+          "quarter",
+          "xero",
+          "year-end",
+          "self assessment",
+          "cannot",
+          "can't",
+          "hmrc",
+          "simbian"
+        ],
+        "reject_any": [
+          "i will submit your return to hmrc now"
+        ],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "I can work out your Making Tax Digital start date once I know your qualifying income. That\u2019s total self-employment and property income before expenses for a specific tax year \u2014 not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+      "actual_after": "For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba\u2019s Simbian plans include a Xero subscription in the monthly price (Comply\u2192Xero Simple, Growth\u2192Xero Ignite, Elite\u2192Xero Grow) \u2014 customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC \u2014 a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply \u00a329.99, Growth \u00a359.99, Elite \u00a389.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital \u2014 or tell me your qualifying income and tax year if you\u2019re checking eligibility.",
+      "failure_flag": "EXPECT_MISS:quarter",
+      "themes": [
+        "mtd_eligibility_overmatch_ops"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "mtd_operations short-circuit; exclude Xero/software from eligibility matcher"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0261",
+      "category": "mtd_operations",
+      "prompt": "Do I need Xero for MTD? (27)",
+      "expected_behaviour": {
+        "expect_any": [
+          "quarter",
+          "xero",
+          "year-end",
+          "self assessment",
+          "cannot",
+          "can't",
+          "hmrc",
+          "simbian"
+        ],
+        "reject_any": [
+          "i will submit your return to hmrc now"
+        ],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "I can work out your Making Tax Digital start date once I know your qualifying income. That\u2019s total self-employment and property income before expenses for a specific tax year \u2014 not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+      "actual_after": "For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba\u2019s Simbian plans include a Xero subscription in the monthly price (Comply\u2192Xero Simple, Growth\u2192Xero Ignite, Elite\u2192Xero Grow) \u2014 customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC \u2014 a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply \u00a329.99, Growth \u00a359.99, Elite \u00a389.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital \u2014 or tell me your qualifying income and tax year if you\u2019re checking eligibility.",
+      "failure_flag": "EXPECT_MISS:quarter",
+      "themes": [
+        "mtd_eligibility_overmatch_ops"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "mtd_operations short-circuit; exclude Xero/software from eligibility matcher"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0266",
+      "category": "mtd_operations",
+      "prompt": "Do I need Xero for MTD? (32)",
+      "expected_behaviour": {
+        "expect_any": [
+          "quarter",
+          "xero",
+          "year-end",
+          "self assessment",
+          "cannot",
+          "can't",
+          "hmrc",
+          "simbian"
+        ],
+        "reject_any": [
+          "i will submit your return to hmrc now"
+        ],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "I can work out your Making Tax Digital start date once I know your qualifying income. That\u2019s total self-employment and property income before expenses for a specific tax year \u2014 not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+      "actual_after": "For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba\u2019s Simbian plans include a Xero subscription in the monthly price (Comply\u2192Xero Simple, Growth\u2192Xero Ignite, Elite\u2192Xero Grow) \u2014 customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC \u2014 a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply \u00a329.99, Growth \u00a359.99, Elite \u00a389.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital \u2014 or tell me your qualifying income and tax year if you\u2019re checking eligibility.",
+      "failure_flag": "EXPECT_MISS:quarter",
+      "themes": [
+        "mtd_eligibility_overmatch_ops"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "mtd_operations short-circuit; exclude Xero/software from eligibility matcher"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0303",
+      "category": "cis",
+      "prompt": "Construction sole trader needing MTD? 2",
+      "expected_behaviour": {
+        "expect_any": [
+          "cis",
+          "self assessment",
+          "subcontract",
+          "construction",
+          "119",
+          "smart"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "I can work out your Making Tax Digital start date once I know your qualifying income. That\u2019s total self-employment and property income before expenses for a specific tax year \u2014 not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+      "actual_after": "CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba\u2019s lowest suitable Self Assessment starting point is usually Simple (\u00a3119) or Smart (\u00a3149) depending on complexity \u2014 not an MTD subscription unless you\u2019re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment",
+      "failure_flag": "EXPECT_MISS:cis",
+      "themes": [
+        "cis_mtd_eligibility_overmatch_or_retrieval"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "CIS figures required for eligibility; CIS knowledge path"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0306",
+      "category": "cis",
+      "prompt": "Construction sole trader needing MTD? 5",
+      "expected_behaviour": {
+        "expect_any": [
+          "cis",
+          "self assessment",
+          "subcontract",
+          "construction",
+          "119",
+          "smart"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "I can work out your Making Tax Digital start date once I know your qualifying income. That\u2019s total self-employment and property income before expenses for a specific tax year \u2014 not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+      "actual_after": "CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba\u2019s lowest suitable Self Assessment starting point is usually Simple (\u00a3119) or Smart (\u00a3149) depending on complexity \u2014 not an MTD subscription unless you\u2019re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment",
+      "failure_flag": "EXPECT_MISS:cis",
+      "themes": [
+        "cis_mtd_eligibility_overmatch_or_retrieval"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "CIS figures required for eligibility; CIS knowledge path"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0309",
+      "category": "cis",
+      "prompt": "Construction sole trader needing MTD? 8",
+      "expected_behaviour": {
+        "expect_any": [
+          "cis",
+          "self assessment",
+          "subcontract",
+          "construction",
+          "119",
+          "smart"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "I can work out your Making Tax Digital start date once I know your qualifying income. That\u2019s total self-employment and property income before expenses for a specific tax year \u2014 not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+      "actual_after": "CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba\u2019s lowest suitable Self Assessment starting point is usually Simple (\u00a3119) or Smart (\u00a3149) depending on complexity \u2014 not an MTD subscription unless you\u2019re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment",
+      "failure_flag": "EXPECT_MISS:cis",
+      "themes": [
+        "cis_mtd_eligibility_overmatch_or_retrieval"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "CIS figures required for eligibility; CIS knowledge path"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0312",
+      "category": "cis",
+      "prompt": "Construction sole trader needing MTD? 11",
+      "expected_behaviour": {
+        "expect_any": [
+          "cis",
+          "self assessment",
+          "subcontract",
+          "construction",
+          "119",
+          "smart"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "I can work out your Making Tax Digital start date once I know your qualifying income. That\u2019s total self-employment and property income before expenses for a specific tax year \u2014 not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+      "actual_after": "CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba\u2019s lowest suitable Self Assessment starting point is usually Simple (\u00a3119) or Smart (\u00a3149) depending on complexity \u2014 not an MTD subscription unless you\u2019re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment",
+      "failure_flag": "EXPECT_MISS:cis",
+      "themes": [
+        "cis_mtd_eligibility_overmatch_or_retrieval"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "CIS figures required for eligibility; CIS knowledge path"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0315",
+      "category": "cis",
+      "prompt": "Construction sole trader needing MTD? 14",
+      "expected_behaviour": {
+        "expect_any": [
+          "cis",
+          "self assessment",
+          "subcontract",
+          "construction",
+          "119",
+          "smart"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "I can work out your Making Tax Digital start date once I know your qualifying income. That\u2019s total self-employment and property income before expenses for a specific tax year \u2014 not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+      "actual_after": "CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba\u2019s lowest suitable Self Assessment starting point is usually Simple (\u00a3119) or Smart (\u00a3149) depending on complexity \u2014 not an MTD subscription unless you\u2019re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment",
+      "failure_flag": "EXPECT_MISS:cis",
+      "themes": [
+        "cis_mtd_eligibility_overmatch_or_retrieval"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "CIS figures required for eligibility; CIS knowledge path"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0318",
+      "category": "cis",
+      "prompt": "Construction sole trader needing MTD? 17",
+      "expected_behaviour": {
+        "expect_any": [
+          "cis",
+          "self assessment",
+          "subcontract",
+          "construction",
+          "119",
+          "smart"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "I can work out your Making Tax Digital start date once I know your qualifying income. That\u2019s total self-employment and property income before expenses for a specific tax year \u2014 not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+      "actual_after": "CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba\u2019s lowest suitable Self Assessment starting point is usually Simple (\u00a3119) or Smart (\u00a3149) depending on complexity \u2014 not an MTD subscription unless you\u2019re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment",
+      "failure_flag": "EXPECT_MISS:cis",
+      "themes": [
+        "cis_mtd_eligibility_overmatch_or_retrieval"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "CIS figures required for eligibility; CIS knowledge path"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0321",
+      "category": "cis",
+      "prompt": "Construction sole trader needing MTD? 20",
+      "expected_behaviour": {
+        "expect_any": [
+          "cis",
+          "self assessment",
+          "subcontract",
+          "construction",
+          "119",
+          "smart"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "I can work out your Making Tax Digital start date once I know your qualifying income. That\u2019s total self-employment and property income before expenses for a specific tax year \u2014 not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+      "actual_after": "CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba\u2019s lowest suitable Self Assessment starting point is usually Simple (\u00a3119) or Smart (\u00a3149) depending on complexity \u2014 not an MTD subscription unless you\u2019re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment",
+      "failure_flag": "EXPECT_MISS:cis",
+      "themes": [
+        "cis_mtd_eligibility_overmatch_or_retrieval"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "CIS figures required for eligibility; CIS knowledge path"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0327",
+      "category": "vat_expenses_cgt_crypto",
+      "prompt": "Crypto gains Self Assessment [5]",
+      "expected_behaviour": {
+        "expect_any": [
+          "vat",
+          "90",
+          "expense",
+          "capital",
+          "crypto",
+          "dividend",
+          "allowance",
+          "gain"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "Based on verified HMRC / GOV.UK guidance: [sa-paper-deadline] Self Assessment paper filing deadline (2024-25, 2025-26, 2026-27): If you file a paper Self Assessment return, the usual deadline is 31 October following the end of the tax year. Online filing is normally due by 31 January. Confirm current deadlines on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (\u00a399 for 20 minutes) or an Extended Tax Consultation (\u00a3149 for 40 minutes), or email info@taxsimba.co.uk.",
+      "actual_after": "Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead \u2014 it depends on your activity. Keep detailed records. I won\u2019t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets \u2014 were your crypto disposals investment-style gains, or more like a trading business?",
+      "failure_flag": "EXPECT_MISS:vat",
+      "themes": [
+        "crypto_sa_misroute"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "crypto SA handler; do not answer with paper-deadline only"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0335",
+      "category": "vat_expenses_cgt_crypto",
+      "prompt": "Crypto gains Self Assessment [13]",
+      "expected_behaviour": {
+        "expect_any": [
+          "vat",
+          "90",
+          "expense",
+          "capital",
+          "crypto",
+          "dividend",
+          "allowance",
+          "gain"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "Based on verified HMRC / GOV.UK guidance: [sa-paper-deadline] Self Assessment paper filing deadline (2024-25, 2025-26, 2026-27): If you file a paper Self Assessment return, the usual deadline is 31 October following the end of the tax year. Online filing is normally due by 31 January. Confirm current deadlines on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (\u00a399 for 20 minutes) or an Extended Tax Consultation (\u00a3149 for 40 minutes), or email info@taxsimba.co.uk.",
+      "actual_after": "Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead \u2014 it depends on your activity. Keep detailed records. I won\u2019t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets \u2014 were your crypto disposals investment-style gains, or more like a trading business?",
+      "failure_flag": "EXPECT_MISS:vat",
+      "themes": [
+        "crypto_sa_misroute"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "crypto SA handler; do not answer with paper-deadline only"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0343",
+      "category": "vat_expenses_cgt_crypto",
+      "prompt": "Crypto gains Self Assessment [21]",
+      "expected_behaviour": {
+        "expect_any": [
+          "vat",
+          "90",
+          "expense",
+          "capital",
+          "crypto",
+          "dividend",
+          "allowance",
+          "gain"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "Based on verified HMRC / GOV.UK guidance: [sa-paper-deadline] Self Assessment paper filing deadline (2024-25, 2025-26, 2026-27): If you file a paper Self Assessment return, the usual deadline is 31 October following the end of the tax year. Online filing is normally due by 31 January. Confirm current deadlines on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (\u00a399 for 20 minutes) or an Extended Tax Consultation (\u00a3149 for 40 minutes), or email info@taxsimba.co.uk.",
+      "actual_after": "Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead \u2014 it depends on your activity. Keep detailed records. I won\u2019t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets \u2014 were your crypto disposals investment-style gains, or more like a trading business?",
+      "failure_flag": "EXPECT_MISS:vat",
+      "themes": [
+        "crypto_sa_misroute"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "crypto SA handler; do not answer with paper-deadline only"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0351",
+      "category": "vat_expenses_cgt_crypto",
+      "prompt": "Crypto gains Self Assessment [29]",
+      "expected_behaviour": {
+        "expect_any": [
+          "vat",
+          "90",
+          "expense",
+          "capital",
+          "crypto",
+          "dividend",
+          "allowance",
+          "gain"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "Based on verified HMRC / GOV.UK guidance: [sa-paper-deadline] Self Assessment paper filing deadline (2024-25, 2025-26, 2026-27): If you file a paper Self Assessment return, the usual deadline is 31 October following the end of the tax year. Online filing is normally due by 31 January. Confirm current deadlines on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (\u00a399 for 20 minutes) or an Extended Tax Consultation (\u00a3149 for 40 minutes), or email info@taxsimba.co.uk.",
+      "actual_after": "Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead \u2014 it depends on your activity. Keep detailed records. I won\u2019t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets \u2014 were your crypto disposals investment-style gains, or more like a trading business?",
+      "failure_flag": "EXPECT_MISS:vat",
+      "themes": [
+        "crypto_sa_misroute"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "crypto SA handler; do not answer with paper-deadline only"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    },
+    {
+      "id": "MS-0359",
+      "category": "vat_expenses_cgt_crypto",
+      "prompt": "Crypto gains Self Assessment [37]",
+      "expected_behaviour": {
+        "expect_any": [
+          "vat",
+          "90",
+          "expense",
+          "capital",
+          "crypto",
+          "dividend",
+          "allowance",
+          "gain"
+        ],
+        "reject_any": [],
+        "expect_codes": null,
+        "forbid_codes": []
+      },
+      "actual_before": "Based on verified HMRC / GOV.UK guidance: [sa-paper-deadline] Self Assessment paper filing deadline (2024-25, 2025-26, 2026-27): If you file a paper Self Assessment return, the usual deadline is 31 October following the end of the tax year. Online filing is normally due by 31 January. Confirm current deadlines on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (\u00a399 for 20 minutes) or an Extended Tax Consultation (\u00a3149 for 40 minutes), or email info@taxsimba.co.uk.",
+      "actual_after": "Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead \u2014 it depends on your activity. Keep detailed records. I won\u2019t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets \u2014 were your crypto disposals investment-style gains, or more like a trading business?",
+      "failure_flag": "EXPECT_MISS:vat",
+      "themes": [
+        "crypto_sa_misroute"
+      ],
+      "severity": "Medium",
+      "customer_impact": "Customer could receive off-topic or eligibility-overmatched guidance under the failing path",
+      "classification": "genuine_behavioural_defect",
+      "code_correction": [
+        "crypto SA handler; do not answer with paper-deadline only"
+      ],
+      "result_after": "PASS",
+      "flags_after": []
+    }
+  ]
+}

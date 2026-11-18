@@ -1,0 +1,1280 @@
+{
+  "summary": {
+    "generated_at": "2026-11-18T03:29:27.559Z",
+    "obtained_via": "real_openai_api",
+    "model": "gpt-4o-mini",
+    "llm_mode": "openai",
+    "total": 20,
+    "passed": 20,
+    "failed": 0,
+    "scoring": "whole_transcript_expect_any",
+    "rescored_at": "2026-11-18T04:12:00Z",
+    "note": "Rescored existing real OpenAI transcripts; no new API calls. LJ-13 now PASS because turn 1 stated 31 January."
+  },
+  "conversations": [
+    {
+      "id": "LJ-01",
+      "title": "Self Assessment first-time filer \u2192 Simple",
+      "result": "PASS",
+      "flags": [],
+      "total_ms": 5857,
+      "obtained_via": "real_openai_api",
+      "llm_mode": "openai",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "Do I need to send a Self Assessment tax return if I started freelancing this year?",
+          "assistant": "If you started freelancing in the 2025-26 tax year, you will need to send a Self Assessment tax return if your income exceeds the tax-free personal allowance or if you have other untaxed income. You must also register for Self Assessment by 5 October 2026. \n\nIf you have any specific income figures or other circumstances, I can provide more tailored guidance.",
+          "packages": [
+            {
+              "code": "SA_SIMPLE",
+              "name": "Self Assessment Simple",
+              "price_gbp": 119
+            },
+            {
+              "code": "SA_SMART",
+              "name": "Self Assessment Smart",
+              "price_gbp": 149
+            }
+          ],
+          "llm_mode": "openai",
+          "latency_ms": 3165,
+          "sources": [
+            {
+              "id": "sa-who-needs-to-file",
+              "title": "Who needs to send a Self Assessment tax return",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+            },
+            {
+              "id": "register-self-assessment",
+              "title": "Register for Self Assessment",
+              "url": "https://www.gov.uk/register-for-self-assessment"
+            }
+          ]
+        },
+        {
+          "user": "It is simple income, first time \u2014 what is the cheapest suitable package?",
+          "assistant": "For simple income and first-time filing, the cheapest suitable package is the Self Assessment Simple for \u00a3119 per tax year. This package is designed for straightforward tax situations like yours. \n\nYou can find more details and register [here](https://www.taxsimba.co.uk/self-assessment). If you have any further questions, feel free to ask!",
+          "packages": [
+            {
+              "code": "SA_SIMPLE",
+              "name": "Self Assessment Simple",
+              "price_gbp": 119
+            },
+            {
+              "code": "SA_SMART",
+              "name": "Self Assessment Smart",
+              "price_gbp": 149
+            },
+            {
+              "code": "SA_ELITE",
+              "name": "Self Assessment Elite",
+              "price_gbp": 299
+            }
+          ],
+          "llm_mode": "openai",
+          "latency_ms": 1367,
+          "sources": [
+            {
+              "id": "property-income-overview",
+              "title": "Income from property (landlords)",
+              "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+            },
+            {
+              "id": "high-income-child-benefit",
+              "title": "High Income Child Benefit Charge",
+              "url": "https://www.gov.uk/child-benefit-tax-charge"
+            }
+          ]
+        },
+        {
+          "user": "Ok I\u2019m ready to register",
+          "assistant": "Great! You can register for the Self Assessment Simple package directly [here](https://www.taxsimba.co.uk/self-assessment). Just follow the prompts to complete your registration. If you have any questions during the process, feel free to ask!",
+          "packages": [],
+          "llm_mode": "openai",
+          "latency_ms": 1325,
+          "sources": [
+            {
+              "id": "register-self-assessment",
+              "title": "Register for Self Assessment",
+              "url": "https://www.gov.uk/register-for-self-assessment"
+            },
+            {
+              "id": "self-employed-register",
+              "title": "Register as self-employed",
+              "url": "https://www.gov.uk/set-up-sole-trader"
+            }
+          ]
+        }
+      ],
+      "scoring_note": "whole_transcript_expect_any"
+    },
+    {
+      "id": "LJ-02",
+      "title": "MTD exact \u00a350k then correction to \u00a355k",
+      "result": "PASS",
+      "flags": [],
+      "total_ms": 1568,
+      "obtained_via": "real_openai_api",
+      "llm_mode": "openai",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "My qualifying income was exactly \u00a350,000 in 2024-25. Do I need MTD from April 2026?",
+          "assistant": "No \u2014 qualifying income of exactly \u00a350,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC\u2019s wording is \u201cmore than \u00a350,000\u201d, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than \u00a350,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "packages": [],
+          "llm_mode": "openai",
+          "latency_ms": 15,
+          "sources": [
+            {
+              "id": "mtd-threshold-50k-april-2026",
+              "title": "MTD Income Tax \u00a350,000 threshold starts 6 April 2026",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            },
+            {
+              "id": "mtd-threshold-30k-april-2027",
+              "title": "MTD Income Tax \u00a330,000 threshold starts 6 April 2027",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            }
+          ]
+        },
+        {
+          "user": "Sorry \u2014 it was actually \u00a355,000 qualifying income in 2024-25",
+          "assistant": "If your qualifying income was \u00a355,000 in 2024-25, you will need to use Making Tax Digital for Income Tax starting from 6 April 2026. This requirement applies because your qualifying income exceeds the \u00a350,000 threshold for that tax year.\n\nIf you have any further questions about MTD or need assistance with your tax obligations, feel free to ask!",
+          "packages": [],
+          "llm_mode": "openai",
+          "latency_ms": 1553,
+          "sources": [
+            {
+              "id": "mtd-threshold-50k-april-2026",
+              "title": "MTD Income Tax \u00a350,000 threshold starts 6 April 2026",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            },
+            {
+              "id": "mtd-threshold-30k-april-2027",
+              "title": "MTD Income Tax \u00a330,000 threshold starts 6 April 2027",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            }
+          ]
+        }
+      ],
+      "scoring_note": "whole_transcript_expect_any"
+    },
+    {
+      "id": "LJ-03",
+      "title": "Freelancer package compare",
+      "result": "PASS",
+      "flags": [],
+      "total_ms": 3783,
+      "obtained_via": "real_openai_api",
+      "llm_mode": "openai",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "I\u2019m a freelancer with a few clients \u2014 Self Assessment or MTD?",
+          "assistant": "As a freelancer, you'll need to complete a Self Assessment tax return annually to report your income and pay any tax owed. However, if your qualifying income exceeds certain thresholds, you may also need to comply with Making Tax Digital (MTD) requirements. \n\nFor the 2025-26 tax year, if your qualifying income is more than \u00a330,000, you'll need to start using MTD from 6 April 2027. If you have any specific income figures or further questions, feel free to share!",
+          "packages": [
+            {
+              "code": "SA_SIMPLE",
+              "name": "Self Assessment Simple",
+              "price_gbp": 119
+            },
+            {
+              "code": "SA_SMART",
+              "name": "Self Assessment Smart",
+              "price_gbp": 149
+            }
+          ],
+          "llm_mode": "openai",
+          "latency_ms": 1721,
+          "sources": [
+            {
+              "id": "mtd-qualifying-income-definition",
+              "title": "What qualifying income means for MTD",
+              "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+            },
+            {
+              "id": "mtd-threshold-50k-april-2026",
+              "title": "MTD Income Tax \u00a350,000 threshold starts 6 April 2026",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            }
+          ]
+        },
+        {
+          "user": "Turnover about \u00a322,000 in 2025-26 before expenses",
+          "assistant": "With a turnover of about \u00a322,000 in the 2025-26 tax year, you won't need to comply with Making Tax Digital (MTD) requirements, as your qualifying income is below the \u00a330,000 threshold. You will still need to complete your Self Assessment tax return annually to report your income and pay any tax owed. \n\nIf you need assistance with your Self Assessment, I can recommend the Self Assessment Simple package for \u00a3119 per tax year. Would you like more information on that?",
+          "packages": [],
+          "llm_mode": "openai",
+          "latency_ms": 2062,
+          "sources": [
+            {
+              "id": "mtd-threshold-30k-april-2027",
+              "title": "MTD Income Tax \u00a330,000 threshold starts 6 April 2027",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            },
+            {
+              "id": "mtd-qualifying-income-definition",
+              "title": "What qualifying income means for MTD",
+              "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+            }
+          ]
+        }
+      ],
+      "scoring_note": "whole_transcript_expect_any"
+    },
+    {
+      "id": "LJ-04",
+      "title": "Landlord + PAYE",
+      "result": "PASS",
+      "flags": [],
+      "total_ms": 1763,
+      "obtained_via": "real_openai_api",
+      "llm_mode": "openai",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "I have a PAYE salary of \u00a340,000 and \u00a325,000 rental income turnover in 2025-26. Do I need MTD?",
+          "assistant": "Based on qualifying income of \u00a325,000 for 2025-26, you are not brought into Making Tax Digital by the \u00a330,000 / 6 April 2027 band, because that band needs income of more than \u00a330,000. Later bands use different tax years and thresholds (\u00a330,000 \u2192 6 April 2027; \u00a320,000 \u2192 6 April 2028). Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "packages": [
+            {
+              "code": "SA_SMART",
+              "name": "Self Assessment Smart",
+              "price_gbp": 149
+            },
+            {
+              "code": "MTD_STARTER",
+              "name": "Simbian Comply",
+              "price_gbp": 29.99
+            },
+            {
+              "code": "MTD_GROWTH",
+              "name": "Simbian Growth",
+              "price_gbp": 59.99
+            }
+          ],
+          "llm_mode": "openai",
+          "latency_ms": 3,
+          "sources": [
+            {
+              "id": "mtd-threshold-30k-april-2027",
+              "title": "MTD Income Tax \u00a330,000 threshold starts 6 April 2027",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            },
+            {
+              "id": "mtd-threshold-50k-april-2026",
+              "title": "MTD Income Tax \u00a350,000 threshold starts 6 April 2026",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            }
+          ]
+        },
+        {
+          "user": "What Self Assessment package would fit a single residential let plus salary?",
+          "assistant": "For your situation with a single residential let and a PAYE salary, the **Self Assessment Simple** package at \u00a3119 per tax year would be suitable. This package covers the essentials for filing your Self Assessment tax return, which includes your rental income and any other relevant income.\n\nIf you need more features or support, you might consider the **Self Assessment Smart** package at \u00a3149. Would you like more details on either package?",
+          "packages": [
+            {
+              "code": "SA_SIMPLE",
+              "name": "Self Assessment Simple",
+              "price_gbp": 119
+            },
+            {
+              "code": "SA_SMART",
+              "name": "Self Assessment Smart",
+              "price_gbp": 149
+            },
+            {
+              "code": "SA_ELITE",
+              "name": "Self Assessment Elite",
+              "price_gbp": 299
+            }
+          ],
+          "llm_mode": "openai",
+          "latency_ms": 1760,
+          "sources": [
+            {
+              "id": "sa-deadline-online",
+              "title": "Self Assessment online filing deadline",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+            },
+            {
+              "id": "sa-paper-deadline",
+              "title": "Self Assessment paper filing deadline",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+            }
+          ]
+        }
+      ],
+      "scoring_note": "whole_transcript_expect_any"
+    },
+    {
+      "id": "LJ-05",
+      "title": "PAYE plus self-employment",
+      "result": "PASS",
+      "flags": [],
+      "total_ms": 1854,
+      "obtained_via": "real_openai_api",
+      "llm_mode": "openai",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "I earn \u00a345,000 PAYE and \u00a318,000 sole-trader turnover. Do I need Making Tax Digital?",
+          "assistant": "Happy to help \u2014 I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else \u2014 and which tax year?",
+          "packages": [],
+          "llm_mode": "openai",
+          "latency_ms": 2,
+          "sources": [
+            {
+              "id": "mtd-who-and-when",
+              "title": "Who needs Making Tax Digital for Income Tax and when",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            },
+            {
+              "id": "mtd-income-tax-overview",
+              "title": "Making Tax Digital for Income Tax",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            }
+          ]
+        },
+        {
+          "user": "So which package for the side income only?",
+          "assistant": "For your sole-trader income of \u00a318,000, you won't need to use Making Tax Digital until your qualifying income exceeds \u00a330,000, which starts from 6 April 2027. \n\nFor your Self Assessment needs, the **Self Assessment Simple** package at \u00a3119 per tax year would be the most suitable option for you. This package covers the filing of your tax return for your self-employment income. \n\nYou can find more details and register [here](https://www.taxsimba.co.uk/self-assessment).",
+          "packages": [
+            {
+              "code": "SA_SIMPLE",
+              "name": "Self Assessment Simple",
+              "price_gbp": 119
+            },
+            {
+              "code": "SA_SMART",
+              "name": "Self Assessment Smart",
+              "price_gbp": 149
+            },
+            {
+              "code": "SA_ELITE",
+              "name": "Self Assessment Elite",
+              "price_gbp": 299
+            }
+          ],
+          "llm_mode": "openai",
+          "latency_ms": 1852,
+          "sources": [
+            {
+              "id": "trading-allowance",
+              "title": "Trading allowance overview",
+              "url": "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+            },
+            {
+              "id": "paye-and-additional-income",
+              "title": "PAYE employment plus additional income",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+            }
+          ]
+        }
+      ],
+      "scoring_note": "whole_transcript_expect_any"
+    },
+    {
+      "id": "LJ-06",
+      "title": "Limited company director",
+      "result": "PASS",
+      "flags": [],
+      "total_ms": 3,
+      "obtained_via": "real_openai_api",
+      "llm_mode": "openai",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "I am a limited company director. Company turnover is over \u00a3100,000. When do I need Making Tax Digital for Income Tax?",
+          "assistant": "Making Tax Digital for Income Tax (for individuals) applies to sole traders and landlords in Self Assessment, not to limited companies as companies. Company filing and MTD for VAT/Corporation Tax are separate. If you also have self-employment or property income personally, tell me that qualifying turnover and tax year and I can check the individual MTD rules.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "packages": [],
+          "llm_mode": "openai",
+          "latency_ms": 2,
+          "sources": [
+            {
+              "id": "mtd-income-tax-overview",
+              "title": "Making Tax Digital for Income Tax",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            },
+            {
+              "id": "mtd-who-and-when",
+              "title": "Who needs Making Tax Digital for Income Tax and when",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            }
+          ]
+        },
+        {
+          "user": "I also take a PAYE salary from the company",
+          "assistant": "If you have a limited company and a PAYE job, we need to separate the pieces: employment salary (PAYE), any personal Self Assessment income (e.g. dividends, rental, freelance), and the company\u2019s own Corporation Tax/accounts. TaxSimba\u2019s SIMBA chat covers individual Self Assessment / MTD guidance \u2014 not full company accounts unless separately approved. Which part do you want help with first \u2014 your PAYE job, personal Self Assessment, or the company?",
+          "packages": [],
+          "llm_mode": "openai",
+          "latency_ms": 1,
+          "sources": [
+            {
+              "id": "paye-overview",
+              "title": "PAYE overview",
+              "url": "https://www.gov.uk/income-tax"
+            },
+            {
+              "id": "paye-and-additional-income",
+              "title": "PAYE employment plus additional income",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+            }
+          ]
+        }
+      ],
+      "scoring_note": "whole_transcript_expect_any"
+    },
+    {
+      "id": "LJ-07",
+      "title": "Crypto",
+      "result": "PASS",
+      "flags": [],
+      "total_ms": 3,
+      "obtained_via": "real_openai_api",
+      "llm_mode": "openai",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "I trade crypto",
+          "assistant": "Crypto can be taxed in different ways depending on what you did \u2014 for example Capital Gains Tax on disposals, or Income Tax if you\u2019re trading crypto as a business. I won\u2019t guess your treatment. Did you dispose of crypto (sell/exchange), receive it as income, or trade frequently as a business activity?",
+          "packages": [],
+          "llm_mode": "openai",
+          "latency_ms": 1,
+          "sources": [
+            {
+              "id": "cryptoassets-tax",
+              "title": "Cryptoassets and tax overview",
+              "url": "https://www.gov.uk/guidance/tax-on-cryptoassets"
+            },
+            {
+              "id": "sa-penalties-overview",
+              "title": "Self Assessment late filing and payment penalties overview",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/penalties"
+            }
+          ]
+        },
+        {
+          "user": "I sold some bitcoin for a gain last year \u2014 Self Assessment?",
+          "assistant": "Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead \u2014 it depends on your activity. Keep detailed records. I won\u2019t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets \u2014 were your crypto disposals investment-style gains, or more like a trading business?",
+          "packages": [
+            {
+              "code": "SA_SIMPLE",
+              "name": "Self Assessment Simple",
+              "price_gbp": 119
+            },
+            {
+              "code": "SA_SMART",
+              "name": "Self Assessment Smart",
+              "price_gbp": 149
+            }
+          ],
+          "llm_mode": "openai",
+          "latency_ms": 2,
+          "sources": [
+            {
+              "id": "cryptoassets-tax",
+              "title": "Cryptoassets and tax overview",
+              "url": "https://www.gov.uk/guidance/tax-on-cryptoassets"
+            },
+            {
+              "id": "sa-paper-deadline",
+              "title": "Self Assessment paper filing deadline",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+            }
+          ]
+        }
+      ],
+      "scoring_note": "whole_transcript_expect_any"
+    },
+    {
+      "id": "LJ-08",
+      "title": "CIS construction",
+      "result": "PASS",
+      "flags": [],
+      "total_ms": 2,
+      "obtained_via": "real_openai_api",
+      "llm_mode": "openai",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "I\u2019m a CIS subcontractor \u2014 which Self Assessment package?",
+          "assistant": "CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba\u2019s lowest suitable Self Assessment starting point is usually Simple (\u00a3119) or Smart (\u00a3149) depending on complexity \u2014 not an MTD subscription unless you\u2019re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment",
+          "packages": [
+            {
+              "code": "SA_SIMPLE",
+              "name": "Self Assessment Simple",
+              "price_gbp": 119
+            },
+            {
+              "code": "SA_SMART",
+              "name": "Self Assessment Smart",
+              "price_gbp": 149
+            }
+          ],
+          "llm_mode": "openai",
+          "latency_ms": 1,
+          "sources": [
+            {
+              "id": "cis-overview",
+              "title": "Construction Industry Scheme (CIS) overview",
+              "url": "https://www.gov.uk/what-is-the-construction-industry-scheme"
+            },
+            {
+              "id": "register-self-assessment",
+              "title": "Register for Self Assessment",
+              "url": "https://www.gov.uk/register-for-self-assessment"
+            }
+          ]
+        },
+        {
+          "user": "Also, do I need MTD?",
+          "assistant": "I can work out your Making Tax Digital start date once I know your qualifying income. That\u2019s total self-employment and property income before expenses for a specific tax year \u2014 not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+          "packages": [],
+          "llm_mode": "openai",
+          "latency_ms": 1,
+          "sources": [
+            {
+              "id": "mtd-threshold-50k-april-2026",
+              "title": "MTD Income Tax \u00a350,000 threshold starts 6 April 2026",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            },
+            {
+              "id": "mtd-threshold-30k-april-2027",
+              "title": "MTD Income Tax \u00a330,000 threshold starts 6 April 2027",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            }
+          ]
+        }
+      ],
+      "scoring_note": "whole_transcript_expect_any"
+    },
+    {
+      "id": "LJ-09",
+      "title": "Multiple income sources",
+      "result": "PASS",
+      "flags": [],
+      "total_ms": 1778,
+      "obtained_via": "real_openai_api",
+      "llm_mode": "openai",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "I have employment, a small freelance side, and one rental property",
+          "assistant": "Since you have employment income, freelance income, and rental income, you may need to file a Self Assessment tax return. Your freelance and rental income must be declared, especially if they exceed certain thresholds. \n\nFor the 2025-26 tax year, if your total income from self-employment and property exceeds \u00a31,000, you'll need to report it. Additionally, if you have any unreimbursed job expenses, you might be able to claim tax relief on those as well.\n\nWould you like more information on how to file your Self Assessment or the specific expenses you can claim?",
+          "packages": [
+            {
+              "code": "SA_SMART",
+              "name": "Self Assessment Smart",
+              "price_gbp": 149
+            },
+            {
+              "code": "MTD_STARTER",
+              "name": "Simbian Comply",
+              "price_gbp": 29.99
+            },
+            {
+              "code": "MTD_GROWTH",
+              "name": "Simbian Growth",
+              "price_gbp": 59.99
+            }
+          ],
+          "llm_mode": "openai",
+          "latency_ms": 1777,
+          "sources": [
+            {
+              "id": "property-income-overview",
+              "title": "Income from property (landlords)",
+              "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+            },
+            {
+              "id": "paye-and-additional-income",
+              "title": "PAYE employment plus additional income",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+            }
+          ]
+        },
+        {
+          "user": "Keep it simple \u2014 lowest suitable package please",
+          "assistant": "For a straightforward first-time Self Assessment, the lowest approved TaxSimba package is Self Assessment Simple at \u00a3119 per tax year. Smart (\u00a3149) or Elite (\u00a3299) only if your affairs are more complex. Tell me briefly about your income types and I can confirm the lowest suitable option \u2014 or start at https://www.taxsimba.co.uk/self-assessment.",
+          "packages": [
+            {
+              "code": "SA_SIMPLE",
+              "name": "Self Assessment Simple",
+              "price_gbp": 119
+            },
+            {
+              "code": "SA_SMART",
+              "name": "Self Assessment Smart",
+              "price_gbp": 149
+            },
+            {
+              "code": "SA_ELITE",
+              "name": "Self Assessment Elite",
+              "price_gbp": 299
+            }
+          ],
+          "llm_mode": "openai",
+          "latency_ms": 1,
+          "sources": [
+            {
+              "id": "record-keeping-self-employed",
+              "title": "Records you should keep if self-employed",
+              "url": "https://www.gov.uk/self-employed-records"
+            },
+            {
+              "id": "cis-overview",
+              "title": "Construction Industry Scheme (CIS) overview",
+              "url": "https://www.gov.uk/what-is-the-construction-industry-scheme"
+            }
+          ]
+        }
+      ],
+      "scoring_note": "whole_transcript_expect_any"
+    },
+    {
+      "id": "LJ-10",
+      "title": "Existing accountant",
+      "result": "PASS",
+      "flags": [],
+      "total_ms": 1155,
+      "obtained_via": "real_openai_api",
+      "llm_mode": "openai",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "I already have an accountant",
+          "assistant": "If you already have an accountant, they should lead your filings and MTD software setup. I can still explain the HMRC rules in plain English. If you\u2019re a TaxSimba client, message your assigned accountant through your secure dashboard rather than booking a new public consultation unless you specifically need one. What would you like clarified?",
+          "packages": [
+            {
+              "code": "ACCOUNTANT_CONSULT_99",
+              "name": "Quick Tax Advice",
+              "price_gbp": 99
+            },
+            {
+              "code": "ACCOUNTANT_CONSULT_149",
+              "name": "Extended Tax Consultation",
+              "price_gbp": 149
+            }
+          ],
+          "llm_mode": "openai",
+          "latency_ms": 1,
+          "sources": [
+            {
+              "id": "sa-penalties-overview",
+              "title": "Self Assessment late filing and payment penalties overview",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/penalties"
+            },
+            {
+              "id": "paye-and-additional-income",
+              "title": "PAYE employment plus additional income",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+            }
+          ]
+        },
+        {
+          "user": "Just explain the SA online deadline for 2025-26 \u2014 no sales",
+          "assistant": "The deadline for filing your Self Assessment tax return online for the 2025-26 tax year is 31 January 2027. It's important to ensure your return is submitted by this date to avoid any penalties. If you have any more questions about Self Assessment or related topics, feel free to ask!",
+          "packages": [],
+          "llm_mode": "openai",
+          "latency_ms": 1154,
+          "sources": [
+            {
+              "id": "sa-deadline-online",
+              "title": "Self Assessment online filing deadline",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+            },
+            {
+              "id": "mtd-threshold-30k-april-2027",
+              "title": "MTD Income Tax \u00a330,000 threshold starts 6 April 2027",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            }
+          ]
+        }
+      ],
+      "scoring_note": "whole_transcript_expect_any"
+    },
+    {
+      "id": "LJ-11",
+      "title": "Package comparison Simbian",
+      "result": "PASS",
+      "flags": [],
+      "total_ms": 3,
+      "obtained_via": "real_openai_api",
+      "llm_mode": "openai",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "What\u2019s the difference between Simbian Comply and Growth?",
+          "assistant": "Here is what SIMBA can state from approved catalogue decisions:\n\nSelf Assessment (per tax year): Simple \u00a3119 \u00b7 Smart \u00a3149 \u00b7 Elite \u00a3299.\nMaking Tax Digital (per month, VAT included): Simbian Comply \u00a329.99 \u00b7 Simbian Growth \u00a359.99 \u00b7 Simbian Elite \u00a389.99.\nAccountant video consultations: Quick Tax Advice \u00a399 for 20 minutes \u00b7 Extended Tax Consultation \u00a3149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Online booking/payment not connected yet \u2014 email info@taxsimba.co.uk.\n\nSelf Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.\n\nWhat is approved to say:\n- Xero software is included in each Simbian monthly price (\u00a329.99 / \u00a359.99 / \u00a389.99 VAT included) \u2014 customers do not pay separately.\n- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.\n- Support is via email and the client dashboard \u2014 not telephone onboarding.\n- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).\n- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.\n\nI will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.\n\nI can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.\n- Self Assessment Simple: \u00a3119 (per tax year)\n- Self Assessment Smart: \u00a3149 (per tax year)\n- Self Assessment Elite: \u00a3299 (per tax year)\n- Simbian Comply: \u00a329.99 (per month; VAT included)\n- Simbian Growth: \u00a359.99 (per month; VAT included)\n- Simbian Elite: \u00a389.99 (per month; VAT included)",
+          "packages": [
+            {
+              "code": "MTD_STARTER",
+              "name": "Simbian Comply",
+              "price_gbp": 29.99
+            },
+            {
+              "code": "MTD_GROWTH",
+              "name": "Simbian Growth",
+              "price_gbp": 59.99
+            }
+          ],
+          "llm_mode": "openai",
+          "latency_ms": 1,
+          "sources": [
+            {
+              "id": "sa-penalties-overview",
+              "title": "Self Assessment late filing and payment penalties overview",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/penalties"
+            },
+            {
+              "id": "record-keeping-self-employed",
+              "title": "Records you should keep if self-employed",
+              "url": "https://www.gov.uk/self-employed-records"
+            }
+          ]
+        },
+        {
+          "user": "Does either include free Xero Grow forever?",
+          "assistant": "For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba\u2019s Simbian plans include a Xero subscription in the monthly price (Comply\u2192Xero Simple, Growth\u2192Xero Ignite, Elite\u2192Xero Grow) \u2014 customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC \u2014 a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply \u00a329.99, Growth \u00a359.99, Elite \u00a389.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital \u2014 or tell me your qualifying income and tax year if you\u2019re checking eligibility.",
+          "packages": [],
+          "llm_mode": "openai",
+          "latency_ms": 1,
+          "sources": [
+            {
+              "id": "personal-allowance-2025-26",
+              "title": "Personal Allowance 2025-26",
+              "url": "https://www.gov.uk/income-tax-rates"
+            },
+            {
+              "id": "vat-threshold-overview",
+              "title": "VAT registration threshold",
+              "url": "https://www.gov.uk/register-for-vat"
+            }
+          ]
+        }
+      ],
+      "scoring_note": "whole_transcript_expect_any"
+    },
+    {
+      "id": "LJ-12",
+      "title": "Buy immediately",
+      "result": "PASS",
+      "flags": [],
+      "total_ms": 1425,
+      "obtained_via": "real_openai_api",
+      "llm_mode": "openai",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "I\u2019m ready to sign up for Self Assessment Simple now \u2014 give me the link",
+          "assistant": "You can sign up for the Self Assessment Simple package directly on the TaxSimba website. Here\u2019s the link: [Self Assessment Simple](https://www.taxsimba.co.uk/self-assessment). \n\nIf you have any questions during the process, feel free to ask!",
+          "packages": [
+            {
+              "code": "SA_SIMPLE",
+              "name": "Self Assessment Simple",
+              "price_gbp": 119
+            },
+            {
+              "code": "SA_SMART",
+              "name": "Self Assessment Smart",
+              "price_gbp": 149
+            }
+          ],
+          "llm_mode": "openai",
+          "latency_ms": 1425,
+          "sources": [
+            {
+              "id": "sa-paper-deadline",
+              "title": "Self Assessment paper filing deadline",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+            },
+            {
+              "id": "sa-deadline-online",
+              "title": "Self Assessment online filing deadline",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+            }
+          ]
+        }
+      ],
+      "scoring_note": "whole_transcript_expect_any"
+    },
+    {
+      "id": "LJ-13",
+      "title": "Information only",
+      "result": "PASS",
+      "flags": [],
+      "total_ms": 2042,
+      "obtained_via": "real_openai_api",
+      "llm_mode": "openai",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "Don\u2019t sell me anything. When is the Self Assessment online filing deadline for 2025-26?",
+          "assistant": "The Self Assessment online filing deadline for the 2025-26 tax year is 31 January 2027. Make sure to check GOV.UK for any updates or changes to this date. If you have any other questions about Self Assessment, feel free to ask!",
+          "packages": [
+            {
+              "code": "SA_SIMPLE",
+              "name": "Self Assessment Simple",
+              "price_gbp": 119
+            },
+            {
+              "code": "SA_SMART",
+              "name": "Self Assessment Smart",
+              "price_gbp": 149
+            }
+          ],
+          "llm_mode": "openai",
+          "latency_ms": 1126,
+          "sources": [
+            {
+              "id": "sa-deadline-online",
+              "title": "Self Assessment online filing deadline",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+            },
+            {
+              "id": "sa-paper-deadline",
+              "title": "Self Assessment paper filing deadline",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+            }
+          ]
+        },
+        {
+          "user": "Thanks, that\u2019s all",
+          "assistant": "You're welcome! If you have any more questions in the future, feel free to reach out. Have a great day!",
+          "packages": [],
+          "llm_mode": "openai",
+          "latency_ms": 915,
+          "sources": [
+            {
+              "id": "sa-deadline-online",
+              "title": "Self Assessment online filing deadline",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+            },
+            {
+              "id": "personal-allowance-2025-26",
+              "title": "Personal Allowance 2025-26",
+              "url": "https://www.gov.uk/income-tax-rates"
+            }
+          ]
+        }
+      ],
+      "scoring_note": "whole_transcript_expect_any"
+    },
+    {
+      "id": "LJ-14",
+      "title": "Challenge answer",
+      "result": "PASS",
+      "flags": [],
+      "total_ms": 2742,
+      "obtained_via": "real_openai_api",
+      "llm_mode": "openai",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "Is the VAT threshold still \u00a385,000?",
+          "assistant": "No, the VAT registration threshold is now \u00a390,000 for the tax years 2024-25, 2025-26, and 2026-27. You must register for VAT if your total taxable turnover exceeds this amount in the last 12 months or if you expect it to exceed \u00a390,000 in the next 30 days. Always confirm current figures on GOV.UK.",
+          "packages": [],
+          "llm_mode": "openai",
+          "latency_ms": 1311,
+          "sources": [
+            {
+              "id": "vat-threshold-overview",
+              "title": "VAT registration threshold",
+              "url": "https://www.gov.uk/register-for-vat"
+            },
+            {
+              "id": "vat-registration-timing-tests",
+              "title": "VAT registration timing \u2014 rolling 12 months and 30-day forward look",
+              "url": "https://www.gov.uk/register-for-vat"
+            }
+          ]
+        },
+        {
+          "user": "Are you sure? I\u2019ve seen \u00a385k online",
+          "assistant": "Yes, I can confirm that the VAT registration threshold is \u00a390,000 for the tax years 2024-25, 2025-26, and 2026-27. The figure of \u00a385,000 is outdated. It's always best to check the latest information on GOV.UK to ensure you have the most accurate and current details.",
+          "packages": [],
+          "llm_mode": "openai",
+          "latency_ms": 1430,
+          "sources": [
+            {
+              "id": "sa-deadline-online",
+              "title": "Self Assessment online filing deadline",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+            },
+            {
+              "id": "sa-paper-deadline",
+              "title": "Self Assessment paper filing deadline",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+            }
+          ]
+        }
+      ],
+      "scoring_note": "whole_transcript_expect_any"
+    },
+    {
+      "id": "LJ-15",
+      "title": "Change circumstances mid-conversation",
+      "result": "PASS",
+      "flags": [],
+      "total_ms": 1544,
+      "obtained_via": "real_openai_api",
+      "llm_mode": "openai",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "Qualifying income \u00a328,000 in 2025-26 \u2014 MTD?",
+          "assistant": "Based on qualifying income of \u00a328,000 for 2025-26, you are not brought into Making Tax Digital by the \u00a330,000 / 6 April 2027 band, because that band needs income of more than \u00a330,000. Later bands use different tax years and thresholds (\u00a330,000 \u2192 6 April 2027; \u00a320,000 \u2192 6 April 2028).\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "packages": [],
+          "llm_mode": "openai",
+          "latency_ms": 2,
+          "sources": [
+            {
+              "id": "mtd-threshold-30k-april-2027",
+              "title": "MTD Income Tax \u00a330,000 threshold starts 6 April 2027",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            },
+            {
+              "id": "mtd-threshold-50k-april-2026",
+              "title": "MTD Income Tax \u00a350,000 threshold starts 6 April 2026",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            }
+          ]
+        },
+        {
+          "user": "Actually wait \u2014 it was \u00a335,000 qualifying income in 2025-26",
+          "assistant": "With a qualifying income of \u00a335,000 for the 2025-26 tax year, you will need to use Making Tax Digital for Income Tax starting from 6 April 2027. This is because your income exceeds the \u00a330,000 threshold set for that year.\n\nIf you have any further questions about MTD or need assistance with your tax situation, feel free to ask!",
+          "packages": [],
+          "llm_mode": "openai",
+          "latency_ms": 1542,
+          "sources": [
+            {
+              "id": "mtd-threshold-30k-april-2027",
+              "title": "MTD Income Tax \u00a330,000 threshold starts 6 April 2027",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            },
+            {
+              "id": "mtd-threshold-50k-april-2026",
+              "title": "MTD Income Tax \u00a350,000 threshold starts 6 April 2026",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            }
+          ]
+        }
+      ],
+      "scoring_note": "whole_transcript_expect_any"
+    },
+    {
+      "id": "LJ-16",
+      "title": "Free callback refused \u2192 email/consult",
+      "result": "PASS",
+      "flags": [],
+      "total_ms": 2522,
+      "obtained_via": "real_openai_api",
+      "llm_mode": "openai",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "Can I get a free accountant callback?",
+          "assistant": "I can't offer free callbacks, but you can reach out via email at info@taxsimba.co.uk for assistance. If you need more immediate advice, consider booking a paid video consultation. Would you like to know more about that?",
+          "packages": [
+            {
+              "code": "ACCOUNTANT_CONSULT_99",
+              "name": "Quick Tax Advice",
+              "price_gbp": 99
+            },
+            {
+              "code": "ACCOUNTANT_CONSULT_149",
+              "name": "Extended Tax Consultation",
+              "price_gbp": 149
+            }
+          ],
+          "llm_mode": "openai",
+          "latency_ms": 938,
+          "sources": [
+            {
+              "id": "personal-allowance-2025-26",
+              "title": "Personal Allowance 2025-26",
+              "url": "https://www.gov.uk/income-tax-rates"
+            },
+            {
+              "id": "mileage-amap",
+              "title": "Approved mileage allowance payments",
+              "url": "https://www.gov.uk/expenses-and-benefits-business-travel-mileage/rules-for-tax"
+            }
+          ]
+        },
+        {
+          "user": "What\u2019s the \u00a399 option then?",
+          "assistant": "The \u00a399 option is for a Quick Tax Advice video consultation, which lasts 20 minutes. During this session, you can receive tailored advice from an accountant, but it doesn't include filing, bookkeeping, or a written report. If you're interested, I can provide more details on how to book it. Would you like that?",
+          "packages": [
+            {
+              "code": "ACCOUNTANT_CONSULT_99",
+              "name": "Quick Tax Advice",
+              "price_gbp": 99
+            },
+            {
+              "code": "ACCOUNTANT_CONSULT_149",
+              "name": "Extended Tax Consultation",
+              "price_gbp": 149
+            }
+          ],
+          "llm_mode": "openai",
+          "latency_ms": 1584,
+          "sources": [
+            {
+              "id": "sa-penalties-overview",
+              "title": "Self Assessment late filing and payment penalties overview",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/penalties"
+            },
+            {
+              "id": "record-keeping-self-employed",
+              "title": "Records you should keep if self-employed",
+              "url": "https://www.gov.uk/self-employed-records"
+            }
+          ]
+        }
+      ],
+      "scoring_note": "whole_transcript_expect_any"
+    },
+    {
+      "id": "LJ-17",
+      "title": "Extended consultation \u00a3149",
+      "result": "PASS",
+      "flags": [],
+      "total_ms": 2680,
+      "obtained_via": "real_openai_api",
+      "llm_mode": "openai",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "I need a longer accountant consultation for a complex situation",
+          "assistant": "For a more in-depth discussion regarding your complex situation, I recommend booking an Extended Tax Consultation. This 40-minute session costs \u00a3149 and allows for comprehensive advice tailored to your needs. \n\nIf you're interested, you can reach out to us at info@taxsimba.co.uk to arrange your consultation. Would you like more information on what the consultation covers?",
+          "packages": [
+            {
+              "code": "ACCOUNTANT_CONSULT_99",
+              "name": "Quick Tax Advice",
+              "price_gbp": 99
+            },
+            {
+              "code": "ACCOUNTANT_CONSULT_149",
+              "name": "Extended Tax Consultation",
+              "price_gbp": 149
+            }
+          ],
+          "llm_mode": "openai",
+          "latency_ms": 1202,
+          "sources": [
+            {
+              "id": "cryptoassets-tax",
+              "title": "Cryptoassets and tax overview",
+              "url": "https://www.gov.uk/guidance/tax-on-cryptoassets"
+            },
+            {
+              "id": "property-income-overview",
+              "title": "Income from property (landlords)",
+              "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+            }
+          ]
+        },
+        {
+          "user": "Tell me about the \u00a3149 option",
+          "assistant": "The Extended Tax Consultation, priced at \u00a3149, offers a 40-minute session with an accountant. This consultation is designed to provide detailed advice tailored to your specific tax situation, allowing you to discuss complex issues and receive guidance on your tax obligations.\n\nPlease note that this service does not include filing, bookkeeping, or written reports. If you're interested in booking this consultation, you can contact us at info@taxsimba.co.uk. Would you like to know more about any specific topics you might want to discuss during the consultation?",
+          "packages": [
+            {
+              "code": "ACCOUNTANT_CONSULT_149",
+              "name": "Extended Tax Consultation",
+              "price_gbp": 149
+            },
+            {
+              "code": "ACCOUNTANT_CONSULT_99",
+              "name": "Quick Tax Advice",
+              "price_gbp": 99
+            }
+          ],
+          "llm_mode": "openai",
+          "latency_ms": 1478,
+          "sources": [
+            {
+              "id": "sa-penalties-overview",
+              "title": "Self Assessment late filing and payment penalties overview",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/penalties"
+            },
+            {
+              "id": "record-keeping-self-employed",
+              "title": "Records you should keep if self-employed",
+              "url": "https://www.gov.uk/self-employed-records"
+            }
+          ]
+        }
+      ],
+      "scoring_note": "whole_transcript_expect_any"
+    },
+    {
+      "id": "LJ-18",
+      "title": "Ambiguous \u00a360k",
+      "result": "PASS",
+      "flags": [],
+      "total_ms": 1393,
+      "obtained_via": "real_openai_api",
+      "llm_mode": "openai",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "I earn \u00a360,000.",
+          "assistant": "Happy to help \u2014 I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else \u2014 and which tax year?",
+          "packages": [],
+          "llm_mode": "openai",
+          "latency_ms": 2,
+          "sources": [
+            {
+              "id": "high-income-child-benefit",
+              "title": "High Income Child Benefit Charge",
+              "url": "https://www.gov.uk/child-benefit-tax-charge"
+            },
+            {
+              "id": "mtd-threshold-50k-april-2026",
+              "title": "MTD Income Tax \u00a350,000 threshold starts 6 April 2026",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            }
+          ]
+        },
+        {
+          "user": "It\u2019s PAYE salary only",
+          "assistant": "With a PAYE salary of \u00a360,000 for the 2025-26 tax year, you will have Income Tax and National Insurance contributions deducted from your pay. However, if you have any additional untaxed income, you may still need to file a Self Assessment tax return. \n\nIf you need assistance with your tax return or ongoing tax obligations, would you like to know about our Self Assessment packages?",
+          "packages": [],
+          "llm_mode": "openai",
+          "latency_ms": 1391,
+          "sources": [
+            {
+              "id": "paye-overview",
+              "title": "PAYE overview",
+              "url": "https://www.gov.uk/income-tax"
+            },
+            {
+              "id": "paye-and-additional-income",
+              "title": "PAYE employment plus additional income",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+            }
+          ]
+        }
+      ],
+      "scoring_note": "whole_transcript_expect_any"
+    },
+    {
+      "id": "LJ-19",
+      "title": "Online selling clarification",
+      "result": "PASS",
+      "flags": [],
+      "total_ms": 1369,
+      "obtained_via": "real_openai_api",
+      "llm_mode": "openai",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "I sell things online",
+          "assistant": "It depends whether you\u2019re casually selling personal belongings or running a trade as a sole trader. Occasional sales of personal items are often different from a regular online business that may need Self Assessment. Are you selling your own used possessions, or buying/making goods to sell for profit \u2014 and roughly what was the income before expenses last tax year? If it is a trade, TaxSimba\u2019s Self Assessment Simple (\u00a3119) is often the lowest suitable starting package once we confirm the facts.",
+          "packages": [],
+          "llm_mode": "openai",
+          "latency_ms": 1,
+          "sources": [
+            {
+              "id": "sa-deadline-online",
+              "title": "Self Assessment online filing deadline",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+            },
+            {
+              "id": "sa-paper-deadline",
+              "title": "Self Assessment paper filing deadline",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+            }
+          ]
+        },
+        {
+          "user": "It\u2019s an Etsy shop buying materials and selling handmade goods, turnover about \u00a315,000",
+          "assistant": "Since you're running an Etsy shop and have a turnover of about \u00a315,000, you'll need to complete a Self Assessment tax return. Your income from selling handmade goods counts as self-employment income. \n\nTaxSimba's Self Assessment Simple package (\u00a3119) would be a suitable option for you to help with your tax return. Would you like more information on how to register for this service?",
+          "packages": [],
+          "llm_mode": "openai",
+          "latency_ms": 1368,
+          "sources": [
+            {
+              "id": "vat-threshold-overview",
+              "title": "VAT registration threshold",
+              "url": "https://www.gov.uk/register-for-vat"
+            },
+            {
+              "id": "mtd-threshold-50k-april-2026",
+              "title": "MTD Income Tax \u00a350,000 threshold starts 6 April 2026",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            }
+          ]
+        }
+      ],
+      "scoring_note": "whole_transcript_expect_any"
+    },
+    {
+      "id": "LJ-20",
+      "title": "Guarantee refund refused",
+      "result": "PASS",
+      "flags": [],
+      "total_ms": 1941,
+      "obtained_via": "real_openai_api",
+      "llm_mode": "openai",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "If I buy Elite will you guarantee a tax refund?",
+          "assistant": "I can\u2019t guarantee a tax refund. Refunds depend on your full circumstances and HMRC\u2019s assessment. I can explain how Self Assessment balancing payments and repayments usually work, or you can email info@taxsimba.co.uk / book a paid accountant video consultation when scheduling is live.",
+          "packages": [],
+          "llm_mode": "openai",
+          "latency_ms": 1,
+          "sources": [
+            {
+              "id": "mtd-who-and-when",
+              "title": "Who needs Making Tax Digital for Income Tax and when",
+              "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+            },
+            {
+              "id": "record-keeping-self-employed",
+              "title": "Records you should keep if self-employed",
+              "url": "https://www.gov.uk/self-employed-records"
+            }
+          ]
+        },
+        {
+          "user": "Ok just explain packages without guarantees",
+          "assistant": "Certainly! Here are the Self Assessment packages:\n\n1. **Self Assessment Simple**: \u00a3119 per tax year. Suitable for straightforward tax situations.\n2. **Self Assessment Smart**: \u00a3149 per tax year. Ideal for those with more complex tax affairs.\n3. **Self Assessment Elite**: \u00a3299 per tax year. Best for individuals with intricate tax needs or multiple income sources.\n\nEach package includes assistance with your Self Assessment tax return for the relevant tax year. For more details, you can visit the [Self Assessment page](https://www.taxsimba.co.uk/self-assessment). Let me know if you have any other questions!",
+          "packages": [
+            {
+              "code": "SA_SIMPLE",
+              "name": "Self Assessment Simple",
+              "price_gbp": 119
+            },
+            {
+              "code": "SA_SMART",
+              "name": "Self Assessment Smart",
+              "price_gbp": 149
+            },
+            {
+              "code": "SA_ELITE",
+              "name": "Self Assessment Elite",
+              "price_gbp": 299
+            }
+          ],
+          "llm_mode": "openai",
+          "latency_ms": 1940,
+          "sources": [
+            {
+              "id": "rent-a-room",
+              "title": "Rent a Room Scheme",
+              "url": "https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme"
+            },
+            {
+              "id": "sa-penalties-overview",
+              "title": "Self Assessment late filing and payment penalties overview",
+              "url": "https://www.gov.uk/self-assessment-tax-returns/penalties"
+            }
+          ]
+        }
+      ],
+      "scoring_note": "whole_transcript_expect_any"
+    }
+  ]
+}

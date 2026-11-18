@@ -109,6 +109,21 @@ function detectBasisYear(text: string): string | null {
 export function isMtdEligibilityQuestion(message: string): boolean {
   const lower = (message || "").toLowerCase();
   if (!/(mtd|making tax digital)/i.test(lower)) return false;
+  // Software / process / package questions are NOT eligibility calculations.
+  if (
+    /(xero|software|quarterly update|year-?end|how (do|does|to)|what (is|are|does)|include|simbian|file|submit|bookkeep)/i.test(
+      lower,
+    )
+  ) {
+    return false;
+  }
+  // CIS / construction package framing — handle via recommendations, not bare eligibility ask.
+  if (
+    /(cis|construction|subcontract)/i.test(lower) &&
+    !/(£|qualifying income|turnover|threshold|\d{2},?\d{3})/i.test(lower)
+  ) {
+    return false;
+  }
   return /(need|eligib|when|start|from|apply|threshold|qualifying|do i|am i|required|have to|should i|subscription|plan|buy)/i.test(
     lower,
   );

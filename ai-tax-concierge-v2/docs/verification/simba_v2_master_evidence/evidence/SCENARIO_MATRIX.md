@@ -1,8 +1,8 @@
 # Master scenario matrix (executed)
 
-Generated: 2026-11-18T00:12:15.006Z
+Generated: 2026-11-18T03:28:05.453Z
 Mode: mock (mock_llm_deterministic_handlers)
-Single-turn: 504/537 PASS (critical failures: 0)
+Single-turn: 537/537 PASS (critical failures: 0)
 Multiturn: 50/50 PASS
 
 | ID | Category | Result | Flags |
@@ -30,27 +30,27 @@ Multiturn: 50/50 PASS
 | MS-0021 | difficult_misinfo | PASS | — |
 | MS-0022 | packages | PASS | — |
 | MS-0023 | paye_employment | PASS | — |
-| MS-0024 | paye_employment | FAIL | EXPECT_MISS:self assessment|paye|return |
+| MS-0024 | paye_employment | PASS | — |
 | MS-0025 | paye_employment | PASS | — |
 | MS-0026 | paye_employment | PASS | — |
 | MS-0027 | paye_employment | PASS | — |
 | MS-0028 | paye_employment | PASS | — |
-| MS-0029 | paye_employment | FAIL | EXPECT_MISS:self assessment|paye|return |
+| MS-0029 | paye_employment | PASS | — |
 | MS-0030 | paye_employment | PASS | — |
 | MS-0031 | paye_employment | PASS | — |
 | MS-0032 | paye_employment | PASS | — |
 | MS-0033 | paye_employment | PASS | — |
-| MS-0034 | paye_employment | FAIL | EXPECT_MISS:self assessment|paye|return |
+| MS-0034 | paye_employment | PASS | — |
 | MS-0035 | paye_employment | PASS | — |
 | MS-0036 | paye_employment | PASS | — |
 | MS-0037 | paye_employment | PASS | — |
 | MS-0038 | paye_employment | PASS | — |
-| MS-0039 | paye_employment | FAIL | EXPECT_MISS:self assessment|paye|return |
+| MS-0039 | paye_employment | PASS | — |
 | MS-0040 | paye_employment | PASS | — |
 | MS-0041 | paye_employment | PASS | — |
 | MS-0042 | paye_employment | PASS | — |
 | MS-0043 | paye_employment | PASS | — |
-| MS-0044 | paye_employment | FAIL | EXPECT_MISS:self assessment|paye|return |
+| MS-0044 | paye_employment | PASS | — |
 | MS-0045 | paye_employment | PASS | — |
 | MS-0046 | paye_employment | PASS | — |
 | MS-0047 | paye_employment | PASS | — |
@@ -60,7 +60,7 @@ Multiturn: 50/50 PASS
 | MS-0051 | paye_employment | PASS | — |
 | MS-0052 | paye_employment | PASS | — |
 | MS-0053 | paye_employment | PASS | — |
-| MS-0054 | paye_employment | FAIL | EXPECT_MISS:self assessment|paye|return |
+| MS-0054 | paye_employment | PASS | — |
 | MS-0055 | paye_employment | PASS | — |
 | MS-0056 | paye_employment | PASS | — |
 | MS-0057 | paye_employment | PASS | — |
@@ -161,42 +161,42 @@ Multiturn: 50/50 PASS
 | MS-0152 | landlords | PASS | — |
 | MS-0153 | landlords | PASS | — |
 | MS-0154 | landlords | PASS | — |
-| MS-0155 | landlords | FAIL | EXPECT_MISS:property|rental|landlord|self assessment|mtd|making tax |
+| MS-0155 | landlords | PASS | — |
 | MS-0156 | landlords | PASS | — |
 | MS-0157 | landlords | PASS | — |
 | MS-0158 | landlords | PASS | — |
 | MS-0159 | landlords | PASS | — |
-| MS-0160 | landlords | FAIL | EXPECT_MISS:property|rental|landlord|self assessment|mtd|making tax |
+| MS-0160 | landlords | PASS | — |
 | MS-0161 | landlords | PASS | — |
 | MS-0162 | landlords | PASS | — |
 | MS-0163 | landlords | PASS | — |
 | MS-0164 | landlords | PASS | — |
-| MS-0165 | landlords | FAIL | EXPECT_MISS:property|rental|landlord|self assessment|mtd|making tax |
+| MS-0165 | landlords | PASS | — |
 | MS-0166 | landlords | PASS | — |
 | MS-0167 | landlords | PASS | — |
 | MS-0168 | landlords | PASS | — |
 | MS-0169 | landlords | PASS | — |
-| MS-0170 | landlords | FAIL | EXPECT_MISS:property|rental|landlord|self assessment|mtd|making tax |
+| MS-0170 | landlords | PASS | — |
 | MS-0171 | landlords | PASS | — |
 | MS-0172 | landlords | PASS | — |
 | MS-0173 | landlords | PASS | — |
 | MS-0174 | landlords | PASS | — |
-| MS-0175 | landlords | FAIL | EXPECT_MISS:property|rental|landlord|self assessment|mtd|making tax |
+| MS-0175 | landlords | PASS | — |
 | MS-0176 | landlords | PASS | — |
 | MS-0177 | landlords | PASS | — |
 | MS-0178 | landlords | PASS | — |
 | MS-0179 | landlords | PASS | — |
-| MS-0180 | landlords | FAIL | EXPECT_MISS:property|rental|landlord|self assessment|mtd|making tax |
+| MS-0180 | landlords | PASS | — |
 | MS-0181 | landlords | PASS | — |
 | MS-0182 | landlords | PASS | — |
 | MS-0183 | landlords | PASS | — |
 | MS-0184 | landlords | PASS | — |
-| MS-0185 | landlords | FAIL | EXPECT_MISS:property|rental|landlord|self assessment|mtd|making tax |
+| MS-0185 | landlords | PASS | — |
 | MS-0186 | landlords | PASS | — |
 | MS-0187 | landlords | PASS | — |
 | MS-0188 | landlords | PASS | — |
 | MS-0189 | landlords | PASS | — |
-| MS-0190 | landlords | FAIL | EXPECT_MISS:property|rental|landlord|self assessment|mtd|making tax |
+| MS-0190 | landlords | PASS | — |
 | MS-0191 | landlords | PASS | — |
 | MS-0192 | mtd_eligibility | PASS | — |
 | MS-0193 | mtd_eligibility | PASS | — |
@@ -242,37 +242,37 @@ Multiturn: 50/50 PASS
 | MS-0233 | mtd_eligibility | PASS | — |
 | MS-0234 | mtd_operations | PASS | — |
 | MS-0235 | mtd_operations | PASS | — |
-| MS-0236 | mtd_operations | FAIL | EXPECT_MISS:quarter|xero|year-end|self assessment|cannot|can't|hmrc|simbian |
+| MS-0236 | mtd_operations | PASS | — |
 | MS-0237 | mtd_operations | PASS | — |
 | MS-0238 | mtd_operations | PASS | — |
 | MS-0239 | mtd_operations | PASS | — |
 | MS-0240 | mtd_operations | PASS | — |
-| MS-0241 | mtd_operations | FAIL | EXPECT_MISS:quarter|xero|year-end|self assessment|cannot|can't|hmrc|simbian |
+| MS-0241 | mtd_operations | PASS | — |
 | MS-0242 | mtd_operations | PASS | — |
 | MS-0243 | mtd_operations | PASS | — |
 | MS-0244 | mtd_operations | PASS | — |
 | MS-0245 | mtd_operations | PASS | — |
-| MS-0246 | mtd_operations | FAIL | EXPECT_MISS:quarter|xero|year-end|self assessment|cannot|can't|hmrc|simbian |
+| MS-0246 | mtd_operations | PASS | — |
 | MS-0247 | mtd_operations | PASS | — |
 | MS-0248 | mtd_operations | PASS | — |
 | MS-0249 | mtd_operations | PASS | — |
 | MS-0250 | mtd_operations | PASS | — |
-| MS-0251 | mtd_operations | FAIL | EXPECT_MISS:quarter|xero|year-end|self assessment|cannot|can't|hmrc|simbian |
+| MS-0251 | mtd_operations | PASS | — |
 | MS-0252 | mtd_operations | PASS | — |
 | MS-0253 | mtd_operations | PASS | — |
 | MS-0254 | mtd_operations | PASS | — |
 | MS-0255 | mtd_operations | PASS | — |
-| MS-0256 | mtd_operations | FAIL | EXPECT_MISS:quarter|xero|year-end|self assessment|cannot|can't|hmrc|simbian |
+| MS-0256 | mtd_operations | PASS | — |
 | MS-0257 | mtd_operations | PASS | — |
 | MS-0258 | mtd_operations | PASS | — |
 | MS-0259 | mtd_operations | PASS | — |
 | MS-0260 | mtd_operations | PASS | — |
-| MS-0261 | mtd_operations | FAIL | EXPECT_MISS:quarter|xero|year-end|self assessment|cannot|can't|hmrc|simbian |
+| MS-0261 | mtd_operations | PASS | — |
 | MS-0262 | mtd_operations | PASS | — |
 | MS-0263 | mtd_operations | PASS | — |
 | MS-0264 | mtd_operations | PASS | — |
 | MS-0265 | mtd_operations | PASS | — |
-| MS-0266 | mtd_operations | FAIL | EXPECT_MISS:quarter|xero|year-end|self assessment|cannot|can't|hmrc|simbian |
+| MS-0266 | mtd_operations | PASS | — |
 | MS-0267 | mtd_operations | PASS | — |
 | MS-0268 | mtd_operations | PASS | — |
 | MS-0269 | limited_companies | PASS | — |
@@ -309,31 +309,31 @@ Multiturn: 50/50 PASS
 | MS-0300 | limited_companies | PASS | — |
 | MS-0301 | cis | PASS | — |
 | MS-0302 | cis | PASS | — |
-| MS-0303 | cis | FAIL | EXPECT_MISS:cis|self assessment|subcontract|construction|119|smart |
+| MS-0303 | cis | PASS | — |
 | MS-0304 | cis | PASS | — |
 | MS-0305 | cis | PASS | — |
-| MS-0306 | cis | FAIL | EXPECT_MISS:cis|self assessment|subcontract|construction|119|smart |
+| MS-0306 | cis | PASS | — |
 | MS-0307 | cis | PASS | — |
 | MS-0308 | cis | PASS | — |
-| MS-0309 | cis | FAIL | EXPECT_MISS:cis|self assessment|subcontract|construction|119|smart |
+| MS-0309 | cis | PASS | — |
 | MS-0310 | cis | PASS | — |
 | MS-0311 | cis | PASS | — |
-| MS-0312 | cis | FAIL | EXPECT_MISS:cis|self assessment|subcontract|construction|119|smart |
+| MS-0312 | cis | PASS | — |
 | MS-0313 | cis | PASS | — |
 | MS-0314 | cis | PASS | — |
-| MS-0315 | cis | FAIL | EXPECT_MISS:cis|self assessment|subcontract|construction|119|smart |
+| MS-0315 | cis | PASS | — |
 | MS-0316 | cis | PASS | — |
 | MS-0317 | cis | PASS | — |
-| MS-0318 | cis | FAIL | EXPECT_MISS:cis|self assessment|subcontract|construction|119|smart |
+| MS-0318 | cis | PASS | — |
 | MS-0319 | cis | PASS | — |
 | MS-0320 | cis | PASS | — |
-| MS-0321 | cis | FAIL | EXPECT_MISS:cis|self assessment|subcontract|construction|119|smart |
+| MS-0321 | cis | PASS | — |
 | MS-0322 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0323 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0324 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0325 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0326 | vat_expenses_cgt_crypto | PASS | — |
-| MS-0327 | vat_expenses_cgt_crypto | FAIL | EXPECT_MISS:vat|90|expense|capital|crypto|dividend|allowance|gain |
+| MS-0327 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0328 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0329 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0330 | vat_expenses_cgt_crypto | PASS | — |
@@ -341,7 +341,7 @@ Multiturn: 50/50 PASS
 | MS-0332 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0333 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0334 | vat_expenses_cgt_crypto | PASS | — |
-| MS-0335 | vat_expenses_cgt_crypto | FAIL | EXPECT_MISS:vat|90|expense|capital|crypto|dividend|allowance|gain |
+| MS-0335 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0336 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0337 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0338 | vat_expenses_cgt_crypto | PASS | — |
@@ -349,7 +349,7 @@ Multiturn: 50/50 PASS
 | MS-0340 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0341 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0342 | vat_expenses_cgt_crypto | PASS | — |
-| MS-0343 | vat_expenses_cgt_crypto | FAIL | EXPECT_MISS:vat|90|expense|capital|crypto|dividend|allowance|gain |
+| MS-0343 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0344 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0345 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0346 | vat_expenses_cgt_crypto | PASS | — |
@@ -357,7 +357,7 @@ Multiturn: 50/50 PASS
 | MS-0348 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0349 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0350 | vat_expenses_cgt_crypto | PASS | — |
-| MS-0351 | vat_expenses_cgt_crypto | FAIL | EXPECT_MISS:vat|90|expense|capital|crypto|dividend|allowance|gain |
+| MS-0351 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0352 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0353 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0354 | vat_expenses_cgt_crypto | PASS | — |
@@ -365,7 +365,7 @@ Multiturn: 50/50 PASS
 | MS-0356 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0357 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0358 | vat_expenses_cgt_crypto | PASS | — |
-| MS-0359 | vat_expenses_cgt_crypto | FAIL | EXPECT_MISS:vat|90|expense|capital|crypto|dividend|allowance|gain |
+| MS-0359 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0360 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0361 | vat_expenses_cgt_crypto | PASS | — |
 | MS-0362 | overseas_mixed | PASS | — |

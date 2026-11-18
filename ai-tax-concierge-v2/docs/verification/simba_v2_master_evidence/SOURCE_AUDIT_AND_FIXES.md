@@ -20,6 +20,24 @@
 - Limited-company turnover excluded from individual MTD ITSA
 - Gross/turnover vs profit clarification
 - Engine short-circuits — model cannot override
+- File: `src/knowledge/mtd_eligibility.ts`
+
+## MTD operations vs eligibility (33-failure theme)
+- “Do I need Xero for MTD?” no longer misrouted as eligibility-band maths
+- New: `src/knowledge/mtd_operations.ts`
+- Eligibility matcher excludes software/Xero/CIS-without-figures prompts
+
+## Intent clarifier / conversation intelligence
+- New: `src/knowledge/intent_clarifier.ts`
+- Ambiguous income, online selling, crypto, rental, existing accountant, refund guarantees, cheapest package
+- Clarifier does **not** override concrete MTD + figures
+- Tests: `tests/intent_clarifier.test.ts`
+- Evidence: `evidence/ambiguous_intent_live.json`
+
+## PAYE / crypto / rent-a-room / CIS fast paths
+- Engine handlers in `conversational_engine.ts` before generic eligibility
+- Retrieval scoring updates in `retrieval.ts`, `llm_mock.ts`, `hmrc_extended.json`
+- Closed original 33 FAIL scenarios without softening expects
 
 ## Mobile scroll
 - Stick-to-bottom with double `requestAnimationFrame`
@@ -34,3 +52,7 @@
 
 ## Filing honesty
 - TaxCalc for SA workflows; Xero for MTD — no claim TaxSimba files via own software to HMRC
+
+## Live evidence tooling
+- `scripts/liveOpenAIJourneys20.ts` — 20 real OpenAI multi-turn journeys; whole-transcript scoring
+- `scripts/ambiguousIntentEvidence.ts` — ambiguous customer questions

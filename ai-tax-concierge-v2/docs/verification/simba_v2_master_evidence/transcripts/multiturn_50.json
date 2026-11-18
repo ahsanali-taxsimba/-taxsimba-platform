@@ -15,7 +15,7 @@
         },
         {
           "role": "assistant",
-          "content": "With qualifying income of £18,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+          "content": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year?"
         },
         {
           "role": "user",
@@ -23,7 +23,7 @@
         },
         {
           "role": "assistant",
-          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+          "content": "For a straightforward first-time Self Assessment, the lowest approved TaxSimba package is Self Assessment Simple at £119 per tax year. Smart (£149) or Elite (£299) only if your affairs are more complex. Tell me briefly about your income types and I can confirm the lowest suitable option — or start at https://www.taxsimba.co.uk/self-assessment."
         },
         {
           "role": "user",
@@ -153,7 +153,7 @@
         },
         {
           "role": "assistant",
-          "content": "With qualifying income of £18,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+          "content": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year?"
         },
         {
           "role": "user",
@@ -161,7 +161,7 @@
         },
         {
           "role": "assistant",
-          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+          "content": "For a straightforward first-time Self Assessment, the lowest approved TaxSimba package is Self Assessment Simple at £119 per tax year. Smart (£149) or Elite (£299) only if your affairs are more complex. Tell me briefly about your income types and I can confirm the lowest suitable option — or start at https://www.taxsimba.co.uk/self-assessment."
         },
         {
           "role": "user",
@@ -291,7 +291,7 @@
         },
         {
           "role": "assistant",
-          "content": "With qualifying income of £18,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+          "content": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year?"
         },
         {
           "role": "user",
@@ -299,7 +299,7 @@
         },
         {
           "role": "assistant",
-          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+          "content": "For a straightforward first-time Self Assessment, the lowest approved TaxSimba package is Self Assessment Simple at £119 per tax year. Smart (£149) or Elite (£299) only if your affairs are more complex. Tell me briefly about your income types and I can confirm the lowest suitable option — or start at https://www.taxsimba.co.uk/self-assessment."
         },
         {
           "role": "user",
@@ -429,7 +429,7 @@
         },
         {
           "role": "assistant",
-          "content": "With qualifying income of £18,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+          "content": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year?"
         },
         {
           "role": "user",
@@ -437,7 +437,7 @@
         },
         {
           "role": "assistant",
-          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+          "content": "For a straightforward first-time Self Assessment, the lowest approved TaxSimba package is Self Assessment Simple at £119 per tax year. Smart (£149) or Elite (£299) only if your affairs are more complex. Tell me briefly about your income types and I can confirm the lowest suitable option — or start at https://www.taxsimba.co.uk/self-assessment."
         },
         {
           "role": "user",
@@ -567,7 +567,7 @@
         },
         {
           "role": "assistant",
-          "content": "With qualifying income of £18,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+          "content": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year?"
         },
         {
           "role": "user",
@@ -575,7 +575,7 @@
         },
         {
           "role": "assistant",
-          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+          "content": "For a straightforward first-time Self Assessment, the lowest approved TaxSimba package is Self Assessment Simple at £119 per tax year. Smart (£149) or Elite (£299) only if your affairs are more complex. Tell me briefly about your income types and I can confirm the lowest suitable option — or start at https://www.taxsimba.co.uk/self-assessment."
         },
         {
           "role": "user",
@@ -705,7 +705,7 @@
         },
         {
           "role": "assistant",
-          "content": "With qualifying income of £18,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+          "content": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year?"
         },
         {
           "role": "user",
@@ -713,7 +713,7 @@
         },
         {
           "role": "assistant",
-          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+          "content": "For a straightforward first-time Self Assessment, the lowest approved TaxSimba package is Self Assessment Simple at £119 per tax year. Smart (£149) or Elite (£299) only if your affairs are more complex. Tell me briefly about your income types and I can confirm the lowest suitable option — or start at https://www.taxsimba.co.uk/self-assessment."
         },
         {
           "role": "user",
@@ -843,7 +843,7 @@
         },
         {
           "role": "assistant",
-          "content": "With qualifying income of £18,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+          "content": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year?"
         },
         {
           "role": "user",
@@ -851,7 +851,7 @@
         },
         {
           "role": "assistant",
-          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+          "content": "For a straightforward first-time Self Assessment, the lowest approved TaxSimba package is Self Assessment Simple at £119 per tax year. Smart (£149) or Elite (£299) only if your affairs are more complex. Tell me briefly about your income types and I can confirm the lowest suitable option — or start at https://www.taxsimba.co.uk/self-assessment."
         },
         {
           "role": "user",
@@ -981,7 +981,7 @@
         },
         {
           "role": "assistant",
-          "content": "With qualifying income of £18,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+          "content": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year?"
         },
         {
           "role": "user",
@@ -989,7 +989,7 @@
         },
         {
           "role": "assistant",
-          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+          "content": "For a straightforward first-time Self Assessment, the lowest approved TaxSimba package is Self Assessment Simple at £119 per tax year. Smart (£149) or Elite (£299) only if your affairs are more complex. Tell me briefly about your income types and I can confirm the lowest suitable option — or start at https://www.taxsimba.co.uk/self-assessment."
         },
         {
           "role": "user",
@@ -1119,7 +1119,7 @@
         },
         {
           "role": "assistant",
-          "content": "With qualifying income of £18,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+          "content": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year?"
         },
         {
           "role": "user",
@@ -1127,7 +1127,7 @@
         },
         {
           "role": "assistant",
-          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+          "content": "For a straightforward first-time Self Assessment, the lowest approved TaxSimba package is Self Assessment Simple at £119 per tax year. Smart (£149) or Elite (£299) only if your affairs are more complex. Tell me briefly about your income types and I can confirm the lowest suitable option — or start at https://www.taxsimba.co.uk/self-assessment."
         },
         {
           "role": "user",
@@ -1257,7 +1257,7 @@
         },
         {
           "role": "assistant",
-          "content": "With qualifying income of £18,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+          "content": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year?"
         },
         {
           "role": "user",
@@ -1265,7 +1265,7 @@
         },
         {
           "role": "assistant",
-          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+          "content": "For a straightforward first-time Self Assessment, the lowest approved TaxSimba package is Self Assessment Simple at £119 per tax year. Smart (£149) or Elite (£299) only if your affairs are more complex. Tell me briefly about your income types and I can confirm the lowest suitable option — or start at https://www.taxsimba.co.uk/self-assessment."
         },
         {
           "role": "user",

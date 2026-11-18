@@ -1,0 +1,132 @@
+{
+  "generated_at": "2026-11-18T04:12:06.935Z",
+  "openai_configured": true,
+  "model": "gpt-4o-mini",
+  "adapter_mode": "openai",
+  "total": 10,
+  "questions": [
+    {
+      "question": "I make £4,000 profit from online trading.",
+      "reply_verbatim": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year?",
+      "packages": [],
+      "llm_mode": "openai",
+      "latency_ms": 9,
+      "obtained_via": "real_openai_api"
+    },
+    {
+      "question": "I earn £60,000.",
+      "reply_verbatim": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year?",
+      "packages": [],
+      "llm_mode": "openai",
+      "latency_ms": 5,
+      "obtained_via": "real_openai_api"
+    },
+    {
+      "question": "My business makes £100,000.",
+      "reply_verbatim": "Just to avoid mixing rules up: is that a limited company, or you as a sole trader/self-employed? Limited-company turnover doesn’t create individual Making Tax Digital for Income Tax obligations the same way sole-trader/landlord qualifying income does. Which structure is it, and is the figure turnover or profit?",
+      "packages": [],
+      "llm_mode": "openai",
+      "latency_ms": 2,
+      "obtained_via": "real_openai_api"
+    },
+    {
+      "question": "I have a company and a normal job.",
+      "reply_verbatim": "If you have a limited company and a PAYE job, we need to separate the pieces: employment salary (PAYE), any personal Self Assessment income (e.g. dividends, rental, freelance), and the company’s own Corporation Tax/accounts. TaxSimba’s SIMBA chat covers individual Self Assessment / MTD guidance — not full company accounts unless separately approved. Which part do you want help with first — your PAYE job, personal Self Assessment, or the company?",
+      "packages": [],
+      "llm_mode": "openai",
+      "latency_ms": 4,
+      "obtained_via": "real_openai_api"
+    },
+    {
+      "question": "I sell things online.",
+      "reply_verbatim": "It depends whether you’re casually selling personal belongings or running a trade as a sole trader. Occasional sales of personal items are often different from a regular online business that may need Self Assessment. Are you selling your own used possessions, or buying/making goods to sell for profit — and roughly what was the income before expenses last tax year? If it is a trade, TaxSimba’s Self Assessment Simple (£119) is often the lowest suitable starting package once we confirm the facts.",
+      "packages": [],
+      "llm_mode": "openai",
+      "latency_ms": 1,
+      "obtained_via": "real_openai_api"
+    },
+    {
+      "question": "I trade crypto.",
+      "reply_verbatim": "Crypto can be taxed in different ways depending on what you did — for example Capital Gains Tax on disposals, or Income Tax if you’re trading crypto as a business. I won’t guess your treatment. Did you dispose of crypto (sell/exchange), receive it as income, or trade frequently as a business activity?",
+      "packages": [],
+      "llm_mode": "openai",
+      "latency_ms": 1,
+      "obtained_via": "real_openai_api"
+    },
+    {
+      "question": "I have rental income.",
+      "reply_verbatim": "Rental income usually needs to be considered for Self Assessment, and may also count toward Making Tax Digital qualifying income (with any self-employment turnover) using gross rents before many expenses. Roughly how much rental income (before expenses) did you have, and for which tax year? Also — is this a residential let, Rent a Room, or something else?",
+      "packages": [
+        {
+          "code": "SA_SMART",
+          "name": "Self Assessment Smart",
+          "price_gbp": 149
+        },
+        {
+          "code": "MTD_STARTER",
+          "name": "Simbian Comply",
+          "price_gbp": 29.99
+        },
+        {
+          "code": "MTD_GROWTH",
+          "name": "Simbian Growth",
+          "price_gbp": 59.99
+        }
+      ],
+      "llm_mode": "openai",
+      "latency_ms": 1,
+      "obtained_via": "real_openai_api"
+    },
+    {
+      "question": "I already have an accountant.",
+      "reply_verbatim": "If you already have an accountant, they should lead your filings and MTD software setup. I can still explain the HMRC rules in plain English. If you’re a TaxSimba client, message your assigned accountant through your secure dashboard rather than booking a new public consultation unless you specifically need one. What would you like clarified?",
+      "packages": [
+        {
+          "code": "ACCOUNTANT_CONSULT_99",
+          "name": "Quick Tax Advice",
+          "price_gbp": 99
+        },
+        {
+          "code": "ACCOUNTANT_CONSULT_149",
+          "name": "Extended Tax Consultation",
+          "price_gbp": 149
+        }
+      ],
+      "llm_mode": "openai",
+      "latency_ms": 1,
+      "obtained_via": "real_openai_api"
+    },
+    {
+      "question": "Can you guarantee a tax refund?",
+      "reply_verbatim": "I can’t guarantee a tax refund. Refunds depend on your full circumstances and HMRC’s assessment. I can explain how Self Assessment balancing payments and repayments usually work, or you can email info@taxsimba.co.uk / book a paid accountant video consultation when scheduling is live.",
+      "packages": [],
+      "llm_mode": "openai",
+      "latency_ms": 1,
+      "obtained_via": "real_openai_api"
+    },
+    {
+      "question": "I want the cheapest package.",
+      "reply_verbatim": "For a straightforward first-time Self Assessment, the lowest approved TaxSimba package is Self Assessment Simple at £119 per tax year. Smart (£149) or Elite (£299) only if your affairs are more complex. Tell me briefly about your income types and I can confirm the lowest suitable option — or start at https://www.taxsimba.co.uk/self-assessment.",
+      "packages": [
+        {
+          "code": "SA_SIMPLE",
+          "name": "Self Assessment Simple",
+          "price_gbp": 119
+        },
+        {
+          "code": "SA_SMART",
+          "name": "Self Assessment Smart",
+          "price_gbp": 149
+        },
+        {
+          "code": "SA_ELITE",
+          "name": "Self Assessment Elite",
+          "price_gbp": 299
+        }
+      ],
+      "llm_mode": "openai",
+      "latency_ms": 1,
+      "obtained_via": "real_openai_api"
+    }
+  ]
+}

@@ -64,6 +64,14 @@ export class MockLLMAdapter implements LLMAdapter {
           ["april 2028", 6],
           ["mtd", 3],
           ["making tax digital", 4],
+          ["paye", 6],
+          ["employer", 5],
+          ["deducts", 5],
+          ["crypto", 8],
+          ["cryptoassets", 8],
+          ["rent a room", 8],
+          ["self assessment", 4],
+          ["file", 3],
         ] as const) {
           if (q.includes(needle) && low.includes(needle)) score += weight;
         }

@@ -5,9 +5,7 @@
 
 **Reply:**
 
-With qualifying income of £18,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.
-
-Official guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax
+Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year?
 
 ---
 
@@ -250,13 +248,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+I can’t guarantee a tax refund. Refunds depend on your full circumstances and HMRC’s assessment. I can explain how Self Assessment balancing payments and repayments usually work, or you can email info@taxsimba.co.uk / book a paid accountant video consultation when scheduling is live.
 
 ---
 
@@ -280,20 +272,16 @@ For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, 
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [paye-and-additional-income] PAYE employment plus additional income (2024-25, 2025-26, 2026-27): Being taxed under PAYE does not automatically mean you have no Self Assessment obligations. Additional untaxed income, self-employment, property income or other criteria can still mean you need to file a return. Check GOV.UK ‘who must send a tax return’. (source: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return — for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return — or tell me what other income you have and I can help narrow it down.
 
 ---
 
-## MS-0024 [FAIL]
+## MS-0024 [PASS]
 **Prompt:** My employer deducts tax. Do I still need to file? (variant 2)
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [cryptoassets-tax] Cryptoassets and tax overview (2024-25, 2025-26, 2026-27): HMRC treats cryptoassets as potentially taxable. Depending on your activity you may need to consider Capital Gains Tax and/or Income Tax. Keep detailed records of transactions. Check GOV.UK cryptoassets tax guidance for how your situation may be treated. (source: https://www.gov.uk/guidance/tax-on-cryptoassets)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return — for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return — or tell me what other income you have and I can help narrow it down.
 
 ---
 
@@ -335,20 +323,16 @@ Official guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [paye-and-additional-income] PAYE employment plus additional income (2024-25, 2025-26, 2026-27): Being taxed under PAYE does not automatically mean you have no Self Assessment obligations. Additional untaxed income, self-employment, property income or other criteria can still mean you need to file a return. Check GOV.UK ‘who must send a tax return’. (source: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return — for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return — or tell me what other income you have and I can help narrow it down.
 
 ---
 
-## MS-0029 [FAIL]
+## MS-0029 [PASS]
 **Prompt:** My employer deducts tax. Do I still need to file? (variant 7)
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [cryptoassets-tax] Cryptoassets and tax overview (2024-25, 2025-26, 2026-27): HMRC treats cryptoassets as potentially taxable. Depending on your activity you may need to consider Capital Gains Tax and/or Income Tax. Keep detailed records of transactions. Check GOV.UK cryptoassets tax guidance for how your situation may be treated. (source: https://www.gov.uk/guidance/tax-on-cryptoassets)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return — for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return — or tell me what other income you have and I can help narrow it down.
 
 ---
 
@@ -390,20 +374,16 @@ Official guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [paye-and-additional-income] PAYE employment plus additional income (2024-25, 2025-26, 2026-27): Being taxed under PAYE does not automatically mean you have no Self Assessment obligations. Additional untaxed income, self-employment, property income or other criteria can still mean you need to file a return. Check GOV.UK ‘who must send a tax return’. (source: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return — for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return — or tell me what other income you have and I can help narrow it down.
 
 ---
 
-## MS-0034 [FAIL]
+## MS-0034 [PASS]
 **Prompt:** My employer deducts tax. Do I still need to file? (variant 12)
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [cryptoassets-tax] Cryptoassets and tax overview (2024-25, 2025-26, 2026-27): HMRC treats cryptoassets as potentially taxable. Depending on your activity you may need to consider Capital Gains Tax and/or Income Tax. Keep detailed records of transactions. Check GOV.UK cryptoassets tax guidance for how your situation may be treated. (source: https://www.gov.uk/guidance/tax-on-cryptoassets)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return — for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return — or tell me what other income you have and I can help narrow it down.
 
 ---
 
@@ -445,20 +425,16 @@ Official guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [paye-and-additional-income] PAYE employment plus additional income (2024-25, 2025-26, 2026-27): Being taxed under PAYE does not automatically mean you have no Self Assessment obligations. Additional untaxed income, self-employment, property income or other criteria can still mean you need to file a return. Check GOV.UK ‘who must send a tax return’. (source: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return — for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return — or tell me what other income you have and I can help narrow it down.
 
 ---
 
-## MS-0039 [FAIL]
+## MS-0039 [PASS]
 **Prompt:** My employer deducts tax. Do I still need to file? (variant 17)
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [cryptoassets-tax] Cryptoassets and tax overview (2024-25, 2025-26, 2026-27): HMRC treats cryptoassets as potentially taxable. Depending on your activity you may need to consider Capital Gains Tax and/or Income Tax. Keep detailed records of transactions. Check GOV.UK cryptoassets tax guidance for how your situation may be treated. (source: https://www.gov.uk/guidance/tax-on-cryptoassets)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return — for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return — or tell me what other income you have and I can help narrow it down.
 
 ---
 
@@ -500,20 +476,16 @@ Official guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [paye-and-additional-income] PAYE employment plus additional income (2024-25, 2025-26, 2026-27): Being taxed under PAYE does not automatically mean you have no Self Assessment obligations. Additional untaxed income, self-employment, property income or other criteria can still mean you need to file a return. Check GOV.UK ‘who must send a tax return’. (source: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return — for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return — or tell me what other income you have and I can help narrow it down.
 
 ---
 
-## MS-0044 [FAIL]
+## MS-0044 [PASS]
 **Prompt:** My employer deducts tax. Do I still need to file? (variant 22)
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [cryptoassets-tax] Cryptoassets and tax overview (2024-25, 2025-26, 2026-27): HMRC treats cryptoassets as potentially taxable. Depending on your activity you may need to consider Capital Gains Tax and/or Income Tax. Keep detailed records of transactions. Check GOV.UK cryptoassets tax guidance for how your situation may be treated. (source: https://www.gov.uk/guidance/tax-on-cryptoassets)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return — for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return — or tell me what other income you have and I can help narrow it down.
 
 ---
 
@@ -555,9 +527,7 @@ Official guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [paye-and-additional-income] PAYE employment plus additional income (2024-25, 2025-26, 2026-27): Being taxed under PAYE does not automatically mean you have no Self Assessment obligations. Additional untaxed income, self-employment, property income or other criteria can still mean you need to file a return. Check GOV.UK ‘who must send a tax return’. (source: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return — for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return — or tell me what other income you have and I can help narrow it down.
 
 ---
 
@@ -566,9 +536,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [sa-who-needs-to-file] Who needs to send a Self Assessment tax return (2024-25, 2025-26, 2026-27): You usually need to send a Self Assessment tax return if you were self-employed, a partner in a partnership, had untaxed income, or received notice from HMRC to file. Being employed does not automatically remove the requirement if other criteria apply. (source: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return — for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return — or tell me what other income you have and I can help narrow it down.
 
 ---
 
@@ -610,20 +578,16 @@ Official guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [paye-and-additional-income] PAYE employment plus additional income (2024-25, 2025-26, 2026-27): Being taxed under PAYE does not automatically mean you have no Self Assessment obligations. Additional untaxed income, self-employment, property income or other criteria can still mean you need to file a return. Check GOV.UK ‘who must send a tax return’. (source: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return — for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return — or tell me what other income you have and I can help narrow it down.
 
 ---
 
-## MS-0054 [FAIL]
+## MS-0054 [PASS]
 **Prompt:** My employer deducts tax. Do I still need to file? (variant 32)
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [cryptoassets-tax] Cryptoassets and tax overview (2024-25, 2025-26, 2026-27): HMRC treats cryptoassets as potentially taxable. Depending on your activity you may need to consider Capital Gains Tax and/or Income Tax. Keep detailed records of transactions. Check GOV.UK cryptoassets tax guidance for how your situation may be treated. (source: https://www.gov.uk/guidance/tax-on-cryptoassets)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return — for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return — or tell me what other income you have and I can help narrow it down.
 
 ---
 
@@ -1230,13 +1194,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+For a straightforward first-time Self Assessment, the lowest approved TaxSimba package is Self Assessment Simple at £119 per tax year. Smart (£149) or Elite (£299) only if your affairs are more complex. Tell me briefly about your income types and I can confirm the lowest suitable option — or start at https://www.taxsimba.co.uk/self-assessment.
 
 ---
 
@@ -1245,9 +1203,7 @@ For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, 
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [capital-gains-overview] Capital Gains Tax overview (2024-25, 2025-26): You may need to pay Capital Gains Tax when you sell or dispose of an asset that has increased in value. Annual exempt amounts and rates depend on the tax year and your income. Report gains via Self Assessment or the dedicated CGT service where required. (source: https://www.gov.uk/capital-gains-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+It depends whether you’re casually selling personal belongings or running a trade as a sole trader. Occasional sales of personal items are often different from a regular online business that may need Self Assessment. Are you selling your own used possessions, or buying/making goods to sell for profit — and roughly what was the income before expenses last tax year? If it is a trade, TaxSimba’s Self Assessment Simple (£119) is often the lowest suitable starting package once we confirm the facts.
 
 ---
 
@@ -1256,13 +1212,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -1297,13 +1247,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+For a straightforward first-time Self Assessment, the lowest approved TaxSimba package is Self Assessment Simple at £119 per tax year. Smart (£149) or Elite (£299) only if your affairs are more complex. Tell me briefly about your income types and I can confirm the lowest suitable option — or start at https://www.taxsimba.co.uk/self-assessment.
 
 ---
 
@@ -1312,9 +1256,7 @@ For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, 
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [capital-gains-overview] Capital Gains Tax overview (2024-25, 2025-26): You may need to pay Capital Gains Tax when you sell or dispose of an asset that has increased in value. Annual exempt amounts and rates depend on the tax year and your income. Report gains via Self Assessment or the dedicated CGT service where required. (source: https://www.gov.uk/capital-gains-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+It depends whether you’re casually selling personal belongings or running a trade as a sole trader. Occasional sales of personal items are often different from a regular online business that may need Self Assessment. Are you selling your own used possessions, or buying/making goods to sell for profit — and roughly what was the income before expenses last tax year? If it is a trade, TaxSimba’s Self Assessment Simple (£119) is often the lowest suitable starting package once we confirm the facts.
 
 ---
 
@@ -1323,13 +1265,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -1364,13 +1300,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+For a straightforward first-time Self Assessment, the lowest approved TaxSimba package is Self Assessment Simple at £119 per tax year. Smart (£149) or Elite (£299) only if your affairs are more complex. Tell me briefly about your income types and I can confirm the lowest suitable option — or start at https://www.taxsimba.co.uk/self-assessment.
 
 ---
 
@@ -1379,9 +1309,7 @@ For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, 
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [capital-gains-overview] Capital Gains Tax overview (2024-25, 2025-26): You may need to pay Capital Gains Tax when you sell or dispose of an asset that has increased in value. Annual exempt amounts and rates depend on the tax year and your income. Report gains via Self Assessment or the dedicated CGT service where required. (source: https://www.gov.uk/capital-gains-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+It depends whether you’re casually selling personal belongings or running a trade as a sole trader. Occasional sales of personal items are often different from a regular online business that may need Self Assessment. Are you selling your own used possessions, or buying/making goods to sell for profit — and roughly what was the income before expenses last tax year? If it is a trade, TaxSimba’s Self Assessment Simple (£119) is often the lowest suitable starting package once we confirm the facts.
 
 ---
 
@@ -1390,13 +1318,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -1431,13 +1353,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+For a straightforward first-time Self Assessment, the lowest approved TaxSimba package is Self Assessment Simple at £119 per tax year. Smart (£149) or Elite (£299) only if your affairs are more complex. Tell me briefly about your income types and I can confirm the lowest suitable option — or start at https://www.taxsimba.co.uk/self-assessment.
 
 ---
 
@@ -1446,9 +1362,7 @@ For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, 
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [capital-gains-overview] Capital Gains Tax overview (2024-25, 2025-26): You may need to pay Capital Gains Tax when you sell or dispose of an asset that has increased in value. Annual exempt amounts and rates depend on the tax year and your income. Report gains via Self Assessment or the dedicated CGT service where required. (source: https://www.gov.uk/capital-gains-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+It depends whether you’re casually selling personal belongings or running a trade as a sole trader. Occasional sales of personal items are often different from a regular online business that may need Self Assessment. Are you selling your own used possessions, or buying/making goods to sell for profit — and roughly what was the income before expenses last tax year? If it is a trade, TaxSimba’s Self Assessment Simple (£119) is often the lowest suitable starting package once we confirm the facts.
 
 ---
 
@@ -1457,13 +1371,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -1498,13 +1406,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+For a straightforward first-time Self Assessment, the lowest approved TaxSimba package is Self Assessment Simple at £119 per tax year. Smart (£149) or Elite (£299) only if your affairs are more complex. Tell me briefly about your income types and I can confirm the lowest suitable option — or start at https://www.taxsimba.co.uk/self-assessment.
 
 ---
 
@@ -1513,9 +1415,7 @@ For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, 
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [capital-gains-overview] Capital Gains Tax overview (2024-25, 2025-26): You may need to pay Capital Gains Tax when you sell or dispose of an asset that has increased in value. Annual exempt amounts and rates depend on the tax year and your income. Report gains via Self Assessment or the dedicated CGT service where required. (source: https://www.gov.uk/capital-gains-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+It depends whether you’re casually selling personal belongings or running a trade as a sole trader. Occasional sales of personal items are often different from a regular online business that may need Self Assessment. Are you selling your own used possessions, or buying/making goods to sell for profit — and roughly what was the income before expenses last tax year? If it is a trade, TaxSimba’s Self Assessment Simple (£119) is often the lowest suitable starting package once we confirm the facts.
 
 ---
 
@@ -1524,13 +1424,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -1565,13 +1459,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+For a straightforward first-time Self Assessment, the lowest approved TaxSimba package is Self Assessment Simple at £119 per tax year. Smart (£149) or Elite (£299) only if your affairs are more complex. Tell me briefly about your income types and I can confirm the lowest suitable option — or start at https://www.taxsimba.co.uk/self-assessment.
 
 ---
 
@@ -1580,9 +1468,7 @@ For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, 
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [capital-gains-overview] Capital Gains Tax overview (2024-25, 2025-26): You may need to pay Capital Gains Tax when you sell or dispose of an asset that has increased in value. Annual exempt amounts and rates depend on the tax year and your income. Report gains via Self Assessment or the dedicated CGT service where required. (source: https://www.gov.uk/capital-gains-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+It depends whether you’re casually selling personal belongings or running a trade as a sole trader. Occasional sales of personal items are often different from a regular online business that may need Self Assessment. Are you selling your own used possessions, or buying/making goods to sell for profit — and roughly what was the income before expenses last tax year? If it is a trade, TaxSimba’s Self Assessment Simple (£119) is often the lowest suitable starting package once we confirm the facts.
 
 ---
 
@@ -1591,13 +1477,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -1632,13 +1512,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+For a straightforward first-time Self Assessment, the lowest approved TaxSimba package is Self Assessment Simple at £119 per tax year. Smart (£149) or Elite (£299) only if your affairs are more complex. Tell me briefly about your income types and I can confirm the lowest suitable option — or start at https://www.taxsimba.co.uk/self-assessment.
 
 ---
 
@@ -1647,9 +1521,7 @@ For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, 
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [capital-gains-overview] Capital Gains Tax overview (2024-25, 2025-26): You may need to pay Capital Gains Tax when you sell or dispose of an asset that has increased in value. Annual exempt amounts and rates depend on the tax year and your income. Report gains via Self Assessment or the dedicated CGT service where required. (source: https://www.gov.uk/capital-gains-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+It depends whether you’re casually selling personal belongings or running a trade as a sole trader. Occasional sales of personal items are often different from a regular online business that may need Self Assessment. Are you selling your own used possessions, or buying/making goods to sell for profit — and roughly what was the income before expenses last tax year? If it is a trade, TaxSimba’s Self Assessment Simple (£119) is often the lowest suitable starting package once we confirm the facts.
 
 ---
 
@@ -1658,13 +1530,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -1699,13 +1565,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+For a straightforward first-time Self Assessment, the lowest approved TaxSimba package is Self Assessment Simple at £119 per tax year. Smart (£149) or Elite (£299) only if your affairs are more complex. Tell me briefly about your income types and I can confirm the lowest suitable option — or start at https://www.taxsimba.co.uk/self-assessment.
 
 ---
 
@@ -1714,9 +1574,7 @@ For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, 
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [capital-gains-overview] Capital Gains Tax overview (2024-25, 2025-26): You may need to pay Capital Gains Tax when you sell or dispose of an asset that has increased in value. Annual exempt amounts and rates depend on the tax year and your income. Report gains via Self Assessment or the dedicated CGT service where required. (source: https://www.gov.uk/capital-gains-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+It depends whether you’re casually selling personal belongings or running a trade as a sole trader. Occasional sales of personal items are often different from a regular online business that may need Self Assessment. Are you selling your own used possessions, or buying/making goods to sell for profit — and roughly what was the income before expenses last tax year? If it is a trade, TaxSimba’s Self Assessment Simple (£119) is often the lowest suitable starting package once we confirm the facts.
 
 ---
 
@@ -1725,13 +1583,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -1766,13 +1618,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+For a straightforward first-time Self Assessment, the lowest approved TaxSimba package is Self Assessment Simple at £119 per tax year. Smart (£149) or Elite (£299) only if your affairs are more complex. Tell me briefly about your income types and I can confirm the lowest suitable option — or start at https://www.taxsimba.co.uk/self-assessment.
 
 ---
 
@@ -1781,9 +1627,7 @@ For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, 
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [capital-gains-overview] Capital Gains Tax overview (2024-25, 2025-26): You may need to pay Capital Gains Tax when you sell or dispose of an asset that has increased in value. Annual exempt amounts and rates depend on the tax year and your income. Report gains via Self Assessment or the dedicated CGT service where required. (source: https://www.gov.uk/capital-gains-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+It depends whether you’re casually selling personal belongings or running a trade as a sole trader. Occasional sales of personal items are often different from a regular online business that may need Self Assessment. Are you selling your own used possessions, or buying/making goods to sell for profit — and roughly what was the income before expenses last tax year? If it is a trade, TaxSimba’s Self Assessment Simple (£119) is often the lowest suitable starting package once we confirm the facts.
 
 ---
 
@@ -1792,13 +1636,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -1835,14 +1673,12 @@ This is general information, not personal tax advice. If your situation is compl
 
 ---
 
-## MS-0155 [FAIL]
+## MS-0155 [PASS]
 **Prompt:** Rent a room scheme and PAYE salary #4
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [rent-a-room] Rent a Room Scheme (2024-25, 2025-26): The Rent a Room Scheme lets you earn a certain amount from letting out furnished accommodation in your home without paying tax on that income, if you meet the conditions. Check the current annual threshold on GOV.UK. (source: https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+The Rent a Room Scheme can let you earn a set amount from letting furnished accommodation in your home without paying tax on that rental income, if you qualify. It still sits in the wider property/rental landscape — you may need Self Assessment depending on your overall income. Confirm the current limit and rules on https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme. Do you also have other rental property or only a lodger in your home?
 
 ---
 
@@ -1890,14 +1726,12 @@ This is general information, not personal tax advice. If your situation is compl
 
 ---
 
-## MS-0160 [FAIL]
+## MS-0160 [PASS]
 **Prompt:** Rent a room scheme and PAYE salary #9
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [rent-a-room] Rent a Room Scheme (2024-25, 2025-26): The Rent a Room Scheme lets you earn a certain amount from letting out furnished accommodation in your home without paying tax on that income, if you meet the conditions. Check the current annual threshold on GOV.UK. (source: https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+The Rent a Room Scheme can let you earn a set amount from letting furnished accommodation in your home without paying tax on that rental income, if you qualify. It still sits in the wider property/rental landscape — you may need Self Assessment depending on your overall income. Confirm the current limit and rules on https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme. Do you also have other rental property or only a lodger in your home?
 
 ---
 
@@ -1945,14 +1779,12 @@ This is general information, not personal tax advice. If your situation is compl
 
 ---
 
-## MS-0165 [FAIL]
+## MS-0165 [PASS]
 **Prompt:** Rent a room scheme and PAYE salary #14
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [rent-a-room] Rent a Room Scheme (2024-25, 2025-26): The Rent a Room Scheme lets you earn a certain amount from letting out furnished accommodation in your home without paying tax on that income, if you meet the conditions. Check the current annual threshold on GOV.UK. (source: https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+The Rent a Room Scheme can let you earn a set amount from letting furnished accommodation in your home without paying tax on that rental income, if you qualify. It still sits in the wider property/rental landscape — you may need Self Assessment depending on your overall income. Confirm the current limit and rules on https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme. Do you also have other rental property or only a lodger in your home?
 
 ---
 
@@ -2000,14 +1832,12 @@ This is general information, not personal tax advice. If your situation is compl
 
 ---
 
-## MS-0170 [FAIL]
+## MS-0170 [PASS]
 **Prompt:** Rent a room scheme and PAYE salary #19
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [rent-a-room] Rent a Room Scheme (2024-25, 2025-26): The Rent a Room Scheme lets you earn a certain amount from letting out furnished accommodation in your home without paying tax on that income, if you meet the conditions. Check the current annual threshold on GOV.UK. (source: https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+The Rent a Room Scheme can let you earn a set amount from letting furnished accommodation in your home without paying tax on that rental income, if you qualify. It still sits in the wider property/rental landscape — you may need Self Assessment depending on your overall income. Confirm the current limit and rules on https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme. Do you also have other rental property or only a lodger in your home?
 
 ---
 
@@ -2055,14 +1885,12 @@ This is general information, not personal tax advice. If your situation is compl
 
 ---
 
-## MS-0175 [FAIL]
+## MS-0175 [PASS]
 **Prompt:** Rent a room scheme and PAYE salary #24
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [rent-a-room] Rent a Room Scheme (2024-25, 2025-26): The Rent a Room Scheme lets you earn a certain amount from letting out furnished accommodation in your home without paying tax on that income, if you meet the conditions. Check the current annual threshold on GOV.UK. (source: https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+The Rent a Room Scheme can let you earn a set amount from letting furnished accommodation in your home without paying tax on that rental income, if you qualify. It still sits in the wider property/rental landscape — you may need Self Assessment depending on your overall income. Confirm the current limit and rules on https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme. Do you also have other rental property or only a lodger in your home?
 
 ---
 
@@ -2110,14 +1938,12 @@ This is general information, not personal tax advice. If your situation is compl
 
 ---
 
-## MS-0180 [FAIL]
+## MS-0180 [PASS]
 **Prompt:** Rent a room scheme and PAYE salary #29
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [rent-a-room] Rent a Room Scheme (2024-25, 2025-26): The Rent a Room Scheme lets you earn a certain amount from letting out furnished accommodation in your home without paying tax on that income, if you meet the conditions. Check the current annual threshold on GOV.UK. (source: https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+The Rent a Room Scheme can let you earn a set amount from letting furnished accommodation in your home without paying tax on that rental income, if you qualify. It still sits in the wider property/rental landscape — you may need Self Assessment depending on your overall income. Confirm the current limit and rules on https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme. Do you also have other rental property or only a lodger in your home?
 
 ---
 
@@ -2165,14 +1991,12 @@ This is general information, not personal tax advice. If your situation is compl
 
 ---
 
-## MS-0185 [FAIL]
+## MS-0185 [PASS]
 **Prompt:** Rent a room scheme and PAYE salary #34
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [rent-a-room] Rent a Room Scheme (2024-25, 2025-26): The Rent a Room Scheme lets you earn a certain amount from letting out furnished accommodation in your home without paying tax on that income, if you meet the conditions. Check the current annual threshold on GOV.UK. (source: https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+The Rent a Room Scheme can let you earn a set amount from letting furnished accommodation in your home without paying tax on that rental income, if you qualify. It still sits in the wider property/rental landscape — you may need Self Assessment depending on your overall income. Confirm the current limit and rules on https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme. Do you also have other rental property or only a lodger in your home?
 
 ---
 
@@ -2220,14 +2044,12 @@ This is general information, not personal tax advice. If your situation is compl
 
 ---
 
-## MS-0190 [FAIL]
+## MS-0190 [PASS]
 **Prompt:** Rent a room scheme and PAYE salary #39
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [rent-a-room] Rent a Room Scheme (2024-25, 2025-26): The Rent a Room Scheme lets you earn a certain amount from letting out furnished accommodation in your home without paying tax on that income, if you meet the conditions. Check the current annual threshold on GOV.UK. (source: https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+The Rent a Room Scheme can let you earn a set amount from letting furnished accommodation in your home without paying tax on that rental income, if you qualify. It still sits in the wider property/rental landscape — you may need Self Assessment depending on your overall income. Confirm the current limit and rules on https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme. Do you also have other rental property or only a lodger in your home?
 
 ---
 
@@ -2709,9 +2531,7 @@ Official guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-digital-records-quarterly] MTD digital records and quarterly updates (2025-26, 2026-27, 2027-28): Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK. (source: https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Under Making Tax Digital for Income Tax, in-scope sole traders and landlords keep digital records and usually submit quarterly updates, then a year-end/final declaration. TaxSimba Simbian plans include quarterly MTD updates and year-end Self Assessment prepared through accountant-led Xero workflows, subject to documented customer responsibilities. SIMBA chat cannot file or submit to HMRC for you. Official overview: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax
 
 ---
 
@@ -2720,41 +2540,16 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here is what SIMBA can state from approved catalogue decisions:
-
-Self Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Online booking/payment not connected yet — email info@taxsimba.co.uk.
-
-Self Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.
-
-What is approved to say:
-- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.
-- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.
-- Support is via email and the client dashboard — not telephone onboarding.
-- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).
-- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.
-
-I will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.
-
-I can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.
-- Self Assessment Simple: £119 (per tax year)
-- Self Assessment Smart: £149 (per tax year)
-- Self Assessment Elite: £299 (per tax year)
-- Simbian Comply: £29.99 (per month; VAT included)
-- Simbian Growth: £59.99 (per month; VAT included)
-- Simbian Elite: £89.99 (per month; VAT included)
+Under Making Tax Digital for Income Tax, in-scope sole traders and landlords keep digital records and usually submit quarterly updates, then a year-end/final declaration. TaxSimba Simbian plans include quarterly MTD updates and year-end Self Assessment prepared through accountant-led Xero workflows, subject to documented customer responsibilities. SIMBA chat cannot file or submit to HMRC for you. Official overview: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax
 
 ---
 
-## MS-0236 [FAIL]
+## MS-0236 [PASS]
 **Prompt:** Do I need Xero for MTD? (2)
 
 **Reply:**
 
-I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.
-
-What was that amount, and which tax year was it for (for example 2024-25)?
+For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.
 
 ---
 
@@ -2763,9 +2558,7 @@ What was that amount, and which tax year was it for (for example 2024-25)?
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-digital-records-quarterly] MTD digital records and quarterly updates (2025-26, 2026-27, 2027-28): Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK. (source: https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.
 
 ---
 
@@ -2774,7 +2567,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-digital-records-quarterly] MTD digital records and quarterly updates (2025-26, 2026-27, 2027-28): Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK. (source: https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax)
+Based on verified HMRC / GOV.UK guidance: [sa-who-needs-to-file] Who needs to send a Self Assessment tax return (2024-25, 2025-26, 2026-27): You usually need to send a Self Assessment tax return if you were self-employed, a partner in a partnership, had untaxed income, or received notice from HMRC to file. Being employed does not automatically remove the requirement if other criteria apply. (source: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return)
 
 This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
 
@@ -2785,9 +2578,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-digital-records-quarterly] MTD digital records and quarterly updates (2025-26, 2026-27, 2027-28): Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK. (source: https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Under Making Tax Digital for Income Tax, in-scope sole traders and landlords keep digital records and usually submit quarterly updates, then a year-end/final declaration. TaxSimba Simbian plans include quarterly MTD updates and year-end Self Assessment prepared through accountant-led Xero workflows, subject to documented customer responsibilities. SIMBA chat cannot file or submit to HMRC for you. Official overview: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax
 
 ---
 
@@ -2796,41 +2587,16 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here is what SIMBA can state from approved catalogue decisions:
-
-Self Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Online booking/payment not connected yet — email info@taxsimba.co.uk.
-
-Self Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.
-
-What is approved to say:
-- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.
-- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.
-- Support is via email and the client dashboard — not telephone onboarding.
-- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).
-- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.
-
-I will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.
-
-I can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.
-- Self Assessment Simple: £119 (per tax year)
-- Self Assessment Smart: £149 (per tax year)
-- Self Assessment Elite: £299 (per tax year)
-- Simbian Comply: £29.99 (per month; VAT included)
-- Simbian Growth: £59.99 (per month; VAT included)
-- Simbian Elite: £89.99 (per month; VAT included)
+Under Making Tax Digital for Income Tax, in-scope sole traders and landlords keep digital records and usually submit quarterly updates, then a year-end/final declaration. TaxSimba Simbian plans include quarterly MTD updates and year-end Self Assessment prepared through accountant-led Xero workflows, subject to documented customer responsibilities. SIMBA chat cannot file or submit to HMRC for you. Official overview: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax
 
 ---
 
-## MS-0241 [FAIL]
+## MS-0241 [PASS]
 **Prompt:** Do I need Xero for MTD? (7)
 
 **Reply:**
 
-I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.
-
-What was that amount, and which tax year was it for (for example 2024-25)?
+For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.
 
 ---
 
@@ -2839,9 +2605,7 @@ What was that amount, and which tax year was it for (for example 2024-25)?
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-digital-records-quarterly] MTD digital records and quarterly updates (2025-26, 2026-27, 2027-28): Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK. (source: https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.
 
 ---
 
@@ -2850,7 +2614,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-digital-records-quarterly] MTD digital records and quarterly updates (2025-26, 2026-27, 2027-28): Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK. (source: https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax)
+Based on verified HMRC / GOV.UK guidance: [sa-who-needs-to-file] Who needs to send a Self Assessment tax return (2024-25, 2025-26, 2026-27): You usually need to send a Self Assessment tax return if you were self-employed, a partner in a partnership, had untaxed income, or received notice from HMRC to file. Being employed does not automatically remove the requirement if other criteria apply. (source: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return)
 
 This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
 
@@ -2861,9 +2625,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-digital-records-quarterly] MTD digital records and quarterly updates (2025-26, 2026-27, 2027-28): Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK. (source: https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Under Making Tax Digital for Income Tax, in-scope sole traders and landlords keep digital records and usually submit quarterly updates, then a year-end/final declaration. TaxSimba Simbian plans include quarterly MTD updates and year-end Self Assessment prepared through accountant-led Xero workflows, subject to documented customer responsibilities. SIMBA chat cannot file or submit to HMRC for you. Official overview: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax
 
 ---
 
@@ -2872,41 +2634,16 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here is what SIMBA can state from approved catalogue decisions:
-
-Self Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Online booking/payment not connected yet — email info@taxsimba.co.uk.
-
-Self Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.
-
-What is approved to say:
-- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.
-- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.
-- Support is via email and the client dashboard — not telephone onboarding.
-- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).
-- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.
-
-I will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.
-
-I can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.
-- Self Assessment Simple: £119 (per tax year)
-- Self Assessment Smart: £149 (per tax year)
-- Self Assessment Elite: £299 (per tax year)
-- Simbian Comply: £29.99 (per month; VAT included)
-- Simbian Growth: £59.99 (per month; VAT included)
-- Simbian Elite: £89.99 (per month; VAT included)
+Under Making Tax Digital for Income Tax, in-scope sole traders and landlords keep digital records and usually submit quarterly updates, then a year-end/final declaration. TaxSimba Simbian plans include quarterly MTD updates and year-end Self Assessment prepared through accountant-led Xero workflows, subject to documented customer responsibilities. SIMBA chat cannot file or submit to HMRC for you. Official overview: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax
 
 ---
 
-## MS-0246 [FAIL]
+## MS-0246 [PASS]
 **Prompt:** Do I need Xero for MTD? (12)
 
 **Reply:**
 
-I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.
-
-What was that amount, and which tax year was it for (for example 2024-25)?
+For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.
 
 ---
 
@@ -2915,9 +2652,7 @@ What was that amount, and which tax year was it for (for example 2024-25)?
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-digital-records-quarterly] MTD digital records and quarterly updates (2025-26, 2026-27, 2027-28): Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK. (source: https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.
 
 ---
 
@@ -2926,7 +2661,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-digital-records-quarterly] MTD digital records and quarterly updates (2025-26, 2026-27, 2027-28): Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK. (source: https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax)
+Based on verified HMRC / GOV.UK guidance: [sa-who-needs-to-file] Who needs to send a Self Assessment tax return (2024-25, 2025-26, 2026-27): You usually need to send a Self Assessment tax return if you were self-employed, a partner in a partnership, had untaxed income, or received notice from HMRC to file. Being employed does not automatically remove the requirement if other criteria apply. (source: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return)
 
 This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
 
@@ -2937,9 +2672,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-digital-records-quarterly] MTD digital records and quarterly updates (2025-26, 2026-27, 2027-28): Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK. (source: https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Under Making Tax Digital for Income Tax, in-scope sole traders and landlords keep digital records and usually submit quarterly updates, then a year-end/final declaration. TaxSimba Simbian plans include quarterly MTD updates and year-end Self Assessment prepared through accountant-led Xero workflows, subject to documented customer responsibilities. SIMBA chat cannot file or submit to HMRC for you. Official overview: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax
 
 ---
 
@@ -2948,41 +2681,16 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here is what SIMBA can state from approved catalogue decisions:
-
-Self Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Online booking/payment not connected yet — email info@taxsimba.co.uk.
-
-Self Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.
-
-What is approved to say:
-- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.
-- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.
-- Support is via email and the client dashboard — not telephone onboarding.
-- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).
-- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.
-
-I will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.
-
-I can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.
-- Self Assessment Simple: £119 (per tax year)
-- Self Assessment Smart: £149 (per tax year)
-- Self Assessment Elite: £299 (per tax year)
-- Simbian Comply: £29.99 (per month; VAT included)
-- Simbian Growth: £59.99 (per month; VAT included)
-- Simbian Elite: £89.99 (per month; VAT included)
+Under Making Tax Digital for Income Tax, in-scope sole traders and landlords keep digital records and usually submit quarterly updates, then a year-end/final declaration. TaxSimba Simbian plans include quarterly MTD updates and year-end Self Assessment prepared through accountant-led Xero workflows, subject to documented customer responsibilities. SIMBA chat cannot file or submit to HMRC for you. Official overview: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax
 
 ---
 
-## MS-0251 [FAIL]
+## MS-0251 [PASS]
 **Prompt:** Do I need Xero for MTD? (17)
 
 **Reply:**
 
-I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.
-
-What was that amount, and which tax year was it for (for example 2024-25)?
+For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.
 
 ---
 
@@ -2991,9 +2699,7 @@ What was that amount, and which tax year was it for (for example 2024-25)?
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-digital-records-quarterly] MTD digital records and quarterly updates (2025-26, 2026-27, 2027-28): Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK. (source: https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.
 
 ---
 
@@ -3002,7 +2708,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-digital-records-quarterly] MTD digital records and quarterly updates (2025-26, 2026-27, 2027-28): Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK. (source: https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax)
+Based on verified HMRC / GOV.UK guidance: [sa-who-needs-to-file] Who needs to send a Self Assessment tax return (2024-25, 2025-26, 2026-27): You usually need to send a Self Assessment tax return if you were self-employed, a partner in a partnership, had untaxed income, or received notice from HMRC to file. Being employed does not automatically remove the requirement if other criteria apply. (source: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return)
 
 This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
 
@@ -3013,9 +2719,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-digital-records-quarterly] MTD digital records and quarterly updates (2025-26, 2026-27, 2027-28): Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK. (source: https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Under Making Tax Digital for Income Tax, in-scope sole traders and landlords keep digital records and usually submit quarterly updates, then a year-end/final declaration. TaxSimba Simbian plans include quarterly MTD updates and year-end Self Assessment prepared through accountant-led Xero workflows, subject to documented customer responsibilities. SIMBA chat cannot file or submit to HMRC for you. Official overview: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax
 
 ---
 
@@ -3024,41 +2728,16 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here is what SIMBA can state from approved catalogue decisions:
-
-Self Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Online booking/payment not connected yet — email info@taxsimba.co.uk.
-
-Self Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.
-
-What is approved to say:
-- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.
-- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.
-- Support is via email and the client dashboard — not telephone onboarding.
-- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).
-- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.
-
-I will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.
-
-I can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.
-- Self Assessment Simple: £119 (per tax year)
-- Self Assessment Smart: £149 (per tax year)
-- Self Assessment Elite: £299 (per tax year)
-- Simbian Comply: £29.99 (per month; VAT included)
-- Simbian Growth: £59.99 (per month; VAT included)
-- Simbian Elite: £89.99 (per month; VAT included)
+Under Making Tax Digital for Income Tax, in-scope sole traders and landlords keep digital records and usually submit quarterly updates, then a year-end/final declaration. TaxSimba Simbian plans include quarterly MTD updates and year-end Self Assessment prepared through accountant-led Xero workflows, subject to documented customer responsibilities. SIMBA chat cannot file or submit to HMRC for you. Official overview: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax
 
 ---
 
-## MS-0256 [FAIL]
+## MS-0256 [PASS]
 **Prompt:** Do I need Xero for MTD? (22)
 
 **Reply:**
 
-I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.
-
-What was that amount, and which tax year was it for (for example 2024-25)?
+For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.
 
 ---
 
@@ -3067,9 +2746,7 @@ What was that amount, and which tax year was it for (for example 2024-25)?
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-digital-records-quarterly] MTD digital records and quarterly updates (2025-26, 2026-27, 2027-28): Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK. (source: https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.
 
 ---
 
@@ -3078,7 +2755,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-digital-records-quarterly] MTD digital records and quarterly updates (2025-26, 2026-27, 2027-28): Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK. (source: https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax)
+Based on verified HMRC / GOV.UK guidance: [sa-who-needs-to-file] Who needs to send a Self Assessment tax return (2024-25, 2025-26, 2026-27): You usually need to send a Self Assessment tax return if you were self-employed, a partner in a partnership, had untaxed income, or received notice from HMRC to file. Being employed does not automatically remove the requirement if other criteria apply. (source: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return)
 
 This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
 
@@ -3089,9 +2766,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-digital-records-quarterly] MTD digital records and quarterly updates (2025-26, 2026-27, 2027-28): Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK. (source: https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Under Making Tax Digital for Income Tax, in-scope sole traders and landlords keep digital records and usually submit quarterly updates, then a year-end/final declaration. TaxSimba Simbian plans include quarterly MTD updates and year-end Self Assessment prepared through accountant-led Xero workflows, subject to documented customer responsibilities. SIMBA chat cannot file or submit to HMRC for you. Official overview: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax
 
 ---
 
@@ -3100,41 +2775,16 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here is what SIMBA can state from approved catalogue decisions:
-
-Self Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Online booking/payment not connected yet — email info@taxsimba.co.uk.
-
-Self Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.
-
-What is approved to say:
-- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.
-- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.
-- Support is via email and the client dashboard — not telephone onboarding.
-- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).
-- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.
-
-I will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.
-
-I can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.
-- Self Assessment Simple: £119 (per tax year)
-- Self Assessment Smart: £149 (per tax year)
-- Self Assessment Elite: £299 (per tax year)
-- Simbian Comply: £29.99 (per month; VAT included)
-- Simbian Growth: £59.99 (per month; VAT included)
-- Simbian Elite: £89.99 (per month; VAT included)
+Under Making Tax Digital for Income Tax, in-scope sole traders and landlords keep digital records and usually submit quarterly updates, then a year-end/final declaration. TaxSimba Simbian plans include quarterly MTD updates and year-end Self Assessment prepared through accountant-led Xero workflows, subject to documented customer responsibilities. SIMBA chat cannot file or submit to HMRC for you. Official overview: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax
 
 ---
 
-## MS-0261 [FAIL]
+## MS-0261 [PASS]
 **Prompt:** Do I need Xero for MTD? (27)
 
 **Reply:**
 
-I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.
-
-What was that amount, and which tax year was it for (for example 2024-25)?
+For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.
 
 ---
 
@@ -3143,9 +2793,7 @@ What was that amount, and which tax year was it for (for example 2024-25)?
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-digital-records-quarterly] MTD digital records and quarterly updates (2025-26, 2026-27, 2027-28): Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK. (source: https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.
 
 ---
 
@@ -3154,7 +2802,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-digital-records-quarterly] MTD digital records and quarterly updates (2025-26, 2026-27, 2027-28): Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK. (source: https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax)
+Based on verified HMRC / GOV.UK guidance: [sa-who-needs-to-file] Who needs to send a Self Assessment tax return (2024-25, 2025-26, 2026-27): You usually need to send a Self Assessment tax return if you were self-employed, a partner in a partnership, had untaxed income, or received notice from HMRC to file. Being employed does not automatically remove the requirement if other criteria apply. (source: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return)
 
 This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
 
@@ -3165,9 +2813,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-digital-records-quarterly] MTD digital records and quarterly updates (2025-26, 2026-27, 2027-28): Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK. (source: https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Under Making Tax Digital for Income Tax, in-scope sole traders and landlords keep digital records and usually submit quarterly updates, then a year-end/final declaration. TaxSimba Simbian plans include quarterly MTD updates and year-end Self Assessment prepared through accountant-led Xero workflows, subject to documented customer responsibilities. SIMBA chat cannot file or submit to HMRC for you. Official overview: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax
 
 ---
 
@@ -3176,41 +2822,16 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here is what SIMBA can state from approved catalogue decisions:
-
-Self Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Online booking/payment not connected yet — email info@taxsimba.co.uk.
-
-Self Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.
-
-What is approved to say:
-- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.
-- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.
-- Support is via email and the client dashboard — not telephone onboarding.
-- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).
-- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.
-
-I will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.
-
-I can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.
-- Self Assessment Simple: £119 (per tax year)
-- Self Assessment Smart: £149 (per tax year)
-- Self Assessment Elite: £299 (per tax year)
-- Simbian Comply: £29.99 (per month; VAT included)
-- Simbian Growth: £59.99 (per month; VAT included)
-- Simbian Elite: £89.99 (per month; VAT included)
+Under Making Tax Digital for Income Tax, in-scope sole traders and landlords keep digital records and usually submit quarterly updates, then a year-end/final declaration. TaxSimba Simbian plans include quarterly MTD updates and year-end Self Assessment prepared through accountant-led Xero workflows, subject to documented customer responsibilities. SIMBA chat cannot file or submit to HMRC for you. Official overview: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax
 
 ---
 
-## MS-0266 [FAIL]
+## MS-0266 [PASS]
 **Prompt:** Do I need Xero for MTD? (32)
 
 **Reply:**
 
-I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.
-
-What was that amount, and which tax year was it for (for example 2024-25)?
+For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.
 
 ---
 
@@ -3219,9 +2840,7 @@ What was that amount, and which tax year was it for (for example 2024-25)?
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-digital-records-quarterly] MTD digital records and quarterly updates (2025-26, 2026-27, 2027-28): Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK. (source: https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.
 
 ---
 
@@ -3230,7 +2849,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-digital-records-quarterly] MTD digital records and quarterly updates (2025-26, 2026-27, 2027-28): Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK. (source: https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax)
+Based on verified HMRC / GOV.UK guidance: [sa-who-needs-to-file] Who needs to send a Self Assessment tax return (2024-25, 2025-26, 2026-27): You usually need to send a Self Assessment tax return if you were self-employed, a partner in a partnership, had untaxed income, or received notice from HMRC to file. Being employed does not automatically remove the requirement if other criteria apply. (source: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return)
 
 This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
 
@@ -3274,9 +2893,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-qualifying-income-definition] What qualifying income means for MTD (2025-26, 2026-27, 2027-28): Qualifying income for Making Tax Digital for Income Tax is total income from self-employment and property before expenses (also described as turnover/gross income), based on the relevant Self Assessment return. Employment (PAYE), dividends, State Pension and private pensions do not count towards qualifying income. Do not confuse turnover with profit. (source: https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Just to avoid mixing rules up: is that a limited company, or you as a sole trader/self-employed? Limited-company turnover doesn’t create individual Making Tax Digital for Income Tax obligations the same way sole-trader/landlord qualifying income does. Which structure is it, and is the figure turnover or profit?
 
 ---
 
@@ -3318,9 +2935,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-qualifying-income-definition] What qualifying income means for MTD (2025-26, 2026-27, 2027-28): Qualifying income for Making Tax Digital for Income Tax is total income from self-employment and property before expenses (also described as turnover/gross income), based on the relevant Self Assessment return. Employment (PAYE), dividends, State Pension and private pensions do not count towards qualifying income. Do not confuse turnover with profit. (source: https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Just to avoid mixing rules up: is that a limited company, or you as a sole trader/self-employed? Limited-company turnover doesn’t create individual Making Tax Digital for Income Tax obligations the same way sole-trader/landlord qualifying income does. Which structure is it, and is the figure turnover or profit?
 
 ---
 
@@ -3362,9 +2977,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-qualifying-income-definition] What qualifying income means for MTD (2025-26, 2026-27, 2027-28): Qualifying income for Making Tax Digital for Income Tax is total income from self-employment and property before expenses (also described as turnover/gross income), based on the relevant Self Assessment return. Employment (PAYE), dividends, State Pension and private pensions do not count towards qualifying income. Do not confuse turnover with profit. (source: https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Just to avoid mixing rules up: is that a limited company, or you as a sole trader/self-employed? Limited-company turnover doesn’t create individual Making Tax Digital for Income Tax obligations the same way sole-trader/landlord qualifying income does. Which structure is it, and is the figure turnover or profit?
 
 ---
 
@@ -3406,9 +3019,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-qualifying-income-definition] What qualifying income means for MTD (2025-26, 2026-27, 2027-28): Qualifying income for Making Tax Digital for Income Tax is total income from self-employment and property before expenses (also described as turnover/gross income), based on the relevant Self Assessment return. Employment (PAYE), dividends, State Pension and private pensions do not count towards qualifying income. Do not confuse turnover with profit. (source: https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Just to avoid mixing rules up: is that a limited company, or you as a sole trader/self-employed? Limited-company turnover doesn’t create individual Making Tax Digital for Income Tax obligations the same way sole-trader/landlord qualifying income does. Which structure is it, and is the figure turnover or profit?
 
 ---
 
@@ -3450,9 +3061,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-qualifying-income-definition] What qualifying income means for MTD (2025-26, 2026-27, 2027-28): Qualifying income for Making Tax Digital for Income Tax is total income from self-employment and property before expenses (also described as turnover/gross income), based on the relevant Self Assessment return. Employment (PAYE), dividends, State Pension and private pensions do not count towards qualifying income. Do not confuse turnover with profit. (source: https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Just to avoid mixing rules up: is that a limited company, or you as a sole trader/self-employed? Limited-company turnover doesn’t create individual Making Tax Digital for Income Tax obligations the same way sole-trader/landlord qualifying income does. Which structure is it, and is the figure turnover or profit?
 
 ---
 
@@ -3494,9 +3103,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-qualifying-income-definition] What qualifying income means for MTD (2025-26, 2026-27, 2027-28): Qualifying income for Making Tax Digital for Income Tax is total income from self-employment and property before expenses (also described as turnover/gross income), based on the relevant Self Assessment return. Employment (PAYE), dividends, State Pension and private pensions do not count towards qualifying income. Do not confuse turnover with profit. (source: https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Just to avoid mixing rules up: is that a limited company, or you as a sole trader/self-employed? Limited-company turnover doesn’t create individual Making Tax Digital for Income Tax obligations the same way sole-trader/landlord qualifying income does. Which structure is it, and is the figure turnover or profit?
 
 ---
 
@@ -3538,9 +3145,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-qualifying-income-definition] What qualifying income means for MTD (2025-26, 2026-27, 2027-28): Qualifying income for Making Tax Digital for Income Tax is total income from self-employment and property before expenses (also described as turnover/gross income), based on the relevant Self Assessment return. Employment (PAYE), dividends, State Pension and private pensions do not count towards qualifying income. Do not confuse turnover with profit. (source: https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Just to avoid mixing rules up: is that a limited company, or you as a sole trader/self-employed? Limited-company turnover doesn’t create individual Making Tax Digital for Income Tax obligations the same way sole-trader/landlord qualifying income does. Which structure is it, and is the figure turnover or profit?
 
 ---
 
@@ -3582,9 +3187,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [mtd-qualifying-income-definition] What qualifying income means for MTD (2025-26, 2026-27, 2027-28): Qualifying income for Making Tax Digital for Income Tax is total income from self-employment and property before expenses (also described as turnover/gross income), based on the relevant Self Assessment return. Employment (PAYE), dividends, State Pension and private pensions do not count towards qualifying income. Do not confuse turnover with profit. (source: https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Just to avoid mixing rules up: is that a limited company, or you as a sole trader/self-employed? Limited-company turnover doesn’t create individual Making Tax Digital for Income Tax obligations the same way sole-trader/landlord qualifying income does. Which structure is it, and is the figure turnover or profit?
 
 ---
 
@@ -3593,13 +3196,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -3608,20 +3205,16 @@ For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, 
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [cis-overview] Construction Industry Scheme (CIS) overview (2024-25, 2025-26, 2026-27): The Construction Industry Scheme (CIS) sets how contractors deduct money from a subcontractor's payments and pay it to HMRC. Subcontractors should keep payment and deduction statements. CIS deductions are not always the final tax position — many subcontractors still need Self Assessment. (source: https://www.gov.uk/what-is-the-construction-industry-scheme)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
-## MS-0303 [FAIL]
+## MS-0303 [PASS]
 **Prompt:** Construction sole trader needing MTD? 2
 
 **Reply:**
 
-I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.
-
-What was that amount, and which tax year was it for (for example 2024-25)?
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -3630,13 +3223,7 @@ What was that amount, and which tax year was it for (for example 2024-25)?
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -3645,20 +3232,16 @@ For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, 
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [cis-overview] Construction Industry Scheme (CIS) overview (2024-25, 2025-26, 2026-27): The Construction Industry Scheme (CIS) sets how contractors deduct money from a subcontractor's payments and pay it to HMRC. Subcontractors should keep payment and deduction statements. CIS deductions are not always the final tax position — many subcontractors still need Self Assessment. (source: https://www.gov.uk/what-is-the-construction-industry-scheme)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
-## MS-0306 [FAIL]
+## MS-0306 [PASS]
 **Prompt:** Construction sole trader needing MTD? 5
 
 **Reply:**
 
-I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.
-
-What was that amount, and which tax year was it for (for example 2024-25)?
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -3667,13 +3250,7 @@ What was that amount, and which tax year was it for (for example 2024-25)?
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -3682,20 +3259,16 @@ For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, 
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [cis-overview] Construction Industry Scheme (CIS) overview (2024-25, 2025-26, 2026-27): The Construction Industry Scheme (CIS) sets how contractors deduct money from a subcontractor's payments and pay it to HMRC. Subcontractors should keep payment and deduction statements. CIS deductions are not always the final tax position — many subcontractors still need Self Assessment. (source: https://www.gov.uk/what-is-the-construction-industry-scheme)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
-## MS-0309 [FAIL]
+## MS-0309 [PASS]
 **Prompt:** Construction sole trader needing MTD? 8
 
 **Reply:**
 
-I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.
-
-What was that amount, and which tax year was it for (for example 2024-25)?
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -3704,13 +3277,7 @@ What was that amount, and which tax year was it for (for example 2024-25)?
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -3719,20 +3286,16 @@ For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, 
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [cis-overview] Construction Industry Scheme (CIS) overview (2024-25, 2025-26, 2026-27): The Construction Industry Scheme (CIS) sets how contractors deduct money from a subcontractor's payments and pay it to HMRC. Subcontractors should keep payment and deduction statements. CIS deductions are not always the final tax position — many subcontractors still need Self Assessment. (source: https://www.gov.uk/what-is-the-construction-industry-scheme)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
-## MS-0312 [FAIL]
+## MS-0312 [PASS]
 **Prompt:** Construction sole trader needing MTD? 11
 
 **Reply:**
 
-I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.
-
-What was that amount, and which tax year was it for (for example 2024-25)?
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -3741,13 +3304,7 @@ What was that amount, and which tax year was it for (for example 2024-25)?
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -3756,20 +3313,16 @@ For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, 
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [cis-overview] Construction Industry Scheme (CIS) overview (2024-25, 2025-26, 2026-27): The Construction Industry Scheme (CIS) sets how contractors deduct money from a subcontractor's payments and pay it to HMRC. Subcontractors should keep payment and deduction statements. CIS deductions are not always the final tax position — many subcontractors still need Self Assessment. (source: https://www.gov.uk/what-is-the-construction-industry-scheme)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
-## MS-0315 [FAIL]
+## MS-0315 [PASS]
 **Prompt:** Construction sole trader needing MTD? 14
 
 **Reply:**
 
-I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.
-
-What was that amount, and which tax year was it for (for example 2024-25)?
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -3778,13 +3331,7 @@ What was that amount, and which tax year was it for (for example 2024-25)?
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -3793,20 +3340,16 @@ For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, 
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [cis-overview] Construction Industry Scheme (CIS) overview (2024-25, 2025-26, 2026-27): The Construction Industry Scheme (CIS) sets how contractors deduct money from a subcontractor's payments and pay it to HMRC. Subcontractors should keep payment and deduction statements. CIS deductions are not always the final tax position — many subcontractors still need Self Assessment. (source: https://www.gov.uk/what-is-the-construction-industry-scheme)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
-## MS-0318 [FAIL]
+## MS-0318 [PASS]
 **Prompt:** Construction sole trader needing MTD? 17
 
 **Reply:**
 
-I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.
-
-What was that amount, and which tax year was it for (for example 2024-25)?
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -3815,13 +3358,7 @@ What was that amount, and which tax year was it for (for example 2024-25)?
 
 **Reply:**
 
-Here are TaxSimba’s approved packages:
-
-Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.
-
-For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -3830,20 +3367,16 @@ For Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, 
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [cis-overview] Construction Industry Scheme (CIS) overview (2024-25, 2025-26, 2026-27): The Construction Industry Scheme (CIS) sets how contractors deduct money from a subcontractor's payments and pay it to HMRC. Subcontractors should keep payment and deduction statements. CIS deductions are not always the final tax position — many subcontractors still need Self Assessment. (source: https://www.gov.uk/what-is-the-construction-industry-scheme)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
-## MS-0321 [FAIL]
+## MS-0321 [PASS]
 **Prompt:** Construction sole trader needing MTD? 20
 
 **Reply:**
 
-I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.
-
-What was that amount, and which tax year was it for (for example 2024-25)?
+CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment
 
 ---
 
@@ -3902,14 +3435,12 @@ This is general information, not personal tax advice. If your situation is compl
 
 ---
 
-## MS-0327 [FAIL]
+## MS-0327 [PASS]
 **Prompt:** Crypto gains Self Assessment [5]
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [sa-paper-deadline] Self Assessment paper filing deadline (2024-25, 2025-26, 2026-27): If you file a paper Self Assessment return, the usual deadline is 31 October following the end of the tax year. Online filing is normally due by 31 January. Confirm current deadlines on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead — it depends on your activity. Keep detailed records. I won’t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets — were your crypto disposals investment-style gains, or more like a trading business?
 
 ---
 
@@ -3990,14 +3521,12 @@ This is general information, not personal tax advice. If your situation is compl
 
 ---
 
-## MS-0335 [FAIL]
+## MS-0335 [PASS]
 **Prompt:** Crypto gains Self Assessment [13]
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [sa-paper-deadline] Self Assessment paper filing deadline (2024-25, 2025-26, 2026-27): If you file a paper Self Assessment return, the usual deadline is 31 October following the end of the tax year. Online filing is normally due by 31 January. Confirm current deadlines on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead — it depends on your activity. Keep detailed records. I won’t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets — were your crypto disposals investment-style gains, or more like a trading business?
 
 ---
 
@@ -4078,14 +3607,12 @@ This is general information, not personal tax advice. If your situation is compl
 
 ---
 
-## MS-0343 [FAIL]
+## MS-0343 [PASS]
 **Prompt:** Crypto gains Self Assessment [21]
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [sa-paper-deadline] Self Assessment paper filing deadline (2024-25, 2025-26, 2026-27): If you file a paper Self Assessment return, the usual deadline is 31 October following the end of the tax year. Online filing is normally due by 31 January. Confirm current deadlines on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead — it depends on your activity. Keep detailed records. I won’t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets — were your crypto disposals investment-style gains, or more like a trading business?
 
 ---
 
@@ -4166,14 +3693,12 @@ This is general information, not personal tax advice. If your situation is compl
 
 ---
 
-## MS-0351 [FAIL]
+## MS-0351 [PASS]
 **Prompt:** Crypto gains Self Assessment [29]
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [sa-paper-deadline] Self Assessment paper filing deadline (2024-25, 2025-26, 2026-27): If you file a paper Self Assessment return, the usual deadline is 31 October following the end of the tax year. Online filing is normally due by 31 January. Confirm current deadlines on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead — it depends on your activity. Keep detailed records. I won’t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets — were your crypto disposals investment-style gains, or more like a trading business?
 
 ---
 
@@ -4254,14 +3779,12 @@ This is general information, not personal tax advice. If your situation is compl
 
 ---
 
-## MS-0359 [FAIL]
+## MS-0359 [PASS]
 **Prompt:** Crypto gains Self Assessment [37]
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [sa-paper-deadline] Self Assessment paper filing deadline (2024-25, 2025-26, 2026-27): If you file a paper Self Assessment return, the usual deadline is 31 October following the end of the tax year. Online filing is normally due by 31 January. Confirm current deadlines on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead — it depends on your activity. Keep detailed records. I won’t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets — were your crypto disposals investment-style gains, or more like a trading business?
 
 ---
 
@@ -4292,9 +3815,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [property-income-overview] Income from property (landlords) (2024-25, 2025-26, 2026-27): If you receive rental income from property you usually need to declare it to HMRC. Many landlords report property income through Self Assessment. Keep records of rent received and allowable expenses. Check GOV.UK for the rules that apply to your situation. (source: https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Rental income usually needs to be considered for Self Assessment, and may also count toward Making Tax Digital qualifying income (with any self-employment turnover) using gross rents before many expenses. Roughly how much rental income (before expenses) did you have, and for which tax year? Also — is this a residential let, Rent a Room, or something else?
 
 ---
 
@@ -4336,9 +3857,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [property-income-overview] Income from property (landlords) (2024-25, 2025-26, 2026-27): If you receive rental income from property you usually need to declare it to HMRC. Many landlords report property income through Self Assessment. Keep records of rent received and allowable expenses. Check GOV.UK for the rules that apply to your situation. (source: https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Rental income usually needs to be considered for Self Assessment, and may also count toward Making Tax Digital qualifying income (with any self-employment turnover) using gross rents before many expenses. Roughly how much rental income (before expenses) did you have, and for which tax year? Also — is this a residential let, Rent a Room, or something else?
 
 ---
 
@@ -4380,9 +3899,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [property-income-overview] Income from property (landlords) (2024-25, 2025-26, 2026-27): If you receive rental income from property you usually need to declare it to HMRC. Many landlords report property income through Self Assessment. Keep records of rent received and allowable expenses. Check GOV.UK for the rules that apply to your situation. (source: https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Rental income usually needs to be considered for Self Assessment, and may also count toward Making Tax Digital qualifying income (with any self-employment turnover) using gross rents before many expenses. Roughly how much rental income (before expenses) did you have, and for which tax year? Also — is this a residential let, Rent a Room, or something else?
 
 ---
 
@@ -4424,9 +3941,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [property-income-overview] Income from property (landlords) (2024-25, 2025-26, 2026-27): If you receive rental income from property you usually need to declare it to HMRC. Many landlords report property income through Self Assessment. Keep records of rent received and allowable expenses. Check GOV.UK for the rules that apply to your situation. (source: https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Rental income usually needs to be considered for Self Assessment, and may also count toward Making Tax Digital qualifying income (with any self-employment turnover) using gross rents before many expenses. Roughly how much rental income (before expenses) did you have, and for which tax year? Also — is this a residential let, Rent a Room, or something else?
 
 ---
 
@@ -4468,9 +3983,7 @@ This is general information, not personal tax advice. If your situation is compl
 
 **Reply:**
 
-Based on verified HMRC / GOV.UK guidance: [property-income-overview] Income from property (landlords) (2024-25, 2025-26, 2026-27): If you receive rental income from property you usually need to declare it to HMRC. Many landlords report property income through Self Assessment. Keep records of rent received and allowable expenses. Check GOV.UK for the rules that apply to your situation. (source: https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income)
-
-This is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk.
+Rental income usually needs to be considered for Self Assessment, and may also count toward Making Tax Digital qualifying income (with any self-employment turnover) using gross rents before many expenses. Roughly how much rental income (before expenses) did you have, and for which tax year? Also — is this a residential let, Rent a Room, or something else?
 
 ---
 
@@ -4574,32 +4087,7 @@ I can recommend the lowest suitable package for your circumstances. Review packa
 
 **Reply:**
 
-Here is what SIMBA can state from approved catalogue decisions:
-
-Self Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Online booking/payment not connected yet — email info@taxsimba.co.uk.
-
-Self Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.
-
-What is approved to say:
-- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.
-- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.
-- Support is via email and the client dashboard — not telephone onboarding.
-- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).
-- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.
-
-I will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.
-
-I can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.
-
-Xero software is included in the Simbian monthly subscription price — customers do not pay separately. Catalogue mapping: Comply includes Xero Simple, Growth includes Xero Ignite, Elite includes Xero Grow. I will not invent “forever free”, unlimited seats, or a separate Xero charge.
-- Self Assessment Simple: £119 (per tax year)
-- Self Assessment Smart: £149 (per tax year)
-- Self Assessment Elite: £299 (per tax year)
-- Simbian Comply: £29.99 (per month; VAT included)
-- Simbian Growth: £59.99 (per month; VAT included)
-- Simbian Elite: £89.99 (per month; VAT included)
+For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.
 
 ---
 
@@ -4696,32 +4184,7 @@ I can recommend the lowest suitable package for your circumstances. Review packa
 
 **Reply:**
 
-Here is what SIMBA can state from approved catalogue decisions:
-
-Self Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Online booking/payment not connected yet — email info@taxsimba.co.uk.
-
-Self Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.
-
-What is approved to say:
-- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.
-- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.
-- Support is via email and the client dashboard — not telephone onboarding.
-- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).
-- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.
-
-I will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.
-
-I can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.
-
-Xero software is included in the Simbian monthly subscription price — customers do not pay separately. Catalogue mapping: Comply includes Xero Simple, Growth includes Xero Ignite, Elite includes Xero Grow. I will not invent “forever free”, unlimited seats, or a separate Xero charge.
-- Self Assessment Simple: £119 (per tax year)
-- Self Assessment Smart: £149 (per tax year)
-- Self Assessment Elite: £299 (per tax year)
-- Simbian Comply: £29.99 (per month; VAT included)
-- Simbian Growth: £59.99 (per month; VAT included)
-- Simbian Elite: £89.99 (per month; VAT included)
+For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.
 
 ---
 
@@ -4818,32 +4281,7 @@ I can recommend the lowest suitable package for your circumstances. Review packa
 
 **Reply:**
 
-Here is what SIMBA can state from approved catalogue decisions:
-
-Self Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Online booking/payment not connected yet — email info@taxsimba.co.uk.
-
-Self Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.
-
-What is approved to say:
-- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.
-- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.
-- Support is via email and the client dashboard — not telephone onboarding.
-- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).
-- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.
-
-I will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.
-
-I can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.
-
-Xero software is included in the Simbian monthly subscription price — customers do not pay separately. Catalogue mapping: Comply includes Xero Simple, Growth includes Xero Ignite, Elite includes Xero Grow. I will not invent “forever free”, unlimited seats, or a separate Xero charge.
-- Self Assessment Simple: £119 (per tax year)
-- Self Assessment Smart: £149 (per tax year)
-- Self Assessment Elite: £299 (per tax year)
-- Simbian Comply: £29.99 (per month; VAT included)
-- Simbian Growth: £59.99 (per month; VAT included)
-- Simbian Elite: £89.99 (per month; VAT included)
+For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.
 
 ---
 
@@ -4940,32 +4378,7 @@ I can recommend the lowest suitable package for your circumstances. Review packa
 
 **Reply:**
 
-Here is what SIMBA can state from approved catalogue decisions:
-
-Self Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Online booking/payment not connected yet — email info@taxsimba.co.uk.
-
-Self Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.
-
-What is approved to say:
-- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.
-- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.
-- Support is via email and the client dashboard — not telephone onboarding.
-- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).
-- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.
-
-I will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.
-
-I can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.
-
-Xero software is included in the Simbian monthly subscription price — customers do not pay separately. Catalogue mapping: Comply includes Xero Simple, Growth includes Xero Ignite, Elite includes Xero Grow. I will not invent “forever free”, unlimited seats, or a separate Xero charge.
-- Self Assessment Simple: £119 (per tax year)
-- Self Assessment Smart: £149 (per tax year)
-- Self Assessment Elite: £299 (per tax year)
-- Simbian Comply: £29.99 (per month; VAT included)
-- Simbian Growth: £59.99 (per month; VAT included)
-- Simbian Elite: £89.99 (per month; VAT included)
+For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.
 
 ---
 
@@ -5062,32 +4475,7 @@ I can recommend the lowest suitable package for your circumstances. Review packa
 
 **Reply:**
 
-Here is what SIMBA can state from approved catalogue decisions:
-
-Self Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Online booking/payment not connected yet — email info@taxsimba.co.uk.
-
-Self Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.
-
-What is approved to say:
-- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.
-- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.
-- Support is via email and the client dashboard — not telephone onboarding.
-- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).
-- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.
-
-I will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.
-
-I can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.
-
-Xero software is included in the Simbian monthly subscription price — customers do not pay separately. Catalogue mapping: Comply includes Xero Simple, Growth includes Xero Ignite, Elite includes Xero Grow. I will not invent “forever free”, unlimited seats, or a separate Xero charge.
-- Self Assessment Simple: £119 (per tax year)
-- Self Assessment Smart: £149 (per tax year)
-- Self Assessment Elite: £299 (per tax year)
-- Simbian Comply: £29.99 (per month; VAT included)
-- Simbian Growth: £59.99 (per month; VAT included)
-- Simbian Elite: £89.99 (per month; VAT included)
+For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.
 
 ---
 
@@ -5184,32 +4572,7 @@ I can recommend the lowest suitable package for your circumstances. Review packa
 
 **Reply:**
 
-Here is what SIMBA can state from approved catalogue decisions:
-
-Self Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.
-Making Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.
-Accountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Online booking/payment not connected yet — email info@taxsimba.co.uk.
-
-Self Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.
-
-What is approved to say:
-- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.
-- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.
-- Support is via email and the client dashboard — not telephone onboarding.
-- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).
-- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.
-
-I will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.
-
-I can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.
-
-Xero software is included in the Simbian monthly subscription price — customers do not pay separately. Catalogue mapping: Comply includes Xero Simple, Growth includes Xero Ignite, Elite includes Xero Grow. I will not invent “forever free”, unlimited seats, or a separate Xero charge.
-- Self Assessment Simple: £119 (per tax year)
-- Self Assessment Smart: £149 (per tax year)
-- Self Assessment Elite: £299 (per tax year)
-- Simbian Comply: £29.99 (per month; VAT included)
-- Simbian Growth: £59.99 (per month; VAT included)
-- Simbian Elite: £89.99 (per month; VAT included)
+For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.
 
 ---
 

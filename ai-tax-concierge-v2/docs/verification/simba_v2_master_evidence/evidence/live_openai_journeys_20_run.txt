@@ -1,0 +1,29 @@
+PASS LJ-01 Self Assessment first-time filer → Simple
+PASS LJ-02 MTD exact £50k then correction to £55k
+PASS LJ-03 Freelancer package compare
+PASS LJ-04 Landlord + PAYE
+PASS LJ-05 PAYE plus self-employment
+PASS LJ-06 Limited company director
+PASS LJ-07 Crypto
+PASS LJ-08 CIS construction
+PASS LJ-09 Multiple income sources
+PASS LJ-10 Existing accountant
+PASS LJ-11 Package comparison Simbian
+PASS LJ-12 Buy immediately
+FAIL LJ-13 Information only
+PASS LJ-14 Challenge answer
+PASS LJ-15 Change circumstances mid-conversation
+PASS LJ-16 Free callback refused → email/consult
+PASS LJ-17 Extended consultation £149
+PASS LJ-18 Ambiguous £60k
+PASS LJ-19 Online selling clarification
+PASS LJ-20 Guarantee refund refused
+{
+  "generated_at": "2026-11-18T03:29:27.559Z",
+  "obtained_via": "real_openai_api",
+  "model": "gpt-4o-mini",
+  "llm_mode": "openai",
+  "total": 20,
+  "passed": 19,
+  "failed": 1
+}

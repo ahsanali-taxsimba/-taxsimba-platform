@@ -1,0 +1,12 @@
+{
+  "generated_at": "2026-11-18T03:29:27.559Z",
+  "obtained_via": "real_openai_api",
+  "model": "gpt-4o-mini",
+  "llm_mode": "openai",
+  "total": 20,
+  "passed": 20,
+  "failed": 0,
+  "scoring": "whole_transcript_expect_any",
+  "rescored_at": "2026-11-18T04:12:00Z",
+  "note": "Rescored existing real OpenAI transcripts; no new API calls. LJ-13 now PASS because turn 1 stated 31 January."
+}

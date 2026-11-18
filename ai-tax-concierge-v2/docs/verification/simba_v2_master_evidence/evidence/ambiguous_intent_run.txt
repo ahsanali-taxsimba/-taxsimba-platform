@@ -1,0 +1,14 @@
+OK I make £4,000 profit from online trading. mode= openai
+OK I earn £60,000. mode= openai
+OK My business makes £100,000. mode= openai
+OK I have a company and a normal job. mode= openai
+OK I sell things online. mode= openai
+OK I trade crypto. mode= openai
+OK I have rental income. mode= openai
+OK I already have an accountant. mode= openai
+OK Can you guarantee a tax refund? mode= openai
+OK I want the cheapest package. mode= openai
+{
+  "total": 10,
+  "adapter_mode": "openai"
+}
