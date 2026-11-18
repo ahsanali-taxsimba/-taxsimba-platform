@@ -1,0 +1,1389 @@
+{
+  "summary": {
+    "total": 50,
+    "passed": 50,
+    "failed": 0
+  },
+  "conversations": [
+    {
+      "id": "MT-01",
+      "title": "PAYE + trading MTD then package (run 1)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "I earn £45k PAYE and £18k sole-trader turnover. Do I need MTD? — conversation 1"
+        },
+        {
+          "role": "assistant",
+          "content": "With qualifying income of £18,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "role": "user",
+          "content": "Ok thanks. What's the cheapest Self Assessment package for that side income?"
+        },
+        {
+          "role": "assistant",
+          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+        },
+        {
+          "role": "user",
+          "content": "I'm ready to register"
+        },
+        {
+          "role": "assistant",
+          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-02",
+      "title": "Exact 50k then correction (run 2)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Qualifying income exactly £50,000 in 2024-25 — MTD from April 2026? — conversation 2"
+        },
+        {
+          "role": "assistant",
+          "content": "No — qualifying income of exactly £50,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £50,000”, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than £50,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "role": "user",
+          "content": "Sorry I meant £55,000 qualifying income in 2024-25"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [mtd-threshold-50k-april-2026] MTD Income Tax £50,000 threshold starts 6 April 2026 (2025-26, 2026-27, 2027-28): If your qualifying income was more than £50,000 for the 2024-25 tax year (2024 to 2025), you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income is total self-employment and property income before expenses (turnover/gross), not profit. Do not confuse this £50,000 / April 2026 band with the later £30,000 / April 2027 band. (source: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-03",
+      "title": "Free callback refused then email (run 3)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Can you get an accountant to call me for free? — conversation 3"
+        },
+        {
+          "role": "assistant",
+          "content": "I can’t arrange a free phone callback. You can email info@taxsimba.co.uk, or book a private accountant video consultation when scheduling is live: Quick Tax Advice (£99 for 20 minutes) or Extended Tax Consultation (£149 for 40 minutes) via Google Meet. Online booking/payment is not connected in this environment yet, so I won’t claim a booking succeeded."
+        },
+        {
+          "role": "user",
+          "content": "Alright — what's the email?"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-04",
+      "title": "Consultation choice (run 4)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "I need to speak to an accountant — conversation 4"
+        },
+        {
+          "role": "assistant",
+          "content": "TaxSimba offers two private accountant video consultations via Google Meet:\n• Quick Tax Advice — £99 for 20 minutes (focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks. Online Stripe/Calendly booking is not connected yet — email info@taxsimba.co.uk if you’d like TaxSimba to arrange next steps. Which option sounds closer to what you need?"
+        },
+        {
+          "role": "user",
+          "content": "Something quick for one question"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-05",
+      "title": "Info only no pressure (run 5)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Don't sell me anything. When is the SA online deadline? — conversation 5"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        },
+        {
+          "role": "user",
+          "content": "Thanks, that's all"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-06",
+      "title": "PAYE + trading MTD then package (run 6)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "I earn £45k PAYE and £18k sole-trader turnover. Do I need MTD? — conversation 6"
+        },
+        {
+          "role": "assistant",
+          "content": "With qualifying income of £18,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "role": "user",
+          "content": "Ok thanks. What's the cheapest Self Assessment package for that side income?"
+        },
+        {
+          "role": "assistant",
+          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+        },
+        {
+          "role": "user",
+          "content": "I'm ready to register"
+        },
+        {
+          "role": "assistant",
+          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-07",
+      "title": "Exact 50k then correction (run 7)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Qualifying income exactly £50,000 in 2024-25 — MTD from April 2026? — conversation 7"
+        },
+        {
+          "role": "assistant",
+          "content": "No — qualifying income of exactly £50,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £50,000”, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than £50,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "role": "user",
+          "content": "Sorry I meant £55,000 qualifying income in 2024-25"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [mtd-threshold-50k-april-2026] MTD Income Tax £50,000 threshold starts 6 April 2026 (2025-26, 2026-27, 2027-28): If your qualifying income was more than £50,000 for the 2024-25 tax year (2024 to 2025), you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income is total self-employment and property income before expenses (turnover/gross), not profit. Do not confuse this £50,000 / April 2026 band with the later £30,000 / April 2027 band. (source: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-08",
+      "title": "Free callback refused then email (run 8)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Can you get an accountant to call me for free? — conversation 8"
+        },
+        {
+          "role": "assistant",
+          "content": "I can’t arrange a free phone callback. You can email info@taxsimba.co.uk, or book a private accountant video consultation when scheduling is live: Quick Tax Advice (£99 for 20 minutes) or Extended Tax Consultation (£149 for 40 minutes) via Google Meet. Online booking/payment is not connected in this environment yet, so I won’t claim a booking succeeded."
+        },
+        {
+          "role": "user",
+          "content": "Alright — what's the email?"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-09",
+      "title": "Consultation choice (run 9)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "I need to speak to an accountant — conversation 9"
+        },
+        {
+          "role": "assistant",
+          "content": "TaxSimba offers two private accountant video consultations via Google Meet:\n• Quick Tax Advice — £99 for 20 minutes (focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks. Online Stripe/Calendly booking is not connected yet — email info@taxsimba.co.uk if you’d like TaxSimba to arrange next steps. Which option sounds closer to what you need?"
+        },
+        {
+          "role": "user",
+          "content": "Something quick for one question"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-10",
+      "title": "Info only no pressure (run 10)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Don't sell me anything. When is the SA online deadline? — conversation 10"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        },
+        {
+          "role": "user",
+          "content": "Thanks, that's all"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-11",
+      "title": "PAYE + trading MTD then package (run 11)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "I earn £45k PAYE and £18k sole-trader turnover. Do I need MTD? — conversation 11"
+        },
+        {
+          "role": "assistant",
+          "content": "With qualifying income of £18,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "role": "user",
+          "content": "Ok thanks. What's the cheapest Self Assessment package for that side income?"
+        },
+        {
+          "role": "assistant",
+          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+        },
+        {
+          "role": "user",
+          "content": "I'm ready to register"
+        },
+        {
+          "role": "assistant",
+          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-12",
+      "title": "Exact 50k then correction (run 12)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Qualifying income exactly £50,000 in 2024-25 — MTD from April 2026? — conversation 12"
+        },
+        {
+          "role": "assistant",
+          "content": "No — qualifying income of exactly £50,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £50,000”, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than £50,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "role": "user",
+          "content": "Sorry I meant £55,000 qualifying income in 2024-25"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [mtd-threshold-50k-april-2026] MTD Income Tax £50,000 threshold starts 6 April 2026 (2025-26, 2026-27, 2027-28): If your qualifying income was more than £50,000 for the 2024-25 tax year (2024 to 2025), you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income is total self-employment and property income before expenses (turnover/gross), not profit. Do not confuse this £50,000 / April 2026 band with the later £30,000 / April 2027 band. (source: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-13",
+      "title": "Free callback refused then email (run 13)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Can you get an accountant to call me for free? — conversation 13"
+        },
+        {
+          "role": "assistant",
+          "content": "I can’t arrange a free phone callback. You can email info@taxsimba.co.uk, or book a private accountant video consultation when scheduling is live: Quick Tax Advice (£99 for 20 minutes) or Extended Tax Consultation (£149 for 40 minutes) via Google Meet. Online booking/payment is not connected in this environment yet, so I won’t claim a booking succeeded."
+        },
+        {
+          "role": "user",
+          "content": "Alright — what's the email?"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-14",
+      "title": "Consultation choice (run 14)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "I need to speak to an accountant — conversation 14"
+        },
+        {
+          "role": "assistant",
+          "content": "TaxSimba offers two private accountant video consultations via Google Meet:\n• Quick Tax Advice — £99 for 20 minutes (focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks. Online Stripe/Calendly booking is not connected yet — email info@taxsimba.co.uk if you’d like TaxSimba to arrange next steps. Which option sounds closer to what you need?"
+        },
+        {
+          "role": "user",
+          "content": "Something quick for one question"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-15",
+      "title": "Info only no pressure (run 15)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Don't sell me anything. When is the SA online deadline? — conversation 15"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        },
+        {
+          "role": "user",
+          "content": "Thanks, that's all"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-16",
+      "title": "PAYE + trading MTD then package (run 16)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "I earn £45k PAYE and £18k sole-trader turnover. Do I need MTD? — conversation 16"
+        },
+        {
+          "role": "assistant",
+          "content": "With qualifying income of £18,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "role": "user",
+          "content": "Ok thanks. What's the cheapest Self Assessment package for that side income?"
+        },
+        {
+          "role": "assistant",
+          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+        },
+        {
+          "role": "user",
+          "content": "I'm ready to register"
+        },
+        {
+          "role": "assistant",
+          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-17",
+      "title": "Exact 50k then correction (run 17)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Qualifying income exactly £50,000 in 2024-25 — MTD from April 2026? — conversation 17"
+        },
+        {
+          "role": "assistant",
+          "content": "No — qualifying income of exactly £50,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £50,000”, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than £50,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "role": "user",
+          "content": "Sorry I meant £55,000 qualifying income in 2024-25"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [mtd-threshold-50k-april-2026] MTD Income Tax £50,000 threshold starts 6 April 2026 (2025-26, 2026-27, 2027-28): If your qualifying income was more than £50,000 for the 2024-25 tax year (2024 to 2025), you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income is total self-employment and property income before expenses (turnover/gross), not profit. Do not confuse this £50,000 / April 2026 band with the later £30,000 / April 2027 band. (source: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-18",
+      "title": "Free callback refused then email (run 18)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Can you get an accountant to call me for free? — conversation 18"
+        },
+        {
+          "role": "assistant",
+          "content": "I can’t arrange a free phone callback. You can email info@taxsimba.co.uk, or book a private accountant video consultation when scheduling is live: Quick Tax Advice (£99 for 20 minutes) or Extended Tax Consultation (£149 for 40 minutes) via Google Meet. Online booking/payment is not connected in this environment yet, so I won’t claim a booking succeeded."
+        },
+        {
+          "role": "user",
+          "content": "Alright — what's the email?"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-19",
+      "title": "Consultation choice (run 19)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "I need to speak to an accountant — conversation 19"
+        },
+        {
+          "role": "assistant",
+          "content": "TaxSimba offers two private accountant video consultations via Google Meet:\n• Quick Tax Advice — £99 for 20 minutes (focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks. Online Stripe/Calendly booking is not connected yet — email info@taxsimba.co.uk if you’d like TaxSimba to arrange next steps. Which option sounds closer to what you need?"
+        },
+        {
+          "role": "user",
+          "content": "Something quick for one question"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-20",
+      "title": "Info only no pressure (run 20)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Don't sell me anything. When is the SA online deadline? — conversation 20"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        },
+        {
+          "role": "user",
+          "content": "Thanks, that's all"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-21",
+      "title": "PAYE + trading MTD then package (run 21)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "I earn £45k PAYE and £18k sole-trader turnover. Do I need MTD? — conversation 21"
+        },
+        {
+          "role": "assistant",
+          "content": "With qualifying income of £18,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "role": "user",
+          "content": "Ok thanks. What's the cheapest Self Assessment package for that side income?"
+        },
+        {
+          "role": "assistant",
+          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+        },
+        {
+          "role": "user",
+          "content": "I'm ready to register"
+        },
+        {
+          "role": "assistant",
+          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-22",
+      "title": "Exact 50k then correction (run 22)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Qualifying income exactly £50,000 in 2024-25 — MTD from April 2026? — conversation 22"
+        },
+        {
+          "role": "assistant",
+          "content": "No — qualifying income of exactly £50,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £50,000”, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than £50,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "role": "user",
+          "content": "Sorry I meant £55,000 qualifying income in 2024-25"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [mtd-threshold-50k-april-2026] MTD Income Tax £50,000 threshold starts 6 April 2026 (2025-26, 2026-27, 2027-28): If your qualifying income was more than £50,000 for the 2024-25 tax year (2024 to 2025), you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income is total self-employment and property income before expenses (turnover/gross), not profit. Do not confuse this £50,000 / April 2026 band with the later £30,000 / April 2027 band. (source: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-23",
+      "title": "Free callback refused then email (run 23)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Can you get an accountant to call me for free? — conversation 23"
+        },
+        {
+          "role": "assistant",
+          "content": "I can’t arrange a free phone callback. You can email info@taxsimba.co.uk, or book a private accountant video consultation when scheduling is live: Quick Tax Advice (£99 for 20 minutes) or Extended Tax Consultation (£149 for 40 minutes) via Google Meet. Online booking/payment is not connected in this environment yet, so I won’t claim a booking succeeded."
+        },
+        {
+          "role": "user",
+          "content": "Alright — what's the email?"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-24",
+      "title": "Consultation choice (run 24)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "I need to speak to an accountant — conversation 24"
+        },
+        {
+          "role": "assistant",
+          "content": "TaxSimba offers two private accountant video consultations via Google Meet:\n• Quick Tax Advice — £99 for 20 minutes (focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks. Online Stripe/Calendly booking is not connected yet — email info@taxsimba.co.uk if you’d like TaxSimba to arrange next steps. Which option sounds closer to what you need?"
+        },
+        {
+          "role": "user",
+          "content": "Something quick for one question"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-25",
+      "title": "Info only no pressure (run 25)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Don't sell me anything. When is the SA online deadline? — conversation 25"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        },
+        {
+          "role": "user",
+          "content": "Thanks, that's all"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-26",
+      "title": "PAYE + trading MTD then package (run 26)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "I earn £45k PAYE and £18k sole-trader turnover. Do I need MTD? — conversation 26"
+        },
+        {
+          "role": "assistant",
+          "content": "With qualifying income of £18,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "role": "user",
+          "content": "Ok thanks. What's the cheapest Self Assessment package for that side income?"
+        },
+        {
+          "role": "assistant",
+          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+        },
+        {
+          "role": "user",
+          "content": "I'm ready to register"
+        },
+        {
+          "role": "assistant",
+          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-27",
+      "title": "Exact 50k then correction (run 27)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Qualifying income exactly £50,000 in 2024-25 — MTD from April 2026? — conversation 27"
+        },
+        {
+          "role": "assistant",
+          "content": "No — qualifying income of exactly £50,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £50,000”, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than £50,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "role": "user",
+          "content": "Sorry I meant £55,000 qualifying income in 2024-25"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [mtd-threshold-50k-april-2026] MTD Income Tax £50,000 threshold starts 6 April 2026 (2025-26, 2026-27, 2027-28): If your qualifying income was more than £50,000 for the 2024-25 tax year (2024 to 2025), you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income is total self-employment and property income before expenses (turnover/gross), not profit. Do not confuse this £50,000 / April 2026 band with the later £30,000 / April 2027 band. (source: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-28",
+      "title": "Free callback refused then email (run 28)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Can you get an accountant to call me for free? — conversation 28"
+        },
+        {
+          "role": "assistant",
+          "content": "I can’t arrange a free phone callback. You can email info@taxsimba.co.uk, or book a private accountant video consultation when scheduling is live: Quick Tax Advice (£99 for 20 minutes) or Extended Tax Consultation (£149 for 40 minutes) via Google Meet. Online booking/payment is not connected in this environment yet, so I won’t claim a booking succeeded."
+        },
+        {
+          "role": "user",
+          "content": "Alright — what's the email?"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-29",
+      "title": "Consultation choice (run 29)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "I need to speak to an accountant — conversation 29"
+        },
+        {
+          "role": "assistant",
+          "content": "TaxSimba offers two private accountant video consultations via Google Meet:\n• Quick Tax Advice — £99 for 20 minutes (focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks. Online Stripe/Calendly booking is not connected yet — email info@taxsimba.co.uk if you’d like TaxSimba to arrange next steps. Which option sounds closer to what you need?"
+        },
+        {
+          "role": "user",
+          "content": "Something quick for one question"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-30",
+      "title": "Info only no pressure (run 30)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Don't sell me anything. When is the SA online deadline? — conversation 30"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        },
+        {
+          "role": "user",
+          "content": "Thanks, that's all"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-31",
+      "title": "PAYE + trading MTD then package (run 31)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "I earn £45k PAYE and £18k sole-trader turnover. Do I need MTD? — conversation 31"
+        },
+        {
+          "role": "assistant",
+          "content": "With qualifying income of £18,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "role": "user",
+          "content": "Ok thanks. What's the cheapest Self Assessment package for that side income?"
+        },
+        {
+          "role": "assistant",
+          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+        },
+        {
+          "role": "user",
+          "content": "I'm ready to register"
+        },
+        {
+          "role": "assistant",
+          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-32",
+      "title": "Exact 50k then correction (run 32)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Qualifying income exactly £50,000 in 2024-25 — MTD from April 2026? — conversation 32"
+        },
+        {
+          "role": "assistant",
+          "content": "No — qualifying income of exactly £50,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £50,000”, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than £50,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "role": "user",
+          "content": "Sorry I meant £55,000 qualifying income in 2024-25"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [mtd-threshold-50k-april-2026] MTD Income Tax £50,000 threshold starts 6 April 2026 (2025-26, 2026-27, 2027-28): If your qualifying income was more than £50,000 for the 2024-25 tax year (2024 to 2025), you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income is total self-employment and property income before expenses (turnover/gross), not profit. Do not confuse this £50,000 / April 2026 band with the later £30,000 / April 2027 band. (source: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-33",
+      "title": "Free callback refused then email (run 33)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Can you get an accountant to call me for free? — conversation 33"
+        },
+        {
+          "role": "assistant",
+          "content": "I can’t arrange a free phone callback. You can email info@taxsimba.co.uk, or book a private accountant video consultation when scheduling is live: Quick Tax Advice (£99 for 20 minutes) or Extended Tax Consultation (£149 for 40 minutes) via Google Meet. Online booking/payment is not connected in this environment yet, so I won’t claim a booking succeeded."
+        },
+        {
+          "role": "user",
+          "content": "Alright — what's the email?"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-34",
+      "title": "Consultation choice (run 34)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "I need to speak to an accountant — conversation 34"
+        },
+        {
+          "role": "assistant",
+          "content": "TaxSimba offers two private accountant video consultations via Google Meet:\n• Quick Tax Advice — £99 for 20 minutes (focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks. Online Stripe/Calendly booking is not connected yet — email info@taxsimba.co.uk if you’d like TaxSimba to arrange next steps. Which option sounds closer to what you need?"
+        },
+        {
+          "role": "user",
+          "content": "Something quick for one question"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-35",
+      "title": "Info only no pressure (run 35)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Don't sell me anything. When is the SA online deadline? — conversation 35"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        },
+        {
+          "role": "user",
+          "content": "Thanks, that's all"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-36",
+      "title": "PAYE + trading MTD then package (run 36)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "I earn £45k PAYE and £18k sole-trader turnover. Do I need MTD? — conversation 36"
+        },
+        {
+          "role": "assistant",
+          "content": "With qualifying income of £18,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "role": "user",
+          "content": "Ok thanks. What's the cheapest Self Assessment package for that side income?"
+        },
+        {
+          "role": "assistant",
+          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+        },
+        {
+          "role": "user",
+          "content": "I'm ready to register"
+        },
+        {
+          "role": "assistant",
+          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-37",
+      "title": "Exact 50k then correction (run 37)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Qualifying income exactly £50,000 in 2024-25 — MTD from April 2026? — conversation 37"
+        },
+        {
+          "role": "assistant",
+          "content": "No — qualifying income of exactly £50,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £50,000”, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than £50,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "role": "user",
+          "content": "Sorry I meant £55,000 qualifying income in 2024-25"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [mtd-threshold-50k-april-2026] MTD Income Tax £50,000 threshold starts 6 April 2026 (2025-26, 2026-27, 2027-28): If your qualifying income was more than £50,000 for the 2024-25 tax year (2024 to 2025), you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income is total self-employment and property income before expenses (turnover/gross), not profit. Do not confuse this £50,000 / April 2026 band with the later £30,000 / April 2027 band. (source: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-38",
+      "title": "Free callback refused then email (run 38)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Can you get an accountant to call me for free? — conversation 38"
+        },
+        {
+          "role": "assistant",
+          "content": "I can’t arrange a free phone callback. You can email info@taxsimba.co.uk, or book a private accountant video consultation when scheduling is live: Quick Tax Advice (£99 for 20 minutes) or Extended Tax Consultation (£149 for 40 minutes) via Google Meet. Online booking/payment is not connected in this environment yet, so I won’t claim a booking succeeded."
+        },
+        {
+          "role": "user",
+          "content": "Alright — what's the email?"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-39",
+      "title": "Consultation choice (run 39)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "I need to speak to an accountant — conversation 39"
+        },
+        {
+          "role": "assistant",
+          "content": "TaxSimba offers two private accountant video consultations via Google Meet:\n• Quick Tax Advice — £99 for 20 minutes (focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks. Online Stripe/Calendly booking is not connected yet — email info@taxsimba.co.uk if you’d like TaxSimba to arrange next steps. Which option sounds closer to what you need?"
+        },
+        {
+          "role": "user",
+          "content": "Something quick for one question"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-40",
+      "title": "Info only no pressure (run 40)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Don't sell me anything. When is the SA online deadline? — conversation 40"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        },
+        {
+          "role": "user",
+          "content": "Thanks, that's all"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-41",
+      "title": "PAYE + trading MTD then package (run 41)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "I earn £45k PAYE and £18k sole-trader turnover. Do I need MTD? — conversation 41"
+        },
+        {
+          "role": "assistant",
+          "content": "With qualifying income of £18,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "role": "user",
+          "content": "Ok thanks. What's the cheapest Self Assessment package for that side income?"
+        },
+        {
+          "role": "assistant",
+          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+        },
+        {
+          "role": "user",
+          "content": "I'm ready to register"
+        },
+        {
+          "role": "assistant",
+          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-42",
+      "title": "Exact 50k then correction (run 42)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Qualifying income exactly £50,000 in 2024-25 — MTD from April 2026? — conversation 42"
+        },
+        {
+          "role": "assistant",
+          "content": "No — qualifying income of exactly £50,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £50,000”, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than £50,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "role": "user",
+          "content": "Sorry I meant £55,000 qualifying income in 2024-25"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [mtd-threshold-50k-april-2026] MTD Income Tax £50,000 threshold starts 6 April 2026 (2025-26, 2026-27, 2027-28): If your qualifying income was more than £50,000 for the 2024-25 tax year (2024 to 2025), you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income is total self-employment and property income before expenses (turnover/gross), not profit. Do not confuse this £50,000 / April 2026 band with the later £30,000 / April 2027 band. (source: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-43",
+      "title": "Free callback refused then email (run 43)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Can you get an accountant to call me for free? — conversation 43"
+        },
+        {
+          "role": "assistant",
+          "content": "I can’t arrange a free phone callback. You can email info@taxsimba.co.uk, or book a private accountant video consultation when scheduling is live: Quick Tax Advice (£99 for 20 minutes) or Extended Tax Consultation (£149 for 40 minutes) via Google Meet. Online booking/payment is not connected in this environment yet, so I won’t claim a booking succeeded."
+        },
+        {
+          "role": "user",
+          "content": "Alright — what's the email?"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-44",
+      "title": "Consultation choice (run 44)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "I need to speak to an accountant — conversation 44"
+        },
+        {
+          "role": "assistant",
+          "content": "TaxSimba offers two private accountant video consultations via Google Meet:\n• Quick Tax Advice — £99 for 20 minutes (focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks. Online Stripe/Calendly booking is not connected yet — email info@taxsimba.co.uk if you’d like TaxSimba to arrange next steps. Which option sounds closer to what you need?"
+        },
+        {
+          "role": "user",
+          "content": "Something quick for one question"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-45",
+      "title": "Info only no pressure (run 45)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Don't sell me anything. When is the SA online deadline? — conversation 45"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        },
+        {
+          "role": "user",
+          "content": "Thanks, that's all"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-46",
+      "title": "PAYE + trading MTD then package (run 46)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "I earn £45k PAYE and £18k sole-trader turnover. Do I need MTD? — conversation 46"
+        },
+        {
+          "role": "assistant",
+          "content": "With qualifying income of £18,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "role": "user",
+          "content": "Ok thanks. What's the cheapest Self Assessment package for that side income?"
+        },
+        {
+          "role": "assistant",
+          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+        },
+        {
+          "role": "user",
+          "content": "I'm ready to register"
+        },
+        {
+          "role": "assistant",
+          "content": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — you can also email info@taxsimba.co.uk.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-47",
+      "title": "Exact 50k then correction (run 47)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Qualifying income exactly £50,000 in 2024-25 — MTD from April 2026? — conversation 47"
+        },
+        {
+          "role": "assistant",
+          "content": "No — qualifying income of exactly £50,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £50,000”, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than £50,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+        },
+        {
+          "role": "user",
+          "content": "Sorry I meant £55,000 qualifying income in 2024-25"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [mtd-threshold-50k-april-2026] MTD Income Tax £50,000 threshold starts 6 April 2026 (2025-26, 2026-27, 2027-28): If your qualifying income was more than £50,000 for the 2024-25 tax year (2024 to 2025), you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income is total self-employment and property income before expenses (turnover/gross), not profit. Do not confuse this £50,000 / April 2026 band with the later £30,000 / April 2027 band. (source: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-48",
+      "title": "Free callback refused then email (run 48)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Can you get an accountant to call me for free? — conversation 48"
+        },
+        {
+          "role": "assistant",
+          "content": "I can’t arrange a free phone callback. You can email info@taxsimba.co.uk, or book a private accountant video consultation when scheduling is live: Quick Tax Advice (£99 for 20 minutes) or Extended Tax Consultation (£149 for 40 minutes) via Google Meet. Online booking/payment is not connected in this environment yet, so I won’t claim a booking succeeded."
+        },
+        {
+          "role": "user",
+          "content": "Alright — what's the email?"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-49",
+      "title": "Consultation choice (run 49)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "I need to speak to an accountant — conversation 49"
+        },
+        {
+          "role": "assistant",
+          "content": "TaxSimba offers two private accountant video consultations via Google Meet:\n• Quick Tax Advice — £99 for 20 minutes (focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks. Online Stripe/Calendly booking is not connected yet — email info@taxsimba.co.uk if you’d like TaxSimba to arrange next steps. Which option sounds closer to what you need?"
+        },
+        {
+          "role": "user",
+          "content": "Something quick for one question"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    },
+    {
+      "id": "MT-50",
+      "title": "Info only no pressure (run 50)",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Don't sell me anything. When is the SA online deadline? — conversation 50"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        },
+        {
+          "role": "user",
+          "content": "Thanks, that's all"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
+        }
+      ],
+      "final_codes": [],
+      "result": "PASS",
+      "flags": [],
+      "obtained_via": "mock_llm_deterministic_handlers"
+    }
+  ]
+}

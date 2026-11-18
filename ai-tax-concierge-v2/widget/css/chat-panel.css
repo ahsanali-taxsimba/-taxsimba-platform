@@ -228,7 +228,33 @@ html, body {
 }
 .sp-foot a { color: var(--sp-primary); font-weight: 600; }
 
+.sp-body {
+  position: relative;
+  max-height: var(--simba-vvh, none);
+}
+.sp-jump-latest {
+  position: sticky;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  background: var(--sp-primary, #006b3c);
+  color: #fff;
+  font: 600 0.8rem/1 var(--sp-font-h, Manrope, sans-serif);
+  padding: 8px 14px;
+  box-shadow: 0 6px 16px rgba(0, 77, 44, 0.22);
+  cursor: pointer;
+}
+.sp-jump-latest[hidden] { display: none !important; }
+
 @media (max-width: 480px) {
   .sp-intro h1 { font-size: 1.05rem; }
   .sp-quick-btn { padding: 11px 12px; }
+  .sp-shell {
+    min-height: 100dvh;
+    height: var(--simba-vvh, 100dvh);
+  }
 }

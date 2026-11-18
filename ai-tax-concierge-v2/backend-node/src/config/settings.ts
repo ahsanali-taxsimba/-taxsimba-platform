@@ -118,8 +118,8 @@ export class Settings {
     return {
       env: this.conciergeEnv,
       phase: 3,
-      product: "SIMBA AI",
-      subtitle: "SIMBA AI Tax Assistant",
+      product: "SIMBA",
+      subtitle: "Your Digital Tax Assistant",
       llm_mode: this.useMockLlm ? "mock" : "openai",
       // Do not expose model id publicly in production-like envs.
       model: this.isProductionLike
@@ -128,13 +128,26 @@ export class Settings {
           ? "mock-simba-v1"
           : this.openaiModel,
       website_base_url: this.websiteBaseUrl,
-      consultation_price_gbp: 99,
-      consultation_duration_minutes: 30,
+      consultations: [
+        {
+          code: "ACCOUNTANT_CONSULT_99",
+          name: "Quick Tax Advice",
+          price_gbp: 99,
+          duration_minutes: 20,
+        },
+        {
+          code: "ACCOUNTANT_CONSULT_149",
+          name: "Extended Tax Consultation",
+          price_gbp: 149,
+          duration_minutes: 40,
+        },
+      ],
       consultation_meeting: "Google Meet",
       consultation_booking_available: this.consultationBookingLive,
       consultation_booking_status: this.consultationBookingLive
         ? "live"
         : "not_connected",
+      email_enquiry: "info@taxsimba.co.uk",
       payment_status: "unavailable",
       free_callback_available: false,
       mock_notice: this.useMockLlm ? "MOCK MODE — not live OpenAI." : null,

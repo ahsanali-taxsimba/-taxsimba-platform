@@ -150,6 +150,7 @@ html, body {
 .ts-header-btn[hidden] { display: none !important; }
 
 .ts-body {
+  position: relative;
   flex: 1;
   overflow: auto;
   padding: 14px;
@@ -157,6 +158,23 @@ html, body {
   background: var(--ts-bg-soft);
   overscroll-behavior: contain;
 }
+.ts-jump-latest {
+  position: sticky;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ts-primary);
+  color: #fff;
+  font: 600 0.8rem/1 var(--ts-font-heading);
+  padding: 8px 14px;
+  box-shadow: 0 6px 16px rgba(0, 77, 44, 0.22);
+  cursor: pointer;
+}
+.ts-jump-latest[hidden] { display: none !important; }
 
 /* —— Welcome —— */
 .ts-welcome {

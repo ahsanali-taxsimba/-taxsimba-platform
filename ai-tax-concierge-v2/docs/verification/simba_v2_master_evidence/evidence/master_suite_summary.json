@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-11-18T00:12:15.006Z",
+  "llm_mode": "mock",
+  "obtained_via": "mock_llm_deterministic_handlers",
+  "single_turn": {
+    "total": 537,
+    "passed": 504,
+    "failed": 33,
+    "critical_failed": 0
+  },
+  "multiturn": {
+    "total": 50,
+    "passed": 50,
+    "failed": 0
+  }
+}

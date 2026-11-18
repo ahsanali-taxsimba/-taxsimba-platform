@@ -17,13 +17,13 @@ export function refineJourneyPackages(
   }
 
   if (journeyId === "consultation" || (tagSet.has("consult") && journeyId === "consultation")) {
-    return ["ACCOUNTANT_CONSULT_99"];
+    return ["ACCOUNTANT_CONSULT_99", "ACCOUNTANT_CONSULT_149"];
   }
 
   if (journeyId === "unsure_service") {
     if (tagSet.has("existing_client") || ans.us_need === "existing") return [];
     if (ans.us_need === "talk_human" || tagSet.has("consult")) {
-      return ["ACCOUNTANT_CONSULT_99"];
+      return ["ACCOUNTANT_CONSULT_99", "ACCOUNTANT_CONSULT_149"];
     }
     if (ans.us_need === "mtd_help" || tagSet.has("mtd")) {
       return ["MTD_STARTER", "MTD_GROWTH"];
@@ -89,10 +89,15 @@ export function refineJourneyPackages(
   }
 
   if (journeyId === "missed_deadline") {
-    codes = ["SA_SMART", "ACCOUNTANT_CONSULT_99"];
+    codes = ["SA_SMART", "ACCOUNTANT_CONSULT_99", "ACCOUNTANT_CONSULT_149"];
     if (ans.md_status === "hmrc_contact") {
       // Keep a mid-tier option so we never push only the most expensive SA package.
-      codes = ["SA_SMART", "SA_ELITE", "ACCOUNTANT_CONSULT_99"];
+      codes = [
+        "SA_SMART",
+        "SA_ELITE",
+        "ACCOUNTANT_CONSULT_99",
+        "ACCOUNTANT_CONSULT_149",
+      ];
     }
   }
 
@@ -111,7 +116,12 @@ export function refineJourneyPackages(
 
   // Missed-deadline + HMRC contact stays complex even if other simple tags appear.
   if (journeyId === "missed_deadline" && ans.md_status === "hmrc_contact") {
-    codes = ["SA_SMART", "SA_ELITE", "ACCOUNTANT_CONSULT_99"];
+    codes = [
+      "SA_SMART",
+      "SA_ELITE",
+      "ACCOUNTANT_CONSULT_99",
+      "ACCOUNTANT_CONSULT_149",
+    ];
   }
 
   return [...new Set(codes)];
@@ -138,7 +148,7 @@ export function selectPackagesForMessage(message: string): string[] {
   }
 
   const wantsConsult =
-    /\bconsult|accountant consultation|speak to (an )?accountant|talk to (an )?accountant|book a call|£99|99 consultation\b/.test(
+    /\bconsult|accountant consultation|speak to (an )?accountant|talk to (an )?accountant|book a call|£99|£149|99 consultation|149 consultation|quick tax advice|extended tax consultation|20 minute|40 minute|callback|phone call\b/.test(
       lower,
     );
   const wantsMtd =
@@ -164,7 +174,13 @@ export function selectPackagesForMessage(message: string): string[] {
     );
 
   if (wantsConsult && !wantsSa && !wantsMtd) {
-    return ["ACCOUNTANT_CONSULT_99"];
+    if (/\b£?149\b|40\s*min|extended/.test(lower)) {
+      return ["ACCOUNTANT_CONSULT_149", "ACCOUNTANT_CONSULT_99"];
+    }
+    if (/\b£?99\b|20\s*min|quick tax/.test(lower)) {
+      return ["ACCOUNTANT_CONSULT_99", "ACCOUNTANT_CONSULT_149"];
+    }
+    return ["ACCOUNTANT_CONSULT_99", "ACCOUNTANT_CONSULT_149"];
   }
 
   if (namedSimbianComply) return ["MTD_STARTER", "MTD_GROWTH"];

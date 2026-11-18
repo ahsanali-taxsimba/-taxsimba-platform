@@ -46,6 +46,8 @@ export type MtdEligibilityInput = {
   incomeIsProfitNotGross?: boolean;
   basisTaxYear?: string | null;
   payeOnly?: boolean;
+  /** True when employment salary is also present but trading/property income exists. */
+  payeAlsoPresent?: boolean;
   limitedCompany?: boolean;
   hasSelfEmploymentOrProperty?: boolean | null;
 };
@@ -107,51 +109,104 @@ function detectBasisYear(text: string): string | null {
 export function isMtdEligibilityQuestion(message: string): boolean {
   const lower = (message || "").toLowerCase();
   if (!/(mtd|making tax digital)/i.test(lower)) return false;
-  return /(need|eligib|when|start|from|apply|threshold|qualifying|do i|am i|required|have to)/i.test(
+  return /(need|eligib|when|start|from|apply|threshold|qualifying|do i|am i|required|have to|should i|subscription|plan|buy)/i.test(
     lower,
   );
+}
+
+function parseTaggedAmount(message: string, tagRe: RegExp): number | null {
+  const m = message.toLowerCase().match(tagRe);
+  if (!m) return null;
+  let n = Number(String(m[1]).replace(/,/g, ""));
+  if (m[0].includes("k") && n < 1000) n *= 1000;
+  // Reject tax-year fragments mistaken for money (e.g. 2025 from 2025-26).
+  if (n >= 1900 && n <= 2100) return null;
+  if (Number.isFinite(n) && n >= 1000 && n <= 10_000_000) return n;
+  return null;
 }
 
 export function extractMtdEligibilityInput(
   message: string,
 ): MtdEligibilityInput {
   const lower = (message || "").toLowerCase();
+  const hasTradingOrProperty =
+    /(self-?employ|sole[- ]?trader|landlord|property income|freelance|rental income|\brental\b|trading income|side hustle|side income)/i.test(
+      lower,
+    ) && !/(limited company|ltd company|company turnover|corporation tax)/i.test(lower);
+  const hasPaye = /\bpaye\b|\bsalary\b|\bemploy(ed|ment)\b/.test(lower);
   const payeOnly =
-    /\bpaye\b/.test(lower) &&
+    hasPaye &&
     /\bonly\b/.test(lower) &&
-    !/(self-?employ|sole trader|landlord|property income|freelance)/i.test(
-      lower,
-    );
+    !hasTradingOrProperty;
   const limitedCompany =
-    /\b(limited company|ltd company|my company|we're a company|we are a company|limited co\b)/i.test(
+    /(limited company|ltd company|\bltd\b|my company|we're a company|we are a company|limited co\b|company turnover|company director|\bdirector\b)/i.test(
       lower,
-    ) && !/(sole trader|self-?employ)/i.test(lower);
+    ) && !hasTradingOrProperty;
 
   const incomeIsProfitNotGross =
     /\bprofit\b/.test(lower) &&
     !/\b(turnover|gross|qualifying income|before expenses)\b/.test(lower);
 
-  const amount = parseAmount(message);
+  // Prefer trading/property amounts when PAYE salary is also mentioned —
+  // PAYE must not count toward MTD qualifying income.
+  // Prefer amount-before-label (avoids capturing tax-year digits after the label).
+  const tradingAmt =
+    parseTaggedAmount(
+      message,
+      /£\s*([\d,]+(?:\.\d+)?)\s*k?(?=\s*(?:sole[- ]?trader|self-?employ|trading|turnover|freelance|property|rental|qualifying|landlord))/i,
+    ) ||
+    parseTaggedAmount(
+      message,
+      /(?:sole[- ]?trader|self-?employ(?:ed|ment)?|trading|turnover|freelance|side (?:hustle|income)|property|rental|landlord)[^£\d]{0,24}£\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
+    );
+
+  const payeAmt =
+    parseTaggedAmount(
+      message,
+      /(?:paye|salary|employment)[^£\d]{0,48}£?\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
+    ) ||
+    parseTaggedAmount(
+      message,
+      /£?\s*([\d,]+(?:\.\d+)?)\s*k?(?=\s*(?:paye|salary|employment))/i,
+    );
+
+  let amount = tradingAmt;
+  if (amount == null && !(hasPaye && hasTradingOrProperty)) {
+    amount = parseAmount(message);
+  }
+  // If both PAYE and trading present but only one amount parsed as generic, avoid
+  // treating a lone PAYE figure as qualifying income.
+  if (
+    amount == null &&
+    hasPaye &&
+    hasTradingOrProperty &&
+    payeAmt != null &&
+    tradingAmt == null
+  ) {
+    amount = null;
+  }
+
   const basisTaxYear = detectBasisYear(message);
 
   let hasSelfEmploymentOrProperty: boolean | null = null;
   if (payeOnly) hasSelfEmploymentOrProperty = false;
-  else if (
-    /(self-?employ|sole trader|landlord|property income|freelance|rental)/i.test(
-      lower,
-    )
-  ) {
-    hasSelfEmploymentOrProperty = true;
-  }
+  else if (hasTradingOrProperty) hasSelfEmploymentOrProperty = true;
 
   return {
     qualifyingIncomeGbp: amount,
     incomeIsProfitNotGross,
     basisTaxYear,
     payeOnly,
+    payeAlsoPresent: hasPaye && hasTradingOrProperty,
     limitedCompany,
     hasSelfEmploymentOrProperty,
   };
+}
+
+function payeExclusionNote(input: MtdEligibilityInput): string {
+  return input.payeAlsoPresent
+    ? " Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax."
+    : "";
 }
 
 function bandForYear(basisTaxYear: string): MtdBand | null {
@@ -236,10 +291,13 @@ export function evaluateMtdEligibility(
       clarifying_question:
         "What was your qualifying income (self-employment and property turnover before expenses) and for which tax year?",
       confidence: "medium",
-      customer_reply:
-        "I can work out your Making Tax Digital start date once I know your qualifying income. " +
-        "That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.\n\n" +
-        "What was that amount, and which tax year was it for (for example 2024-25)?",
+      customer_reply: input.payeAlsoPresent
+        ? "For Making Tax Digital for Income Tax, PAYE/employment salary does not count. " +
+          "I need your self-employment and/or property income before expenses (turnover/gross) for a specific tax year.\n\n" +
+          "What was that trading/property turnover, and which tax year was it for?"
+        : "I can work out your Making Tax Digital start date once I know your qualifying income. " +
+          "That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.\n\n" +
+          "What was that amount, and which tax year was it for (for example 2024-25)?",
     };
   }
 
@@ -261,7 +319,8 @@ export function evaluateMtdEligibility(
       customer_reply:
         `No — qualifying income of exactly £${amount.toLocaleString("en-GB")} for ${exactHit.basis_tax_year} does not bring you into Making Tax Digital under that band. ` +
         `HMRC’s wording is “more than £${exactHit.threshold_gbp.toLocaleString("en-GB")}”, so the threshold is exclusive of the exact amount. ` +
-        `The ${exactHit.commencement} start date applies only if qualifying income was more than £${exactHit.threshold_gbp.toLocaleString("en-GB")} for ${exactHit.basis_tax_year}.\n\n` +
+        `The ${exactHit.commencement} start date applies only if qualifying income was more than £${exactHit.threshold_gbp.toLocaleString("en-GB")} for ${exactHit.basis_tax_year}.` +
+        `${payeExclusionNote(input)}\n\n` +
         `Official guidance: ${MTD_SOURCE_URL}`,
     };
   }
@@ -296,7 +355,8 @@ export function evaluateMtdEligibility(
         customer_reply:
           `Yes — if your qualifying income was more than £${band.threshold_gbp.toLocaleString("en-GB")} for ${band.basis_tax_year}, ` +
           `you need to use Making Tax Digital for Income Tax from ${band.commencement}. ` +
-          `Qualifying income means self-employment and property income before expenses (turnover/gross), not profit.\n\n` +
+          `Qualifying income means self-employment and property income before expenses (turnover/gross), not profit.` +
+          `${payeExclusionNote(input)}\n\n` +
           `Official guidance: ${MTD_SOURCE_URL}`,
       };
     }
@@ -314,7 +374,8 @@ export function evaluateMtdEligibility(
         `Based on qualifying income of £${amount.toLocaleString("en-GB")} for ${band.basis_tax_year}, ` +
         `you are not brought into Making Tax Digital by the £${band.threshold_gbp.toLocaleString("en-GB")} / ${band.commencement} band, ` +
         `because that band needs income of more than £${band.threshold_gbp.toLocaleString("en-GB")}. ` +
-        `Later bands use different tax years and thresholds (£30,000 → ${MTD_BANDS[1]!.commencement}; £20,000 → ${MTD_BANDS[2]!.commencement}).\n\n` +
+        `Later bands use different tax years and thresholds (£30,000 → ${MTD_BANDS[1]!.commencement}; £20,000 → ${MTD_BANDS[2]!.commencement}).` +
+        `${payeExclusionNote(input)}\n\n` +
         `Official guidance: ${MTD_SOURCE_URL}`,
     };
   }
@@ -332,7 +393,8 @@ export function evaluateMtdEligibility(
       confidence: "high",
       customer_reply:
         `With qualifying income of £${amount.toLocaleString("en-GB")}, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. ` +
-        `Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses.\n\n` +
+        `Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses.` +
+        `${payeExclusionNote(input)}\n\n` +
         `Official guidance: ${MTD_SOURCE_URL}`,
     };
   }

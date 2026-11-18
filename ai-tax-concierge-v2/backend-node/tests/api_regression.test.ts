@@ -20,8 +20,8 @@ describe("API regression — bootstrap, health, widget, sessions", () => {
     const res = await api(app).get("/api/v1/bootstrap");
     expect(res.status).toBe(200);
     const body = res.body;
-    expect(body.product).toBe("SIMBA AI");
-    expect(body.assistant_name).toBe("SIMBA AI");
+    expect(body.product).toBe("SIMBA");
+    expect(body.assistant_name).toBe("SIMBA");
     expect(body.phase).toBe(3);
     expect(String(body.brand.primary).toUpperCase()).toBe("#006B3C");
     expect(String(body.brand.primary_action).toUpperCase()).toBe("#078A4B");
@@ -47,7 +47,7 @@ describe("API regression — bootstrap, health, widget, sessions", () => {
     const res = await api(app).get("/api/v1/health");
     const body = res.body;
     expect(body.phase).toBe(3);
-    expect(body.product).toBe("SIMBA AI");
+    expect(body.product).toBe("SIMBA");
     expect(body.llm_mode).toBe("mock");
     expect(body.mock_notice).toBeTruthy();
     expect(body).toHaveProperty("current_tax_year");

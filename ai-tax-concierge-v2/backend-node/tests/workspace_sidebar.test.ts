@@ -64,8 +64,10 @@ describe("workspace sidebar + VAT rolling-period knowledge", () => {
         (p.vat_note || "").includes("VAT included"),
       ),
     ).toBe(true);
-    expect(cat.consultation.price_gbp).toBe(99);
-    expect(cat.consultation.duration_minutes).toBe(30);
+    expect(cat.consultation[0].price_gbp).toBe(99);
+    expect(cat.consultation[0].duration_minutes).toBe(20);
+    expect(cat.consultation[1].price_gbp).toBe(149);
+    expect(cat.consultation[1].duration_minutes).toBe(40);
   });
 
   it("vat_corpus_includes_rolling_and_forward_look", () => {

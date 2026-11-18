@@ -55,7 +55,8 @@ describe("recommendations catalog", () => {
     const card = toPackageCards(["ACCOUNTANT_CONSULT_99"])[0];
     expect(card.price_gbp).toBe(99);
     const cat = packagesCatalog();
-    expect(cat.consultation.booking_status).toBe("stub");
+    expect(cat.consultation[0].booking_status).toBe("stub");
+    expect(cat.consultation[1].price_gbp).toBe(149);
   });
 
   it("mtd_customer_facing_simbian_names_verified", () => {

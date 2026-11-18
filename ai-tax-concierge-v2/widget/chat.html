@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Ask SIMBA — AI Tax Assistant</title>
+  <title>Ask SIMBA — Your Digital Tax Assistant</title>
   <link rel="stylesheet" href="/widget/css/chat-panel.css" />
 </head>
 <body>
-  <div class="sp-shell" role="dialog" aria-label="Ask SIMBA AI Tax Assistant">
+  <div class="sp-shell" role="dialog" aria-label="Ask SIMBA — Your Digital Tax Assistant">
     <header class="sp-header">
       <div class="sp-brand">
         <div class="sp-logo-chip">
@@ -15,7 +15,7 @@
         </div>
         <div class="sp-titles">
           <strong>SIMBA</strong>
-          <span>AI Tax Assistant</span>
+          <span>Your Digital Tax Assistant</span>
         </div>
       </div>
       <div class="sp-actions">
@@ -38,11 +38,12 @@
           <button type="button" class="sp-quick-btn" data-action="sa" role="listitem">Self Assessment</button>
           <button type="button" class="sp-quick-btn" data-action="mtd" role="listitem">Making Tax Digital</button>
           <button type="button" class="sp-quick-btn" data-action="package" role="listitem">Choose the right package</button>
-          <button type="button" class="sp-quick-btn" data-action="consult" role="listitem">Book a £99 accountant consultation</button>
+          <button type="button" class="sp-quick-btn" data-action="consult" role="listitem">Accountant consultations</button>
           <button type="button" class="sp-quick-btn" data-action="ask" role="listitem">Ask a tax question</button>
         </div>
       </section>
       <div id="sp-messages" class="sp-messages" aria-label="Conversation"></div>
+      <button type="button" id="sp-jump-latest" class="sp-jump-latest" hidden>Jump to latest</button>
     </main>
 
     <form id="sp-form" class="sp-composer" autocomplete="off">
@@ -51,7 +52,7 @@
       <button type="submit" id="sp-send" class="sp-send">Send</button>
     </form>
     <p class="sp-foot">
-      SIMBA AI Tax Assistant — general information only.
+      SIMBA is AI-powered — general UK tax information only.
       <a id="sp-workspace" href="#">Open full workspace</a>
     </p>
   </div>

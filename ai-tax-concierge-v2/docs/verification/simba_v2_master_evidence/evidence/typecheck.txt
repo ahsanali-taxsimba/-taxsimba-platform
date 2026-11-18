@@ -1,0 +1,2 @@
+typecheck_ok
+PASS

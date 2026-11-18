@@ -75,15 +75,15 @@ export class MockLLMAdapter implements LLMAdapter {
       return (
         `Based on verified HMRC / GOV.UK guidance: ${best}\n\n` +
         "This is general information, not personal tax advice. " +
-        "If your situation is complex, TaxSimba can arrange a £99 " +
-        "accountant consultation."
+        "If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) " +
+        "or an Extended Tax Consultation (£149 for 40 minutes), or email info@taxsimba.co.uk."
       );
     }
 
     return (
       "I could not find a verified HMRC source in my knowledge base for " +
-      "that specific question. I recommend checking GOV.UK or booking a " +
-      "£99 TaxSimba accountant consultation for tailored guidance."
+      "that specific question. I recommend checking GOV.UK, emailing info@taxsimba.co.uk, " +
+      "or a TaxSimba video consultation (Quick Tax Advice £99 / 20 minutes or Extended £149 / 40 minutes) when booking is live."
     );
   }
 }

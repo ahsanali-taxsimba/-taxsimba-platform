@@ -1,0 +1,14 @@
+
+> @taxsimba/ai-tax-concierge-v2-backend-node@0.1.0 live:mtd-remediation
+> tsx scripts/liveMtdEligibilityRemediation.ts
+
+PASS exact_50k_2024_25_not_in_scope
+PASS over_50k_april_2026
+PASS exact_30k_2025_26
+PASS over_30k_april_2027
+PASS exact_20k_2026_27
+PASS paye_only
+PASS limited_company
+PASS profit_not_gross
+Wrote /agent/repos/-taxsimba-platform/ai-tax-concierge-v2/docs/verification/simba_v2_final_corrected/evidence/live_mtd_eligibility_2026-11-18T00-12-15-386Z.json
+Summary: 8/8 passed

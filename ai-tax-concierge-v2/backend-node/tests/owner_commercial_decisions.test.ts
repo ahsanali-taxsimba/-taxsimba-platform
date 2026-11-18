@@ -31,8 +31,10 @@ describe("owner commercial decisions — controlled approval", () => {
       ["MTD_GROWTH", "Simbian Growth", 59.99],
       ["MTD_COMPLETE", "Simbian Elite", 89.99],
     ]);
-    expect(cat.consultation.price_gbp).toBe(99);
-    expect(cat.consultation.duration_minutes).toBe(30);
+    expect(cat.consultation[0].price_gbp).toBe(99);
+    expect(cat.consultation[1].price_gbp).toBe(149);
+    expect(cat.consultation[0].duration_minutes).toBe(20);
+    expect(cat.consultation[1].duration_minutes).toBe(40);
   });
 
   it("records_five_owner_decisions_and_removed_claims", () => {
@@ -61,19 +63,23 @@ describe("owner commercial decisions — controlled approval", () => {
   });
 
   it("consultation_boundaries_approved", () => {
-    const c = packagesCatalog().consultation;
-    expect(c.inclusions_status).toBe("approved");
-    expect(c.exclusions_status).toBe("approved");
-    expect(c.inclusions).toEqual([
-      "One 30-minute accountant-led Google Meet advice session",
+    const list = packagesCatalog().consultation as any[];
+    expect(list).toHaveLength(2);
+    expect(list[0].inclusions_status).toBe("approved");
+    expect(list[0].exclusions_status).toBe("approved");
+    expect(list[0].inclusions).toEqual([
+      "One 20-minute accountant-led Google Meet advice session",
     ]);
-    expect(c.exclusions).toEqual([
+    expect(list[0].exclusions).toEqual([
       "Tax return filing",
       "Bookkeeping",
       "Written report",
+      "Free phone callback",
     ]);
+    expect(list[1].price_gbp).toBe(149);
+    expect(list[1].duration_minutes).toBe(40);
     const cards = toPackageCards(["ACCOUNTANT_CONSULT_99"]);
-    expect(cards[0].inclusions).toEqual(c.inclusions);
+    expect(cards[0].inclusions).toEqual(list[0].inclusions);
   });
 
   it("inclusions_answer_states_xero_without_invented_licence", () => {

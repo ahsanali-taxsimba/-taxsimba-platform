@@ -44,7 +44,52 @@
     busy: false,
     view: "welcome",
     panel: "chat",
+    stickToBottom: true,
   };
+
+  function nearBottom(el, threshold = 80) {
+    if (!el) return true;
+    return el.scrollHeight - el.scrollTop - el.clientHeight < threshold;
+  }
+
+  function ensureJumpControl() {
+    let btn = document.getElementById("ts-jump-latest");
+    if (!btn && els.body) {
+      btn = document.createElement("button");
+      btn.type = "button";
+      btn.id = "ts-jump-latest";
+      btn.className = "ts-jump-latest";
+      btn.hidden = true;
+      btn.textContent = "Jump to latest";
+      btn.addEventListener("click", () => {
+        state.stickToBottom = true;
+        scrollChatToBottom(true);
+      });
+      els.body.appendChild(btn);
+    }
+    return btn;
+  }
+
+  function updateJumpControl() {
+    const btn = ensureJumpControl();
+    if (!btn || !els.body) return;
+    btn.hidden = state.stickToBottom || nearBottom(els.body, 100);
+  }
+
+  function scrollChatToBottom(force = false) {
+    if (!els.body) return;
+    if (!force && !state.stickToBottom) {
+      updateJumpControl();
+      return;
+    }
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        els.body.scrollTop = els.body.scrollHeight;
+        state.stickToBottom = true;
+        updateJumpControl();
+      });
+    });
+  }
 
   const els = {
     shell: document.querySelector(".ts-shell"),
@@ -238,24 +283,39 @@
     }
 
     if (panelId === "consultation") {
-      const c = packages.consultation || {};
+      const list = Array.isArray(packages.consultations)
+        ? packages.consultations
+        : packages.consultation
+          ? [packages.consultation]
+          : [];
+      const cards = (list.length
+        ? list
+        : [
+            { name: "Quick Tax Advice", price_gbp: 99, duration_minutes: 20, billing: "one-off", meeting: "Google Meet", booking_status: "stub" },
+            { name: "Extended Tax Consultation", price_gbp: 149, duration_minutes: 40, billing: "one-off", meeting: "Google Meet", booking_status: "stub" },
+          ]
+      )
+        .map(
+          (c) => `<div class="ts-list-card">
+            <strong>${escapeHtml(c.name || "Consultation")}</strong>
+            <div class="ts-price-row">£${Number(c.price_gbp || 0)} · ${escapeHtml(c.billing || "one-off")}</div>
+            <div class="ts-note">${escapeHtml(String(c.duration_minutes || ""))} minutes · ${escapeHtml(c.meeting || "Google Meet")}</div>
+            <span class="ts-status-pill">Booking status: ${escapeHtml(c.booking_status || "stub")} — Calendly/Stripe not confirmed live</span>
+          </div>`
+        )
+        .join("");
       document.getElementById("ts-panel-consultation").innerHTML = `
         <div class="ts-panel-scroll">
-          <h2>Book a Consultation</h2>
-          <p class="ts-lead">Private accountant consultation — not automatic booking inside this chat.</p>
+          <h2>Accountant consultations</h2>
+          <p class="ts-lead">Private Google Meet sessions with a TaxSimba accountant. No free phone callbacks. Email enquiries: info@taxsimba.co.uk.</p>
+          ${cards}
           <div class="ts-list-card">
-            <strong>${escapeHtml(c.name || "Private accountant consultation")}</strong>
-            <div class="ts-price-row">£${Number(c.price_gbp || 99)} · ${escapeHtml(c.billing || "one-off")}</div>
-            <div class="ts-note">${escapeHtml(String(c.duration_minutes || 30))} minutes · ${escapeHtml(c.meeting || "Google Meet")}</div>
-            <span class="ts-status-pill">Booking status: ${escapeHtml(c.booking_status || "stub")} — Calendly/Stripe not confirmed live</span>
+            <strong>Booking honesty</strong>
+            <div class="ts-note">SIMBA will never claim a consultation is booked or paid until Stripe and Calendly confirm it.</div>
+            <button type="button" class="ts-follow" data-consult="1" style="margin-top:8px">Ask SIMBA about consultations</button>
           </div>
-          <div class="ts-list-card">
-            <strong>Accountant-led care</strong>
-            <div class="ts-note">A TaxSimba accountant leads the session. SIMBA will never claim a consultation is booked or paid until TaxSimba systems confirm it.</div>
-            <button type="button" class="ts-follow" data-consult="1" style="margin-top:8px">Ask SIMBA about booking</button>
-          </div>
-          <div class="ts-list-card"><a href="${websiteUrl("/book-consultation")}" target="_blank" rel="noopener noreferrer">Open consultation page</a>
-            <div class="ts-note">Destination is soft/generic until Toxel confirms the live booking flow.</div></div>
+          <div class="ts-list-card"><a href="mailto:info@taxsimba.co.uk">Email info@taxsimba.co.uk</a>
+            <div class="ts-note">Use email while online booking/payment is not connected.</div></div>
         </div>`;
       return;
     }
@@ -298,7 +358,8 @@
     row.className = "ts-msg user";
     row.innerHTML = `<div class="ts-bubble">${escapeHtml(text)}</div>`;
     els.body.appendChild(row);
-    els.body.scrollTop = els.body.scrollHeight;
+    state.stickToBottom = true;
+    scrollChatToBottom(true);
   }
 
   function typing() {
@@ -312,7 +373,7 @@
       `<span class="ts-typing-dot" aria-hidden="true"></span>` +
       `<span>Preparing a reply…</span></div>`;
     els.body.appendChild(row);
-    els.body.scrollTop = els.body.scrollHeight;
+    scrollChatToBottom(true);
   }
 
   function clearTyping() {
@@ -397,12 +458,12 @@
 
     if (payload.consultation_hint) {
       html += `<div class="ts-hint">${escapeHtml(payload.consultation_hint)}
-        <div style="margin-top:6px"><button type="button" class="ts-follow" data-consult="1">Ask about £99 consultation</button></div></div>`;
+        <div style="margin-top:6px"><button type="button" class="ts-follow" data-consult="1">Ask about consultations</button></div></div>`;
     }
 
     wrap.innerHTML = html;
     els.body.appendChild(wrap);
-    els.body.scrollTop = els.body.scrollHeight;
+    scrollChatToBottom(false);
     announce("New SIMBA reply");
   }
 
@@ -415,7 +476,7 @@
     err.setAttribute("role", "alert");
     err.innerHTML = `${escapeHtml(message)} <button type="button" class="ts-follow" data-retry="1">Retry</button>`;
     els.body.appendChild(err);
-    els.body.scrollTop = els.body.scrollHeight;
+    scrollChatToBottom(true);
   }
 
   async function sendChat(message, extra = {}) {
@@ -520,11 +581,21 @@
     els.body.innerHTML = `
       ${mock}
       <div class="ts-welcome">
-        <h1>Hello — I’m SIMBA, your UK tax assistant</h1>
-        <p>Tell me what you need help with. I’ll explain the rules in plain English, then point you to the right TaxSimba tools or services if useful.</p>
+        <h1>${escapeHtml(
+          (boot.welcome_message || "").split("\n")[0] ||
+            "Hi! I’m SIMBA, your Digital Tax Assistant at TaxSimba."
+        )}</h1>
+        <p>${escapeHtml(
+          (boot.welcome_message || "")
+            .split("\n")
+            .slice(1)
+            .join(" ")
+            .trim() ||
+            "I can help with UK tax questions, Self Assessment, Making Tax Digital and finding the right service for you."
+        )}</p>
         <div class="ts-disclosure">${escapeHtml(
           boot.ai_disclosure ||
-            "SIMBA is an AI assistant from TaxSimba — not a qualified human accountant, not HMRC, and not government-approved AI."
+            "SIMBA is AI-powered — a Digital Tax Assistant from TaxSimba, not a qualified human accountant or HMRC representative."
         )}</div>
       </div>
       <div class="ts-section-label">How can I help?</div>
@@ -627,6 +698,28 @@
   });
 
   async function init() {
+    if (els.body) {
+      els.body.addEventListener(
+        "scroll",
+        () => {
+          state.stickToBottom = nearBottom(els.body, 80);
+          updateJumpControl();
+        },
+        { passive: true }
+      );
+    }
+    if (window.visualViewport) {
+      const onViewport = () => {
+        const vv = window.visualViewport;
+        document.documentElement.style.setProperty(
+          "--simba-vvh",
+          `${Math.round(vv.height)}px`
+        );
+        if (state.stickToBottom) scrollChatToBottom(true);
+      };
+      window.visualViewport.addEventListener("resize", onViewport);
+      window.visualViewport.addEventListener("scroll", onViewport);
+    }
     try {
       const boot = await api("/api/v1/bootstrap");
       state.bootstrap = boot;

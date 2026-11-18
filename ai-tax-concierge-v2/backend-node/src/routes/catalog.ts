@@ -45,15 +45,20 @@ export function catalogRouter(): Router {
     const llmMode = settings.useMockLlm ? "mock" : "openai";
     const packages = catalog.packages as Record<string, any>;
     const bookingLive = settings.consultationBookingLive;
+    const consultList = Array.isArray(packages.consultations)
+      ? packages.consultations
+      : packages.consultation
+        ? [packages.consultation]
+        : [];
     res.json({
-      product: "SIMBA AI",
-      subtitle: "SIMBA AI Tax Assistant",
+      product: "SIMBA",
+      subtitle: "Your Digital Tax Assistant",
       phase: 3,
-      assistant_name: "SIMBA AI",
+      assistant_name: "SIMBA",
       welcome_message: WELCOME_MESSAGE,
       ai_disclosure:
-        "SIMBA is an AI assistant from TaxSimba — not a qualified human accountant, " +
-        "not an HMRC representative, and not government-approved AI.",
+        "SIMBA is AI-powered — a Digital Tax Assistant from TaxSimba, not a qualified human accountant " +
+        "or HMRC representative.",
       llm_mode: llmMode,
       mock_notice: llmMode === "mock" ? "MOCK MODE — not live OpenAI." : null,
       current_tax_year: taxYearLabel(),
@@ -68,26 +73,39 @@ export function catalogRouter(): Router {
       packages,
       calculators: catalog.calculators,
       routes: publicRoutes(settings.websiteBaseUrl),
-      consultation: {
-        code: packages.consultation?.code || "ACCOUNTANT_CONSULT_99",
-        name: packages.consultation?.name,
-        price_gbp: packages.consultation?.price_gbp ?? 99,
-        billing: packages.consultation?.billing || "one-off",
-        vat_note: packages.consultation?.vat_note || "",
-        duration_minutes: packages.consultation?.duration_minutes ?? 30,
-        meeting: packages.consultation?.meeting ?? "Google Meet",
+      email_enquiry: "info@taxsimba.co.uk",
+      free_callback_available: false,
+      consultations: consultList.map((c: Record<string, any>) => ({
+        code: c.code,
+        name: c.name,
+        price_gbp: c.price_gbp,
+        billing: c.billing || "one-off",
+        vat_note: c.vat_note || "",
+        duration_minutes: c.duration_minutes,
+        meeting: c.meeting || "Google Meet",
         booking_available: bookingLive,
         booking_note: bookingLive
-          ? "Online booking is available."
-          : "Online booking is not connected yet.",
-        inclusions: packages.consultation?.inclusions || [
-          "One 30-minute accountant-led Google Meet advice session",
-        ],
-        exclusions: packages.consultation?.exclusions || [
+          ? "Online booking is available when payment and scheduling are confirmed."
+          : "Online booking/payment is not connected yet.",
+        inclusions: c.inclusions || [],
+        exclusions: c.exclusions || [
           "Tax return filing",
           "Bookkeeping",
           "Written report",
+          "Free phone callback",
         ],
+      })),
+      consultation: {
+        ...(consultList[0] || {}),
+        code: consultList[0]?.code || "ACCOUNTANT_CONSULT_99",
+        name: consultList[0]?.name || "Quick Tax Advice",
+        price_gbp: consultList[0]?.price_gbp ?? 99,
+        duration_minutes: consultList[0]?.duration_minutes ?? 20,
+        meeting: "Google Meet",
+        booking_available: bookingLive,
+        booking_note: bookingLive
+          ? "Online booking is available when payment and scheduling are confirmed."
+          : "Online booking/payment is not connected yet.",
       },
       brand: {
         primary: "#006B3C",

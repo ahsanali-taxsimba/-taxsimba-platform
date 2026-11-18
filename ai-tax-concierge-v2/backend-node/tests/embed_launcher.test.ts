@@ -20,14 +20,14 @@ describe("Ask SIMBA launcher + welcome card + compact chat", () => {
 
   it("premium_two_line_launcher_copy", () => {
     expect(embed).toContain("Ask SIMBA");
-    expect(embed).toContain("AI Tax Assistant");
+    expect(embed).toContain("Digital Tax Assistant");
     expect(embed).toContain('class="sl-main"');
     expect(embed).toContain('class="sl-sub"');
   });
 
   it("welcome_card_exact_copy_and_session_dismiss", () => {
     expect(embed).toContain("✨ Need help with your tax?");
-    expect(embed).toContain("Ask SIMBA, your AI Tax Assistant.");
+    expect(embed).toContain("Ask SIMBA, your Digital Tax Assistant.");
     expect(embed).toContain("Get answers to UK tax questions");
     expect(embed).toContain("Find the right TaxSimba service");
     expect(embed).toContain("Understand deadlines and next steps");
@@ -52,7 +52,7 @@ describe("Ask SIMBA launcher + welcome card + compact chat", () => {
     expect(chat).toContain("Self Assessment");
     expect(chat).toContain("Making Tax Digital");
     expect(chat).toContain("Choose the right package");
-    expect(chat).toContain("Book a £99 accountant consultation");
+    expect(chat).toContain("Accountant consultations");
     expect(chat).toContain("Ask a tax question");
     expect(chat).toContain('id="sp-close"');
     expect(chat).toContain('id="sp-expand"');

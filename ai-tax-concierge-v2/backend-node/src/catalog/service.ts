@@ -60,8 +60,15 @@ export function allPackagesFlat(): Record<string, Record<string, unknown>> {
   for (const item of cat.mtd as Record<string, unknown>[]) {
     out[String(item.code)] = { ...item, family: "mtd" };
   }
-  const consult = cat.consultation as Record<string, unknown>;
-  out[String(consult.code)] = { ...consult, family: "consultation" };
+  const consultRaw = cat.consultation;
+  const consultList = Array.isArray(consultRaw)
+    ? (consultRaw as Record<string, unknown>[])
+    : consultRaw
+      ? [consultRaw as Record<string, unknown>]
+      : [];
+  for (const consult of consultList) {
+    out[String(consult.code)] = { ...consult, family: "consultation" };
+  }
   return out;
 }
 
@@ -96,14 +103,25 @@ export function packageCatalogText(): string {
           : "Xero Grow";
     lines.push(`- ${formatPackageLine(p)} — includes ${xero} in the monthly price`);
   }
-  const c = cat.consultation as Record<string, unknown>;
-  const bookingLive = c.booking_status === "live";
+  const consultRaw = cat.consultation;
+  const consultList = Array.isArray(consultRaw)
+    ? (consultRaw as Record<string, unknown>[])
+    : consultRaw
+      ? [consultRaw as Record<string, unknown>]
+      : [];
+  const bookingLive = consultList.some((c) => c.booking_status === "live");
+  lines.push("Private accountant video consultations (Google Meet; Stripe + Calendly when live):");
+  for (const c of consultList) {
+    const mins = c.duration_minutes ?? "?";
+    lines.push(
+      `- ${formatPackageLine(c)} — ${mins}-minute accountant advice only ` +
+        `(no filing, bookkeeping or written report).`,
+    );
+  }
   lines.push(
-    `Consultation: ${formatPackageLine(c)} — 30-minute accountant Google Meet advice only ` +
-      `(no filing, bookkeeping or written report). ` +
-      (bookingLive
-        ? "Online booking is available."
-        : "Online booking is not connected yet — do not claim a live booking link or free callback."),
+    bookingLive
+      ? "Online booking/payment is available when Stripe and Calendly confirm."
+      : "Online booking/payment is not connected yet — do not claim a live booking, Stripe payment or free callback. Email alternative: info@taxsimba.co.uk.",
   );
   lines.push(
     "Approved facts only: Xero is included in each Simbian monthly price (no separate customer Xero charge). " +

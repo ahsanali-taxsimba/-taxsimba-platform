@@ -2,6 +2,7 @@
 
 import type { LLMAdapter } from "../adapters/base.js";
 import {
+  AI_DISCLOSURE,
   DISCLAIMER,
   WELCOME_MESSAGE,
   buildSystemPrompt,
@@ -46,8 +47,9 @@ import { scrubUserMessage } from "../security/injection.js";
 import { SessionStore, sessionStore } from "../sessions/store.js";
 
 const CONSULTATION_HINT =
-  "Need personalised help? TaxSimba offers a £99 private accountant consultation " +
-  "(30 minutes via Google Meet). Online booking is not connected yet.";
+  "Need personalised help? TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or " +
+  "an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — or email info@taxsimba.co.uk. " +
+  "Online booking/payment is not connected yet.";
 
 export type EngineChatRequest = {
   session_id: string;
@@ -90,16 +92,15 @@ export class ConversationalEngine {
       follow_ups: [
         "Do I need to send a Self Assessment tax return?",
         "What is Making Tax Digital for Income Tax?",
-        "Can I book a £99 accountant consultation?",
+        "What accountant consultations does TaxSimba offer?",
       ],
       packages: [],
       calculators: [],
       routes: [],
       llm_mode: this.llm.mode as "openai" | "mock",
       mock_notice: this.mockNotice(),
-      assistant_name: "SIMBA AI",
-      is_ai_disclosure:
-        "I am SIMBA AI — an AI assistant, not a qualified human accountant or HMRC representative.",
+      assistant_name: "SIMBA",
+      is_ai_disclosure: AI_DISCLOSURE,
       created_at: new Date().toISOString(),
     };
   }
@@ -149,6 +150,9 @@ export class ConversationalEngine {
     const inclusions = answerInclusionsQuestion(request.message);
     const catalogFast = mockPackageReply(request.message);
     const mtdEligibility = answerMtdEligibility(request.message);
+    const additionalTaxQ = /total income tax|additional (self assessment )?tax|extra tax i (pay|owe)|same as the extra/i.test(
+      request.message,
+    );
 
     let query = request.message;
     if (journeyState?.tags?.length) {
@@ -163,7 +167,15 @@ export class ConversationalEngine {
     let confidence = confidenceFromSources(sources, yearMatches);
 
     let reply: string;
-    if (mtdEligibility?.handled) {
+    if (additionalTaxQ) {
+      reply =
+        "Your total annual Income Tax is not the same thing as any extra Self Assessment bill. " +
+        "PAYE already collects tax on your salary through the year. Self Assessment works out tax on your other income " +
+        "(for example trading profit) and then credits tax already paid under PAYE — so the balancing payment is usually only the additional amount, not your whole Income Tax for the year. " +
+        "I won’t invent a tax figure without a full calculation. " +
+        "If you share turnover/profit and the tax year, I can explain what to check next — or email info@taxsimba.co.uk / book a paid video consultation when live.";
+      confidence = "high";
+    } else if (mtdEligibility?.handled) {
       // Deterministic eligibility — model must not override.
       reply = mtdEligibility.customer_reply;
       confidence = mtdEligibility.confidence;
@@ -261,14 +273,25 @@ export class ConversationalEngine {
           "through your secure dashboard rather than booking a new public consultation.";
       } else {
         consultationHint = CONSULTATION_HINT;
-        if (!packages.some((p) => p.code === "ACCOUNTANT_CONSULT_99")) {
+        if (
+          !packages.some(
+            (p) =>
+              p.code === "ACCOUNTANT_CONSULT_99" ||
+              p.code === "ACCOUNTANT_CONSULT_149",
+          )
+        ) {
           if (
             confidence === "low" ||
-            request.message.toLowerCase().includes("consult")
+            request.message.toLowerCase().includes("consult") ||
+            request.message.toLowerCase().includes("callback") ||
+            request.message.toLowerCase().includes("phone")
           ) {
             packages = [
               ...packages,
-              ...toPackageCards(["ACCOUNTANT_CONSULT_99"]),
+              ...toPackageCards([
+                "ACCOUNTANT_CONSULT_99",
+                "ACCOUNTANT_CONSULT_149",
+              ]),
             ];
           }
         }
@@ -370,9 +393,8 @@ export class ConversationalEngine {
       journey: journeyState ?? null,
       llm_mode: this.llm.mode as "openai" | "mock",
       mock_notice: this.mockNotice(),
-      assistant_name: "SIMBA AI",
-      is_ai_disclosure:
-        "I am SIMBA AI — an AI assistant, not a qualified human accountant or HMRC representative.",
+      assistant_name: "SIMBA",
+      is_ai_disclosure: AI_DISCLOSURE,
       created_at: new Date().toISOString(),
     };
   }

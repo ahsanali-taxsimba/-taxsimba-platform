@@ -59,7 +59,10 @@ function circumstanceReason(code: string, message: string): string {
     return "Highest Simbian Elite (£89.99/mo VAT included, Xero Grow included in that price) only if mid-tier is clearly insufficient — no priority/QBR/planning promises; no fixed monthly transaction caps (not unlimited out-of-scope work).";
   }
   if (code === "ACCOUNTANT_CONSULT_99") {
-    return "£99 for one 30-minute accountant-led Google Meet advice session (no filing, bookkeeping or written report; booking stub until Calendly is connected).";
+    return "Quick Tax Advice — £99 for 20 minutes via Google Meet (focused question; no filing, bookkeeping or written report). Booking/payment not live until Stripe and Calendly are verified; email info@taxsimba.co.uk as an alternative.";
+  }
+  if (code === "ACCOUNTANT_CONSULT_149") {
+    return "Extended Tax Consultation — £149 for 40 minutes via Google Meet (more complex situations; no filing, bookkeeping or written report). Booking/payment not live until Stripe and Calendly are verified; email info@taxsimba.co.uk as an alternative.";
   }
   if (lower.includes("unsure") || lower.includes("not sure")) {
     return "Suggested as a cautious next option while we clarify your circumstances.";
@@ -241,7 +244,7 @@ export function recommendForMessage(
     followUps = [
       "What is published for each Self Assessment package?",
       "Do I need Self Assessment this year?",
-      "Can I book a £99 accountant consultation instead?",
+      "What accountant consultations does TaxSimba offer?",
     ];
   } else if (MTD_PRICE.test(message) && SA_PRICE.test(message)) {
     packages = toPackageCards(
@@ -270,13 +273,22 @@ export function recommendForMessage(
       "Do landlords need MTD?",
     ];
   } else if (CONSULT.test(message)) {
+    const consultCodes = (
+      Array.isArray(cat.consultation)
+        ? (cat.consultation as { code: string }[])
+        : cat.consultation
+          ? [cat.consultation as { code: string }]
+          : []
+    ).map((p) => p.code);
     packages = toPackageCards(
-      [String((cat.consultation as { code: string }).code)],
+      consultCodes.length
+        ? consultCodes
+        : ["ACCOUNTANT_CONSULT_99", "ACCOUNTANT_CONSULT_149"],
       message,
     );
     followUps = [
-      "What can an accountant consultation help with?",
-      "What Self Assessment packages are available?",
+      "What’s the difference between the £99 and £149 consultations?",
+      "Can I email TaxSimba instead?",
     ];
   }
 
@@ -345,8 +357,9 @@ export function answerInclusionsQuestion(message: string): string | null {
     "",
     "Self Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.",
     "Making Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.",
-    "Private accountant consultation: £99 for one 30-minute accountant-led Google Meet advice session " +
-      "(no tax return filing, bookkeeping or written report). Online booking is not connected yet.",
+    "Accountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes " +
+      "(Google Meet; no filing, bookkeeping or written report). No free callbacks. " +
+      "Online booking/payment not connected yet — email info@taxsimba.co.uk.",
     "",
     "Self Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service " +
       "for people who need digital records and MTD support.",

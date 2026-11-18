@@ -133,13 +133,14 @@ function publicPackage(pkg: Record<string, unknown>): Record<string, unknown> {
     out.registration_path = "/register";
   }
 
-  // Booking honesty for consultation
-  if (code === "ACCOUNTANT_CONSULT_99") {
+  // Booking honesty for consultation SKUs
+  if (String(pkg.family || "") === "consultation" || code.startsWith("ACCOUNTANT_CONSULT_")) {
     out.booking_available = pkg.booking_status === "live";
     out.booking_note =
       pkg.booking_status === "live"
-        ? "Online booking is available."
-        : "Online booking is not connected yet — TaxSimba will confirm how to book.";
+        ? "Online booking is available when payment and scheduling are confirmed."
+        : "Online booking is not connected yet — email info@taxsimba.co.uk or ask TaxSimba how to book.";
+    out.email_enquiry = "info@taxsimba.co.uk";
   }
 
   // Final strip of any accidental forbidden keys
@@ -163,9 +164,24 @@ export function publicPackagesCatalogue(
       publicPackage(p),
     ),
     mtd: (raw.mtd || []).map((p: Record<string, unknown>) => publicPackage(p)),
+    consultations: (Array.isArray(raw.consultation)
+      ? raw.consultation
+      : raw.consultation
+        ? [raw.consultation]
+        : []
+    ).map((p: Record<string, unknown>) =>
+      publicPackage({ ...p, family: "consultation" }),
+    ),
+    // Backward-compatible single pointer = Quick Tax Advice (£99 / 20 min)
     consultation: publicPackage({
-      ...(raw.consultation || {}),
-      code: raw.consultation?.code || "ACCOUNTANT_CONSULT_99",
+      ...((Array.isArray(raw.consultation)
+        ? raw.consultation[0]
+        : raw.consultation) || {}),
+      family: "consultation",
+      code:
+        (Array.isArray(raw.consultation)
+          ? raw.consultation[0]?.code
+          : raw.consultation?.code) || "ACCOUNTANT_CONSULT_99",
     }),
   };
 }

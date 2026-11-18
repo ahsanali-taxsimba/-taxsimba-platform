@@ -5,7 +5,7 @@
   "owner_decisions_doc": "docs/verification/inclusions_resolution/OWNER_COMMERCIAL_DECISIONS_2026-11-13.md",
   "remaining_decisions_doc": "docs/verification/inclusions_resolution/REMAINING_OWNER_DECISION_TABLES.md",
   "proposed_copy_doc": "docs/verification/inclusions_resolution/PROPOSED_FINAL_PACKAGE_COPY.md",
-  "disclaimer": "APPROVED: SA Simple/Smart/Elite names+prices (£119/£149/£299); Simbian Comply/Growth/Elite names+prices (£29.99/£59.99/£89.99 VAT incl.); Xero software included in each Simbian monthly price with no separate customer Xero charge; website catalogue mapping Xero Simple→Comply, Ignite→Growth, Grow→Elite; bookkeeping with no fixed monthly transaction caps (not unlimited out-of-scope work); quarterly MTD updates and year-end Self Assessment included subject to documented customer responsibilities; support via email and client-dashboard messaging (not telephone onboarding); £99 consultation = 30-min Google Meet advice (no filing/bookkeeping/written report). REMOVED from SIMBA customer promises: priority support/turnaround, quarterly business reviews, proactive tax planning (still present on some public-API feature lists — do not auto-approve). Missing from website: exclusions, amendments, cancel/refund policies for packages. Never invent transaction limits or extra charges. Checkout/booking not live until integrations connected.",
+  "disclaimer": "APPROVED: SA Simple/Smart/Elite names+prices (\u00a3119/\u00a3149/\u00a3299); Simbian Comply/Growth/Elite names+prices (\u00a329.99/\u00a359.99/\u00a389.99 VAT incl.); Xero software included in each Simbian monthly price with no separate customer Xero charge; website catalogue mapping Xero Simple\u2192Comply, Ignite\u2192Growth, Grow\u2192Elite; bookkeeping with no fixed monthly transaction caps (not unlimited out-of-scope work); quarterly MTD updates and year-end Self Assessment included subject to documented customer responsibilities; support via email and client-dashboard messaging (not telephone onboarding); Consultations: Quick Tax Advice \u00a399 for 20 minutes; Extended Tax Consultation \u00a3149 for 40 minutes (Google Meet; Stripe+Calendly when live; no free callbacks). REMOVED from SIMBA customer promises: priority support/turnaround, quarterly business reviews, proactive tax planning (still present on some public-API feature lists \u2014 do not auto-approve). Missing from website: exclusions, amendments, cancel/refund policies for packages. Never invent transaction limits or extra charges. Checkout/booking not live until integrations connected.",
   "detailed_recommendations_status": "website_reconciled_owner_decisions_applied",
   "inclusions_supply_doc": "docs/toxel/PACKAGE_INCLUSIONS_SUPPLY_REQUEST.md",
   "inclusions_resolution_doc": "docs/verification/inclusions_resolution/INCLUSIONS_RESOLUTION_REPORT.md",
@@ -36,7 +36,7 @@
     "mtd_quarterly_updates_included": "approved_subject_to_customer_responsibilities",
     "support_channels": "email_and_client_dashboard_messaging",
     "telephone_onboarding": false,
-    "website_reconciliation_note": "Public subscription-plans API is the recovered six-package catalogue. Marketing HTML pages may be stale (e.g. /making-tax-digital SEO mismatch; homepage legacy prices). Website feature bullets are VERIFIED FROM WEBSITE evidence only — not auto-approved as SIMBA promises.",
+    "website_reconciliation_note": "Public subscription-plans API is the recovered six-package catalogue. Marketing HTML pages may be stale (e.g. /making-tax-digital SEO mismatch; homepage legacy prices). Website feature bullets are VERIFIED FROM WEBSITE evidence only \u2014 not auto-approved as SIMBA promises.",
     "bookkeeping_no_fixed_monthly_caps_note": "Owner approved: no fixed monthly transaction caps on Simbian Comply/Growth/Elite. This does not mean unlimited out-of-scope work.",
     "correction_2026_11_14_no_fixed_caps": true
   },
@@ -49,7 +49,7 @@
         "MTD_COMPLETE"
       ],
       "status": "approved",
-      "text": "Xero software is included in the advertised monthly Simbian prices (Comply £29.99, Growth £59.99, Elite £89.99, VAT included). Customers do not pay separately for their included Xero licence. Website catalogue mapping: Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow."
+      "text": "Xero software is included in the advertised monthly Simbian prices (Comply \u00a329.99, Growth \u00a359.99, Elite \u00a389.99, VAT included). Customers do not pay separately for their included Xero licence. Website catalogue mapping: Comply\u2192Xero Simple, Growth\u2192Xero Ignite, Elite\u2192Xero Grow."
     },
     {
       "id": "bookkeeping_tier_limits",
@@ -59,7 +59,7 @@
         "MTD_COMPLETE"
       ],
       "status": "approved_no_fixed_monthly_transaction_caps",
-      "text": "TaxSimba maintains clients’ digital bookkeeping records. The owner has approved that there are no fixed monthly transaction caps on Simbian Comply, Growth and Elite. This does not authorise unlimited out-of-scope work outside the agreed service."
+      "text": "TaxSimba maintains clients\u2019 digital bookkeeping records. The owner has approved that there are no fixed monthly transaction caps on Simbian Comply, Growth and Elite. This does not authorise unlimited out-of-scope work outside the agreed service."
     },
     {
       "id": "mtd_quarterly_and_year_end",
@@ -87,10 +87,11 @@
     {
       "id": "consultation_scope",
       "applies_to": [
-        "ACCOUNTANT_CONSULT_99"
+        "ACCOUNTANT_CONSULT_99",
+        "ACCOUNTANT_CONSULT_149"
       ],
       "status": "approved",
-      "text": "The £99 consultation is a 30-minute accountant advice session via Google Meet. It excludes tax return filing, bookkeeping and written reports."
+      "text": "TaxSimba offers two private accountant video consultations via Google Meet: Quick Tax Advice (\u00a399 for 20 minutes) and Extended Tax Consultation (\u00a3149 for 40 minutes). Both exclude tax return filing, bookkeeping and written reports. There are no free phone callbacks. Email enquiries: info@taxsimba.co.uk. Online booking/payment are not claimed live until Stripe and Calendly are verified."
     }
   ],
   "removed_customer_claims": [
@@ -205,7 +206,7 @@
       "vat_note": "VAT included",
       "price_status": "verified",
       "name_status": "verified",
-      "internal_code_note": "Portal/Stripe identity remains MTD_STARTER for compatibility — customer-facing name is Simbian Comply.",
+      "internal_code_note": "Portal/Stripe identity remains MTD_STARTER for compatibility \u2014 customer-facing name is Simbian Comply.",
       "public_api_name": "Simbian Comply",
       "source_public_api_code": "MTD_COMPLY",
       "legacy_customer_names": [
@@ -267,7 +268,7 @@
       ],
       "description": "A dedicated accountant maintains your records and handles your filings, with quarterly MTD updates and year-end Self Assessment subject to documented customer responsibilities.",
       "description_status": "verified_from_website_with_removed_claim_stripped",
-      "description_note": "Website raw description also referenced quarterly business reviews — that claim is REMOVED from SIMBA promises.",
+      "description_note": "Website raw description also referenced quarterly business reviews \u2014 that claim is REMOVED from SIMBA promises.",
       "inclusions": [
         "Xero Ignite subscription included",
         "Accountant-maintained bookkeeping and digital records with no fixed monthly transaction caps (not unlimited out-of-scope work)",
@@ -314,7 +315,7 @@
       "vat_note": "VAT included",
       "price_status": "verified",
       "name_status": "verified",
-      "internal_code_note": "Portal/Stripe identity remains MTD_COMPLETE for compatibility — customer-facing name is Simbian Elite (public API code MTD_ELITE).",
+      "internal_code_note": "Portal/Stripe identity remains MTD_COMPLETE for compatibility \u2014 customer-facing name is Simbian Elite (public API code MTD_ELITE).",
       "public_api_name": "Simbian Elite",
       "source_public_api_code": "MTD_ELITE",
       "legacy_customer_names": [
@@ -322,7 +323,7 @@
       ],
       "description": "Dedicated accountant care with maintained records and complete agreed filings, with quarterly MTD updates and year-end Self Assessment subject to documented customer responsibilities.",
       "description_status": "verified_from_website_with_removed_claim_stripped",
-      "description_note": "Website raw description also referenced proactive tax planning — that claim is REMOVED from SIMBA promises.",
+      "description_note": "Website raw description also referenced proactive tax planning \u2014 that claim is REMOVED from SIMBA promises.",
       "inclusions": [
         "Xero Grow subscription included",
         "Accountant-maintained bookkeeping and digital records with no fixed monthly transaction caps (not unlimited out-of-scope work)",
@@ -364,33 +365,67 @@
       "description_source_raw": "Dedicated accountant care with maintained records, complete agreed filings and proactive tax planning."
     }
   ],
-  "consultation": {
-    "code": "ACCOUNTANT_CONSULT_99",
-    "name": "Private accountant consultation",
-    "price_gbp": 99,
-    "billing": "one-off",
-    "duration_minutes": 30,
-    "meeting": "Google Meet",
-    "vat_note": "Confirm VAT treatment when booking",
-    "booking_status": "stub",
-    "booking_provider": "calendly",
-    "price_status": "verified",
-    "name_status": "verified",
-    "description": "One 30-minute accountant-led Google Meet advice session.",
-    "description_status": "approved",
-    "inclusions": [
-      "One 30-minute accountant-led Google Meet advice session"
-    ],
-    "exclusions": [
-      "Tax return filing",
-      "Bookkeeping",
-      "Written report"
-    ],
-    "inclusions_status": "approved",
-    "exclusions_status": "approved",
-    "customer_facing_inclusions": true,
-    "registration_route_id": "register",
-    "support_note": "Booking stub until Calendly connected; not telephone onboarding."
-  },
+  "consultation": [
+    {
+      "code": "ACCOUNTANT_CONSULT_99",
+      "name": "Quick Tax Advice",
+      "price_gbp": 99,
+      "billing": "one-off",
+      "duration_minutes": 20,
+      "meeting": "Google Meet",
+      "vat_note": "Confirm VAT treatment when booking",
+      "booking_status": "stub",
+      "booking_provider": "calendly",
+      "payment_provider": "stripe",
+      "price_status": "verified",
+      "name_status": "verified",
+      "description": "A focused 20-minute accountant-led Google Meet advice session for a specific tax question.",
+      "description_status": "approved",
+      "inclusions": [
+        "One 20-minute accountant-led Google Meet advice session"
+      ],
+      "exclusions": [
+        "Tax return filing",
+        "Bookkeeping",
+        "Written report",
+        "Free phone callback"
+      ],
+      "inclusions_status": "approved",
+      "exclusions_status": "approved",
+      "customer_facing_inclusions": true,
+      "registration_route_id": "register",
+      "support_note": "Booking/payment stub until Stripe and Calendly verified; email info@taxsimba.co.uk as alternative."
+    },
+    {
+      "code": "ACCOUNTANT_CONSULT_149",
+      "name": "Extended Tax Consultation",
+      "price_gbp": 149,
+      "billing": "one-off",
+      "duration_minutes": 40,
+      "meeting": "Google Meet",
+      "vat_note": "Confirm VAT treatment when booking",
+      "booking_status": "stub",
+      "booking_provider": "calendly",
+      "payment_provider": "stripe",
+      "price_status": "verified",
+      "name_status": "verified",
+      "description": "A 40-minute accountant-led Google Meet consultation for more complex tax situations.",
+      "description_status": "approved",
+      "inclusions": [
+        "One 40-minute accountant-led Google Meet advice session"
+      ],
+      "exclusions": [
+        "Tax return filing",
+        "Bookkeeping",
+        "Written report",
+        "Free phone callback"
+      ],
+      "inclusions_status": "approved",
+      "exclusions_status": "approved",
+      "customer_facing_inclusions": true,
+      "registration_route_id": "register",
+      "support_note": "Booking/payment stub until Stripe and Calendly verified; email info@taxsimba.co.uk as alternative."
+    }
+  ],
   "website_reconciliation_doc": "docs/verification/final_website_reconciliation/FINAL_SIX_PACKAGE_RECONCILIATION_REPORT.md"
 }

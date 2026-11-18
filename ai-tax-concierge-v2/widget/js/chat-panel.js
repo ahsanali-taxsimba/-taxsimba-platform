@@ -72,8 +72,64 @@
     if (live) live.textContent = msg || "";
   }
 
-  function scrollBottom() {
-    if (body) body.scrollTop = body.scrollHeight;
+  var stickToBottom = true;
+  var jumpBtn = document.getElementById("sp-jump-latest");
+
+  function nearBottom(el, threshold) {
+    if (!el) return true;
+    return el.scrollHeight - el.scrollTop - el.clientHeight < (threshold || 80);
+  }
+
+  function updateJumpBtn() {
+    if (!jumpBtn || !body) return;
+    jumpBtn.hidden = stickToBottom || nearBottom(body, 100);
+  }
+
+  function scrollBottom(force) {
+    if (!body) return;
+    if (!force && !stickToBottom) {
+      updateJumpBtn();
+      return;
+    }
+    // Double rAF so layout (bubbles, images, keyboard) settles before scrolling —
+    // avoids the mobile upward jump when a reply lands.
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        body.scrollTop = body.scrollHeight;
+        stickToBottom = true;
+        updateJumpBtn();
+      });
+    });
+  }
+
+  if (body) {
+    body.addEventListener(
+      "scroll",
+      function () {
+        stickToBottom = nearBottom(body, 80);
+        updateJumpBtn();
+      },
+      { passive: true }
+    );
+  }
+  if (jumpBtn) {
+    jumpBtn.addEventListener("click", function () {
+      stickToBottom = true;
+      scrollBottom(true);
+    });
+  }
+  // Keep composer above mobile keyboard where visualViewport is available.
+  if (window.visualViewport) {
+    var onViewport = function () {
+      var vv = window.visualViewport;
+      document.documentElement.style.setProperty(
+        "--simba-vvh",
+        Math.round(vv.height) + "px"
+      );
+      if (stickToBottom) scrollBottom(true);
+    };
+    window.visualViewport.addEventListener("resize", onViewport);
+    window.visualViewport.addEventListener("scroll", onViewport);
   }
 
   function hideIntro() {

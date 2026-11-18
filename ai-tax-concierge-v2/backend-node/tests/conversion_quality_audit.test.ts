@@ -32,19 +32,22 @@ describe("conversion quality and readiness audit", () => {
     expect(mtd.MTD_GROWTH.price_gbp).toBe(59.99);
     expect(mtd.MTD_COMPLETE.price_gbp).toBe(89.99);
     expect(mtd.MTD_STARTER.vat_note).toContain("VAT included");
-    expect(cat.consultation.price_gbp).toBe(99);
-    expect(cat.consultation.duration_minutes).toBe(30);
+    expect(cat.consultation[0].price_gbp).toBe(99);
+    expect(cat.consultation[0].duration_minutes).toBe(20);
+    expect(cat.consultation[1].price_gbp).toBe(149);
+    expect(cat.consultation[1].duration_minutes).toBe(40);
+    
   });
 
   it("customer_facing_name_is_tax_assistant_not_concierge", async () => {
     const app = buildTestApp();
     const boot = await api(app).get("/api/v1/bootstrap");
     expect(boot.status).toBe(200);
-    expect(boot.body.product).toBe("SIMBA AI");
+    expect(boot.body.product).toBe("SIMBA");
     expect(String(boot.body.subtitle)).toMatch(/Tax Assistant/i);
     expect(String(boot.body.subtitle).toLowerCase()).not.toContain("concierge");
     const prompt = buildSystemPrompt("2026-27", [], "mock", "");
-    expect(prompt).toContain("SIMBA AI Tax Assistant");
+    expect(prompt).toContain("Digital Tax Assistant");
     expect(prompt.toLowerCase()).toContain("never call yourself a concierge");
   });
 

@@ -9,7 +9,7 @@ describe("phase2 / phase3 API", () => {
     expect(res.status).toBe(200);
     const body = res.body;
     expect(body.phase).toBe(3);
-    expect(body.product).toBe("SIMBA AI");
+    expect(body.product).toBe("SIMBA");
     expect(body.llm_mode).toBe("mock");
     expect(body.starters.length).toBeGreaterThanOrEqual(5);
     expect(body.journeys).toHaveLength(12);
@@ -23,7 +23,7 @@ describe("phase2 / phase3 API", () => {
     const res = await api(app).get("/api/v1/health");
     expect(res.status).toBe(200);
     expect(res.body.phase).toBe(3);
-    expect(res.body.product).toBe("SIMBA AI");
+    expect(res.body.product).toBe("SIMBA");
   });
 
   it("chat_returns_sources_and_follow_ups", async () => {
