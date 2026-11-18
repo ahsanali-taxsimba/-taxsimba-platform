@@ -12,7 +12,7 @@ Classification legend: **IMPLEMENTED** · **MOCK TESTED** · **REAL API TESTED**
 
 ## 1. Exact final commit SHA
 
-Recorded at push time in this PR tip (see git log / PR commits).  
+Tip SHA: `eef3dd714a163fe36ce6f05db6d08793ad9d32d1`  
 This report’s verification was run against the working tree that becomes that tip.
 
 ## 2. PR #39 confirmation
