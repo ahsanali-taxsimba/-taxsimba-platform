@@ -2,6 +2,7 @@
 
 **Date:** 2026-11-18 (Europe/London)  
 **Branch:** `cursor/simba-v2-final-corrected-6522`  
+**Commit SHA:** `cd8e1b2608b45ff7e057b59cc2d353882996285f`  
 **PR:** https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/39  
 **Production:** **HOLD**
 

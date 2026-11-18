@@ -2,7 +2,7 @@
 
 **Branch:** `cursor/simba-v2-final-corrected-6522`  
 **PR:** https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/39  
-**Commit SHA:** *(see git tip after push)*  
+**Commit SHA:** `cd8e1b2608b45ff7e057b59cc2d353882996285f`  
 **Base:** `cursor/simba-final-toxel-handover-6522`  
 **Production HOLD:** do not merge to `main`; do not deploy production.
 
