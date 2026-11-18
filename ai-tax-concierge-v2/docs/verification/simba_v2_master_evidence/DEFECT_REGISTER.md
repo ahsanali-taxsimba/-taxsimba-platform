@@ -14,5 +14,8 @@
 | D10 | Medium | Original 33 master-suite misses | Genuine retrieval/eligibility defects fixed (handlers + clarifiers + ops path) | **PASS 537/537** — see `evidence/ORIGINAL_33_FAILURES_ANALYSIS.md` |
 | D11 | External | HTTPS staging, Stripe, Calendly, portal E2E | Toxel | **BLOCKED / HOLD** |
 | D12 | Low | Live journey scorer checked only final courtesy turn (LJ-13) | Whole-transcript scoring in `liveOpenAIJourneys20.ts` | PASS 20/20 on existing real OpenAI transcripts |
+| D13 | High | Email presented as default consultation booking path | Consultation booking helpers + UI select→Calendly→Stripe→Meet; email fallback only | PASS unit/API + visual consult panel |
+| D14 | High | Physical iPhone Safari scroll/keyboard | Code present; emulated evidence only | **BLOCKED** for Toxel |
+| D15 | Decision | Whether to upgrade OpenAI model to gpt-4o | Comparison evidence produced; default remains gpt-4o-mini | Pending owner approval |
 
-No unresolved critical/high product defects remain in repository-accessible scope. Device-level iPhone Safari scroll proof and payment/booking E2E remain external blockers under Production HOLD.
+No unresolved critical/high product defects remain in repository-accessible scope except external booking E2E and physical-device scroll proof under Production HOLD.

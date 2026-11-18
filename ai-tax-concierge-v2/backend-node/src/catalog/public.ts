@@ -138,9 +138,15 @@ function publicPackage(pkg: Record<string, unknown>): Record<string, unknown> {
     out.booking_available = pkg.booking_status === "live";
     out.booking_note =
       pkg.booking_status === "live"
-        ? "Online booking is available when payment and scheduling are confirmed."
-        : "Online booking is not connected yet — email info@taxsimba.co.uk or ask TaxSimba how to book.";
+        ? "Online booking is available: Calendly availability → Stripe payment → Google Meet after confirmation."
+        : "Online booking (Calendly + Stripe + Meet) is not connected yet. Email info@taxsimba.co.uk only for enquiries while booking is unavailable — not the default booking path.";
     out.email_enquiry = "info@taxsimba.co.uk";
+    out.booking_flow = [
+      "Select consultation option",
+      "Calendly availability",
+      "Stripe payment",
+      "Google Meet details after confirmation",
+    ];
   }
 
   // Final strip of any accidental forbidden keys

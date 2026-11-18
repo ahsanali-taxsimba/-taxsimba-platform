@@ -805,3 +805,107 @@ html, body {
 @media (max-width: 430px) {
   .ts-mnav { padding: 6px 8px; font-size: 0.68rem; }
 }
+
+/* —— Consultation booking CTAs —— */
+.ts-flow-list {
+  margin: 0 0 14px;
+  padding-left: 1.2rem;
+  color: var(--ts-text-secondary);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+.ts-flow-list li { margin-bottom: 4px; }
+.ts-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.ts-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--ts-primary-action);
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 0.82rem;
+  font-family: var(--ts-font-heading);
+  text-decoration: none !important;
+  border: 0;
+}
+.ts-cta:hover { filter: brightness(1.05); }
+.ts-cta-disabled,
+.ts-cta:disabled {
+  background: #c5ccc8;
+  color: #4a524e !important;
+  cursor: not-allowed;
+  filter: none;
+}
+.ts-touch,
+.ts-follow.ts-touch {
+  min-height: 44px;
+  padding: 10px 12px;
+}
+.ts-consult-card .ts-note { margin-top: 4px; }
+
+/* —— Mobile readability / overflow —— */
+.ts-msg .ts-bubble {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: min(100%, 36rem);
+}
+.ts-composer textarea,
+.ts-input {
+  font-size: 16px; /* reduce iOS zoom-on-focus */
+}
+.ts-send {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+@media (max-width: 430px) {
+  .ts-shell { border-radius: 0; min-height: 100%; }
+  .ts-header { padding: 10px 12px; }
+  .ts-brand strong { font-size: 0.9rem; }
+  .ts-brand span { font-size: 0.64rem; }
+  .ts-pill { display: none; } /* reclaim header space on small phones */
+  .ts-body { padding: 12px; }
+  .ts-welcome { padding: 14px 12px; }
+  .ts-welcome h1 { font-size: 1.02rem; }
+  .ts-topics { grid-template-columns: 1fr; }
+  .ts-topic { min-height: 72px; }
+  .ts-mobile-nav {
+    gap: 6px;
+    padding: 8px 10px;
+  }
+  .ts-mnav {
+    min-height: 36px;
+    padding: 8px 12px;
+    font-size: 0.72rem;
+    border-radius: 10px;
+  }
+  .ts-sidebar {
+    width: min(86vw, 280px);
+    flex-basis: auto;
+  }
+  .ts-cta-row { flex-direction: column; }
+  .ts-cta, .ts-follow.ts-touch { width: 100%; }
+}
+
+@media (max-width: 360px) {
+  .ts-logo { max-width: 88px; }
+  .ts-header-btn { padding: 6px 6px; font-size: 0.68rem; }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .ts-sidebar { width: 200px; flex-basis: 200px; }
+  .ts-topics { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 1280px) {
+  .ts-body { padding: 18px 22px; }
+  .ts-msg .ts-bubble { font-size: 0.95rem; line-height: 1.55; }
+}

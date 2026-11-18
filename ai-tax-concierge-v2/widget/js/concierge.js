@@ -283,6 +283,9 @@
     }
 
     if (panelId === "consultation") {
+      const bookingLive = Boolean(
+        state.config && state.config.consultation_booking_available
+      );
       const list = Array.isArray(packages.consultations)
         ? packages.consultations
         : packages.consultation
@@ -291,31 +294,51 @@
       const cards = (list.length
         ? list
         : [
-            { name: "Quick Tax Advice", price_gbp: 99, duration_minutes: 20, billing: "one-off", meeting: "Google Meet", booking_status: "stub" },
-            { name: "Extended Tax Consultation", price_gbp: 149, duration_minutes: 40, billing: "one-off", meeting: "Google Meet", booking_status: "stub" },
+            { code: "ACCOUNTANT_CONSULT_99", name: "Quick Tax Advice", price_gbp: 99, duration_minutes: 20, billing: "one-off", meeting: "Google Meet", booking_status: "stub" },
+            { code: "ACCOUNTANT_CONSULT_149", name: "Extended Tax Consultation", price_gbp: 149, duration_minutes: 40, billing: "one-off", meeting: "Google Meet", booking_status: "stub" },
           ]
       )
-        .map(
-          (c) => `<div class="ts-list-card">
+        .map((c) => {
+          const code = c.code || (Number(c.price_gbp) >= 149 ? "ACCOUNTANT_CONSULT_149" : "ACCOUNTANT_CONSULT_99");
+          const selectMsg =
+            Number(c.price_gbp) >= 149
+              ? "I'd like the Extended Tax Consultation (£149 / 40 minutes)"
+              : "I'd like Quick Tax Advice (£99 / 20 minutes)";
+          const bookBtn = bookingLive
+            ? `<a class="ts-cta" href="${websiteUrl("/book-consultation")}" target="_blank" rel="noopener noreferrer">Continue to online booking</a>`
+            : `<button type="button" class="ts-cta ts-cta-disabled" disabled aria-disabled="true">Online booking unavailable</button>`;
+          return `<div class="ts-list-card ts-consult-card">
             <strong>${escapeHtml(c.name || "Consultation")}</strong>
-            <div class="ts-price-row">£${Number(c.price_gbp || 0)} · ${escapeHtml(c.billing || "one-off")}</div>
-            <div class="ts-note">${escapeHtml(String(c.duration_minutes || ""))} minutes · ${escapeHtml(c.meeting || "Google Meet")}</div>
-            <span class="ts-status-pill">Booking status: ${escapeHtml(c.booking_status || "stub")} — Calendly/Stripe not confirmed live</span>
-          </div>`
-        )
+            <div class="ts-price-row">£${Number(c.price_gbp || 0)} · ${escapeHtml(String(c.duration_minutes || ""))} minutes</div>
+            <div class="ts-note">${escapeHtml(c.meeting || "Google Meet")} · advice only (no filing / bookkeeping / written report)</div>
+            <div class="ts-cta-row">
+              <button type="button" class="ts-follow ts-touch" data-starter="${escapeHtml(selectMsg)}">Select this option</button>
+              ${bookBtn}
+            </div>
+            <span class="ts-status-pill${bookingLive ? " ok" : ""}">${
+              bookingLive
+                ? "Online booking live: Calendly → Stripe → Meet"
+                : "Booking not connected — no fake confirmation"
+            }</span>
+          </div>`;
+        })
         .join("");
       document.getElementById("ts-panel-consultation").innerHTML = `
         <div class="ts-panel-scroll">
           <h2>Accountant consultations</h2>
-          <p class="ts-lead">Private Google Meet sessions with a TaxSimba accountant. No free phone callbacks. Email enquiries: info@taxsimba.co.uk.</p>
+          <p class="ts-lead">Choose an option, then use online booking (Calendly availability → Stripe payment → Google Meet after confirmation). No free phone callbacks.</p>
+          <ol class="ts-flow-list">
+            <li>Select Quick (£99 / 20 min) or Extended (£149 / 40 min)</li>
+            <li>Open online booking</li>
+            <li>Pick a Calendly slot and pay with Stripe</li>
+            <li>Receive Google Meet details after confirmation</li>
+          </ol>
           ${cards}
           <div class="ts-list-card">
-            <strong>Booking honesty</strong>
-            <div class="ts-note">SIMBA will never claim a consultation is booked or paid until Stripe and Calendly confirm it.</div>
-            <button type="button" class="ts-follow" data-consult="1" style="margin-top:8px">Ask SIMBA about consultations</button>
+            <strong>If online booking is unavailable</strong>
+            <div class="ts-note">Email <a href="mailto:info@taxsimba.co.uk">info@taxsimba.co.uk</a> for a general enquiry only — email is not the standard booking method once Calendly/Stripe are live.</div>
+            <button type="button" class="ts-follow ts-touch" data-consult="1" style="margin-top:8px">Ask SIMBA which option fits</button>
           </div>
-          <div class="ts-list-card"><a href="mailto:info@taxsimba.co.uk">Email info@taxsimba.co.uk</a>
-            <div class="ts-note">Use email while online booking/payment is not connected.</div></div>
         </div>`;
       return;
     }
@@ -638,7 +661,7 @@
     } else if (t.dataset.consult) {
       track("consultation_click", { code: "ACCOUNTANT_CONSULT_99" });
       showPanel("chat");
-      sendChat("Can I book a £99 accountant consultation?");
+      sendChat("What accountant consultations does TaxSimba offer?");
     } else if (t.dataset.retry) {
       const lastUser = [...state.history].reverse().find((m) => m.role === "user");
       if (lastUser) sendChat(lastUser.content);

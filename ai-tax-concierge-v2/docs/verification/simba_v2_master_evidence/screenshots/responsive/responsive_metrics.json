@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-11-18T04:43:13.067384+00:00",
+  "obtained_via": "chrome_headless_cdp_browser_emulation",
+  "physical_iphone_safari": "BLOCKED \u2014 staging acceptance for Toxel",
+  "viewports_tested_px": [
+    360,
+    375,
+    390,
+    430,
+    768,
+    1280,
+    1440
+  ],
+  "overflow_x": "none observed on welcome/consult screenshots",
+  "consultation_ui": "Select option + disabled Online booking unavailable; email only as unavailable fallback",
+  "files": [
+    "android_360.png",
+    "desktop_1280.png",
+    "desktop_1440.png",
+    "iphone14_390.png",
+    "iphone14_390_consultations.png",
+    "iphone_large_430.png",
+    "iphone_se_375.png",
+    "journey_A_mobile390.png",
+    "journey_B_mobile390.png",
+    "journey_C_consult_mobile390.png",
+    "journey_C_mobile390.png",
+    "journey_D_mobile390.png",
+    "journey_E_mobile390.png",
+    "journeys_AE_desktop1280.png",
+    "journeys_AE_mobile390.png",
+    "scroll_bottom_mobile390.png",
+    "scroll_top_mobile390.png",
+    "tablet_768.png"
+  ]
+}

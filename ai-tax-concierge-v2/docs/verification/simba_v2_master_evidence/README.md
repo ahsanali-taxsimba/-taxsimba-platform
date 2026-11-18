@@ -29,6 +29,10 @@
 | **Browser automation** | Screenshots under `screenshots/`; recording `recordings/simba_consultation_evidence_journey.mp4` |
 | **Physical iPhone Safari** | **BLOCKED** — staging acceptance for Toxel |
 
+## Latest CX / mobile / model audit
+
+See `evidence/CX_MOBILE_OPENAI_AUDIT.md`, `screenshots/responsive/`, `evidence/model_comparison/`.
+
 ## Documents
 
 | Doc | Purpose |

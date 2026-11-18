@@ -14,6 +14,9 @@
 3. 20 real OpenAI multi-turn journeys + ambiguous intent probe
 4. Evidence pack refreshed (screenshots, consultation recording, security retest)
 5. Journey scorer uses whole-transcript tokens (LJ-13 false-fail removed)
+6. **Consultation UX:** select option → Calendly → Stripe → Meet; email only as unavailable fallback (not default booking)
+7. Mobile responsive audit screenshots (browser emulation); physical iPhone still BLOCKED
+8. OpenAI model comparison (`gpt-4o-mini` vs `gpt-4o`) — **keep gpt-4o-mini pending approval**
 
 ## Deploy (staging only)
 
@@ -32,13 +35,14 @@ npm start
 
 - [ ] Welcome + Ask SIMBA + TaxSimba logo on mobile/desktop
 - [ ] Consultations show £99/20 and £149/40; no free callback; no 30-minute copy
+- [ ] Consultation journey: select option → live Calendly → Stripe → Meet (email only if booking down)
 - [ ] Exact £50k/£30k/£20k + PAYE+trading + Ltd company MTD checks
 - [ ] Ambiguous income clarifies before guessing (online trading, “I earn £60k”, crypto, rental)
 - [ ] Catalogue/bootstrap: no internal metadata
 - [ ] Mobile (physical iPhone Safari): send message → reply stays in view; Jump to latest; keyboard does not hide input; no unwanted auto-scroll when reading history
-- [ ] Stripe Checkout + Calendly + Google Meet end-to-end with test payments — **do not advertise booking until done**
+- [ ] Stripe Checkout + Calendly + Google Meet end-to-end with test payments — set `CONSULTATION_BOOKING_LIVE=true` only after done
 - [ ] Registration → email verification → package → checkout → dashboard handoff
-- [ ] Owner / accountant review of tax-sensitive answers
+- [ ] Owner / accountant review of tax-sensitive answers + model choice (`gpt-4o-mini` recommended)
 - [ ] Confirm HTTPS + CORS allowlist
 
 ## Remaining external dependencies (BLOCKED here)

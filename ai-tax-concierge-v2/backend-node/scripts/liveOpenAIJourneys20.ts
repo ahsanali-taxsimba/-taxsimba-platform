@@ -169,7 +169,7 @@ const JOURNEYS: Journey[] = [
       "Can I get a free accountant callback?",
       "What’s the £99 option then?",
     ],
-    expect_final_any: ["99", "20", "info@taxsimba.co.uk"],
+    expect_final_any: ["99", "20", "calendly", "stripe", "meet", "not connected", "booking"],
     reject_any: ["free callback is available"],
   },
   {

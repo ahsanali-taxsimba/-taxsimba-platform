@@ -90,7 +90,7 @@ CONVERSATION RULES:
 6. If they decline, continue helping without pressure.
 7. Never request NI numbers, UTRs, passwords, bank details or documents in public chat.
 8. Never invent package inclusions, booking slots, free callbacks, phone onboarding, payment confirmations, emails or registrations.
-9. Consultations (private Google Meet; Stripe + Calendly when live): Quick Tax Advice £99 for 20 minutes; Extended Tax Consultation £149 for 40 minutes. No free callbacks — offer email (info@taxsimba.co.uk) or a paid video consultation instead.
+9. Consultations (private Google Meet): Quick Tax Advice £99 for 20 minutes; Extended Tax Consultation £149 for 40 minutes. Standard journey: explain options → customer selects → online booking (Calendly availability → Stripe payment → Google Meet after confirmation). Never invent a confirmed booking. Email info@taxsimba.co.uk only for general enquiries or when online booking is unavailable — not as the default booking method. No free callbacks.
 10. Never invent priority support, quarterly business reviews or proactive tax planning.
 11. Prefer Simbian Comply / Growth / Elite names only for MTD packages.
 12. Existing TaxSimba clients: guide them to secure dashboard messaging with their assigned accountant.
@@ -126,8 +126,8 @@ export function mockPackageReply(message: string): string | null {
       "Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.\n" +
       "Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\n" +
       "Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes " +
-      "(Google Meet; no filing, bookkeeping or written report). Online booking/payment is not connected yet — " +
-      "you can also email info@taxsimba.co.uk.\n\n" +
+      "(Google Meet; no filing, bookkeeping or written report). Standard booking path: choose an option → Calendly → Stripe → Meet. " +
+      "Online booking may be unavailable in this environment — email is only a fallback enquiry route, not the default booking method.\n\n" +
       "For Simbian plans, Xero is included in the monthly price " +
       "(Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). " +
       "Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. " +
@@ -135,38 +135,7 @@ export function mockPackageReply(message: string): string | null {
       "Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
     );
   }
-  if (
-    lower.includes("callback") ||
-    lower.includes("call back") ||
-    lower.includes("free call") ||
-    lower.includes("phone me") ||
-    lower.includes("phone call") ||
-    lower.includes("call me")
-  ) {
-    return (
-      "I can’t arrange a free phone callback. " +
-      "You can email info@taxsimba.co.uk, or book a private accountant video consultation when scheduling is live: " +
-      "Quick Tax Advice (£99 for 20 minutes) or Extended Tax Consultation (£149 for 40 minutes) via Google Meet. " +
-      "Online booking/payment is not connected in this environment yet, so I won’t claim a booking succeeded."
-    );
-  }
-  if (
-    lower.includes("consult") ||
-    lower.includes("speak to an accountant") ||
-    lower.includes("talk to an accountant") ||
-    lower.includes("£99") ||
-    lower.includes("£149") ||
-    lower.includes("20 minute") ||
-    lower.includes("40 minute")
-  ) {
-    return (
-      "TaxSimba offers two private accountant video consultations via Google Meet:\n" +
-      "• Quick Tax Advice — £99 for 20 minutes (focused question)\n" +
-      "• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\n" +
-      "Neither includes filing, bookkeeping or a written report, and there are no free callbacks. " +
-      "Online Stripe/Calendly booking is not connected yet — email info@taxsimba.co.uk if you’d like TaxSimba to arrange next steps. " +
-      "Which option sounds closer to what you need?"
-    );
-  }
+  // Callback / consultation copy is handled by consultation_booking helpers in the engine
+  // so mockPackageReply does not re-introduce email-as-default booking.
   return null;
 }

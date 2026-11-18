@@ -27,6 +27,14 @@ import {
 import { scrubCustomerReply } from "../catalog/public.js";
 import { applyGroundingGuard } from "../knowledge/grounding.js";
 import { answerAmbiguousIntent } from "../knowledge/intent_clarifier.js";
+import {
+  callbackHonestyReply,
+  consultationHint as buildConsultationHint,
+  consultationOptionsReply,
+  consultationSelectionReply,
+  detectConsultationSelection,
+  isConsultationIntent,
+} from "../knowledge/consultation_booking.js";
 import { answerMtdEligibility } from "../knowledge/mtd_eligibility.js";
 import { answerMtdOperationsQuestion } from "../knowledge/mtd_operations.js";
 import { retrieve } from "../knowledge/retrieval.js";
@@ -47,11 +55,6 @@ import type {
 import { matchRoutes } from "../routes_registry/service.js";
 import { scrubUserMessage } from "../security/injection.js";
 import { SessionStore, sessionStore } from "../sessions/store.js";
-
-const CONSULTATION_HINT =
-  "Need personalised help? TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or " +
-  "an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — or email info@taxsimba.co.uk. " +
-  "Online booking/payment is not connected yet.";
 
 export type EngineChatRequest = {
   session_id: string;
@@ -151,6 +154,12 @@ export class ConversationalEngine {
 
     const inclusions = answerInclusionsQuestion(request.message);
     const catalogFast = mockPackageReply(request.message);
+    const callbackQ =
+      /\b(callback|call back|free call|phone me|phone call|call me)\b/i.test(
+        request.message,
+      );
+    const consultSelection = detectConsultationSelection(request.message);
+    const consultIntent = isConsultationIntent(request.message);
     const mtdOps = answerMtdOperationsQuestion(request.message);
     const mtdEligibility = mtdOps
       ? null
@@ -192,7 +201,20 @@ export class ConversationalEngine {
         "PAYE already collects tax on your salary through the year. Self Assessment works out tax on your other income " +
         "(for example trading profit) and then credits tax already paid under PAYE — so the balancing payment is usually only the additional amount, not your whole Income Tax for the year. " +
         "I won’t invent a tax figure without a full calculation. " +
-        "If you share turnover/profit and the tax year, I can explain what to check next — or email info@taxsimba.co.uk / book a paid video consultation when live.";
+        "If you share turnover/profit and the tax year, I can explain what to check next — or choose a paid accountant video consultation if you want personalised advice.";
+      confidence = "high";
+    } else if (callbackQ) {
+      reply = callbackHonestyReply(this.settings.consultationBookingLive);
+      confidence = "high";
+    } else if (consultSelection) {
+      reply = consultationSelectionReply(
+        consultSelection,
+        this.settings.consultationBookingLive,
+        this.settings.consultationBookingUrl,
+      );
+      confidence = "high";
+    } else if (consultIntent) {
+      reply = consultationOptionsReply();
       confidence = "high";
     } else if (payeFileQ) {
       reply =
@@ -311,7 +333,15 @@ export class ConversationalEngine {
     if (declineSales) {
       packages = [];
     }
-    if (
+    if (!declineSales && (consultSelection || consultIntent || callbackQ)) {
+      consultationHint = buildConsultationHint(
+        this.settings.consultationBookingLive,
+      );
+      const codes = consultSelection
+        ? [consultSelection.code]
+        : ["ACCOUNTANT_CONSULT_99", "ACCOUNTANT_CONSULT_149"];
+      packages = toPackageCards(codes, request.message);
+    } else if (
       !declineSales &&
       (confidence === "low" ||
         request.message.toLowerCase().includes("consult") ||
@@ -323,7 +353,9 @@ export class ConversationalEngine {
           "As an existing TaxSimba client, message your assigned accountant " +
           "through your secure dashboard rather than booking a new public consultation.";
       } else {
-        consultationHint = CONSULTATION_HINT;
+        consultationHint = buildConsultationHint(
+          this.settings.consultationBookingLive,
+        );
         if (
           !packages.some(
             (p) =>
@@ -331,20 +363,13 @@ export class ConversationalEngine {
               p.code === "ACCOUNTANT_CONSULT_149",
           )
         ) {
-          if (
-            confidence === "low" ||
-            request.message.toLowerCase().includes("consult") ||
-            request.message.toLowerCase().includes("callback") ||
-            request.message.toLowerCase().includes("phone")
-          ) {
-            packages = [
-              ...packages,
-              ...toPackageCards([
-                "ACCOUNTANT_CONSULT_99",
-                "ACCOUNTANT_CONSULT_149",
-              ]),
-            ];
-          }
+          packages = [
+            ...packages,
+            ...toPackageCards([
+              "ACCOUNTANT_CONSULT_99",
+              "ACCOUNTANT_CONSULT_149",
+            ]),
+          ];
         }
       }
     }

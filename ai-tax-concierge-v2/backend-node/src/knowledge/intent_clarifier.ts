@@ -22,7 +22,7 @@ export function answerAmbiguousIntent(message: string): ClarifierResult | null {
       confidence: "high",
       customer_reply:
         "I can’t guarantee a tax refund. Refunds depend on your full circumstances and HMRC’s assessment. " +
-        "I can explain how Self Assessment balancing payments and repayments usually work, or you can email info@taxsimba.co.uk / book a paid accountant video consultation when scheduling is live.",
+        "I can explain how Self Assessment balancing payments and repayments usually work, or you can choose a paid accountant video consultation (Quick £99 / 20 minutes or Extended £149 / 40 minutes) if you want personalised advice.",
     };
   }
 

@@ -61,17 +61,27 @@ export class ConfigCalendlyAdapter implements CalendlyAdapter {
     const duration = priceGbp >= 149 ? 40 : 20;
     const name =
       priceGbp >= 149 ? "Extended Tax Consultation" : "Quick Tax Advice";
+    const live =
+      Boolean(this.url) && !/example|localhost|stub/i.test(this.url);
     return {
-      status: "stub",
+      status: live ? "live" : "stub",
       price_gbp: priceGbp,
       duration_minutes: duration,
       meeting: "Google Meet",
-      booking_url: this.url,
-      availability: "not_live",
-      payment: "stripe_not_connected",
+      booking_url: live ? this.url : null,
+      availability: live ? "calendly" : "not_live",
+      payment: live ? "stripe" : "stripe_not_connected",
       label: `${name} — £${priceGbp} for ${duration} minutes (Google Meet)`,
+      flow: [
+        "Select option",
+        "Calendly availability",
+        "Stripe payment",
+        "Google Meet after confirmation",
+      ],
       email_enquiry: "info@taxsimba.co.uk",
-      note: "Stripe/Calendly not connected — do not claim a booking or payment is confirmed",
+      note: live
+        ? "Use online booking; do not claim success until Calendly and Stripe confirm"
+        : "Online booking not connected — do not invent a confirmed appointment; email is only for enquiries while unavailable",
     };
   }
 }

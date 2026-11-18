@@ -27,8 +27,18 @@ describe("adapters", () => {
     expect(stubs.payment.createCheckout("SA_SMART").status).toBe("unavailable");
     const cal = stubs.calendly.consultationLink(99);
     expect(cal.price_gbp).toBe(99);
-    expect(cal.booking_url).toContain("calendly.com");
+    expect(cal.status).toBe("stub");
+    expect(cal.booking_url).toBeNull();
+    expect(cal.availability).toBe("not_live");
+    expect(Array.isArray(cal.flow)).toBe(true);
     expect(stubs.client_portal.accountStatus(null).status).toBe("unavailable");
+    const liveSettings = createSettings({
+      CONSULTATION_BOOKING_URL: "https://calendly.com/taxsimba/quick-99",
+      CONSULTATION_BOOKING_LIVE: true,
+    });
+    const liveCal = buildStubAdapters(liveSettings).calendly.consultationLink(99);
+    expect(liveCal.status).toBe("live");
+    expect(String(liveCal.booking_url)).toContain("calendly.com/taxsimba/quick-99");
   });
 
   it("openai_adapter_requires_key", () => {

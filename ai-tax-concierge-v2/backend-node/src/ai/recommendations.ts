@@ -59,10 +59,10 @@ function circumstanceReason(code: string, message: string): string {
     return "Highest Simbian Elite (£89.99/mo VAT included, Xero Grow included in that price) only if mid-tier is clearly insufficient — no priority/QBR/planning promises; no fixed monthly transaction caps (not unlimited out-of-scope work).";
   }
   if (code === "ACCOUNTANT_CONSULT_99") {
-    return "Quick Tax Advice — £99 for 20 minutes via Google Meet (focused question; no filing, bookkeeping or written report). Booking/payment not live until Stripe and Calendly are verified; email info@taxsimba.co.uk as an alternative.";
+    return "Quick Tax Advice — £99 for 20 minutes via Google Meet (focused question; no filing, bookkeeping or written report). Select this option, then use online booking (Calendly → Stripe → Meet) when live.";
   }
   if (code === "ACCOUNTANT_CONSULT_149") {
-    return "Extended Tax Consultation — £149 for 40 minutes via Google Meet (more complex situations; no filing, bookkeeping or written report). Booking/payment not live until Stripe and Calendly are verified; email info@taxsimba.co.uk as an alternative.";
+    return "Extended Tax Consultation — £149 for 40 minutes via Google Meet (more complex situations; no filing, bookkeeping or written report). Select this option, then use online booking (Calendly → Stripe → Meet) when live.";
   }
   if (lower.includes("unsure") || lower.includes("not sure")) {
     return "Suggested as a cautious next option while we clarify your circumstances.";
@@ -110,14 +110,18 @@ export function toPackageCards(
       recommendation_reason: circumstanceReason(String(pkg.code), message),
       name_status: undefined,
       price_status: undefined,
+      // Consultations use online booking (Calendly/Stripe), not package registration pages.
       registration_path:
-        pkg.registration_route_id === "sa_packages"
-          ? "/self-assessment"
-          : pkg.registration_route_id === "mtd_packages"
-            ? "/making-tax-digital"
-            : pkg.registration_route_id === "register"
-              ? "/register"
-              : null,
+        String(pkg.family) === "consultation" ||
+        String(pkg.code).startsWith("ACCOUNTANT_CONSULT_")
+          ? null
+          : pkg.registration_route_id === "sa_packages"
+            ? "/self-assessment"
+            : pkg.registration_route_id === "mtd_packages"
+              ? "/making-tax-digital"
+              : pkg.registration_route_id === "register"
+                ? "/register"
+                : null,
     });
   }
   return cards;
@@ -359,7 +363,7 @@ export function answerInclusionsQuestion(message: string): string | null {
     "Making Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.",
     "Accountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes " +
       "(Google Meet; no filing, bookkeeping or written report). No free callbacks. " +
-      "Online booking/payment not connected yet — email info@taxsimba.co.uk.",
+      "Booking path: choose an option → Calendly → Stripe → Meet. Online booking may be unavailable here — email is only a fallback enquiry route.",
     "",
     "Self Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service " +
       "for people who need digital records and MTD support.",

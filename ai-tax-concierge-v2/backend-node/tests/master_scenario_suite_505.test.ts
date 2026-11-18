@@ -82,7 +82,9 @@ describe("master scenario suite 505+", () => {
     expect(lower).toContain("149");
     expect(lower).toContain("40");
     expect(lower).not.toMatch(/30-?\s*minute/);
-    expect(lower).toContain("info@taxsimba.co.uk");
+    expect(lower).toMatch(/quick tax advice|£99|99/);
+    expect(lower).toMatch(/extended|£149|149/);
+    expect(lower).toMatch(/which option|calendly|stripe|google meet/);
   });
 
   it("multiturn_sample_remembers_and_respects_refusal", async () => {
