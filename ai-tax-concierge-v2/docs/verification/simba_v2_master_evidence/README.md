@@ -4,7 +4,7 @@
 **Branch:** `cursor/simba-v2-final-corrected-6522`  
 **PR:** https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/39  
 **Production:** **HOLD**  
-**Commit SHA:** `568c2f7a9db651fb62783dd5995c36c884e3d6f1`
+**Evidence remediation commit:** `760007fe25eadccca90870aa930266c3d2744060` (branch tip on PR #39)
 
 ## Headline results
 
