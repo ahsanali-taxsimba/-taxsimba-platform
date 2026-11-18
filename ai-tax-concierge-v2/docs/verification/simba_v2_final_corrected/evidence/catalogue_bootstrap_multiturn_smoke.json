@@ -1,0 +1,126 @@
+{
+  "generated_at": "2026-11-17T23:38:13.764Z",
+  "health": {
+    "status": 200,
+    "body": {
+      "status": "ok",
+      "version": "0.4.1",
+      "phase": 3,
+      "product": "SIMBA AI",
+      "llm_mode": "mock",
+      "current_tax_year": "2026-27",
+      "mock_notice": "MOCK MODE — not live OpenAI.",
+      "dynamic_systems": {
+        "hmrc_monitor_enabled": false,
+        "catalogue_sync_enabled": false,
+        "catalogue_live_overlay": false,
+        "ops_token_configured": false
+      }
+    }
+  },
+  "catalogue_leak_check": {
+    "pass": true,
+    "leaks": []
+  },
+  "bootstrap_booking": {
+    "code": "ACCOUNTANT_CONSULT_99",
+    "name": "Private accountant consultation",
+    "price_gbp": 99,
+    "billing": "one-off",
+    "vat_note": "Confirm VAT treatment when booking",
+    "duration_minutes": 30,
+    "meeting": "Google Meet",
+    "booking_available": false,
+    "booking_note": "Online booking is not connected yet.",
+    "inclusions": [
+      "One 30-minute accountant-led Google Meet advice session"
+    ],
+    "exclusions": [
+      "Tax return filing",
+      "Bookkeeping",
+      "Written report"
+    ]
+  },
+  "bootstrap_integrations": {
+    "openai": "mock",
+    "payment": "unavailable",
+    "calendly": "not_connected",
+    "client_portal": "not_connected_in_chat"
+  },
+  "packages_sample": {
+    "sa0": {
+      "code": "SA_SIMPLE",
+      "name": "Self Assessment Simple",
+      "price_gbp": 119,
+      "billing": "per tax year",
+      "vat_note": "Confirm VAT treatment on checkout",
+      "description": "A straightforward Self Assessment for employed and simple self-employed income, prepared and checked by a qualified accountant.",
+      "inclusions": [
+        "Email and in-app updates"
+      ],
+      "registration_path": "/self-assessment"
+    },
+    "mtd0": {
+      "code": "MTD_STARTER",
+      "name": "Simbian Comply",
+      "price_gbp": 29.99,
+      "billing": "per month",
+      "vat_note": "VAT included",
+      "description": "Your accountant maintains your records and handles your quarterly updates and year-end tax return.",
+      "inclusions": [
+        "Xero Simple subscription included",
+        "Accountant-maintained bookkeeping and digital records with no fixed monthly transaction caps (not unlimited out-of-scope work)",
+        "Quarterly MTD updates prepared and submitted (subject to documented customer responsibilities)",
+        "Year-end Income Tax / Self Assessment return prepared and submitted (subject to documented customer responsibilities)",
+        "Accountant support by email and client-dashboard messaging (not telephone onboarding)"
+      ],
+      "xero_plan": "Xero Simple",
+      "registration_path": "/making-tax-digital"
+    },
+    "top_keys": [
+      "version",
+      "self_assessment",
+      "mtd",
+      "consultation"
+    ]
+  },
+  "multiturn": [
+    {
+      "message": "Hi, what Self Assessment packages do you offer?",
+      "reply": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nPrivate accountant consultation: £99 for one 30-minute Google Meet advice session (no filing, bookkeeping or written report). Online booking is not connected yet.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.",
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART",
+        "SA_ELITE"
+      ]
+    },
+    {
+      "message": "I am a first-time sole trader with simple income — which package?",
+      "reply": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nPrivate accountant consultation: £99 for one 30-minute Google Meet advice session (no filing, bookkeeping or written report). Online booking is not connected yet.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.",
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ]
+    },
+    {
+      "message": "Does Simbian Elite include free Xero Grow forever?",
+      "reply": "Here is what SIMBA can state from approved catalogue decisions:\n\nSelf Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.\nPrivate accountant consultation: £99 for one 30-minute accountant-led Google Meet advice session (no tax return filing, bookkeeping or written report). Online booking is not connected yet.\n\nSelf Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.\n\nWhat is approved to say:\n- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.\n- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.\n- Support is via email and the client dashboard — not telephone onboarding.\n- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).\n- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.\n\nI will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.\n\nI can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.\n\nXero software is included in the Simbian monthly subscription price — customers do not pay separately. Catalogue mapping: Comply includes Xero Simple, Growth includes Xero Ignite, Elite includes Xero Grow. I will not invent “forever free”, unlimited seats, or a separate Xero charge.\n- Self Assessment Simple: £119 (per tax year)\n- Self Assessment Smart: £149 (per tax year)\n- Self Assessment Elite: £299 (per tax year)\n- Simbian Comply: £29.99 (per month; VAT included)\n- Simbian Growth: £59.99 (per month; VAT included)\n- Simbian Elite: £89.99 (per month; VAT included)",
+      "packages": [
+        "MTD_COMPLETE",
+        "MTD_GROWTH"
+      ]
+    },
+    {
+      "message": "Can I get a free accountant callback?",
+      "reply": "I can’t arrange a free phone callback from this chat. TaxSimba support is by email and the client dashboard, and the £99 consultation is a scheduled 30-minute Google Meet (online booking is not connected in this environment yet). I can still help with general UK tax questions here.",
+      "packages": [
+        "ACCOUNTANT_CONSULT_99"
+      ]
+    },
+    {
+      "message": "My qualifying income was exactly £50,000 in 2024-25. Do I need MTD from April 2026?",
+      "reply": "No — qualifying income of exactly £50,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £50,000”, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than £50,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": []
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "generated_at": "2026-11-18T04:38:31.580Z",
+  "note": "Open-ended prompts intended to reach the live model (may still short-circuit). Deployed model unchanged.",
+  "gpt_4o_mini": [
+    {
+      "message": "In plain British English, explain the difference between Self Assessment and Making Tax Digital for a nervous first-time freelancer.",
+      "reply": "Here is what SIMBA can state from approved catalogue decisions:\n\nSelf Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Booking path: choose an option → Calendly → Stripe → Meet. Online booking may be unavailable here — email is only a fallback enquiry route.\n\nSelf Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.\n\nWhat is approved to say:\n- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.\n- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.\n- Support is via email and the client dashboard — not telephone onboarding.\n- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).\n- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.\n\nI will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.\n\nI can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.\n- Self Assessment Simple: £119 (per tax year)\n- Self Assessment Smart: £149 (per tax year)\n- Self Assessment Elite: £299 (per tax year)\n- Simbian Comply: £29.99 (per month; VAT included)\n- Simbian Growth: £59.99 (per month; VAT included)\n- Simbian Elite: £89.99 (per month; VAT included)",
+      "llm_mode": "openai",
+      "latency_ms": 11,
+      "words": 301
+    },
+    {
+      "message": "I feel overwhelmed by tax. Can you reassure me and outline the first three practical steps without selling hard?",
+      "reply": "It's completely normal to feel overwhelmed by tax matters, but taking it step by step can help. Here are three practical steps to get you started:\n\n1. **Understand Your Obligations**: Familiarise yourself with your tax responsibilities, such as whether you need to file a Self Assessment tax return or comply with Making Tax Digital requirements.\n\n2. **Organise Your Records**: Gather your financial documents, including income statements, expenses, and any relevant receipts. Keeping these organised will make the process smoother.\n\n3. **Seek Guidance**: Consider consulting a tax professional for personalised advice. They can help clarify your situation and guide you through the filing process.\n\nIf you have any specific questions or need further assistance, feel free to ask!",
+      "llm_mode": "openai",
+      "latency_ms": 3006,
+      "words": 117
+    },
+    {
+      "message": "Why might someone with only PAYE employment still need to send a tax return?",
+      "reply": "If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return — for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return — or tell me what other income you have and I can help narrow it down.",
+      "llm_mode": "openai",
+      "latency_ms": 1,
+      "words": 62
+    },
+    {
+      "message": "Describe how TaxSimba’s Simbian Comply differs from Self Assessment Simple in everyday language.",
+      "reply": "TaxSimba's Simbian Comply and Self Assessment Simple serve different purposes. \n\nSimbian Comply is a monthly subscription service that helps you manage your ongoing tax obligations digitally, including quarterly updates and year-end Self Assessment. It includes Xero Simple for bookkeeping.\n\nOn the other hand, Self Assessment Simple is a one-time annual service focused solely on preparing and filing your Self Assessment tax return for the year.\n\nIf you need ongoing support and digital record-keeping, Simbian Comply is the better choice. If you just need help with your annual tax return, Self Assessment Simple might be sufficient. Would you like more details on either option?",
+      "llm_mode": "openai",
+      "latency_ms": 2559,
+      "words": 103
+    },
+    {
+      "message": "I changed my mind halfway: I thought I was a sole trader but I actually receive only PAYE salary and small bank interest. What should I check?",
+      "reply": "If you receive only a PAYE salary and small bank interest, you may not need to file a Self Assessment tax return unless you have other untaxed income or meet specific criteria. Check the following:\n\n1. **Personal Savings Allowance**: Ensure your bank interest is within the tax-free limits based on your tax rate (basic, higher, or additional).\n2. **Other Income**: Confirm you have no additional untaxed income, such as rental or self-employment income, that would require a return.\n\nFor more details, visit GOV.UK's guidance on who must send a tax return. Would you like to know more about the Personal Savings Allowance?",
+      "llm_mode": "openai",
+      "latency_ms": 2224,
+      "words": 102
+    }
+  ],
+  "gpt_4o": [
+    {
+      "message": "In plain British English, explain the difference between Self Assessment and Making Tax Digital for a nervous first-time freelancer.",
+      "reply": "Here is what SIMBA can state from approved catalogue decisions:\n\nSelf Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Booking path: choose an option → Calendly → Stripe → Meet. Online booking may be unavailable here — email is only a fallback enquiry route.\n\nSelf Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.\n\nWhat is approved to say:\n- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.\n- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.\n- Support is via email and the client dashboard — not telephone onboarding.\n- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).\n- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.\n\nI will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.\n\nI can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.\n- Self Assessment Simple: £119 (per tax year)\n- Self Assessment Smart: £149 (per tax year)\n- Self Assessment Elite: £299 (per tax year)\n- Simbian Comply: £29.99 (per month; VAT included)\n- Simbian Growth: £59.99 (per month; VAT included)\n- Simbian Elite: £89.99 (per month; VAT included)",
+      "llm_mode": "openai",
+      "latency_ms": 6,
+      "words": 301
+    },
+    {
+      "message": "I feel overwhelmed by tax. Can you reassure me and outline the first three practical steps without selling hard?",
+      "reply": "Absolutely, managing tax can feel daunting, but taking it step by step can make it more manageable. Here are three practical steps to get started:\n\n1. **Gather Your Documents**: Collect all relevant financial documents, such as income statements, bank statements, and any records of expenses. This will give you a clear picture of your financial situation.\n\n2. **Understand Your Obligations**: Determine whether you need to file a Self Assessment tax return or if Making Tax Digital applies to you. This depends on your income sources and amounts.\n\n3. **Set Up a System**: Consider using digital tools or software to keep track of your income and expenses regularly. This will help you stay organised and make filing easier.\n\nIf you have specific questions or need further guidance, feel free to ask!",
+      "llm_mode": "openai",
+      "latency_ms": 1645,
+      "words": 130
+    },
+    {
+      "message": "Why might someone with only PAYE employment still need to send a tax return?",
+      "reply": "If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return — for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. PAYE alone does not automatically remove a filing duty. Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return — or tell me what other income you have and I can help narrow it down.",
+      "llm_mode": "openai",
+      "latency_ms": 4,
+      "words": 62
+    },
+    {
+      "message": "Describe how TaxSimba’s Simbian Comply differs from Self Assessment Simple in everyday language.",
+      "reply": "TaxSimba's Simbian Comply and Self Assessment Simple serve different purposes. Simbian Comply is designed for ongoing digital tax management, helping you keep digital records and meet quarterly obligations under Making Tax Digital (MTD). It includes Xero Simple for bookkeeping.\n\nIn contrast, Self Assessment Simple is for filing your annual tax return, typically needed if you're self-employed or have untaxed income. It focuses on completing and submitting your yearly Self Assessment to HMRC.\n\nIf you need ongoing digital record-keeping, Simbian Comply is suitable. For annual tax return filing, Self Assessment Simple is the right choice. Would you like more details on either option?",
+      "llm_mode": "openai",
+      "latency_ms": 1338,
+      "words": 102
+    },
+    {
+      "message": "I changed my mind halfway: I thought I was a sole trader but I actually receive only PAYE salary and small bank interest. What should I check?",
+      "reply": "If you receive only a PAYE salary and small bank interest, you might not need to file a Self Assessment tax return. However, it's important to check if your total income, including any bank interest, exceeds your Personal Allowance or if your interest exceeds the Personal Savings Allowance, which varies based on your tax rate. \n\nYou can verify your need to file a return on GOV.UK under 'who must send a tax return'. Do you have any other sources of income or specific concerns?",
+      "llm_mode": "openai",
+      "latency_ms": 1083,
+      "words": 84
+    }
+  ]
+}

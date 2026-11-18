@@ -45,14 +45,20 @@ export type PackageCard = {
   billing: string;
   vat_note: string;
   family: string;
+  /** Public-safe only: "approved" | "not_listed" — never internal workflow codes. */
   inclusions_status: string;
   pressure_free_note?: string;
   description?: string | null;
   inclusions?: string[] | null;
   recommendation_reason?: string | null;
+  /** Primary personalised pick for this customer turn. */
+  recommended?: boolean;
+  /** Deprecated on public cards — kept optional for internal tests. */
   name_status?: string | null;
   price_status?: string | null;
   registration_path?: string | null;
+  /** Absolute registration/checkout URL when known. */
+  choose_url?: string | null;
 };
 
 export type CalculatorCard = {
@@ -103,6 +109,7 @@ export type ChatResponse = {
   assistant_name?: string;
   is_ai_disclosure?: string;
   consultation_hint?: string | null;
+  offer_lead_capture?: boolean;
   follow_ups: string[];
   packages: PackageCard[];
   calculators: CalculatorCard[];

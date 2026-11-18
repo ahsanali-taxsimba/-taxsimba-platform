@@ -2,6 +2,7 @@
 
 import type { LLMAdapter } from "../adapters/base.js";
 import {
+  AI_DISCLOSURE,
   DISCLAIMER,
   WELCOME_MESSAGE,
   buildSystemPrompt,
@@ -23,7 +24,19 @@ import {
   journeyContextBlurb,
   startJourney,
 } from "../journeys/engine.js";
+import { scrubCustomerReply } from "../catalog/public.js";
 import { applyGroundingGuard } from "../knowledge/grounding.js";
+import { answerAmbiguousIntent } from "../knowledge/intent_clarifier.js";
+import {
+  callbackHonestyReply,
+  consultationHint as buildConsultationHint,
+  consultationOptionsReply,
+  consultationSelectionReply,
+  detectConsultationSelection,
+  isConsultationIntent,
+} from "../knowledge/consultation_booking.js";
+import { answerMtdEligibility } from "../knowledge/mtd_eligibility.js";
+import { answerMtdOperationsQuestion } from "../knowledge/mtd_operations.js";
 import { retrieve } from "../knowledge/retrieval.js";
 import { resolveTaxYear } from "../knowledge/tax_year.js";
 import {
@@ -42,10 +55,6 @@ import type {
 import { matchRoutes } from "../routes_registry/service.js";
 import { scrubUserMessage } from "../security/injection.js";
 import { SessionStore, sessionStore } from "../sessions/store.js";
-
-const CONSULTATION_HINT =
-  "Need personalised help? TaxSimba offers a £99 private accountant consultation " +
-  "(30 minutes via Google Meet). Live booking is not connected until Calendly is wired.";
 
 export type EngineChatRequest = {
   session_id: string;
@@ -88,16 +97,15 @@ export class ConversationalEngine {
       follow_ups: [
         "Do I need to send a Self Assessment tax return?",
         "What is Making Tax Digital for Income Tax?",
-        "Can I book a £99 accountant consultation?",
+        "What accountant consultations does TaxSimba offer?",
       ],
       packages: [],
       calculators: [],
       routes: [],
       llm_mode: this.llm.mode as "openai" | "mock",
       mock_notice: this.mockNotice(),
-      assistant_name: "SIMBA AI",
-      is_ai_disclosure:
-        "I am SIMBA AI — an AI assistant, not a qualified human accountant or HMRC representative.",
+      assistant_name: "SIMBA",
+      is_ai_disclosure: AI_DISCLOSURE,
       created_at: new Date().toISOString(),
     };
   }
@@ -146,21 +154,122 @@ export class ConversationalEngine {
 
     const inclusions = answerInclusionsQuestion(request.message);
     const catalogFast = mockPackageReply(request.message);
+    const callbackQ =
+      /\b(callback|call back|free call|phone me|phone call|call me)\b/i.test(
+        request.message,
+      );
+    const consultSelection = detectConsultationSelection(request.message);
+    const consultIntent = isConsultationIntent(request.message);
+    const mtdOps = answerMtdOperationsQuestion(request.message);
+    const mtdEligibility = mtdOps
+      ? null
+      : answerMtdEligibility(request.message);
+    const ambiguous = answerAmbiguousIntent(request.message);
+    const additionalTaxQ = /total income tax|additional (self assessment )?tax|extra tax i (pay|owe)|same as the extra/i.test(
+      request.message,
+    );
+    const payeFileQ =
+      /(employer deducts|deducts tax|taxed (under )?paye|only (have )?paye).*(file|return|self assessment)|(do i (still )?need to file).*(employ|paye|salary)|(my employer).*(file)/i.test(
+        request.message,
+      ) ||
+      (/do i still need to file/i.test(request.message) &&
+        /employer|deducts|paye|salary/i.test(request.message));
+    const cryptoSaQ =
+      /\b(crypto|bitcoin|ethereum|cryptoassets?)\b/i.test(request.message) &&
+      /(self assessment|gain|cgt|tax|return)/i.test(request.message);
+    const rentARoomQ = /rent a room|rent-a-room|lodger/i.test(request.message);
+    const cisMtdQ =
+      /(cis|construction|subcontract)/i.test(request.message) &&
+      /(mtd|making tax digital|package|self assessment)/i.test(request.message);
 
     let query = request.message;
     if (journeyState?.tags?.length) {
       query = journeyState.tags.join(" ") + " " + request.message;
     }
     const ranked = retrieve(query, taxYear);
-    const sources: SourceReference[] = verifyRanked(ranked);
+    let sources: SourceReference[] = verifyRanked(ranked);
     const sourceIds = new Set(sources.map((s) => s.id));
     const yearMatches = ranked.filter(
       (r) => r.year_match && sourceIds.has(r.fact.id),
     ).length;
-    const confidence = confidenceFromSources(sources, yearMatches);
+    let confidence = confidenceFromSources(sources, yearMatches);
 
     let reply: string;
-    if (inclusions) {
+    if (additionalTaxQ) {
+      reply =
+        "Your total annual Income Tax is not the same thing as any extra Self Assessment bill. " +
+        "PAYE already collects tax on your salary through the year. Self Assessment works out tax on your other income " +
+        "(for example trading profit) and then credits tax already paid under PAYE — so the balancing payment is usually only the additional amount, not your whole Income Tax for the year. " +
+        "I won’t invent a tax figure without a full calculation. " +
+        "If you share turnover/profit and the tax year, I can explain what to check next — or choose a paid accountant video consultation if you want personalised advice.";
+      confidence = "high";
+    } else if (callbackQ) {
+      reply = callbackHonestyReply(this.settings.consultationBookingLive);
+      confidence = "high";
+    } else if (consultSelection) {
+      reply = consultationSelectionReply(
+        consultSelection,
+        this.settings.consultationBookingLive,
+        this.settings.bookingUrlForPrice(consultSelection.price_gbp),
+      );
+      confidence = "high";
+    } else if (consultIntent) {
+      reply = consultationOptionsReply();
+      confidence = "high";
+    } else if (payeFileQ) {
+      reply =
+        "If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return — for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. " +
+        "PAYE alone does not automatically remove a filing duty. " +
+        "Check https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return — or tell me what other income you have and I can help narrow it down.";
+      confidence = "high";
+    } else if (cryptoSaQ) {
+      reply =
+        "Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead — it depends on your activity. " +
+        "Keep detailed records. I won’t invent your tax figure. " +
+        "Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets — were your crypto disposals investment-style gains, or more like a trading business?";
+      confidence = "high";
+    } else if (rentARoomQ) {
+      reply =
+        "The Rent a Room Scheme can let you earn a set amount from letting furnished accommodation in your home without paying tax on that rental income, if you qualify. " +
+        "It still sits in the wider property/rental landscape — you may need Self Assessment depending on your overall income. " +
+        "Confirm the current limit and rules on https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme. " +
+        "Do you also have other rental property or only a lodger in your home?";
+      confidence = "high";
+    } else if (cisMtdQ) {
+      reply =
+        "CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. " +
+        "TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. " +
+        "What was your sole-trader/CIS turnover before expenses, and for which tax year? " +
+        "Packages: https://www.taxsimba.co.uk/self-assessment";
+      confidence = "high";
+    } else if (mtdOps) {
+      reply = mtdOps;
+      confidence = "high";
+    } else if (ambiguous?.handled) {
+      reply = ambiguous.customer_reply;
+      confidence = ambiguous.confidence;
+    } else if (mtdEligibility?.handled) {
+      // Deterministic eligibility — model must not override.
+      reply = mtdEligibility.customer_reply;
+      confidence = mtdEligibility.confidence;
+      if (
+        !sources.some((s) => /mtd|making tax digital/i.test(s.title))
+      ) {
+        sources = [
+          {
+            id: "mtd-eligibility-govuk",
+            title: "Find out if and when you need to use Making Tax Digital for Income Tax",
+            publisher: "GOV.UK / HMRC",
+            url: "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+            tax_years: ["2025-26", "2026-27", "2027-28"],
+            verified: true,
+            excerpt:
+              "Qualifying income thresholds use “more than” £50,000 / £30,000 / £20,000 with start dates 6 April 2026 / 2027 / 2028.",
+          },
+          ...sources,
+        ];
+      }
+    } else if (inclusions) {
       reply = inclusions;
     } else if (catalogFast && this.llm.mode === "mock") {
       reply = catalogFast;
@@ -210,6 +319,8 @@ export class ConversationalEngine {
       }
     }
 
+    reply = scrubCustomerReply(reply);
+
     let { packages, calculators, follow_ups: followUps } =
       recommendForMessage(
         request.message,
@@ -222,7 +333,15 @@ export class ConversationalEngine {
     if (declineSales) {
       packages = [];
     }
-    if (
+    if (!declineSales && (consultSelection || consultIntent || callbackQ)) {
+      consultationHint = buildConsultationHint(
+        this.settings.consultationBookingLive,
+      );
+      const codes = consultSelection
+        ? [consultSelection.code]
+        : ["ACCOUNTANT_CONSULT_99", "ACCOUNTANT_CONSULT_149"];
+      packages = toPackageCards(codes, request.message);
+    } else if (
       !declineSales &&
       (confidence === "low" ||
         request.message.toLowerCase().includes("consult") ||
@@ -234,17 +353,23 @@ export class ConversationalEngine {
           "As an existing TaxSimba client, message your assigned accountant " +
           "through your secure dashboard rather than booking a new public consultation.";
       } else {
-        consultationHint = CONSULTATION_HINT;
-        if (!packages.some((p) => p.code === "ACCOUNTANT_CONSULT_99")) {
-          if (
-            confidence === "low" ||
-            request.message.toLowerCase().includes("consult")
-          ) {
-            packages = [
-              ...packages,
-              ...toPackageCards(["ACCOUNTANT_CONSULT_99"]),
-            ];
-          }
+        consultationHint = buildConsultationHint(
+          this.settings.consultationBookingLive,
+        );
+        if (
+          !packages.some(
+            (p) =>
+              p.code === "ACCOUNTANT_CONSULT_99" ||
+              p.code === "ACCOUNTANT_CONSULT_149",
+          )
+        ) {
+          packages = [
+            ...packages,
+            ...toPackageCards([
+              "ACCOUNTANT_CONSULT_99",
+              "ACCOUNTANT_CONSULT_149",
+            ]),
+          ];
         }
       }
     }
@@ -329,6 +454,9 @@ export class ConversationalEngine {
       note: r.note ?? null,
       kind: r.kind ?? null,
     }));
+    const offerLead = /contact me|call me|email me|leave my (details|number)|get in touch|please (email|call|phone)|speak to (someone|a person|taxsimba)|can someone (call|email)/i.test(
+      routeQuery,
+    );
     return {
       session_id: sessionId,
       reply,
@@ -337,6 +465,7 @@ export class ConversationalEngine {
       confidence,
       disclaimer: DISCLAIMER,
       consultation_hint: consultationHint,
+      offer_lead_capture: offerLead,
       follow_ups: followUps,
       packages,
       calculators,
@@ -344,9 +473,8 @@ export class ConversationalEngine {
       journey: journeyState ?? null,
       llm_mode: this.llm.mode as "openai" | "mock",
       mock_notice: this.mockNotice(),
-      assistant_name: "SIMBA AI",
-      is_ai_disclosure:
-        "I am SIMBA AI — an AI assistant, not a qualified human accountant or HMRC representative.",
+      assistant_name: "SIMBA",
+      is_ai_disclosure: AI_DISCLOSURE,
       created_at: new Date().toISOString(),
     };
   }

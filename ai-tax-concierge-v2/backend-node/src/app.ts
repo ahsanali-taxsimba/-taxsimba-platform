@@ -23,6 +23,7 @@ import { catalogRouter } from "./routes/catalog.js";
 import { sessionsRouter } from "./routes/sessions.js";
 import { analyticsRouter } from "./routes/analytics.js";
 import { opsRouter } from "./routes/ops.js";
+import { leadsRouter } from "./routes/leads.js";
 import { sessionStore } from "./sessions/store.js";
 import { VERSION } from "./version.js";
 import type { AppLocals } from "./appTypes.js";
@@ -60,11 +61,13 @@ export function createApp(settings?: Settings): Express {
     cors({
       origin: (origin, cb) => {
         const allowed = resolved.corsOrigins;
+        const allowWildcard =
+          !resolved.isProductionLike && allowed.includes("*");
         if (!origin) {
           cb(null, true);
           return;
         }
-        if (allowed.includes(origin) || allowed.includes("*")) {
+        if (allowed.includes(origin) || allowWildcard) {
           cb(null, true);
           return;
         }
@@ -73,7 +76,7 @@ export function createApp(settings?: Settings): Express {
       },
       credentials: false,
       methods: ["GET", "POST", "OPTIONS"],
-      allowedHeaders: ["Content-Type", "Accept"],
+      allowedHeaders: ["Content-Type", "Accept", "X-Simba-Ops-Token"],
     }),
   );
 
@@ -99,6 +102,7 @@ export function createApp(settings?: Settings): Express {
   app.use(prefix, catalogRouter());
   app.use(prefix, sessionsRouter());
   app.use(prefix, analyticsRouter());
+  app.use(prefix, leadsRouter());
   app.use(prefix, opsRouter());
 
   const widgetPath = path.resolve(WIDGET_DIR);
@@ -114,8 +118,8 @@ export function createApp(settings?: Settings): Express {
 
   app.get("/", (_req, res) => {
     res.json({
-      product: "SIMBA AI",
-      subtitle: "SIMBA AI Tax Assistant",
+      product: "SIMBA",
+      subtitle: "Your Digital Tax Assistant",
       phase: "master-completion",
       version: VERSION,
       preview: "/widget/preview.html",

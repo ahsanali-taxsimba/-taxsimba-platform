@@ -1,6 +1,6 @@
 /**
  * TaxSimba SIMBA embed launcher
- * Premium floating “Ask SIMBA / AI Tax Assistant” + session-dismissible welcome card.
+ * Premium floating “Ask SIMBA / Your Digital Tax Assistant” + session-dismissible welcome card.
  * Opens compact chat panel (chat.html). Full workspace remains at /widget/index.html.
  */
 (function () {
@@ -76,7 +76,7 @@
       "#simba-root{right:12px;left:12px;align-items:stretch;bottom:calc(12px + env(safe-area-inset-bottom,0px));}" +
       "#simba-welcome{width:100%;max-width:none;}" +
       "#simba-launcher{align-self:flex-end;}" +
-      "#simba-panel{position:fixed;inset:0;width:100vw;height:100%;max-height:100%;border-radius:0;z-index:2147483001;}" +
+      "#simba-panel{position:fixed;inset:0;width:100vw;height:100dvh;max-height:100dvh;border-radius:0;z-index:2147483001;}" +
       "#simba-root.panel-open #simba-welcome,#simba-root.panel-open #simba-launcher{display:none!important;}" +
       "}"
     );
@@ -117,7 +117,7 @@
     welcomeEl.innerHTML =
       '<button type="button" class="sw-close" aria-label="Close welcome message">&times;</button>' +
       '<p class="sw-title">✨ Need help with your tax?</p>' +
-      '<p class="sw-lead">Ask SIMBA, your AI Tax Assistant.</p>' +
+      '<p class="sw-lead">Ask SIMBA, your Digital Tax Assistant.</p>' +
       "<ul>" +
       "<li>Get answers to UK tax questions</li>" +
       "<li>Find the right TaxSimba service</li>" +
@@ -130,15 +130,15 @@
     var launcher = document.createElement("button");
     launcher.id = "simba-launcher";
     launcher.type = "button";
-    launcher.setAttribute("aria-label", "Ask SIMBA AI Tax Assistant");
+    launcher.setAttribute("aria-label", "Ask SIMBA — Your Digital Tax Assistant");
     launcher.setAttribute("aria-haspopup", "dialog");
     launcher.setAttribute("aria-expanded", "false");
     launcher.innerHTML =
-      '<span class="sl-main">Ask SIMBA</span><span class="sl-sub">AI Tax Assistant</span>';
+      '<span class="sl-main">Ask SIMBA</span><span class="sl-sub">Digital Tax Assistant</span>';
 
     var panel = document.createElement("iframe");
     panel.id = "simba-panel";
-    panel.title = "Ask SIMBA AI Tax Assistant";
+    panel.title = "Ask SIMBA — Your Digital Tax Assistant";
     panel.setAttribute("allow", "clipboard-write");
     panel.setAttribute("loading", "lazy");
 

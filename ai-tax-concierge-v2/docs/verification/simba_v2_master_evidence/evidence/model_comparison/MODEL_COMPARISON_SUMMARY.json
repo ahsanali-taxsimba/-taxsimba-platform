@@ -1,0 +1,60 @@
+{
+  "generated_at": "2026-11-18T04:27:47.569Z",
+  "obtained_via": "real_openai_api",
+  "current_configured_default_model": "gpt-4o-mini",
+  "models_compared": [
+    "gpt-4o-mini",
+    "gpt-4o"
+  ],
+  "scenario_count_per_model": 32,
+  "deployed_model_unchanged": true,
+  "note": "Do not switch OPENAI_MODEL without owner approval. Deterministic MTD/consult handlers apply equally across models.",
+  "summaries": [
+    {
+      "model": "gpt-4o-mini",
+      "scenarios": 32,
+      "passed": 32,
+      "failed": 0,
+      "critical_accuracy_pass": 9,
+      "critical_accuracy_fail": 0,
+      "safety_reject_hits": 0,
+      "latency_ms": {
+        "median": 4,
+        "p90": 1983,
+        "max": 2473
+      },
+      "estimated_tokens": {
+        "prompt": 12497,
+        "completion": 4057
+      },
+      "estimated_cost_usd_approx": 0.0043,
+      "avg_style_score": 10,
+      "pricing_note": "Cost uses approximate public OpenAI list prices and char/4 token estimates; not a billing invoice."
+    },
+    {
+      "model": "gpt-4o",
+      "scenarios": 32,
+      "passed": 32,
+      "failed": 0,
+      "critical_accuracy_pass": 9,
+      "critical_accuracy_fail": 0,
+      "safety_reject_hits": 0,
+      "latency_ms": {
+        "median": 1,
+        "p90": 1236,
+        "max": 1552
+      },
+      "estimated_tokens": {
+        "prompt": 12497,
+        "completion": 4011
+      },
+      "estimated_cost_usd_approx": 0.0714,
+      "avg_style_score": 10,
+      "pricing_note": "Cost uses approximate public OpenAI list prices and char/4 token estimates; not a billing invoice."
+    }
+  ],
+  "recommendation": {
+    "model": "gpt-4o-mini",
+    "rationale": "Highest critical accuracy and safety, then pass rate / style, then approximate cost. Deployed default left unchanged pending approval."
+  }
+}

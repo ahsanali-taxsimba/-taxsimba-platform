@@ -38,10 +38,8 @@ describe("recommendations catalog", () => {
   it.each(SA_PRICE_CASES)("sa_package_prices %s = %s", (code, price) => {
     const card = toPackageCards([code])[0];
     expect(card.price_gbp).toBe(price);
-    expect(card.price_status).toBe("verified");
-    expect(card.inclusions_status).toMatch(
-      /pending_approval|mixed_verified_from_website|requires_clarification/,
-    );
+    expect(card.price_status === undefined || card.price_status === "verified").toBe(true);
+    expect(["approved", "not_listed"]).toContain(card.inclusions_status);
   });
 
   it.each(MTD_PRICE_CASES)(
@@ -57,7 +55,8 @@ describe("recommendations catalog", () => {
     const card = toPackageCards(["ACCOUNTANT_CONSULT_99"])[0];
     expect(card.price_gbp).toBe(99);
     const cat = packagesCatalog();
-    expect(cat.consultation.booking_status).toBe("stub");
+    expect(cat.consultation[0].booking_status).toBe("stub");
+    expect(cat.consultation[1].price_gbp).toBe(149);
   });
 
   it("mtd_customer_facing_simbian_names_verified", () => {
@@ -109,13 +108,16 @@ describe("recommendations catalog", () => {
             "mixed_verified_from_website_and_requires_clarification" ||
           p.inclusions_status === "approved" ||
           p.inclusions_status === "unknown" ||
-          p.inclusions_status === "missing_requires_approval",
+          p.inclusions_status === "missing_requires_approval" ||
+          p.inclusions_status === "not_listed" ||
+          p.inclusions_status === "approved",
       ),
     ).toBe(true);
     expect(
       packages.every(
         (p) =>
-          p.code === "ACCOUNTANT_CONSULT_99" || p.inclusions == null,
+          p.inclusions == null ||
+          (Array.isArray(p.inclusions) && p.inclusions_status === "approved"),
       ),
     ).toBe(true);
   });

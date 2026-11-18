@@ -44,7 +44,52 @@
     busy: false,
     view: "welcome",
     panel: "chat",
+    stickToBottom: true,
   };
+
+  function nearBottom(el, threshold = 80) {
+    if (!el) return true;
+    return el.scrollHeight - el.scrollTop - el.clientHeight < threshold;
+  }
+
+  function ensureJumpControl() {
+    let btn = document.getElementById("ts-jump-latest");
+    if (!btn && els.body) {
+      btn = document.createElement("button");
+      btn.type = "button";
+      btn.id = "ts-jump-latest";
+      btn.className = "ts-jump-latest";
+      btn.hidden = true;
+      btn.textContent = "Jump to latest";
+      btn.addEventListener("click", () => {
+        state.stickToBottom = true;
+        scrollChatToBottom(true);
+      });
+      els.body.appendChild(btn);
+    }
+    return btn;
+  }
+
+  function updateJumpControl() {
+    const btn = ensureJumpControl();
+    if (!btn || !els.body) return;
+    btn.hidden = state.stickToBottom || nearBottom(els.body, 100);
+  }
+
+  function scrollChatToBottom(force = false) {
+    if (!els.body) return;
+    if (!force && !state.stickToBottom) {
+      updateJumpControl();
+      return;
+    }
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        els.body.scrollTop = els.body.scrollHeight;
+        state.stickToBottom = true;
+        updateJumpControl();
+      });
+    });
+  }
 
   const els = {
     shell: document.querySelector(".ts-shell"),
@@ -58,6 +103,7 @@
     del: document.getElementById("ts-delete"),
     topicsBtn: document.getElementById("ts-topics-btn"),
     navToggle: document.getElementById("ts-nav-toggle"),
+    navClose: document.getElementById("ts-nav-close"),
     sidebar: document.getElementById("ts-sidebar"),
     backdrop: document.getElementById("ts-sidebar-backdrop"),
   };
@@ -112,9 +158,24 @@
   }
 
   function setNavOpen(open) {
+    const wasOpen = els.shell?.classList.contains("nav-open");
     els.shell?.classList.toggle("nav-open", open);
     if (els.navToggle) els.navToggle.setAttribute("aria-expanded", open ? "true" : "false");
     if (els.backdrop) els.backdrop.hidden = !open;
+    if (els.sidebar) {
+      if (open) {
+        els.sidebar.setAttribute("role", "dialog");
+        els.sidebar.setAttribute("aria-modal", "true");
+      } else {
+        els.sidebar.removeAttribute("role");
+        els.sidebar.removeAttribute("aria-modal");
+      }
+    }
+    if (open && !wasOpen) {
+      els.navClose?.focus?.();
+    } else if (!open && wasOpen) {
+      els.navToggle?.focus?.();
+    }
   }
 
   function setView(view) {
@@ -137,7 +198,7 @@
       p.classList.toggle("is-active", active);
       p.hidden = !active;
     });
-    document.querySelectorAll(".ts-nav-item, .ts-mnav").forEach((btn) => {
+    document.querySelectorAll(".ts-nav-item").forEach((btn) => {
       btn.classList.toggle("is-active", btn.dataset.panel === panelId);
     });
     setNavOpen(false);
@@ -238,24 +299,69 @@
     }
 
     if (panelId === "consultation") {
-      const c = packages.consultation || {};
+      const bookingLive = Boolean(
+        state.config && state.config.consultation_booking_available
+      );
+      const bookingUrls =
+        (state.config && state.config.consultation_booking_urls) || {};
+      const list = Array.isArray(packages.consultations)
+        ? packages.consultations
+        : packages.consultation
+          ? [packages.consultation]
+          : [];
+      const cards = (list.length
+        ? list
+        : [
+            { code: "ACCOUNTANT_CONSULT_99", name: "Quick Tax Advice", price_gbp: 99, duration_minutes: 20, billing: "one-off", meeting: "Google Meet", booking_status: "stub" },
+            { code: "ACCOUNTANT_CONSULT_149", name: "Extended Tax Consultation", price_gbp: 149, duration_minutes: 40, billing: "one-off", meeting: "Google Meet", booking_status: "stub" },
+          ]
+      )
+        .map((c) => {
+          const code = c.code || (Number(c.price_gbp) >= 149 ? "ACCOUNTANT_CONSULT_149" : "ACCOUNTANT_CONSULT_99");
+          const selectMsg =
+            Number(c.price_gbp) >= 149
+              ? "I'd like the Extended Tax Consultation (£149 / 40 minutes)"
+              : "I'd like Quick Tax Advice (£99 / 20 minutes)";
+          const calendlyUrl = bookingUrls[code] || "";
+          const canBook =
+            bookingLive &&
+            calendlyUrl &&
+            !/example|localhost|stub/i.test(String(calendlyUrl));
+          const bookBtn = canBook
+            ? `<a class="ts-cta" href="${escapeHtml(calendlyUrl)}" target="_blank" rel="noopener noreferrer">Book consultation</a>`
+            : `<button type="button" class="ts-cta ts-cta-disabled" disabled aria-disabled="true">Online booking unavailable</button>`;
+          return `<div class="ts-list-card ts-consult-card">
+            <strong>${escapeHtml(c.name || "Consultation")}</strong>
+            <div class="ts-price-row">£${Number(c.price_gbp || 0)} · ${escapeHtml(String(c.duration_minutes || ""))} minutes</div>
+            <div class="ts-note">${escapeHtml(c.meeting || "Google Meet")} · advice only (no filing / bookkeeping / written report)</div>
+            <div class="ts-cta-row">
+              <button type="button" class="ts-follow ts-touch" data-starter="${escapeHtml(selectMsg)}">Select this option</button>
+              ${bookBtn}
+            </div>
+            <span class="ts-status-pill${canBook ? " ok" : ""}">${
+              canBook
+                ? "Calendly booking live — pay within Calendly"
+                : "Booking not connected — no fake confirmation"
+            }</span>
+          </div>`;
+        })
+        .join("");
       document.getElementById("ts-panel-consultation").innerHTML = `
         <div class="ts-panel-scroll">
-          <h2>Book a Consultation</h2>
-          <p class="ts-lead">Private accountant consultation — not automatic booking inside this chat.</p>
+          <h2>Accountant consultations</h2>
+          <p class="ts-lead">Choose an option, then book on Calendly (availability → pay within Calendly → Google Meet after confirmation). No free phone callbacks. No separate Stripe checkout page.</p>
+          <ol class="ts-flow-list">
+            <li>Select Quick (£99 / 20 min) or Extended (£149 / 40 min)</li>
+            <li>Open the matching Calendly event</li>
+            <li>Pick an available appointment and pay within Calendly</li>
+            <li>Receive Google Meet details after Calendly confirmation</li>
+          </ol>
+          ${cards}
           <div class="ts-list-card">
-            <strong>${escapeHtml(c.name || "Private accountant consultation")}</strong>
-            <div class="ts-price-row">£${Number(c.price_gbp || 99)} · ${escapeHtml(c.billing || "one-off")}</div>
-            <div class="ts-note">${escapeHtml(String(c.duration_minutes || 30))} minutes · ${escapeHtml(c.meeting || "Google Meet")}</div>
-            <span class="ts-status-pill">Booking status: ${escapeHtml(c.booking_status || "stub")} — Calendly/Stripe not confirmed live</span>
+            <strong>If online booking is unavailable</strong>
+            <div class="ts-note">Email <a href="mailto:info@taxsimba.co.uk">info@taxsimba.co.uk</a> for a general enquiry only — email is not the standard booking method once Calendly is live.</div>
+            <button type="button" class="ts-follow ts-touch" data-consult="1" style="margin-top:8px">Ask SIMBA which option fits</button>
           </div>
-          <div class="ts-list-card">
-            <strong>Accountant-led care</strong>
-            <div class="ts-note">A TaxSimba accountant leads the session. SIMBA will never claim a consultation is booked or paid until TaxSimba systems confirm it.</div>
-            <button type="button" class="ts-follow" data-consult="1" style="margin-top:8px">Ask SIMBA about booking</button>
-          </div>
-          <div class="ts-list-card"><a href="${websiteUrl("/book-consultation")}" target="_blank" rel="noopener noreferrer">Open consultation page</a>
-            <div class="ts-note">Destination is soft/generic until Toxel confirms the live booking flow.</div></div>
         </div>`;
       return;
     }
@@ -298,7 +404,8 @@
     row.className = "ts-msg user";
     row.innerHTML = `<div class="ts-bubble">${escapeHtml(text)}</div>`;
     els.body.appendChild(row);
-    els.body.scrollTop = els.body.scrollHeight;
+    state.stickToBottom = true;
+    scrollChatToBottom(true);
   }
 
   function typing() {
@@ -312,7 +419,7 @@
       `<span class="ts-typing-dot" aria-hidden="true"></span>` +
       `<span>Preparing a reply…</span></div>`;
     els.body.appendChild(row);
-    els.body.scrollTop = els.body.scrollHeight;
+    scrollChatToBottom(true);
   }
 
   function clearTyping() {
@@ -374,16 +481,44 @@
 
     const packages = (payload.packages || []).slice(0, 3);
     if (packages.length) {
-      html += `<div class="ts-section-label">Optional TaxSimba support</div><div class="ts-resources">`;
+      html += `<div class="ts-section-label">Recommended for you</div><div class="ts-pkg-grid">`;
       for (const p of packages) {
         const price = Number(p.price_gbp);
         const priceLabel = Number.isInteger(price) ? `£${price}` : `£${price.toFixed(2)}`;
-        html += `<div class="ts-card"><strong>${escapeHtml(p.name)}</strong>
-          <div class="price">${priceLabel} · ${escapeHtml(p.billing)}</div>
+        const rec = p.recommended ? " is-recommended" : "";
+        const badge = p.recommended
+          ? `<span class="ts-pkg-badge">Recommended for you</span>`
+          : `<span class="ts-pkg-badge alt">Also suitable</span>`;
+        const inclusions = Array.isArray(p.inclusions) && p.inclusions.length
+          ? `<ul class="ts-pkg-features">${p.inclusions.slice(0, 4).map((i) => `<li>${escapeHtml(i)}</li>`).join("")}</ul>`
+          : `<div class="ts-note">${escapeHtml(p.pressure_free_note || "Approved catalogue price — confirm inclusions on TaxSimba before purchase.")}</div>`;
+        const why = p.recommendation_reason
+          ? `<p class="ts-pkg-why">${escapeHtml(p.recommendation_reason)}</p>`
+          : "";
+        const chooseUrl = p.choose_url || (p.registration_path ? websiteUrl(p.registration_path) : "");
+        const cta = chooseUrl
+          ? `<a class="ts-pkg-cta" href="${escapeHtml(chooseUrl)}" target="_blank" rel="noopener noreferrer">Choose this package</a>`
+          : `<button type="button" class="ts-pkg-cta ts-pkg-cta-secondary" data-package="${escapeHtml(p.code)}">Tell me more</button>`;
+        html += `<article class="ts-pkg-card${rec}">${badge}
+          <strong>${escapeHtml(p.name)}</strong>
+          <div class="ts-pkg-price">${priceLabel} <span>· ${escapeHtml(p.billing)}</span></div>
           <div class="ts-note">${escapeHtml(p.vat_note || "")}</div>
-          <button type="button" class="ts-follow" data-package="${escapeHtml(p.code)}" style="margin-top:6px">Tell me more</button></div>`;
+          ${why}${inclusions}
+          <div class="ts-pkg-actions">${cta}
+            <button type="button" class="ts-follow" data-package="${escapeHtml(p.code)}">Compare alternatives</button>
+          </div></article>`;
       }
       html += `</div>`;
+    }
+
+    const lastUser = [...state.history].reverse().find((m) => m.role === "user");
+    if (
+      payload.offer_lead_capture ||
+      /contact me|call me|email me|leave my (details|number)|get in touch|please (email|call|phone)|speak to (someone|a person|taxsimba)/i.test(
+        (lastUser && lastUser.content) || "",
+      )
+    ) {
+      html += renderLeadCaptureForm();
     }
 
     const followUps = (payload.follow_ups || []).slice(0, 2);
@@ -397,13 +532,77 @@
 
     if (payload.consultation_hint) {
       html += `<div class="ts-hint">${escapeHtml(payload.consultation_hint)}
-        <div style="margin-top:6px"><button type="button" class="ts-follow" data-consult="1">Ask about £99 consultation</button></div></div>`;
+        <div style="margin-top:6px"><button type="button" class="ts-follow" data-consult="1">Ask about consultations</button></div></div>`;
     }
 
     wrap.innerHTML = html;
     els.body.appendChild(wrap);
-    els.body.scrollTop = els.body.scrollHeight;
+    scrollChatToBottom(false);
     announce("New SIMBA reply");
+  }
+
+  function renderLeadCaptureForm() {
+    return `<form class="ts-lead-card" data-lead-form="1">
+      <strong>Happy to arrange a follow-up</strong>
+      <p class="ts-note">Share email and/or phone if you’d like TaxSimba to contact you about this enquiry. This is not marketing consent.</p>
+      <label>Name <input name="name" autocomplete="name" maxlength="120" /></label>
+      <label>Email <input name="email" type="email" autocomplete="email" maxlength="200" /></label>
+      <label>Phone <input name="phone" type="tel" autocomplete="tel" maxlength="40" /></label>
+      <label>Service interest
+        <select name="service_interest">
+          <option value="">Select…</option>
+          <option>Self Assessment</option>
+          <option>Making Tax Digital</option>
+          <option>Accountant consultation</option>
+          <option>General enquiry</option>
+        </select>
+      </label>
+      <label class="ts-lead-check"><input name="permission" type="checkbox" required /> I agree TaxSimba may follow up about this enquiry</label>
+      <button type="submit" class="ts-pkg-cta">Send enquiry</button>
+      <div class="ts-lead-status" aria-live="polite"></div>
+    </form>`;
+  }
+
+  async function submitLeadForm(form) {
+    const status = form.querySelector(".ts-lead-status");
+    const fd = new FormData(form);
+    const permission = form.querySelector('input[name="permission"]');
+    if (!permission || !permission.checked) {
+      if (status) status.textContent = "Please tick the follow-up permission box.";
+      return;
+    }
+    const email = String(fd.get("email") || "").trim();
+    const phone = String(fd.get("phone") || "").trim();
+    if (!email && !phone) {
+      if (status) status.textContent = "Please add an email or phone number.";
+      return;
+    }
+    if (status) status.textContent = "Sending…";
+    try {
+      const summary = state.history
+        .slice(-8)
+        .map((m) => `${m.role}: ${String(m.content || "").slice(0, 160)}`)
+        .join("\n");
+      const lastUserMsg = [...state.history].reverse().find((m) => m.role === "user");
+      const res = await api("/api/v1/leads", {
+        method: "POST",
+        body: JSON.stringify({
+          session_id: state.sessionId,
+          name: String(fd.get("name") || "").trim() || null,
+          email: email || null,
+          phone: phone || null,
+          service_interest: String(fd.get("service_interest") || "").trim() || null,
+          query: (lastUserMsg && lastUserMsg.content) || null,
+          conversation_summary: summary,
+          follow_up_permission: true,
+        }),
+      });
+      if (status) status.textContent = res.message || "Thanks — enquiry saved.";
+      form.querySelector('button[type="submit"]').disabled = true;
+      track("lead_captured", { lead_id: res.lead_id, duplicate: res.duplicate });
+    } catch (e) {
+      if (status) status.textContent = e.message || "Could not save enquiry. Please try again.";
+    }
   }
 
   function showError(message) {
@@ -415,7 +614,7 @@
     err.setAttribute("role", "alert");
     err.innerHTML = `${escapeHtml(message)} <button type="button" class="ts-follow" data-retry="1">Retry</button>`;
     els.body.appendChild(err);
-    els.body.scrollTop = els.body.scrollHeight;
+    scrollChatToBottom(true);
   }
 
   async function sendChat(message, extra = {}) {
@@ -430,7 +629,7 @@
       const payload = {
         session_id: state.sessionId,
         message,
-        history: state.history.slice(-12),
+        history: state.history.slice(-100),
         journey_state: state.journey,
         ...extra,
       };
@@ -520,11 +719,21 @@
     els.body.innerHTML = `
       ${mock}
       <div class="ts-welcome">
-        <h1>Hello — I’m SIMBA, your UK tax assistant</h1>
-        <p>Tell me what you need help with. I’ll explain the rules in plain English, then point you to the right TaxSimba tools or services if useful.</p>
+        <h1>${escapeHtml(
+          (boot.welcome_message || "").split("\n")[0] ||
+            "Hi! I’m SIMBA, your Digital Tax Assistant at TaxSimba."
+        )}</h1>
+        <p>${escapeHtml(
+          (boot.welcome_message || "")
+            .split("\n")
+            .slice(1)
+            .join(" ")
+            .trim() ||
+            "I can help with UK tax questions, Self Assessment, Making Tax Digital and finding the right service for you."
+        )}</p>
         <div class="ts-disclosure">${escapeHtml(
           boot.ai_disclosure ||
-            "SIMBA is an AI assistant from TaxSimba — not a qualified human accountant, not HMRC, and not government-approved AI."
+            "SIMBA is AI-powered — a Digital Tax Assistant from TaxSimba, not a qualified human accountant or HMRC representative."
         )}</div>
       </div>
       <div class="ts-section-label">How can I help?</div>
@@ -535,6 +744,12 @@
   }
 
   function onActionClick(ev) {
+    const leadForm = ev.target.closest("form[data-lead-form]");
+    if (leadForm && ev.target.closest('button[type="submit"]')) {
+      ev.preventDefault();
+      submitLeadForm(leadForm);
+      return;
+    }
     const calcLink = ev.target.closest("a[data-calc-id]");
     if (calcLink) {
       track("calculator_click", { id: calcLink.dataset.calcId, path: calcLink.getAttribute("href") || "" });
@@ -567,7 +782,7 @@
     } else if (t.dataset.consult) {
       track("consultation_click", { code: "ACCOUNTANT_CONSULT_99" });
       showPanel("chat");
-      sendChat("Can I book a £99 accountant consultation?");
+      sendChat("What accountant consultations does TaxSimba offer?");
     } else if (t.dataset.retry) {
       const lastUser = [...state.history].reverse().find((m) => m.role === "user");
       if (lastUser) sendChat(lastUser.content);
@@ -575,6 +790,13 @@
   }
 
   document.addEventListener("click", onActionClick);
+  document.addEventListener("submit", (ev) => {
+    const leadForm = ev.target && ev.target.closest && ev.target.closest("form[data-lead-form]");
+    if (leadForm) {
+      ev.preventDefault();
+      submitLeadForm(leadForm);
+    }
+  });
 
   els.form.addEventListener("submit", (ev) => {
     ev.preventDefault();
@@ -619,6 +841,7 @@
     const open = !els.shell?.classList.contains("nav-open");
     setNavOpen(open);
   });
+  els.navClose?.addEventListener("click", () => setNavOpen(false));
   els.backdrop?.addEventListener("click", () => setNavOpen(false));
   document.addEventListener("keydown", (ev) => {
     if (ev.key === "Escape" && els.shell?.classList.contains("nav-open")) {
@@ -627,6 +850,28 @@
   });
 
   async function init() {
+    if (els.body) {
+      els.body.addEventListener(
+        "scroll",
+        () => {
+          state.stickToBottom = nearBottom(els.body, 80);
+          updateJumpControl();
+        },
+        { passive: true }
+      );
+    }
+    if (window.visualViewport) {
+      const onViewport = () => {
+        const vv = window.visualViewport;
+        document.documentElement.style.setProperty(
+          "--simba-vvh",
+          `${Math.round(vv.height)}px`
+        );
+        if (state.stickToBottom) scrollChatToBottom(true);
+      };
+      window.visualViewport.addEventListener("resize", onViewport);
+      window.visualViewport.addEventListener("scroll", onViewport);
+    }
     try {
       const boot = await api("/api/v1/bootstrap");
       state.bootstrap = boot;

@@ -75,7 +75,7 @@ describe("final website catalogue reconciliation", () => {
     expect(lower).toContain("customer responsibilities");
     expect(lower).toContain("no fixed monthly transaction caps");
     expect(lower).not.toContain("undecided");
-    expect(lower).toContain("removed");
+    expect(lower).toMatch(/will not invent|cannot promise|not approved/);
     expect(lower).not.toMatch(/includes quarterly business reviews/);
     expect(lower).not.toMatch(/includes proactive tax planning advice/);
   });

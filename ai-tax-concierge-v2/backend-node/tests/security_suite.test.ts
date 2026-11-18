@@ -143,8 +143,11 @@ describe("security suite", () => {
     const settings = buildTestSettings();
     expect(settings.corsOrigins).toContain("http://localhost:3000");
     const pub = settings.safePublicConfig();
-    expect(pub.consultation_price_gbp).toBe(99);
-    expect(pub.payment_status).toBe("mock_unavailable");
+    expect((pub.consultations as any[])[0].price_gbp).toBe(99);
+    expect((pub.consultations as any[])[0].duration_minutes).toBe(20);
+    expect((pub.consultations as any[])[1].price_gbp).toBe(149);
+    expect((pub.consultations as any[])[1].duration_minutes).toBe(40);
+    expect(pub.payment_status).toBe("unavailable");
     expect(JSON.stringify(pub)).not.toContain("sk-");
     expect(settings.useMockLlm).toBe(true);
   });

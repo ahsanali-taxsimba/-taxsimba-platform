@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-11-18T04:13:25.600806+00:00",
+  "obtained_via": "real_openai_api",
+  "model": "gpt-4o-mini",
+  "llm_mode": "openai",
+  "journeys": {
+    "generated_at": "2026-11-18T03:29:27.559Z",
+    "obtained_via": "real_openai_api",
+    "model": "gpt-4o-mini",
+    "llm_mode": "openai",
+    "total": 20,
+    "passed": 20,
+    "failed": 0,
+    "scoring": "whole_transcript_expect_any",
+    "rescored_at": "2026-11-18T04:12:00Z",
+    "note": "Rescored existing real OpenAI transcripts; no new API calls. LJ-13 now PASS because turn 1 stated 31 January."
+  },
+  "latency_ms": {
+    "count": 40,
+    "min": 1,
+    "median": 1154,
+    "max": 3165,
+    "note": "Sub-50ms rows are deterministic engine short-circuits; multi-second rows are live model completions."
+  },
+  "key_handling": "server-side OpenAIAdapter only; public responses never include raw API key",
+  "system_instructions": "buildSystemPrompt() \u2014 Digital Tax Assistant, grounding, catalogue, consultation tiers",
+  "deterministic_safeguards": [
+    "mtd_eligibility",
+    "mtd_operations",
+    "intent_clarifier",
+    "paye/crypto/rent-a-room/CIS fast paths"
+  ],
+  "scoring": "whole_transcript_expect_any",
+  "sample_redacted_turn": {
+    "journey": "LJ-02",
+    "user": "My qualifying income was exactly \u00a350,000 in 2024-25. Do I need MTD from April 2026?",
+    "assistant_preview": "No \u2014 qualifying income of exactly \u00a350,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC\u2019s wording is \u201cmore than \u00a350,000\u201d, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than ",
+    "llm_mode": "openai",
+    "latency_ms": 15
+  }
+}

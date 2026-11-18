@@ -12,8 +12,11 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "live:openai": "tsx scripts/liveOpenAIVerification.ts",
+    "live:mtd-remediation": "tsx scripts/liveMtdEligibilityRemediation.ts",
     "live:auto-publish": "tsx scripts/liveAutoPublishOpenAIProof.ts",
     "demo:dynamic": "tsx scripts/dynamicSystemsDemo.ts",
+    "smoke:remediation": "tsx scripts/remediationSmokeEvidence.ts",
+    "suite:master": "tsx scripts/runMasterScenarioSuite.ts",
     "typecheck": "tsc --noEmit"
   },
   "engines": {

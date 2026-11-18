@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-11-18T05:11:17.099Z",
+  "obtained_via": "real_openai_api",
+  "model": "gpt-4o-mini",
+  "root_cause_fixed": "Client and OpenAI adapter previously truncated history to 12 messages (~6 turns). Now packConversationHistory keeps 40 recent messages + compressed earlier memory; session store keeps 120; chat rate limit raised.",
+  "twenty": {
+    "passed": true,
+    "failures": 0,
+    "memory_ok": true
+  },
+  "fifty": {
+    "passed": true,
+    "failures": 0,
+    "memory_ok": true
+  }
+}

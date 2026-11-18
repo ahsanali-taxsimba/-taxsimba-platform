@@ -27,8 +27,22 @@ describe("adapters", () => {
     expect(stubs.payment.createCheckout("SA_SMART").status).toBe("unavailable");
     const cal = stubs.calendly.consultationLink(99);
     expect(cal.price_gbp).toBe(99);
-    expect(cal.booking_url).toContain("calendly.com");
+    expect(cal.status).toBe("stub");
+    expect(cal.booking_url).toBeNull();
+    expect(cal.availability).toBe("not_live");
+    expect(Array.isArray(cal.flow)).toBe(true);
     expect(stubs.client_portal.accountStatus(null).status).toBe("unavailable");
+    const liveSettings = createSettings({
+      CONSULTATION_BOOKING_URL_99: "https://calendly.com/taxsimba/quick-99",
+      CONSULTATION_BOOKING_URL_149: "https://calendly.com/taxsimba/extended-149",
+      CONSULTATION_BOOKING_LIVE: true,
+    });
+    const liveCal = buildStubAdapters(liveSettings).calendly.consultationLink(99);
+    expect(liveCal.status).toBe("live");
+    expect(String(liveCal.booking_url)).toContain("calendly.com/taxsimba/quick-99");
+    expect(liveCal.payment).toBe("calendly_integrated");
+    const live149 = buildStubAdapters(liveSettings).calendly.consultationLink(149);
+    expect(String(live149.booking_url)).toContain("calendly.com/taxsimba/extended-149");
   });
 
   it("openai_adapter_requires_key", () => {

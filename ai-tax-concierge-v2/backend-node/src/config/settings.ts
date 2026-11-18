@@ -12,6 +12,9 @@ export type SettingsOverrides = Partial<{
   CONCIERGE_LOG_LEVEL: string;
   CONCIERGE_FORCE_MOCK_LLM: boolean | string;
   CONSULTATION_BOOKING_URL: string;
+  CONSULTATION_BOOKING_URL_99: string;
+  CONSULTATION_BOOKING_URL_149: string;
+  CONSULTATION_BOOKING_LIVE: boolean | string;
   WEBSITE_BASE_URL: string;
 }>;
 
@@ -48,6 +51,9 @@ export class Settings {
   readonly conciergeLogLevel: string;
   readonly conciergeForceMockLlm: boolean;
   readonly consultationBookingUrl: string;
+  readonly consultationBookingUrl99: string;
+  readonly consultationBookingUrl149: string;
+  readonly consultationBookingLive: boolean;
   readonly websiteBaseUrl: string;
 
   constructor(overrides: SettingsOverrides = {}) {
@@ -59,11 +65,25 @@ export class Settings {
       30;
     this.openaiTimeoutSeconds = Number(timeoutRaw);
     this.conciergeEnv = envOr("CONCIERGE_ENV", "development", overrides);
-    this.conciergeCorsOrigins = envOr(
-      "CONCIERGE_CORS_ORIGINS",
-      DEFAULT_CORS,
+    this.websiteBaseUrl = envOr(
+      "WEBSITE_BASE_URL",
+      "https://www.taxsimba.co.uk",
       overrides,
     );
+    let cors = envOr("CONCIERGE_CORS_ORIGINS", DEFAULT_CORS, overrides);
+    // Never allow wildcard CORS in staging/production.
+    if (
+      (this.conciergeEnv === "staging" || this.conciergeEnv === "production") &&
+      cors.split(",").some((o) => o.trim() === "*")
+    ) {
+      cors = cors
+        .split(",")
+        .map((o) => o.trim())
+        .filter((o) => o && o !== "*")
+        .join(",");
+      if (!cors) cors = this.websiteBaseUrl;
+    }
+    this.conciergeCorsOrigins = cors;
     this.conciergeLogLevel = envOr("CONCIERGE_LOG_LEVEL", "INFO", overrides);
     const forceRaw =
       overrides.CONCIERGE_FORCE_MOCK_LLM ??
@@ -74,11 +94,32 @@ export class Settings {
       "https://calendly.com/example/taxsimba-99-consultation",
       overrides,
     );
-    this.websiteBaseUrl = envOr(
-      "WEBSITE_BASE_URL",
-      "https://www.taxsimba.co.uk",
+    this.consultationBookingUrl99 = envOr(
+      "CONSULTATION_BOOKING_URL_99",
+      this.consultationBookingUrl,
       overrides,
     );
+    this.consultationBookingUrl149 = envOr(
+      "CONSULTATION_BOOKING_URL_149",
+      this.consultationBookingUrl,
+      overrides,
+    );
+    const liveRaw =
+      overrides.CONSULTATION_BOOKING_LIVE ??
+      process.env.CONSULTATION_BOOKING_LIVE;
+    const anyLiveUrl = [
+      this.consultationBookingUrl,
+      this.consultationBookingUrl99,
+      this.consultationBookingUrl149,
+    ].some((u) => u && !/example|localhost|stub/i.test(u));
+    this.consultationBookingLive = parseBool(liveRaw) && anyLiveUrl;
+  }
+
+  /** Calendly event URL for a consultation tier (99 or 149). */
+  bookingUrlForPrice(priceGbp: number): string {
+    return priceGbp >= 149
+      ? this.consultationBookingUrl149
+      : this.consultationBookingUrl99;
   }
 
   get corsOrigins(): string[] {
@@ -93,21 +134,53 @@ export class Settings {
     return !Boolean(this.openaiApiKey.trim());
   }
 
+  get isProductionLike(): boolean {
+    return this.conciergeEnv === "staging" || this.conciergeEnv === "production";
+  }
+
   safePublicConfig(): Record<string, unknown> {
     return {
       env: this.conciergeEnv,
       phase: 3,
-      product: "SIMBA AI",
-      subtitle: "SIMBA AI Tax Assistant",
+      product: "SIMBA",
+      subtitle: "Your Digital Tax Assistant",
       llm_mode: this.useMockLlm ? "mock" : "openai",
-      model: this.useMockLlm ? "mock-simba-v1" : this.openaiModel,
+      // Do not expose model id publicly in production-like envs.
+      model: this.isProductionLike
+        ? undefined
+        : this.useMockLlm
+          ? "mock-simba-v1"
+          : this.openaiModel,
       website_base_url: this.websiteBaseUrl,
-      consultation_available: true,
-      consultation_price_gbp: 99,
-      consultation_duration_minutes: 30,
+      consultations: [
+        {
+          code: "ACCOUNTANT_CONSULT_99",
+          name: "Quick Tax Advice",
+          price_gbp: 99,
+          duration_minutes: 20,
+        },
+        {
+          code: "ACCOUNTANT_CONSULT_149",
+          name: "Extended Tax Consultation",
+          price_gbp: 149,
+          duration_minutes: 40,
+        },
+      ],
       consultation_meeting: "Google Meet",
-      consultation_booking_status: "stub",
-      payment_status: "mock_unavailable",
+      consultation_booking_available: this.consultationBookingLive,
+      consultation_booking_status: this.consultationBookingLive
+        ? "live"
+        : "not_connected",
+      consultation_booking_urls: this.consultationBookingLive
+        ? {
+            ACCOUNTANT_CONSULT_99: this.consultationBookingUrl99,
+            ACCOUNTANT_CONSULT_149: this.consultationBookingUrl149,
+          }
+        : null,
+      consultation_payment: "calendly_integrated",
+      email_enquiry: "info@taxsimba.co.uk",
+      payment_status: "unavailable",
+      free_callback_available: false,
       mock_notice: this.useMockLlm ? "MOCK MODE — not live OpenAI." : null,
     };
   }

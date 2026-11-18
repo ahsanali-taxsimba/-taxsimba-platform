@@ -22,7 +22,9 @@ describe("recommendations", () => {
   it("consultation_price", () => {
     const cards = toPackageCards(["ACCOUNTANT_CONSULT_99"]);
     expect(cards[0].price_gbp).toBe(99);
-    expect(packagesCatalog().consultation.booking_status).toBe("stub");
+    expect(packagesCatalog().consultation[0].booking_status).toBe("stub");
+    expect(packagesCatalog().consultation[0].duration_minutes).toBe(20);
+    expect(packagesCatalog().consultation[1].price_gbp).toBe(149);
   });
 
   it("recommend_packages_without_inventing_inclusions", () => {
@@ -45,7 +47,9 @@ describe("recommendations", () => {
             "mixed_verified_from_website_and_requires_clarification" ||
           p.inclusions_status === "approved" ||
           p.inclusions_status === "unknown" ||
-          p.inclusions_status === "missing_requires_approval",
+          p.inclusions_status === "missing_requires_approval" ||
+          p.inclusions_status === "not_listed" ||
+          p.inclusions_status === "approved",
       ),
     ).toBe(true);
     expect(packages.every((p) => p.name !== "MTD Starter")).toBe(true);

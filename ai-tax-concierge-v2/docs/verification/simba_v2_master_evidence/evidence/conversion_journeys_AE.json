@@ -1,0 +1,190 @@
+{
+  "generated_at": "2026-11-18T04:41:30.674Z",
+  "journeys": [
+    {
+      "id": "A",
+      "title": "First-time Self Assessment → package → register",
+      "turns": [
+        "Do I need Self Assessment if I started freelancing?",
+        "Simple income, first time — cheapest suitable package?"
+      ],
+      "obtained_via": "real_openai_api_or_deterministic",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "Do I need Self Assessment if I started freelancing?",
+          "assistant": "Yes, if you started freelancing and earned income from it, you will likely need to register for Self Assessment. You must register by 5 October following the end of the tax year in which you started freelancing. For the 2025-26 tax year, if you began freelancing in that year, you would need to register by 5 October 2026. \n\nHave you already registered for Self Assessment?",
+          "packages": [
+            {
+              "code": "SA_SIMPLE",
+              "name": "Self Assessment Simple",
+              "price_gbp": 119,
+              "registration_path": "/self-assessment"
+            },
+            {
+              "code": "SA_SMART",
+              "name": "Self Assessment Smart",
+              "price_gbp": 149,
+              "registration_path": "/self-assessment"
+            }
+          ],
+          "llm_mode": "openai",
+          "consultation_hint": null
+        },
+        {
+          "user": "Simple income, first time — cheapest suitable package?",
+          "assistant": "For simple income and first-time filing, the lowest suitable package is the **Self Assessment Simple** for £119 per tax year. This package is designed for straightforward tax situations. \n\nYou can find more details and register [here](https://www.taxsimba.co.uk/self-assessment). Would you like assistance with anything else?",
+          "packages": [
+            {
+              "code": "SA_SIMPLE",
+              "name": "Self Assessment Simple",
+              "price_gbp": 119,
+              "registration_path": "/self-assessment"
+            },
+            {
+              "code": "SA_SMART",
+              "name": "Self Assessment Smart",
+              "price_gbp": 149,
+              "registration_path": "/self-assessment"
+            },
+            {
+              "code": "SA_ELITE",
+              "name": "Self Assessment Elite",
+              "price_gbp": 299,
+              "registration_path": "/self-assessment"
+            }
+          ],
+          "llm_mode": "openai",
+          "consultation_hint": null
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "title": "MTD eligibility → suitable plan",
+      "turns": [
+        "My qualifying income was £55,000 in 2024-25. Do I need MTD from April 2026?",
+        "What is the lowest suitable Simbian plan if I am in scope?"
+      ],
+      "obtained_via": "real_openai_api_or_deterministic",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "My qualifying income was £55,000 in 2024-25. Do I need MTD from April 2026?",
+          "assistant": "Yes — if your qualifying income was more than £50,000 for 2024-25, you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "packages": [],
+          "llm_mode": "openai",
+          "consultation_hint": null
+        },
+        {
+          "user": "What is the lowest suitable Simbian plan if I am in scope?",
+          "assistant": "The lowest suitable Simbian plan for you, if you are in scope for Making Tax Digital, is **Simbian Comply** at £29.99 per month (VAT included). This plan includes Xero Simple and covers the requirements for MTD.\n\nYou can find more details and register here: [Simbian Comply](https://www.taxsimba.co.uk/making-tax-digital).",
+          "packages": [
+            {
+              "code": "MTD_STARTER",
+              "name": "Simbian Comply",
+              "price_gbp": 29.99,
+              "registration_path": "/making-tax-digital"
+            },
+            {
+              "code": "MTD_GROWTH",
+              "name": "Simbian Growth",
+              "price_gbp": 59.99,
+              "registration_path": "/making-tax-digital"
+            }
+          ],
+          "llm_mode": "openai",
+          "consultation_hint": null
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "title": "Accountant consultation booking route",
+      "turns": [
+        "I want to speak to an accountant",
+        "I'd like Quick Tax Advice (£99 / 20 minutes)"
+      ],
+      "obtained_via": "real_openai_api_or_deterministic",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "I want to speak to an accountant",
+          "assistant": "TaxSimba offers two private accountant video consultations on Google Meet:\n\n• Quick Tax Advice — £99 for 20 minutes (one focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks.\n\nThe usual booking path is: choose an option → online booking → Calendly availability → Stripe payment → Google Meet details after confirmation.\n\nWhich option would you like — Quick (£99 / 20 minutes) or Extended (£149 / 40 minutes)?",
+          "packages": [
+            {
+              "code": "ACCOUNTANT_CONSULT_99",
+              "name": "Quick Tax Advice",
+              "price_gbp": 99,
+              "registration_path": "/register"
+            },
+            {
+              "code": "ACCOUNTANT_CONSULT_149",
+              "name": "Extended Tax Consultation",
+              "price_gbp": 149,
+              "registration_path": "/register"
+            }
+          ],
+          "llm_mode": "openai",
+          "consultation_hint": "Need personalised help? TaxSimba offers Quick Tax Advice (£99 / 20 minutes) or Extended Tax Consultation (£149 / 40 minutes) via Google Meet. Ask me which option fits — online booking isn’t connected yet, so I won’t invent a confirmed slot."
+        },
+        {
+          "user": "I'd like Quick Tax Advice (£99 / 20 minutes)",
+          "assistant": "You’ve chosen Quick Tax Advice — £99 for 20 minutes on Google Meet (advice only; no filing, bookkeeping or written report).\n\nOnline booking (Calendly + Stripe + Google Meet) is not connected in this environment yet, so I can’t open a live slot or confirm an appointment.\n\nWhen booking goes live, you’ll use: select this option → Calendly availability → Stripe payment → Meet link after confirmation.\n\nFor a general enquiry while booking is unavailable, email info@taxsimba.co.uk — email is not the normal booking method once online scheduling is live.",
+          "packages": [
+            {
+              "code": "ACCOUNTANT_CONSULT_99",
+              "name": "Quick Tax Advice",
+              "price_gbp": 99,
+              "registration_path": "/register"
+            },
+            {
+              "code": "ACCOUNTANT_CONSULT_149",
+              "name": "Extended Tax Consultation",
+              "price_gbp": 149,
+              "registration_path": "/register"
+            }
+          ],
+          "llm_mode": "openai",
+          "consultation_hint": null
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "title": "Information only — no hard sell",
+      "turns": [
+        "Don't sell me anything. When is the Self Assessment online filing deadline for 2025-26?"
+      ],
+      "obtained_via": "real_openai_api_or_deterministic",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "Don't sell me anything. When is the Self Assessment online filing deadline for 2025-26?",
+          "assistant": "The Self Assessment online filing deadline for the 2025-26 tax year is 31 January 2027. It's always a good idea to confirm the date on GOV.UK as well. If you have any other questions about Self Assessment, feel free to ask!",
+          "packages": [],
+          "llm_mode": "openai",
+          "consultation_hint": null
+        }
+      ]
+    },
+    {
+      "id": "E",
+      "title": "Complex uncertainty → accountant support",
+      "turns": [
+        "My affairs involve trusts, overseas income and crypto — can SIMBA file everything?"
+      ],
+      "obtained_via": "real_openai_api_or_deterministic",
+      "model": "gpt-4o-mini",
+      "transcript": [
+        {
+          "user": "My affairs involve trusts, overseas income and crypto — can SIMBA file everything?",
+          "assistant": "TaxSimba primarily focuses on Self Assessment tax returns and Making Tax Digital services. While we can assist with Self Assessment, including income from various sources, we do not handle complex areas like trusts or specific overseas income reporting directly. For crypto, we can help with the relevant tax implications under Self Assessment.\n\nFor comprehensive advice tailored to your situation, including trusts and overseas income, I recommend consulting with a qualified accountant. Would you like to know more about our Self Assessment packages?",
+          "packages": [],
+          "llm_mode": "openai",
+          "consultation_hint": null
+        }
+      ]
+    }
+  ]
+}

@@ -64,6 +64,14 @@ export class MockLLMAdapter implements LLMAdapter {
           ["april 2028", 6],
           ["mtd", 3],
           ["making tax digital", 4],
+          ["paye", 6],
+          ["employer", 5],
+          ["deducts", 5],
+          ["crypto", 8],
+          ["cryptoassets", 8],
+          ["rent a room", 8],
+          ["self assessment", 4],
+          ["file", 3],
         ] as const) {
           if (q.includes(needle) && low.includes(needle)) score += weight;
         }
@@ -75,15 +83,15 @@ export class MockLLMAdapter implements LLMAdapter {
       return (
         `Based on verified HMRC / GOV.UK guidance: ${best}\n\n` +
         "This is general information, not personal tax advice. " +
-        "If your situation is complex, TaxSimba can arrange a £99 " +
-        "accountant consultation."
+        "If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) " +
+        "or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer."
       );
     }
 
     return (
       "I could not find a verified HMRC source in my knowledge base for " +
-      "that specific question. I recommend checking GOV.UK or booking a " +
-      "£99 TaxSimba accountant consultation for tailored guidance."
+      "that specific question. I recommend checking GOV.UK, or choosing a TaxSimba video consultation " +
+      "(Quick Tax Advice £99 / 20 minutes or Extended £149 / 40 minutes) if you want personalised accountant advice."
     );
   }
 }

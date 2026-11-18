@@ -51,8 +51,8 @@
     },
     {
       "id": "consult",
-      "label": "Book a £99 accountant chat",
-      "message": "Can I book a £99 accountant consultation?"
+      "label": "Accountant consultations",
+      "message": "What accountant consultations does TaxSimba offer?"
     }
   ]
 }

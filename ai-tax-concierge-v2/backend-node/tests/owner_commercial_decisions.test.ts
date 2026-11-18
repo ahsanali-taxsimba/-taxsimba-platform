@@ -31,8 +31,10 @@ describe("owner commercial decisions — controlled approval", () => {
       ["MTD_GROWTH", "Simbian Growth", 59.99],
       ["MTD_COMPLETE", "Simbian Elite", 89.99],
     ]);
-    expect(cat.consultation.price_gbp).toBe(99);
-    expect(cat.consultation.duration_minutes).toBe(30);
+    expect(cat.consultation[0].price_gbp).toBe(99);
+    expect(cat.consultation[1].price_gbp).toBe(149);
+    expect(cat.consultation[0].duration_minutes).toBe(20);
+    expect(cat.consultation[1].duration_minutes).toBe(40);
   });
 
   it("records_five_owner_decisions_and_removed_claims", () => {
@@ -61,19 +63,23 @@ describe("owner commercial decisions — controlled approval", () => {
   });
 
   it("consultation_boundaries_approved", () => {
-    const c = packagesCatalog().consultation;
-    expect(c.inclusions_status).toBe("approved");
-    expect(c.exclusions_status).toBe("approved");
-    expect(c.inclusions).toEqual([
-      "One 30-minute accountant-led Google Meet advice session",
+    const list = packagesCatalog().consultation as any[];
+    expect(list).toHaveLength(2);
+    expect(list[0].inclusions_status).toBe("approved");
+    expect(list[0].exclusions_status).toBe("approved");
+    expect(list[0].inclusions).toEqual([
+      "One 20-minute accountant-led Google Meet advice session",
     ]);
-    expect(c.exclusions).toEqual([
+    expect(list[0].exclusions).toEqual([
       "Tax return filing",
       "Bookkeeping",
       "Written report",
+      "Free phone callback",
     ]);
+    expect(list[1].price_gbp).toBe(149);
+    expect(list[1].duration_minutes).toBe(40);
     const cards = toPackageCards(["ACCOUNTANT_CONSULT_99"]);
-    expect(cards[0].inclusions).toEqual(c.inclusions);
+    expect(cards[0].inclusions).toEqual(list[0].inclusions);
   });
 
   it("inclusions_answer_states_xero_without_invented_licence", () => {
@@ -82,12 +88,12 @@ describe("owner commercial decisions — controlled approval", () => {
     );
     expect(reply).toBeTruthy();
     const lower = reply!.toLowerCase();
-    expect(lower).toContain("xero software is included");
+    expect(lower).toMatch(/xero (software )?is included/);
     expect(lower).toMatch(/do not pay separately|no separate/);
     expect(lower).toContain("xero grow");
     expect(lower).not.toContain("xero grow forever");
     expect(lower).toMatch(/helpline|priority support/);
-    expect(lower).toContain("removed");
+    expect(lower).toMatch(/will not invent|cannot promise|not approved/);
   });
 
   it("xero_inclusion_does_not_suggest_separate_customer_charge", () => {
@@ -136,19 +142,19 @@ describe("owner commercial decisions — controlled approval", () => {
     );
     expect(reply).toBeTruthy();
     const lower = reply!.toLowerCase();
-    expect(lower).toContain("removed");
+    expect(lower).toMatch(/will not invent|cannot promise|not approved/);
     expect(lower).not.toMatch(/includes priority accountant messaging/);
     expect(lower).not.toMatch(/includes quarterly business reviews/);
     expect(lower).not.toMatch(/includes proactive tax planning advice/);
 
     const text = packageCatalogText().toLowerCase();
-    expect(text).toContain("removed");
+    expect(text).toContain("never promise priority support");
     expect(text).toContain("never invent");
     expect(text).toContain("simbian comply");
 
     const prompt = buildSystemPrompt("2025-26", [], "mock").toLowerCase();
     expect(prompt).toContain("priority support");
-    expect(prompt).toContain("removed");
+    expect(prompt).toMatch(/never invent priority support|never promise priority/);
   });
 
   it("sa_packages_do_not_retain_removed_premium_bullets", () => {

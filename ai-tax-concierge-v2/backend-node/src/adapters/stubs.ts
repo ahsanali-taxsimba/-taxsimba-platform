@@ -51,22 +51,41 @@ export class MockPaymentAdapter implements PaymentAdapter {
 }
 
 export class ConfigCalendlyAdapter implements CalendlyAdapter {
-  private readonly url: string;
+  private readonly settings: Settings;
 
   constructor(settings: Settings) {
-    this.url = settings.consultationBookingUrl;
+    this.settings = settings;
   }
 
   consultationLink(priceGbp = 99): Record<string, unknown> {
+    const duration = priceGbp >= 149 ? 40 : 20;
+    const name =
+      priceGbp >= 149 ? "Extended Tax Consultation" : "Quick Tax Advice";
+    const url = this.settings.bookingUrlForPrice(priceGbp);
+    const live =
+      this.settings.consultationBookingLive &&
+      Boolean(url) &&
+      !/example|localhost|stub/i.test(url);
     return {
-      status: "stub",
+      status: live ? "live" : "stub",
       price_gbp: priceGbp,
-      duration_minutes: 30,
+      duration_minutes: duration,
       meeting: "Google Meet",
-      booking_url: this.url,
-      availability: "not_live",
-      label: `£${priceGbp} accountant consultation (30 min Google Meet)`,
-      note: "Calendly not connected — do not claim a booking is confirmed",
+      booking_url: live ? url : null,
+      availability: live ? "calendly" : "not_live",
+      payment: live ? "calendly_integrated" : "calendly_payment_not_connected",
+      label: `${name} — £${priceGbp} for ${duration} minutes (Google Meet)`,
+      flow: [
+        "Select option",
+        "Open matching Calendly event",
+        "Pick available appointment",
+        "Pay within Calendly booking",
+        "Google Meet after Calendly confirmation",
+      ],
+      email_enquiry: "info@taxsimba.co.uk",
+      note: live
+        ? "Use Calendly booking with integrated payment; do not claim success until Calendly confirms"
+        : "Online booking not connected — do not invent a confirmed appointment; email is only for enquiries while unavailable",
     };
   }
 }

@@ -29,7 +29,12 @@ describe("workspace sidebar + VAT rolling-period knowledge", () => {
     }
     expect(html).toContain("Accountant-led service");
     expect(html).toContain("ts-sidebar");
-    expect(html).toContain("ts-mobile-nav");
+    expect(html).toContain("ts-nav-toggle");
+    expect(html).toContain("ts-nav-toggle-label");
+    expect(html).toContain(">Menu</span>");
+    expect(html).toContain("ts-nav-close");
+    // Horizontal mobile tab strip removed — Menu drawer is sole mobile nav
+    expect(html).not.toContain('class="ts-mobile-nav"');
   });
 
   it("workspace_css_tokens", () => {
@@ -64,8 +69,10 @@ describe("workspace sidebar + VAT rolling-period knowledge", () => {
         (p.vat_note || "").includes("VAT included"),
       ),
     ).toBe(true);
-    expect(cat.consultation.price_gbp).toBe(99);
-    expect(cat.consultation.duration_minutes).toBe(30);
+    expect(cat.consultation[0].price_gbp).toBe(99);
+    expect(cat.consultation[0].duration_minutes).toBe(20);
+    expect(cat.consultation[1].price_gbp).toBe(149);
+    expect(cat.consultation[1].duration_minutes).toBe(40);
   });
 
   it("vat_corpus_includes_rolling_and_forward_look", () => {

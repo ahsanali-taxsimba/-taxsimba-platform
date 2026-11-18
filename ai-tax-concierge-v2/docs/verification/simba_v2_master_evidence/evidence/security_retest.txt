@@ -1,0 +1,12 @@
+
+ RUN  v2.1.9 /agent/repos/-taxsimba-platform/ai-tax-concierge-v2/backend-node
+
+ ✓ tests/intent_clarifier.test.ts (6 tests) 14ms
+ ✓ tests/public_catalogue_allowlist.test.ts (5 tests) 32ms
+ ✓ tests/security_suite.test.ts (26 tests) 51ms
+
+ Test Files  3 passed (3)
+      Tests  37 passed (37)
+   Start at  03:45:58
+   Duration  601ms (transform 401ms, setup 33ms, collect 1.06s, tests 97ms, environment 0ms, prepare 156ms)
+

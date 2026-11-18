@@ -1,0 +1,15 @@
+To: info@taxsimba.co.uk
+Subject: [SIMBA lead] Self Assessment
+
+Lead ID: d286d5e8-e76d-443e-b82f-07ad67eb0517
+Created: 2026-11-18T05:09:08.236Z
+Name: Alex Example
+Email: alex.example@taxsimba.test
+Phone: (not provided)
+Service interest: Self Assessment
+Query: Please email me about Self Assessment
+Summary: Customer asked for SA help
+Session: lead-test-1
+
+Follow-up permission granted for this enquiry only — not marketing consent.
+Do not include unnecessary sensitive tax details in ordinary emails.

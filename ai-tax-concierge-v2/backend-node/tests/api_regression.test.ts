@@ -20,14 +20,15 @@ describe("API regression — bootstrap, health, widget, sessions", () => {
     const res = await api(app).get("/api/v1/bootstrap");
     expect(res.status).toBe(200);
     const body = res.body;
-    expect(body.product).toBe("SIMBA AI");
-    expect(body.assistant_name).toBe("SIMBA AI");
+    expect(body.product).toBe("SIMBA");
+    expect(body.assistant_name).toBe("SIMBA");
     expect(body.phase).toBe(3);
     expect(String(body.brand.primary).toUpperCase()).toBe("#006B3C");
     expect(String(body.brand.primary_action).toUpperCase()).toBe("#078A4B");
-    expect(String(body.brand.logo_status).toLowerCase()).toContain("official");
     expect(body.brand.logo).toContain("taxsimba-logo.svg");
-    expect(body.calculator_registry_count).toBeGreaterThanOrEqual(17);
+    expect(body.brand.logo_status).toBeUndefined();
+    expect(body.calculator_registry_count).toBeUndefined();
+    expect(JSON.stringify(body.packages)).not.toContain("owner_decisions");
   });
 
   it("welcome_endpoint", async () => {
@@ -46,7 +47,7 @@ describe("API regression — bootstrap, health, widget, sessions", () => {
     const res = await api(app).get("/api/v1/health");
     const body = res.body;
     expect(body.phase).toBe(3);
-    expect(body.product).toBe("SIMBA AI");
+    expect(body.product).toBe("SIMBA");
     expect(body.llm_mode).toBe("mock");
     expect(body.mock_notice).toBeTruthy();
     expect(body).toHaveProperty("current_tax_year");

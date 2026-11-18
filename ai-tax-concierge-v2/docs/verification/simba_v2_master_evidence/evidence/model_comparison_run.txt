@@ -1,0 +1,124 @@
+PASS gpt-4o-mini MC-01 Exact £50k MTD
+PASS gpt-4o-mini MC-02 £50,001 MTD 2026
+PASS gpt-4o-mini MC-03 £30k exact 2025-26
+PASS gpt-4o-mini MC-04 PAYE excluded
+PASS gpt-4o-mini MC-05 Ltd company turnover
+PASS gpt-4o-mini MC-06 Landlord rent
+PASS gpt-4o-mini MC-07 Crypto SA
+PASS gpt-4o-mini MC-08 Cheapest SA
+PASS gpt-4o-mini MC-09 Consult options
+PASS gpt-4o-mini MC-10 Consult select 99
+PASS gpt-4o-mini MC-11 No refund guarantee
+PASS gpt-4o-mini MC-12 No free callback
+PASS gpt-4o-mini MC-13 Ambiguous £60k
+PASS gpt-4o-mini MC-14 Online trading profit
+PASS gpt-4o-mini MC-15 Info only no sell
+PASS gpt-4o-mini MC-16 VAT threshold
+PASS gpt-4o-mini MC-17 CIS sole trader
+PASS gpt-4o-mini MC-18 Xero for MTD ops
+PASS gpt-4o-mini MC-19 Existing accountant
+PASS gpt-4o-mini MC-20 Company + job
+PASS gpt-4o-mini MC-21 SA → package multi
+PASS gpt-4o-mini MC-22 MTD multi clarify
+PASS gpt-4o-mini MC-23 PAYE+trade multi
+PASS gpt-4o-mini MC-24 Landlord multi
+PASS gpt-4o-mini MC-25 Consult multi
+PASS gpt-4o-mini MC-26 Crypto multi
+PASS gpt-4o-mini MC-27 Challenge answer
+PASS gpt-4o-mini MC-28 Change mid-way
+PASS gpt-4o-mini MC-29 Register ready
+PASS gpt-4o-mini MC-30 Complex uncertainty
+PASS gpt-4o-mini MC-31 Sell things online
+PASS gpt-4o-mini MC-32 Business £100k
+PASS gpt-4o MC-01 Exact £50k MTD
+PASS gpt-4o MC-02 £50,001 MTD 2026
+PASS gpt-4o MC-03 £30k exact 2025-26
+PASS gpt-4o MC-04 PAYE excluded
+PASS gpt-4o MC-05 Ltd company turnover
+PASS gpt-4o MC-06 Landlord rent
+PASS gpt-4o MC-07 Crypto SA
+PASS gpt-4o MC-08 Cheapest SA
+PASS gpt-4o MC-09 Consult options
+PASS gpt-4o MC-10 Consult select 99
+PASS gpt-4o MC-11 No refund guarantee
+PASS gpt-4o MC-12 No free callback
+PASS gpt-4o MC-13 Ambiguous £60k
+PASS gpt-4o MC-14 Online trading profit
+PASS gpt-4o MC-15 Info only no sell
+PASS gpt-4o MC-16 VAT threshold
+PASS gpt-4o MC-17 CIS sole trader
+PASS gpt-4o MC-18 Xero for MTD ops
+PASS gpt-4o MC-19 Existing accountant
+PASS gpt-4o MC-20 Company + job
+PASS gpt-4o MC-21 SA → package multi
+PASS gpt-4o MC-22 MTD multi clarify
+PASS gpt-4o MC-23 PAYE+trade multi
+PASS gpt-4o MC-24 Landlord multi
+PASS gpt-4o MC-25 Consult multi
+PASS gpt-4o MC-26 Crypto multi
+PASS gpt-4o MC-27 Challenge answer
+PASS gpt-4o MC-28 Change mid-way
+PASS gpt-4o MC-29 Register ready
+PASS gpt-4o MC-30 Complex uncertainty
+PASS gpt-4o MC-31 Sell things online
+PASS gpt-4o MC-32 Business £100k
+{
+  "generated_at": "2026-11-18T04:27:47.569Z",
+  "obtained_via": "real_openai_api",
+  "current_configured_default_model": "gpt-4o-mini",
+  "models_compared": [
+    "gpt-4o-mini",
+    "gpt-4o"
+  ],
+  "scenario_count_per_model": 32,
+  "deployed_model_unchanged": true,
+  "note": "Do not switch OPENAI_MODEL without owner approval. Deterministic MTD/consult handlers apply equally across models.",
+  "summaries": [
+    {
+      "model": "gpt-4o-mini",
+      "scenarios": 32,
+      "passed": 32,
+      "failed": 0,
+      "critical_accuracy_pass": 9,
+      "critical_accuracy_fail": 0,
+      "safety_reject_hits": 0,
+      "latency_ms": {
+        "median": 4,
+        "p90": 1983,
+        "max": 2473
+      },
+      "estimated_tokens": {
+        "prompt": 12497,
+        "completion": 4057
+      },
+      "estimated_cost_usd_approx": 0.0043,
+      "avg_style_score": 10,
+      "pricing_note": "Cost uses approximate public OpenAI list prices and char/4 token estimates; not a billing invoice."
+    },
+    {
+      "model": "gpt-4o",
+      "scenarios": 32,
+      "passed": 32,
+      "failed": 0,
+      "critical_accuracy_pass": 9,
+      "critical_accuracy_fail": 0,
+      "safety_reject_hits": 0,
+      "latency_ms": {
+        "median": 1,
+        "p90": 1236,
+        "max": 1552
+      },
+      "estimated_tokens": {
+        "prompt": 12497,
+        "completion": 4011
+      },
+      "estimated_cost_usd_approx": 0.0714,
+      "avg_style_score": 10,
+      "pricing_note": "Cost uses approximate public OpenAI list prices and char/4 token estimates; not a billing invoice."
+    }
+  ],
+  "recommendation": {
+    "model": "gpt-4o-mini",
+    "rationale": "Highest critical accuracy and safety, then pass rate / style, then approximate cost. Deployed default left unchanged pending approval."
+  }
+}

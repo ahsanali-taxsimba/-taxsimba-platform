@@ -112,6 +112,26 @@ export function scoreFact(
   ) {
     phraseBonus += 3.0;
   }
+  if (
+    (qLower.includes("employer") ||
+      qLower.includes("deducts") ||
+      (qLower.includes("paye") && qLower.includes("file"))) &&
+    fact.id === "paye-and-additional-income"
+  ) {
+    phraseBonus += 10.0;
+  }
+  if (
+    (qLower.includes("crypto") || qLower.includes("bitcoin")) &&
+    (fact.id === "cryptoassets-tax" || category === "crypto")
+  ) {
+    phraseBonus += 10.0;
+  }
+  if (
+    qLower.includes("rent a room") &&
+    (fact.id === "rent-a-room" || qLower.includes("lodger"))
+  ) {
+    phraseBonus += 10.0;
+  }
 
   const yearMatch = appliesToYear(fact.tax_years, taxYear);
   let score = overlap + 2.0 * titleOverlap + phraseBonus;

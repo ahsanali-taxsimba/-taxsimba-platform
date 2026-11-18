@@ -1,0 +1,143 @@
+{
+  "obtained_via": "real_openai_api_http",
+  "session_id": "b98cb031-355f-40a1-803c-c72ce240f68e",
+  "transcript": [
+    {
+      "user": "Do I need Self Assessment if I started freelancing?",
+      "assistant": "Yes, if you started freelancing and earned income from it, you will likely need to register for Self Assessment. You must register by 5 October following the end of the tax year in which you started freelancing. For the 2025-26 tax year, if you began freelancing in that year, you would need to register by 5 October 2026. \n\nHave you already registered for Self Assessment?",
+      "packages": [
+        {
+          "code": "SA_SIMPLE",
+          "name": "Self Assessment Simple",
+          "price_gbp": 119,
+          "billing": "per tax year",
+          "vat_note": "Confirm VAT treatment on checkout",
+          "family": "self_assessment",
+          "inclusions_status": "approved",
+          "pressure_free_note": "Optional support \u2014 only if useful. Approved: package names/prices; Xero included in each Simbian monthly price (Comply\u2192Xero Simple, Growth\u2192Xero Ignite, Elite\u2192Xero Grow; no separate Xero charge); quarterly MTD updates and year-end SA subject to documented customer responsibilities; email + dashboard messaging (not phone onboarding). No fixed monthly transaction caps on Simbian packages (not unlimited out-of-scope work). No priority support, quarterly business reviews or proactive tax planning.",
+          "description": null,
+          "inclusions": [
+            "Email and in-app updates"
+          ],
+          "recommendation_reason": "Lowest Self Assessment price that usually fits straightforward / single simple income situations (price approved; detailed inclusions pending confirmation).",
+          "registration_path": "/self-assessment"
+        },
+        {
+          "code": "SA_SMART",
+          "name": "Self Assessment Smart",
+          "price_gbp": 149,
+          "billing": "per tax year",
+          "vat_note": "Confirm VAT treatment on checkout",
+          "family": "self_assessment",
+          "inclusions_status": "not_listed",
+          "pressure_free_note": "Optional support \u2014 only if useful. Approved: package names/prices; Xero included in each Simbian monthly price (Comply\u2192Xero Simple, Growth\u2192Xero Ignite, Elite\u2192Xero Grow; no separate Xero charge); quarterly MTD updates and year-end SA subject to documented customer responsibilities; email + dashboard messaging (not phone onboarding). No fixed monthly transaction caps on Simbian packages (not unlimited out-of-scope work). No priority support, quarterly business reviews or proactive tax planning.",
+          "description": null,
+          "inclusions": null,
+          "recommendation_reason": "Mid Self Assessment price when several income sources or more review is likely (price approved; detailed inclusions pending confirmation).",
+          "registration_path": "/self-assessment"
+        }
+      ],
+      "llm_mode": "openai",
+      "assistant_name": "SIMBA"
+    },
+    {
+      "user": "Cheapest suitable package for first-time simple income",
+      "assistant": "For first-time simple income, the cheapest suitable package is the **Self Assessment Simple** for \u00a3119 per tax year. This package is designed for straightforward tax situations and can help you file your Self Assessment return efficiently.\n\nIf you're ready to proceed, you can find more information and register [here](https://www.taxsimba.co.uk/self-assessment). Would you like any further assistance?",
+      "packages": [
+        {
+          "code": "SA_SIMPLE",
+          "name": "Self Assessment Simple",
+          "price_gbp": 119,
+          "billing": "per tax year",
+          "vat_note": "Confirm VAT treatment on checkout",
+          "family": "self_assessment",
+          "inclusions_status": "approved",
+          "pressure_free_note": "Optional support \u2014 only if useful. Approved: package names/prices; Xero included in each Simbian monthly price (Comply\u2192Xero Simple, Growth\u2192Xero Ignite, Elite\u2192Xero Grow; no separate Xero charge); quarterly MTD updates and year-end SA subject to documented customer responsibilities; email + dashboard messaging (not phone onboarding). No fixed monthly transaction caps on Simbian packages (not unlimited out-of-scope work). No priority support, quarterly business reviews or proactive tax planning.",
+          "description": null,
+          "inclusions": [
+            "Email and in-app updates"
+          ],
+          "recommendation_reason": "Lowest Self Assessment price that usually fits straightforward / single simple income situations (price approved; detailed inclusions pending confirmation).",
+          "registration_path": "/self-assessment"
+        },
+        {
+          "code": "SA_SMART",
+          "name": "Self Assessment Smart",
+          "price_gbp": 149,
+          "billing": "per tax year",
+          "vat_note": "Confirm VAT treatment on checkout",
+          "family": "self_assessment",
+          "inclusions_status": "not_listed",
+          "pressure_free_note": "Optional support \u2014 only if useful. Approved: package names/prices; Xero included in each Simbian monthly price (Comply\u2192Xero Simple, Growth\u2192Xero Ignite, Elite\u2192Xero Grow; no separate Xero charge); quarterly MTD updates and year-end SA subject to documented customer responsibilities; email + dashboard messaging (not phone onboarding). No fixed monthly transaction caps on Simbian packages (not unlimited out-of-scope work). No priority support, quarterly business reviews or proactive tax planning.",
+          "description": null,
+          "inclusions": null,
+          "recommendation_reason": "Mid Self Assessment price when several income sources or more review is likely (price approved; detailed inclusions pending confirmation).",
+          "registration_path": "/self-assessment"
+        },
+        {
+          "code": "SA_ELITE",
+          "name": "Self Assessment Elite",
+          "price_gbp": 299,
+          "billing": "per tax year",
+          "vat_note": "Confirm VAT treatment on checkout",
+          "family": "self_assessment",
+          "inclusions_status": "not_listed",
+          "pressure_free_note": "Optional support \u2014 only if useful. Approved: package names/prices; Xero included in each Simbian monthly price (Comply\u2192Xero Simple, Growth\u2192Xero Ignite, Elite\u2192Xero Grow; no separate Xero charge); quarterly MTD updates and year-end SA subject to documented customer responsibilities; email + dashboard messaging (not phone onboarding). No fixed monthly transaction caps on Simbian packages (not unlimited out-of-scope work). No priority support, quarterly business reviews or proactive tax planning.",
+          "description": null,
+          "inclusions": null,
+          "recommendation_reason": "Highest Self Assessment price \u2014 only suggested when complexity clearly exceeds mid-tier needs (price approved at \u00a3299; no priority/planning promises).",
+          "registration_path": "/self-assessment"
+        }
+      ],
+      "llm_mode": "openai",
+      "assistant_name": "SIMBA"
+    },
+    {
+      "user": "My qualifying income was exactly \u00a350,000 in 2024-25. Do I need MTD from April 2026?",
+      "assistant": "No \u2014 qualifying income of exactly \u00a350,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC\u2019s wording is \u201cmore than \u00a350,000\u201d, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than \u00a350,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "llm_mode": "openai",
+      "assistant_name": "SIMBA"
+    },
+    {
+      "user": "What accountant consultations does TaxSimba offer?",
+      "assistant": "TaxSimba offers two types of accountant consultations:\n\n1. **Quick Tax Advice**: \u00a399 for a one-off 20-minute session, providing general advice (no filing, bookkeeping, or written report).\n2. **Extended Tax Consultation**: \u00a3149 for a one-off 40-minute session, also focused on advice only.\n\nIf you're interested in booking a consultation, you can reach out via email at info@taxsimba.co.uk for more details. Would you like assistance with anything else?",
+      "packages": [
+        {
+          "code": "ACCOUNTANT_CONSULT_99",
+          "name": "Quick Tax Advice",
+          "price_gbp": 99,
+          "billing": "one-off",
+          "vat_note": "Confirm VAT treatment when booking",
+          "family": "consultation",
+          "inclusions_status": "approved",
+          "pressure_free_note": "Optional support \u2014 only if useful. Approved: package names/prices; Xero included in each Simbian monthly price (Comply\u2192Xero Simple, Growth\u2192Xero Ignite, Elite\u2192Xero Grow; no separate Xero charge); quarterly MTD updates and year-end SA subject to documented customer responsibilities; email + dashboard messaging (not phone onboarding). No fixed monthly transaction caps on Simbian packages (not unlimited out-of-scope work). No priority support, quarterly business reviews or proactive tax planning.",
+          "description": null,
+          "inclusions": [
+            "One 20-minute accountant-led Google Meet advice session"
+          ],
+          "recommendation_reason": "Quick Tax Advice \u2014 \u00a399 for 20 minutes via Google Meet (focused question; no filing, bookkeeping or written report). Booking/payment not live until Stripe and Calendly are verified; email info@taxsimba.co.uk as an alternative.",
+          "registration_path": "/register"
+        },
+        {
+          "code": "ACCOUNTANT_CONSULT_149",
+          "name": "Extended Tax Consultation",
+          "price_gbp": 149,
+          "billing": "one-off",
+          "vat_note": "Confirm VAT treatment when booking",
+          "family": "consultation",
+          "inclusions_status": "approved",
+          "pressure_free_note": "Optional support \u2014 only if useful. Approved: package names/prices; Xero included in each Simbian monthly price (Comply\u2192Xero Simple, Growth\u2192Xero Ignite, Elite\u2192Xero Grow; no separate Xero charge); quarterly MTD updates and year-end SA subject to documented customer responsibilities; email + dashboard messaging (not phone onboarding). No fixed monthly transaction caps on Simbian packages (not unlimited out-of-scope work). No priority support, quarterly business reviews or proactive tax planning.",
+          "description": null,
+          "inclusions": [
+            "One 40-minute accountant-led Google Meet advice session"
+          ],
+          "recommendation_reason": "Extended Tax Consultation \u2014 \u00a3149 for 40 minutes via Google Meet (more complex situations; no filing, bookkeeping or written report). Booking/payment not live until Stripe and Calendly are verified; email info@taxsimba.co.uk as an alternative.",
+          "registration_path": "/register"
+        }
+      ],
+      "llm_mode": "openai",
+      "assistant_name": "SIMBA"
+    }
+  ]
+}

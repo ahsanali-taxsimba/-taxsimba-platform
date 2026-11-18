@@ -20,7 +20,8 @@ describe("API basics", () => {
     const asStr = JSON.stringify(body);
     expect(body).not.toHaveProperty("api_key");
     expect(asStr).not.toContain("OPENAI");
-    expect(body.consultation_price_gbp).toBe(99);
+    expect(body.consultations[0].price_gbp).toBe(99);
+    expect(body.consultations[1].price_gbp).toBe(149);
     expect(body.llm_mode).toBe("mock");
   });
 
@@ -58,7 +59,7 @@ describe("API basics", () => {
     const res = await api(app).get("/");
     expect(res.status).toBe(200);
     expect(res.body.phase).toBe("master-completion");
-    expect(res.body.product).toBe("SIMBA AI");
+    expect(res.body.product).toBe("SIMBA");
   });
 
   it("settings_never_expose_key_in_safe_config", () => {

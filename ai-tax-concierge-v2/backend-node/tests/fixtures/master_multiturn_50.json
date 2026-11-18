@@ -1,0 +1,656 @@
+{
+  "version": "2026-11-18",
+  "count": 50,
+  "conversations": [
+    {
+      "id": "MT-01",
+      "title": "PAYE + trading MTD then package (run 1)",
+      "turns": [
+        "I earn \u00a345k PAYE and \u00a318k sole-trader turnover. Do I need MTD? \u2014 conversation 1",
+        "Ok thanks. What's the cheapest Self Assessment package for that side income?",
+        "I'm ready to register"
+      ],
+      "final_expect_any": [
+        "register",
+        "self-assessment",
+        "119",
+        "simple"
+      ]
+    },
+    {
+      "id": "MT-02",
+      "title": "Exact 50k then correction (run 2)",
+      "turns": [
+        "Qualifying income exactly \u00a350,000 in 2024-25 \u2014 MTD from April 2026? \u2014 conversation 2",
+        "Sorry I meant \u00a355,000 qualifying income in 2024-25"
+      ],
+      "final_expect_any": [
+        "april 2026",
+        "6 april"
+      ]
+    },
+    {
+      "id": "MT-03",
+      "title": "Free callback refused then email (run 3)",
+      "turns": [
+        "Can you get an accountant to call me for free? \u2014 conversation 3",
+        "Alright \u2014 what's the email?"
+      ],
+      "final_expect_any": [
+        "info@taxsimba.co.uk",
+        "email"
+      ]
+    },
+    {
+      "id": "MT-04",
+      "title": "Consultation choice (run 4)",
+      "turns": [
+        "I need to speak to an accountant \u2014 conversation 4",
+        "Something quick for one question"
+      ],
+      "final_expect_any": [
+        "99"
+      ]
+    },
+    {
+      "id": "MT-05",
+      "title": "Info only no pressure (run 5)",
+      "turns": [
+        "Don't sell me anything. When is the SA online deadline? \u2014 conversation 5",
+        "Thanks, that's all"
+      ],
+      "final_expect_any": [
+        "january",
+        "31"
+      ],
+      "forbid_codes_final": [
+        "MTD_COMPLETE"
+      ]
+    },
+    {
+      "id": "MT-06",
+      "title": "PAYE + trading MTD then package (run 6)",
+      "turns": [
+        "I earn \u00a345k PAYE and \u00a318k sole-trader turnover. Do I need MTD? \u2014 conversation 6",
+        "Ok thanks. What's the cheapest Self Assessment package for that side income?",
+        "I'm ready to register"
+      ],
+      "final_expect_any": [
+        "register",
+        "self-assessment",
+        "119",
+        "simple"
+      ]
+    },
+    {
+      "id": "MT-07",
+      "title": "Exact 50k then correction (run 7)",
+      "turns": [
+        "Qualifying income exactly \u00a350,000 in 2024-25 \u2014 MTD from April 2026? \u2014 conversation 7",
+        "Sorry I meant \u00a355,000 qualifying income in 2024-25"
+      ],
+      "final_expect_any": [
+        "april 2026",
+        "6 april"
+      ]
+    },
+    {
+      "id": "MT-08",
+      "title": "Free callback refused then email (run 8)",
+      "turns": [
+        "Can you get an accountant to call me for free? \u2014 conversation 8",
+        "Alright \u2014 what's the email?"
+      ],
+      "final_expect_any": [
+        "info@taxsimba.co.uk",
+        "email"
+      ]
+    },
+    {
+      "id": "MT-09",
+      "title": "Consultation choice (run 9)",
+      "turns": [
+        "I need to speak to an accountant \u2014 conversation 9",
+        "Something quick for one question"
+      ],
+      "final_expect_any": [
+        "99"
+      ]
+    },
+    {
+      "id": "MT-10",
+      "title": "Info only no pressure (run 10)",
+      "turns": [
+        "Don't sell me anything. When is the SA online deadline? \u2014 conversation 10",
+        "Thanks, that's all"
+      ],
+      "final_expect_any": [
+        "january",
+        "31"
+      ],
+      "forbid_codes_final": [
+        "MTD_COMPLETE"
+      ]
+    },
+    {
+      "id": "MT-11",
+      "title": "PAYE + trading MTD then package (run 11)",
+      "turns": [
+        "I earn \u00a345k PAYE and \u00a318k sole-trader turnover. Do I need MTD? \u2014 conversation 11",
+        "Ok thanks. What's the cheapest Self Assessment package for that side income?",
+        "I'm ready to register"
+      ],
+      "final_expect_any": [
+        "register",
+        "self-assessment",
+        "119",
+        "simple"
+      ]
+    },
+    {
+      "id": "MT-12",
+      "title": "Exact 50k then correction (run 12)",
+      "turns": [
+        "Qualifying income exactly \u00a350,000 in 2024-25 \u2014 MTD from April 2026? \u2014 conversation 12",
+        "Sorry I meant \u00a355,000 qualifying income in 2024-25"
+      ],
+      "final_expect_any": [
+        "april 2026",
+        "6 april"
+      ]
+    },
+    {
+      "id": "MT-13",
+      "title": "Free callback refused then email (run 13)",
+      "turns": [
+        "Can you get an accountant to call me for free? \u2014 conversation 13",
+        "Alright \u2014 what's the email?"
+      ],
+      "final_expect_any": [
+        "info@taxsimba.co.uk",
+        "email"
+      ]
+    },
+    {
+      "id": "MT-14",
+      "title": "Consultation choice (run 14)",
+      "turns": [
+        "I need to speak to an accountant \u2014 conversation 14",
+        "Something quick for one question"
+      ],
+      "final_expect_any": [
+        "99"
+      ]
+    },
+    {
+      "id": "MT-15",
+      "title": "Info only no pressure (run 15)",
+      "turns": [
+        "Don't sell me anything. When is the SA online deadline? \u2014 conversation 15",
+        "Thanks, that's all"
+      ],
+      "final_expect_any": [
+        "january",
+        "31"
+      ],
+      "forbid_codes_final": [
+        "MTD_COMPLETE"
+      ]
+    },
+    {
+      "id": "MT-16",
+      "title": "PAYE + trading MTD then package (run 16)",
+      "turns": [
+        "I earn \u00a345k PAYE and \u00a318k sole-trader turnover. Do I need MTD? \u2014 conversation 16",
+        "Ok thanks. What's the cheapest Self Assessment package for that side income?",
+        "I'm ready to register"
+      ],
+      "final_expect_any": [
+        "register",
+        "self-assessment",
+        "119",
+        "simple"
+      ]
+    },
+    {
+      "id": "MT-17",
+      "title": "Exact 50k then correction (run 17)",
+      "turns": [
+        "Qualifying income exactly \u00a350,000 in 2024-25 \u2014 MTD from April 2026? \u2014 conversation 17",
+        "Sorry I meant \u00a355,000 qualifying income in 2024-25"
+      ],
+      "final_expect_any": [
+        "april 2026",
+        "6 april"
+      ]
+    },
+    {
+      "id": "MT-18",
+      "title": "Free callback refused then email (run 18)",
+      "turns": [
+        "Can you get an accountant to call me for free? \u2014 conversation 18",
+        "Alright \u2014 what's the email?"
+      ],
+      "final_expect_any": [
+        "info@taxsimba.co.uk",
+        "email"
+      ]
+    },
+    {
+      "id": "MT-19",
+      "title": "Consultation choice (run 19)",
+      "turns": [
+        "I need to speak to an accountant \u2014 conversation 19",
+        "Something quick for one question"
+      ],
+      "final_expect_any": [
+        "99"
+      ]
+    },
+    {
+      "id": "MT-20",
+      "title": "Info only no pressure (run 20)",
+      "turns": [
+        "Don't sell me anything. When is the SA online deadline? \u2014 conversation 20",
+        "Thanks, that's all"
+      ],
+      "final_expect_any": [
+        "january",
+        "31"
+      ],
+      "forbid_codes_final": [
+        "MTD_COMPLETE"
+      ]
+    },
+    {
+      "id": "MT-21",
+      "title": "PAYE + trading MTD then package (run 21)",
+      "turns": [
+        "I earn \u00a345k PAYE and \u00a318k sole-trader turnover. Do I need MTD? \u2014 conversation 21",
+        "Ok thanks. What's the cheapest Self Assessment package for that side income?",
+        "I'm ready to register"
+      ],
+      "final_expect_any": [
+        "register",
+        "self-assessment",
+        "119",
+        "simple"
+      ]
+    },
+    {
+      "id": "MT-22",
+      "title": "Exact 50k then correction (run 22)",
+      "turns": [
+        "Qualifying income exactly \u00a350,000 in 2024-25 \u2014 MTD from April 2026? \u2014 conversation 22",
+        "Sorry I meant \u00a355,000 qualifying income in 2024-25"
+      ],
+      "final_expect_any": [
+        "april 2026",
+        "6 april"
+      ]
+    },
+    {
+      "id": "MT-23",
+      "title": "Free callback refused then email (run 23)",
+      "turns": [
+        "Can you get an accountant to call me for free? \u2014 conversation 23",
+        "Alright \u2014 what's the email?"
+      ],
+      "final_expect_any": [
+        "info@taxsimba.co.uk",
+        "email"
+      ]
+    },
+    {
+      "id": "MT-24",
+      "title": "Consultation choice (run 24)",
+      "turns": [
+        "I need to speak to an accountant \u2014 conversation 24",
+        "Something quick for one question"
+      ],
+      "final_expect_any": [
+        "99"
+      ]
+    },
+    {
+      "id": "MT-25",
+      "title": "Info only no pressure (run 25)",
+      "turns": [
+        "Don't sell me anything. When is the SA online deadline? \u2014 conversation 25",
+        "Thanks, that's all"
+      ],
+      "final_expect_any": [
+        "january",
+        "31"
+      ],
+      "forbid_codes_final": [
+        "MTD_COMPLETE"
+      ]
+    },
+    {
+      "id": "MT-26",
+      "title": "PAYE + trading MTD then package (run 26)",
+      "turns": [
+        "I earn \u00a345k PAYE and \u00a318k sole-trader turnover. Do I need MTD? \u2014 conversation 26",
+        "Ok thanks. What's the cheapest Self Assessment package for that side income?",
+        "I'm ready to register"
+      ],
+      "final_expect_any": [
+        "register",
+        "self-assessment",
+        "119",
+        "simple"
+      ]
+    },
+    {
+      "id": "MT-27",
+      "title": "Exact 50k then correction (run 27)",
+      "turns": [
+        "Qualifying income exactly \u00a350,000 in 2024-25 \u2014 MTD from April 2026? \u2014 conversation 27",
+        "Sorry I meant \u00a355,000 qualifying income in 2024-25"
+      ],
+      "final_expect_any": [
+        "april 2026",
+        "6 april"
+      ]
+    },
+    {
+      "id": "MT-28",
+      "title": "Free callback refused then email (run 28)",
+      "turns": [
+        "Can you get an accountant to call me for free? \u2014 conversation 28",
+        "Alright \u2014 what's the email?"
+      ],
+      "final_expect_any": [
+        "info@taxsimba.co.uk",
+        "email"
+      ]
+    },
+    {
+      "id": "MT-29",
+      "title": "Consultation choice (run 29)",
+      "turns": [
+        "I need to speak to an accountant \u2014 conversation 29",
+        "Something quick for one question"
+      ],
+      "final_expect_any": [
+        "99"
+      ]
+    },
+    {
+      "id": "MT-30",
+      "title": "Info only no pressure (run 30)",
+      "turns": [
+        "Don't sell me anything. When is the SA online deadline? \u2014 conversation 30",
+        "Thanks, that's all"
+      ],
+      "final_expect_any": [
+        "january",
+        "31"
+      ],
+      "forbid_codes_final": [
+        "MTD_COMPLETE"
+      ]
+    },
+    {
+      "id": "MT-31",
+      "title": "PAYE + trading MTD then package (run 31)",
+      "turns": [
+        "I earn \u00a345k PAYE and \u00a318k sole-trader turnover. Do I need MTD? \u2014 conversation 31",
+        "Ok thanks. What's the cheapest Self Assessment package for that side income?",
+        "I'm ready to register"
+      ],
+      "final_expect_any": [
+        "register",
+        "self-assessment",
+        "119",
+        "simple"
+      ]
+    },
+    {
+      "id": "MT-32",
+      "title": "Exact 50k then correction (run 32)",
+      "turns": [
+        "Qualifying income exactly \u00a350,000 in 2024-25 \u2014 MTD from April 2026? \u2014 conversation 32",
+        "Sorry I meant \u00a355,000 qualifying income in 2024-25"
+      ],
+      "final_expect_any": [
+        "april 2026",
+        "6 april"
+      ]
+    },
+    {
+      "id": "MT-33",
+      "title": "Free callback refused then email (run 33)",
+      "turns": [
+        "Can you get an accountant to call me for free? \u2014 conversation 33",
+        "Alright \u2014 what's the email?"
+      ],
+      "final_expect_any": [
+        "info@taxsimba.co.uk",
+        "email"
+      ]
+    },
+    {
+      "id": "MT-34",
+      "title": "Consultation choice (run 34)",
+      "turns": [
+        "I need to speak to an accountant \u2014 conversation 34",
+        "Something quick for one question"
+      ],
+      "final_expect_any": [
+        "99"
+      ]
+    },
+    {
+      "id": "MT-35",
+      "title": "Info only no pressure (run 35)",
+      "turns": [
+        "Don't sell me anything. When is the SA online deadline? \u2014 conversation 35",
+        "Thanks, that's all"
+      ],
+      "final_expect_any": [
+        "january",
+        "31"
+      ],
+      "forbid_codes_final": [
+        "MTD_COMPLETE"
+      ]
+    },
+    {
+      "id": "MT-36",
+      "title": "PAYE + trading MTD then package (run 36)",
+      "turns": [
+        "I earn \u00a345k PAYE and \u00a318k sole-trader turnover. Do I need MTD? \u2014 conversation 36",
+        "Ok thanks. What's the cheapest Self Assessment package for that side income?",
+        "I'm ready to register"
+      ],
+      "final_expect_any": [
+        "register",
+        "self-assessment",
+        "119",
+        "simple"
+      ]
+    },
+    {
+      "id": "MT-37",
+      "title": "Exact 50k then correction (run 37)",
+      "turns": [
+        "Qualifying income exactly \u00a350,000 in 2024-25 \u2014 MTD from April 2026? \u2014 conversation 37",
+        "Sorry I meant \u00a355,000 qualifying income in 2024-25"
+      ],
+      "final_expect_any": [
+        "april 2026",
+        "6 april"
+      ]
+    },
+    {
+      "id": "MT-38",
+      "title": "Free callback refused then email (run 38)",
+      "turns": [
+        "Can you get an accountant to call me for free? \u2014 conversation 38",
+        "Alright \u2014 what's the email?"
+      ],
+      "final_expect_any": [
+        "info@taxsimba.co.uk",
+        "email"
+      ]
+    },
+    {
+      "id": "MT-39",
+      "title": "Consultation choice (run 39)",
+      "turns": [
+        "I need to speak to an accountant \u2014 conversation 39",
+        "Something quick for one question"
+      ],
+      "final_expect_any": [
+        "99"
+      ]
+    },
+    {
+      "id": "MT-40",
+      "title": "Info only no pressure (run 40)",
+      "turns": [
+        "Don't sell me anything. When is the SA online deadline? \u2014 conversation 40",
+        "Thanks, that's all"
+      ],
+      "final_expect_any": [
+        "january",
+        "31"
+      ],
+      "forbid_codes_final": [
+        "MTD_COMPLETE"
+      ]
+    },
+    {
+      "id": "MT-41",
+      "title": "PAYE + trading MTD then package (run 41)",
+      "turns": [
+        "I earn \u00a345k PAYE and \u00a318k sole-trader turnover. Do I need MTD? \u2014 conversation 41",
+        "Ok thanks. What's the cheapest Self Assessment package for that side income?",
+        "I'm ready to register"
+      ],
+      "final_expect_any": [
+        "register",
+        "self-assessment",
+        "119",
+        "simple"
+      ]
+    },
+    {
+      "id": "MT-42",
+      "title": "Exact 50k then correction (run 42)",
+      "turns": [
+        "Qualifying income exactly \u00a350,000 in 2024-25 \u2014 MTD from April 2026? \u2014 conversation 42",
+        "Sorry I meant \u00a355,000 qualifying income in 2024-25"
+      ],
+      "final_expect_any": [
+        "april 2026",
+        "6 april"
+      ]
+    },
+    {
+      "id": "MT-43",
+      "title": "Free callback refused then email (run 43)",
+      "turns": [
+        "Can you get an accountant to call me for free? \u2014 conversation 43",
+        "Alright \u2014 what's the email?"
+      ],
+      "final_expect_any": [
+        "info@taxsimba.co.uk",
+        "email"
+      ]
+    },
+    {
+      "id": "MT-44",
+      "title": "Consultation choice (run 44)",
+      "turns": [
+        "I need to speak to an accountant \u2014 conversation 44",
+        "Something quick for one question"
+      ],
+      "final_expect_any": [
+        "99"
+      ]
+    },
+    {
+      "id": "MT-45",
+      "title": "Info only no pressure (run 45)",
+      "turns": [
+        "Don't sell me anything. When is the SA online deadline? \u2014 conversation 45",
+        "Thanks, that's all"
+      ],
+      "final_expect_any": [
+        "january",
+        "31"
+      ],
+      "forbid_codes_final": [
+        "MTD_COMPLETE"
+      ]
+    },
+    {
+      "id": "MT-46",
+      "title": "PAYE + trading MTD then package (run 46)",
+      "turns": [
+        "I earn \u00a345k PAYE and \u00a318k sole-trader turnover. Do I need MTD? \u2014 conversation 46",
+        "Ok thanks. What's the cheapest Self Assessment package for that side income?",
+        "I'm ready to register"
+      ],
+      "final_expect_any": [
+        "register",
+        "self-assessment",
+        "119",
+        "simple"
+      ]
+    },
+    {
+      "id": "MT-47",
+      "title": "Exact 50k then correction (run 47)",
+      "turns": [
+        "Qualifying income exactly \u00a350,000 in 2024-25 \u2014 MTD from April 2026? \u2014 conversation 47",
+        "Sorry I meant \u00a355,000 qualifying income in 2024-25"
+      ],
+      "final_expect_any": [
+        "april 2026",
+        "6 april"
+      ]
+    },
+    {
+      "id": "MT-48",
+      "title": "Free callback refused then email (run 48)",
+      "turns": [
+        "Can you get an accountant to call me for free? \u2014 conversation 48",
+        "Alright \u2014 what's the email?"
+      ],
+      "final_expect_any": [
+        "info@taxsimba.co.uk",
+        "email"
+      ]
+    },
+    {
+      "id": "MT-49",
+      "title": "Consultation choice (run 49)",
+      "turns": [
+        "I need to speak to an accountant \u2014 conversation 49",
+        "Something quick for one question"
+      ],
+      "final_expect_any": [
+        "99"
+      ]
+    },
+    {
+      "id": "MT-50",
+      "title": "Info only no pressure (run 50)",
+      "turns": [
+        "Don't sell me anything. When is the SA online deadline? \u2014 conversation 50",
+        "Thanks, that's all"
+      ],
+      "final_expect_any": [
+        "january",
+        "31"
+      ],
+      "forbid_codes_final": [
+        "MTD_COMPLETE"
+      ]
+    }
+  ]
+}

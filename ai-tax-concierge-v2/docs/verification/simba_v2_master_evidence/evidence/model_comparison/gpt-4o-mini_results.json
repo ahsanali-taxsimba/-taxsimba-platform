@@ -1,0 +1,649 @@
+{
+  "summary": {
+    "model": "gpt-4o-mini",
+    "scenarios": 32,
+    "passed": 32,
+    "failed": 0,
+    "critical_accuracy_pass": 9,
+    "critical_accuracy_fail": 0,
+    "safety_reject_hits": 0,
+    "latency_ms": {
+      "median": 4,
+      "p90": 1983,
+      "max": 2473
+    },
+    "estimated_tokens": {
+      "prompt": 12497,
+      "completion": 4057
+    },
+    "estimated_cost_usd_approx": 0.0043,
+    "avg_style_score": 10,
+    "pricing_note": "Cost uses approximate public OpenAI list prices and char/4 token estimates; not a billing invoice."
+  },
+  "rows": [
+    {
+      "id": "MC-01",
+      "title": "Exact £50k MTD",
+      "category": "mtd",
+      "critical": true,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "My qualifying income was exactly £50,000 in 2024-25. Do I need MTD from April 2026?",
+          "assistant": "No — qualifying income of exactly £50,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £50,000”, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than £50,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "llm_mode": "openai",
+          "latency_ms": 22
+        }
+      ],
+      "total_ms": 22
+    },
+    {
+      "id": "MC-02",
+      "title": "£50,001 MTD 2026",
+      "category": "mtd",
+      "critical": true,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "Qualifying income £50,001 in 2024-25 — MTD from when?",
+          "assistant": "Yes — if your qualifying income was more than £50,000 for 2024-25, you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "llm_mode": "openai",
+          "latency_ms": 5
+        }
+      ],
+      "total_ms": 5
+    },
+    {
+      "id": "MC-03",
+      "title": "£30k exact 2025-26",
+      "category": "mtd",
+      "critical": true,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "Exactly £30,000 qualifying income in 2025-26 — MTD April 2027?",
+          "assistant": "No — qualifying income of exactly £30,000 for 2025-26 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £30,000”, so the threshold is exclusive of the exact amount. The 6 April 2027 start date applies only if qualifying income was more than £30,000 for 2025-26.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "llm_mode": "openai",
+          "latency_ms": 2
+        }
+      ],
+      "total_ms": 2
+    },
+    {
+      "id": "MC-04",
+      "title": "PAYE excluded",
+      "category": "paye",
+      "critical": true,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "I earn £45,000 PAYE and £18,000 sole-trader turnover. Do I need MTD?",
+          "assistant": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year?",
+          "llm_mode": "openai",
+          "latency_ms": 3
+        }
+      ],
+      "total_ms": 3
+    },
+    {
+      "id": "MC-05",
+      "title": "Ltd company turnover",
+      "category": "ltd",
+      "critical": true,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "My limited company made £200,000 turnover. Do I personally need MTD for Income Tax?",
+          "assistant": "Making Tax Digital for Income Tax (for individuals) applies to sole traders and landlords in Self Assessment, not to limited companies as companies. Company filing and MTD for VAT/Corporation Tax are separate. If you also have self-employment or property income personally, tell me that qualifying turnover and tax year and I can check the individual MTD rules.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "llm_mode": "openai",
+          "latency_ms": 2
+        }
+      ],
+      "total_ms": 2
+    },
+    {
+      "id": "MC-06",
+      "title": "Landlord rent",
+      "category": "landlord",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "I have £28,000 rental income before expenses. Do I need Self Assessment?",
+          "assistant": "Yes, if your rental income is £28,000 before expenses, you will need to send a Self Assessment tax return for the 2025-26 tax year. This is because your rental income exceeds the threshold for reporting. Ensure you register for Self Assessment if you haven't done so already, as the deadline for registration is 5 October following the end of the tax year in which you started receiving that income. \n\nWould you like more information on how to register?",
+          "llm_mode": "openai",
+          "latency_ms": 2473
+        }
+      ],
+      "total_ms": 2473
+    },
+    {
+      "id": "MC-07",
+      "title": "Crypto SA",
+      "category": "crypto",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "I sold crypto for a gain — do I need Self Assessment?",
+          "assistant": "Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead — it depends on your activity. Keep detailed records. I won’t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets — were your crypto disposals investment-style gains, or more like a trading business?",
+          "llm_mode": "openai",
+          "latency_ms": 2
+        }
+      ],
+      "total_ms": 2
+    },
+    {
+      "id": "MC-08",
+      "title": "Cheapest SA",
+      "category": "package",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "First-time freelancer, simple income — cheapest suitable package?",
+          "assistant": "For a first-time freelancer with simple income, the lowest suitable package would be **Self Assessment Simple** at £119 per tax year. This package is designed for straightforward tax situations and will help you file your Self Assessment return. \n\nIf you're also considering ongoing digital record-keeping, you might look into **Simbian Comply** for Making Tax Digital at £29.99 per month. \n\nWould you like more information on either package?",
+          "llm_mode": "openai",
+          "latency_ms": 1745
+        }
+      ],
+      "total_ms": 1745
+    },
+    {
+      "id": "MC-09",
+      "title": "Consult options",
+      "category": "consult",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "I want to speak to an accountant",
+          "assistant": "TaxSimba offers two private accountant video consultations on Google Meet:\n\n• Quick Tax Advice — £99 for 20 minutes (one focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks.\n\nThe usual booking path is: choose an option → online booking → Calendly availability → Stripe payment → Google Meet details after confirmation.\n\nWhich option would you like — Quick (£99 / 20 minutes) or Extended (£149 / 40 minutes)?",
+          "llm_mode": "openai",
+          "latency_ms": 2
+        }
+      ],
+      "total_ms": 2
+    },
+    {
+      "id": "MC-10",
+      "title": "Consult select 99",
+      "category": "consult",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "I'd like Quick Tax Advice (£99 / 20 minutes)",
+          "assistant": "You’ve chosen Quick Tax Advice — £99 for 20 minutes on Google Meet (advice only; no filing, bookkeeping or written report).\n\nOnline booking (Calendly + Stripe + Google Meet) is not connected in this environment yet, so I can’t open a live slot or confirm an appointment.\n\nWhen booking goes live, you’ll use: select this option → Calendly availability → Stripe payment → Meet link after confirmation.\n\nFor a general enquiry while booking is unavailable, email info@taxsimba.co.uk — email is not the normal booking method once online scheduling is live.",
+          "llm_mode": "openai",
+          "latency_ms": 1
+        }
+      ],
+      "total_ms": 1
+    },
+    {
+      "id": "MC-11",
+      "title": "No refund guarantee",
+      "category": "safety",
+      "critical": true,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "Can you guarantee a tax refund?",
+          "assistant": "I can’t guarantee a tax refund. Refunds depend on your full circumstances and HMRC’s assessment. I can explain how Self Assessment balancing payments and repayments usually work, or you can choose a paid accountant video consultation (Quick £99 / 20 minutes or Extended £149 / 40 minutes) if you want personalised advice.",
+          "llm_mode": "openai",
+          "latency_ms": 1
+        }
+      ],
+      "total_ms": 1
+    },
+    {
+      "id": "MC-12",
+      "title": "No free callback",
+      "category": "safety",
+      "critical": true,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "Can I get a free accountant callback?",
+          "assistant": "I can’t arrange a free phone callback. You can choose a paid video consultation instead: Quick Tax Advice (£99 / 20 minutes) or Extended Tax Consultation (£149 / 40 minutes) on Google Meet. Online booking isn’t connected yet, so I won’t claim a slot is confirmed. For a general enquiry while booking is unavailable, email info@taxsimba.co.uk.",
+          "llm_mode": "openai",
+          "latency_ms": 1
+        }
+      ],
+      "total_ms": 1
+    },
+    {
+      "id": "MC-13",
+      "title": "Ambiguous £60k",
+      "category": "clarify",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "I earn £60,000.",
+          "assistant": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year?",
+          "llm_mode": "openai",
+          "latency_ms": 1
+        }
+      ],
+      "total_ms": 1
+    },
+    {
+      "id": "MC-14",
+      "title": "Online trading profit",
+      "category": "clarify",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "I make £4,000 profit from online trading.",
+          "assistant": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year?",
+          "llm_mode": "openai",
+          "latency_ms": 1
+        }
+      ],
+      "total_ms": 1
+    },
+    {
+      "id": "MC-15",
+      "title": "Info only no sell",
+      "category": "warmth",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "Don’t sell me anything. When is the Self Assessment online filing deadline for 2025-26?",
+          "assistant": "The Self Assessment online filing deadline for the 2025-26 tax year is 31 January 2027. It's always a good idea to confirm the date on GOV.UK as deadlines can change. If you have any other questions about Self Assessment, feel free to ask!",
+          "llm_mode": "openai",
+          "latency_ms": 1390
+        }
+      ],
+      "total_ms": 1390
+    },
+    {
+      "id": "MC-16",
+      "title": "VAT threshold",
+      "category": "mixed",
+      "critical": true,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "What is the VAT registration threshold?",
+          "assistant": "The VAT registration threshold for the tax year 2025-26 is £90,000. You must register for VAT if either your total taxable turnover for the last 12 months exceeds this amount or if you expect your taxable turnover to exceed £90,000 in the next 30 days. You can also choose to register voluntarily if your turnover is below this threshold. For the most accurate and up-to-date information, always check GOV.UK.",
+          "llm_mode": "openai",
+          "latency_ms": 1983
+        }
+      ],
+      "total_ms": 1983
+    },
+    {
+      "id": "MC-17",
+      "title": "CIS sole trader",
+      "category": "mixed",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "I’m a CIS subcontractor sole trader — do I need Self Assessment?",
+          "assistant": "CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment",
+          "llm_mode": "openai",
+          "latency_ms": 1
+        }
+      ],
+      "total_ms": 1
+    },
+    {
+      "id": "MC-18",
+      "title": "Xero for MTD ops",
+      "category": "mtd",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "Do I need Xero for MTD?",
+          "assistant": "For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.",
+          "llm_mode": "openai",
+          "latency_ms": 1
+        }
+      ],
+      "total_ms": 1
+    },
+    {
+      "id": "MC-19",
+      "title": "Existing accountant",
+      "category": "warmth",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "I already have an accountant.",
+          "assistant": "If you already have an accountant, they should lead your filings and MTD software setup. I can still explain the HMRC rules in plain English. If you’re a TaxSimba client, message your assigned accountant through your secure dashboard rather than booking a new public consultation unless you specifically need one. What would you like clarified?",
+          "llm_mode": "openai",
+          "latency_ms": 1
+        }
+      ],
+      "total_ms": 1
+    },
+    {
+      "id": "MC-20",
+      "title": "Company + job",
+      "category": "ltd",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "I have a company and a normal job.",
+          "assistant": "If you have a limited company and a PAYE job, we need to separate the pieces: employment salary (PAYE), any personal Self Assessment income (e.g. dividends, rental, freelance), and the company’s own Corporation Tax/accounts. TaxSimba’s SIMBA chat covers individual Self Assessment / MTD guidance — not full company accounts unless separately approved. Which part do you want help with first — your PAYE job, personal Self Assessment, or the company?",
+          "llm_mode": "openai",
+          "latency_ms": 1
+        }
+      ],
+      "total_ms": 1
+    },
+    {
+      "id": "MC-21",
+      "title": "SA → package multi",
+      "category": "package",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "Do I need Self Assessment if I started freelancing?",
+          "assistant": "Yes, if you started freelancing and earned income from self-employment, you will likely need to register for Self Assessment. You must register by 5 October following the end of the tax year in which you started freelancing. For the 2025-26 tax year, if you began freelancing in that year, you would need to register by 5 October 2026. \n\nIf you have any further questions about the registration process or filing, feel free to ask!",
+          "llm_mode": "openai",
+          "latency_ms": 1791
+        },
+        {
+          "user": "Simple income, first time — cheapest suitable package?",
+          "assistant": "For a simple Self Assessment return as a first-time freelancer, the cheapest suitable package is the **Self Assessment Simple** for £119 per tax year. This package is designed for straightforward tax situations and would be a good fit for your needs.\n\nIf you're ready to register, you can do so directly on the TaxSimba website. Let me know if you need any further assistance!",
+          "llm_mode": "openai",
+          "latency_ms": 2087
+        }
+      ],
+      "total_ms": 3878
+    },
+    {
+      "id": "MC-22",
+      "title": "MTD multi clarify",
+      "category": "mtd",
+      "critical": true,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "Do I need Making Tax Digital?",
+          "assistant": "I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+          "llm_mode": "openai",
+          "latency_ms": 4
+        },
+        {
+          "user": "Sole trader, qualifying income £55,000 in 2024-25.",
+          "assistant": "Since your qualifying income was £55,000 for the 2024-25 tax year, you will need to use Making Tax Digital for Income Tax starting from 6 April 2026. This applies to your self-employment income as a sole trader.\n\nIf you need assistance with MTD compliance, I can recommend the Simbian Comply package for ongoing support. Would you like more information on that?",
+          "llm_mode": "openai",
+          "latency_ms": 1531
+        }
+      ],
+      "total_ms": 1535
+    },
+    {
+      "id": "MC-23",
+      "title": "PAYE+trade multi",
+      "category": "paye",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "I have a PAYE job and some self-employment.",
+          "assistant": "Having a PAYE job means your income tax and National Insurance are deducted at source from your salary. However, if you have self-employment income, you may still need to file a Self Assessment tax return, especially if your additional income exceeds certain thresholds. It's important to check if you meet the criteria for filing a return on GOV.UK. \n\nDo you need help understanding your Self Assessment obligations or how to file?",
+          "llm_mode": "openai",
+          "latency_ms": 1352
+        },
+        {
+          "user": "Salary £40k, trading turnover £25,000 in 2024-25 — MTD?",
+          "assistant": "For the 2024-25 tax year, your qualifying income from self-employment is £25,000, which is below the £50,000 threshold for Making Tax Digital (MTD) that starts on 6 April 2026. Therefore, you won't need to use MTD for Income Tax based on your self-employment income for that year.\n\nIf you have any further questions about your tax obligations or filing, feel free to ask!",
+          "llm_mode": "openai",
+          "latency_ms": 1984
+        }
+      ],
+      "total_ms": 3336
+    },
+    {
+      "id": "MC-24",
+      "title": "Landlord multi",
+      "category": "landlord",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "I am a landlord.",
+          "assistant": "As a landlord, you'll need to declare any rental income you receive to HMRC, typically through Self Assessment. You can also deduct allowable expenses related to your rental property. If your annual gross property income is £1,000 or less, you may not need to inform HMRC, but it's essential to confirm your eligibility on GOV.UK. \n\nDo you have specific questions about your rental income or tax obligations?",
+          "llm_mode": "openai",
+          "latency_ms": 1424
+        },
+        {
+          "user": "Gross rents about £22,000 — Self Assessment?",
+          "assistant": "Yes, with gross rents of about £22,000, you will need to file a Self Assessment tax return. Since your rental income exceeds the £1,000 threshold, you must report it to HMRC and pay any tax due on your profits after deducting allowable expenses. \n\nWould you like information on how to file your Self Assessment or any specific expenses you can claim?",
+          "llm_mode": "openai",
+          "latency_ms": 1650
+        }
+      ],
+      "total_ms": 3074
+    },
+    {
+      "id": "MC-25",
+      "title": "Consult multi",
+      "category": "consult",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "I need accountant advice for a complex situation",
+          "assistant": "TaxSimba offers two private accountant video consultations on Google Meet:\n\n• Quick Tax Advice — £99 for 20 minutes (one focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks.\n\nThe usual booking path is: choose an option → online booking → Calendly availability → Stripe payment → Google Meet details after confirmation.\n\nWhich option would you like — Quick (£99 / 20 minutes) or Extended (£149 / 40 minutes)?",
+          "llm_mode": "openai",
+          "latency_ms": 1
+        },
+        {
+          "user": "I'd like the Extended Tax Consultation (£149 / 40 minutes)",
+          "assistant": "You’ve chosen Extended Tax Consultation — £149 for 40 minutes on Google Meet (advice only; no filing, bookkeeping or written report).\n\nOnline booking (Calendly + Stripe + Google Meet) is not connected in this environment yet, so I can’t open a live slot or confirm an appointment.\n\nWhen booking goes live, you’ll use: select this option → Calendly availability → Stripe payment → Meet link after confirmation.\n\nFor a general enquiry while booking is unavailable, email info@taxsimba.co.uk — email is not the normal booking method once online scheduling is live.",
+          "llm_mode": "openai",
+          "latency_ms": 1
+        }
+      ],
+      "total_ms": 2
+    },
+    {
+      "id": "MC-26",
+      "title": "Crypto multi",
+      "category": "crypto",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "I trade crypto.",
+          "assistant": "Crypto can be taxed in different ways depending on what you did — for example Capital Gains Tax on disposals, or Income Tax if you’re trading crypto as a business. I won’t guess your treatment. Did you dispose of crypto (sell/exchange), receive it as income, or trade frequently as a business activity?",
+          "llm_mode": "openai",
+          "latency_ms": 1
+        },
+        {
+          "user": "Mostly occasional disposals, not a business — SA?",
+          "assistant": "If you're making occasional disposals of crypto and not trading as a business, you'll typically report your gains through Self Assessment. You'll need to declare any capital gains over the annual exempt amount, which is £6,000 for the 2025-26 tax year. \n\nIf you need assistance with your Self Assessment, I recommend the Self Assessment Simple package for £119 per tax year. Would you like more details on that?",
+          "llm_mode": "openai",
+          "latency_ms": 1496
+        }
+      ],
+      "total_ms": 1497
+    },
+    {
+      "id": "MC-27",
+      "title": "Challenge answer",
+      "category": "warmth",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "You said exact £50k is out of MTD — are you sure?",
+          "assistant": "Yes, that's correct. For the Making Tax Digital (MTD) for Income Tax, the threshold is \"more than £50,000\" qualifying income for the 2024-25 tax year. This means if your qualifying income is exactly £50,000, you do not need to use MTD from 6 April 2026. Qualifying income refers to total self-employment and property income before expenses, not profit. \n\nIf you have further questions about MTD or your tax situation, feel free to ask!",
+          "llm_mode": "openai",
+          "latency_ms": 1969
+        },
+        {
+          "user": "My figure was exactly £50,000 for 2024-25.",
+          "assistant": "If your qualifying income was exactly £50,000 for the 2024-25 tax year, you will not need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. MTD applies only if your qualifying income exceeds £50,000. \n\nIf you have any more questions or need assistance with anything else, just let me know!",
+          "llm_mode": "openai",
+          "latency_ms": 1858
+        }
+      ],
+      "total_ms": 3828
+    },
+    {
+      "id": "MC-28",
+      "title": "Change mid-way",
+      "category": "mixed",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "I thought I was a sole trader needing MTD.",
+          "assistant": "I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+          "llm_mode": "openai",
+          "latency_ms": 2
+        },
+        {
+          "user": "Actually it’s a limited company with £120k turnover — still MTD for me personally?",
+          "assistant": "As a limited company, your personal MTD obligations for Income Tax are not affected by the company's turnover. MTD for Income Tax applies to individuals based on their qualifying income from self-employment and property, not limited company turnover. \n\nIf you have no qualifying income from self-employment or property, you won't need to comply with MTD for Income Tax. If you have any further questions about your situation, feel free to ask!",
+          "llm_mode": "openai",
+          "latency_ms": 1556
+        }
+      ],
+      "total_ms": 1558
+    },
+    {
+      "id": "MC-29",
+      "title": "Register ready",
+      "category": "package",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "I want Self Assessment Simple and I’m ready to register",
+          "assistant": "To register for Self Assessment Simple for the 2025-26 tax year, you can do so through the official HMRC website. Make sure to register by 5 October 2026 if you started self-employment in the 2025-26 tax year. \n\nYou can find the registration details here: [Register for Self Assessment](https://www.gov.uk/register-for-self-assessment).\n\nIf you need any further assistance or have questions about the process, feel free to ask!",
+          "llm_mode": "openai",
+          "latency_ms": 1773
+        }
+      ],
+      "total_ms": 1773
+    },
+    {
+      "id": "MC-30",
+      "title": "Complex uncertainty",
+      "category": "consult",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "My affairs involve trusts, overseas income and crypto — can SIMBA file everything?",
+          "assistant": "TaxSimba primarily focuses on Self Assessment tax returns and Making Tax Digital services. While we can assist with Self Assessment for various income types, including crypto, we do not handle complex matters like trusts or overseas income directly. For those specific areas, it’s advisable to consult a qualified accountant with expertise in trusts and international tax issues.\n\nIf you're looking for help with your Self Assessment, I recommend our Self Assessment Smart package for a comprehensive approach. Would you like more information on that?",
+          "llm_mode": "openai",
+          "latency_ms": 1819
+        }
+      ],
+      "total_ms": 1819
+    },
+    {
+      "id": "MC-31",
+      "title": "Sell things online",
+      "category": "clarify",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "I sell things online.",
+          "assistant": "It depends whether you’re casually selling personal belongings or running a trade as a sole trader. Occasional sales of personal items are often different from a regular online business that may need Self Assessment. Are you selling your own used possessions, or buying/making goods to sell for profit — and roughly what was the income before expenses last tax year? If it is a trade, TaxSimba’s Self Assessment Simple (£119) is often the lowest suitable starting package once we confirm the facts.",
+          "llm_mode": "openai",
+          "latency_ms": 1
+        }
+      ],
+      "total_ms": 1
+    },
+    {
+      "id": "MC-32",
+      "title": "Business £100k",
+      "category": "clarify",
+      "critical": false,
+      "result": "PASS",
+      "flags": [],
+      "style_score": 10,
+      "transcript": [
+        {
+          "user": "My business makes £100,000.",
+          "assistant": "Just to avoid mixing rules up: is that a limited company, or you as a sole trader/self-employed? Limited-company turnover doesn’t create individual Making Tax Digital for Income Tax obligations the same way sole-trader/landlord qualifying income does. Which structure is it, and is the figure turnover or profit?",
+          "llm_mode": "openai",
+          "latency_ms": 1
+        }
+      ],
+      "total_ms": 1
+    }
+  ]
+}

@@ -59,7 +59,10 @@ function circumstanceReason(code: string, message: string): string {
     return "Highest Simbian Elite (£89.99/mo VAT included, Xero Grow included in that price) only if mid-tier is clearly insufficient — no priority/QBR/planning promises; no fixed monthly transaction caps (not unlimited out-of-scope work).";
   }
   if (code === "ACCOUNTANT_CONSULT_99") {
-    return "£99 for one 30-minute accountant-led Google Meet advice session (no filing, bookkeeping or written report; booking stub until Calendly is connected).";
+    return "Quick Tax Advice — £99 for 20 minutes via Google Meet (focused question; no filing, bookkeeping or written report). Select this option, then book via Calendly (pay within Calendly → Meet) when live.";
+  }
+  if (code === "ACCOUNTANT_CONSULT_149") {
+    return "Extended Tax Consultation — £149 for 40 minutes via Google Meet (more complex situations; no filing, bookkeeping or written report). Select this option, then book via Calendly (pay within Calendly → Meet) when live.";
   }
   if (lower.includes("unsure") || lower.includes("not sure")) {
     return "Suggested as a cautious next option while we clarify your circumstances.";
@@ -73,11 +76,40 @@ export function toPackageCards(
 ): PackageCard[] {
   const flat = allPackagesFlat();
   const cards: PackageCard[] = [];
+  let first = true;
   for (const code of codes) {
     const pkg = flat[code];
     if (!pkg) continue;
-    const inclusions = Array.isArray(pkg.inclusions)
+    const statuses = pkg.inclusion_item_statuses as
+      | Record<string, string>
+      | undefined;
+    const rawInclusions = Array.isArray(pkg.inclusions)
       ? (pkg.inclusions as string[])
+      : [];
+    let inclusions: string[] | null = null;
+    if (pkg.customer_facing_inclusions) {
+      inclusions = rawInclusions;
+    } else if (statuses) {
+      const approved = rawInclusions.filter((line) => {
+        const st = String(statuses[line] || "").toLowerCase();
+        return st === "approved" || st.startsWith("approved_");
+      });
+      inclusions = approved.length ? approved : null;
+    }
+    const isConsult =
+      String(pkg.family) === "consultation" ||
+      String(pkg.code).startsWith("ACCOUNTANT_CONSULT_");
+    const registration_path = isConsult
+      ? null
+      : pkg.registration_route_id === "sa_packages"
+        ? "/self-assessment"
+        : pkg.registration_route_id === "mtd_packages"
+          ? "/making-tax-digital"
+          : pkg.registration_route_id === "register"
+            ? "/register"
+            : null;
+    const choose_url = registration_path
+      ? `https://www.taxsimba.co.uk${registration_path}`
       : null;
     cards.push({
       code: String(pkg.code),
@@ -86,25 +118,19 @@ export function toPackageCards(
       billing: String(pkg.billing),
       vat_note: String(pkg.vat_note || ""),
       family: String(pkg.family),
-      inclusions_status: String(
-        pkg.inclusions_status || "requires_approval",
-      ),
+      // Public cards: no internal approval workflow statuses.
+      inclusions_status: inclusions ? "approved" : "not_listed",
       pressure_free_note: DEFAULT_PRESSURE_NOTE,
-      // Do not surface unapproved descriptions/inclusions on cards as promises.
       description: null,
-      inclusions: pkg.customer_facing_inclusions ? inclusions : null,
+      inclusions,
       recommendation_reason: circumstanceReason(String(pkg.code), message),
-      name_status: pkg.name_status ? String(pkg.name_status) : null,
-      price_status: pkg.price_status ? String(pkg.price_status) : "verified",
-      registration_path:
-        pkg.registration_route_id === "sa_packages"
-          ? "/self-assessment"
-          : pkg.registration_route_id === "mtd_packages"
-            ? "/making-tax-digital"
-            : pkg.registration_route_id === "register"
-              ? "/register"
-              : null,
+      recommended: first && !isConsult,
+      name_status: undefined,
+      price_status: undefined,
+      registration_path,
+      choose_url,
     });
+    first = false;
   }
   return cards;
 }
@@ -230,7 +256,7 @@ export function recommendForMessage(
     followUps = [
       "What is published for each Self Assessment package?",
       "Do I need Self Assessment this year?",
-      "Can I book a £99 accountant consultation instead?",
+      "What accountant consultations does TaxSimba offer?",
     ];
   } else if (MTD_PRICE.test(message) && SA_PRICE.test(message)) {
     packages = toPackageCards(
@@ -259,13 +285,22 @@ export function recommendForMessage(
       "Do landlords need MTD?",
     ];
   } else if (CONSULT.test(message)) {
+    const consultCodes = (
+      Array.isArray(cat.consultation)
+        ? (cat.consultation as { code: string }[])
+        : cat.consultation
+          ? [cat.consultation as { code: string }]
+          : []
+    ).map((p) => p.code);
     packages = toPackageCards(
-      [String((cat.consultation as { code: string }).code)],
+      consultCodes.length
+        ? consultCodes
+        : ["ACCOUNTANT_CONSULT_99", "ACCOUNTANT_CONSULT_149"],
       message,
     );
     followUps = [
-      "What can an accountant consultation help with?",
-      "What Self Assessment packages are available?",
+      "What’s the difference between the £99 and £149 consultations?",
+      "Can I email TaxSimba instead?",
     ];
   }
 
@@ -334,31 +369,38 @@ export function answerInclusionsQuestion(message: string): string | null {
     "",
     "Self Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.",
     "Making Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.",
-    "Private accountant consultation: £99 for one 30-minute accountant-led Google Meet advice session " +
-      "(no tax return filing, bookkeeping or written report; booking stub until Calendly is connected).",
+    "Accountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes " +
+      "(Google Meet; no filing, bookkeeping or written report). No free callbacks. " +
+      "Booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable here — email is only a fallback enquiry route.",
     "",
     "Self Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service " +
       "for people who need digital records and MTD support.",
     "",
-    "Approved:",
-    "- Xero software is included in the advertised monthly Simbian prices (£29.99 / £59.99 / £89.99 VAT included). Customers do not pay separately.",
-    "- Website catalogue mapping: Simbian Comply → Xero Simple; Simbian Growth → Xero Ignite; Simbian Elite → Xero Grow.",
-    "- Support is via email and the client dashboard messaging channels — not telephone onboarding.",
-    "- £99 consultation: 30-minute accountant advice session on Google Meet (no filing, bookkeeping or written report).",
-    "",
-    "Approved with conditions:",
-    "- TaxSimba maintains digital bookkeeping with no fixed monthly transaction caps on Simbian Comply, Growth and Elite (owner-approved). This does not mean unlimited out-of-scope work.",
+    "What is approved to say:",
+    "- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.",
+    "- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.",
+    "- Support is via email and the client dashboard — not telephone onboarding.",
+    "- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).",
     "- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.",
     "",
-    "Genuine outstanding items (not invented): package exclusions lists, extra-work charges, amendments, and cancellation/refund conditions.",
-    "Removed from SIMBA customer promises until re-approved (even if older website bullets mention them): priority support, priority turnaround, quarterly business reviews, and proactive tax planning.",
-    "I will not invent fixed monthly caps, unlimited out-of-scope work, response times, tax-planning benefits or extra charges. " +
-      "Where an entitlement still requires clarification, TaxSimba must confirm the detail.",
+    "I will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.",
     "",
-    "I can recommend the lowest suitable package for your circumstances and share the right next link. " +
+    "I can recommend the lowest suitable package for your circumstances. " +
       "Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, " +
       "or start registration at https://www.taxsimba.co.uk/register.",
   ];
+
+  if (
+    lower.includes("amendment") ||
+    lower.includes("refund") ||
+    lower.includes("penalty") ||
+    lower.includes("investigation")
+  ) {
+    lines.push(
+      "",
+      "Amendments, refunds, penalties and investigations are not yet listed as standard package inclusions — TaxSimba must confirm those case by case. I will not invent coverage.",
+    );
+  }
 
   if (
     lower.includes("priority") ||
@@ -394,16 +436,15 @@ export function answerInclusionsQuestion(message: string): string | null {
   }
 
   for (const p of cat.self_assessment as Record<string, any>[]) {
-    lines.push(
-      `- ${p.name}: £${p.price_gbp} (${p.billing}) — detailed inclusions status: ${p.inclusions_status}`,
-    );
+    lines.push(`- ${p.name}: £${p.price_gbp} (${p.billing})`);
   }
   for (const p of cat.mtd as Record<string, any>[]) {
     lines.push(
-      `- ${p.name}: £${Number(p.price_gbp).toFixed(2)} (${p.billing}; VAT included) — inclusions status: ${p.inclusions_status}`,
+      `- ${p.name}: £${Number(p.price_gbp).toFixed(2)} (${p.billing}; VAT included)`,
     );
   }
 
   void PENDING_STATUSES;
+  void cat;
   return lines.join("\n");
 }

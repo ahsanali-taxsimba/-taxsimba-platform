@@ -13,7 +13,7 @@ function read(name: string): string {
 }
 
 const MARKERS: [string, string][] = [
-  ["index.html", 'aria-label="SIMBA AI'],
+  ["index.html", 'aria-label="Ask SIMBA'],
   ["index.html", "aria-live"],
   ["index.html", "Delete chat"],
   ["index.html", "taxsimba-logo.svg"],
@@ -40,7 +40,7 @@ const MARKERS: [string, string][] = [
   ["js/concierge.js", "enterChatView"],
   ["embed.js", "focus-visible"],
   ["embed.js", "Ask SIMBA"],
-  ["embed.js", "AI Tax Assistant"],
+  ["embed.js", "Digital Tax Assistant"],
   ["embed.js", "Need help with your tax?"],
   ["embed.js", "simba_welcome_dismissed_v1"],
   ["embed.js", "Escape"],
@@ -48,7 +48,7 @@ const MARKERS: [string, string][] = [
   ["chat.html", "Self Assessment"],
   ["chat.html", "Making Tax Digital"],
   ["chat.html", "Choose the right package"],
-  ["chat.html", "Book a £99 accountant consultation"],
+  ["chat.html", "Accountant consultations"],
   ["chat.html", "Ask a tax question"],
   ["chat.html", "aria-label=\"Ask SIMBA"],
   ["css/chat-panel.css", "#006b3c"],
