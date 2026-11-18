@@ -84,7 +84,7 @@ describe("master scenario suite 505+", () => {
     expect(lower).not.toMatch(/30-?\s*minute/);
     expect(lower).toMatch(/quick tax advice|£99|99/);
     expect(lower).toMatch(/extended|£149|149/);
-    expect(lower).toMatch(/which option|calendly|stripe|google meet/);
+    expect(lower).toMatch(/which option|calendly|google meet|pay within calendly/);
   });
 
   it("multiturn_sample_remembers_and_respects_refusal", async () => {

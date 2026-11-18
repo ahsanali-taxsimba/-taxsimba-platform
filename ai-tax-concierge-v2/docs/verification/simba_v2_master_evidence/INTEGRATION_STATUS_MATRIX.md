@@ -1,26 +1,20 @@
-# Integration status matrix
+# Integration status matrix — honest claims only
 
-| Integration | Status | Evidence / notes |
-|-------------|--------|------------------|
-| Website widget + sidebar | **IMPLEMENTED & VERIFIED** (local) | `screenshots/*`; Vitest embed/accessibility |
-| Mobile/desktop rendering | **IMPLEMENTED**; real-device **UNVERIFIED** | Mobile-width screenshot `07_mobile_width_chat.webp`; physical iPhone Safari **BLOCKED** |
-| SIMBA API + OpenAI | **IMPLEMENTED & VERIFIED** | `openai_api_verification.json`; 20 live journeys; model `gpt-4o-mini`; server-side key only |
-| HMRC retrieval + monitor | **IMPLEMENTED**; staging ops **UNVERIFIED** | Corpus + monitor code; needs ops token on staging |
-| Catalogue sync | **IMPLEMENTED**; staging **UNVERIFIED** | `catalog/sync/*` |
-| Registration / email verification | **STUB / BLOCKED** for E2E | Chat links to website routes only; portal not exercised |
-| Package pages / checkout | **STUB for payment** | Prices verified in catalogue; checkout not claimed live |
-| Customer dashboard handoff | **STUB** | Existing-client messaging guidance only |
-| Stripe payment | **STUB / NOT CONNECTED** | `payment_status: unavailable`; never claim success |
-| Calendly + Google Meet | **STUB / NOT CONNECTED** | UI + copy describe select→Calendly→Stripe→Meet; buttons disabled until live |
-| Consultation product copy | **VERIFIED** | Responsive consult panel + journeys C; email only as unavailable fallback |
-| OpenAI model | **VERIFIED default `gpt-4o-mini`** | Comparison vs `gpt-4o` in `evidence/model_comparison/` — no switch without approval |
-| Email enquiry | **IMPLEMENTED** (address published) | `info@taxsimba.co.uk` — SMTP delivery not verified from SIMBA |
-| Lead capture API | **IMPLEMENTED & VERIFIED** (outbox) | `/api/v1/leads` saves lead + writes outbox; SMTP transporter **BLOCKED** |
-| Long continuous chat | **IMPLEMENTED & VERIFIED** | 20- and 50-turn real OpenAI conversations PASS |
-| Personalised package cards | **IMPLEMENTED & VERIFIED** | Recommended badge + Choose this package CTA |
-| HMRC monitor scheduler | **IMPLEMENTED**; staging ops **BLOCKED** | Enable with ops token on staging |
-| Auth / rate limit / CORS | **IMPLEMENTED & VERIFIED** (unit/security) | Wildcard CORS blocked in staging/prod settings |
-| Privacy / secrets | **IMPLEMENTED & VERIFIED** | Security suite + allowlist; no keys in public config |
-| Direct HMRC filing by TaxSimba | **NOT CLAIMED** | TaxCalc SA / Xero MTD references only |
+| Integration | Status | Notes |
+|-------------|--------|-------|
+| OpenAI chat | **REAL API TESTED** (this env) | `llm_mode=openai`, model `gpt-4o-mini` |
+| Package catalogue / prices | **IMPLEMENTED** | SA 119/149/299; MTD 29.99/59.99/89.99 VAT incl. |
+| Package pages / checkout | **STUB for payment** | Prices verified; portal checkout not claimed live |
+| Consultation booking UX | **IMPLEMENTED** | Options → Calendly event → pay within Calendly → Meet |
+| Calendly events + Calendly payment | **STUB / NOT CONNECTED** | Set per-tier URLs; leave `CONSULTATION_BOOKING_LIVE=false` until E2E |
+| Separate Stripe Checkout for consultations | **NOT USED** | Consultations must not use a duplicate TaxSimba Stripe page |
+| Package Stripe / portal payment | **STUB / NOT CONNECTED** | `payment_status: unavailable` |
+| Google Meet via Calendly | **STUB / NOT CONNECTED** | Confirmed only after Calendly booking+payment |
+| Lead capture storage | **IMPLEMENTED** | `/api/v1/leads` + dedupe |
+| Lead SMTP inbox delivery | **BLOCKED** | Outbox file only until SMTP wired |
+| HMRC monitor code | **IMPLEMENTED** | Change detection / quarantine / approval gates in code |
+| HMRC monitor scheduler | **BLOCKED** | `hmrc_monitor=off` until ops enablement |
+| Client portal registration E2E | **BLOCKED** | Toxel staging |
+| Physical iPhone / Android | **BLOCKED** | Browser emulation only so far |
 
-Do not pretend Stripe/Calendly/portal E2E work because adapters exist.
+Do not pretend Calendly payment, SMTP, portal E2E, or HMRC ops work because adapters/code exist.

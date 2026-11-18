@@ -210,7 +210,7 @@ export class ConversationalEngine {
       reply = consultationSelectionReply(
         consultSelection,
         this.settings.consultationBookingLive,
-        this.settings.consultationBookingUrl,
+        this.settings.bookingUrlForPrice(consultSelection.price_gbp),
       );
       confidence = "high";
     } else if (consultIntent) {

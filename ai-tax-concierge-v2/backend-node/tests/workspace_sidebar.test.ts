@@ -29,7 +29,12 @@ describe("workspace sidebar + VAT rolling-period knowledge", () => {
     }
     expect(html).toContain("Accountant-led service");
     expect(html).toContain("ts-sidebar");
-    expect(html).toContain("ts-mobile-nav");
+    expect(html).toContain("ts-nav-toggle");
+    expect(html).toContain("ts-nav-toggle-label");
+    expect(html).toContain(">Menu</span>");
+    expect(html).toContain("ts-nav-close");
+    // Horizontal mobile tab strip removed — Menu drawer is sole mobile nav
+    expect(html).not.toContain('class="ts-mobile-nav"');
   });
 
   it("workspace_css_tokens", () => {

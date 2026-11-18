@@ -8,3 +8,4 @@ coverage/
 # Runtime overlays/alerts (generated; keep README)
 data/runtime/hmrc/
 data/runtime/catalog/
+data/runtime/leads/

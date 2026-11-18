@@ -90,7 +90,7 @@ CONVERSATION RULES:
 6. If they decline, continue helping without pressure.
 7. Never request NI numbers, UTRs, passwords, bank details or documents in public chat.
 8. Never invent package inclusions, booking slots, free callbacks, phone onboarding, payment confirmations, emails or registrations.
-9. Consultations (private Google Meet): Quick Tax Advice £99 for 20 minutes; Extended Tax Consultation £149 for 40 minutes. Standard journey: explain options → customer selects → online booking (Calendly availability → Stripe payment → Google Meet after confirmation). Never invent a confirmed booking. Email info@taxsimba.co.uk only for general enquiries or when online booking is unavailable — not as the default booking method. No free callbacks.
+9. Consultations (private Google Meet): Quick Tax Advice £99 for 20 minutes; Extended Tax Consultation £149 for 40 minutes. Standard journey: explain options → customer selects → matching Calendly event → pay within Calendly’s booking process → Google Meet after Calendly confirmation. Do not use a separate Stripe Checkout page for consultations. Never invent a confirmed booking. Email info@taxsimba.co.uk only for general enquiries or when online booking is unavailable — not as the default booking method. No free callbacks.
 10. Never invent priority support, quarterly business reviews or proactive tax planning.
 11. Prefer Simbian Comply / Growth / Elite names only for MTD packages.
 12. Existing TaxSimba clients: guide them to secure dashboard messaging with their assigned accountant.
@@ -126,7 +126,7 @@ export function mockPackageReply(message: string): string | null {
       "Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.\n" +
       "Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\n" +
       "Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes " +
-      "(Google Meet; no filing, bookkeeping or written report). Standard booking path: choose an option → Calendly → Stripe → Meet. " +
+      "(Google Meet; no filing, bookkeeping or written report). Standard booking path: choose an option → Calendly event → pay within Calendly → Meet. " +
       "Online booking may be unavailable in this environment — email is only a fallback enquiry route, not the default booking method.\n\n" +
       "For Simbian plans, Xero is included in the monthly price " +
       "(Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). " +

@@ -103,6 +103,7 @@
     del: document.getElementById("ts-delete"),
     topicsBtn: document.getElementById("ts-topics-btn"),
     navToggle: document.getElementById("ts-nav-toggle"),
+    navClose: document.getElementById("ts-nav-close"),
     sidebar: document.getElementById("ts-sidebar"),
     backdrop: document.getElementById("ts-sidebar-backdrop"),
   };
@@ -157,9 +158,24 @@
   }
 
   function setNavOpen(open) {
+    const wasOpen = els.shell?.classList.contains("nav-open");
     els.shell?.classList.toggle("nav-open", open);
     if (els.navToggle) els.navToggle.setAttribute("aria-expanded", open ? "true" : "false");
     if (els.backdrop) els.backdrop.hidden = !open;
+    if (els.sidebar) {
+      if (open) {
+        els.sidebar.setAttribute("role", "dialog");
+        els.sidebar.setAttribute("aria-modal", "true");
+      } else {
+        els.sidebar.removeAttribute("role");
+        els.sidebar.removeAttribute("aria-modal");
+      }
+    }
+    if (open && !wasOpen) {
+      els.navClose?.focus?.();
+    } else if (!open && wasOpen) {
+      els.navToggle?.focus?.();
+    }
   }
 
   function setView(view) {
@@ -182,7 +198,7 @@
       p.classList.toggle("is-active", active);
       p.hidden = !active;
     });
-    document.querySelectorAll(".ts-nav-item, .ts-mnav").forEach((btn) => {
+    document.querySelectorAll(".ts-nav-item").forEach((btn) => {
       btn.classList.toggle("is-active", btn.dataset.panel === panelId);
     });
     setNavOpen(false);
@@ -286,6 +302,8 @@
       const bookingLive = Boolean(
         state.config && state.config.consultation_booking_available
       );
+      const bookingUrls =
+        (state.config && state.config.consultation_booking_urls) || {};
       const list = Array.isArray(packages.consultations)
         ? packages.consultations
         : packages.consultation
@@ -304,8 +322,13 @@
             Number(c.price_gbp) >= 149
               ? "I'd like the Extended Tax Consultation (£149 / 40 minutes)"
               : "I'd like Quick Tax Advice (£99 / 20 minutes)";
-          const bookBtn = bookingLive
-            ? `<a class="ts-cta" href="${websiteUrl("/book-consultation")}" target="_blank" rel="noopener noreferrer">Continue to online booking</a>`
+          const calendlyUrl = bookingUrls[code] || "";
+          const canBook =
+            bookingLive &&
+            calendlyUrl &&
+            !/example|localhost|stub/i.test(String(calendlyUrl));
+          const bookBtn = canBook
+            ? `<a class="ts-cta" href="${escapeHtml(calendlyUrl)}" target="_blank" rel="noopener noreferrer">Book consultation</a>`
             : `<button type="button" class="ts-cta ts-cta-disabled" disabled aria-disabled="true">Online booking unavailable</button>`;
           return `<div class="ts-list-card ts-consult-card">
             <strong>${escapeHtml(c.name || "Consultation")}</strong>
@@ -315,9 +338,9 @@
               <button type="button" class="ts-follow ts-touch" data-starter="${escapeHtml(selectMsg)}">Select this option</button>
               ${bookBtn}
             </div>
-            <span class="ts-status-pill${bookingLive ? " ok" : ""}">${
-              bookingLive
-                ? "Online booking live: Calendly → Stripe → Meet"
+            <span class="ts-status-pill${canBook ? " ok" : ""}">${
+              canBook
+                ? "Calendly booking live — pay within Calendly"
                 : "Booking not connected — no fake confirmation"
             }</span>
           </div>`;
@@ -326,17 +349,17 @@
       document.getElementById("ts-panel-consultation").innerHTML = `
         <div class="ts-panel-scroll">
           <h2>Accountant consultations</h2>
-          <p class="ts-lead">Choose an option, then use online booking (Calendly availability → Stripe payment → Google Meet after confirmation). No free phone callbacks.</p>
+          <p class="ts-lead">Choose an option, then book on Calendly (availability → pay within Calendly → Google Meet after confirmation). No free phone callbacks. No separate Stripe checkout page.</p>
           <ol class="ts-flow-list">
             <li>Select Quick (£99 / 20 min) or Extended (£149 / 40 min)</li>
-            <li>Open online booking</li>
-            <li>Pick a Calendly slot and pay with Stripe</li>
-            <li>Receive Google Meet details after confirmation</li>
+            <li>Open the matching Calendly event</li>
+            <li>Pick an available appointment and pay within Calendly</li>
+            <li>Receive Google Meet details after Calendly confirmation</li>
           </ol>
           ${cards}
           <div class="ts-list-card">
             <strong>If online booking is unavailable</strong>
-            <div class="ts-note">Email <a href="mailto:info@taxsimba.co.uk">info@taxsimba.co.uk</a> for a general enquiry only — email is not the standard booking method once Calendly/Stripe are live.</div>
+            <div class="ts-note">Email <a href="mailto:info@taxsimba.co.uk">info@taxsimba.co.uk</a> for a general enquiry only — email is not the standard booking method once Calendly is live.</div>
             <button type="button" class="ts-follow ts-touch" data-consult="1" style="margin-top:8px">Ask SIMBA which option fits</button>
           </div>
         </div>`;
@@ -818,6 +841,7 @@
     const open = !els.shell?.classList.contains("nav-open");
     setNavOpen(open);
   });
+  els.navClose?.addEventListener("click", () => setNavOpen(false));
   els.backdrop?.addEventListener("click", () => setNavOpen(false));
   document.addEventListener("keydown", (ev) => {
     if (ev.key === "Escape" && els.shell?.classList.contains("nav-open")) {

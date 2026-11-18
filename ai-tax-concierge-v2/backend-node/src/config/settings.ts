@@ -12,6 +12,8 @@ export type SettingsOverrides = Partial<{
   CONCIERGE_LOG_LEVEL: string;
   CONCIERGE_FORCE_MOCK_LLM: boolean | string;
   CONSULTATION_BOOKING_URL: string;
+  CONSULTATION_BOOKING_URL_99: string;
+  CONSULTATION_BOOKING_URL_149: string;
   CONSULTATION_BOOKING_LIVE: boolean | string;
   WEBSITE_BASE_URL: string;
 }>;
@@ -49,6 +51,8 @@ export class Settings {
   readonly conciergeLogLevel: string;
   readonly conciergeForceMockLlm: boolean;
   readonly consultationBookingUrl: string;
+  readonly consultationBookingUrl99: string;
+  readonly consultationBookingUrl149: string;
   readonly consultationBookingLive: boolean;
   readonly websiteBaseUrl: string;
 
@@ -90,12 +94,32 @@ export class Settings {
       "https://calendly.com/example/taxsimba-99-consultation",
       overrides,
     );
+    this.consultationBookingUrl99 = envOr(
+      "CONSULTATION_BOOKING_URL_99",
+      this.consultationBookingUrl,
+      overrides,
+    );
+    this.consultationBookingUrl149 = envOr(
+      "CONSULTATION_BOOKING_URL_149",
+      this.consultationBookingUrl,
+      overrides,
+    );
     const liveRaw =
       overrides.CONSULTATION_BOOKING_LIVE ??
       process.env.CONSULTATION_BOOKING_LIVE;
-    this.consultationBookingLive =
-      parseBool(liveRaw) &&
-      !/example|localhost|stub/i.test(this.consultationBookingUrl);
+    const anyLiveUrl = [
+      this.consultationBookingUrl,
+      this.consultationBookingUrl99,
+      this.consultationBookingUrl149,
+    ].some((u) => u && !/example|localhost|stub/i.test(u));
+    this.consultationBookingLive = parseBool(liveRaw) && anyLiveUrl;
+  }
+
+  /** Calendly event URL for a consultation tier (99 or 149). */
+  bookingUrlForPrice(priceGbp: number): string {
+    return priceGbp >= 149
+      ? this.consultationBookingUrl149
+      : this.consultationBookingUrl99;
   }
 
   get corsOrigins(): string[] {
@@ -147,6 +171,13 @@ export class Settings {
       consultation_booking_status: this.consultationBookingLive
         ? "live"
         : "not_connected",
+      consultation_booking_urls: this.consultationBookingLive
+        ? {
+            ACCOUNTANT_CONSULT_99: this.consultationBookingUrl99,
+            ACCOUNTANT_CONSULT_149: this.consultationBookingUrl149,
+          }
+        : null,
+      consultation_payment: "calendly_integrated",
       email_enquiry: "info@taxsimba.co.uk",
       payment_status: "unavailable",
       free_callback_available: false,

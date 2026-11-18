@@ -59,10 +59,10 @@ function circumstanceReason(code: string, message: string): string {
     return "Highest Simbian Elite (£89.99/mo VAT included, Xero Grow included in that price) only if mid-tier is clearly insufficient — no priority/QBR/planning promises; no fixed monthly transaction caps (not unlimited out-of-scope work).";
   }
   if (code === "ACCOUNTANT_CONSULT_99") {
-    return "Quick Tax Advice — £99 for 20 minutes via Google Meet (focused question; no filing, bookkeeping or written report). Select this option, then use online booking (Calendly → Stripe → Meet) when live.";
+    return "Quick Tax Advice — £99 for 20 minutes via Google Meet (focused question; no filing, bookkeeping or written report). Select this option, then book via Calendly (pay within Calendly → Meet) when live.";
   }
   if (code === "ACCOUNTANT_CONSULT_149") {
-    return "Extended Tax Consultation — £149 for 40 minutes via Google Meet (more complex situations; no filing, bookkeeping or written report). Select this option, then use online booking (Calendly → Stripe → Meet) when live.";
+    return "Extended Tax Consultation — £149 for 40 minutes via Google Meet (more complex situations; no filing, bookkeeping or written report). Select this option, then book via Calendly (pay within Calendly → Meet) when live.";
   }
   if (lower.includes("unsure") || lower.includes("not sure")) {
     return "Suggested as a cautious next option while we clarify your circumstances.";
@@ -371,7 +371,7 @@ export function answerInclusionsQuestion(message: string): string | null {
     "Making Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.",
     "Accountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes " +
       "(Google Meet; no filing, bookkeeping or written report). No free callbacks. " +
-      "Booking path: choose an option → Calendly → Stripe → Meet. Online booking may be unavailable here — email is only a fallback enquiry route.",
+      "Booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable here — email is only a fallback enquiry route.",
     "",
     "Self Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service " +
       "for people who need digital records and MTD support.",

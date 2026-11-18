@@ -1,0 +1,48 @@
+
+> @taxsimba/ai-tax-concierge-v2-backend-node@0.1.0 test
+> vitest run --run
+
+
+ RUN  v2.1.9 /agent/repos/-taxsimba-platform/ai-tax-concierge-v2/backend-node
+
+ ✓ tests/owner_commercial_decisions.test.ts (14 tests) 14ms
+ ✓ tests/hmrc_monitor.test.ts (3 tests) 69ms
+ ✓ tests/grounding_accuracy_fixes.test.ts (9 tests) 45ms
+ ✓ tests/catalog_sync.test.ts (3 tests) 26ms
+ ✓ tests/knowledge_accuracy.test.ts (28 tests) 60ms
+ ✓ tests/recommendations_catalog.test.ts (16 tests) 11ms
+ ✓ tests/package_journeys_50.test.ts (51 tests) 21ms
+ ✓ tests/conversion_quality_audit.test.ts (10 tests) 102ms
+ ✓ tests/security_suite.test.ts (26 tests) 51ms
+ ✓ tests/consultation_booking.test.ts (5 tests) 55ms
+ ✓ tests/phase2_api.test.ts (11 tests) 81ms
+ ✓ tests/inclusions_resolution.test.ts (8 tests) 7ms
+ ✓ tests/master_scenario_suite_505.test.ts (4 tests) 83ms
+ ✓ tests/mtd_eligibility.test.ts (10 tests) 68ms
+ ✓ tests/website_reconciliation.test.ts (4 tests) 7ms
+ ✓ tests/api_regression.test.ts (19 tests) 102ms
+ ✓ tests/conversation_multiturn.test.ts (7 tests) 28ms
+ ✓ tests/journeys_full.test.ts (24 tests) 56ms
+ ✓ tests/public_catalogue_allowlist.test.ts (5 tests) 33ms
+ ✓ tests/workspace_sidebar.test.ts (5 tests) 9ms
+ ✓ tests/accessibility_widget.test.ts (47 tests) 10ms
+ ✓ tests/conversation_quality_remediation.test.ts (5 tests) 59ms
+ ✓ tests/leads_and_long_context.test.ts (4 tests) 55ms
+ ✓ tests/embed_launcher.test.ts (6 tests) 3ms
+ ✓ tests/intent_clarifier.test.ts (6 tests) 20ms
+ ✓ tests/recommendations.test.ts (5 tests) 6ms
+ ✓ tests/retrieval_and_verification.test.ts (5 tests) 14ms
+ ✓ tests/conversational_engine.test.ts (3 tests) 19ms
+ ✓ tests/helpful_first_no_pressure.test.ts (4 tests) 16ms
+ ✓ tests/api.test.ts (7 tests) 55ms
+ ✓ tests/adapters.test.ts (3 tests) 3ms
+ ✓ tests/tax_year.test.ts (5 tests) 2ms
+ ✓ tests/journeys.test.ts (4 tests) 4ms
+ ✓ tests/privacy.test.ts (3 tests) 3ms
+ ✓ tests/tax_intelligence_150.test.ts (152 tests) 308ms
+
+ Test Files  35 passed (35)
+      Tests  521 passed (521)
+   Start at  05:41:27
+   Duration  3.46s (transform 647ms, setup 94ms, collect 3.59s, tests 1.50s, environment 5ms, prepare 1.46s)
+

@@ -10,9 +10,9 @@
   <div class="ts-shell ts-workspace-shell" role="region" aria-label="Ask SIMBA — Your Digital Tax Assistant">
     <header class="ts-header">
       <div class="ts-brand">
-        <button type="button" class="ts-nav-toggle" id="ts-nav-toggle" aria-expanded="false" aria-controls="ts-sidebar" title="Menu">
+        <button type="button" class="ts-nav-toggle" id="ts-nav-toggle" aria-expanded="false" aria-controls="ts-sidebar" aria-label="Menu" title="Menu">
           <span class="ts-nav-toggle-bars" aria-hidden="true"></span>
-          <span class="visually-hidden">Open navigation</span>
+          <span class="ts-nav-toggle-label">Menu</span>
         </button>
         <div class="ts-logo-chip">
           <img class="ts-logo" src="./assets/taxsimba-logo.svg" width="108" height="18" alt="TaxSimba" />
@@ -30,8 +30,14 @@
     </header>
 
     <div class="ts-workspace">
-      <aside class="ts-sidebar" id="ts-sidebar" aria-label="SIMBA workspace navigation">
-        <p class="ts-sidebar-kicker">Workspace</p>
+      <aside class="ts-sidebar" id="ts-sidebar" aria-label="SIMBA workspace navigation" aria-labelledby="ts-nav-drawer-title">
+        <div class="ts-sidebar-top">
+          <p class="ts-sidebar-kicker" id="ts-nav-drawer-title">Menu</p>
+          <button type="button" class="ts-nav-close" id="ts-nav-close" aria-label="Close menu">
+            <span aria-hidden="true">×</span>
+            <span class="ts-nav-close-label">Close</span>
+          </button>
+        </div>
         <nav class="ts-side-nav" aria-label="Main">
           <button type="button" class="ts-nav-item is-active" data-panel="chat">
             <span class="ts-nav-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
@@ -71,15 +77,6 @@
       <div class="ts-sidebar-backdrop" id="ts-sidebar-backdrop" hidden></div>
 
       <div class="ts-main">
-        <nav class="ts-mobile-nav" aria-label="Quick navigation">
-          <button type="button" class="ts-mnav is-active" data-panel="chat">Chat</button>
-          <button type="button" class="ts-mnav" data-panel="guided">Guided</button>
-          <button type="button" class="ts-mnav" data-panel="calculators">Calcs</button>
-          <button type="button" class="ts-mnav" data-panel="packages">Packages</button>
-          <button type="button" class="ts-mnav" data-panel="consultation">Consult</button>
-          <button type="button" class="ts-mnav" data-panel="faqs">FAQs</button>
-        </nav>
-
         <section class="ts-panel is-active" id="ts-panel-chat" data-panel-view="chat" aria-label="Chat">
           <div id="ts-body" class="ts-body" aria-live="polite"></div>
           <div id="ts-live" class="visually-hidden" style="position:absolute;left:-9999px" aria-live="assertive"></div>

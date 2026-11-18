@@ -14,7 +14,8 @@ describe("consultation booking experience", () => {
     expect(reply).toContain("quick tax advice");
     expect(reply).toContain("extended tax consultation");
     expect(reply).toContain("calendly");
-    expect(reply).toContain("stripe");
+    expect(reply).toMatch(/pay within calendly/);
+    expect(reply).not.toMatch(/stripe checkout|separate stripe/);
     expect(reply).toMatch(/which option/);
     // Email must not be presented as the primary booking instruction
     const emailIdx = reply.indexOf("info@taxsimba.co.uk");
@@ -45,9 +46,10 @@ describe("consultation booking experience", () => {
       "https://calendly.com/taxsimba/extended-149",
     ).toLowerCase();
     expect(reply).toContain("calendly.com/taxsimba/extended-149");
-    expect(reply).toContain("stripe");
+    expect(reply).toMatch(/pay within calendly/);
     expect(reply).toContain("google meet");
     expect(reply).not.toMatch(/booking confirmed|you are booked|payment successful/);
+    expect(reply).not.toMatch(/stripe checkout/);
   });
 
   it("chat_api_options_then_selection", async () => {
@@ -81,5 +83,38 @@ describe("consultation booking experience", () => {
     expect(pick.body.reply.toLowerCase()).toContain("quick tax advice");
     expect(pick.body.reply.toLowerCase()).toMatch(/not connected|not live|unavailable/);
     expect(pick.body.reply.toLowerCase()).not.toContain("calendly.com/example");
+  });
+
+  it("per_tier_calendly_urls_when_live", async () => {
+    const app = createApp(
+      createSettings({
+        CONCIERGE_FORCE_MOCK_LLM: true,
+        CONSULTATION_BOOKING_LIVE: true,
+        CONSULTATION_BOOKING_URL_99: "https://calendly.com/taxsimba/quick-99",
+        CONSULTATION_BOOKING_URL_149:
+          "https://calendly.com/taxsimba/extended-149",
+      }),
+    );
+    const cfg = await request(app).get("/api/v1/config").expect(200);
+    expect(cfg.body.consultation_booking_available).toBe(true);
+    expect(cfg.body.consultation_payment).toBe("calendly_integrated");
+    expect(cfg.body.consultation_booking_urls.ACCOUNTANT_CONSULT_99).toContain(
+      "quick-99",
+    );
+    expect(cfg.body.consultation_booking_urls.ACCOUNTANT_CONSULT_149).toContain(
+      "extended-149",
+    );
+
+    const pick = await request(app)
+      .post("/api/v1/chat")
+      .send({
+        session_id: "consult-live-149",
+        message: "I'd like the Extended Tax Consultation (£149 / 40 minutes)",
+      })
+      .expect(200);
+    expect(pick.body.reply.toLowerCase()).toContain(
+      "calendly.com/taxsimba/extended-149",
+    );
+    expect(pick.body.reply.toLowerCase()).toMatch(/pay within calendly/);
   });
 });

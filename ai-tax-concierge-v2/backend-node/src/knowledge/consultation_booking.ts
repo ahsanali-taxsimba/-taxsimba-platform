@@ -1,6 +1,8 @@
 /**
  * Consultation booking copy and selection helpers.
- * Online flow when live: explain → customer selects → Calendly → Stripe → Google Meet.
+ * Online flow when live: explain → customer selects → Calendly event →
+ * pay within Calendly’s supported payment integration → Google Meet after confirmation.
+ * Do not build a separate Stripe Checkout page for consultations.
  * Email (info@taxsimba.co.uk) is only for general enquiries or when booking is unavailable —
  * never the default “how to book” path.
  */
@@ -29,10 +31,10 @@ export const CONSULTATION_TIERS: ConsultationTier[] = [
 
 export const BOOKING_FLOW_STEPS = [
   "Choose Quick Tax Advice (£99 / 20 minutes) or Extended Tax Consultation (£149 / 40 minutes).",
-  "Open the online booking page for that option.",
-  "Pick an available Calendly slot.",
-  "Complete Stripe payment.",
-  "Receive Google Meet details after the booking is confirmed.",
+  "Open the Calendly booking page for that option.",
+  "Pick an available Calendly appointment.",
+  "Pay within Calendly’s booking process (Calendly’s supported payment integration).",
+  "Receive Google Meet details after Calendly confirms payment and booking.",
 ] as const;
 
 export function detectConsultationSelection(
@@ -74,7 +76,9 @@ export function consultationOptionsReply(): string {
     "• Quick Tax Advice — £99 for 20 minutes (one focused question)\n" +
     "• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\n" +
     "Neither includes filing, bookkeeping or a written report, and there are no free callbacks.\n\n" +
-    "The usual booking path is: choose an option → online booking → Calendly availability → Stripe payment → Google Meet details after confirmation.\n\n" +
+    "The usual booking path is: choose an option → open the matching Calendly event → " +
+    "select an available appointment → pay within Calendly’s booking process → " +
+    "receive Google Meet details after Calendly confirms the booking.\n\n" +
     "Which option would you like — Quick (£99 / 20 minutes) or Extended (£149 / 40 minutes)?"
   );
 }
@@ -92,20 +96,21 @@ export function consultationSelectionReply(
     return (
       head +
       "Next steps for online booking:\n" +
-      "1) Open the booking page for this consultation.\n" +
-      "2) Choose an available Calendly slot.\n" +
-      "3) Complete Stripe payment.\n" +
-      "4) You’ll receive Google Meet details after the booking is confirmed.\n\n" +
-      `Booking link: ${bookingUrl}\n\n` +
-      "I won’t mark anything as booked or paid until Calendly and Stripe confirm it."
+      "1) Open the Calendly event for this consultation.\n" +
+      "2) Choose an available appointment.\n" +
+      "3) Pay within Calendly’s booking process (no separate TaxSimba checkout page).\n" +
+      "4) You’ll receive Google Meet details after Calendly confirms payment and the booking.\n\n" +
+      `Book consultation: ${bookingUrl}\n\n` +
+      "I won’t mark anything as booked or paid until Calendly confirms it."
     );
   }
 
   return (
     head +
-    "Online booking (Calendly + Stripe + Google Meet) is not connected in this environment yet, " +
+    "Online booking (Calendly with integrated payment + Google Meet) is not connected in this environment yet, " +
     "so I can’t open a live slot or confirm an appointment.\n\n" +
-    "When booking goes live, you’ll use: select this option → Calendly availability → Stripe payment → Meet link after confirmation.\n\n" +
+    "When booking goes live, you’ll use: select this option → Calendly event → " +
+    "pay within Calendly → Meet link after confirmation.\n\n" +
     "For a general enquiry while booking is unavailable, email info@taxsimba.co.uk — " +
     "email is not the normal booking method once online scheduling is live."
   );
@@ -115,8 +120,8 @@ export function consultationHint(bookingLive: boolean): string {
   if (bookingLive) {
     return (
       "Need personalised help? Choose Quick Tax Advice (£99 / 20 minutes) or " +
-      "Extended Tax Consultation (£149 / 40 minutes), then continue to online booking " +
-      "(Calendly → Stripe → Google Meet)."
+      "Extended Tax Consultation (£149 / 40 minutes), then continue to Calendly booking " +
+      "(availability → pay within Calendly → Google Meet after confirmation)."
     );
   }
   return (
@@ -134,7 +139,7 @@ export function callbackHonestyReply(bookingLive: boolean): string {
     return (
       "I can’t arrange a free phone callback. " +
       book +
-      " Say which option you want and I’ll point you to the online booking steps."
+      " Say which option you want and I’ll point you to the Calendly booking steps."
     );
   }
   return (

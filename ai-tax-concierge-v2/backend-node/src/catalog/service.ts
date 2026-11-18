@@ -110,7 +110,9 @@ export function packageCatalogText(): string {
       ? [consultRaw as Record<string, unknown>]
       : [];
   const bookingLive = consultList.some((c) => c.booking_status === "live");
-  lines.push("Private accountant video consultations (Google Meet; Stripe + Calendly when live):");
+  lines.push(
+    "Private accountant video consultations (Google Meet; Calendly with integrated payment when live):",
+  );
   for (const c of consultList) {
     const mins = c.duration_minutes ?? "?";
     lines.push(
@@ -120,8 +122,8 @@ export function packageCatalogText(): string {
   }
   lines.push(
     bookingLive
-      ? "Online booking/payment is available when Stripe and Calendly confirm."
-      : "Online booking/payment is not connected yet — do not claim a live booking, Stripe payment or free callback. Email alternative: info@taxsimba.co.uk.",
+      ? "Online booking/payment is available when Calendly confirms the appointment and payment."
+      : "Online booking/payment is not connected yet — do not claim a live booking, Calendly payment or free callback. Email alternative: info@taxsimba.co.uk.",
   );
   lines.push(
     "Approved facts only: Xero is included in each Simbian monthly price (no separate customer Xero charge). " +

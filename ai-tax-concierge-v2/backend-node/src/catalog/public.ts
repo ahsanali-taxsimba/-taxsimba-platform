@@ -138,14 +138,15 @@ function publicPackage(pkg: Record<string, unknown>): Record<string, unknown> {
     out.booking_available = pkg.booking_status === "live";
     out.booking_note =
       pkg.booking_status === "live"
-        ? "Online booking is available: Calendly availability → Stripe payment → Google Meet after confirmation."
-        : "Online booking (Calendly + Stripe + Meet) is not connected yet. Email info@taxsimba.co.uk only for enquiries while booking is unavailable — not the default booking path.";
+        ? "Online booking is available: open the matching Calendly event → select availability → pay within Calendly → Google Meet after confirmation."
+        : "Online booking (Calendly with integrated payment + Meet) is not connected yet. Email info@taxsimba.co.uk only for enquiries while booking is unavailable — not the default booking path.";
     out.email_enquiry = "info@taxsimba.co.uk";
     out.booking_flow = [
       "Select consultation option",
-      "Calendly availability",
-      "Stripe payment",
-      "Google Meet details after confirmation",
+      "Open matching Calendly event",
+      "Pick available appointment",
+      "Pay within Calendly booking",
+      "Google Meet details after Calendly confirmation",
     ];
   }
 
