@@ -1,0 +1,477 @@
+{
+  "generated_at": "2026-11-18T05:11:17.098Z",
+  "obtained_via": "real_openai_api",
+  "model": "gpt-4o-mini",
+  "session_id": "9a3ea435-161d-46ef-b179-c99dc37255f4",
+  "turns": 50,
+  "failures": 0,
+  "passed": true,
+  "memory_probe": {
+    "question": "what salary figure did I mention earlier?",
+    "reply": "You mentioned a salary of about £32,000 from your PAYE job. If you have any more questions or need assistance, just let me know!",
+    "mentions_32000": true
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "user": "Hi SIMBA — I’m a bit nervous about tax. Can you help gently?",
+      "assistant": "Of course! It's completely normal to feel a bit nervous about tax matters. I'm here to provide clear and helpful information. Whether you have questions about Self Assessment, Making Tax Digital, or any specific tax concerns, just let me know what you need help with, and I'll do my best to assist you!",
+      "llm_mode": "openai",
+      "latency_ms": 1452,
+      "packages": []
+    },
+    {
+      "turn": 2,
+      "user": "I started freelancing this tax year alongside a PAYE job.",
+      "assistant": "Since you're freelancing alongside a PAYE job in the 2025-26 tax year, you may need to file a Self Assessment tax return if your freelance income exceeds certain thresholds or if you have other untaxed income. Being taxed under PAYE doesn't automatically exempt you from this obligation. \n\nIf you have any specific questions about your situation or need guidance on filing, feel free to ask!",
+      "llm_mode": "openai",
+      "latency_ms": 1412,
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ]
+    },
+    {
+      "turn": 3,
+      "user": "My salary is about £32,000 and freelancing turnover is about £8,000.",
+      "assistant": "With a salary of £32,000 and freelance turnover of £8,000, your total income is £40,000. Since this is below the £50,000 threshold for Making Tax Digital (MTD) that starts on 6 April 2026, you won't need to use MTD for Income Tax just yet. However, you will still need to file a Self Assessment tax return to report your freelance income.\n\nIf you need assistance with filing your Self Assessment, I can recommend a suitable package. Would you like to know more about that?",
+      "llm_mode": "openai",
+      "latency_ms": 2237,
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ]
+    },
+    {
+      "turn": 4,
+      "user": "Do I need Self Assessment?",
+      "assistant": "Yes, you will need to file a Self Assessment tax return for the 2025-26 tax year because you have freelance income. Even though you have a PAYE job, your freelance income qualifies as untaxed income, which requires reporting. \n\nIf you haven't registered for Self Assessment yet, make sure to do so by 5 October 2026. If you need help with the process or filing, let me know!",
+      "llm_mode": "openai",
+      "latency_ms": 1687,
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ]
+    },
+    {
+      "turn": 5,
+      "user": "When do I need to register by?",
+      "assistant": "You need to register for Self Assessment by 5 October 2026, as this is the deadline for the 2025-26 tax year. This applies since you started freelancing during this tax year. \n\nIf you need assistance with the registration process or have any other questions, feel free to ask!",
+      "llm_mode": "openai",
+      "latency_ms": 1348,
+      "packages": []
+    },
+    {
+      "turn": 6,
+      "user": "What is the online filing deadline for 2025-26?",
+      "assistant": "The online filing deadline for the 2025-26 tax year is 31 January 2027. This is when you need to submit your Self Assessment tax return online. If you have any more questions about the process or deadlines, just let me know!",
+      "llm_mode": "openai",
+      "latency_ms": 1141,
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ]
+    },
+    {
+      "turn": 7,
+      "user": "Is my freelancing turnover the same as profit?",
+      "assistant": "No, your freelancing turnover is not the same as profit. Turnover, also known as gross income, is the total amount you earn from your freelance work before any expenses are deducted. Profit, on the other hand, is what remains after you subtract your allowable business expenses from your turnover. \n\nIf you have questions about what expenses you can claim or how to calculate your profit, feel free to ask!",
+      "llm_mode": "openai",
+      "latency_ms": 1488,
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ]
+    },
+    {
+      "turn": 8,
+      "user": "I also had about £1,200 bank interest.",
+      "assistant": "The £1,200 bank interest you received will also need to be reported on your Self Assessment tax return. For the 2025-26 tax year, you can benefit from the Personal Savings Allowance, which allows you to earn a certain amount of interest tax-free, depending on your tax rate. \n\nAs a basic-rate taxpayer, you can earn up to £1,000 in interest tax-free. Since your interest exceeds this amount, you may need to pay tax on the portion above the allowance. If you have more questions about how this works or need help with your tax return, just let me know!",
+      "llm_mode": "openai",
+      "latency_ms": 2622,
+      "packages": []
+    },
+    {
+      "turn": 9,
+      "user": "Does that change anything?",
+      "assistant": "Yes, the £1,200 bank interest does affect your overall tax situation. Since your total income now includes your salary (£32,000), freelance turnover (£8,000), and bank interest (£1,200), your total income is £41,200. \n\nAs a basic-rate taxpayer, you can earn up to £1,000 of interest tax-free due to the Personal Savings Allowance. This means you would be liable to pay tax on £200 of your bank interest. \n\nIf you need help calculating your tax liability or filing your Self Assessment, feel free to ask!",
+      "llm_mode": "openai",
+      "latency_ms": 4584,
+      "packages": []
+    },
+    {
+      "turn": 10,
+      "user": "What records should I keep?",
+      "assistant": "As a self-employed freelancer, you should keep detailed records of your business income and expenses. Specifically, you should retain:\n\n1. **Income Records**: Invoices, receipts, and bank statements showing your freelance earnings.\n2. **Expense Records**: Receipts and invoices for any business-related expenses, such as materials, travel, and utilities.\n3. **Bank Statements**: Statements that show your business transactions.\n4. **Mileage Records**: If you use your vehicle for business, keep a log of your mileage.\n\nIt's important to keep these records for at least five years after the 31 January submission deadline of the relevant tax year. If you have more questions about record-keeping or need further assistance, just let me know!",
+      "llm_mode": "openai",
+      "latency_ms": 5578,
+      "packages": []
+    },
+    {
+      "turn": 11,
+      "user": "I’m worried I’ll get something wrong — what should I do first?",
+      "assistant": "It's completely understandable to feel worried about getting things right with your tax. Here are some steps you can take:\n\n1. **Organise Your Records**: Start by gathering all your income and expense records. This will make it easier when you file your Self Assessment.\n\n2. **Register for Self Assessment**: If you haven't done so already, register by 5 October 2026.\n\n3. **Consider Professional Help**: If you're concerned about making mistakes, you might want to consider getting assistance from a tax professional. \n\nIf you're interested, I can recommend a suitable package for Self Assessment support. Would you like to know more about that?",
+      "llm_mode": "openai",
+      "latency_ms": 2664,
+      "packages": []
+    },
+    {
+      "turn": 12,
+      "user": "What is Making Tax Digital in plain English?",
+      "assistant": "Making Tax Digital (MTD) is a government initiative aimed at making the tax system more efficient and easier to manage. In plain English, it means that certain self-employed individuals and landlords will need to keep digital records of their income and expenses and submit updates to HMRC quarterly, rather than just once a year.\n\nFor example, if your qualifying income exceeds specific thresholds, you'll need to use software to track your finances and report them regularly. This change is designed to help you stay on top of your tax obligations and reduce the risk of errors.\n\nIf you have any more questions about MTD or how it might affect you, feel free to ask!",
+      "llm_mode": "openai",
+      "latency_ms": 2353,
+      "packages": []
+    },
+    {
+      "turn": 13,
+      "user": "With £8,000 freelancing turnover, do I need MTD from April 2026?",
+      "assistant": "With qualifying income of £8,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "llm_mode": "openai",
+      "latency_ms": 2,
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ]
+    },
+    {
+      "turn": 14,
+      "user": "What if next year my freelancing turnover is £55,000?",
+      "assistant": "If your freelancing turnover exceeds £50,000 in the 2026-27 tax year, you will need to comply with Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This means you'll need to keep digital records of your income and expenses and submit quarterly updates to HMRC.\n\nIf you have any questions about preparing for MTD or need assistance with your tax obligations, feel free to ask!",
+      "llm_mode": "openai",
+      "latency_ms": 2452,
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ]
+    },
+    {
+      "turn": 15,
+      "user": "Would that be gross income or profit for the MTD test?",
+      "assistant": "For the Making Tax Digital (MTD) test, it is based on your gross income, also known as turnover. This means you should consider your total income from self-employment and property before any expenses are deducted. Profit is not used for this threshold.\n\nIf you have more questions about MTD or how to prepare, just let me know!",
+      "llm_mode": "openai",
+      "latency_ms": 1651,
+      "packages": []
+    },
+    {
+      "turn": 16,
+      "user": "I also might rent a room later — does Rent a Room matter?",
+      "assistant": "The Rent a Room Scheme can let you earn a set amount from letting furnished accommodation in your home without paying tax on that rental income, if you qualify. It still sits in the wider property/rental landscape — you may need Self Assessment depending on your overall income. Confirm the current limit and rules on https://www.gov.uk/rent-room-in-your-home/the-rent-a-room-scheme. Do you also have other rental property or only a lodger in your home?",
+      "llm_mode": "openai",
+      "latency_ms": 1,
+      "packages": []
+    },
+    {
+      "turn": 17,
+      "user": "Actually ignore rental for now — stick to PAYE + freelance.",
+      "assistant": "Got it! We'll focus on your PAYE job and freelance work. If you have any more questions about your tax situation, Self Assessment, or anything else related to your income, just let me know!",
+      "llm_mode": "openai",
+      "latency_ms": 1468,
+      "packages": [
+        "SA_SMART",
+        "MTD_STARTER",
+        "MTD_GROWTH"
+      ]
+    },
+    {
+      "turn": 18,
+      "user": "What’s the lowest suitable Self Assessment package for me?",
+      "assistant": "The lowest suitable Self Assessment package for you would be the **Self Assessment Simple** package, priced at £119 per tax year. This package is designed to help you with your Self Assessment tax return, which you'll need to file given your freelance income.\n\nIf you’d like to proceed with this package or have any more questions, just let me know!",
+      "llm_mode": "openai",
+      "latency_ms": 1443,
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART",
+        "SA_ELITE"
+      ]
+    },
+    {
+      "turn": 19,
+      "user": "Why that package rather than Elite?",
+      "assistant": "The **Self Assessment Simple** package is the most cost-effective option for your needs, especially since you have a straightforward tax situation with a PAYE job and freelance income. The **Self Assessment Elite** package, priced at £299, is typically for more complex situations, such as those involving multiple income streams, extensive expenses, or specific tax planning needs.\n\nSince your current situation seems manageable, the Simple package should provide the support you need for filing your Self Assessment. If your circumstances change or become more complex in the future, you can always consider upgrading. If you have more questions or need assistance, feel free to ask!",
+      "llm_mode": "openai",
+      "latency_ms": 2108,
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART",
+        "SA_ELITE"
+      ]
+    },
+    {
+      "turn": 20,
+      "user": "Where do I register if I choose Simple?",
+      "assistant": "To register for the **Self Assessment Simple** package, you can visit the TaxSimba Self Assessment page at [taxsimba.co.uk/self-assessment](https://www.taxsimba.co.uk/self-assessment). There, you can find more details and proceed with your registration.\n\nIf you have any other questions or need further assistance, just let me know!",
+      "llm_mode": "openai",
+      "latency_ms": 1259,
+      "packages": []
+    },
+    {
+      "turn": 21,
+      "user": "Can you explain CIS briefly even though I’m not in construction?",
+      "assistant": "Certainly! The Construction Industry Scheme (CIS) is a tax scheme in the UK that governs how payments to subcontractors in the construction industry are handled. Under CIS, contractors deduct money from a subcontractor's payments and pay it directly to HMRC. Subcontractors must keep records of these deductions, as they may not represent their final tax liability, and they often still need to file a Self Assessment tax return.\n\nEven if you're not in construction, it's good to know about CIS if you ever work in that sector or have clients in construction. If you have any other questions, feel free to ask!",
+      "llm_mode": "openai",
+      "latency_ms": 2291,
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ]
+    },
+    {
+      "turn": 22,
+      "user": "I once sold some crypto — does that always mean Self Assessment?",
+      "assistant": "Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead — it depends on your activity. Keep detailed records. I won’t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets — were your crypto disposals investment-style gains, or more like a trading business?",
+      "llm_mode": "openai",
+      "latency_ms": 2,
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ]
+    },
+    {
+      "turn": 23,
+      "user": "I only disposed of a small amount once.",
+      "assistant": "If you only disposed of a small amount of crypto once, you may not need to file a Self Assessment tax return specifically for that transaction, especially if your total capital gains are below the annual exempt amount (which is £12,300 for the 2025-26 tax year). However, if you have other income that requires a Self Assessment, you should include the crypto disposal in your return.\n\nIf you have any more questions about this or need help with your tax situation, just let me know!",
+      "llm_mode": "openai",
+      "latency_ms": 3524,
+      "packages": []
+    },
+    {
+      "turn": 24,
+      "user": "Please don’t sell me anything else — just confirm the SA deadline again.",
+      "assistant": "The Self Assessment online filing deadline for the 2025-26 tax year is 31 January 2027. If you have any other questions or need further clarification, feel free to ask!",
+      "llm_mode": "openai",
+      "latency_ms": 987,
+      "packages": []
+    },
+    {
+      "turn": 25,
+      "user": "Thanks. Can you remember my salary figure from earlier?",
+      "assistant": "Yes, you mentioned that your salary is about £32,000. If you have any more questions or need assistance with anything else, just let me know!",
+      "llm_mode": "openai",
+      "latency_ms": 1036,
+      "packages": []
+    },
+    {
+      "turn": 26,
+      "user": "And my freelancing turnover?",
+      "assistant": "Your freelancing turnover is about £8,000. If you have any further questions or need assistance, feel free to ask!",
+      "llm_mode": "openai",
+      "latency_ms": 944,
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ]
+    },
+    {
+      "turn": 27,
+      "user": "If I become a limited company next year, does MTD for Income Tax apply the same way?",
+      "assistant": "Making Tax Digital for Income Tax (for individuals) applies to sole traders and landlords in Self Assessment, not to limited companies as companies. Company filing and MTD for VAT/Corporation Tax are separate. If you also have self-employment or property income personally, tell me that qualifying turnover and tax year and I can check the individual MTD rules.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "llm_mode": "openai",
+      "latency_ms": 2,
+      "packages": []
+    },
+    {
+      "turn": 28,
+      "user": "Good. What’s TaxCalc used for at TaxSimba?",
+      "assistant": "TaxCalc is used at TaxSimba for managing Self Assessment filing workflows. It helps ensure that your tax return is prepared accurately and efficiently. If you have any more questions about how TaxSimba supports your tax needs or anything else, feel free to ask!",
+      "llm_mode": "openai",
+      "latency_ms": 1479,
+      "packages": []
+    },
+    {
+      "turn": 29,
+      "user": "And Xero?",
+      "assistant": "For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.",
+      "llm_mode": "openai",
+      "latency_ms": 1,
+      "packages": []
+    },
+    {
+      "turn": 30,
+      "user": "Does TaxSimba file directly to HMRC with its own software?",
+      "assistant": "No, TaxSimba does not file directly to HMRC with its own software. Instead, TaxSimba uses TaxCalc for Self Assessment filing workflows and Xero for managing Making Tax Digital obligations. If you have any more questions about the process or need further assistance, feel free to ask!",
+      "llm_mode": "openai",
+      "latency_ms": 1743,
+      "packages": []
+    },
+    {
+      "turn": 31,
+      "user": "I might want an accountant consultation later — what are the options?",
+      "assistant": "TaxSimba offers two private accountant video consultations on Google Meet:\n\n• Quick Tax Advice — £99 for 20 minutes (one focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks.\n\nThe usual booking path is: choose an option → online booking → Calendly availability → Stripe payment → Google Meet details after confirmation.\n\nWhich option would you like — Quick (£99 / 20 minutes) or Extended (£149 / 40 minutes)?",
+      "llm_mode": "openai",
+      "latency_ms": 2,
+      "packages": [
+        "ACCOUNTANT_CONSULT_99",
+        "ACCOUNTANT_CONSULT_149"
+      ]
+    },
+    {
+      "turn": 32,
+      "user": "Not booking yet. Just checking prices.",
+      "assistant": "That's perfectly fine! If you have any more questions about the consultation options or anything else related to your tax situation, just let me know. I'm here to help!",
+      "llm_mode": "openai",
+      "latency_ms": 1169,
+      "packages": []
+    },
+    {
+      "turn": 33,
+      "user": "Can someone from TaxSimba email me about Self Assessment when I leave details?",
+      "assistant": "I can't facilitate direct email communication, but you can reach out to TaxSimba at info@taxsimba.co.uk for general inquiries about Self Assessment or any other questions you may have. They should be able to assist you further. If you have any other questions or need information, feel free to ask!",
+      "llm_mode": "openai",
+      "latency_ms": 1607,
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ]
+    },
+    {
+      "turn": 34,
+      "user": "I’m still only information-gathering.",
+      "assistant": "That's completely understandable! If you have any more questions or need information on any aspect of your tax situation, Self Assessment, or anything else, just let me know. I'm here to help!",
+      "llm_mode": "openai",
+      "latency_ms": 1213,
+      "packages": []
+    },
+    {
+      "turn": 35,
+      "user": "What if HMRC guidance changes mid-year?",
+      "assistant": "If HMRC guidance changes mid-year, it's important to stay updated by regularly checking the official HMRC website or relevant government resources. Changes can affect tax rates, allowances, and filing requirements. If you're using a tax professional or software like TaxCalc or Xero, they typically update their systems to reflect any changes in HMRC guidance.\n\nIf you have specific concerns about how changes might impact you, feel free to ask!",
+      "llm_mode": "openai",
+      "latency_ms": 1735,
+      "packages": []
+    },
+    {
+      "turn": 36,
+      "user": "How does SIMBA stay up to date?",
+      "assistant": "TaxSimba stays up to date by monitoring official HMRC guidance, tax regulations, and changes in tax law. This ensures that the information provided is accurate and reflects the latest requirements. Additionally, the use of reliable software like TaxCalc and Xero helps maintain compliance with current tax rules.\n\nIf you have more questions about how TaxSimba operates or anything else, feel free to ask!",
+      "llm_mode": "openai",
+      "latency_ms": 1560,
+      "packages": []
+    },
+    {
+      "turn": 37,
+      "user": "Please summarise my situation in two short sentences.",
+      "assistant": "You have a salary of about £32,000 from a PAYE job and a freelancing turnover of about £8,000, which requires you to file a Self Assessment tax return. You also have some bank interest and previously disposed of a small amount of crypto, but you're currently focused on your PAYE and freelance income.",
+      "llm_mode": "openai",
+      "latency_ms": 1553,
+      "packages": []
+    },
+    {
+      "turn": 38,
+      "user": "What one clarification would you still ask me?",
+      "assistant": "I would ask if you anticipate any significant changes in your income or tax situation for the upcoming tax year, such as an increase in freelance turnover or starting a new business, as this could affect your filing requirements and potential tax obligations.",
+      "llm_mode": "openai",
+      "latency_ms": 1044,
+      "packages": []
+    },
+    {
+      "turn": 39,
+      "user": "My freelancing is graphic design, not selling goods.",
+      "assistant": "Thank you for clarifying! As a graphic designer, your freelancing income is still considered trading income, which falls under the same Self Assessment requirements. If you have any more questions or need further assistance regarding your tax situation, feel free to ask!",
+      "llm_mode": "openai",
+      "latency_ms": 1639,
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ]
+    },
+    {
+      "turn": 40,
+      "user": "Does that change the package advice?",
+      "assistant": "No, the fact that your freelancing is in graphic design does not change the package advice. The **Self Assessment Simple** package remains suitable for your situation, as it covers the needs of freelancers like you. If you have any further questions or need assistance, just let me know!",
+      "llm_mode": "openai",
+      "latency_ms": 2858,
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART",
+        "SA_ELITE"
+      ]
+    },
+    {
+      "turn": 41,
+      "user": "I’m feeling more confident now — thank you.",
+      "assistant": "You're very welcome! I'm glad to hear you're feeling more confident. If you have any more questions in the future or need assistance, don't hesitate to reach out. Good luck with your tax situation!",
+      "llm_mode": "openai",
+      "latency_ms": 1099,
+      "packages": []
+    },
+    {
+      "turn": 42,
+      "user": "If I pause for a week and come back, can we continue from these facts?",
+      "assistant": "Yes, if you return after a week, we can continue from where we left off based on the facts you've shared. Just let me know your questions or what you'd like to discuss, and I'll be here to help!",
+      "llm_mode": "openai",
+      "latency_ms": 1488,
+      "packages": []
+    },
+    {
+      "turn": 43,
+      "user": "One more check: exact £50,000 qualifying income — in or out of the April 2026 MTD band?",
+      "assistant": "No — qualifying income of exactly £50,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £50,000”, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than £50,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "llm_mode": "openai",
+      "latency_ms": 3,
+      "packages": []
+    },
+    {
+      "turn": 44,
+      "user": "And £50,001?",
+      "assistant": "Yes, if your qualifying income is £50,001 for the 2024-25 tax year, you would need to comply with Making Tax Digital for Income Tax starting from 6 April 2026. The threshold is more than £50,000, so any amount above that qualifies you for MTD obligations. If you have more questions, feel free to ask!",
+      "llm_mode": "openai",
+      "latency_ms": 1822,
+      "packages": []
+    },
+    {
+      "turn": 45,
+      "user": "PAYE of £60,000 alone — does that force MTD for Income Tax?",
+      "assistant": "No, having a PAYE salary of £60,000 alone does not force you into Making Tax Digital for Income Tax. MTD applies only to qualifying income from self-employment and property, not to PAYE income. Therefore, if your only income is from PAYE and you do not have self-employment or property income that meets the MTD thresholds, you wouldn't need to comply with MTD. If you have further questions, just let me know!",
+      "llm_mode": "openai",
+      "latency_ms": 2243,
+      "packages": []
+    },
+    {
+      "turn": 46,
+      "user": "Ok, back to my real figures: £32k PAYE + £8k freelance turnover.",
+      "assistant": "With your £32,000 PAYE income and £8,000 freelance turnover, you do not meet the qualifying income threshold for Making Tax Digital for Income Tax, as your freelance turnover is below the £30,000 threshold for 2025-26. Therefore, you won't need to comply with MTD from 6 April 2027 based on your current figures. If you have more questions or need further assistance, feel free to ask!",
+      "llm_mode": "openai",
+      "latency_ms": 1780,
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ]
+    },
+    {
+      "turn": 47,
+      "user": "Any final practical next step for me this week?",
+      "assistant": "A practical next step would be to ensure you have all your records organised for your Self Assessment tax return, including your PAYE income, freelance income, and any bank interest. Consider setting aside time to gather any invoices, receipts, and relevant documents. This will make the filing process smoother when the time comes. If you have any questions about what specific records to keep or how to organise them, just let me know!",
+      "llm_mode": "openai",
+      "latency_ms": 1625,
+      "packages": []
+    },
+    {
+      "turn": 48,
+      "user": "Could you keep the answer short?",
+      "assistant": "Sure! Organise your records for Self Assessment, including PAYE income, freelance invoices, and bank interest. This will help when it's time to file your tax return. If you need more specific advice, just ask!",
+      "llm_mode": "openai",
+      "latency_ms": 1445,
+      "packages": []
+    },
+    {
+      "turn": 49,
+      "user": "Brilliant — last question: are you a human accountant?",
+      "assistant": "No, I'm not a human accountant. I'm an AI-powered digital tax assistant here to provide information and guidance on tax-related questions. If you have any more questions, feel free to ask!",
+      "llm_mode": "openai",
+      "latency_ms": 1356,
+      "packages": [
+        "ACCOUNTANT_CONSULT_99",
+        "ACCOUNTANT_CONSULT_149"
+      ]
+    },
+    {
+      "turn": 50,
+      "user": "End of long conversation test — please acknowledge turn fifty.",
+      "assistant": "Acknowledged! If you have any further questions or need assistance, feel free to reach out. I'm here to help!",
+      "llm_mode": "openai",
+      "latency_ms": 951,
+      "packages": []
+    }
+  ]
+}

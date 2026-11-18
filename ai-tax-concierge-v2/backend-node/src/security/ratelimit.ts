@@ -32,6 +32,7 @@ export class RateLimiter {
   }
 }
 
-export const chatLimiter = new RateLimiter(40, 60.0);
+/** Allow long continuous conversations (20–50 turns) without arbitrary stalls. */
+export const chatLimiter = new RateLimiter(90, 60.0);
 /** Slightly stricter public catalogue/bootstrap limiter. */
 export const publicApiLimiter = new RateLimiter(120, 60.0);

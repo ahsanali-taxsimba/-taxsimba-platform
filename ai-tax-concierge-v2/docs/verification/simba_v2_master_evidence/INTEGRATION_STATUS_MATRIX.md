@@ -15,6 +15,10 @@
 | Consultation product copy | **VERIFIED** | Responsive consult panel + journeys C; email only as unavailable fallback |
 | OpenAI model | **VERIFIED default `gpt-4o-mini`** | Comparison vs `gpt-4o` in `evidence/model_comparison/` — no switch without approval |
 | Email enquiry | **IMPLEMENTED** (address published) | `info@taxsimba.co.uk` — SMTP delivery not verified from SIMBA |
+| Lead capture API | **IMPLEMENTED & VERIFIED** (outbox) | `/api/v1/leads` saves lead + writes outbox; SMTP transporter **BLOCKED** |
+| Long continuous chat | **IMPLEMENTED & VERIFIED** | 20- and 50-turn real OpenAI conversations PASS |
+| Personalised package cards | **IMPLEMENTED & VERIFIED** | Recommended badge + Choose this package CTA |
+| HMRC monitor scheduler | **IMPLEMENTED**; staging ops **BLOCKED** | Enable with ops token on staging |
 | Auth / rate limit / CORS | **IMPLEMENTED & VERIFIED** (unit/security) | Wildcard CORS blocked in staging/prod settings |
 | Privacy / secrets | **IMPLEMENTED & VERIFIED** | Security suite + allowlist; no keys in public config |
 | Direct HMRC filing by TaxSimba | **NOT CLAIMED** | TaxCalc SA / Xero MTD references only |

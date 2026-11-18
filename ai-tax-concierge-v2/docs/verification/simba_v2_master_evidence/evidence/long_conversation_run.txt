@@ -1,0 +1,88 @@
+=== 20-turn continuous conversation ===
+OK turn 1/20 2016ms mode=openai
+OK turn 2/20 1747ms mode=openai
+OK turn 3/20 2178ms mode=openai
+OK turn 4/20 3841ms mode=openai
+OK turn 5/20 1669ms mode=openai
+OK turn 6/20 1544ms mode=openai
+OK turn 7/20 1710ms mode=openai
+OK turn 8/20 2605ms mode=openai
+OK turn 9/20 2953ms mode=openai
+OK turn 10/20 3661ms mode=openai
+OK turn 11/20 3523ms mode=openai
+OK turn 12/20 3264ms mode=openai
+OK turn 13/20 14ms mode=openai
+OK turn 14/20 2204ms mode=openai
+OK turn 15/20 2395ms mode=openai
+OK turn 16/20 2ms mode=openai
+OK turn 17/20 1540ms mode=openai
+OK turn 18/20 1554ms mode=openai
+OK turn 19/20 2423ms mode=openai
+OK turn 20/20 1761ms mode=openai
+=== 50-turn continuous conversation ===
+OK turn 1/50 1452ms mode=openai
+OK turn 2/50 1412ms mode=openai
+OK turn 3/50 2237ms mode=openai
+OK turn 4/50 1687ms mode=openai
+OK turn 5/50 1348ms mode=openai
+OK turn 6/50 1141ms mode=openai
+OK turn 7/50 1488ms mode=openai
+OK turn 8/50 2622ms mode=openai
+OK turn 9/50 4584ms mode=openai
+OK turn 10/50 5578ms mode=openai
+OK turn 11/50 2664ms mode=openai
+OK turn 12/50 2353ms mode=openai
+OK turn 13/50 2ms mode=openai
+OK turn 14/50 2452ms mode=openai
+OK turn 15/50 1651ms mode=openai
+OK turn 16/50 1ms mode=openai
+OK turn 17/50 1468ms mode=openai
+OK turn 18/50 1443ms mode=openai
+OK turn 19/50 2108ms mode=openai
+OK turn 20/50 1259ms mode=openai
+OK turn 21/50 2291ms mode=openai
+OK turn 22/50 2ms mode=openai
+OK turn 23/50 3524ms mode=openai
+OK turn 24/50 987ms mode=openai
+OK turn 25/50 1036ms mode=openai
+OK turn 26/50 944ms mode=openai
+OK turn 27/50 2ms mode=openai
+OK turn 28/50 1479ms mode=openai
+OK turn 29/50 1ms mode=openai
+OK turn 30/50 1743ms mode=openai
+OK turn 31/50 2ms mode=openai
+OK turn 32/50 1169ms mode=openai
+OK turn 33/50 1607ms mode=openai
+OK turn 34/50 1213ms mode=openai
+OK turn 35/50 1735ms mode=openai
+OK turn 36/50 1560ms mode=openai
+OK turn 37/50 1553ms mode=openai
+OK turn 38/50 1044ms mode=openai
+OK turn 39/50 1639ms mode=openai
+OK turn 40/50 2858ms mode=openai
+OK turn 41/50 1099ms mode=openai
+OK turn 42/50 1488ms mode=openai
+OK turn 43/50 3ms mode=openai
+OK turn 44/50 1822ms mode=openai
+OK turn 45/50 2243ms mode=openai
+OK turn 46/50 1780ms mode=openai
+OK turn 47/50 1625ms mode=openai
+OK turn 48/50 1445ms mode=openai
+OK turn 49/50 1356ms mode=openai
+OK turn 50/50 951ms mode=openai
+{
+  "generated_at": "2026-11-18T05:11:17.099Z",
+  "obtained_via": "real_openai_api",
+  "model": "gpt-4o-mini",
+  "root_cause_fixed": "Client and OpenAI adapter previously truncated history to 12 messages (~6 turns). Now packConversationHistory keeps 40 recent messages + compressed earlier memory; session store keeps 120; chat rate limit raised.",
+  "twenty": {
+    "passed": true,
+    "failures": 0,
+    "memory_ok": true
+  },
+  "fifty": {
+    "passed": true,
+    "failures": 0,
+    "memory_ok": true
+  }
+}

@@ -1,0 +1,221 @@
+{
+  "generated_at": "2026-11-18T05:09:36.171Z",
+  "obtained_via": "real_openai_api_or_deterministic",
+  "model": "gpt-4o-mini",
+  "cases": [
+    {
+      "id": "SA_SIMPLE",
+      "q": "I am a first-time freelancer with simple income only. What is the lowest suitable Self Assessment package?",
+      "reply": "For a first-time freelancer with simple income, the lowest suitable Self Assessment package is the Self Assessment Simple, priced at £119 per tax year. This package is designed to help you with your Self Assessment tax return efficiently. If you have any further questions about the package or the process, feel free to ask!",
+      "packages": [
+        {
+          "code": "SA_SIMPLE",
+          "name": "Self Assessment Simple",
+          "price_gbp": 119,
+          "billing": "per tax year",
+          "vat_note": "Confirm VAT treatment on checkout",
+          "family": "self_assessment",
+          "inclusions_status": "approved",
+          "pressure_free_note": "Optional support — only if useful. Approved: package names/prices; Xero included in each Simbian monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow; no separate Xero charge); quarterly MTD updates and year-end SA subject to documented customer responsibilities; email + dashboard messaging (not phone onboarding). No fixed monthly transaction caps on Simbian packages (not unlimited out-of-scope work). No priority support, quarterly business reviews or proactive tax planning.",
+          "description": null,
+          "inclusions": [
+            "Email and in-app updates"
+          ],
+          "recommendation_reason": "Lowest Self Assessment price that usually fits straightforward / single simple income situations (price approved; detailed inclusions pending confirmation).",
+          "recommended": true,
+          "registration_path": "/self-assessment",
+          "choose_url": "https://www.taxsimba.co.uk/self-assessment"
+        },
+        {
+          "code": "SA_SMART",
+          "name": "Self Assessment Smart",
+          "price_gbp": 149,
+          "billing": "per tax year",
+          "vat_note": "Confirm VAT treatment on checkout",
+          "family": "self_assessment",
+          "inclusions_status": "not_listed",
+          "pressure_free_note": "Optional support — only if useful. Approved: package names/prices; Xero included in each Simbian monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow; no separate Xero charge); quarterly MTD updates and year-end SA subject to documented customer responsibilities; email + dashboard messaging (not phone onboarding). No fixed monthly transaction caps on Simbian packages (not unlimited out-of-scope work). No priority support, quarterly business reviews or proactive tax planning.",
+          "description": null,
+          "inclusions": null,
+          "recommendation_reason": "Mid Self Assessment price when several income sources or more review is likely (price approved; detailed inclusions pending confirmation).",
+          "recommended": false,
+          "registration_path": "/self-assessment",
+          "choose_url": "https://www.taxsimba.co.uk/self-assessment"
+        }
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "id": "SA_COMPLEX",
+      "q": "I have PAYE, rental properties, CIS income and crypto disposals — which Self Assessment package fits?",
+      "reply": "Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead — it depends on your activity. Keep detailed records. I won’t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets — were your crypto disposals investment-style gains, or more like a trading business?",
+      "packages": [
+        {
+          "code": "SA_SMART",
+          "name": "Self Assessment Smart",
+          "price_gbp": 149,
+          "billing": "per tax year",
+          "vat_note": "Confirm VAT treatment on checkout",
+          "family": "self_assessment",
+          "inclusions_status": "not_listed",
+          "pressure_free_note": "Optional support — only if useful. Approved: package names/prices; Xero included in each Simbian monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow; no separate Xero charge); quarterly MTD updates and year-end SA subject to documented customer responsibilities; email + dashboard messaging (not phone onboarding). No fixed monthly transaction caps on Simbian packages (not unlimited out-of-scope work). No priority support, quarterly business reviews or proactive tax planning.",
+          "description": null,
+          "inclusions": null,
+          "recommendation_reason": "Mid Self Assessment price when several income sources or more review is likely (price approved; detailed inclusions pending confirmation).",
+          "recommended": true,
+          "registration_path": "/self-assessment",
+          "choose_url": "https://www.taxsimba.co.uk/self-assessment"
+        },
+        {
+          "code": "MTD_STARTER",
+          "name": "Simbian Comply",
+          "price_gbp": 29.99,
+          "billing": "per month",
+          "vat_note": "VAT included",
+          "family": "mtd",
+          "inclusions_status": "approved",
+          "pressure_free_note": "Optional support — only if useful. Approved: package names/prices; Xero included in each Simbian monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow; no separate Xero charge); quarterly MTD updates and year-end SA subject to documented customer responsibilities; email + dashboard messaging (not phone onboarding). No fixed monthly transaction caps on Simbian packages (not unlimited out-of-scope work). No priority support, quarterly business reviews or proactive tax planning.",
+          "description": null,
+          "inclusions": [
+            "Xero Simple subscription included",
+            "Accountant-maintained bookkeeping and digital records with no fixed monthly transaction caps (not unlimited out-of-scope work)",
+            "Quarterly MTD updates prepared and submitted (subject to documented customer responsibilities)",
+            "Year-end Income Tax / Self Assessment return prepared and submitted (subject to documented customer responsibilities)",
+            "Accountant support by email and client-dashboard messaging (not telephone onboarding)"
+          ],
+          "recommendation_reason": "Lowest Simbian Comply (£29.99/mo VAT included, Xero Simple included in that price) when Making Tax Digital support is needed — quarterly updates and year-end SA included subject to customer responsibilities; no fixed monthly transaction caps (not unlimited out-of-scope work).",
+          "recommended": false,
+          "registration_path": "/making-tax-digital",
+          "choose_url": "https://www.taxsimba.co.uk/making-tax-digital"
+        },
+        {
+          "code": "MTD_GROWTH",
+          "name": "Simbian Growth",
+          "price_gbp": 59.99,
+          "billing": "per month",
+          "vat_note": "VAT included",
+          "family": "mtd",
+          "inclusions_status": "approved",
+          "pressure_free_note": "Optional support — only if useful. Approved: package names/prices; Xero included in each Simbian monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow; no separate Xero charge); quarterly MTD updates and year-end SA subject to documented customer responsibilities; email + dashboard messaging (not phone onboarding). No fixed monthly transaction caps on Simbian packages (not unlimited out-of-scope work). No priority support, quarterly business reviews or proactive tax planning.",
+          "description": null,
+          "inclusions": [
+            "Xero Ignite subscription included",
+            "Accountant-maintained bookkeeping and digital records with no fixed monthly transaction caps (not unlimited out-of-scope work)",
+            "Quarterly MTD updates prepared and submitted (subject to documented customer responsibilities)",
+            "Year-end Income Tax / Self Assessment return prepared and submitted (subject to documented customer responsibilities)",
+            "Accountant support by email and client-dashboard messaging (not telephone onboarding)"
+          ],
+          "recommendation_reason": "Mid Simbian Growth (£59.99/mo VAT included, Xero Ignite included in that price) when more support is likely — quarterly updates and year-end SA included subject to customer responsibilities; no fixed monthly transaction caps (not unlimited out-of-scope work).",
+          "recommended": false,
+          "registration_path": "/making-tax-digital",
+          "choose_url": "https://www.taxsimba.co.uk/making-tax-digital"
+        }
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "id": "MTD_SIMPLE",
+      "q": "Sole trader, qualifying income £55,000 in 2024-25, basic records. Lowest suitable Simbian plan?",
+      "reply": "Since your qualifying income is £55,000 for the 2024-25 tax year, you'll need to use Making Tax Digital for Income Tax starting from 6 April 2026. The lowest suitable Simbian plan for your needs would be **Simbian Comply** at £29.99 per month, which includes Xero Simple for managing your records. \n\nWould you like more information on how to register for this plan?",
+      "packages": [
+        {
+          "code": "MTD_STARTER",
+          "name": "Simbian Comply",
+          "price_gbp": 29.99,
+          "billing": "per month",
+          "vat_note": "VAT included",
+          "family": "mtd",
+          "inclusions_status": "approved",
+          "pressure_free_note": "Optional support — only if useful. Approved: package names/prices; Xero included in each Simbian monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow; no separate Xero charge); quarterly MTD updates and year-end SA subject to documented customer responsibilities; email + dashboard messaging (not phone onboarding). No fixed monthly transaction caps on Simbian packages (not unlimited out-of-scope work). No priority support, quarterly business reviews or proactive tax planning.",
+          "description": null,
+          "inclusions": [
+            "Xero Simple subscription included",
+            "Accountant-maintained bookkeeping and digital records with no fixed monthly transaction caps (not unlimited out-of-scope work)",
+            "Quarterly MTD updates prepared and submitted (subject to documented customer responsibilities)",
+            "Year-end Income Tax / Self Assessment return prepared and submitted (subject to documented customer responsibilities)",
+            "Accountant support by email and client-dashboard messaging (not telephone onboarding)"
+          ],
+          "recommendation_reason": "Lowest Simbian Comply (£29.99/mo VAT included, Xero Simple included in that price) when Making Tax Digital support is needed — quarterly updates and year-end SA included subject to customer responsibilities; no fixed monthly transaction caps (not unlimited out-of-scope work).",
+          "recommended": true,
+          "registration_path": "/making-tax-digital",
+          "choose_url": "https://www.taxsimba.co.uk/making-tax-digital"
+        },
+        {
+          "code": "MTD_GROWTH",
+          "name": "Simbian Growth",
+          "price_gbp": 59.99,
+          "billing": "per month",
+          "vat_note": "VAT included",
+          "family": "mtd",
+          "inclusions_status": "approved",
+          "pressure_free_note": "Optional support — only if useful. Approved: package names/prices; Xero included in each Simbian monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow; no separate Xero charge); quarterly MTD updates and year-end SA subject to documented customer responsibilities; email + dashboard messaging (not phone onboarding). No fixed monthly transaction caps on Simbian packages (not unlimited out-of-scope work). No priority support, quarterly business reviews or proactive tax planning.",
+          "description": null,
+          "inclusions": [
+            "Xero Ignite subscription included",
+            "Accountant-maintained bookkeeping and digital records with no fixed monthly transaction caps (not unlimited out-of-scope work)",
+            "Quarterly MTD updates prepared and submitted (subject to documented customer responsibilities)",
+            "Year-end Income Tax / Self Assessment return prepared and submitted (subject to documented customer responsibilities)",
+            "Accountant support by email and client-dashboard messaging (not telephone onboarding)"
+          ],
+          "recommendation_reason": "Mid Simbian Growth (£59.99/mo VAT included, Xero Ignite included in that price) when more support is likely — quarterly updates and year-end SA included subject to customer responsibilities; no fixed monthly transaction caps (not unlimited out-of-scope work).",
+          "recommended": false,
+          "registration_path": "/making-tax-digital",
+          "choose_url": "https://www.taxsimba.co.uk/making-tax-digital"
+        }
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "id": "MTD_COMPLEX",
+      "q": "I am in scope for MTD, messy books, multiple income streams — which Simbian plan should I consider?",
+      "reply": "Given your situation with messy books and multiple income streams, I recommend the **Simbian Growth** plan. This package includes Xero Ignite, which is designed to help manage more complex financial records effectively. It will support your Making Tax Digital requirements and assist in keeping your accounts organised.\n\nIf you have any specific questions about the plan or need further assistance, feel free to ask!",
+      "packages": [
+        {
+          "code": "MTD_GROWTH",
+          "name": "Simbian Growth",
+          "price_gbp": 59.99,
+          "billing": "per month",
+          "vat_note": "VAT included",
+          "family": "mtd",
+          "inclusions_status": "approved",
+          "pressure_free_note": "Optional support — only if useful. Approved: package names/prices; Xero included in each Simbian monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow; no separate Xero charge); quarterly MTD updates and year-end SA subject to documented customer responsibilities; email + dashboard messaging (not phone onboarding). No fixed monthly transaction caps on Simbian packages (not unlimited out-of-scope work). No priority support, quarterly business reviews or proactive tax planning.",
+          "description": null,
+          "inclusions": [
+            "Xero Ignite subscription included",
+            "Accountant-maintained bookkeeping and digital records with no fixed monthly transaction caps (not unlimited out-of-scope work)",
+            "Quarterly MTD updates prepared and submitted (subject to documented customer responsibilities)",
+            "Year-end Income Tax / Self Assessment return prepared and submitted (subject to documented customer responsibilities)",
+            "Accountant support by email and client-dashboard messaging (not telephone onboarding)"
+          ],
+          "recommendation_reason": "Mid Simbian Growth (£59.99/mo VAT included, Xero Ignite included in that price) when more support is likely — quarterly updates and year-end SA included subject to customer responsibilities; no fixed monthly transaction caps (not unlimited out-of-scope work).",
+          "recommended": true,
+          "registration_path": "/making-tax-digital",
+          "choose_url": "https://www.taxsimba.co.uk/making-tax-digital"
+        },
+        {
+          "code": "MTD_COMPLETE",
+          "name": "Simbian Elite",
+          "price_gbp": 89.99,
+          "billing": "per month",
+          "vat_note": "VAT included",
+          "family": "mtd",
+          "inclusions_status": "approved",
+          "pressure_free_note": "Optional support — only if useful. Approved: package names/prices; Xero included in each Simbian monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow; no separate Xero charge); quarterly MTD updates and year-end SA subject to documented customer responsibilities; email + dashboard messaging (not phone onboarding). No fixed monthly transaction caps on Simbian packages (not unlimited out-of-scope work). No priority support, quarterly business reviews or proactive tax planning.",
+          "description": null,
+          "inclusions": [
+            "Xero Grow subscription included",
+            "Accountant-maintained bookkeeping and digital records with no fixed monthly transaction caps (not unlimited out-of-scope work)",
+            "Quarterly MTD updates prepared and submitted (subject to documented customer responsibilities)",
+            "Year-end Income Tax / Self Assessment return prepared and submitted (subject to documented customer responsibilities)",
+            "Accountant support by email and client-dashboard messaging (not telephone onboarding)"
+          ],
+          "recommendation_reason": "Highest Simbian Elite (£89.99/mo VAT included, Xero Grow included in that price) only if mid-tier is clearly insufficient — no priority/QBR/planning promises; no fixed monthly transaction caps (not unlimited out-of-scope work).",
+          "recommended": false,
+          "registration_path": "/making-tax-digital",
+          "choose_url": "https://www.taxsimba.co.uk/making-tax-digital"
+        }
+      ],
+      "llm_mode": "openai"
+    }
+  ]
+}

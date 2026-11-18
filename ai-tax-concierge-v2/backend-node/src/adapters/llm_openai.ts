@@ -1,6 +1,7 @@
 /** Secure server-side OpenAI adapter with retries and cost controls. */
 
 import OpenAI from "openai";
+import { packConversationHistory } from "../ai/conversation_context.js";
 import { ConciergeError, LLMUnavailableError } from "../core/errors.js";
 import type { LLMAdapter } from "./base.js";
 import type { ChatMessage } from "../models/schemas.js";
@@ -75,11 +76,11 @@ export class OpenAIAdapter implements LLMAdapter {
       );
     }
 
+    const packed = packConversationHistory(args.messages);
     const payload: OpenAI.Chat.ChatCompletionMessageParam[] = [
       { role: "system", content: args.system_prompt },
     ];
-    for (const msg of args.messages.slice(-12)) {
-      if (msg.role === "system") continue;
+    for (const msg of packed) {
       payload.push({ role: msg.role, content: msg.content });
     }
     payload.push({ role: "user", content: args.user_message });

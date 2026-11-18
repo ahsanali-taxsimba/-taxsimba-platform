@@ -33,6 +33,15 @@
 
 See `evidence/CX_MOBILE_OPENAI_AUDIT.md`, `screenshots/responsive/`, `evidence/model_comparison/`.
 
+## Final master handover
+
+- `FINAL_MASTER_HANDOVER_REPORT.md`
+- `REQUIREMENTS_TO_EVIDENCE_MATRIX.md`
+- Long chats: `evidence/long_conversation_summary.json`
+- Packages: `evidence/personalised_package_recommendations.json`
+- Leads: `evidence/lead_capture_api.json` + outbox samples
+- Tax accuracy: `evidence/TAX_ACCURACY_VERIFICATION_REPORT.md`
+
 ## Documents
 
 | Doc | Purpose |

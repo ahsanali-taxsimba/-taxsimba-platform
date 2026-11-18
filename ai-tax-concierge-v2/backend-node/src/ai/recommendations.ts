@@ -76,6 +76,7 @@ export function toPackageCards(
 ): PackageCard[] {
   const flat = allPackagesFlat();
   const cards: PackageCard[] = [];
+  let first = true;
   for (const code of codes) {
     const pkg = flat[code];
     if (!pkg) continue;
@@ -95,6 +96,21 @@ export function toPackageCards(
       });
       inclusions = approved.length ? approved : null;
     }
+    const isConsult =
+      String(pkg.family) === "consultation" ||
+      String(pkg.code).startsWith("ACCOUNTANT_CONSULT_");
+    const registration_path = isConsult
+      ? null
+      : pkg.registration_route_id === "sa_packages"
+        ? "/self-assessment"
+        : pkg.registration_route_id === "mtd_packages"
+          ? "/making-tax-digital"
+          : pkg.registration_route_id === "register"
+            ? "/register"
+            : null;
+    const choose_url = registration_path
+      ? `https://www.taxsimba.co.uk${registration_path}`
+      : null;
     cards.push({
       code: String(pkg.code),
       name: String(pkg.name),
@@ -108,21 +124,13 @@ export function toPackageCards(
       description: null,
       inclusions,
       recommendation_reason: circumstanceReason(String(pkg.code), message),
+      recommended: first && !isConsult,
       name_status: undefined,
       price_status: undefined,
-      // Consultations use online booking (Calendly/Stripe), not package registration pages.
-      registration_path:
-        String(pkg.family) === "consultation" ||
-        String(pkg.code).startsWith("ACCOUNTANT_CONSULT_")
-          ? null
-          : pkg.registration_route_id === "sa_packages"
-            ? "/self-assessment"
-            : pkg.registration_route_id === "mtd_packages"
-              ? "/making-tax-digital"
-              : pkg.registration_route_id === "register"
-                ? "/register"
-                : null,
+      registration_path,
+      choose_url,
     });
+    first = false;
   }
   return cards;
 }

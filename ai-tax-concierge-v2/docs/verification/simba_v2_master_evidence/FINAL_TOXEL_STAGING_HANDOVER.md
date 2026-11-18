@@ -17,6 +17,10 @@
 6. **Consultation UX:** select option → Calendly → Stripe → Meet; email only as unavailable fallback (not default booking)
 7. Mobile responsive audit screenshots (browser emulation); physical iPhone still BLOCKED
 8. OpenAI model comparison (`gpt-4o-mini` vs `gpt-4o`) — **keep gpt-4o-mini pending approval**
+9. **Long-chat fix:** history no longer truncated at 12 messages; continuous **20/50-turn** OpenAI conversations PASS with memory
+10. **Personalised package cards** with Recommended badge + Choose this package CTA
+11. **Lead capture API** + secure outbox notification (SMTP still to wire on staging)
+12. Master handover: `FINAL_MASTER_HANDOVER_REPORT.md` + `REQUIREMENTS_TO_EVIDENCE_MATRIX.md`
 
 ## Deploy (staging only)
 

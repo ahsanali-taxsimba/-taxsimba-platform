@@ -909,3 +909,134 @@ html, body {
   .ts-body { padding: 18px 22px; }
   .ts-msg .ts-bubble { font-size: 0.95rem; line-height: 1.55; }
 }
+
+/* —— Personalised package recommendation cards —— */
+.ts-pkg-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin: 8px 0 12px;
+}
+@media (min-width: 720px) {
+  .ts-pkg-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+}
+.ts-pkg-card {
+  background: var(--ts-surface);
+  border: 1px solid var(--ts-border);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ts-pkg-card.is-recommended {
+  border-color: var(--ts-primary-action);
+  box-shadow: 0 0 0 2px rgba(7, 138, 75, 0.18);
+  background: linear-gradient(180deg, #f3faf6 0%, #fff 42%);
+}
+.ts-pkg-badge {
+  align-self: flex-start;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--ts-primary-action);
+  border-radius: 999px;
+  padding: 4px 9px;
+}
+.ts-pkg-badge.alt {
+  background: #e8eee9;
+  color: var(--ts-primary);
+}
+.ts-pkg-card strong {
+  font-family: var(--ts-font-heading);
+  color: var(--ts-primary);
+  font-size: 1rem;
+}
+.ts-pkg-price {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ts-primary-action);
+}
+.ts-pkg-price span {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ts-text-secondary);
+}
+.ts-pkg-why {
+  margin: 2px 0 4px;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--ts-text);
+}
+.ts-pkg-features {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.8rem;
+  color: var(--ts-text-secondary);
+  line-height: 1.4;
+}
+.ts-pkg-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+.ts-pkg-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  border-radius: 10px;
+  background: var(--ts-primary-action);
+  color: #fff !important;
+  font-weight: 800;
+  font-size: 0.86rem;
+  font-family: var(--ts-font-heading);
+  text-decoration: none !important;
+  border: 0;
+  cursor: pointer;
+}
+.ts-pkg-cta-secondary {
+  background: var(--ts-mint);
+  color: var(--ts-primary) !important;
+  border: 1px solid var(--ts-border);
+}
+
+/* —— Lead capture —— */
+.ts-lead-card {
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--ts-border);
+  background: #fff;
+  display: grid;
+  gap: 8px;
+}
+.ts-lead-card label {
+  display: grid;
+  gap: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ts-text-secondary);
+}
+.ts-lead-card input,
+.ts-lead-card select {
+  min-height: 40px;
+  border: 1px solid var(--ts-border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font: inherit;
+  font-size: 16px;
+  color: var(--ts-text);
+  background: #fff;
+}
+.ts-lead-check {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 8px;
+  font-weight: 500 !important;
+}
+.ts-lead-check input { min-height: auto; margin-top: 3px; }
+.ts-lead-status { font-size: 0.78rem; color: var(--ts-primary); min-height: 1.2em; }

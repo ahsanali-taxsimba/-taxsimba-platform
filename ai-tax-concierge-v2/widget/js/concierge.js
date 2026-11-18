@@ -458,16 +458,44 @@
 
     const packages = (payload.packages || []).slice(0, 3);
     if (packages.length) {
-      html += `<div class="ts-section-label">Optional TaxSimba support</div><div class="ts-resources">`;
+      html += `<div class="ts-section-label">Recommended for you</div><div class="ts-pkg-grid">`;
       for (const p of packages) {
         const price = Number(p.price_gbp);
         const priceLabel = Number.isInteger(price) ? `£${price}` : `£${price.toFixed(2)}`;
-        html += `<div class="ts-card"><strong>${escapeHtml(p.name)}</strong>
-          <div class="price">${priceLabel} · ${escapeHtml(p.billing)}</div>
+        const rec = p.recommended ? " is-recommended" : "";
+        const badge = p.recommended
+          ? `<span class="ts-pkg-badge">Recommended for you</span>`
+          : `<span class="ts-pkg-badge alt">Also suitable</span>`;
+        const inclusions = Array.isArray(p.inclusions) && p.inclusions.length
+          ? `<ul class="ts-pkg-features">${p.inclusions.slice(0, 4).map((i) => `<li>${escapeHtml(i)}</li>`).join("")}</ul>`
+          : `<div class="ts-note">${escapeHtml(p.pressure_free_note || "Approved catalogue price — confirm inclusions on TaxSimba before purchase.")}</div>`;
+        const why = p.recommendation_reason
+          ? `<p class="ts-pkg-why">${escapeHtml(p.recommendation_reason)}</p>`
+          : "";
+        const chooseUrl = p.choose_url || (p.registration_path ? websiteUrl(p.registration_path) : "");
+        const cta = chooseUrl
+          ? `<a class="ts-pkg-cta" href="${escapeHtml(chooseUrl)}" target="_blank" rel="noopener noreferrer">Choose this package</a>`
+          : `<button type="button" class="ts-pkg-cta ts-pkg-cta-secondary" data-package="${escapeHtml(p.code)}">Tell me more</button>`;
+        html += `<article class="ts-pkg-card${rec}">${badge}
+          <strong>${escapeHtml(p.name)}</strong>
+          <div class="ts-pkg-price">${priceLabel} <span>· ${escapeHtml(p.billing)}</span></div>
           <div class="ts-note">${escapeHtml(p.vat_note || "")}</div>
-          <button type="button" class="ts-follow" data-package="${escapeHtml(p.code)}" style="margin-top:6px">Tell me more</button></div>`;
+          ${why}${inclusions}
+          <div class="ts-pkg-actions">${cta}
+            <button type="button" class="ts-follow" data-package="${escapeHtml(p.code)}">Compare alternatives</button>
+          </div></article>`;
       }
       html += `</div>`;
+    }
+
+    const lastUser = [...state.history].reverse().find((m) => m.role === "user");
+    if (
+      payload.offer_lead_capture ||
+      /contact me|call me|email me|leave my (details|number)|get in touch|please (email|call|phone)|speak to (someone|a person|taxsimba)/i.test(
+        (lastUser && lastUser.content) || "",
+      )
+    ) {
+      html += renderLeadCaptureForm();
     }
 
     const followUps = (payload.follow_ups || []).slice(0, 2);
@@ -488,6 +516,70 @@
     els.body.appendChild(wrap);
     scrollChatToBottom(false);
     announce("New SIMBA reply");
+  }
+
+  function renderLeadCaptureForm() {
+    return `<form class="ts-lead-card" data-lead-form="1">
+      <strong>Happy to arrange a follow-up</strong>
+      <p class="ts-note">Share email and/or phone if you’d like TaxSimba to contact you about this enquiry. This is not marketing consent.</p>
+      <label>Name <input name="name" autocomplete="name" maxlength="120" /></label>
+      <label>Email <input name="email" type="email" autocomplete="email" maxlength="200" /></label>
+      <label>Phone <input name="phone" type="tel" autocomplete="tel" maxlength="40" /></label>
+      <label>Service interest
+        <select name="service_interest">
+          <option value="">Select…</option>
+          <option>Self Assessment</option>
+          <option>Making Tax Digital</option>
+          <option>Accountant consultation</option>
+          <option>General enquiry</option>
+        </select>
+      </label>
+      <label class="ts-lead-check"><input name="permission" type="checkbox" required /> I agree TaxSimba may follow up about this enquiry</label>
+      <button type="submit" class="ts-pkg-cta">Send enquiry</button>
+      <div class="ts-lead-status" aria-live="polite"></div>
+    </form>`;
+  }
+
+  async function submitLeadForm(form) {
+    const status = form.querySelector(".ts-lead-status");
+    const fd = new FormData(form);
+    const permission = form.querySelector('input[name="permission"]');
+    if (!permission || !permission.checked) {
+      if (status) status.textContent = "Please tick the follow-up permission box.";
+      return;
+    }
+    const email = String(fd.get("email") || "").trim();
+    const phone = String(fd.get("phone") || "").trim();
+    if (!email && !phone) {
+      if (status) status.textContent = "Please add an email or phone number.";
+      return;
+    }
+    if (status) status.textContent = "Sending…";
+    try {
+      const summary = state.history
+        .slice(-8)
+        .map((m) => `${m.role}: ${String(m.content || "").slice(0, 160)}`)
+        .join("\n");
+      const lastUserMsg = [...state.history].reverse().find((m) => m.role === "user");
+      const res = await api("/api/v1/leads", {
+        method: "POST",
+        body: JSON.stringify({
+          session_id: state.sessionId,
+          name: String(fd.get("name") || "").trim() || null,
+          email: email || null,
+          phone: phone || null,
+          service_interest: String(fd.get("service_interest") || "").trim() || null,
+          query: (lastUserMsg && lastUserMsg.content) || null,
+          conversation_summary: summary,
+          follow_up_permission: true,
+        }),
+      });
+      if (status) status.textContent = res.message || "Thanks — enquiry saved.";
+      form.querySelector('button[type="submit"]').disabled = true;
+      track("lead_captured", { lead_id: res.lead_id, duplicate: res.duplicate });
+    } catch (e) {
+      if (status) status.textContent = e.message || "Could not save enquiry. Please try again.";
+    }
   }
 
   function showError(message) {
@@ -514,7 +606,7 @@
       const payload = {
         session_id: state.sessionId,
         message,
-        history: state.history.slice(-12),
+        history: state.history.slice(-100),
         journey_state: state.journey,
         ...extra,
       };
@@ -629,6 +721,12 @@
   }
 
   function onActionClick(ev) {
+    const leadForm = ev.target.closest("form[data-lead-form]");
+    if (leadForm && ev.target.closest('button[type="submit"]')) {
+      ev.preventDefault();
+      submitLeadForm(leadForm);
+      return;
+    }
     const calcLink = ev.target.closest("a[data-calc-id]");
     if (calcLink) {
       track("calculator_click", { id: calcLink.dataset.calcId, path: calcLink.getAttribute("href") || "" });
@@ -669,6 +767,13 @@
   }
 
   document.addEventListener("click", onActionClick);
+  document.addEventListener("submit", (ev) => {
+    const leadForm = ev.target && ev.target.closest && ev.target.closest("form[data-lead-form]");
+    if (leadForm) {
+      ev.preventDefault();
+      submitLeadForm(leadForm);
+    }
+  });
 
   els.form.addEventListener("submit", (ev) => {
     ev.preventDefault();

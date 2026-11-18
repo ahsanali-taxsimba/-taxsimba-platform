@@ -17,5 +17,8 @@
 | D13 | High | Email presented as default consultation booking path | Consultation booking helpers + UI select→Calendly→Stripe→Meet; email fallback only | PASS unit/API + visual consult panel |
 | D14 | High | Physical iPhone Safari scroll/keyboard | Code present; emulated evidence only | **BLOCKED** for Toxel |
 | D15 | Decision | Whether to upgrade OpenAI model to gpt-4o | Comparison evidence produced; default remains gpt-4o-mini | Pending owner approval |
+| D16 | Critical | Conversation stalled/forgot after ~6–8 turns (`history.slice(-12)`) | Context packing + client/server history windows + rate limit | **PASS** continuous 20/50 OpenAI turns + memory probe |
+| D17 | High | Missing lead capture / notification path | `/api/v1/leads` + outbox | PASS outbox; SMTP **BLOCKED** |
+| D18 | High | Package cards lacked recommended badge / purchase CTA | Premium card UI | PASS screenshots |
 
-No unresolved critical/high product defects remain in repository-accessible scope except external booking E2E and physical-device scroll proof under Production HOLD.
+No unresolved critical/high product defects remain in repository-accessible scope except external booking/SMTP/portal E2E and physical-device proof under Production HOLD.

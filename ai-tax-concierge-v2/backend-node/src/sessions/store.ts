@@ -42,7 +42,8 @@ export class SessionStore {
     const rec = this.sessions.get(sessionId);
     if (!rec || rec.deleted) return;
     rec.history.push({ role, content });
-    rec.history = rec.history.slice(-40);
+    // Keep up to 60 turns (120 messages) for long conversations.
+    rec.history = rec.history.slice(-120);
     rec.updated_at = new Date();
   }
 

@@ -322,7 +322,7 @@
         {
           session_id: sessionId(),
           message: userText,
-          history: history.slice(0, -1).slice(-12),
+          history: history.slice(0, -1).slice(-100),
           journey_state: journeyState,
           metadata: {
             channel: "embed_compact",

@@ -454,6 +454,9 @@ export class ConversationalEngine {
       note: r.note ?? null,
       kind: r.kind ?? null,
     }));
+    const offerLead = /contact me|call me|email me|leave my (details|number)|get in touch|please (email|call|phone)|speak to (someone|a person|taxsimba)|can someone (call|email)/i.test(
+      routeQuery,
+    );
     return {
       session_id: sessionId,
       reply,
@@ -462,6 +465,7 @@ export class ConversationalEngine {
       confidence,
       disclaimer: DISCLAIMER,
       consultation_hint: consultationHint,
+      offer_lead_capture: offerLead,
       follow_ups: followUps,
       packages,
       calculators,
