@@ -12,8 +12,8 @@ Classification legend: **IMPLEMENTED** · **MOCK TESTED** · **REAL API TESTED**
 
 ## 1. Exact final commit SHA
 
-Tip SHA: `a5971555f36036679ceeb9bd9f5422e90e1041a4`  
-This report’s verification was run against the working tree that becomes that tip.
+**Branch tip:** `36f8c1c996397bd3d3e28588087331c90d440592` on `cursor/simba-v2-final-corrected-6522` (PR #39).  
+Evidence pack + code corrections: commits `eef3dd7` … `a597155`; tip commit may only refresh this SHA line.
 
 ## 2. PR #39 confirmation
 
