@@ -4,7 +4,7 @@
 **Branch:** `cursor/simba-v2-final-corrected-6522`  
 **PR:** https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/39  
 **Production:** **HOLD**  
-**Commit SHA:** see `FINAL_TOXEL_STAGING_HANDOVER.md` (updated at tip)
+**Commit SHA:** `760007fe25eadccca90870aa930266c3d2744060`
 
 ## Headline results
 

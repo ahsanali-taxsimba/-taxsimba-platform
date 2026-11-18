@@ -2,7 +2,7 @@
 
 **Branch:** `cursor/simba-v2-final-corrected-6522`  
 **PR:** https://github.com/ahsanali-taxsimba/-taxsimba-platform/pull/39  
-**Commit SHA (branch tip):** _(updated at push — see latest commit on PR #39)_  
+**Commit SHA (branch tip):** `760007fe25eadccca90870aa930266c3d2744060`  
 **Base stack:** `cursor/simba-final-toxel-handover-6522` → `cursor/ai-tax-concierge-v2-phase1-0f84` → `main`  
 **Production HOLD:** do not merge to `main`; do not deploy production.
 
