@@ -12,7 +12,7 @@ Classification legend: **IMPLEMENTED** · **MOCK TESTED** · **REAL API TESTED**
 
 ## 1. Exact final commit SHA
 
-Tip SHA: `eef3dd714a163fe36ce6f05db6d08793ad9d32d1`  
+Tip SHA: `a5971555f36036679ceeb9bd9f5422e90e1041a4`  
 This report’s verification was run against the working tree that becomes that tip.
 
 ## 2. PR #39 confirmation
