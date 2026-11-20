@@ -1,0 +1,147 @@
+{
+  "id": "D06",
+  "title": "No paid service needed",
+  "goal": "Answer only — zero packages",
+  "mode": "openai",
+  "llm_mode": "openai",
+  "turn_count": 7,
+  "transcript": [
+    {
+      "role": "user",
+      "content": "I only have PAYE employment income and no other income.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "If you only have PAYE employment income and no other untaxed income, you typically won't need to file a Self Assessment tax return. However, if your circumstances change or if you have other income sources in the future, you may need to check the criteria on GOV.UK to see if you need to submit a return. \n\nIs there anything else you would like to know about your tax situation?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/income-tax",
+        "https://www.gov.uk/repaying-your-student-loan"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Do I need Self Assessment?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "You usually need to send a Self Assessment tax return if you are self-employed, a partner in a partnership, have untaxed income, or have received a notice from HMRC to file. Since you mentioned you only have PAYE employment income and no other income, you likely do not need to file a Self Assessment tax return. \n\nIf your situation changes or you have specific circumstances, it’s worth checking the criteria on GOV.UK. Do you have any other income sources or specific circumstances that might affect this?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/register-for-self-assessment",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Do I need Making Tax Digital?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Do I need a TaxSimba package?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "If you only have PAYE employment income and no other income, you likely do not need a TaxSimba package, as you wouldn't need to file a Self Assessment tax return or comply with Making Tax Digital requirements. However, if your situation changes or you have additional income in the future, a package might be beneficial.\n\nWould you like to know more about our packages in case your circumstances change?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/tax-on-cryptoassets",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "I only want free information.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "That's perfectly fine! I'm here to provide you with free information. If you have any specific questions about tax, Self Assessment, or Making Tax Digital, feel free to ask, and I'll do my best to help you.",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/expenses-and-benefits-business-travel-mileage/rules-for-tax",
+        "https://www.gov.uk/blind-persons-allowance",
+        "https://www.gov.uk/apply-tax-free-interest-on-savings"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "What is the Self Assessment filing deadline generally?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "The general deadline for filing a Self Assessment tax return online is 31 January following the end of the tax year. For example, for the 2025-26 tax year, the deadline is 31 January 2027. If you file a paper return, the deadline is usually 31 October following the end of the tax year. Always confirm the current deadlines on GOV.UK for the most accurate information. \n\nDo you have any other questions about Self Assessment or tax deadlines?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+        "https://www.gov.uk/self-assessment-tax-returns/penalties"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "OK thank you — no signup.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "You're welcome! If you have any more questions in the future or need assistance, feel free to reach out. Have a great day!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/self-employed-records"
+      ],
+      "llm_mode": "openai"
+    }
+  ],
+  "scores": {
+    "tax_answer_accuracy": 5,
+    "understanding": 8,
+    "clarity": 8,
+    "follow_up_relevance": 7,
+    "conversation_memory": 7,
+    "practical_usefulness": 8,
+    "british_english": 8,
+    "appropriate_recommendation": 7,
+    "absence_of_sales_pressure": 9,
+    "final_outcome_quality": 7
+  },
+  "score_notes": [
+    "Tax accuracy scored pending accountant review — not independently VERIFIED PASS"
+  ],
+  "outcome": "Question answered, no purchase necessary",
+  "tax_accuracy_status": "AWAITING_ACCOUNTANT_REVIEW",
+  "environment": "cloud_agent_local_api"
+}

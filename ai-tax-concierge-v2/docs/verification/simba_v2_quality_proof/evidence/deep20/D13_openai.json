@@ -1,0 +1,132 @@
+{
+  "id": "D13",
+  "title": "Existing customer needing help",
+  "goal": "Dashboard / support — no repurchase",
+  "mode": "openai",
+  "llm_mode": "openai",
+  "turn_count": 6,
+  "transcript": [
+    {
+      "role": "user",
+      "content": "I am an existing TaxSimba client.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "As an existing TaxSimba client, use your secure dashboard to message your assigned accountant and upload documents. That is the right channel for case-specific help — you usually do not need to buy a new public package. For general account support, email info@taxsimba.co.uk.",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/self-employed-records",
+        "https://www.gov.uk/guidance/tax-on-cryptoassets"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "How do I message my assigned accountant?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "As an existing TaxSimba client, use your secure dashboard to message your assigned accountant and upload documents. That is the right channel for case-specific help — you usually do not need to buy a new public package. For general account support, email info@taxsimba.co.uk.",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/self-employed-records"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Where do I upload documents?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "You can upload documents directly through your secure dashboard on the TaxSimba platform. Once logged in, look for the document upload section or messaging feature to communicate with your assigned accountant. If you encounter any issues, feel free to reach out to support via email at info@taxsimba.co.uk.",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/self-employed-records",
+        "https://www.gov.uk/guidance/tax-on-cryptoassets"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Do I need to buy another package?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "As an existing TaxSimba client, you typically do not need to buy another package unless your circumstances have changed or you require additional services. Your current package should cover your ongoing needs. If you're unsure or need specific services, it's best to check with your assigned accountant through your secure dashboard.",
+      "packages": [
+        "SA_SIMPLE"
+      ],
+      "sources": [
+        "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+        "https://www.gov.uk/guidance/tax-on-cryptoassets",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "What if I have a billing question?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "For billing questions, it's best to contact TaxSimba support directly via email at info@taxsimba.co.uk. They can provide you with the most accurate information regarding your account and any billing inquiries you may have.",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-employed-records",
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/child-benefit-tax-charge"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Thanks.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "You're welcome! If you have any more questions or need further assistance, feel free to ask.",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/self-employed-records",
+        "https://www.gov.uk/guidance/tax-on-cryptoassets"
+      ],
+      "llm_mode": "openai"
+    }
+  ],
+  "scores": {
+    "tax_answer_accuracy": 5,
+    "understanding": 5,
+    "clarity": 8,
+    "follow_up_relevance": 7,
+    "conversation_memory": 7,
+    "practical_usefulness": 8,
+    "british_english": 8,
+    "appropriate_recommendation": 7,
+    "absence_of_sales_pressure": 7,
+    "final_outcome_quality": 7
+  },
+  "score_notes": [
+    "Tax accuracy scored pending accountant review — not independently VERIFIED PASS"
+  ],
+  "outcome": "Customer guided to existing-account support",
+  "tax_accuracy_status": "AWAITING_ACCOUNTANT_REVIEW",
+  "environment": "cloud_agent_local_api"
+}

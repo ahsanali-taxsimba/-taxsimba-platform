@@ -1,0 +1,152 @@
+{
+  "id": "D11",
+  "title": "Needs professional advice",
+  "goal": "Consultation path",
+  "mode": "openai",
+  "llm_mode": "openai",
+  "turn_count": 7,
+  "transcript": [
+    {
+      "role": "user",
+      "content": "I received confusing HMRC letters and have overseas income.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "It's common to feel confused by HMRC letters, especially when they involve overseas income. Generally, if you have overseas income, you may need to declare it on your Self Assessment tax return, depending on your residency status and the amount of income. \n\nMake sure to keep records of all your income and any taxes paid abroad, as this may affect your UK tax obligations. If you need specific guidance on your situation, consider consulting a tax professional. Would you like to know more about Self Assessment or how to handle overseas income?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/child-benefit-tax-charge"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "I need proper advice, not just general information.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "For tailored advice regarding your overseas income and any specific issues with HMRC letters, I recommend booking a consultation with one of our accountants. \n\nYou can choose between a Quick Tax Advice session for £99 (20 minutes) or an Extended Tax Consultation for £149 (40 minutes). This will allow you to discuss your situation in detail and receive personalised guidance.\n\nWould you like to proceed with booking a consultation?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/income-tax",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "What consultation options does TaxSimba offer?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "TaxSimba offers two private accountant video consultations on Google Meet:\n\n• Quick Tax Advice — £99 for 20 minutes (one focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks.\n\nThe usual booking path is: choose an option → open the matching Calendly event → select an available appointment → pay within Calendly’s booking process → receive Google Meet details after Calendly confirms the booking.\n\nWhich option would you like — Quick (£99 / 20 minutes) or Extended (£149 / 40 minutes)?",
+      "packages": [
+        "ACCOUNTANT_CONSULT_99",
+        "ACCOUNTANT_CONSULT_149"
+      ],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/self-employed-records",
+        "https://www.gov.uk/guidance/tax-on-cryptoassets"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "What is included in the £99 session?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "You’ve chosen Quick Tax Advice — £99 for 20 minutes on Google Meet (advice only; no filing, bookkeeping or written report).\n\nOnline booking (Calendly with integrated payment + Google Meet) is not connected in this environment yet, so I can’t open a live slot or confirm an appointment.\n\nWhen booking goes live, you’ll use: select this option → Calendly event → pay within Calendly → Meet link after confirmation.\n\nFor a general enquiry while booking is unavailable, email info@taxsimba.co.uk — email is not the normal booking method once online scheduling is live.",
+      "packages": [
+        "ACCOUNTANT_CONSULT_99"
+      ],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/self-employed-records",
+        "https://www.gov.uk/guidance/tax-on-cryptoassets"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Is booking confirmed if I just ask here?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "No, booking is not confirmed by asking here. You would need to complete the booking process through the Calendly platform, which includes selecting an appointment and making a payment. \n\nCurrently, online booking is not connected in this environment. If you have any questions or need assistance, feel free to ask!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-employed-records",
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "How do I proceed when Calendly is live?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "When Calendly is live, you can proceed with booking a consultation by following these steps:\n\n1. **Choose Your Option**: Decide between Quick Tax Advice (£99 for 20 minutes) or Extended Tax Consultation (£149 for 40 minutes).\n2. **Open the Calendly Event**: Click on the link provided for the specific consultation option.\n3. **Select an Appointment**: Choose an available date and time that suits you.\n4. **Make Payment**: Complete the payment process within Calendly.\n5. **Receive Confirmation**: After payment, you’ll receive a Google Meet link for your consultation.\n\nIf you have any further questions or need assistance, feel free to ask!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/scottish-income-tax",
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/self-employed-records"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "For general account questions can I email instead?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Yes, for general account questions, you can email info@taxsimba.co.uk. This is a suitable way to get assistance while online booking is not available. Just provide your query, and the team will respond to you. If you have any specific questions now, feel free to ask!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/income-tax",
+        "https://www.gov.uk/understand-self-assessment-bill/payments-on-account",
+        "https://www.gov.uk/capital-allowances"
+      ],
+      "llm_mode": "openai"
+    }
+  ],
+  "scores": {
+    "tax_answer_accuracy": 5,
+    "understanding": 8,
+    "clarity": 8,
+    "follow_up_relevance": 7,
+    "conversation_memory": 7,
+    "practical_usefulness": 8,
+    "british_english": 8,
+    "appropriate_recommendation": 7,
+    "absence_of_sales_pressure": 7,
+    "final_outcome_quality": 7
+  },
+  "score_notes": [
+    "Tax accuracy scored pending accountant review — not independently VERIFIED PASS"
+  ],
+  "outcome": "Customer offered appropriate professional advice",
+  "tax_accuracy_status": "AWAITING_ACCOUNTANT_REVIEW",
+  "environment": "cloud_agent_local_api"
+}

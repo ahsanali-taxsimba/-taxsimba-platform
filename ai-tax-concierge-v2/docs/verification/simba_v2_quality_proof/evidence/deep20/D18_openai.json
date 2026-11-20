@@ -1,0 +1,147 @@
+{
+  "id": "D18",
+  "title": "Complicated follow-ups",
+  "goal": "Stay coherent under pressure",
+  "mode": "openai",
+  "llm_mode": "openai",
+  "turn_count": 7,
+  "transcript": [
+    {
+      "role": "user",
+      "content": "I have CIS income and some crypto disposals.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "With CIS income, you'll need to keep detailed records of your payments and deductions, as CIS deductions are not always your final tax position. You may still need to file a Self Assessment tax return.\n\nFor your crypto disposals, HMRC treats cryptoassets as potentially taxable. Depending on your activities, you may need to consider Capital Gains Tax and/or Income Tax. It's essential to maintain accurate records of your transactions.\n\nWould you like to know more about your Self Assessment obligations or how to report your crypto gains?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/tax-on-cryptoassets",
+        "https://www.gov.uk/what-is-the-construction-industry-scheme",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Do I need Self Assessment?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Yes, you typically need to send a Self Assessment tax return if you have CIS income and/or have made disposals of cryptoassets. Since you have untaxed income from CIS and potentially taxable gains from crypto, filing a Self Assessment is necessary to report this income and calculate your tax liability.\n\nIf you're not already registered for Self Assessment, you'll need to do so by 5 October following the end of the tax year in which you earned the income. Would you like assistance with the registration process?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/register-for-self-assessment",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "How is CIS different from ordinary self-employment?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "CIS (Construction Industry Scheme) differs from ordinary self-employment primarily in how tax is deducted. Under CIS, contractors deduct a percentage from subcontractors' payments and pay it directly to HMRC. This means subcontractors receive their payments with deductions already made, which may not represent their final tax liability.\n\nIn ordinary self-employment, you receive your full income and are responsible for calculating and paying your tax through Self Assessment. Additionally, CIS has specific rules and requirements for registration and compliance that may not apply to other self-employed individuals.\n\nWould you like to know more about how to manage your CIS income in your Self Assessment?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/what-is-the-construction-industry-scheme",
+        "https://www.gov.uk/repaying-your-student-loan",
+        "https://www.gov.uk/tax-relief-for-employees"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "For crypto, is it always Capital Gains Tax?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead — it depends on your activity. Keep detailed records. I won’t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets — were your crypto disposals investment-style gains, or more like a trading business?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/tax-on-cryptoassets",
+        "https://www.gov.uk/capital-gains-tax/report-and-pay-capital-gains-tax",
+        "https://www.gov.uk/tax-on-dividends"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "I also have a small amount of rental income under £1,000.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "If your rental income is under £1,000 for the tax year, you may qualify for the property allowance, which allows you to earn this amount tax-free. If your total gross property income is £1,000 or less, you typically do not need to declare it to HMRC, although there are exceptions.\n\nHowever, it's essential to keep records of your rental income and any allowable expenses. If you have other income that requires a Self Assessment, you may still need to file a return.\n\nWould you like more information on how to report your rental income if needed?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Please summarise what I should check next in one clear list.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Here’s a summary of what you should check next:\n\n1. **CIS Registration**: Ensure you are registered for CIS if you haven't already.\n2. **Self Assessment Registration**: Register for Self Assessment by 5 October if you haven't done so.\n3. **Crypto Records**: Maintain detailed records of your crypto transactions for potential Capital Gains Tax reporting.\n4. **Rental Income**: Confirm if your rental income is under £1,000 to utilise the property allowance.\n5. **Filing Deadlines**: Be aware of the Self Assessment filing deadline (31 January following the end of the tax year).\n\nWould you like assistance with any specific item on this list?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-employed-records",
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/guidance/tax-on-cryptoassets"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Do not sell me packages unless I ask.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Understood! I won't mention any packages unless you request them. If you have any further questions or need assistance with your tax situation, feel free to ask!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+      ],
+      "llm_mode": "openai"
+    }
+  ],
+  "scores": {
+    "tax_answer_accuracy": 5,
+    "understanding": 8,
+    "clarity": 8,
+    "follow_up_relevance": 7,
+    "conversation_memory": 7,
+    "practical_usefulness": 8,
+    "british_english": 8,
+    "appropriate_recommendation": 7,
+    "absence_of_sales_pressure": 7,
+    "final_outcome_quality": 7
+  },
+  "score_notes": [
+    "Tax accuracy scored pending accountant review — not independently VERIFIED PASS"
+  ],
+  "outcome": "Customer requires further clarification",
+  "tax_accuracy_status": "AWAITING_ACCOUNTANT_REVIEW",
+  "environment": "cloud_agent_local_api"
+}

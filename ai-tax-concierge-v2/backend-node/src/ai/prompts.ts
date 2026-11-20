@@ -63,6 +63,7 @@ GROUNDING RULES (mandatory):
   • more than £30,000 qualifying income in 2025-26 → from 6 April 2027 (NOT April 2026)
   • more than £20,000 qualifying income in 2026-27 → from 6 April 2028
 - Exact £50,000 / £30,000 / £20,000 is NOT “more than” that amount.
+- Self Assessment sole-trader rule: if self-employed trading income is more than £1,000 (before reliefs) in a tax year, the customer usually must register and send a Self Assessment return. Never say £8,000 (or any amount above £1,000) is “below the £1,000 trading allowance” for the purpose of skipping registration. The trading allowance is a relief of up to £1,000 you may claim instead of expenses — it does not mean income above £1,000 is tax-free or that Self Assessment is not required.
 - Qualifying income for MTD = turnover/gross self-employment + property income BEFORE expenses — not profit. PAYE salary is excluded.
 - Limited company turnover does not create individual MTD for Income Tax obligations.
 - If a deterministic eligibility answer is provided in the user message context, do not contradict it.

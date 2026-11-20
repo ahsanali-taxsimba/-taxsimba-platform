@@ -1,0 +1,149 @@
+{
+  "id": "D09",
+  "title": "Wants TaxSimba to manage everything",
+  "goal": "Set expectations honestly",
+  "mode": "openai",
+  "llm_mode": "openai",
+  "turn_count": 7,
+  "transcript": [
+    {
+      "role": "user",
+      "content": "I want TaxSimba to manage everything for me.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "If you want TaxSimba to handle your tax management, I recommend considering our Simbian packages. The Simbian Comply package is a great option for ongoing digital record-keeping and compliance with Making Tax Digital requirements. It includes Xero Simple for managing your records.\n\nYou can find more details and register for the package [here](https://www.taxsimba.co.uk/making-tax-digital). Would you like more information on what’s included in this package?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/self-employed-records",
+        "https://www.gov.uk/guidance/tax-on-cryptoassets"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "I am a sole trader with about £45,000 turnover before expenses.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "As a sole trader with a turnover of £45,000 before expenses, you are below the £50,000 qualifying income threshold for Making Tax Digital (MTD) for Income Tax, which starts on 6 April 2026. This means you won't need to comply with MTD requirements just yet.\n\nHowever, it's still important to keep accurate records and file your Self Assessment tax return annually. If you need help managing your records or filing, the Simbian Comply package could be a good fit for you. Would you like to know more about that?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/expenses-and-benefits-business-travel-mileage/rules-for-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "I am not sure if I need MTD yet — tax year 2024-25.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Can SIMBA file my return in this chat?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "No — neither SIMBA chat nor the TaxSimba customer portal is a direct HMRC filing integration. TaxSimba provides accountant-led services: accountants use TaxCalc for Self Assessment filing workflows and Xero for Making Tax Digital. Your portal is for registration, payment, documents and messaging. TaxSimba is not HMRC-endorsed AI and is not mandatory. I can explain the obligations and help you choose an approved package when you want accountant-led support.",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "So how does accountant-led onboarding work after I pay?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, (5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there. I won’t invent portal screens or claim payment succeeded from this chat. Self Assessment packages: https://www.taxsimba.co.uk/self-assessment · MTD: https://www.taxsimba.co.uk/making-tax-digital.",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/self-employed-records",
+        "https://www.gov.uk/register-for-self-assessment"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Which package should I start with for a fairly simple sole trader SA case?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "For a fairly simple sole trader Self Assessment case, the **Self Assessment Simple** package at £119 per tax year is a suitable choice. It provides the essential support you need for filing your tax return without unnecessary complexity.\n\nYou can find more details and register for the package [here](https://www.taxsimba.co.uk/self-assessment). Would you like assistance with anything else?",
+      "packages": [
+        "SA_SIMPLE"
+      ],
+      "sources": [
+        "https://www.gov.uk/set-up-sole-trader",
+        "https://www.gov.uk/register-for-self-assessment",
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Registration link please.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, (5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there. I won’t invent portal screens or claim payment succeeded from this chat. Self Assessment packages: https://www.taxsimba.co.uk/self-assessment · MTD: https://www.taxsimba.co.uk/making-tax-digital.",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/register-for-vat",
+        "https://www.gov.uk/register-for-vat",
+        "https://www.gov.uk/self-assessment-tax-returns/penalties"
+      ],
+      "llm_mode": "openai"
+    }
+  ],
+  "scores": {
+    "tax_answer_accuracy": 5,
+    "understanding": 8,
+    "clarity": 8,
+    "follow_up_relevance": 7,
+    "conversation_memory": 7,
+    "practical_usefulness": 8,
+    "british_english": 8,
+    "appropriate_recommendation": 7,
+    "absence_of_sales_pressure": 7,
+    "final_outcome_quality": 7
+  },
+  "score_notes": [
+    "Tax accuracy scored pending accountant review — not independently VERIFIED PASS"
+  ],
+  "outcome": "Customer guided to appropriate signup",
+  "tax_accuracy_status": "AWAITING_ACCOUNTANT_REVIEW",
+  "environment": "cloud_agent_local_api"
+}

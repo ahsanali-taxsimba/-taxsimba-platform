@@ -1,0 +1,189 @@
+{
+  "id": "D01",
+  "title": "First-time Self Assessment customer",
+  "goal": "Understand SA need and optional package",
+  "mode": "openai",
+  "llm_mode": "openai",
+  "turn_count": 9,
+  "transcript": [
+    {
+      "role": "user",
+      "content": "Hi \u2014 I just started freelancing this year alongside my job.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "That's great to hear! Since you've started freelancing, you may need to register for Self Assessment if your self-employed income exceeds \u00a31,000 in this tax year (2026-27). You must register by 5 October following the end of the tax year in which you started freelancing. If you have any specific questions about your tax obligations or need guidance on registering, feel free to ask!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/income-tax",
+        "https://www.gov.uk/register-for-self-assessment",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "My employer pays me under PAYE. Freelance turnover so far is about \u00a38,000 before expenses for 2025-26.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "With freelance / self-employment income of \u00a38,000 for 2025-26, you are above the \u00a31,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That \u00a31,000 figure is the \u201cmore than \u00a31,000\u201d test on GOV.UK \u2014 \u00a38,000 is not below it. You may still be able to claim the trading allowance (up to \u00a31,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than \u00a31,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Do I need to register for Self Assessment?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "With freelance / self-employment income of \u00a38,000 for 2025-26, you are above the \u00a31,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That \u00a31,000 figure is the \u201cmore than \u00a31,000\u201d test on GOV.UK \u2014 \u00a38,000 is not below it. You may still be able to claim the trading allowance (up to \u00a31,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than \u00a31,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/register-for-self-assessment",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "What records should I keep?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "As a self-employed freelancer, you should keep records of your business income and expenses. This includes:\n\n1. **Income**: Invoices, receipts, and bank statements showing all income received.\n2. **Expenses**: Receipts and invoices for business-related costs, such as materials, travel, and utilities.\n3. **Bank Statements**: Records of all transactions related to your business.\n\nIt's essential to keep these records for at least five years after the 31 January submission deadline of the relevant tax year. Digital record-keeping is particularly important under Making Tax Digital (MTD). \n\nFor more details, you can refer to the official guidance: [HMRC Self-Employed Records](https://www.gov.uk/self-employed-records). If you have further questions about specific records, feel free to ask!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-employed-records",
+        "https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/tax-on-cryptoassets"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "I am a first-time filer with fairly simple income \u2014 which TaxSimba Self Assessment package would fit if I wanted help?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "For a first-time filer with straightforward income, the **Self Assessment Simple** package at \u00a3119 per tax year would likely be a good fit. It\u2019s designed for those with uncomplicated tax situations and includes support for filing your Self Assessment return.\n\nIf you need more details about what\u2019s included or have any specific questions, just let me know!",
+      "packages": [
+        "SA_SIMPLE"
+      ],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/register-for-self-assessment",
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "What is included in that package \u2014 only what is approved please.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Here is what SIMBA can state from approved catalogue decisions:\n\nSelf Assessment (per tax year): Simple \u00a3119 \u00b7 Smart \u00a3149 \u00b7 Elite \u00a3299.\nMaking Tax Digital (per month, VAT included): Simbian Comply \u00a329.99 \u00b7 Simbian Growth \u00a359.99 \u00b7 Simbian Elite \u00a389.99.\nAccountant video consultations: Quick Tax Advice \u00a399 for 20 minutes \u00b7 Extended Tax Consultation \u00a3149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Booking path: choose an option \u2192 Calendly event \u2192 pay within Calendly \u2192 Meet. Online booking may be unavailable here \u2014 email is only a fallback enquiry route.\n\nSelf Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.\n\nWhat is approved to say:\n- Xero software is included in each Simbian monthly price (\u00a329.99 / \u00a359.99 / \u00a389.99 VAT included) \u2014 customers do not pay separately.\n- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.\n- Support is via email and the client dashboard \u2014 not telephone onboarding.\n- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).\n- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.\n\nI will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.\n\nI can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.\n- Self Assessment Simple: \u00a3119 (per tax year)\n- Self Assessment Smart: \u00a3149 (per tax year)\n- Self Assessment Elite: \u00a3299 (per tax year)\n- Simbian Comply: \u00a329.99 (per month; VAT included)\n- Simbian Growth: \u00a359.99 (per month; VAT included)\n- Simbian Elite: \u00a389.99 (per month; VAT included)",
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART",
+        "SA_ELITE"
+      ],
+      "sources": [
+        "https://www.gov.uk/expenses-and-benefits-business-travel-mileage/rules-for-tax",
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+        "https://www.gov.uk/register-for-vat"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "What happens after I sign up and pay?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, (5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there. I won\u2019t invent portal screens or claim payment succeeded from this chat. Self Assessment packages: https://www.taxsimba.co.uk/self-assessment \u00b7 MTD: https://www.taxsimba.co.uk/making-tax-digital.",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/register-for-vat",
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/self-employed-records"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Where is the registration link?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, (5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there. I won\u2019t invent portal screens or claim payment succeeded from this chat. Self Assessment packages: https://www.taxsimba.co.uk/self-assessment \u00b7 MTD: https://www.taxsimba.co.uk/making-tax-digital.",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/register-for-vat",
+        "https://www.gov.uk/register-for-vat",
+        "https://www.gov.uk/self-assessment-tax-returns/penalties"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Thanks \u2014 that is enough for now.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "You're welcome! If you have any more questions in the future or need assistance, feel free to reach out. Good luck with your freelancing and tax filing!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+        "https://www.gov.uk/register-for-vat",
+        "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+      ],
+      "llm_mode": "openai"
+    }
+  ],
+  "scores": {
+    "tax_answer_accuracy": 8,
+    "understanding": 8,
+    "clarity": 8,
+    "follow_up_relevance": 7,
+    "conversation_memory": 8,
+    "practical_usefulness": 8,
+    "british_english": 8,
+    "appropriate_recommendation": 8,
+    "absence_of_sales_pressure": 7,
+    "final_outcome_quality": 8
+  },
+  "score_notes": [
+    "Post QP-001 fix: SA \u00a38,000 vs \u00a31,000 sole-trader rule independently verified against GOV.UK who-must-send.",
+    "Not full ACCOUNTANT APPROVED \u2014 surrounding PAYE/personal-allowance wording and package inclusions dump still for Asim/CX review.",
+    "Inclusions turn still dumps full catalogue (QP-004)."
+  ],
+  "outcome": "Customer guided to appropriate signup",
+  "tax_accuracy_status": "INDEPENDENTLY_VERIFIED_PARTIAL",
+  "environment": "cloud_agent_local_api"
+}

@@ -39,6 +39,7 @@ import {
 } from "../knowledge/consultation_booking.js";
 import { answerMtdEligibility } from "../knowledge/mtd_eligibility.js";
 import { answerMtdOperationsQuestion } from "../knowledge/mtd_operations.js";
+import { answerSaEligibility } from "../knowledge/sa_eligibility.js";
 import { answerTaxsimbaServiceModel } from "../knowledge/taxsimba_service_model.js";
 import { retrieve } from "../knowledge/retrieval.js";
 import { resolveTaxYear } from "../knowledge/tax_year.js";
@@ -181,8 +182,23 @@ export class ConversationalEngine {
       serviceModel?.handled
         ? null
         : answerMtdOperationsQuestion(request.message);
-    const mtdEligibility =
+    const historyForRules = (() => {
+      const fromReq = request.history || [];
+      if (fromReq.length) return fromReq;
+      const stored = this.sessions.get(request.session_id);
+      return (stored?.history || [])
+        .filter((h) => h.role === "user" || h.role === "assistant")
+        .map((h) => ({
+          role: h.role as "user" | "assistant",
+          content: h.content,
+        }));
+    })();
+    const saEligibility =
       serviceModel?.handled || mtdOps
+        ? null
+        : answerSaEligibility(request.message, historyForRules);
+    const mtdEligibility =
+      serviceModel?.handled || mtdOps || saEligibility?.handled
         ? null
         : answerMtdEligibility(request.message);
     const ambiguous = answerAmbiguousIntent(request.message);
@@ -264,6 +280,24 @@ export class ConversationalEngine {
     } else if (consultIntent) {
       reply = consultationOptionsReply();
       confidence = "high";
+    } else if (saEligibility?.handled) {
+      reply = saEligibility.customer_reply;
+      confidence = saEligibility.confidence;
+      if (!sources.some((s) => /self-assessment-tax-returns|who-must/i.test(s.url || s.title || ""))) {
+        sources = [
+          {
+            id: "sa-who-must-govuk",
+            title: "Who must send a Self Assessment tax return",
+            publisher: "GOV.UK / HMRC",
+            url: "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+            tax_years: ["2024-25", "2025-26", "2026-27"],
+            verified: true,
+            excerpt:
+              "Sole traders who earned more than £1,000 usually must send a Self Assessment tax return.",
+          },
+          ...sources,
+        ];
+      }
     } else if (payeFileQ) {
       reply =
         "If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return — for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. " +
@@ -437,7 +471,8 @@ export class ConversationalEngine {
       onboardingQ ||
       signupLinkQ ||
       existingClientQ ||
-      softwareInfoOnly
+      softwareInfoOnly ||
+      saEligibility?.handled
     ) {
       packages = [];
       calculators = [];
@@ -457,6 +492,7 @@ export class ConversationalEngine {
       !consultSelection &&
       !consultIntent &&
       !mtdEligibility?.handled &&
+      !saEligibility?.handled &&
       !mtdOps &&
       !supportQ &&
       !onboardingQ &&

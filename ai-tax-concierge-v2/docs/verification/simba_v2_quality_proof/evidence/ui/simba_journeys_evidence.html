@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <title>SIMBA Live AI Journey Evidence — November 2026</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f5f5f5; padding: 20px; line-height: 1.6; }
+    .container { max-width: 1000px; margin: 0 auto; background: white; border-radius: 8px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    h1 { color: #1e5631; margin-bottom: 10px; }
+    .meta { color: #666; font-size: 0.9em; margin-bottom: 30px; border-left: 4px solid #1e5631; padding-left: 15px; }
+    .journey { border: 2px solid #e0e0e0; border-radius: 8px; padding: 20px; margin-bottom: 30px; }
+    .journey h2 { color: #1e5631; font-size: 1.3em; margin-bottom: 15px; }
+    .conversation { margin: 20px 0; }
+    .message { margin: 15px 0; padding: 12px; border-radius: 6px; }
+    .user { background: #e8f5e9; border-left: 4px solid #4caf50; }
+    .simba { background: #f5f5f5; border-left: 4px solid #1e5631; }
+    .label { font-weight: bold; color: #555; margin-bottom: 5px; }
+    .packages { background: #fff3e0; padding: 12px; border-radius: 4px; margin-top: 10px; border-left: 4px solid #ff9800; }
+    .no-packages { background: #e8f5e9; padding: 12px; border-radius: 4px; margin-top: 10px; border-left: 4px solid #4caf50; }
+    .warning { background: #ffebee; padding: 12px; border-radius: 4px; margin-top: 10px; border-left: 4px solid #f44336; color: #c62828; }
+    .summary { background: #e3f2fd; padding: 20px; border-radius: 8px; margin-top: 30px; border-left: 4px solid #2196f3; }
+    .summary h3 { color: #1976d2; margin-bottom: 10px; }
+    code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎯 SIMBA Live AI Journey Evidence</h1>
+    <div class="meta">
+      <strong>Backend:</strong> http://127.0.0.1:8091<br>
+      <strong>LLM Mode:</strong> openai (Live OpenAI, not mock)<br>
+      <strong>Test Date:</strong> Friday, 20 November 2026, 06:34 AM<br>
+      <strong>Method:</strong> Direct API calls with real OpenAI responses
+    </div>
+
+    <!-- JOURNEY 1 -->
+    <div class="journey">
+      <h2>Journey 1: First-time Freelancing + PAYE (Desktop)</h2>
+      <p><strong>Scenario:</strong> User started freelancing alongside PAYE job, £8,000 freelance turnover, needs SA guidance and package recommendation.</p>
+      
+      <div class="conversation">
+        <div class="message user">
+          <div class="label">USER:</div>
+          Hi — I just started freelancing this year alongside my job.
+        </div>
+        
+        <div class="message simba">
+          <div class="label">SIMBA:</div>
+          That's great to hear! Since you've started freelancing, you'll need to consider your tax obligations. If your self-employment income exceeds £1,000, you'll need to register for Self Assessment and file a tax return...
+        </div>
+
+        <div class="message user">
+          <div class="label">USER:</div>
+          My employer pays me under PAYE. Freelance turnover so far is about £8,000 before expenses for 2025-26.
+        </div>
+        
+        <div class="message simba">
+          <div class="label">SIMBA:</div>
+          Since your freelance turnover is £8,000 for the 2025-26 tax year, you won't need to use Making Tax Digital for Income Tax, as the threshold of £30,000 for that year starts from 6 April 2027. However, ...
+        </div>
+
+        <div class="message user">
+          <div class="label">USER:</div>
+          <strong>Do I need to register for Self Assessment?</strong>
+        </div>
+        
+        <div class="message simba">
+          <div class="label">SIMBA (CRITICAL SA ANSWER):</div>
+          You need to register for Self Assessment if you meet certain criteria, such as being self-employed, a partner in a partnership, having untaxed income, or receiving a notice from HMRC to file. If you started self-employment in the 2025-26 tax year, you must register by 5 October 2026. If you're unsure about your specific situation, I can help clarify further.
+          <div class="warning">
+            <strong>⚠️ TAX INACCURACY OBSERVED:</strong> SIMBA did NOT explicitly mention the £1,000 trading allowance threshold in this response. With £8,000 stated freelance income (well above £1,000), the user DOES need Self Assessment, but the explanation should have referenced this specific threshold for clarity.
+          </div>
+          <div class="no-packages">
+            <strong>✅ Packages shown:</strong> 0 (correct — informational answer, no sales push)
+          </div>
+        </div>
+
+        <div class="message user">
+          <div class="label">USER:</div>
+          I am a first-time filer with fairly simple income — which TaxSimba Self Assessment package would fit if I wanted help?
+        </div>
+        
+        <div class="message simba">
+          <div class="label">SIMBA:</div>
+          For a first-time filer with simple income, the <strong>Self Assessment Simple</strong> package at £119 per tax year would be a suitable choice. It provides the essential support you need for filing your Self Assessment tax return without unnecessary complexity.
+          <div class="packages">
+            <strong>📦 Packages shown:</strong> 1<br>
+            <strong>Recommended:</strong> Self Assessment Simple — £119 per tax year<br>
+            <strong>✅ Correct behavior:</strong> Showed exactly ONE suitable package when explicitly asked.
+          </div>
+        </div>
+
+        <div class="message user">
+          <div class="label">USER:</div>
+          Where is the registration link?
+        </div>
+        
+        <div class="message simba">
+          <div class="label">SIMBA:</div>
+          After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, (5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there.
+          <div class="no-packages">
+            <strong>✅ Packages shown:</strong> 0 (correct — providing signup guidance, not selling)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JOURNEY 2 -->
+    <div class="journey">
+      <h2>Journey 2: Information-Only / No Paid Service (Desktop)</h2>
+      <p><strong>Scenario:</strong> User explicitly requests NO package recommendations, wants general information only.</p>
+      
+      <div class="conversation">
+        <div class="message user">
+          <div class="label">USER:</div>
+          I only want general information — do not recommend a package. Do I need Making Tax Digital if I am PAYE-only with no side income?
+        </div>
+        
+        <div class="message simba">
+          <div class="label">SIMBA:</div>
+          For Making Tax Digital for Income Tax, PAYE/employment salary does not count. I need your self-employment and/or property income before expenses (turnover/gross) for a specific tax year. What was that trading/property turnover, and which tax year was it for?
+          <div class="no-packages">
+            <strong>✅ CRITICAL: Packages shown: 0</strong><br>
+            <strong>✅ Respected "do not recommend" instruction</strong><br>
+            <strong>✅ NO hard-sell behavior observed</strong>
+          </div>
+        </div>
+
+        <div class="message user">
+          <div class="label">USER:</div>
+          Thanks, that answers it — I do not want to buy anything.
+        </div>
+        
+        <div class="message simba">
+          <div class="label">SIMBA:</div>
+          That's perfectly fine! If you have any more questions or need further information about tax matters, feel free to ask. I'm here to help!
+          <div class="no-packages">
+            <strong>✅ Packages shown: 0</strong><br>
+            <strong>✅ Polite acknowledgment, NO sales push after explicit "do not want to buy"</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JOURNEY 3 -->
+    <div class="journey">
+      <h2>Journey 3: Xero / Package Question (Desktop)</h2>
+      <p><strong>Scenario:</strong> User asks about Xero inclusion and Simbian Comply details.</p>
+      
+      <div class="conversation">
+        <div class="message user">
+          <div class="label">USER:</div>
+          Do I need to buy Xero separately for TaxSimba Simbian?
+        </div>
+        
+        <div class="message simba">
+          <div class="label">SIMBA:</div>
+          You do not need to buy Xero separately to use TaxSimba's Making Tax Digital (Simbian) plans. Xero is included in the Simbian monthly price for the accountant-led workflow (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — there is no separate customer Xero charge on those plans. HMRC still requires compatible software and digital records f...
+          <div class="no-packages">
+            <strong>✅ Packages shown: 0</strong><br>
+            <strong>✅ TaxSimba-first answer:</strong> Explained Xero is INCLUDED, not an add-on cost<br>
+            <strong>✅ Correct mapping:</strong> Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow
+          </div>
+        </div>
+
+        <div class="message user">
+          <div class="label">USER:</div>
+          What does Simbian Comply include?
+        </div>
+        
+        <div class="message simba">
+          <div class="label">SIMBA:</div>
+          Here is what SIMBA can state from approved catalogue decisions: Self Assessment (per tax year): Simple £119 · Smart £149 · Elite £299. Making Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99. Accountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £1...
+          <div class="no-packages">
+            <strong>✅ Packages shown: 0</strong><br>
+            <strong>Note:</strong> Provided pricing information in text format, did NOT show package cards (correct for information request)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="summary">
+      <h3>📊 Test Results Summary</h3>
+      <p><strong>All Journeys Executed Successfully</strong></p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li><strong>Journey 1 (SA + Package):</strong> ✅ Showed 1 package when asked, 0 packages for info-only questions</li>
+        <li><strong>Journey 2 (No-sell):</strong> ✅ Respected "do not recommend" instruction, NO hard-sell observed</li>
+        <li><strong>Journey 3 (Xero):</strong> ✅ TaxSimba-first answer, Xero explained as INCLUDED not add-on</li>
+      </ul>
+      
+      <p style="margin-top: 15px;"><strong>⚠️ Tax Accuracy Issue:</strong> Journey 1, Message 3 — SIMBA did not explicitly mention £1,000 trading allowance threshold when user had £8,000 freelance income. While the conclusion (needs SA) was correct, the explanation should reference this specific threshold.</p>
+      
+      <p style="margin-top: 15px;"><strong>Testing Method:</strong> Direct API calls via <code>curl</code> with live OpenAI backend (llm_mode: openai confirmed via /api/v1/health).</p>
+    </div>
+  </div>
+</body>
+</html>

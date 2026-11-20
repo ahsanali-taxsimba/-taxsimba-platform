@@ -32,7 +32,14 @@ export class RateLimiter {
   }
 }
 
-/** Allow long continuous conversations (20–50 turns) without arbitrary stalls. */
-export const chatLimiter = new RateLimiter(90, 60.0);
+/** Allow long continuous conversations (20–50 turns) without arbitrary stalls.
+ * Eval / proof packs may raise CONCIERGE_CHAT_RATE_MAX to avoid false 429s. */
+export const chatLimiter = new RateLimiter(
+  Number(process.env.CONCIERGE_CHAT_RATE_MAX || 90),
+  Number(process.env.CONCIERGE_CHAT_RATE_WINDOW || 60),
+);
 /** Slightly stricter public catalogue/bootstrap limiter. */
-export const publicApiLimiter = new RateLimiter(120, 60.0);
+export const publicApiLimiter = new RateLimiter(
+  Number(process.env.CONCIERGE_PUBLIC_RATE_MAX || 120),
+  Number(process.env.CONCIERGE_PUBLIC_RATE_WINDOW || 60),
+);

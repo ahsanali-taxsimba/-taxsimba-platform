@@ -1,0 +1,132 @@
+{
+  "id": "D10",
+  "title": "Wants to register immediately",
+  "goal": "Fast path to register",
+  "mode": "openai",
+  "llm_mode": "openai",
+  "turn_count": 6,
+  "transcript": [
+    {
+      "role": "user",
+      "content": "I already know I need Self Assessment help.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "If you need assistance with Self Assessment, I recommend our Self Assessment Simple package for £119 per tax year. This package is designed to help you with your tax return filing. \n\nIf you have specific questions about your situation or need further details, feel free to ask!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/register-for-self-assessment",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Simple first-time sole trader, one income stream.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "As a first-time sole trader with one income stream, you'll need to register for Self Assessment if you haven't already. You typically must register by 5 October following the end of the tax year in which you started trading. \n\nOnce registered, you’ll need to file your tax return annually, reporting your income and expenses. The Self Assessment Simple package can assist you with this process. \n\nIf you’re ready to proceed with registration or have more questions, let me know!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/register-for-self-assessment",
+        "https://www.gov.uk/set-up-sole-trader"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Which package?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "For a first-time sole trader with a straightforward situation, the Self Assessment Simple package at £119 per tax year would be a suitable choice. It provides the necessary support for filing your tax return.\n\nIf you're ready to register for this package, I can guide you on how to proceed!",
+      "packages": [
+        "SA_SIMPLE"
+      ],
+      "sources": [
+        "https://www.gov.uk/register-for-self-assessment",
+        "https://www.gov.uk/set-up-sole-trader",
+        "https://www.gov.uk/tax-on-dividends"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "I want to register now — what is the link?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "You can register for Self Assessment through the following link: [Register for Self Assessment](https://www.taxsimba.co.uk/register). This will guide you through the registration process.\n\nIf you have any questions during the registration, feel free to ask!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/register-for-self-assessment",
+        "https://www.gov.uk/set-up-sole-trader",
+        "https://www.gov.uk/register-for-vat"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Do I verify email before paying?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Yes, you will need to verify your email before completing the payment during the registration process. This step ensures that your contact information is correct and allows you to receive important updates regarding your package.\n\nIf you have any other questions or need further assistance, just let me know!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/tax-on-dividends"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "After payment, how do I reach my accountant?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, (5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there. I won’t invent portal screens or claim payment succeeded from this chat. Self Assessment packages: https://www.taxsimba.co.uk/self-assessment · MTD: https://www.taxsimba.co.uk/making-tax-digital.",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+        "https://www.gov.uk/self-employed-records"
+      ],
+      "llm_mode": "openai"
+    }
+  ],
+  "scores": {
+    "tax_answer_accuracy": 5,
+    "understanding": 8,
+    "clarity": 8,
+    "follow_up_relevance": 7,
+    "conversation_memory": 7,
+    "practical_usefulness": 8,
+    "british_english": 8,
+    "appropriate_recommendation": 7,
+    "absence_of_sales_pressure": 7,
+    "final_outcome_quality": 7
+  },
+  "score_notes": [
+    "Tax accuracy scored pending accountant review — not independently VERIFIED PASS"
+  ],
+  "outcome": "Customer guided to appropriate signup",
+  "tax_accuracy_status": "AWAITING_ACCOUNTANT_REVIEW",
+  "environment": "cloud_agent_local_api"
+}

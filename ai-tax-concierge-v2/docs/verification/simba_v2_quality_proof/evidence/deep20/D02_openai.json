@@ -1,0 +1,164 @@
+{
+  "id": "D02",
+  "title": "Landlord with PAYE employment",
+  "goal": "Explain property income + SA/MTD context",
+  "mode": "openai",
+  "llm_mode": "openai",
+  "turn_count": 8,
+  "transcript": [
+    {
+      "role": "user",
+      "content": "I am employed full-time on PAYE.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Being employed full-time on PAYE means your employer deducts Income Tax and National Insurance from your salary before you receive it. However, this does not automatically exempt you from needing to file a Self Assessment tax return. If you have additional untaxed income, such as from self-employment or property, you may still have to submit a return. \n\nDo you have any additional sources of income that might require you to file a Self Assessment?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/income-tax",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "I also have one buy-to-let that made about £18,000 rent before expenses in 2024-25.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Since your buy-to-let property generated £18,000 in rental income before expenses for the 2024-25 tax year, you will need to declare this income to HMRC. You typically report property income through Self Assessment. \n\nKeep records of the rent received and any allowable expenses to accurately calculate your taxable income. \n\nWould you like more information on how to file your Self Assessment or any specific expenses you can claim?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Do I need Self Assessment?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Yes, you will need to submit a Self Assessment tax return because you have rental income from your buy-to-let property. Even though you are employed full-time on PAYE, the rental income qualifies as untaxed income, which requires reporting to HMRC.\n\nYou should register for Self Assessment if you haven't already. The deadline for registration for the 2024-25 tax year is 5 October 2025. \n\nWould you like assistance with the registration process?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/register-for-self-assessment",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "What about Making Tax Digital for landlords?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Making Tax Digital (MTD) for Income Tax will require landlords with qualifying income to keep digital records and submit quarterly updates. For the 2026-27 tax year, if your total qualifying income exceeds £20,000, you will need to comply with MTD starting from 6 April 2028.\n\nSince your rental income for 2024-25 is £18,000, you won't need to follow MTD requirements until your income exceeds the threshold in future years.\n\nDo you have any questions about MTD or how it might affect you in the future?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "My qualifying income for 2024-25 was under £50,000 if that matters.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Your qualifying income for the 2024-25 tax year being under £50,000 means you won't need to comply with Making Tax Digital for Income Tax until your income exceeds the relevant thresholds in future years. Specifically, if your qualifying income exceeds £50,000 for the 2024-25 tax year, you would need to follow MTD from 6 April 2026.\n\nSince your rental income is £18,000, you are currently below that threshold. \n\nIf you have any further questions about your tax obligations or MTD, feel free to ask!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Please do not recommend a package yet — just explain.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Certainly! \n\nSelf Assessment is an annual tax return that you must file if you have untaxed income, such as rental income from your buy-to-let property. You report your total income, allowable expenses, and calculate your tax liability for the year.\n\nMaking Tax Digital (MTD) is a system that requires certain taxpayers, including landlords with qualifying income above specific thresholds, to maintain digital records and submit quarterly updates to HMRC. This is designed to streamline tax reporting and improve accuracy.\n\nIf you have any specific questions about either process, just let me know!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "OK, if I later wanted TaxSimba help for Self Assessment only, what would be the lowest suitable option?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "The lowest suitable option for Self Assessment assistance from TaxSimba is the **Self Assessment Simple** package, which costs £119 per tax year. This package provides the necessary support for filing your Self Assessment tax return.\n\nIf you have any more questions about this package or need further information, feel free to ask!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/register-for-self-assessment"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "I will think about it. Can I email support if I have account questions?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "For general TaxSimba customer support, email info@taxsimba.co.uk and include a short summary of your question. Support is by email and (for clients) secure dashboard messaging — TaxSimba does not offer phone support. If you need personalised tax advice on your own figures, you can book a paid Google Meet consultation (£99 for 20 minutes or £149 for 40 minutes) when online booking is available.",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/understand-self-assessment-bill/payments-on-account",
+        "https://www.gov.uk/self-employed-records",
+        "https://www.gov.uk/child-benefit-tax-charge"
+      ],
+      "llm_mode": "openai"
+    }
+  ],
+  "scores": {
+    "tax_answer_accuracy": 5,
+    "understanding": 8,
+    "clarity": 8,
+    "follow_up_relevance": 7,
+    "conversation_memory": 7,
+    "practical_usefulness": 8,
+    "british_english": 8,
+    "appropriate_recommendation": 7,
+    "absence_of_sales_pressure": 7,
+    "final_outcome_quality": 7
+  },
+  "score_notes": [
+    "Tax accuracy scored pending accountant review — not independently VERIFIED PASS"
+  ],
+  "outcome": "Customer requires further clarification",
+  "tax_accuracy_status": "AWAITING_ACCOUNTANT_REVIEW",
+  "environment": "cloud_agent_local_api"
+}

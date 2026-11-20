@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SIMBA Journeys — Screen Recording Evidence</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f5f5f5; padding: 20px; line-height: 1.6; }
+    .container { max-width: 1200px; margin: 0 auto; background: white; border-radius: 8px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    h1 { color: #1e5631; margin-bottom: 15px; }
+    .meta { background: #e3f2fd; padding: 15px; border-radius: 6px; margin-bottom: 30px; border-left: 4px solid #2196f3; }
+    .journey { border: 2px solid #e0e0e0; border-radius: 8px; padding: 20px; margin-bottom: 30px; background: #fafafa; }
+    .journey h2 { color: #1e5631; font-size: 1.4em; margin-bottom: 15px; }
+    .turn { margin: 20px 0; padding: 15px; background: white; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .user { border-left: 4px solid #4caf50; }
+    .simba { border-left: 4px solid #1e5631; }
+    .label { font-weight: bold; color: #555; margin-bottom: 8px; font-size: 0.9em; text-transform: uppercase; letter-spacing: 0.5px; }
+    .text { color: #333; line-height: 1.7; }
+    .packages { background: #fff3e0; padding: 15px; border-radius: 4px; margin-top: 12px; border-left: 4px solid #ff9800; }
+    .no-packages { background: #e8f5e9; padding: 15px; border-radius: 4px; margin-top: 12px; border-left: 4px solid #4caf50; }
+    .warning { background: #ffebee; padding: 15px; border-radius: 4px; margin-top: 12px; border-left: 4px solid #f44336; }
+    .warning-text { color: #c62828; font-weight: 500; }
+    .summary { background: #e8f5e9; padding: 20px; border-radius: 8px; margin-top: 30px; border-left: 4px solid #4caf50; }
+    .summary h3 { color: #2e7d32; margin-bottom: 15px; }
+    ul { margin-left: 20px; margin-top: 10px; }
+    li { margin-bottom: 8px; }
+    code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; font-family: monospace; font-size: 0.9em; }
+    .badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 0.85em; font-weight: bold; margin-left: 10px; }
+    .badge-success { background: #4caf50; color: white; }
+    .badge-warning { background: #ff9800; color: white; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎬 SIMBA Live AI Journeys — Screen Recording Session</h1>
+    <div class="meta">
+      <strong>Recording Date:</strong> Friday, 20 November 2026, 06:44 AM<br>
+      <strong>Backend:</strong> http://127.0.0.1:8091<br>
+      <strong>LLM Mode:</strong> openai (Live OpenAI)<br>
+      <strong>Version:</strong> 0.4.1 Phase 3<br>
+      <strong>Method:</strong> API execution (UI input blocked by desktop environment)<br>
+      <strong>Screen Recording:</strong> Active during session<br>
+      <strong>Note:</strong> All responses below are REAL OpenAI outputs, not mock/scripted
+    </div>
+
+    <!-- JOURNEY A -->
+    <div class="journey">
+      <h2>Journey A: First-time Freelancer Needing SA <span class="badge badge-success">COMPLETE</span></h2>
+      <p><strong>Scenario:</strong> User started freelancing alongside PAYE job, £8,000 freelance turnover in 2025-26.</p>
+      
+      <div class="turn user">
+        <div class="label">User → Turn 1</div>
+        <div class="text">Hi — I just started freelancing this year alongside my job.</div>
+      </div>
+      
+      <div class="turn simba">
+        <div class="label">SIMBA → Turn 1</div>
+        <div class="text">That's great to hear! Since you've started freelancing, you'll need to consider your tax obligations. If your self-employment income exceeds £1,000 in...</div>
+        <div class="no-packages">✅ Packages shown: 0 (informational response)</div>
+      </div>
+
+      <div class="turn user">
+        <div class="label">User → Turn 2 (Income Statement)</div>
+        <div class="text">My employer pays me under PAYE. Freelance turnover so far is about £8,000 before expenses for 2025-26.</div>
+      </div>
+      
+      <div class="turn simba">
+        <div class="label">SIMBA → Turn 2</div>
+        <div class="text">Since your freelance turnover is £8,000 for the 2025-26 tax year, you won't need to use Making Tax Digital (MTD) for Income Tax, as the threshold of £30,000 starts from 6 April 2027. However, being pa...</div>
+        <div class="no-packages">✅ Packages shown: 0 (informational response about MTD)</div>
+      </div>
+
+      <div class="turn user">
+        <div class="label">User → Turn 3 (CRITICAL SA QUESTION)</div>
+        <div class="text">Do I need to register for Self Assessment?</div>
+      </div>
+      
+      <div class="turn simba">
+        <div class="label">SIMBA → Turn 3 (SA ANSWER)</div>
+        <div class="text">
+          <strong>FULL VERBATIM REPLY:</strong><br><br>
+          "You need to register for Self Assessment if you meet certain criteria, such as being self-employed, a partner in a partnership, having untaxed income, or receiving a notice from HMRC to file. If you started self-employment in the 2025-26 tax year, you must register by 5 October 2026. If you're unsure about your specific situation, I can help clarify further."
+        </div>
+        <div class="no-packages">✅ Packages shown: 0 (informational, no sales push)</div>
+        <div class="warning">
+          <div class="warning-text">
+            ⚠️ TAX ACCURACY ISSUE: SIMBA did not explicitly mention the £1,000 trading allowance threshold.<br><br>
+            <strong>Context:</strong> User stated £8,000 freelance income (well above £1,000 threshold).<br>
+            <strong>Missing:</strong> Should have said "Since your £8,000 income exceeds the £1,000 trading allowance, you need to register for Self Assessment."<br>
+            <strong>Impact:</strong> Conclusion was correct (user needs SA) but explanation lacked specific threshold reference.
+          </div>
+        </div>
+      </div>
+
+      <div class="turn user">
+        <div class="label">User → Turn 4 (Package Request)</div>
+        <div class="text">Which TaxSimba Self Assessment package fits a simple first-time filer?</div>
+      </div>
+      
+      <div class="turn simba">
+        <div class="label">SIMBA → Turn 4</div>
+        <div class="text">For a simple first-time filer, the <strong>Self Assessment Simple</strong> package at <strong>£119 per tax year</strong> would be a suitable choice. It's designed for individuals with straightforward tax situations, making it easier t...</div>
+        <div class="packages">
+          📦 <strong>Packages shown: 1</strong><br>
+          Package: Self Assessment Simple — £119/year<br>
+          ✅ CORRECT: Showed exactly ONE suitable package when explicitly asked
+        </div>
+      </div>
+
+      <div class="turn user">
+        <div class="label">User → Turn 5 (Registration Link)</div>
+        <div class="text">Where is the registration link?</div>
+      </div>
+      
+      <div class="turn simba">
+        <div class="label">SIMBA → Turn 5</div>
+        <div class="text">After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital pack...</div>
+        <div class="no-packages">✅ Packages shown: 0 (providing signup guidance, not selling)</div>
+      </div>
+    </div>
+
+    <!-- JOURNEY B -->
+    <div class="journey">
+      <h2>Journey B: Information-Only / No Purchase <span class="badge badge-success">COMPLETE</span></h2>
+      <p><strong>Scenario:</strong> User explicitly requests NO package recommendations, PAYE-only situation.</p>
+      
+      <div class="turn user">
+        <div class="label">User → Turn 1 (Explicit "Do Not Recommend")</div>
+        <div class="text">I only want general information — do not recommend a package. Do I need Making Tax Digital if I am PAYE-only with no side income?</div>
+      </div>
+      
+      <div class="turn simba">
+        <div class="label">SIMBA → Turn 1 (NO-SELL TEST)</div>
+        <div class="text">
+          <strong>FULL VERBATIM REPLY:</strong><br><br>
+          "For Making Tax Digital for Income Tax, PAYE/employment salary does not count. I need your self-employment and/or property income before expenses (turnover/gross) for a specific tax year. What was that trading/property turnover, and which tax year was it for?"
+        </div>
+        <div class="no-packages">
+          ✅ <strong>Packages shown: 0</strong><br>
+          ✅ <strong>CRITICAL:</strong> Respected "do not recommend a package" instruction<br>
+          ✅ Asked clarifying question instead of pushing sale
+        </div>
+      </div>
+
+      <div class="turn user">
+        <div class="label">User → Turn 2 (Explicit "Do Not Want to Buy")</div>
+        <div class="text">Thanks — I do not want to buy anything.</div>
+      </div>
+      
+      <div class="turn simba">
+        <div class="label">SIMBA → Turn 2 (NO-SELL RESPONSE)</div>
+        <div class="text">
+          <strong>FULL VERBATIM REPLY:</strong><br><br>
+          "That's perfectly fine! I'm here to provide information and answer any questions you may have about taxes or related topics. How can I assist you today?"
+        </div>
+        <div class="no-packages">
+          ✅ <strong>Packages shown: 0</strong><br>
+          ✅ <strong>PERFECT NO-SELL BEHAVIOR:</strong> Polite acknowledgment, NO sales push after explicit "do not want to buy"<br>
+          ✅ Offered continued assistance without mentioning products
+        </div>
+      </div>
+    </div>
+
+    <!-- JOURNEY C -->
+    <div class="journey">
+      <h2>Journey C: Xero / TaxSimba Integration <span class="badge badge-success">COMPLETE</span></h2>
+      <p><strong>Scenario:</strong> User asks about Xero inclusion and Simbian Comply details.</p>
+      
+      <div class="turn user">
+        <div class="label">User → Turn 1</div>
+        <div class="text">Do I need to buy Xero separately for TaxSimba Simbian?</div>
+      </div>
+      
+      <div class="turn simba">
+        <div class="label">SIMBA → Turn 1 (TaxSimba-First Answer)</div>
+        <div class="text">You do not need to buy Xero separately to use TaxSimba's Making Tax Digital (Simbian) plans. Xero is <strong>included</strong> in the Simbian monthly price for the accountant-led workflow (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — there is no separate customer Xero charge on those plans...</div>
+        <div class="no-packages">
+          ✅ <strong>Packages shown: 0</strong><br>
+          ✅ <strong>TaxSimba-first answer:</strong> Explained Xero is INCLUDED, not an add-on<br>
+          ✅ Correct mapping: Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow<br>
+          ✅ Acknowledged alternative DIY Xero path fairly
+        </div>
+      </div>
+
+      <div class="turn user">
+        <div class="label">User → Turn 2</div>
+        <div class="text">What does Simbian Comply include?</div>
+      </div>
+      
+      <div class="turn simba">
+        <div class="label">SIMBA → Turn 2 (Detailed Catalogue Response)</div>
+        <div class="text">Here is what SIMBA can state from approved catalogue decisions:<br><br>
+        Self Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.<br>
+        Making Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.<br>
+        Accountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes...<br><br>
+        <strong>What is approved to say:</strong><br>
+        - Xero software is included in each Simbian monthly price<br>
+        - Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow<br>
+        - Support is via email and the client dashboard — not telephone onboarding<br>
+        - Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps<br>
+        - Quarterly MTD updates and year-end Self Assessment are included...
+        </div>
+        <div class="no-packages">
+          ✅ <strong>Packages shown: 0</strong><br>
+          ✅ Provided comprehensive pricing information in text format<br>
+          ✅ Did NOT show package cards (correct for information request)<br>
+          ✅ Listed all service details transparently
+        </div>
+      </div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="summary">
+      <h3>✅ All Journeys Successfully Completed</h3>
+      
+      <p><strong>Package Display Logic:</strong></p>
+      <ul>
+        <li><strong>Journey A:</strong> 0, 0, 0, <strong>1 (when asked)</strong>, 0 packages shown ✅</li>
+        <li><strong>Journey B:</strong> 0, 0 packages shown (respected "do not recommend") ✅</li>
+        <li><strong>Journey C:</strong> 0, 0 packages shown (information requests) ✅</li>
+      </ul>
+      
+      <p><strong>Key Findings:</strong></p>
+      <ul>
+        <li>✅ SIMBA shows packages ONLY when explicitly requested</li>
+        <li>✅ SIMBA shows exactly ONE suitable package (not overwhelming)</li>
+        <li>✅ SIMBA respects "do not recommend" instructions</li>
+        <li>✅ SIMBA provides polite no-sell responses</li>
+        <li>✅ SIMBA explains Xero as INCLUDED (TaxSimba-first)</li>
+        <li>⚠️  Tax accuracy: Missing £1,000 threshold explanation (Journey A, Turn 3)</li>
+      </ul>
+      
+      <p><strong>Testing Environment:</strong></p>
+      <ul>
+        <li><strong>Backend:</strong> Live OpenAI (llm_mode: openai confirmed)</li>
+        <li><strong>Screen Recording:</strong> Active during entire session</li>
+        <li><strong>UI Input:</strong> Blocked by desktop environment (used API as workaround)</li>
+        <li><strong>Total Messages:</strong> 9 across 3 journeys</li>
+        <li><strong>Packages Shown:</strong> 1 (only when explicitly requested in Journey A)</li>
+      </ul>
+      
+      <p><strong>Files Saved:</strong></p>
+      <ul>
+        <li><code>journey_a_income.json</code> — Turn 2 response (£8,000 income)</li>
+        <li><code>journey_a_sa.json</code> — Turn 3 SA answer (CRITICAL)</li>
+        <li><code>journey_a_package.json</code> — Turn 4 package recommendation</li>
+        <li><code>journey_a_link.json</code> — Turn 5 registration link</li>
+        <li><code>journey_b_mid.json</code> — Turn 1 no-recommend response</li>
+        <li><code>journey_b_end.json</code> — Turn 2 no-buy response</li>
+        <li><code>journey_c_mid.json</code> — Turn 1 Xero inclusion</li>
+        <li><code>journey_c_end.json</code> — Turn 2 Simbian Comply details</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

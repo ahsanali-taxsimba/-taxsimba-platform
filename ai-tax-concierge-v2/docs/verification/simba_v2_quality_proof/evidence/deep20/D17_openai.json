@@ -1,0 +1,130 @@
+{
+  "id": "D17",
+  "title": "Changes circumstances mid-chat",
+  "goal": "Reassess after correction",
+  "mode": "openai",
+  "llm_mode": "openai",
+  "turn_count": 6,
+  "transcript": [
+    {
+      "role": "user",
+      "content": "My rental income was £20,000 before expenses in 2024-25.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Since your rental income was £20,000 before expenses in the 2024-25 tax year, you do not need to use Making Tax Digital (MTD) for Income Tax, as the threshold for MTD starts at more than £50,000 for that year. You will need to comply with MTD from 6 April 2026 if your qualifying income exceeds £50,000 in the 2024-25 tax year.\n\nIf you have any further questions about your tax obligations, feel free to ask!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Do I need Making Tax Digital from 6 April 2026?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Sorry — I made a mistake. It was actually £55,000 before expenses in 2024-25.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Since your qualifying income was £55,000 before expenses in the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax from 6 April 2026. This requirement applies because your income exceeds the £50,000 threshold for that year.\n\nIf you have any more questions about MTD or your tax obligations, just let me know!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/expenses-and-benefits-business-travel-mileage/rules-for-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Please reassess MTD based on the corrected figure.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "With your corrected qualifying income of £55,000 before expenses in the 2024-25 tax year, you will indeed need to comply with Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This is because your income exceeds the £50,000 threshold for that year.\n\nIf you have further questions or need assistance with MTD, feel free to ask!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Does that mean I still need Self Assessment too?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Yes, you will still need to submit a Self Assessment tax return for the 2024-25 tax year, as your qualifying income exceeds the £1,000 threshold for untaxed income. Since you have rental income, you must report it through Self Assessment, regardless of MTD requirements.\n\nIf you need help with the Self Assessment process or have any other questions, just let me know!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/register-for-self-assessment"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "No package recommendation yet.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Understood! If you have any more questions about Self Assessment, Making Tax Digital, or anything else related to your tax situation, feel free to ask. I'm here to help!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/self-employed-records"
+      ],
+      "llm_mode": "openai"
+    }
+  ],
+  "scores": {
+    "tax_answer_accuracy": 5,
+    "understanding": 8,
+    "clarity": 8,
+    "follow_up_relevance": 7,
+    "conversation_memory": 7,
+    "practical_usefulness": 6,
+    "british_english": 8,
+    "appropriate_recommendation": 7,
+    "absence_of_sales_pressure": 7,
+    "final_outcome_quality": 7
+  },
+  "score_notes": [
+    "Tax accuracy scored pending accountant review — not independently VERIFIED PASS"
+  ],
+  "outcome": "Customer requires further clarification",
+  "tax_accuracy_status": "AWAITING_ACCOUNTANT_REVIEW",
+  "environment": "cloud_agent_local_api"
+}
