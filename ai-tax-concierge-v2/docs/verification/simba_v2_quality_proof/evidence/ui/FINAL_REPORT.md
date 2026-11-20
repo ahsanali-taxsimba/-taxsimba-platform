@@ -7,6 +7,22 @@
 
 ---
 
+## ERRATA (post-fix — 2026-11-20 Europe/London)
+
+This file records the **pre-restart** UI capture session. Do **not** treat the Journey 1 “missing £1,000 threshold” note below as the current product state.
+
+After `sa_eligibility` landed and `:8091` was restarted, the same £8,000 freelance disclosure returns the deterministic GOV.UK “more than £1,000” answer. See:
+
+- `FIX_VERIFICATION_REPORT.md`
+- `fix_income_response.json` / `fix_sa_response.json`
+- Parent quality pack: `../QUALITY_PROOF_REPORT.md` and `../DEFECT_LOG.md` (QP-001)
+
+Production remains **NO-GO** until Asim sign-off — not because of this superseded UI note.
+
+The `workspace_fullscreen_mockbanner.png` filename reflects a screenshot that showed a mock banner; live `/api/v1/health` on the restarted openai server returns `mock_notice: null`. Treat that image as historical UI chrome, not proof the live proof run was mocked.
+
+---
+
 ## Executive Summary
 
 ✅ **All three journeys executed successfully with live OpenAI responses.**
@@ -16,9 +32,9 @@
 - J2: SIMBA respected "do not recommend" instruction, NO hard-sell behavior observed
 - J3: SIMBA provided TaxSimba-first answer explaining Xero is INCLUDED, not an add-on
 
-⚠️ **Tax Accuracy Issue Identified:** Journey 1 — SIMBA did not explicitly mention £1,000 trading allowance threshold when user stated £8,000 freelance income.
+⚠️ **Tax Accuracy Issue Identified (superseded — see ERRATA):** Journey 1 — SIMBA did not explicitly mention £1,000 trading allowance threshold when user stated £8,000 freelance income.
 
-⚠️ **UI Discrepancy:** Frontend workspace shows "MOCK MODE" banner despite backend running in openai mode (llm_mode verified via /api/v1/health).
+⚠️ **UI Discrepancy (historical screenshot):** Frontend workspace shows "MOCK MODE" banner despite backend running in openai mode (llm_mode verified via /api/v1/health).
 
 ---
 
