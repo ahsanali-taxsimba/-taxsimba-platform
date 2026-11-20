@@ -1,0 +1,27 @@
+{
+  "generated_at": "2026-11-20T16:53:25.707Z",
+  "original_holdout_84_fails": 84,
+  "retest_84": {
+    "total": 84,
+    "openai": 84,
+    "exact": 60,
+    "partial": 3,
+    "fail": 21,
+    "premature": 1,
+    "clarifying": 65
+  },
+  "validation_200": {
+    "total": 200,
+    "openai": 200,
+    "exact": 83,
+    "partial": 10,
+    "fail": 107,
+    "premature": 0
+  },
+  "original_holdout_metrics_preserved": {
+    "exact": 64,
+    "partial": 52,
+    "fail": 84,
+    "note": "See ../HOLDOUT_200_RESULTS.json — not overwritten"
+  }
+}

@@ -6,6 +6,7 @@ Also: **[CHATGPT_REVIEW_PACK.md](./CHATGPT_REVIEW_PACK.md)** · **[QUALITY_PROOF
 | Document | Purpose |
 |----------|---------|
 | `ASK_SIMBA_FINAL_QUALITY_EVIDENCE.md` | Final human-readable evidence report (NO-GO) |
+| `CLASSIFICATION_INTELLIGENCE_REPORT.md` | 84-failure diagnosis + retest + new validation 200 |
 | `CHATGPT_REVIEW_PACK.md` | Independent audit summary + file map for ChatGPT second review |
 | `FIVE_DETAILED_JOURNEY_REVIEWS.md` | Five customer journey reviews (actual responses) |
 | `KNOWN_FAILURES_RETEST.md` | T329 / £8k / £50k / D03 / D10 / D02 fixes + evidence |

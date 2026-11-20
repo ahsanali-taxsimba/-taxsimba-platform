@@ -20,6 +20,27 @@ describe("conversation intelligence — clarifiers and MTD ops", () => {
     expect(r?.customer_reply.toLowerCase()).toMatch(/paye|self-employment|which/);
   });
 
+  it("clarifies_employment_p60_without_assuming_sa", () => {
+    const r = answerAmbiguousIntent("I got a P60. What do I do with it?");
+    expect(r?.handled).toBe(true);
+    expect(r?.prefer_over_eligibility_probe).toBe(true);
+    expect(r?.customer_reply.toLowerCase()).toMatch(/does not automatically|paye/);
+  });
+
+  it("clarifies_property_mtd_without_tax_year", () => {
+    const r = answerAmbiguousIntent("Property rent roughly £40,000 — MTD?");
+    expect(r?.handled).toBe(true);
+    expect(r?.customer_reply.toLowerCase()).toMatch(/tax year|2024-25|april 2026/);
+  });
+
+  it("clarifies_rent_plus_paye_without_amount", () => {
+    const r = answerAmbiguousIntent(
+      "I rent out my flat but my employer already takes tax.",
+    );
+    expect(r?.handled).toBe(true);
+    expect(r?.customer_reply.toLowerCase()).toMatch(/rental|how much|tax year/);
+  });
+
   it("clarifies_business_makes_amount", () => {
     const r = answerAmbiguousIntent("My business makes £100,000.");
     expect(r?.handled).toBe(true);

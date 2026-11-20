@@ -89,7 +89,8 @@ export function isSaEligibilityQuestion(message: string): boolean {
     ) ||
     /\b(register for self assessment)\b/i.test(m) ||
     /\b(do i need to file)\b/i.test(m) ||
-    /\b(must i (register|file|send).{0,40}(self assessment|tax return))\b/i.test(m)
+    /\b(must i (register|file|send).{0,40}(self assessment|tax return))\b/i.test(m) ||
+    /\b(sa needed|need sa\b|need (a )?sa\b|do i need sa)\b/i.test(m)
   ) {
     return true;
   }
