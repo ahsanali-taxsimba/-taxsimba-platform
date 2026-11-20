@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-11-20T05:02:41.704Z",
+  "generated_at": "2026-11-20T05:30:07.135Z",
   "mode": "openai",
-  "total": 8,
-  "recorded": 8,
+  "total": 15,
+  "recorded": 15,
   "heuristic_fail": 0,
   "errors": 0,
   "note": "RECORDED \u2260 tax-accuracy PASS. Full tax review requires accountant acceptance criteria.",
@@ -34,7 +34,7 @@
       "turns_sent": 1,
       "packages": [],
       "sources_count": 3,
-      "reply_chars": 350,
+      "reply_chars": 327,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -46,17 +46,35 @@
       "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
     },
     {
-      "id": "T003",
-      "category": "SA eligibility",
+      "id": "T050",
+      "category": "MTD eligibility",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "turns_sent": 1,
+      "packages": [],
+      "sources_count": 3,
+      "reply_chars": 476,
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+    },
+    {
+      "id": "T100",
+      "category": "Landlords",
       "status": "RECORDED",
       "llm_mode": "openai",
       "turns_sent": 1,
       "packages": [
-        "SA_SIMPLE",
         "SA_SMART"
       ],
       "sources_count": 3,
-      "reply_chars": 399,
+      "reply_chars": 478,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -68,14 +86,14 @@
       "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
     },
     {
-      "id": "T004",
-      "category": "SA eligibility",
+      "id": "T150",
+      "category": "CIS and construction",
       "status": "RECORDED",
       "llm_mode": "openai",
       "turns_sent": 1,
       "packages": [],
       "sources_count": 3,
-      "reply_chars": 508,
+      "reply_chars": 560,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -87,14 +105,14 @@
       "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
     },
     {
-      "id": "T005",
-      "category": "SA eligibility",
+      "id": "T200",
+      "category": "Tax calculations and uncertainty",
       "status": "RECORDED",
       "llm_mode": "openai",
       "turns_sent": 1,
       "packages": [],
       "sources_count": 3,
-      "reply_chars": 578,
+      "reply_chars": 236,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -106,14 +124,14 @@
       "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
     },
     {
-      "id": "T006",
-      "category": "SA eligibility",
+      "id": "T250",
+      "category": "Documents and dashboard",
       "status": "RECORDED",
       "llm_mode": "openai",
       "turns_sent": 1,
       "packages": [],
       "sources_count": 3,
-      "reply_chars": 601,
+      "reply_chars": 398,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -125,14 +143,14 @@
       "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
     },
     {
-      "id": "T007",
-      "category": "SA eligibility",
+      "id": "T300",
+      "category": "Privacy, security and safety",
       "status": "RECORDED",
       "llm_mode": "openai",
       "turns_sent": 1,
       "packages": [],
       "sources_count": 3,
-      "reply_chars": 454,
+      "reply_chars": 468,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -144,14 +162,128 @@
       "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
     },
     {
-      "id": "T008",
-      "category": "SA eligibility",
+      "id": "T301",
+      "category": "Conversation memory",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "turns_sent": 2,
+      "packages": [],
+      "sources_count": 3,
+      "reply_chars": 285,
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+    },
+    {
+      "id": "T305",
+      "category": "Conversation memory",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "turns_sent": 2,
+      "packages": [],
+      "sources_count": 3,
+      "reply_chars": 610,
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+    },
+    {
+      "id": "T310",
+      "category": "Conversation memory",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "turns_sent": 3,
+      "packages": [],
+      "sources_count": 3,
+      "reply_chars": 466,
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+    },
+    {
+      "id": "T320",
+      "category": "Conversation memory",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "turns_sent": 2,
+      "packages": [],
+      "sources_count": 3,
+      "reply_chars": 759,
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+    },
+    {
+      "id": "T350",
+      "category": "UX and concise responses",
       "status": "RECORDED",
       "llm_mode": "openai",
       "turns_sent": 1,
       "packages": [],
       "sources_count": 3,
-      "reply_chars": 510,
+      "reply_chars": 126,
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+    },
+    {
+      "id": "T380",
+      "category": "Lead capture and conversion",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "turns_sent": 1,
+      "packages": [],
+      "sources_count": 3,
+      "reply_chars": 108,
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+    },
+    {
+      "id": "T400",
+      "category": "Adversarial and edge cases",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "turns_sent": 1,
+      "packages": [],
+      "sources_count": 3,
+      "reply_chars": 212,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,

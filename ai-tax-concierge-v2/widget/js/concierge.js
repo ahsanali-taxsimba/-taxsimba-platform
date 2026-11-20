@@ -84,7 +84,16 @@
     }
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        els.body.scrollTop = els.body.scrollHeight;
+        const last = els.body.lastElementChild;
+        if (last && typeof last.scrollIntoView === "function") {
+          try {
+            last.scrollIntoView({ block: "end", behavior: "auto" });
+          } catch (_) {
+            els.body.scrollTop = els.body.scrollHeight;
+          }
+        } else {
+          els.body.scrollTop = els.body.scrollHeight;
+        }
         state.stickToBottom = true;
         updateJumpControl();
       });
@@ -481,14 +490,18 @@
 
     const packages = (payload.packages || []).slice(0, 3);
     if (packages.length) {
-      html += `<div class="ts-section-label">Recommended for you</div><div class="ts-pkg-grid">`;
+      const sectionLabel =
+        packages.length === 1 ? "Suggested next step" : "Package comparison";
+      html += `<div class="ts-section-label">${sectionLabel}</div><div class="ts-pkg-grid">`;
       for (const p of packages) {
         const price = Number(p.price_gbp);
         const priceLabel = Number.isInteger(price) ? `£${price}` : `£${price.toFixed(2)}`;
         const rec = p.recommended ? " is-recommended" : "";
         const badge = p.recommended
           ? `<span class="ts-pkg-badge">Recommended for you</span>`
-          : `<span class="ts-pkg-badge alt">Also suitable</span>`;
+          : packages.length > 1
+            ? `<span class="ts-pkg-badge alt">Also listed</span>`
+            : "";
         const inclusions = Array.isArray(p.inclusions) && p.inclusions.length
           ? `<ul class="ts-pkg-features">${p.inclusions.slice(0, 4).map((i) => `<li>${escapeHtml(i)}</li>`).join("")}</ul>`
           : `<div class="ts-note">${escapeHtml(p.pressure_free_note || "Approved catalogue price — confirm inclusions on TaxSimba before purchase.")}</div>`;
@@ -499,14 +512,16 @@
         const cta = chooseUrl
           ? `<a class="ts-pkg-cta" href="${escapeHtml(chooseUrl)}" target="_blank" rel="noopener noreferrer">Choose this package</a>`
           : `<button type="button" class="ts-pkg-cta ts-pkg-cta-secondary" data-package="${escapeHtml(p.code)}">Tell me more</button>`;
+        const compareBtn =
+          packages.length === 1 && !String(p.code || "").startsWith("ACCOUNTANT_CONSULT_")
+            ? `<button type="button" class="ts-follow" data-follow="Please compare the approved packages for my situation.">Compare alternatives</button>`
+            : "";
         html += `<article class="ts-pkg-card${rec}">${badge}
           <strong>${escapeHtml(p.name)}</strong>
           <div class="ts-pkg-price">${priceLabel} <span>· ${escapeHtml(p.billing)}</span></div>
           <div class="ts-note">${escapeHtml(p.vat_note || "")}</div>
           ${why}${inclusions}
-          <div class="ts-pkg-actions">${cta}
-            <button type="button" class="ts-follow" data-package="${escapeHtml(p.code)}">Compare alternatives</button>
-          </div></article>`;
+          <div class="ts-pkg-actions">${cta}${compareBtn}</div></article>`;
       }
       html += `</div>`;
     }
@@ -537,7 +552,8 @@
 
     wrap.innerHTML = html;
     els.body.appendChild(wrap);
-    scrollChatToBottom(false);
+    state.stickToBottom = true;
+    scrollChatToBottom(true);
     announce("New SIMBA reply");
   }
 

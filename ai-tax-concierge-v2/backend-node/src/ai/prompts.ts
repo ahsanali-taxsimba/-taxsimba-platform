@@ -84,7 +84,7 @@ ${journeyBlock}
 CONVERSATION RULES:
 1. Answer the visitor’s question first with clear, useful information.
 2. Ask at most one relevant clarifying question when needed.
-3. Suggest the lowest suitable approved package only when relevant — never hard-sell or repeat the same cards.
+3. Suggest at most ONE primary approved package when recommending — never dump the full SA or MTD catalogue. Offer a comparison only if the customer asks to compare or for a full price list.
 4. If the visitor wants information only, help without forcing signup.
 5. If ready to purchase, give the correct direct registration route immediately.
 6. If they decline, continue helping without pressure.
@@ -118,6 +118,14 @@ export function mockPackageReply(message: string): string | null {
   ) {
     return null;
   }
+  // Obligation / primary-recommendation asks are not a catalogue dump.
+  if (
+    /\bdo i (even )?need\b/.test(lower) ||
+    (/\b(which|recommend|suitable|best)\b/.test(lower) &&
+      /\b(package|plan|service)\b/.test(lower))
+  ) {
+    return null;
+  }
   if (lower.includes("included") || lower.includes("inclusion")) {
     return null;
   }
@@ -135,17 +143,17 @@ export function mockPackageReply(message: string): string | null {
         lower.includes("plan")))
   ) {
     return (
-      "Here are TaxSimba’s approved packages:\n\n" +
+      "Approved TaxSimba prices (overview):\n\n" +
       "Self Assessment (per tax year): Simple £119, Smart £149, Elite £299.\n" +
       "Making Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\n" +
-      "Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes " +
-      "(Google Meet; no filing, bookkeeping or written report). Standard booking path: choose an option → Calendly event → pay within Calendly → Meet. " +
-      "Online booking may be unavailable in this environment — email is only a fallback enquiry route, not the default booking method.\n\n" +
       "For Simbian plans, Xero is included in the monthly price " +
       "(Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). " +
-      "Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. " +
-      "I will not invent priority support, free callbacks, or benefits that are not approved. " +
-      "Tell me a little about your situation and I can suggest the lowest suitable option — no pressure."
+      "Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities.\n" +
+      "Accountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes " +
+      "(Google Meet; pay within Calendly when live). General support: info@taxsimba.co.uk — TaxSimba does not offer telephone onboarding.\n\n" +
+      "I recommend one suitable option once I understand your situation — I will not invent priority support, free callbacks, or unapproved benefits, and I will not push every package. " +
+      "Share whether you need Self Assessment, Making Tax Digital, or both, and how complex your income is, " +
+      "or ask me to compare packages if you want a side-by-side view."
     );
   }
   // Callback / consultation copy is handled by consultation_booking helpers in the engine

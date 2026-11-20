@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-11-20T05:32:00Z",
+  "mode": "mock",
+  "journeys": [
+    {
+      "id": "A",
+      "packages": [
+        "SA_SIMPLE"
+      ],
+      "reply": "Based on what you shared, the lowest suitable approved option is Self Assessment Simple at \u00a3119 (per tax year) \u2014 Confirm VAT treatment on checkout. Lowest Self Assessment price that usually fits straightforward / single simple income situations. After you choose it: create an acc"
+    },
+    {
+      "id": "D",
+      "packages": [],
+      "reply": "Based on verified HMRC / GOV.UK guidance: [paye-and-additional-income] PAYE employment plus additional income (2024-25, 2025-26, 2026-27): Being taxed under PAYE does not automatically mean you have no Self Assessment obligations. Additional untaxed income, self-employment, prope"
+    },
+    {
+      "id": "G",
+      "packages": [],
+      "reply": "For general TaxSimba customer support, email info@taxsimba.co.uk and include a short summary of your question. Support is by email and (for clients) secure dashboard messaging \u2014 TaxSimba does not offer phone support. If you need personalised tax advice on your own figures, you ca"
+    },
+    {
+      "id": "COMPARE",
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART",
+        "SA_ELITE"
+      ]
+    },
+    {
+      "id": "E",
+      "packages": [],
+      "reply": "As an existing TaxSimba client, use your secure dashboard to message your assigned accountant and upload documents. That is the right channel for case-specific help \u2014 you usually do not need to buy a new public package. "
+    },
+    {
+      "id": "ONBOARD",
+      "packages": [],
+      "reply": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) c"
+    }
+  ]
+}

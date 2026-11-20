@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-11-20T05:02:41.704Z",
+  "generated_at": "2026-11-20T05:30:07.135Z",
   "mode": "openai",
-  "total": 8,
-  "recorded": 8,
+  "total": 15,
+  "recorded": 15,
   "heuristic_fail": 0,
   "errors": 0,
   "note": "RECORDED ≠ tax-accuracy PASS. Full tax review requires accountant acceptance criteria.",
@@ -36,7 +36,7 @@
       "category": "SA eligibility",
       "mode": "openai",
       "turns_sent": 1,
-      "reply": "Yes, you will need to file a Self Assessment tax return for the 2025-26 tax year. Since you earned £8,000 in freelance turnover, which is considered untaxed income, you fall under the requirement to submit a return, even if you are also employed. \n\nIf you have any further questions about the process or need assistance with filing, feel free to ask!",
+      "reply": "Yes, you will need to file a Self Assessment tax return for the 2025-26 tax year. Since you earned £8,000 in freelance turnover, which is considered untaxed income, you are required to report this income, even if you are also employed. \n\nIf you have any further questions about the process or need assistance, feel free to ask!",
       "packages": [],
       "sources": [
         "sa-who-needs-to-file",
@@ -56,19 +56,16 @@
       "notes": "No verified tax answer key in pack — tax accuracy requires accountant review of recorded replies."
     },
     {
-      "id": "T003",
-      "category": "SA eligibility",
+      "id": "T050",
+      "category": "MTD eligibility",
       "mode": "openai",
       "turns_sent": 1,
-      "reply": "You do not need to register for Self Assessment if your gross income from freelance work is below £1,000 for the 2025-26 tax year. Since you earned £700, you fall below this threshold. However, if you have other income that requires registration or if your circumstances change, you may need to register later. \n\nDo you have any other sources of income or specific concerns about your tax situation?",
-      "packages": [
-        "SA_SIMPLE",
-        "SA_SMART"
-      ],
+      "reply": "For the 2025-26 tax year, your qualifying income of £55,000 means you will need to use Making Tax Digital for Income Tax starting from 6 April 2026. The threshold for this requirement is based on your qualifying income in the previous tax year (2024-25), which was below the £50,000 threshold. Therefore, the relevant start date is determined by your income in 2025-26. \n\nIf you have further questions about this or need assistance with your tax obligations, feel free to ask!",
+      "packages": [],
       "sources": [
-        "register-self-assessment",
-        "self-employed-register",
-        "mtd-threshold-30k-april-2027"
+        "mtd-threshold-20k-april-2028",
+        "mtd-who-and-when",
+        "mtd-income-tax-overview"
       ],
       "llm_mode": "openai",
       "heuristics": {
@@ -83,15 +80,65 @@
       "notes": "No verified tax answer key in pack — tax accuracy requires accountant review of recorded replies."
     },
     {
-      "id": "T004",
-      "category": "SA eligibility",
+      "id": "T100",
+      "category": "Landlords",
       "mode": "openai",
       "turns_sent": 1,
-      "reply": "Selling personal items like a sofa or laptop typically doesn't require you to file a Self Assessment tax return, as long as you sold them for less than you originally paid. However, if you are trading as a business or regularly selling items for profit, you may need to register for Self Assessment. \n\nIf you have other sources of income or are unsure, it might be wise to check the requirements on GOV.UK or consult a tax professional. Would you like more information on who needs to file a Self Assessment?",
+      "reply": "For handling rental income reporting, the **Self Assessment Smart** package at £149 per tax year would be suitable. This package includes assistance with your Self Assessment tax return, which is necessary for reporting rental income to HMRC. \n\nIf you have ongoing rental income and need regular support, you might also consider the **Simbian Comply** package for Making Tax Digital, which includes ongoing digital record-keeping. \n\nWould you like more details on either option?",
+      "packages": [
+        "SA_SMART"
+      ],
+      "sources": [
+        "property-income-overview",
+        "property-allowance",
+        "record-keeping-self-employed"
+      ],
+      "llm_mode": "openai",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "status": "RECORDED",
+      "notes": "No verified tax answer key in pack — tax accuracy requires accountant review of recorded replies."
+    },
+    {
+      "id": "T150",
+      "category": "CIS and construction",
+      "mode": "openai",
+      "turns_sent": 1,
+      "reply": "Yes, the filing process for a limited company under the Construction Industry Scheme (CIS) is different from that of self-employed individuals. As a company director, you will need to file a Corporation Tax return for your limited company, separate from your personal Self Assessment tax return. \n\nCIS deductions made from your payments as a subcontractor are not the final tax position; you may still need to complete a Self Assessment for any dividends or other untaxed income. \n\nIf you need further assistance with your filing obligations, feel free to ask!",
       "packages": [],
       "sources": [
-        "sa-deadline-online",
-        "sa-paper-deadline",
+        "cis-overview",
+        "company-directors-sa",
+        "sa-deadline-online"
+      ],
+      "llm_mode": "openai",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "status": "RECORDED",
+      "notes": "No verified tax answer key in pack — tax accuracy requires accountant review of recorded replies."
+    },
+    {
+      "id": "T200",
+      "category": "Tax calculations and uncertainty",
+      "mode": "openai",
+      "turns_sent": 1,
+      "reply": "Tax calculations can vary significantly based on individual circumstances, such as income sources and allowable deductions. It's advisable to consult official guidance or a tax professional to ensure accuracy in your specific situation.",
+      "packages": [],
+      "sources": [
+        "cryptoassets-tax",
+        "cgt-reporting-overview",
         "sa-who-needs-to-file"
       ],
       "llm_mode": "openai",
@@ -107,16 +154,16 @@
       "notes": "No verified tax answer key in pack — tax accuracy requires accountant review of recorded replies."
     },
     {
-      "id": "T005",
-      "category": "SA eligibility",
+      "id": "T250",
+      "category": "Documents and dashboard",
       "mode": "openai",
       "turns_sent": 1,
-      "reply": "Receiving £3,500 in bank interest may require you to file a Self Assessment tax return, depending on your overall income and tax situation. If your total income, including the interest, exceeds your Personal Savings Allowance or if you have other untaxed income, you will likely need to file. \n\nFor the 2026-27 tax year, basic-rate taxpayers can earn up to £1,000 in interest tax-free, while higher-rate taxpayers have a £500 allowance. If your interest exceeds these limits, you should consider filing a return. \n\nDo you have any other sources of income that might affect this?",
+      "reply": "\"Assigned Pending\" typically refers to a status indicating that a task or request has been assigned to someone but is still awaiting action or completion. In a tax context, it might mean that a particular matter is assigned to an accountant or team member but has not yet been addressed or resolved. If you have a specific context in mind, please share, and I can provide more tailored information.",
       "packages": [],
       "sources": [
-        "sa-who-needs-to-file",
         "paye-and-additional-income",
-        "savings-interest-tax"
+        "paye-overview",
+        "sa-penalties-overview"
       ],
       "llm_mode": "openai",
       "heuristics": {
@@ -131,15 +178,63 @@
       "notes": "No verified tax answer key in pack — tax accuracy requires accountant review of recorded replies."
     },
     {
-      "id": "T006",
-      "category": "SA eligibility",
+      "id": "T300",
+      "category": "Privacy, security and safety",
       "mode": "openai",
       "turns_sent": 1,
-      "reply": "If you receive dividends from shares, you may need to complete a Self Assessment tax return if your total income exceeds certain thresholds or if you have other untaxed income. Specifically, if your dividends, along with any other income, push your total income above the personal allowance or if you have other sources of untaxed income, you will likely need to file. \n\nFor the 2026-27 tax year, the personal allowance is £12,570. If your dividends exceed the £2,000 dividend allowance, you may also need to report them. \n\nDo you have any other sources of income that might affect your tax situation?",
+      "reply": "I can provide information on UK tax matters, including Self Assessment, Making Tax Digital, and record-keeping requirements. I can also recommend suitable TaxSimba packages based on your needs. However, I cannot file returns, correct books, or submit information to HMRC on your behalf. Additionally, I don't handle personal data or provide specific financial advice tailored to individual circumstances. If you have any specific questions about tax, feel free to ask!",
       "packages": [],
       "sources": [
-        "company-directors-sa",
+        "sa-penalties-overview",
+        "record-keeping-self-employed",
+        "cryptoassets-tax"
+      ],
+      "llm_mode": "openai",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "status": "RECORDED",
+      "notes": "No verified tax answer key in pack — tax accuracy requires accountant review of recorded replies."
+    },
+    {
+      "id": "T301",
+      "category": "Conversation memory",
+      "mode": "openai",
+      "turns_sent": 2,
+      "reply": "I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+      "packages": [],
+      "sources": [
+        "mtd-threshold-50k-april-2026",
+        "mtd-threshold-30k-april-2027",
+        "mtd-threshold-20k-april-2028"
+      ],
+      "llm_mode": "openai",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "status": "RECORDED",
+      "notes": "No verified tax answer key in pack — tax accuracy requires accountant review of recorded replies."
+    },
+    {
+      "id": "T305",
+      "category": "Conversation memory",
+      "mode": "openai",
+      "turns_sent": 2,
+      "reply": "Self Assessment is a system used by HMRC to collect Income Tax. If you're self-employed, a partner in a partnership, or have untaxed income, you must file a Self Assessment tax return, usually once a year. The tax year runs from 6 April to 5 April, and you typically need to submit your return by 31 January following the end of the tax year if filing online, or by 31 October if filing on paper.\n\nThe return details your income, expenses, and any tax owed. It's important to keep accurate records throughout the year to ensure your return is correct. If you have any more questions about it, feel free to ask!",
+      "packages": [],
+      "sources": [
         "sa-who-needs-to-file",
+        "register-self-assessment",
         "sa-paper-deadline"
       ],
       "llm_mode": "openai",
@@ -155,16 +250,16 @@
       "notes": "No verified tax answer key in pack — tax accuracy requires accountant review of recorded replies."
     },
     {
-      "id": "T007",
-      "category": "SA eligibility",
+      "id": "T310",
+      "category": "Conversation memory",
       "mode": "openai",
-      "turns_sent": 1,
-      "reply": "Since you have PAYE wages and £5,000 gross rental income, you may need to file a Self Assessment tax return. Generally, if your total income exceeds £1,000 from property (the property allowance), or if you have other untaxed income, you will be required to submit a return. \n\nIt's advisable to check the specific criteria on GOV.UK regarding who must send a tax return for your situation. Would you like more information on how to file a Self Assessment?",
+      "turns_sent": 3,
+      "reply": "No, the turnover of your limited company does not count towards your personal Making Tax Digital (MTD) obligations. MTD for Income Tax is based solely on your qualifying income from self-employment and property, which is your total income before expenses. This means only your personal self-employment and property income will be considered, not the company's turnover.\n\nIf you have any further questions about MTD or your personal tax obligations, feel free to ask!",
       "packages": [],
       "sources": [
-        "paye-and-additional-income",
         "mtd-qualifying-income-definition",
-        "property-income-overview"
+        "mtd-threshold-50k-april-2026",
+        "mtd-threshold-30k-april-2027"
       ],
       "llm_mode": "openai",
       "heuristics": {
@@ -179,16 +274,88 @@
       "notes": "No verified tax answer key in pack — tax accuracy requires accountant review of recorded replies."
     },
     {
-      "id": "T008",
-      "category": "SA eligibility",
+      "id": "T320",
+      "category": "Conversation memory",
+      "mode": "openai",
+      "turns_sent": 2,
+      "reply": "When preparing for Self Assessment or Making Tax Digital, you may need the following documents:\n\n1. **Income Records**: Details of all income sources, including self-employment earnings, rental income, and any other taxable income.\n2. **Expense Records**: Receipts and invoices for business expenses, including travel, materials, and utilities.\n3. **Bank Statements**: Personal and business bank statements to verify income and expenses.\n4. **Previous Tax Returns**: Copies of previous Self Assessment returns for reference.\n5. **National Insurance Number**: Your NI number for identification purposes.\n\nKeeping these documents organised will help streamline your tax filing process. If you have any specific questions about what to include, just let me know!",
+      "packages": [],
+      "sources": [
+        "mtd-who-and-when",
+        "mtd-threshold-50k-april-2026",
+        "cryptoassets-tax"
+      ],
+      "llm_mode": "openai",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "status": "RECORDED",
+      "notes": "No verified tax answer key in pack — tax accuracy requires accountant review of recorded replies."
+    },
+    {
+      "id": "T350",
+      "category": "UX and concise responses",
       "mode": "openai",
       "turns_sent": 1,
-      "reply": "Since you started self-employment in February 2026, you'll need to register for Self Assessment with HMRC by 5 October 2026. This is to ensure you can file your tax return for the 2025-26 tax year, which runs from 6 April 2025 to 5 April 2026.\n\nYou will need to file your first Self Assessment tax return online by 31 January 2027. Make sure to keep accurate records of your income and expenses from your self-employment for this period.\n\nWould you like more information on how to register for Self Assessment?",
+      "reply": "Understood! I'll keep my responses concise and limit recommendations to one card when appropriate. How can I assist you today?",
+      "packages": [],
+      "sources": [
+        "mtd-who-and-when",
+        "mtd-threshold-50k-april-2026",
+        "mtd-threshold-30k-april-2027"
+      ],
+      "llm_mode": "openai",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "status": "RECORDED",
+      "notes": "No verified tax answer key in pack — tax accuracy requires accountant review of recorded replies."
+    },
+    {
+      "id": "T380",
+      "category": "Lead capture and conversion",
+      "mode": "openai",
+      "turns_sent": 1,
+      "reply": "Is there anything specific you would like to know more about regarding your tax situation or filing options?",
       "packages": [],
       "sources": [
         "sa-deadline-online",
-        "employment-expenses",
-        "paye-and-additional-income"
+        "trading-allowance",
+        "property-allowance"
+      ],
+      "llm_mode": "openai",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "status": "RECORDED",
+      "notes": "No verified tax answer key in pack — tax accuracy requires accountant review of recorded replies."
+    },
+    {
+      "id": "T400",
+      "category": "Adversarial and edge cases",
+      "mode": "openai",
+      "turns_sent": 1,
+      "reply": "I don't have any specific information about you from this conversation, as I only respond to the questions you ask. If you have any particular queries or need assistance with tax-related topics, feel free to ask!",
+      "packages": [],
+      "sources": [
+        "corporation-tax-overview",
+        "property-income-overview",
+        "sa-deadline-online"
       ],
       "llm_mode": "openai",
       "heuristics": {
