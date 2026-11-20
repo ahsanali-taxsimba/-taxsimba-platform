@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T05:02:27.836Z",
+  "generated_at": "2026-11-20T05:29:41.886Z",
   "mode": "mock",
   "total": 400,
   "recorded": 400,
@@ -52,8 +52,7 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART"
+        "SA_SIMPLE"
       ],
       "sources_count": 3,
       "reply_chars": 889,
@@ -701,8 +700,7 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART"
+        "SA_SIMPLE"
       ],
       "sources_count": 3,
       "reply_chars": 636,
@@ -1568,9 +1566,7 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "SA_SMART",
-        "MTD_STARTER",
-        "MTD_GROWTH"
+        "SA_SMART"
       ],
       "sources_count": 3,
       "reply_chars": 736,
@@ -1667,9 +1663,7 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources_count": 3,
       "reply_chars": 641,
@@ -1690,9 +1684,7 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources_count": 3,
       "reply_chars": 736,
@@ -1922,9 +1914,7 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "SA_SMART",
-        "MTD_STARTER",
-        "MTD_GROWTH"
+        "SA_SMART"
       ],
       "sources_count": 3,
       "reply_chars": 736,
@@ -2917,9 +2907,7 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources_count": 3,
       "reply_chars": 614,
@@ -3073,8 +3061,7 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART"
+        "SA_SIMPLE"
       ],
       "sources_count": 3,
       "reply_chars": 519,
@@ -3459,9 +3446,7 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources_count": 3,
       "reply_chars": 392,
@@ -3805,12 +3790,10 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources_count": 3,
-      "reply_chars": 1027,
+      "reply_chars": 1041,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -3890,7 +3873,7 @@
         "SA_ELITE"
       ],
       "sources_count": 3,
-      "reply_chars": 1027,
+      "reply_chars": 1041,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -3913,7 +3896,7 @@
         "SA_ELITE"
       ],
       "sources_count": 3,
-      "reply_chars": 1027,
+      "reply_chars": 1041,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -3991,9 +3974,7 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "SA_SMART",
-        "MTD_STARTER",
-        "MTD_GROWTH"
+        "SA_SMART"
       ],
       "sources_count": 3,
       "reply_chars": 798,
@@ -4014,9 +3995,7 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "SA_SMART",
-        "MTD_STARTER",
-        "MTD_GROWTH"
+        "SA_SMART"
       ],
       "sources_count": 3,
       "reply_chars": 357,
@@ -4038,7 +4017,7 @@
       "turns_sent": 1,
       "packages": [],
       "sources_count": 3,
-      "reply_chars": 1027,
+      "reply_chars": 1041,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -4056,12 +4035,10 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources_count": 3,
-      "reply_chars": 1027,
+      "reply_chars": 1041,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -4098,12 +4075,10 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources_count": 3,
-      "reply_chars": 1027,
+      "reply_chars": 1041,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -4159,11 +4134,10 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "MTD_STARTER",
-        "MTD_GROWTH"
+        "MTD_STARTER"
       ],
       "sources_count": 3,
-      "reply_chars": 1027,
+      "reply_chars": 1041,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -4263,12 +4237,10 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources_count": 3,
-      "reply_chars": 1027,
+      "reply_chars": 1041,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -4399,13 +4371,9 @@
       "status": "RECORDED",
       "llm_mode": "mock",
       "turns_sent": 1,
-      "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
-      ],
+      "packages": [],
       "sources_count": 3,
-      "reply_chars": 1027,
+      "reply_chars": 545,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -4468,7 +4436,7 @@
       "turns_sent": 1,
       "packages": [],
       "sources_count": 3,
-      "reply_chars": 714,
+      "reply_chars": 275,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -4544,7 +4512,7 @@
       "turns_sent": 1,
       "packages": [],
       "sources_count": 3,
-      "reply_chars": 1027,
+      "reply_chars": 1041,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -4562,9 +4530,7 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources_count": 3,
       "reply_chars": 692,
@@ -4585,12 +4551,10 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources_count": 3,
-      "reply_chars": 1027,
+      "reply_chars": 1041,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -4650,7 +4614,7 @@
       "turns_sent": 1,
       "packages": [],
       "sources_count": 3,
-      "reply_chars": 692,
+      "reply_chars": 275,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -4919,7 +4883,7 @@
       "turns_sent": 1,
       "packages": [],
       "sources_count": 3,
-      "reply_chars": 787,
+      "reply_chars": 275,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -5052,7 +5016,7 @@
       "turns_sent": 1,
       "packages": [],
       "sources_count": 3,
-      "reply_chars": 1024,
+      "reply_chars": 396,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -5280,7 +5244,7 @@
       "turns_sent": 1,
       "packages": [],
       "sources_count": 3,
-      "reply_chars": 744,
+      "reply_chars": 396,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -5318,7 +5282,7 @@
       "turns_sent": 1,
       "packages": [],
       "sources_count": 3,
-      "reply_chars": 744,
+      "reply_chars": 396,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -5378,7 +5342,7 @@
       "turns_sent": 1,
       "packages": [],
       "sources_count": 3,
-      "reply_chars": 787,
+      "reply_chars": 275,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -6605,12 +6569,10 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources_count": 3,
-      "reply_chars": 1027,
+      "reply_chars": 1041,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -6666,12 +6628,10 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources_count": 3,
-      "reply_chars": 1027,
+      "reply_chars": 1041,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -6841,12 +6801,10 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources_count": 3,
-      "reply_chars": 1027,
+      "reply_chars": 1041,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -7020,7 +6978,7 @@
       "turns_sent": 1,
       "packages": [],
       "sources_count": 3,
-      "reply_chars": 1027,
+      "reply_chars": 1041,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -7272,12 +7230,10 @@
       "llm_mode": "mock",
       "turns_sent": 1,
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources_count": 3,
-      "reply_chars": 1027,
+      "reply_chars": 1041,
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,

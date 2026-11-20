@@ -10,9 +10,11 @@ import {
 } from "./prompts.js";
 import {
   answerInclusionsQuestion,
+  limitPackageCodes,
   recommendForMessage,
   toPackageCards,
   visitorDeclinesSales,
+  wantsPackageComparison,
 } from "./recommendations.js";
 import { AnalyticsRecorder } from "../analytics/events.js";
 import { getSettings, type Settings } from "../config/settings.js";
@@ -154,6 +156,15 @@ export class ConversationalEngine {
 
     const inclusions = answerInclusionsQuestion(request.message);
     const catalogFast = mockPackageReply(request.message);
+    const supportQ =
+      /\b(customer support|contact support|email support|support email|how (do i|can i) contact|speak to support|get (help|support)|help desk)\b/i.test(
+        request.message,
+      ) &&
+      !/\b(accountant|consult|£99|£149|book)\b/i.test(request.message);
+    const onboardingQ =
+      /\b(what happens after (i )?(sign.?up|register|pay|payment|checkout)|after (payment|signup|sign.?up|i pay)|onboarding (steps|process)|how (does|do) (signup|registration|onboarding) work)\b/i.test(
+        request.message,
+      );
     const callbackQ =
       /\b(callback|call back|free call|phone me|phone call|call me)\b/i.test(
         request.message,
@@ -202,6 +213,30 @@ export class ConversationalEngine {
         "(for example trading profit) and then credits tax already paid under PAYE — so the balancing payment is usually only the additional amount, not your whole Income Tax for the year. " +
         "I won’t invent a tax figure without a full calculation. " +
         "If you share turnover/profit and the tax year, I can explain what to check next — or choose a paid accountant video consultation if you want personalised advice.";
+      confidence = "high";
+    } else if (
+      /\b(existing (taxsimba )?client|already (a )?taxsimba|logged ?in|my dashboard|message my (assigned )?accountant|my assigned accountant)\b/i.test(
+        request.message,
+      )
+    ) {
+      reply =
+        "As an existing TaxSimba client, use your secure dashboard to message your assigned accountant and upload documents. " +
+        "That is the right channel for case-specific help — you usually do not need to buy a new public package. " +
+        "For general account support, email info@taxsimba.co.uk.";
+      confidence = "high";
+    } else if (supportQ) {
+      reply =
+        "For general TaxSimba customer support, email info@taxsimba.co.uk and include a short summary of your question. " +
+        "Support is by email and (for clients) secure dashboard messaging — TaxSimba does not offer phone support. " +
+        "If you need personalised tax advice on your own figures, you can book a paid Google Meet consultation (£99 for 20 minutes or £149 for 40 minutes) when online booking is available.";
+      confidence = "high";
+    } else if (onboardingQ) {
+      reply =
+        "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, " +
+        "(2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, " +
+        "(5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there. " +
+        "I won’t invent portal screens or claim payment succeeded from this chat. " +
+        "Self Assessment packages: https://www.taxsimba.co.uk/self-assessment · MTD: https://www.taxsimba.co.uk/making-tax-digital.";
       confidence = "high";
     } else if (callbackQ) {
       reply = callbackHonestyReply(this.settings.consultationBookingLive);
@@ -344,9 +379,12 @@ export class ConversationalEngine {
       consultationHint = buildConsultationHint(
         this.settings.consultationBookingLive,
       );
-      const codes = consultSelection
-        ? [consultSelection.code]
-        : ["ACCOUNTANT_CONSULT_99", "ACCOUNTANT_CONSULT_149"];
+      const codes = limitPackageCodes(
+        consultSelection
+          ? [consultSelection.code]
+          : ["ACCOUNTANT_CONSULT_99", "ACCOUNTANT_CONSULT_149"],
+        request.message,
+      );
       packages = toPackageCards(codes, request.message);
     } else if (
       !declineSales &&
@@ -362,11 +400,63 @@ export class ConversationalEngine {
         consultationHint = buildConsultationHint(
           this.settings.consultationBookingLive,
         );
-        packages = toPackageCards([
-          "ACCOUNTANT_CONSULT_99",
-          "ACCOUNTANT_CONSULT_149",
-        ]);
+        packages = toPackageCards(
+          limitPackageCodes(
+            ["ACCOUNTANT_CONSULT_99", "ACCOUNTANT_CONSULT_149"],
+            request.message,
+          ),
+          request.message,
+        );
       }
+    }
+
+    const existingClientQ =
+      /\b(existing (taxsimba )?client|already (a )?taxsimba|logged ?in|my dashboard|message my (assigned )?accountant|my assigned accountant)\b/i.test(
+        request.message,
+      );
+    // Never attach sales cards for support/onboarding/existing-client answers.
+    if (supportQ || onboardingQ || existingClientQ) {
+      packages = [];
+      calculators = [];
+    }
+
+    // Mock mode: only when the customer explicitly asked which/cheapest package —
+    // never override MTD eligibility or other deterministic tax answers.
+    const explicitPrimaryPackageAsk =
+      /\b(which|recommend|cheapest|suitable|best)\b/i.test(request.message) &&
+      /\b(package|plan)\b/i.test(request.message);
+    if (
+      this.llm.mode === "mock" &&
+      !declineSales &&
+      packages.length === 1 &&
+      explicitPrimaryPackageAsk &&
+      !wantsPackageComparison(request.message) &&
+      !consultSelection &&
+      !consultIntent &&
+      !mtdEligibility?.handled &&
+      !mtdOps &&
+      !supportQ &&
+      !onboardingQ &&
+      !existingClientQ
+    ) {
+      const p = packages[0]!;
+      const price = Number(p.price_gbp);
+      const priceLabel = Number.isInteger(price)
+        ? `£${price}`
+        : `£${price.toFixed(2)}`;
+      const signup =
+        p.choose_url ||
+        (p.registration_path
+          ? `https://www.taxsimba.co.uk${p.registration_path}`
+          : "https://www.taxsimba.co.uk/register");
+      reply =
+        `Based on what you shared, the lowest suitable approved option is ${p.name} at ${priceLabel}` +
+        `${p.billing ? ` (${p.billing})` : ""}${p.vat_note ? ` — ${p.vat_note}` : ""}. ` +
+        `${p.recommendation_reason || ""} ` +
+        `After you choose it: create an account, verify email, select the package, pay on TaxSimba, then use your dashboard for accountant-led onboarding. ` +
+        `Signup: ${signup}. ` +
+        `Say if you would like a comparison instead — I will not push every package.`;
+      confidence = "high";
     }
 
     this.persist(
@@ -456,7 +546,15 @@ export class ConversationalEngine {
     const leanSources = (sources || []).slice(0, 3);
     const leanCalcs = (calculators || []).slice(0, 2);
     const leanRoutes = (routes || []).slice(0, 2);
-    const leanPackages = (packages || []).slice(0, 3);
+    const allowedCodes = new Set(
+      limitPackageCodes(
+        (packages || []).map((p) => p.code),
+        routeQuery,
+      ),
+    );
+    const cappedPackages = (packages || []).filter((p) =>
+      allowedCodes.has(p.code),
+    );
     return {
       session_id: sessionId,
       reply,
@@ -467,7 +565,7 @@ export class ConversationalEngine {
       consultation_hint: consultationHint,
       offer_lead_capture: offerLead,
       follow_ups: (followUps || []).slice(0, 3),
-      packages: leanPackages,
+      packages: cappedPackages,
       calculators: leanCalcs,
       routes: leanRoutes,
       journey: journeyState ?? null,

@@ -1,0 +1,238 @@
+{
+  "generated_at": "2026-11-20T05:30:07.135Z",
+  "mode": "openai",
+  "total": 15,
+  "recorded": 15,
+  "heuristic_fail": 0,
+  "errors": 0,
+  "note": "RECORDED \u2260 tax-accuracy PASS. Full tax review requires accountant acceptance criteria.",
+  "results": [
+    {
+      "id": "T001",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "Happy to help \u2014 I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else \u2014 and which tax year?",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T002",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "Yes, you will need to file a Self Assessment tax return for the 2025-26 tax year. Since you earned \u00a38,000 in freelance turnover, which is considered untaxed income, you are required to report this income, even if you are also employed. \n\nIf you have any further questions about th",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T050",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "For the 2025-26 tax year, your qualifying income of \u00a355,000 means you will need to use Making Tax Digital for Income Tax starting from 6 April 2026. The threshold for this requirement is based on your qualifying income in the previous tax year (2024-25), which was below the \u00a350,0",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T100",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [
+        "SA_SMART"
+      ],
+      "reply_preview": "For handling rental income reporting, the **Self Assessment Smart** package at \u00a3149 per tax year would be suitable. This package includes assistance with your Self Assessment tax return, which is necessary for reporting rental income to HMRC. \n\nIf you have ongoing rental income a",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T150",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "Yes, the filing process for a limited company under the Construction Industry Scheme (CIS) is different from that of self-employed individuals. As a company director, you will need to file a Corporation Tax return for your limited company, separate from your personal Self Assessm",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T200",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "Tax calculations can vary significantly based on individual circumstances, such as income sources and allowable deductions. It's advisable to consult official guidance or a tax professional to ensure accuracy in your specific situation.",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T250",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "\"Assigned Pending\" typically refers to a status indicating that a task or request has been assigned to someone but is still awaiting action or completion. In a tax context, it might mean that a particular matter is assigned to an accountant or team member but has not yet been add",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T300",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "I can provide information on UK tax matters, including Self Assessment, Making Tax Digital, and record-keeping requirements. I can also recommend suitable TaxSimba packages based on your needs. However, I cannot file returns, correct books, or submit information to HMRC on your b",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T301",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "I can work out your Making Tax Digital start date once I know your qualifying income. That\u2019s total self-employment and property income before expenses for a specific tax year \u2014 not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T305",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "Self Assessment is a system used by HMRC to collect Income Tax. If you're self-employed, a partner in a partnership, or have untaxed income, you must file a Self Assessment tax return, usually once a year. The tax year runs from 6 April to 5 April, and you typically need to submi",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T310",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "No, the turnover of your limited company does not count towards your personal Making Tax Digital (MTD) obligations. MTD for Income Tax is based solely on your qualifying income from self-employment and property, which is your total income before expenses. This means only your per",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T320",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "When preparing for Self Assessment or Making Tax Digital, you may need the following documents:\n\n1. **Income Records**: Details of all income sources, including self-employment earnings, rental income, and any other taxable income.\n2. **Expense Records**: Receipts and invoices fo",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T350",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "Understood! I'll keep my responses concise and limit recommendations to one card when appropriate. How can I assist you today?",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T380",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "Is there anything specific you would like to know more about regarding your tax situation or filing options?",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T400",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "I don't have any specific information about you from this conversation, as I only respond to the questions you ask. If you have any particular queries or need assistance with tax-related topics, feel free to ask!",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    }
+  ]
+}

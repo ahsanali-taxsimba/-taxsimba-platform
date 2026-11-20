@@ -92,10 +92,19 @@
       return;
     }
     // Double rAF so layout (bubbles, images, keyboard) settles before scrolling —
-    // avoids the mobile upward jump when a reply lands.
+    // keeps the latest answer visible without yanking readers of older messages.
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
-        body.scrollTop = body.scrollHeight;
+        var last = messagesEl && messagesEl.lastElementChild;
+        if (last && typeof last.scrollIntoView === "function") {
+          try {
+            last.scrollIntoView({ block: "end", behavior: "auto" });
+          } catch (_) {
+            body.scrollTop = body.scrollHeight;
+          }
+        } else {
+          body.scrollTop = body.scrollHeight;
+        }
         stickToBottom = true;
         updateJumpBtn();
       });
@@ -194,7 +203,8 @@
     wrap.className = "sp-msg user";
     wrap.innerHTML = '<div class="sp-bubble">' + escapeHtml(text) + "</div>";
     messagesEl.appendChild(wrap);
-    scrollBottom();
+    stickToBottom = true;
+    scrollBottom(true);
   }
 
   function appendAssistant(payload) {
@@ -220,7 +230,7 @@
 
     var packages = (payload.packages || []).slice(0, 3);
     if (packages.length) {
-      html += '<div class="sp-pkgs" aria-label="Optional packages">';
+      html += '<div class="sp-pkgs" aria-label="Suggested package">';
       packages.forEach(function (p) {
         var price = Number(p.price_gbp);
         var priceLabel = Number.isFinite(price)
@@ -290,7 +300,7 @@
       html +=
         '<div class="sp-pkg">' +
         escapeHtml(payload.consultation_hint) +
-        '<div style="margin-top:6px"><button type="button" class="sp-quick-btn sp-follow" data-follow="I want to book a £99 accountant consultation for 30 minutes.">Ask about £99 consultation</button></div></div>';
+        '<div style="margin-top:6px"><button type="button" class="sp-quick-btn sp-follow" data-follow="I want to book a £99 accountant consultation for 20 minutes.">Ask about £99 consultation</button></div></div>';
     }
 
     wrap.innerHTML = html;
@@ -305,7 +315,8 @@
         sendChat(btn.getAttribute("data-follow") || btn.textContent);
       });
     });
-    scrollBottom();
+    stickToBottom = true;
+    scrollBottom(true);
   }
 
   function appendError(text) {
@@ -398,7 +409,7 @@
       mtd: "I need help with Making Tax Digital for Income Tax. Explain the thresholds and which MTD package fits.",
       package:
         "Help me choose the right TaxSimba package. Ask one question at a time about my situation.",
-      consult: "I want to book a £99 accountant consultation for 30 minutes.",
+      consult: "I want to book a £99 accountant consultation for 20 minutes.",
       ask: null,
     };
     if (action === "ask") {

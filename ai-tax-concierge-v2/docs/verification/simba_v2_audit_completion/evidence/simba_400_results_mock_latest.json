@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T05:02:27.836Z",
+  "generated_at": "2026-11-20T05:29:41.886Z",
   "mode": "mock",
   "total": 400,
   "recorded": 400,
@@ -62,8 +62,7 @@
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [mtd-threshold-30k-april-2027] MTD Income Tax £30,000 threshold starts 6 April 2027 (2025-26, 2026-27, 2027-28): If your qualifying income is more than £30,000 for the 2025-26 tax year (2025 to 2026), you need to use Making Tax Digital for Income Tax from 6 April 2027. This is not April 2026. April 2026 applies only to the higher £50,000 qualifying-income band (based on 2024-25). Qualifying income is turnover/gross self-employment and property income before expenses, not profit after expenses. (source: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART"
+        "SA_SIMPLE"
       ],
       "sources": [
         "register-self-assessment",
@@ -881,8 +880,7 @@
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [register-self-assessment] Register for Self Assessment (2024-25, 2025-26, 2026-27): If you need to send a tax return and are not already registered, you must register for Self Assessment. New sole traders usually need to register by 5 October after the end of the tax year in which they started. (source: https://www.gov.uk/register-for-self-assessment)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART"
+        "SA_SIMPLE"
       ],
       "sources": [
         "register-self-assessment",
@@ -1973,9 +1971,7 @@
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [property-income-overview] Income from property (landlords) (2024-25, 2025-26, 2026-27): If you receive rental income from property you usually need to declare it to HMRC. Many landlords report property income through Self Assessment. Keep records of rent received and allowable expenses. Check GOV.UK for the rules that apply to your situation. (source: https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
       "packages": [
-        "SA_SMART",
-        "MTD_STARTER",
-        "MTD_GROWTH"
+        "SA_SMART"
       ],
       "sources": [
         "property-income-overview",
@@ -2097,9 +2093,7 @@
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [capital-allowances-overview] Capital allowances overview (2024-25, 2025-26, 2026-27): Capital allowances let businesses claim tax relief on certain equipment and assets instead of deducting the full cost as an expense. Annual Investment Allowance and other reliefs may apply — confirm current limits on GOV.UK. (source: https://www.gov.uk/capital-allowances)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources": [
         "corporation-tax-overview",
@@ -2125,9 +2119,7 @@
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [property-income-overview] Income from property (landlords) (2024-25, 2025-26, 2026-27): If you receive rental income from property you usually need to declare it to HMRC. Many landlords report property income through Self Assessment. Keep records of rent received and allowable expenses. Check GOV.UK for the rules that apply to your situation. (source: https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources": [
         "property-income-overview",
@@ -2417,9 +2409,7 @@
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [property-income-overview] Income from property (landlords) (2024-25, 2025-26, 2026-27): If you receive rental income from property you usually need to declare it to HMRC. Many landlords report property income through Self Assessment. Keep records of rent received and allowable expenses. Check GOV.UK for the rules that apply to your situation. (source: https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
       "packages": [
-        "SA_SMART",
-        "MTD_STARTER",
-        "MTD_GROWTH"
+        "SA_SMART"
       ],
       "sources": [
         "property-income-overview",
@@ -3672,9 +3662,7 @@
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [employment-expenses] Employment expenses claim (2024-25, 2025-26, 2026-27): Employees may claim tax relief on certain unreimbursed job expenses if they were necessary for work and not covered by the employer. Rules are strict — check GOV.UK for what qualifies and how to claim. (source: https://www.gov.uk/tax-relief-for-employees)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources": [
         "employment-expenses",
@@ -3868,8 +3856,7 @@
       "turns_sent": 1,
       "reply": "CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment",
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART"
+        "SA_SIMPLE"
       ],
       "sources": [
         "cis-overview",
@@ -4354,9 +4341,7 @@
       "turns_sent": 1,
       "reply": "Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead — it depends on your activity. Keep detailed records. I won’t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets — were your crypto disposals investment-style gains, or more like a trading business?",
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources": [
         "cryptoassets-tax",
@@ -4788,11 +4773,9 @@
       "category": "Tax calculations and uncertainty",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Standard booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable in this environment — email is only a fallback enquiry route, not the default booking method.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.",
+      "reply": "Approved TaxSimba prices (overview):\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; pay within Calendly when live). General support: info@taxsimba.co.uk — TaxSimba does not offer telephone onboarding.\n\nI recommend one suitable option once I understand your situation — I will not invent priority support, free callbacks, or unapproved benefits, and I will not push every package. Share whether you need Self Assessment, Making Tax Digital, or both, and how complex your income is, or ask me to compare packages if you want a side-by-side view.",
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources": [
         "sa-who-needs-to-file",
@@ -4888,7 +4871,7 @@
       "category": "TaxSimba packages",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Standard booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable in this environment — email is only a fallback enquiry route, not the default booking method.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.",
+      "reply": "Approved TaxSimba prices (overview):\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; pay within Calendly when live). General support: info@taxsimba.co.uk — TaxSimba does not offer telephone onboarding.\n\nI recommend one suitable option once I understand your situation — I will not invent priority support, free callbacks, or unapproved benefits, and I will not push every package. Share whether you need Self Assessment, Making Tax Digital, or both, and how complex your income is, or ask me to compare packages if you want a side-by-side view.",
       "packages": [
         "SA_SIMPLE",
         "SA_SMART",
@@ -4916,7 +4899,7 @@
       "category": "TaxSimba packages",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Standard booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable in this environment — email is only a fallback enquiry route, not the default booking method.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.",
+      "reply": "Approved TaxSimba prices (overview):\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; pay within Calendly when live). General support: info@taxsimba.co.uk — TaxSimba does not offer telephone onboarding.\n\nI recommend one suitable option once I understand your situation — I will not invent priority support, free callbacks, or unapproved benefits, and I will not push every package. Share whether you need Self Assessment, Making Tax Digital, or both, and how complex your income is, or ask me to compare packages if you want a side-by-side view.",
       "packages": [
         "SA_SIMPLE",
         "SA_SMART",
@@ -5021,9 +5004,7 @@
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [property-allowance] Property allowance overview (2024-25, 2025-26, 2026-27): The property allowance is a tax exemption of up to £1,000 a year for individuals with income from land or property, subject to conditions and interactions with other reliefs (including Rent a Room). If annual gross property income is £1,000 or less you may not need to tell HMRC (with exceptions). Confirm eligibility on GOV.UK before relying on it. (source: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
       "packages": [
-        "SA_SMART",
-        "MTD_STARTER",
-        "MTD_GROWTH"
+        "SA_SMART"
       ],
       "sources": [
         "property-allowance",
@@ -5049,9 +5030,7 @@
       "turns_sent": 1,
       "reply": "Rental income usually needs to be considered for Self Assessment, and may also count toward Making Tax Digital qualifying income (with any self-employment turnover) using gross rents before many expenses. Roughly how much rental income (before expenses) did you have, and for which tax year? Also — is this a residential let, Rent a Room, or something else?",
       "packages": [
-        "SA_SMART",
-        "MTD_STARTER",
-        "MTD_GROWTH"
+        "SA_SMART"
       ],
       "sources": [
         "property-income-overview",
@@ -5075,7 +5054,7 @@
       "category": "TaxSimba packages",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Standard booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable in this environment — email is only a fallback enquiry route, not the default booking method.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.",
+      "reply": "Approved TaxSimba prices (overview):\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; pay within Calendly when live). General support: info@taxsimba.co.uk — TaxSimba does not offer telephone onboarding.\n\nI recommend one suitable option once I understand your situation — I will not invent priority support, free callbacks, or unapproved benefits, and I will not push every package. Share whether you need Self Assessment, Making Tax Digital, or both, and how complex your income is, or ask me to compare packages if you want a side-by-side view.",
       "packages": [],
       "sources": [
         "record-keeping-self-employed",
@@ -5099,11 +5078,9 @@
       "category": "TaxSimba packages",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Standard booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable in this environment — email is only a fallback enquiry route, not the default booking method.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.",
+      "reply": "Approved TaxSimba prices (overview):\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; pay within Calendly when live). General support: info@taxsimba.co.uk — TaxSimba does not offer telephone onboarding.\n\nI recommend one suitable option once I understand your situation — I will not invent priority support, free callbacks, or unapproved benefits, and I will not push every package. Share whether you need Self Assessment, Making Tax Digital, or both, and how complex your income is, or ask me to compare packages if you want a side-by-side view.",
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources": [
         "mtd-threshold-30k-april-2027",
@@ -5151,11 +5128,9 @@
       "category": "TaxSimba packages",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Standard booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable in this environment — email is only a fallback enquiry route, not the default booking method.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.",
+      "reply": "Approved TaxSimba prices (overview):\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; pay within Calendly when live). General support: info@taxsimba.co.uk — TaxSimba does not offer telephone onboarding.\n\nI recommend one suitable option once I understand your situation — I will not invent priority support, free callbacks, or unapproved benefits, and I will not push every package. Share whether you need Self Assessment, Making Tax Digital, or both, and how complex your income is, or ask me to compare packages if you want a side-by-side view.",
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources": [
         "dividend-tax-overview",
@@ -5227,10 +5202,9 @@
       "category": "TaxSimba packages",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Standard booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable in this environment — email is only a fallback enquiry route, not the default booking method.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.",
+      "reply": "Approved TaxSimba prices (overview):\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; pay within Calendly when live). General support: info@taxsimba.co.uk — TaxSimba does not offer telephone onboarding.\n\nI recommend one suitable option once I understand your situation — I will not invent priority support, free callbacks, or unapproved benefits, and I will not push every package. Share whether you need Self Assessment, Making Tax Digital, or both, and how complex your income is, or ask me to compare packages if you want a side-by-side view.",
       "packages": [
-        "MTD_STARTER",
-        "MTD_GROWTH"
+        "MTD_STARTER"
       ],
       "sources": [
         "mtd-threshold-30k-april-2027",
@@ -5356,11 +5330,9 @@
       "category": "TaxSimba packages",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Standard booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable in this environment — email is only a fallback enquiry route, not the default booking method.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.",
+      "reply": "Approved TaxSimba prices (overview):\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; pay within Calendly when live). General support: info@taxsimba.co.uk — TaxSimba does not offer telephone onboarding.\n\nI recommend one suitable option once I understand your situation — I will not invent priority support, free callbacks, or unapproved benefits, and I will not push every package. Share whether you need Self Assessment, Making Tax Digital, or both, and how complex your income is, or ask me to compare packages if you want a side-by-side view.",
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources": [
         "trading-allowance",
@@ -5528,12 +5500,8 @@
       "category": "Registration and onboarding",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Standard booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable in this environment — email is only a fallback enquiry route, not the default booking method.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.",
-      "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
-      ],
+      "reply": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, (5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there. I won’t invent portal screens or claim payment succeeded from this chat. Self Assessment packages: https://www.taxsimba.co.uk/self-assessment · MTD: https://www.taxsimba.co.uk/making-tax-digital.",
+      "packages": [],
       "sources": [
         "register-self-assessment",
         "sa-paper-deadline",
@@ -5610,7 +5578,7 @@
       "category": "Registration and onboarding",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
+      "reply": "As an existing TaxSimba client, use your secure dashboard to message your assigned accountant and upload documents. That is the right channel for case-specific help — you usually do not need to buy a new public package. For general account support, email info@taxsimba.co.uk.",
       "packages": [],
       "sources": [
         "sa-deadline-online",
@@ -5706,7 +5674,7 @@
       "category": "Registration and onboarding",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Standard booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable in this environment — email is only a fallback enquiry route, not the default booking method.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.",
+      "reply": "Approved TaxSimba prices (overview):\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; pay within Calendly when live). General support: info@taxsimba.co.uk — TaxSimba does not offer telephone onboarding.\n\nI recommend one suitable option once I understand your situation — I will not invent priority support, free callbacks, or unapproved benefits, and I will not push every package. Share whether you need Self Assessment, Making Tax Digital, or both, and how complex your income is, or ask me to compare packages if you want a side-by-side view.",
       "packages": [],
       "sources": [
         "property-income-overview",
@@ -5732,9 +5700,7 @@
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [record-keeping-self-employed] Records you should keep if self-employed (2024-25, 2025-26, 2026-27): If you are self-employed you must keep records of business income and expenses. Keep records for at least 5 years after the 31 January submission deadline of the relevant tax year. Digital record-keeping becomes especially important under Making Tax Digital. (source: https://www.gov.uk/self-employed-records)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources": [
         "record-keeping-self-employed",
@@ -5758,11 +5724,9 @@
       "category": "Registration and onboarding",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Standard booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable in this environment — email is only a fallback enquiry route, not the default booking method.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.",
+      "reply": "Approved TaxSimba prices (overview):\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; pay within Calendly when live). General support: info@taxsimba.co.uk — TaxSimba does not offer telephone onboarding.\n\nI recommend one suitable option once I understand your situation — I will not invent priority support, free callbacks, or unapproved benefits, and I will not push every package. Share whether you need Self Assessment, Making Tax Digital, or both, and how complex your income is, or ask me to compare packages if you want a side-by-side view.",
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources": [
         "record-keeping-self-employed",
@@ -5837,7 +5801,7 @@
       "category": "Registration and onboarding",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Based on verified HMRC / GOV.UK guidance: [record-keeping-self-employed] Records you should keep if self-employed (2024-25, 2025-26, 2026-27): If you are self-employed you must keep records of business income and expenses. Keep records for at least 5 years after the 31 January submission deadline of the relevant tax year. Digital record-keeping becomes especially important under Making Tax Digital. (source: https://www.gov.uk/self-employed-records)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
+      "reply": "As an existing TaxSimba client, use your secure dashboard to message your assigned accountant and upload documents. That is the right channel for case-specific help — you usually do not need to buy a new public package. For general account support, email info@taxsimba.co.uk.",
       "packages": [],
       "sources": [
         "record-keeping-self-employed",
@@ -6176,7 +6140,7 @@
       "category": "Documents and dashboard",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Based on verified HMRC / GOV.UK guidance: [trading-allowance] Trading allowance overview (2024-25, 2025-26, 2026-27): The trading allowance is a tax exemption of up to £1,000 a year for individuals with trading income from self-employment, casual services or hiring personal equipment, subject to conditions. If annual gross trading income is £1,000 or less you may not need to tell HMRC (with exceptions). Confirm eligibility on GOV.UK before relying on it. (source: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
+      "reply": "As an existing TaxSimba client, use your secure dashboard to message your assigned accountant and upload documents. That is the right channel for case-specific help — you usually do not need to buy a new public package. For general account support, email info@taxsimba.co.uk.",
       "packages": [],
       "sources": [
         "sa-deadline-online",
@@ -6344,7 +6308,7 @@
       "category": "Documents and dashboard",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Based on verified HMRC / GOV.UK guidance: [mtd-who-and-when] Who needs Making Tax Digital for Income Tax and when (2025-26, 2026-27, 2027-28): You need to use Making Tax Digital for Income Tax if you are a sole trader or landlord registered for Self Assessment, you get income from self-employment or property (or both), and your qualifying income is more than the relevant threshold. Start dates depend on qualifying income in a prior tax year: more than £50,000 for 2024-25 means from 6 April 2026; more than £30,000 for 2025-26 means from 6 April 2027; more than £20,000 for 2026-27 means from 6 April 2028. Partnerships will be brought in later. Always confirm on GOV.UK. (source: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
+      "reply": "For general TaxSimba customer support, email info@taxsimba.co.uk and include a short summary of your question. Support is by email and (for clients) secure dashboard messaging — TaxSimba does not offer phone support. If you need personalised tax advice on your own figures, you can book a paid Google Meet consultation (£99 for 20 minutes or £149 for 40 minutes) when online booking is available.",
       "packages": [],
       "sources": [
         "pension-tax-relief",
@@ -6627,7 +6591,7 @@
       "category": "Consultations and support",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
+      "reply": "For general TaxSimba customer support, email info@taxsimba.co.uk and include a short summary of your question. Support is by email and (for clients) secure dashboard messaging — TaxSimba does not offer phone support. If you need personalised tax advice on your own figures, you can book a paid Google Meet consultation (£99 for 20 minutes or £149 for 40 minutes) when online booking is available.",
       "packages": [],
       "sources": [
         "sa-penalties-overview",
@@ -6675,7 +6639,7 @@
       "category": "Consultations and support",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
+      "reply": "For general TaxSimba customer support, email info@taxsimba.co.uk and include a short summary of your question. Support is by email and (for clients) secure dashboard messaging — TaxSimba does not offer phone support. If you need personalised tax advice on your own figures, you can book a paid Google Meet consultation (£99 for 20 minutes or £149 for 40 minutes) when online booking is available.",
       "packages": [],
       "sources": [
         "sa-penalties-overview",
@@ -6750,7 +6714,7 @@
       "category": "Consultations and support",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Based on verified HMRC / GOV.UK guidance: [trading-allowance] Trading allowance overview (2024-25, 2025-26, 2026-27): The trading allowance is a tax exemption of up to £1,000 a year for individuals with trading income from self-employment, casual services or hiring personal equipment, subject to conditions. If annual gross trading income is £1,000 or less you may not need to tell HMRC (with exceptions). Confirm eligibility on GOV.UK before relying on it. (source: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
+      "reply": "As an existing TaxSimba client, use your secure dashboard to message your assigned accountant and upload documents. That is the right channel for case-specific help — you usually do not need to buy a new public package. For general account support, email info@taxsimba.co.uk.",
       "packages": [],
       "sources": [
         "trading-allowance",
@@ -8298,11 +8262,9 @@
       "category": "Contradictions and clarifications",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Standard booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable in this environment — email is only a fallback enquiry route, not the default booking method.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.",
+      "reply": "Approved TaxSimba prices (overview):\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; pay within Calendly when live). General support: info@taxsimba.co.uk — TaxSimba does not offer telephone onboarding.\n\nI recommend one suitable option once I understand your situation — I will not invent priority support, free callbacks, or unapproved benefits, and I will not push every package. Share whether you need Self Assessment, Making Tax Digital, or both, and how complex your income is, or ask me to compare packages if you want a side-by-side view.",
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources": [
         "high-income-child-benefit",
@@ -8374,11 +8336,9 @@
       "category": "UX and concise responses",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Standard booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable in this environment — email is only a fallback enquiry route, not the default booking method.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.",
+      "reply": "Approved TaxSimba prices (overview):\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; pay within Calendly when live). General support: info@taxsimba.co.uk — TaxSimba does not offer telephone onboarding.\n\nI recommend one suitable option once I understand your situation — I will not invent priority support, free callbacks, or unapproved benefits, and I will not push every package. Share whether you need Self Assessment, Making Tax Digital, or both, and how complex your income is, or ask me to compare packages if you want a side-by-side view.",
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources": [
         "paye-and-additional-income",
@@ -8594,11 +8554,9 @@
       "category": "UX and concise responses",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Standard booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable in this environment — email is only a fallback enquiry route, not the default booking method.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.",
+      "reply": "Approved TaxSimba prices (overview):\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; pay within Calendly when live). General support: info@taxsimba.co.uk — TaxSimba does not offer telephone onboarding.\n\nI recommend one suitable option once I understand your situation — I will not invent priority support, free callbacks, or unapproved benefits, and I will not push every package. Share whether you need Self Assessment, Making Tax Digital, or both, and how complex your income is, or ask me to compare packages if you want a side-by-side view.",
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources": [
         "sa-paper-deadline",
@@ -8817,7 +8775,7 @@
       "category": "Lead capture and conversion",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Standard booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable in this environment — email is only a fallback enquiry route, not the default booking method.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.",
+      "reply": "Approved TaxSimba prices (overview):\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; pay within Calendly when live). General support: info@taxsimba.co.uk — TaxSimba does not offer telephone onboarding.\n\nI recommend one suitable option once I understand your situation — I will not invent priority support, free callbacks, or unapproved benefits, and I will not push every package. Share whether you need Self Assessment, Making Tax Digital, or both, and how complex your income is, or ask me to compare packages if you want a side-by-side view.",
       "packages": [],
       "sources": [
         "register-self-assessment",
@@ -9135,11 +9093,9 @@
       "category": "Lead capture and conversion",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Here are TaxSimba’s approved packages:\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). Standard booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable in this environment — email is only a fallback enquiry route, not the default booking method.\n\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities. I will not invent priority support, free callbacks, or benefits that are not approved. Tell me a little about your situation and I can suggest the lowest suitable option — no pressure.",
+      "reply": "Approved TaxSimba prices (overview):\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; pay within Calendly when live). General support: info@taxsimba.co.uk — TaxSimba does not offer telephone onboarding.\n\nI recommend one suitable option once I understand your situation — I will not invent priority support, free callbacks, or unapproved benefits, and I will not push every package. Share whether you need Self Assessment, Making Tax Digital, or both, and how complex your income is, or ask me to compare packages if you want a side-by-side view.",
       "packages": [
-        "SA_SIMPLE",
-        "SA_SMART",
-        "SA_ELITE"
+        "SA_SIMPLE"
       ],
       "sources": [
         "sa-deadline-online",

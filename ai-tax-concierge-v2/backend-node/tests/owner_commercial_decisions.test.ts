@@ -198,6 +198,7 @@ describe("owner commercial decisions — controlled approval", () => {
       null,
       WEBSITE,
     );
+    expect(landlord.packages).toHaveLength(1);
     expect(landlord.packages[0]?.code).toBe("MTD_STARTER");
     expect(landlord.packages[0]?.registration_path).toBe("/making-tax-digital");
 
@@ -206,6 +207,7 @@ describe("owner commercial decisions — controlled approval", () => {
       null,
       WEBSITE,
     );
+    expect(sole.packages).toHaveLength(1);
     expect(sole.packages[0]?.code).toBe("SA_SIMPLE");
     expect(sole.packages[0]?.registration_path).toBe("/self-assessment");
 
@@ -222,6 +224,7 @@ describe("owner commercial decisions — controlled approval", () => {
       null,
       WEBSITE,
     );
+    expect(cis.packages).toHaveLength(1);
     expect(cis.packages.map((p) => p.code)[0]).toMatch(/^SA_/);
 
     const multi = recommendForMessage(
@@ -229,7 +232,8 @@ describe("owner commercial decisions — controlled approval", () => {
       null,
       WEBSITE,
     );
-    expect(multi.packages.map((p) => p.code)).toContain("SA_SMART");
+    expect(multi.packages).toHaveLength(1);
+    expect(multi.packages[0]?.code).toBe("SA_SMART");
   });
 
   it("unknown_inclusion_behaviour_stays_safe", () => {

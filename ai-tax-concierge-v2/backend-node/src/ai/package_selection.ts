@@ -209,6 +209,14 @@ export function selectPackagesForMessage(message: string): string[] {
 
   if (cis) return ["SA_SIMPLE", "SA_SMART"];
 
+  if (
+    /\b(missed deadline|hmrc letter|penalty|late filing|late return)\b/.test(
+      lower,
+    )
+  ) {
+    return ["SA_SMART", "ACCOUNTANT_CONSULT_99", "SA_ELITE"];
+  }
+
   if (freelancer || wantsSa) {
     if (complex) return ["SA_SMART", "SA_ELITE"];
     if (simple) return ["SA_SIMPLE", "SA_SMART"];

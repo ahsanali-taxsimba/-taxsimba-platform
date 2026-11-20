@@ -15,7 +15,8 @@ import { selectPackagesForMessage } from "./package_selection.js";
 
 const SA_PRICE = /\b(package|packages|pricing|price|cost|how much)\b/i;
 const MTD_PRICE = /\bmtd\b|\bmaking tax digital\b/i;
-const CONSULT = /\b(consult|accountant|book|speak to|talk to)\b/i;
+const CONSULT =
+  /\b(consult(?:ation)?s?|book (a |an )?(call|meeting|slot|consult)|speak to (an )?accountant|talk to (an )?accountant|accountant consultation|quick tax advice|extended tax consultation)\b/i;
 const NO_BUY =
   /\b(don'?t want to buy|do not want to buy|not looking to buy|no sales|just information|information only|general information only|only want information|not interested in (a )?package|don'?t sell|do not sell|do not recommend (a )?package|don'?t recommend (a )?package|avoid (a )?checkout|no package|no pressure|just asking|curious only)\b/i;
 const EXISTING_CLIENT =
@@ -139,6 +140,14 @@ export function toPackageCards(
 export function wantsServiceRecommendation(message: string): boolean {
   if (visitorDeclinesSales(message)) return false;
   const lower = (message || "").toLowerCase();
+  // “Do I need a package?” is obligation guidance — not a catalogue request.
+  if (
+    /\bdo i (even )?need (a |the |any )?(taxsimba )?(package|plan|service|subscription)\b/.test(
+      lower,
+    )
+  ) {
+    return false;
+  }
   return (
     SA_PRICE.test(message) ||
     CONSULT.test(message) ||
@@ -148,6 +157,47 @@ export function wantsServiceRecommendation(message: string): boolean {
     (MTD_PRICE.test(message) &&
       /\b(plan|price|cost|package|how much|recommend)\b/i.test(lower))
   );
+}
+
+/**
+ * True when the customer explicitly wants a price list or side-by-side comparison.
+ * Ordinary “which package do you recommend?” is NOT a full catalogue dump.
+ */
+export function wantsPackageComparison(message: string): boolean {
+  if (visitorDeclinesSales(message)) return false;
+  const lower = (message || "").toLowerCase();
+  if (
+    /\b(compare|comparison|side by side|all (three|3|the) packages|list (the )?packages|what packages|which packages (are|do)|packages (are )?available|price list|full (price|package) list)\b/.test(
+      lower,
+    ) ||
+    /\bwhat\b[\s\S]{0,40}\bpackages?\b/.test(lower) ||
+    /\bpackages?\b[\s\S]{0,40}\b(offer|available|cost|price)\b/.test(lower)
+  ) {
+    return true;
+  }
+  // “How much do SA/MTD packages cost?” → overview; “which package?” → primary only.
+  if (
+    /\b(how much|what (do|are|is)|pricing|prices)\b/.test(lower) &&
+    /\b(package|packages|plan|plans|simbian)\b/.test(lower) &&
+    !/\b(which|recommend|suitable|best|cheapest)\b/.test(lower)
+  ) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * One primary card by default. Comparison lists (max 3) only when asked.
+ * Consultation intents may show both £99 and £149 options.
+ */
+export function limitPackageCodes(codes: string[], message: string): string[] {
+  const unique = [...new Set(codes.filter(Boolean))];
+  if (!unique.length) return [];
+  if (unique.every((c) => c.startsWith("ACCOUNTANT_CONSULT_"))) {
+    return unique.slice(0, 2);
+  }
+  if (wantsPackageComparison(message)) return unique.slice(0, 3);
+  return unique.slice(0, 1);
 }
 
 export function visitorDeclinesSales(message: string): boolean {
@@ -201,7 +251,10 @@ export function recommendForMessage(
   if (journey && journey.complete) {
     packages = declineSales
       ? []
-      : toPackageCards(journey.suggested_package_codes || [], message);
+      : toPackageCards(
+          limitPackageCodes(journey.suggested_package_codes || [], message),
+          message,
+        );
     const calcIds = new Set(journey.suggested_calculator_ids || []);
     const calcItems = (
       calculatorsCatalog().items as Record<string, unknown>[]
@@ -245,8 +298,11 @@ export function recommendForMessage(
       "How do I upload documents to TaxSimba?",
     ];
   } else if (circumstanceCodes.length && wantsRec) {
-    // Only attach catalogue cards when the customer asked for packages/prices/recommendation.
-    packages = toPackageCards(circumstanceCodes, message);
+    // One primary card unless the customer asked to compare.
+    packages = toPackageCards(
+      limitPackageCodes(circumstanceCodes, message),
+      message,
+    );
     if (circumstanceCodes.includes("ACCOUNTANT_CONSULT_99")) {
       followUps = [
         "What can an accountant consultation help with?",
@@ -255,14 +311,13 @@ export function recommendForMessage(
     } else if (circumstanceCodes.some((c) => c.startsWith("MTD_"))) {
       followUps = [
         "What is Making Tax Digital for Income Tax?",
-        "Do landlords need MTD?",
-        "Can you ask one question to narrow the plan?",
+        "Would you like to compare Simbian plans?",
       ];
     } else {
       followUps = [
-        "Can you ask one question to check which package fits?",
-        "Do I need Self Assessment this year?",
+        "Would you like to compare Self Assessment packages?",
         "Where do I register on TaxSimba?",
+        "What happens after I sign up?",
       ];
     }
   } else if (circumstanceCodes.length && !wantsRec) {
@@ -279,43 +334,52 @@ export function recommendForMessage(
         "Do I need Self Assessment this year?",
       ];
     }
-  } else if (SA_PRICE.test(message) && !MTD_PRICE.test(message)) {
-    packages = toPackageCards(
-      (cat.self_assessment as { code: string }[]).map((p) => p.code),
-      message,
+  } else if (
+    wantsRec &&
+    SA_PRICE.test(message) &&
+    !MTD_PRICE.test(message)
+  ) {
+    const saCodes = (cat.self_assessment as { code: string }[]).map(
+      (p) => p.code,
     );
+    packages = toPackageCards(limitPackageCodes(saCodes, message), message);
     followUps = [
-      "What is published for each Self Assessment package?",
+      wantsPackageComparison(message)
+        ? "Which Self Assessment package fits my situation?"
+        : "Would you like to compare Self Assessment packages?",
       "Do I need Self Assessment this year?",
-      "What accountant consultations does TaxSimba offer?",
+      "What happens after I sign up?",
     ];
-  } else if (MTD_PRICE.test(message) && SA_PRICE.test(message)) {
-    packages = toPackageCards(
-      [
-        ...(cat.self_assessment as { code: string }[]).map((p) => p.code),
-        ...(cat.mtd as { code: string }[]).map((p) => p.code),
-      ],
-      message,
-    );
+  } else if (wantsRec && MTD_PRICE.test(message) && SA_PRICE.test(message)) {
+    // Mixed SA+MTD price ask: never dump six cards — lead with one primary, or compare within family.
+    const mixed = wantsPackageComparison(message)
+      ? [
+          ...(cat.self_assessment as { code: string }[]).map((p) => p.code),
+          ...(cat.mtd as { code: string }[]).map((p) => p.code),
+        ].slice(0, 3)
+      : ["SA_SIMPLE"];
+    packages = toPackageCards(limitPackageCodes(mixed, message), message);
     followUps = [
       "Who needs Making Tax Digital?",
       "How do MTD plans differ from Self Assessment packages?",
     ];
   } else if (
+    wantsRec &&
     MTD_PRICE.test(message) &&
     (lower.includes("plan") ||
       lower.includes("price") ||
-      lower.includes("cost"))
+      lower.includes("cost") ||
+      lower.includes("package"))
   ) {
-    packages = toPackageCards(
-      (cat.mtd as { code: string }[]).map((p) => p.code),
-      message,
-    );
+    const mtdCodes = (cat.mtd as { code: string }[]).map((p) => p.code);
+    packages = toPackageCards(limitPackageCodes(mtdCodes, message), message);
     followUps = [
-      "What is Making Tax Digital for Income Tax?",
+      wantsPackageComparison(message)
+        ? "Which Simbian plan fits my situation?"
+        : "Would you like to compare Simbian plans?",
       "Do landlords need MTD?",
     ];
-  } else if (CONSULT.test(message)) {
+  } else if (wantsRec && CONSULT.test(message)) {
     const consultCodes = (
       Array.isArray(cat.consultation)
         ? (cat.consultation as { code: string }[])
@@ -324,14 +388,17 @@ export function recommendForMessage(
           : []
     ).map((p) => p.code);
     packages = toPackageCards(
-      consultCodes.length
-        ? consultCodes
-        : ["ACCOUNTANT_CONSULT_99", "ACCOUNTANT_CONSULT_149"],
+      limitPackageCodes(
+        consultCodes.length
+          ? consultCodes
+          : ["ACCOUNTANT_CONSULT_99", "ACCOUNTANT_CONSULT_149"],
+        message,
+      ),
       message,
     );
     followUps = [
       "What’s the difference between the £99 and £149 consultations?",
-      "Can I email TaxSimba instead?",
+      "Can I email TaxSimba support instead?",
     ];
   }
 
