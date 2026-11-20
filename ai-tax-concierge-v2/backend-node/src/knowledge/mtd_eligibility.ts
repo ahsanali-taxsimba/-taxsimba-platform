@@ -112,7 +112,15 @@ function detectBasisYear(text: string): string | null {
 
 export function isMtdEligibilityQuestion(message: string): boolean {
   const lower = (message || "").toLowerCase();
-  if (!/(mtd|making tax digital)/i.test(lower)) return false;
+  // Implicit MTD band questions: exact/over £50k/£30k/£20k + tax year + threshold wording.
+  const implicitMtdBand =
+    /(over|above|more than).{0,24}threshold|threshold.{0,24}(over|above)|exact(?:ly)?.{0,12}£?\s*(50|30|20),?000|£?\s*(50|30|20),?000.{0,20}exact/i.test(
+      lower,
+    ) &&
+    /(2024\s*[-/]?\s*25|2025\s*[-/]?\s*26|2026\s*[-/]?\s*27|2024\/25|2025\/26)/i.test(
+      lower,
+    );
+  if (!/(mtd|making tax digital)/i.test(lower) && !implicitMtdBand) return false;
   // Software / process / package questions are NOT eligibility calculations.
   if (
     /(xero|software|quarterly update|year-?end|how (do|does|to)|what (is|are|does)|include|simbian|\bfile\b|\bsubmit\b|bookkeep)/i.test(

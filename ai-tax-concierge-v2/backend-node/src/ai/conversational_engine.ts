@@ -267,6 +267,20 @@ export class ConversationalEngine {
         "I won’t invent portal screens or claim payment succeeded from this chat. " +
         "Self Assessment packages: https://www.taxsimba.co.uk/self-assessment · MTD: https://www.taxsimba.co.uk/making-tax-digital.";
       confidence = "high";
+    } else if (
+      /\b(i already know i need|need (self assessment|sa) help|want (self assessment|sa) help|looking for (self assessment|sa) help)\b/i.test(
+        request.message,
+      ) &&
+      !/\b(which|recommend|cheapest|suitable|best|how much|price|package|plan)\b/i.test(
+        request.message,
+      )
+    ) {
+      // Help-ready without SKU lock — avoid D10-style premature Simple recommendation.
+      reply =
+        "Understood — TaxSimba’s Self Assessment service is accountant-led: you register and pay on the TaxSimba portal, then complete onboarding and work with your assigned accountant via the dashboard (TaxCalc is used internally for SA workflows; the portal itself is not a direct HMRC filing tool). " +
+        "Before I name a package, are your affairs fairly simple (for example one income stream / first-time filer) or more complex (multiple income types, foreign income, etc.)? " +
+        "You can also browse https://www.taxsimba.co.uk/self-assessment or start at https://www.taxsimba.co.uk/register when ready.";
+      confidence = "high";
     } else if (callbackQ) {
       reply = callbackHonestyReply(this.settings.consultationBookingLive);
       confidence = "high";
@@ -327,11 +341,8 @@ export class ConversationalEngine {
     } else if (mtdOps) {
       reply = mtdOps;
       confidence = "high";
-    } else if (ambiguous?.handled) {
-      reply = ambiguous.customer_reply;
-      confidence = ambiguous.confidence;
     } else if (mtdEligibility?.handled) {
-      // Deterministic eligibility — model must not override.
+      // Deterministic eligibility — model / clarifier must not override.
       reply = mtdEligibility.customer_reply;
       confidence = mtdEligibility.confidence;
       if (
@@ -351,6 +362,9 @@ export class ConversationalEngine {
           ...sources,
         ];
       }
+    } else if (ambiguous?.handled) {
+      reply = ambiguous.customer_reply;
+      confidence = ambiguous.confidence;
     } else if (inclusions) {
       reply = inclusions;
     } else if (catalogFast && this.llm.mode === "mock") {

@@ -161,11 +161,28 @@ export function evaluateSaEligibility(opts: {
   message: string;
   tradingIncomeGbp: number | null;
   taxYearHint?: string | null;
+  payeOnly?: boolean;
 }): SaEligibilityResult {
-  const { message, tradingIncomeGbp, taxYearHint } = opts;
+  const { message, tradingIncomeGbp, taxYearHint, payeOnly } = opts;
   const yearNote = taxYearHint
     ? ` for ${taxYearHint}`
     : " for the tax year in question";
+
+  if (payeOnly && tradingIncomeGbp == null) {
+    return {
+      handled: true,
+      needs_more_info: false,
+      must_usually_file: false,
+      trading_income_gbp: null,
+      reason: "PAYE-only with no other income stated",
+      clarifying_question: null,
+      confidence: "high",
+      customer_reply:
+        "If your only income is taxed under PAYE through your employer and you have no other untaxed income, you usually do not need to send a Self Assessment tax return for that reason alone. " +
+        "Other GOV.UK triggers can still require a return (for example HMRC asking you to file, or certain high-income situations). " +
+        `Check the full list: ${SA_WHO_MUST_URL}`,
+    };
+  }
 
   if (tradingIncomeGbp == null) {
     return {
@@ -264,9 +281,16 @@ export function answerSaEligibility(
   const taxYearHint = yearMatch
     ? `${yearMatch[1]}-${yearMatch[2]}`
     : null;
+  const payeOnly =
+    /\bpaye\b|\bpayroll\b|\bsalary\b/.test(ctx.toLowerCase()) &&
+    /\bonly\b/.test(ctx.toLowerCase()) &&
+    !/(freelance|self-?employ|sole[- ]?trader|property|rental|trading income)/i.test(
+      ctx,
+    );
   return evaluateSaEligibility({
     message: ctx,
     tradingIncomeGbp,
     taxYearHint,
+    payeOnly,
   });
 }

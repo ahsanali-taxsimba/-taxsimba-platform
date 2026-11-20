@@ -61,13 +61,15 @@ export function answerAmbiguousIntent(message: string): ClarifierResult | null {
     };
   }
 
-  // Bare "I earn £X" without context
+  // Bare "I earn £X" without income-type context — do NOT fire when PAYE / trading / property already stated.
+  const hasIncomeType =
+    /(self-?employ|sole[- ]?trader|paye|salary|payroll|rental|property|profit|turnover|freelance|trading|company|crypto|dividend|qualifying income|handmade|casual)/i.test(
+      lower,
+    );
   if (
-    /^i (earn|make|get)\s*£?\s*[\d,]+k?\b/.test(lower) ||
-    (/i (earn|make)\s*£?\s*[\d,]+/.test(lower) &&
-      !/(self-?employ|sole|paye|salary|rental|property|profit|turnover|freelance|trading|company|crypto|dividend)/i.test(
-        lower,
-      ))
+    !hasIncomeType &&
+    (/^i (earn|make|get)\s*£?\s*[\d,]+k?\b/.test(lower) ||
+      /i (earn|make)\s*£?\s*[\d,]+/.test(lower))
   ) {
     return {
       handled: true,

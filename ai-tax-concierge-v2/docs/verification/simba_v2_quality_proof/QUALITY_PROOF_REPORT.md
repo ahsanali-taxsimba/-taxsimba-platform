@@ -9,34 +9,42 @@
 
 ---
 
-## Review pack (inspect existing answers)
+## Review packs
 
-See `evidence/review/README.md` — full T001–T400 register, deep20 transcripts, five-focus analysis, independent verification summary.
+- **ChatGPT second review:** `CHATGPT_REVIEW_PACK.md` + `evidence/independent_audit/`
+- Prior register / deep20 / focus: `evidence/review/`
+- Known failure fixes: `KNOWN_FAILURES_RETEST.md`
+- Asim sign-off is **not** a completion blocker; professional approval remains **NOT OBTAINED**
 
 ## Executive verdict
 
-**NO-GO for production.**
+**NO-GO for production (HOLD). Do not merge or deploy PR #43.**
 
 | Gate | Result |
 |------|--------|
 | Real OpenAI execution of T001–T400 | **PASS** — 400/400 `llm_mode=openai`, full transcripts |
-| Independently verified tax accuracy (all 400) | **NOT MET** — 3 VERIFIED_PASS, 397 AWAITING ACCOUNTANT REVIEW |
-| Accountant (Asim) sign-off | **NOT MET** — 0 ACCOUNTANT APPROVED |
-| Critical tax defects unresolved | **Cleared in code for QP-001** after retest; professional sign-off still required |
-| ≥40 live multi-turn journeys | **PASS** — 42/42 OpenAI (from evidence-gate, reused) |
-| ≥20 deep 8–15 turn conversations | **PASS** — 20/20 OpenAI transcripts |
-| UI screenshots / recordings | **PARTIAL PASS** — local preview screenshots + screen recordings captured; some mid-chat frames limited by widget input automation; SA fix verified on live :8091 API matching UI backend |
-| Automated regression | **PASS** — Vitest **544/544** |
+| Independently verified tax accuracy (strict statuses) | **NOT MET** — VERIFIED **5**, INCORRECT **2**, INCOMPLETE **4**, AMBIGUOUS **379**, REQUIRES_PROFESSIONAL_ADVICE **10**, BLOCKED **0** |
+| Asim sign-off as blocker | **Removed** — evaluation completes via independent evidence + ChatGPT second review |
+| Professional accountant approval | **NOT OBTAINED** (never equate AI verification with regulated approval) |
+| Known critical defects (T329, £8k, £50k, D03, D10, D02) | **Fixed in code** + unit/mock regression; frozen LIVE incorrect rows retained for audit honesty |
+| ≥40 live multi-turn journeys | **PASS** — 42/42 OpenAI (heuristic; not tax VERIFIED) |
+| ≥20 deep 8–15 turn conversations | **PASS** — 20/20 OpenAI transcripts (see journey audit flags) |
+| UI screenshots / recordings | **PARTIAL** — focus API evidence; some mid-chat UI automation limited |
+| Automated regression | **PASS** — Vitest **559/559** after independent-audit fixes |
+| Staging email / payment / Calendly / HMRC monitor / mobile | **UNVERIFIED** — remain HOLD |
 
 Categories (honest — generating 400 answers ≠ 400 accurate answers):
 
 | Category | Count |
 |----------|------:|
-| REAL MODEL EXECUTED | 400 pack + 42 journeys + 20 deep (+ SA smoke/retests) |
-| INDEPENDENTLY VERIFIED | 3 pack rows + SA £1k rule on D01 retest |
-| ACCOUNTANT APPROVED | 0 |
-| FAILED | 0 open after QP-001 fix |
-| BLOCKED | Staging HMRC monitor / SMTP / Calendly live booking / production deploy (unchanged) |
+| REAL MODEL EXECUTED | 400 |
+| INDEPENDENTLY VERIFIED | 5 |
+| INCORRECT (frozen transcript) | 2 |
+| INCOMPLETE | 4 |
+| AMBIGUOUS | 379 |
+| REQUIRES PROFESSIONAL ADVICE | 10 |
+| PROFESSIONAL APPROVAL OBTAINED | 0 |
+| BLOCKED (staging/ops claims) | Staging/SMTP/Calendly/HMRC monitor/mobile/production |
 
 ---
 
