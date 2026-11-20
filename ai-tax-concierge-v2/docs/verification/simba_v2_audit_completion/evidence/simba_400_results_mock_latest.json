@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T05:29:41.886Z",
+  "generated_at": "2026-11-20T06:01:16.342Z",
   "mode": "mock",
   "total": 400,
   "recorded": 400,
@@ -61,9 +61,7 @@
       "mode": "mock",
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [mtd-threshold-30k-april-2027] MTD Income Tax £30,000 threshold starts 6 April 2027 (2025-26, 2026-27, 2027-28): If your qualifying income is more than £30,000 for the 2025-26 tax year (2025 to 2026), you need to use Making Tax Digital for Income Tax from 6 April 2027. This is not April 2026. April 2026 applies only to the higher £50,000 qualifying-income band (based on 2024-25). Qualifying income is turnover/gross self-employment and property income before expenses, not profit after expenses. (source: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
-      "packages": [
-        "SA_SIMPLE"
-      ],
+      "packages": [],
       "sources": [
         "register-self-assessment",
         "self-employed-register",
@@ -879,9 +877,7 @@
       "mode": "mock",
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [register-self-assessment] Register for Self Assessment (2024-25, 2025-26, 2026-27): If you need to send a tax return and are not already registered, you must register for Self Assessment. New sole traders usually need to register by 5 October after the end of the tax year in which they started. (source: https://www.gov.uk/register-for-self-assessment)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
-      "packages": [
-        "SA_SIMPLE"
-      ],
+      "packages": [],
       "sources": [
         "register-self-assessment",
         "sa-paper-deadline",
@@ -1577,10 +1573,7 @@
       "mode": "mock",
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [mtd-income-tax-overview] Making Tax Digital for Income Tax (2025-26, 2026-27, 2027-28): Making Tax Digital (MTD) for Income Tax requires eligible self-employed people and landlords to keep digital records and submit quarterly updates. Start dates depend on qualifying income (turnover/gross, not profit): more than £50,000 in 2024-25 from 6 April 2026; more than £30,000 in 2025-26 from 6 April 2027; more than £20,000 in 2026-27 from 6 April 2028. Confirm details on GOV.UK. (source: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
-      "packages": [
-        "ACCOUNTANT_CONSULT_99",
-        "ACCOUNTANT_CONSULT_149"
-      ],
+      "packages": [],
       "sources": [
         "mtd-digital-records-quarterly",
         "mtd-income-tax-overview",
@@ -1676,10 +1669,7 @@
       "mode": "mock",
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [mtd-threshold-50k-april-2026] MTD Income Tax £50,000 threshold starts 6 April 2026 (2025-26, 2026-27, 2027-28): If your qualifying income was more than £50,000 for the 2024-25 tax year (2024 to 2025), you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income is total self-employment and property income before expenses (turnover/gross), not profit. Do not confuse this £50,000 / April 2026 band with the later £30,000 / April 2027 band. (source: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
-      "packages": [
-        "ACCOUNTANT_CONSULT_99",
-        "ACCOUNTANT_CONSULT_149"
-      ],
+      "packages": [],
       "sources": [
         "mtd-threshold-50k-april-2026",
         "mtd-threshold-30k-april-2027",
@@ -1823,10 +1813,7 @@
       "mode": "mock",
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [trading-allowance] Trading allowance overview (2024-25, 2025-26, 2026-27): The trading allowance is a tax exemption of up to £1,000 a year for individuals with trading income from self-employment, casual services or hiring personal equipment, subject to conditions. If annual gross trading income is £1,000 or less you may not need to tell HMRC (with exceptions). Confirm eligibility on GOV.UK before relying on it. (source: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
-      "packages": [
-        "ACCOUNTANT_CONSULT_99",
-        "ACCOUNTANT_CONSULT_149"
-      ],
+      "packages": [],
       "sources": [
         "corporation-tax-overview",
         "trading-allowance",
@@ -1849,7 +1836,7 @@
       "category": "MTD operations",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Based on verified HMRC / GOV.UK guidance: [mtd-income-tax-overview] Making Tax Digital for Income Tax (2025-26, 2026-27, 2027-28): Making Tax Digital (MTD) for Income Tax requires eligible self-employed people and landlords to keep digital records and submit quarterly updates. Start dates depend on qualifying income (turnover/gross, not profit): more than £50,000 in 2024-25 from 6 April 2026; more than £30,000 in 2025-26 from 6 April 2027; more than £20,000 in 2026-27 from 6 April 2028. Confirm details on GOV.UK. (source: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
+      "reply": "The TaxSimba portal supports registration, payment, document collection, customer workflows and messaging with your assigned accountant. It is not itself a direct HMRC filing integration. Filing and MTD submissions are accountant-led using TaxSimba’s internal tools (TaxCalc for Self Assessment filing workflows; Xero for Making Tax Digital). SIMBA chat cannot file or submit to HMRC. After signup: create an account, verify email, choose your package, pay, then use the dashboard for onboarding and accountant messaging.",
       "packages": [],
       "sources": [
         "mtd-digital-records-quarterly",
@@ -1873,7 +1860,7 @@
       "category": "MTD operations",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "For Making Tax Digital for Income Tax, you need compatible software and digital records. TaxSimba’s Simbian plans include a Xero subscription in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.",
+      "reply": "HMRC requires Making Tax Digital compatible software for in-scope Income Tax digital reporting. If you use TaxSimba’s Simbian plans, compatible Xero software is included in the monthly price for the accountant-led MTD service — you are not routinely sent to buy Xero yourself. Self Assessment filing workflows at TaxSimba use TaxCalc internally via accountants. If you prefer to choose and run software independently, say so and I will point you to HMRC’s public software list without inventing TaxSimba benefits. Otherwise tell me your qualifying income and tax year, or whether you want an accountant-led package recommendation.",
       "packages": [],
       "sources": [
         "mtd-threshold-50k-april-2026",
@@ -1970,9 +1957,7 @@
       "mode": "mock",
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [property-income-overview] Income from property (landlords) (2024-25, 2025-26, 2026-27): If you receive rental income from property you usually need to declare it to HMRC. Many landlords report property income through Self Assessment. Keep records of rent received and allowable expenses. Check GOV.UK for the rules that apply to your situation. (source: https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
-      "packages": [
-        "SA_SMART"
-      ],
+      "packages": [],
       "sources": [
         "property-income-overview",
         "property-allowance",
@@ -2408,9 +2393,7 @@
       "mode": "mock",
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [property-income-overview] Income from property (landlords) (2024-25, 2025-26, 2026-27): If you receive rental income from property you usually need to declare it to HMRC. Many landlords report property income through Self Assessment. Keep records of rent received and allowable expenses. Check GOV.UK for the rules that apply to your situation. (source: https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
-      "packages": [
-        "SA_SMART"
-      ],
+      "packages": [],
       "sources": [
         "property-income-overview",
         "property-allowance",
@@ -3782,7 +3765,7 @@
       "category": "CIS and construction",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment",
+      "reply": "TaxSimba provides accountant-led Self Assessment and Making Tax Digital services through its packages — not filing inside this SIMBA chat. Accountants use TaxCalc for SA filing workflows and Xero for MTD (Xero included in Simbian monthly prices). After you register and pay on the TaxSimba portal, onboarding and document collection happen in the dashboard with your assigned accountant. Exact inclusions depend on the approved package; I will not invent extras. General support: info@taxsimba.co.uk. Paid Google Meet consultations (£99/20 minutes or £149/40 minutes) are available when you need personalised advice.",
       "packages": [],
       "sources": [
         "sa-paper-deadline",
@@ -3854,7 +3837,7 @@
       "category": "CIS and construction",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment",
+      "reply": "Based on what you shared, the lowest suitable approved option is Self Assessment Simple at £119 (per tax year) — Confirm VAT treatment on checkout. Lowest Self Assessment price that usually fits straightforward / single simple income situations. After you choose it: create an account, verify email, select the package, pay on TaxSimba, then use your dashboard for accountant-led onboarding. Signup: https://www.taxsimba.co.uk/self-assessment. Say if you would like a comparison instead — I will not push every package.",
       "packages": [
         "SA_SIMPLE"
       ],
@@ -4289,10 +4272,7 @@
       "mode": "mock",
       "turns_sent": 1,
       "reply": "Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead — it depends on your activity. Keep detailed records. I won’t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets — were your crypto disposals investment-style gains, or more like a trading business?",
-      "packages": [
-        "ACCOUNTANT_CONSULT_99",
-        "ACCOUNTANT_CONSULT_149"
-      ],
+      "packages": [],
       "sources": [
         "cryptoassets-tax",
         "dividend-tax-overview",
@@ -5002,7 +4982,7 @@
       "category": "TaxSimba packages",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Based on verified HMRC / GOV.UK guidance: [property-allowance] Property allowance overview (2024-25, 2025-26, 2026-27): The property allowance is a tax exemption of up to £1,000 a year for individuals with income from land or property, subject to conditions and interactions with other reliefs (including Rent a Room). If annual gross property income is £1,000 or less you may not need to tell HMRC (with exceptions). Confirm eligibility on GOV.UK before relying on it. (source: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
+      "reply": "Based on what you shared, the lowest suitable approved option is Self Assessment Smart at £149 (per tax year) — Confirm VAT treatment on checkout. Mid Self Assessment price when several income sources or more review is likely. After you choose it: create an account, verify email, select the package, pay on TaxSimba, then use your dashboard for accountant-led onboarding. Signup: https://www.taxsimba.co.uk/self-assessment. Say if you would like a comparison instead — I will not push every package.",
       "packages": [
         "SA_SMART"
       ],
@@ -5028,7 +5008,7 @@
       "category": "TaxSimba packages",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Rental income usually needs to be considered for Self Assessment, and may also count toward Making Tax Digital qualifying income (with any self-employment turnover) using gross rents before many expenses. Roughly how much rental income (before expenses) did you have, and for which tax year? Also — is this a residential let, Rent a Room, or something else?",
+      "reply": "Based on what you shared, the lowest suitable approved option is Self Assessment Smart at £149 (per tax year) — Confirm VAT treatment on checkout. Mid Self Assessment price when several income sources or more review is likely. After you choose it: create an account, verify email, select the package, pay on TaxSimba, then use your dashboard for accountant-led onboarding. Signup: https://www.taxsimba.co.uk/self-assessment. Say if you would like a comparison instead — I will not push every package.",
       "packages": [
         "SA_SMART"
       ],
@@ -5054,7 +5034,7 @@
       "category": "TaxSimba packages",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Approved TaxSimba prices (overview):\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; pay within Calendly when live). General support: info@taxsimba.co.uk — TaxSimba does not offer telephone onboarding.\n\nI recommend one suitable option once I understand your situation — I will not invent priority support, free callbacks, or unapproved benefits, and I will not push every package. Share whether you need Self Assessment, Making Tax Digital, or both, and how complex your income is, or ask me to compare packages if you want a side-by-side view.",
+      "reply": "Based on verified HMRC / GOV.UK guidance: [record-keeping-self-employed] Records you should keep if self-employed (2024-25, 2025-26, 2026-27): If you are self-employed you must keep records of business income and expenses. Keep records for at least 5 years after the 31 January submission deadline of the relevant tax year. Digital record-keeping becomes especially important under Making Tax Digital. (source: https://www.gov.uk/self-employed-records)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
       "packages": [],
       "sources": [
         "record-keeping-self-employed",
@@ -5078,7 +5058,7 @@
       "category": "TaxSimba packages",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Approved TaxSimba prices (overview):\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; pay within Calendly when live). General support: info@taxsimba.co.uk — TaxSimba does not offer telephone onboarding.\n\nI recommend one suitable option once I understand your situation — I will not invent priority support, free callbacks, or unapproved benefits, and I will not push every package. Share whether you need Self Assessment, Making Tax Digital, or both, and how complex your income is, or ask me to compare packages if you want a side-by-side view.",
+      "reply": "Based on what you shared, the lowest suitable approved option is Self Assessment Simple at £119 (per tax year) — Confirm VAT treatment on checkout. Lowest Self Assessment price that usually fits straightforward / single simple income situations. After you choose it: create an account, verify email, select the package, pay on TaxSimba, then use your dashboard for accountant-led onboarding. Signup: https://www.taxsimba.co.uk/self-assessment. Say if you would like a comparison instead — I will not push every package.",
       "packages": [
         "SA_SIMPLE"
       ],
@@ -5228,7 +5208,7 @@
       "category": "TaxSimba packages",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Based on verified HMRC / GOV.UK guidance: [corporation-tax-overview] Corporation Tax overview (2024-25, 2025-26, 2026-27): Limited companies pay Corporation Tax on profits. Rates and thresholds can change by financial year. Company tax is separate from the directors’ personal Income Tax and Self Assessment. Confirm current rates on GOV.UK. (source: https://www.gov.uk/corporation-tax)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
+      "reply": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, (5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there. I won’t invent portal screens or claim payment succeeded from this chat. Self Assessment packages: https://www.taxsimba.co.uk/self-assessment · MTD: https://www.taxsimba.co.uk/making-tax-digital.",
       "packages": [],
       "sources": [
         "tax-year-dates",
@@ -5253,10 +5233,7 @@
       "mode": "mock",
       "turns_sent": 1,
       "reply": "Here is what SIMBA can state from approved catalogue decisions:\n\nSelf Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable here — email is only a fallback enquiry route.\n\nSelf Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.\n\nWhat is approved to say:\n- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.\n- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.\n- Support is via email and the client dashboard — not telephone onboarding.\n- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).\n- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.\n\nI will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.\n\nI can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.\n- Self Assessment Simple: £119 (per tax year)\n- Self Assessment Smart: £149 (per tax year)\n- Self Assessment Elite: £299 (per tax year)\n- Simbian Comply: £29.99 (per month; VAT included)\n- Simbian Growth: £59.99 (per month; VAT included)\n- Simbian Elite: £89.99 (per month; VAT included)",
-      "packages": [
-        "ACCOUNTANT_CONSULT_99",
-        "ACCOUNTANT_CONSULT_149"
-      ],
+      "packages": [],
       "sources": [
         "cgt-reporting-overview",
         "sa-penalties-overview",
@@ -5304,10 +5281,7 @@
       "mode": "mock",
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [vat-registration-timing-tests] VAT registration timing — rolling 12 months and 30-day forward look (2024-25, 2025-26, 2026-27): Rolling 12-month (backward) test: if at the end of any month your taxable supplies in the previous 12 months (or less) exceed £90,000, you must notify HMRC within 30 days of that month-end. Effective date of registration is typically the first day of the second month after you went over the threshold. Forward-looking 30-day test: if at any time you expect taxable supplies in the next 30 days alone to exceed £90,000, you must register by the end of that 30-day period; the effective date is the date you first formed that expectation. These are separate tests — do not confuse an 11-month build-up plus next month with the forward look. Always confirm on GOV.UK / VAT Notice 700/1. (source: https://www.gov.uk/register-for-vat)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
-      "packages": [
-        "ACCOUNTANT_CONSULT_99",
-        "ACCOUNTANT_CONSULT_149"
-      ],
+      "packages": [],
       "sources": [
         "self-employed-register",
         "vat-registration-timing-tests",
@@ -5525,10 +5499,7 @@
       "mode": "mock",
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [mtd-who-and-when] Who needs Making Tax Digital for Income Tax and when (2025-26, 2026-27, 2027-28): You need to use Making Tax Digital for Income Tax if you are a sole trader or landlord registered for Self Assessment, you get income from self-employment or property (or both), and your qualifying income is more than the relevant threshold. Start dates depend on qualifying income in a prior tax year: more than £50,000 for 2024-25 means from 6 April 2026; more than £30,000 for 2025-26 means from 6 April 2027; more than £20,000 for 2026-27 means from 6 April 2028. Partnerships will be brought in later. Always confirm on GOV.UK. (source: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
-      "packages": [
-        "ACCOUNTANT_CONSULT_99",
-        "ACCOUNTANT_CONSULT_149"
-      ],
+      "packages": [],
       "sources": [
         "mtd-who-and-when",
         "cryptoassets-tax",
@@ -5552,10 +5523,7 @@
       "mode": "mock",
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [trading-allowance] Trading allowance overview (2024-25, 2025-26, 2026-27): The trading allowance is a tax exemption of up to £1,000 a year for individuals with trading income from self-employment, casual services or hiring personal equipment, subject to conditions. If annual gross trading income is £1,000 or less you may not need to tell HMRC (with exceptions). Confirm eligibility on GOV.UK before relying on it. (source: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
-      "packages": [
-        "ACCOUNTANT_CONSULT_99",
-        "ACCOUNTANT_CONSULT_149"
-      ],
+      "packages": [],
       "sources": [
         "trading-allowance",
         "property-allowance",
@@ -6018,10 +5986,7 @@
       "mode": "mock",
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [sa-who-needs-to-file] Who needs to send a Self Assessment tax return (2024-25, 2025-26, 2026-27): You usually need to send a Self Assessment tax return if you were self-employed, a partner in a partnership, had untaxed income, or received notice from HMRC to file. Being employed does not automatically remove the requirement if other criteria apply. (source: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
-      "packages": [
-        "ACCOUNTANT_CONSULT_99",
-        "ACCOUNTANT_CONSULT_149"
-      ],
+      "packages": [],
       "sources": [
         "sa-who-needs-to-file",
         "mileage-amap",
@@ -6487,10 +6452,7 @@
       "mode": "mock",
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [sa-deadline-online] Self Assessment online filing deadline (2024-25, 2025-26, 2026-27): The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK. (source: https://www.gov.uk/self-assessment-tax-returns/deadlines)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
-      "packages": [
-        "ACCOUNTANT_CONSULT_99",
-        "ACCOUNTANT_CONSULT_149"
-      ],
+      "packages": [],
       "sources": [
         "sa-deadline-online",
         "vat-registration-timing-tests",
@@ -6565,10 +6527,7 @@
       "mode": "mock",
       "turns_sent": 1,
       "reply": "Based on verified HMRC / GOV.UK guidance: [sa-penalties-overview] Self Assessment late filing and payment penalties overview (2024-25, 2025-26, 2026-27): If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory. (source: https://www.gov.uk/self-assessment-tax-returns/penalties)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
-      "packages": [
-        "ACCOUNTANT_CONSULT_99",
-        "ACCOUNTANT_CONSULT_149"
-      ],
+      "packages": [],
       "sources": [
         "sa-penalties-overview",
         "record-keeping-self-employed",
@@ -7564,10 +7523,7 @@
       "mode": "mock",
       "turns_sent": 2,
       "reply": "Based on verified HMRC / GOV.UK guidance: [tax-year-dates] UK tax year dates (2024-25, 2025-26, 2026-27): The UK tax year runs from 6 April to 5 April the following year. For example, tax year 2025-26 runs from 6 April 2025 to 5 April 2026. (source: https://www.gov.uk/income-tax)\n\nThis is general information, not personal tax advice. If your situation is complex, TaxSimba offers Quick Tax Advice (£99 for 20 minutes) or an Extended Tax Consultation (£149 for 40 minutes) via Google Meet — ask which option you prefer.",
-      "packages": [
-        "ACCOUNTANT_CONSULT_99",
-        "ACCOUNTANT_CONSULT_149"
-      ],
+      "packages": [],
       "sources": [
         "tax-year-dates",
         "paye-and-additional-income",
@@ -8775,7 +8731,7 @@
       "category": "Lead capture and conversion",
       "mode": "mock",
       "turns_sent": 1,
-      "reply": "Approved TaxSimba prices (overview):\n\nSelf Assessment (per tax year): Simple £119, Smart £149, Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99, Simbian Growth £59.99, Simbian Elite £89.99.\nFor Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow). Quarterly MTD updates and year-end Self Assessment are included subject to documented customer responsibilities.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes, or Extended Tax Consultation £149 for 40 minutes (Google Meet; pay within Calendly when live). General support: info@taxsimba.co.uk — TaxSimba does not offer telephone onboarding.\n\nI recommend one suitable option once I understand your situation — I will not invent priority support, free callbacks, or unapproved benefits, and I will not push every package. Share whether you need Self Assessment, Making Tax Digital, or both, and how complex your income is, or ask me to compare packages if you want a side-by-side view.",
+      "reply": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, (5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there. I won’t invent portal screens or claim payment succeeded from this chat. Self Assessment packages: https://www.taxsimba.co.uk/self-assessment · MTD: https://www.taxsimba.co.uk/making-tax-digital.",
       "packages": [],
       "sources": [
         "register-self-assessment",

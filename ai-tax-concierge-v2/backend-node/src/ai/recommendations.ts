@@ -151,7 +151,7 @@ export function wantsServiceRecommendation(message: string): boolean {
   return (
     SA_PRICE.test(message) ||
     CONSULT.test(message) ||
-    /\b(recommend|suggestion|which (package|plan|option)|suitable (package|plan)|best (package|plan)|sign up|register|buy|cheapest|lowest.?priced)\b/i.test(
+    /\b(recommend|suggestion|which (package|plan|option)|suitable (package|plan)|best (package|plan)|sign up|ready to register|register (on|with) taxsimba|buy (a |the )?(package|plan|service)|cheapest|lowest.?priced)\b/i.test(
       lower,
     ) ||
     (MTD_PRICE.test(message) &&
