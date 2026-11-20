@@ -5,12 +5,14 @@ export function answerMtdOperationsQuestion(message: string): string | null {
   if (!/(mtd|making tax digital|simbian|xero)/i.test(lower)) return null;
 
   if (/xero|software|which software|do i need xero/i.test(lower)) {
+    // Prefer TaxSimba-first positioning; detailed buy-Xero / DIY paths are in
+    // answerTaxsimbaServiceModel (checked first in the engine).
     return (
-      "For Making Tax Digital for Income Tax, you need compatible software and digital records. " +
-      "TaxSimba’s Simbian plans include a Xero subscription in the monthly price " +
-      "(Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — customers do not pay separately for that mapped licence. " +
+      "For Making Tax Digital for Income Tax, HMRC requires compatible software and digital records. " +
+      "With TaxSimba’s accountant-led Simbian plans, Xero is included in the monthly price " +
+      "(Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — you do not buy Xero separately through TaxSimba. " +
       "Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. " +
-      "SIMBA itself does not submit your quarterly updates or returns to HMRC — a TaxSimba accountant leads those workflows using Xero. " +
+      "SIMBA chat and the customer portal do not file directly to HMRC — TaxSimba accountants lead those workflows. " +
       "Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. " +
       "Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility."
     );

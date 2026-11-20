@@ -39,6 +39,7 @@ import {
 } from "../knowledge/consultation_booking.js";
 import { answerMtdEligibility } from "../knowledge/mtd_eligibility.js";
 import { answerMtdOperationsQuestion } from "../knowledge/mtd_operations.js";
+import { answerTaxsimbaServiceModel } from "../knowledge/taxsimba_service_model.js";
 import { retrieve } from "../knowledge/retrieval.js";
 import { resolveTaxYear } from "../knowledge/tax_year.js";
 import {
@@ -162,7 +163,11 @@ export class ConversationalEngine {
       ) &&
       !/\b(accountant|consult|£99|£149|book)\b/i.test(request.message);
     const onboardingQ =
-      /\b(what happens after (i )?(sign.?up|register|pay|payment|checkout)|after (payment|signup|sign.?up|i pay)|onboarding (steps|process)|how (does|do) (signup|registration|onboarding) work)\b/i.test(
+      /\b(what happens after (i )?(sign.?up|register|pay|payment|checkout|choose)|after (payment|signup|sign.?up|i pay|i choose)|onboarding (steps|process)|how (does|do) (signup|registration|onboarding) work)\b/i.test(
+        request.message,
+      );
+    const signupLinkQ =
+      /\b(registration link|sign.?up link|how (do|can) i (sign up|register)|i want to sign up|ready to (sign up|register)|where (do i|to) (sign up|register))\b/i.test(
         request.message,
       );
     const callbackQ =
@@ -171,10 +176,15 @@ export class ConversationalEngine {
       );
     const consultSelection = detectConsultationSelection(request.message);
     const consultIntent = isConsultationIntent(request.message);
-    const mtdOps = answerMtdOperationsQuestion(request.message);
-    const mtdEligibility = mtdOps
-      ? null
-      : answerMtdEligibility(request.message);
+    const serviceModel = answerTaxsimbaServiceModel(request.message);
+    const mtdOps =
+      serviceModel?.handled
+        ? null
+        : answerMtdOperationsQuestion(request.message);
+    const mtdEligibility =
+      serviceModel?.handled || mtdOps
+        ? null
+        : answerMtdEligibility(request.message);
     const ambiguous = answerAmbiguousIntent(request.message);
     const additionalTaxQ = /total income tax|additional (self assessment )?tax|extra tax i (pay|owe)|same as the extra/i.test(
       request.message,
@@ -224,13 +234,16 @@ export class ConversationalEngine {
         "That is the right channel for case-specific help — you usually do not need to buy a new public package. " +
         "For general account support, email info@taxsimba.co.uk.";
       confidence = "high";
+    } else if (serviceModel?.handled) {
+      reply = serviceModel.customer_reply;
+      confidence = serviceModel.confidence;
     } else if (supportQ) {
       reply =
         "For general TaxSimba customer support, email info@taxsimba.co.uk and include a short summary of your question. " +
         "Support is by email and (for clients) secure dashboard messaging — TaxSimba does not offer phone support. " +
         "If you need personalised tax advice on your own figures, you can book a paid Google Meet consultation (£99 for 20 minutes or £149 for 40 minutes) when online booking is available.";
       confidence = "high";
-    } else if (onboardingQ) {
+    } else if (onboardingQ || signupLinkQ) {
       reply =
         "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, " +
         "(2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, " +
@@ -415,7 +428,17 @@ export class ConversationalEngine {
         request.message,
       );
     // Never attach sales cards for support/onboarding/existing-client answers.
-    if (supportQ || onboardingQ || existingClientQ) {
+    // Software-model Qs stay TaxSimba-first; cards only if the customer also asked to recommend a package.
+    const softwareInfoOnly =
+      Boolean(serviceModel?.handled) &&
+      !/\b(which|recommend|suitable|best|cheapest)\b/i.test(request.message);
+    if (
+      supportQ ||
+      onboardingQ ||
+      signupLinkQ ||
+      existingClientQ ||
+      softwareInfoOnly
+    ) {
       packages = [];
       calculators = [];
     }

@@ -1,21 +1,18 @@
 {
-  "generated_at": "2026-11-20T05:30:07.135Z",
+  "generated_at": "2026-11-20T06:02:22.196Z",
   "mode": "openai",
-  "total": 15,
-  "recorded": 15,
+  "total": 40,
+  "recorded": 40,
   "heuristic_fail": 0,
   "errors": 0,
   "note": "RECORDED \u2260 tax-accuracy PASS. Full tax review requires accountant acceptance criteria.",
   "results": [
     {
       "id": "T001",
-      "category": "SA eligibility",
       "status": "RECORDED",
       "llm_mode": "openai",
-      "turns_sent": 1,
       "packages": [],
-      "sources_count": 3,
-      "reply_chars": 224,
+      "reply_preview": "Happy to help \u2014 I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something el",
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -23,18 +20,14 @@
         "packages_suppressed_when_info_only": true,
         "packages_present_when_asked": true,
         "remembered_instruction_visible": true
-      },
-      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+      }
     },
     {
       "id": "T002",
-      "category": "SA eligibility",
       "status": "RECORDED",
       "llm_mode": "openai",
-      "turns_sent": 1,
       "packages": [],
-      "sources_count": 3,
-      "reply_chars": 327,
+      "reply_preview": "Yes, you will need to file a Self Assessment tax return for the 2025-26 tax year. Since you earned \u00a38,000 in freelance turnover, which is considered untaxed income, you are required to report this inc",
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -42,18 +35,14 @@
         "packages_suppressed_when_info_only": true,
         "packages_present_when_asked": true,
         "remembered_instruction_visible": true
-      },
-      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+      }
     },
     {
-      "id": "T050",
-      "category": "MTD eligibility",
+      "id": "T003",
       "status": "RECORDED",
       "llm_mode": "openai",
-      "turns_sent": 1,
       "packages": [],
-      "sources_count": 3,
-      "reply_chars": 476,
+      "reply_preview": "Since your gross income from freelance work in the 2025-26 tax year is \u00a3700, you do not need to register for Self Assessment. The threshold for registering as self-employed is \u00a31,000 of gross income. ",
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -61,20 +50,14 @@
         "packages_suppressed_when_info_only": true,
         "packages_present_when_asked": true,
         "remembered_instruction_visible": true
-      },
-      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+      }
     },
     {
-      "id": "T100",
-      "category": "Landlords",
+      "id": "T004",
       "status": "RECORDED",
       "llm_mode": "openai",
-      "turns_sent": 1,
-      "packages": [
-        "SA_SMART"
-      ],
-      "sources_count": 3,
-      "reply_chars": 478,
+      "packages": [],
+      "reply_preview": "Selling personal items like a sofa or laptop typically does not require you to file a Self Assessment tax return, as long as the sales are not part of a trade or business. If you occasionally sell per",
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -82,18 +65,14 @@
         "packages_suppressed_when_info_only": true,
         "packages_present_when_asked": true,
         "remembered_instruction_visible": true
-      },
-      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+      }
     },
     {
-      "id": "T150",
-      "category": "CIS and construction",
+      "id": "T005",
       "status": "RECORDED",
       "llm_mode": "openai",
-      "turns_sent": 1,
       "packages": [],
-      "sources_count": 3,
-      "reply_chars": 560,
+      "reply_preview": "Receiving \u00a33,500 in bank interest may require you to file a Self Assessment tax return, especially if you have other untaxed income or if your total income exceeds certain thresholds. For the 2026-27 ",
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -101,18 +80,14 @@
         "packages_suppressed_when_info_only": true,
         "packages_present_when_asked": true,
         "remembered_instruction_visible": true
-      },
-      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+      }
     },
     {
-      "id": "T200",
-      "category": "Tax calculations and uncertainty",
+      "id": "T006",
       "status": "RECORDED",
       "llm_mode": "openai",
-      "turns_sent": 1,
       "packages": [],
-      "sources_count": 3,
-      "reply_chars": 236,
+      "reply_preview": "You may need to complete a Self Assessment tax return if you receive dividends and your total income exceeds the tax-free Dividend Allowance, which is \u00a32,000 for the 2026-27 tax year. Additionally, if",
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -120,18 +95,14 @@
         "packages_suppressed_when_info_only": true,
         "packages_present_when_asked": true,
         "remembered_instruction_visible": true
-      },
-      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+      }
     },
     {
-      "id": "T250",
-      "category": "Documents and dashboard",
+      "id": "T007",
       "status": "RECORDED",
       "llm_mode": "openai",
-      "turns_sent": 1,
       "packages": [],
-      "sources_count": 3,
-      "reply_chars": 398,
+      "reply_preview": "Since you have PAYE wages and additional income from renting out a spare room, you may need to file a Self Assessment tax return. Generally, if your total income exceeds \u00a31,000 from property rental, y",
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -139,18 +110,14 @@
         "packages_suppressed_when_info_only": true,
         "packages_present_when_asked": true,
         "remembered_instruction_visible": true
-      },
-      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+      }
     },
     {
-      "id": "T300",
-      "category": "Privacy, security and safety",
+      "id": "T008",
       "status": "RECORDED",
       "llm_mode": "openai",
-      "turns_sent": 1,
       "packages": [],
-      "sources_count": 3,
-      "reply_chars": 468,
+      "reply_preview": "Since you started self-employment in February 2026, you need to register for Self Assessment with HMRC by 5 October 2026. After registering, you'll need to file your first Self Assessment tax return f",
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -158,18 +125,14 @@
         "packages_suppressed_when_info_only": true,
         "packages_present_when_asked": true,
         "remembered_instruction_visible": true
-      },
-      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+      }
     },
     {
-      "id": "T301",
-      "category": "Conversation memory",
+      "id": "T009",
       "status": "RECORDED",
       "llm_mode": "openai",
-      "turns_sent": 2,
       "packages": [],
-      "sources_count": 3,
-      "reply_chars": 285,
+      "reply_preview": "If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return \u2014 for example if you have untaxed income, self-employment, property income, or other reasons listed on ",
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -177,18 +140,14 @@
         "packages_suppressed_when_info_only": true,
         "packages_present_when_asked": true,
         "remembered_instruction_visible": true
-      },
-      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+      }
     },
     {
-      "id": "T305",
-      "category": "Conversation memory",
+      "id": "T010",
       "status": "RECORDED",
       "llm_mode": "openai",
-      "turns_sent": 2,
       "packages": [],
-      "sources_count": 3,
-      "reply_chars": 610,
+      "reply_preview": "The trading allowance for the 2026-27 tax year allows individuals to earn up to \u00a31,000 in trading income tax-free. Since your earnings of \u00a31,200 exceed this threshold, you will need to declare your in",
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -196,18 +155,14 @@
         "packages_suppressed_when_info_only": true,
         "packages_present_when_asked": true,
         "remembered_instruction_visible": true
-      },
-      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+      }
     },
     {
-      "id": "T310",
-      "category": "Conversation memory",
+      "id": "T011",
       "status": "RECORDED",
       "llm_mode": "openai",
-      "turns_sent": 3,
       "packages": [],
-      "sources_count": 3,
-      "reply_chars": 466,
+      "reply_preview": "Having two jobs with PAYE deductions does not automatically mean you need to file a Self Assessment tax return. You typically need to file a return if you have additional untaxed income, are self-empl",
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -215,18 +170,14 @@
         "packages_suppressed_when_info_only": true,
         "packages_present_when_asked": true,
         "remembered_instruction_visible": true
-      },
-      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+      }
     },
     {
-      "id": "T320",
-      "category": "Conversation memory",
+      "id": "T012",
       "status": "RECORDED",
       "llm_mode": "openai",
-      "turns_sent": 2,
       "packages": [],
-      "sources_count": 3,
-      "reply_chars": 759,
+      "reply_preview": "Rental income usually needs to be considered for Self Assessment, and may also count toward Making Tax Digital qualifying income (with any self-employment turnover) using gross rents before many expen",
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -234,18 +185,14 @@
         "packages_suppressed_when_info_only": true,
         "packages_present_when_asked": true,
         "remembered_instruction_visible": true
-      },
-      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+      }
     },
     {
-      "id": "T350",
-      "category": "UX and concise responses",
+      "id": "T013",
       "status": "RECORDED",
       "llm_mode": "openai",
-      "turns_sent": 1,
       "packages": [],
-      "sources_count": 3,
-      "reply_chars": 126,
+      "reply_preview": "If your only income is from your State Pension and private pension, you typically do not need to send a Self Assessment tax return, as these pensions are usually taxed at source. However, if you have ",
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -253,18 +200,14 @@
         "packages_suppressed_when_info_only": true,
         "packages_present_when_asked": true,
         "remembered_instruction_visible": true
-      },
-      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+      }
     },
     {
-      "id": "T380",
-      "category": "Lead capture and conversion",
+      "id": "T014",
       "status": "RECORDED",
       "llm_mode": "openai",
-      "turns_sent": 1,
       "packages": [],
-      "sources_count": 3,
-      "reply_chars": 108,
+      "reply_preview": "Receiving a one-off bonus through PAYE does not automatically trigger a Self Assessment tax return. However, if you have additional untaxed income, such as self-employment earnings or property income,",
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -272,18 +215,14 @@
         "packages_suppressed_when_info_only": true,
         "packages_present_when_asked": true,
         "remembered_instruction_visible": true
-      },
-      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+      }
     },
     {
-      "id": "T400",
-      "category": "Adversarial and edge cases",
+      "id": "T015",
       "status": "RECORDED",
       "llm_mode": "openai",
-      "turns_sent": 1,
       "packages": [],
-      "sources_count": 3,
-      "reply_chars": 212,
+      "reply_preview": "Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead \u2014 it depends on your activity. Keep detailed r",
       "heuristics": {
         "non_empty": true,
         "no_internal_jargon": true,
@@ -291,8 +230,382 @@
         "packages_suppressed_when_info_only": true,
         "packages_present_when_asked": true,
         "remembered_instruction_visible": true
-      },
-      "notes": "No verified tax answer key in pack \u2014 tax accuracy requires accountant review of recorded replies."
+      }
+    },
+    {
+      "id": "T016",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "As an Uber driver with a turnover of \u00a318,000, you will need to send a Self Assessment tax return for the 2026-27 tax year. This is because you are self-employed and have untaxed income. Make sure to r",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T017",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "If you have a share of profits from a partnership, you typically need to report this income through a Self Assessment tax return. You'll need to complete the partnership section of the return, detaili",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T018",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "If you or your partner have an individual income over \u00a360,000, you may be subject to the High Income Child Benefit Charge, which can reduce or eliminate your Child Benefit. To check the specific tax i",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T019",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "You should not ignore the letter from HMRC. If you've received a notice to file a Self Assessment tax return, you are legally required to submit it, even if you believe you owe no tax. Failing to do s",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T020",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "To determine if you need to file a Self Assessment tax return, I would ask: Were you self-employed, a partner in a partnership, or did you have untaxed income during the tax year?",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T021",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "The online Self Assessment deadline for the 2025-26 tax year is 31 January 2027. Make sure to file your return by this date to avoid any penalties. If you have any more questions about Self Assessment",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T022",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "The paper return deadline for the 2025-26 tax year is 31 October 2026. If you file your Self Assessment return online, the deadline is 31 January 2027. Always confirm current deadlines on GOV.UK for t",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T023",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "If you first became self-employed in the 2025-26 tax year, you need to register with HMRC for Self Assessment and National Insurance by 5 October 2026. This is the deadline for notifying HMRC after th",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T024",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "For the 2025-26 tax year, any tax due must be paid by 31 January 2027. This is the deadline for settling your Self Assessment tax bill, which includes any balancing payment for the previous tax year a",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T025",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "Payments on account are advance payments towards your next year's tax bill, applicable if your tax liability is over \u00a31,000 and less than 80% of your tax was collected at source. They are typically du",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T026",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "If you missed the 31 January deadline for filing your Self Assessment tax return for the 2025-26 tax year, you should file your return as soon as possible to minimise any penalties. Late filing incurs",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T027",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "If you've filed your Self Assessment tax return on time but are unable to pay the tax owed, you have a few options:\n\n1. **Time to Pay Arrangement**: You can apply for a Time to Pay arrangement with HM",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T028",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "You can amend a 2024-25 Self Assessment tax return until 31 January 2027. This deadline allows you to make changes to your return, such as correcting errors or updating information. After this date, y",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T029",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "No, you cannot file your Self Assessment tax return for the 2026-27 tax year before it ends on 5 April 2027. You can only submit your return after the tax year has concluded, typically between 6 April",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T030",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "If a Self Assessment deadline falls on a weekend or a bank holiday, HMRC automatically extends it to the next working day. For example, if the online filing deadline is 31 January and it falls on a Su",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T031",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "To correct a tax return submitted for the wrong tax year, you'll need to file an amended return. This involves submitting a new Self Assessment tax return for the correct tax year, ensuring all inform",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T032",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "If you are self-employed, you must keep records of your business income and expenses for at least five years after the 31 January submission deadline of the relevant tax year. For example, for the 202",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T033",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "If you received a late filing penalty due to serious illness, you can appeal the penalty to HMRC. You\u2019ll need to provide evidence of your circumstances, such as medical documentation, to support your ",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T034",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "If you submit your Self Assessment tax return one day late, you may incur a penalty. For the 2026-27 tax year, HMRC typically imposes an initial \u00a3100 penalty for late submissions. If your return is mo",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T035",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "Yes, you can still incur a late filing penalty even if you have no tax to pay. HMRC imposes penalties for failing to submit your Self Assessment tax return by the deadline, regardless of your tax liab",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T036",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "Once you register for Self Assessment, you should receive your Unique Taxpayer Reference (UTR) by post within 10 working days. If you registered close to a tax deadline, it may take longer. If you hav",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T037",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "If you need to register for Self Assessment because you've started a trade, you must do so by 5 October following the end of the tax year in which you began trading. For example, if you started tradin",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T038",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "Here is what SIMBA can state from approved catalogue decisions:\n\nSelf Assessment (per tax year): Simple \u00a3119 \u00b7 Smart \u00a3149 \u00b7 Elite \u00a3299.\nMaking Tax Digital (per month, VAT included): Simbian Comply \u00a329",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T039",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "If you stop trading partway through the tax year, you still need to file a Self Assessment tax return for that year. The deadlines remain the same: if you file online, the deadline is 31 January follo",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
+    },
+    {
+      "id": "T040",
+      "status": "RECORDED",
+      "llm_mode": "openai",
+      "packages": [],
+      "reply_preview": "For the 2025-26 tax year, the Self Assessment paper return deadline is 31 October 2026, while the online filing deadline is 31 January 2027. You must submit your tax return if you were self-employed, ",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      }
     }
   ]
 }
