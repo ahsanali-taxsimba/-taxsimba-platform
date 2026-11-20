@@ -107,6 +107,8 @@ Unit evidence: `tests/independent_audit_fixes.test.ts` (7 tests). Full Vitest su
 ### 4.1 Deep20 scored (actual transcripts)
 
 Full unedited five journeys: [`evidence/final_review/FIVE_UNEDITED_JOURNEYS.md`](./evidence/final_review/FIVE_UNEDITED_JOURNEYS.md)  
+Deep20 scored narrative: [`evidence/final_review/DEEP20_SCORED.md`](./evidence/final_review/DEEP20_SCORED.md) · scores JSON: [`DEEP20_SCORES.json`](./evidence/final_review/DEEP20_SCORES.json)  
+42 multi-turn assessment: [`evidence/final_review/JOURNEYS42_ASSESSMENT.md`](./evidence/final_review/JOURNEYS42_ASSESSMENT.md)  
 All deep chats: [`evidence/review/deep20/`](./evidence/review/deep20/)  
 Heuristic flags: [`evidence/independent_audit/JOURNEY_AND_CLAIMS_AUDIT.md`](./evidence/independent_audit/JOURNEY_AND_CLAIMS_AUDIT.md)
 
@@ -127,7 +129,7 @@ Scores are 1–10 from transcript evidence — **not** automatic 10s.
 | D16 | 6 | 7 | 7 | 6 | 6 | 6 | 6 | **4** | 6 | **5** | No-buy FAIL flag |
 | D17–D20 | 7 | 7 | 7 | 7 | 7 | 7 | 7 | 7 | 7 | **7** | See transcripts |
 
-**Average overall (approx): ~6.6 / 10** — competent on core tax facts when deterministic handlers fire; weaker on memory and sales restraint in frozen live deep chats.
+**Average overall_cx: 6.65 / 10** (from `DEEP20_SCORES.json`) — competent on core tax facts when deterministic handlers fire; weaker on memory and sales restraint in frozen live deep chats. Top failures: **D03** memory, **D10/D09** premature package, **D05/D08** no-buy respect.
 
 ### 4.2 Journeys42
 
