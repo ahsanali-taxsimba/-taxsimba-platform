@@ -9,6 +9,10 @@
 
 ---
 
+## Review pack (inspect existing answers)
+
+See `evidence/review/README.md` — full T001–T400 register, deep20 transcripts, five-focus analysis, independent verification summary.
+
 ## Executive verdict
 
 **NO-GO for production.**

@@ -50,6 +50,10 @@ export type MtdEligibilityInput = {
   payeAlsoPresent?: boolean;
   limitedCompany?: boolean;
   hasSelfEmploymentOrProperty?: boolean | null;
+  /** Customer said “more than / over / above £X” (not “exactly £X”). */
+  amountStatedAsMoreThan?: boolean;
+  /** Customer said “exactly £X”. */
+  amountStatedAsExact?: boolean;
 };
 
 export type MtdEligibilityResult = {
@@ -111,7 +115,7 @@ export function isMtdEligibilityQuestion(message: string): boolean {
   if (!/(mtd|making tax digital)/i.test(lower)) return false;
   // Software / process / package questions are NOT eligibility calculations.
   if (
-    /(xero|software|quarterly update|year-?end|how (do|does|to)|what (is|are|does)|include|simbian|file|submit|bookkeep)/i.test(
+    /(xero|software|quarterly update|year-?end|how (do|does|to)|what (is|are|does)|include|simbian|\bfile\b|\bsubmit\b|bookkeep)/i.test(
       lower,
     )
   ) {
@@ -124,7 +128,7 @@ export function isMtdEligibilityQuestion(message: string): boolean {
   ) {
     return false;
   }
-  return /(need|eligib|when|start|from|apply|threshold|qualifying|do i|am i|required|have to|should i|subscription|plan|buy)/i.test(
+  return /(need|eligib|when|start|from|apply|threshold|qualifying|do i|am i|required|have to|should i|subscription|plan|buy|do not add|don'?t add|count (them |it )?(toward|towards|for)|include.*(paye|salary))/i.test(
     lower,
   );
 }
@@ -207,6 +211,13 @@ export function extractMtdEligibilityInput(
   if (payeOnly) hasSelfEmploymentOrProperty = false;
   else if (hasTradingOrProperty) hasSelfEmploymentOrProperty = true;
 
+  const amountStatedAsExact =
+    /\b(exact(?:ly)?|precisely)\b/i.test(lower) && amount != null;
+  const amountStatedAsMoreThan =
+    amount != null &&
+    !amountStatedAsExact &&
+    /\b(more than|over|above|greater than)\s*£?\s*[\d,]+/i.test(message);
+
   return {
     qualifyingIncomeGbp: amount,
     incomeIsProfitNotGross,
@@ -215,6 +226,8 @@ export function extractMtdEligibilityInput(
     payeAlsoPresent: hasPaye && hasTradingOrProperty,
     limitedCompany,
     hasSelfEmploymentOrProperty,
+    amountStatedAsMoreThan,
+    amountStatedAsExact,
   };
 }
 
@@ -319,9 +332,14 @@ export function evaluateMtdEligibility(
   const amount = input.qualifyingIncomeGbp;
   const year = input.basisTaxYear;
 
-  // Exact threshold: NOT "more than"
+  // Exact threshold: NOT "more than" — only when the customer did NOT say “more than/over/above £X”.
+  // “more than £50,000” parses as 50000 but must NOT use the exclusive-boundary refusal.
   const exactHit = MTD_BANDS.find((b) => amount === b.threshold_gbp);
-  if (exactHit && (!year || year === exactHit.basis_tax_year)) {
+  if (
+    exactHit &&
+    (!year || year === exactHit.basis_tax_year) &&
+    !input.amountStatedAsMoreThan
+  ) {
     return {
       handled: true,
       needs_more_info: false,
@@ -356,7 +374,10 @@ export function evaluateMtdEligibility(
           "Please confirm the tax year for your qualifying income (2024-25, 2025-26 or 2026-27) so I can apply the correct Making Tax Digital band.",
       };
     }
-    const inScope = amount > band.threshold_gbp;
+    const inScope =
+      amount > band.threshold_gbp ||
+      (input.amountStatedAsMoreThan === true &&
+        amount === band.threshold_gbp);
     if (inScope) {
       return {
         handled: true,
@@ -435,8 +456,36 @@ export function evaluateMtdEligibility(
   };
 }
 
-export function answerMtdEligibility(message: string): MtdEligibilityResult | null {
+function conversationContextText(
+  message: string,
+  history?: Array<{ role: string; content: string }> | null,
+): string {
+  const prior = (history || [])
+    .filter((h) => h.role === "user" && h.content?.trim())
+    .map((h) => h.content)
+    .join("\n");
+  return prior ? `${prior}\n${message}` : message;
+}
+
+export function answerMtdEligibility(
+  message: string,
+  history?: Array<{ role: string; content: string }> | null,
+): MtdEligibilityResult | null {
   if (!isMtdEligibilityQuestion(message)) return null;
-  const input = extractMtdEligibilityInput(message);
+  // Prefer current message for “more than / exactly” flags; merge history for amount/year recall.
+  const ctx = conversationContextText(message, history);
+  const fromMessage = extractMtdEligibilityInput(message);
+  const fromCtx = extractMtdEligibilityInput(ctx);
+  const input: MtdEligibilityInput = {
+    ...fromCtx,
+    // Keep exclusivity flags from the latest user message when present.
+    amountStatedAsMoreThan:
+      fromMessage.amountStatedAsMoreThan || fromCtx.amountStatedAsMoreThan,
+    amountStatedAsExact:
+      fromMessage.amountStatedAsExact || fromCtx.amountStatedAsExact,
+    qualifyingIncomeGbp:
+      fromMessage.qualifyingIncomeGbp ?? fromCtx.qualifyingIncomeGbp,
+    basisTaxYear: fromMessage.basisTaxYear ?? fromCtx.basisTaxYear,
+  };
   return evaluateMtdEligibility(input);
 }

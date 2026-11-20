@@ -10,6 +10,9 @@
 | QP-003 | Full live 400 interrupted: 202/400 returned HTTP 429 | Blocker for evidence | In-process OpenAI daily token budget default 250k + shared chat rate limit during concurrent deep20 | `OPENAI_DAILY_TOKEN_BUDGET` wired in `adapters/factory.ts`; `CONCIERGE_CHAT_RATE_MAX`; runner retries + `RETRY_ERRORS=1` | Full pack re-run: **400/400** `llm_mode=openai`, 0 errors |
 | QP-004 | Catalogue dump when asked “what is included” after a single package recommendation | Medium CX | Existing inclusions handler lists approved catalogue | Not redesigned this pass (architecture preserved). Flagged for Asim/CX review | Observed in D01 transcript turn on inclusions |
 | QP-005 | “Where is the registration link?” returns full onboarding dump | Low CX | `signupLinkQ` shares onboarding reply | Deferred (non-critical); link is present | D01 still contains `https://www.taxsimba.co.uk/register` |
+| QP-006 | “more than £50,000” answered as exact £50k (not in MTD) | **Critical tax** | Exact-threshold branch ran whenever parsed amount === 50_000 | Skip exact branch when `amountStatedAsMoreThan`; in-scope if more-than at band | Unit + threshold regressions PASS |
+| QP-007 | T329 “freelance” skipped MTD handler (`/file/` substring) → LLM FAIL | **Critical tax** | `isMtdEligibilityQuestion` exclusion matched inside “freelance” | Use `\bfile\b`; broaden MTD intent for “do not add” | Deterministic PAYE-exclusion reply; live pack row remains historical FAIL |
+| QP-008 | D03 forgot prior £52k on MTD follow-up | High CX/tax | MTD eligibility used current message only | `answerMtdEligibility(message, history)` + engine wiring | Regression: remembers prior turnover |
 
 ## Retest evidence paths
 

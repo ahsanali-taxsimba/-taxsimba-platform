@@ -200,7 +200,7 @@ export class ConversationalEngine {
     const mtdEligibility =
       serviceModel?.handled || mtdOps || saEligibility?.handled
         ? null
-        : answerMtdEligibility(request.message);
+        : answerMtdEligibility(request.message, historyForRules);
     const ambiguous = answerAmbiguousIntent(request.message);
     const additionalTaxQ = /total income tax|additional (self assessment )?tax|extra tax i (pay|owe)|same as the extra/i.test(
       request.message,
