@@ -154,17 +154,38 @@
     }
   }
 
-  function workspaceUrl() {
+  function workspaceUrl(handoffToken) {
     var u = new URL("/widget/index.html", window.location.origin);
     u.searchParams.set("api", API);
     u.searchParams.set("embed", "1");
+    if (handoffToken) u.searchParams.set("handoff", handoffToken);
     return u.toString();
   }
 
-  function openWorkspace() {
-    postParent("open-workspace", { url: workspaceUrl() });
+  async function openWorkspace() {
+    var draft = (input && input.value) || "";
+    var url = workspaceUrl();
     try {
-      window.open(workspaceUrl(), "_blank", "noopener,noreferrer");
+      var res = await fetch(API + "/api/v1/sessions/handoff", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          session_id: sessionId(),
+          draft: draft || null,
+        }),
+      });
+      if (res.ok) {
+        var data = await res.json();
+        if (data && data.handoff_token) {
+          url = workspaceUrl(data.handoff_token);
+        }
+      }
+    } catch (_) {
+      /* fall through — workspace opens without handoff */
+    }
+    postParent("open-workspace", { url: url });
+    try {
+      window.open(url, "_blank", "noopener,noreferrer");
     } catch (_) {}
   }
 

@@ -1,0 +1,206 @@
+{
+  "generated_at": "2026-11-20T05:02:41.704Z",
+  "mode": "openai",
+  "total": 8,
+  "recorded": 8,
+  "heuristic_fail": 0,
+  "errors": 0,
+  "note": "RECORDED ≠ tax-accuracy PASS. Full tax review requires accountant acceptance criteria.",
+  "results": [
+    {
+      "id": "T001",
+      "category": "SA eligibility",
+      "mode": "openai",
+      "turns_sent": 1,
+      "reply": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year?",
+      "packages": [],
+      "sources": [
+        "paye-and-additional-income",
+        "sa-who-needs-to-file",
+        "company-directors-sa"
+      ],
+      "llm_mode": "openai",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "status": "RECORDED",
+      "notes": "No verified tax answer key in pack — tax accuracy requires accountant review of recorded replies."
+    },
+    {
+      "id": "T002",
+      "category": "SA eligibility",
+      "mode": "openai",
+      "turns_sent": 1,
+      "reply": "Yes, you will need to file a Self Assessment tax return for the 2025-26 tax year. Since you earned £8,000 in freelance turnover, which is considered untaxed income, you fall under the requirement to submit a return, even if you are also employed. \n\nIf you have any further questions about the process or need assistance with filing, feel free to ask!",
+      "packages": [],
+      "sources": [
+        "sa-who-needs-to-file",
+        "mtd-threshold-30k-april-2027",
+        "paye-and-additional-income"
+      ],
+      "llm_mode": "openai",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "status": "RECORDED",
+      "notes": "No verified tax answer key in pack — tax accuracy requires accountant review of recorded replies."
+    },
+    {
+      "id": "T003",
+      "category": "SA eligibility",
+      "mode": "openai",
+      "turns_sent": 1,
+      "reply": "You do not need to register for Self Assessment if your gross income from freelance work is below £1,000 for the 2025-26 tax year. Since you earned £700, you fall below this threshold. However, if you have other income that requires registration or if your circumstances change, you may need to register later. \n\nDo you have any other sources of income or specific concerns about your tax situation?",
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART"
+      ],
+      "sources": [
+        "register-self-assessment",
+        "self-employed-register",
+        "mtd-threshold-30k-april-2027"
+      ],
+      "llm_mode": "openai",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "status": "RECORDED",
+      "notes": "No verified tax answer key in pack — tax accuracy requires accountant review of recorded replies."
+    },
+    {
+      "id": "T004",
+      "category": "SA eligibility",
+      "mode": "openai",
+      "turns_sent": 1,
+      "reply": "Selling personal items like a sofa or laptop typically doesn't require you to file a Self Assessment tax return, as long as you sold them for less than you originally paid. However, if you are trading as a business or regularly selling items for profit, you may need to register for Self Assessment. \n\nIf you have other sources of income or are unsure, it might be wise to check the requirements on GOV.UK or consult a tax professional. Would you like more information on who needs to file a Self Assessment?",
+      "packages": [],
+      "sources": [
+        "sa-deadline-online",
+        "sa-paper-deadline",
+        "sa-who-needs-to-file"
+      ],
+      "llm_mode": "openai",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "status": "RECORDED",
+      "notes": "No verified tax answer key in pack — tax accuracy requires accountant review of recorded replies."
+    },
+    {
+      "id": "T005",
+      "category": "SA eligibility",
+      "mode": "openai",
+      "turns_sent": 1,
+      "reply": "Receiving £3,500 in bank interest may require you to file a Self Assessment tax return, depending on your overall income and tax situation. If your total income, including the interest, exceeds your Personal Savings Allowance or if you have other untaxed income, you will likely need to file. \n\nFor the 2026-27 tax year, basic-rate taxpayers can earn up to £1,000 in interest tax-free, while higher-rate taxpayers have a £500 allowance. If your interest exceeds these limits, you should consider filing a return. \n\nDo you have any other sources of income that might affect this?",
+      "packages": [],
+      "sources": [
+        "sa-who-needs-to-file",
+        "paye-and-additional-income",
+        "savings-interest-tax"
+      ],
+      "llm_mode": "openai",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "status": "RECORDED",
+      "notes": "No verified tax answer key in pack — tax accuracy requires accountant review of recorded replies."
+    },
+    {
+      "id": "T006",
+      "category": "SA eligibility",
+      "mode": "openai",
+      "turns_sent": 1,
+      "reply": "If you receive dividends from shares, you may need to complete a Self Assessment tax return if your total income exceeds certain thresholds or if you have other untaxed income. Specifically, if your dividends, along with any other income, push your total income above the personal allowance or if you have other sources of untaxed income, you will likely need to file. \n\nFor the 2026-27 tax year, the personal allowance is £12,570. If your dividends exceed the £2,000 dividend allowance, you may also need to report them. \n\nDo you have any other sources of income that might affect your tax situation?",
+      "packages": [],
+      "sources": [
+        "company-directors-sa",
+        "sa-who-needs-to-file",
+        "sa-paper-deadline"
+      ],
+      "llm_mode": "openai",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "status": "RECORDED",
+      "notes": "No verified tax answer key in pack — tax accuracy requires accountant review of recorded replies."
+    },
+    {
+      "id": "T007",
+      "category": "SA eligibility",
+      "mode": "openai",
+      "turns_sent": 1,
+      "reply": "Since you have PAYE wages and £5,000 gross rental income, you may need to file a Self Assessment tax return. Generally, if your total income exceeds £1,000 from property (the property allowance), or if you have other untaxed income, you will be required to submit a return. \n\nIt's advisable to check the specific criteria on GOV.UK regarding who must send a tax return for your situation. Would you like more information on how to file a Self Assessment?",
+      "packages": [],
+      "sources": [
+        "paye-and-additional-income",
+        "mtd-qualifying-income-definition",
+        "property-income-overview"
+      ],
+      "llm_mode": "openai",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "status": "RECORDED",
+      "notes": "No verified tax answer key in pack — tax accuracy requires accountant review of recorded replies."
+    },
+    {
+      "id": "T008",
+      "category": "SA eligibility",
+      "mode": "openai",
+      "turns_sent": 1,
+      "reply": "Since you started self-employment in February 2026, you'll need to register for Self Assessment with HMRC by 5 October 2026. This is to ensure you can file your tax return for the 2025-26 tax year, which runs from 6 April 2025 to 5 April 2026.\n\nYou will need to file your first Self Assessment tax return online by 31 January 2027. Make sure to keep accurate records of your income and expenses from your self-employment for this period.\n\nWould you like more information on how to register for Self Assessment?",
+      "packages": [],
+      "sources": [
+        "sa-deadline-online",
+        "employment-expenses",
+        "paye-and-additional-income"
+      ],
+      "llm_mode": "openai",
+      "heuristics": {
+        "non_empty": true,
+        "no_internal_jargon": true,
+        "no_invented_booking": true,
+        "packages_suppressed_when_info_only": true,
+        "packages_present_when_asked": true,
+        "remembered_instruction_visible": true
+      },
+      "status": "RECORDED",
+      "notes": "No verified tax answer key in pack — tax accuracy requires accountant review of recorded replies."
+    }
+  ]
+}
