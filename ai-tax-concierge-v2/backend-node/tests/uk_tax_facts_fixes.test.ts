@@ -75,4 +75,23 @@ describe("source-backed tax fact fixes", () => {
     expect(r?.customer_reply.toLowerCase()).toMatch(/self assessment/);
     expect(r?.customer_reply).not.toMatch(/£119|Simple £119|Simbian/);
   });
+
+  it("explains_repairs_vs_improvements_without_catalogue", () => {
+    const r = answerAmbiguousIntent(
+      "What is the difference between repairs and improvements for landlords?",
+    );
+    expect(r?.handled).toBe(true);
+    expect(r?.customer_reply.toLowerCase()).toMatch(/repair|restore|capital|improvement/);
+    expect(r?.customer_reply).not.toMatch(/£119|Simbian Comply/);
+    expect(r?.customer_reply).toMatch(/gov\.uk\/guidance\/income-tax-when-you-rent-out-a-property/);
+  });
+
+  it("explains_quarterly_vs_final_declaration_without_catalogue_dump", () => {
+    const r = answerMtdOperationsQuestion(
+      "What is the difference between quarterly updates and the final declaration?",
+    );
+    expect(r).toBeTruthy();
+    expect(r!.toLowerCase()).toMatch(/not tax returns|do not replace|not replace/);
+    expect(r!).not.toMatch(/£119|Self Assessment \(per tax year\)/);
+  });
 });

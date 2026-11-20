@@ -46,6 +46,120 @@ export function answerAmbiguousIntent(
     .toLowerCase();
   const ctx = `${priorUser}\n${lower}`.trim();
 
+  // Vague gig / slang / creator income without amount — clarify first (do not assert SA).
+  if (
+    /(deliver(y|ies|oo)|uber|bolt|just.?eat|tiktok|youtube|onlyfans|vinted|ebay|etsy|babysitting|dog walking|side hustle|made some money|earned a bit|cash.?in.?hand)/i.test(
+      lower,
+    ) &&
+    !hasAmount(lower) &&
+    (/(what do i need|hmrc|tax|register|sa\b|self assessment|accountant|owe|fine right)/i.test(
+      lower,
+    ) ||
+      /^(i )?(earned a bit|made some money|do(ing)? (some )?deliveries)/i.test(lower) ||
+      lower.length < 80)
+  ) {
+    return {
+      handled: true,
+      prefer_over_eligibility_probe: true,
+      confidence: "high",
+      customer_reply:
+        "Happy to help — I need one key fact before saying whether Self Assessment usually applies. " +
+        "Roughly how much did you earn from that activity before expenses, and for which UK tax year (6 April–5 April)? " +
+        "If it is self-employment trading and more than £1,000 in a tax year, you usually need Self Assessment — but I won’t decide from a vague “some money” figure alone. " +
+        `Guidance: ${SA_WHO}`,
+    };
+  }
+
+  // “Do I need an accountant?” without circumstances
+  if (
+    /(do i (actually )?need an accountant|should i get an accountant|accountant\?+)/i.test(
+      lower,
+    ) &&
+    !hasAmount(lower) &&
+    !/(investigation|letter|penalty|complex|partnership)/i.test(lower)
+  ) {
+    return {
+      handled: true,
+      prefer_over_eligibility_probe: true,
+      confidence: "high",
+      customer_reply:
+        "It depends on your circumstances — many people can DIY Self Assessment or Making Tax Digital with good records, while others prefer an accountant for complexity, letters, or peace of mind. " +
+        "What income types do you have (PAYE, self-employment, property, investments), roughly how much before expenses, and for which tax year? " +
+        "I can explain the rules first; a paid TaxSimba consultation is optional if you later want personalised advice.",
+    };
+  }
+
+  // Bare “PAYE so I’m fine?” without confirming other income — clarify first
+  if (
+    /(boss pays|paye already|paid through paye|employer (already )?taxes).{0,40}(fine|sorted|ok|alright|all good)/i.test(
+      lower,
+    ) &&
+    !hasAmount(lower) &&
+    !/(freelance|self-?employ|rent|property|side)/i.test(lower)
+  ) {
+    return {
+      handled: true,
+      prefer_over_eligibility_probe: true,
+      confidence: "high",
+      customer_reply:
+        "PAYE usually covers tax on that employment income, but it does not automatically mean you have no Self Assessment duties. " +
+        "Do you have any other income in the tax year — for example self-employment, property rent, untaxed interest, dividends, or crypto disposals? " +
+        "If it is truly PAYE-only, you usually do not need Making Tax Digital for Income Tax either. " +
+        `Guidance: ${SA_WHO}`,
+    };
+  }
+
+  // PAYE + “I rent a flat” is ambiguous (tenant vs landlord) without more facts
+  if (
+    /(paye|job already tax|employer taxes|boss pays)/i.test(lower) &&
+    /\brent(s|ing)? a (flat|house|property)\b|\bi rent\b/i.test(lower) &&
+    !/(rent out|landlord|rental income|tenant pays me)/i.test(lower) &&
+    !hasAmount(lower)
+  ) {
+    return {
+      handled: true,
+      prefer_over_eligibility_probe: true,
+      confidence: "high",
+      customer_reply:
+        "Just to check — are you renting a flat as a tenant (your rent is usually not taxable income), or do you receive rent from letting a property? " +
+        "PAYE on employment does not cover rental income you receive as a landlord. " +
+        "Which is it, and if you receive rent, roughly how much before expenses and for which tax year?",
+    };
+  }
+
+  // Low babysitting / casual help with small stated amount — clarify trading vs casual before asserting SA
+  if (
+    /(babysitting|dog walking|gardening|tutoring|cash.?in.?hand)/i.test(lower) &&
+    /£\s*([1-9]\d{0,2}|1,?000)\b/.test(lower) &&
+    /(sa\b|self assessment|tax|register|hmrc)/i.test(lower)
+  ) {
+    return {
+      handled: true,
+      prefer_over_eligibility_probe: true,
+      confidence: "high",
+      customer_reply:
+        "Happy to help — I need one key fact: was this casual occasional help, or regular self-employment trading? " +
+        "GOV.UK’s usual sole-trader Self Assessment rule uses more than £1,000 of trading income in a tax year (before reliefs). " +
+        "At or under £1,000 you often may not need to tell HMRC for that trading income alone, but exceptions apply. " +
+        "Which tax year is the figure for, and is it your only extra income? " +
+        `Guidance: ${SA_WHO} · https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income`,
+    };
+  }
+
+  // Educational: what is the dividend allowance
+  if (/what is the dividend allowance|dividend allowance\??$/i.test(lower)) {
+    return {
+      handled: true,
+      prefer_over_eligibility_probe: true,
+      confidence: "high",
+      customer_reply:
+        "The dividend allowance is £500 each tax year (current GOV.UK). " +
+        "You only pay dividend tax on dividend income above that allowance (and after any unused Personal Allowance). " +
+        "Whether you must send a Self Assessment return depends on your total income and other circumstances, not the allowance figure alone. " +
+        "Official guidance: https://www.gov.uk/tax-on-dividends",
+    };
+  }
+
   // Guaranteed refund — refuse
   if (/guarantee.*(refund|tax back)|promise.*(refund|tax back)/i.test(lower)) {
     return {

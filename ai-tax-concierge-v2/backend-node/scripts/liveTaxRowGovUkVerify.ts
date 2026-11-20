@@ -686,7 +686,8 @@ async function main() {
       try {
         const res = await request(app)
           .post("/api/v1/chat")
-          .send({ session_id: `govuk-live-${row.id}`, message: row.question, history: [] });
+          .send({ session_id: `govuk-live-${row.id}`, message: row.question, history: [] })
+          .timeout({ deadline: 45000, response: 45000 });
         if (res.status === 200) {
           live = String(res.body.reply || "");
           break;

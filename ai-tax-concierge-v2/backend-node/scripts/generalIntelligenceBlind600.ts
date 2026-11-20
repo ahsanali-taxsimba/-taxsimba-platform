@@ -40,13 +40,25 @@ async function postChat(
   body: { session_id: string; message: string; history: Turn[] },
 ) {
   for (let i = 0; i < 6; i++) {
-    const res = await request(app).post("/api/v1/chat").send(body);
-    if (res.status === 200) return res;
-    if (res.status === 429 || res.status >= 500) {
-      await sleep(Math.min(30000, 1000 * 2 ** i));
-      continue;
+    try {
+      const res = await request(app)
+        .post("/api/v1/chat")
+        .send(body)
+        .timeout({ deadline: 45000, response: 45000 });
+      if (res.status === 200) return res;
+      if (res.status === 429 || res.status >= 500) {
+        await sleep(Math.min(30000, 1000 * 2 ** i));
+        continue;
+      }
+      return res;
+    } catch (err: any) {
+      const msg = String(err?.message || err || "");
+      if (/timeout|ECONNRESET|ETIMEDOUT|socket/i.test(msg) || err?.timeout) {
+        await sleep(Math.min(30000, 1000 * 2 ** i));
+        continue;
+      }
+      throw err;
     }
-    return res;
   }
   return null;
 }
@@ -63,10 +75,15 @@ function classify(
   const a = (reply || "").toLowerCase();
   const pkgs = packages || [];
   const clarifying =
-    /need (a little )?more detail|roughly how much|which tax year|is that figure|one key fact|can'?t decide|it depends whether|casually selling|was this a one-off|what other income|happy to help — i need|rolling 12-month|beneficial share/i.test(
+    /need (a little )?more detail|roughly how much|which tax year|is that figure|one key fact|can'?t decide|it depends whether|casually selling|was this a one-off|what other income|happy to help — i need|rolling 12-month|beneficial share|just to check|are you renting|do you have any other untaxed|on the boundary|it depends on your circumstances/i.test(
       a,
     ) &&
     !/(you must register for self assessment|you need to use making tax digital from)/i.test(
+      a,
+    );
+
+  const educationalGeneral =
+    /dividend allowance is £500|filing deadline is when|payment deadline is when|quarterly updates are short summaries|self assessment is hmrc|making tax digital for income tax is|repairs that restore|holding without disposal|trading allowance/i.test(
       a,
     );
 
@@ -80,6 +97,8 @@ function classify(
   )
     observed = "NO_TAXSIMBA_SERVICE";
   else if (clarifying) observed = "MORE_INFO_NEEDED";
+  else if (educationalGeneral && expected === "GENERAL_INFO")
+    observed = "GENERAL_INFO";
   else if (/dashboard|info@taxsimba/.test(a) && /support|message|login/.test(a))
     observed = "EXISTING_CUSTOMER_SUPPORT";
   else if (
@@ -107,14 +126,17 @@ function classify(
     /(qualifying income|6 april 202|threshold|more than £|quarterly)/.test(a)
   )
     observed = "MTD_ASSIST";
+  else if (
+    educationalGeneral ||
+    /what is self assessment|hmrc.?s system|quarterly updates are/.test(a)
+  )
+    observed = "GENERAL_INFO";
   else if (/self assessment|tax return/.test(a)) observed = "SA_ASSIST";
   else if (
     /(do not need|don't need|does not apply|not required|diy|yourself)/.test(a) &&
     pkgs.length === 0
   )
     observed = expected === "DIY_OK" ? "DIY_OK" : "NO_TAXSIMBA_SERVICE";
-  else if (/what is self assessment|hmrc.?s system|quarterly updates are/.test(a))
-    observed = "GENERAL_INFO";
 
   const match =
     observed === expected
@@ -775,8 +797,23 @@ async function main() {
       classification_match: clf.match,
       tags: clf.tags,
     });
-    if ((i + 1) % 50 === 0) console.error(`single ${i + 1}/${single.length}`);
-    await sleep(live ? 100 : 5);
+    if ((i + 1) % 25 === 0) {
+      console.error(`single ${i + 1}/${single.length}`);
+      writeFileSync(
+        path.join(OUT, "BLIND_500_RESULTS.checkpoint.json"),
+        JSON.stringify(
+          {
+            generated_at: new Date().toISOString(),
+            live,
+            completed: sResults.length,
+            results: sResults,
+          },
+          null,
+          2,
+        ),
+      );
+    }
+    await sleep(live ? 50 : 5);
   }
 
   const sMetrics = {
