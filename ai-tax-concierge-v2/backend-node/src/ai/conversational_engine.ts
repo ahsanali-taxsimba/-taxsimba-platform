@@ -310,6 +310,11 @@ export class ConversationalEngine {
     } else if (consultIntent) {
       reply = consultationOptionsReply();
       confidence = "high";
+    } else if (mtdOps) {
+      // Process answers (quarterly vs return, agent submit, software) before
+      // generic educational clarifiers that also mention “quarterly updates”.
+      reply = mtdOps;
+      confidence = "high";
     } else if (saDefinitive && saEligibility) {
       reply = saEligibility.customer_reply;
       confidence = saEligibility.confidence;

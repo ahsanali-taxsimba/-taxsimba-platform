@@ -121,9 +121,32 @@ export function isMtdEligibilityQuestion(message: string): boolean {
     /(2024\s*[-/]?\s*25|2025\s*[-/]?\s*26|2026\s*[-/]?\s*27|2024\/25|2025\/26)/i.test(
       lower,
     );
+  // Rent + self-employment “are they combined?” is an MTD QI question even
+  // without the letters MTD.
+  const combinedQiAsk =
+    /(rent|rental|property)/i.test(lower) &&
+    /(self-?employ|freelance|sole[- ]?trader|trading|turnover)/i.test(lower) &&
+    /(combin|together|add (them|both)|total)/i.test(lower);
+  // Profit vs turnover / which figure counts — QI definition without needing “MTD”.
+  const profitVsTurnoverAsk =
+    /\bprofit\b/.test(lower) &&
+    /\b(turnover|gross)\b/.test(lower) &&
+    /(which (number|amount|figure) (matters|counts)|what (matters|counts)|qualifying)/i.test(
+      lower,
+    );
+  // Two basis years + start-date ask (e.g. £55k in 2025/26 but £20k in 2024/25).
+  const multiYearStartAsk =
+    /(which start|start date|when (do|should) i (start|use)|assessed)/i.test(
+      lower,
+    ) &&
+    /2024\s*[-/]?\s*25/.test(lower) &&
+    /2025\s*[-/]?\s*26/.test(lower);
   if (
     !/(mtd|making tax digital|digital tax thing|digital tax)/i.test(lower) &&
-    !implicitMtdBand
+    !implicitMtdBand &&
+    !combinedQiAsk &&
+    !profitVsTurnoverAsk &&
+    !multiYearStartAsk
   ) {
     return false;
   }
@@ -153,7 +176,7 @@ export function isMtdEligibilityQuestion(message: string): boolean {
     return false;
   }
   const intentVerb =
-    /(need|eligib|when|start|from|apply|threshold|qualifying|do i|am i|required|have to|should i|subscription|plan|buy|do not add|don'?t add|count (them |it )?(toward|towards|for)|include.*(paye|salary)|paye only|making tax digital\?|\bmtd\?)/i.test(
+    /(need|eligib|when|start|from|apply|threshold|qualifying|do i|am i|required|have to|should i|subscription|plan|buy|do not add|don'?t add|count (them |it )?(toward|towards|for)|include.*(paye|salary)|paye only|making tax digital\?|\bmtd\?|which (number|amount|figure) (matters|counts)|are they combined|combine|mortgage interest reduce)/i.test(
       lower,
     );
   // Income figure + MTD/digital-tax mention is enough even without “do I need”
@@ -183,7 +206,10 @@ export function extractMtdEligibilityInput(
     /(self-?employ|sole[- ]?trader|landlord|property income|freelance|rental income|\brental\b|\brent\b|trading income|side hustle|side income)/i.test(
       lower,
     ) && !/(limited company|ltd company|company turnover|corporation tax)/i.test(lower);
-  const hasPaye = /\bpaye\b|\bsalary\b|\bemploy(ed|ment)\b/.test(lower);
+  // Do not treat “self-employment” as PAYE employment.
+  const hasPaye =
+    /\bpaye\b|\bsalary\b/.test(lower) ||
+    /(?<!self-)\bemploy(ed|ment)\b/.test(lower);
   const payeOnly =
     hasPaye &&
     /\bonly\b/.test(lower) &&
@@ -193,22 +219,39 @@ export function extractMtdEligibilityInput(
       lower,
     ) && !hasTradingOrProperty;
 
-  const incomeIsProfitNotGross =
-    /\bprofit\b/.test(lower) &&
-    !/\b(turnover|gross|qualifying income|before expenses)\b/.test(lower);
+  // Profit alone is not QI — but if turnover/gross is also stated, use that.
+  const hasTurnoverOrGross = /\b(turnover|gross|qualifying income|before expenses)\b/.test(
+    lower,
+  );
+  const incomeIsProfitNotGross = /\bprofit\b/.test(lower) && !hasTurnoverOrGross;
 
   // Prefer trading/property amounts when PAYE salary is also mentioned —
   // PAYE must not count toward MTD qualifying income.
   // Prefer amount-before-label (avoids capturing tax-year digits after the label).
-  const tradingAmt =
+  const seAmt =
     parseTaggedAmount(
       message,
-      /£\s*([\d,]+(?:\.\d+)?)\s*k?(?=\s*(?:sole[- ]?trader|self-?employ|trading|turnover|freelance|property|rental|\brent\b|qualifying|landlord))/i,
+      /£\s*([\d,]+(?:\.\d+)?)\s*k?(?=\s*(?:sole[- ]?trader|self-?employ|trading|turnover|freelance|qualifying))/i,
     ) ||
     parseTaggedAmount(
       message,
-      /(?:sole[- ]?trader|self-?employ(?:ed|ment)?|trading|turnover|freelance|side (?:hustle|income)|property|rental|\brent\b|landlord)[^£\d]{0,24}£\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
+      /(?:sole[- ]?trader|self-?employ(?:ed|ment)?|trading|turnover|freelance|side (?:hustle|income))[^£\d]{0,24}£\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
     );
+
+  const propertyAmt =
+    parseTaggedAmount(
+      message,
+      /£\s*([\d,]+(?:\.\d+)?)\s*k?(?=\s*(?:property|rental|\brent\b|landlord))/i,
+    ) ||
+    parseTaggedAmount(
+      message,
+      /(?:property|rental|\brent\b|landlord)[^£\d]{0,24}£\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
+    );
+
+  const tradingAmt =
+    seAmt != null && propertyAmt != null
+      ? seAmt + propertyAmt
+      : seAmt ?? propertyAmt;
 
   const payeAmt =
     parseTaggedAmount(
@@ -220,7 +263,18 @@ export function extractMtdEligibilityInput(
       /£?\s*([\d,]+(?:\.\d+)?)\s*k?(?=\s*(?:paye|salary|employment))/i,
     );
 
-  let amount = tradingAmt;
+  // Prefer explicit turnover when both profit and turnover are stated.
+  const turnoverOnly =
+    parseTaggedAmount(
+      message,
+      /£\s*([\d,]+(?:\.\d+)?)\s*k?(?=\s*(?:turnover|gross|before expenses))/i,
+    ) ||
+    parseTaggedAmount(
+      message,
+      /(?:turnover|gross)[^£\d]{0,24}£\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
+    );
+
+  let amount = turnoverOnly ?? tradingAmt;
   // Never treat a bare “I earn £X” figure as MTD qualifying income unless
   // trading/property (or explicit qualifying income) is stated.
   const statedAsQualifying =
@@ -597,11 +651,160 @@ function conversationContextText(
   return prior ? `${prior}\n${message}` : message;
 }
 
+/** Profit vs turnover — QI uses turnover/gross, not profit (and not the VAT test). */
+function answerProfitVsTurnover(message: string): MtdEligibilityResult | null {
+  const lower = (message || "").toLowerCase();
+  if (
+    !/\bprofit\b/.test(lower) ||
+    !/\b(turnover|gross)\b/.test(lower) ||
+    !/(which (number|amount|figure) (matters|counts)|what (matters|counts)|qualifying)/i.test(
+      lower,
+    )
+  ) {
+    return null;
+  }
+  const turnover =
+    parseTaggedAmount(
+      message,
+      /£\s*([\d,]+(?:\.\d+)?)\s*k?(?=\s*(?:turnover|gross|before expenses))/i,
+    ) ||
+    parseTaggedAmount(
+      message,
+      /(?:turnover|gross)[^£\d]{0,24}£\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
+    );
+  const year = detectBasisYear(message);
+  let bandNote = "";
+  if (turnover != null && year) {
+    const band = bandForYear(year);
+    if (band) {
+      const inScope = turnover > band.threshold_gbp;
+      bandNote = inScope
+        ? ` Using turnover of £${turnover.toLocaleString("en-GB")} for ${year}, that is more than £${band.threshold_gbp.toLocaleString("en-GB")}, so Making Tax Digital for Income Tax would usually start from ${band.commencement} (if you are a sole trader/landlord in Self Assessment).`
+        : ` Using turnover of £${turnover.toLocaleString("en-GB")} for ${year}, that is not more than £${band.threshold_gbp.toLocaleString("en-GB")}, so that year’s MTD band would not bring you in.`;
+    }
+  } else if (turnover != null) {
+    bandNote =
+      ` Your stated turnover of £${turnover.toLocaleString("en-GB")} is the figure to map to the MTD bands once the basis tax year is confirmed.`;
+  }
+  return {
+    handled: true,
+    needs_more_info: false,
+    in_scope: turnover != null && year
+      ? turnover > (bandForYear(year)?.threshold_gbp ?? Infinity)
+      : null,
+    commencement:
+      turnover != null && year && turnover > (bandForYear(year)?.threshold_gbp ?? Infinity)
+        ? bandForYear(year)!.commencement
+        : null,
+    band: year ? bandForYear(year) : null,
+    reason: "MTD QI uses turnover/gross, not profit",
+    clarifying_question: null,
+    confidence: "high",
+    customer_reply:
+      "For Making Tax Digital for Income Tax, qualifying income uses turnover/gross from self-employment and property before expenses — not profit after expenses. " +
+      "So the turnover figure is the one that matters for the MTD threshold test (Self Assessment taxable profit is a different question)." +
+      bandNote +
+      " VAT is a separate regime with its own rolling 12-month taxable-turnover rules — do not treat the MTD test as the VAT test.\n\n" +
+      `Official guidance: https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax`,
+  };
+}
+
+/** Multi-year QI comparison: “£55k in 2025-26 but £20k in 2024-25 — which start date?” */
+function answerMultiYearComparison(message: string): MtdEligibilityResult | null {
+  const lower = (message || "").toLowerCase();
+  if (
+    !/(which start|which year|when (do|should) i start|start date|assessed)/i.test(
+      lower,
+    )
+  ) {
+    return null;
+  }
+  const yearAmounts: Array<{ year: string; amount: number }> = [];
+  const patterns: Array<[RegExp, string]> = [
+    [
+      /£\s*([\d,]+)\s*k?\b[^.]{0,40}(?:in |for )?(?:the )?2024\s*[-/]?\s*25|2024\s*[-/]?\s*25[^£]{0,40}£\s*([\d,]+)\s*k?\b/i,
+      "2024-25",
+    ],
+    [
+      /£\s*([\d,]+)\s*k?\b[^.]{0,40}(?:in |for )?(?:the )?2025\s*[-/]?\s*26|2025\s*[-/]?\s*26[^£]{0,40}£\s*([\d,]+)\s*k?\b/i,
+      "2025-26",
+    ],
+    [
+      /£\s*([\d,]+)\s*k?\b[^.]{0,40}(?:in |for )?(?:the )?2026\s*[-/]?\s*27|2026\s*[-/]?\s*27[^£]{0,40}£\s*([\d,]+)\s*k?\b/i,
+      "2026-27",
+    ],
+  ];
+  // Simpler: "£55,000 in 2025/26" / "£20,000 in 2024/25"
+  for (const m of message.matchAll(
+    /£\s*([\d,]+(?:\.\d+)?)\s*k?\b[^\n.]{0,30}?(?:in |for )?(?:the )?(2024\s*[-/]?\s*25|2025\s*[-/]?\s*26|2026\s*[-/]?\s*27)/gi,
+  )) {
+    let n = Number(m[1]!.replace(/,/g, ""));
+    if (/k/i.test(m[0]) && n < 1000) n *= 1000;
+    const rawY = m[2]!.replace(/\s/g, "");
+    const year = rawY.includes("2024")
+      ? "2024-25"
+      : rawY.includes("2025")
+        ? "2025-26"
+        : "2026-27";
+    if (Number.isFinite(n)) yearAmounts.push({ year, amount: n });
+  }
+  // Also "only £20,000 in 2024/25"
+  for (const m of message.matchAll(
+    /(2024\s*[-/]?\s*25|2025\s*[-/]?\s*26|2026\s*[-/]?\s*27)[^\n£]{0,40}£\s*([\d,]+(?:\.\d+)?)\s*k?\b/gi,
+  )) {
+    let n = Number(m[2]!.replace(/,/g, ""));
+    if (/k/i.test(m[0]) && n < 1000) n *= 1000;
+    const rawY = m[1]!.replace(/\s/g, "");
+    const year = rawY.includes("2024")
+      ? "2024-25"
+      : rawY.includes("2025")
+        ? "2025-26"
+        : "2026-27";
+    if (Number.isFinite(n) && !yearAmounts.some((y) => y.year === year)) {
+      yearAmounts.push({ year, amount: n });
+    }
+  }
+  if (yearAmounts.length < 2) return null;
+
+  const lines: string[] = [];
+  for (const { year, amount } of yearAmounts) {
+    const band = bandForYear(year);
+    if (!band) continue;
+    const inScope = amount > band.threshold_gbp;
+    lines.push(
+      `• ${year}: £${amount.toLocaleString("en-GB")} is ${inScope ? "more than" : "not more than"} £${band.threshold_gbp.toLocaleString("en-GB")} → ${inScope ? `start from ${band.commencement}` : `not brought in by that year’s band`}`,
+    );
+  }
+  if (!lines.length) return null;
+  return {
+    handled: true,
+    needs_more_info: false,
+    in_scope: yearAmounts.some((y) => {
+      const b = bandForYear(y.year);
+      return b != null && y.amount > b.threshold_gbp;
+    }),
+    commencement: null,
+    band: null,
+    reason: "Multi-year QI comparison",
+    clarifying_question: null,
+    confidence: "high",
+    customer_reply:
+      "Making Tax Digital start dates depend on qualifying income for a specific basis tax year — you apply each year to its own band:\n" +
+      lines.join("\n") +
+      "\n\nQualifying income is self-employment and property turnover before expenses (combined), not PAYE salary.\n\n" +
+      `Official guidance: ${MTD_SOURCE_URL}`,
+  };
+}
+
 export function answerMtdEligibility(
   message: string,
   history?: Array<{ role: string; content: string }> | null,
 ): MtdEligibilityResult | null {
   if (!isMtdEligibilityQuestion(message)) return null;
+  const profitTurnover = answerProfitVsTurnover(message);
+  if (profitTurnover) return profitTurnover;
+  const multi = answerMultiYearComparison(message);
+  if (multi) return multi;
   // Prefer current message for “more than / exactly” flags; merge history for amount/year recall.
   const ctx = conversationContextText(message, history);
   const fromMessage = extractMtdEligibilityInput(message);

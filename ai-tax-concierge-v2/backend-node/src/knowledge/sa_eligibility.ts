@@ -279,6 +279,16 @@ export function answerSaEligibility(
   message: string,
   history?: Array<{ role: string; content: string }> | null,
 ): SaEligibilityResult | null {
+  const m = (message || "").toLowerCase();
+  // Let MTD handlers own QI-combine / band questions.
+  if (
+    /(combin|together|add (them|both)|qualifying income|which number matters|which amount counts|mortgage interest reduce)/i.test(
+      m,
+    ) &&
+    /(rent|rental|property|turnover|profit|mtd|making tax digital)/i.test(m)
+  ) {
+    return null;
+  }
   const explicit = isSaEligibilityQuestion(message);
   const disclosure = isTradingIncomeDisclosure(message, history);
   if (!explicit && !disclosure) return null;

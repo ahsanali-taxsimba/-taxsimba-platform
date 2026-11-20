@@ -1,0 +1,3508 @@
+{
+  "generated_at": "2026-11-20T22:56:33.384Z",
+  "note": "NEW unseen bank — expectations locked BEFORE answers. Not a paraphrase of prior banks.",
+  "count": 500,
+  "adversarial_count": 180,
+  "scenarios": [
+    {
+      "id": "G001",
+      "question": "mate I made some money doing deliveries what do I need to do",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "gig unclear amount",
+      "adversarial": true
+    },
+    {
+      "id": "G002",
+      "question": "what is this digital tax thing",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "MTD explain",
+      "adversarial": false
+    },
+    {
+      "id": "G003",
+      "question": "my job already taxes me but I rent a flat",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "PAYE+property unclear rent",
+      "adversarial": false
+    },
+    {
+      "id": "G004",
+      "question": "I earned a bit from TikTok",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "creator unclear",
+      "adversarial": true
+    },
+    {
+      "id": "G005",
+      "question": "do I actually need an accountant",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "need facts first",
+      "adversarial": false
+    },
+    {
+      "id": "G006",
+      "question": "can I just do this myself",
+      "expected_classification": "DIY_OK",
+      "notes": "DIY ok",
+      "adversarial": false
+    },
+    {
+      "id": "G007",
+      "question": "innit do i owe hmrc if i sold stuff on vinted",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "trade vs personal",
+      "adversarial": true
+    },
+    {
+      "id": "G008",
+      "question": "boss pays me PAYE already so im fine right?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "may have other income",
+      "adversarial": true
+    },
+    {
+      "id": "G009",
+      "question": "sole trader turnover £6,400 in 2025-26 — Self Assessment?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k",
+      "adversarial": false
+    },
+    {
+      "id": "G010",
+      "question": "qualifying income more than £50,000 in 2024-25 — MTD start?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "Apr 2026",
+      "adversarial": false
+    },
+    {
+      "id": "G011",
+      "question": "qualifying income exactly £50,000 in 2024-25 — MTD?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "exclusive",
+      "adversarial": false
+    },
+    {
+      "id": "G012",
+      "question": "qualifying income more than £30k in 2025-26 start?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "Apr 2027",
+      "adversarial": false
+    },
+    {
+      "id": "G013",
+      "question": "I earn £47k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare earn",
+      "adversarial": true
+    },
+    {
+      "id": "G014",
+      "question": "PAYE only £38,000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "PAYE only",
+      "adversarial": false
+    },
+    {
+      "id": "G015",
+      "question": "£12k rent + £22k freelance turnover 2025-26 — combined for MTD?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "QI combine",
+      "adversarial": false
+    },
+    {
+      "id": "G016",
+      "question": "£80k profit but £95k turnover 2024-25 — which for MTD?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "turnover",
+      "adversarial": false
+    },
+    {
+      "id": "G017",
+      "question": "freelance exactly £1,000 in 2025-26 — SA?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "boundary",
+      "adversarial": false
+    },
+    {
+      "id": "G018",
+      "question": "Etsy £900 last year — register?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "≤£1k or confirm",
+      "adversarial": false
+    },
+    {
+      "id": "G019",
+      "question": "Deliveroo about £2,100 2025-26 before expenses. SA?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k",
+      "adversarial": false
+    },
+    {
+      "id": "G020",
+      "question": "What is Self Assessment?",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "explain",
+      "adversarial": false
+    },
+    {
+      "id": "G021",
+      "question": "What is Making Tax Digital for Income Tax?",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "explain",
+      "adversarial": false
+    },
+    {
+      "id": "G022",
+      "question": "Do quarterly updates replace my tax return?",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no",
+      "adversarial": false
+    },
+    {
+      "id": "G023",
+      "question": "What is the dividend allowance?",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "£500",
+      "adversarial": false
+    },
+    {
+      "id": "G024",
+      "question": "difference between filing deadline and payment deadline?",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "deadlines",
+      "adversarial": false
+    },
+    {
+      "id": "G025",
+      "question": "does PAYE count toward qualifying income?",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no",
+      "adversarial": false
+    },
+    {
+      "id": "G026",
+      "question": "student with £400 babysitting — SA?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "low/uncertain",
+      "adversarial": false
+    },
+    {
+      "id": "G027",
+      "question": "pensioner with £3k bank interest — return?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "savings",
+      "adversarial": false
+    },
+    {
+      "id": "G028",
+      "question": "left job in May got P45 — automatic SA?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "not automatic",
+      "adversarial": false
+    },
+    {
+      "id": "G029",
+      "question": "starting a small business next month — what first?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "clarify",
+      "adversarial": false
+    },
+    {
+      "id": "G030",
+      "question": "CIS spark deductions taken — still SA?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "CIS≠waiver",
+      "adversarial": false
+    },
+    {
+      "id": "G031",
+      "question": "sold ETH for a gain — report?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "CGT facts",
+      "adversarial": false
+    },
+    {
+      "id": "G032",
+      "question": "hold bitcoin never sold — automatic CGT?",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no auto",
+      "adversarial": false
+    },
+    {
+      "id": "G033",
+      "question": "two PAYE jobs only — SA automatic?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "not auto",
+      "adversarial": false
+    },
+    {
+      "id": "G034",
+      "question": "company car on P11D — need SA?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "ask other",
+      "adversarial": false
+    },
+    {
+      "id": "G035",
+      "question": "cheapest TaxSimba SA package?",
+      "expected_classification": "TAXSIMBA_SIGNUP",
+      "notes": "asked",
+      "adversarial": false
+    },
+    {
+      "id": "G036",
+      "question": "I refuse any paid service. Is £1,800 freelance 2025-26 SA?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "no-buy",
+      "adversarial": false
+    },
+    {
+      "id": "G037",
+      "question": "dont sell me anything — explain trading allowance",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no sell",
+      "adversarial": false
+    },
+    {
+      "id": "G038",
+      "question": "hmrc investigation letter — need consult?",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "notes": "consult",
+      "adversarial": false
+    },
+    {
+      "id": "G039",
+      "question": "already TaxSimba client — message accountant?",
+      "expected_classification": "EXISTING_CUSTOMER_SUPPORT",
+      "notes": "dashboard",
+      "adversarial": false
+    },
+    {
+      "id": "G040",
+      "question": "file corporation tax for my ltd?",
+      "expected_classification": "OUT_OF_SCOPE",
+      "notes": "CT",
+      "adversarial": false
+    },
+    {
+      "id": "G041",
+      "question": "can I DIY Self Assessment without TaxSimba?",
+      "expected_classification": "DIY_OK",
+      "notes": "diy",
+      "adversarial": false
+    },
+    {
+      "id": "G042",
+      "question": "do I need to buy Xero separately for Simbian?",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "included",
+      "adversarial": false
+    },
+    {
+      "id": "G043",
+      "question": "50k qi 2024/25 mtd??",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "ambiguous exact/more",
+      "adversarial": true
+    },
+    {
+      "id": "G044",
+      "question": "£50,000.00 exactly qualifying 2024-25 over threshold???",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "exact",
+      "adversarial": true
+    },
+    {
+      "id": "G045",
+      "question": "paye only £99000 mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "not £99 consult",
+      "adversarial": true
+    },
+    {
+      "id": "G046",
+      "question": "i made 8k then actually wait 800 quid deliveries",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction mid",
+      "adversarial": true
+    },
+    {
+      "id": "G047",
+      "question": "vat at 90k and also mtd????",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "mixed regimes",
+      "adversarial": true
+    },
+    {
+      "id": "G048",
+      "question": "partner 50/50 let who files tax return",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "joint",
+      "adversarial": false
+    },
+    {
+      "id": "G049",
+      "question": "crypto tax on buy or only sell",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "disposal",
+      "adversarial": false
+    },
+    {
+      "id": "G050",
+      "question": "just started doing some tutoring on the side maybe £785 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G051",
+      "question": "contracting as dev £1560 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G052",
+      "question": "i get paid £21k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G053",
+      "question": "paye only £27700. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G054",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G055",
+      "question": "marketplace maybe £1170. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G056",
+      "question": "landlord rent £11200  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G057",
+      "question": "dont want packages. explain trading allowance",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G058",
+      "question": "just started doing some dog walking on the side maybe £870 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G059",
+      "question": "contracting as nurse bank £1720 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G060",
+      "question": "i get paid £22k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G061",
+      "question": "paye only £29400. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G062",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G063",
+      "question": "marketplace maybe £1240. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G064",
+      "question": "landlord rent £12400 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G065",
+      "question": "dont want packages. explain sa deadlines",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G066",
+      "question": "just started doing some photography on the side maybe £955 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G067",
+      "question": "contracting as barista extra £1880 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G068",
+      "question": "i get paid £23k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G069",
+      "question": "paye only £31100. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G070",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G071",
+      "question": "marketplace maybe £1310. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G072",
+      "question": "landlord rent £13600  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G073",
+      "question": "dont want packages. explain cis vs sa",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G074",
+      "question": "just started doing some cleaning on the side maybe £1040 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G075",
+      "question": "contracting as driver £2040 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G076",
+      "question": "i get paid £24k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G077",
+      "question": "paye only £32800. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G078",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G079",
+      "question": "marketplace maybe £1380. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G080",
+      "question": "landlord rent £14800 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G081",
+      "question": "dont want packages. explain crypto disposal",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G082",
+      "question": "just started doing some gardening on the side maybe £1125 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G083",
+      "question": "contracting as writer £2200 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G084",
+      "question": "i get paid £25k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G085",
+      "question": "paye only £34500. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G086",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G087",
+      "question": "marketplace maybe £1450. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G088",
+      "question": "landlord rent £16000  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G089",
+      "question": "dont want packages. explain mtd qualifying income",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G090",
+      "question": "just started doing some tutoring on the side maybe £1210 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G091",
+      "question": "contracting as dev £2360 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G092",
+      "question": "i get paid £26k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G093",
+      "question": "paye only £36200. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G094",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G095",
+      "question": "marketplace maybe £1520. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G096",
+      "question": "landlord rent £17200 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G097",
+      "question": "dont want packages. explain trading allowance",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G098",
+      "question": "just started doing some dog walking on the side maybe £1295 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G099",
+      "question": "contracting as nurse bank £2520 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G100",
+      "question": "i get paid £27k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G101",
+      "question": "paye only £37900. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G102",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G103",
+      "question": "marketplace maybe £1590. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G104",
+      "question": "landlord rent £18400  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G105",
+      "question": "dont want packages. explain sa deadlines",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G106",
+      "question": "just started doing some photography on the side maybe £1380 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G107",
+      "question": "contracting as barista extra £2680 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G108",
+      "question": "i get paid £28k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G109",
+      "question": "paye only £39600. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G110",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G111",
+      "question": "marketplace maybe £1660. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G112",
+      "question": "landlord rent £19600 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G113",
+      "question": "dont want packages. explain cis vs sa",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G114",
+      "question": "just started doing some cleaning on the side maybe £1465 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G115",
+      "question": "contracting as driver £2840 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G116",
+      "question": "i get paid £29k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G117",
+      "question": "paye only £41300. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G118",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G119",
+      "question": "marketplace maybe £1730. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G120",
+      "question": "landlord rent £20800  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G121",
+      "question": "dont want packages. explain crypto disposal",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G122",
+      "question": "just started doing some gardening on the side maybe £1550 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G123",
+      "question": "contracting as writer £3000 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G124",
+      "question": "i get paid £30k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G125",
+      "question": "paye only £43000. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G126",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G127",
+      "question": "marketplace maybe £1800. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G128",
+      "question": "landlord rent £22000 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G129",
+      "question": "dont want packages. explain mtd qualifying income",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G130",
+      "question": "just started doing some tutoring on the side maybe £1635 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G131",
+      "question": "contracting as dev £3160 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G132",
+      "question": "i get paid £31k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G133",
+      "question": "paye only £44700. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G134",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G135",
+      "question": "marketplace maybe £1870. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G136",
+      "question": "landlord rent £23200  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G137",
+      "question": "dont want packages. explain trading allowance",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G138",
+      "question": "just started doing some dog walking on the side maybe £1720 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G139",
+      "question": "contracting as nurse bank £3320 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G140",
+      "question": "i get paid £32k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G141",
+      "question": "paye only £46400. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G142",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G143",
+      "question": "marketplace maybe £1940. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G144",
+      "question": "landlord rent £24400 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G145",
+      "question": "dont want packages. explain sa deadlines",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G146",
+      "question": "just started doing some photography on the side maybe £1805 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G147",
+      "question": "contracting as barista extra £3480 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G148",
+      "question": "i get paid £33k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G149",
+      "question": "paye only £48100. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G150",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G151",
+      "question": "marketplace maybe £2010. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G152",
+      "question": "landlord rent £25600  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G153",
+      "question": "dont want packages. explain cis vs sa",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G154",
+      "question": "just started doing some cleaning on the side maybe £1890 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G155",
+      "question": "contracting as driver £3640 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G156",
+      "question": "i get paid £34k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G157",
+      "question": "paye only £49800. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G158",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G159",
+      "question": "marketplace maybe £2080. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G160",
+      "question": "landlord rent £26800 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G161",
+      "question": "dont want packages. explain crypto disposal",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G162",
+      "question": "just started doing some gardening on the side maybe £1975 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G163",
+      "question": "contracting as writer £3800 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G164",
+      "question": "i get paid £35k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G165",
+      "question": "paye only £51500. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G166",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G167",
+      "question": "marketplace maybe £2150. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G168",
+      "question": "landlord rent £28000  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G169",
+      "question": "dont want packages. explain mtd qualifying income",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G170",
+      "question": "just started doing some tutoring on the side maybe £2060 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G171",
+      "question": "contracting as dev £3960 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G172",
+      "question": "i get paid £36k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G173",
+      "question": "paye only £53200. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G174",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G175",
+      "question": "marketplace maybe £2220. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G176",
+      "question": "landlord rent £29200 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G177",
+      "question": "dont want packages. explain trading allowance",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G178",
+      "question": "just started doing some dog walking on the side maybe £2145 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G179",
+      "question": "contracting as nurse bank £4120 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G180",
+      "question": "i get paid £37k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G181",
+      "question": "paye only £54900. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G182",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G183",
+      "question": "marketplace maybe £2290. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G184",
+      "question": "landlord rent £30400  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G185",
+      "question": "dont want packages. explain sa deadlines",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G186",
+      "question": "just started doing some photography on the side maybe £2230 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G187",
+      "question": "contracting as barista extra £4280 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G188",
+      "question": "i get paid £38k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G189",
+      "question": "paye only £56600. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G190",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G191",
+      "question": "marketplace maybe £2360. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G192",
+      "question": "landlord rent £31600 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G193",
+      "question": "dont want packages. explain cis vs sa",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G194",
+      "question": "just started doing some cleaning on the side maybe £2315 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G195",
+      "question": "contracting as driver £4440 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G196",
+      "question": "i get paid £39k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G197",
+      "question": "paye only £58300. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G198",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G199",
+      "question": "marketplace maybe £2430. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G200",
+      "question": "landlord rent £32800  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G201",
+      "question": "dont want packages. explain crypto disposal",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G202",
+      "question": "just started doing some gardening on the side maybe £2400 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G203",
+      "question": "contracting as writer £4600 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G204",
+      "question": "i get paid £40k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G205",
+      "question": "paye only £60000. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G206",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G207",
+      "question": "marketplace maybe £2500. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G208",
+      "question": "landlord rent £34000 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G209",
+      "question": "dont want packages. explain mtd qualifying income",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G210",
+      "question": "just started doing some tutoring on the side maybe £2485 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G211",
+      "question": "contracting as dev £4760 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G212",
+      "question": "i get paid £41k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G213",
+      "question": "paye only £61700. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G214",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G215",
+      "question": "marketplace maybe £2570. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G216",
+      "question": "landlord rent £35200  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G217",
+      "question": "dont want packages. explain trading allowance",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G218",
+      "question": "just started doing some dog walking on the side maybe £2570 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G219",
+      "question": "contracting as nurse bank £4920 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G220",
+      "question": "i get paid £42k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G221",
+      "question": "paye only £63400. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G222",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G223",
+      "question": "marketplace maybe £2640. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G224",
+      "question": "landlord rent £36400 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G225",
+      "question": "dont want packages. explain sa deadlines",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G226",
+      "question": "just started doing some photography on the side maybe £2655 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G227",
+      "question": "contracting as barista extra £5080 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G228",
+      "question": "i get paid £43k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G229",
+      "question": "paye only £65100. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G230",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G231",
+      "question": "marketplace maybe £2710. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G232",
+      "question": "landlord rent £37600  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G233",
+      "question": "dont want packages. explain cis vs sa",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G234",
+      "question": "just started doing some cleaning on the side maybe £2740 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G235",
+      "question": "contracting as driver £5240 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G236",
+      "question": "i get paid £44k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G237",
+      "question": "paye only £66800. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G238",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G239",
+      "question": "marketplace maybe £2780. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G240",
+      "question": "landlord rent £38800 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G241",
+      "question": "dont want packages. explain crypto disposal",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G242",
+      "question": "just started doing some gardening on the side maybe £2825 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G243",
+      "question": "contracting as writer £5400 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G244",
+      "question": "i get paid £45k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G245",
+      "question": "paye only £68500. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G246",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G247",
+      "question": "marketplace maybe £2850. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G248",
+      "question": "landlord rent £40000  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G249",
+      "question": "dont want packages. explain mtd qualifying income",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G250",
+      "question": "just started doing some tutoring on the side maybe £2910 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G251",
+      "question": "contracting as dev £5560 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G252",
+      "question": "i get paid £46k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G253",
+      "question": "paye only £70200. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G254",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G255",
+      "question": "marketplace maybe £2920. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G256",
+      "question": "landlord rent £41200 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G257",
+      "question": "dont want packages. explain trading allowance",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G258",
+      "question": "just started doing some dog walking on the side maybe £2995 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G259",
+      "question": "contracting as nurse bank £5720 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G260",
+      "question": "i get paid £47k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G261",
+      "question": "paye only £71900. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G262",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G263",
+      "question": "marketplace maybe £2990. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G264",
+      "question": "landlord rent £42400  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G265",
+      "question": "dont want packages. explain sa deadlines",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G266",
+      "question": "just started doing some photography on the side maybe £3080 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G267",
+      "question": "contracting as barista extra £5880 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G268",
+      "question": "i get paid £48k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G269",
+      "question": "paye only £73600. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G270",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G271",
+      "question": "marketplace maybe £3060. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G272",
+      "question": "landlord rent £43600 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G273",
+      "question": "dont want packages. explain cis vs sa",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G274",
+      "question": "just started doing some cleaning on the side maybe £3165 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G275",
+      "question": "contracting as driver £6040 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G276",
+      "question": "i get paid £49k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G277",
+      "question": "paye only £75300. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G278",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G279",
+      "question": "marketplace maybe £3130. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G280",
+      "question": "landlord rent £44800  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G281",
+      "question": "dont want packages. explain crypto disposal",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G282",
+      "question": "just started doing some gardening on the side maybe £3250 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G283",
+      "question": "contracting as writer £6200 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G284",
+      "question": "i get paid £50k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G285",
+      "question": "paye only £77000. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G286",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G287",
+      "question": "marketplace maybe £3200. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G288",
+      "question": "landlord rent £46000 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G289",
+      "question": "dont want packages. explain mtd qualifying income",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G290",
+      "question": "just started doing some tutoring on the side maybe £3335 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G291",
+      "question": "contracting as dev £6360 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G292",
+      "question": "i get paid £51k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G293",
+      "question": "paye only £78700. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G294",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G295",
+      "question": "marketplace maybe £3270. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G296",
+      "question": "landlord rent £47200  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G297",
+      "question": "dont want packages. explain trading allowance",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G298",
+      "question": "just started doing some dog walking on the side maybe £3420 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G299",
+      "question": "contracting as nurse bank £6520 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G300",
+      "question": "i get paid £52k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G301",
+      "question": "paye only £80400. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G302",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G303",
+      "question": "marketplace maybe £3340. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G304",
+      "question": "landlord rent £48400 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G305",
+      "question": "dont want packages. explain sa deadlines",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G306",
+      "question": "just started doing some photography on the side maybe £3505 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G307",
+      "question": "contracting as barista extra £6680 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G308",
+      "question": "i get paid £53k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G309",
+      "question": "paye only £82100. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G310",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G311",
+      "question": "marketplace maybe £3410. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G312",
+      "question": "landlord rent £49600  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G313",
+      "question": "dont want packages. explain cis vs sa",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G314",
+      "question": "just started doing some cleaning on the side maybe £3590 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G315",
+      "question": "contracting as driver £6840 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G316",
+      "question": "i get paid £54k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G317",
+      "question": "paye only £83800. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G318",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G319",
+      "question": "marketplace maybe £3480. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G320",
+      "question": "landlord rent £50800 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G321",
+      "question": "dont want packages. explain crypto disposal",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G322",
+      "question": "just started doing some gardening on the side maybe £3675 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G323",
+      "question": "contracting as writer £7000 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G324",
+      "question": "i get paid £55k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G325",
+      "question": "paye only £85500. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G326",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G327",
+      "question": "marketplace maybe £3550. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G328",
+      "question": "landlord rent £52000  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G329",
+      "question": "dont want packages. explain mtd qualifying income",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G330",
+      "question": "just started doing some tutoring on the side maybe £3760 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G331",
+      "question": "contracting as dev £7160 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G332",
+      "question": "i get paid £56k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G333",
+      "question": "paye only £87200. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G334",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G335",
+      "question": "marketplace maybe £3620. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G336",
+      "question": "landlord rent £53200 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G337",
+      "question": "dont want packages. explain trading allowance",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G338",
+      "question": "just started doing some dog walking on the side maybe £3845 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G339",
+      "question": "contracting as nurse bank £7320 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G340",
+      "question": "i get paid £57k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G341",
+      "question": "paye only £88900. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G342",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G343",
+      "question": "marketplace maybe £3690. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G344",
+      "question": "landlord rent £54400  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G345",
+      "question": "dont want packages. explain sa deadlines",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G346",
+      "question": "just started doing some photography on the side maybe £3930 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G347",
+      "question": "contracting as barista extra £7480 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G348",
+      "question": "i get paid £58k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G349",
+      "question": "paye only £90600. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G350",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G351",
+      "question": "marketplace maybe £3760. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G352",
+      "question": "landlord rent £55600 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G353",
+      "question": "dont want packages. explain cis vs sa",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G354",
+      "question": "just started doing some cleaning on the side maybe £4015 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G355",
+      "question": "contracting as driver £7640 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G356",
+      "question": "i get paid £59k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G357",
+      "question": "paye only £92300. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G358",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G359",
+      "question": "marketplace maybe £3830. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G360",
+      "question": "landlord rent £56800  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G361",
+      "question": "dont want packages. explain crypto disposal",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G362",
+      "question": "just started doing some gardening on the side maybe £4100 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G363",
+      "question": "contracting as writer £7800 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G364",
+      "question": "i get paid £60k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G365",
+      "question": "paye only £94000. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G366",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G367",
+      "question": "marketplace maybe £3900. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G368",
+      "question": "landlord rent £58000 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G369",
+      "question": "dont want packages. explain mtd qualifying income",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G370",
+      "question": "just started doing some tutoring on the side maybe £4185 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G371",
+      "question": "contracting as dev £7960 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G372",
+      "question": "i get paid £61k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G373",
+      "question": "paye only £95700. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G374",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G375",
+      "question": "marketplace maybe £3970. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G376",
+      "question": "landlord rent £59200  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G377",
+      "question": "dont want packages. explain trading allowance",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G378",
+      "question": "just started doing some dog walking on the side maybe £4270 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G379",
+      "question": "contracting as nurse bank £8120 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G380",
+      "question": "i get paid £62k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G381",
+      "question": "paye only £97400. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G382",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G383",
+      "question": "marketplace maybe £4040. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G384",
+      "question": "landlord rent £60400 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G385",
+      "question": "dont want packages. explain sa deadlines",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G386",
+      "question": "just started doing some photography on the side maybe £4355 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G387",
+      "question": "contracting as barista extra £8280 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G388",
+      "question": "i get paid £63k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G389",
+      "question": "paye only £99100. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G390",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G391",
+      "question": "marketplace maybe £4110. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G392",
+      "question": "landlord rent £61600  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G393",
+      "question": "dont want packages. explain cis vs sa",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G394",
+      "question": "just started doing some cleaning on the side maybe £4440 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G395",
+      "question": "contracting as driver £8440 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G396",
+      "question": "i get paid £64k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G397",
+      "question": "paye only £100800. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G398",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G399",
+      "question": "marketplace maybe £4180. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G400",
+      "question": "landlord rent £62800 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G401",
+      "question": "dont want packages. explain crypto disposal",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G402",
+      "question": "just started doing some gardening on the side maybe £4525 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G403",
+      "question": "contracting as writer £8600 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G404",
+      "question": "i get paid £20k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G405",
+      "question": "paye only £102500. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G406",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G407",
+      "question": "marketplace maybe £4250. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G408",
+      "question": "landlord rent £64000  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G409",
+      "question": "dont want packages. explain mtd qualifying income",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G410",
+      "question": "just started doing some tutoring on the side maybe £4610 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G411",
+      "question": "contracting as dev £8760 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G412",
+      "question": "i get paid £21k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G413",
+      "question": "paye only £104200. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G414",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G415",
+      "question": "marketplace maybe £4320. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G416",
+      "question": "landlord rent £65200 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G417",
+      "question": "dont want packages. explain trading allowance",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G418",
+      "question": "just started doing some dog walking on the side maybe £4695 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G419",
+      "question": "contracting as nurse bank £8920 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G420",
+      "question": "i get paid £22k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G421",
+      "question": "paye only £105900. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G422",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G423",
+      "question": "marketplace maybe £4390. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G424",
+      "question": "landlord rent £66400  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G425",
+      "question": "dont want packages. explain sa deadlines",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G426",
+      "question": "just started doing some photography on the side maybe £4780 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G427",
+      "question": "contracting as barista extra £9080 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G428",
+      "question": "i get paid £23k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G429",
+      "question": "paye only £107600. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G430",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G431",
+      "question": "marketplace maybe £4460. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G432",
+      "question": "landlord rent £67600 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G433",
+      "question": "dont want packages. explain cis vs sa",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G434",
+      "question": "just started doing some cleaning on the side maybe £4865 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G435",
+      "question": "contracting as driver £9240 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G436",
+      "question": "i get paid £24k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G437",
+      "question": "paye only £109300. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G438",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G439",
+      "question": "marketplace maybe £4530. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G440",
+      "question": "landlord rent £68800  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G441",
+      "question": "dont want packages. explain crypto disposal",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G442",
+      "question": "just started doing some gardening on the side maybe £4950 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G443",
+      "question": "contracting as writer £9400 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G444",
+      "question": "i get paid £25k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G445",
+      "question": "paye only £111000. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G446",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G447",
+      "question": "marketplace maybe £4600. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G448",
+      "question": "landlord rent £70000 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G449",
+      "question": "dont want packages. explain mtd qualifying income",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G450",
+      "question": "just started doing some tutoring on the side maybe £5035 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G451",
+      "question": "contracting as dev £9560 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G452",
+      "question": "i get paid £26k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G453",
+      "question": "paye only £112700. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G454",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G455",
+      "question": "marketplace maybe £4670. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G456",
+      "question": "landlord rent £71200  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G457",
+      "question": "dont want packages. explain trading allowance",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G458",
+      "question": "just started doing some dog walking on the side maybe £5120 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G459",
+      "question": "contracting as nurse bank £9720 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G460",
+      "question": "i get paid £27k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G461",
+      "question": "paye only £114400. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G462",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G463",
+      "question": "marketplace maybe £4740. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G464",
+      "question": "landlord rent £72400 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G465",
+      "question": "dont want packages. explain sa deadlines",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G466",
+      "question": "just started doing some photography on the side maybe £5205 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G467",
+      "question": "contracting as barista extra £9880 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G468",
+      "question": "i get paid £28k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G469",
+      "question": "paye only £116100. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G470",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G471",
+      "question": "marketplace maybe £4810. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G472",
+      "question": "landlord rent £73600  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G473",
+      "question": "dont want packages. explain cis vs sa",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G474",
+      "question": "just started doing some cleaning on the side maybe £5290 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G475",
+      "question": "contracting as driver £10040 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G476",
+      "question": "i get paid £29k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G477",
+      "question": "paye only £117800. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G478",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G479",
+      "question": "marketplace maybe £4880. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G480",
+      "question": "landlord rent £74800 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G481",
+      "question": "dont want packages. explain crypto disposal",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G482",
+      "question": "just started doing some gardening on the side maybe £5375 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G483",
+      "question": "contracting as writer £10200 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G484",
+      "question": "i get paid £30k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G485",
+      "question": "paye only £119500. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G486",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G487",
+      "question": "marketplace maybe £4950. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G488",
+      "question": "landlord rent £76000  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G489",
+      "question": "dont want packages. explain mtd qualifying income",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G490",
+      "question": "just started doing some tutoring on the side maybe £5460 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G491",
+      "question": "contracting as dev £10360 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G492",
+      "question": "i get paid £31k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "G493",
+      "question": "paye only £121200. mtd for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "G494",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "G495",
+      "question": "marketplace maybe £5020. accountant???",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "uncertain+accountant",
+      "adversarial": true
+    },
+    {
+      "id": "G496",
+      "question": "landlord rent £77200 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "property",
+      "adversarial": false
+    },
+    {
+      "id": "G497",
+      "question": "dont want packages. explain trading allowance",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy education",
+      "adversarial": false
+    },
+    {
+      "id": "G498",
+      "question": "just started doing some dog walking on the side maybe £5545 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "side hustle uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "G499",
+      "question": "contracting as nurse bank £10520 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k with year",
+      "adversarial": false
+    },
+    {
+      "id": "G500",
+      "question": "i get paid £32k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    }
+  ]
+}

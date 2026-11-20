@@ -235,12 +235,14 @@ export function answerAmbiguousIntent(
     };
   }
 
-  // Educational / vague MTD — explain + ask facts (do not invent eligibility)
+  // Educational / vague MTD — explain + ask facts (do not invent eligibility).
+  // Do not steal precise process questions (replace return / agent submit).
   if (
-    /(what('?s| is) (this )?making tax digital|mtd thing|keep hearing about|special software for tax|quarterly updates?|what does quarterly update)/i.test(
+    /(what('?s| is) (this )?making tax digital|mtd thing|keep hearing about|special software for tax|what does quarterly update)/i.test(
       lower,
     ) &&
-    !hasAmount(lower)
+    !hasAmount(lower) &&
+    !/replace|accountant submit|agent submit/i.test(lower)
   ) {
     return {
       handled: true,
@@ -461,20 +463,99 @@ export function answerAmbiguousIntent(
     };
   }
 
-  // Dividends without full picture
+  // Dividend allowance / when SA might be needed
   if (
     /dividend/i.test(lower) &&
-    /(self assessment|tax return|file|return\?)/i.test(lower) &&
-    !/(paye|salary|total income|other income)/i.test(lower)
+    /(allowance|how (much|are).*tax|tax on dividend|self assessment|tax return|file|return\?|when might)/i.test(
+      lower,
+    )
+  ) {
+    const needsOtherIncome =
+      !/(paye|salary|total income|other income)/i.test(lower) &&
+      /(self assessment|tax return|file|return\?|when might)/i.test(lower);
+    return {
+      handled: true,
+      prefer_over_eligibility_probe: true,
+      confidence: "high",
+      customer_reply:
+        "You also get a dividend allowance of £500 each year (current GOV.UK) — you only pay dividend tax on dividend income above that allowance (and after any unused Personal Allowance). " +
+        "Whether you must send a Self Assessment return depends on your total income and other circumstances, not the dividend figure alone. " +
+        (needsOtherIncome
+          ? "What other income do you have (for example PAYE salary), and for which tax year? "
+          : "") +
+        `Official guidance: https://www.gov.uk/tax-on-dividends · Who must send a return: ${SA_WHO}`,
+    };
+  }
+
+  // Educational: filing vs payment deadline — do not dump packages
+  if (
+    /difference between (filing|payment) deadline|filing deadline and payment|payment deadline and filing/i.test(
+      lower,
+    )
   ) {
     return {
       handled: true,
       prefer_over_eligibility_probe: true,
       confidence: "high",
       customer_reply:
-        "Dividend income can require Self Assessment depending on your total income and other circumstances — a dividend figure alone is not enough to decide. " +
-        "What other income do you have (for example PAYE salary), and for which tax year? " +
-        `Who must send a return: ${SA_WHO} · Dividends: https://www.gov.uk/tax-on-dividends`,
+        "The filing deadline is when HMRC must receive your Self Assessment tax return; the payment deadline is when any tax you owe must be paid. " +
+        "For online returns these are often both 31 January following the tax year, but paper filing is earlier — confirm the year pairing on GOV.UK. " +
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+    };
+  }
+
+  // Educational: landlord repairs vs improvements (capital)
+  if (
+    /difference between repairs? and improvements?|repairs?.{0,20}improvements?.{0,20}landlord|improvements?.{0,20}repairs?.{0,20}(landlord|rental|property)/i.test(
+      lower,
+    )
+  ) {
+    return {
+      handled: true,
+      prefer_over_eligibility_probe: true,
+      confidence: "high",
+      customer_reply:
+        "For property rental income, allowable expenses usually include maintenance and repairs that restore the property toward its original condition " +
+        "(for example fixing a leak, replacing a broken boiler, or redecorating between tenants). " +
+        "Improvements and other capital expenditure — work that adds something new, or alters/upgrades the property (for example an extension or a higher-specification kitchen) — " +
+        "are generally not deductible against rental income (keep records; they may matter for Capital Gains Tax later). " +
+        "Borderline cases can be fact-specific; use GOV.UK and consider an accountant for unusual works. " +
+        "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+    };
+  }
+
+  // Educational: what is SA / what is MTD — explain first
+  if (
+    /^(what is|what's|whats) (self assessment|sa)\??$|explain self assessment|what does self assessment mean/i.test(
+      lower,
+    )
+  ) {
+    return {
+      handled: true,
+      prefer_over_eligibility_probe: true,
+      confidence: "high",
+      customer_reply:
+        "Self Assessment is HMRC’s system for reporting income that isn’t fully taxed in another way (for example through PAYE alone) and paying any Income Tax and National Insurance due. " +
+        "Many sole traders, landlords and people with untaxed income must send a tax return. " +
+        "If you tell me your income types and a rough amount for a tax year, I can help you check whether it usually applies to you. " +
+        `Official guidance: ${SA_WHO}`,
+    };
+  }
+
+  if (
+    /^(what is|what's|whats) (mtd|making tax digital)\??$|what is this digital tax|digital tax thing|explain making tax digital/i.test(
+      lower,
+    )
+  ) {
+    return {
+      handled: true,
+      prefer_over_eligibility_probe: true,
+      confidence: "high",
+      customer_reply:
+        "Making Tax Digital for Income Tax is HMRC’s way for many sole traders and landlords in Self Assessment to keep digital records and send quarterly updates of self-employment and property income — it does not replace the year-end tax return. " +
+        "Whether you must use it depends on your qualifying income (self-employment + property turnover before expenses) for specific tax years. " +
+        "PAYE salary alone does not count. " +
+        `Official guidance: ${MTD_IF}`,
     };
   }
 
