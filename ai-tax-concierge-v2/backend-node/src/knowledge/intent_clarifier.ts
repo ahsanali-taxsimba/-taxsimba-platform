@@ -129,6 +129,47 @@ export function answerAmbiguousIntent(message: string): ClarifierResult | null {
     };
   }
 
+  // Informal gig / creator / rideshare without an amount — clarify before concluding SA
+  if (
+    /(tiktok|youtube|instagram|onlyfans|uber|deliveroo|side hustle|side business|make money on)/i.test(
+      lower,
+    ) &&
+    !/£\s*[\d,]+|\b\d{1,3}\s*k\b|turnover|before expenses|tax year|2024|2025|2026/i.test(
+      lower,
+    ) &&
+    /(hmrc|tax|tell|register|accountant|self assessment|need)/i.test(lower)
+  ) {
+    return {
+      handled: true,
+      confidence: "high",
+      customer_reply:
+        "Happy to help — I need one key fact before saying whether you must tell HMRC. " +
+        "Roughly how much did you earn from that activity before expenses, and for which tax year? " +
+        "If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. " +
+        "Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+    };
+  }
+
+  // Vague “digital tax thing” / “I earn £X — does MTD apply?” without income type
+  // Do NOT intercept clear MTD threshold/date questions that already name MTD + amount.
+  if (
+    (/(this new digital|digital tax thing|does this new digital)/i.test(lower) ||
+      (/i earn\s*£?\s*[\d,]+k?/i.test(lower) &&
+        /(digital tax|making tax digital|\bmtd\b)/i.test(lower))) &&
+    !/(self-?employ|sole[- ]?trader|freelance|property|rental|landlord|paye|salary|payroll|turnover|qualifying|start date|remind me the year|threshold)/i.test(
+      lower,
+    )
+  ) {
+    return {
+      handled: true,
+      confidence: "high",
+      customer_reply:
+        "Making Tax Digital for Income Tax depends on qualifying income (self-employment and property turnover before expenses) — not PAYE salary alone. " +
+        "Is your £ figure PAYE employment, self-employment turnover, property rent, or a mix — and which tax year? " +
+        "Official guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+    };
+  }
+
   // Sell things online — trading vs personal
   if (
     /sell(ing)? things online|sell online|ebay|etsy|vinted|marketplace/i.test(
@@ -142,8 +183,7 @@ export function answerAmbiguousIntent(message: string): ClarifierResult | null {
       customer_reply:
         "It depends whether you’re casually selling personal belongings or running a trade as a sole trader. " +
         "Occasional sales of personal items are often different from a regular online business that may need Self Assessment. " +
-        "Are you selling your own used possessions, or buying/making goods to sell for profit — and roughly what was the income before expenses last tax year? " +
-        "If it is a trade, TaxSimba’s Self Assessment Simple (£119) is often the lowest suitable starting package once we confirm the facts.",
+        "Are you selling your own used possessions, or buying/making goods to sell for profit — and roughly what was the income before expenses last tax year?",
     };
   }
 

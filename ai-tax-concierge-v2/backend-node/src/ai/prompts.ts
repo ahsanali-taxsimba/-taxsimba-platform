@@ -114,7 +114,7 @@ export function mockPackageReply(message: string): string | null {
   const lower = message.toLowerCase();
   // Honour explicit "information only / do not recommend" — never dump the catalogue.
   if (
-    /\b(information only|general information only|do not recommend|don'?t recommend|do not sell|don'?t sell|no sales|just asking|curious only|avoid (a )?checkout)\b/i.test(
+    /\b(information only|general information only|do not recommend|don'?t recommend|do not sell|don'?t sell|no sales|just asking|curious only|avoid (a )?checkout|do not want (a |any )?(paid )?package|don'?t want (a |any )?(paid )?package|just the answer|no paid (package|service))\b/i.test(
       lower,
     )
   ) {

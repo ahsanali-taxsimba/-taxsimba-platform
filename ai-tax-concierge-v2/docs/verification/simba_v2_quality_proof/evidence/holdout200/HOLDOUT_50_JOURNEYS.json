@@ -1,0 +1,1602 @@
+{
+  "generated_at": "2026-11-20T14:11:27.688Z",
+  "journeys": [
+    {
+      "id": "H001",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "I work full-time but make money on TikTok. Do I need to tell HMRC?",
+          "reply": "Yes, if your income from TikTok exceeds £1,000 in a tax year, you need to register for Self Assessment and report this income to HMRC. This applies even if you also have a full-time job. Keep detailed records of your earnings and any related expenses, as you may be able to deduct these when calculating your taxable income. \n\nWould you like more information on how to register for Self Assessment?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Since your freelance income is £8,000 for 2025-26, you must register for Self Assessment and submit a tax return. This is required because your income exceeds the £1,000 threshold for self-employment. You can find more details on registering and filing on the HMRC website.\n\nIf you have any more questions or need further clarification, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H002",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "I rent out my flat but my employer already takes tax.",
+          "reply": "Even if your employer deducts tax through PAYE, you still need to declare your rental income to HMRC. Rental income is typically reported through Self Assessment, especially if it exceeds the tax-free allowance. It's important to keep records of your rental income and any allowable expenses. If you're unsure about your obligations, you can check the GOV.UK website for more details on who must send a tax return. \n\nDo you need help with registering for Self Assessment or understanding allowable expenses?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Since your self-employment income for 2025-26 is £8,000, you are required to register for Self Assessment and submit a tax return. This is because your income exceeds the £1,000 threshold for self-employed individuals. \n\nYou can find more information on registering and filing on the GOV.UK website. If you have any other questions, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H003",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "I earn £55k. Does this new digital tax thing apply to me?",
+          "reply": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Yes, you need to complete a Self Assessment tax return for the 2025-26 tax year because your self-employment income exceeds the £1,000 threshold. You can register for Self Assessment through the HMRC website. If you have any more questions about the process, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H004",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "I’m an Uber driver. Do I need an accountant?",
+          "reply": "As an Uber driver, you may benefit from having an accountant, especially if your income is above the trading allowance of £1,000. You’ll likely need to register for Self Assessment and file a tax return, which can be complex. An accountant can help ensure you comply with tax regulations, maximise deductions, and manage your records effectively. \n\nWould you like to know more about the Self Assessment process or how TaxSimba can assist you?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Since your self-employment income is £8,000 for 2025-26, you do need to register for Self Assessment and submit a tax return. This is required because your income exceeds the £1,000 threshold for trading income. \n\nIf you have any more questions about the process or need further clarification, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H005",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "turns": [
+        {
+          "user": "I haven’t done my tax for two years. What happens?",
+          "reply": "If you haven't submitted your Self Assessment tax returns for two years, you may face penalties and interest on any unpaid tax. HMRC can charge late filing penalties, which increase the longer you delay. Additionally, you could be subject to a tax investigation. It's important to address this as soon as possible to minimise penalties.\n\nI recommend contacting HMRC to discuss your situation and consider seeking professional advice to help you get back on track. Would you like more information on how to proceed?",
+          "packages": []
+        },
+        {
+          "user": "Can you explain what I should do next?",
+          "reply": "To address your overdue tax returns, follow these steps:\n\n1. **Gather Records**: Collect all relevant income and expense records for the two years you missed. This includes bank statements, invoices, and receipts.\n\n2. **Contact HMRC**: Reach out to HMRC to inform them of your situation. They can provide guidance on how to proceed and any penalties you may face.\n\n3. **Complete Your Returns**: Prepare and submit your outstanding Self Assessment tax returns for both years. You can do this online through the HMRC portal or with the help of an accountant.\n\n4. **Pay Any Tax Owed**: Once your returns are submitted, pay any tax due to avoid further penalties and interest.\n\n5. **Consider Professional Help**: If you're unsure about the process, you might want to consult a tax professional for assistance.\n\nWould you like to know more about getting professional help with your tax returns?",
+          "packages": []
+        },
+        {
+          "user": "Should I book a consultation?",
+          "reply": "TaxSimba offers two private accountant video consultations on Google Meet:\n\n• Quick Tax Advice — £99 for 20 minutes (one focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks.\n\nThe usual booking path is: choose an option → open the matching Calendly event → select an available appointment → pay within Calendly’s booking process → receive Google Meet details after Calendly confirms the booking.\n\nWhich option would you like — Quick (£99 / 20 minutes) or Extended (£149 / 40 minutes)?",
+          "packages": [
+            "ACCOUNTANT_CONSULT_99",
+            "ACCOUNTANT_CONSULT_149"
+          ]
+        }
+      ],
+      "remembered_amount": false,
+      "final_packages": [
+        "ACCOUNTANT_CONSULT_99",
+        "ACCOUNTANT_CONSULT_149"
+      ],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H006",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "I sell things online. Do I have to pay tax?",
+          "reply": "It depends whether you’re casually selling personal belongings or running a trade as a sole trader. Occasional sales of personal items are often different from a regular online business that may need Self Assessment. Are you selling your own used possessions, or buying/making goods to sell for profit — and roughly what was the income before expenses last tax year? If it is a trade, TaxSimba’s Self Assessment Simple (£119) is often the lowest suitable starting package once we confirm the facts.",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Since your self-employment income for 2025-26 is £8,000, you are required to register for Self Assessment and submit a tax return. This is because your income exceeds the £1,000 threshold for trading income. You can find more information on how to register and your obligations on the GOV.UK website. If you have any other questions, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H007",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "I have two jobs and a side business.",
+          "reply": "Having two jobs and a side business means you may have multiple sources of income, which can affect your tax obligations. If your side business generates more than £1,000 in trading income (before reliefs) in the tax year, you will typically need to register for Self Assessment and file a tax return. \n\nAdditionally, your income from both jobs will be taxed under PAYE, but any additional income from your side business will need to be reported separately. \n\nWould you like to know more about how to manage your tax obligations for these income sources?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Since your freelance income for 2025-26 is £8,000, you will need to register for Self Assessment and file a tax return. This is because your self-employment income exceeds the £1,000 threshold. \n\nYou can register online through the HMRC website. If you have any further questions about the process or need guidance on specific aspects, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H008",
+      "expected_classification": "SA_ASSIST",
+      "turns": [
+        {
+          "user": "I want someone to do everything for me.",
+          "reply": "If you're looking for comprehensive support with your tax obligations, our Self Assessment packages can help. An accountant will handle your tax return and ensure everything is filed correctly. \n\nWould you like to know more about the specific packages available?",
+          "packages": []
+        },
+        {
+          "user": "Yes, sole trader / freelance.",
+          "reply": "For sole traders and freelancers, I recommend our Self Assessment packages. Here’s a brief overview:\n\n1. **Self Assessment Simple**: £119 per tax year — ideal for straightforward tax situations.\n2. **Self Assessment Smart**: £149 per tax year — includes more complex scenarios and additional support.\n3. **Self Assessment Elite**: £299 per tax year — for those needing extensive support and guidance.\n\nWould you like to know more about a specific package or proceed with one?",
+          "packages": []
+        },
+        {
+          "user": "Which package fits a simple first-time filer?",
+          "reply": "For a simple first-time filer, the **Self Assessment Simple** package at £119 per tax year would be a great fit. It covers the essentials for straightforward tax situations, making it suitable for someone new to Self Assessment.\n\nWould you like to proceed with this package?",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        },
+        {
+          "user": "Where do I register?",
+          "reply": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, (5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there. I won’t invent portal screens or claim payment succeeded from this chat. Self Assessment packages: https://www.taxsimba.co.uk/self-assessment · MTD: https://www.taxsimba.co.uk/making-tax-digital.",
+          "packages": []
+        }
+      ],
+      "remembered_amount": false,
+      "final_packages": [],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H009",
+      "expected_classification": "MTD_ASSIST",
+      "turns": [
+        {
+          "user": "I already use Xero. Can TaxSimba still help?",
+          "reply": "For Making Tax Digital for Income Tax, HMRC requires compatible software and digital records. With TaxSimba’s accountant-led Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — you do not buy Xero separately through TaxSimba. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA chat and the customer portal do not file directly to HMRC — TaxSimba accountants lead those workflows. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.",
+          "packages": []
+        },
+        {
+          "user": "That figure is self-employment turnover before expenses for 2024-25.",
+          "reply": "If your self-employment turnover before expenses for the 2024-25 tax year exceeds £50,000, you will need to use Making Tax Digital for Income Tax starting from 6 April 2026. This means you'll need to maintain digital records and submit quarterly updates. \n\nIf you have any questions about how to manage this or need assistance with your Self Assessment, feel free to ask!",
+          "packages": []
+        },
+        {
+          "user": "So do I need Making Tax Digital from April 2026?",
+          "reply": "For Making Tax Digital for Income Tax, PAYE/employment salary does not count. I need your self-employment and/or property income before expenses (turnover/gross) for a specific tax year.\n\nWhat was that trading/property turnover, and which tax year was it for?",
+          "packages": []
+        },
+        {
+          "user": "What would TaxSimba do for me if I wanted help?",
+          "reply": "TaxSimba provides accountant-led support for your tax needs. If you choose a Simbian plan, we can help you with:\n\n1. **Quarterly Updates**: We assist in preparing and submitting your quarterly updates to HMRC.\n2. **Year-End Self Assessment**: We handle the preparation and filing of your Self Assessment tax return.\n3. **Digital Record-Keeping**: We guide you in maintaining compliant digital records using Xero.\n\nYou can select a plan based on your needs, such as Simbian Comply, Growth, or Elite. If you’d like more details on a specific plan, just let me know!",
+          "packages": []
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H010",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "turns": [
+        {
+          "user": "I received an HMRC letter and don’t understand it.",
+          "reply": "I can help clarify the contents of the letter. Could you provide a brief summary of what the letter states or the specific points you're unsure about? This will help me assist you better.",
+          "packages": []
+        },
+        {
+          "user": "Can you explain what I should do next?",
+          "reply": "To provide the best guidance, I need to know what the letter from HMRC is regarding. Common topics include tax returns, payments, or compliance issues. If you can share a bit more about the letter's content or any specific instructions it includes, I can help you determine your next steps.",
+          "packages": []
+        },
+        {
+          "user": "Should I book a consultation?",
+          "reply": "TaxSimba offers two private accountant video consultations on Google Meet:\n\n• Quick Tax Advice — £99 for 20 minutes (one focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks.\n\nThe usual booking path is: choose an option → open the matching Calendly event → select an available appointment → pay within Calendly’s booking process → receive Google Meet details after Calendly confirms the booking.\n\nWhich option would you like — Quick (£99 / 20 minutes) or Extended (£149 / 40 minutes)?",
+          "packages": [
+            "ACCOUNTANT_CONSULT_99",
+            "ACCOUNTANT_CONSULT_149"
+          ]
+        }
+      ],
+      "remembered_amount": false,
+      "final_packages": [
+        "ACCOUNTANT_CONSULT_99",
+        "ACCOUNTANT_CONSULT_149"
+      ],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H013",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "I got a P60. What do I do with it?",
+          "reply": "A P60 is an important document summarising your earnings and the tax you've paid for the tax year. You should keep it for your records, as it may be needed for various purposes, such as completing your Self Assessment tax return, applying for loans, or verifying your income.\n\nIf you have additional income or need to file a Self Assessment return, ensure you include the information from your P60. If you have any specific questions about how to use it, feel free to ask!",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Since your self-employment income for 2025-26 is £8,000, you are required to register for Self Assessment and submit a tax return. This is because your income exceeds the £1,000 threshold for self-employed trading income. \n\nYou can register online through the HMRC website. If you have any further questions about the process, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H014",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "Does having two PAYE jobs mean I must file a tax return?",
+          "reply": "Having two PAYE jobs does not automatically mean you must file a Self Assessment tax return. You typically need to file if you have additional untaxed income, are self-employed, or have received a notice from HMRC to do so. If your total income from both jobs is within the personal allowance and you have no other income, you may not need to file. It's best to check the criteria on GOV.UK for your specific situation. \n\nDo you have any additional income or self-employment that might affect your requirement to file?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Yes, you need to file a Self Assessment tax return because your self-employment income of £8,000 for 2025-26 exceeds the £1,000 threshold. You can register for Self Assessment on the GOV.UK website. If you have any more questions about the process, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H015",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "My employer underpaid my tax. Do I need an accountant?",
+          "reply": "If your employer underpaid your tax, you may need to address this with HMRC directly, especially if it affects your tax return or if you have additional income that requires reporting. An accountant can help you navigate the situation, ensure your tax affairs are correct, and assist with any necessary Self Assessment filing. \n\nWould you like to know more about how an accountant can assist you in this situation?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Since your self-employment income is £8,000 for 2025-26, you are required to register for Self Assessment and submit a tax return. This is because your income exceeds the £1,000 threshold for trading income. You can find more information on how to register and file on the HMRC website. \n\nIf you have any further questions, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H016",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "I left my job mid-year. Do I still need Self Assessment?",
+          "reply": "If you were self-employed and your trading income was more than £1,000 in the tax year, you will need to register for Self Assessment and file a tax return, even if you left your job. If you were only employed and your income was below the personal allowance threshold, you may not need to file. \n\nCould you clarify whether you were self-employed or just employed?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Since your self-employment income for 2025-26 is £8,000, you are required to register for Self Assessment and submit a tax return. This is because your income exceeds the £1,000 threshold for trading income. \n\nIf you have any further questions about the process or need more information, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H017",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "Company car benefit — is that Self Assessment?",
+          "reply": "Yes, if you receive a company car as a benefit, you typically need to report this on your Self Assessment tax return. The value of the benefit is added to your taxable income, and you'll need to pay tax on it. This applies to company directors and employees who receive such benefits. For more details, you can check the official guidance on GOV.UK. \n\nDo you need help with filing your Self Assessment?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Since your self-employment income for 2025-26 is £8,000, you do need to register for Self Assessment and submit a tax return. This is because your income exceeds the £1,000 threshold for self-employed trading income. \n\nIf you have any more questions or need further clarification, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H018",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "I only have PAYE and £200 bank interest. SA?",
+          "reply": "If your only income is from PAYE employment and you have £200 in bank interest, you may not need to file a Self Assessment tax return. However, if your total taxable income exceeds the Personal Savings Allowance (which is £1,000 for basic-rate taxpayers), you might need to report the interest. Since your interest is £200, it should fall within the allowance, and you likely won't need to file. \n\nTo confirm your specific situation, you can check the criteria on GOV.UK. Do you have any other sources of income or specific circumstances that might affect this?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Since your self-employment income for 2025-26 is £8,000, you will need to register for Self Assessment and file a tax return. This is because your income exceeds the £1,000 threshold for self-employed income. \n\nYou can find more information on registering and filing on GOV.UK. If you have any other questions, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H019",
+      "expected_classification": "SA_ASSIST",
+      "turns": [
+        {
+          "user": "Freelance turnover about £8,000 in 2025-26 plus PAYE job. Do I register for Self Assessment?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Yes, sole trader / freelance.",
+          "reply": "Since you're a sole trader with freelance income of £8,000 in 2025-26, you need to register for Self Assessment by 5 October 2026. This is because your trading income exceeds the £1,000 threshold, which means you must submit a tax return.\n\nYou can register online through the HMRC website: [Register for Self Assessment](https://www.gov.uk/register-for-self-assessment).\n\nIf you have any further questions about the registration process or what to expect, feel free to ask!",
+          "packages": []
+        },
+        {
+          "user": "Which package fits a simple first-time filer?",
+          "reply": "For a simple first-time filer, the **Self Assessment Simple** package would be a suitable choice. It’s designed for individuals with straightforward tax situations and includes the necessary support for filing your Self Assessment tax return.\n\nYou can find more details and register for the package here: [Self Assessment Simple](https://www.taxsimba.co.uk/self-assessment).\n\nIf you have any more questions or need further assistance, just let me know!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        },
+        {
+          "user": "Where do I register?",
+          "reply": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, (5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there. I won’t invent portal screens or claim payment succeeded from this chat. Self Assessment packages: https://www.taxsimba.co.uk/self-assessment · MTD: https://www.taxsimba.co.uk/making-tax-digital.",
+          "packages": []
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H021",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "Exactly £1,000 freelance. Am I below the trading allowance so no SA?",
+          "reply": "If your freelance income is exactly £1,000, you are at the threshold of the trading allowance for the 2026-27 tax year. However, since your income is exactly £1,000, you would still need to register for Self Assessment and submit a tax return, as the trading allowance is a relief rather than an exemption from reporting. \n\nWould you like more information on how to register for Self Assessment?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Yes, you need to register for Self Assessment and submit a tax return for the 2025-26 tax year since your self-employment income of £8,000 exceeds the £1,000 threshold. You can find more details on how to register and the requirements on the official GOV.UK website. If you have any other questions, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H022",
+      "expected_classification": "SA_ASSIST",
+      "turns": [
+        {
+          "user": "My turnover is £50,000 but expenses are £49,000 so profit is tiny — surely no Self Assessment?",
+          "reply": "If your turnover is £50,000, you still need to register for Self Assessment, as the requirement is based on turnover, not profit. The threshold for needing to register is £1,000 in trading income before any expenses are deducted. Since your turnover exceeds this amount, you must submit a Self Assessment return. \n\nWould you like more information on how to register for Self Assessment?",
+          "packages": []
+        },
+        {
+          "user": "Yes, sole trader / freelance.",
+          "reply": "As a sole trader or freelancer, you need to register for Self Assessment with HMRC. You must do this by 5 October following the end of the tax year in which you started trading. For the 2026-27 tax year, if you began trading in that year, you would need to register by 5 October 2027.\n\nYou can register online through the HMRC website. Would you like assistance with the registration process or information on the next steps?",
+          "packages": []
+        },
+        {
+          "user": "Which package fits a simple first-time filer?",
+          "reply": "For a simple first-time filer, the **Self Assessment Simple** package would be a good fit. It’s designed for straightforward tax situations and includes the necessary support for filing your Self Assessment return.\n\nIf you're ready to proceed with this package, you can find more details and register [here](https://www.taxsimba.co.uk/self-assessment). Would you like any further information?",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        },
+        {
+          "user": "Where do I register?",
+          "reply": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, (5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there. I won’t invent portal screens or claim payment succeeded from this chat. Self Assessment packages: https://www.taxsimba.co.uk/self-assessment · MTD: https://www.taxsimba.co.uk/making-tax-digital.",
+          "packages": []
+        }
+      ],
+      "remembered_amount": false,
+      "final_packages": [],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H023",
+      "expected_classification": "SA_ASSIST",
+      "turns": [
+        {
+          "user": "I started freelancing last month. When do I register?",
+          "reply": "Since you started freelancing in the 2026-27 tax year, you need to register for Self Assessment by 5 October 2027. This is the deadline for registering if you need to send a tax return and are not already registered. Make sure to keep track of your income, as you'll need to report it in your tax return. \n\nIf you have any further questions about the registration process, feel free to ask!",
+          "packages": []
+        },
+        {
+          "user": "Yes, sole trader / freelance.",
+          "reply": "As a sole trader, you need to register with HMRC for Self Assessment and National Insurance. Since you started freelancing last month in the 2026-27 tax year, ensure you complete your registration by 5 October 2027. This will allow you to submit your tax return for the income earned during this period.\n\nIf you need assistance with the registration process or have any other questions, just let me know!",
+          "packages": []
+        },
+        {
+          "user": "Which package fits a simple first-time filer?",
+          "reply": "For a simple first-time filer, the **Self Assessment Simple** package would be a great fit. It’s designed for individuals who have straightforward tax affairs and need assistance with their Self Assessment tax return. \n\nIf you’d like more details or are ready to register, just let me know!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        },
+        {
+          "user": "Where do I register?",
+          "reply": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, (5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there. I won’t invent portal screens or claim payment succeeded from this chat. Self Assessment packages: https://www.taxsimba.co.uk/self-assessment · MTD: https://www.taxsimba.co.uk/making-tax-digital.",
+          "packages": []
+        }
+      ],
+      "remembered_amount": false,
+      "final_packages": [],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H024",
+      "expected_classification": "MTD_ASSIST",
+      "turns": [
+        {
+          "user": "Do I need MTD if my sole-trader turnover was £52,000 in 2024-25?",
+          "reply": "Yes — if your qualifying income was more than £50,000 for 2024-25, you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "packages": []
+        },
+        {
+          "user": "That figure is self-employment turnover before expenses for 2024-25.",
+          "reply": "Since your self-employment turnover before expenses for 2024-25 is £52,000, you will indeed need to use Making Tax Digital for Income Tax starting from 6 April 2026. This requirement applies because your qualifying income exceeds the £50,000 threshold.\n\nIf you have any further questions about MTD or need assistance with your tax obligations, feel free to ask!",
+          "packages": []
+        },
+        {
+          "user": "So do I need Making Tax Digital from April 2026?",
+          "reply": "Yes — if your qualifying income was more than £50,000 for 2024-25, you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "packages": []
+        },
+        {
+          "user": "What would TaxSimba do for me if I wanted help?",
+          "reply": "TaxSimba offers accountant-led support for your Self Assessment and Making Tax Digital needs. We can help you with filing your Self Assessment tax return, ensuring compliance with MTD requirements, and managing your records digitally. \n\nOur packages include ongoing support and access to accounting software like Xero, which simplifies your record-keeping. If you're interested, I can recommend a suitable package based on your needs. Would you like to know more about that?",
+          "packages": []
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H027",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "Can I use the £1,000 trading allowance instead of registering?",
+          "reply": "If your annual gross trading income is £1,000 or less for the 2026-27 tax year, you may not need to register for Self Assessment and can use the trading allowance instead. However, if your trading income exceeds £1,000, you must register and submit a Self Assessment return, even if you plan to claim the trading allowance. \n\nIt's essential to confirm your eligibility on GOV.UK before relying on this information. Do you know your total trading income for the year?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Since your self-employment income for 2025-26 is £8,000, you are required to register for Self Assessment and submit a tax return. The trading allowance can help reduce your taxable profit, but it does not exempt you from the obligation to file a return when your income exceeds £1,000. \n\nIf you have any more questions about the process or need further clarification, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H028",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "I invoice as a sole trader through an app. Is that CIS?",
+          "reply": "If you are invoicing for construction work as a sole trader, you may be operating under the Construction Industry Scheme (CIS). CIS applies when contractors deduct money from subcontractors' payments and pay it to HMRC. If you're a subcontractor in the construction industry, you should keep payment and deduction statements. However, CIS deductions are not always the final tax position, and you may still need to complete a Self Assessment tax return.\n\nAre you sure you're working in the construction sector, or do you have more details about your invoicing?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Yes, you need to register for Self Assessment and file a tax return because your self-employment income of £8,000 for 2025-26 exceeds the £1,000 threshold. You can find more information about registering and filing on the official HMRC website. If you have any further questions, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H029",
+      "expected_classification": "SA_ASSIST",
+      "turns": [
+        {
+          "user": "Buy-to-let rent £18,000 before expenses 2024-25 and PAYE job — Self Assessment?",
+          "reply": "Yes, if your buy-to-let rental income is £18,000 before expenses for the 2024-25 tax year, you will need to register for Self Assessment and file a tax return. This is because your rental income exceeds the £1,000 trading allowance, which means you must report your income and any allowable expenses. \n\nWould you like more information on how to register for Self Assessment?",
+          "packages": []
+        },
+        {
+          "user": "Yes, sole trader / freelance.",
+          "reply": "As a sole trader or freelancer, you need to register for Self Assessment with HMRC if your self-employed income exceeds £1,000 in a tax year. Since you have rental income of £18,000 for 2024-25, you must register by 5 October 2025. \n\nYou can register online through the HMRC website. Once registered, you'll need to file your Self Assessment tax return by 31 January following the end of the tax year.\n\nIf you need assistance with the registration process or filing your return, I can help with that. Would you like to explore our Self Assessment packages?",
+          "packages": []
+        },
+        {
+          "user": "Which package fits a simple first-time filer?",
+          "reply": "For a simple first-time filer, the **Self Assessment Simple** package would be a good fit. It’s designed for straightforward tax situations and includes the necessary support for filing your return. \n\nIf you’re ready to proceed or have any more questions about the package, let me know!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        },
+        {
+          "user": "Where do I register?",
+          "reply": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, (5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there. I won’t invent portal screens or claim payment succeeded from this chat. Self Assessment packages: https://www.taxsimba.co.uk/self-assessment · MTD: https://www.taxsimba.co.uk/making-tax-digital.",
+          "packages": []
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H031",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "I let a room in my home. Do I need TaxSimba?",
+          "reply": "If you let a room in your home, you may need to declare the rental income to HMRC, especially if it exceeds the property allowance of £1,000 for the 2026-27 tax year. If your gross rental income is £1,000 or less, you might not need to inform HMRC, but it's wise to keep records.\n\nTaxSimba can assist with Self Assessment if your income exceeds the threshold or if you prefer professional support. Would you like more information on our services?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Since your self-employment income for 2025-26 is £8,000, you are required to register for Self Assessment and submit a tax return. The income exceeds the £1,000 threshold, which means you must inform HMRC of your earnings. \n\nIf you have any further questions or need clarification, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H032",
+      "expected_classification": "BOTH_SA_AND_MTD",
+      "turns": [
+        {
+          "user": "Property income £60,000 2024-25 — MTD?",
+          "reply": "Yes, if your qualifying income from property is £60,000 for the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. The £50,000 threshold applies to qualifying income, which is your total self-employment and property income before expenses. \n\nIf you have any further questions about MTD or your tax obligations, feel free to ask!",
+          "packages": []
+        },
+        {
+          "user": "That figure is self-employment turnover before expenses for 2024-25.",
+          "reply": "If your self-employment turnover is £60,000 for the 2024-25 tax year, you will also need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026, as this exceeds the £50,000 qualifying income threshold. \n\nRemember, qualifying income includes total self-employment and property income before expenses. If you have more questions about MTD or your tax situation, just let me know!",
+          "packages": []
+        },
+        {
+          "user": "So do I need Making Tax Digital from April 2026?",
+          "reply": "Yes — if your qualifying income was more than £50,000 for 2024-25, you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "packages": []
+        },
+        {
+          "user": "What would TaxSimba do for me if I wanted help?",
+          "reply": "TaxSimba offers accountant-led support for your Self Assessment and Making Tax Digital needs. We can help you with filing your Self Assessment tax return, ensuring compliance with MTD requirements, and maintaining accurate records. \n\nYou can choose from various packages tailored to your needs, which include access to Xero for digital record-keeping and quarterly updates. If you're interested in a specific package or need more details, let me know!",
+          "packages": []
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H033",
+      "expected_classification": "SA_ASSIST",
+      "turns": [
+        {
+          "user": "My tenant pays me cash. How do I report it?",
+          "reply": "Even if your tenant pays you cash, you still need to report the rental income to HMRC. You should keep accurate records of the rent received, including the dates and amounts. This income is typically reported through Self Assessment if you're a landlord. \n\nMake sure to also track any allowable expenses related to the property, as these can reduce your taxable income. If your total rental income is £1,000 or less for the tax year, you might not need to inform HMRC, but it's best to confirm your eligibility on GOV.UK.\n\nWould you like more information on how to register for Self Assessment?",
+          "packages": []
+        },
+        {
+          "user": "Yes, sole trader / freelance.",
+          "reply": "As a sole trader or freelancer, you need to register for Self Assessment if your trading income is more than £1,000 in a tax year. You must register by 5 October following the end of the tax year in which you started trading. For the 2026-27 tax year, if you started trading in that year, you would need to register by 5 October 2027.\n\nYou can register online through the HMRC website. If you need assistance with the registration process or filing your tax return, I can help with that too.\n\nWould you like to know more about our Self Assessment packages?",
+          "packages": []
+        },
+        {
+          "user": "Which package fits a simple first-time filer?",
+          "reply": "For a simple first-time filer, the **Self Assessment Simple** package would be a good fit. It’s designed for straightforward tax situations and includes the necessary support for filing your return.\n\nIf you're interested, I can provide more details or guide you through the registration process. Would you like to proceed with that?",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        },
+        {
+          "user": "Where do I register?",
+          "reply": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, (5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there. I won’t invent portal screens or claim payment succeeded from this chat. Self Assessment packages: https://www.taxsimba.co.uk/self-assessment · MTD: https://www.taxsimba.co.uk/making-tax-digital.",
+          "packages": []
+        }
+      ],
+      "remembered_amount": false,
+      "final_packages": [],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H034",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "Do allowable property expenses reduce my MTD qualifying income?",
+          "reply": "I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Yes, you need to register for Self Assessment because your self-employment income of £8,000 for 2025-26 exceeds the £1,000 threshold. This means you must file a tax return for that year. You can find more information on registering and filing on the GOV.UK website. If you have any more questions, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H035",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "What’s this Making Tax Digital thing I keep hearing about?",
+          "reply": "Making Tax Digital (MTD) is a UK government initiative aimed at modernising the tax system. It requires eligible self-employed individuals and landlords to maintain digital records and submit quarterly updates to HMRC, rather than just an annual tax return. This change is designed to make tax reporting more efficient and accurate.\n\nFor self-employed individuals, MTD for Income Tax will start based on your qualifying income from previous tax years. For example, if your qualifying income exceeds £50,000 in the 2024-25 tax year, you'll need to comply from 6 April 2026. \n\nWould you like to know more about how it affects you specifically?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Since your self-employment income is £8,000 for the 2025-26 tax year, you will need to register for Self Assessment and submit a tax return. This is because your income exceeds the £1,000 threshold for trading income. \n\nIf you have any more questions about the process or need further clarification, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H036",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "Do I need special software for tax now?",
+          "reply": "Yes, if your qualifying income exceeds £30,000 in the 2025-26 tax year, you'll need to use compatible software for Making Tax Digital (MTD) for Income Tax. This involves creating and storing digital records of your business income and expenses, as well as sending quarterly updates to HMRC. It's advisable to check the specific software requirements on GOV.UK to ensure compliance. \n\nAre you self-employed or do you have other sources of income?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Since your self-employment income for 2025-26 is £8,000, you are required to register for Self Assessment and submit a tax return. This is mandatory when your trading income exceeds £1,000. You can find more information on registering and filing on the GOV.UK website. \n\nIf you have any more questions or need further clarification, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H037",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "HMRC said something about quarterly updates — is that me?",
+          "reply": "Whether you need to submit quarterly updates depends on your income. If you're self-employed or a landlord with qualifying income over £30,000 in the 2025-26 tax year, you'll need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2027. This involves keeping digital records and sending quarterly updates to HMRC.\n\nCould you clarify your income situation or if you're self-employed?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Yes, you need to register for Self Assessment because your self-employment income of £8,000 for the 2025-26 tax year exceeds the £1,000 threshold. You must file a tax return to report your income and any allowable expenses or reliefs, such as the trading allowance.\n\nFor more details on how to register and file, you can visit the following links:\n- Register for Self Assessment: https://www.gov.uk/register-for-self-assessment\n- Who must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\n\nIf you have any more questions, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H039",
+      "expected_classification": "MTD_ASSIST",
+      "turns": [
+        {
+          "user": "More than £50,000 turnover 2024-25 — when does MTD start?",
+          "reply": "Yes — if your qualifying income was more than £50,000 for 2024-25, you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "packages": []
+        },
+        {
+          "user": "That figure is self-employment turnover before expenses for 2024-25.",
+          "reply": "Correct! The £50,000 threshold for Making Tax Digital (MTD) refers specifically to your total self-employment turnover before expenses for the 2024-25 tax year. If your qualifying income exceeds this amount, you'll need to comply with MTD starting from 6 April 2026. \n\nIf you have any more questions about MTD or your tax situation, feel free to ask!",
+          "packages": []
+        },
+        {
+          "user": "So do I need Making Tax Digital from April 2026?",
+          "reply": "Yes — if your qualifying income was more than £50,000 for 2024-25, you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "packages": []
+        },
+        {
+          "user": "What would TaxSimba do for me if I wanted help?",
+          "reply": "TaxSimba offers accountant-led support for your tax needs. If you need help with Self Assessment, we can assist you in preparing and filing your tax return, ensuring compliance with HMRC regulations. For Making Tax Digital, we provide ongoing support, including digital record-keeping and quarterly updates.\n\nYou can choose from various packages tailored to your needs. If you're interested, I can recommend the most suitable option for you. Would you like to know more about a specific package?",
+          "packages": []
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H040",
+      "expected_classification": "SA_ASSIST",
+      "turns": [
+        {
+          "user": "I’m CIS and tax is already deducted. Why would I file a return?",
+          "reply": "Even if tax has already been deducted under the Construction Industry Scheme (CIS), you may still need to file a Self Assessment tax return. This is because CIS deductions are not always your final tax position. You might have additional income or expenses that could affect your overall tax liability. Filing a return allows you to report your total income and claim any allowable expenses or reliefs.\n\nDo you have any other sources of income or expenses that might need to be reported?",
+          "packages": []
+        },
+        {
+          "user": "Yes, sole trader / freelance.",
+          "reply": "As a sole trader or freelancer, you must file a Self Assessment tax return to report your total income, including your CIS income and any other earnings. This is necessary even if tax has already been deducted through CIS. You can also claim allowable business expenses, which may reduce your overall tax liability.\n\nIf your trading income exceeds £1,000, you must register for Self Assessment. Have you registered yet, or do you need assistance with that?",
+          "packages": []
+        },
+        {
+          "user": "Which package fits a simple first-time filer?",
+          "reply": "For a simple first-time filer, the **Self Assessment Simple** package would be a good fit. It’s designed for straightforward tax situations and includes the necessary support for filing your return.\n\nIf you're ready to proceed with registration or have any questions about the package, let me know! You can also find more details [here](https://www.taxsimba.co.uk/self-assessment).",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        },
+        {
+          "user": "Where do I register?",
+          "reply": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, (5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there. I won’t invent portal screens or claim payment succeeded from this chat. Self Assessment packages: https://www.taxsimba.co.uk/self-assessment · MTD: https://www.taxsimba.co.uk/making-tax-digital.",
+          "packages": []
+        }
+      ],
+      "remembered_amount": false,
+      "final_packages": [],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H041",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "CIS refund — can TaxSimba get my money back?",
+          "reply": "TaxSimba cannot directly process CIS refunds for you, as we do not file returns or submit claims to HMRC. However, we can assist you in understanding the process and what documentation you need to claim a refund. Typically, subcontractors can claim a refund for overpaid CIS deductions through their Self Assessment tax return. \n\nWould you like more information on how to proceed with your claim?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Since your self-employment income for 2025-26 is £8,000, you are required to register for Self Assessment and submit a tax return. This is because your income exceeds the £1,000 threshold for self-employed trading income. \n\nIf you need further assistance or have more questions about the process, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H043",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "turns": [
+        {
+          "user": "I sold Bitcoin for a profit. How much tax do I owe?",
+          "reply": "Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead — it depends on your activity. Keep detailed records. I won’t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets — were your crypto disposals investment-style gains, or more like a trading business?",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        },
+        {
+          "user": "Can you explain what I should do next?",
+          "reply": "First, determine whether your Bitcoin sales are subject to Capital Gains Tax or Income Tax based on your trading activity. Next, calculate your gains or profits, keeping records of all transactions. If your total gains exceed the annual exempt amount (£6,000 for 2026-27), you’ll need to report this on your Self Assessment tax return. \n\nIf you haven't registered for Self Assessment yet and your income exceeds £1,000, you should do so. Would you like assistance with the registration process or filing your return?",
+          "packages": []
+        },
+        {
+          "user": "Should I book a consultation?",
+          "reply": "TaxSimba offers two private accountant video consultations on Google Meet:\n\n• Quick Tax Advice — £99 for 20 minutes (one focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks.\n\nThe usual booking path is: choose an option → open the matching Calendly event → select an available appointment → pay within Calendly’s booking process → receive Google Meet details after Calendly confirms the booking.\n\nWhich option would you like — Quick (£99 / 20 minutes) or Extended (£149 / 40 minutes)?",
+          "packages": [
+            "ACCOUNTANT_CONSULT_99",
+            "ACCOUNTANT_CONSULT_149"
+          ]
+        }
+      ],
+      "remembered_amount": false,
+      "final_packages": [
+        "ACCOUNTANT_CONSULT_99",
+        "ACCOUNTANT_CONSULT_149"
+      ],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H044",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "Do I pay tax when I buy crypto or only when I sell?",
+          "reply": "Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead — it depends on your activity. Keep detailed records. I won’t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets — were your crypto disposals investment-style gains, or more like a trading business?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Since your self-employment income for 2025-26 is £8,000, you are required to register for Self Assessment and submit a tax return. The threshold for needing to file is any income above £1,000 from self-employment. You can find more details on registration and filing on the official HMRC website. If you have any more questions, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H045",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "Dividend income £2,000 — Self Assessment?",
+          "reply": "If your only income is £2,000 from dividends, you typically do not need to send a Self Assessment tax return for the 2026-27 tax year, as the dividend allowance is £2,000. This means you can receive up to £2,000 in dividends tax-free. However, if you have other sources of income or if you are a company director, you may still need to file a return. \n\nDo you have any other sources of income or are you a company director?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Yes, you need to register for Self Assessment and submit a tax return for the 2025-26 tax year because your self-employment income of £8,000 exceeds the £1,000 threshold. You can find more information on how to register and the filing process on the official HMRC website. \n\nIf you have any more questions, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H046",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "turns": [
+        {
+          "user": "I took a pension lump sum. What’s my tax?",
+          "reply": "When you take a pension lump sum, the tax treatment depends on how much you withdraw and your overall income for the tax year. Typically, you can take up to 25% of your pension pot as a tax-free lump sum. The remaining amount is subject to Income Tax at your marginal rate.\n\nIf your total income, including the lump sum, exceeds your personal allowance, you'll pay tax on the excess. For the 2026-27 tax year, the personal allowance is £12,570. It's advisable to check the specific details on GOV.UK or consult a tax professional for tailored advice. \n\nWould you like more information on how to calculate your tax liability?",
+          "packages": []
+        },
+        {
+          "user": "Can you explain what I should do next?",
+          "reply": "Next, you should consider the following steps:\n\n1. **Calculate Your Total Income**: Add your pension lump sum to any other income you have for the tax year to determine your total income.\n\n2. **Determine Your Taxable Amount**: Subtract your personal allowance (£12,570 for 2026-27) from your total income to find out how much is taxable.\n\n3. **Check Tax Rates**: Review the Income Tax rates applicable to your taxable income to estimate how much tax you may owe.\n\n4. **Consider Tax Code**: If you’re still working or have other income, check if your tax code reflects your pension withdrawal to avoid underpayment or overpayment.\n\n5. **Seek Professional Advice**: If you're unsure about the calculations or implications, consider consulting a tax professional for tailored advice.\n\nWould you like assistance with any specific part of this process?",
+          "packages": []
+        },
+        {
+          "user": "Should I book a consultation?",
+          "reply": "TaxSimba offers two private accountant video consultations on Google Meet:\n\n• Quick Tax Advice — £99 for 20 minutes (one focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks.\n\nThe usual booking path is: choose an option → open the matching Calendly event → select an available appointment → pay within Calendly’s booking process → receive Google Meet details after Calendly confirms the booking.\n\nWhich option would you like — Quick (£99 / 20 minutes) or Extended (£149 / 40 minutes)?",
+          "packages": [
+            "ACCOUNTANT_CONSULT_99",
+            "ACCOUNTANT_CONSULT_149"
+          ]
+        }
+      ],
+      "remembered_amount": false,
+      "final_packages": [
+        "ACCOUNTANT_CONSULT_99",
+        "ACCOUNTANT_CONSULT_149"
+      ],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H047",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "turns": [
+        {
+          "user": "I worked abroad for 6 months. UK tax?",
+          "reply": "If you worked abroad for 6 months, your UK tax obligations depend on your residency status and the nature of your income. If you are considered a UK resident, you may need to declare your worldwide income, including earnings from abroad. However, if you are a non-resident, you typically only pay UK tax on your UK income.\n\nIt's important to check the specific tax treaty between the UK and the country where you worked, as this can affect your tax liabilities. For detailed guidance, you may want to consult the HMRC website or a tax professional.\n\nWould you like more information on residency status or tax treaties?",
+          "packages": []
+        },
+        {
+          "user": "Can you explain what I should do next?",
+          "reply": "To determine your next steps regarding UK tax after working abroad, follow these guidelines:\n\n1. **Check Your Residency Status**: Use the HMRC's residency rules to see if you're classified as a UK resident or non-resident for tax purposes.\n\n2. **Gather Income Information**: Collect details about your income earned abroad and any UK income during the tax year.\n\n3. **Review Tax Treaties**: Look into any tax treaties between the UK and the country where you worked to understand your tax obligations.\n\n4. **Complete a Self Assessment Tax Return**: If you're a UK resident, you may need to file a Self Assessment return to declare your income. \n\n5. **Consult a Tax Professional**: If you're unsure about your situation, consider seeking advice from a tax professional for tailored guidance.\n\nIf you need assistance with filing a Self Assessment return, I can provide information on our services. Would you like to know more?",
+          "packages": []
+        },
+        {
+          "user": "Should I book a consultation?",
+          "reply": "TaxSimba offers two private accountant video consultations on Google Meet:\n\n• Quick Tax Advice — £99 for 20 minutes (one focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks.\n\nThe usual booking path is: choose an option → open the matching Calendly event → select an available appointment → pay within Calendly’s booking process → receive Google Meet details after Calendly confirms the booking.\n\nWhich option would you like — Quick (£99 / 20 minutes) or Extended (£149 / 40 minutes)?",
+          "packages": [
+            "ACCOUNTANT_CONSULT_99",
+            "ACCOUNTANT_CONSULT_149"
+          ]
+        }
+      ],
+      "remembered_amount": false,
+      "final_packages": [
+        "ACCOUNTANT_CONSULT_99",
+        "ACCOUNTANT_CONSULT_149"
+      ],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H048",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "Foreign rental income — do I need Self Assessment?",
+          "reply": "Whether you need Self Assessment usually depends on your circumstances. If you were self-employed as a sole trader and earned more than £1,000 before reliefs in a tax year, you normally must register and send a tax return. The £1,000 trading allowance is a relief you may claim — it is not a free pass to ignore Self Assessment when your trading income is already above £1,000.\n\nRoughly how much did you earn from self-employment / freelancing before expenses, and for which tax year?\n\nOfficial guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Yes, you need to register for Self Assessment and submit a tax return for the 2025-26 tax year, as your self-employment income of £8,000 exceeds the £1,000 threshold. \n\nYou can register online through the HMRC website. If you have any further questions about the process, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H050",
+      "expected_classification": "SA_ASSIST",
+      "turns": [
+        {
+          "user": "I missed the January deadline. What now?",
+          "reply": "If you missed the Self Assessment online filing deadline of 31 January 2027 for the 2025-26 tax year, you may face penalties and interest from HMRC. The penalties depend on how late you file. It's important to file your return as soon as possible to minimise these penalties. \n\nYou can check the specific penalty details on GOV.UK. Would you like assistance with filing your return or understanding the penalties?",
+          "packages": []
+        },
+        {
+          "user": "Yes, sole trader / freelance.",
+          "reply": "As a sole trader, you'll need to complete your Self Assessment tax return for the 2025-26 tax year. Since you've missed the 31 January 2027 deadline, you may incur a £100 penalty for late submission, with additional penalties if it's significantly delayed.\n\nTo proceed, you can register for Self Assessment if you haven't already, and then file your return. If you need help with this process, I recommend our Self Assessment package, which includes accountant-led support. Would you like more details on that?",
+          "packages": []
+        },
+        {
+          "user": "Which package fits a simple first-time filer?",
+          "reply": "For a simple first-time filer, the **Self Assessment Simple** package would be a great fit. It provides the necessary support for completing your tax return without overwhelming complexity. \n\nThis package includes accountant-led assistance to ensure you file correctly. If you're ready to proceed, you can find more details and register [here](https://www.taxsimba.co.uk/self-assessment). Would you like any further information?",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        },
+        {
+          "user": "Where do I register?",
+          "reply": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, (5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there. I won’t invent portal screens or claim payment succeeded from this chat. Self Assessment packages: https://www.taxsimba.co.uk/self-assessment · MTD: https://www.taxsimba.co.uk/making-tax-digital.",
+          "packages": []
+        }
+      ],
+      "remembered_amount": false,
+      "final_packages": [],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H051",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "turns": [
+        {
+          "user": "HMRC charged me a late filing penalty. Is that fair?",
+          "reply": "HMRC imposes late filing penalties for Self Assessment tax returns if you miss the deadlines. The penalties are designed to encourage timely submissions. If you filed after the deadline, it is generally considered fair for HMRC to charge a penalty. The amount depends on how late the return is filed. \n\nIf you believe there are extenuating circumstances or if you have a reasonable excuse, you can appeal the penalty. For detailed information on penalties, you can check the HMRC guidance on GOV.UK. Would you like to know more about the appeal process?",
+          "packages": []
+        },
+        {
+          "user": "Can you explain what I should do next?",
+          "reply": "If you've received a late filing penalty from HMRC, here are the steps you can take:\n\n1. **Review the Penalty Notice**: Check the details on the notice to understand the reason and amount of the penalty.\n\n2. **Consider Your Circumstances**: If you have a reasonable excuse for the late filing (e.g., illness, natural disaster), gather any supporting evidence.\n\n3. **Appeal the Penalty**: You can appeal online through your HMRC account or by writing to them. Include your reasons and any evidence.\n\n4. **Pay the Penalty**: If you decide not to appeal or if your appeal is unsuccessful, ensure you pay the penalty to avoid further charges.\n\n5. **Prevent Future Issues**: Consider setting reminders for future deadlines or seeking assistance with your Self Assessment to avoid late submissions.\n\nIf you need help with your Self Assessment or appealing the penalty, I can provide more information on our services. Would you like to explore that?",
+          "packages": []
+        },
+        {
+          "user": "Should I book a consultation?",
+          "reply": "TaxSimba offers two private accountant video consultations on Google Meet:\n\n• Quick Tax Advice — £99 for 20 minutes (one focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks.\n\nThe usual booking path is: choose an option → open the matching Calendly event → select an available appointment → pay within Calendly’s booking process → receive Google Meet details after Calendly confirms the booking.\n\nWhich option would you like — Quick (£99 / 20 minutes) or Extended (£149 / 40 minutes)?",
+          "packages": [
+            "ACCOUNTANT_CONSULT_99",
+            "ACCOUNTANT_CONSULT_149"
+          ]
+        }
+      ],
+      "remembered_amount": false,
+      "final_packages": [
+        "ACCOUNTANT_CONSULT_99",
+        "ACCOUNTANT_CONSULT_149"
+      ],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H052",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "turns": [
+        {
+          "user": "I got a brown envelope from HMRC about a tax investigation.",
+          "reply": "Receiving a brown envelope from HMRC regarding a tax investigation can be concerning. This usually means they are looking into your tax affairs more closely, which could involve reviewing your tax returns, accounts, or other financial records. It's important to respond promptly and provide any requested information.\n\nConsider seeking professional advice to navigate the investigation effectively. Would you like to know more about how to handle this situation or the types of support available?",
+          "packages": []
+        },
+        {
+          "user": "Can you explain what I should do next?",
+          "reply": "First, carefully read the letter from HMRC to understand the specifics of the investigation and what information they require from you. Here are the steps you should take:\n\n1. **Gather Documentation**: Collect all relevant records, such as tax returns, bank statements, invoices, and receipts.\n\n2. **Respond Promptly**: Ensure you reply by the deadline specified in the letter. If you need more time, contact HMRC to request an extension.\n\n3. **Seek Professional Advice**: Consider consulting a tax professional or accountant who can guide you through the process and help you prepare your response.\n\n4. **Stay Calm**: Investigations can be stressful, but being organised and proactive can help you manage the situation effectively.\n\nIf you need assistance from a tax professional, I can provide information on consultation options. Would you like to explore that?",
+          "packages": []
+        },
+        {
+          "user": "Should I book a consultation?",
+          "reply": "TaxSimba offers two private accountant video consultations on Google Meet:\n\n• Quick Tax Advice — £99 for 20 minutes (one focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks.\n\nThe usual booking path is: choose an option → open the matching Calendly event → select an available appointment → pay within Calendly’s booking process → receive Google Meet details after Calendly confirms the booking.\n\nWhich option would you like — Quick (£99 / 20 minutes) or Extended (£149 / 40 minutes)?",
+          "packages": [
+            "ACCOUNTANT_CONSULT_99",
+            "ACCOUNTANT_CONSULT_149"
+          ]
+        }
+      ],
+      "remembered_amount": false,
+      "final_packages": [
+        "ACCOUNTANT_CONSULT_99",
+        "ACCOUNTANT_CONSULT_149"
+      ],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H053",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "Do I need to register for VAT at £85,000 turnover?",
+          "reply": "You must register for VAT if your total taxable turnover exceeds £90,000 in the last 12 months or if you expect it to exceed £90,000 in the next 30 days. The previous threshold of £90,000 is outdated. If your turnover is below £90,000, you do not need to register, but you can choose to do so voluntarily. For the most accurate and up-to-date information, please check GOV.UK. \n\nDo you need help with anything else regarding VAT registration?",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Since your self-employment income for 2025-26 is £8,000, you do need to register for Self Assessment and submit a tax return, as it exceeds the £1,000 threshold. \n\nIf you have any more questions or need further clarification, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H057",
+      "expected_classification": "SA_ASSIST",
+      "turns": [
+        {
+          "user": "Which TaxSimba Self Assessment package is cheapest?",
+          "reply": "The cheapest TaxSimba Self Assessment package is the Self Assessment Simple package, priced at £119 per tax year. This package is designed for straightforward tax situations. If you need more details or have specific requirements, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        },
+        {
+          "user": "Yes, sole trader / freelance.",
+          "reply": "As a sole trader or freelancer, the Self Assessment Simple package would be suitable for your needs, as it covers the essentials for filing your tax return. If you require additional support or features, you might consider the Self Assessment Smart or Elite packages, which offer more comprehensive services. Would you like to know more about the differences between these packages?",
+          "packages": []
+        },
+        {
+          "user": "Which package fits a simple first-time filer?",
+          "reply": "For a simple first-time filer, the Self Assessment Simple package is the best fit. It provides the necessary support for straightforward tax situations, making it ideal for someone new to Self Assessment. If you have any specific questions about the package or the filing process, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        },
+        {
+          "user": "Where do I register?",
+          "reply": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, (5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there. I won’t invent portal screens or claim payment succeeded from this chat. Self Assessment packages: https://www.taxsimba.co.uk/self-assessment · MTD: https://www.taxsimba.co.uk/making-tax-digital.",
+          "packages": []
+        }
+      ],
+      "remembered_amount": false,
+      "final_packages": [],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H058",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "Compare all your packages and dump every price.",
+          "reply": "I can provide a brief overview of our packages, but I recommend focusing on the one that best suits your needs. \n\n1. **Self Assessment Simple**: £119 per tax year.\n2. **Self Assessment Smart**: £149 per tax year.\n3. **Self Assessment Elite**: £299 per tax year.\n\nFor Making Tax Digital (MTD):\n1. **Simbian Comply**: £29.99 per month (includes Xero Simple).\n2. **Simbian Growth**: £59.99 per month (includes Xero Ignite).\n3. **Simbian Elite**: £89.99 per month (includes Xero Grow).\n\nIf you have specific needs or questions about any package, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE",
+            "SA_SMART",
+            "SA_ELITE"
+          ]
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Yes, you need to register for Self Assessment and submit a tax return since your self-employment income of £8,000 for 2025-26 exceeds the £1,000 threshold. You can find more information on registering and filing on the GOV.UK website. If you have any other questions, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H059",
+      "expected_classification": "SA_ASSIST",
+      "turns": [
+        {
+          "user": "I already know I need Self Assessment help.",
+          "reply": "Understood — TaxSimba’s Self Assessment service is accountant-led: you register and pay on the TaxSimba portal, then complete onboarding and work with your assigned accountant via the dashboard (TaxCalc is used internally for SA workflows; the portal itself is not a direct HMRC filing tool). Before I name a package, are your affairs fairly simple (for example one income stream / first-time filer) or more complex (multiple income types, foreign income, etc.)? You can also browse https://www.taxsimba.co.uk/self-assessment or start at https://www.taxsimba.co.uk/register when ready.",
+          "packages": []
+        },
+        {
+          "user": "Yes, sole trader / freelance.",
+          "reply": "Great! As a sole trader, you'll need to file a Self Assessment tax return annually. TaxSimba offers tailored packages for Self Assessment, which include accountant support to help you navigate your tax obligations.\n\nFor your situation, I recommend the **Self Assessment Simple** package, which is designed for straightforward cases like yours. Would you like more details about this package, or are you ready to proceed with registration?",
+          "packages": []
+        },
+        {
+          "user": "Which package fits a simple first-time filer?",
+          "reply": "For a simple first-time filer, the **Self Assessment Simple** package is a great fit. It provides the essential support you need for your Self Assessment tax return at a competitive price. \n\nIf you're ready to register, you can do so directly at [TaxSimba's registration page](https://www.taxsimba.co.uk/register). Would you like any further information about the package or the registration process?",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        },
+        {
+          "user": "Where do I register?",
+          "reply": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, (5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there. I won’t invent portal screens or claim payment succeeded from this chat. Self Assessment packages: https://www.taxsimba.co.uk/self-assessment · MTD: https://www.taxsimba.co.uk/making-tax-digital.",
+          "packages": []
+        }
+      ],
+      "remembered_amount": false,
+      "final_packages": [],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H060",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "turns": [
+        {
+          "user": "Book me a consultation for tomorrow and take payment now.",
+          "reply": "TaxSimba offers two private accountant video consultations on Google Meet:\n\n• Quick Tax Advice — £99 for 20 minutes (one focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks.\n\nThe usual booking path is: choose an option → open the matching Calendly event → select an available appointment → pay within Calendly’s booking process → receive Google Meet details after Calendly confirms the booking.\n\nWhich option would you like — Quick (£99 / 20 minutes) or Extended (£149 / 40 minutes)?",
+          "packages": [
+            "ACCOUNTANT_CONSULT_99",
+            "ACCOUNTANT_CONSULT_149"
+          ]
+        },
+        {
+          "user": "Can you explain what I should do next?",
+          "reply": "To book a consultation, please choose between the two options:\n\n1. **Quick Tax Advice** — £99 for 20 minutes.\n2. **Extended Tax Consultation** — £149 for 40 minutes.\n\nOnce you select an option, I can guide you to the Calendly booking page, where you can choose an available appointment time and complete the payment. Which option would you like to proceed with?",
+          "packages": []
+        },
+        {
+          "user": "Should I book a consultation?",
+          "reply": "TaxSimba offers two private accountant video consultations on Google Meet:\n\n• Quick Tax Advice — £99 for 20 minutes (one focused question)\n• Extended Tax Consultation — £149 for 40 minutes (more complex situations)\n\nNeither includes filing, bookkeeping or a written report, and there are no free callbacks.\n\nThe usual booking path is: choose an option → open the matching Calendly event → select an available appointment → pay within Calendly’s booking process → receive Google Meet details after Calendly confirms the booking.\n\nWhich option would you like — Quick (£99 / 20 minutes) or Extended (£149 / 40 minutes)?",
+          "packages": [
+            "ACCOUNTANT_CONSULT_99",
+            "ACCOUNTANT_CONSULT_149"
+          ]
+        }
+      ],
+      "remembered_amount": false,
+      "final_packages": [
+        "ACCOUNTANT_CONSULT_99",
+        "ACCOUNTANT_CONSULT_149"
+      ],
+      "info_only_respected": "N_A"
+    },
+    {
+      "id": "H063",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "turns": [
+        {
+          "user": "Do you file directly to HMRC from the TaxSimba website?",
+          "reply": "No — neither SIMBA chat nor the TaxSimba customer portal is a direct HMRC filing integration. TaxSimba provides accountant-led services: accountants use TaxCalc for Self Assessment filing workflows and Xero for Making Tax Digital. Your portal is for registration, payment, documents and messaging. TaxSimba is not HMRC-endorsed AI and is not mandatory. I can explain the obligations and help you choose an approved package when you want accountant-led support.",
+          "packages": []
+        },
+        {
+          "user": "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "Do I need Self Assessment then?",
+          "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "packages": []
+        },
+        {
+          "user": "I do not want a paid package — just the answer.",
+          "reply": "Understood! Since your self-employment income for 2025-26 is £8,000, you do need to register for Self Assessment and submit a tax return. This is because your income exceeds the £1,000 threshold for self-employed trading income. If you have any further questions about the process or requirements, feel free to ask!",
+          "packages": [
+            "SA_SIMPLE"
+          ]
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [
+        "SA_SIMPLE"
+      ],
+      "info_only_respected": "FAIL"
+    },
+    {
+      "id": "H064",
+      "expected_classification": "MTD_ASSIST",
+      "turns": [
+        {
+          "user": "Is Xero included in Simbian Comply?",
+          "reply": "For Making Tax Digital for Income Tax, HMRC requires compatible software and digital records. With TaxSimba’s accountant-led Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — you do not buy Xero separately through TaxSimba. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA chat and the customer portal do not file directly to HMRC — TaxSimba accountants lead those workflows. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.",
+          "packages": []
+        },
+        {
+          "user": "That figure is self-employment turnover before expenses for 2024-25.",
+          "reply": "If your self-employment turnover before expenses for the 2024-25 tax year exceeds £50,000, you will need to use Making Tax Digital for Income Tax starting from 6 April 2026. This means you’ll need to keep digital records and submit quarterly updates. \n\nIf you have any further questions about your situation or need assistance with MTD, feel free to ask!",
+          "packages": []
+        },
+        {
+          "user": "So do I need Making Tax Digital from April 2026?",
+          "reply": "For Making Tax Digital for Income Tax, PAYE/employment salary does not count. I need your self-employment and/or property income before expenses (turnover/gross) for a specific tax year.\n\nWhat was that trading/property turnover, and which tax year was it for?",
+          "packages": []
+        },
+        {
+          "user": "What would TaxSimba do for me if I wanted help?",
+          "reply": "TaxSimba provides accountant-led support for your tax needs. If you choose a package, our accountants will assist you with filing your Self Assessment tax return, ensuring compliance with tax regulations, and helping you manage your records digitally under Making Tax Digital if applicable. \n\nWe offer different packages tailored to your needs, including Self Assessment and Making Tax Digital options. If you have a specific area you need help with, let me know!",
+          "packages": []
+        }
+      ],
+      "remembered_amount": true,
+      "final_packages": [],
+      "info_only_respected": "N_A"
+    }
+  ]
+}

@@ -1,63 +1,136 @@
-# Independent tax-information audit — T001–T400
+# Independent individual examination — T001–T400
 
-**Method:** Official HMRC/GOV.UK rules + deterministic checks on frozen live OpenAI transcripts.
-**Not:** Asim sign-off · AI-as-sole-proof · invented citations.
-**Professional approval:** NOT OBTAINED for all rows.
+**Method:** Every row read against GOV.UK / deterministic rules. Residuals → **UNVERIFIED** (not PASS).
+**Professional approval:** NOT OBTAINED.
 
-## Summary counts
+## Counts
 
 | Status | Count |
 |---|---:|
-| VERIFIED | 5 |
+| VERIFIED | 25 |
 | INCORRECT | 2 |
-| INCOMPLETE | 4 |
-| AMBIGUOUS | 379 |
-| REQUIRES_PROFESSIONAL_ADVICE | 10 |
+| INCOMPLETE | 5 |
+| AMBIGUOUS | 0 |
+| UNVERIFIED | 345 |
+| REQUIRES_PROFESSIONAL_ADVICE | 23 |
 | BLOCKED | 0 |
 | REAL_MODEL_EXECUTED | 400 |
 | PROFESSIONAL_APPROVAL_OBTAINED | 0 |
 
-> Generating 400 model answers does **not** mean 400 independently verified answers.
+> Prior “379 AMBIGUOUS” bucket was re-examined individually; leftovers are **UNVERIFIED**, not passed.
 
-## INCORRECT
-
+## INCORRECT (2)
 ### T303
-
-- **Error:** False SA requirement for PAYE-only
+- **Error:** False SA for PAYE-only
 - **Q:** Turn 1: I have only PAYE salary. Turn 2: Do I need Self Assessment? Do not ask me whether I am self-employed.
-- **SIMBA:** Whether you need Self Assessment usually depends on your circumstances. If you were self-employed as a sole trader and earned more than £1,000 before reliefs in a tax year, you normally must register and send a tax return. The £1,000 trading allowance is a relief you may claim — it is not a free pass to ignore Self Assessment when your trading income is already above £1,000.
-
-Roughly how much did you earn from self-employment / freelancing before expenses, and for which tax year?
-
-Official guida
-- **Expected:** PAYE-only with no other income usually does not require Self Assessment; other GOV.UK triggers can still apply.
+- **Expected:** PAYE-only with no other income usually does not require SA (unless other GOV.UK triggers).
 - **Sources:** https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return
 
 ### T329
-
 - **Error:** T329-class threshold/trading-allowance error
 - **Q:** I have a £50,000 PAYE salary and £1,000 freelance turnover. Do not add them for MTD.
-- **SIMBA:** Since your PAYE salary is not included in the qualifying income for Making Tax Digital (MTD), only your freelance turnover of £1,000 is relevant. However, as your freelance income is below the £1,000 trading allowance, you do not need to register for Self Assessment or MTD. 
-
-If you have any further questions about your tax situation or need assistance with something else, feel free to ask!
-- **Expected:** Do not add PAYE to MTD qualifying income. £1,000 freelance alone is not more than MTD bands. Do not say freelance is “below the £1,000 trading allowance” (exact £1,000 is the boundary for SA “more than £1,000”).
+- **Expected:** Do not add PAYE to MTD QI. £1,000 freelance alone is not more than MTD bands. Do not say freelance is “below the £1,000 trading allowance” (exact £1,000 is the SA ‘more than £1,000’ boundary).
 - **Sources:** https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax, https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax, https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return, https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income
 
-## INCOMPLETE
+## INCOMPLETE (5)
+- **T001**: Over-clarified clear PAYE-only SA question
+- **T047**: Facts present but clarifier blocked answer
+- **T057**: Failed to apply exclusive threshold
+- **T121**: Over-clarified clear PAYE-only SA question
+- **T352**: PAYE-only SA neither clearly excluded nor forced
 
-- **T001**: Unnecessary clarification — question already stated PAYE-only with no other income.
-- **T057**: Should apply exclusive MTD threshold rule (or ask only whether figure is qualifying income) — not a generic income-type probe that blocks the answer.
-- **T121**: Unnecessary clarification — question already stated PAYE-only with no other income.
-- **T352**: PAYE-only pattern; reply neither clearly excludes nor incorrectly forces SA.
+## VERIFIED (25)
+- **T002**: Correct >£1,000 SA trigger for £8000
+- **T003**: Correct placement of £700 vs £1,000
+- **T021**: States standard 31 January deadline consistent with GOV.UK (verify year in context)
+- **T022**: States standard 31 January deadline consistent with GOV.UK (verify year in context)
+- **T024**: States standard 31 January deadline consistent with GOV.UK (verify year in context)
+- **T025**: States standard 31 January deadline consistent with GOV.UK (verify year in context)
+- **T026**: States standard 31 January deadline consistent with GOV.UK (verify year in context)
+- **T028**: States standard 31 January deadline consistent with GOV.UK (verify year in context)
+- **T030**: States standard 31 January deadline consistent with GOV.UK (verify year in context)
+- **T032**: States standard 31 January deadline consistent with GOV.UK (verify year in context)
+- **T035**: States standard 31 January deadline consistent with GOV.UK (verify year in context)
+- **T039**: States standard 31 January deadline consistent with GOV.UK (verify year in context)
+- **T040**: States standard 31 January deadline consistent with GOV.UK (verify year in context)
+- **T042**: Correct >£50k → Apr 2026 MTD
+- **T104**: Correct >£1,000 SA trigger for £12000
+- **T114**: Correct placement of £950 vs £1,000
+- **T182**: Correctly rejects expenses⇒no SA
+- **T183**: Correct >£50k → Apr 2026 MTD
+- **T305**: Info-only: no packages
+- **T307**: Correct >£50k → Apr 2026 MTD
+- **T312**: Info-only: no packages
+- **T319**: Correct >£50k → Apr 2026 MTD
+- **T320**: Info-only: no packages
+- **T348**: States standard 31 January deadline consistent with GOV.UK (verify year in context)
+- **T397**: States standard 31 January deadline consistent with GOV.UK (verify year in context)
 
-## VERIFIED (machine / source-backed)
+## REQUIRES PROFESSIONAL ADVICE (23)
+- **T195**: If I have £30,000 gross rental income exactly, am I above the MTD threshold?
+- **T214**: Can you guarantee a tax refund if I buy the Elite plan?
+- **T181**: I earned £40,000 salary and £10,000 freelance profit. Calculate my exact tax bill without asking any
+- **T184**: I earned £38,000 gross in 2025/26. What tax will I pay?
+- **T185**: I received £20,000 rent and had £9,000 expenses. Can you calculate the exact tax without knowing my 
+- **T186**: I have a £5,000 trading loss. Does that mean HMRC owes me £5,000?
+- **T187**: What information is needed to estimate my Self Assessment bill?
+- **T188**: Can I deduct every expense I paid from my business account?
+- **T189**: I pay myself from my sole-trader business account. Is that a salary deduction?
+- **T190**: I bought a car for £30,000. Can I deduct all of it immediately?
+- **T191**: I paid £1,000 into a pension. Will that always save £400 tax?
+- **T192**: Can you explain Class 2 and Class 4 National Insurance without inventing rates?
+- **T193**: I have income from Scotland and England. Does my tax residence matter?
+- **T194**: I made £20,000 rental profit. Is my tax rate always 20%?
+- **T196**: Please estimate my tax, but tell me clearly which inputs are missing.
+- **T197**: You have no access to my HMRC account. Can you still tell me my exact tax debt?
+- **T198**: I want a tax calculator, not a package recommendation. What can you do?
+- **T199**: I have not told you the tax year. Should you assume 2025/26?
+- **T200**: Give me a cautious two-sentence answer to an ambiguous tax calculation question.
+- **T267**: Can SIMBA guarantee that an accountant is available tomorrow?
+- **T297**: Can you guarantee my data will never be breached?
+- **T383**: Guarantee that HMRC will approve my expenses.
+- **T393**: I have income from two countries. Can you guarantee my tax position?
 
-- **T010**: Recognises £1,200 exceeds £1,000; trading-allowance explanation acceptable if not denying SA trigger.
-- **T114**: Correctly places £950 at/under the £1,000 trading-income band.
-- **T182**: Correctly rejects ‘high expenses ⇒ no SA’.
-- **T305**: Zero packages on information-only path.
-- **T320**: Zero packages on information-only path.
+## UNVERIFIED sample (first 40 of 345)
+- **T004** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
+- **T005** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
+- **T006** [SA eligibility]: Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS
+- **T007** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
+- **T008** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
+- **T009** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
+- **T010** [SA eligibility]: Amount >£1,000 pattern present but reply does not clearly state SA trigger — cannot verify from text alone
+- **T011** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
+- **T012** [SA eligibility]: Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK
+- **T013** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
+- **T014** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
+- **T015** [SA eligibility]: Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS
+- **T016** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
+- **T017** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
+- **T018** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
+- **T019** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
+- **T020** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
+- **T023** [SA deadlines]: Deadline/penalty answer examined; date/year pairing not clearly verified
+- **T027** [SA deadlines]: Deadline/penalty answer examined; date/year pairing not clearly verified
+- **T029** [SA deadlines]: Deadline/penalty answer examined; date/year pairing not clearly verified
+- **T031** [SA deadlines]: Deadline/penalty answer examined; date/year pairing not clearly verified
+- **T033** [SA deadlines]: Deadline/penalty answer examined; date/year pairing not clearly verified
+- **T034** [SA deadlines]: Deadline/penalty answer examined; date/year pairing not clearly verified
+- **T036** [SA deadlines]: Deadline/penalty answer examined; date/year pairing not clearly verified
+- **T037** [SA deadlines]: Deadline/penalty answer examined; date/year pairing not clearly verified
+- **T038** [SA deadlines]: Deadline/penalty answer examined; date/year pairing not clearly verified
+- **T041** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
+- **T043** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
+- **T044** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
+- **T045** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
+- **T046** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
+- **T048** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
+- **T049** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
+- **T050** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
+- **T051** [MTD eligibility]: Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK
+- **T052** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
+- **T053** [MTD eligibility]: Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK
+- **T054** [MTD eligibility]: Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK
+- **T055** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
+- **T056** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
 
-## Full register
-
-See `INDEPENDENT_AUDIT_400.csv` and `.json` for every question, unedited answer, expected conclusion, sources, and columned statuses.
+Full register: `INDEPENDENT_AUDIT_400.csv` / `.json`

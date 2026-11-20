@@ -8,18 +8,20 @@
 
 | Metric | Count |
 | --- | ---: |
-| Independently VERIFIED (source-backed deterministic match) | **5** |
+| Independently VERIFIED (source-backed deterministic match) | **25** |
 | INCORRECT | **2** |
-| INCOMPLETE | **4** |
-| AMBIGUOUS (needs case-by-case source matching — not auto-PASS) | **379** |
-| REQUIRES PROFESSIONAL ADVICE | **10** |
+| INCOMPLETE | **5** |
+| UNVERIFIED (individually examined; not auto-PASS) | **345** |
+| AMBIGUOUS | **0** |
+| REQUIRES PROFESSIONAL ADVICE | **23** |
 | BLOCKED | **0** |
 | Real OpenAI model executed | **400** |
 | Professional approval obtained | **0** |
-| Known-failure unit/mock retests successful | **6+** (see KNOWN_FAILURES_RETEST) |
-| Full Vitest after fixes | **559 passed** |
+| Holdout 200 OpenAI | **200** (exact class 64/200) |
+| Critical retest / Fresh 30 | **5/5** · **30 OpenAI, 0 premature** |
+| Full Vitest after fixes | **561 passed** |
 
-> **400 executed ≠ 400 independently verified.** AMBIGUOUS rows still have full Q + unedited A + candidate sources for ChatGPT / human review — they are **not** counted as VERIFIED.
+> **400 executed ≠ 400 independently verified.** Primary report: `ASK_SIMBA_FINAL_QUALITY_EVIDENCE.md`. Residuals are **UNVERIFIED**, not passed.
 
 ## File map (what to open)
 

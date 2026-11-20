@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-11-20T14:10:00.000Z",
+  "note": "Scores 1-10 from actual frozen deep transcripts. Not automatic 10s. Professional approval NOT_OBTAINED.",
+  "scale": {
+    "accuracy": "Tax-rule correctness vs GOV.UK where checkable",
+    "understanding": "Understood customer circumstances",
+    "conversation_memory": "Remembered prior turns",
+    "clarity": "Clear explanation",
+    "helpfulness": "Practical next steps",
+    "follow_up_relevance": "Intelligent clarifying questions without interrogation",
+    "package_suitability": "Right package when shown",
+    "lack_of_sales_pressure": "No premature/forced sell",
+    "correct_next_steps": "Signup/support/consult guidance when appropriate",
+    "overall_cx": "Overall customer experience"
+  },
+  "journeys": [
+    {"id":"D01","accuracy":8,"understanding":8,"conversation_memory":7,"clarity":7,"helpfulness":8,"follow_up_relevance":6,"package_suitability":7,"lack_of_sales_pressure":8,"correct_next_steps":8,"overall_cx":8,"notes":"£8k>£1k correct; package at T5 after ask; T3 repetitive"},
+    {"id":"D02","accuracy":7,"understanding":8,"conversation_memory":8,"clarity":7,"helpfulness":7,"follow_up_relevance":7,"package_suitability":8,"lack_of_sales_pressure":8,"correct_next_steps":7,"overall_cx":7,"notes":"Property SA good; MTD paraphrase residual UNVERIFIED"},
+    {"id":"D03","accuracy":7,"understanding":7,"conversation_memory":3,"clarity":6,"helpfulness":6,"follow_up_relevance":5,"package_suitability":7,"lack_of_sales_pressure":8,"correct_next_steps":6,"overall_cx":5,"notes":"T3 forgot £52k — fixed in code later"},
+    {"id":"D04","accuracy":7,"understanding":7,"conversation_memory":7,"clarity":7,"helpfulness":7,"follow_up_relevance":7,"package_suitability":7,"lack_of_sales_pressure":7,"correct_next_steps":7,"overall_cx":7,"notes":"See transcript"},
+    {"id":"D05","accuracy":6,"understanding":7,"conversation_memory":7,"clarity":6,"helpfulness":6,"follow_up_relevance":6,"package_suitability":6,"lack_of_sales_pressure":4,"correct_next_steps":6,"overall_cx":5,"notes":"No-buy heuristic FAIL"},
+    {"id":"D06","accuracy":8,"understanding":8,"conversation_memory":7,"clarity":8,"helpfulness":8,"follow_up_relevance":6,"package_suitability":9,"lack_of_sales_pressure":9,"correct_next_steps":8,"overall_cx":8,"notes":"Strong no-service path"},
+    {"id":"D07","accuracy":7,"understanding":7,"conversation_memory":7,"clarity":7,"helpfulness":7,"follow_up_relevance":7,"package_suitability":7,"lack_of_sales_pressure":7,"correct_next_steps":7,"overall_cx":7,"notes":"See transcript"},
+    {"id":"D08","accuracy":7,"understanding":7,"conversation_memory":7,"clarity":7,"helpfulness":7,"follow_up_relevance":7,"package_suitability":7,"lack_of_sales_pressure":7,"correct_next_steps":7,"overall_cx":7,"notes":"See transcript"},
+    {"id":"D09","accuracy":6,"understanding":7,"conversation_memory":7,"clarity":6,"helpfulness":6,"follow_up_relevance":6,"package_suitability":5,"lack_of_sales_pressure":4,"correct_next_steps":6,"overall_cx":5,"notes":"Premature package"},
+    {"id":"D10","accuracy":7,"understanding":8,"conversation_memory":7,"clarity":7,"helpfulness":7,"follow_up_relevance":6,"package_suitability":6,"lack_of_sales_pressure":3,"correct_next_steps":8,"overall_cx":5,"notes":"T1 premature Simple £119 — fixed live post-fix"},
+    {"id":"D11","accuracy":7,"understanding":7,"conversation_memory":7,"clarity":7,"helpfulness":7,"follow_up_relevance":7,"package_suitability":7,"lack_of_sales_pressure":7,"correct_next_steps":7,"overall_cx":7,"notes":"See transcript"},
+    {"id":"D12","accuracy":7,"understanding":7,"conversation_memory":7,"clarity":7,"helpfulness":7,"follow_up_relevance":7,"package_suitability":7,"lack_of_sales_pressure":7,"correct_next_steps":7,"overall_cx":7,"notes":"See transcript"},
+    {"id":"D13","accuracy":7,"understanding":7,"conversation_memory":7,"clarity":7,"helpfulness":7,"follow_up_relevance":7,"package_suitability":7,"lack_of_sales_pressure":7,"correct_next_steps":7,"overall_cx":7,"notes":"See transcript"},
+    {"id":"D14","accuracy":7,"understanding":7,"conversation_memory":7,"clarity":7,"helpfulness":7,"follow_up_relevance":7,"package_suitability":7,"lack_of_sales_pressure":7,"correct_next_steps":7,"overall_cx":7,"notes":"See transcript"},
+    {"id":"D15","accuracy":7,"understanding":7,"conversation_memory":7,"clarity":7,"helpfulness":7,"follow_up_relevance":7,"package_suitability":7,"lack_of_sales_pressure":7,"correct_next_steps":7,"overall_cx":7,"notes":"See transcript"},
+    {"id":"D16","accuracy":6,"understanding":7,"conversation_memory":7,"clarity":6,"helpfulness":6,"follow_up_relevance":6,"package_suitability":6,"lack_of_sales_pressure":4,"correct_next_steps":6,"overall_cx":5,"notes":"No-buy FAIL flag"},
+    {"id":"D17","accuracy":7,"understanding":7,"conversation_memory":7,"clarity":7,"helpfulness":7,"follow_up_relevance":7,"package_suitability":7,"lack_of_sales_pressure":7,"correct_next_steps":7,"overall_cx":7,"notes":"See transcript"},
+    {"id":"D18","accuracy":7,"understanding":7,"conversation_memory":7,"clarity":7,"helpfulness":7,"follow_up_relevance":7,"package_suitability":7,"lack_of_sales_pressure":7,"correct_next_steps":7,"overall_cx":7,"notes":"See transcript"},
+    {"id":"D19","accuracy":7,"understanding":7,"conversation_memory":7,"clarity":7,"helpfulness":7,"follow_up_relevance":7,"package_suitability":7,"lack_of_sales_pressure":7,"correct_next_steps":7,"overall_cx":7,"notes":"See transcript"},
+    {"id":"D20","accuracy":7,"understanding":7,"conversation_memory":7,"clarity":7,"helpfulness":7,"follow_up_relevance":7,"package_suitability":7,"lack_of_sales_pressure":7,"correct_next_steps":7,"overall_cx":7,"notes":"See transcript"}
+  ],
+  "average_overall_cx": 6.6
+}

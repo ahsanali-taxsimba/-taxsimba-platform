@@ -1,10 +1,11 @@
 # SIMBA V2 — Quality Proof Evidence Pack
 
-**Start here for second review:** **[CHATGPT_REVIEW_PACK.md](./CHATGPT_REVIEW_PACK.md)**  
-Also: **[QUALITY_PROOF_REPORT.md](./QUALITY_PROOF_REPORT.md)**
+**Start here:** **[ASK_SIMBA_FINAL_QUALITY_EVIDENCE.md](./ASK_SIMBA_FINAL_QUALITY_EVIDENCE.md)**  
+Also: **[CHATGPT_REVIEW_PACK.md](./CHATGPT_REVIEW_PACK.md)** · **[QUALITY_PROOF_REPORT.md](./QUALITY_PROOF_REPORT.md)**
 
 | Document | Purpose |
 |----------|---------|
+| `ASK_SIMBA_FINAL_QUALITY_EVIDENCE.md` | Final human-readable evidence report (NO-GO) |
 | `CHATGPT_REVIEW_PACK.md` | Independent audit summary + file map for ChatGPT second review |
 | `FIVE_DETAILED_JOURNEY_REVIEWS.md` | Five customer journey reviews (actual responses) |
 | `KNOWN_FAILURES_RETEST.md` | T329 / £8k / £50k / D03 / D10 / D02 fixes + evidence |

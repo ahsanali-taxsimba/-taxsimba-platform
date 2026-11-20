@@ -1,0 +1,1481 @@
+{
+  "generated_at": "2026-11-20T14:16:11.961Z",
+  "note": "Fresh unseen validation after holdout-informed fixes. Separate from tuned H001-H200.",
+  "results": [
+    {
+      "id": "F001",
+      "question": "My mate pays me cash for weekend DJ gigs — maybe a few hundred a month. Tax?",
+      "reply": "If your DJ income exceeds £1,000 in a tax year, you'll need to register for Self Assessment and submit a tax return. Even if you're paid in cash, HMRC requires you to declare this income. You can claim the trading allowance of up to £1,000, which means you won't pay tax on the first £1,000 of income if you choose to use it instead of deducting expenses. \n\nWould you like more information on how to register for Self Assessment?",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "cryptoassets-tax",
+          "title": "Cryptoassets and tax overview",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/tax-on-cryptoassets",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "HMRC treats cryptoassets as potentially taxable. Depending on your activity you may need to consider Capital Gains Tax and/or Income Tax. Keep detailed records of transactions. Check GOV.UK cryptoassets tax guidance for how your situation may be treated."
+        },
+        {
+          "id": "cgt-reporting-overview",
+          "title": "Reporting Capital Gains Tax",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/capital-gains-tax/report-and-pay-capital-gains-tax",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Depending on the asset and timing, Capital Gains Tax may be reported through Self Assessment and/or a dedicated reporting service (for example for UK property in some cases). Check GOV.UK for the correct reporting route and deadlines."
+        },
+        {
+          "id": "sa-who-needs-to-file",
+          "title": "Who needs to send a Self Assessment tax return",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "You usually need to send a Self Assessment tax return if you were self-employed, a partner in a partnership, had untaxed income, or received notice from HMRC to file. Being employed does not automatically remove the requirement if other criteria apply."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F002",
+      "question": "I sublet my spare room on Airbnb while I’m at work. PAYE job otherwise.",
+      "reply": "If you're earning income from subletting your spare room on Airbnb, you may need to consider your Self Assessment obligations. Even though you have a PAYE job, any additional income from Airbnb could require you to file a Self Assessment tax return, especially if your total income from this activity exceeds £1,000 in the tax year. \n\nIt's important to keep track of your earnings and any allowable expenses. Would you like to know more about how to register for Self Assessment?",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "paye-and-additional-income",
+          "title": "PAYE employment plus additional income",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Being taxed under PAYE does not automatically mean you have no Self Assessment obligations. Additional untaxed income, self-employment, property income or other criteria can still mean you need to file a return. Check GOV.UK ‘who must send a tax return’."
+        },
+        {
+          "id": "paye-overview",
+          "title": "PAYE overview",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/income-tax",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Pay As You Earn (PAYE) is how HMRC collects Income Tax and National Insurance from employment income. Having PAYE tax deducted does not always mean you avoid Self Assessment if you have other untaxed income."
+        },
+        {
+          "id": "mtd-qualifying-income-definition",
+          "title": "What qualifying income means for MTD",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+          "tax_years": [
+            "2025-26",
+            "2026-27",
+            "2027-28"
+          ],
+          "verified": true,
+          "excerpt": "Qualifying income for Making Tax Digital for Income Tax is total income from self-employment and property before expenses (also described as turnover/gross income), based on the relevant Self Assessment return. Employment (PAYE), dividends, State Pension and private pensions do not count towards qualifying income. Do not confuse turnover with profit."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F003",
+      "question": "HMRC texted me about a ‘nudge’ letter for online selling. What do I do?",
+      "reply": "A 'nudge' letter from HMRC typically reminds you to ensure you're meeting your tax obligations, especially if you're selling goods or services online. It's important to review your records and determine if you need to register for Self Assessment or pay tax on your income from online sales.\n\nMake sure to keep detailed records of your sales and expenses. If your income exceeds £1,000, you may need to register for Self Assessment and file a tax return. If you're unsure about your obligations, consider consulting a tax professional for guidance.\n\nWould you like more information on registering for Self Assessment?",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "sa-deadline-online",
+          "title": "Self Assessment online filing deadline",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK."
+        },
+        {
+          "id": "sa-penalties-overview",
+          "title": "Self Assessment late filing and payment penalties overview",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/penalties",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory."
+        },
+        {
+          "id": "cryptoassets-tax",
+          "title": "Cryptoassets and tax overview",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/tax-on-cryptoassets",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "HMRC treats cryptoassets as potentially taxable. Depending on your activity you may need to consider Capital Gains Tax and/or Income Tax. Keep detailed records of transactions. Check GOV.UK cryptoassets tax guidance for how your situation may be treated."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F004",
+      "question": "I’m on PAYE £48k and my SPA shares paid £400 dividends. Return needed?",
+      "reply": "Since your PAYE income is £48,000 and your dividends total £400, you won't need to file a Self Assessment return for the 2026-27 tax year. This is because your total income is below the threshold for needing to submit a return, which is generally applicable if you have untaxed income or your total income exceeds certain limits. \n\nHowever, if your circumstances change or you have other sources of income, you may need to reassess. Would you like to know more about any specific aspect of your tax situation?",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "dividend-tax-overview",
+          "title": "Tax on dividends",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/tax-on-dividends",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Dividends above the Dividend Allowance are taxed at dividend tax rates which differ from employment income rates. The Dividend Allowance and rates can change by tax year — always confirm the current figures on GOV.UK before relying on them."
+        },
+        {
+          "id": "mtd-qualifying-income-definition",
+          "title": "What qualifying income means for MTD",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+          "tax_years": [
+            "2025-26",
+            "2026-27",
+            "2027-28"
+          ],
+          "verified": true,
+          "excerpt": "Qualifying income for Making Tax Digital for Income Tax is total income from self-employment and property before expenses (also described as turnover/gross income), based on the relevant Self Assessment return. Employment (PAYE), dividends, State Pension and private pensions do not count towards qualifying income. Do not confuse turnover with profit."
+        },
+        {
+          "id": "paye-and-additional-income",
+          "title": "PAYE employment plus additional income",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Being taxed under PAYE does not automatically mean you have no Self Assessment obligations. Additional untaxed income, self-employment, property income or other criteria can still mean you need to file a return. Check GOV.UK ‘who must send a tax return’."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F005",
+      "question": "Started a dog-walking sole trade in May — turnover unclear yet. Register now?",
+      "reply": "Yes, you should register for Self Assessment as a sole trader since you started your dog-walking business in May 2026. You must register by 5 October 2026 to ensure compliance for the 2026-27 tax year. Even if your turnover is unclear, registering is essential if you expect to earn more than £1,000 in trading income. \n\nWould you like more information on the registration process?",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "register-self-assessment",
+          "title": "Register for Self Assessment",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/register-for-self-assessment",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "If you need to send a tax return and are not already registered, you must register for Self Assessment. New sole traders usually need to register by 5 October after the end of the tax year in which they started."
+        },
+        {
+          "id": "self-employed-register",
+          "title": "Register as self-employed",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/set-up-sole-trader",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "If you start working for yourself you need to register with HMRC for Self Assessment and for National Insurance. New sole traders usually need to register by 5 October after the end of the tax year in which self-employment began."
+        },
+        {
+          "id": "vat-threshold-overview",
+          "title": "VAT registration threshold",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/register-for-vat",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "You must register for VAT if either (1) your total taxable turnover for the last 12 months goes over £90,000 (the rolling / backward look, checked at month-end), or (2) you expect your taxable turnover to go over £90,000 in the next 30 days alone (the forward look). You can also register voluntarily below £90,000. The former £85,000 threshold is outdated and must not be used. Confirm current figures on GOV.UK."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F006",
+      "question": "Landlord with £22k rent 2024-25 — am I in the April 2026 MTD wave?",
+      "reply": "Based on qualifying income of £22,000 for 2024-25, you are not brought into Making Tax Digital by the £50,000 / 6 April 2026 band, because that band needs income of more than £50,000. Later bands use different tax years and thresholds (£30,000 → 6 April 2027; £20,000 → 6 April 2028).\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "mtd-threshold-50k-april-2026",
+          "title": "MTD Income Tax £50,000 threshold starts 6 April 2026",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "tax_years": [
+            "2025-26",
+            "2026-27",
+            "2027-28"
+          ],
+          "verified": true,
+          "excerpt": "If your qualifying income was more than £50,000 for the 2024-25 tax year (2024 to 2025), you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income is total self-employment and property income before expenses (turnover/gross), not profit. Do not confuse this £50,000 / April 2026 band with the later £30,000 / April 2027 band."
+        },
+        {
+          "id": "mtd-threshold-30k-april-2027",
+          "title": "MTD Income Tax £30,000 threshold starts 6 April 2027",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "tax_years": [
+            "2025-26",
+            "2026-27",
+            "2027-28"
+          ],
+          "verified": true,
+          "excerpt": "If your qualifying income is more than £30,000 for the 2025-26 tax year (2025 to 2026), you need to use Making Tax Digital for Income Tax from 6 April 2027. This is not April 2026. April 2026 applies only to the higher £50,000 qualifying-income band (based on 2024-25). Qualifying income is turnover/gross self-employment and property income before expenses, not profit after expenses."
+        },
+        {
+          "id": "mtd-income-tax-overview",
+          "title": "Making Tax Digital for Income Tax",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "tax_years": [
+            "2025-26",
+            "2026-27",
+            "2027-28"
+          ],
+          "verified": true,
+          "excerpt": "Making Tax Digital (MTD) for Income Tax requires eligible self-employed people and landlords to keep digital records and submit quarterly updates. Start dates depend on qualifying income (turnover/gross, not profit): more than £50,000 in 2024-25 from 6 April 2026; more than £30,000 in 2025-26 from 6 April 2027; more than £20,000 in 2026-27 from 6 April 2028. Confirm details on GOV.UK."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F007",
+      "question": "I already filed SA last year myself. Can TaxSimba take over this year only?",
+      "reply": "Yes, TaxSimba can assist you with your Self Assessment for this year while you manage your own filing in the previous year. Our accountant-led support can help ensure your return is accurate and compliant. If you're interested, I can provide more details about our Self Assessment packages. Would you like to know more?",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "sa-deadline-online",
+          "title": "Self Assessment online filing deadline",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK."
+        },
+        {
+          "id": "tax-year-dates",
+          "title": "UK tax year dates",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/income-tax",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "The UK tax year runs from 6 April to 5 April the following year. For example, tax year 2025-26 runs from 6 April 2025 to 5 April 2026."
+        },
+        {
+          "id": "mtd-threshold-30k-april-2027",
+          "title": "MTD Income Tax £30,000 threshold starts 6 April 2027",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "tax_years": [
+            "2025-26",
+            "2026-27",
+            "2027-28"
+          ],
+          "verified": true,
+          "excerpt": "If your qualifying income is more than £30,000 for the 2025-26 tax year (2025 to 2026), you need to use Making Tax Digital for Income Tax from 6 April 2027. This is not April 2026. April 2026 applies only to the higher £50,000 qualifying-income band (based on 2024-25). Qualifying income is turnover/gross self-employment and property income before expenses, not profit after expenses."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F008",
+      "question": "Do I need Simbian if I’m still under £30k turnover?",
+      "reply": "If your qualifying income is under £30,000 for the 2025-26 tax year, you are not required to register for Making Tax Digital (MTD) for Income Tax, which starts from 6 April 2027. However, you may still choose to use Simbian for its benefits, such as ongoing digital record-keeping and support. \n\nWould you like to know more about the features of Simbian?",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "vat-threshold-overview",
+          "title": "VAT registration threshold",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/register-for-vat",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "You must register for VAT if either (1) your total taxable turnover for the last 12 months goes over £90,000 (the rolling / backward look, checked at month-end), or (2) you expect your taxable turnover to go over £90,000 in the next 30 days alone (the forward look). You can also register voluntarily below £90,000. The former £85,000 threshold is outdated and must not be used. Confirm current figures on GOV.UK."
+        },
+        {
+          "id": "record-keeping-self-employed",
+          "title": "Records you should keep if self-employed",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-employed-records",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "If you are self-employed you must keep records of business income and expenses. Keep records for at least 5 years after the 31 January submission deadline of the relevant tax year. Digital record-keeping becomes especially important under Making Tax Digital."
+        },
+        {
+          "id": "mtd-qualifying-income-definition",
+          "title": "What qualifying income means for MTD",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+          "tax_years": [
+            "2025-26",
+            "2026-27",
+            "2027-28"
+          ],
+          "verified": true,
+          "excerpt": "Qualifying income for Making Tax Digital for Income Tax is total income from self-employment and property before expenses (also described as turnover/gross income), based on the relevant Self Assessment return. Employment (PAYE), dividends, State Pension and private pensions do not count towards qualifying income. Do not confuse turnover with profit."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F009",
+      "question": "Please don’t sell me anything. Just: is £1,050 Etsy sales enough to need SA?",
+      "reply": "It depends whether you’re casually selling personal belongings or running a trade as a sole trader. Occasional sales of personal items are often different from a regular online business that may need Self Assessment. Are you selling your own used possessions, or buying/making goods to sell for profit — and roughly what was the income before expenses last tax year?",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "sa-deadline-online",
+          "title": "Self Assessment online filing deadline",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK."
+        },
+        {
+          "id": "cryptoassets-tax",
+          "title": "Cryptoassets and tax overview",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/tax-on-cryptoassets",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "HMRC treats cryptoassets as potentially taxable. Depending on your activity you may need to consider Capital Gains Tax and/or Income Tax. Keep detailed records of transactions. Check GOV.UK cryptoassets tax guidance for how your situation may be treated."
+        },
+        {
+          "id": "paye-and-additional-income",
+          "title": "PAYE employment plus additional income",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Being taxed under PAYE does not automatically mean you have no Self Assessment obligations. Additional untaxed income, self-employment, property income or other criteria can still mean you need to file a return. Check GOV.UK ‘who must send a tax return’."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F010",
+      "question": "My limited company pays me salary + dividends. Can SIMBA do the company return?",
+      "reply": "If you have a limited company and a PAYE job, we need to separate the pieces: employment salary (PAYE), any personal Self Assessment income (e.g. dividends, rental, freelance), and the company’s own Corporation Tax/accounts. TaxSimba’s SIMBA chat covers individual Self Assessment / MTD guidance — not full company accounts unless separately approved. Which part do you want help with first — your PAYE job, personal Self Assessment, or the company?",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "company-directors-sa",
+          "title": "Company directors and Self Assessment",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Company directors often need to complete a Self Assessment tax return, for example for dividends, benefits, or other untaxed income. Corporation Tax for the company is separate from the director’s personal Self Assessment. Confirm on GOV.UK."
+        },
+        {
+          "id": "dividend-tax-overview",
+          "title": "Tax on dividends",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/tax-on-dividends",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Dividends above the Dividend Allowance are taxed at dividend tax rates which differ from employment income rates. The Dividend Allowance and rates can change by tax year — always confirm the current figures on GOV.UK before relying on them."
+        },
+        {
+          "id": "corporation-tax-overview",
+          "title": "Corporation Tax overview",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/corporation-tax",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Limited companies pay Corporation Tax on profits. Rates and thresholds can change by financial year. Company tax is separate from the directors’ personal Income Tax and Self Assessment. Confirm current rates on GOV.UK."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F011",
+      "question": "Got an email saying I’m due a tax refund of £3,412 — is that real?",
+      "reply": "It's important to be cautious with emails regarding tax refunds, as they can often be phishing attempts. HMRC typically does not send unsolicited emails about refunds. To verify if you're due a refund, check your personal tax account on the official HMRC website or contact HMRC directly through their official channels. Do not click on any links or provide personal information in response to the email. If you have further questions about your tax situation, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "sa-deadline-online",
+          "title": "Self Assessment online filing deadline",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK."
+        },
+        {
+          "id": "cryptoassets-tax",
+          "title": "Cryptoassets and tax overview",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/tax-on-cryptoassets",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "HMRC treats cryptoassets as potentially taxable. Depending on your activity you may need to consider Capital Gains Tax and/or Income Tax. Keep detailed records of transactions. Check GOV.UK cryptoassets tax guidance for how your situation may be treated."
+        },
+        {
+          "id": "cgt-reporting-overview",
+          "title": "Reporting Capital Gains Tax",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/capital-gains-tax/report-and-pay-capital-gains-tax",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Depending on the asset and timing, Capital Gains Tax may be reported through Self Assessment and/or a dedicated reporting service (for example for UK property in some cases). Check GOV.UK for the correct reporting route and deadlines."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F012",
+      "question": "I’m a carer with a small craft stall at Christmas markets only.",
+      "reply": "As a carer with a small craft stall at Christmas markets, you may be considered self-employed for your craft income. If your annual gross trading income from the stall exceeds £1,000, you will need to register for Self Assessment and submit a tax return. You can also benefit from the trading allowance, which allows you to earn up to £1,000 tax-free. \n\nDo you have any specific questions about your tax obligations or how to register?",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "vat-registration-timing-tests",
+          "title": "VAT registration timing — rolling 12 months and 30-day forward look",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/register-for-vat",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Rolling 12-month (backward) test: if at the end of any month your taxable supplies in the previous 12 months (or less) exceed £90,000, you must notify HMRC within 30 days of that month-end. Effective date of registration is typically the first day of the second month after you went over the threshold. Forward-looking 30-day test: if at any time you expect taxable supplies in the next 30 days alone to exceed £90,000, you must register by the end of that 30-day period; the effective date is the date you first formed that expectation. These are separate tests — do not confuse an 11-month build-up plus next month with the forward look. Always confirm on GOV.UK / VAT Notice 700/1."
+        },
+        {
+          "id": "record-keeping-self-employed",
+          "title": "Records you should keep if self-employed",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-employed-records",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "If you are self-employed you must keep records of business income and expenses. Keep records for at least 5 years after the 31 January submission deadline of the relevant tax year. Digital record-keeping becomes especially important under Making Tax Digital."
+        },
+        {
+          "id": "trading-allowance",
+          "title": "Trading allowance overview",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "The trading allowance is a tax exemption of up to £1,000 a year for individuals with trading income from self-employment, casual services or hiring personal equipment, subject to conditions. If annual gross trading income is £1,000 or less you may not need to tell HMRC (with exceptions). Confirm eligibility on GOV.UK before relying on it."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F013",
+      "question": "What’s the difference between TaxSimba Simple and doing it free on GOV.UK?",
+      "reply": "Here is what SIMBA can state from approved catalogue decisions:\n\nSelf Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable here — email is only a fallback enquiry route.\n\nSelf Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.\n\nWhat is approved to say:\n- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.\n- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.\n- Support is via email and the client dashboard — not telephone onboarding.\n- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).\n- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.\n\nI will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.\n\nI can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.\n- Self Assessment Simple: £119 (per tax year)\n- Self Assessment Smart: £149 (per tax year)\n- Self Assessment Elite: £299 (per tax year)\n- Simbian Comply: £29.99 (per month; VAT included)\n- Simbian Growth: £59.99 (per month; VAT included)\n- Simbian Elite: £89.99 (per month; VAT included)",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "trading-allowance",
+          "title": "Trading allowance overview",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "The trading allowance is a tax exemption of up to £1,000 a year for individuals with trading income from self-employment, casual services or hiring personal equipment, subject to conditions. If annual gross trading income is £1,000 or less you may not need to tell HMRC (with exceptions). Confirm eligibility on GOV.UK before relying on it."
+        },
+        {
+          "id": "property-allowance",
+          "title": "Property allowance overview",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "The property allowance is a tax exemption of up to £1,000 a year for individuals with income from land or property, subject to conditions and interactions with other reliefs (including Rent a Room). If annual gross property income is £1,000 or less you may not need to tell HMRC (with exceptions). Confirm eligibility on GOV.UK before relying on it."
+        },
+        {
+          "id": "sa-deadline-online",
+          "title": "Self Assessment online filing deadline",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F014",
+      "question": "I use FreeAgent already. Will you force me onto Xero?",
+      "reply": "For Making Tax Digital for Income Tax, HMRC requires compatible software and digital records. With TaxSimba’s accountant-led Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — you do not buy Xero separately through TaxSimba. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA chat and the customer portal do not file directly to HMRC — TaxSimba accountants lead those workflows. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "mtd-who-and-when",
+          "title": "Who needs Making Tax Digital for Income Tax and when",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "tax_years": [
+            "2025-26",
+            "2026-27",
+            "2027-28"
+          ],
+          "verified": true,
+          "excerpt": "You need to use Making Tax Digital for Income Tax if you are a sole trader or landlord registered for Self Assessment, you get income from self-employment or property (or both), and your qualifying income is more than the relevant threshold. Start dates depend on qualifying income in a prior tax year: more than £50,000 for 2024-25 means from 6 April 2026; more than £30,000 for 2025-26 means from 6 April 2027; more than £20,000 for 2026-27 means from 6 April 2028. Partnerships will be brought in later. Always confirm on GOV.UK."
+        },
+        {
+          "id": "register-self-assessment",
+          "title": "Register for Self Assessment",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/register-for-self-assessment",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "If you need to send a tax return and are not already registered, you must register for Self Assessment. New sole traders usually need to register by 5 October after the end of the tax year in which they started."
+        },
+        {
+          "id": "mileage-amap",
+          "title": "Approved mileage allowance payments",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/expenses-and-benefits-business-travel-mileage/rules-for-tax",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "If you use your own car for business, approved mileage allowance payments (AMAPs) set HMRC rates for tax-free mileage payments. Cars and vans commonly use 45p per mile for the first 10,000 business miles in a tax year and 25p thereafter — confirm current rates on GOV.UK."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F015",
+      "question": "Two buy-to-lets plus a full-time job — where do I start?",
+      "reply": "With two buy-to-let properties and a full-time job, you'll need to consider your tax obligations for both your employment income and rental income. \n\n1. **Self Assessment**: Since you have rental income, you’ll likely need to register for Self Assessment and file a tax return. This applies if your rental income exceeds £1,000 in a tax year.\n\n2. **Tax on Rental Income**: You'll pay tax on your rental profits (income after allowable expenses) at your income tax rate.\n\n3. **Record Keeping**: Keep accurate records of your rental income and expenses, as this will be essential for your tax return.\n\nWould you like more information on how to register for Self Assessment or assistance with your tax obligations?",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "paye-and-additional-income",
+          "title": "PAYE employment plus additional income",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Being taxed under PAYE does not automatically mean you have no Self Assessment obligations. Additional untaxed income, self-employment, property income or other criteria can still mean you need to file a return. Check GOV.UK ‘who must send a tax return’."
+        },
+        {
+          "id": "vat-registration-timing-tests",
+          "title": "VAT registration timing — rolling 12 months and 30-day forward look",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/register-for-vat",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Rolling 12-month (backward) test: if at the end of any month your taxable supplies in the previous 12 months (or less) exceed £90,000, you must notify HMRC within 30 days of that month-end. Effective date of registration is typically the first day of the second month after you went over the threshold. Forward-looking 30-day test: if at any time you expect taxable supplies in the next 30 days alone to exceed £90,000, you must register by the end of that 30-day period; the effective date is the date you first formed that expectation. These are separate tests — do not confuse an 11-month build-up plus next month with the forward look. Always confirm on GOV.UK / VAT Notice 700/1."
+        },
+        {
+          "id": "mtd-income-tax-overview",
+          "title": "Making Tax Digital for Income Tax",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "tax_years": [
+            "2025-26",
+            "2026-27",
+            "2027-28"
+          ],
+          "verified": true,
+          "excerpt": "Making Tax Digital (MTD) for Income Tax requires eligible self-employed people and landlords to keep digital records and submit quarterly updates. Start dates depend on qualifying income (turnover/gross, not profit): more than £50,000 in 2024-25 from 6 April 2026; more than £30,000 in 2025-26 from 6 April 2027; more than £20,000 in 2026-27 from 6 April 2028. Confirm details on GOV.UK."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F016",
+      "question": "CIS electrician, deductions on every invoice — still Self Assessment?",
+      "reply": "CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. What was your sole-trader/CIS turnover before expenses, and for which tax year? Packages: https://www.taxsimba.co.uk/self-assessment",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "cis-overview",
+          "title": "Construction Industry Scheme (CIS) overview",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/what-is-the-construction-industry-scheme",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "The Construction Industry Scheme (CIS) sets how contractors deduct money from a subcontractor's payments and pay it to HMRC. Subcontractors should keep payment and deduction statements. CIS deductions are not always the final tax position — many subcontractors still need Self Assessment."
+        },
+        {
+          "id": "sa-paper-deadline",
+          "title": "Self Assessment paper filing deadline",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "If you file a paper Self Assessment return, the usual deadline is 31 October following the end of the tax year. Online filing is normally due by 31 January. Confirm current deadlines on GOV.UK."
+        },
+        {
+          "id": "sa-deadline-online",
+          "title": "Self Assessment online filing deadline",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F017",
+      "question": "I moved back from Spain mid-year. Who do I pay tax to?",
+      "reply": "If you moved back to the UK from Spain during the tax year, you will generally be liable to pay tax to HMRC on your UK income. Your residency status will determine your tax obligations. If you are considered a UK resident for tax purposes, you will need to declare your worldwide income to HMRC. \n\nIf you have income from Spain, you may also need to consider any tax obligations there, depending on your residency status in Spain during your time there. It might be beneficial to consult with a tax professional to clarify your specific situation. Would you like more information on residency rules?",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "mtd-who-and-when",
+          "title": "Who needs Making Tax Digital for Income Tax and when",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "tax_years": [
+            "2025-26",
+            "2026-27",
+            "2027-28"
+          ],
+          "verified": true,
+          "excerpt": "You need to use Making Tax Digital for Income Tax if you are a sole trader or landlord registered for Self Assessment, you get income from self-employment or property (or both), and your qualifying income is more than the relevant threshold. Start dates depend on qualifying income in a prior tax year: more than £50,000 for 2024-25 means from 6 April 2026; more than £30,000 for 2025-26 means from 6 April 2027; more than £20,000 for 2026-27 means from 6 April 2028. Partnerships will be brought in later. Always confirm on GOV.UK."
+        },
+        {
+          "id": "sa-who-needs-to-file",
+          "title": "Who needs to send a Self Assessment tax return",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "You usually need to send a Self Assessment tax return if you were self-employed, a partner in a partnership, had untaxed income, or received notice from HMRC to file. Being employed does not automatically remove the requirement if other criteria apply."
+        },
+        {
+          "id": "tax-year-dates",
+          "title": "UK tax year dates",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/income-tax",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "The UK tax year runs from 6 April to 5 April the following year. For example, tax year 2025-26 runs from 6 April 2025 to 5 April 2026."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F018",
+      "question": "Can you escalate me to a human accountant without picking a package first?",
+      "reply": "I can't escalate you to a human accountant directly. However, you can book a Quick Tax Advice consultation for £99, which provides 20 minutes of advice with an accountant. If you're interested, I can guide you on how to book that. Would you like more information on that option?",
+      "packages": [
+        "SA_SIMPLE"
+      ],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "vat-registration-timing-tests",
+          "title": "VAT registration timing — rolling 12 months and 30-day forward look",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/register-for-vat",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Rolling 12-month (backward) test: if at the end of any month your taxable supplies in the previous 12 months (or less) exceed £90,000, you must notify HMRC within 30 days of that month-end. Effective date of registration is typically the first day of the second month after you went over the threshold. Forward-looking 30-day test: if at any time you expect taxable supplies in the next 30 days alone to exceed £90,000, you must register by the end of that 30-day period; the effective date is the date you first formed that expectation. These are separate tests — do not confuse an 11-month build-up plus next month with the forward look. Always confirm on GOV.UK / VAT Notice 700/1."
+        },
+        {
+          "id": "mileage-amap",
+          "title": "Approved mileage allowance payments",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/expenses-and-benefits-business-travel-mileage/rules-for-tax",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "If you use your own car for business, approved mileage allowance payments (AMAPs) set HMRC rates for tax-free mileage payments. Cars and vans commonly use 45p per mile for the first 10,000 business miles in a tax year and 25p thereafter — confirm current rates on GOV.UK."
+        },
+        {
+          "id": "sa-penalties-overview",
+          "title": "Self Assessment late filing and payment penalties overview",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/penalties",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F019",
+      "question": "My turnover was £49,999 in 2024-25. MTD April 2026?",
+      "reply": "Yes, since your qualifying income was £49,999 for the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This applies because your income exceeds the £50,000 threshold for that year. If you have any further questions about MTD or need assistance, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "mtd-threshold-50k-april-2026",
+          "title": "MTD Income Tax £50,000 threshold starts 6 April 2026",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "tax_years": [
+            "2025-26",
+            "2026-27",
+            "2027-28"
+          ],
+          "verified": true,
+          "excerpt": "If your qualifying income was more than £50,000 for the 2024-25 tax year (2024 to 2025), you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income is total self-employment and property income before expenses (turnover/gross), not profit. Do not confuse this £50,000 / April 2026 band with the later £30,000 / April 2027 band."
+        },
+        {
+          "id": "mtd-threshold-30k-april-2027",
+          "title": "MTD Income Tax £30,000 threshold starts 6 April 2027",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "tax_years": [
+            "2025-26",
+            "2026-27",
+            "2027-28"
+          ],
+          "verified": true,
+          "excerpt": "If your qualifying income is more than £30,000 for the 2025-26 tax year (2025 to 2026), you need to use Making Tax Digital for Income Tax from 6 April 2027. This is not April 2026. April 2026 applies only to the higher £50,000 qualifying-income band (based on 2024-25). Qualifying income is turnover/gross self-employment and property income before expenses, not profit after expenses."
+        },
+        {
+          "id": "mtd-threshold-20k-april-2028",
+          "title": "MTD Income Tax £20,000 threshold starts 6 April 2028",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "tax_years": [
+            "2026-27",
+            "2027-28"
+          ],
+          "verified": true,
+          "excerpt": "If your qualifying income is more than £20,000 for the 2026-27 tax year (2026 to 2027), you need to use Making Tax Digital for Income Tax from 6 April 2028. Qualifying income is total self-employment and property income before expenses (turnover/gross), not profit."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F020",
+      "question": "I said I don’t want packages. Stop showing them.",
+      "reply": "Understood! I won't mention any packages. How can I assist you with your tax questions today?",
+      "packages": [
+        "SA_SIMPLE"
+      ],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "sa-deadline-online",
+          "title": "Self Assessment online filing deadline",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK."
+        },
+        {
+          "id": "dividend-tax-overview",
+          "title": "Tax on dividends",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/tax-on-dividends",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Dividends above the Dividend Allowance are taxed at dividend tax rates which differ from employment income rates. The Dividend Allowance and rates can change by tax year — always confirm the current figures on GOV.UK before relying on them."
+        },
+        {
+          "id": "sa-penalties-overview",
+          "title": "Self Assessment late filing and payment penalties overview",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/penalties",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F021",
+      "question": "OnlyFans + PAYE — same rules as freelancing?",
+      "reply": "If you're earning income from OnlyFans and it's your only source of income, it will typically be treated as self-employment rather than PAYE. This means you would need to register for Self Assessment and report your earnings through a tax return. \n\nHowever, if you also have a PAYE job, your OnlyFans income would be considered additional income, and you may still need to file a Self Assessment return if it exceeds £1,000. \n\nIt's essential to keep accurate records of your earnings and expenses. Would you like more information on how to register for Self Assessment?",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "paye-overview",
+          "title": "PAYE overview",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/income-tax",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Pay As You Earn (PAYE) is how HMRC collects Income Tax and National Insurance from employment income. Having PAYE tax deducted does not always mean you avoid Self Assessment if you have other untaxed income."
+        },
+        {
+          "id": "paye-and-additional-income",
+          "title": "PAYE employment plus additional income",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Being taxed under PAYE does not automatically mean you have no Self Assessment obligations. Additional untaxed income, self-employment, property income or other criteria can still mean you need to file a return. Check GOV.UK ‘who must send a tax return’."
+        },
+        {
+          "id": "mtd-qualifying-income-definition",
+          "title": "What qualifying income means for MTD",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+          "tax_years": [
+            "2025-26",
+            "2026-27",
+            "2027-28"
+          ],
+          "verified": true,
+          "excerpt": "Qualifying income for Making Tax Digital for Income Tax is total income from self-employment and property before expenses (also described as turnover/gross income), based on the relevant Self Assessment return. Employment (PAYE), dividends, State Pension and private pensions do not count towards qualifying income. Do not confuse turnover with profit."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F022",
+      "question": "I’m executor of an estate with rental income. Is that Self Assessment for me?",
+      "reply": "Yes, as an executor of an estate with rental income, you will likely need to complete a Self Assessment tax return. This is necessary if the estate generates income that exceeds the tax-free allowance or if HMRC requests a return. The rental income must be reported, and any tax due on it will need to be paid.\n\nIf you have further questions about the process or need assistance, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "sa-deadline-online",
+          "title": "Self Assessment online filing deadline",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK."
+        },
+        {
+          "id": "sa-who-needs-to-file",
+          "title": "Who needs to send a Self Assessment tax return",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "You usually need to send a Self Assessment tax return if you were self-employed, a partner in a partnership, had untaxed income, or received notice from HMRC to file. Being employed does not automatically remove the requirement if other criteria apply."
+        },
+        {
+          "id": "company-directors-sa",
+          "title": "Company directors and Self Assessment",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Company directors often need to complete a Self Assessment tax return, for example for dividends, benefits, or other untaxed income. Corporation Tax for the company is separate from the director’s personal Self Assessment. Confirm on GOV.UK."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F023",
+      "question": "Child benefit and £55k PAYE — HICBC?",
+      "reply": "If your individual income is £55,000 from PAYE, you will not be liable for the High Income Child Benefit Charge (HICBC) for the 2026-27 tax year, as the threshold is £60,000. However, if your income exceeds £60,000, the charge would apply, gradually reducing your Child Benefit entitlement. \n\nWould you like more information on how the HICBC works?",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "high-income-child-benefit",
+          "title": "High Income Child Benefit Charge",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/child-benefit-tax-charge",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "If you or your partner have an individual income over £60,000 you may have to pay the High Income Child Benefit Charge. The charge can reduce Child Benefit; at higher incomes it can remove the benefit entirely. Confirm thresholds on GOV.UK for the tax year."
+        },
+        {
+          "id": "paye-and-additional-income",
+          "title": "PAYE employment plus additional income",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Being taxed under PAYE does not automatically mean you have no Self Assessment obligations. Additional untaxed income, self-employment, property income or other criteria can still mean you need to file a return. Check GOV.UK ‘who must send a tax return’."
+        },
+        {
+          "id": "paye-overview",
+          "title": "PAYE overview",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/income-tax",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Pay As You Earn (PAYE) is how HMRC collects Income Tax and National Insurance from employment income. Having PAYE tax deducted does not always mean you avoid Self Assessment if you have other untaxed income."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F024",
+      "question": "Do quarterly MTD updates replace the January tax return?",
+      "reply": "Under Making Tax Digital for Income Tax, in-scope sole traders and landlords keep digital records and usually submit quarterly updates, then a year-end/final declaration. TaxSimba Simbian plans include quarterly MTD updates and year-end Self Assessment prepared through accountant-led Xero workflows, subject to documented customer responsibilities. SIMBA chat cannot file or submit to HMRC for you. Official overview: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "mtd-digital-records-quarterly",
+          "title": "MTD digital records and quarterly updates",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/get-ready-for-mtd-an-agent-toolkit/understanding-making-tax-digital-for-income-tax",
+          "tax_years": [
+            "2025-26",
+            "2026-27",
+            "2027-28"
+          ],
+          "verified": true,
+          "excerpt": "Using Making Tax Digital for Income Tax means using compatible software to create, store and correct digital records of business income and expenses, and to send quarterly updates to HMRC. Exact software requirements and update dates should be confirmed on GOV.UK."
+        },
+        {
+          "id": "mtd-income-tax-overview",
+          "title": "Making Tax Digital for Income Tax",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "tax_years": [
+            "2025-26",
+            "2026-27",
+            "2027-28"
+          ],
+          "verified": true,
+          "excerpt": "Making Tax Digital (MTD) for Income Tax requires eligible self-employed people and landlords to keep digital records and submit quarterly updates. Start dates depend on qualifying income (turnover/gross, not profit): more than £50,000 in 2024-25 from 6 April 2026; more than £30,000 in 2025-26 from 6 April 2027; more than £20,000 in 2026-27 from 6 April 2028. Confirm details on GOV.UK."
+        },
+        {
+          "id": "mtd-threshold-50k-april-2026",
+          "title": "MTD Income Tax £50,000 threshold starts 6 April 2026",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "tax_years": [
+            "2025-26",
+            "2026-27",
+            "2027-28"
+          ],
+          "verified": true,
+          "excerpt": "If your qualifying income was more than £50,000 for the 2024-25 tax year (2024 to 2025), you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income is total self-employment and property income before expenses (turnover/gross), not profit. Do not confuse this £50,000 / April 2026 band with the later £30,000 / April 2027 band."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F025",
+      "question": "I want Elite because I want the ‘best’ — but my affairs are simple. Which is right?",
+      "reply": "If your affairs are simple, you might not need the Elite package. The Self Assessment Simple package could be more suitable, as it covers the essentials for straightforward tax returns at a lower cost. The Elite package is designed for more complex situations, offering additional support and features.\n\nWould you like more details on what each package includes?",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "register-self-assessment",
+          "title": "Register for Self Assessment",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/register-for-self-assessment",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "If you need to send a tax return and are not already registered, you must register for Self Assessment. New sole traders usually need to register by 5 October after the end of the tax year in which they started."
+        },
+        {
+          "id": "self-employed-register",
+          "title": "Register as self-employed",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/set-up-sole-trader",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "If you start working for yourself you need to register with HMRC for Self Assessment and for National Insurance. New sole traders usually need to register by 5 October after the end of the tax year in which self-employment began."
+        },
+        {
+          "id": "dividend-tax-overview",
+          "title": "Tax on dividends",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/tax-on-dividends",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Dividends above the Dividend Allowance are taxed at dividend tax rates which differ from employment income rates. The Dividend Allowance and rates can change by tax year — always confirm the current figures on GOV.UK before relying on them."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F026",
+      "question": "Support: my dashboard upload button is greyed out.",
+      "reply": "As an existing TaxSimba client, use your secure dashboard to message your assigned accountant and upload documents. That is the right channel for case-specific help — you usually do not need to buy a new public package. For general account support, email info@taxsimba.co.uk.",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "sa-penalties-overview",
+          "title": "Self Assessment late filing and payment penalties overview",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/penalties",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "If you miss Self Assessment filing or payment deadlines you may have to pay penalties and interest. Penalty amounts and timing depend on how late you are and HMRC rules for the period. Check GOV.UK Self Assessment penalties guidance for current details rather than relying on memory."
+        },
+        {
+          "id": "record-keeping-self-employed",
+          "title": "Records you should keep if self-employed",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-employed-records",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "If you are self-employed you must keep records of business income and expenses. Keep records for at least 5 years after the 31 January submission deadline of the relevant tax year. Digital record-keeping becomes especially important under Making Tax Digital."
+        },
+        {
+          "id": "cryptoassets-tax",
+          "title": "Cryptoassets and tax overview",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/tax-on-cryptoassets",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "HMRC treats cryptoassets as potentially taxable. Depending on your activity you may need to consider Capital Gains Tax and/or Income Tax. Keep detailed records of transactions. Check GOV.UK cryptoassets tax guidance for how your situation may be treated."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F027",
+      "question": "Is the £1,000 trading allowance the same as the personal allowance?",
+      "reply": "No, the £1,000 trading allowance is not the same as the personal allowance. The trading allowance is a tax exemption for individuals with trading income from self-employment, allowing you to earn up to £1,000 without needing to report it to HMRC, provided certain conditions are met. \n\nOn the other hand, the personal allowance is the amount of income you can earn before you start paying income tax, which is £12,570 for the 2026-27 tax year. \n\nWould you like to know more about how these allowances work?",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "trading-allowance",
+          "title": "Trading allowance overview",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "The trading allowance is a tax exemption of up to £1,000 a year for individuals with trading income from self-employment, casual services or hiring personal equipment, subject to conditions. If annual gross trading income is £1,000 or less you may not need to tell HMRC (with exceptions). Confirm eligibility on GOV.UK before relying on it."
+        },
+        {
+          "id": "property-allowance",
+          "title": "Property allowance overview",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "The property allowance is a tax exemption of up to £1,000 a year for individuals with income from land or property, subject to conditions and interactions with other reliefs (including Rent a Room). If annual gross property income is £1,000 or less you may not need to tell HMRC (with exceptions). Confirm eligibility on GOV.UK before relying on it."
+        },
+        {
+          "id": "marriage-allowance",
+          "title": "Marriage Allowance",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/marriage-allowance",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Marriage Allowance lets a spouse or civil partner transfer £1,260 of their Personal Allowance to their partner if they earn less than the Personal Allowance and the partner is a basic-rate taxpayer. Confirm eligibility and the tax year on GOV.UK."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F028",
+      "question": "Partner and I jointly own a let property 50/50. Who files?",
+      "reply": "In a joint ownership situation like yours, both you and your partner need to declare your share of the rental income on your individual Self Assessment tax returns. Each of you will report 50% of the rental income and any allowable expenses related to the property. Make sure to keep accurate records of the income and expenses for your respective filings. \n\nDo you need more information on how to file a Self Assessment return?",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "property-income-overview",
+          "title": "Income from property (landlords)",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "If you receive rental income from property you usually need to declare it to HMRC. Many landlords report property income through Self Assessment. Keep records of rent received and allowable expenses. Check GOV.UK for the rules that apply to your situation."
+        },
+        {
+          "id": "sa-who-needs-to-file",
+          "title": "Who needs to send a Self Assessment tax return",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "You usually need to send a Self Assessment tax return if you were self-employed, a partner in a partnership, had untaxed income, or received notice from HMRC to file. Being employed does not automatically remove the requirement if other criteria apply."
+        },
+        {
+          "id": "mtd-who-and-when",
+          "title": "Who needs Making Tax Digital for Income Tax and when",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "tax_years": [
+            "2025-26",
+            "2026-27",
+            "2027-28"
+          ],
+          "verified": true,
+          "excerpt": "You need to use Making Tax Digital for Income Tax if you are a sole trader or landlord registered for Self Assessment, you get income from self-employment or property (or both), and your qualifying income is more than the relevant threshold. Start dates depend on qualifying income in a prior tax year: more than £50,000 for 2024-25 means from 6 April 2026; more than £30,000 for 2025-26 means from 6 April 2027; more than £20,000 for 2026-27 means from 6 April 2028. Partnerships will be brought in later. Always confirm on GOV.UK."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F029",
+      "question": "I barter web design for gym membership. Is that taxable?",
+      "reply": "Yes, bartering services, such as web design for gym membership, is generally considered taxable by HMRC. You must report the value of the services you provided as income, and you may also be able to claim any allowable expenses related to that income. It's important to keep detailed records of the transactions for accurate reporting. \n\nIf you need further assistance with how to report this, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "vat-registration-timing-tests",
+          "title": "VAT registration timing — rolling 12 months and 30-day forward look",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/register-for-vat",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Rolling 12-month (backward) test: if at the end of any month your taxable supplies in the previous 12 months (or less) exceed £90,000, you must notify HMRC within 30 days of that month-end. Effective date of registration is typically the first day of the second month after you went over the threshold. Forward-looking 30-day test: if at any time you expect taxable supplies in the next 30 days alone to exceed £90,000, you must register by the end of that 30-day period; the effective date is the date you first formed that expectation. These are separate tests — do not confuse an 11-month build-up plus next month with the forward look. Always confirm on GOV.UK / VAT Notice 700/1."
+        },
+        {
+          "id": "cryptoassets-tax",
+          "title": "Cryptoassets and tax overview",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/tax-on-cryptoassets",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "HMRC treats cryptoassets as potentially taxable. Depending on your activity you may need to consider Capital Gains Tax and/or Income Tax. Keep detailed records of transactions. Check GOV.UK cryptoassets tax guidance for how your situation may be treated."
+        },
+        {
+          "id": "sa-deadline-online",
+          "title": "Self Assessment online filing deadline",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "The deadline for filing a Self Assessment tax return online is normally 31 January following the end of the tax year. For the 2024-25 tax year that was 31 January 2026; for the 2025-26 tax year it is normally 31 January 2027. Always confirm the date for your return on GOV.UK."
+        }
+      ],
+      "premature": false
+    },
+    {
+      "id": "F030",
+      "question": "No more questions — thanks, I’ll DIY on GOV.UK.",
+      "reply": "You're welcome! If you need any assistance in the future or have questions while you're working on your DIY tax return, feel free to reach out. Good luck!",
+      "packages": [],
+      "llm_mode": "openai",
+      "sources": [
+        {
+          "id": "paye-and-additional-income",
+          "title": "PAYE employment plus additional income",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "Being taxed under PAYE does not automatically mean you have no Self Assessment obligations. Additional untaxed income, self-employment, property income or other criteria can still mean you need to file a return. Check GOV.UK ‘who must send a tax return’."
+        },
+        {
+          "id": "tax-year-dates",
+          "title": "UK tax year dates",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/income-tax",
+          "tax_years": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "verified": true,
+          "excerpt": "The UK tax year runs from 6 April to 5 April the following year. For example, tax year 2025-26 runs from 6 April 2025 to 5 April 2026."
+        },
+        {
+          "id": "mtd-income-tax-overview",
+          "title": "Making Tax Digital for Income Tax",
+          "publisher": "GOV.UK / HMRC",
+          "url": "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+          "tax_years": [
+            "2025-26",
+            "2026-27",
+            "2027-28"
+          ],
+          "verified": true,
+          "excerpt": "Making Tax Digital (MTD) for Income Tax requires eligible self-employed people and landlords to keep digital records and submit quarterly updates. Start dates depend on qualifying income (turnover/gross, not profit): more than £50,000 in 2024-25 from 6 April 2026; more than £30,000 in 2025-26 from 6 April 2027; more than £20,000 in 2026-27 from 6 April 2028. Confirm details on GOV.UK."
+        }
+      ],
+      "premature": false
+    }
+  ],
+  "premature_count": 0,
+  "openai": 30
+}

@@ -140,7 +140,7 @@ export function selectPackagesForMessage(message: string): string[] {
   }
 
   if (
-    /\b(don'?t want to buy|do not want to buy|not looking to buy|no sales|just information|information only|only want information|do not sell|don'?t sell)\b/.test(
+    /\b(don'?t want to buy|do not want to buy|not looking to buy|no sales|just information|information only|only want information|do not sell|don'?t sell|do not want (a |any )?(paid )?package|don'?t want (a |any )?(paid )?package|just the answer|no paid (package|service))\b/.test(
       lower,
     )
   ) {

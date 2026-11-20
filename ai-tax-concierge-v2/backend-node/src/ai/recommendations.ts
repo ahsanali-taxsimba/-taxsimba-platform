@@ -18,7 +18,7 @@ const MTD_PRICE = /\bmtd\b|\bmaking tax digital\b/i;
 const CONSULT =
   /\b(consult(?:ation)?s?|book (a |an )?(call|meeting|slot|consult)|speak to (an )?accountant|talk to (an )?accountant|accountant consultation|quick tax advice|extended tax consultation)\b/i;
 const NO_BUY =
-  /\b(don'?t want to buy|do not want to buy|not looking to buy|no sales|just information|information only|general information only|only want information|not interested in (a )?package|don'?t sell|do not sell|do not recommend (a )?package|don'?t recommend (a )?package|avoid (a )?checkout|no package|no pressure|just asking|curious only)\b/i;
+  /\b(don'?t want to buy|do not want to buy|not looking to buy|no sales|just information|information only|general information only|only want information|not interested in (a )?package|don'?t sell|do not sell|do not recommend (a )?package|don'?t recommend (a )?package|avoid (a )?checkout|no package|no pressure|just asking|curious only|do not want (a |any )?(paid )?package|don'?t want (a |any )?(paid )?package|just the answer|no paid (package|service)|without (a )?package)\b/i;
 const EXISTING_CLIENT =
   /\b(existing (taxsimba )?client|already (a )?taxsimba|logged ?in|my dashboard|message my (assigned )?accountant|my assigned accountant)\b/i;
 

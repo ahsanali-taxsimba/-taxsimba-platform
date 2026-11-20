@@ -71,4 +71,47 @@ describe("independent audit — known failure fixes", () => {
     expect(r?.in_scope).toBe(true);
     expect(r?.customer_reply).toMatch(/6 April 2026/);
   });
+
+  it("refuses packages when customer says they do not want a paid package", async () => {
+    const history = [
+      {
+        role: "user",
+        content:
+          "PAYE job. Freelance turnover about £8,000 before expenses for 2025-26.",
+      },
+      {
+        role: "assistant",
+        content: "You usually need Self Assessment for £8,000 freelance.",
+      },
+      { role: "user", content: "Do I need Self Assessment then?" },
+      {
+        role: "assistant",
+        content: "Yes — above the £1,000 threshold.",
+      },
+    ];
+    const res = await request(app())
+      .post("/api/v1/chat")
+      .send({
+        session_id: "no-buy-holdout",
+        message: "I do not want a paid package — just the answer.",
+        history,
+      })
+      .expect(200);
+    expect(res.body.packages || []).toHaveLength(0);
+  });
+
+  it("T303 PAYE-only history + do-not-ask self-employed does not force trading probe", () => {
+    const r = answerSaEligibility(
+      "Do I need Self Assessment? Do not ask me whether I am self-employed.",
+      [
+        { role: "user", content: "I have only PAYE salary." },
+        { role: "assistant", content: "Understood." },
+      ],
+    );
+    expect(r?.must_usually_file).toBe(false);
+    expect(r?.customer_reply.toLowerCase()).toMatch(/usually do not need/);
+    expect(r?.customer_reply.toLowerCase()).not.toMatch(
+      /how much did you earn from self-employment/,
+    );
+  });
 });

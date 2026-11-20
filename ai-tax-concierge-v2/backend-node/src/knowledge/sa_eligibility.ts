@@ -281,11 +281,22 @@ export function answerSaEligibility(
   const taxYearHint = yearMatch
     ? `${yearMatch[1]}-${yearMatch[2]}`
     : null;
+  // Strip “do not ask me whether I am self-employed” style instructions so they
+  // are not mistaken for a self-employment disclosure (T303).
+  const ctxForIncomeType = ctx
+    .replace(
+      /do not ask[^.?!]*(self-?employ|freelance|sole[- ]?trader)[^.?!]*[.?!]?/gi,
+      " ",
+    )
+    .replace(
+      /don'?t ask[^.?!]*(self-?employ|freelance|sole[- ]?trader)[^.?!]*[.?!]?/gi,
+      " ",
+    );
   const payeOnly =
-    /\bpaye\b|\bpayroll\b|\bsalary\b/.test(ctx.toLowerCase()) &&
-    /\bonly\b/.test(ctx.toLowerCase()) &&
+    /\bpaye\b|\bpayroll\b|\bsalary\b/.test(ctxForIncomeType.toLowerCase()) &&
+    /\bonly\b/.test(ctxForIncomeType.toLowerCase()) &&
     !/(freelance|self-?employ|sole[- ]?trader|property|rental|trading income)/i.test(
-      ctx,
+      ctxForIncomeType,
     );
   return evaluateSaEligibility({
     message: ctx,
