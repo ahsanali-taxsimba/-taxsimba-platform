@@ -1,0 +1,155 @@
+{
+  "id": "D07",
+  "title": "Asking about TaxSimba packages",
+  "goal": "Compare then primary path",
+  "mode": "openai",
+  "llm_mode": "openai",
+  "turn_count": 7,
+  "transcript": [
+    {
+      "role": "user",
+      "content": "What Self Assessment packages does TaxSimba offer?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "TaxSimba offers three Self Assessment packages for the tax year:\n\n1. **Self Assessment Simple**: £119 per tax year.\n2. **Self Assessment Smart**: £149 per tax year.\n3. **Self Assessment Elite**: £299 per tax year.\n\nEach package provides different levels of service. If you need more details about what each package includes, feel free to ask!",
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART",
+        "SA_ELITE"
+      ],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "How do they differ in price?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Here is what SIMBA can state from approved catalogue decisions:\n\nSelf Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable here — email is only a fallback enquiry route.\n\nSelf Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.\n\nWhat is approved to say:\n- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.\n- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.\n- Support is via email and the client dashboard — not telephone onboarding.\n- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).\n- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.\n\nI will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.\n\nI can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.\n- Self Assessment Simple: £119 (per tax year)\n- Self Assessment Smart: £149 (per tax year)\n- Self Assessment Elite: £299 (per tax year)\n- Simbian Comply: £29.99 (per month; VAT included)\n- Simbian Growth: £59.99 (per month; VAT included)\n- Simbian Elite: £89.99 (per month; VAT included)",
+      "packages": [
+        "SA_SIMPLE"
+      ],
+      "sources": [
+        "https://www.gov.uk/scottish-income-tax",
+        "https://www.gov.uk/register-for-self-assessment",
+        "https://www.gov.uk/marriage-allowance"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "I am a first-time sole trader with simple income — which one do you recommend?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "For a first-time sole trader with simple income, I recommend the **Self Assessment Simple** package at £119 per tax year. This package is designed for straightforward tax situations and should meet your needs effectively.\n\nIf you're also looking for ongoing support with Making Tax Digital, consider the **Simbian Comply** package at £29.99 per month, which includes Xero Simple for managing your records.\n\nWould you like more information on how to register for either package?",
+      "packages": [
+        "SA_SIMPLE"
+      ],
+      "sources": [
+        "https://www.gov.uk/set-up-sole-trader",
+        "https://www.gov.uk/register-for-self-assessment",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Why that one?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "The **Self Assessment Simple** package is ideal for first-time sole traders with straightforward income because it offers a cost-effective solution tailored for simpler tax situations. It provides the essential support needed to file your Self Assessment tax return without the complexities that might come with more advanced packages.\n\nThis package allows you to focus on your business while ensuring you meet your tax obligations efficiently. If your situation changes or becomes more complex in the future, you can always upgrade to a more comprehensive package later.\n\nIf you have any specific concerns or questions about your situation, feel free to share!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+        "https://www.gov.uk/register-for-vat",
+        "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "What is not included / what should I confirm?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Here is what SIMBA can state from approved catalogue decisions:\n\nSelf Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable here — email is only a fallback enquiry route.\n\nSelf Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.\n\nWhat is approved to say:\n- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.\n- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.\n- Support is via email and the client dashboard — not telephone onboarding.\n- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).\n- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.\n\nI will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.\n\nI can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.\n- Self Assessment Simple: £119 (per tax year)\n- Self Assessment Smart: £149 (per tax year)\n- Self Assessment Elite: £299 (per tax year)\n- Simbian Comply: £29.99 (per month; VAT included)\n- Simbian Growth: £59.99 (per month; VAT included)\n- Simbian Elite: £89.99 (per month; VAT included)",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-employed-records",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "What is the signup URL?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "You can sign up for TaxSimba's services at the following URL: [https://www.taxsimba.co.uk/register](https://www.taxsimba.co.uk/register). This will guide you through the registration process for your chosen package. If you have any questions during the signup, feel free to ask!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/self-employed-records",
+        "https://www.gov.uk/guidance/tax-on-cryptoassets"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "What happens after payment?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, (5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there. I won’t invent portal screens or claim payment succeeded from this chat. Self Assessment packages: https://www.taxsimba.co.uk/self-assessment · MTD: https://www.taxsimba.co.uk/making-tax-digital.",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+        "https://www.gov.uk/self-employed-records"
+      ],
+      "llm_mode": "openai"
+    }
+  ],
+  "scores": {
+    "tax_answer_accuracy": 5,
+    "understanding": 8,
+    "clarity": 6,
+    "follow_up_relevance": 7,
+    "conversation_memory": 7,
+    "practical_usefulness": 8,
+    "british_english": 8,
+    "appropriate_recommendation": 7,
+    "absence_of_sales_pressure": 7,
+    "final_outcome_quality": 7
+  },
+  "score_notes": [
+    "Tax accuracy scored pending accountant review — not independently VERIFIED PASS"
+  ],
+  "outcome": "Customer requires further clarification",
+  "tax_accuracy_status": "AWAITING_ACCOUNTANT_REVIEW",
+  "environment": "cloud_agent_local_api"
+}

@@ -1,0 +1,753 @@
+{
+  "generated_at": "2026-11-20T21:55:06.178Z",
+  "live": true,
+  "metrics": {
+    "total": 37,
+    "exact": 37,
+    "partial": 0,
+    "fail": 0,
+    "premature": 0
+  },
+  "results": [
+    {
+      "id": "V016",
+      "question": "Sold personal bike online once for £400.",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "A one-off sale of a personal possession is often not a trade — but regularly buying to sell, or selling as a business, can be different. Was this a one-off sale of something you owned personally, or are you buying/making items to sell for profit? Who must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V022",
+      "question": "Crypto: tax on buy or sell?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Crypto tax usually depends on what you did: buying is not normally a taxable disposal by itself; tax more often arises when you dispose of crypto (sell, exchange, or certain other events), and frequent trading can be Income Tax instead of Capital Gains Tax. I won’t invent your treatment. Have you already disposed of any crypto in a UK tax year, and was it investment-style holding or business-like trading? https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V023",
+      "question": "Dividends £1,500 — return?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Dividend income can require Self Assessment depending on your total income and other circumstances — a dividend figure alone is not enough to decide. What other income do you have (for example PAYE salary), and for which tax year? Who must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return · Dividends: https://www.gov.uk/tax-on-dividends",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V024",
+      "question": "VAT at £85k — register?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "VAT registration usually depends on your taxable turnover on a rolling 12-month basis (and sometimes on future expectations), not a single figure in isolation. Check the current threshold on GOV.UK and tell me whether your £ figure is the last 12 months’ taxable supplies, expected next 30 days, or something else. https://www.gov.uk/vat-registration-thresholds",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V030",
+      "question": "Partner and I 50/50 let — who files?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Joint property income is usually declared by each owner on their own Self Assessment return according to their beneficial share — unless you have a formal partnership return situation. Are you joint beneficial owners of a let property (and in what shares), or trading as a partnership business? Also roughly how much rent before expenses and for which tax year? Guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V047",
+      "question": "Rental about £20000 — do I need the digital tax thing?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "For Making Tax Digital I need the tax year that rent/turnover figure relates to, because each band uses a different year:\n• more than £50,000 in 2024-25 → from 6 April 2026\n• more than £30,000 in 2025-26 → from 6 April 2027\n• more than £20,000 in 2026-27 → from 6 April 2028\n\nWhich tax year is your figure for? (Use turnover/gross rent before expenses — PAYE salary does not count.)\nGuidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V053",
+      "question": "I earn £30k. MTD?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V064",
+      "question": "Cash-in-hand weekend work, maybe £1050. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V069",
+      "question": "Cash-in-hand weekend work, maybe £1200. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V074",
+      "question": "Cash-in-hand weekend work, maybe £1350. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V079",
+      "question": "Cash-in-hand weekend work, maybe £1500. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V084",
+      "question": "Cash-in-hand weekend work, maybe £1650. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V089",
+      "question": "Cash-in-hand weekend work, maybe £1800. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V094",
+      "question": "Cash-in-hand weekend work, maybe £1950. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V097",
+      "question": "Rental about £50000 — do I need the digital tax thing?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "For Making Tax Digital I need the tax year that rent/turnover figure relates to, because each band uses a different year:\n• more than £50,000 in 2024-25 → from 6 April 2026\n• more than £30,000 in 2025-26 → from 6 April 2027\n• more than £20,000 in 2026-27 → from 6 April 2028\n\nWhich tax year is your figure for? (Use turnover/gross rent before expenses — PAYE salary does not count.)\nGuidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V099",
+      "question": "Cash-in-hand weekend work, maybe £2100. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V104",
+      "question": "Cash-in-hand weekend work, maybe £2250. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V109",
+      "question": "Cash-in-hand weekend work, maybe £2400. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V114",
+      "question": "Cash-in-hand weekend work, maybe £2550. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V119",
+      "question": "Cash-in-hand weekend work, maybe £2700. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V124",
+      "question": "Cash-in-hand weekend work, maybe £2850. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V129",
+      "question": "Cash-in-hand weekend work, maybe £3000. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V134",
+      "question": "Cash-in-hand weekend work, maybe £3150. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V139",
+      "question": "Cash-in-hand weekend work, maybe £3300. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V144",
+      "question": "Cash-in-hand weekend work, maybe £3450. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V149",
+      "question": "Cash-in-hand weekend work, maybe £3600. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V153",
+      "question": "I earn £50k. MTD?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V154",
+      "question": "Cash-in-hand weekend work, maybe £3750. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V159",
+      "question": "Cash-in-hand weekend work, maybe £3900. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V164",
+      "question": "Cash-in-hand weekend work, maybe £4050. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V169",
+      "question": "Cash-in-hand weekend work, maybe £4200. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V174",
+      "question": "Cash-in-hand weekend work, maybe £4350. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V179",
+      "question": "Cash-in-hand weekend work, maybe £4500. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V184",
+      "question": "Cash-in-hand weekend work, maybe £4650. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V189",
+      "question": "Cash-in-hand weekend work, maybe £4800. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V194",
+      "question": "Cash-in-hand weekend work, maybe £4950. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    },
+    {
+      "id": "V199",
+      "question": "Cash-in-hand weekend work, maybe £5100. Accountant?",
+      "expected": "MORE_INFO_NEEDED",
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "observed": "MORE_INFO_NEEDED",
+      "match": true,
+      "tags": {
+        "factual_tax_error": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "context_memory_failure": false,
+        "wrong_service": false,
+        "premature_package": false,
+        "missed_taxsimba": false,
+        "unnecessary_consultation": false
+      }
+    }
+  ]
+}

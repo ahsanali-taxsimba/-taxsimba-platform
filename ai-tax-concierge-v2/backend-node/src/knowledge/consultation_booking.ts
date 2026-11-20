@@ -41,12 +41,15 @@ export function detectConsultationSelection(
   message: string,
 ): ConsultationTier | null {
   const lower = message.toLowerCase();
+  // Do not treat £99000 / £149000 income figures as consultation prices.
   const wants149 =
-    /£\s*149|\b149\b/.test(lower) ||
+    /£\s*149(?![\d,])/.test(lower) ||
+    /(?:^|[^\d])149(?![\d,])\s*(?:consultation|minutes|min\b)/.test(lower) ||
     /extended tax consultation|40\s*min/.test(lower) ||
     /longer (consultation|session|call)/.test(lower);
   const wants99 =
-    /£\s*99|\b99\b/.test(lower) ||
+    /£\s*99(?![\d,])/.test(lower) ||
+    /(?:^|[^\d])99(?![\d,])\s*(?:consultation|minutes|min\b)/.test(lower) ||
     /quick tax advice|20\s*min/.test(lower) ||
     /shorter (consultation|session)/.test(lower);
   if (wants149 && !wants99) return CONSULTATION_TIERS[1];
@@ -64,7 +67,7 @@ export function detectConsultationSelection(
 export function isConsultationIntent(message: string): boolean {
   const lower = message.toLowerCase();
   return (
-    /consult|speak to (an )?accountant|talk to (an )?accountant|book (a )?(call|session|appointment|consultation)|video (call|consultation)|accountant advice|quick tax advice|extended tax consultation|£\s*99|£\s*149|20\s*minute|40\s*minute/.test(
+    /consult|speak to (an )?accountant|talk to (an )?accountant|book (a )?(call|session|appointment|consultation)|video (call|consultation)|accountant advice|quick tax advice|extended tax consultation|£\s*99(?![\d,])|£\s*149(?![\d,])|20\s*minute|40\s*minute/.test(
       lower,
     ) && !/package|simbian|self assessment simple|mtd plan/.test(lower)
   );

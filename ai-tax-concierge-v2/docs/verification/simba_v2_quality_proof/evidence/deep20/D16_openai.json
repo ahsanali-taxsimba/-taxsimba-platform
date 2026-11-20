@@ -1,0 +1,132 @@
+{
+  "id": "D16",
+  "title": "Refuses a package",
+  "goal": "Respect decline",
+  "mode": "openai",
+  "llm_mode": "openai",
+  "turn_count": 6,
+  "transcript": [
+    {
+      "role": "user",
+      "content": "Do freelancers usually need Self Assessment?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Yes, freelancers usually need to send a Self Assessment tax return. This is because they are typically self-employed and have untaxed income. If you fall into this category, you must register for Self Assessment and file your return by the relevant deadlines. If you have any specific circumstances or questions, feel free to ask!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/register-for-self-assessment",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Which package would you recommend for a simple sole trader?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "For a simple sole trader, I recommend the Self Assessment Simple package at £119 per tax year. This package is designed for straightforward tax situations and covers the essentials for filing your Self Assessment return. If you have any specific needs or questions about the package, let me know!",
+      "packages": [
+        "SA_SIMPLE"
+      ],
+      "sources": [
+        "https://www.gov.uk/register-for-self-assessment",
+        "https://www.gov.uk/set-up-sole-trader",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "No thanks — I do not want a package. Information only.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "That's perfectly fine! If you have any questions about Self Assessment or anything else related to taxes, feel free to ask. I'm here to help!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "What is the filing deadline?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "The filing deadline for a Self Assessment tax return online for the 2026-27 tax year is 31 January 2028. If you choose to file a paper return, the deadline is 31 October 2027. Always confirm the dates on GOV.UK for the most accurate information. If you have any other questions, just let me know!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines",
+        "https://www.gov.uk/self-assessment-tax-returns/penalties"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Do not recommend packages again.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Understood! I won’t recommend packages again. If you have any more questions about Self Assessment or other tax-related topics, feel free to ask!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Where is official GOV.UK guidance?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "You can find official GOV.UK guidance on Self Assessment and related topics at the following links:\n\n- Self Assessment: [https://www.gov.uk/self-assessment](https://www.gov.uk/self-assessment)\n- Penalties for late filing: [https://www.gov.uk/self-assessment-tax-returns/penalties](https://www.gov.uk/self-assessment-tax-returns/penalties)\n- Tax on cryptoassets: [https://www.gov.uk/guidance/tax-on-cryptoassets](https://www.gov.uk/guidance/tax-on-cryptoassets)\n\nThese resources provide comprehensive information on filing, deadlines, and penalties. If you need help with anything specific, just let me know!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/guidance/tax-on-cryptoassets",
+        "https://www.gov.uk/income-tax"
+      ],
+      "llm_mode": "openai"
+    }
+  ],
+  "scores": {
+    "tax_answer_accuracy": 5,
+    "understanding": 8,
+    "clarity": 8,
+    "follow_up_relevance": 7,
+    "conversation_memory": 7,
+    "practical_usefulness": 8,
+    "british_english": 8,
+    "appropriate_recommendation": 7,
+    "absence_of_sales_pressure": 9,
+    "final_outcome_quality": 7
+  },
+  "score_notes": [
+    "Tax accuracy scored pending accountant review — not independently VERIFIED PASS"
+  ],
+  "outcome": "Customer requires further clarification",
+  "tax_accuracy_status": "AWAITING_ACCOUNTANT_REVIEW",
+  "environment": "cloud_agent_local_api"
+}

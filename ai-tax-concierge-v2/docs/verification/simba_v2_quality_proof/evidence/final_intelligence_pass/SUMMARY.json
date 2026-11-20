@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-11-20T22:30:00.000Z",
+  "pr43": "HOLD — do not merge or deploy",
+  "professional_approval": "NOT_OBTAINED",
+  "before": { "exact": 64, "partial": 52, "fail": 84 },
+  "current_pre_final_pass": { "exact": 157, "partial": 6, "fail": 37 },
+  "retest_37": { "exact": 37, "partial": 0, "fail": 0, "premature": 0 },
+  "blind_250_live": { "exact": 193, "partial": 18, "fail": 39, "premature": 1 },
+  "blind_75_multi": {
+    "total": 75,
+    "deep_8plus": 25,
+    "context_memory_failures": 0,
+    "premature": 0
+  },
+  "score20_avg": 7.64,
+  "fresh_postfix_v2_locked": {
+    "exact": 192,
+    "partial": 7,
+    "fail": 1,
+    "exact_pct": 96.0,
+    "FACTUAL_TAX_ERROR": 0,
+    "PREMATURE_PACKAGE": 0,
+    "CONTEXT_MEMORY_FAILURE": 0,
+    "MISSING_CLARIFICATION": 0,
+    "WRONG_SERVICE": 0
+  },
+  "independent_audit_deepened": {
+    "VERIFIED": 64,
+    "INCORRECT": 1,
+    "INCOMPLETE": 1,
+    "UNVERIFIED": 310,
+    "REQUIRES_PROFESSIONAL_ADVICE": 24,
+    "PROFESSIONAL_APPROVAL_OBTAINED": 0
+  },
+  "staging_targets": {
+    "exact_pct_ge_95": true,
+    "zero_critical_tax_errors": true,
+    "zero_premature_packages": true,
+    "zero_known_context_loss": true
+  },
+  "recommendation": "CONDITIONAL_GO_FOR_STAGING_REVIEW",
+  "note": "PR #43 HOLD. Not production ready. Not accountant approved."
+}

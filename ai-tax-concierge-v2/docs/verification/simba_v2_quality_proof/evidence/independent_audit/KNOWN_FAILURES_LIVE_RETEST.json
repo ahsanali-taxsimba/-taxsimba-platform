@@ -1,0 +1,62 @@
+{
+  "generated_at": "2026-11-20T14:07:39.458Z",
+  "cases": [
+    {
+      "id": "T329",
+      "phase": "live_openai_post_fix",
+      "status": 200,
+      "reply": "With qualifying income of £1,000, you are not above the current Making Tax Digital Income Tax thresholds that use “more than £20,000 / £30,000 / £50,000”. Confirm the tax year if your income changes, and remember the test uses turnover/gross before expenses. Your PAYE/employment salary is not included in qualifying income for MTD for Income Tax.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "llm_mode": "openai"
+    },
+    {
+      "id": "T303",
+      "phase": "live_openai_post_fix_v2",
+      "status": 200,
+      "reply": "If your only income is taxed under PAYE through your employer and you have no other untaxed income, you usually do not need to send a Self Assessment tax return for that reason alone. Other GOV.UK triggers can still require a return (for example HMRC asking you to file, or certain high-income situations). Check the full list: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai"
+    },
+    {
+      "id": "T057",
+      "phase": "live_openai_post_fix",
+      "status": 200,
+      "reply": "No — qualifying income of exactly £50,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £50,000”, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than £50,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "llm_mode": "openai"
+    },
+    {
+      "id": "SA_8k",
+      "phase": "live_openai_post_fix",
+      "status": 200,
+      "reply": "With freelance / self-employment income of £8,000 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £8,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "packages": [],
+      "llm_mode": "openai"
+    },
+    {
+      "id": "D03_followup",
+      "phase": "live_openai_post_fix",
+      "status": 200,
+      "reply": "Yes — if your qualifying income was more than £50,000 for 2024-25, you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "llm_mode": "openai"
+    },
+    {
+      "id": "D10_turn1",
+      "phase": "live_openai_post_fix",
+      "status": 200,
+      "reply": "Understood — TaxSimba’s Self Assessment service is accountant-led: you register and pay on the TaxSimba portal, then complete onboarding and work with your assigned accountant via the dashboard (TaxCalc is used internally for SA workflows; the portal itself is not a direct HMRC filing tool). Before I name a package, are your affairs fairly simple (for example one income stream / first-time filer) or more complex (multiple income types, foreign income, etc.)? You can also browse https://www.taxsimba.co.uk/self-assessment or start at https://www.taxsimba.co.uk/register when ready.",
+      "packages": [],
+      "llm_mode": "openai"
+    },
+    {
+      "id": "T121",
+      "phase": "live_openai_post_fix",
+      "status": 200,
+      "reply": "If your only income is PAYE employment, Making Tax Digital for Income Tax does not apply to you. MTD for Income Tax is aimed at sole traders and landlords in Self Assessment with qualifying income above the thresholds. Employment (PAYE) does not count towards qualifying income.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "llm_mode": "openai"
+    }
+  ],
+  "t303_note": "v2 after stripping do-not-ask self-employed from payeOnly detection"
+}

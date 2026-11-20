@@ -1,0 +1,166 @@
+{
+  "id": "D03",
+  "title": "Sole trader approaching MTD thresholds",
+  "goal": "MTD threshold clarity",
+  "mode": "openai",
+  "llm_mode": "openai",
+  "turn_count": 8,
+  "transcript": [
+    {
+      "role": "user",
+      "content": "I am a sole trader.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "As a sole trader, you'll need to register for Self Assessment with HMRC if you haven't already. This involves reporting your income and expenses annually, typically through a tax return. If your income exceeds certain thresholds, you may also need to comply with Making Tax Digital (MTD) requirements in the future.\n\nIs there anything specific you would like to know about your obligations or the registration process?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/register-for-self-assessment",
+        "https://www.gov.uk/set-up-sole-trader",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "For 2024-25 my turnover before expenses was about £52,000.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Since your turnover for the 2024-25 tax year is about £52,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This requirement applies because your qualifying income exceeds the £50,000 threshold for that year.\n\nWould you like more information on how MTD works or the registration process?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Do I need Making Tax Digital from April 2026?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "I can work out your Making Tax Digital start date once I know your qualifying income. That’s total self-employment and property income before expenses for a specific tax year — not profit, and not PAYE salary.\n\nWhat was that amount, and which tax year was it for (for example 2024-25)?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Is that based on profit or turnover?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Making Tax Digital (MTD) for Income Tax is based on your qualifying income, which is your turnover (total income from self-employment and property before expenses), not profit. \n\nIf your turnover exceeds the relevant threshold for the tax year, you'll need to comply with MTD requirements. For the 2024-25 tax year, the threshold is £50,000.\n\nWould you like to clarify your turnover figure for that year?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/register-for-vat",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Does PAYE salary count toward the MTD figure?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "No, PAYE salary does not count towards the qualifying income for Making Tax Digital (MTD). Only your total self-employment and property income before expenses (turnover) is considered. \n\nIf you have any more questions about MTD or your obligations, feel free to ask!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "If I use TaxSimba, do I need to buy Xero separately?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "You do not need to buy Xero separately to use TaxSimba’s Making Tax Digital (Simbian) plans. Xero is included in the Simbian monthly price for the accountant-led workflow (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — there is no separate customer Xero charge on those plans. HMRC still requires compatible software and digital records for MTD; TaxSimba’s accountants use the included Xero mapping to deliver that service. SIMBA chat does not file to HMRC. If you only wanted a DIY Xero subscription outside TaxSimba, say so and I can explain that path fairly — otherwise I can help you check whether Simbian fits.",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-employed-records",
+        "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Which Simbian plan would you recommend as a starting point?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "I recommend starting with the **Simbian Comply** plan at £29.99 per month. This plan includes Xero Simple, which is suitable for managing your records and meeting Making Tax Digital requirements. It provides a solid foundation for your accounting needs as a sole trader.\n\nIf you have any specific features or needs in mind, let me know!",
+      "packages": [
+        "MTD_STARTER"
+      ],
+      "sources": [
+        "https://www.gov.uk/set-up-sole-trader",
+        "https://www.gov.uk/guidance/tax-on-cryptoassets",
+        "https://www.gov.uk/register-for-self-assessment"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "What happens after I register for MTD with TaxSimba?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register, (2) verify your email, (3) select the Self Assessment or Making Tax Digital package that fits, (4) complete payment on the TaxSimba portal, (5) open your dashboard, then (6) follow the accountant-led onboarding steps shown there. I won’t invent portal screens or claim payment succeeded from this chat. Self Assessment packages: https://www.taxsimba.co.uk/self-assessment · MTD: https://www.taxsimba.co.uk/making-tax-digital.",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    }
+  ],
+  "scores": {
+    "tax_answer_accuracy": 5,
+    "understanding": 8,
+    "clarity": 8,
+    "follow_up_relevance": 7,
+    "conversation_memory": 7,
+    "practical_usefulness": 8,
+    "british_english": 8,
+    "appropriate_recommendation": 7,
+    "absence_of_sales_pressure": 7,
+    "final_outcome_quality": 7
+  },
+  "score_notes": [
+    "Tax accuracy scored pending accountant review — not independently VERIFIED PASS"
+  ],
+  "outcome": "Customer guided to appropriate signup",
+  "tax_accuracy_status": "AWAITING_ACCOUNTANT_REVIEW",
+  "environment": "cloud_agent_local_api"
+}

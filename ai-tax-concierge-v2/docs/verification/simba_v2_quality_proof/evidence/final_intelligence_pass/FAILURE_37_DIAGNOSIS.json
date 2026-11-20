@@ -1,0 +1,568 @@
+{
+  "generated_at": "2026-11-20T21:55:00.427Z",
+  "count": 37,
+  "by_root_cause": {
+    "service_identification": 1,
+    "intent_detection": 3,
+    "missing_clarification": 32,
+    "tax_knowledge": 1
+  },
+  "failures": [
+    {
+      "id": "V016",
+      "customer_wording": "Sold personal bike online once for £400.",
+      "conversation_history": [],
+      "simba_response_unedited": "If you sold your personal bike for £400 and it was not part of a trading business, you generally do not need to report this sale to HMRC, as it falls under the \"personal possessions\" exemption. You can sell personal items up to £6,000 in total without incurring tax, provided you are not trading. \n\nIf you have any other income or specific circumstances, please let me know!",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Likely not a trade — clarify.",
+      "observed": "NO_TAXSIMBA_SERVICE",
+      "why_failed": "MORE_INFO_NEEDED → NO_TAXSIMBA_SERVICE",
+      "root_cause": "service_identification",
+      "generalisable_correction": "One-off personal sales: clarify trade vs personal before NO_TAXSIMBA / SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V022",
+      "customer_wording": "Crypto: tax on buy or sell?",
+      "conversation_history": [],
+      "simba_response_unedited": "Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead — it depends on your activity. Keep detailed records. I won’t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets — were your crypto disposals investment-style gains, or more like a trading business?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Usually disposal events.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "intent_detection",
+      "generalisable_correction": "Crypto buy-vs-sell questions clarify disposal/trading facts; do not jump to SA assertion.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets"
+      ]
+    },
+    {
+      "id": "V023",
+      "customer_wording": "Dividends £1,500 — return?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your only income is £1,500 in dividends for the 2026-27 tax year, you will need to complete a Self Assessment tax return. This is because dividends above the Dividend Allowance (which is £2,000 for 2026-27) are taxable. Since your dividends are below this threshold, you won't owe any tax on them, but you still need to report them.\n\nWould you like more information on how to file your Self Assessment return?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need total income picture.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Dividend figure alone is insufficient — ask other income + tax year.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/tax-on-dividends"
+      ]
+    },
+    {
+      "id": "V024",
+      "customer_wording": "VAT at £85k — register?",
+      "conversation_history": [],
+      "simba_response_unedited": "The current VAT registration threshold is £90,000 for the 2026-27 tax year. If your taxable supplies exceed this amount in the last 12 months or you expect to exceed it in the next 30 days, you must register for VAT. Since £90,000 is below the threshold, you do not need to register at this time. However, you can choose to register voluntarily if it suits your business needs. \n\nWould you like more information on the benefits of voluntary registration?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Check live threshold page.",
+      "observed": "NO_TAXSIMBA_SERVICE",
+      "why_failed": "MORE_INFO_NEEDED → NO_TAXSIMBA_SERVICE",
+      "root_cause": "tax_knowledge",
+      "generalisable_correction": "VAT registration depends on rolling 12-month taxable supplies — confirm basis before threshold answer.",
+      "official_sources": [
+        "https://www.gov.uk/vat-registration-thresholds"
+      ]
+    },
+    {
+      "id": "V030",
+      "customer_wording": "Partner and I 50/50 let — who files?",
+      "conversation_history": [],
+      "simba_response_unedited": "If you and your partner are in a partnership and share the profits equally, both of you will need to file a Self Assessment tax return for the tax year. Each partner must report their share of the partnership profits on their individual tax return. \n\nAdditionally, the partnership itself must submit a partnership tax return (SA800) to HMRC. This return details the income and expenses of the partnership as a whole. \n\nIf you have any specific questions about the filing process or requirements, feel free to ask!",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Joint ownership facts.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Joint property ownership needs share / partnership vs beneficial ownership clarification.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V047",
+      "customer_wording": "Rental about £20000 — do I need the digital tax thing?",
+      "conversation_history": [],
+      "simba_response_unedited": "No — qualifying income of exactly £20,000 for 2026-27 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £20,000”, so the threshold is exclusive of the exact amount. The 6 April 2028 start date applies only if qualifying income was more than £20,000 for 2026-27.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "observed": "MTD_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → MTD_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Property rent + MTD without a tax year must ask year before exclusive-band answer.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V053",
+      "customer_wording": "I earn £30k. MTD?",
+      "conversation_history": [],
+      "simba_response_unedited": "No — qualifying income of exactly £30,000 for 2025-26 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £30,000”, so the threshold is exclusive of the exact amount. The 6 April 2027 start date applies only if qualifying income was more than £30,000 for 2025-26.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "observed": "MTD_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → MTD_ASSIST",
+      "root_cause": "intent_detection",
+      "generalisable_correction": "Bare ‘I earn £X’ must never be treated as MTD qualifying income — ask income type + year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V064",
+      "customer_wording": "Cash-in-hand weekend work, maybe £1050. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand income from weekend work is £1,050, you will need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 threshold for the tax year 2026-27. \n\nAn accountant can help you navigate the registration process and ensure you meet your tax obligations. Would you like to know more about our Self Assessment packages?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V069",
+      "customer_wording": "Cash-in-hand weekend work, maybe £1200. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand income from weekend work is £1,200, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to file a tax return for the relevant tax year.\n\nAn accountant can help you navigate the Self Assessment process and ensure you're compliant with tax regulations. Would you like more information on our Self Assessment packages?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V074",
+      "customer_wording": "Cash-in-hand weekend work, maybe £1350. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand weekend work generates income of £1,350 in a tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to file a tax return to report your earnings.\n\nWould you like to know more about how to register for Self Assessment or the services we offer?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V079",
+      "customer_wording": "Cash-in-hand weekend work, maybe £1500. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand income from weekend work is £1,500 in a tax year, you may need to register for Self Assessment, as your trading income exceeds the £1,000 trading allowance. This means you'll need to submit a tax return to report your income.\n\nIf you’d like assistance with your Self Assessment, I can recommend a suitable package. Would you like more information on that?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V084",
+      "customer_wording": "Cash-in-hand weekend work, maybe £1650. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand weekend work totals £1,650 in a tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to submit a tax return to report your income.\n\nWould you like to know more about how to register for Self Assessment or the services we offer?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V089",
+      "customer_wording": "Cash-in-hand weekend work, maybe £1800. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand weekend work totals £1,800 in a tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to file a tax return to report your income.\n\nWould you like more information on how to register for Self Assessment or the services we offer?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V094",
+      "customer_wording": "Cash-in-hand weekend work, maybe £1950. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand income from weekend work is £1,950 in the tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to file a tax return to report your income.\n\nAn accountant can help you navigate this process, ensuring you meet your obligations and maximise any allowable expenses. Would you like to know more about our Self Assessment packages?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V097",
+      "customer_wording": "Rental about £50000 — do I need the digital tax thing?",
+      "conversation_history": [],
+      "simba_response_unedited": "No — qualifying income of exactly £50,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £50,000”, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than £50,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "observed": "MTD_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → MTD_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Property rent + MTD without a tax year must ask year before exclusive-band answer.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V099",
+      "customer_wording": "Cash-in-hand weekend work, maybe £2100. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand income from weekend work is £2,100 in a tax year, you may need to register for Self Assessment, as your trading income exceeds the £1,000 trading allowance. This means you'll need to submit a tax return to report your income.\n\nWould you like to know more about how to register for Self Assessment or the services we offer?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V104",
+      "customer_wording": "Cash-in-hand weekend work, maybe £2250. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand weekend work generates £2,250 in a tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to file a tax return to report your income.\n\nIf you need help with your Self Assessment, I recommend considering our Self Assessment packages for support. Would you like more information on those?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V109",
+      "customer_wording": "Cash-in-hand weekend work, maybe £2400. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand weekend work totals £2,400 in a tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to submit a tax return to report your income.\n\nIf you want assistance with your Self Assessment, I recommend considering our Self Assessment packages for support. Would you like more information on those?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V114",
+      "customer_wording": "Cash-in-hand weekend work, maybe £2550. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand income from weekend work is £2,550, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance for the tax year 2026-27. \n\nAn accountant can help you navigate your tax obligations and ensure you file your return correctly. Would you like to know more about our Self Assessment packages?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V119",
+      "customer_wording": "Cash-in-hand weekend work, maybe £2700. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand income from weekend work is £2,700, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance for the 2026-27 tax year. This means you'll need to file a Self Assessment tax return to report your income.\n\nWould you like more information on how to register for Self Assessment or assistance with filing?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V124",
+      "customer_wording": "Cash-in-hand weekend work, maybe £2850. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand income from weekend work is £2,850, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance for the 2026-27 tax year. This means you'll need to file a Self Assessment tax return to report your income.\n\nWould you like more information on how to register for Self Assessment or the services we offer?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V129",
+      "customer_wording": "Cash-in-hand weekend work, maybe £3000. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand income from weekend work is £3,000 in a tax year, you may need to register for Self Assessment, as your trading income exceeds the £1,000 trading allowance. This means you'll need to submit a tax return to declare your income and pay any tax due.\n\nWould you like to know more about how to register for Self Assessment or the services we offer to assist with your tax return?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V134",
+      "customer_wording": "Cash-in-hand weekend work, maybe £3150. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand income from weekend work is £3,150, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance for the 2026-27 tax year. This means you'll need to submit a tax return to declare your income.\n\nWould you like to know more about our Self Assessment packages?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V139",
+      "customer_wording": "Cash-in-hand weekend work, maybe £3300. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand income from weekend work is £3,300 in a tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to file a tax return to report your income.\n\nWould you like to know more about how to register for Self Assessment or the services we offer to assist with it?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V144",
+      "customer_wording": "Cash-in-hand weekend work, maybe £3450. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand weekend work income is £3,450 for the tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to file a tax return to report your income.\n\nWould you like to know more about how to register for Self Assessment or the services we offer?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V149",
+      "customer_wording": "Cash-in-hand weekend work, maybe £3600. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand income from weekend work is £3,600 in the 2026-27 tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. \n\nAn accountant can help you navigate the registration process and ensure you meet your tax obligations. Would you like to know more about our Self Assessment packages?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V153",
+      "customer_wording": "I earn £50k. MTD?",
+      "conversation_history": [],
+      "simba_response_unedited": "No — qualifying income of exactly £50,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £50,000”, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than £50,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "observed": "MTD_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → MTD_ASSIST",
+      "root_cause": "intent_detection",
+      "generalisable_correction": "Bare ‘I earn £X’ must never be treated as MTD qualifying income — ask income type + year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V154",
+      "customer_wording": "Cash-in-hand weekend work, maybe £3750. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand weekend work generates £3,750 in income, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance for the tax year 2026-27. \n\nIt's advisable to consult an accountant to ensure you're compliant with tax obligations and to help with your Self Assessment return. Would you like to know more about our Self Assessment packages?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V159",
+      "customer_wording": "Cash-in-hand weekend work, maybe £3900. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand income from weekend work is £3,900 for the tax year, you may need to register for Self Assessment if your total self-employed trading income exceeds £1,000. Since £3,900 is above this threshold, you would typically need to register and file a Self Assessment tax return.\n\nWould you like more information on how to register or the filing process?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V164",
+      "customer_wording": "Cash-in-hand weekend work, maybe £4050. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand income from weekend work is £4,050, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to submit a tax return for the relevant tax year.\n\nWould you like to know more about the Self Assessment process or the packages we offer for assistance?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V169",
+      "customer_wording": "Cash-in-hand weekend work, maybe £4200. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand income from weekend work is £4,200, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to submit a tax return for the relevant tax year.\n\nWould you like to know more about how to register for Self Assessment or the services we offer?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V174",
+      "customer_wording": "Cash-in-hand weekend work, maybe £4350. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand income from weekend work is £4,350 in the 2026-27 tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to file a tax return to report your income.\n\nWould you like to know more about how to register for Self Assessment or the services we offer?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V179",
+      "customer_wording": "Cash-in-hand weekend work, maybe £4500. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand income from weekend work is £4,500 in the 2026-27 tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. \n\nAn accountant can help you navigate your tax obligations, ensure compliance, and assist with your Self Assessment return. Would you like more information on our Self Assessment packages?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V184",
+      "customer_wording": "Cash-in-hand weekend work, maybe £4650. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand income from weekend work is £4,650 in the 2026-27 tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. \n\nAn accountant can help you navigate your tax obligations, ensure compliance, and potentially identify any allowable expenses. Would you like to know more about our Self Assessment packages?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V189",
+      "customer_wording": "Cash-in-hand weekend work, maybe £4800. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand weekend work generates £4,800 in income, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance for the tax year 2026-27. \n\nAn accountant can help you navigate your tax obligations, ensure compliance, and potentially identify any allowable expenses to reduce your taxable income. Would you like to know more about our Self Assessment packages?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V194",
+      "customer_wording": "Cash-in-hand weekend work, maybe £4950. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand income from weekend work is £4,950, it exceeds the £1,000 trading allowance for the 2026-27 tax year. This means you would typically need to register for Self Assessment and submit a tax return, even if your income is not formally reported.\n\nAn accountant can help you navigate the registration process and ensure you comply with tax obligations. Would you like to know more about our Self Assessment packages?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V199",
+      "customer_wording": "Cash-in-hand weekend work, maybe £5100. Accountant?",
+      "conversation_history": [],
+      "simba_response_unedited": "If your cash-in-hand weekend work income is £5,100 for the tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 threshold. This means you'll need to file a tax return to report your income.\n\nIf you need assistance with your Self Assessment, I recommend considering our Self Assessment packages for support. Would you like more information on those?",
+      "expected_behaviour": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "observed": "SA_ASSIST",
+      "why_failed": "MORE_INFO_NEEDED → SA_ASSIST",
+      "root_cause": "missing_clarification",
+      "generalisable_correction": "Uncertain cash/gig amounts + accountant ask must clarify turnover/year before SA or service advice (broaden maybe-£ digit match).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    }
+  ]
+}

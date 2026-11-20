@@ -19,6 +19,9 @@ export function buildLlmAdapter(settings: Settings): LLMAdapter {
     apiKey: settings.openaiApiKey,
     model: settings.openaiModel,
     timeoutSeconds: settings.openaiTimeoutSeconds,
+    dailyTokenBudget: Number(
+      process.env.OPENAI_DAILY_TOKEN_BUDGET || 250_000,
+    ),
   });
 }
 

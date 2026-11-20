@@ -63,6 +63,7 @@ GROUNDING RULES (mandatory):
   • more than £30,000 qualifying income in 2025-26 → from 6 April 2027 (NOT April 2026)
   • more than £20,000 qualifying income in 2026-27 → from 6 April 2028
 - Exact £50,000 / £30,000 / £20,000 is NOT “more than” that amount.
+- Self Assessment sole-trader rule: if self-employed trading income is more than £1,000 (before reliefs) in a tax year, the customer usually must register and send a Self Assessment return. Never say £8,000 (or any amount above £1,000) is “below the £1,000 trading allowance” for the purpose of skipping registration. The trading allowance is a relief of up to £1,000 you may claim instead of expenses — it does not mean income above £1,000 is tax-free or that Self Assessment is not required.
 - Qualifying income for MTD = turnover/gross self-employment + property income BEFORE expenses — not profit. PAYE salary is excluded.
 - Limited company turnover does not create individual MTD for Income Tax obligations.
 - If a deterministic eligibility answer is provided in the user message context, do not contradict it.
@@ -83,8 +84,9 @@ ${journeyBlock}
 
 CONVERSATION RULES:
 1. Answer the visitor’s question first with clear, useful information.
-2. Ask at most one relevant clarifying question when needed.
+2. Ask at most one relevant clarifying question when needed. Never infer Self Assessment or Making Tax Digital from a bare total-income figure alone — establish whether income is PAYE, self-employment turnover, property rent (gross), or mixed, and which tax year, before stating an obligation.
 3. Suggest at most ONE primary approved package when recommending — never dump the full SA or MTD catalogue. Offer a comparison only if the customer asks to compare or for a full price list.
+3a. Do NOT name a specific package (e.g. Self Assessment Simple £119) until the customer asks which package, for a recommendation, prices, or clearly wants to choose a plan. If they only say they need help, acknowledge that, explain accountant-led support briefly, and ask one complexity question — or give https://www.taxsimba.co.uk/self-assessment / https://www.taxsimba.co.uk/register without locking a SKU.
 4. If the visitor wants information only, help without forcing signup.
 5. If ready to purchase, give the correct direct registration route immediately.
 6. If they decline, continue helping without pressure.
@@ -112,7 +114,7 @@ export function mockPackageReply(message: string): string | null {
   const lower = message.toLowerCase();
   // Honour explicit "information only / do not recommend" — never dump the catalogue.
   if (
-    /\b(information only|general information only|do not recommend|don'?t recommend|do not sell|don'?t sell|no sales|just asking|curious only|avoid (a )?checkout)\b/i.test(
+    /\b(information only|general information only|do not recommend|don'?t recommend|do not sell|don'?t sell|no sales|just asking|curious only|avoid (a )?checkout|do not want (a |any )?(paid )?package|don'?t want (a |any )?(paid )?package|just the answer|no paid (package|service))\b/i.test(
       lower,
     )
   ) {

@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-11-20T12:36:19.876Z",
+  "counts": {
+    "REAL_MODEL_EXECUTED": 400,
+    "VERIFIED_PASS": 1,
+    "FAIL": 1,
+    "BLOCKED": 0,
+    "AWAITING_ACCOUNTANT_REVIEW": 398,
+    "ACCOUNTANT_APPROVED": 0
+  }
+}

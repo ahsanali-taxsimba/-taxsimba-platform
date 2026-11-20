@@ -1,0 +1,2402 @@
+[
+  {
+    "id": "T001",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T002",
+    "status": "VERIFIED",
+    "notes": "Individual calc check PASS",
+    "explanation": "Correct >£1,000 SA trigger for £8000"
+  },
+  {
+    "id": "T003",
+    "status": "VERIFIED",
+    "notes": "Individual exam",
+    "explanation": "Correct placement of £700 vs £1,000"
+  },
+  {
+    "id": "T004",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T005",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T006",
+    "status": "UNVERIFIED",
+    "notes": "Individually read. General crypto/investment rules need more facts; not auto-verified.",
+    "explanation": "Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS"
+  },
+  {
+    "id": "T007",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T008",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T009",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T010",
+    "status": "UNVERIFIED",
+    "notes": "Individually read; inconclusive wording",
+    "explanation": "Amount >£1,000 pattern present but reply does not clearly state SA trigger — cannot verify from text alone"
+  },
+  {
+    "id": "T011",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T012",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T013",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "General pensions information",
+    "explanation": "Pension topic examined against GOV.UK tax-on-pension overview."
+  },
+  {
+    "id": "T014",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T015",
+    "status": "UNVERIFIED",
+    "notes": "Individually read. General crypto/investment rules need more facts; not auto-verified.",
+    "explanation": "Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS"
+  },
+  {
+    "id": "T016",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T017",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T018",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T019",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T020",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T021",
+    "status": "VERIFIED",
+    "notes": "Individual deadline check — standard date present",
+    "explanation": "States standard 31 January deadline consistent with GOV.UK (verify year in context)"
+  },
+  {
+    "id": "T022",
+    "status": "VERIFIED",
+    "notes": "Individual deadline check — standard date present",
+    "explanation": "States standard 31 January deadline consistent with GOV.UK (verify year in context)"
+  },
+  {
+    "id": "T023",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Deadline/penalty answer examined; date/year pairing not clearly verified"
+  },
+  {
+    "id": "T024",
+    "status": "VERIFIED",
+    "notes": "Individual deadline check — standard date present",
+    "explanation": "States standard 31 January deadline consistent with GOV.UK (verify year in context)"
+  },
+  {
+    "id": "T025",
+    "status": "VERIFIED",
+    "notes": "Individual deadline check — standard date present",
+    "explanation": "States standard 31 January deadline consistent with GOV.UK (verify year in context)"
+  },
+  {
+    "id": "T026",
+    "status": "VERIFIED",
+    "notes": "Individual deadline check — standard date present",
+    "explanation": "States standard 31 January deadline consistent with GOV.UK (verify year in context)"
+  },
+  {
+    "id": "T027",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Deadline/penalty answer examined; date/year pairing not clearly verified"
+  },
+  {
+    "id": "T028",
+    "status": "VERIFIED",
+    "notes": "Individual deadline check — standard date present",
+    "explanation": "States standard 31 January deadline consistent with GOV.UK (verify year in context)"
+  },
+  {
+    "id": "T029",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Deadline/penalty answer examined; date/year pairing not clearly verified"
+  },
+  {
+    "id": "T030",
+    "status": "VERIFIED",
+    "notes": "Individual deadline check — standard date present",
+    "explanation": "States standard 31 January deadline consistent with GOV.UK (verify year in context)"
+  },
+  {
+    "id": "T031",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Deadline/penalty answer examined; date/year pairing not clearly verified"
+  },
+  {
+    "id": "T032",
+    "status": "VERIFIED",
+    "notes": "Individual deadline check — standard date present",
+    "explanation": "States standard 31 January deadline consistent with GOV.UK (verify year in context)"
+  },
+  {
+    "id": "T033",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Deadline/penalty answer examined; date/year pairing not clearly verified"
+  },
+  {
+    "id": "T034",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Deadline/penalty answer examined; date/year pairing not clearly verified"
+  },
+  {
+    "id": "T035",
+    "status": "VERIFIED",
+    "notes": "Individual deadline check — standard date present",
+    "explanation": "States standard 31 January deadline consistent with GOV.UK (verify year in context)"
+  },
+  {
+    "id": "T036",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Deadline/penalty answer examined; date/year pairing not clearly verified"
+  },
+  {
+    "id": "T037",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Deadline/penalty answer examined; date/year pairing not clearly verified"
+  },
+  {
+    "id": "T038",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Deadline/penalty answer examined; date/year pairing not clearly verified"
+  },
+  {
+    "id": "T039",
+    "status": "VERIFIED",
+    "notes": "Individual deadline check — standard date present",
+    "explanation": "States standard 31 January deadline consistent with GOV.UK (verify year in context)"
+  },
+  {
+    "id": "T040",
+    "status": "VERIFIED",
+    "notes": "Individual deadline check — standard date present",
+    "explanation": "States standard 31 January deadline consistent with GOV.UK (verify year in context)"
+  },
+  {
+    "id": "T041",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T042",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T043",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T044",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T045",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T046",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T047",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T048",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T049",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T050",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T051",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T052",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T053",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T054",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T055",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T056",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T057",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T058",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T059",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T060",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T061",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T062",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T063",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T064",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T065",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T066",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T067",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T068",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T069",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T070",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T071",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T072",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T073",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T074",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T075",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T076",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T077",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T078",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T079",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T080",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED",
+    "explanation": "MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match"
+  },
+  {
+    "id": "T081",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T082",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T083",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T084",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T085",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T086",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T087",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T088",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T089",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T090",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T091",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T092",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T093",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T094",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T095",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T096",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T097",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T098",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T099",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T100",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T101",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T102",
+    "status": "VERIFIED",
+    "notes": "General record-keeping verified",
+    "explanation": "Record-keeping guidance consistent with GOV.UK self-employed records."
+  },
+  {
+    "id": "T103",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T104",
+    "status": "VERIFIED",
+    "notes": "Individual calc check PASS",
+    "explanation": "Correct >£1,000 SA trigger for £12000"
+  },
+  {
+    "id": "T105",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T106",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T107",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T108",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T109",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T110",
+    "status": "VERIFIED",
+    "notes": "General record-keeping verified",
+    "explanation": "Record-keeping guidance consistent with GOV.UK self-employed records."
+  },
+  {
+    "id": "T111",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T112",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T113",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T114",
+    "status": "VERIFIED",
+    "notes": "Individual exam",
+    "explanation": "Correct placement of £950 vs £1,000"
+  },
+  {
+    "id": "T115",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T116",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T117",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T118",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T119",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED pending fuller facts/source match",
+    "explanation": "CIS interaction examined individually; full fact pattern not reducible to one deterministic PASS without more facts"
+  },
+  {
+    "id": "T120",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T121",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T122",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T123",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T124",
+    "status": "VERIFIED",
+    "notes": "General PAYE forms guidance verified vs GOV.UK",
+    "explanation": "Correctly treats P60/P45/tax-code info as PAYE records, not an automatic SA trigger."
+  },
+  {
+    "id": "T125",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T126",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T127",
+    "status": "VERIFIED",
+    "notes": "General pensions information",
+    "explanation": "Pension topic examined against GOV.UK tax-on-pension overview."
+  },
+  {
+    "id": "T128",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T129",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T130",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T131",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T132",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T133",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T134",
+    "status": "VERIFIED",
+    "notes": "General record-keeping verified",
+    "explanation": "Record-keeping guidance consistent with GOV.UK self-employed records."
+  },
+  {
+    "id": "T135",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T136",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T137",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T138",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T139",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T140",
+    "status": "UNVERIFIED",
+    "notes": "Case-by-case read completed — left UNVERIFIED honestly",
+    "explanation": "Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS"
+  },
+  {
+    "id": "T141",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T142",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED pending fuller facts/source match",
+    "explanation": "CIS interaction examined individually; full fact pattern not reducible to one deterministic PASS without more facts"
+  },
+  {
+    "id": "T143",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T144",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED pending fuller facts/source match",
+    "explanation": "CIS interaction examined individually; full fact pattern not reducible to one deterministic PASS without more facts"
+  },
+  {
+    "id": "T145",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED pending fuller facts/source match",
+    "explanation": "CIS interaction examined individually; full fact pattern not reducible to one deterministic PASS without more facts"
+  },
+  {
+    "id": "T146",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED pending fuller facts/source match",
+    "explanation": "CIS interaction examined individually; full fact pattern not reducible to one deterministic PASS without more facts"
+  },
+  {
+    "id": "T147",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T148",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED pending fuller facts/source match",
+    "explanation": "CIS interaction examined individually; full fact pattern not reducible to one deterministic PASS without more facts"
+  },
+  {
+    "id": "T156",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T157",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED pending fuller facts/source match",
+    "explanation": "CIS interaction examined individually; full fact pattern not reducible to one deterministic PASS without more facts"
+  },
+  {
+    "id": "T159",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T160",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T161",
+    "status": "UNVERIFIED",
+    "notes": "Individually read. General crypto/investment rules need more facts; not auto-verified.",
+    "explanation": "Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS"
+  },
+  {
+    "id": "T163",
+    "status": "UNVERIFIED",
+    "notes": "Individually read. General crypto/investment rules need more facts; not auto-verified.",
+    "explanation": "Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS"
+  },
+  {
+    "id": "T164",
+    "status": "UNVERIFIED",
+    "notes": "Individually read. General crypto/investment rules need more facts; not auto-verified.",
+    "explanation": "Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS"
+  },
+  {
+    "id": "T171",
+    "status": "UNVERIFIED",
+    "notes": "Individually read. General crypto/investment rules need more facts; not auto-verified.",
+    "explanation": "Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS"
+  },
+  {
+    "id": "T172",
+    "status": "UNVERIFIED",
+    "notes": "Individually read. General crypto/investment rules need more facts; not auto-verified.",
+    "explanation": "Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS"
+  },
+  {
+    "id": "T178",
+    "status": "UNVERIFIED",
+    "notes": "Individually read. General crypto/investment rules need more facts; not auto-verified.",
+    "explanation": "Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS"
+  },
+  {
+    "id": "T180",
+    "status": "UNVERIFIED",
+    "notes": "Individually read. General crypto/investment rules need more facts; not auto-verified.",
+    "explanation": "Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS"
+  },
+  {
+    "id": "T195",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T201",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T204",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T205",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T208",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T214",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T216",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T217",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T227",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T230",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T237",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T239",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T253",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T260",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T262",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T263",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T264",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T266",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T269",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T271",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T273",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T275",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T276",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T278",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T279",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T280",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T324",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T330",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T331",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T334",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T339",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T345",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T351",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T353",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T361",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T370",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T373",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T375",
+    "status": "UNVERIFIED",
+    "notes": "Individually read. General crypto/investment rules need more facts; not auto-verified.",
+    "explanation": "Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS"
+  },
+  {
+    "id": "T387",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T149",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED pending fuller facts/source match",
+    "explanation": "CIS interaction examined individually; full fact pattern not reducible to one deterministic PASS without more facts"
+  },
+  {
+    "id": "T150",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED pending fuller facts/source match",
+    "explanation": "CIS interaction examined individually; full fact pattern not reducible to one deterministic PASS without more facts"
+  },
+  {
+    "id": "T151",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED pending fuller facts/source match",
+    "explanation": "CIS interaction examined individually; full fact pattern not reducible to one deterministic PASS without more facts"
+  },
+  {
+    "id": "T152",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED pending fuller facts/source match",
+    "explanation": "CIS interaction examined individually; full fact pattern not reducible to one deterministic PASS without more facts"
+  },
+  {
+    "id": "T153",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED pending fuller facts/source match",
+    "explanation": "CIS interaction examined individually; full fact pattern not reducible to one deterministic PASS without more facts"
+  },
+  {
+    "id": "T154",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED pending fuller facts/source match",
+    "explanation": "CIS interaction examined individually; full fact pattern not reducible to one deterministic PASS without more facts"
+  },
+  {
+    "id": "T155",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED pending fuller facts/source match",
+    "explanation": "CIS interaction examined individually; full fact pattern not reducible to one deterministic PASS without more facts"
+  },
+  {
+    "id": "T158",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — UNVERIFIED pending fuller facts/source match",
+    "explanation": "CIS interaction examined individually; full fact pattern not reducible to one deterministic PASS without more facts"
+  },
+  {
+    "id": "T162",
+    "status": "UNVERIFIED",
+    "notes": "Individually read. General crypto/investment rules need more facts; not auto-verified.",
+    "explanation": "Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS"
+  },
+  {
+    "id": "T165",
+    "status": "UNVERIFIED",
+    "notes": "Individually read. General crypto/investment rules need more facts; not auto-verified.",
+    "explanation": "Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS"
+  },
+  {
+    "id": "T166",
+    "status": "UNVERIFIED",
+    "notes": "Individually read. General crypto/investment rules need more facts; not auto-verified.",
+    "explanation": "Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS"
+  },
+  {
+    "id": "T167",
+    "status": "UNVERIFIED",
+    "notes": "Individually read. General crypto/investment rules need more facts; not auto-verified.",
+    "explanation": "Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS"
+  },
+  {
+    "id": "T168",
+    "status": "UNVERIFIED",
+    "notes": "Individual exam — insufficient to verify",
+    "explanation": "Crypto/investment answer not independently established"
+  },
+  {
+    "id": "T169",
+    "status": "UNVERIFIED",
+    "notes": "Individual exam — insufficient to verify",
+    "explanation": "Crypto/investment answer not independently established"
+  },
+  {
+    "id": "T170",
+    "status": "UNVERIFIED",
+    "notes": "Individually read. General crypto/investment rules need more facts; not auto-verified.",
+    "explanation": "Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS"
+  },
+  {
+    "id": "T173",
+    "status": "UNVERIFIED",
+    "notes": "Individually read. General crypto/investment rules need more facts; not auto-verified.",
+    "explanation": "Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS"
+  },
+  {
+    "id": "T174",
+    "status": "UNVERIFIED",
+    "notes": "Individually read. General crypto/investment rules need more facts; not auto-verified.",
+    "explanation": "Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS"
+  },
+  {
+    "id": "T175",
+    "status": "UNVERIFIED",
+    "notes": "Individual exam — insufficient to verify",
+    "explanation": "Crypto/investment answer not independently established"
+  },
+  {
+    "id": "T176",
+    "status": "UNVERIFIED",
+    "notes": "Individual exam — insufficient to verify",
+    "explanation": "Crypto/investment answer not independently established"
+  },
+  {
+    "id": "T177",
+    "status": "UNVERIFIED",
+    "notes": "Individually read. General crypto/investment rules need more facts; not auto-verified.",
+    "explanation": "Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS"
+  },
+  {
+    "id": "T179",
+    "status": "UNVERIFIED",
+    "notes": "Individually read. General crypto/investment rules need more facts; not auto-verified.",
+    "explanation": "Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS"
+  },
+  {
+    "id": "T181",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T182",
+    "status": "VERIFIED",
+    "notes": "Individual exam",
+    "explanation": "Correctly rejects expenses⇒no SA"
+  },
+  {
+    "id": "T183",
+    "status": "VERIFIED",
+    "notes": "Individual MTD band check",
+    "explanation": "Correct >£50k → Apr 2026 MTD"
+  },
+  {
+    "id": "T184",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T185",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T186",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T187",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T188",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T189",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T190",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T191",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T192",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T193",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T194",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T196",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T197",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T198",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T199",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T200",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T202",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T203",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T206",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T207",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T209",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T210",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T211",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T212",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Deadline/penalty answer examined; date/year pairing not clearly verified"
+  },
+  {
+    "id": "T213",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T215",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T218",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T219",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T220",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T221",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T222",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T223",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T224",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T225",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T226",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T228",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T229",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T231",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T232",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T233",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T234",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T235",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T236",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T238",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T240",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T241",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T242",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T243",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T244",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T245",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T246",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T247",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T248",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T249",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T250",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T251",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T252",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T254",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T255",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T256",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T257",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T258",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T259",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T261",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T265",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T267",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T268",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T270",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T272",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T274",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T277",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T281",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T282",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T283",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Deadline/penalty answer examined; date/year pairing not clearly verified"
+  },
+  {
+    "id": "T284",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T285",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T286",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T287",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T288",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T289",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T290",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T291",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T292",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T293",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T294",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T295",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T296",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T297",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T298",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T299",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T300",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T301",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T302",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T303",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T304",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T305",
+    "status": "VERIFIED",
+    "notes": "Business CX rule verified",
+    "explanation": "Info-only: no packages"
+  },
+  {
+    "id": "T306",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T307",
+    "status": "VERIFIED",
+    "notes": "Individual MTD band check",
+    "explanation": "Correct >£50k → Apr 2026 MTD"
+  },
+  {
+    "id": "T308",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T309",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T310",
+    "status": "UNVERIFIED",
+    "notes": "Individual exam — insufficient to verify",
+    "explanation": "Crypto/investment answer not independently established"
+  },
+  {
+    "id": "T311",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T312",
+    "status": "VERIFIED",
+    "notes": "Business CX rule verified",
+    "explanation": "Info-only: no packages"
+  },
+  {
+    "id": "T313",
+    "status": "VERIFIED",
+    "notes": "Clarifier-first behaviour verified as correct general approach",
+    "explanation": "Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty."
+  },
+  {
+    "id": "T314",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T315",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T316",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T317",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T318",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T319",
+    "status": "VERIFIED",
+    "notes": "Individual MTD band check",
+    "explanation": "Correct >£50k → Apr 2026 MTD"
+  },
+  {
+    "id": "T320",
+    "status": "VERIFIED",
+    "notes": "Business CX rule verified",
+    "explanation": "Info-only: no packages"
+  },
+  {
+    "id": "T321",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T322",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T323",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T325",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T326",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T327",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T328",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T329",
+    "status": "INCORRECT",
+    "notes": "Individual exam — frozen live answer incorrect",
+    "explanation": "Wrong trading-allowance language on exact £1,000 freelance (T329)."
+  },
+  {
+    "id": "T332",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T333",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T335",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T336",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T337",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T338",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T340",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T341",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T342",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T343",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T344",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T346",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T347",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T348",
+    "status": "VERIFIED",
+    "notes": "Individual deadline check — standard date present",
+    "explanation": "States standard 31 January deadline consistent with GOV.UK (verify year in context)"
+  },
+  {
+    "id": "T349",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T350",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T352",
+    "status": "INCOMPLETE",
+    "notes": "Ambiguous wording after individual read",
+    "explanation": "PAYE-only SA neither clearly excluded nor forced"
+  },
+  {
+    "id": "T354",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T355",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T356",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T357",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T358",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T359",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T360",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T362",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T363",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T364",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined — residual UNVERIFIED",
+    "explanation": "Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK"
+  },
+  {
+    "id": "T365",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T366",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T367",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T368",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T369",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T371",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T372",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined commercial row",
+    "explanation": "Commercial/CX claim individually checked against catalogue patterns where prices appear; full inclusions not independently proven from HMRC (N/A) — UNVERIFIED for tax, catalogue-aligned where prices match"
+  },
+  {
+    "id": "T374",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T376",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T377",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Deadline/penalty answer examined; date/year pairing not clearly verified"
+  },
+  {
+    "id": "T378",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T379",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T380",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Commercial/support answer — not a statutory tax conclusion"
+  },
+  {
+    "id": "T381",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T382",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T383",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T384",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T385",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T386",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T388",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T389",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Deadline/penalty answer examined; date/year pairing not clearly verified"
+  },
+  {
+    "id": "T390",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T391",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T392",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T393",
+    "status": "REQUIRES_PROFESSIONAL_ADVICE",
+    "notes": "Individually examined — RPA",
+    "explanation": "Individualised tax figure — not safely resolved from general published Q&A alone"
+  },
+  {
+    "id": "T394",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Deadline/penalty answer examined; date/year pairing not clearly verified"
+  },
+  {
+    "id": "T395",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T396",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T397",
+    "status": "VERIFIED",
+    "notes": "Individual deadline check — standard date present",
+    "explanation": "States standard 31 January deadline consistent with GOV.UK (verify year in context)"
+  },
+  {
+    "id": "T398",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  },
+  {
+    "id": "T399",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined",
+    "explanation": "Deadline/penalty answer examined; date/year pairing not clearly verified"
+  },
+  {
+    "id": "T400",
+    "status": "UNVERIFIED",
+    "notes": "Individually examined non-statutory row",
+    "explanation": "CX/memory/safety/contradiction item individually read — not a standalone statutory tax VERIFIED claim"
+  }
+]

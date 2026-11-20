@@ -1,0 +1,2657 @@
+{
+  "generated_at": "2026-11-20T14:01:32.118Z",
+  "purpose": "Unseen holdout — not used to develop T001–T400. Expected classifications set BEFORE SIMBA run.",
+  "count": 200,
+  "multi_turn_count": 50,
+  "scenarios": [
+    {
+      "id": "H001",
+      "question": "I work full-time but make money on TikTok. Do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "vague",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need turnover amount/tax year; if self-employment >£1,000 usually SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H002",
+      "question": "I rent out my flat but my employer already takes tax.",
+      "topic": "property",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "PAYE does not tax rental; property income usually needs SA. Ask rent amount/year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H003",
+      "question": "I earn £55k. Does this new digital tax thing apply to me?",
+      "topic": "mtd",
+      "style": "vague",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "£55k alone unclear — need income type (PAYE vs self-emp/property) and tax year for MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H004",
+      "question": "I’m an Uber driver. Do I need an accountant?",
+      "topic": "gig",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Likely self-employed; SA if >£1,000. Accountant optional — TaxSimba SA possible; don’t force Elite.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H005",
+      "question": "I haven’t done my tax for two years. What happens?",
+      "topic": "penalties",
+      "style": "complicated",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "expected_tax_notes": "Late filing/payment penalties likely; urge check GOV.UK + consider consultation for backlog.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+      ],
+      "multi_turn": [
+        "Can you explain what I should do next?",
+        "Should I book a consultation?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H006",
+      "question": "I sell things online. Do I have to pay tax?",
+      "topic": "trading",
+      "style": "vague",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Depends if trading vs hobby and amounts; >£1,000 trading usually SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H007",
+      "question": "I have two jobs and a side business.",
+      "topic": "multi",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need side-business turnover; PAYE jobs alone may not need SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H008",
+      "question": "I want someone to do everything for me.",
+      "topic": "service",
+      "style": "simple",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Intent for full-service — explain accountant-led TaxSimba; clarify SA vs MTD after facts.",
+      "official_sources": [],
+      "multi_turn": [
+        "Yes, sole trader / freelance.",
+        "Which package fits a simple first-time filer?",
+        "Where do I register?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H009",
+      "question": "I already use Xero. Can TaxSimba still help?",
+      "topic": "mtd",
+      "style": "simple",
+      "expected_classification": "MTD_ASSIST",
+      "expected_tax_notes": "TaxSimba uses Xero for MTD; existing Xero may still fit Simbian — clarify, don’t invent dual software fees.",
+      "official_sources": [],
+      "multi_turn": [
+        "That figure is self-employment turnover before expenses for 2024-25.",
+        "So do I need Making Tax Digital from April 2026?",
+        "What would TaxSimba do for me if I wanted help?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H010",
+      "question": "I received an HMRC letter and don’t understand it.",
+      "topic": "hmrc",
+      "style": "vague",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "expected_tax_notes": "Cannot interpret personal HMRC letter contents safely — escalate consultation/support.",
+      "official_sources": [],
+      "multi_turn": [
+        "Can you explain what I should do next?",
+        "Should I book a consultation?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H011",
+      "question": "My only income is PAYE salary £42,000. Do I need Self Assessment?",
+      "topic": "paye",
+      "style": "simple",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only usually no SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H012",
+      "question": "PAYE £90,000 only — do I need Making Tax Digital?",
+      "topic": "paye",
+      "style": "simple",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE not QI for MTD ITSA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H013",
+      "question": "I got a P60. What do I do with it?",
+      "topic": "paye",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "P60 is employment summary; SA only if other triggers.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H014",
+      "question": "Does having two PAYE jobs mean I must file a tax return?",
+      "topic": "paye",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Not automatically; undertaxed PAYE / other income can trigger SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H015",
+      "question": "My employer underpaid my tax. Do I need an accountant?",
+      "topic": "paye",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "May be PAYE reconciliation; not automatically TaxSimba SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H016",
+      "question": "I left my job mid-year. Do I still need Self Assessment?",
+      "topic": "paye",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Leaving job alone ≠ SA; ask other income.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H017",
+      "question": "Company car benefit — is that Self Assessment?",
+      "topic": "paye",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Often via PAYE/P11D; confirm other income.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H018",
+      "question": "I only have PAYE and £200 bank interest. SA?",
+      "topic": "paye",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Small interest often covered; check GOV.UK who-must-send.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H019",
+      "question": "Freelance turnover about £8,000 in 2025-26 plus PAYE job. Do I register for Self Assessment?",
+      "topic": "self_employment",
+      "style": "simple",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "£8k > £1,000 → usually SA. Trading allowance ≠ waiver.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/register-for-self-assessment"
+      ],
+      "multi_turn": [
+        "Yes, sole trader / freelance.",
+        "Which package fits a simple first-time filer?",
+        "Where do I register?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H020",
+      "question": "I made £900 selling crafts this year. Do I need to register?",
+      "topic": "self_employment",
+      "style": "simple",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "£900 not more than £1,000 (other triggers aside).",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/register-for-self-assessment"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H021",
+      "question": "Exactly £1,000 freelance. Am I below the trading allowance so no SA?",
+      "topic": "self_employment",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Exact £1,000 is boundary for ‘more than £1,000’; don’t say below allowance.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/register-for-self-assessment"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H022",
+      "question": "My turnover is £50,000 but expenses are £49,000 so profit is tiny — surely no Self Assessment?",
+      "topic": "self_employment",
+      "style": "misleading",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Turnover >£1,000 still usually SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/register-for-self-assessment"
+      ],
+      "multi_turn": [
+        "Yes, sole trader / freelance.",
+        "Which package fits a simple first-time filer?",
+        "Where do I register?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H023",
+      "question": "I started freelancing last month. When do I register?",
+      "topic": "self_employment",
+      "style": "simple",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Register by 5 Oct after tax year you started if required.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/register-for-self-assessment"
+      ],
+      "multi_turn": [
+        "Yes, sole trader / freelance.",
+        "Which package fits a simple first-time filer?",
+        "Where do I register?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H024",
+      "question": "Do I need MTD if my sole-trader turnover was £52,000 in 2024-25?",
+      "topic": "self_employment",
+      "style": "simple",
+      "expected_classification": "MTD_ASSIST",
+      "expected_tax_notes": "More than £50k 2024-25 → MTD from 6 Apr 2026; also usually SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/register-for-self-assessment"
+      ],
+      "multi_turn": [
+        "That figure is self-employment turnover before expenses for 2024-25.",
+        "So do I need Making Tax Digital from April 2026?",
+        "What would TaxSimba do for me if I wanted help?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H025",
+      "question": "Sole trader £28,000 in 2024-25 — MTD from April 2026?",
+      "topic": "self_employment",
+      "style": "simple",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "£28k not more than £50k for 2026 cohort; may hit later bands.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/register-for-self-assessment"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H026",
+      "question": "I’m a sole trader earning exactly £50,000 in 2024-25. Am I over the MTD threshold?",
+      "topic": "self_employment",
+      "style": "simple",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "Exact £50k is not more than £50k.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/register-for-self-assessment"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H027",
+      "question": "Can I use the £1,000 trading allowance instead of registering?",
+      "topic": "self_employment",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Allowance is relief; if earned >£1,000 usually still register.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/register-for-self-assessment"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H028",
+      "question": "I invoice as a sole trader through an app. Is that CIS?",
+      "topic": "self_employment",
+      "style": "vague",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "CIS is construction-specific — clarify trade.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/register-for-self-assessment"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H029",
+      "question": "Buy-to-let rent £18,000 before expenses 2024-25 and PAYE job — Self Assessment?",
+      "topic": "property",
+      "style": "simple",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Property income usually SA.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "multi_turn": [
+        "Yes, sole trader / freelance.",
+        "Which package fits a simple first-time filer?",
+        "Where do I register?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H030",
+      "question": "Rent £18,000 — do I need MTD for landlords from April 2026?",
+      "topic": "property",
+      "style": "simple",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "£18k not more than £50k for 2026 band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H031",
+      "question": "I let a room in my home. Do I need TaxSimba?",
+      "topic": "property",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Rent-a-room / amounts matter.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H032",
+      "question": "Property income £60,000 2024-25 — MTD?",
+      "topic": "property",
+      "style": "simple",
+      "expected_classification": "BOTH_SA_AND_MTD",
+      "expected_tax_notes": "SA yes; QI >£50k → MTD Apr 2026.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "multi_turn": [
+        "That figure is self-employment turnover before expenses for 2024-25.",
+        "So do I need Making Tax Digital from April 2026?",
+        "What would TaxSimba do for me if I wanted help?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H033",
+      "question": "My tenant pays me cash. How do I report it?",
+      "topic": "property",
+      "style": "simple",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Still taxable rental income — SA records.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "multi_turn": [
+        "Yes, sole trader / freelance.",
+        "Which package fits a simple first-time filer?",
+        "Where do I register?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H034",
+      "question": "Do allowable property expenses reduce my MTD qualifying income?",
+      "topic": "property",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "QI is typically before expenses — confirm GOV.UK QI page.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H035",
+      "question": "What’s this Making Tax Digital thing I keep hearing about?",
+      "topic": "mtd",
+      "style": "vague",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Explain MTD ITSA high-level; ask income type/amount/year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H036",
+      "question": "Do I need special software for tax now?",
+      "topic": "mtd",
+      "style": "vague",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "May refer to MTD; ask if self-emp/property and QI.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H037",
+      "question": "HMRC said something about quarterly updates — is that me?",
+      "topic": "mtd",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Quarterly updates = MTD ITSA if in scope.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H038",
+      "question": "I have PAYE £50,000 and freelance £2,000. Add them for MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "Do not add PAYE to QI; £2k alone not MTD bands.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H039",
+      "question": "More than £50,000 turnover 2024-25 — when does MTD start?",
+      "topic": "mtd",
+      "style": "simple",
+      "expected_classification": "MTD_ASSIST",
+      "expected_tax_notes": "From 6 April 2026.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "multi_turn": [
+        "That figure is self-employment turnover before expenses for 2024-25.",
+        "So do I need Making Tax Digital from April 2026?",
+        "What would TaxSimba do for me if I wanted help?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H040",
+      "question": "I’m CIS and tax is already deducted. Why would I file a return?",
+      "topic": "cis",
+      "style": "misleading",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "CIS deductions ≠ automatic SA exemption for subcontractors.",
+      "official_sources": [
+        "https://www.gov.uk/what-is-the-construction-industry-scheme",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "multi_turn": [
+        "Yes, sole trader / freelance.",
+        "Which package fits a simple first-time filer?",
+        "Where do I register?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H041",
+      "question": "CIS refund — can TaxSimba get my money back?",
+      "topic": "cis",
+      "style": "vague",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "May be SA; don’t promise refund amounts.",
+      "official_sources": [
+        "https://www.gov.uk/what-is-the-construction-industry-scheme"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H042",
+      "question": "I’m a limited company CIS contractor. Can you do my Corporation Tax?",
+      "topic": "cis",
+      "style": "simple",
+      "expected_classification": "OUT_OF_SCOPE",
+      "expected_tax_notes": "Corp tax/limited company accounts not TaxSimba catalogue default.",
+      "official_sources": [],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H043",
+      "question": "I sold Bitcoin for a profit. How much tax do I owe?",
+      "topic": "crypto",
+      "style": "complicated",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "expected_tax_notes": "Need disposal history/costs; don’t invent liability.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets"
+      ],
+      "multi_turn": [
+        "Can you explain what I should do next?",
+        "Should I book a consultation?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H044",
+      "question": "Do I pay tax when I buy crypto or only when I sell?",
+      "topic": "crypto",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Usually disposal events; check GOV.UK crypto guidance.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H045",
+      "question": "Dividend income £2,000 — Self Assessment?",
+      "topic": "investments",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Depends on total income/other factors — who-must-send.",
+      "official_sources": [
+        "https://www.gov.uk/tax-on-dividends",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H046",
+      "question": "I took a pension lump sum. What’s my tax?",
+      "topic": "pensions",
+      "style": "complicated",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "expected_tax_notes": "Pension taxation fact-specific.",
+      "official_sources": [],
+      "multi_turn": [
+        "Can you explain what I should do next?",
+        "Should I book a consultation?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H047",
+      "question": "I worked abroad for 6 months. UK tax?",
+      "topic": "overseas",
+      "style": "complicated",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "expected_tax_notes": "Residence/domicile — professional advice.",
+      "official_sources": [],
+      "multi_turn": [
+        "Can you explain what I should do next?",
+        "Should I book a consultation?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H048",
+      "question": "Foreign rental income — do I need Self Assessment?",
+      "topic": "overseas",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Often yes for UK residents — confirm residence.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H049",
+      "question": "When is the Self Assessment deadline?",
+      "topic": "deadlines",
+      "style": "simple",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "Typically 31 January online for prior tax year — state year carefully.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H050",
+      "question": "I missed the January deadline. What now?",
+      "topic": "penalties",
+      "style": "simple",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Penalties accrue; file ASAP; TaxSimba may help SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/penalties"
+      ],
+      "multi_turn": [
+        "Yes, sole trader / freelance.",
+        "Which package fits a simple first-time filer?",
+        "Where do I register?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H051",
+      "question": "HMRC charged me a late filing penalty. Is that fair?",
+      "topic": "penalties",
+      "style": "complicated",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "expected_tax_notes": "Appeal/facts — escalate.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/penalties"
+      ],
+      "multi_turn": [
+        "Can you explain what I should do next?",
+        "Should I book a consultation?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H052",
+      "question": "I got a brown envelope from HMRC about a tax investigation.",
+      "topic": "hmrc",
+      "style": "complicated",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "expected_tax_notes": "Investigation — professional help.",
+      "official_sources": [],
+      "multi_turn": [
+        "Can you explain what I should do next?",
+        "Should I book a consultation?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H053",
+      "question": "Do I need to register for VAT at £85,000 turnover?",
+      "topic": "vat",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Check current VAT threshold on GOV.UK (historically £90k) — verify page.",
+      "official_sources": [
+        "https://www.gov.uk/vat-registration-thresholds"
+      ],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H054",
+      "question": "Can TaxSimba do my limited company accounts?",
+      "topic": "out_of_scope",
+      "style": "simple",
+      "expected_classification": "OUT_OF_SCOPE",
+      "expected_tax_notes": "Not approved catalogue CT filing.",
+      "official_sources": [],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H055",
+      "question": "I need help with Immigration / visa taxes.",
+      "topic": "out_of_scope",
+      "style": "simple",
+      "expected_classification": "OUT_OF_SCOPE",
+      "expected_tax_notes": "Outside TaxSimba SA/MTD services.",
+      "official_sources": [],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H056",
+      "question": "Can you recommend a will writer?",
+      "topic": "out_of_scope",
+      "style": "simple",
+      "expected_classification": "OUT_OF_SCOPE",
+      "expected_tax_notes": "Outside scope.",
+      "official_sources": [],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H057",
+      "question": "Which TaxSimba Self Assessment package is cheapest?",
+      "topic": "packages",
+      "style": "simple",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Simple £119/year from catalogue — only when asking packages.",
+      "official_sources": [],
+      "multi_turn": [
+        "Yes, sole trader / freelance.",
+        "Which package fits a simple first-time filer?",
+        "Where do I register?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H058",
+      "question": "Compare all your packages and dump every price.",
+      "topic": "packages",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Prefer not full dump unless asked; if asked, catalogue only.",
+      "official_sources": [],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H059",
+      "question": "I already know I need Self Assessment help.",
+      "topic": "packages",
+      "style": "simple",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Help-first; don’t SKU on turn 1 unless asked which package.",
+      "official_sources": [],
+      "multi_turn": [
+        "Yes, sole trader / freelance.",
+        "Which package fits a simple first-time filer?",
+        "Where do I register?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H060",
+      "question": "Book me a consultation for tomorrow and take payment now.",
+      "topic": "consultation",
+      "style": "misleading",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "expected_tax_notes": "Must not invent booking/payment; give Calendly/consult prices only.",
+      "official_sources": [],
+      "multi_turn": [
+        "Can you explain what I should do next?",
+        "Should I book a consultation?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H061",
+      "question": "I’m an existing TaxSimba client — where do I upload documents?",
+      "topic": "support",
+      "style": "simple",
+      "expected_classification": "EXISTING_CUSTOMER_SUPPORT",
+      "expected_tax_notes": "Dashboard/support — no new package push.",
+      "official_sources": [],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H062",
+      "question": "My login doesn’t work.",
+      "topic": "support",
+      "style": "simple",
+      "expected_classification": "EXISTING_CUSTOMER_SUPPORT",
+      "expected_tax_notes": "Support route info@ / dashboard.",
+      "official_sources": [],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H063",
+      "question": "Do you file directly to HMRC from the TaxSimba website?",
+      "topic": "service",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Accountant-led; TaxCalc/Xero internally; portal not direct DIY HMRC filing claim.",
+      "official_sources": [],
+      "multi_turn": [
+        "It was self-employment / freelancing, about £8,000 before expenses for 2025-26.",
+        "Do I need Self Assessment then?",
+        "I do not want a paid package — just the answer."
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H064",
+      "question": "Is Xero included in Simbian Comply?",
+      "topic": "packages",
+      "style": "simple",
+      "expected_classification": "MTD_ASSIST",
+      "expected_tax_notes": "Catalogue: Xero included in Simbian monthly — verify wording.",
+      "official_sources": [],
+      "multi_turn": [
+        "That figure is self-employment turnover before expenses for 2024-25.",
+        "So do I need Making Tax Digital from April 2026?",
+        "What would TaxSimba do for me if I wanted help?"
+      ],
+      "run_multi_turn": true
+    },
+    {
+      "id": "H065",
+      "question": "I do not want any package — just tell me if I need SA for £8k freelance.",
+      "topic": "sa",
+      "style": "simple",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "Answer SA yes; zero packages.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H066",
+      "question": "Sign me up for both Simple SA and Simbian even if I only have PAYE.",
+      "topic": "packages",
+      "style": "misleading",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "Must not sell unnecessary duplicate; PAYE-only usually neither.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H067",
+      "question": "I have no self-employment income. Also my freelance made £12,000. Do I need SA?",
+      "topic": "contradiction",
+      "style": "contradictory",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Contradiction — clarify which is true before concluding.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H068",
+      "question": "I said earlier turnover was £40k but actually it was £55k for 2024-25. MTD?",
+      "topic": "mtd",
+      "style": "contradictory",
+      "expected_classification": "MTD_ASSIST",
+      "expected_tax_notes": "Use corrected £55k >£50k → Apr 2026.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H069",
+      "question": "Landlord and Uber driver and PAYE — what do I need?",
+      "topic": "multi_topic",
+      "style": "multi_topic",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need amounts per stream and years for SA/MTD.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H070",
+      "question": "Tell me everything about tax and also sell me your best package.",
+      "topic": "multi_topic",
+      "style": "multi_topic",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Don’t dump catalogue; ask primary need.",
+      "official_sources": [],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H071",
+      "question": "Is Christmas party tip income taxable?",
+      "topic": "employment",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Tips can be taxable — facts needed.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H072",
+      "question": "I swapped services with a friend instead of invoicing. Taxable?",
+      "topic": "trading",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Barter can be taxable trading.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H073",
+      "question": "OnlyFans income — Self Assessment?",
+      "topic": "gig",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Likely self-employment if >£1,000.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H074",
+      "question": "Etsy shop £3,500 sales — register?",
+      "topic": "trading",
+      "style": "simple",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": ">£1,000 usually SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H075",
+      "question": "I inherited a house and rent it now.",
+      "topic": "property",
+      "style": "simple",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Rental usually SA.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H076",
+      "question": "Student with £1,500 tutoring.",
+      "topic": "gig",
+      "style": "simple",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": ">£1,000 usually SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H077",
+      "question": "Retired, only state pension.",
+      "topic": "pensions",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Often no SA; check other income.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H078",
+      "question": "Do I need MTD for VAT?",
+      "topic": "vat",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD VAT separate from ITSA — clarify.",
+      "official_sources": [
+        "https://www.gov.uk/vat-registration-thresholds"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H079",
+      "question": "What’s the difference between Self Assessment and MTD?",
+      "topic": "mtd",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Explain both at high level.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H080",
+      "question": "Can I do my own tax on GOV.UK for free?",
+      "topic": "sa",
+      "style": "simple",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "Yes DIY possible; TaxSimba optional.",
+      "official_sources": [
+        "https://www.gov.uk/register-for-self-assessment"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H081",
+      "question": "I need Corporation Tax and payroll for my Ltd.",
+      "topic": "out_of_scope",
+      "style": "simple",
+      "expected_classification": "OUT_OF_SCOPE",
+      "expected_tax_notes": "Outside approved SA/MTD personal services.",
+      "official_sources": [],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H082",
+      "question": "How do I appeal a penalty?",
+      "topic": "penalties",
+      "style": "simple",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "expected_tax_notes": "Process on GOV.UK; complex → consult.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/penalties"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H083",
+      "question": "What software do you use to file?",
+      "topic": "service",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "TaxCalc SA / Xero MTD internally.",
+      "official_sources": [],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H084",
+      "question": "Is consultation free?",
+      "topic": "consultation",
+      "style": "simple",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "expected_tax_notes": "No — £99/£149 catalogue.",
+      "official_sources": [],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H085",
+      "question": "Call me back about my taxes.",
+      "topic": "consultation",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "No phone onboarding promise; email/consult links.",
+      "official_sources": [],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H086",
+      "question": "I’m PAYE but got £600 interest from peer-to-peer lending.",
+      "topic": "investments",
+      "style": "simple",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "May need SA depending on totals.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H087",
+      "question": "High Income Child Benefit Charge — help?",
+      "topic": "sa",
+      "style": "simple",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "expected_tax_notes": "HICBC often via SA — fact specific.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H088",
+      "question": "I transferred a property to my spouse. CGT?",
+      "topic": "property",
+      "style": "simple",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "expected_tax_notes": "CGT/spouse rules — advice.",
+      "official_sources": [],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H089",
+      "question": "Do you guarantee no HMRC enquiry?",
+      "topic": "service",
+      "style": "simple",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "Must not guarantee.",
+      "official_sources": [],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H090",
+      "question": "What’s your phone number for onboarding?",
+      "topic": "support",
+      "style": "simple",
+      "expected_classification": "EXISTING_CUSTOMER_SUPPORT",
+      "expected_tax_notes": "No phone onboarding — email/dashboard.",
+      "official_sources": [],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H091",
+      "question": "Side hustle about £1250 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £1250 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H092",
+      "question": "Property rent roughly £15000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H093",
+      "question": "I earn £31k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H094",
+      "question": "Side hustle about £1500 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £1500 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H095",
+      "question": "Property rent roughly £20000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H096",
+      "question": "I earn £32k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H097",
+      "question": "Side hustle about £1750 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £1750 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H098",
+      "question": "Property rent roughly £25000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H099",
+      "question": "I earn £33k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H100",
+      "question": "Side hustle about £2000 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £2000 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H101",
+      "question": "Property rent roughly £30000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H102",
+      "question": "I earn £34k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H103",
+      "question": "Side hustle about £2250 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £2250 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H104",
+      "question": "Property rent roughly £35000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H105",
+      "question": "I earn £35k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H106",
+      "question": "Side hustle about £2500 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £2500 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H107",
+      "question": "Property rent roughly £40000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H108",
+      "question": "I earn £36k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H109",
+      "question": "Side hustle about £2750 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £2750 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H110",
+      "question": "Property rent roughly £45000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H111",
+      "question": "I earn £37k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H112",
+      "question": "Side hustle about £3000 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £3000 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H113",
+      "question": "Property rent roughly £50000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H114",
+      "question": "I earn £38k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H115",
+      "question": "Side hustle about £3250 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £3250 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H116",
+      "question": "Property rent roughly £55000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H117",
+      "question": "I earn £39k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H118",
+      "question": "Side hustle about £3500 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £3500 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H119",
+      "question": "Property rent roughly £60000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H120",
+      "question": "I earn £40k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H121",
+      "question": "Side hustle about £3750 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £3750 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H122",
+      "question": "Property rent roughly £65000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H123",
+      "question": "I earn £41k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H124",
+      "question": "Side hustle about £4000 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £4000 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H125",
+      "question": "Property rent roughly £70000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H126",
+      "question": "I earn £42k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H127",
+      "question": "Side hustle about £4250 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £4250 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H128",
+      "question": "Property rent roughly £75000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H129",
+      "question": "I earn £43k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H130",
+      "question": "Side hustle about £4500 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £4500 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H131",
+      "question": "Property rent roughly £80000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H132",
+      "question": "I earn £44k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H133",
+      "question": "Side hustle about £4750 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £4750 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H134",
+      "question": "Property rent roughly £85000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H135",
+      "question": "I earn £45k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H136",
+      "question": "Side hustle about £5000 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £5000 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H137",
+      "question": "Property rent roughly £90000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H138",
+      "question": "I earn £46k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H139",
+      "question": "Side hustle about £5250 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £5250 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H140",
+      "question": "Property rent roughly £95000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H141",
+      "question": "I earn £47k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H142",
+      "question": "Side hustle about £5500 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £5500 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H143",
+      "question": "Property rent roughly £100000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H144",
+      "question": "I earn £48k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H145",
+      "question": "Side hustle about £5750 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £5750 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H146",
+      "question": "Property rent roughly £105000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H147",
+      "question": "I earn £49k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H148",
+      "question": "Side hustle about £6000 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £6000 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H149",
+      "question": "Property rent roughly £110000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H150",
+      "question": "I earn £50k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H151",
+      "question": "Side hustle about £6250 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £6250 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H152",
+      "question": "Property rent roughly £115000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H153",
+      "question": "I earn £51k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H154",
+      "question": "Side hustle about £6500 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £6500 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H155",
+      "question": "Property rent roughly £120000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H156",
+      "question": "I earn £52k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H157",
+      "question": "Side hustle about £6750 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £6750 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H158",
+      "question": "Property rent roughly £125000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H159",
+      "question": "I earn £53k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H160",
+      "question": "Side hustle about £7000 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £7000 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H161",
+      "question": "Property rent roughly £130000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H162",
+      "question": "I earn £54k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H163",
+      "question": "Side hustle about £7250 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £7250 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H164",
+      "question": "Property rent roughly £135000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H165",
+      "question": "I earn £55k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H166",
+      "question": "Side hustle about £7500 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £7500 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H167",
+      "question": "Property rent roughly £140000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H168",
+      "question": "I earn £56k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H169",
+      "question": "Side hustle about £7750 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £7750 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H170",
+      "question": "Property rent roughly £145000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H171",
+      "question": "I earn £57k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H172",
+      "question": "Side hustle about £8000 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £8000 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H173",
+      "question": "Property rent roughly £150000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H174",
+      "question": "I earn £58k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H175",
+      "question": "Side hustle about £8250 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £8250 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H176",
+      "question": "Property rent roughly £155000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H177",
+      "question": "I earn £59k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H178",
+      "question": "Side hustle about £8500 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £8500 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H179",
+      "question": "Property rent roughly £160000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H180",
+      "question": "I earn £60k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H181",
+      "question": "Side hustle about £8750 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £8750 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H182",
+      "question": "Property rent roughly £165000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H183",
+      "question": "I earn £61k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H184",
+      "question": "Side hustle about £9000 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £9000 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H185",
+      "question": "Property rent roughly £170000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H186",
+      "question": "I earn £62k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H187",
+      "question": "Side hustle about £9250 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £9250 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H188",
+      "question": "Property rent roughly £175000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H189",
+      "question": "I earn £63k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H190",
+      "question": "Side hustle about £9500 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £9500 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H191",
+      "question": "Property rent roughly £180000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H192",
+      "question": "I earn £64k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H193",
+      "question": "Side hustle about £9750 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £9750 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H194",
+      "question": "Property rent roughly £185000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H195",
+      "question": "I earn £65k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H196",
+      "question": "Side hustle about £10000 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £10000 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H197",
+      "question": "Property rent roughly £190000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H198",
+      "question": "I earn £66k — am I a higher-rate taxpayer and does that change MTD?",
+      "topic": "mtd",
+      "style": "misleading",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H199",
+      "question": "Side hustle about £10250 last year — do I need to tell HMRC?",
+      "topic": "gig",
+      "style": "incomplete",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £10250 vs £1,000 threshold.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "run_multi_turn": false
+    },
+    {
+      "id": "H200",
+      "question": "Property rent roughly £195000 — MTD?",
+      "topic": "property",
+      "style": "incomplete",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "run_multi_turn": false
+    }
+  ]
+}

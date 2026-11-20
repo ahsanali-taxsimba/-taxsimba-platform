@@ -1,0 +1,1485 @@
+{
+  "generated_at": "2026-11-20T16:44:57.048Z",
+  "source": "HOLDOUT_200_RESULTS.json (original, unchanged)",
+  "fail_count": 84,
+  "by_cause": {
+    "missing_clarification": 58,
+    "classification_matcher_mismatch": 12,
+    "missing_escalation": 6,
+    "misunderstood_income_type": 3,
+    "other_evidenced": 2,
+    "incorrect_mtd_or_sa_obligation": 2,
+    "incorrect_package_selection": 3,
+    "premature_selling": 2,
+    "failure_to_respect_user_intent": 1
+  },
+  "expected_to_observed": {
+    "MORE_INFO_NEEDED→SA_ASSIST": 26,
+    "ACCOUNTANT_CONSULTATION→MORE_INFO_NEEDED": 3,
+    "BOTH_SA_AND_MTD→MTD_ASSIST": 1,
+    "MORE_INFO_NEEDED→MTD_ASSIST": 40,
+    "NO_TAXSIMBA_SERVICE→MTD_ASSIST": 1,
+    "OUT_OF_SCOPE→SA_ASSIST": 1,
+    "ACCOUNTANT_CONSULTATION→SA_ASSIST": 3,
+    "MORE_INFO_NEEDED→NO_TAXSIMBA_SERVICE": 3,
+    "OUT_OF_SCOPE→MORE_INFO_NEEDED": 2,
+    "NO_TAXSIMBA_SERVICE→SA_ASSIST": 1,
+    "MORE_INFO_NEEDED→ACCOUNTANT_CONSULTATION": 2,
+    "NO_TAXSIMBA_SERVICE→MORE_INFO_NEEDED": 1
+  },
+  "failures": [
+    {
+      "id": "H001",
+      "topic": "gig",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "I work full-time but make money on TikTok. Do I need to tell HMRC?",
+      "reply": "Yes, if your income from TikTok exceeds £1,000 in a tax year, you need to register for Self Assessment and report this income to HMRC. This applies even if you also have a full-time job. Keep detailed records of your earnings and any related expenses, as you may be able to deduct these when calculating your taxable income. \n\nWould you like more information on how to register for Self Assessment?",
+      "expected_tax_notes": "Need turnover amount/tax year; if self-employment >£1,000 usually SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+      ]
+    },
+    {
+      "id": "H002",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "I rent out my flat but my employer already takes tax.",
+      "reply": "Even if your employer deducts tax through PAYE, you still need to declare your rental income to HMRC. Rental income is typically reported through Self Assessment, especially if it exceeds the tax-free allowance. It's important to keep records of your rental income and any allowable expenses. If you're unsure about your obligations, you can check the GOV.UK website for more details on who must send a tax return. \n\nDo you need help with registering for Self Assessment or understanding allowable expenses?",
+      "expected_tax_notes": "PAYE does not tax rental; property income usually needs SA. Ask rent amount/year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "H004",
+      "topic": "gig",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "I’m an Uber driver. Do I need an accountant?",
+      "reply": "As an Uber driver, you may benefit from having an accountant, especially if your income is above the trading allowance of £1,000. You’ll likely need to register for Self Assessment and file a tax return, which can be complex. An accountant can help ensure you comply with tax regulations, maximise deductions, and manage your records effectively. \n\nWould you like to know more about the Self Assessment process or how TaxSimba can assist you?",
+      "expected_tax_notes": "Likely self-employed; SA if >£1,000. Accountant optional — TaxSimba SA possible; don’t force Elite.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "H006",
+      "topic": "trading",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "classification_matcher_mismatch"
+      ],
+      "question": "I sell things online. Do I have to pay tax?",
+      "reply": "It depends whether you’re casually selling personal belongings or running a trade as a sole trader. Occasional sales of personal items are often different from a regular online business that may need Self Assessment. Are you selling your own used possessions, or buying/making goods to sell for profit — and roughly what was the income before expenses last tax year? If it is a trade, TaxSimba’s Self Assessment Simple (£119) is often the lowest suitable starting package once we confirm the facts.",
+      "expected_tax_notes": "Depends if trading vs hobby and amounts; >£1,000 trading usually SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+      ]
+    },
+    {
+      "id": "H007",
+      "topic": "multi",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "I have two jobs and a side business.",
+      "reply": "Having two jobs and a side business means you may have multiple sources of income, which can affect your tax obligations. If your side business generates more than £1,000 in trading income (before reliefs) in the tax year, you will typically need to register for Self Assessment and file a tax return. \n\nAdditionally, your income from both jobs will be taxed under PAYE, but any additional income from your side business will need to be reported separately. \n\nWould you like to know more about how to manage your tax obligations for these income sources?",
+      "expected_tax_notes": "Need side-business turnover; PAYE jobs alone may not need SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "H010",
+      "topic": "hmrc",
+      "expected": "ACCOUNTANT_CONSULTATION",
+      "observed": "MORE_INFO_NEEDED",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_escalation"
+      ],
+      "question": "I received an HMRC letter and don’t understand it.",
+      "reply": "I can help clarify the contents of the letter. Could you provide a brief summary of what the letter states or the specific points you're unsure about? This will help me assist you better.",
+      "expected_tax_notes": "Cannot interpret personal HMRC letter contents safely — escalate consultation/support.",
+      "official_sources": []
+    },
+    {
+      "id": "H013",
+      "topic": "paye",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "I got a P60. What do I do with it?",
+      "reply": "A P60 is an important document summarising your earnings and the tax you've paid for the tax year. You should keep it for your records, as it may be needed for various purposes, such as completing your Self Assessment tax return, applying for loans, or verifying your income.\n\nIf you have additional income or need to file a Self Assessment return, ensure you include the information from your P60. If you have any specific questions about how to use it, feel free to ask!",
+      "expected_tax_notes": "P60 is employment summary; SA only if other triggers.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H014",
+      "topic": "paye",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification",
+        "misunderstood_income_type"
+      ],
+      "question": "Does having two PAYE jobs mean I must file a tax return?",
+      "reply": "Having two PAYE jobs does not automatically mean you must file a Self Assessment tax return. You typically need to file if you have additional untaxed income, are self-employed, or have received a notice from HMRC to do so. If your total income from both jobs is within the personal allowance and you have no other income, you may not need to file. It's best to check the criteria on GOV.UK for your specific situation. \n\nDo you have any additional income or self-employment that might affect your requirement to file?",
+      "expected_tax_notes": "Not automatically; undertaxed PAYE / other income can trigger SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H015",
+      "topic": "paye",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "My employer underpaid my tax. Do I need an accountant?",
+      "reply": "If your employer underpaid your tax, you may need to address this with HMRC directly, especially if it affects your tax return or if you have additional income that requires reporting. An accountant can help you navigate the situation, ensure your tax affairs are correct, and assist with any necessary Self Assessment filing. \n\nWould you like to know more about how an accountant can assist you in this situation?",
+      "expected_tax_notes": "May be PAYE reconciliation; not automatically TaxSimba SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H016",
+      "topic": "paye",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification",
+        "misunderstood_income_type"
+      ],
+      "question": "I left my job mid-year. Do I still need Self Assessment?",
+      "reply": "If you were self-employed and your trading income was more than £1,000 in the tax year, you will need to register for Self Assessment and file a tax return, even if you left your job. If you were only employed and your income was below the personal allowance threshold, you may not need to file. \n\nCould you clarify whether you were self-employed or just employed?",
+      "expected_tax_notes": "Leaving job alone ≠ SA; ask other income.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H017",
+      "topic": "paye",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Company car benefit — is that Self Assessment?",
+      "reply": "Yes, if you receive a company car as a benefit, you typically need to report this on your Self Assessment tax return. The value of the benefit is added to your taxable income, and you'll need to pay tax on it. This applies to company directors and employees who receive such benefits. For more details, you can check the official guidance on GOV.UK. \n\nDo you need help with filing your Self Assessment?",
+      "expected_tax_notes": "Often via PAYE/P11D; confirm other income.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H018",
+      "topic": "paye",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "classification_matcher_mismatch"
+      ],
+      "question": "I only have PAYE and £200 bank interest. SA?",
+      "reply": "If your only income is from PAYE employment and you have £200 in bank interest, you may not need to file a Self Assessment tax return. However, if your total taxable income exceeds the Personal Savings Allowance (which is £1,000 for basic-rate taxpayers), you might need to report the interest. Since your interest is £200, it should fall within the allowance, and you likely won't need to file. \n\nTo confirm your specific situation, you can check the criteria on GOV.UK. Do you have any other sources of income or specific circumstances that might affect this?",
+      "expected_tax_notes": "Small interest often covered; check GOV.UK who-must-send.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H021",
+      "topic": "self_employment",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Exactly £1,000 freelance. Am I below the trading allowance so no SA?",
+      "reply": "If your freelance income is exactly £1,000, you are at the threshold of the trading allowance for the 2026-27 tax year. However, since your income is exactly £1,000, you would still need to register for Self Assessment and submit a tax return, as the trading allowance is a relief rather than an exemption from reporting. \n\nWould you like more information on how to register for Self Assessment?",
+      "expected_tax_notes": "Exact £1,000 is boundary for ‘more than £1,000’; don’t say below allowance.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/register-for-self-assessment"
+      ]
+    },
+    {
+      "id": "H027",
+      "topic": "self_employment",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "classification_matcher_mismatch"
+      ],
+      "question": "Can I use the £1,000 trading allowance instead of registering?",
+      "reply": "If your annual gross trading income is £1,000 or less for the 2026-27 tax year, you may not need to register for Self Assessment and can use the trading allowance instead. However, if your trading income exceeds £1,000, you must register and submit a Self Assessment return, even if you plan to claim the trading allowance. \n\nIt's essential to confirm your eligibility on GOV.UK before relying on this information. Do you know your total trading income for the year?",
+      "expected_tax_notes": "Allowance is relief; if earned >£1,000 usually still register.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/register-for-self-assessment"
+      ]
+    },
+    {
+      "id": "H028",
+      "topic": "self_employment",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "I invoice as a sole trader through an app. Is that CIS?",
+      "reply": "If you are invoicing for construction work as a sole trader, you may be operating under the Construction Industry Scheme (CIS). CIS applies when contractors deduct money from subcontractors' payments and pay it to HMRC. If you're a subcontractor in the construction industry, you should keep payment and deduction statements. However, CIS deductions are not always the final tax position, and you may still need to complete a Self Assessment tax return.\n\nAre you sure you're working in the construction sector, or do you have more details about your invoicing?",
+      "expected_tax_notes": "CIS is construction-specific — clarify trade.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/register-for-self-assessment"
+      ]
+    },
+    {
+      "id": "H031",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "I let a room in my home. Do I need TaxSimba?",
+      "reply": "If you let a room in your home, you may need to declare the rental income to HMRC, especially if it exceeds the property allowance of £1,000 for the 2026-27 tax year. If your gross rental income is £1,000 or less, you might not need to inform HMRC, but it's wise to keep records.\n\nTaxSimba can assist with Self Assessment if your income exceeds the threshold or if you prefer professional support. Would you like more information on our services?",
+      "expected_tax_notes": "Rent-a-room / amounts matter.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H032",
+      "topic": "property",
+      "expected": "BOTH_SA_AND_MTD",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "other_evidenced"
+      ],
+      "question": "Property income £60,000 2024-25 — MTD?",
+      "reply": "Yes, if your qualifying income from property is £60,000 for the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. The £50,000 threshold applies to qualifying income, which is your total self-employment and property income before expenses. \n\nIf you have any further questions about MTD or your tax obligations, feel free to ask!",
+      "expected_tax_notes": "SA yes; QI >£50k → MTD Apr 2026.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/income-tax-when-you-rent-out-a-property-working-out-your-rental-income",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H035",
+      "topic": "mtd",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "What’s this Making Tax Digital thing I keep hearing about?",
+      "reply": "Making Tax Digital (MTD) is a UK government initiative aimed at modernising the tax system. It requires eligible self-employed individuals and landlords to maintain digital records and submit quarterly updates to HMRC, rather than just an annual tax return. This change is designed to make tax reporting more efficient and accurate.\n\nFor self-employed individuals, MTD for Income Tax will start based on your qualifying income from previous tax years. For example, if your qualifying income exceeds £50,000 in the 2024-25 tax year, you'll need to comply from 6 April 2026. \n\nWould you like to know more about how it affects you specifically?",
+      "expected_tax_notes": "Explain MTD ITSA high-level; ask income type/amount/year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H036",
+      "topic": "mtd",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Do I need special software for tax now?",
+      "reply": "Yes, if your qualifying income exceeds £30,000 in the 2025-26 tax year, you'll need to use compatible software for Making Tax Digital (MTD) for Income Tax. This involves creating and storing digital records of your business income and expenses, as well as sending quarterly updates to HMRC. It's advisable to check the specific software requirements on GOV.UK to ensure compliance. \n\nAre you self-employed or do you have other sources of income?",
+      "expected_tax_notes": "May refer to MTD; ask if self-emp/property and QI.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H037",
+      "topic": "mtd",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "HMRC said something about quarterly updates — is that me?",
+      "reply": "Whether you need to submit quarterly updates depends on your income. If you're self-employed or a landlord with qualifying income over £30,000 in the 2025-26 tax year, you'll need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2027. This involves keeping digital records and sending quarterly updates to HMRC.\n\nCould you clarify your income situation or if you're self-employed?",
+      "expected_tax_notes": "Quarterly updates = MTD ITSA if in scope.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H038",
+      "topic": "mtd",
+      "expected": "NO_TAXSIMBA_SERVICE",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "incorrect_mtd_or_sa_obligation"
+      ],
+      "question": "I have PAYE £50,000 and freelance £2,000. Add them for MTD?",
+      "reply": "For Making Tax Digital (MTD) purposes, only your qualifying income from self-employment and property is considered. In your case, the £2,000 from freelance work counts as qualifying income, but your PAYE income does not. Therefore, your total qualifying income for MTD is £2,000.\n\nSince this is below the £50,000 threshold, you won't need to comply with MTD for Income Tax starting from 6 April 2026. If you have any further questions about your tax situation, feel free to ask!",
+      "expected_tax_notes": "Do not add PAYE to QI; £2k alone not MTD bands.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H041",
+      "topic": "cis",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "CIS refund — can TaxSimba get my money back?",
+      "reply": "TaxSimba cannot directly process CIS refunds for you, as we do not file returns or submit claims to HMRC. However, we can assist you in understanding the process and what documentation you need to claim a refund. Typically, subcontractors can claim a refund for overpaid CIS deductions through their Self Assessment tax return. \n\nWould you like more information on how to proceed with your claim?",
+      "expected_tax_notes": "May be SA; don’t promise refund amounts.",
+      "official_sources": [
+        "https://www.gov.uk/what-is-the-construction-industry-scheme"
+      ]
+    },
+    {
+      "id": "H042",
+      "topic": "cis",
+      "expected": "OUT_OF_SCOPE",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "incorrect_package_selection"
+      ],
+      "question": "I’m a limited company CIS contractor. Can you do my Corporation Tax?",
+      "reply": "I can't assist with Corporation Tax filing directly. However, I can provide information about Corporation Tax obligations for limited companies. As a CIS contractor, your company will need to pay Corporation Tax on its profits, which is separate from your personal Income Tax. You may want to consult a qualified accountant for assistance with your Corporation Tax return. Would you like information on our Self Assessment services for your personal tax obligations?",
+      "expected_tax_notes": "Corp tax/limited company accounts not TaxSimba catalogue default.",
+      "official_sources": []
+    },
+    {
+      "id": "H043",
+      "topic": "crypto",
+      "expected": "ACCOUNTANT_CONSULTATION",
+      "observed": "SA_ASSIST",
+      "premature": true,
+      "packages": [
+        "SA_SIMPLE"
+      ],
+      "causes": [
+        "premature_selling",
+        "missing_escalation"
+      ],
+      "question": "I sold Bitcoin for a profit. How much tax do I owe?",
+      "reply": "Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead — it depends on your activity. Keep detailed records. I won’t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets — were your crypto disposals investment-style gains, or more like a trading business?",
+      "expected_tax_notes": "Need disposal history/costs; don’t invent liability.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets"
+      ]
+    },
+    {
+      "id": "H044",
+      "topic": "crypto",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Do I pay tax when I buy crypto or only when I sell?",
+      "reply": "Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead — it depends on your activity. Keep detailed records. I won’t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets — were your crypto disposals investment-style gains, or more like a trading business?",
+      "expected_tax_notes": "Usually disposal events; check GOV.UK crypto guidance.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets"
+      ]
+    },
+    {
+      "id": "H045",
+      "topic": "investments",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "NO_TAXSIMBA_SERVICE",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Dividend income £2,000 — Self Assessment?",
+      "reply": "If your only income is £2,000 from dividends, you typically do not need to send a Self Assessment tax return for the 2026-27 tax year, as the dividend allowance is £2,000. This means you can receive up to £2,000 in dividends tax-free. However, if you have other sources of income or if you are a company director, you may still need to file a return. \n\nDo you have any other sources of income or are you a company director?",
+      "expected_tax_notes": "Depends on total income/other factors — who-must-send.",
+      "official_sources": [
+        "https://www.gov.uk/tax-on-dividends",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "H051",
+      "topic": "penalties",
+      "expected": "ACCOUNTANT_CONSULTATION",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_escalation"
+      ],
+      "question": "HMRC charged me a late filing penalty. Is that fair?",
+      "reply": "HMRC imposes late filing penalties for Self Assessment tax returns if you miss the deadlines. The penalties are designed to encourage timely submissions. If you filed after the deadline, it is generally considered fair for HMRC to charge a penalty. The amount depends on how late the return is filed. \n\nIf you believe there are extenuating circumstances or if you have a reasonable excuse, you can appeal the penalty. For detailed information on penalties, you can check the HMRC guidance on GOV.UK. Would you like to know more about the appeal process?",
+      "expected_tax_notes": "Appeal/facts — escalate.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/penalties"
+      ]
+    },
+    {
+      "id": "H053",
+      "topic": "vat",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "NO_TAXSIMBA_SERVICE",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Do I need to register for VAT at £85,000 turnover?",
+      "reply": "You must register for VAT if your total taxable turnover exceeds £90,000 in the last 12 months or if you expect it to exceed £90,000 in the next 30 days. The previous threshold of £90,000 is outdated. If your turnover is below £90,000, you do not need to register, but you can choose to do so voluntarily. For the most accurate and up-to-date information, please check GOV.UK. \n\nDo you need help with anything else regarding VAT registration?",
+      "expected_tax_notes": "Check current VAT threshold on GOV.UK (historically £90k) — verify page.",
+      "official_sources": [
+        "https://www.gov.uk/vat-registration-thresholds"
+      ]
+    },
+    {
+      "id": "H055",
+      "topic": "out_of_scope",
+      "expected": "OUT_OF_SCOPE",
+      "observed": "MORE_INFO_NEEDED",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "incorrect_package_selection"
+      ],
+      "question": "I need help with Immigration / visa taxes.",
+      "reply": "I can assist with general tax-related queries, but for specific immigration or visa tax issues, it's best to consult a specialist in that area. If you have questions about your tax obligations in the UK, such as Self Assessment or Making Tax Digital, please let me know!",
+      "expected_tax_notes": "Outside TaxSimba SA/MTD services.",
+      "official_sources": []
+    },
+    {
+      "id": "H056",
+      "topic": "out_of_scope",
+      "expected": "OUT_OF_SCOPE",
+      "observed": "MORE_INFO_NEEDED",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "incorrect_package_selection"
+      ],
+      "question": "Can you recommend a will writer?",
+      "reply": "I can't recommend specific will writers, but I suggest looking for a qualified solicitor or a professional will writing service. It's important to ensure they are reputable and experienced in drafting wills. You might also consider checking reviews or asking for recommendations from friends or family. If you need help with tax implications related to wills or estates, feel free to ask!",
+      "expected_tax_notes": "Outside scope.",
+      "official_sources": []
+    },
+    {
+      "id": "H058",
+      "topic": "packages",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [
+        "SA_SIMPLE",
+        "SA_SMART",
+        "SA_ELITE"
+      ],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Compare all your packages and dump every price.",
+      "reply": "I can provide a brief overview of our packages, but I recommend focusing on the one that best suits your needs. \n\n1. **Self Assessment Simple**: £119 per tax year.\n2. **Self Assessment Smart**: £149 per tax year.\n3. **Self Assessment Elite**: £299 per tax year.\n\nFor Making Tax Digital (MTD):\n1. **Simbian Comply**: £29.99 per month (includes Xero Simple).\n2. **Simbian Growth**: £59.99 per month (includes Xero Ignite).\n3. **Simbian Elite**: £89.99 per month (includes Xero Grow).\n\nIf you have specific needs or questions about any package, feel free to ask!",
+      "expected_tax_notes": "Prefer not full dump unless asked; if asked, catalogue only.",
+      "official_sources": []
+    },
+    {
+      "id": "H065",
+      "topic": "sa",
+      "expected": "NO_TAXSIMBA_SERVICE",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [
+        "SA_SIMPLE"
+      ],
+      "causes": [
+        "failure_to_respect_user_intent",
+        "incorrect_mtd_or_sa_obligation"
+      ],
+      "question": "I do not want any package — just tell me if I need SA for £8k freelance.",
+      "reply": "If your freelance trading income is £8,000 in a tax year, you will need to register for Self Assessment and submit a tax return. The threshold for needing to register is if your trading income exceeds £1,000. Since £8,000 is above this threshold, you must file a Self Assessment return. \n\nIf you have any more questions about the process, feel free to ask!",
+      "expected_tax_notes": "Answer SA yes; zero packages.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "H067",
+      "topic": "contradiction",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "I have no self-employment income. Also my freelance made £12,000. Do I need SA?",
+      "reply": "With freelance / self-employment income of £12,000 for the tax year in question, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £12,000 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "expected_tax_notes": "Contradiction — clarify which is true before concluding.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "H069",
+      "topic": "multi_topic",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification",
+        "misunderstood_income_type"
+      ],
+      "question": "Landlord and Uber driver and PAYE — what do I need?",
+      "reply": "As a landlord and Uber driver with PAYE income, you may need to file a Self Assessment tax return if your additional income exceeds certain thresholds. For the 2026-27 tax year, if your self-employed income (from Uber driving) is more than £1,000, you must register for Self Assessment. Additionally, if your property income exceeds £1,000, you may also need to report that.\n\nIt's important to keep accurate records of your income and expenses for both your driving and property activities. Would you like to know more about the Self Assessment process or available packages?",
+      "expected_tax_notes": "Need amounts per stream and years for SA/MTD.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H070",
+      "topic": "multi_topic",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [
+        "SA_SIMPLE"
+      ],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Tell me everything about tax and also sell me your best package.",
+      "reply": "I can provide you with useful information about tax, but it would be more effective to focus on specific areas of interest, such as Self Assessment, Making Tax Digital, or tax reliefs. \n\nFor tailored support, I recommend our Simbian Comply package, which includes ongoing digital record-keeping and quarterly updates, ideal if you need to meet Making Tax Digital requirements. \n\nWould you like to know more about a specific tax topic or the details of the Simbian Comply package?",
+      "expected_tax_notes": "Don’t dump catalogue; ask primary need.",
+      "official_sources": []
+    },
+    {
+      "id": "H071",
+      "topic": "employment",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Is Christmas party tip income taxable?",
+      "reply": "Yes, tips received during a Christmas party are generally considered taxable income. This includes any cash tips or gifts that are given to you as part of your employment. You must report this income on your Self Assessment tax return if you're self-employed or if you receive tips as part of your employment. It's important to keep accurate records of any tips received for tax purposes. \n\nDo you need more information on how to report this income?",
+      "expected_tax_notes": "Tips can be taxable — facts needed.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "H072",
+      "topic": "trading",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "I swapped services with a friend instead of invoicing. Taxable?",
+      "reply": "Yes, swapping services with a friend can still be considered taxable. HMRC views this as a barter transaction, meaning you may need to report the value of the services you provided as income, even if no money changed hands. It's important to keep detailed records of the services exchanged and their estimated market value for your tax return. \n\nWould you like more information on how to report this in your Self Assessment?",
+      "expected_tax_notes": "Barter can be taxable trading.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "H073",
+      "topic": "gig",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "OnlyFans income — Self Assessment?",
+      "reply": "Yes, if you earn income from OnlyFans, you typically need to complete a Self Assessment tax return. This applies if your income exceeds £1,000 in a tax year, as you would be considered self-employed. You'll need to report your earnings and any allowable expenses. \n\nIf you have further questions about your specific situation or need assistance with the process, feel free to ask!",
+      "expected_tax_notes": "Likely self-employment if >£1,000.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "H077",
+      "topic": "pensions",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Retired, only state pension.",
+      "reply": "If you're retired and only receiving a state pension, you typically won't need to file a Self Assessment tax return unless your income exceeds certain thresholds or you have other taxable income. The state pension is taxable, but if your total income is below the personal allowance (which is £12,570 for the 2026-27 tax year), you won't pay tax.\n\nIf you have any other sources of income or specific concerns, feel free to share!",
+      "expected_tax_notes": "Often no SA; check other income.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "H079",
+      "topic": "mtd",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "ACCOUNTANT_CONSULTATION",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "What’s the difference between Self Assessment and MTD?",
+      "reply": "Here is what SIMBA can state from approved catalogue decisions:\n\nSelf Assessment (per tax year): Simple £119 · Smart £149 · Elite £299.\nMaking Tax Digital (per month, VAT included): Simbian Comply £29.99 · Simbian Growth £59.99 · Simbian Elite £89.99.\nAccountant video consultations: Quick Tax Advice £99 for 20 minutes · Extended Tax Consultation £149 for 40 minutes (Google Meet; no filing, bookkeeping or written report). No free callbacks. Booking path: choose an option → Calendly event → pay within Calendly → Meet. Online booking may be unavailable here — email is only a fallback enquiry route.\n\nSelf Assessment is usually a once-a-year tax return service. Making Tax Digital (Simbian) is an ongoing monthly service for people who need digital records and MTD support.\n\nWhat is approved to say:\n- Xero software is included in each Simbian monthly price (£29.99 / £59.99 / £89.99 VAT included) — customers do not pay separately.\n- Simbian Comply includes Xero Simple; Growth includes Xero Ignite; Elite includes Xero Grow.\n- Support is via email and the client dashboard — not telephone onboarding.\n- Bookkeeping is within the agreed engagement scope with no fixed monthly transaction caps (not unlimited out-of-scope work).\n- Quarterly MTD updates and year-end Self Assessment are included in all three Simbian plans, subject to documented customer responsibilities.\n\nI will not invent priority support, quarterly business reviews, proactive tax planning, free callbacks, or extra charges.\n\nI can recommend the lowest suitable package for your circumstances. Review packages at https://www.taxsimba.co.uk/self-assessment and https://www.taxsimba.co.uk/making-tax-digital, or start registration at https://www.taxsimba.co.uk/register.\n- Self Assessment Simple: £119 (per tax year)\n- Self Assessment Smart: £149 (per tax year)\n- Self Assessment Elite: £299 (per tax year)\n- Simbian Comply: £29.99 (per month; VAT included)\n- Simbian Growth: £59.99 (per month; VAT included)\n- Simbian Elite: £89.99 (per month; VAT included)",
+      "expected_tax_notes": "Explain both at high level.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "H082",
+      "topic": "penalties",
+      "expected": "ACCOUNTANT_CONSULTATION",
+      "observed": "MORE_INFO_NEEDED",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_escalation"
+      ],
+      "question": "How do I appeal a penalty?",
+      "reply": "To appeal a penalty from HMRC, you need to follow these steps:\n\n1. **Check the Penalty Notice**: Review the notice to understand why the penalty was issued and the specific details.\n\n2. **Gather Evidence**: Collect any relevant documents or information that support your case for appealing the penalty.\n\n3. **Submit Your Appeal**: You can appeal online through your HMRC account or by writing to HMRC. Include your details, the penalty reference, and your reasons for the appeal.\n\n4. **Wait for a Response**: HMRC will review your appeal and inform you of their decision.\n\nMake sure to appeal within the specified time frame mentioned in the penalty notice. For more detailed guidance, refer to the official HMRC website. Would you like to know more about the types of penalties?",
+      "expected_tax_notes": "Process on GOV.UK; complex → consult.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/penalties"
+      ]
+    },
+    {
+      "id": "H085",
+      "topic": "consultation",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "ACCOUNTANT_CONSULTATION",
+      "premature": true,
+      "packages": [
+        "ACCOUNTANT_CONSULT_99",
+        "ACCOUNTANT_CONSULT_149"
+      ],
+      "causes": [
+        "premature_selling"
+      ],
+      "question": "Call me back about my taxes.",
+      "reply": "I can’t arrange a free phone callback. You can choose a paid video consultation instead: Quick Tax Advice (£99 / 20 minutes) or Extended Tax Consultation (£149 / 40 minutes) on Google Meet. Online booking isn’t connected yet, so I won’t claim a slot is confirmed. For a general enquiry while booking is unavailable, email info@taxsimba.co.uk.",
+      "expected_tax_notes": "No phone onboarding promise; email/consult links.",
+      "official_sources": []
+    },
+    {
+      "id": "H086",
+      "topic": "investments",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "I’m PAYE but got £600 interest from peer-to-peer lending.",
+      "reply": "Even if you're taxed under PAYE, the £600 interest from peer-to-peer lending is considered additional income. This means you may need to file a Self Assessment tax return, as HMRC requires individuals with untaxed income to report it. \n\nYou should check if your total income exceeds the Personal Allowance for the tax year 2026-27, which is £12,570. If it does, you will likely have a tax liability on the interest earned. Would you like more information on how to register for Self Assessment?",
+      "expected_tax_notes": "May need SA depending on totals.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "H087",
+      "topic": "sa",
+      "expected": "ACCOUNTANT_CONSULTATION",
+      "observed": "SA_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_escalation"
+      ],
+      "question": "High Income Child Benefit Charge — help?",
+      "reply": "The High Income Child Benefit Charge applies if you or your partner have an individual income over £60,000 in the tax year. If your income exceeds this threshold, you may have to pay back some or all of your Child Benefit through your Self Assessment tax return. The charge gradually reduces the benefit, and if your income is £100,000 or more, you will lose it entirely.\n\nWould you like to know more about how to calculate your charge or how to report it?",
+      "expected_tax_notes": "HICBC often via SA — fact specific.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "H088",
+      "topic": "property",
+      "expected": "ACCOUNTANT_CONSULTATION",
+      "observed": "MORE_INFO_NEEDED",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_escalation"
+      ],
+      "question": "I transferred a property to my spouse. CGT?",
+      "reply": "When you transfer a property to your spouse, it is generally treated as a \"no gain, no loss\" transaction for Capital Gains Tax (CGT) purposes. This means that you won't have to pay CGT at the time of the transfer, and your spouse will inherit your original cost basis in the property.\n\nHowever, if your spouse later sells the property, they may be liable for CGT based on the increase in value from the time you originally acquired it. It's essential to keep detailed records of the property's value and any associated costs.\n\nIf you have further questions about your specific situation or need assistance with CGT reporting, feel free to ask!",
+      "expected_tax_notes": "CGT/spouse rules — advice.",
+      "official_sources": []
+    },
+    {
+      "id": "H089",
+      "topic": "service",
+      "expected": "NO_TAXSIMBA_SERVICE",
+      "observed": "MORE_INFO_NEEDED",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "other_evidenced"
+      ],
+      "question": "Do you guarantee no HMRC enquiry?",
+      "reply": "I cannot guarantee that there will be no HMRC enquiry. Enquiries can occur for various reasons, including random checks or discrepancies in submitted information. However, ensuring accurate and complete records, along with proper filing, can help reduce the likelihood of an enquiry. If you have specific concerns, I can provide guidance on best practices for compliance. Would you like more information on that?",
+      "expected_tax_notes": "Must not guarantee.",
+      "official_sources": []
+    },
+    {
+      "id": "H092",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £15000 — MTD?",
+      "reply": "For the 2026-27 tax year, if your total qualifying income from property rent is more than £20,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2028. Since your property rent is £15,000, you do not currently meet the threshold for MTD. \n\nIf you have any other income sources or questions about your tax obligations, feel free to ask!",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H095",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "classification_matcher_mismatch"
+      ],
+      "question": "Property rent roughly £20000 — MTD?",
+      "reply": "For the 2026-27 tax year, if your qualifying income from property rent is more than £20,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2028. Qualifying income is your total rental income before expenses. Since your rent is roughly £20,000, you would not be required to use MTD until your income exceeds that threshold.\n\nDo you have any other questions about your tax obligations?",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H098",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "NO_TAXSIMBA_SERVICE",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £25000 — MTD?",
+      "reply": "Since your property rental income is £25,000, you do not need to use Making Tax Digital (MTD) for Income Tax yet. The threshold for MTD starts at £20,000 for the 2026-27 tax year, which begins on 6 April 2027. Therefore, if your qualifying income remains above £20,000 for that tax year, you will need to comply with MTD from 6 April 2028.\n\nWould you like to know more about MTD requirements or filing options?",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H101",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £30000 — MTD?",
+      "reply": "If your qualifying income from property rent is more than £30,000 for the 2025-26 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2027. This means you'll need to keep digital records and submit quarterly updates. \n\nIf you have any further questions about MTD or your tax situation, feel free to ask!",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H104",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £35000 — MTD?",
+      "reply": "Since your property rental income is approximately £35,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2027, as this threshold applies to qualifying income over £30,000 for the 2025-26 tax year. \n\nWould you like more information on how MTD works or assistance with registration?",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H107",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £40000 — MTD?",
+      "reply": "Since your property rental income is £40,000, you will not need to use Making Tax Digital (MTD) for Income Tax until your qualifying income exceeds £50,000 for the 2024-25 tax year. This means you will need to comply with MTD starting from 6 April 2026. \n\nIf you have any other questions about your tax situation or MTD, feel free to ask!",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H110",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £45000 — MTD?",
+      "reply": "Since your property rental income is approximately £45,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026, as your qualifying income exceeds the £50,000 threshold for the 2024-25 tax year. \n\nIf you have any further questions about MTD or need assistance with your tax obligations, feel free to ask!",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H113",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £50000 — MTD?",
+      "reply": "If your qualifying property income was more than £50,000 for the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. Qualifying income is your total rental income before any expenses are deducted. \n\nWould you like more information on MTD requirements or how to prepare for it?",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H116",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "classification_matcher_mismatch"
+      ],
+      "question": "Property rent roughly £55000 — MTD?",
+      "reply": "Since your property rental income is roughly £55,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This requirement applies if your qualifying income exceeds £50,000 for the 2024-25 tax year. \n\nIf you have any further questions about MTD or need assistance with your tax obligations, feel free to ask!",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H119",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "classification_matcher_mismatch"
+      ],
+      "question": "Property rent roughly £60000 — MTD?",
+      "reply": "Since your property rental income is roughly £60,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This requirement applies if your qualifying income exceeds £50,000 for the 2024-25 tax year. \n\nWould you like to know more about how MTD works or the packages available for support?",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H122",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "classification_matcher_mismatch"
+      ],
+      "question": "Property rent roughly £65000 — MTD?",
+      "reply": "Since your property rental income is roughly £65,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This requirement applies because your qualifying income exceeds the £50,000 threshold for the 2024-25 tax year. \n\nIf you have any further questions about MTD or need assistance with your tax obligations, feel free to ask!",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H125",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "classification_matcher_mismatch"
+      ],
+      "question": "Property rent roughly £70000 — MTD?",
+      "reply": "Since your property rental income is roughly £70,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This is because your qualifying income exceeds the £50,000 threshold for the 2024-25 tax year. \n\nIf you have any further questions about MTD or need assistance with your tax obligations, feel free to ask!",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H128",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £75000 — MTD?",
+      "reply": "Since your property rental income is £75,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This requirement applies if your qualifying income exceeds £50,000 for the 2024-25 tax year. \n\nIf you have any further questions about MTD or need assistance with your tax obligations, feel free to ask!",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H131",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £80000 — MTD?",
+      "reply": "Since your property rental income is £80,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026, as this exceeds the £50,000 qualifying income threshold for the 2024-25 tax year. \n\nWould you like more information on how MTD works or the packages we offer for compliance?",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H134",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £85000 — MTD?",
+      "reply": "If your qualifying income from property rent is £85,000 for the 2025-26 tax year (which runs from 6 April 2025 to 5 April 2026), you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2027. This is because the threshold for MTD is more than £30,000 of qualifying income for that tax year.\n\nWould you like more information on how MTD works?",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H137",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £90000 — MTD?",
+      "reply": "If your total property income exceeds £50,000 for the 2024-25 tax year (which runs from 6 April 2024 to 5 April 2025), you will need to use Making Tax Digital (MTD) for Income Tax from 6 April 2026. Since your property rent is around £90,000, it exceeds this threshold. \n\nWould you like more information on how MTD works or the registration process?",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H140",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £95000 — MTD?",
+      "reply": "Since your property rental income is £95,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This is because your qualifying income exceeds the £50,000 threshold for the 2024-25 tax year. \n\nIf you have any further questions about MTD or need assistance with your tax obligations, feel free to ask!",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H143",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £100000 — MTD?",
+      "reply": "If your gross property income is £100,000 for the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This is because your qualifying income exceeds the £50,000 threshold for MTD, which applies to total self-employment and property income before expenses.\n\nWould you like more information on how MTD works or the registration process?",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H146",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £105000 — MTD?",
+      "reply": "Since your property rental income is approximately £105,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This requirement applies if your qualifying income exceeds £50,000 for the 2024-25 tax year. \n\nIf you have any further questions about MTD or need assistance with your tax obligations, feel free to ask!",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H149",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £110000 — MTD?",
+      "reply": "If your gross property income is £110,000 for the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. The threshold for MTD is more than £50,000 in qualifying income, which includes total self-employment and property income before expenses.\n\nWould you like to know more about MTD requirements or how to register?",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H150",
+      "topic": "mtd",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "I earn £50k — am I a higher-rate taxpayer and does that change MTD?",
+      "reply": "No — qualifying income of exactly £50,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £50,000”, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than £50,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "expected_tax_notes": "MTD uses QI not PAYE tax band alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H152",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "classification_matcher_mismatch"
+      ],
+      "question": "Property rent roughly £115000 — MTD?",
+      "reply": "Since your property rental income is roughly £115,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This is because your qualifying income exceeds the £50,000 threshold for the 2024-25 tax year. \n\nIf you have any further questions about MTD or need assistance with your tax obligations, feel free to ask!",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H155",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £120000 — MTD?",
+      "reply": "Since your property rental income is £120,000, which exceeds the £20,000 threshold for the 2026-27 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2028. This means you'll be required to keep digital records and submit quarterly updates.\n\nWould you like more information on how MTD works or the packages available for compliance?",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H158",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £125000 — MTD?",
+      "reply": "Yes, if your total property income for the 2024-25 tax year exceeds £50,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. Since your property rent is £125,000, it qualifies as above the threshold. \n\nWould you like more information on how MTD works or the registration process?",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H161",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "classification_matcher_mismatch"
+      ],
+      "question": "Property rent roughly £130000 — MTD?",
+      "reply": "Yes, if your property rental income is roughly £130,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2027. This is because your qualifying income exceeds the £50,000 threshold for the 2024-25 tax year. Under MTD, you'll be required to keep digital records and submit quarterly updates.\n\nWould you like more information on how MTD works or the packages available to assist with it?\n\nNote: for qualifying income over £30,000 in 2025-26, Making Tax Digital for Income Tax starts from 6 April 2027. 6 April 2026 applies to the £50,000 (2024-25) band.",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H164",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £135000 — MTD?",
+      "reply": "If your qualifying income from property rent is more than £50,000 for the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. Since your rental income exceeds this threshold, you will be required to comply with MTD regulations.\n\nWould you like more information on how MTD works or the packages we offer for compliance?",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H167",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "classification_matcher_mismatch"
+      ],
+      "question": "Property rent roughly £140000 — MTD?",
+      "reply": "Yes, if your property rental income is roughly £140,000 for the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This is because your qualifying income exceeds the £50,000 threshold set for that year. \n\nIf you have any further questions about MTD or your tax obligations, feel free to ask!",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H170",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £145000 — MTD?",
+      "reply": "Since your property rental income is approximately £145,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This is because your qualifying income exceeds the £50,000 threshold for the 2024-25 tax year. \n\nIf you have any further questions about MTD or need assistance with your tax obligations, feel free to ask!",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H173",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £150000 — MTD?",
+      "reply": "Yes, if your property rental income is £150,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This is because your qualifying income exceeds the £50,000 threshold for the 2024-25 tax year. Under MTD, you'll be required to keep digital records and submit quarterly updates. \n\nWould you like more information on how MTD works?",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H176",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £155000 — MTD?",
+      "reply": "Since your property rental income is approximately £155,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This is because your qualifying income exceeds the £50,000 threshold for the 2024-25 tax year. \n\nIf you have any further questions about MTD or need assistance with your tax obligations, feel free to ask!",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H179",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £160000 — MTD?",
+      "reply": "Since your property rental income is approximately £160,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This is because your qualifying income exceeds the £50,000 threshold for the 2024-25 tax year. \n\nIf you have any further questions about MTD or need assistance with your tax obligations, feel free to ask!",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H182",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "classification_matcher_mismatch"
+      ],
+      "question": "Property rent roughly £165000 — MTD?",
+      "reply": "Since your property rental income is roughly £165,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This is because your qualifying income exceeds the £50,000 threshold for the 2024-25 tax year. \n\nIf you have any further questions about MTD or need assistance with your tax obligations, feel free to ask!",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H185",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £170000 — MTD?",
+      "reply": "Since your property rental income is £170,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This is because your qualifying income exceeds the £50,000 threshold for the 2024-25 tax year. \n\nIf you have any further questions about MTD or need assistance with your tax obligations, feel free to ask!",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H188",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £175000 — MTD?",
+      "reply": "Since your property rental income is approximately £175,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This is because your qualifying income exceeds the £50,000 threshold for the 2024-25 tax year. \n\nIf you have any further questions about MTD or need assistance with your tax obligations, feel free to ask!",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H191",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £180000 — MTD?",
+      "reply": "If your qualifying income from property rent is £180,000 for the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. The £50,000 threshold applies to qualifying income, which is your total rental income before expenses. \n\nIf you have any further questions about MTD or your tax obligations, feel free to ask!",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H194",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £185000 — MTD?",
+      "reply": "If your property rental income is £185,000 for the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This is because your qualifying income exceeds the £50,000 threshold set for that year. \n\nWould you like more information on how MTD works or the registration process?",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H197",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £190000 — MTD?",
+      "reply": "If your property rental income exceeds £50,000 for the 2024-25 tax year (which runs from 6 April 2024 to 5 April 2025), you will need to use Making Tax Digital for Income Tax starting from 6 April 2026. Since your rental income is £190,000, it exceeds this threshold.\n\nWould you like more information on how to register for MTD or the services we offer?",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "H200",
+      "topic": "property",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "MTD_ASSIST",
+      "premature": false,
+      "packages": [],
+      "causes": [
+        "missing_clarification"
+      ],
+      "question": "Property rent roughly £195000 — MTD?",
+      "reply": "Since your property rental income is approximately £195,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This is because your qualifying income exceeds the £50,000 threshold for the 2024-25 tax year. \n\nIf you have any further questions about MTD or need assistance with your tax obligations, feel free to ask!",
+      "expected_tax_notes": "Need tax year for band; ask year.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    }
+  ]
+}

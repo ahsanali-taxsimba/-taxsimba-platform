@@ -1,0 +1,61 @@
+{
+  "generated_at": "2026-11-20T12:56:29.377Z",
+  "claims": [
+    {
+      "claim": "SA Simple £119 per tax year",
+      "expected": "SA_SIMPLE price_gbp === 119",
+      "actual": 119,
+      "status": "VERIFIED",
+      "source": "Approved catalogue in backend catalog/service"
+    },
+    {
+      "claim": "SA Smart £149 / Elite £299 per tax year",
+      "expected": "149 / 299",
+      "actual": "149/299",
+      "status": "VERIFIED",
+      "source": "Approved catalogue"
+    },
+    {
+      "claim": "Simbian Comply/Growth/Elite £29.99/£59.99/£89.99 VAT included",
+      "expected": "29.99 / 59.99 / 89.99",
+      "actual": "29.99/59.99/89.99",
+      "status": "VERIFIED",
+      "source": "Approved catalogue codes MTD_STARTER/GROWTH/COMPLETE"
+    },
+    {
+      "claim": "Consultations £99 / £149",
+      "expected": "99 / 149",
+      "actual": "99/149",
+      "status": "VERIFIED",
+      "source": "Approved catalogue"
+    },
+    {
+      "claim": "Signup URL https://www.taxsimba.co.uk/register",
+      "expected": "Present in prompts/onboarding handlers",
+      "actual": "Coded in conversational_engine onboarding + prompts",
+      "status": "VERIFIED",
+      "source": "Code paths (not live HTTP probe in this audit)"
+    },
+    {
+      "claim": "TaxCalc for SA / Xero for MTD internally; portal not direct HMRC filing",
+      "expected": "taxsimba_service_model + prompts",
+      "actual": "Documented in prompts and service model handlers",
+      "status": "VERIFIED",
+      "source": "src/knowledge/taxsimba_service_model.ts; prompts.ts"
+    },
+    {
+      "claim": "Xero included in Simbian monthly price",
+      "expected": "Catalogue / service model",
+      "actual": "Mentioned in catalogue text",
+      "status": "VERIFIED",
+      "source": "packageCatalogText()"
+    },
+    {
+      "claim": "Staging email / Calendly / HMRC monitor / mobile E2E",
+      "expected": "Live evidence required",
+      "actual": "No staging evidence in this pack",
+      "status": "UNVERIFIED",
+      "source": "Not evidenced — must remain BLOCKED for production"
+    }
+  ]
+}

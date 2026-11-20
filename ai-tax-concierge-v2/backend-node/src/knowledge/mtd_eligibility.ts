@@ -49,7 +49,12 @@ export type MtdEligibilityInput = {
   /** True when employment salary is also present but trading/property income exists. */
   payeAlsoPresent?: boolean;
   limitedCompany?: boolean;
+  /** true/false known; null = must clarify; undefined = not asserted */
   hasSelfEmploymentOrProperty?: boolean | null;
+  /** Customer said “more than / over / above £X” (not “exactly £X”). */
+  amountStatedAsMoreThan?: boolean;
+  /** Customer said “exactly £X”. */
+  amountStatedAsExact?: boolean;
 };
 
 export type MtdEligibilityResult = {
@@ -96,9 +101,9 @@ function parseAmount(text: string): number | null {
 function detectBasisYear(text: string): string | null {
   const lower = text.toLowerCase();
   const patterns: Array<[RegExp, string]> = [
-    [/2024\s*[-/–to]+\s*2025|2024-25|tax year 2024/, "2024-25"],
-    [/2025\s*[-/–to]+\s*2026|2025-26|tax year 2025/, "2025-26"],
-    [/2026\s*[-/–to]+\s*2027|2026-27|tax year 2026/, "2026-27"],
+    [/2024\s*[-/–to]+\s*2025|2024\s*[-/]\s*25|tax year 2024/, "2024-25"],
+    [/2025\s*[-/–to]+\s*2026|2025\s*[-/]\s*26|tax year 2025/, "2025-26"],
+    [/2026\s*[-/–to]+\s*2027|2026\s*[-/]\s*27|tax year 2026/, "2026-27"],
   ];
   for (const [re, year] of patterns) {
     if (re.test(lower)) return year;
@@ -108,12 +113,35 @@ function detectBasisYear(text: string): string | null {
 
 export function isMtdEligibilityQuestion(message: string): boolean {
   const lower = (message || "").toLowerCase();
-  if (!/(mtd|making tax digital)/i.test(lower)) return false;
-  // Software / process / package questions are NOT eligibility calculations.
+  // Implicit MTD band questions: exact/over £50k/£30k/£20k + tax year + threshold wording.
+  const implicitMtdBand =
+    /(over|above|more than).{0,24}threshold|threshold.{0,24}(over|above)|exact(?:ly)?.{0,12}£?\s*(50|30|20),?000|£?\s*(50|30|20),?000.{0,20}exact/i.test(
+      lower,
+    ) &&
+    /(2024\s*[-/]?\s*25|2025\s*[-/]?\s*26|2026\s*[-/]?\s*27|2024\/25|2025\/26)/i.test(
+      lower,
+    );
   if (
-    /(xero|software|quarterly update|year-?end|how (do|does|to)|what (is|are|does)|include|simbian|file|submit|bookkeep)/i.test(
+    !/(mtd|making tax digital|digital tax thing|digital tax)/i.test(lower) &&
+    !implicitMtdBand
+  ) {
+    return false;
+  }
+  // Software / process / package questions are NOT eligibility calculations
+  // (educational “what is MTD / quarterly updates” handled by clarifier).
+  if (
+    /(xero|software|year-?end|how (do|does|to)|what (is|are|does)|include|simbian|\bfile\b|\bsubmit\b|bookkeep)/i.test(
+      lower,
+    ) &&
+    !/(paye|salary|£|turnover|qualifying|threshold|rent|property|freelance)/i.test(
       lower,
     )
+  ) {
+    return false;
+  }
+  if (
+    /quarterly updates?|what does quarterly/i.test(lower) &&
+    !/(£|paye|turnover|qualifying|threshold|rent|property)/i.test(lower)
   ) {
     return false;
   }
@@ -124,9 +152,16 @@ export function isMtdEligibilityQuestion(message: string): boolean {
   ) {
     return false;
   }
-  return /(need|eligib|when|start|from|apply|threshold|qualifying|do i|am i|required|have to|should i|subscription|plan|buy)/i.test(
-    lower,
-  );
+  const intentVerb =
+    /(need|eligib|when|start|from|apply|threshold|qualifying|do i|am i|required|have to|should i|subscription|plan|buy|do not add|don'?t add|count (them |it )?(toward|towards|for)|include.*(paye|salary)|paye only|making tax digital\?|\bmtd\?)/i.test(
+      lower,
+    );
+  // Income figure + MTD/digital-tax mention is enough even without “do I need”
+  const figurePlusMtd =
+    /(£\s*[\d,]+|\b\d{2,3}\s*k\b|turnover|qualifying income|paye only)/i.test(
+      lower,
+    ) && /(mtd|making tax digital|digital tax)/i.test(lower);
+  return intentVerb || figurePlusMtd;
 }
 
 function parseTaggedAmount(message: string, tagRe: RegExp): number | null {
@@ -145,7 +180,7 @@ export function extractMtdEligibilityInput(
 ): MtdEligibilityInput {
   const lower = (message || "").toLowerCase();
   const hasTradingOrProperty =
-    /(self-?employ|sole[- ]?trader|landlord|property income|freelance|rental income|\brental\b|trading income|side hustle|side income)/i.test(
+    /(self-?employ|sole[- ]?trader|landlord|property income|freelance|rental income|\brental\b|\brent\b|trading income|side hustle|side income)/i.test(
       lower,
     ) && !/(limited company|ltd company|company turnover|corporation tax)/i.test(lower);
   const hasPaye = /\bpaye\b|\bsalary\b|\bemploy(ed|ment)\b/.test(lower);
@@ -168,11 +203,11 @@ export function extractMtdEligibilityInput(
   const tradingAmt =
     parseTaggedAmount(
       message,
-      /£\s*([\d,]+(?:\.\d+)?)\s*k?(?=\s*(?:sole[- ]?trader|self-?employ|trading|turnover|freelance|property|rental|qualifying|landlord))/i,
+      /£\s*([\d,]+(?:\.\d+)?)\s*k?(?=\s*(?:sole[- ]?trader|self-?employ|trading|turnover|freelance|property|rental|\brent\b|qualifying|landlord))/i,
     ) ||
     parseTaggedAmount(
       message,
-      /(?:sole[- ]?trader|self-?employ(?:ed|ment)?|trading|turnover|freelance|side (?:hustle|income)|property|rental|landlord)[^£\d]{0,24}£\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
+      /(?:sole[- ]?trader|self-?employ(?:ed|ment)?|trading|turnover|freelance|side (?:hustle|income)|property|rental|\brent\b|landlord)[^£\d]{0,24}£\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
     );
 
   const payeAmt =
@@ -186,7 +221,28 @@ export function extractMtdEligibilityInput(
     );
 
   let amount = tradingAmt;
-  if (amount == null && !(hasPaye && hasTradingOrProperty)) {
+  // Never treat a bare “I earn £X” figure as MTD qualifying income unless
+  // trading/property (or explicit qualifying income) is stated.
+  const statedAsQualifying =
+    /\b(qualifying income|turnover|before expenses)\b/i.test(lower);
+  // “I earn £50,000 exactly in 2024/25 — over the threshold?” is an MTD band
+  // question, not an ambiguous bare total.
+  const explicitBandQuestion =
+    /\b(exact(?:ly)?|more than|over|above)\b/i.test(lower) &&
+    /(threshold|mtd|making tax digital|2024\s*[-/]?\s*25|2025\s*[-/]?\s*26|2026\s*[-/]?\s*27)/i.test(
+      lower,
+    );
+  const bareEarnOnly =
+    /\bi earn\b/i.test(lower) &&
+    !hasTradingOrProperty &&
+    !statedAsQualifying &&
+    !explicitBandQuestion;
+  if (
+    amount == null &&
+    !(hasPaye && hasTradingOrProperty) &&
+    !bareEarnOnly &&
+    (hasTradingOrProperty || statedAsQualifying || explicitBandQuestion)
+  ) {
     amount = parseAmount(message);
   }
   // If both PAYE and trading present but only one amount parsed as generic, avoid
@@ -200,12 +256,48 @@ export function extractMtdEligibilityInput(
   ) {
     amount = null;
   }
+  // Bare earnings + MTD question: clear any accidentally parsed amount.
+  if (bareEarnOnly) {
+    amount = null;
+  }
 
   const basisTaxYear = detectBasisYear(message);
 
-  let hasSelfEmploymentOrProperty: boolean | null = null;
+  // undefined = not asserted (evaluate may treat stated amount as QI);
+  // null = explicitly unknown — must clarify before applying bands.
+  let hasSelfEmploymentOrProperty: boolean | null | undefined = undefined;
   if (payeOnly) hasSelfEmploymentOrProperty = false;
-  else if (hasTradingOrProperty) hasSelfEmploymentOrProperty = true;
+  else if (hasTradingOrProperty || statedAsQualifying || explicitBandQuestion) {
+    hasSelfEmploymentOrProperty = true;
+  } else if (bareEarnOnly) {
+    hasSelfEmploymentOrProperty = null;
+  } else if (
+    hasPaye &&
+    !hasTradingOrProperty &&
+    !statedAsQualifying &&
+    /(mtd|making tax digital|digital tax)/i.test(lower) &&
+    /(£|\d+\s*k\b)/i.test(lower)
+  ) {
+    // PAYE mentioned with a figure but no trading/property — ask.
+    hasSelfEmploymentOrProperty = null;
+  } else if (
+    !hasPaye &&
+    !hasTradingOrProperty &&
+    !statedAsQualifying &&
+    /(mtd|making tax digital|digital tax)/i.test(lower) &&
+    /(£|\d+\s*k\b)/i.test(lower) &&
+    amount == null
+  ) {
+    // Ambiguous total with no QI label — ask.
+    hasSelfEmploymentOrProperty = null;
+  }
+
+  const amountStatedAsExact =
+    /\b(exact(?:ly)?|precisely)\b/i.test(lower) && amount != null;
+  const amountStatedAsMoreThan =
+    amount != null &&
+    !amountStatedAsExact &&
+    /\b(more than|over|above|greater than)\s*£?\s*[\d,]+/i.test(message);
 
   return {
     qualifyingIncomeGbp: amount,
@@ -215,6 +307,8 @@ export function extractMtdEligibilityInput(
     payeAlsoPresent: hasPaye && hasTradingOrProperty,
     limitedCompany,
     hasSelfEmploymentOrProperty,
+    amountStatedAsMoreThan,
+    amountStatedAsExact,
   };
 }
 
@@ -277,6 +371,28 @@ export function evaluateMtdEligibility(
     };
   }
 
+  // Explicitly unknown income type (e.g. “I earn £50k. MTD?”) — do not
+  // treat a bare total as qualifying income. Direct evaluate() calls that omit
+  // hasSelfEmploymentOrProperty (undefined) may proceed with the stated amount.
+  if (input.hasSelfEmploymentOrProperty === null) {
+    return {
+      handled: true,
+      needs_more_info: true,
+      in_scope: null,
+      commencement: null,
+      band: null,
+      reason: "Income type unknown — cannot treat figure as MTD qualifying income.",
+      clarifying_question:
+        "Is that figure PAYE salary, self-employment turnover, property rent, or a mix — and which tax year?",
+      confidence: "high",
+      customer_reply:
+        "I can’t decide Making Tax Digital from a total income figure alone. " +
+        "MTD for Income Tax uses qualifying income — self-employment and property turnover before expenses — and PAYE salary does not count. " +
+        "Is your figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?\n\n" +
+        `Official guidance: ${MTD_SOURCE_URL}`,
+    };
+  }
+
   if (input.incomeIsProfitNotGross && input.qualifyingIncomeGbp != null) {
     return {
       handled: true,
@@ -319,9 +435,39 @@ export function evaluateMtdEligibility(
   const amount = input.qualifyingIncomeGbp;
   const year = input.basisTaxYear;
 
-  // Exact threshold: NOT "more than"
+  // Exact threshold: NOT "more than" — only when the customer did NOT say “more than/over/above £X”.
+  // “more than £50,000” parses as 50000 but must NOT use the exclusive-boundary refusal.
+  // Exact threshold answers require an explicit basis tax year — do not invent the year.
+  if (!year && amount != null) {
+    const nearBand = MTD_BANDS.find((b) => amount === b.threshold_gbp);
+    if (nearBand || amount > 20_000) {
+      return {
+        handled: true,
+        needs_more_info: true,
+        in_scope: null,
+        commencement: null,
+        band: nearBand || inferBandFromAmount(amount),
+        reason: "Amount known but basis tax year missing.",
+        clarifying_question:
+          "Which tax year is that qualifying income for — 2024-25, 2025-26 or 2026-27?",
+        confidence: "medium",
+        customer_reply:
+          `Thanks — £${amount.toLocaleString("en-GB")} is useful. ` +
+          `To give the correct Making Tax Digital start date I need the tax year that figure relates to, because each band uses a different year:\n` +
+          `• more than £50,000 in 2024-25 → from 6 April 2026\n` +
+          `• more than £30,000 in 2025-26 → from 6 April 2027\n` +
+          `• more than £20,000 in 2026-27 → from 6 April 2028\n\n` +
+          `Which tax year is your figure for?`,
+      };
+    }
+  }
+
   const exactHit = MTD_BANDS.find((b) => amount === b.threshold_gbp);
-  if (exactHit && (!year || year === exactHit.basis_tax_year)) {
+  if (
+    exactHit &&
+    year === exactHit.basis_tax_year &&
+    !input.amountStatedAsMoreThan
+  ) {
     return {
       handled: true,
       needs_more_info: false,
@@ -356,7 +502,10 @@ export function evaluateMtdEligibility(
           "Please confirm the tax year for your qualifying income (2024-25, 2025-26 or 2026-27) so I can apply the correct Making Tax Digital band.",
       };
     }
-    const inScope = amount > band.threshold_gbp;
+    const inScope =
+      amount > band.threshold_gbp ||
+      (input.amountStatedAsMoreThan === true &&
+        amount === band.threshold_gbp);
     if (inScope) {
       return {
         handled: true,
@@ -370,7 +519,8 @@ export function evaluateMtdEligibility(
         customer_reply:
           `Yes — if your qualifying income was more than £${band.threshold_gbp.toLocaleString("en-GB")} for ${band.basis_tax_year}, ` +
           `you need to use Making Tax Digital for Income Tax from ${band.commencement}. ` +
-          `Qualifying income means self-employment and property income before expenses (turnover/gross), not profit.` +
+          `Qualifying income means self-employment and property income before expenses (turnover/gross), not profit. ` +
+          `Property and self-employment income is also usually reported through Self Assessment — MTD does not replace that annual return.` +
           `${payeExclusionNote(input)}\n\n` +
           `Official guidance: ${MTD_SOURCE_URL}`,
       };
@@ -389,7 +539,8 @@ export function evaluateMtdEligibility(
         `Based on qualifying income of £${amount.toLocaleString("en-GB")} for ${band.basis_tax_year}, ` +
         `you are not brought into Making Tax Digital by the £${band.threshold_gbp.toLocaleString("en-GB")} / ${band.commencement} band, ` +
         `because that band needs income of more than £${band.threshold_gbp.toLocaleString("en-GB")}. ` +
-        `Later bands use different tax years and thresholds (£30,000 → ${MTD_BANDS[1]!.commencement}; £20,000 → ${MTD_BANDS[2]!.commencement}).` +
+        `Later bands use different tax years and thresholds (£30,000 → ${MTD_BANDS[1]!.commencement}; £20,000 → ${MTD_BANDS[2]!.commencement}). ` +
+        `You may still need Self Assessment for property or trading income even when MTD does not yet apply.` +
         `${payeExclusionNote(input)}\n\n` +
         `Official guidance: ${MTD_SOURCE_URL}`,
     };
@@ -435,8 +586,59 @@ export function evaluateMtdEligibility(
   };
 }
 
-export function answerMtdEligibility(message: string): MtdEligibilityResult | null {
+function conversationContextText(
+  message: string,
+  history?: Array<{ role: string; content: string }> | null,
+): string {
+  const prior = (history || [])
+    .filter((h) => h.role === "user" && h.content?.trim())
+    .map((h) => h.content)
+    .join("\n");
+  return prior ? `${prior}\n${message}` : message;
+}
+
+export function answerMtdEligibility(
+  message: string,
+  history?: Array<{ role: string; content: string }> | null,
+): MtdEligibilityResult | null {
   if (!isMtdEligibilityQuestion(message)) return null;
-  const input = extractMtdEligibilityInput(message);
+  // Prefer current message for “more than / exactly” flags; merge history for amount/year recall.
+  const ctx = conversationContextText(message, history);
+  const fromMessage = extractMtdEligibilityInput(message);
+  const fromCtx = extractMtdEligibilityInput(ctx);
+  // Latest user turn wins for amount/year; preserve known QI from history when
+  // the latest turn is a bare amount follow-up (e.g. “I earn more than £50k”).
+  const latestClearedBareEarn =
+    fromMessage.hasSelfEmploymentOrProperty === null &&
+    fromMessage.qualifyingIncomeGbp == null;
+  const input: MtdEligibilityInput = {
+    ...fromCtx,
+    ...fromMessage,
+    amountStatedAsMoreThan:
+      fromMessage.amountStatedAsMoreThan || fromCtx.amountStatedAsMoreThan,
+    amountStatedAsExact:
+      fromMessage.amountStatedAsExact || fromCtx.amountStatedAsExact,
+    qualifyingIncomeGbp:
+      fromMessage.qualifyingIncomeGbp ?? fromCtx.qualifyingIncomeGbp,
+    basisTaxYear: fromMessage.basisTaxYear ?? fromCtx.basisTaxYear,
+    payeOnly: fromMessage.payeOnly || fromCtx.payeOnly,
+    payeAlsoPresent: fromMessage.payeAlsoPresent || fromCtx.payeAlsoPresent,
+    hasSelfEmploymentOrProperty: latestClearedBareEarn
+      ? fromCtx.hasSelfEmploymentOrProperty === true
+        ? true
+        : fromMessage.hasSelfEmploymentOrProperty
+      : fromMessage.hasSelfEmploymentOrProperty !== undefined
+        ? fromMessage.hasSelfEmploymentOrProperty
+        : fromCtx.hasSelfEmploymentOrProperty,
+  };
+  // If latest turn was bare “I earn £X” with no prior QI context, keep null ask.
+  if (
+    latestClearedBareEarn &&
+    fromCtx.hasSelfEmploymentOrProperty !== true &&
+    fromCtx.qualifyingIncomeGbp == null
+  ) {
+    input.hasSelfEmploymentOrProperty = null;
+    input.qualifyingIncomeGbp = null;
+  }
   return evaluateMtdEligibility(input);
 }

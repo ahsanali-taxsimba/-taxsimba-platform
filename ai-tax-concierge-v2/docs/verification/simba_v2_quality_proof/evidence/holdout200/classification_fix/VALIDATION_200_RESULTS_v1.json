@@ -1,0 +1,3014 @@
+{
+  "generated_at": "2026-11-20T16:53:25.704Z",
+  "live": true,
+  "metrics": {
+    "total": 200,
+    "openai": 200,
+    "exact": 83,
+    "partial": 10,
+    "fail": 107,
+    "premature": 0
+  },
+  "results": [
+    {
+      "id": "V001",
+      "question": "I DJ at weekends for cash. Not sure how much yet — tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need amount/year before SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If you earn more than £1,000 from your DJing in a tax year, you usually need to register for Self Assessment and submit a tax return. This applies even if you're paid in cash. Your income from DJing is considered self-employment income, and you'll need to report your earnings and any allowable expenses.\n\nWould you like to know more about how to register for Self Assessment?",
+      "packages": [
+        "SA_SIMPLE"
+      ],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V002",
+      "question": "PAYE nurse, Airbnb spare room sometimes.",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need rent amount/year.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "As a PAYE nurse with additional income from renting out a spare room on Airbnb, you may have Self Assessment obligations. If your rental income exceeds £1,000 in the tax year, you'll need to register for Self Assessment and file a tax return. \n\nFor the 2026-27 tax year, ensure you keep accurate records of your rental income and any allowable expenses. Would you like to know more about how to register for Self Assessment?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V003",
+      "question": "What does quarterly update mean for someone like me?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Explain MTD + ask income type.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "A quarterly update refers to the requirement under Making Tax Digital (MTD) for Income Tax, which mandates eligible self-employed individuals and landlords to submit updates on their business income and expenses every three months. This means you'll need to keep digital records and report your earnings and costs to HMRC quarterly, rather than just once a year.\n\nThis system aims to make tax reporting more straightforward and timely. If your qualifying income exceeds £30,000 in the 2025-26 tax year, you'll need to start submitting these updates from 6 April 2027. \n\nWould you like to know more about how to prepare for this?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V004",
+      "question": "My salary is £62k. Am I in Making Tax Digital?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Salary alone insufficient — income type.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Thanks — £62,000 is useful. To give the correct Making Tax Digital start date I need the tax year that figure relates to, because each band uses a different year:\n• more than £50,000 in 2024-25 → from 6 April 2026\n• more than £30,000 in 2025-26 → from 6 April 2027\n• more than £20,000 in 2026-27 → from 6 April 2028\n\nWhich tax year is your figure for?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V005",
+      "question": "Freelance copywriting £9,200 in 2025-26. SA?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": ">£1,000 trading → usually SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+      ],
+      "reply_unedited": "With freelance / self-employment income of £9,200 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £9,200 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V006",
+      "question": "Only PAYE £38k, nothing else. SA?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only usually no SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your only income is from PAYE and it's £38,000 for the 2026-27 tax year, you typically won't need to file a Self Assessment tax return, as your tax is deducted at source. However, if you have any other untaxed income or meet certain criteria, you may still need to file. It's best to check the specific requirements on GOV.UK to confirm your situation. \n\nDo you have any other sources of income or specific circumstances that might affect this?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": "PARTIAL",
+      "premature_package": false
+    },
+    {
+      "id": "V007",
+      "question": "Property £55k rent 2024-25 — MTD April 2026?",
+      "expected_classification": "BOTH_SA_AND_MTD",
+      "expected_tax_notes": ">£50k 2024-25 → MTD Apr 2026 + SA.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "Yes, if your total qualifying income from property rent is £55,000 for the 2024-25 tax year, you will need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income is your total rental income before any expenses are deducted. \n\nIf you have any further questions about MTD or your tax obligations, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V008",
+      "question": "Rent £12k — which MTD year?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "For Making Tax Digital I need the tax year that rent/turnover figure relates to, because each band uses a different year:\n• more than £50,000 in 2024-25 → from 6 April 2026\n• more than £30,000 in 2025-26 → from 6 April 2027\n• more than £20,000 in 2026-27 → from 6 April 2028\n\nWhich tax year is your figure for? (Use turnover/gross rent before expenses — PAYE salary does not count.)\nGuidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V009",
+      "question": "I don’t want any package. Is £1,100 Etsy SA?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": ">£1k usually SA; no packages.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "It depends whether you’re casually selling personal belongings or running a trade as a sole trader. Occasional sales of personal items are often different from a regular online business that may need Self Assessment. Are you selling your own used possessions, or buying/making goods to sell for profit — and roughly what was the income before expenses last tax year?",
+      "packages": [
+        "SA_SIMPLE"
+      ],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V010",
+      "question": "HMRC investigation letter landed today.",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "expected_tax_notes": "Escalate.",
+      "official_sources": [],
+      "reply_unedited": "Receiving an HMRC investigation letter can be concerning. It typically indicates that HMRC is reviewing your tax affairs for accuracy or compliance. It's important to respond promptly and provide any requested information or documentation. \n\nMake sure to review the letter carefully to understand what HMRC is asking for and the deadlines involved. If you need assistance navigating this process or preparing your response, I recommend consulting with a tax professional. Would you like more information on how to handle this situation?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": "PARTIAL",
+      "premature_package": false
+    },
+    {
+      "id": "V011",
+      "question": "I’m logged into TaxSimba — upload stuck.",
+      "expected_classification": "EXISTING_CUSTOMER_SUPPORT",
+      "expected_tax_notes": "Dashboard/support.",
+      "official_sources": [],
+      "reply_unedited": "It sounds like you're experiencing an issue with uploading documents in the TaxSimba platform. I recommend checking your internet connection and trying to refresh the page. If the problem persists, please reach out to your assigned accountant through the secure messaging feature in your dashboard for assistance. They can help resolve any technical issues you may be facing.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "EXISTING_CUSTOMER_SUPPORT",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V012",
+      "question": "Do Corporation Tax for my Ltd please.",
+      "expected_classification": "OUT_OF_SCOPE",
+      "expected_tax_notes": "Not catalogue CT.",
+      "official_sources": [],
+      "reply_unedited": "I can't assist with filing Corporation Tax directly. However, I can provide information about Corporation Tax for your limited company. Limited companies pay Corporation Tax on their profits, and the rates and thresholds can change each financial year. For the 2026-27 tax year, you should check the current rates on GOV.UK.\n\nIf you need help with filing, I recommend considering our Self Assessment packages or reaching out to an accountant for assistance. Would you like more information on our services?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": "PARTIAL",
+      "premature_package": false
+    },
+    {
+      "id": "V013",
+      "question": "Uber + PAYE. Do I need an accountant tomorrow?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need turnover before advising service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "Happy to help — I need one key fact before saying whether you must tell HMRC. Roughly how much did you earn from that activity before expenses, and for which tax year? If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. Official guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V014",
+      "question": "Exactly £50,000 qualifying income 2024-25 — over MTD?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "Exact not more than.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "No — qualifying income of exactly £50,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £50,000”, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than £50,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": "PARTIAL",
+      "premature_package": false
+    },
+    {
+      "id": "V015",
+      "question": "More than £50,000 turnover 2024-25 — MTD start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_tax_notes": "From 6 Apr 2026.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Yes — if your qualifying income was more than £50,000 for 2024-25, you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V016",
+      "question": "Sold personal bike online once for £400.",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Likely not a trade — clarify.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If you sold your personal bike for £400, this transaction is generally considered a private sale. As long as the sale was not part of a trade or business and you are not regularly selling items for profit, you typically do not need to report this income to HMRC. \n\nHowever, if you frequently sell items or if the total sales exceed certain thresholds, different rules may apply. Would you like to know more about those thresholds or any specific reporting requirements?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "NO_TAXSIMBA_SERVICE",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V017",
+      "question": "P60 arrived. File a return?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "P60 ≠ automatic SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "A P60 summarises PAYE pay and tax deducted for a tax year — keep it for your records. It does not automatically mean you must file a Self Assessment return. Do you have any other income (freelance, property, untaxed interest, etc.), or has HMRC asked you to file? Who must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V018",
+      "question": "Two PAYE jobs only — must I Self Assess?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Not automatic.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "Having two PAYE jobs does not automatically mean you must file a Self Assessment tax return. You may still need one if tax was under-collected, you have other untaxed income, or another GOV.UK trigger applies. Do either employer’s tax codes look wrong, or do you have any income outside PAYE? Guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V019",
+      "question": "Left job in July. SA needed?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Not from leaving alone.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If you left your job in July and received income through PAYE, you may not need to file a Self Assessment tax return unless you have other income sources, such as self-employment earnings or rental income, that exceed £1,000. If your only income was from your job, you might not need to register for Self Assessment. \n\nCould you clarify if you have any additional income sources?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V020",
+      "question": "Company car on P11D — Self Assessment?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Often via PAYE; ask other income.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "Company car and many benefits are often reported by your employer (for example on a P11D) and taxed through PAYE adjustments — that is not the same as automatically needing Self Assessment. You may still need a return for other reasons on GOV.UK. Do you have any income outside employment, or has HMRC asked you to file? Guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V021",
+      "question": "CIS sparks, deductions taken. Why SA?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "CIS ≠ SA waiver; need facts.",
+      "official_sources": [
+        "https://www.gov.uk/what-is-the-construction-industry-scheme",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "Even if you're under the Construction Industry Scheme (CIS) and have deductions taken from your payments, you may still need to file a Self Assessment tax return. This is because CIS deductions are not always the final tax position, and you might have additional income or expenses to report. \n\nIf your self-employed trading income exceeds £1,000 in a tax year, you must register for Self Assessment and submit a return. Would you like more information on how to register for Self Assessment?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V022",
+      "question": "Crypto: tax on buy or sell?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Usually disposal events.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets"
+      ],
+      "reply_unedited": "Cryptoassets can create Self Assessment reporting needs. HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead — it depends on your activity. Keep detailed records. I won’t invent your tax figure. Official guidance: https://www.gov.uk/guidance/tax-on-cryptoassets — were your crypto disposals investment-style gains, or more like a trading business?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V023",
+      "question": "Dividends £1,500 — return?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need total income picture.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/tax-on-dividends"
+      ],
+      "reply_unedited": "If your total dividends for the tax year 2026-27 are £1,500, you will need to consider the Dividend Allowance, which is £2,000 for that year. Since your dividends are below this threshold, you won't owe any tax on them, and you won't need to include them in a Self Assessment tax return unless you have other untaxed income or are a company director. \n\nDo you have any other sources of income that might require you to file a return?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V024",
+      "question": "VAT at £85k — register?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Check live threshold page.",
+      "official_sources": [
+        "https://www.gov.uk/vat-registration-thresholds"
+      ],
+      "reply_unedited": "VAT registration depends on taxable turnover against the current VAT threshold on GOV.UK — I won’t rely on a remembered historic figure. Check the live threshold here: https://www.gov.uk/vat-registration-thresholds Is your £ figure taxable turnover for VAT purposes, and over what period?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V025",
+      "question": "I want someone to handle my SA return.",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Help-first then package if asked.",
+      "official_sources": [],
+      "reply_unedited": "We can help with your Self Assessment return. Our accountant-led support ensures your tax return is handled accurately and efficiently. Could you please share if you have any specific complexities, such as self-employment income or additional untaxed income? This will help us recommend the most suitable package for you.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V026",
+      "question": "Which package for simple first-time sole trader?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Simple £119 when asked.",
+      "official_sources": [],
+      "reply_unedited": "For a simple first-time sole trader, I recommend the Self Assessment Simple package. It’s designed for straightforward tax situations and is priced at £119 per tax year. This package will help you with your Self Assessment tax return, ensuring you meet your obligations. \n\nIf you have any specific questions about what’s included or need further assistance, feel free to ask!",
+      "packages": [
+        "SA_SIMPLE"
+      ],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V027",
+      "question": "Just information — no selling. PAYE only SA?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "No SA usually; zero packages.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "Being taxed under PAYE does not automatically exempt you from Self Assessment (SA) obligations. If you have additional untaxed income, such as self-employment earnings, property income, or other specific circumstances, you may still need to file a Self Assessment tax return. It's essential to check the criteria on GOV.UK to determine if you must submit a return. Would you like to know more about the specific criteria for Self Assessment?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": "PARTIAL",
+      "premature_package": false
+    },
+    {
+      "id": "V028",
+      "question": "Software for tax — is that MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "May be MTD; ask facts.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "For Making Tax Digital for Income Tax, HMRC requires compatible software and digital records. With TaxSimba’s accountant-led Simbian plans, Xero is included in the monthly price (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — you do not buy Xero separately through TaxSimba. Quarterly updates and year-end Self Assessment are included subject to documented customer responsibilities. SIMBA chat and the customer portal do not file directly to HMRC — TaxSimba accountants lead those workflows. Prices (VAT included): Simbian Comply £29.99, Growth £59.99, Elite £89.99 per month. Review https://www.taxsimba.co.uk/making-tax-digital — or tell me your qualifying income and tax year if you’re checking eligibility.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V029",
+      "question": "Quarterly updates — is that me with only salary?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE not QI.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Making Tax Digital for Income Tax is HMRC’s system for many sole traders and landlords who must keep digital records and send quarterly updates. It uses qualifying income (self-employment and property turnover before expenses) — not PAYE salary. Bands use exclusive “more than” thresholds (£50,000 / £30,000 / £20,000) with start dates from 6 April 2026 onwards depending on the tax year. Do you have self-employment or property income, roughly how much before expenses, and for which tax year? Guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax · https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": "PARTIAL",
+      "premature_package": false
+    },
+    {
+      "id": "V030",
+      "question": "Partner and I 50/50 let — who files?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Joint ownership facts.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If you and your partner are in a partnership and share profits 50/50, the partnership itself must file a partnership tax return (SA800) to report the income and expenses. Each partner will also need to file their own Self Assessment tax return (SA100) to report their share of the partnership profits. \n\nIt's important to ensure that both partners are registered for Self Assessment if they haven't done so already. Would you like more information on how to register for Self Assessment?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V031",
+      "question": "Side income around £700 last year — tell HMRC?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Amount £700 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income was around £700 in the 2025-26 tax year, you may not need to inform HMRC, as it falls below the £1,000 trading allowance. However, if you have other income or specific circumstances, you should check your obligations on GOV.UK. It's always best to confirm your eligibility before deciding not to report it. Would you like more information on the trading allowance?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V032",
+      "question": "Rental about £11000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "With a rental income of £11,000 for the 2026-27 tax year, you will need to register for Making Tax Digital (MTD) for Income Tax if your total qualifying income exceeds £20,000. Since your rental income is below that threshold, you won't need to register for MTD at this time. However, you still need to declare your rental income to HMRC through Self Assessment.\n\nWould you like more information on how to file your Self Assessment?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V033",
+      "question": "I earn £26k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V034",
+      "question": "Cash-in-hand weekend work, maybe £150. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If you're earning cash-in-hand from weekend work, it's important to note that any income over £1,000 in a tax year typically requires you to register for Self Assessment and submit a tax return. This is true even if the income is informal. \n\nIf you need assistance with your tax obligations or filing, I recommend considering a Self Assessment package for support. Would you like more information on our packages?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V035",
+      "question": "PAYE only £31000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £31,000, you are not required to comply with Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above certain thresholds. Since PAYE income is excluded from MTD obligations, you won't need to keep digital records or submit quarterly updates.\n\nDo you have any self-employment or property income that might change this?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V036",
+      "question": "Side income around £900 last year — tell HMRC?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Amount £900 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income was around £900 in the 2025-26 tax year, you may not need to inform HMRC, as it falls below the £1,000 trading allowance. However, if you have other income or specific circumstances, you should check your eligibility on GOV.UK. It's always best to keep accurate records and confirm your situation. \n\nDo you have any other sources of income that might affect this?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V037",
+      "question": "Rental about £14000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Since your rental income is about £14,000, you won't need to use Making Tax Digital (MTD) for Income Tax yet. For the 2026-27 tax year, MTD applies if your qualifying income exceeds £20,000. Therefore, you can continue reporting your rental income through Self Assessment without the digital requirements for now. \n\nIf you have any other questions about your tax obligations or need assistance with Self Assessment, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "BOTH_SA_AND_MTD",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V038",
+      "question": "I earn £27k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V039",
+      "question": "Cash-in-hand weekend work, maybe £300. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand weekend work generates more than £1,000 in trading income during the tax year, you'll need to register for Self Assessment and file a tax return. Even if your income is below that threshold, it's advisable to keep records of your earnings.\n\nIf you need assistance with your Self Assessment, TaxSimba offers accountant-led support. Would you like to know more about our packages?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V040",
+      "question": "PAYE only £32000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £32,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above specific thresholds. Since PAYE income does not count towards MTD obligations, you can continue to manage your tax affairs as usual. \n\nDo you have any other questions about your tax situation?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V041",
+      "question": "Side income around £1100 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £1100 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "Since your side income is £1,100, you will need to inform HMRC because it exceeds the trading allowance of £1,000 for the 2026-27 tax year. You should register for Self Assessment and submit a tax return to declare this income. \n\nIf you have any further questions about the process or need assistance with registration, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V042",
+      "question": "Rental about £17000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Since your rental income is about £17,000 for the 2026-27 tax year, you won't need to use Making Tax Digital (MTD) for Income Tax. The threshold for MTD is more than £20,000 in qualifying income, which means you would need to comply starting from 6 April 2028 if your income remains above that threshold.\n\nIf you have any further questions about your tax obligations or need assistance with your Self Assessment, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "BOTH_SA_AND_MTD",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V043",
+      "question": "I earn £28k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V044",
+      "question": "Cash-in-hand weekend work, maybe £450. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand weekend work totals £450, you may still need to consider whether you should register for Self Assessment. If your self-employed trading income exceeds £1,000 in the tax year, you'll need to register and submit a Self Assessment tax return.\n\nWould you like to know more about the registration process or our Self Assessment packages?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V045",
+      "question": "PAYE only £33000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £33,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income exceeding specific thresholds. Since your income is not from self-employment or property, you do not fall under MTD obligations. \n\nDo you have any other questions about your tax situation?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V046",
+      "question": "Side income around £1300 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £1300 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "Yes, if your side income from self-employment was around £1,300 in the last tax year (2025-26), you will need to register for Self Assessment and submit a tax return. Since your income exceeds the £1,000 trading allowance, you cannot skip registration. Make sure to keep records of your income and any allowable expenses. \n\nWould you like more information on how to register for Self Assessment?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V047",
+      "question": "Rental about £20000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "For the 2026-27 tax year, if your total qualifying income from self-employment and property is more than £20,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2028. Since your rental income is about £20,000, you won't need to use MTD just yet, but you should keep track of your income and expenses for your Self Assessment. \n\nDo you have any self-employment income as well?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V048",
+      "question": "I earn £29k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V049",
+      "question": "Cash-in-hand weekend work, maybe £600. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand weekend work generates more than £1,000 in trading income for the tax year, you will need to register for Self Assessment and submit a tax return. Even if you receive cash payments, this income is still taxable. \n\nWould you like to know more about how to register for Self Assessment or the services we offer to assist with your tax return?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V050",
+      "question": "PAYE only £34000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £34,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above certain thresholds. Since PAYE income does not count towards MTD obligations, you can continue to file your Self Assessment as usual if required. \n\nDo you have any self-employment or rental income that might change this?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V051",
+      "question": "Side income around £1500 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £1500 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income was £1,500 in the 2025-26 tax year, you generally need to declare it to HMRC, as it exceeds the £1,000 trading allowance. Since your income is above this threshold, you would typically need to register for Self Assessment and submit a tax return. \n\nIt's advisable to keep records of your income and any allowable expenses. If you have any further questions about the process, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V052",
+      "question": "Rental about £23000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Since your rental income is about £23,000 for the 2026-27 tax year, you will not need to use Making Tax Digital (MTD) for Income Tax, as the threshold for MTD in that year is more than £20,000. MTD for Income Tax starts from 6 April 2028 for those with qualifying income above that threshold.\n\nIf you have any other questions about your tax obligations, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V053",
+      "question": "I earn £30k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V054",
+      "question": "Cash-in-hand weekend work, maybe £750. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand weekend work generates £750 in income, you may still need to register for Self Assessment if your total self-employment income exceeds £1,000 in the tax year. This is because the £1,000 threshold is for the trading allowance, which allows you to offset income against expenses instead of reporting them.\n\nIf you need help with registration or filing, I recommend considering our Self Assessment packages. Would you like more information on those?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V055",
+      "question": "PAYE only £35000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £35,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals or landlords with qualifying income exceeding specific thresholds. Since PAYE income does not count towards MTD obligations, you can continue with your current tax arrangements. \n\nIf you have any other questions or need further clarification, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V056",
+      "question": "Side income around £1700 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £1700 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "Yes, if your side income from self-employment was around £1,700 in the last tax year (2025-26), you will need to declare it to HMRC. Since your trading income exceeds the £1,000 trading allowance, you must register for Self Assessment and submit a tax return. \n\nIf you have any further questions about the process or need assistance, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V057",
+      "question": "Rental about £26000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Since your rental income is £26,000 for the 2026-27 tax year, you won't need to use Making Tax Digital (MTD) for Income Tax. The threshold for MTD in that year is more than £20,000, which means you would only need to start MTD from 6 April 2028 if your qualifying income exceeds that amount.\n\nIf you have any further questions about your tax obligations, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V058",
+      "question": "I earn £31k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V059",
+      "question": "Cash-in-hand weekend work, maybe £900. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand weekend work totals £900, you may still need to register for Self Assessment if your total self-employed trading income exceeds £1,000 in the tax year. Since your income is below that threshold, you might not need to register, but it's essential to keep accurate records.\n\nIf you have further questions about your situation or need assistance with tax obligations, I can help. Would you like to know more about Self Assessment or any specific services?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V060",
+      "question": "PAYE only £36000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £36,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above specific thresholds. Since PAYE income is excluded from MTD obligations, you won't need to keep digital records or submit quarterly updates.\n\nDo you have any self-employment or rental income that might change this situation?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V061",
+      "question": "Side income around £1900 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £1900 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income was around £1,900 for the 2025-26 tax year, you will need to declare it to HMRC, as it exceeds the £1,000 trading allowance. Since your income is above this threshold, you typically must register for Self Assessment and submit a tax return. \n\nHave you registered for Self Assessment before, or is this your first time?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V062",
+      "question": "Rental about £29000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Since your rental income is about £29,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2028. This is because the threshold for MTD is more than £20,000 in qualifying income for the 2026-27 tax year. \n\nIf you have any further questions about MTD or your tax obligations, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V063",
+      "question": "I earn £32k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V064",
+      "question": "Cash-in-hand weekend work, maybe £1050. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand weekend work income is £1,050 for the tax year, you will need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. \n\nAn accountant can help you navigate the registration process and ensure you meet your tax obligations. Would you like to know more about our Self Assessment packages?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V065",
+      "question": "PAYE only £37000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £37,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above specific thresholds. Since PAYE income is excluded from MTD obligations, you can continue to file your Self Assessment as usual if required.\n\nDo you have any self-employment or property income that might affect this?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V066",
+      "question": "Side income around £2100 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £2100 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "Since your side income is £2,100, you will need to register for Self Assessment and file a tax return for the 2026-27 tax year. This is because your trading income exceeds the £1,000 trading allowance, which means you must declare it to HMRC. \n\nMake sure to keep records of your income and any allowable expenses. Would you like more information on how to register for Self Assessment?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V067",
+      "question": "Rental about £32000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Since your rental income is about £32,000 for the 2026-27 tax year, you will need to use Making Tax Digital (MTD) for Income Tax. This requirement starts from 6 April 2028 for those with qualifying income over £20,000. \n\nIf you have any other sources of income or need further assistance, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V068",
+      "question": "I earn £33k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V069",
+      "question": "Cash-in-hand weekend work, maybe £1200. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand income from weekend work is £1,200, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to submit a tax return for the relevant tax year.\n\nWould you like to know more about how to register for Self Assessment or the services we offer?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V070",
+      "question": "PAYE only £38000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your only income is from PAYE and amounts to £38,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above certain thresholds. Since PAYE income is excluded from MTD obligations, you don't need to keep digital records or submit quarterly updates.\n\nDo you have any self-employment or property income that might affect this?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V071",
+      "question": "Side income around £2300 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £2300 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "Yes, if your side income from self-employment was around £2,300 in the last tax year (2025-26), you will need to declare it to HMRC. Since your trading income exceeds the £1,000 trading allowance, you must register for Self Assessment and submit a tax return. \n\nIf you have any further questions about the process or need assistance, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V072",
+      "question": "Rental about £35000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Since your rental income is about £35,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2027. This applies if you are registered for Self Assessment and your qualifying income exceeds £30,000 in the 2025-26 tax year. \n\nWould you like more information on how MTD works or the registration process?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "BOTH_SA_AND_MTD",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V073",
+      "question": "I earn £34k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V074",
+      "question": "Cash-in-hand weekend work, maybe £1350. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand income from weekend work is £1,350 in a tax year, you may still need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to submit a tax return to declare your income.\n\nIf you need assistance with your Self Assessment, I recommend considering our Self Assessment packages. Would you like more information on those?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V075",
+      "question": "PAYE only £39000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your only income is from PAYE and amounts to £39,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above specific thresholds. Since PAYE income does not count towards MTD obligations, you can continue to file your Self Assessment as usual if needed. \n\nDo you have any self-employment or property income to consider?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V076",
+      "question": "Side income around £2500 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £2500 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income of £2,500 is from self-employment, you generally need to declare it to HMRC, as it exceeds the trading allowance of £1,000 for the 2026-27 tax year. This means you would typically need to register for Self Assessment and file a tax return. \n\nIf you have any other sources of income or specific circumstances, please let me know!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V077",
+      "question": "Rental about £38000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Since your rental income is about £38,000 for the 2026-27 tax year, you will not need to use Making Tax Digital (MTD) for Income Tax. The threshold for MTD is more than £20,000 in qualifying income, which means you will be required to comply with MTD starting from 6 April 2028 if your income remains above that threshold.\n\nIf you have any other questions about your tax obligations, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V078",
+      "question": "I earn £35k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V079",
+      "question": "Cash-in-hand weekend work, maybe £1500. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand weekend work totals £1,500 in a tax year, you may still need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to file a tax return to report your income.\n\nWould you like to know more about how to register for Self Assessment or the services we offer?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V080",
+      "question": "PAYE only £40000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £40,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above specific thresholds. Since your income is from PAYE, you do not fall under MTD obligations. \n\nIf you have any further questions or need assistance with anything else, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V081",
+      "question": "Side income around £2700 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £2700 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income was £2,700 in the 2025-26 tax year, you generally need to declare it to HMRC, as it exceeds the £1,000 trading allowance. This means you would typically need to register for Self Assessment and file a tax return. \n\nIt's important to keep records of your income and any allowable expenses. If you have any further questions about the process or need assistance, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V082",
+      "question": "Rental about £41000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "For the tax year 2026-27, if your total gross rental income is £41,000, you will need to comply with Making Tax Digital (MTD) for Income Tax if your qualifying income exceeds £20,000. Since £41,000 is above this threshold, you will need to keep digital records and submit quarterly updates.\n\nWould you like more information on how to get started with MTD?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V083",
+      "question": "I earn £36k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V084",
+      "question": "Cash-in-hand weekend work, maybe £1650. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand income from weekend work is £1,650 in the 2026-27 tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to submit a tax return to report your income.\n\nWould you like more information on how to register for Self Assessment or the services we offer?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V085",
+      "question": "PAYE only £41000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £41,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above certain thresholds. Since PAYE income does not count towards MTD obligations, you can continue to file your Self Assessment as usual if needed, but you won't have MTD requirements.\n\nDo you have any self-employment or property income that might change this?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V086",
+      "question": "Side income around £2900 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £2900 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income was around £2,900 in the 2025-26 tax year, you generally need to declare it to HMRC, as it exceeds the £1,000 trading allowance. Since your income is above this threshold, you would typically be required to register for Self Assessment and submit a tax return. \n\nIt's advisable to keep records of your income and any allowable expenses. If you have further questions about the process or need assistance, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V087",
+      "question": "Rental about £44000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Since your rental income is about £44,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This requirement applies if your qualifying income exceeds £50,000 in the 2024-25 tax year, but as your income is below that threshold, you won't need to comply with MTD until your income exceeds the relevant limits in future tax years.\n\nWould you like more information on MTD or Self Assessment?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "BOTH_SA_AND_MTD",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V088",
+      "question": "I earn £37k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V089",
+      "question": "Cash-in-hand weekend work, maybe £1800. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand weekend work generates income of £1,800 in the tax year, you may need to register for Self Assessment, as your trading income exceeds the £1,000 trading allowance. This means you'll need to submit a tax return to report your income.\n\nIf you’d like assistance with your Self Assessment, I can recommend a suitable package. Would you like more information on that?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V090",
+      "question": "PAYE only £42000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £42,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above specific thresholds. Since PAYE income is excluded from MTD obligations, you can continue to file your Self Assessment as usual without needing to keep digital records for MTD.\n\nDo you have any self-employment or property income that might change this?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V091",
+      "question": "Side income around £3100 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £3100 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "Yes, if your side income was around £3,100 in the 2025-26 tax year, you will need to declare it to HMRC. Since your trading income exceeds the £1,000 trading allowance, you must register for Self Assessment and submit a tax return. \n\nIf you have any further questions about the process or need assistance, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V092",
+      "question": "Rental about £47000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Since your rental income is about £47,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This requirement applies if you are registered for Self Assessment and your qualifying income exceeds £50,000 in the 2024-25 tax year. \n\nIf you have any further questions about MTD or need assistance with your tax situation, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "BOTH_SA_AND_MTD",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V093",
+      "question": "I earn £38k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V094",
+      "question": "Cash-in-hand weekend work, maybe £1950. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand income from weekend work is £1,950 in the tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to submit a tax return to declare your income.\n\nWould you like to know more about how to register for Self Assessment or the services we offer?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V095",
+      "question": "PAYE only £43000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £43,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above certain thresholds. Since PAYE income does not count towards MTD obligations, you can continue to file your Self Assessment as usual if required. \n\nDo you have any self-employment or rental income that might affect this?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V096",
+      "question": "Side income around £3300 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £3300 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "Yes, you will need to inform HMRC about your side income of £3,300. Since your trading income exceeds the £1,000 trading allowance for the 2026-27 tax year, you are required to register for Self Assessment and submit a tax return. This applies even if you have other income taxed under PAYE. \n\nIf you need assistance with the registration or filing process, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V097",
+      "question": "Rental about £50000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "If your rental income is about £50,000 for the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. MTD requires you to keep digital records and submit quarterly updates. \n\nIf your rental income is below this threshold, you won't need to comply with MTD. Would you like more information on MTD requirements or assistance with anything else?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V098",
+      "question": "I earn £39k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V099",
+      "question": "Cash-in-hand weekend work, maybe £2100. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand income from weekend work is £2,100, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance for the tax year 2026-27. This means you'll need to file a Self Assessment tax return to report your income.\n\nWould you like to know more about our Self Assessment packages?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V100",
+      "question": "PAYE only £44000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £44,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income exceeding specific thresholds. Since PAYE income is excluded from MTD obligations, you won't need to keep digital records or submit quarterly updates.\n\nIf you have any other income sources or questions, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V101",
+      "question": "Side income around £3500 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £3500 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income of £3,500 was from self-employment, you generally need to declare it to HMRC, as it exceeds the £1,000 trading allowance for the 2026-27 tax year. This means you would typically need to register for Self Assessment and submit a tax return.\n\nIf you have any other income sources or specific circumstances, please let me know!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V102",
+      "question": "Rental about £53000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Yes, if your rental income is more than £50,000 in the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This means you'll need to keep digital records and submit quarterly updates. \n\nWould you like more information on how MTD works or the packages we offer?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V103",
+      "question": "I earn £40k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V104",
+      "question": "Cash-in-hand weekend work, maybe £2250. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand weekend work totals £2,250 in a tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to file a tax return to report your income.\n\nWould you like to know more about how to register for Self Assessment or the services we offer?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V105",
+      "question": "PAYE only £45000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £45,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income exceeding specific thresholds. Since PAYE income does not count towards MTD obligations, you can continue to manage your tax affairs as usual. \n\nDo you have any self-employment or property income that we should consider?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V106",
+      "question": "Side income around £3700 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £3700 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income of £3,700 is from self-employment, you typically need to register for Self Assessment and declare it to HMRC, as it exceeds the £1,000 trading allowance for the 2026-27 tax year. Even if you have PAYE income, additional untaxed income may require you to file a return. \n\nYou can check your specific obligations on GOV.UK. Would you like more information on how to register for Self Assessment?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V107",
+      "question": "Rental about £56000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Yes, if your rental income is more than £50,000 in the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This means you'll be required to keep digital records and submit quarterly updates. \n\nIf your income is from a different tax year or if you have any other questions about your situation, please let me know!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V108",
+      "question": "I earn £41k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V109",
+      "question": "Cash-in-hand weekend work, maybe £2400. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand weekend work totals £2,400 in a tax year, you may need to register for Self Assessment, as your self-employment trading income exceeds the £1,000 trading allowance. This means you'll need to file a tax return to report your income and pay any tax due.\n\nWould you like to know more about how to register for Self Assessment or the services we offer?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V110",
+      "question": "PAYE only £46000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £46,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above specific thresholds. Since PAYE income does not count towards MTD obligations, you can continue with your current tax arrangements. \n\nDo you have any self-employment or rental income that might change this?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V111",
+      "question": "Side income around £3900 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £3900 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income was around £3,900 in the 2025-26 tax year, you generally need to declare it to HMRC, as it exceeds the £1,000 trading allowance. Since this income is above the threshold, you would typically need to register for Self Assessment and file a tax return. \n\nIt's advisable to keep records of your income and any allowable expenses. Would you like more information on how to register for Self Assessment?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V112",
+      "question": "Rental about £59000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Yes, if your rental income is more than £50,000 for the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This means you'll need to keep digital records and submit quarterly updates. \n\nWould you like more information on how MTD works?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V113",
+      "question": "I earn £42k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V114",
+      "question": "Cash-in-hand weekend work, maybe £2550. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand income from weekend work is £2,550 in the 2026-27 tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. \n\nAn accountant can help you navigate your tax obligations and ensure you file correctly. Would you like to know more about our Self Assessment packages?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V115",
+      "question": "PAYE only £47000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and is £47,000, you do not need to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above specific thresholds. Since your income is not from self-employment or property, MTD does not apply to you.\n\nIf you have any further questions about your tax situation or need assistance, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": "PARTIAL",
+      "premature_package": false
+    },
+    {
+      "id": "V116",
+      "question": "Side income around £4100 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £4100 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "Since your side income of £4,100 exceeds the trading allowance of £1,000 for the 2026-27 tax year, you will need to inform HMRC and file a Self Assessment tax return. This is necessary because your trading income is above the threshold that requires registration. \n\nIf you have any further questions about the process or need assistance with your Self Assessment, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V117",
+      "question": "Rental about £62000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Yes, if your rental income is about £62,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This requirement applies because your qualifying income exceeds £50,000 in the 2024-25 tax year. Under MTD, you'll need to keep digital records and submit quarterly updates.\n\nWould you like more information on how MTD works?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V118",
+      "question": "I earn £43k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V119",
+      "question": "Cash-in-hand weekend work, maybe £2700. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand weekend work income is £2,700 for the tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to file a tax return to report your income.\n\nWould you like to know more about how to register for Self Assessment or the services we offer?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V120",
+      "question": "PAYE only £48000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £48,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above specific thresholds. Since PAYE income is excluded from MTD obligations, you won't need to keep digital records or submit quarterly updates.\n\nIf you have any other questions about your tax situation, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V121",
+      "question": "Side income around £4300 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £4300 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income of £4,300 is from self-employment or casual services, you generally need to declare it to HMRC, as it exceeds the trading allowance of £1,000 for the 2026-27 tax year. Even if you have PAYE income, additional untaxed income may require you to file a Self Assessment tax return. \n\nIt's advisable to check the specific rules on GOV.UK to confirm your obligations. Would you like more information on how to file a Self Assessment return?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": "PARTIAL",
+      "premature_package": false
+    },
+    {
+      "id": "V122",
+      "question": "Rental about £65000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Yes, if your rental income is about £65,000 for the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. MTD requires you to keep digital records and submit quarterly updates. \n\nIf you have any other questions about MTD or need assistance with your tax obligations, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V123",
+      "question": "I earn £44k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V124",
+      "question": "Cash-in-hand weekend work, maybe £2850. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand weekend work totals £2,850 in a tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to file a tax return to report your income.\n\nWould you like to know more about how to register for Self Assessment or the services we offer?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V125",
+      "question": "PAYE only £49000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £49,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above specific thresholds. Since PAYE income is excluded from MTD obligations, you won't need to keep digital records or submit quarterly updates.\n\nDo you have any self-employment or property income that might change this situation?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V126",
+      "question": "Side income around £4500 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £4500 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income of £4,500 is from self-employment or casual services, you generally need to declare it to HMRC because it exceeds the £1,000 trading allowance for the 2026-27 tax year. This means you would typically need to register for Self Assessment and file a tax return.\n\nIf you have any other sources of income or specific circumstances, let me know!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V127",
+      "question": "Rental about £68000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Yes, if your rental income is about £68,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This requirement applies because your qualifying income exceeds the £50,000 threshold for the 2024-25 tax year. Under MTD, you'll need to keep digital records and submit quarterly updates.\n\nWould you like more information on how MTD works?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V128",
+      "question": "I earn £45k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V129",
+      "question": "Cash-in-hand weekend work, maybe £3000. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand weekend work totals £3,000 in a tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to file a tax return to report your income.\n\nWould you like more information on how to register for Self Assessment or the services we offer?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V130",
+      "question": "PAYE only £50000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your only income is from PAYE and amounts to £50,000, you do not need to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above specific thresholds. Since PAYE income is not included in the MTD qualifying income calculations, you are not obligated to comply with MTD requirements. \n\nDo you have any self-employment or property income that might change this?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": "PARTIAL",
+      "premature_package": false
+    },
+    {
+      "id": "V131",
+      "question": "Side income around £4700 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £4700 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income of £4,700 is from self-employment or casual services, you generally need to declare it to HMRC, as it exceeds the trading allowance of £1,000 for the 2026-27 tax year. This means you would typically need to register for Self Assessment and submit a tax return.\n\nIt's important to keep records of your income and any allowable expenses. If you're unsure about your specific situation, you might want to check the guidance on GOV.UK or consider consulting a tax professional. Would you like more information on how to register for Self Assessment?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V132",
+      "question": "Rental about £71000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Yes, if your total gross rental income is £71,000 in the 2026-27 tax year, you will need to comply with Making Tax Digital (MTD) for Income Tax. The MTD requirement applies if your qualifying income exceeds £20,000, which will take effect from 6 April 2028. \n\nSince your income is above this threshold, you should prepare for MTD obligations, which include maintaining digital records and submitting quarterly updates. Would you like more information on how to get started with MTD?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V133",
+      "question": "I earn £46k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V134",
+      "question": "Cash-in-hand weekend work, maybe £3150. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand income from weekend work is £3,150 in the 2026-27 tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to submit a tax return to declare your income.\n\nIf you’d like assistance with your Self Assessment, I can recommend a suitable package. Would you like to know more about that?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V135",
+      "question": "PAYE only £51000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and totals £51,000 for the 2026-27 tax year, you are not required to comply with Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above specific thresholds, which do not include PAYE income. \n\nIf you have any self-employment or property income, please let me know!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V136",
+      "question": "Side income around £4900 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £4900 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income was around £4,900 for the 2025-26 tax year, you may need to declare it to HMRC, as it exceeds the £1,000 trading allowance. Since your income is above this threshold, you typically must register for Self Assessment and submit a tax return. \n\nIt's advisable to keep records of your income and any allowable expenses. If you're unsure about your specific situation, checking the HMRC guidelines on who must send a tax return on GOV.UK can provide clarity. Would you like more information on how to register for Self Assessment?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V137",
+      "question": "Rental about £74000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Yes, if your rental income is about £74,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This requirement applies because your qualifying income exceeds £50,000 for the 2024-25 tax year. Under MTD, you'll need to keep digital records and submit quarterly updates.\n\nWould you like more information on how MTD works?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V138",
+      "question": "I earn £47k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V139",
+      "question": "Cash-in-hand weekend work, maybe £3300. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand income from weekend work is £3,300 in the 2026-27 tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 threshold. An accountant can help you navigate your tax obligations and ensure compliance.\n\nWould you like to know more about our Self Assessment packages?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V140",
+      "question": "PAYE only £52000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your only income is from PAYE and amounts to £52,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above certain thresholds. Since PAYE income is excluded from MTD obligations, you won't need to keep digital records or submit quarterly updates under MTD.\n\nDo you have any self-employment or rental income that might change this?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V141",
+      "question": "Side income around £5100 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £5100 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income of £5,100 is from self-employment or trading, you will need to register for Self Assessment and file a tax return, as your income exceeds the £1,000 trading allowance for the 2026-27 tax year. This applies even if you are also employed under PAYE. \n\nYou should report this income to HMRC. If you have any further questions about the process or need assistance, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V142",
+      "question": "Rental about £77000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Yes, if your rental income is about £77,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This requirement applies because your qualifying income exceeds the £50,000 threshold for the 2024-25 tax year. Under MTD, you'll need to keep digital records and submit quarterly updates.\n\nWould you like more information on how MTD works?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V143",
+      "question": "I earn £48k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V144",
+      "question": "Cash-in-hand weekend work, maybe £3450. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand income from weekend work is £3,450 in the tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to file a tax return to report your earnings.\n\nWould you like to know more about how to register for Self Assessment or the services we offer?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V145",
+      "question": "PAYE only £53000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and is £53,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above specific thresholds. Since PAYE income does not count towards MTD obligations, you can continue with your current tax arrangements. \n\nDo you have any self-employment or rental income that might change this?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V146",
+      "question": "Side income around £5300 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £5300 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income of £5,300 is from self-employment or casual services, you will need to declare it to HMRC. Since your income exceeds the trading allowance of £1,000 for the 2026-27 tax year, you must register for Self Assessment and submit a tax return. \n\nMake sure to keep records of your income and any allowable expenses. Would you like more information on how to register for Self Assessment?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V147",
+      "question": "Rental about £80000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Yes, if your rental income is more than £50,000 in the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This means you'll need to keep digital records and submit quarterly updates. \n\nSince your rental income is £80,000, you will fall into this category. Would you like more information on how MTD works?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V148",
+      "question": "I earn £49k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V149",
+      "question": "Cash-in-hand weekend work, maybe £3600. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand weekend work generates more than £1,000 in income for the tax year, you typically need to register for Self Assessment and submit a tax return. This is because your income exceeds the trading allowance of £1,000, which allows you to claim relief instead of reporting expenses.\n\nWould you like more information on how to register for Self Assessment or the services we offer?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V150",
+      "question": "PAYE only £54000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £54,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income exceeding specific thresholds. Since PAYE income is excluded from MTD obligations, you won't need to keep digital records or submit quarterly updates.\n\nIf you have any further questions or need assistance with something else, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V151",
+      "question": "Side income around £5500 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £5500 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income was £5,500 in the 2025-26 tax year, you generally need to declare it to HMRC, as it exceeds the £1,000 trading allowance. Since your income is above this threshold, you would typically need to register for Self Assessment and submit a tax return. \n\nIt's important to keep records of your income and any allowable expenses. If you have any further questions about the process or need assistance, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V152",
+      "question": "Rental about £83000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Yes, if your rental income is £83,000 for the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This requirement applies to landlords registered for Self Assessment with qualifying income over £50,000. \n\nWould you like more information on how MTD works or the packages we offer?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "BOTH_SA_AND_MTD",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V153",
+      "question": "I earn £50k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V154",
+      "question": "Cash-in-hand weekend work, maybe £3750. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand income from weekend work is £3,750 for the tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to submit a tax return to report your income and pay any tax due.\n\nWould you like more information on how to register for Self Assessment or assistance with filing your return?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V155",
+      "question": "PAYE only £55000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your only income is from PAYE and amounts to £55,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above certain thresholds. Since PAYE income does not count towards MTD obligations, you can continue to manage your tax affairs as usual. \n\nDo you have any self-employment or rental income that we should consider?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V156",
+      "question": "Side income around £5700 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £5700 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income of £5,700 is from self-employment, you generally need to declare it to HMRC, as it exceeds the trading allowance of £1,000 for the 2026-27 tax year. This means you would typically need to register for Self Assessment and submit a tax return.\n\nIf you have any other income sources or specific circumstances, let me know!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V157",
+      "question": "Rental about £86000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Yes, if your rental income is more than £50,000 in the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. This means you'll need to keep digital records and submit quarterly updates. \n\nSince your rental income exceeds this threshold, you should prepare for MTD requirements. Would you like more information on how to get started with MTD?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V158",
+      "question": "I earn £51k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V159",
+      "question": "Cash-in-hand weekend work, maybe £3900. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand income from weekend work is £3,900, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance for the tax year 2026-27. \n\nIt's advisable to consult an accountant to ensure you're meeting your tax obligations and to help with your Self Assessment return. Would you like more information on our Self Assessment packages?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V160",
+      "question": "PAYE only £56000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your only income is from PAYE and amounts to £56,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals or landlords with qualifying income exceeding specific thresholds. Since PAYE income is excluded from MTD obligations, you won't need to keep digital records or submit quarterly updates.\n\nIf you have any other income sources or questions, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V161",
+      "question": "Side income around £5900 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £5900 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income of £5,900 is from self-employment or casual services, you typically need to declare it to HMRC, as it exceeds the £1,000 trading allowance for the 2026-27 tax year. This means you would usually need to register for Self Assessment and file a tax return.\n\nIf you have any other income sources or specific circumstances, please let me know!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V162",
+      "question": "Rental about £89000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Yes, if your rental income is more than £50,000 in the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. Since your rental income is £89,000, you will be required to keep digital records and submit quarterly updates under MTD. \n\nWould you like more information on how MTD works?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V163",
+      "question": "I earn £52k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V164",
+      "question": "Cash-in-hand weekend work, maybe £4050. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand income from weekend work is £4,050, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to file a tax return for the relevant tax year.\n\nIf you need help with your Self Assessment, I recommend considering our Self Assessment packages for support. Would you like more information on those?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V165",
+      "question": "PAYE only £57000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £57,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above specific thresholds. Since PAYE income does not count towards MTD obligations, you can continue to file your Self Assessment as usual without needing to keep digital records for MTD.\n\nDo you have any self-employment or rental income that might affect this?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V166",
+      "question": "Side income around £6100 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £6100 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "Since your side income is £6,100 for the 2025-26 tax year, you will need to declare it to HMRC. This amount exceeds the £1,000 trading allowance, meaning you typically must register for Self Assessment and file a tax return. \n\nIt's advisable to keep records of your income and any allowable expenses. If you have any further questions about the process, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V167",
+      "question": "Rental about £92000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Yes, if your rental income is more than £50,000 in the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. Since your rental income exceeds this threshold, you will be required to keep digital records and submit quarterly updates. \n\nWould you like more information about MTD or assistance with your tax obligations?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V168",
+      "question": "I earn £53k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V169",
+      "question": "Cash-in-hand weekend work, maybe £4200. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand income from weekend work is £4,200, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance for the 2026-27 tax year. \n\nAn accountant can help you navigate your tax obligations and ensure compliance. Would you like to know more about our Self Assessment packages?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V170",
+      "question": "PAYE only £58000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £58,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals or landlords with qualifying income above specific thresholds. Since PAYE income does not count towards MTD obligations, you can continue to file your Self Assessment as usual if required. \n\nDo you have any self-employment or property income that might affect your obligations?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V171",
+      "question": "Side income around £6300 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £6300 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income of £6,300 is from self-employment or casual services, you generally need to register for Self Assessment and file a tax return, as your trading income exceeds the £1,000 trading allowance for the 2026-27 tax year. \n\nIt's important to keep records of your income and any allowable expenses. You can check your specific obligations on GOV.UK. Would you like more information on how to register for Self Assessment?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V172",
+      "question": "Rental about £95000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Yes, if your rental income is more than £50,000 in the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. Since your income is £95,000, you will be required to keep digital records and submit quarterly updates. \n\nWould you like more information on how MTD works?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V173",
+      "question": "I earn £54k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V174",
+      "question": "Cash-in-hand weekend work, maybe £4350. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand income from weekend work is £4,350, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. This means you'll need to file a tax return for the relevant tax year.\n\nWould you like to know more about how to register for Self Assessment or the services we offer?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V175",
+      "question": "PAYE only £59000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your only income is from PAYE and amounts to £59,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above specific thresholds. Since PAYE income is excluded from MTD requirements, you won't need to keep digital records or submit quarterly updates.\n\nDo you have any self-employment or property income that might change this?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V176",
+      "question": "Side income around £6500 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £6500 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income of £6,500 is from self-employment or trading, you will need to register for Self Assessment and file a tax return, as it exceeds the £1,000 trading allowance for the 2026-27 tax year. This means you must declare this income to HMRC. \n\nIf you have any other sources of income or specific circumstances, please let me know!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V177",
+      "question": "Rental about £98000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Yes, if your rental income is more than £50,000 in the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. Since your income is £98,000, you exceed this threshold. \n\nWould you like more information on how MTD works or the registration process?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V178",
+      "question": "I earn £55k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V179",
+      "question": "Cash-in-hand weekend work, maybe £4500. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand weekend work generates £4,500 in income, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance for the tax year 2026-27. \n\nAn accountant can help you navigate your tax obligations, ensure compliance, and potentially identify any allowable expenses. Would you like to know more about our Self Assessment packages?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V180",
+      "question": "PAYE only £60000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £60,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above certain thresholds. Since PAYE income does not count towards MTD obligations, you can continue to file your Self Assessment as usual without needing to keep digital records for MTD. \n\nDo you have any self-employment or rental income that might affect this?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V181",
+      "question": "Side income around £6700 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £6700 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income of £6,700 is from self-employment or trading, you generally need to register for Self Assessment and submit a tax return, as your income exceeds the £1,000 trading allowance for the 2026-27 tax year. However, if this income is from PAYE employment or other sources, different rules may apply. \n\nIt's advisable to check the specific requirements on GOV.UK regarding who must send a tax return. Would you like more information on how to register for Self Assessment?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V182",
+      "question": "Rental about £101000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Yes, if your gross rental income is about £101,000 for the 2026-27 tax year, you will need to comply with Making Tax Digital (MTD) requirements. Since your qualifying income exceeds £20,000, you will need to keep digital records and submit quarterly updates starting from 6 April 2028.\n\nWould you like more information on how to get started with MTD?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V183",
+      "question": "I earn £56k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V184",
+      "question": "Cash-in-hand weekend work, maybe £4650. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand weekend work income is £4,650 for the tax year, you may need to register for Self Assessment if your total self-employment income exceeds £1,000 before any reliefs. Since your income is above this threshold, you will need to file a Self Assessment tax return.\n\nWould you like to know more about how to register for Self Assessment or the packages we offer for assistance?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V185",
+      "question": "PAYE only £61000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and totals £61,000, you are not required to register for Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above certain thresholds, which do not include PAYE income. \n\nIf you have any self-employment or property income, please let me know!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V186",
+      "question": "Side income around £6900 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £6900 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income of £6,900 is from self-employment or casual services, you generally need to declare it to HMRC, as it exceeds the trading allowance of £1,000. This means you would typically need to register for Self Assessment and file a tax return for the 2025-26 tax year, which runs from 6 April 2025 to 5 April 2026.\n\nWould you like more information on how to register for Self Assessment?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V187",
+      "question": "Rental about £104000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Yes, if your rental income is more than £50,000 in the 2024-25 tax year, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026. Since your income is above this threshold, you will be required to keep digital records and submit quarterly updates. \n\nWould you like more information on how MTD works or the packages available to assist you?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V188",
+      "question": "I earn £57k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V189",
+      "question": "Cash-in-hand weekend work, maybe £4800. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand income from weekend work is £4,800, you may need to register for Self Assessment if this is self-employment income, as it exceeds the £1,000 trading allowance. An accountant can help you navigate your tax obligations and ensure compliance. \n\nWould you like to know more about our Self Assessment packages?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V190",
+      "question": "PAYE only £62000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £62,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above specific thresholds. Since PAYE income is excluded from MTD obligations, you can continue to file your Self Assessment as usual without needing to keep digital records or submit quarterly updates.\n\nIf you have any other questions about your tax situation, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V191",
+      "question": "Side income around £7100 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £7100 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your side income from self-employment was around £7,100 in the 2025-26 tax year, you will need to register for Self Assessment and submit a tax return. This is because your trading income exceeds the £1,000 trading allowance, which means you cannot skip registration. \n\nIt's important to keep records of your income and any allowable expenses. If you have any further questions about the process, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V192",
+      "question": "Rental about £107000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Yes, if your rental income is more than £50,000 in the 2024-25 tax year, you will need to use Making Tax Digital for Income Tax starting from 6 April 2026. Since your rental income exceeds this threshold, you will be required to keep digital records and submit quarterly updates. \n\nWould you like more information on how to get started with Making Tax Digital?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V193",
+      "question": "I earn £58k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V194",
+      "question": "Cash-in-hand weekend work, maybe £4950. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand income from weekend work is £4,950, you may need to register for Self Assessment if this income is from self-employment and exceeds £1,000 before any reliefs. Since your income is above this threshold, you would typically need to file a Self Assessment tax return.\n\nWould you like to know more about how to register for Self Assessment or the services we offer?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V195",
+      "question": "PAYE only £63000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and totals £63,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above specific thresholds. Since PAYE income does not count towards MTD obligations, you can continue to file your Self Assessment as usual without needing to keep digital records for MTD. \n\nDo you have any self-employment or property income that we should consider?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V196",
+      "question": "Side income around £7300 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £7300 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "Since your side income is £7,300, you will need to register for Self Assessment and file a tax return for the 2026-27 tax year. The trading allowance of £1,000 means you can deduct this from your income, but you still have taxable income above the threshold. It's important to keep records of your income and any allowable expenses. \n\nWould you like to know more about the Self Assessment process?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V197",
+      "question": "Rental about £110000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Yes, if your gross rental income is £110,000 in the 2026-27 tax year, you will need to comply with Making Tax Digital (MTD) for Income Tax. The threshold for MTD is more than £20,000 in qualifying income, which includes your rental income before expenses. \n\nYou would need to keep digital records and submit quarterly updates to HMRC. Would you like more information on how to get started with MTD?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V198",
+      "question": "I earn £59k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "reply_unedited": "Happy to help — I need a little more detail before I can give an accurate answer. Is that figure PAYE employment salary, self-employment turnover, profit after expenses, rental income, or something else — and which tax year? I won’t infer Self Assessment or Making Tax Digital from a total income figure alone.",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MORE_INFO_NEEDED",
+      "classification_match": true,
+      "premature_package": false
+    },
+    {
+      "id": "V199",
+      "question": "Cash-in-hand weekend work, maybe £5100. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your cash-in-hand income from weekend work is £5,100 in the 2026-27 tax year, you may need to register for Self Assessment, as your self-employed trading income exceeds the £1,000 trading allowance. \n\nAn accountant can help you navigate your tax obligations, ensure compliance, and assist with your Self Assessment return. Would you like to know more about our Self Assessment packages?",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "SA_ASSIST",
+      "classification_match": false,
+      "premature_package": false
+    },
+    {
+      "id": "V200",
+      "question": "PAYE only £64000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ],
+      "reply_unedited": "If your income is solely from PAYE and amounts to £64,000, you are not required to use Making Tax Digital (MTD) for Income Tax. MTD applies to self-employed individuals and landlords with qualifying income above specific thresholds. Since PAYE income is not included in the MTD criteria, you do not need to keep digital records or submit quarterly updates. \n\nIf you have any other questions about your tax situation, feel free to ask!",
+      "packages": [],
+      "llm_mode": "openai",
+      "classification_observed": "MTD_ASSIST",
+      "classification_match": "PARTIAL",
+      "premature_package": false
+    }
+  ]
+}

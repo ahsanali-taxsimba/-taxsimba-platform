@@ -1,0 +1,130 @@
+{
+  "id": "D14",
+  "title": "Document uploads",
+  "goal": "Portal/document guidance",
+  "mode": "openai",
+  "llm_mode": "openai",
+  "turn_count": 6,
+  "transcript": [
+    {
+      "role": "user",
+      "content": "How do I upload documents to TaxSimba?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "To upload documents to TaxSimba, you would typically use the secure client dashboard provided to you upon registration. This dashboard allows you to manage your documents and communicate with your assigned accountant. If you need specific guidance on navigating the dashboard, I recommend checking the help section within the dashboard or reaching out directly to your accountant for assistance. \n\nIs there anything else you need help with?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/self-employed-records",
+        "https://www.gov.uk/guidance/tax-on-cryptoassets"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "I am a new customer who has not registered yet.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "As a new customer, you'll need to register for a TaxSimba package first. You can choose from options like Self Assessment or Making Tax Digital, depending on your needs. \n\nTo get started, visit the registration page on the TaxSimba website. Once registered, you'll gain access to the client dashboard where you can upload documents and manage your account.\n\nWould you like more information on a specific package?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/register-for-self-assessment",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "What documents are usually needed for Self Assessment?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "For Self Assessment, you typically need the following documents:\n\n1. **Income Records**: Details of all income sources, including self-employment earnings, rental income, and any other untaxed income.\n2. **Bank Statements**: To verify income and expenses.\n3. **Expense Receipts**: Records of business expenses, including invoices and receipts.\n4. **P60/P45**: If you have employment income, these documents show your earnings and tax deducted.\n5. **National Insurance Number**: For identification purposes.\n\nIt's always a good idea to check the official guidance on GOV.UK for any specific requirements related to your situation. \n\nDo you have any other questions about the Self Assessment process?",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/register-for-self-assessment",
+        "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "After I register, is upload via the dashboard?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Yes, after you register and gain access to your TaxSimba client dashboard, you can upload documents directly through that platform. The dashboard is designed to help you manage your documents and communicate with your accountant securely.\n\nIf you have any other questions about the registration process or what to expect after signing up, feel free to ask!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/register-for-self-assessment",
+        "https://www.gov.uk/set-up-sole-trader",
+        "https://www.gov.uk/register-for-vat"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Can I email attachments to info@taxsimba.co.uk instead?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "While you can reach out to info@taxsimba.co.uk for general inquiries, it's recommended to use the client dashboard for uploading documents once you're registered. This ensures secure handling of your sensitive information and keeps everything organised in one place.\n\nIf you have any more questions or need assistance with registration, just let me know!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/income-tax",
+        "https://www.gov.uk/capital-allowances",
+        "https://www.gov.uk/self-assessment-tax-returns/penalties"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "OK.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Great! If you have any more questions in the future or need assistance with anything else, feel free to reach out. Good luck with your registration!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/penalties",
+        "https://www.gov.uk/self-employed-records",
+        "https://www.gov.uk/guidance/tax-on-cryptoassets"
+      ],
+      "llm_mode": "openai"
+    }
+  ],
+  "scores": {
+    "tax_answer_accuracy": 5,
+    "understanding": 8,
+    "clarity": 8,
+    "follow_up_relevance": 7,
+    "conversation_memory": 7,
+    "practical_usefulness": 8,
+    "british_english": 8,
+    "appropriate_recommendation": 7,
+    "absence_of_sales_pressure": 7,
+    "final_outcome_quality": 7
+  },
+  "score_notes": [
+    "Tax accuracy scored pending accountant review — not independently VERIFIED PASS"
+  ],
+  "outcome": "Customer requires further clarification",
+  "tax_accuracy_status": "AWAITING_ACCOUNTANT_REVIEW",
+  "environment": "cloud_agent_local_api"
+}

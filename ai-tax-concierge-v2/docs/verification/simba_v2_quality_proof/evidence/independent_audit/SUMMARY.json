@@ -1,0 +1,14 @@
+{
+  "generated_at": "2026-11-20T22:22:03.285Z",
+  "counts": {
+    "VERIFIED": 64,
+    "INCORRECT": 1,
+    "INCOMPLETE": 1,
+    "AMBIGUOUS": 0,
+    "UNVERIFIED": 310,
+    "REQUIRES_PROFESSIONAL_ADVICE": 24,
+    "BLOCKED": 0,
+    "REAL_MODEL_EXECUTED": 400,
+    "PROFESSIONAL_APPROVAL_OBTAINED": 0
+  }
+}

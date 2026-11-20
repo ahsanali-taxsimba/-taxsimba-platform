@@ -1,0 +1,231 @@
+{
+  "generated_at": "2026-11-20T12:56:29.377Z",
+  "deep20": [
+    {
+      "id": "D01",
+      "title": "First-time Self Assessment customer",
+      "answers_question": "REVIEW",
+      "remembers_context": "PASS",
+      "premature_package": "PASS",
+      "respects_no_buy": "N_A",
+      "trading_allowance_inversion": "PASS",
+      "outcome": "Customer guided to appropriate signup",
+      "notes": ""
+    },
+    {
+      "id": "D02",
+      "title": "Landlord with PAYE employment",
+      "answers_question": "REVIEW",
+      "remembers_context": "PASS",
+      "premature_package": "PASS",
+      "respects_no_buy": "PASS",
+      "trading_allowance_inversion": "PASS",
+      "outcome": "Customer requires further clarification",
+      "notes": ""
+    },
+    {
+      "id": "D03",
+      "title": "Sole trader approaching MTD thresholds",
+      "answers_question": "REVIEW",
+      "remembers_context": "FAIL",
+      "premature_package": "PASS",
+      "respects_no_buy": "N_A",
+      "trading_allowance_inversion": "PASS",
+      "outcome": "Customer guided to appropriate signup",
+      "notes": "Forgot prior income on follow-up"
+    },
+    {
+      "id": "D04",
+      "title": "Multiple income sources",
+      "answers_question": "REVIEW",
+      "remembers_context": "PASS",
+      "premature_package": "PASS",
+      "respects_no_buy": "N_A",
+      "trading_allowance_inversion": "PASS",
+      "outcome": "Customer offered appropriate professional advice",
+      "notes": ""
+    },
+    {
+      "id": "D05",
+      "title": "Unsure whether they need to file",
+      "answers_question": "REVIEW",
+      "remembers_context": "PASS",
+      "premature_package": "PASS",
+      "respects_no_buy": "FAIL",
+      "trading_allowance_inversion": "PASS",
+      "outcome": "Customer requires further clarification",
+      "notes": ""
+    },
+    {
+      "id": "D06",
+      "title": "No paid service needed",
+      "answers_question": "REVIEW",
+      "remembers_context": "PASS",
+      "premature_package": "PASS",
+      "respects_no_buy": "N_A",
+      "trading_allowance_inversion": "PASS",
+      "outcome": "Question answered, no purchase necessary",
+      "notes": ""
+    },
+    {
+      "id": "D07",
+      "title": "Asking about TaxSimba packages",
+      "answers_question": "REVIEW",
+      "remembers_context": "PASS",
+      "premature_package": "PASS",
+      "respects_no_buy": "N_A",
+      "trading_allowance_inversion": "PASS",
+      "outcome": "Customer requires further clarification",
+      "notes": ""
+    },
+    {
+      "id": "D08",
+      "title": "Xero or TaxCalc questions",
+      "answers_question": "REVIEW",
+      "remembers_context": "PASS",
+      "premature_package": "PASS",
+      "respects_no_buy": "N_A",
+      "trading_allowance_inversion": "PASS",
+      "outcome": "Customer requires further clarification",
+      "notes": ""
+    },
+    {
+      "id": "D09",
+      "title": "Wants TaxSimba to manage everything",
+      "answers_question": "REVIEW",
+      "remembers_context": "PASS",
+      "premature_package": "FAIL",
+      "respects_no_buy": "N_A",
+      "trading_allowance_inversion": "PASS",
+      "outcome": "Customer guided to appropriate signup",
+      "notes": "Named package before customer asked"
+    },
+    {
+      "id": "D10",
+      "title": "Wants to register immediately",
+      "answers_question": "REVIEW",
+      "remembers_context": "PASS",
+      "premature_package": "FAIL",
+      "respects_no_buy": "N_A",
+      "trading_allowance_inversion": "PASS",
+      "outcome": "Customer guided to appropriate signup",
+      "notes": "Named package before customer asked"
+    },
+    {
+      "id": "D11",
+      "title": "Needs professional advice",
+      "answers_question": "REVIEW",
+      "remembers_context": "PASS",
+      "premature_package": "PASS",
+      "respects_no_buy": "N_A",
+      "trading_allowance_inversion": "PASS",
+      "outcome": "Customer offered appropriate professional advice",
+      "notes": ""
+    },
+    {
+      "id": "D12",
+      "title": "Late tax return",
+      "answers_question": "REVIEW",
+      "remembers_context": "PASS",
+      "premature_package": "PASS",
+      "respects_no_buy": "N_A",
+      "trading_allowance_inversion": "PASS",
+      "outcome": "Customer offered appropriate professional advice",
+      "notes": ""
+    },
+    {
+      "id": "D13",
+      "title": "Existing customer needing help",
+      "answers_question": "REVIEW",
+      "remembers_context": "PASS",
+      "premature_package": "PASS",
+      "respects_no_buy": "N_A",
+      "trading_allowance_inversion": "PASS",
+      "outcome": "Customer guided to existing-account support",
+      "notes": ""
+    },
+    {
+      "id": "D14",
+      "title": "Document uploads",
+      "answers_question": "REVIEW",
+      "remembers_context": "PASS",
+      "premature_package": "PASS",
+      "respects_no_buy": "N_A",
+      "trading_allowance_inversion": "PASS",
+      "outcome": "Customer requires further clarification",
+      "notes": ""
+    },
+    {
+      "id": "D15",
+      "title": "Payment and onboarding",
+      "answers_question": "REVIEW",
+      "remembers_context": "PASS",
+      "premature_package": "PASS",
+      "respects_no_buy": "N_A",
+      "trading_allowance_inversion": "PASS",
+      "outcome": "Customer guided to appropriate signup",
+      "notes": ""
+    },
+    {
+      "id": "D16",
+      "title": "Refuses a package",
+      "answers_question": "REVIEW",
+      "remembers_context": "PASS",
+      "premature_package": "PASS",
+      "respects_no_buy": "FAIL",
+      "trading_allowance_inversion": "PASS",
+      "outcome": "Customer requires further clarification",
+      "notes": ""
+    },
+    {
+      "id": "D17",
+      "title": "Changes circumstances mid-chat",
+      "answers_question": "REVIEW",
+      "remembers_context": "PASS",
+      "premature_package": "PASS",
+      "respects_no_buy": "N_A",
+      "trading_allowance_inversion": "PASS",
+      "outcome": "Customer requires further clarification",
+      "notes": ""
+    },
+    {
+      "id": "D18",
+      "title": "Complicated follow-ups",
+      "answers_question": "REVIEW",
+      "remembers_context": "PASS",
+      "premature_package": "PASS",
+      "respects_no_buy": "N_A",
+      "trading_allowance_inversion": "PASS",
+      "outcome": "Customer requires further clarification",
+      "notes": ""
+    },
+    {
+      "id": "D19",
+      "title": "Confused customer needs simpler explanations",
+      "answers_question": "REVIEW",
+      "remembers_context": "PASS",
+      "premature_package": "PASS",
+      "respects_no_buy": "N_A",
+      "trading_allowance_inversion": "PASS",
+      "outcome": "Customer requires further clarification",
+      "notes": ""
+    },
+    {
+      "id": "D20",
+      "title": "Wants only free information",
+      "answers_question": "REVIEW",
+      "remembers_context": "PASS",
+      "premature_package": "PASS",
+      "respects_no_buy": "N_A",
+      "trading_allowance_inversion": "PASS",
+      "outcome": "Question answered, no purchase necessary",
+      "notes": ""
+    }
+  ],
+  "journeys40_summary": {
+    "total": 42,
+    "heuristic_pass": 42,
+    "all_openai": true,
+    "note": "Heuristic PASS ≠ independent tax VERIFIED"
+  }
+}

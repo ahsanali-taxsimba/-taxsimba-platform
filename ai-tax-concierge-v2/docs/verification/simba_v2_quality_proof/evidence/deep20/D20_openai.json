@@ -1,0 +1,130 @@
+{
+  "id": "D20",
+  "title": "Wants only free information",
+  "goal": "No sales pressure",
+  "mode": "openai",
+  "llm_mode": "openai",
+  "turn_count": 6,
+  "transcript": [
+    {
+      "role": "user",
+      "content": "I only want free information. Do not sell anything.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Of course! I'm here to provide you with free information about UK tax matters. Please feel free to ask any questions you have, and I'll do my best to help you.",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "What is the VAT registration threshold?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "The VAT registration threshold for the tax year 2026-27 is £90,000. You must register for VAT if either your total taxable turnover for the last 12 months exceeds this amount or you expect it to exceed £90,000 in the next 30 days. You can also choose to register voluntarily if your turnover is below this threshold. For the most current information, it's always best to check GOV.UK.",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/register-for-vat",
+        "https://www.gov.uk/register-for-vat",
+        "https://www.gov.uk/vat-flat-rate-scheme"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "When does MTD for Income Tax start for people over £50k qualifying income?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "No — qualifying income of exactly £50,000 for 2024-25 does not bring you into Making Tax Digital under that band. HMRC’s wording is “more than £50,000”, so the threshold is exclusive of the exact amount. The 6 April 2026 start date applies only if qualifying income was more than £50,000 for 2024-25.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Is exact £50,000 enough to be in scope?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "No, an exact qualifying income of £50,000 is not enough to be in scope for Making Tax Digital (MTD) for Income Tax. The threshold is \"more than £50,000,\" meaning you need to exceed that amount to fall under MTD requirements starting from 6 April 2026. If your qualifying income is exactly £50,000, you would not need to comply with MTD for that period.",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Where do I read this on GOV.UK?",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "You can find information about Making Tax Digital (MTD) for Income Tax, including the thresholds, on the official GOV.UK website. Specifically, you can refer to the guidance on MTD for Income Tax here: [Find out if and when you need to use Making Tax Digital for Income Tax](https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax). This page provides detailed information about the requirements and thresholds.",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/income-tax",
+        "https://www.gov.uk/guidance/understanding-off-payroll-working-ir35",
+        "https://www.gov.uk/national-minimum-wage-rates"
+      ],
+      "llm_mode": "openai"
+    },
+    {
+      "role": "user",
+      "content": "Still no packages please — goodbye.",
+      "packages": [],
+      "sources": []
+    },
+    {
+      "role": "assistant",
+      "content": "Understood! If you have any more questions in the future, feel free to reach out. Goodbye, and take care!",
+      "packages": [],
+      "sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/what-is-the-construction-industry-scheme",
+        "https://www.gov.uk/self-assessment-tax-returns/penalties"
+      ],
+      "llm_mode": "openai"
+    }
+  ],
+  "scores": {
+    "tax_answer_accuracy": 5,
+    "understanding": 8,
+    "clarity": 8,
+    "follow_up_relevance": 7,
+    "conversation_memory": 7,
+    "practical_usefulness": 8,
+    "british_english": 8,
+    "appropriate_recommendation": 7,
+    "absence_of_sales_pressure": 9,
+    "final_outcome_quality": 7
+  },
+  "score_notes": [
+    "Tax accuracy scored pending accountant review — not independently VERIFIED PASS"
+  ],
+  "outcome": "Question answered, no purchase necessary",
+  "tax_accuracy_status": "AWAITING_ACCOUNTANT_REVIEW",
+  "environment": "cloud_agent_local_api"
+}

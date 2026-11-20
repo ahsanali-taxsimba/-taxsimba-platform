@@ -1,0 +1,714 @@
+{
+  "generated_at": "2026-11-20T14:01:00Z",
+  "source_transcripts": "evidence/review/deep20/D01.md \u2026 D20.md",
+  "scoring_method": "Human CX review of frozen OpenAI deep chats. Integer 1\u201310. Accuracy is conservative CX plausibility + known independent flags only \u2014 NOT accountant approval.",
+  "journey_checks_referenced": [
+    "1 correct/accurate answer",
+    "2 understands customer",
+    "3 remembers details",
+    "4 explains what applies",
+    "5 relevant questions",
+    "6 practical guidance",
+    "7 SA/MTD/advice path",
+    "8 TaxSimba service accuracy",
+    "9 no unnecessary/premature packages",
+    "10 justified package when asked",
+    "11 signup/support correct",
+    "12 respects no-buy"
+  ],
+  "average_overall_cx": 6.65,
+  "average_by_dimension": {
+    "accuracy": 5.7,
+    "understanding": 8.05,
+    "conversation_memory": 6.65,
+    "clarity": 7.5,
+    "helpfulness": 7.65,
+    "follow_up_relevance": 7.45,
+    "package_suitability": 7.15,
+    "lack_of_sales_pressure": 6.9,
+    "correct_next_steps": 7.75,
+    "overall_cx": 6.65
+  },
+  "top_journey_failures": [
+    {
+      "id": "D03",
+      "also_seen_in": "J41",
+      "reason": "Forgot prior qualifying income on MTD follow-up (FAIL #3 remembers details)"
+    },
+    {
+      "id": "D10",
+      "also_seen_in": "D09",
+      "reason": "Named package SKU before customer asked which package (FAIL #9 premature/unnecessary package)"
+    },
+    {
+      "id": "D05",
+      "also_seen_in": "D08",
+      "reason": "Package card after explicit no-buy / no-package-cards request (FAIL #12 respects no-buy)"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "D01",
+      "title": "First-time Self Assessment customer",
+      "scores": {
+        "accuracy": 8,
+        "understanding": 9,
+        "conversation_memory": 8,
+        "clarity": 7,
+        "helpfulness": 8,
+        "follow_up_relevance": 8,
+        "package_suitability": 9,
+        "lack_of_sales_pressure": 8,
+        "correct_next_steps": 8,
+        "overall_cx": 8
+      },
+      "fail_flags": [],
+      "evidence_quotes": {
+        "accuracy": "With freelance / self-employment income of \u00a38,000 for 2025-26, you are above the \u00a31,000 sole-trader threshold",
+        "understanding": "Hi \u2014 I just started freelancing this year alongside my job. / My employer pays me under PAYE. Freelance turnover so far is about \u00a38,000",
+        "conversation_memory": "With freelance / self-employment income of \u00a38,000 for 2025-26\u2026 (repeated on T3 after customer asked Do I need to register)",
+        "clarity": "That \u00a31,000 figure is the \u201cmore than \u00a31,000\u201d test on GOV.UK \u2014 \u00a38,000 is not below it.",
+        "helpfulness": "Register: https://www.gov.uk/register-for-self-assessment",
+        "follow_up_relevance": "What records should I keep? \u2192 income/expenses/bank statements + five-year keep guidance",
+        "package_suitability": "Self Assessment Simple package at \u00a3119 per tax year would likely be a good fit (after customer asked which package)",
+        "lack_of_sales_pressure": "No package until T5 when customer asked which SA package",
+        "correct_next_steps": "create an account at https://www.taxsimba.co.uk/register \u2026 follow the accountant-led onboarding steps",
+        "overall_cx": "You're welcome! If you have any more questions\u2026 Good luck with your freelancing and tax filing!"
+      },
+      "notes": "\u00a38k above \u00a31k rule source-backed (INDEPENDENTLY_VERIFIED_PARTIAL only). Package only when asked (T5). Catalogue dump on T6 hurts clarity.",
+      "tax_accuracy_disclaimer": "Human CX score only. Not accountant-approved. Do not treat as tax VERIFIED unless separately source-backed.",
+      "professional_approval": "NOT_OBTAINED"
+    },
+    {
+      "id": "D02",
+      "title": "Landlord with PAYE employment",
+      "scores": {
+        "accuracy": 5,
+        "understanding": 9,
+        "conversation_memory": 8,
+        "clarity": 7,
+        "helpfulness": 8,
+        "follow_up_relevance": 8,
+        "package_suitability": 9,
+        "lack_of_sales_pressure": 9,
+        "correct_next_steps": 7,
+        "overall_cx": 7
+      },
+      "fail_flags": [],
+      "evidence_quotes": {
+        "accuracy": "Yes, you will need to submit a Self Assessment tax return because you have rental income from your buy-to-let property.",
+        "understanding": "I also have one buy-to-let that made about \u00a318,000 rent before expenses in 2024-25.",
+        "conversation_memory": "Since your rental income for 2024-25 is \u00a318,000, you won't need to follow MTD requirements until your income exceeds the threshold",
+        "clarity": "Self Assessment is an annual tax return\u2026 Making Tax Digital (MTD) is a system that requires\u2026 digital records and submit quarterly updates",
+        "helpfulness": "Keep records of the rent received and any allowable expenses",
+        "follow_up_relevance": "What about Making Tax Digital for landlords? \u2192 MTD explanation",
+        "package_suitability": "Please do not recommend a package yet \u2014 just explain. \u2192 Certainly! (no package cards)",
+        "lack_of_sales_pressure": "Please do not recommend a package yet \u2014 just explain. / Certainly!",
+        "correct_next_steps": "You should register for Self Assessment if you haven't already. The deadline for registration for the 2024-25 tax year is 5 October 2025.",
+        "overall_cx": "For general TaxSimba customer support, email info@taxsimba.co.uk"
+      },
+      "notes": "SA for rental income directionally strong; MTD band wording on T4 (\u00a320k / April 2028) remains AWAITING_ACCOUNTANT_REVIEW / AMBIGUOUS \u2014 not claimed verified. Respected no-package request.",
+      "tax_accuracy_disclaimer": "Human CX score only. Not accountant-approved. Do not treat as tax VERIFIED unless separately source-backed.",
+      "professional_approval": "NOT_OBTAINED"
+    },
+    {
+      "id": "D03",
+      "title": "Sole trader approaching MTD thresholds",
+      "scores": {
+        "accuracy": 6,
+        "understanding": 7,
+        "conversation_memory": 2,
+        "clarity": 7,
+        "helpfulness": 7,
+        "follow_up_relevance": 6,
+        "package_suitability": 8,
+        "lack_of_sales_pressure": 8,
+        "correct_next_steps": 7,
+        "overall_cx": 5
+      },
+      "fail_flags": [
+        "FAIL:#3_remembers_details"
+      ],
+      "evidence_quotes": {
+        "accuracy": "Since your turnover for the 2024-25 tax year is about \u00a352,000, you will need to use Making Tax Digital (MTD) for Income Tax starting from 6 April 2026.",
+        "understanding": "I am a sole trader. / For 2024-25 my turnover before expenses was about \u00a352,000.",
+        "conversation_memory": "Do I need Making Tax Digital from April 2026? \u2192 I can work out your Making Tax Digital start date once I know your qualifying income\u2026 What was that amount\u2026?",
+        "clarity": "Making Tax Digital (MTD) for Income Tax is based on your qualifying income, which is your turnover\u2026 not profit.",
+        "helpfulness": "No, PAYE salary does not count towards the qualifying income for Making Tax Digital (MTD).",
+        "follow_up_relevance": "Is that based on profit or turnover? \u2192 turnover not profit",
+        "package_suitability": "Which Simbian plan would you recommend as a starting point? \u2192 Simbian Comply plan at \u00a329.99 per month",
+        "lack_of_sales_pressure": "Package only after customer asked which Simbian plan (T7)",
+        "correct_next_steps": "create an account at https://www.taxsimba.co.uk/register \u2026 select the Self Assessment or Making Tax Digital package",
+        "overall_cx": "Memory wipe on T3 undermines otherwise coherent MTD journey"
+      },
+      "notes": "T2 correctly applied \u00a352k \u2192 MTD from 6 Apr 2026 (awaiting professional review). T3 forgot prior income \u2014 FAIL check #3 remembers details. Tax accuracy NOT accountant-approved.",
+      "tax_accuracy_disclaimer": "Human CX score only. Not accountant-approved. Do not treat as tax VERIFIED unless separately source-backed.",
+      "professional_approval": "NOT_OBTAINED"
+    },
+    {
+      "id": "D04",
+      "title": "Multiple income sources",
+      "scores": {
+        "accuracy": 5,
+        "understanding": 8,
+        "conversation_memory": 3,
+        "clarity": 7,
+        "helpfulness": 7,
+        "follow_up_relevance": 6,
+        "package_suitability": 8,
+        "lack_of_sales_pressure": 7,
+        "correct_next_steps": 7,
+        "overall_cx": 6
+      },
+      "fail_flags": [
+        "FAIL:#3_remembers_details"
+      ],
+      "evidence_quotes": {
+        "accuracy": "your total qualifying income from freelance work (\u00a315,000) and rental income (\u00a340,000) amounts to \u00a355,000\u2026 you will need to use Making Tax Digital\u2026 from 6 April 2026.",
+        "understanding": "I have PAYE employment, freelance work, and two rental properties.",
+        "conversation_memory": "What do I need to think about for Self Assessment and MTD? \u2192 I can work out your Making Tax Digital start date once I know your qualifying income\u2026",
+        "clarity": "Quick Tax Advice \u2014 \u00a399 for 20 minutes\u2026 Extended Tax Consultation \u2014 \u00a3149 for 40 minutes",
+        "helpfulness": "This feels complex \u2014 should I speak to an accountant? \u2192 consultation options offered",
+        "follow_up_relevance": "If I later want a Self Assessment package\u2026 mid-tier\u2026 \u2192 Self Assessment Smart package at \u00a3149",
+        "package_suitability": "Self Assessment Smart package at \u00a3149 per tax year would be a suitable choice\u2026 multiple income sources",
+        "lack_of_sales_pressure": "Stop selling after that \u2014 I only wanted the recommendation. \u2192 Got it! The Self Assessment Smart package\u2026",
+        "correct_next_steps": "consultations explained; later SA Smart when asked",
+        "overall_cx": "Strong consult path; memory fail mid-chat"
+      },
+      "notes": "T2 summed \u00a315k+\u00a340k and applied MTD; T3 forgot figures (same MTD memory defect pattern as D03). Consultation path appropriate when customer asked. Accuracy awaiting review.",
+      "tax_accuracy_disclaimer": "Human CX score only. Not accountant-approved. Do not treat as tax VERIFIED unless separately source-backed.",
+      "professional_approval": "NOT_OBTAINED"
+    },
+    {
+      "id": "D05",
+      "title": "Unsure whether they need to file",
+      "scores": {
+        "accuracy": 5,
+        "understanding": 8,
+        "conversation_memory": 7,
+        "clarity": 7,
+        "helpfulness": 7,
+        "follow_up_relevance": 7,
+        "package_suitability": 3,
+        "lack_of_sales_pressure": 2,
+        "correct_next_steps": 7,
+        "overall_cx": 5
+      },
+      "fail_flags": [
+        "FAIL:#12_respects_no_buy",
+        "FAIL:#9_no_unnecessary_packages"
+      ],
+      "evidence_quotes": {
+        "accuracy": "If your online sales are occasional and not part of a business\u2026 you typically wouldn't need to file a Self Assessment",
+        "understanding": "I sold some personal belongings online for maybe \u00a3600 profit.",
+        "conversation_memory": "Are you trading as a self-employed sole trader, or is this occasional personal selling?",
+        "clarity": "Thanks \u2014 a profit figure is useful, but\u2026 HMRC usually needs turnover/gross\u2026 as well as the nature of the activity.",
+        "helpfulness": "You can check the official HMRC guidance\u2026 Self Assessment Overview\u2026 Trading Allowance\u2026",
+        "follow_up_relevance": "What if next year the online sales are higher? \u2192 threshold discussion",
+        "package_suitability": "Please do not recommend any TaxSimba package. \u2192 Understood! \u2026 **Packages shown:** SA_SIMPLE",
+        "lack_of_sales_pressure": "**Packages shown:** SA_SIMPLE while verbally saying Understood!",
+        "correct_next_steps": "GOV.UK links provided for official guidance",
+        "overall_cx": "Helpful clarification undercut by package card on no-buy turn"
+      },
+      "notes": "Clarifying questions good for personal sales vs trade. FAIL #12 respects no-buy: T6 still shows Packages shown: SA_SIMPLE after customer said do not recommend any package. Trading-allowance wording on T5 mixes allowance vs filing duty \u2014 not verified.",
+      "tax_accuracy_disclaimer": "Human CX score only. Not accountant-approved. Do not treat as tax VERIFIED unless separately source-backed.",
+      "professional_approval": "NOT_OBTAINED"
+    },
+    {
+      "id": "D06",
+      "title": "No paid service needed",
+      "scores": {
+        "accuracy": 6,
+        "understanding": 9,
+        "conversation_memory": 7,
+        "clarity": 8,
+        "helpfulness": 8,
+        "follow_up_relevance": 6,
+        "package_suitability": 9,
+        "lack_of_sales_pressure": 9,
+        "correct_next_steps": 8,
+        "overall_cx": 8
+      },
+      "fail_flags": [],
+      "evidence_quotes": {
+        "accuracy": "If you only have PAYE employment income and no other untaxed income, you typically won't need to file a Self Assessment tax return.",
+        "understanding": "I only have PAYE employment income and no other income.",
+        "conversation_memory": "Since you mentioned you only have PAYE employment income and no other income, you likely do not need to file",
+        "clarity": "The general deadline for filing a Self Assessment tax return online is 31 January following the end of the tax year.",
+        "helpfulness": "you likely do not need a TaxSimba package, as you wouldn't need to file a Self Assessment",
+        "follow_up_relevance": "Do I need Making Tax Digital? \u2192 asks for qualifying income despite PAYE-only context",
+        "package_suitability": "Do I need a TaxSimba package? \u2192 you likely do not need a TaxSimba package",
+        "lack_of_sales_pressure": "I only want free information. \u2192 That's perfectly fine! I'm here to provide you with free information.",
+        "correct_next_steps": "OK thank you \u2014 no signup. \u2192 You're welcome! \u2026 Have a great day!",
+        "overall_cx": "Question answered, no purchase necessary"
+      },
+      "notes": "Info-only / no-purchase outcome. Zero package cards. Mild follow-up miss: T3 MTD probe ignores already-stated PAYE-only (asks for qualifying income). Accuracy caveats remain for PAYE-only edge cases \u2014 not accountant-approved.",
+      "tax_accuracy_disclaimer": "Human CX score only. Not accountant-approved. Do not treat as tax VERIFIED unless separately source-backed.",
+      "professional_approval": "NOT_OBTAINED"
+    },
+    {
+      "id": "D07",
+      "title": "Asking about TaxSimba packages",
+      "scores": {
+        "accuracy": 6,
+        "understanding": 8,
+        "conversation_memory": 8,
+        "clarity": 5,
+        "helpfulness": 7,
+        "follow_up_relevance": 7,
+        "package_suitability": 8,
+        "lack_of_sales_pressure": 7,
+        "correct_next_steps": 8,
+        "overall_cx": 7
+      },
+      "fail_flags": [],
+      "evidence_quotes": {
+        "accuracy": "Self Assessment Simple: \u00a3119\u2026 Smart: \u00a3149\u2026 Elite: \u00a3299",
+        "understanding": "I am a first-time sole trader with simple income \u2014 which one do you recommend?",
+        "conversation_memory": "For a first-time sole trader with simple income, I recommend the Self Assessment Simple package at \u00a3119",
+        "clarity": "Here is what SIMBA can state from approved catalogue decisions: (full catalogue dump on T2/T5)",
+        "helpfulness": "You can sign up\u2026 https://www.taxsimba.co.uk/register",
+        "follow_up_relevance": "Why that one? \u2192 cost-effective\u2026 simpler tax situations",
+        "package_suitability": "Self Assessment Simple package at \u00a3119 per tax year\u2026 first-time sole trader with simple income",
+        "lack_of_sales_pressure": "Packages only after customer asked what SA packages TaxSimba offers",
+        "correct_next_steps": "After you choose a TaxSimba service, the usual steps are: (1) create an account at https://www.taxsimba.co.uk/register\u2026",
+        "overall_cx": "Useful package compare path; catalogue verbosity"
+      },
+      "notes": "Customer explicitly asked for packages \u2014 early catalogue OK. Clarity hurt by full catalogue dumps (QP-004) when asked how they differ / what is not included. Prices match approved catalogue claims (business claim VERIFIED elsewhere) \u2014 tax advice N/A.",
+      "tax_accuracy_disclaimer": "Human CX score only. Not accountant-approved. Do not treat as tax VERIFIED unless separately source-backed.",
+      "professional_approval": "NOT_OBTAINED"
+    },
+    {
+      "id": "D08",
+      "title": "Xero or TaxCalc questions",
+      "scores": {
+        "accuracy": 7,
+        "understanding": 8,
+        "conversation_memory": 7,
+        "clarity": 8,
+        "helpfulness": 8,
+        "follow_up_relevance": 7,
+        "package_suitability": 5,
+        "lack_of_sales_pressure": 3,
+        "correct_next_steps": 8,
+        "overall_cx": 6
+      },
+      "fail_flags": [
+        "FAIL:#12_respects_no_buy",
+        "FAIL:#9_no_unnecessary_packages"
+      ],
+      "evidence_quotes": {
+        "accuracy": "for customers on Simbian plans, Xero is included in the monthly price\u2026 TaxCalc \u2014 that is internal to the service",
+        "understanding": "Do I need to buy Xero myself for Making Tax Digital?",
+        "conversation_memory": "If I prefer accountant-led MTD instead, what is the lowest Simbian price? \u2192 \u00a329.99\u2026 Simbian Comply",
+        "clarity": "The TaxSimba portal\u2026 is not itself a direct HMRC filing integration.",
+        "helpfulness": "HMRC publishes a list of Making Tax Digital compatible software on GOV.UK",
+        "follow_up_relevance": "What is TaxCalc used for at TaxSimba? \u2192 accountants use for SA filing workflows",
+        "package_suitability": "I am still undecided \u2014 no more package cards please. \u2192 \u2026 **Packages shown:** SA_SIMPLE",
+        "lack_of_sales_pressure": "**Packages shown:** SA_SIMPLE after customer said no more package cards",
+        "correct_next_steps": "lowest Simbian price\u2026 \u00a329.99 per month (VAT included) for the Simbian Comply package",
+        "overall_cx": "Strong service accuracy; package-card regression on decline"
+      },
+      "notes": "Service model answers align with verified claims (Xero included; portal not direct HMRC). FAIL #12/#9: T6 after 'no more package cards please' still shows Packages shown: SA_SIMPLE.",
+      "tax_accuracy_disclaimer": "Human CX score only. Not accountant-approved. Do not treat as tax VERIFIED unless separately source-backed.",
+      "professional_approval": "NOT_OBTAINED"
+    },
+    {
+      "id": "D09",
+      "title": "Wants TaxSimba to manage everything",
+      "scores": {
+        "accuracy": 5,
+        "understanding": 7,
+        "conversation_memory": 3,
+        "clarity": 7,
+        "helpfulness": 6,
+        "follow_up_relevance": 6,
+        "package_suitability": 3,
+        "lack_of_sales_pressure": 3,
+        "correct_next_steps": 7,
+        "overall_cx": 5
+      },
+      "fail_flags": [
+        "FAIL:#9_no_unnecessary_packages",
+        "FAIL:#3_remembers_details"
+      ],
+      "evidence_quotes": {
+        "accuracy": "As a sole trader with a turnover of \u00a345,000\u2026 you are below the \u00a350,000 qualifying income threshold for Making Tax Digital\u2026 which starts on 6 April 2026.",
+        "understanding": "I want TaxSimba to manage everything for me.",
+        "conversation_memory": "I am not sure if I need MTD yet \u2014 tax year 2024-25. \u2192 What was that amount, and which tax year was it for\u2026?",
+        "clarity": "No \u2014 neither SIMBA chat nor the TaxSimba customer portal is a direct HMRC filing integration.",
+        "helpfulness": "So how does accountant-led onboarding work after I pay? \u2192 register \u2192 verify \u2192 select \u2192 pay \u2192 dashboard",
+        "follow_up_relevance": "Which package should I start with for a fairly simple sole trader SA case? \u2192 Self Assessment Simple \u00a3119",
+        "package_suitability": "I recommend considering our Simbian packages. The Simbian Comply package is a great option\u2026 (Turn 1, before facts)",
+        "lack_of_sales_pressure": "Named Simbian Comply on first reply without asking SA vs MTD",
+        "correct_next_steps": "Registration link please. \u2192 https://www.taxsimba.co.uk/register (via onboarding steps)",
+        "overall_cx": "Honest filing limits; premature sell + memory miss"
+      },
+      "notes": "FAIL #9 premature package: T1 named Simbian Comply before clarifying SA vs MTD need. T3 also forgot \u00a345k already given (memory). Accuracy of MTD threshold application awaiting review.",
+      "tax_accuracy_disclaimer": "Human CX score only. Not accountant-approved. Do not treat as tax VERIFIED unless separately source-backed.",
+      "professional_approval": "NOT_OBTAINED"
+    },
+    {
+      "id": "D10",
+      "title": "Wants to register immediately",
+      "scores": {
+        "accuracy": 6,
+        "understanding": 7,
+        "conversation_memory": 7,
+        "clarity": 8,
+        "helpfulness": 8,
+        "follow_up_relevance": 8,
+        "package_suitability": 3,
+        "lack_of_sales_pressure": 4,
+        "correct_next_steps": 9,
+        "overall_cx": 6
+      },
+      "fail_flags": [
+        "FAIL:#9_no_unnecessary_packages"
+      ],
+      "evidence_quotes": {
+        "accuracy": "you'll need to register for Self Assessment if you haven't already. You typically must register by 5 October following the end of the tax year",
+        "understanding": "I already know I need Self Assessment help. / Simple first-time sole trader, one income stream.",
+        "conversation_memory": "For a first-time sole trader with a straightforward situation, the Self Assessment Simple package at \u00a3119",
+        "clarity": "Yes, you will need to verify your email before completing the payment",
+        "helpfulness": "You can register\u2026 https://www.taxsimba.co.uk/register",
+        "follow_up_relevance": "I want to register now \u2014 what is the link? \u2192 register URL",
+        "package_suitability": "I recommend our Self Assessment Simple package for \u00a3119 per tax year. (Turn 1 \u2014 before Which package?)",
+        "lack_of_sales_pressure": "Named Simple \u00a3119 immediately on 'I already know I need Self Assessment help'",
+        "correct_next_steps": "After payment, how do I reach my accountant? \u2192 dashboard / accountant-led onboarding",
+        "overall_cx": "Fast signup for ready buyer; premature SKU on open"
+      },
+      "notes": "FAIL #9 premature package: T1 named Simple \u00a3119 before customer asked which package. Signup path strong once asked. Commercial path helpful; tax content light \u2014 not accountant-approved.",
+      "tax_accuracy_disclaimer": "Human CX score only. Not accountant-approved. Do not treat as tax VERIFIED unless separately source-backed.",
+      "professional_approval": "NOT_OBTAINED"
+    },
+    {
+      "id": "D11",
+      "title": "Needs professional advice",
+      "scores": {
+        "accuracy": 5,
+        "understanding": 9,
+        "conversation_memory": 8,
+        "clarity": 8,
+        "helpfulness": 9,
+        "follow_up_relevance": 9,
+        "package_suitability": 9,
+        "lack_of_sales_pressure": 8,
+        "correct_next_steps": 9,
+        "overall_cx": 8
+      },
+      "fail_flags": [],
+      "evidence_quotes": {
+        "accuracy": "if you have overseas income, you may need to declare it on your Self Assessment tax return, depending on your residency status",
+        "understanding": "I received confusing HMRC letters and have overseas income. / I need proper advice, not just general information.",
+        "conversation_memory": "What is included in the \u00a399 session? \u2192 You\u2019ve chosen Quick Tax Advice \u2014 \u00a399 for 20 minutes",
+        "clarity": "Neither includes filing, bookkeeping or a written report, and there are no free callbacks.",
+        "helpfulness": "No, booking is not confirmed by asking here.",
+        "follow_up_relevance": "How do I proceed when Calendly is live? \u2192 choose \u2192 Calendly \u2192 pay \u2192 Meet",
+        "package_suitability": "Quick Tax Advice \u2014 \u00a399\u2026 Extended Tax Consultation \u2014 \u00a3149\u2026 (after customer asked for advice)",
+        "lack_of_sales_pressure": "Consultation only after customer said they need proper advice",
+        "correct_next_steps": "for general account questions, you can email info@taxsimba.co.uk",
+        "overall_cx": "Customer offered appropriate professional advice"
+      },
+      "notes": "Correctly escalates overseas/HMRC letters to consultation; honest that chat booking is not confirmation. Overseas tax content remains AWAITING_ACCOUNTANT_REVIEW.",
+      "tax_accuracy_disclaimer": "Human CX score only. Not accountant-approved. Do not treat as tax VERIFIED unless separately source-backed.",
+      "professional_approval": "NOT_OBTAINED"
+    },
+    {
+      "id": "D12",
+      "title": "Late tax return",
+      "scores": {
+        "accuracy": 5,
+        "understanding": 8,
+        "conversation_memory": 7,
+        "clarity": 7,
+        "helpfulness": 7,
+        "follow_up_relevance": 7,
+        "package_suitability": 6,
+        "lack_of_sales_pressure": 6,
+        "correct_next_steps": 7,
+        "overall_cx": 6
+      },
+      "fail_flags": [],
+      "evidence_quotes": {
+        "accuracy": "If you've missed the Self Assessment deadline for the 2025-26 tax year, which was 31 January 2027 for online submissions",
+        "understanding": "I missed the Self Assessment deadline. / I think there may be penalties.",
+        "conversation_memory": "Can TaxSimba help with a late return? \u2192 Yes, TaxSimba can assist you with filing a late Self Assessment return.",
+        "clarity": "Initial penalty: \u00a3100\u2026 Additional penalties\u2026 \u00a310 per day\u2026",
+        "helpfulness": "First, you should gather all the necessary information and documents\u2026 then\u2026 HMRC online account",
+        "follow_up_relevance": "Should I book a consultation? \u2192 \u00a399 / \u00a3149 options",
+        "package_suitability": "You might consider our Self Assessment packages\u2026 (after customer asked if TaxSimba can help)",
+        "lack_of_sales_pressure": "Please explain the consult options without inventing a booking. \u2192 still asks Which option would you like",
+        "correct_next_steps": "I will email info@taxsimba.co.uk as well. \u2192 That sounds like a good plan!",
+        "overall_cx": "Practical late-filing triage; tax-year assumption risk"
+      },
+      "notes": "Assumed 2025-26 / 31 Jan 2027 without customer stating tax year \u2014 accuracy risk (AWAITING_ACCOUNTANT_REVIEW). Escalation to consult reasonable. Penalty schedule not independently verified here.",
+      "tax_accuracy_disclaimer": "Human CX score only. Not accountant-approved. Do not treat as tax VERIFIED unless separately source-backed.",
+      "professional_approval": "NOT_OBTAINED"
+    },
+    {
+      "id": "D13",
+      "title": "Existing customer needing help",
+      "scores": {
+        "accuracy": 6,
+        "understanding": 8,
+        "conversation_memory": 8,
+        "clarity": 8,
+        "helpfulness": 8,
+        "follow_up_relevance": 8,
+        "package_suitability": 4,
+        "lack_of_sales_pressure": 4,
+        "correct_next_steps": 8,
+        "overall_cx": 7
+      },
+      "fail_flags": [
+        "FAIL:#9_no_unnecessary_packages"
+      ],
+      "evidence_quotes": {
+        "accuracy": "use your secure dashboard to message your assigned accountant and upload documents\u2026 you usually do not need to buy a new public package",
+        "understanding": "I am an existing TaxSimba client.",
+        "conversation_memory": "Do I need to buy another package? \u2192 typically do not need to buy another package",
+        "clarity": "For billing questions\u2026 email\u2026 info@taxsimba.co.uk",
+        "helpfulness": "You can upload documents directly through your secure dashboard",
+        "follow_up_relevance": "Where do I upload documents? \u2192 secure dashboard",
+        "package_suitability": "you typically do not need to buy another package\u2026 **Packages shown:** SA_SIMPLE",
+        "lack_of_sales_pressure": "Package card while advising against repurchase",
+        "correct_next_steps": "dashboard messaging + info@taxsimba.co.uk",
+        "overall_cx": "Right channel for existing clients; stray package card"
+      },
+      "notes": "Correct existing-client routing (dashboard/email, no repurchase). FAIL #9: T4 shows SA_SIMPLE while saying you typically do not need another package.",
+      "tax_accuracy_disclaimer": "Human CX score only. Not accountant-approved. Do not treat as tax VERIFIED unless separately source-backed.",
+      "professional_approval": "NOT_OBTAINED"
+    },
+    {
+      "id": "D14",
+      "title": "Document uploads",
+      "scores": {
+        "accuracy": 6,
+        "understanding": 8,
+        "conversation_memory": 8,
+        "clarity": 8,
+        "helpfulness": 8,
+        "follow_up_relevance": 8,
+        "package_suitability": 7,
+        "lack_of_sales_pressure": 7,
+        "correct_next_steps": 8,
+        "overall_cx": 7
+      },
+      "fail_flags": [],
+      "evidence_quotes": {
+        "accuracy": "after you register and gain access to your TaxSimba client dashboard, you can upload documents directly through that platform",
+        "understanding": "I am a new customer who has not registered yet.",
+        "conversation_memory": "After I register, is upload via the dashboard? \u2192 Yes, after you register\u2026",
+        "clarity": "Income Records\u2026 Bank Statements\u2026 Expense Receipts\u2026 P60/P45\u2026",
+        "helpfulness": "it's recommended to use the client dashboard for uploading documents once you're registered",
+        "follow_up_relevance": "What documents are usually needed for Self Assessment? \u2192 practical list",
+        "package_suitability": "Would you like more information on a specific package? (offer only \u2014 no forced SKU)",
+        "lack_of_sales_pressure": "No package cards in transcript",
+        "correct_next_steps": "register first \u2192 dashboard upload",
+        "overall_cx": "Customer requires further clarification but path is clear"
+      },
+      "notes": "Clear register-then-dashboard path for new customers. Document list is general guidance \u2014 not accountant-approved for every case.",
+      "tax_accuracy_disclaimer": "Human CX score only. Not accountant-approved. Do not treat as tax VERIFIED unless separately source-backed.",
+      "professional_approval": "NOT_OBTAINED"
+    },
+    {
+      "id": "D15",
+      "title": "Payment and onboarding",
+      "scores": {
+        "accuracy": 4,
+        "understanding": 6,
+        "conversation_memory": 7,
+        "clarity": 7,
+        "helpfulness": 6,
+        "follow_up_relevance": 7,
+        "package_suitability": 7,
+        "lack_of_sales_pressure": 8,
+        "correct_next_steps": 7,
+        "overall_cx": 6
+      },
+      "fail_flags": [
+        "FAIL:#8_taxsimba_service_accuracy"
+      ],
+      "evidence_quotes": {
+        "accuracy": "Onboarding with TaxSimba typically takes a few days\u2026 \u2192 Please do not invent timelines\u2026 \u2192 I apologise for that.",
+        "understanding": "What happens after I pay for a TaxSimba package?",
+        "conversation_memory": "Where do I register? \u2192 create an account at https://www.taxsimba.co.uk/register",
+        "clarity": "usual steps are: (1) create an account\u2026 (2) verify your email\u2026 (3) select\u2026 (4) complete payment\u2026 (5) open your dashboard\u2026 (6) follow\u2026 onboarding",
+        "helpfulness": "You typically gain access to your TaxSimba dashboard immediately after completing your registration and payment",
+        "follow_up_relevance": "Who assigns my accountant? \u2192 assigned automatically by the TaxSimba system (unverified claim)",
+        "package_suitability": "No forced SKU; points to SA/MTD pages",
+        "lack_of_sales_pressure": "No package cards",
+        "correct_next_steps": "https://www.taxsimba.co.uk/register",
+        "overall_cx": "Useful onboarding skeleton; invented timeline ding"
+      },
+      "notes": "Register URL + step list helpful. Invented onboarding 'few days' then walked back when challenged \u2014 FAIL #1/#8 service accuracy caution. 'Accountant assigned automatically' not independently evidenced as production fact.",
+      "tax_accuracy_disclaimer": "Human CX score only. Not accountant-approved. Do not treat as tax VERIFIED unless separately source-backed.",
+      "professional_approval": "NOT_OBTAINED"
+    },
+    {
+      "id": "D16",
+      "title": "Refuses a package",
+      "scores": {
+        "accuracy": 5,
+        "understanding": 8,
+        "conversation_memory": 8,
+        "clarity": 8,
+        "helpfulness": 8,
+        "follow_up_relevance": 8,
+        "package_suitability": 8,
+        "lack_of_sales_pressure": 8,
+        "correct_next_steps": 8,
+        "overall_cx": 7
+      },
+      "fail_flags": [
+        "AUDIT_FLAG:#12_respects_no_buy"
+      ],
+      "evidence_quotes": {
+        "accuracy": "Yes, freelancers usually need to send a Self Assessment tax return.",
+        "understanding": "No thanks \u2014 I do not want a package. Information only.",
+        "conversation_memory": "Do not recommend packages again. \u2192 Understood! I won\u2019t recommend packages again.",
+        "clarity": "The filing deadline for a Self Assessment tax return online for the 2026-27 tax year is 31 January 2028.",
+        "helpfulness": "Where is official GOV.UK guidance? \u2192 https://www.gov.uk/self-assessment \u2026",
+        "follow_up_relevance": "What is the filing deadline? \u2192 answered without re-selling",
+        "package_suitability": "Which package would you recommend\u2026 \u2192 Simple \u00a3119 (asked) then stopped after decline",
+        "lack_of_sales_pressure": "That's perfectly fine! If you have any questions about Self Assessment\u2026 feel free to ask.",
+        "correct_next_steps": "GOV.UK links for Self Assessment and penalties",
+        "overall_cx": "Decline respected in frozen dialogue after T3"
+      },
+      "notes": "Independent audit marks respects_no_buy FAIL; human re-read of frozen transcript: after 'No thanks \u2014 I do not want a package' (T3) no further package cards through T6. Package on T2 was customer-requested. Deadline tax-year framing awaiting review. Flag audit FAIL for continuity; CX score reflects human re-read.",
+      "tax_accuracy_disclaimer": "Human CX score only. Not accountant-approved. Do not treat as tax VERIFIED unless separately source-backed.",
+      "professional_approval": "NOT_OBTAINED"
+    },
+    {
+      "id": "D17",
+      "title": "Changes circumstances mid-chat",
+      "scores": {
+        "accuracy": 6,
+        "understanding": 8,
+        "conversation_memory": 4,
+        "clarity": 7,
+        "helpfulness": 7,
+        "follow_up_relevance": 7,
+        "package_suitability": 9,
+        "lack_of_sales_pressure": 9,
+        "correct_next_steps": 7,
+        "overall_cx": 6
+      },
+      "fail_flags": [
+        "FAIL:#3_remembers_details"
+      ],
+      "evidence_quotes": {
+        "accuracy": "With your corrected qualifying income of \u00a355,000\u2026 you will indeed need to comply with Making Tax Digital\u2026 from 6 April 2026.",
+        "understanding": "Sorry \u2014 I made a mistake. It was actually \u00a355,000 before expenses in 2024-25.",
+        "conversation_memory": "Do I need Making Tax Digital from 6 April 2026? \u2192 What was that amount, and which tax year was it for\u2026? (forgot T1 \u00a320k)",
+        "clarity": "Please reassess MTD based on the corrected figure. \u2192 With your corrected qualifying income of \u00a355,000\u2026",
+        "helpfulness": "Yes, you will still need to submit a Self Assessment tax return\u2026 rental income",
+        "follow_up_relevance": "Does that mean I still need Self Assessment too? \u2192 Yes\u2026",
+        "package_suitability": "No package recommendation yet. \u2192 Understood!",
+        "lack_of_sales_pressure": "No package cards",
+        "correct_next_steps": "MTD yes after correction + SA still required",
+        "overall_cx": "Good recovery after correction; memory fail earlier"
+      },
+      "notes": "Correction to \u00a355k handled well on T3\u2013T4. FAIL #3 on T2: forgot \u00a320k just stated (same MTD memory pattern). Respected no package. Accuracy awaiting review.",
+      "tax_accuracy_disclaimer": "Human CX score only. Not accountant-approved. Do not treat as tax VERIFIED unless separately source-backed.",
+      "professional_approval": "NOT_OBTAINED"
+    },
+    {
+      "id": "D18",
+      "title": "Complicated follow-ups",
+      "scores": {
+        "accuracy": 5,
+        "understanding": 8,
+        "conversation_memory": 8,
+        "clarity": 8,
+        "helpfulness": 8,
+        "follow_up_relevance": 8,
+        "package_suitability": 9,
+        "lack_of_sales_pressure": 9,
+        "correct_next_steps": 8,
+        "overall_cx": 7
+      },
+      "fail_flags": [],
+      "evidence_quotes": {
+        "accuracy": "HMRC may treat disposals under Capital Gains Tax, and frequent trading can be Income Tax instead \u2014 it depends on your activity.",
+        "understanding": "I have CIS income and some crypto disposals. / I also have a small amount of rental income under \u00a31,000.",
+        "conversation_memory": "Please summarise what I should check next\u2026 \u2192 CIS Registration\u2026 Self Assessment\u2026 Crypto Records\u2026 Rental Income\u2026 Filing Deadlines",
+        "clarity": "CIS\u2026 contractors deduct a percentage\u2026 which may not represent their final tax liability.",
+        "helpfulness": "Here\u2019s a summary of what you should check next: (numbered list)",
+        "follow_up_relevance": "For crypto, is it always Capital Gains Tax? \u2192 not always",
+        "package_suitability": "Do not sell me packages unless I ask. \u2192 Understood! I won't mention any packages unless you request them.",
+        "lack_of_sales_pressure": "No package cards in transcript",
+        "correct_next_steps": "numbered checklist of next actions",
+        "overall_cx": "Stayed coherent under multi-topic pressure"
+      },
+      "notes": "Coherent CIS + crypto + small rental summary. Crypto CGT vs IT correctly caveated. Specific SA necessity for every CIS/crypto case remains AWAITING_ACCOUNTANT_REVIEW.",
+      "tax_accuracy_disclaimer": "Human CX score only. Not accountant-approved. Do not treat as tax VERIFIED unless separately source-backed.",
+      "professional_approval": "NOT_OBTAINED"
+    },
+    {
+      "id": "D19",
+      "title": "Confused customer needs simpler explanations",
+      "scores": {
+        "accuracy": 6,
+        "understanding": 9,
+        "conversation_memory": 7,
+        "clarity": 9,
+        "helpfulness": 9,
+        "follow_up_relevance": 9,
+        "package_suitability": 9,
+        "lack_of_sales_pressure": 9,
+        "correct_next_steps": 8,
+        "overall_cx": 8
+      },
+      "fail_flags": [],
+      "evidence_quotes": {
+        "accuracy": "If you are only employed and your income is taxed through PAYE\u2026 you typically do not need to file a Self Assessment tax return.",
+        "understanding": "I do not understand tax years. / I am employed only \u2014 keep it simple",
+        "conversation_memory": "What is the UK tax year in simple words? \u2192 starts on 6 April and ends on 5 April",
+        "clarity": "Self Assessment is a system used by HMRC for individuals to report their income and calculate their tax.",
+        "helpfulness": "Making Tax Digital (MTD)\u2026 keep digital records\u2026 send updates to HMRC quarterly.",
+        "follow_up_relevance": "I am employed only \u2014 keep it simple \u2014 do I need either? \u2192 typically do not need SA",
+        "package_suitability": "No packages offered",
+        "lack_of_sales_pressure": "Thank you \u2014 that helped. \u2192 I'm glad I could help. (no sell)",
+        "correct_next_steps": "employed-only \u2192 usually neither SA nor MTD",
+        "overall_cx": "Clarity-first journey succeeded"
+      },
+      "notes": "Plain-English definitions. Employed-only conclusion directionally standard; still not accountant-approved for edge cases. Zero sales.",
+      "tax_accuracy_disclaimer": "Human CX score only. Not accountant-approved. Do not treat as tax VERIFIED unless separately source-backed.",
+      "professional_approval": "NOT_OBTAINED"
+    },
+    {
+      "id": "D20",
+      "title": "Wants only free information",
+      "scores": {
+        "accuracy": 7,
+        "understanding": 9,
+        "conversation_memory": 8,
+        "clarity": 9,
+        "helpfulness": 9,
+        "follow_up_relevance": 9,
+        "package_suitability": 10,
+        "lack_of_sales_pressure": 10,
+        "correct_next_steps": 9,
+        "overall_cx": 8
+      },
+      "fail_flags": [],
+      "evidence_quotes": {
+        "accuracy": "No \u2014 qualifying income of exactly \u00a350,000 for 2024-25 does not bring you into Making Tax Digital\u2026 \u201cmore than \u00a350,000\u201d",
+        "understanding": "I only want free information. Do not sell anything.",
+        "conversation_memory": "Is exact \u00a350,000 enough to be in scope? \u2192 No\u2026 threshold is \"more than \u00a350,000\"",
+        "clarity": "The VAT registration threshold for the tax year 2026-27 is \u00a390,000.",
+        "helpfulness": "You can find information about Making Tax Digital\u2026 [GOV.UK link]",
+        "follow_up_relevance": "When does MTD\u2026 start for people over \u00a350k\u2026 \u2192 exact-threshold clarification",
+        "package_suitability": "Still no packages please \u2014 goodbye. \u2192 Understood! \u2026 Goodbye",
+        "lack_of_sales_pressure": "Of course! I'm here to provide you with free information\u2026",
+        "correct_next_steps": "GOV.UK MTD guidance link",
+        "overall_cx": "Question answered, no purchase necessary"
+      },
+      "notes": "Respects free-info constraint throughout. Exact \u00a350k MTD boundary wording aligns with \u2018more than \u00a350,000\u2019 guidance (still not accountant-approved). VAT \u00a390k figure not re-verified in this review.",
+      "tax_accuracy_disclaimer": "Human CX score only. Not accountant-approved. Do not treat as tax VERIFIED unless separately source-backed.",
+      "professional_approval": "NOT_OBTAINED"
+    }
+  ]
+}

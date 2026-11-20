@@ -1,0 +1,1801 @@
+{
+  "generated_at": "2026-11-20T16:56:55.178Z",
+  "note": "NEW unseen validation — expectations established BEFORE model execution. Not the original holdout H001–H200.",
+  "count": 200,
+  "scenarios": [
+    {
+      "id": "V001",
+      "question": "I DJ at weekends for cash. Not sure how much yet — tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need amount/year before SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V002",
+      "question": "PAYE nurse, Airbnb spare room sometimes.",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need rent amount/year.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V003",
+      "question": "What does quarterly update mean for someone like me?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Explain MTD + ask income type.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V004",
+      "question": "My salary is £62k. Am I in Making Tax Digital?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Salary alone insufficient — income type.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V005",
+      "question": "Freelance copywriting £9,200 in 2025-26. SA?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": ">£1,000 trading → usually SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+      ]
+    },
+    {
+      "id": "V006",
+      "question": "Only PAYE £38k, nothing else. SA?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only usually no SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V007",
+      "question": "Property £55k rent 2024-25 — MTD April 2026?",
+      "expected_classification": "BOTH_SA_AND_MTD",
+      "expected_tax_notes": ">£50k 2024-25 → MTD Apr 2026 + SA.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V008",
+      "question": "Rent £12k — which MTD year?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year for band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V009",
+      "question": "I don’t want any package. Is £1,100 Etsy SA?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": ">£1k usually SA; no packages.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V010",
+      "question": "HMRC investigation letter landed today.",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "expected_tax_notes": "Escalate.",
+      "official_sources": []
+    },
+    {
+      "id": "V011",
+      "question": "I’m logged into TaxSimba — upload stuck.",
+      "expected_classification": "EXISTING_CUSTOMER_SUPPORT",
+      "expected_tax_notes": "Dashboard/support.",
+      "official_sources": []
+    },
+    {
+      "id": "V012",
+      "question": "Do Corporation Tax for my Ltd please.",
+      "expected_classification": "OUT_OF_SCOPE",
+      "expected_tax_notes": "Not catalogue CT.",
+      "official_sources": []
+    },
+    {
+      "id": "V013",
+      "question": "Uber + PAYE. Do I need an accountant tomorrow?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need turnover before advising service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V014",
+      "question": "Exactly £50,000 qualifying income 2024-25 — over MTD?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "Exact not more than.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V015",
+      "question": "More than £50,000 turnover 2024-25 — MTD start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_tax_notes": "From 6 Apr 2026.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V016",
+      "question": "Sold personal bike online once for £400.",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Likely not a trade — clarify.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V017",
+      "question": "P60 arrived. File a return?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "P60 ≠ automatic SA.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V018",
+      "question": "Two PAYE jobs only — must I Self Assess?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Not automatic.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V019",
+      "question": "Left job in July. SA needed?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Not from leaving alone.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V020",
+      "question": "Company car on P11D — Self Assessment?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Often via PAYE; ask other income.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V021",
+      "question": "CIS sparks, deductions taken. Why SA?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "CIS ≠ SA waiver; need facts.",
+      "official_sources": [
+        "https://www.gov.uk/what-is-the-construction-industry-scheme",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V022",
+      "question": "Crypto: tax on buy or sell?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Usually disposal events.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets"
+      ]
+    },
+    {
+      "id": "V023",
+      "question": "Dividends £1,500 — return?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need total income picture.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/tax-on-dividends"
+      ]
+    },
+    {
+      "id": "V024",
+      "question": "VAT at £85k — register?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Check live threshold page.",
+      "official_sources": [
+        "https://www.gov.uk/vat-registration-thresholds"
+      ]
+    },
+    {
+      "id": "V025",
+      "question": "I want someone to handle my SA return.",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Help-first then package if asked.",
+      "official_sources": []
+    },
+    {
+      "id": "V026",
+      "question": "Which package for simple first-time sole trader?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Simple £119 when asked.",
+      "official_sources": []
+    },
+    {
+      "id": "V027",
+      "question": "Just information — no selling. PAYE only SA?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "No SA usually; zero packages.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V028",
+      "question": "Software for tax — is that MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "May be MTD; ask facts.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V029",
+      "question": "Quarterly updates — is that me with only salary?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE not QI.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V030",
+      "question": "Partner and I 50/50 let — who files?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Joint ownership facts.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V031",
+      "question": "Side income around £700 last year — tell HMRC?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Amount £700 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V032",
+      "question": "Rental about £11000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V033",
+      "question": "I earn £26k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V034",
+      "question": "Cash-in-hand weekend work, maybe £150. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V035",
+      "question": "PAYE only £31000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V036",
+      "question": "Side income around £900 last year — tell HMRC?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Amount £900 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V037",
+      "question": "Rental about £14000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V038",
+      "question": "I earn £27k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V039",
+      "question": "Cash-in-hand weekend work, maybe £300. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V040",
+      "question": "PAYE only £32000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V041",
+      "question": "Side income around £1100 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £1100 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V042",
+      "question": "Rental about £17000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V043",
+      "question": "I earn £28k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V044",
+      "question": "Cash-in-hand weekend work, maybe £450. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V045",
+      "question": "PAYE only £33000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V046",
+      "question": "Side income around £1300 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £1300 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V047",
+      "question": "Rental about £20000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V048",
+      "question": "I earn £29k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V049",
+      "question": "Cash-in-hand weekend work, maybe £600. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V050",
+      "question": "PAYE only £34000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V051",
+      "question": "Side income around £1500 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £1500 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V052",
+      "question": "Rental about £23000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V053",
+      "question": "I earn £30k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V054",
+      "question": "Cash-in-hand weekend work, maybe £750. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V055",
+      "question": "PAYE only £35000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V056",
+      "question": "Side income around £1700 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £1700 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V057",
+      "question": "Rental about £26000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V058",
+      "question": "I earn £31k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V059",
+      "question": "Cash-in-hand weekend work, maybe £900. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V060",
+      "question": "PAYE only £36000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V061",
+      "question": "Side income around £1900 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £1900 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V062",
+      "question": "Rental about £29000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V063",
+      "question": "I earn £32k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V064",
+      "question": "Cash-in-hand weekend work, maybe £1050. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V065",
+      "question": "PAYE only £37000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V066",
+      "question": "Side income around £2100 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £2100 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V067",
+      "question": "Rental about £32000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V068",
+      "question": "I earn £33k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V069",
+      "question": "Cash-in-hand weekend work, maybe £1200. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V070",
+      "question": "PAYE only £38000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V071",
+      "question": "Side income around £2300 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £2300 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V072",
+      "question": "Rental about £35000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V073",
+      "question": "I earn £34k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V074",
+      "question": "Cash-in-hand weekend work, maybe £1350. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V075",
+      "question": "PAYE only £39000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V076",
+      "question": "Side income around £2500 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £2500 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V077",
+      "question": "Rental about £38000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V078",
+      "question": "I earn £35k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V079",
+      "question": "Cash-in-hand weekend work, maybe £1500. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V080",
+      "question": "PAYE only £40000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V081",
+      "question": "Side income around £2700 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £2700 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V082",
+      "question": "Rental about £41000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V083",
+      "question": "I earn £36k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V084",
+      "question": "Cash-in-hand weekend work, maybe £1650. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V085",
+      "question": "PAYE only £41000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V086",
+      "question": "Side income around £2900 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £2900 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V087",
+      "question": "Rental about £44000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V088",
+      "question": "I earn £37k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V089",
+      "question": "Cash-in-hand weekend work, maybe £1800. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V090",
+      "question": "PAYE only £42000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V091",
+      "question": "Side income around £3100 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £3100 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V092",
+      "question": "Rental about £47000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V093",
+      "question": "I earn £38k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V094",
+      "question": "Cash-in-hand weekend work, maybe £1950. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V095",
+      "question": "PAYE only £43000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V096",
+      "question": "Side income around £3300 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £3300 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V097",
+      "question": "Rental about £50000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V098",
+      "question": "I earn £39k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V099",
+      "question": "Cash-in-hand weekend work, maybe £2100. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V100",
+      "question": "PAYE only £44000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V101",
+      "question": "Side income around £3500 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £3500 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V102",
+      "question": "Rental about £53000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V103",
+      "question": "I earn £40k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V104",
+      "question": "Cash-in-hand weekend work, maybe £2250. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V105",
+      "question": "PAYE only £45000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V106",
+      "question": "Side income around £3700 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £3700 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V107",
+      "question": "Rental about £56000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V108",
+      "question": "I earn £41k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V109",
+      "question": "Cash-in-hand weekend work, maybe £2400. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V110",
+      "question": "PAYE only £46000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V111",
+      "question": "Side income around £3900 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £3900 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V112",
+      "question": "Rental about £59000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V113",
+      "question": "I earn £42k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V114",
+      "question": "Cash-in-hand weekend work, maybe £2550. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V115",
+      "question": "PAYE only £47000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V116",
+      "question": "Side income around £4100 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £4100 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V117",
+      "question": "Rental about £62000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V118",
+      "question": "I earn £43k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V119",
+      "question": "Cash-in-hand weekend work, maybe £2700. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V120",
+      "question": "PAYE only £48000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V121",
+      "question": "Side income around £4300 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £4300 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V122",
+      "question": "Rental about £65000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V123",
+      "question": "I earn £44k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V124",
+      "question": "Cash-in-hand weekend work, maybe £2850. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V125",
+      "question": "PAYE only £49000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V126",
+      "question": "Side income around £4500 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £4500 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V127",
+      "question": "Rental about £68000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V128",
+      "question": "I earn £45k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V129",
+      "question": "Cash-in-hand weekend work, maybe £3000. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V130",
+      "question": "PAYE only £50000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V131",
+      "question": "Side income around £4700 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £4700 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V132",
+      "question": "Rental about £71000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V133",
+      "question": "I earn £46k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V134",
+      "question": "Cash-in-hand weekend work, maybe £3150. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V135",
+      "question": "PAYE only £51000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V136",
+      "question": "Side income around £4900 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £4900 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V137",
+      "question": "Rental about £74000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V138",
+      "question": "I earn £47k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V139",
+      "question": "Cash-in-hand weekend work, maybe £3300. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V140",
+      "question": "PAYE only £52000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V141",
+      "question": "Side income around £5100 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £5100 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V142",
+      "question": "Rental about £77000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V143",
+      "question": "I earn £48k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V144",
+      "question": "Cash-in-hand weekend work, maybe £3450. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V145",
+      "question": "PAYE only £53000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V146",
+      "question": "Side income around £5300 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £5300 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V147",
+      "question": "Rental about £80000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V148",
+      "question": "I earn £49k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V149",
+      "question": "Cash-in-hand weekend work, maybe £3600. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V150",
+      "question": "PAYE only £54000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V151",
+      "question": "Side income around £5500 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £5500 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V152",
+      "question": "Rental about £83000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V153",
+      "question": "I earn £50k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V154",
+      "question": "Cash-in-hand weekend work, maybe £3750. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V155",
+      "question": "PAYE only £55000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V156",
+      "question": "Side income around £5700 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £5700 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V157",
+      "question": "Rental about £86000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V158",
+      "question": "I earn £51k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V159",
+      "question": "Cash-in-hand weekend work, maybe £3900. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V160",
+      "question": "PAYE only £56000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V161",
+      "question": "Side income around £5900 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £5900 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V162",
+      "question": "Rental about £89000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V163",
+      "question": "I earn £52k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V164",
+      "question": "Cash-in-hand weekend work, maybe £4050. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V165",
+      "question": "PAYE only £57000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V166",
+      "question": "Side income around £6100 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £6100 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V167",
+      "question": "Rental about £92000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V168",
+      "question": "I earn £53k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V169",
+      "question": "Cash-in-hand weekend work, maybe £4200. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V170",
+      "question": "PAYE only £58000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V171",
+      "question": "Side income around £6300 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £6300 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V172",
+      "question": "Rental about £95000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V173",
+      "question": "I earn £54k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V174",
+      "question": "Cash-in-hand weekend work, maybe £4350. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V175",
+      "question": "PAYE only £59000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V176",
+      "question": "Side income around £6500 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £6500 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V177",
+      "question": "Rental about £98000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V178",
+      "question": "I earn £55k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V179",
+      "question": "Cash-in-hand weekend work, maybe £4500. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V180",
+      "question": "PAYE only £60000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V181",
+      "question": "Side income around £6700 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £6700 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V182",
+      "question": "Rental about £101000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V183",
+      "question": "I earn £56k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V184",
+      "question": "Cash-in-hand weekend work, maybe £4650. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V185",
+      "question": "PAYE only £61000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V186",
+      "question": "Side income around £6900 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £6900 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V187",
+      "question": "Rental about £104000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V188",
+      "question": "I earn £57k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V189",
+      "question": "Cash-in-hand weekend work, maybe £4800. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V190",
+      "question": "PAYE only £62000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V191",
+      "question": "Side income around £7100 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £7100 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V192",
+      "question": "Rental about £107000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V193",
+      "question": "I earn £58k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V194",
+      "question": "Cash-in-hand weekend work, maybe £4950. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V195",
+      "question": "PAYE only £63000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V196",
+      "question": "Side income around £7300 last year — tell HMRC?",
+      "expected_classification": "SA_ASSIST",
+      "expected_tax_notes": "Amount £7300 vs £1,000; still confirm activity type if vague.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V197",
+      "question": "Rental about £110000 — do I need the digital tax thing?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need tax year + confirm property QI before MTD band.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V198",
+      "question": "I earn £59k. MTD?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Bare earnings — clarify income type; never infer from total alone.",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "V199",
+      "question": "Cash-in-hand weekend work, maybe £5100. Accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_tax_notes": "Need clearer turnover/year before service.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "V200",
+      "question": "PAYE only £64000. Making Tax Digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_tax_notes": "PAYE-only not MTD QI.",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    }
+  ]
+}

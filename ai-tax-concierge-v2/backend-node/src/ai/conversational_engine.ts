@@ -39,6 +39,7 @@ import {
 } from "../knowledge/consultation_booking.js";
 import { answerMtdEligibility } from "../knowledge/mtd_eligibility.js";
 import { answerMtdOperationsQuestion } from "../knowledge/mtd_operations.js";
+import { answerSaEligibility } from "../knowledge/sa_eligibility.js";
 import { answerTaxsimbaServiceModel } from "../knowledge/taxsimba_service_model.js";
 import { retrieve } from "../knowledge/retrieval.js";
 import { resolveTaxYear } from "../knowledge/tax_year.js";
@@ -181,11 +182,39 @@ export class ConversationalEngine {
       serviceModel?.handled
         ? null
         : answerMtdOperationsQuestion(request.message);
+    const historyForRules = (() => {
+      const fromReq = request.history || [];
+      if (fromReq.length) return fromReq;
+      const stored = this.sessions.get(request.session_id);
+      return (stored?.history || [])
+        .filter((h) => h.role === "user" || h.role === "assistant")
+        .map((h) => ({
+          role: h.role as "user" | "assistant",
+          content: h.content,
+        }));
+    })();
+    const ambiguous = answerAmbiguousIntent(
+      request.message,
+      historyForRules,
+    );
+    const saEligibility =
+      serviceModel?.handled || mtdOps
+        ? null
+        : answerSaEligibility(request.message, historyForRules);
     const mtdEligibility =
       serviceModel?.handled || mtdOps
         ? null
-        : answerMtdEligibility(request.message);
-    const ambiguous = answerAmbiguousIntent(request.message);
+        : answerMtdEligibility(request.message, historyForRules);
+    // Prefer definitive eligibility; otherwise prefer circumstance clarifier
+    // over SA/MTD “needs_more_info” probes that assume the wrong income type.
+    const saDefinitive =
+      Boolean(saEligibility?.handled) && !saEligibility?.needs_more_info;
+    const mtdDefinitive =
+      Boolean(mtdEligibility?.handled) && !mtdEligibility?.needs_more_info;
+    const clarifierFirst =
+      Boolean(ambiguous?.handled) &&
+      (ambiguous?.prefer_over_eligibility_probe ||
+        (!saDefinitive && !mtdDefinitive));
     const additionalTaxQ = /total income tax|additional (self assessment )?tax|extra tax i (pay|owe)|same as the extra/i.test(
       request.message,
     );
@@ -195,7 +224,10 @@ export class ConversationalEngine {
       ) ||
       (/do i still need to file/i.test(request.message) &&
         /employer|deducts|paye|salary/i.test(request.message));
+    // Prefer the clarifier for crypto event-type questions; only use this
+    // fallback when the clarifier did not already handle the turn.
     const cryptoSaQ =
+      !clarifierFirst &&
       /\b(crypto|bitcoin|ethereum|cryptoassets?)\b/i.test(request.message) &&
       /(self assessment|gain|cgt|tax|return)/i.test(request.message);
     const rentARoomQ = /rent a room|rent-a-room|lodger/i.test(request.message);
@@ -251,6 +283,20 @@ export class ConversationalEngine {
         "I won’t invent portal screens or claim payment succeeded from this chat. " +
         "Self Assessment packages: https://www.taxsimba.co.uk/self-assessment · MTD: https://www.taxsimba.co.uk/making-tax-digital.";
       confidence = "high";
+    } else if (
+      /\b(i already know i need|need (self assessment|sa) help|want (self assessment|sa) help|looking for (self assessment|sa) help)\b/i.test(
+        request.message,
+      ) &&
+      !/\b(which|recommend|cheapest|suitable|best|how much|price|package|plan)\b/i.test(
+        request.message,
+      )
+    ) {
+      // Help-ready without SKU lock — avoid D10-style premature Simple recommendation.
+      reply =
+        "Understood — TaxSimba’s Self Assessment service is accountant-led: you register and pay on the TaxSimba portal, then complete onboarding and work with your assigned accountant via the dashboard (TaxCalc is used internally for SA workflows; the portal itself is not a direct HMRC filing tool). " +
+        "Before I name a package, are your affairs fairly simple (for example one income stream / first-time filer) or more complex (multiple income types, foreign income, etc.)? " +
+        "You can also browse https://www.taxsimba.co.uk/self-assessment or start at https://www.taxsimba.co.uk/register when ready.";
+      confidence = "high";
     } else if (callbackQ) {
       reply = callbackHonestyReply(this.settings.consultationBookingLive);
       confidence = "high";
@@ -264,6 +310,46 @@ export class ConversationalEngine {
     } else if (consultIntent) {
       reply = consultationOptionsReply();
       confidence = "high";
+    } else if (saDefinitive && saEligibility) {
+      reply = saEligibility.customer_reply;
+      confidence = saEligibility.confidence;
+      if (!sources.some((s) => /self-assessment-tax-returns|who-must/i.test(s.url || s.title || ""))) {
+        sources = [
+          {
+            id: "sa-who-must-govuk",
+            title: "Who must send a Self Assessment tax return",
+            publisher: "GOV.UK / HMRC",
+            url: "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+            tax_years: ["2024-25", "2025-26", "2026-27"],
+            verified: true,
+            excerpt:
+              "Sole traders who earned more than £1,000 usually must send a Self Assessment tax return.",
+          },
+          ...sources,
+        ];
+      }
+    } else if (mtdDefinitive && mtdEligibility) {
+      reply = mtdEligibility.customer_reply;
+      confidence = mtdEligibility.confidence;
+      if (!sources.some((s) => /mtd|making tax digital/i.test(s.title))) {
+        sources = [
+          {
+            id: "mtd-eligibility-govuk",
+            title:
+              "Find out if and when you need to use Making Tax Digital for Income Tax",
+            publisher: "GOV.UK / HMRC",
+            url: "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+            tax_years: ["2025-26", "2026-27", "2027-28"],
+            verified: true,
+            excerpt:
+              "Qualifying income thresholds use “more than” £50,000 / £30,000 / £20,000 with start dates 6 April 2026 / 2027 / 2028.",
+          },
+          ...sources,
+        ];
+      }
+    } else if (clarifierFirst && ambiguous) {
+      reply = ambiguous.customer_reply;
+      confidence = ambiguous.confidence;
     } else if (payeFileQ) {
       reply =
         "If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return — for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. " +
@@ -286,27 +372,25 @@ export class ConversationalEngine {
     } else if (cisMtdQ) {
       reply =
         "CIS subcontractors / construction sole traders often need Self Assessment, and may also need Making Tax Digital if qualifying income (turnover before expenses) is more than the relevant threshold for the tax year. " +
-        "TaxSimba’s lowest suitable Self Assessment starting point is usually Simple (£119) or Smart (£149) depending on complexity — not an MTD subscription unless you’re in scope. " +
+        "CIS deductions do not automatically replace Self Assessment. " +
         "What was your sole-trader/CIS turnover before expenses, and for which tax year? " +
-        "Packages: https://www.taxsimba.co.uk/self-assessment";
+        "https://www.gov.uk/what-is-the-construction-industry-scheme";
       confidence = "high";
     } else if (mtdOps) {
       reply = mtdOps;
       confidence = "high";
-    } else if (ambiguous?.handled) {
-      reply = ambiguous.customer_reply;
-      confidence = ambiguous.confidence;
+    } else if (saEligibility?.handled) {
+      reply = saEligibility.customer_reply;
+      confidence = saEligibility.confidence;
     } else if (mtdEligibility?.handled) {
-      // Deterministic eligibility — model must not override.
       reply = mtdEligibility.customer_reply;
       confidence = mtdEligibility.confidence;
-      if (
-        !sources.some((s) => /mtd|making tax digital/i.test(s.title))
-      ) {
+      if (!sources.some((s) => /mtd|making tax digital/i.test(s.title))) {
         sources = [
           {
             id: "mtd-eligibility-govuk",
-            title: "Find out if and when you need to use Making Tax Digital for Income Tax",
+            title:
+              "Find out if and when you need to use Making Tax Digital for Income Tax",
             publisher: "GOV.UK / HMRC",
             url: "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
             tax_years: ["2025-26", "2026-27", "2027-28"],
@@ -317,6 +401,9 @@ export class ConversationalEngine {
           ...sources,
         ];
       }
+    } else if (ambiguous?.handled) {
+      reply = ambiguous.customer_reply;
+      confidence = ambiguous.confidence;
     } else if (inclusions) {
       reply = inclusions;
     } else if (catalogFast && this.llm.mode === "mock") {
@@ -437,7 +524,8 @@ export class ConversationalEngine {
       onboardingQ ||
       signupLinkQ ||
       existingClientQ ||
-      softwareInfoOnly
+      softwareInfoOnly ||
+      saEligibility?.handled
     ) {
       packages = [];
       calculators = [];
@@ -457,6 +545,7 @@ export class ConversationalEngine {
       !consultSelection &&
       !consultIntent &&
       !mtdEligibility?.handled &&
+      !saEligibility?.handled &&
       !mtdOps &&
       !supportQ &&
       !onboardingQ &&
