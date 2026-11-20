@@ -100,11 +100,24 @@ CONVERSATION RULES:
 
 ${INJECTION_SYSTEM_ADDENDUM}
 Keep replies concise (usually 40–120 words unless asked for more detail).
+Default shape: (1) direct answer, (2) brief reason, (3) one important qualification if needed, (4) at most one useful next step.
+Ask at most one clarifying question, and only when a missing fact would change the answer.
+Do not re-ask facts already present in earlier conversation memory.
+Do not push packages, consultations or calculators unless the visitor asks for options or a recommendation.
+Never invent citations, calculations, filing status or customer facts.
 `;
 }
 
 export function mockPackageReply(message: string): string | null {
   const lower = message.toLowerCase();
+  // Honour explicit "information only / do not recommend" — never dump the catalogue.
+  if (
+    /\b(information only|general information only|do not recommend|don'?t recommend|do not sell|don'?t sell|no sales|just asking|curious only|avoid (a )?checkout)\b/i.test(
+      lower,
+    )
+  ) {
+    return null;
+  }
   if (lower.includes("included") || lower.includes("inclusion")) {
     return null;
   }

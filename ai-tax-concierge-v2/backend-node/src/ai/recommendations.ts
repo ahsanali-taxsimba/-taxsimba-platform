@@ -17,7 +17,7 @@ const SA_PRICE = /\b(package|packages|pricing|price|cost|how much)\b/i;
 const MTD_PRICE = /\bmtd\b|\bmaking tax digital\b/i;
 const CONSULT = /\b(consult|accountant|book|speak to|talk to)\b/i;
 const NO_BUY =
-  /\b(don'?t want to buy|do not want to buy|not looking to buy|no sales|just information|information only|only want information|not interested in (a )?package|don'?t sell|do not sell|no pressure|just asking|curious only)\b/i;
+  /\b(don'?t want to buy|do not want to buy|not looking to buy|no sales|just information|information only|general information only|only want information|not interested in (a )?package|don'?t sell|do not sell|do not recommend (a )?package|don'?t recommend (a )?package|avoid (a )?checkout|no package|no pressure|just asking|curious only)\b/i;
 const EXISTING_CLIENT =
   /\b(existing (taxsimba )?client|already (a )?taxsimba|logged ?in|my dashboard|message my (assigned )?accountant|my assigned accountant)\b/i;
 
@@ -41,13 +41,13 @@ const PENDING_STATUSES = new Set([
 function circumstanceReason(code: string, message: string): string {
   const lower = (message || "").toLowerCase();
   if (code === "SA_SIMPLE") {
-    return "Lowest Self Assessment price that usually fits straightforward / single simple income situations (price approved; detailed inclusions pending confirmation).";
+    return "Lowest Self Assessment price that usually fits straightforward / single simple income situations.";
   }
   if (code === "SA_SMART") {
-    return "Mid Self Assessment price when several income sources or more review is likely (price approved; detailed inclusions pending confirmation).";
+    return "Mid Self Assessment price when several income sources or more review is likely.";
   }
   if (code === "SA_ELITE") {
-    return "Highest Self Assessment price — only suggested when complexity clearly exceeds mid-tier needs (price approved at £299; no priority/planning promises).";
+    return "Highest Self Assessment price — only suggested when complexity clearly exceeds mid-tier needs (£299).";
   }
   if (code === "MTD_STARTER") {
     return "Lowest Simbian Comply (£29.99/mo VAT included, Xero Simple included in that price) when Making Tax Digital support is needed — quarterly updates and year-end SA included subject to customer responsibilities; no fixed monthly transaction caps (not unlimited out-of-scope work).";
@@ -135,6 +135,21 @@ export function toPackageCards(
   return cards;
 }
 
+/** True when the customer is asking for packages, prices, or a recommendation. */
+export function wantsServiceRecommendation(message: string): boolean {
+  if (visitorDeclinesSales(message)) return false;
+  const lower = (message || "").toLowerCase();
+  return (
+    SA_PRICE.test(message) ||
+    CONSULT.test(message) ||
+    /\b(recommend|suggestion|which (package|plan|option)|suitable (package|plan)|best (package|plan)|sign up|register|buy|cheapest|lowest.?priced)\b/i.test(
+      lower,
+    ) ||
+    (MTD_PRICE.test(message) &&
+      /\b(plan|price|cost|package|how much|recommend)\b/i.test(lower))
+  );
+}
+
 export function visitorDeclinesSales(message: string): boolean {
   return NO_BUY.test(message || "");
 }
@@ -214,6 +229,7 @@ export function recommendForMessage(
   const existingClient = EXISTING_CLIENT.test(message);
   const circumstanceCodes =
     declineSales || existingClient ? [] : selectPackagesForMessage(message);
+  const wantsRec = wantsServiceRecommendation(message);
 
   if (declineSales) {
     followUps = [
@@ -228,7 +244,8 @@ export function recommendForMessage(
       "Where do I check my return status?",
       "How do I upload documents to TaxSimba?",
     ];
-  } else if (circumstanceCodes.length) {
+  } else if (circumstanceCodes.length && wantsRec) {
+    // Only attach catalogue cards when the customer asked for packages/prices/recommendation.
     packages = toPackageCards(circumstanceCodes, message);
     if (circumstanceCodes.includes("ACCOUNTANT_CONSULT_99")) {
       followUps = [
@@ -246,6 +263,20 @@ export function recommendForMessage(
         "Can you ask one question to check which package fits?",
         "Do I need Self Assessment this year?",
         "Where do I register on TaxSimba?",
+      ];
+    }
+  } else if (circumstanceCodes.length && !wantsRec) {
+    // Answer-first: no automatic sales cards on general tax questions.
+    packages = [];
+    if (circumstanceCodes.some((c) => c.startsWith("MTD_"))) {
+      followUps = [
+        "Would you like the lowest suitable Simbian plan for your situation?",
+        "What is Making Tax Digital for Income Tax?",
+      ];
+    } else {
+      followUps = [
+        "Would you like a package recommendation for your situation?",
+        "Do I need Self Assessment this year?",
       ];
     }
   } else if (SA_PRICE.test(message) && !MTD_PRICE.test(message)) {

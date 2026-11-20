@@ -849,6 +849,72 @@
     }
   });
 
+  function stripHandoffFromUrl() {
+    try {
+      const u = new URL(window.location.href);
+      if (!u.searchParams.has("handoff")) return;
+      u.searchParams.delete("handoff");
+      window.history.replaceState({}, "", u.pathname + u.search + u.hash);
+    } catch (_) {
+      /* ignore */
+    }
+  }
+
+  function renderRestoredHistory(history) {
+    if (!els.body || !Array.isArray(history) || !history.length) return;
+    els.body.innerHTML = "";
+    setView("chat");
+    showPanel("chat");
+    history.forEach((m) => {
+      if (!m || !m.content) return;
+      if (m.role === "user") appendUser(m.content);
+      else if (m.role === "assistant") {
+        renderAssistant({
+          reply: m.content,
+          packages: [],
+          follow_ups: [],
+          calculators: [],
+          routes: [],
+          sources: [],
+        });
+      }
+    });
+    state.stickToBottom = true;
+    scrollChatToBottom(true);
+    announce("Conversation restored from chat");
+  }
+
+  async function consumeHandoffIfPresent() {
+    const token = params.get("handoff");
+    if (!token) return false;
+    stripHandoffFromUrl();
+    try {
+      const data = await api("/api/v1/sessions/handoff/consume", {
+        method: "POST",
+        body: JSON.stringify({ handoff_token: token }),
+      });
+      if (!data || !data.session_id) return false;
+      state.sessionId = data.session_id;
+      state.history = Array.isArray(data.history)
+        ? data.history.filter(
+            (m) => m && (m.role === "user" || m.role === "assistant") && m.content
+          )
+        : [];
+      renderRestoredHistory(state.history);
+      if (data.draft && els.input) {
+        els.input.value = data.draft;
+        els.input.focus();
+      }
+      // Never auto-send on restore.
+      return true;
+    } catch (_) {
+      showError(
+        "That workspace link is invalid, expired, or already used. You can continue in a new chat."
+      );
+      return false;
+    }
+  }
+
   async function init() {
     if (els.body) {
       els.body.addEventListener(
@@ -883,7 +949,8 @@
         els.mode.textContent = "Demo";
         els.mode.classList.add("mock");
       }
-      renderWelcome(boot);
+      const restored = await consumeHandoffIfPresent();
+      if (!restored) renderWelcome(boot);
     } catch (e) {
       showError(`Could not load SIMBA (${e.message}). Is the API running?`);
     }

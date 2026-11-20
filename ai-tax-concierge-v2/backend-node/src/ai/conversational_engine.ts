@@ -329,10 +329,17 @@ export class ConversationalEngine {
       );
 
     let consultationHint: string | null = null;
-    const declineSales = visitorDeclinesSales(request.message);
+    const historyDecline = (request.history || []).some(
+      (m) => m.role === "user" && visitorDeclinesSales(m.content || ""),
+    );
+    const declineSales =
+      visitorDeclinesSales(request.message) || historyDecline;
     if (declineSales) {
       packages = [];
+      calculators = [];
     }
+    // Precedence: explicit consultation selection/intent → consultation cards.
+    // Do NOT attach sales/consultation cards merely because confidence is low.
     if (!declineSales && (consultSelection || consultIntent || callbackQ)) {
       consultationHint = buildConsultationHint(
         this.settings.consultationBookingLive,
@@ -343,34 +350,22 @@ export class ConversationalEngine {
       packages = toPackageCards(codes, request.message);
     } else if (
       !declineSales &&
-      (confidence === "low" ||
-        request.message.toLowerCase().includes("consult") ||
-        request.message.toLowerCase().includes("accountant") ||
-        (journeyState && journeyState.tags.includes("consult")))
+      journeyState &&
+      journeyState.tags.includes("consult")
     ) {
-      if (journeyState?.journey_id === "existing_client") {
+      if (journeyState.journey_id === "existing_client") {
         consultationHint =
           "As an existing TaxSimba client, message your assigned accountant " +
           "through your secure dashboard rather than booking a new public consultation.";
+        packages = [];
       } else {
         consultationHint = buildConsultationHint(
           this.settings.consultationBookingLive,
         );
-        if (
-          !packages.some(
-            (p) =>
-              p.code === "ACCOUNTANT_CONSULT_99" ||
-              p.code === "ACCOUNTANT_CONSULT_149",
-          )
-        ) {
-          packages = [
-            ...packages,
-            ...toPackageCards([
-              "ACCOUNTANT_CONSULT_99",
-              "ACCOUNTANT_CONSULT_149",
-            ]),
-          ];
-        }
+        packages = toPackageCards([
+          "ACCOUNTANT_CONSULT_99",
+          "ACCOUNTANT_CONSULT_149",
+        ]);
       }
     }
 
@@ -457,19 +452,24 @@ export class ConversationalEngine {
     const offerLead = /contact me|call me|email me|leave my (details|number)|get in touch|please (email|call|phone)|speak to (someone|a person|taxsimba)|can someone (call|email)/i.test(
       routeQuery,
     );
+    // Keep customer UI lean: few sources, few routes, calculators only when useful.
+    const leanSources = (sources || []).slice(0, 3);
+    const leanCalcs = (calculators || []).slice(0, 2);
+    const leanRoutes = (routes || []).slice(0, 2);
+    const leanPackages = (packages || []).slice(0, 3);
     return {
       session_id: sessionId,
       reply,
       tax_year: taxYear,
-      sources,
+      sources: leanSources,
       confidence,
       disclaimer: DISCLAIMER,
       consultation_hint: consultationHint,
       offer_lead_capture: offerLead,
-      follow_ups: followUps,
-      packages,
-      calculators,
-      routes,
+      follow_ups: (followUps || []).slice(0, 3),
+      packages: leanPackages,
+      calculators: leanCalcs,
+      routes: leanRoutes,
       journey: journeyState ?? null,
       llm_mode: this.llm.mode as "openai" | "mock",
       mock_notice: this.mockNotice(),

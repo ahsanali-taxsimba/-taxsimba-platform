@@ -76,7 +76,11 @@ export function createApp(settings?: Settings): Express {
       },
       credentials: false,
       methods: ["GET", "POST", "OPTIONS"],
-      allowedHeaders: ["Content-Type", "Accept", "X-Simba-Ops-Token"],
+      allowedHeaders: [
+        "Content-Type",
+        "Accept",
+        "X-Concierge-Ops-Token",
+      ],
     }),
   );
 

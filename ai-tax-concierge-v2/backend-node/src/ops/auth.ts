@@ -19,9 +19,8 @@ export function requireOpsToken(req: Request, res: Response, next: NextFunction)
     });
     return;
   }
-  const provided =
-    String(req.header("x-concierge-ops-token") || "").trim() ||
-    String(req.query.ops_token || "").trim();
+  // Header only — never accept ops tokens via query string (leak risk in logs/URLs).
+  const provided = String(req.header("x-concierge-ops-token") || "").trim();
   if (!provided || provided !== expected) {
     res.status(401).json({
       error: {

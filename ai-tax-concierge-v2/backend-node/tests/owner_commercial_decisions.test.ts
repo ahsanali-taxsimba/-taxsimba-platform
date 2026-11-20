@@ -209,15 +209,23 @@ describe("owner commercial decisions — controlled approval", () => {
     expect(sole.packages[0]?.code).toBe("SA_SIMPLE");
     expect(sole.packages[0]?.registration_path).toBe("/self-assessment");
 
-    const cis = recommendForMessage(
+    const cisNoAsk = recommendForMessage(
       "I am a CIS subcontractor needing Self Assessment",
+      null,
+      WEBSITE,
+    );
+    // Do not auto-sell: facts alone must not attach package cards.
+    expect(cisNoAsk.packages).toEqual([]);
+
+    const cis = recommendForMessage(
+      "I am a CIS subcontractor — which Self Assessment package do you recommend?",
       null,
       WEBSITE,
     );
     expect(cis.packages.map((p) => p.code)[0]).toMatch(/^SA_/);
 
     const multi = recommendForMessage(
-      "I have multiple complex income sources and need a Self Assessment package",
+      "I have multiple complex income sources — which Self Assessment package?",
       null,
       WEBSITE,
     );
