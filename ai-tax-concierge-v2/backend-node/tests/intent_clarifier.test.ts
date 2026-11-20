@@ -20,6 +20,42 @@ describe("conversation intelligence — clarifiers and MTD ops", () => {
     expect(r?.customer_reply.toLowerCase()).toMatch(/paye|self-employment|which/);
   });
 
+  it("does_not_treat_bare_earn_as_mtd_qualifying_income", async () => {
+    const { answerMtdEligibility } = await import(
+      "../src/knowledge/mtd_eligibility.js"
+    );
+    const r = answerMtdEligibility("I earn £50k. MTD?");
+    expect(r?.needs_more_info).toBe(true);
+    expect(r?.customer_reply.toLowerCase()).toMatch(
+      /paye|qualifying|self-employment|property/,
+    );
+    expect(r?.customer_reply.toLowerCase()).not.toMatch(
+      /exactly £50,000 for 2024-25 does not bring/,
+    );
+  });
+
+  it("clarifies_uncertain_cash_in_hand_before_accountant", () => {
+    const r = answerAmbiguousIntent(
+      "Cash-in-hand weekend work, maybe £1050. Accountant?",
+    );
+    expect(r?.handled).toBe(true);
+    expect(r?.prefer_over_eligibility_probe).toBe(true);
+    expect(r?.customer_reply.toLowerCase()).toMatch(/tax year|before expenses/);
+    expect(r?.customer_reply.toLowerCase()).not.toMatch(/you must register/);
+  });
+
+  it("clarifies_crypto_buy_or_sell", () => {
+    const r = answerAmbiguousIntent("Crypto: tax on buy or sell?");
+    expect(r?.handled).toBe(true);
+    expect(r?.customer_reply.toLowerCase()).toMatch(/dispos|buy/);
+  });
+
+  it("clarifies_vat_registration_needs_rolling_period", () => {
+    const r = answerAmbiguousIntent("VAT at £85k — register?");
+    expect(r?.handled).toBe(true);
+    expect(r?.customer_reply.toLowerCase()).toMatch(/rolling|12.month|threshold/);
+  });
+
   it("clarifies_employment_p60_without_assuming_sa", () => {
     const r = answerAmbiguousIntent("I got a P60. What do I do with it?");
     expect(r?.handled).toBe(true);

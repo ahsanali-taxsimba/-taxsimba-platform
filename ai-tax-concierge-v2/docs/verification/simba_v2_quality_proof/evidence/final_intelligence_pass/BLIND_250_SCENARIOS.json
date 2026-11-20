@@ -1,0 +1,2257 @@
+{
+  "generated_at": "2026-11-20T21:55:00.429Z",
+  "note": "Expectations locked BEFORE model execution",
+  "count": 250,
+  "scenarios": [
+    {
+      "id": "B001",
+      "question": "hey do i owe tax if i sold my old nintendo once for £90?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "personal sale vs trade",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B002",
+      "question": "got my p60 — does that mean i file a tax return?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "P60 ≠ automatic SA",
+      "official_sources": [
+        "https://www.gov.uk/paye-forms-p45-p60-p11d/p60",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B003",
+      "question": "left my job in march, got a p45. do i need self assessment just for that?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "leaving job alone",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B004",
+      "question": "two jobs both paye, nothing else. sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "multi PAYE not automatic SA",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B005",
+      "question": "i drive for bolt sometimes, not sure of totals — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "gig unclear amount",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B006",
+      "question": "deliveroo nights ~£2,400 in 2025-26 before expenses. sa needed?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+      ]
+    },
+    {
+      "id": "B007",
+      "question": "etsy shop turnover £780 last tax year. register?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "≤£1k trading alone",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+      ]
+    },
+    {
+      "id": "B008",
+      "question": "sole trader turnover £4,200 in 2024-25. do i need sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B009",
+      "question": "paye £41k only, taxed via payroll, no side income. self assessment?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B010",
+      "question": "qualifying income more than £50,000 in 2024-25 — mtd start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "April 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B011",
+      "question": "qualifying income exactly £50,000 in 2024-25 — mtd from april 2026?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exact not more than",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B012",
+      "question": "qualifying income more than £30,000 in 2025-26 when start mtd?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "April 2027",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B013",
+      "question": "i earn £55k. do i need making tax digital?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare earn",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B014",
+      "question": "paye only £72k. mtd income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE not QI",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B015",
+      "question": "landlord rent £22k before expenses 2024-25. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": "property income",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B016",
+      "question": "rent about £28k — digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need year",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B017",
+      "question": "what are quarterly updates under mtd for income tax?",
+      "expected_classification": "GENERAL_INFO",
+      "expected_outcome": "explain quarterly",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B018",
+      "question": "is mtd based on profit or turnover?",
+      "expected_classification": "GENERAL_INFO",
+      "expected_outcome": "QI gross",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B019",
+      "question": "do i count my salary toward qualifying income?",
+      "expected_classification": "GENERAL_INFO",
+      "expected_outcome": "PAYE excluded",
+      "official_sources": [
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B020",
+      "question": "trading allowance — can i ignore sa if under £1k?",
+      "expected_classification": "GENERAL_INFO",
+      "expected_outcome": "allowance vs threshold",
+      "official_sources": [
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B021",
+      "question": "cis deducted on invoices — still file sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "CIS ≠ waiver; need facts",
+      "official_sources": [
+        "https://www.gov.uk/what-is-the-construction-industry-scheme",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B022",
+      "question": "crypto: do i pay tax when i buy?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "usually disposal",
+      "official_sources": [
+        "https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets"
+      ]
+    },
+    {
+      "id": "B023",
+      "question": "dividends £800 only — return?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need total income",
+      "official_sources": [
+        "https://www.gov.uk/tax-on-dividends",
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B024",
+      "question": "vat turnover rolling 12 months £88k — register?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm threshold basis",
+      "official_sources": [
+        "https://www.gov.uk/vat-registration-thresholds"
+      ]
+    },
+    {
+      "id": "B025",
+      "question": "i don’t want to buy anything. is £1,250 vinted trading sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k; respect no-buy",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B026",
+      "question": "cheapest taxsimba package for first simple sa?",
+      "expected_classification": "TAXSIMBA_SIGNUP",
+      "expected_outcome": "Simple when asked",
+      "official_sources": []
+    },
+    {
+      "id": "B027",
+      "question": "i want an accountant video call about a p800 letter",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "expected_outcome": "consult",
+      "official_sources": []
+    },
+    {
+      "id": "B028",
+      "question": "already taxsimba client — message accountant how?",
+      "expected_classification": "EXISTING_CUSTOMER_SUPPORT",
+      "expected_outcome": "dashboard",
+      "official_sources": []
+    },
+    {
+      "id": "B029",
+      "question": "corporation tax for my ltd — can you file it?",
+      "expected_classification": "OUT_OF_SCOPE",
+      "expected_outcome": "company CT",
+      "official_sources": []
+    },
+    {
+      "id": "B030",
+      "question": "what records should sole traders keep?",
+      "expected_classification": "GENERAL_INFO",
+      "expected_outcome": "records",
+      "official_sources": [
+        "https://www.gov.uk/self-employed-records"
+      ]
+    },
+    {
+      "id": "B031",
+      "question": "savings interest £200 — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "depends band/total",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B032",
+      "question": "capital gains on selling shares?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "CGT facts",
+      "official_sources": [
+        "https://www.gov.uk/capital-gains-tax"
+      ]
+    },
+    {
+      "id": "B033",
+      "question": "partner and i jointly let a flat 60/40 — who declares?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "joint ownership",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B034",
+      "question": "started freelancing yesterday — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "amount/year",
+      "official_sources": [
+        "https://www.gov.uk/register-for-self-assessment"
+      ]
+    },
+    {
+      "id": "B035",
+      "question": "hmrc sent a notice to file — what does that mean?",
+      "expected_classification": "GENERAL_INFO",
+      "expected_outcome": "notice to file",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B036",
+      "question": "late registering for sa — general guidance?",
+      "expected_classification": "GENERAL_INFO",
+      "expected_outcome": "deadlines/penalties overview",
+      "official_sources": [
+        "https://www.gov.uk/register-for-self-assessment"
+      ]
+    },
+    {
+      "id": "B037",
+      "question": "uber + paye job. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need QI amount/year",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+        "https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B038",
+      "question": "content creator on tiktok made about £3k. tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm year/gross",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B039",
+      "question": "i refuse packages. explain trading allowance only.",
+      "expected_classification": "GENERAL_INFO",
+      "expected_outcome": "no sell",
+      "official_sources": [
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income"
+      ]
+    },
+    {
+      "id": "B040",
+      "question": "software for tax — is that the same as mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "may be MTD",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B041",
+      "question": "side hustle on depop roughly £775 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B042",
+      "question": "freelance editing £1350 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B043",
+      "question": "i make £21k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B044",
+      "question": "property rent roughly £17500 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B045",
+      "question": "paye only £29500. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B046",
+      "question": "cash weekend bar work maybe £1020. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B047",
+      "question": "qualifying income more than £30000 in 2025-26. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B048",
+      "question": "side hustle on depop roughly £950 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B049",
+      "question": "freelance editing £1600 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B050",
+      "question": "i make £22k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B051",
+      "question": "property rent roughly £20000 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B052",
+      "question": "paye only £31000. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B053",
+      "question": "cash weekend bar work maybe £1140. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B054",
+      "question": "qualifying income more than £50000 in 2024-25. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B055",
+      "question": "side hustle on depop roughly £1125 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B056",
+      "question": "freelance editing £1850 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B057",
+      "question": "i make £23k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B058",
+      "question": "property rent roughly £22500 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B059",
+      "question": "paye only £32500. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B060",
+      "question": "cash weekend bar work maybe £1260. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B061",
+      "question": "qualifying income more than £30000 in 2025-26. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B062",
+      "question": "side hustle on depop roughly £1300 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B063",
+      "question": "freelance editing £2100 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B064",
+      "question": "i make £24k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B065",
+      "question": "property rent roughly £25000 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B066",
+      "question": "paye only £34000. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B067",
+      "question": "cash weekend bar work maybe £1380. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B068",
+      "question": "qualifying income more than £50000 in 2024-25. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B069",
+      "question": "side hustle on depop roughly £1475 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B070",
+      "question": "freelance editing £2350 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B071",
+      "question": "i make £25k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B072",
+      "question": "property rent roughly £27500 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B073",
+      "question": "paye only £35500. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B074",
+      "question": "cash weekend bar work maybe £1500. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B075",
+      "question": "qualifying income more than £30000 in 2025-26. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B076",
+      "question": "side hustle on depop roughly £1650 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B077",
+      "question": "freelance editing £2600 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B078",
+      "question": "i make £26k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B079",
+      "question": "property rent roughly £30000 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B080",
+      "question": "paye only £37000. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B081",
+      "question": "cash weekend bar work maybe £1620. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B082",
+      "question": "qualifying income more than £50000 in 2024-25. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B083",
+      "question": "side hustle on depop roughly £1825 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B084",
+      "question": "freelance editing £2850 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B085",
+      "question": "i make £27k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B086",
+      "question": "property rent roughly £32500 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B087",
+      "question": "paye only £38500. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B088",
+      "question": "cash weekend bar work maybe £1740. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B089",
+      "question": "qualifying income more than £30000 in 2025-26. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B090",
+      "question": "side hustle on depop roughly £2000 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B091",
+      "question": "freelance editing £3100 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B092",
+      "question": "i make £28k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B093",
+      "question": "property rent roughly £35000 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B094",
+      "question": "paye only £40000. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B095",
+      "question": "cash weekend bar work maybe £1860. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B096",
+      "question": "qualifying income more than £50000 in 2024-25. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B097",
+      "question": "side hustle on depop roughly £2175 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B098",
+      "question": "freelance editing £3350 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B099",
+      "question": "i make £29k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B100",
+      "question": "property rent roughly £37500 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B101",
+      "question": "paye only £41500. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B102",
+      "question": "cash weekend bar work maybe £1980. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B103",
+      "question": "qualifying income more than £30000 in 2025-26. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B104",
+      "question": "side hustle on depop roughly £2350 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B105",
+      "question": "freelance editing £3600 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B106",
+      "question": "i make £30k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B107",
+      "question": "property rent roughly £40000 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B108",
+      "question": "paye only £43000. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B109",
+      "question": "cash weekend bar work maybe £2100. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B110",
+      "question": "qualifying income more than £50000 in 2024-25. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B111",
+      "question": "side hustle on depop roughly £2525 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B112",
+      "question": "freelance editing £3850 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B113",
+      "question": "i make £31k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B114",
+      "question": "property rent roughly £42500 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B115",
+      "question": "paye only £44500. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B116",
+      "question": "cash weekend bar work maybe £2220. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B117",
+      "question": "qualifying income more than £30000 in 2025-26. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B118",
+      "question": "side hustle on depop roughly £2700 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B119",
+      "question": "freelance editing £4100 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B120",
+      "question": "i make £32k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B121",
+      "question": "property rent roughly £45000 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B122",
+      "question": "paye only £46000. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B123",
+      "question": "cash weekend bar work maybe £2340. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B124",
+      "question": "qualifying income more than £50000 in 2024-25. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B125",
+      "question": "side hustle on depop roughly £2875 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B126",
+      "question": "freelance editing £4350 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B127",
+      "question": "i make £33k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B128",
+      "question": "property rent roughly £47500 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B129",
+      "question": "paye only £47500. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B130",
+      "question": "cash weekend bar work maybe £2460. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B131",
+      "question": "qualifying income more than £30000 in 2025-26. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B132",
+      "question": "side hustle on depop roughly £3050 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B133",
+      "question": "freelance editing £4600 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B134",
+      "question": "i make £34k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B135",
+      "question": "property rent roughly £50000 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B136",
+      "question": "paye only £49000. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B137",
+      "question": "cash weekend bar work maybe £2580. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B138",
+      "question": "qualifying income more than £50000 in 2024-25. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B139",
+      "question": "side hustle on depop roughly £3225 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B140",
+      "question": "freelance editing £4850 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B141",
+      "question": "i make £35k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B142",
+      "question": "property rent roughly £52500 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B143",
+      "question": "paye only £50500. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B144",
+      "question": "cash weekend bar work maybe £2700. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B145",
+      "question": "qualifying income more than £30000 in 2025-26. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B146",
+      "question": "side hustle on depop roughly £3400 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B147",
+      "question": "freelance editing £5100 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B148",
+      "question": "i make £36k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B149",
+      "question": "property rent roughly £55000 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B150",
+      "question": "paye only £52000. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B151",
+      "question": "cash weekend bar work maybe £2820. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B152",
+      "question": "qualifying income more than £50000 in 2024-25. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B153",
+      "question": "side hustle on depop roughly £3575 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B154",
+      "question": "freelance editing £5350 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B155",
+      "question": "i make £37k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B156",
+      "question": "property rent roughly £57500 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B157",
+      "question": "paye only £53500. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B158",
+      "question": "cash weekend bar work maybe £2940. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B159",
+      "question": "qualifying income more than £30000 in 2025-26. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B160",
+      "question": "side hustle on depop roughly £3750 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B161",
+      "question": "freelance editing £5600 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B162",
+      "question": "i make £38k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B163",
+      "question": "property rent roughly £60000 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B164",
+      "question": "paye only £55000. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B165",
+      "question": "cash weekend bar work maybe £3060. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B166",
+      "question": "qualifying income more than £50000 in 2024-25. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B167",
+      "question": "side hustle on depop roughly £3925 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B168",
+      "question": "freelance editing £5850 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B169",
+      "question": "i make £39k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B170",
+      "question": "property rent roughly £62500 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B171",
+      "question": "paye only £56500. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B172",
+      "question": "cash weekend bar work maybe £3180. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B173",
+      "question": "qualifying income more than £30000 in 2025-26. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B174",
+      "question": "side hustle on depop roughly £4100 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B175",
+      "question": "freelance editing £6100 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B176",
+      "question": "i make £40k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B177",
+      "question": "property rent roughly £65000 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B178",
+      "question": "paye only £58000. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B179",
+      "question": "cash weekend bar work maybe £3300. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B180",
+      "question": "qualifying income more than £50000 in 2024-25. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B181",
+      "question": "side hustle on depop roughly £4275 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B182",
+      "question": "freelance editing £6350 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B183",
+      "question": "i make £41k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B184",
+      "question": "property rent roughly £67500 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B185",
+      "question": "paye only £59500. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B186",
+      "question": "cash weekend bar work maybe £3420. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B187",
+      "question": "qualifying income more than £30000 in 2025-26. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B188",
+      "question": "side hustle on depop roughly £4450 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B189",
+      "question": "freelance editing £6600 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B190",
+      "question": "i make £42k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B191",
+      "question": "property rent roughly £70000 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B192",
+      "question": "paye only £61000. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B193",
+      "question": "cash weekend bar work maybe £3540. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B194",
+      "question": "qualifying income more than £50000 in 2024-25. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B195",
+      "question": "side hustle on depop roughly £4625 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B196",
+      "question": "freelance editing £6850 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B197",
+      "question": "i make £43k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B198",
+      "question": "property rent roughly £72500 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B199",
+      "question": "paye only £62500. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B200",
+      "question": "cash weekend bar work maybe £3660. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B201",
+      "question": "qualifying income more than £30000 in 2025-26. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B202",
+      "question": "side hustle on depop roughly £4800 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B203",
+      "question": "freelance editing £7100 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B204",
+      "question": "i make £44k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B205",
+      "question": "property rent roughly £75000 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B206",
+      "question": "paye only £64000. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B207",
+      "question": "cash weekend bar work maybe £3780. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B208",
+      "question": "qualifying income more than £50000 in 2024-25. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B209",
+      "question": "side hustle on depop roughly £4975 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B210",
+      "question": "freelance editing £7350 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B211",
+      "question": "i make £45k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B212",
+      "question": "property rent roughly £77500 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B213",
+      "question": "paye only £65500. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B214",
+      "question": "cash weekend bar work maybe £3900. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B215",
+      "question": "qualifying income more than £30000 in 2025-26. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B216",
+      "question": "side hustle on depop roughly £5150 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B217",
+      "question": "freelance editing £7600 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B218",
+      "question": "i make £46k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B219",
+      "question": "property rent roughly £80000 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B220",
+      "question": "paye only £67000. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B221",
+      "question": "cash weekend bar work maybe £4020. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B222",
+      "question": "qualifying income more than £50000 in 2024-25. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B223",
+      "question": "side hustle on depop roughly £5325 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B224",
+      "question": "freelance editing £7850 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B225",
+      "question": "i make £47k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B226",
+      "question": "property rent roughly £82500 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B227",
+      "question": "paye only £68500. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B228",
+      "question": "cash weekend bar work maybe £4140. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B229",
+      "question": "qualifying income more than £30000 in 2025-26. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B230",
+      "question": "side hustle on depop roughly £5500 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B231",
+      "question": "freelance editing £8100 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B232",
+      "question": "i make £48k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B233",
+      "question": "property rent roughly £85000 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B234",
+      "question": "paye only £70000. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B235",
+      "question": "cash weekend bar work maybe £4260. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B236",
+      "question": "qualifying income more than £50000 in 2024-25. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B237",
+      "question": "side hustle on depop roughly £5675 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B238",
+      "question": "freelance editing £8350 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B239",
+      "question": "i make £49k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B240",
+      "question": "property rent roughly £87500 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B241",
+      "question": "paye only £71500. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B242",
+      "question": "cash weekend bar work maybe £4380. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B243",
+      "question": "qualifying income more than £30000 in 2025-26. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B244",
+      "question": "side hustle on depop roughly £5850 — tell hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "confirm activity/year even when amount present if uncertain wording",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B245",
+      "question": "freelance editing £8600 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k trading with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B246",
+      "question": "i make £50k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare total income",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B247",
+      "question": "property rent roughly £90000 — when digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need tax year for band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B248",
+      "question": "paye only £73000. making tax digital for income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "PAYE-only",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "B249",
+      "question": "cash weekend bar work maybe £4500. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain + accountant ask",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "B250",
+      "question": "qualifying income more than £50000 in 2024-25. start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive more-than band",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    }
+  ]
+}

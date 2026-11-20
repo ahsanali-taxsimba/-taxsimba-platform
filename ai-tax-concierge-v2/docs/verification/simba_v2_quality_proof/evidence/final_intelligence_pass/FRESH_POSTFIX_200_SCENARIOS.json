@@ -1,0 +1,1805 @@
+{
+  "generated_at": "2026-11-20T21:55:00.431Z",
+  "note": "Fresh unseen post-fix set — expectations locked BEFORE answers",
+  "count": 200,
+  "scenarios": [
+    {
+      "id": "F001",
+      "question": "side gigs on upwork ~£1,400 2025-26 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F002",
+      "question": "i earn £61k. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare earn",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F003",
+      "question": "paye only £55k — making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F004",
+      "question": "qi more than £20,000 in 2026-27 start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "Apr 2028",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F005",
+      "question": "qi exactly £30,000 in 2025-26 mtd?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "not more than",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F006",
+      "question": "rent ~£40k digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "year",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F007",
+      "question": "dont want paid help. £2k freelance 2025-26 sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": "no sell",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F008",
+      "question": "crypto tax on purchase?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "disposal",
+      "official_sources": [
+        "https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets"
+      ]
+    },
+    {
+      "id": "F009",
+      "question": "dividends £2k return?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "other income",
+      "official_sources": [
+        "https://www.gov.uk/tax-on-dividends"
+      ]
+    },
+    {
+      "id": "F010",
+      "question": "vat £92k last 12 months?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "threshold check",
+      "official_sources": [
+        "https://www.gov.uk/vat-registration-thresholds"
+      ]
+    },
+    {
+      "id": "F011",
+      "question": "p45 only — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "not automatic",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F012",
+      "question": "cheapest first-time sa package?",
+      "expected_classification": "TAXSIMBA_SIGNUP",
+      "expected_outcome": "asked",
+      "official_sources": []
+    },
+    {
+      "id": "F013",
+      "question": "marketplace selling maybe £1080. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F014",
+      "question": "contracting £2300 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F015",
+      "question": "i get £16k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F016",
+      "question": "paye only £27000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F017",
+      "question": "qi more than £50000 in 2024-25 — confirm start 1",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F018",
+      "question": "marketplace selling maybe £1160. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F019",
+      "question": "contracting £2600 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F020",
+      "question": "i get £17k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F021",
+      "question": "paye only £29000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F022",
+      "question": "qi more than £50000 in 2024-25 — confirm start 2",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F023",
+      "question": "marketplace selling maybe £1240. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F024",
+      "question": "contracting £2900 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F025",
+      "question": "i get £18k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F026",
+      "question": "paye only £31000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F027",
+      "question": "qi more than £50000 in 2024-25 — confirm start 3",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F028",
+      "question": "marketplace selling maybe £1320. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F029",
+      "question": "contracting £3200 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F030",
+      "question": "i get £19k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F031",
+      "question": "paye only £33000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F032",
+      "question": "qi more than £50000 in 2024-25 — confirm start 4",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F033",
+      "question": "marketplace selling maybe £1400. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F034",
+      "question": "contracting £3500 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F035",
+      "question": "i get £20k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F036",
+      "question": "paye only £35000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F037",
+      "question": "qi more than £50000 in 2024-25 — confirm start 5",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F038",
+      "question": "marketplace selling maybe £1480. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F039",
+      "question": "contracting £3800 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F040",
+      "question": "i get £21k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F041",
+      "question": "paye only £37000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F042",
+      "question": "qi more than £50000 in 2024-25 — confirm start 6",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F043",
+      "question": "marketplace selling maybe £1560. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F044",
+      "question": "contracting £4100 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F045",
+      "question": "i get £22k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F046",
+      "question": "paye only £39000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F047",
+      "question": "qi more than £50000 in 2024-25 — confirm start 7",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F048",
+      "question": "marketplace selling maybe £1640. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F049",
+      "question": "contracting £4400 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F050",
+      "question": "i get £23k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F051",
+      "question": "paye only £41000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F052",
+      "question": "qi more than £50000 in 2024-25 — confirm start 8",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F053",
+      "question": "marketplace selling maybe £1720. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F054",
+      "question": "contracting £4700 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F055",
+      "question": "i get £24k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F056",
+      "question": "paye only £43000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F057",
+      "question": "qi more than £50000 in 2024-25 — confirm start 9",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F058",
+      "question": "marketplace selling maybe £1800. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F059",
+      "question": "contracting £5000 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F060",
+      "question": "i get £25k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F061",
+      "question": "paye only £45000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F062",
+      "question": "qi more than £50000 in 2024-25 — confirm start 10",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F063",
+      "question": "marketplace selling maybe £1880. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F064",
+      "question": "contracting £5300 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F065",
+      "question": "i get £26k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F066",
+      "question": "paye only £47000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F067",
+      "question": "qi more than £50000 in 2024-25 — confirm start 11",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F068",
+      "question": "marketplace selling maybe £1960. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F069",
+      "question": "contracting £5600 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F070",
+      "question": "i get £27k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F071",
+      "question": "paye only £49000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F072",
+      "question": "qi more than £50000 in 2024-25 — confirm start 12",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F073",
+      "question": "marketplace selling maybe £2040. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F074",
+      "question": "contracting £5900 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F075",
+      "question": "i get £28k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F076",
+      "question": "paye only £51000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F077",
+      "question": "qi more than £50000 in 2024-25 — confirm start 13",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F078",
+      "question": "marketplace selling maybe £2120. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F079",
+      "question": "contracting £6200 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F080",
+      "question": "i get £29k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F081",
+      "question": "paye only £53000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F082",
+      "question": "qi more than £50000 in 2024-25 — confirm start 14",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F083",
+      "question": "marketplace selling maybe £2200. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F084",
+      "question": "contracting £6500 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F085",
+      "question": "i get £30k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F086",
+      "question": "paye only £55000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F087",
+      "question": "qi more than £50000 in 2024-25 — confirm start 15",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F088",
+      "question": "marketplace selling maybe £2280. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F089",
+      "question": "contracting £6800 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F090",
+      "question": "i get £31k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F091",
+      "question": "paye only £57000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F092",
+      "question": "qi more than £50000 in 2024-25 — confirm start 16",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F093",
+      "question": "marketplace selling maybe £2360. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F094",
+      "question": "contracting £7100 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F095",
+      "question": "i get £32k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F096",
+      "question": "paye only £59000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F097",
+      "question": "qi more than £50000 in 2024-25 — confirm start 17",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F098",
+      "question": "marketplace selling maybe £2440. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F099",
+      "question": "contracting £7400 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F100",
+      "question": "i get £33k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F101",
+      "question": "paye only £61000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F102",
+      "question": "qi more than £50000 in 2024-25 — confirm start 18",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F103",
+      "question": "marketplace selling maybe £2520. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F104",
+      "question": "contracting £7700 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F105",
+      "question": "i get £34k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F106",
+      "question": "paye only £63000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F107",
+      "question": "qi more than £50000 in 2024-25 — confirm start 19",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F108",
+      "question": "marketplace selling maybe £2600. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F109",
+      "question": "contracting £8000 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F110",
+      "question": "i get £35k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F111",
+      "question": "paye only £65000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F112",
+      "question": "qi more than £50000 in 2024-25 — confirm start 20",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F113",
+      "question": "marketplace selling maybe £2680. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F114",
+      "question": "contracting £8300 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F115",
+      "question": "i get £36k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F116",
+      "question": "paye only £67000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F117",
+      "question": "qi more than £50000 in 2024-25 — confirm start 21",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F118",
+      "question": "marketplace selling maybe £2760. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F119",
+      "question": "contracting £8600 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F120",
+      "question": "i get £37k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F121",
+      "question": "paye only £69000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F122",
+      "question": "qi more than £50000 in 2024-25 — confirm start 22",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F123",
+      "question": "marketplace selling maybe £2840. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F124",
+      "question": "contracting £8900 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F125",
+      "question": "i get £38k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F126",
+      "question": "paye only £71000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F127",
+      "question": "qi more than £50000 in 2024-25 — confirm start 23",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F128",
+      "question": "marketplace selling maybe £2920. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F129",
+      "question": "contracting £9200 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F130",
+      "question": "i get £39k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F131",
+      "question": "paye only £73000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F132",
+      "question": "qi more than £50000 in 2024-25 — confirm start 24",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F133",
+      "question": "marketplace selling maybe £3000. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F134",
+      "question": "contracting £9500 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F135",
+      "question": "i get £40k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F136",
+      "question": "paye only £75000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F137",
+      "question": "qi more than £50000 in 2024-25 — confirm start 25",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F138",
+      "question": "marketplace selling maybe £3080. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F139",
+      "question": "contracting £9800 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F140",
+      "question": "i get £41k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F141",
+      "question": "paye only £77000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F142",
+      "question": "qi more than £50000 in 2024-25 — confirm start 26",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F143",
+      "question": "marketplace selling maybe £3160. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F144",
+      "question": "contracting £10100 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F145",
+      "question": "i get £42k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F146",
+      "question": "paye only £79000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F147",
+      "question": "qi more than £50000 in 2024-25 — confirm start 27",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F148",
+      "question": "marketplace selling maybe £3240. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F149",
+      "question": "contracting £10400 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F150",
+      "question": "i get £43k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F151",
+      "question": "paye only £81000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F152",
+      "question": "qi more than £50000 in 2024-25 — confirm start 28",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F153",
+      "question": "marketplace selling maybe £3320. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F154",
+      "question": "contracting £10700 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F155",
+      "question": "i get £44k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F156",
+      "question": "paye only £83000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F157",
+      "question": "qi more than £50000 in 2024-25 — confirm start 29",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F158",
+      "question": "marketplace selling maybe £3400. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F159",
+      "question": "contracting £11000 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F160",
+      "question": "i get £45k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F161",
+      "question": "paye only £85000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F162",
+      "question": "qi more than £50000 in 2024-25 — confirm start 30",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F163",
+      "question": "marketplace selling maybe £3480. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F164",
+      "question": "contracting £11300 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F165",
+      "question": "i get £46k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F166",
+      "question": "paye only £87000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F167",
+      "question": "qi more than £50000 in 2024-25 — confirm start 31",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F168",
+      "question": "marketplace selling maybe £3560. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F169",
+      "question": "contracting £11600 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F170",
+      "question": "i get £47k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F171",
+      "question": "paye only £89000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F172",
+      "question": "qi more than £50000 in 2024-25 — confirm start 32",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F173",
+      "question": "marketplace selling maybe £3640. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F174",
+      "question": "contracting £11900 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F175",
+      "question": "i get £48k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F176",
+      "question": "paye only £91000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F177",
+      "question": "qi more than £50000 in 2024-25 — confirm start 33",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F178",
+      "question": "marketplace selling maybe £3720. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F179",
+      "question": "contracting £12200 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F180",
+      "question": "i get £49k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F181",
+      "question": "paye only £93000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F182",
+      "question": "qi more than £50000 in 2024-25 — confirm start 34",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F183",
+      "question": "marketplace selling maybe £3800. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F184",
+      "question": "contracting £12500 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F185",
+      "question": "i get £50k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F186",
+      "question": "paye only £95000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F187",
+      "question": "qi more than £50000 in 2024-25 — confirm start 35",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F188",
+      "question": "marketplace selling maybe £3880. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F189",
+      "question": "contracting £12800 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F190",
+      "question": "i get £51k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F191",
+      "question": "paye only £97000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F192",
+      "question": "qi more than £50000 in 2024-25 — confirm start 36",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F193",
+      "question": "marketplace selling maybe £3960. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F194",
+      "question": "contracting £13100 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F195",
+      "question": "i get £52k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F196",
+      "question": "paye only £99000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F197",
+      "question": "qi more than £50000 in 2024-25 — confirm start 37",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    },
+    {
+      "id": "F198",
+      "question": "marketplace selling maybe £4040. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F199",
+      "question": "contracting £13400 in 2025-26. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year",
+      "official_sources": [
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+      ]
+    },
+    {
+      "id": "F200",
+      "question": "i get £53k. mtd for income tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare",
+      "official_sources": [
+        "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      ]
+    }
+  ]
+}

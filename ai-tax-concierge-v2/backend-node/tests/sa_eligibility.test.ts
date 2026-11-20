@@ -82,4 +82,18 @@ describe("sa_eligibility", () => {
       /below the £1,000 trading allowance/,
     );
   });
+
+  it("prefers latest freelance amount after salary/freelance correction", () => {
+    const r = answerSaEligibility(
+      "sorry, £40k was salary and £18k was freelance for 2024-25 before expenses — do I need Self Assessment?",
+      [
+        { role: "user", content: "I earned £40k last year" },
+        { role: "assistant", content: "Need income type." },
+      ],
+    );
+    expect(r?.handled).toBe(true);
+    expect(r?.trading_income_gbp).toBe(18_000);
+    expect(r?.must_usually_file).toBe(true);
+  });
 });
+

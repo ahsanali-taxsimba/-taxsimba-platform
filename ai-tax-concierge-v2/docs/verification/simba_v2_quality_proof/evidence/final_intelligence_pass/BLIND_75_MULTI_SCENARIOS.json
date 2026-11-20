@@ -1,0 +1,1042 @@
+{
+  "generated_at": "2026-11-20T21:55:00.430Z",
+  "note": "Expectations locked BEFORE model execution; 25 deep 8–15 turns",
+  "count": 75,
+  "deep_count": 25,
+  "scenarios": [
+    {
+      "id": "M001",
+      "title": "PAYE nurse adds weekend tutoring",
+      "expected_final_outcome": "SA help; no premature package",
+      "turns": [
+        "hi im a nurse on paye",
+        "i started tutoring weekends",
+        "not sure how much yet maybe a few hundred",
+        "ok looking at my notes it was about £1,800 in 2025-26 before expenses",
+        "do i need self assessment?",
+        "what records should i keep?",
+        "i dont want to buy software yet — just explain",
+        "if i later wanted help filing, whats the simplest taxsimba option?",
+        "thanks thats enough"
+      ]
+    },
+    {
+      "id": "M002",
+      "title": "Contradiction salary vs freelance",
+      "expected_final_outcome": "update understanding on correction",
+      "turns": [
+        "i earned £40k last year",
+        "do i need mtd?",
+        "sorry — £40k was salary and £18k was freelance turnover before expenses for 2024-25",
+        "so what about self assessment?",
+        "and making tax digital?",
+        "please remember i already told you the freelance figure",
+        "dont ask me again if im self employed — i freelanced",
+        "i dont want a package",
+        "ok goodbye"
+      ]
+    },
+    {
+      "id": "M003",
+      "title": "Landlord gradual facts",
+      "expected_final_outcome": "SA + MTD year clarification",
+      "turns": [
+        "i have a rental",
+        "its residential buy to let",
+        "rent was about £19,000",
+        "that was 2024-25 before expenses",
+        "i also have a paye job £35k",
+        "do i need sa?",
+        "mtd?",
+        "explain qualifying income without selling me anything",
+        "if i want sa help later whats lowest package",
+        "ill think about it"
+      ]
+    },
+    {
+      "id": "M004",
+      "title": "No-buy customer",
+      "expected_final_outcome": "respect refusal; keep helping",
+      "turns": [
+        "do not sell me anything",
+        "etsy sales £2,100 in 2025-26",
+        "sa?",
+        "trading allowance?",
+        "still no packages please",
+        "deadlines?",
+        "penalties if late — general only",
+        "thanks"
+      ]
+    },
+    {
+      "id": "M005",
+      "title": "MTD exact vs more than",
+      "expected_final_outcome": "exclusive threshold memory",
+      "turns": [
+        "im a sole trader",
+        "qualifying income exactly £50,000 in 2024-25",
+        "mtd from april 2026?",
+        "what if it was more than £50,000?",
+        "is that turnover or profit?",
+        "does my £10k paye count?",
+        "quarterly updates mean what?",
+        "still no signup",
+        "bye"
+      ]
+    },
+    {
+      "id": "M006",
+      "title": "barista multi-income journey",
+      "expected_final_outcome": "clarify → SA/MTD as facts allow; no premature package",
+      "turns": [
+        "hi i work as a barista",
+        "also have some side income",
+        "paye from my main job is about £32k",
+        "side work maybe £2000",
+        "sorry that side figure was for 2025-26 before expenses",
+        "do i need self assessment?",
+        "what about making tax digital?",
+        "please dont recommend a package unless i ask",
+        "ok what records should i keep?",
+        "if i ask later for help filing, whats simplest option?",
+        "thanks for now"
+      ]
+    },
+    {
+      "id": "M007",
+      "title": "driver multi-income journey",
+      "expected_final_outcome": "clarify → SA/MTD as facts allow; no premature package",
+      "turns": [
+        "hi i work as a driver",
+        "also have some side income",
+        "paye from my main job is about £32k",
+        "side work maybe £2100",
+        "sorry that side figure was for 2025-26 before expenses",
+        "do i need self assessment?",
+        "what about making tax digital?",
+        "please dont recommend a package unless i ask",
+        "ok what records should i keep?",
+        "if i ask later for help filing, whats simplest option?",
+        "thanks for now"
+      ]
+    },
+    {
+      "id": "M008",
+      "title": "designer multi-income journey",
+      "expected_final_outcome": "clarify → SA/MTD as facts allow; no premature package",
+      "turns": [
+        "hi i work as a designer",
+        "also have some side income",
+        "paye from my main job is about £32k",
+        "side work maybe £2200",
+        "sorry that side figure was for 2025-26 before expenses",
+        "do i need self assessment?",
+        "what about making tax digital?",
+        "please dont recommend a package unless i ask",
+        "ok what records should i keep?",
+        "if i ask later for help filing, whats simplest option?",
+        "thanks for now"
+      ]
+    },
+    {
+      "id": "M009",
+      "title": "photographer multi-income journey",
+      "expected_final_outcome": "clarify → SA/MTD as facts allow; no premature package",
+      "turns": [
+        "hi i work as a photographer",
+        "also have some side income",
+        "paye from my main job is about £32k",
+        "side work maybe £2300",
+        "sorry that side figure was for 2025-26 before expenses",
+        "do i need self assessment?",
+        "what about making tax digital?",
+        "please dont recommend a package unless i ask",
+        "ok what records should i keep?",
+        "if i ask later for help filing, whats simplest option?",
+        "thanks for now"
+      ]
+    },
+    {
+      "id": "M010",
+      "title": "cleaner multi-income journey",
+      "expected_final_outcome": "clarify → SA/MTD as facts allow; no premature package",
+      "turns": [
+        "hi i work as a cleaner",
+        "also have some side income",
+        "paye from my main job is about £32k",
+        "side work maybe £2400",
+        "sorry that side figure was for 2025-26 before expenses",
+        "do i need self assessment?",
+        "what about making tax digital?",
+        "please dont recommend a package unless i ask",
+        "ok what records should i keep?",
+        "if i ask later for help filing, whats simplest option?",
+        "thanks for now"
+      ]
+    },
+    {
+      "id": "M011",
+      "title": "tutor multi-income journey",
+      "expected_final_outcome": "clarify → SA/MTD as facts allow; no premature package",
+      "turns": [
+        "hi i work as a tutor",
+        "also have some side income",
+        "paye from my main job is about £32k",
+        "side work maybe £2500",
+        "sorry that side figure was for 2025-26 before expenses",
+        "do i need self assessment?",
+        "what about making tax digital?",
+        "please dont recommend a package unless i ask",
+        "ok what records should i keep?",
+        "if i ask later for help filing, whats simplest option?",
+        "thanks for now"
+      ]
+    },
+    {
+      "id": "M012",
+      "title": "coder multi-income journey",
+      "expected_final_outcome": "clarify → SA/MTD as facts allow; no premature package",
+      "turns": [
+        "hi i work as a coder",
+        "also have some side income",
+        "paye from my main job is about £32k",
+        "side work maybe £2600",
+        "sorry that side figure was for 2025-26 before expenses",
+        "do i need self assessment?",
+        "what about making tax digital?",
+        "please dont recommend a package unless i ask",
+        "ok what records should i keep?",
+        "if i ask later for help filing, whats simplest option?",
+        "thanks for now"
+      ]
+    },
+    {
+      "id": "M013",
+      "title": "baker multi-income journey",
+      "expected_final_outcome": "clarify → SA/MTD as facts allow; no premature package",
+      "turns": [
+        "hi i work as a baker",
+        "also have some side income",
+        "paye from my main job is about £32k",
+        "side work maybe £2700",
+        "sorry that side figure was for 2025-26 before expenses",
+        "do i need self assessment?",
+        "what about making tax digital?",
+        "please dont recommend a package unless i ask",
+        "ok what records should i keep?",
+        "if i ask later for help filing, whats simplest option?",
+        "thanks for now"
+      ]
+    },
+    {
+      "id": "M014",
+      "title": "musician multi-income journey",
+      "expected_final_outcome": "clarify → SA/MTD as facts allow; no premature package",
+      "turns": [
+        "hi i work as a musician",
+        "also have some side income",
+        "paye from my main job is about £32k",
+        "side work maybe £2800",
+        "sorry that side figure was for 2025-26 before expenses",
+        "do i need self assessment?",
+        "what about making tax digital?",
+        "please dont recommend a package unless i ask",
+        "ok what records should i keep?",
+        "if i ask later for help filing, whats simplest option?",
+        "thanks for now"
+      ]
+    },
+    {
+      "id": "M015",
+      "title": "writer multi-income journey",
+      "expected_final_outcome": "clarify → SA/MTD as facts allow; no premature package",
+      "turns": [
+        "hi i work as a writer",
+        "also have some side income",
+        "paye from my main job is about £32k",
+        "side work maybe £2900",
+        "sorry that side figure was for 2025-26 before expenses",
+        "do i need self assessment?",
+        "what about making tax digital?",
+        "please dont recommend a package unless i ask",
+        "ok what records should i keep?",
+        "if i ask later for help filing, whats simplest option?",
+        "thanks for now"
+      ]
+    },
+    {
+      "id": "M016",
+      "title": "coach multi-income journey",
+      "expected_final_outcome": "clarify → SA/MTD as facts allow; no premature package",
+      "turns": [
+        "hi i work as a coach",
+        "also have some side income",
+        "paye from my main job is about £32k",
+        "side work maybe £3000",
+        "sorry that side figure was for 2025-26 before expenses",
+        "do i need self assessment?",
+        "what about making tax digital?",
+        "please dont recommend a package unless i ask",
+        "ok what records should i keep?",
+        "if i ask later for help filing, whats simplest option?",
+        "thanks for now"
+      ]
+    },
+    {
+      "id": "M017",
+      "title": "mechanic multi-income journey",
+      "expected_final_outcome": "clarify → SA/MTD as facts allow; no premature package",
+      "turns": [
+        "hi i work as a mechanic",
+        "also have some side income",
+        "paye from my main job is about £32k",
+        "side work maybe £3100",
+        "sorry that side figure was for 2025-26 before expenses",
+        "do i need self assessment?",
+        "what about making tax digital?",
+        "please dont recommend a package unless i ask",
+        "ok what records should i keep?",
+        "if i ask later for help filing, whats simplest option?",
+        "thanks for now"
+      ]
+    },
+    {
+      "id": "M018",
+      "title": "gardener multi-income journey",
+      "expected_final_outcome": "clarify → SA/MTD as facts allow; no premature package",
+      "turns": [
+        "hi i work as a gardener",
+        "also have some side income",
+        "paye from my main job is about £32k",
+        "side work maybe £3200",
+        "sorry that side figure was for 2025-26 before expenses",
+        "do i need self assessment?",
+        "what about making tax digital?",
+        "please dont recommend a package unless i ask",
+        "ok what records should i keep?",
+        "if i ask later for help filing, whats simplest option?",
+        "thanks for now"
+      ]
+    },
+    {
+      "id": "M019",
+      "title": "hairdresser multi-income journey",
+      "expected_final_outcome": "clarify → SA/MTD as facts allow; no premature package",
+      "turns": [
+        "hi i work as a hairdresser",
+        "also have some side income",
+        "paye from my main job is about £32k",
+        "side work maybe £3300",
+        "sorry that side figure was for 2025-26 before expenses",
+        "do i need self assessment?",
+        "what about making tax digital?",
+        "please dont recommend a package unless i ask",
+        "ok what records should i keep?",
+        "if i ask later for help filing, whats simplest option?",
+        "thanks for now"
+      ]
+    },
+    {
+      "id": "M020",
+      "title": "plumber multi-income journey",
+      "expected_final_outcome": "clarify → SA/MTD as facts allow; no premature package",
+      "turns": [
+        "hi i work as a plumber",
+        "also have some side income",
+        "paye from my main job is about £32k",
+        "side work maybe £3400",
+        "sorry that side figure was for 2025-26 before expenses",
+        "do i need self assessment?",
+        "what about making tax digital?",
+        "please dont recommend a package unless i ask",
+        "ok what records should i keep?",
+        "if i ask later for help filing, whats simplest option?",
+        "thanks for now"
+      ]
+    },
+    {
+      "id": "M021",
+      "title": "electrician multi-income journey",
+      "expected_final_outcome": "clarify → SA/MTD as facts allow; no premature package",
+      "turns": [
+        "hi i work as a electrician",
+        "also have some side income",
+        "paye from my main job is about £32k",
+        "side work maybe £3500",
+        "sorry that side figure was for 2025-26 before expenses",
+        "do i need self assessment?",
+        "what about making tax digital?",
+        "please dont recommend a package unless i ask",
+        "ok what records should i keep?",
+        "if i ask later for help filing, whats simplest option?",
+        "thanks for now"
+      ]
+    },
+    {
+      "id": "M022",
+      "title": "carpenter multi-income journey",
+      "expected_final_outcome": "clarify → SA/MTD as facts allow; no premature package",
+      "turns": [
+        "hi i work as a carpenter",
+        "also have some side income",
+        "paye from my main job is about £32k",
+        "side work maybe £3600",
+        "sorry that side figure was for 2025-26 before expenses",
+        "do i need self assessment?",
+        "what about making tax digital?",
+        "please dont recommend a package unless i ask",
+        "ok what records should i keep?",
+        "if i ask later for help filing, whats simplest option?",
+        "thanks for now"
+      ]
+    },
+    {
+      "id": "M023",
+      "title": "painter multi-income journey",
+      "expected_final_outcome": "clarify → SA/MTD as facts allow; no premature package",
+      "turns": [
+        "hi i work as a painter",
+        "also have some side income",
+        "paye from my main job is about £32k",
+        "side work maybe £3700",
+        "sorry that side figure was for 2025-26 before expenses",
+        "do i need self assessment?",
+        "what about making tax digital?",
+        "please dont recommend a package unless i ask",
+        "ok what records should i keep?",
+        "if i ask later for help filing, whats simplest option?",
+        "thanks for now"
+      ]
+    },
+    {
+      "id": "M024",
+      "title": "nanny multi-income journey",
+      "expected_final_outcome": "clarify → SA/MTD as facts allow; no premature package",
+      "turns": [
+        "hi i work as a nanny",
+        "also have some side income",
+        "paye from my main job is about £32k",
+        "side work maybe £3800",
+        "sorry that side figure was for 2025-26 before expenses",
+        "do i need self assessment?",
+        "what about making tax digital?",
+        "please dont recommend a package unless i ask",
+        "ok what records should i keep?",
+        "if i ask later for help filing, whats simplest option?",
+        "thanks for now"
+      ]
+    },
+    {
+      "id": "M025",
+      "title": "therapist multi-income journey",
+      "expected_final_outcome": "clarify → SA/MTD as facts allow; no premature package",
+      "turns": [
+        "hi i work as a therapist",
+        "also have some side income",
+        "paye from my main job is about £32k",
+        "side work maybe £3900",
+        "sorry that side figure was for 2025-26 before expenses",
+        "do i need self assessment?",
+        "what about making tax digital?",
+        "please dont recommend a package unless i ask",
+        "ok what records should i keep?",
+        "if i ask later for help filing, whats simplest option?",
+        "thanks for now"
+      ]
+    },
+    {
+      "id": "M026",
+      "title": "bare earn then clarify",
+      "expected_final_outcome": "help-first; correct service class",
+      "turns": [
+        "i earn £48k",
+        "its paye only",
+        "mtd?",
+        "thanks"
+      ]
+    },
+    {
+      "id": "M027",
+      "title": "no package sa",
+      "expected_final_outcome": "help-first; correct service class",
+      "turns": [
+        "dont sell me a package",
+        "freelance £3k 2025-26",
+        "sa?",
+        "ok"
+      ]
+    },
+    {
+      "id": "M028",
+      "title": "crypto clarify",
+      "expected_final_outcome": "help-first; correct service class",
+      "turns": [
+        "crypto tax?",
+        "i only bought, never sold",
+        "so cgt?",
+        "thanks"
+      ]
+    },
+    {
+      "id": "M029",
+      "title": "vat rolling",
+      "expected_final_outcome": "help-first; correct service class",
+      "turns": [
+        "vat at £87k?",
+        "thats last 12 months taxable supplies",
+        "register?",
+        "ok"
+      ]
+    },
+    {
+      "id": "M030",
+      "title": "existing client",
+      "expected_final_outcome": "help-first; correct service class",
+      "turns": [
+        "im already a taxsimba client",
+        "how do i message my accountant?",
+        "thanks"
+      ]
+    },
+    {
+      "id": "M031",
+      "title": "short journey 6",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 6",
+        "i have some side cash work",
+        "maybe £1100",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M032",
+      "title": "short journey 7",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 7",
+        "i have some side cash work",
+        "maybe £1150",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M033",
+      "title": "short journey 8",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 8",
+        "i have some side cash work",
+        "maybe £1200",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M034",
+      "title": "short journey 9",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 9",
+        "i have some side cash work",
+        "maybe £1250",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M035",
+      "title": "short journey 10",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 10",
+        "i have some side cash work",
+        "maybe £1300",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M036",
+      "title": "short journey 11",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 11",
+        "i have some side cash work",
+        "maybe £1350",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M037",
+      "title": "short journey 12",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 12",
+        "i have some side cash work",
+        "maybe £1400",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M038",
+      "title": "short journey 13",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 13",
+        "i have some side cash work",
+        "maybe £1450",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M039",
+      "title": "short journey 14",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 14",
+        "i have some side cash work",
+        "maybe £1500",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M040",
+      "title": "short journey 15",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 15",
+        "i have some side cash work",
+        "maybe £1550",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M041",
+      "title": "short journey 16",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 16",
+        "i have some side cash work",
+        "maybe £1600",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M042",
+      "title": "short journey 17",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 17",
+        "i have some side cash work",
+        "maybe £1650",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M043",
+      "title": "short journey 18",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 18",
+        "i have some side cash work",
+        "maybe £1700",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M044",
+      "title": "short journey 19",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 19",
+        "i have some side cash work",
+        "maybe £1750",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M045",
+      "title": "short journey 20",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 20",
+        "i have some side cash work",
+        "maybe £1800",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M046",
+      "title": "short journey 21",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 21",
+        "i have some side cash work",
+        "maybe £1850",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M047",
+      "title": "short journey 22",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 22",
+        "i have some side cash work",
+        "maybe £1900",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M048",
+      "title": "short journey 23",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 23",
+        "i have some side cash work",
+        "maybe £1950",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M049",
+      "title": "short journey 24",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 24",
+        "i have some side cash work",
+        "maybe £2000",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M050",
+      "title": "short journey 25",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 25",
+        "i have some side cash work",
+        "maybe £2050",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M051",
+      "title": "short journey 26",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 26",
+        "i have some side cash work",
+        "maybe £2100",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M052",
+      "title": "short journey 27",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 27",
+        "i have some side cash work",
+        "maybe £2150",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M053",
+      "title": "short journey 28",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 28",
+        "i have some side cash work",
+        "maybe £2200",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M054",
+      "title": "short journey 29",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 29",
+        "i have some side cash work",
+        "maybe £2250",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M055",
+      "title": "short journey 30",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 30",
+        "i have some side cash work",
+        "maybe £2300",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M056",
+      "title": "short journey 31",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 31",
+        "i have some side cash work",
+        "maybe £2350",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M057",
+      "title": "short journey 32",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 32",
+        "i have some side cash work",
+        "maybe £2400",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M058",
+      "title": "short journey 33",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 33",
+        "i have some side cash work",
+        "maybe £2450",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M059",
+      "title": "short journey 34",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 34",
+        "i have some side cash work",
+        "maybe £2500",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M060",
+      "title": "short journey 35",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 35",
+        "i have some side cash work",
+        "maybe £2550",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M061",
+      "title": "short journey 36",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 36",
+        "i have some side cash work",
+        "maybe £2600",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M062",
+      "title": "short journey 37",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 37",
+        "i have some side cash work",
+        "maybe £2650",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M063",
+      "title": "short journey 38",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 38",
+        "i have some side cash work",
+        "maybe £2700",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M064",
+      "title": "short journey 39",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 39",
+        "i have some side cash work",
+        "maybe £2750",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M065",
+      "title": "short journey 40",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 40",
+        "i have some side cash work",
+        "maybe £2800",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M066",
+      "title": "short journey 41",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 41",
+        "i have some side cash work",
+        "maybe £2850",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M067",
+      "title": "short journey 42",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 42",
+        "i have some side cash work",
+        "maybe £2900",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M068",
+      "title": "short journey 43",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 43",
+        "i have some side cash work",
+        "maybe £2950",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M069",
+      "title": "short journey 44",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 44",
+        "i have some side cash work",
+        "maybe £3000",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M070",
+      "title": "short journey 45",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 45",
+        "i have some side cash work",
+        "maybe £3050",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M071",
+      "title": "short journey 46",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 46",
+        "i have some side cash work",
+        "maybe £3100",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M072",
+      "title": "short journey 47",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 47",
+        "i have some side cash work",
+        "maybe £3150",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M073",
+      "title": "short journey 48",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 48",
+        "i have some side cash work",
+        "maybe £3200",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M074",
+      "title": "short journey 49",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 49",
+        "i have some side cash work",
+        "maybe £3250",
+        "accountant?",
+        "no thanks just info"
+      ]
+    },
+    {
+      "id": "M075",
+      "title": "short journey 50",
+      "expected_final_outcome": "clarify incomplete facts",
+      "turns": [
+        "quick q about tax 50",
+        "i have some side cash work",
+        "maybe £3300",
+        "accountant?",
+        "no thanks just info"
+      ]
+    }
+  ]
+}

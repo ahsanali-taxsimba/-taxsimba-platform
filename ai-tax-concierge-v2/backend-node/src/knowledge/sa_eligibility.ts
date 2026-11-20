@@ -138,7 +138,7 @@ export function extractTradingIncomeGbp(text: string): number | null {
     ) ||
     parseTaggedAmount(
       text,
-      /£\s*([\d,]+(?:\.\d+)?)\s*k?(?=\s*(?:freelance|self-?employ|sole[- ]?trader|trading|turnover|before expenses))/i,
+      /£\s*([\d,]+(?:\.\d+)?)\s*k?(?=\s*(?:was\s+)?(?:freelance|self-?employ|sole[- ]?trader|trading|turnover|before expenses))/i,
     );
   if (tradingTagged != null) return tradingTagged;
 
@@ -155,6 +155,14 @@ export function extractTradingIncomeGbp(text: string): number | null {
       lower,
     );
   if (!hasTrading) return null;
+  // If salary/PAYE and freelance both appear, do not grab the first £ figure
+  // (often the salary) — require a trading-tagged amount above.
+  if (
+    /(paye|salary|employment)/i.test(lower) &&
+    /(freelance|self-?employ|sole[- ]?trader|trading)/i.test(lower)
+  ) {
+    return null;
+  }
   return parsePoundAmount(text);
 }
 
@@ -275,10 +283,15 @@ export function answerSaEligibility(
   const disclosure = isTradingIncomeDisclosure(message, history);
   if (!explicit && !disclosure) return null;
   const ctx = conversationContextText(message, history);
-  const tradingIncomeGbp = extractTradingIncomeGbp(ctx);
+  // Prefer the latest user message for amounts (supports corrections like
+  // “sorry, £40k was salary and £18k was freelance”).
+  const tradingIncomeGbp =
+    extractTradingIncomeGbp(message) ?? extractTradingIncomeGbp(ctx);
   // For pure disclosure turns, require a parsed amount — otherwise let the LLM continue.
   if (disclosure && !explicit && tradingIncomeGbp == null) return null;
-  const yearMatch = ctx.match(/\b(20\d{2})\s*[-–/]\s*(\d{2})\b/);
+  const yearFromMessage = message.match(/\b(20\d{2})\s*[-–/]\s*(\d{2})\b/);
+  const yearFromCtx = ctx.match(/\b(20\d{2})\s*[-–/]\s*(\d{2})\b/);
+  const yearMatch = yearFromMessage || yearFromCtx;
   const taxYearHint = yearMatch
     ? `${yearMatch[1]}-${yearMatch[2]}`
     : null;
@@ -299,6 +312,34 @@ export function answerSaEligibility(
     !/(freelance|self-?employ|sole[- ]?trader|property|rental|trading income)/i.test(
       ctxForIncomeType,
     );
+  const uncertainAmount =
+    /\b(maybe|perhaps|not sure|around|about|roughly|approx(?:imately)?)\b/i.test(
+      message,
+    ) && tradingIncomeGbp != null;
+  const asksAccountant =
+    /\b(accountant|do i need an accountant|should i get an accountant)\b/i.test(
+      message,
+    );
+  // Uncertain amount and/or accountant ask without tax year → confirm facts first.
+  if ((uncertainAmount || (asksAccountant && tradingIncomeGbp != null)) && !taxYearHint) {
+    return {
+      handled: true,
+      needs_more_info: true,
+      must_usually_file: null,
+      trading_income_gbp: tradingIncomeGbp,
+      reason: "Uncertain amount or accountant ask without confirmed tax year",
+      clarifying_question:
+        "Confirm the turnover before expenses for a specific tax year before deciding Self Assessment or an accountant.",
+      confidence: "medium",
+      customer_reply:
+        `If that cash / freelance / side income is self-employment trading turnover of about £${tradingIncomeGbp.toLocaleString("en-GB")}, ` +
+        `the usual GOV.UK test is whether it is more than £1,000 in a tax year — but I should not lock a final answer on a “maybe” figure without the tax year. ` +
+        `What was the amount before expenses for which tax year (for example 2025-26)? ` +
+        `If you want personalised help after that, TaxSimba offers paid accountant video consultations (£99 / £149) — I won’t push a package until the facts are clear.\n` +
+        `Guidance: ${SA_WHO_MUST_URL}`,
+    };
+  }
+
   return evaluateSaEligibility({
     message: ctx,
     tradingIncomeGbp,

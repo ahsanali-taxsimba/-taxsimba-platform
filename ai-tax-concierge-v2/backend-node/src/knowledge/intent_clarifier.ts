@@ -313,20 +313,24 @@ export function answerAmbiguousIntent(
     };
   }
 
-  // Informal gig / cash work without a reliable amount (or “not sure how much”)
+  // Informal gig / cash work — uncertain amount and/or premature accountant ask
   if (
-    /(tiktok|youtube|instagram|onlyfans|uber|deliveroo|side hustle|side business|make money on|\bdj\b|cash-?in-?hand|weekend work|not sure how much)/i.test(
+    /(tiktok|youtube|instagram|onlyfans|uber|deliveroo|bolt|side hustle|side business|make money on|\bdj\b|cash-?in-?hand|cash weekend|weekend (work|bar)|bar work|not sure (of )?totals|not sure how much|marketplace selling|depop|vinted)/i.test(
       lower,
     ) &&
-    (!hasAmount(lower) || /not sure how much|maybe £?\s*\d{1,3}\b/i.test(lower)) &&
-    /(hmrc|tax|tell|register|accountant|self assessment|\bsa\b|need)/i.test(lower)
+    /(hmrc|tax|tell|register|accountant|self assessment|\bsa\b|need)/i.test(
+      lower,
+    ) &&
+    (!hasAmount(lower) ||
+      /\b(maybe|perhaps|not sure|around|about|roughly|approx)\b/i.test(lower) ||
+      /\baccountant\b/i.test(lower))
   ) {
     return {
       handled: true,
       prefer_over_eligibility_probe: true,
       confidence: "high",
       customer_reply:
-        "Happy to help — I need one key fact before saying whether you must tell HMRC. " +
+        "Happy to help — I need one key fact before saying whether you must tell HMRC or whether an accountant is useful. " +
         "Roughly how much did you earn from that activity before expenses, and for which tax year? " +
         "If it is self-employment / trading and more than £1,000 in a tax year, you usually need Self Assessment. " +
         `Official guidance: ${SA_WHO}`,
@@ -421,10 +425,46 @@ export function answerAmbiguousIntent(
     };
   }
 
+  // Personal one-off sale
+  if (
+    /(sold (my |a )?(personal )?(bike|sofa|laptop|phone|clothes)|one-?off sale|sold .* once)/i.test(
+      lower,
+    ) &&
+    !/(business|trading|ebay shop|regularly)/i.test(lower)
+  ) {
+    return {
+      handled: true,
+      prefer_over_eligibility_probe: true,
+      confidence: "high",
+      customer_reply:
+        "A one-off sale of a personal possession is often not a trade — but regularly buying to sell, or selling as a business, can be different. " +
+        "Was this a one-off sale of something you owned personally, or are you buying/making items to sell for profit? " +
+        `Who must send a return: ${SA_WHO}`,
+    };
+  }
+
+  // Joint property / partner share
+  if (
+    /(partner|spouse|joint|50\/50|50-50).{0,40}(let|rent|property|landlord)|(let|rent|property).{0,40}(partner|spouse|joint|50\/50)/i.test(
+      lower,
+    ) &&
+    /(who files|self assessment|return|tax)/i.test(lower)
+  ) {
+    return {
+      handled: true,
+      prefer_over_eligibility_probe: true,
+      confidence: "high",
+      customer_reply:
+        "Joint property income is usually declared by each owner on their own Self Assessment return according to their beneficial share — unless you have a formal partnership return situation. " +
+        "Are you joint beneficial owners of a let property (and in what shares), or trading as a partnership business? Also roughly how much rent before expenses and for which tax year? " +
+        `Guidance: ${SA_WHO}`,
+    };
+  }
+
   // Dividends without full picture
   if (
     /dividend/i.test(lower) &&
-    /(self assessment|tax return|file)/i.test(lower) &&
+    /(self assessment|tax return|file|return\?)/i.test(lower) &&
     !/(paye|salary|total income|other income)/i.test(lower)
   ) {
     return {
@@ -438,34 +478,18 @@ export function answerAmbiguousIntent(
     };
   }
 
-  // Crypto without detail
+  // Crypto — clarify event type before asserting SA/CGT
   if (
-    /\b(crypto|bitcoin|ethereum|nft)\b/i.test(lower) &&
-    !/(gain|disposal|sold|trading|income|self assessment|cgt|buy|sell)/i.test(
-      lower,
-    )
+    /\b(crypto|bitcoin|ethereum|nft|cryptoassets?)\b/i.test(lower) &&
+    /(tax|self assessment|cgt|gain|return|buy|sell|disposal)/i.test(lower)
   ) {
     return {
       handled: true,
       prefer_over_eligibility_probe: true,
       confidence: "high",
       customer_reply:
-        "Crypto can be taxed in different ways depending on what you did — for example Capital Gains Tax on disposals, or Income Tax if you’re trading crypto as a business. " +
-        "I won’t guess your treatment. Did you dispose of crypto (sell/exchange), receive it as income, or trade frequently as a business activity?",
-    };
-  }
-
-  if (
-    /\b(crypto|bitcoin)\b/i.test(lower) &&
-    /buy or only when i sell|when i buy|only when i sell/i.test(lower)
-  ) {
-    return {
-      handled: true,
-      prefer_over_eligibility_probe: true,
-      confidence: "high",
-      customer_reply:
-        "Buying cryptoassets is not usually a taxable disposal by itself; tax often arises when you dispose of them (sell, exchange, or certain other events), and frequent trading can be different. " +
-        "I won’t invent your liability. Have you already disposed of any crypto in a UK tax year, and was it investment-style or business-like trading? " +
+        "Crypto tax usually depends on what you did: buying is not normally a taxable disposal by itself; tax more often arises when you dispose of crypto (sell, exchange, or certain other events), and frequent trading can be Income Tax instead of Capital Gains Tax. " +
+        "I won’t invent your treatment. Have you already disposed of any crypto in a UK tax year, and was it investment-style holding or business-like trading? " +
         "https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets",
     };
   }
@@ -487,8 +511,22 @@ export function answerAmbiguousIntent(
     };
   }
 
-  // VAT threshold answers come from verified knowledge retrieval (current £90,000) —
-  // do not intercept here.
+  // VAT registration — confirm rolling 12-month test before locking an answer
+  if (
+    /\bvat\b/i.test(lower) &&
+    /(register|threshold|£\s*[\d,]+|\d+\s*k\b)/i.test(lower) &&
+    !/(already registered|vat return|how to file vat)/i.test(lower)
+  ) {
+    return {
+      handled: true,
+      prefer_over_eligibility_probe: true,
+      confidence: "high",
+      customer_reply:
+        "VAT registration usually depends on your taxable turnover on a rolling 12-month basis (and sometimes on future expectations), not a single figure in isolation. " +
+        "Check the current threshold on GOV.UK and tell me whether your £ figure is the last 12 months’ taxable supplies, expected next 30 days, or something else. " +
+        "https://www.gov.uk/vat-registration-thresholds",
+    };
+  }
 
   return null;
 }

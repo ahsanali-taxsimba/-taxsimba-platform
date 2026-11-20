@@ -57,7 +57,7 @@ function classifyObserved(
   const a = (reply || "").toLowerCase();
   const pkgs = packages || [];
   const clarifying =
-    /need (a little )?more detail|roughly how much|which tax year|is that figure|do you have any|tell me|confirm|before (i|saying)|i need (one key fact|the tax year)/i.test(
+    /need (a little )?more detail|roughly how much|which tax year|is that figure|do you have any|tell me|confirm|before (i|saying)|i need (one key fact|the tax year)|can'?t decide|cannot decide|rolling 12-month|was this a one-off|have you already disposed|what other income/i.test(
       a,
     ) &&
     !/(you must register|you will need to use making tax digital from|you usually must register)/i.test(

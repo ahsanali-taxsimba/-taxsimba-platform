@@ -224,7 +224,10 @@ export class ConversationalEngine {
       ) ||
       (/do i still need to file/i.test(request.message) &&
         /employer|deducts|paye|salary/i.test(request.message));
+    // Prefer the clarifier for crypto event-type questions; only use this
+    // fallback when the clarifier did not already handle the turn.
     const cryptoSaQ =
+      !clarifierFirst &&
       /\b(crypto|bitcoin|ethereum|cryptoassets?)\b/i.test(request.message) &&
       /(self assessment|gain|cgt|tax|return)/i.test(request.message);
     const rentARoomQ = /rent a room|rent-a-room|lodger/i.test(request.message);

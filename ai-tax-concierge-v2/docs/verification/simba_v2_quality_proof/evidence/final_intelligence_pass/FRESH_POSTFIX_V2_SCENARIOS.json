@@ -1,0 +1,1207 @@
+{
+  "generated_at": "2026-11-20T22:23:27.179Z",
+  "note": "NEW fresh blind AFTER fixes — expectations locked BEFORE answers",
+  "count": 200,
+  "scenarios": [
+    {
+      "id": "P001",
+      "question": "upwork freelance £1,600 in 2025-26 — need sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k with year"
+    },
+    {
+      "id": "P002",
+      "question": "i earn £58k. making tax digital?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare earn"
+    },
+    {
+      "id": "P003",
+      "question": "paye only £44k. mtd income tax?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye only"
+    },
+    {
+      "id": "P004",
+      "question": "paye only £99000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye only large figure"
+    },
+    {
+      "id": "P005",
+      "question": "qi more than £50,000 in 2024-25 — when start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2026"
+    },
+    {
+      "id": "P006",
+      "question": "qi exactly £50,000 in 2024-25 mtd?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "exclusive"
+    },
+    {
+      "id": "P007",
+      "question": "qi more than £30,000 in 2025-26 start date?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "apr 2027"
+    },
+    {
+      "id": "P008",
+      "question": "rent roughly £35k — digital tax start?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need year"
+    },
+    {
+      "id": "P009",
+      "question": "dont want packages. freelance £2,200 2025-26 sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": "no sell"
+    },
+    {
+      "id": "P010",
+      "question": "crypto: tax when i buy coins?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "usually disposal"
+    },
+    {
+      "id": "P011",
+      "question": "dividends £900 — do i file?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "other income"
+    },
+    {
+      "id": "P012",
+      "question": "vat £86k register?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "rolling period"
+    },
+    {
+      "id": "P013",
+      "question": "got a p60 only — file return?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "not automatic"
+    },
+    {
+      "id": "P014",
+      "question": "cheapest first-time sa package please?",
+      "expected_classification": "TAXSIMBA_SIGNUP",
+      "expected_outcome": "asked"
+    },
+    {
+      "id": "P015",
+      "question": "hmrc investigation letter — consultation?",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "expected_outcome": "consult"
+    },
+    {
+      "id": "P016",
+      "question": "already taxsimba client how to message accountant?",
+      "expected_classification": "EXISTING_CUSTOMER_SUPPORT",
+      "expected_outcome": "dashboard"
+    },
+    {
+      "id": "P017",
+      "question": "file corporation tax for my ltd?",
+      "expected_classification": "OUT_OF_SCOPE",
+      "expected_outcome": "ct"
+    },
+    {
+      "id": "P018",
+      "question": "what is qualifying income for mtd?",
+      "expected_classification": "GENERAL_INFO",
+      "expected_outcome": "QI def"
+    },
+    {
+      "id": "P019",
+      "question": "does paye count toward mtd qi?",
+      "expected_classification": "GENERAL_INFO",
+      "expected_outcome": "excluded"
+    },
+    {
+      "id": "P020",
+      "question": "cash weekend bar maybe £1,100. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain"
+    },
+    {
+      "id": "P021",
+      "question": "marketplace selling maybe £1,400. accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "trade vs personal"
+    },
+    {
+      "id": "P022",
+      "question": "bolt driving not sure of totals — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "amount/year"
+    },
+    {
+      "id": "P023",
+      "question": "sole trader turnover £9,500 2024-25. sa?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k"
+    },
+    {
+      "id": "P024",
+      "question": "trading allowance vs sa threshold?",
+      "expected_classification": "GENERAL_INFO",
+      "expected_outcome": "relief vs who-must"
+    },
+    {
+      "id": "P025",
+      "question": "i refuse packages. explain trading allowance.",
+      "expected_classification": "GENERAL_INFO",
+      "expected_outcome": "no package"
+    },
+    {
+      "id": "P026",
+      "question": "cis deductions — still need sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "need turnover"
+    },
+    {
+      "id": "P027",
+      "question": "partner 50/50 let who files?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "joint facts"
+    },
+    {
+      "id": "P028",
+      "question": "records sole traders should keep?",
+      "expected_classification": "GENERAL_INFO",
+      "expected_outcome": "records"
+    },
+    {
+      "id": "P029",
+      "question": "sa online deadline roughly?",
+      "expected_classification": "GENERAL_INFO",
+      "expected_outcome": "31 jan"
+    },
+    {
+      "id": "P030",
+      "question": "two paye jobs only sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "not automatic"
+    },
+    {
+      "id": "P031",
+      "question": "side hustle depop maybe £1040. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P032",
+      "question": "contract design £1700 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P033",
+      "question": "i make £19k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P034",
+      "question": "paye only £32800. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P035",
+      "question": "qualifying income more than £30000 in 2025-26. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P036",
+      "question": "side hustle depop maybe £1130. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P037",
+      "question": "contract design £1900 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P038",
+      "question": "i make £20k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P039",
+      "question": "paye only £34600. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P040",
+      "question": "qualifying income more than £20000 in 2026-27. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P041",
+      "question": "side hustle depop maybe £1220. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P042",
+      "question": "contract design £2100 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P043",
+      "question": "i make £21k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P044",
+      "question": "paye only £36400. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P045",
+      "question": "qualifying income more than £50000 in 2024-25. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P046",
+      "question": "side hustle depop maybe £1310. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P047",
+      "question": "contract design £2300 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P048",
+      "question": "i make £22k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P049",
+      "question": "paye only £38200. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P050",
+      "question": "qualifying income more than £30000 in 2025-26. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P051",
+      "question": "side hustle depop maybe £1400. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P052",
+      "question": "contract design £2500 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P053",
+      "question": "i make £23k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P054",
+      "question": "paye only £40000. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P055",
+      "question": "qualifying income more than £20000 in 2026-27. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P056",
+      "question": "side hustle depop maybe £1490. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P057",
+      "question": "contract design £2700 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P058",
+      "question": "i make £24k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P059",
+      "question": "paye only £41800. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P060",
+      "question": "qualifying income more than £50000 in 2024-25. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P061",
+      "question": "side hustle depop maybe £1580. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P062",
+      "question": "contract design £2900 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P063",
+      "question": "i make £25k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P064",
+      "question": "paye only £43600. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P065",
+      "question": "qualifying income more than £30000 in 2025-26. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P066",
+      "question": "side hustle depop maybe £1670. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P067",
+      "question": "contract design £3100 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P068",
+      "question": "i make £26k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P069",
+      "question": "paye only £45400. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P070",
+      "question": "qualifying income more than £20000 in 2026-27. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P071",
+      "question": "side hustle depop maybe £1760. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P072",
+      "question": "contract design £3300 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P073",
+      "question": "i make £27k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P074",
+      "question": "paye only £47200. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P075",
+      "question": "qualifying income more than £50000 in 2024-25. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P076",
+      "question": "side hustle depop maybe £1850. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P077",
+      "question": "contract design £3500 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P078",
+      "question": "i make £28k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P079",
+      "question": "paye only £49000. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P080",
+      "question": "qualifying income more than £30000 in 2025-26. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P081",
+      "question": "side hustle depop maybe £1940. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P082",
+      "question": "contract design £3700 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P083",
+      "question": "i make £29k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P084",
+      "question": "paye only £50800. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P085",
+      "question": "qualifying income more than £20000 in 2026-27. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P086",
+      "question": "side hustle depop maybe £2030. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P087",
+      "question": "contract design £3900 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P088",
+      "question": "i make £30k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P089",
+      "question": "paye only £52600. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P090",
+      "question": "qualifying income more than £50000 in 2024-25. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P091",
+      "question": "side hustle depop maybe £2120. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P092",
+      "question": "contract design £4100 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P093",
+      "question": "i make £31k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P094",
+      "question": "paye only £54400. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P095",
+      "question": "qualifying income more than £30000 in 2025-26. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P096",
+      "question": "side hustle depop maybe £2210. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P097",
+      "question": "contract design £4300 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P098",
+      "question": "i make £32k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P099",
+      "question": "paye only £56200. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P100",
+      "question": "qualifying income more than £20000 in 2026-27. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P101",
+      "question": "side hustle depop maybe £2300. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P102",
+      "question": "contract design £4500 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P103",
+      "question": "i make £33k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P104",
+      "question": "paye only £58000. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P105",
+      "question": "qualifying income more than £50000 in 2024-25. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P106",
+      "question": "side hustle depop maybe £2390. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P107",
+      "question": "contract design £4700 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P108",
+      "question": "i make £34k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P109",
+      "question": "paye only £59800. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P110",
+      "question": "qualifying income more than £30000 in 2025-26. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P111",
+      "question": "side hustle depop maybe £2480. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P112",
+      "question": "contract design £4900 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P113",
+      "question": "i make £35k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P114",
+      "question": "paye only £61600. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P115",
+      "question": "qualifying income more than £20000 in 2026-27. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P116",
+      "question": "side hustle depop maybe £2570. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P117",
+      "question": "contract design £5100 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P118",
+      "question": "i make £36k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P119",
+      "question": "paye only £63400. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P120",
+      "question": "qualifying income more than £50000 in 2024-25. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P121",
+      "question": "side hustle depop maybe £2660. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P122",
+      "question": "contract design £5300 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P123",
+      "question": "i make £37k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P124",
+      "question": "paye only £65200. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P125",
+      "question": "qualifying income more than £30000 in 2025-26. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P126",
+      "question": "side hustle depop maybe £2750. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P127",
+      "question": "contract design £5500 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P128",
+      "question": "i make £38k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P129",
+      "question": "paye only £67000. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P130",
+      "question": "qualifying income more than £20000 in 2026-27. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P131",
+      "question": "side hustle depop maybe £2840. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P132",
+      "question": "contract design £5700 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P133",
+      "question": "i make £39k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P134",
+      "question": "paye only £68800. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P135",
+      "question": "qualifying income more than £50000 in 2024-25. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P136",
+      "question": "side hustle depop maybe £2930. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P137",
+      "question": "contract design £5900 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P138",
+      "question": "i make £40k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P139",
+      "question": "paye only £70600. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P140",
+      "question": "qualifying income more than £30000 in 2025-26. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P141",
+      "question": "side hustle depop maybe £3020. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P142",
+      "question": "contract design £6100 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P143",
+      "question": "i make £41k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P144",
+      "question": "paye only £72400. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P145",
+      "question": "qualifying income more than £20000 in 2026-27. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P146",
+      "question": "side hustle depop maybe £3110. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P147",
+      "question": "contract design £6300 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P148",
+      "question": "i make £42k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P149",
+      "question": "paye only £74200. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P150",
+      "question": "qualifying income more than £50000 in 2024-25. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P151",
+      "question": "side hustle depop maybe £3200. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P152",
+      "question": "contract design £6500 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P153",
+      "question": "i make £43k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P154",
+      "question": "paye only £76000. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P155",
+      "question": "qualifying income more than £30000 in 2025-26. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P156",
+      "question": "side hustle depop maybe £3290. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P157",
+      "question": "contract design £6700 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P158",
+      "question": "i make £44k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P159",
+      "question": "paye only £77800. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P160",
+      "question": "qualifying income more than £20000 in 2026-27. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P161",
+      "question": "side hustle depop maybe £3380. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P162",
+      "question": "contract design £6900 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P163",
+      "question": "i make £45k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P164",
+      "question": "paye only £79600. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P165",
+      "question": "qualifying income more than £50000 in 2024-25. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P166",
+      "question": "side hustle depop maybe £3470. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P167",
+      "question": "contract design £7100 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P168",
+      "question": "i make £46k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P169",
+      "question": "paye only £81400. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P170",
+      "question": "qualifying income more than £30000 in 2025-26. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P171",
+      "question": "side hustle depop maybe £3560. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P172",
+      "question": "contract design £7300 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P173",
+      "question": "i make £47k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P174",
+      "question": "paye only £83200. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P175",
+      "question": "qualifying income more than £20000 in 2026-27. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P176",
+      "question": "side hustle depop maybe £3650. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P177",
+      "question": "contract design £7500 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P178",
+      "question": "i make £18k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P179",
+      "question": "paye only £85000. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P180",
+      "question": "qualifying income more than £50000 in 2024-25. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P181",
+      "question": "side hustle depop maybe £3740. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P182",
+      "question": "contract design £7700 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P183",
+      "question": "i make £19k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P184",
+      "question": "paye only £86800. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P185",
+      "question": "qualifying income more than £30000 in 2025-26. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P186",
+      "question": "side hustle depop maybe £3830. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P187",
+      "question": "contract design £7900 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P188",
+      "question": "i make £20k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P189",
+      "question": "paye only £88600. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P190",
+      "question": "qualifying income more than £20000 in 2026-27. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P191",
+      "question": "side hustle depop maybe £3920. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P192",
+      "question": "contract design £8100 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P193",
+      "question": "i make £21k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P194",
+      "question": "paye only £90400. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P195",
+      "question": "qualifying income more than £50000 in 2024-25. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    },
+    {
+      "id": "P196",
+      "question": "side hustle depop maybe £4010. need accountant?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "uncertain+accountant"
+    },
+    {
+      "id": "P197",
+      "question": "contract design £8300 in 2025-26. self assessment?",
+      "expected_classification": "SA_ASSIST",
+      "expected_outcome": ">£1k year known"
+    },
+    {
+      "id": "P198",
+      "question": "i make £22k a year. mtd?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "expected_outcome": "bare"
+    },
+    {
+      "id": "P199",
+      "question": "paye only £92200. making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "expected_outcome": "paye"
+    },
+    {
+      "id": "P200",
+      "question": "qualifying income more than £30000 in 2025-26. start?",
+      "expected_classification": "MTD_ASSIST",
+      "expected_outcome": "band"
+    }
+  ]
+}

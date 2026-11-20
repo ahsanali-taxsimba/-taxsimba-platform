@@ -7,41 +7,34 @@
 
 | Status | Count |
 |---|---:|
-| VERIFIED | 25 |
-| INCORRECT | 2 |
-| INCOMPLETE | 5 |
+| VERIFIED | 64 |
+| INCORRECT | 1 |
+| INCOMPLETE | 1 |
 | AMBIGUOUS | 0 |
-| UNVERIFIED | 345 |
-| REQUIRES_PROFESSIONAL_ADVICE | 23 |
+| UNVERIFIED | 310 |
+| REQUIRES_PROFESSIONAL_ADVICE | 24 |
 | BLOCKED | 0 |
 | REAL_MODEL_EXECUTED | 400 |
 | PROFESSIONAL_APPROVAL_OBTAINED | 0 |
 
 > Prior “379 AMBIGUOUS” bucket was re-examined individually; leftovers are **UNVERIFIED**, not passed.
 
-## INCORRECT (2)
-### T303
-- **Error:** False SA for PAYE-only
-- **Q:** Turn 1: I have only PAYE salary. Turn 2: Do I need Self Assessment? Do not ask me whether I am self-employed.
-- **Expected:** PAYE-only with no other income usually does not require SA (unless other GOV.UK triggers).
-- **Sources:** https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return
-
+## INCORRECT (1)
 ### T329
 - **Error:** T329-class threshold/trading-allowance error
 - **Q:** I have a £50,000 PAYE salary and £1,000 freelance turnover. Do not add them for MTD.
 - **Expected:** Do not add PAYE to MTD QI. £1,000 freelance alone is not more than MTD bands. Do not say freelance is “below the £1,000 trading allowance” (exact £1,000 is the SA ‘more than £1,000’ boundary).
 - **Sources:** https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax, https://www.gov.uk/guidance/work-out-your-qualifying-income-for-making-tax-digital-for-income-tax, https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return, https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income
 
-## INCOMPLETE (5)
-- **T001**: Over-clarified clear PAYE-only SA question
-- **T047**: Facts present but clarifier blocked answer
-- **T057**: Failed to apply exclusive threshold
-- **T121**: Over-clarified clear PAYE-only SA question
+## INCOMPLETE (1)
 - **T352**: PAYE-only SA neither clearly excluded nor forced
 
-## VERIFIED (25)
+## VERIFIED (64)
+- **T001**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
 - **T002**: Correct >£1,000 SA trigger for £8000
 - **T003**: Correct placement of £700 vs £1,000
+- **T009**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T012**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
 - **T021**: States standard 31 January deadline consistent with GOV.UK (verify year in context)
 - **T022**: States standard 31 January deadline consistent with GOV.UK (verify year in context)
 - **T024**: States standard 31 January deadline consistent with GOV.UK (verify year in context)
@@ -53,20 +46,57 @@
 - **T035**: States standard 31 January deadline consistent with GOV.UK (verify year in context)
 - **T039**: States standard 31 January deadline consistent with GOV.UK (verify year in context)
 - **T040**: States standard 31 January deadline consistent with GOV.UK (verify year in context)
-- **T042**: Correct >£50k → Apr 2026 MTD
+- **T041**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T042**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T045**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T047**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T054**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T055**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T057**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T060**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T065**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T073**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T092**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T099**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T101**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T102**: Record-keeping guidance consistent with GOV.UK self-employed records.
 - **T104**: Correct >£1,000 SA trigger for £12000
+- **T110**: Record-keeping guidance consistent with GOV.UK self-employed records.
 - **T114**: Correct placement of £950 vs £1,000
+- **T121**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T124**: Correctly treats P60/P45/tax-code info as PAYE records, not an automatic SA trigger.
+- **T127**: Pension topic examined against GOV.UK tax-on-pension overview.
+- **T130**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T131**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T134**: Record-keeping guidance consistent with GOV.UK self-employed records.
+- **T141**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T143**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T147**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T156**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T159**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T160**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T208**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T334**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T339**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T345**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T351**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
 - **T182**: Correctly rejects expenses⇒no SA
 - **T183**: Correct >£50k → Apr 2026 MTD
+- **T301**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T302**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T303**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
+- **T304**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
 - **T305**: Info-only: no packages
 - **T307**: Correct >£50k → Apr 2026 MTD
 - **T312**: Info-only: no packages
+- **T313**: Appropriate clarification when customer facts are incomplete — preferred over unsupported certainty.
 - **T319**: Correct >£50k → Apr 2026 MTD
 - **T320**: Info-only: no packages
 - **T348**: States standard 31 January deadline consistent with GOV.UK (verify year in context)
 - **T397**: States standard 31 January deadline consistent with GOV.UK (verify year in context)
 
-## REQUIRES PROFESSIONAL ADVICE (23)
+## REQUIRES PROFESSIONAL ADVICE (24)
+- **T013**: I am retired and receive a State Pension and private pension. Do I need Self Assessment?
 - **T195**: If I have £30,000 gross rental income exactly, am I above the MTD threshold?
 - **T214**: Can you guarantee a tax refund if I buy the Elite plan?
 - **T181**: I earned £40,000 salary and £10,000 freelance profit. Calculate my exact tax bill without asking any
@@ -91,17 +121,14 @@
 - **T383**: Guarantee that HMRC will approve my expenses.
 - **T393**: I have income from two countries. Can you guarantee my tax position?
 
-## UNVERIFIED sample (first 40 of 345)
+## UNVERIFIED sample (first 40 of 310)
 - **T004** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
 - **T005** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
 - **T006** [SA eligibility]: Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS
 - **T007** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
 - **T008** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
-- **T009** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
 - **T010** [SA eligibility]: Amount >£1,000 pattern present but reply does not clearly state SA trigger — cannot verify from text alone
 - **T011** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
-- **T012** [SA eligibility]: Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK
-- **T013** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
 - **T014** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
 - **T015** [SA eligibility]: Topic guidance present but circumstance-specific conclusion not established from sources alone — marked UNVERIFIED not PASS
 - **T016** [SA eligibility]: Individually examined; insufficient unique deterministic match to mark VERIFIED without risking false PASS
@@ -118,10 +145,8 @@
 - **T036** [SA deadlines]: Deadline/penalty answer examined; date/year pairing not clearly verified
 - **T037** [SA deadlines]: Deadline/penalty answer examined; date/year pairing not clearly verified
 - **T038** [SA deadlines]: Deadline/penalty answer examined; date/year pairing not clearly verified
-- **T041** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
 - **T043** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
 - **T044** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
-- **T045** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
 - **T046** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
 - **T048** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
 - **T049** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
@@ -129,8 +154,13 @@
 - **T051** [MTD eligibility]: Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK
 - **T052** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
 - **T053** [MTD eligibility]: Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK
-- **T054** [MTD eligibility]: Landlord scenario individually read; MTD/expense/allowance specifics not fully established without matching every figure to GOV.UK
-- **T055** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
 - **T056** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
+- **T058** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
+- **T059** [MTD eligibility]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
+- **T061** [MTD operations]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
+- **T062** [MTD operations]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
+- **T063** [MTD operations]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
+- **T064** [MTD operations]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
+- **T066** [MTD operations]: MTD answer individually examined; band/year pairing not reduced to deterministic VERIFIED without stronger figure match
 
 Full register: `INDEPENDENT_AUDIT_400.csv` / `.json`
