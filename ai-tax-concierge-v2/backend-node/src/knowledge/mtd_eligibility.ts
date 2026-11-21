@@ -100,13 +100,36 @@ function parseAmount(text: string): number | null {
 
 function detectBasisYear(text: string): string | null {
   const lower = text.toLowerCase();
+  // Prefer an affirmed correction (“was for 2025-26 not 2024-25”).
+  const affirmed = lower.match(
+    /\b(?:was for|for|in)\s+(2024\s*[-/]?\s*25|2025\s*[-/]?\s*26|2026\s*[-/]?\s*27)\b/,
+  );
+  const negated = new Set<string>();
+  for (const m of lower.matchAll(
+    /\bnot\s+(2024\s*[-/]?\s*25|2025\s*[-/]?\s*26|2026\s*[-/]?\s*27)\b/g,
+  )) {
+    const raw = m[1]!.replace(/\s/g, "");
+    if (raw.includes("2024") || raw.includes("24")) negated.add("2024-25");
+    else if (raw.includes("2025") || raw.includes("25")) negated.add("2025-26");
+    else negated.add("2026-27");
+  }
+  const toYear = (raw: string): string => {
+    const compact = raw.replace(/\s/g, "");
+    if (compact.includes("2024") || /^24/.test(compact)) return "2024-25";
+    if (compact.includes("2025") || /^25/.test(compact)) return "2025-26";
+    return "2026-27";
+  };
+  if (affirmed?.[1]) {
+    const y = toYear(affirmed[1]);
+    if (!negated.has(y)) return y;
+  }
   const patterns: Array<[RegExp, string]> = [
     [/2024\s*[-/–to]+\s*2025|2024\s*[-/]\s*25|\b24\s*[/]\s*25\b|tax year 2024/, "2024-25"],
     [/2025\s*[-/–to]+\s*2026|2025\s*[-/]\s*26|\b25\s*[/]\s*26\b|tax year 2025/, "2025-26"],
     [/2026\s*[-/–to]+\s*2027|2026\s*[-/]\s*27|\b26\s*[/]\s*27\b|tax year 2026/, "2026-27"],
   ];
   for (const [re, year] of patterns) {
-    if (re.test(lower)) return year;
+    if (re.test(lower) && !negated.has(year)) return year;
   }
   return null;
 }
@@ -585,7 +608,7 @@ export function evaluateMtdEligibility(
           `Yes — if your qualifying income was more than £${band.threshold_gbp.toLocaleString("en-GB")} for ${band.basis_tax_year}, ` +
           `you need to use Making Tax Digital for Income Tax from ${band.commencement}. ` +
           `Qualifying income means self-employment and property income before expenses (turnover/gross), not profit. ` +
-          `Property and self-employment income is also usually reported through Self Assessment — MTD does not replace that annual return.` +
+          `Property and self-employment income is also usually reported through Self Assessment — MTD quarterly updates do not replace your annual tax return. If you’re within MTD, you’ll also submit your tax return through compatible software.` +
           `${payeExclusionNote(input)}\n\n` +
           `Official guidance: ${MTD_SOURCE_URL}`,
       };
@@ -859,6 +882,20 @@ export function answerMtdEligibility(
   const ctx = conversationContextText(message, history);
   const fromMessage = extractMtdEligibilityInput(message);
   const fromCtx = extractMtdEligibilityInput(ctx);
+  // Newest user turn that states a tax year / QI amount wins over older turns
+  // (supports “actually that was 2025-26” corrections and short “mtd?” follow-ups).
+  const fromNewestUserTurn = (() => {
+    const users = (history || [])
+      .filter((h) => h.role === "user" && h.content?.trim())
+      .map((h) => h.content);
+    for (let i = users.length - 1; i >= 0; i--) {
+      const parsed = extractMtdEligibilityInput(users[i]!);
+      if (parsed.basisTaxYear || parsed.qualifyingIncomeGbp != null) {
+        return parsed;
+      }
+    }
+    return null;
+  })();
   // Latest user turn wins for amount/year; preserve known QI from history when
   // the latest turn is a bare amount follow-up (e.g. “I earn more than £50k”).
   const latestClearedBareEarn =
@@ -868,12 +905,21 @@ export function answerMtdEligibility(
     ...fromCtx,
     ...fromMessage,
     amountStatedAsMoreThan:
-      fromMessage.amountStatedAsMoreThan || fromCtx.amountStatedAsMoreThan,
+      fromMessage.amountStatedAsMoreThan ||
+      fromNewestUserTurn?.amountStatedAsMoreThan ||
+      fromCtx.amountStatedAsMoreThan,
     amountStatedAsExact:
-      fromMessage.amountStatedAsExact || fromCtx.amountStatedAsExact,
+      fromMessage.amountStatedAsExact ||
+      fromNewestUserTurn?.amountStatedAsExact ||
+      fromCtx.amountStatedAsExact,
     qualifyingIncomeGbp:
-      fromMessage.qualifyingIncomeGbp ?? fromCtx.qualifyingIncomeGbp,
-    basisTaxYear: fromMessage.basisTaxYear ?? fromCtx.basisTaxYear,
+      fromMessage.qualifyingIncomeGbp ??
+      fromNewestUserTurn?.qualifyingIncomeGbp ??
+      fromCtx.qualifyingIncomeGbp,
+    basisTaxYear:
+      fromMessage.basisTaxYear ??
+      fromNewestUserTurn?.basisTaxYear ??
+      fromCtx.basisTaxYear,
     payeOnly: fromMessage.payeOnly || fromCtx.payeOnly,
     payeAlsoPresent: fromMessage.payeAlsoPresent || fromCtx.payeAlsoPresent,
     hasSelfEmploymentOrProperty: latestClearedBareEarn

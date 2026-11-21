@@ -658,9 +658,9 @@ export function answerAmbiguousIntent(
     };
   }
 
-  // Educational: what is SA / what is MTD — explain first
+  // Educational: what is SA / what is MTD — explain first (no personal filing conclusion).
   if (
-    /^(what is|what's|whats) (self assessment|sa)\??$|explain self assessment|what does self assessment mean/i.test(
+    /^(what is|what's|whats|what even is) (self assessment|sa)\b|explain self assessment|what does self assessment mean|self assessment without the jargon/i.test(
       lower,
     )
   ) {
@@ -669,15 +669,16 @@ export function answerAmbiguousIntent(
       prefer_over_eligibility_probe: true,
       confidence: "high",
       customer_reply:
-        "Self Assessment is HMRC’s system for reporting income that isn’t fully taxed in another way (for example through PAYE alone) and paying any Income Tax and National Insurance due. " +
-        "Many sole traders, landlords and people with untaxed income must send a tax return. " +
-        "If you tell me your income types and a rough amount for a tax year, I can help you check whether it usually applies to you. " +
+        "Self Assessment is HMRC’s system for people who need to report income that isn’t fully taxed another way (for example through PAYE alone). " +
+        "You report the relevant income, expenses, allowances and other information on your tax return, and your Self Assessment calculation determines the tax due. " +
+        "Many sole traders, landlords and people with untaxed income must send a return — but whether that applies to you depends on your circumstances. " +
+        "If you share your income types and a rough amount for a tax year, I can help you check. " +
         `Official guidance: ${SA_WHO}`,
     };
   }
 
   if (
-    /^(what is|what's|whats) (mtd|making tax digital)\??$|what is this digital tax|digital tax thing|explain making tax digital/i.test(
+    /^(what is|what's|whats) (mtd|making tax digital)\b|tell me about making tax digital|what is this digital tax|digital tax thing|explain making tax digital/i.test(
       lower,
     )
   ) {
@@ -686,7 +687,8 @@ export function answerAmbiguousIntent(
       prefer_over_eligibility_probe: true,
       confidence: "high",
       customer_reply:
-        "Making Tax Digital for Income Tax is HMRC’s way for many sole traders and landlords in Self Assessment to keep digital records and send quarterly updates of self-employment and property income — it does not replace the year-end tax return. " +
+        "Making Tax Digital for Income Tax is HMRC’s way for many sole traders and landlords in Self Assessment to keep digital records and send quarterly updates of self-employment and property income. " +
+        "MTD quarterly updates do not replace your annual tax return. If you’re within MTD, you’ll also submit your tax return through compatible software. " +
         "Whether you must use it depends on your qualifying income (self-employment + property turnover before expenses) for specific tax years. " +
         "PAYE salary alone does not count. " +
         `Official guidance: ${MTD_IF}`,
