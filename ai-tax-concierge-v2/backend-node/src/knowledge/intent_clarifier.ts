@@ -146,6 +146,26 @@ export function answerAmbiguousIntent(
     };
   }
 
+  // Educational: trading allowance (do not confuse with SA more-than-£1,000 test)
+  if (
+    /explain trading allowance|what is (the )?trading allowance|trading allowance\??$/i.test(
+      lower,
+    )
+  ) {
+    return {
+      handled: true,
+      prefer_over_eligibility_probe: true,
+      confidence: "high",
+      customer_reply:
+        "The trading allowance is a tax relief of up to £1,000 a year for trading/self-employment income (and there is a separate property allowance). " +
+        "If your annual gross trading income is £1,000 or less you may not need to tell HMRC about that trading income (with exceptions). " +
+        "If your trading income is more than £1,000 you usually still need Self Assessment — you can then use the allowance as partial relief instead of expenses, or claim actual expenses instead. " +
+        "Do not confuse the trading allowance with the Self Assessment “more than £1,000” registration test. " +
+        "https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income · " +
+        "https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+    };
+  }
+
   // Educational: what is the dividend allowance
   if (/what is the dividend allowance|dividend allowance\??$/i.test(lower)) {
     return {

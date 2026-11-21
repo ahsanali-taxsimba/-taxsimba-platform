@@ -141,12 +141,18 @@ export function isMtdEligibilityQuestion(message: string): boolean {
     ) &&
     /2024\s*[-/]?\s*25/.test(lower) &&
     /2025\s*[-/]?\s*26/.test(lower);
+  // “qi more than £50,000 in 2024-25 — start when?” without spelling MTD.
+  const qiBandAsk =
+    /\b(qi|qualifying income)\b/.test(lower) &&
+    /(more than|over|above|exactly)/i.test(lower) &&
+    /(2024\s*[-/]?\s*25|2025\s*[-/]?\s*26|2026\s*[-/]?\s*27)/i.test(lower);
   if (
     !/(mtd|making tax digital|digital tax thing|digital tax)/i.test(lower) &&
     !implicitMtdBand &&
     !combinedQiAsk &&
     !profitVsTurnoverAsk &&
-    !multiYearStartAsk
+    !multiYearStartAsk &&
+    !qiBandAsk
   ) {
     return false;
   }
@@ -231,11 +237,16 @@ export function extractMtdEligibilityInput(
   const seAmt =
     parseTaggedAmount(
       message,
-      /£\s*([\d,]+(?:\.\d+)?)\s*k?(?=\s*(?:sole[- ]?trader|self-?employ|trading|turnover|freelance|qualifying))/i,
+      /£\s*([\d,]+(?:\.\d+)?)\s*k?(?=\s*(?:sole[- ]?trader|self-?employ|trading|turnover|freelance|qualifying|\bqi\b))/i,
     ) ||
     parseTaggedAmount(
       message,
-      /(?:sole[- ]?trader|self-?employ(?:ed|ment)?|trading|turnover|freelance|side (?:hustle|income))[^£\d]{0,24}£\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
+      /(?:sole[- ]?trader|self-?employ(?:ed|ment)?|trading|turnover|freelance|side (?:hustle|income)|qualifying income|\bqi\b)[^£\d]{0,24}£\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
+    ) ||
+    // “qi more than £50000 in 2024-25”
+    parseTaggedAmount(
+      message,
+      /(?:qi|qualifying income)[^£\d]{0,40}£?\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
     );
 
   const propertyAmt =
@@ -278,7 +289,7 @@ export function extractMtdEligibilityInput(
   // Never treat a bare “I earn £X” figure as MTD qualifying income unless
   // trading/property (or explicit qualifying income) is stated.
   const statedAsQualifying =
-    /\b(qualifying income|turnover|before expenses)\b/i.test(lower);
+    /\b(qualifying income|\bqi\b|turnover|before expenses)\b/i.test(lower);
   // “I earn £50,000 exactly in 2024/25 — over the threshold?” is an MTD band
   // question, not an ambiguous bare total.
   const explicitBandQuestion =
