@@ -228,8 +228,10 @@ export class ConversationalEngine {
       Boolean(saEligibility?.handled) && !saEligibility?.needs_more_info;
     const mtdDefinitive =
       Boolean(mtdEligibility?.handled) && !mtdEligibility?.needs_more_info;
+    // Policy CLARIFY always wins: do not let eligibility handlers assert an
+    // SA/MTD conclusion when the decision policy says a material fact is missing.
     const clarifierFirst =
-      (Boolean(policyClarify?.handled) && !saDefinitive && !mtdDefinitive) ||
+      Boolean(policyClarify?.handled) ||
       (Boolean(ambiguous?.handled) &&
         (ambiguous?.prefer_over_eligibility_probe ||
           (!saDefinitive && !mtdDefinitive)));
@@ -334,6 +336,11 @@ export class ConversationalEngine {
       // generic educational clarifiers that also mention “quarterly updates”.
       reply = mtdOps;
       confidence = "high";
+    } else if (policyClarify) {
+      // Decision-policy clarification must beat SA/MTD eligibility assertions
+      // when facts are insufficient for a safe obligation conclusion.
+      reply = policyClarify.customer_reply;
+      confidence = policyClarify.confidence;
     } else if (saDefinitive && saEligibility) {
       reply = saEligibility.customer_reply;
       confidence = saEligibility.confidence;

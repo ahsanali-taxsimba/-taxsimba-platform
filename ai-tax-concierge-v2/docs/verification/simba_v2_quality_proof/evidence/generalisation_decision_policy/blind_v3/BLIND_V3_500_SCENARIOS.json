@@ -1,0 +1,3507 @@
+{
+  "generated_at": "2026-11-21T13:51:59.603Z",
+  "note": "LOCKED before answers. Fresh unseen bank after obligation-gate fixes (marketplace/PAYE/future-intent). Not a paraphrase of prior N/G banks.",
+  "count": 500,
+  "scenarios": [
+    {
+      "id": "V001",
+      "question": "cleared out my wardrobe on vinted — hmrc gonna chase me?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "personal vs trade",
+      "adversarial": true
+    },
+    {
+      "id": "V002",
+      "question": "boss does PAYE so I never need a tax return right??",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye other income",
+      "adversarial": true
+    },
+    {
+      "id": "V003",
+      "question": "might launch a dog-walking thing next spring — register now?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V004",
+      "question": "ebay bits and bobs from the attic, few quid — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "personal goods",
+      "adversarial": true
+    },
+    {
+      "id": "V005",
+      "question": "what even is self assessment without the jargon",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "educate",
+      "adversarial": false
+    },
+    {
+      "id": "V006",
+      "question": "tell me about making tax digital for income tax please",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "educate",
+      "adversarial": false
+    },
+    {
+      "id": "V007",
+      "question": "deliveroo about £4,100 2025-26 before expenses. need a return?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "gig+amount+year",
+      "adversarial": false
+    },
+    {
+      "id": "V008",
+      "question": "qi more than £50,000 in 2024-25 — start when for digital tax?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band50",
+      "adversarial": false
+    },
+    {
+      "id": "V009",
+      "question": "exactly £30,000 qualifying income 2025-26 — pulled into mtd?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "exclusive30",
+      "adversarial": false
+    },
+    {
+      "id": "V010",
+      "question": "I earn £58k. mtd??",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare earn",
+      "adversarial": true
+    },
+    {
+      "id": "V011",
+      "question": "PAYE-only £46k — making tax digital?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye not mtd",
+      "adversarial": false
+    },
+    {
+      "id": "V012",
+      "question": "rent £12,400 + freelance £19,800 2025-26 before expenses. qi for mtd?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "combine",
+      "adversarial": false
+    },
+    {
+      "id": "V013",
+      "question": "profit £40k but turnover £72k 2024-25 — which for mtd?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "turnover not profit",
+      "adversarial": false
+    },
+    {
+      "id": "V014",
+      "question": "weekend car boot maybe £640 last year — tell tax people?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "low/casual",
+      "adversarial": true
+    },
+    {
+      "id": "V015",
+      "question": "planning to start a mobile barber next year — first tax steps?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V016",
+      "question": "wages under PAYE, nothing else, so im fine yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V017",
+      "question": "sold kids toys on facebook marketplace am I trading?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace",
+      "adversarial": true
+    },
+    {
+      "id": "V018",
+      "question": "thinking about an etsy shop but havent listed anything — sa already?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "not started",
+      "adversarial": true
+    },
+    {
+      "id": "V019",
+      "question": "sole trader £6,800 before expenses 2024-25 — file?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">1k",
+      "adversarial": false
+    },
+    {
+      "id": "V020",
+      "question": "landlord rent £15,200 2025-26 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V021",
+      "question": "dont sell me anything. explain the trading allowance",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy",
+      "adversarial": false
+    },
+    {
+      "id": "V022",
+      "question": "I refuse packages. contracting £3,050 2025-26 before expenses — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "no-buy sa",
+      "adversarial": false
+    },
+    {
+      "id": "V023",
+      "question": "cheapest taxsimba sa package please",
+      "expected_classification": "TAXSIMBA_SIGNUP",
+      "notes": "asked",
+      "adversarial": false
+    },
+    {
+      "id": "V024",
+      "question": "does simbian monthly already include xero or separate?",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "xero",
+      "adversarial": false
+    },
+    {
+      "id": "V025",
+      "question": "dividend allowance nowadays?",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "500",
+      "adversarial": false
+    },
+    {
+      "id": "V026",
+      "question": "quarterly mtd updates vs the yearly return — same thing?",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no",
+      "adversarial": false
+    },
+    {
+      "id": "V027",
+      "question": "does paye salary go into qualifying income?",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no",
+      "adversarial": false
+    },
+    {
+      "id": "V028",
+      "question": "filing deadline vs payment deadline?",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "deadlines",
+      "adversarial": false
+    },
+    {
+      "id": "V029",
+      "question": "crypto — taxed on buy or on sell generally?",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "dispose",
+      "adversarial": false
+    },
+    {
+      "id": "V030",
+      "question": "only holding eth, never sold — automatic cgt bill?",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "hold",
+      "adversarial": false
+    },
+    {
+      "id": "V031",
+      "question": "sold eth for a gain — what do you need from me?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "disposal facts",
+      "adversarial": false
+    },
+    {
+      "id": "V032",
+      "question": "two paye jobs only — automatic sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "not auto",
+      "adversarial": false
+    },
+    {
+      "id": "V033",
+      "question": "p45 last month — do I suddenly need sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "not auto",
+      "adversarial": false
+    },
+    {
+      "id": "V034",
+      "question": "pensioner £1,900 bank interest — return?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "savings",
+      "adversarial": false
+    },
+    {
+      "id": "V035",
+      "question": "cis on my payslips — still sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "cis",
+      "adversarial": false
+    },
+    {
+      "id": "V036",
+      "question": "me + partner 50/50 let flat — who reports?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "joint",
+      "adversarial": false
+    },
+    {
+      "id": "V037",
+      "question": "said £5k side wait actually £750 from tutoring",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V038",
+      "question": "qi 50k for 24/25 — more than the band or not?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "exact vs more-than",
+      "adversarial": true
+    },
+    {
+      "id": "V039",
+      "question": "hmrc enquiry — consult?",
+      "expected_classification": "ACCOUNTANT_CONSULTATION",
+      "notes": "consult",
+      "adversarial": false
+    },
+    {
+      "id": "V040",
+      "question": "logged in taxsimba client — message my accountant how?",
+      "expected_classification": "EXISTING_CUSTOMER_SUPPORT",
+      "notes": "dash",
+      "adversarial": false
+    },
+    {
+      "id": "V041",
+      "question": "file my ltd company corporation tax with you?",
+      "expected_classification": "OUT_OF_SCOPE",
+      "notes": "ct",
+      "adversarial": false
+    },
+    {
+      "id": "V042",
+      "question": "ill diy the return, no taxsimba",
+      "expected_classification": "DIY_OK",
+      "notes": "diy",
+      "adversarial": false
+    },
+    {
+      "id": "V043",
+      "question": "do I need an accountant for this mess",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "this unclear",
+      "adversarial": true
+    },
+    {
+      "id": "V044",
+      "question": "gumtree sold my old bike and some tools — trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "personal",
+      "adversarial": true
+    },
+    {
+      "id": "V045",
+      "question": "hoping to start tutoring in September — register for sa today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V046",
+      "question": "uber eats last week not sure how much — tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "gig no amt",
+      "adversarial": true
+    },
+    {
+      "id": "V047",
+      "question": "paye ninety thousand only — mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": true
+    },
+    {
+      "id": "V048",
+      "question": "exactly £1,000 freelance 2025-26 — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "boundary",
+      "adversarial": false
+    },
+    {
+      "id": "V049",
+      "question": "thinking of starting garage clear-outs — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V050",
+      "question": "sold random stuff on facebook marketplace from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V051",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V052",
+      "question": "contracting as nurse bank £4630 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V053",
+      "question": "pull in about £41k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V054",
+      "question": "paye only £35200. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V055",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V056",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V057",
+      "question": "landlord rent £17500 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V058",
+      "question": "just started bike courier shifts maybe £2480 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V059",
+      "question": "made £6600 then wait no £1120 from garage clear-outs",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V060",
+      "question": "hoping to open a small twitch donations business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V061",
+      "question": "thinking of starting pressure washing — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V062",
+      "question": "sold random stuff on vinted from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V063",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V064",
+      "question": "contracting as cafe manager £2870 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V065",
+      "question": "pull in about £53k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V066",
+      "question": "paye only £40000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V067",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V068",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V069",
+      "question": "landlord rent £10000 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V070",
+      "question": "just started twitch donations maybe £3536 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V071",
+      "question": "made £6000 then wait no £800 from pressure washing",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V072",
+      "question": "hoping to open a small cake decorating business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V073",
+      "question": "thinking of starting phone repairs — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V074",
+      "question": "sold random stuff on gumtree from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V075",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V076",
+      "question": "contracting as piano tutor £4190 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V077",
+      "question": "pull in about £30k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V078",
+      "question": "paye only £44800. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V079",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V080",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V081",
+      "question": "landlord rent £19000 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V082",
+      "question": "just started cake decorating maybe £1336 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V083",
+      "question": "made £5400 then wait no £880 from phone repairs",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V084",
+      "question": "hoping to open a small violin lessons business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V085",
+      "question": "thinking of starting house sitting — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V086",
+      "question": "sold random stuff on depop from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V087",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V088",
+      "question": "contracting as ux designer £2430 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V089",
+      "question": "pull in about £42k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V090",
+      "question": "paye only £33600. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V091",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V092",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V093",
+      "question": "landlord rent £11500 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V094",
+      "question": "just started violin lessons maybe £2392 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V095",
+      "question": "made £4800 then wait no £960 from house sitting",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V096",
+      "question": "hoping to open a small podcast sponsorships business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V097",
+      "question": "thinking of starting sewing alterations — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V098",
+      "question": "sold random stuff on ebay from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V099",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V100",
+      "question": "contracting as virtual assistant £3750 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V101",
+      "question": "pull in about £54k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V102",
+      "question": "paye only £38400. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V103",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V104",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V105",
+      "question": "landlord rent £20500 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V106",
+      "question": "just started podcast sponsorships maybe £3448 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V107",
+      "question": "made £4200 then wait no £1040 from sewing alterations",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V108",
+      "question": "hoping to open a small bike courier shifts business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V109",
+      "question": "thinking of starting garage clear-outs — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V110",
+      "question": "sold random stuff on facebook marketplace from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V111",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V112",
+      "question": "contracting as nurse bank £5070 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V113",
+      "question": "pull in about £31k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V114",
+      "question": "paye only £43200. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V115",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V116",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V117",
+      "question": "landlord rent £13000 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V118",
+      "question": "just started bike courier shifts maybe £1248 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V119",
+      "question": "made £6600 then wait no £1120 from garage clear-outs",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V120",
+      "question": "hoping to open a small twitch donations business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V121",
+      "question": "thinking of starting pressure washing — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V122",
+      "question": "sold random stuff on vinted from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V123",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V124",
+      "question": "contracting as cafe manager £3310 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V125",
+      "question": "pull in about £43k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V126",
+      "question": "paye only £32000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V127",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V128",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V129",
+      "question": "landlord rent £22000 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V130",
+      "question": "just started twitch donations maybe £2304 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V131",
+      "question": "made £6000 then wait no £800 from pressure washing",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V132",
+      "question": "hoping to open a small cake decorating business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V133",
+      "question": "thinking of starting phone repairs — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V134",
+      "question": "sold random stuff on gumtree from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V135",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V136",
+      "question": "contracting as piano tutor £4630 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V137",
+      "question": "pull in about £55k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V138",
+      "question": "paye only £36800. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V139",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V140",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V141",
+      "question": "landlord rent £14500 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V142",
+      "question": "just started cake decorating maybe £3360 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V143",
+      "question": "made £5400 then wait no £880 from phone repairs",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V144",
+      "question": "hoping to open a small violin lessons business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V145",
+      "question": "thinking of starting house sitting — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V146",
+      "question": "sold random stuff on depop from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V147",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V148",
+      "question": "contracting as ux designer £2870 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V149",
+      "question": "pull in about £32k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V150",
+      "question": "paye only £41600. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V151",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V152",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V153",
+      "question": "landlord rent £23500 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V154",
+      "question": "just started violin lessons maybe £1160 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V155",
+      "question": "made £4800 then wait no £960 from house sitting",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V156",
+      "question": "hoping to open a small podcast sponsorships business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V157",
+      "question": "thinking of starting sewing alterations — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V158",
+      "question": "sold random stuff on ebay from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V159",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V160",
+      "question": "contracting as virtual assistant £4190 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V161",
+      "question": "pull in about £44k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V162",
+      "question": "paye only £30400. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V163",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V164",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V165",
+      "question": "landlord rent £16000 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V166",
+      "question": "just started podcast sponsorships maybe £2216 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V167",
+      "question": "made £4200 then wait no £1040 from sewing alterations",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V168",
+      "question": "hoping to open a small bike courier shifts business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V169",
+      "question": "thinking of starting garage clear-outs — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V170",
+      "question": "sold random stuff on facebook marketplace from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V171",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V172",
+      "question": "contracting as nurse bank £2430 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V173",
+      "question": "pull in about £56k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V174",
+      "question": "paye only £35200. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V175",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V176",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V177",
+      "question": "landlord rent £8500 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V178",
+      "question": "just started bike courier shifts maybe £3272 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V179",
+      "question": "made £6600 then wait no £1120 from garage clear-outs",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V180",
+      "question": "hoping to open a small twitch donations business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V181",
+      "question": "thinking of starting pressure washing — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V182",
+      "question": "sold random stuff on vinted from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V183",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V184",
+      "question": "contracting as cafe manager £3750 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V185",
+      "question": "pull in about £33k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V186",
+      "question": "paye only £40000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V187",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V188",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V189",
+      "question": "landlord rent £17500 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V190",
+      "question": "just started twitch donations maybe £1072 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V191",
+      "question": "made £6000 then wait no £800 from pressure washing",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V192",
+      "question": "hoping to open a small cake decorating business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V193",
+      "question": "thinking of starting phone repairs — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V194",
+      "question": "sold random stuff on gumtree from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V195",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V196",
+      "question": "contracting as piano tutor £5070 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V197",
+      "question": "pull in about £45k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V198",
+      "question": "paye only £44800. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V199",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V200",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V201",
+      "question": "landlord rent £10000 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V202",
+      "question": "just started cake decorating maybe £2128 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V203",
+      "question": "made £5400 then wait no £880 from phone repairs",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V204",
+      "question": "hoping to open a small violin lessons business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V205",
+      "question": "thinking of starting house sitting — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V206",
+      "question": "sold random stuff on depop from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V207",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V208",
+      "question": "contracting as ux designer £3310 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V209",
+      "question": "pull in about £57k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V210",
+      "question": "paye only £33600. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V211",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V212",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V213",
+      "question": "landlord rent £19000 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V214",
+      "question": "just started violin lessons maybe £3184 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V215",
+      "question": "made £4800 then wait no £960 from house sitting",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V216",
+      "question": "hoping to open a small podcast sponsorships business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V217",
+      "question": "thinking of starting sewing alterations — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V218",
+      "question": "sold random stuff on ebay from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V219",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V220",
+      "question": "contracting as virtual assistant £4630 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V221",
+      "question": "pull in about £34k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V222",
+      "question": "paye only £38400. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V223",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V224",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V225",
+      "question": "landlord rent £11500 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V226",
+      "question": "just started podcast sponsorships maybe £984 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V227",
+      "question": "made £4200 then wait no £1040 from sewing alterations",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V228",
+      "question": "hoping to open a small bike courier shifts business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V229",
+      "question": "thinking of starting garage clear-outs — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V230",
+      "question": "sold random stuff on facebook marketplace from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V231",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V232",
+      "question": "contracting as nurse bank £2870 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V233",
+      "question": "pull in about £46k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V234",
+      "question": "paye only £43200. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V235",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V236",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V237",
+      "question": "landlord rent £20500 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V238",
+      "question": "just started bike courier shifts maybe £2040 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V239",
+      "question": "made £6600 then wait no £1120 from garage clear-outs",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V240",
+      "question": "hoping to open a small twitch donations business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V241",
+      "question": "thinking of starting pressure washing — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V242",
+      "question": "sold random stuff on vinted from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V243",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V244",
+      "question": "contracting as cafe manager £4190 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V245",
+      "question": "pull in about £58k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V246",
+      "question": "paye only £32000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V247",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V248",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V249",
+      "question": "landlord rent £13000 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V250",
+      "question": "just started twitch donations maybe £3096 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V251",
+      "question": "made £6000 then wait no £800 from pressure washing",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V252",
+      "question": "hoping to open a small cake decorating business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V253",
+      "question": "thinking of starting phone repairs — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V254",
+      "question": "sold random stuff on gumtree from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V255",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V256",
+      "question": "contracting as piano tutor £2430 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V257",
+      "question": "pull in about £35k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V258",
+      "question": "paye only £36800. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V259",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V260",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V261",
+      "question": "landlord rent £22000 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V262",
+      "question": "just started cake decorating maybe £896 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V263",
+      "question": "made £5400 then wait no £880 from phone repairs",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V264",
+      "question": "hoping to open a small violin lessons business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V265",
+      "question": "thinking of starting house sitting — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V266",
+      "question": "sold random stuff on depop from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V267",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V268",
+      "question": "contracting as ux designer £3750 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V269",
+      "question": "pull in about £47k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V270",
+      "question": "paye only £41600. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V271",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V272",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V273",
+      "question": "landlord rent £14500 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V274",
+      "question": "just started violin lessons maybe £1952 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V275",
+      "question": "made £4800 then wait no £960 from house sitting",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V276",
+      "question": "hoping to open a small podcast sponsorships business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V277",
+      "question": "thinking of starting sewing alterations — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V278",
+      "question": "sold random stuff on ebay from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V279",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V280",
+      "question": "contracting as virtual assistant £5070 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V281",
+      "question": "pull in about £24k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V282",
+      "question": "paye only £30400. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V283",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V284",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V285",
+      "question": "landlord rent £23500 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V286",
+      "question": "just started podcast sponsorships maybe £3008 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V287",
+      "question": "made £4200 then wait no £1040 from sewing alterations",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V288",
+      "question": "hoping to open a small bike courier shifts business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V289",
+      "question": "thinking of starting garage clear-outs — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V290",
+      "question": "sold random stuff on facebook marketplace from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V291",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V292",
+      "question": "contracting as nurse bank £3310 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V293",
+      "question": "pull in about £36k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V294",
+      "question": "paye only £35200. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V295",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V296",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V297",
+      "question": "landlord rent £16000 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V298",
+      "question": "just started bike courier shifts maybe £808 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V299",
+      "question": "made £6600 then wait no £1120 from garage clear-outs",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V300",
+      "question": "hoping to open a small twitch donations business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V301",
+      "question": "thinking of starting pressure washing — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V302",
+      "question": "sold random stuff on vinted from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V303",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V304",
+      "question": "contracting as cafe manager £4630 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V305",
+      "question": "pull in about £48k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V306",
+      "question": "paye only £40000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V307",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V308",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V309",
+      "question": "landlord rent £8500 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V310",
+      "question": "just started twitch donations maybe £1864 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V311",
+      "question": "made £6000 then wait no £800 from pressure washing",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V312",
+      "question": "hoping to open a small cake decorating business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V313",
+      "question": "thinking of starting phone repairs — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V314",
+      "question": "sold random stuff on gumtree from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V315",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V316",
+      "question": "contracting as piano tutor £2870 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V317",
+      "question": "pull in about £25k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V318",
+      "question": "paye only £44800. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V319",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V320",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V321",
+      "question": "landlord rent £17500 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V322",
+      "question": "just started cake decorating maybe £2920 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V323",
+      "question": "made £5400 then wait no £880 from phone repairs",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V324",
+      "question": "hoping to open a small violin lessons business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V325",
+      "question": "thinking of starting house sitting — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V326",
+      "question": "sold random stuff on depop from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V327",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V328",
+      "question": "contracting as ux designer £4190 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V329",
+      "question": "pull in about £37k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V330",
+      "question": "paye only £33600. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V331",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V332",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V333",
+      "question": "landlord rent £10000 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V334",
+      "question": "just started violin lessons maybe £720 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V335",
+      "question": "made £4800 then wait no £960 from house sitting",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V336",
+      "question": "hoping to open a small podcast sponsorships business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V337",
+      "question": "thinking of starting sewing alterations — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V338",
+      "question": "sold random stuff on ebay from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V339",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V340",
+      "question": "contracting as virtual assistant £2430 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V341",
+      "question": "pull in about £49k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V342",
+      "question": "paye only £38400. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V343",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V344",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V345",
+      "question": "landlord rent £19000 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V346",
+      "question": "just started podcast sponsorships maybe £1776 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V347",
+      "question": "made £4200 then wait no £1040 from sewing alterations",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V348",
+      "question": "hoping to open a small bike courier shifts business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V349",
+      "question": "thinking of starting garage clear-outs — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V350",
+      "question": "sold random stuff on facebook marketplace from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V351",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V352",
+      "question": "contracting as nurse bank £3750 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V353",
+      "question": "pull in about £26k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V354",
+      "question": "paye only £43200. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V355",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V356",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V357",
+      "question": "landlord rent £11500 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V358",
+      "question": "just started bike courier shifts maybe £2832 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V359",
+      "question": "made £6600 then wait no £1120 from garage clear-outs",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V360",
+      "question": "hoping to open a small twitch donations business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V361",
+      "question": "thinking of starting pressure washing — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V362",
+      "question": "sold random stuff on vinted from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V363",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V364",
+      "question": "contracting as cafe manager £5070 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V365",
+      "question": "pull in about £38k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V366",
+      "question": "paye only £32000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V367",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V368",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V369",
+      "question": "landlord rent £20500 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V370",
+      "question": "just started twitch donations maybe £3888 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V371",
+      "question": "made £6000 then wait no £800 from pressure washing",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V372",
+      "question": "hoping to open a small cake decorating business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V373",
+      "question": "thinking of starting phone repairs — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V374",
+      "question": "sold random stuff on gumtree from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V375",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V376",
+      "question": "contracting as piano tutor £3310 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V377",
+      "question": "pull in about £50k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V378",
+      "question": "paye only £36800. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V379",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V380",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V381",
+      "question": "landlord rent £13000 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V382",
+      "question": "just started cake decorating maybe £1688 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V383",
+      "question": "made £5400 then wait no £880 from phone repairs",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V384",
+      "question": "hoping to open a small violin lessons business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V385",
+      "question": "thinking of starting house sitting — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V386",
+      "question": "sold random stuff on depop from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V387",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V388",
+      "question": "contracting as ux designer £4630 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V389",
+      "question": "pull in about £27k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V390",
+      "question": "paye only £41600. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V391",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V392",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V393",
+      "question": "landlord rent £22000 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V394",
+      "question": "just started violin lessons maybe £2744 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V395",
+      "question": "made £4800 then wait no £960 from house sitting",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V396",
+      "question": "hoping to open a small podcast sponsorships business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V397",
+      "question": "thinking of starting sewing alterations — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V398",
+      "question": "sold random stuff on ebay from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V399",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V400",
+      "question": "contracting as virtual assistant £2870 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V401",
+      "question": "pull in about £39k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V402",
+      "question": "paye only £30400. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V403",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V404",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V405",
+      "question": "landlord rent £14500 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V406",
+      "question": "just started podcast sponsorships maybe £3800 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V407",
+      "question": "made £4200 then wait no £1040 from sewing alterations",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V408",
+      "question": "hoping to open a small bike courier shifts business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V409",
+      "question": "thinking of starting garage clear-outs — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V410",
+      "question": "sold random stuff on facebook marketplace from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V411",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V412",
+      "question": "contracting as nurse bank £4190 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V413",
+      "question": "pull in about £51k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V414",
+      "question": "paye only £35200. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V415",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V416",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V417",
+      "question": "landlord rent £23500 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V418",
+      "question": "just started bike courier shifts maybe £1600 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V419",
+      "question": "made £6600 then wait no £1120 from garage clear-outs",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V420",
+      "question": "hoping to open a small twitch donations business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V421",
+      "question": "thinking of starting pressure washing — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V422",
+      "question": "sold random stuff on vinted from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V423",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V424",
+      "question": "contracting as cafe manager £2430 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V425",
+      "question": "pull in about £28k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V426",
+      "question": "paye only £40000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V427",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V428",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V429",
+      "question": "landlord rent £16000 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V430",
+      "question": "just started twitch donations maybe £2656 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V431",
+      "question": "made £6000 then wait no £800 from pressure washing",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V432",
+      "question": "hoping to open a small cake decorating business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V433",
+      "question": "thinking of starting phone repairs — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V434",
+      "question": "sold random stuff on gumtree from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V435",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V436",
+      "question": "contracting as piano tutor £3750 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V437",
+      "question": "pull in about £40k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V438",
+      "question": "paye only £44800. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V439",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V440",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V441",
+      "question": "landlord rent £8500 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V442",
+      "question": "just started cake decorating maybe £3712 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V443",
+      "question": "made £5400 then wait no £880 from phone repairs",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V444",
+      "question": "hoping to open a small violin lessons business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V445",
+      "question": "thinking of starting house sitting — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V446",
+      "question": "sold random stuff on depop from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V447",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V448",
+      "question": "contracting as ux designer £5070 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V449",
+      "question": "pull in about £52k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V450",
+      "question": "paye only £33600. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V451",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V452",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V453",
+      "question": "landlord rent £17500 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V454",
+      "question": "just started violin lessons maybe £1512 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V455",
+      "question": "made £4800 then wait no £960 from house sitting",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V456",
+      "question": "hoping to open a small podcast sponsorships business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V457",
+      "question": "thinking of starting sewing alterations — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V458",
+      "question": "sold random stuff on ebay from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V459",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V460",
+      "question": "contracting as virtual assistant £3310 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V461",
+      "question": "pull in about £29k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V462",
+      "question": "paye only £38400. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V463",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V464",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V465",
+      "question": "landlord rent £10000 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V466",
+      "question": "just started podcast sponsorships maybe £2568 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V467",
+      "question": "made £4200 then wait no £1040 from sewing alterations",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V468",
+      "question": "hoping to open a small bike courier shifts business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V469",
+      "question": "thinking of starting garage clear-outs — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V470",
+      "question": "sold random stuff on facebook marketplace from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V471",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V472",
+      "question": "contracting as nurse bank £4630 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V473",
+      "question": "pull in about £41k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V474",
+      "question": "paye only £43200. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V475",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V476",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V477",
+      "question": "landlord rent £19000 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V478",
+      "question": "just started bike courier shifts maybe £3624 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V479",
+      "question": "made £6600 then wait no £1120 from garage clear-outs",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V480",
+      "question": "hoping to open a small twitch donations business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V481",
+      "question": "thinking of starting pressure washing — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V482",
+      "question": "sold random stuff on vinted from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V483",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V484",
+      "question": "contracting as cafe manager £2870 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V485",
+      "question": "pull in about £53k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V486",
+      "question": "paye only £32000. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V487",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V488",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    },
+    {
+      "id": "V489",
+      "question": "landlord rent £11500 2026-27 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": "rent+year",
+      "adversarial": false
+    },
+    {
+      "id": "V490",
+      "question": "just started twitch donations maybe £1424 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "tentative side",
+      "adversarial": true
+    },
+    {
+      "id": "V491",
+      "question": "made £6000 then wait no £800 from pressure washing",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "correction",
+      "adversarial": true
+    },
+    {
+      "id": "V492",
+      "question": "hoping to open a small cake decorating business next tax year — register today?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future",
+      "adversarial": true
+    },
+    {
+      "id": "V493",
+      "question": "thinking of starting phone repairs — do I need sa before I begin?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "future intent",
+      "adversarial": true
+    },
+    {
+      "id": "V494",
+      "question": "sold random stuff on gumtree from the cupboard — in trouble?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "marketplace personal",
+      "adversarial": true
+    },
+    {
+      "id": "V495",
+      "question": "paye wages only so nothing else matters for tax yeah?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "paye confirm",
+      "adversarial": true
+    },
+    {
+      "id": "V496",
+      "question": "contracting as piano tutor £4190 in 2024-25 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "notes": ">£1k year",
+      "adversarial": false
+    },
+    {
+      "id": "V497",
+      "question": "pull in about £30k. digital tax?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "notes": "bare total",
+      "adversarial": true
+    },
+    {
+      "id": "V498",
+      "question": "paye only £36800. mtd?",
+      "expected_classification": "NO_TAXSIMBA_SERVICE",
+      "notes": "paye",
+      "adversarial": false
+    },
+    {
+      "id": "V499",
+      "question": "qi more than £50000 in 2024-25 — start date?",
+      "expected_classification": "MTD_ASSIST",
+      "notes": "band",
+      "adversarial": false
+    },
+    {
+      "id": "V500",
+      "question": "no packages. explain mtd quarterly updates",
+      "expected_classification": "GENERAL_INFO",
+      "notes": "no-buy educate",
+      "adversarial": false
+    }
+  ]
+}

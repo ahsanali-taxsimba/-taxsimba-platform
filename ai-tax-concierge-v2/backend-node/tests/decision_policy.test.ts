@@ -52,6 +52,33 @@ describe("decision_policy", () => {
     expect(p.facts.amountGbp).toBe(800);
   });
 
+  it("clarifies marketplace personal-goods selling before SA conclusion", () => {
+    const p = decidePolicy("sold my old clothes on depop am I in trouble");
+    expect(p.mode).toBe("CLARIFY");
+    expect(p.clarificationClass).toBe("marketplace_personal_vs_trade");
+  });
+
+  it("clarifies PAYE-only confirmation before inventing other income or SA", () => {
+    const p = decidePolicy("my wages are under PAYE so nothing else matters yeah?");
+    expect(p.mode).toBe("CLARIFY");
+    expect(p.clarificationClass).toBe("employment_status_ambiguity");
+  });
+
+  it("treats thinking-of-starting as future intent, not a current SA duty", () => {
+    const p = decidePolicy(
+      "thinking of starting a window-cleaning round — first steps?",
+    );
+    expect(p.mode).toBe("CLARIFY");
+    expect(p.clarificationClass).toBe("future_intent_not_current");
+    expect(p.facts.futureIntent).toBe(true);
+  });
+
+  it("answers PAYE-only MTD asks without SA side-income interrogation", () => {
+    const p = decidePolicy("paye only £40000. mtd?");
+    expect(p.mode).toBe("ANSWER_OBLIGATION");
+    expect(p.askType).toBe("MTD_QUESTION");
+  });
+
   it("clarifies two PAYE jobs before asserting SA", () => {
     const p = decidePolicy("two PAYE jobs only — SA automatic?");
     expect(p.mode).toBe("CLARIFY");

@@ -28,6 +28,8 @@ export type ClarificationClass =
   | "customer_intent_unclear"
   | "casual_vs_trading_ambiguity"
   | "amount_correction_ambiguity"
+  | "future_intent_not_current"
+  | "marketplace_personal_vs_trade"
   | null;
 
 export type CircumstanceFacts = {
@@ -36,6 +38,12 @@ export type CircumstanceFacts = {
   property: boolean;
   cis: boolean;
   gigOrSide: boolean;
+  /** Marketplace / classifieds selling (Depop, eBay, Vinted, etc.). */
+  marketplace: boolean;
+  /** Language suggesting personal possessions, not a trade. */
+  personalPossessions: boolean;
+  /** Activity described as planned / not yet started. */
+  futureIntent: boolean;
   dividends: boolean;
   savings: boolean;
   crypto: boolean;
@@ -110,9 +118,12 @@ function parseAmount(text: string): number | null {
 
 function detectYear(text: string): string | null {
   const lower = text.toLowerCase();
-  if (/2024\s*[-/]?\s*25|2024\s*[-/]\s*2025/.test(lower)) return "2024-25";
-  if (/2025\s*[-/]?\s*26|2025\s*[-/]\s*2026/.test(lower)) return "2025-26";
-  if (/2026\s*[-/]?\s*27|2026\s*[-/]\s*2027/.test(lower)) return "2026-27";
+  if (/2024\s*[-/]?\s*25|2024\s*[-/]\s*2025|\b24\s*[/]\s*25\b/.test(lower))
+    return "2024-25";
+  if (/2025\s*[-/]?\s*26|2025\s*[-/]\s*2026|\b25\s*[/]\s*26\b/.test(lower))
+    return "2025-26";
+  if (/2026\s*[-/]?\s*27|2026\s*[-/]\s*2027|\b26\s*[/]\s*27\b/.test(lower))
+    return "2026-27";
   return null;
 }
 
@@ -136,6 +147,15 @@ export function isEducationalAsk(message: string): boolean {
   ) {
     return true;
   }
+  // Rule timing / event-type education (“is crypto tax when I buy or when I sell”)
+  if (
+    /\bis (crypto|cgt|capital gains|income tax)\b.{0,40}\bwhen i (buy|sell)\b/.test(
+      m,
+    ) ||
+    /\bbuy or (when i )?sell\b/.test(m)
+  ) {
+    return true;
+  }
   // “dont want packages. explain X”
   if (/explain\b/.test(m) && !/\b(do i need|am i|for me|my (income|rent|turnover))\b/.test(m)) {
     return true;
@@ -146,10 +166,15 @@ export function isEducationalAsk(message: string): boolean {
 export function isPersonalObligationAsk(message: string): boolean {
   const m = (message || "").toLowerCase();
   return (
-    /\b(do i (need|have to|still need)|am i (required|supposed)|should i (register|file|submit)|sa\s*\?|mtd\s*\?|hmrc\??|return\??|report\??|automatic(ally)?\??|apply to me|for me)\b/i.test(
+    /\b(do i (need|have to|still need)|am i (required|supposed|in trouble|fine)|should i (register|file|submit)|sa\s*\?|mtd\s*\?|hmrc\??|return\??|report\??|automatic(ally)?\??|apply to me|for me|nothing else matters|so i'?m fine|am i ok|first steps\??|register now|register today|tell (hmrc|tax)|who (reports|puts it)|gonna chase)\b/i.test(
       m,
     ) ||
-    /\b(need (sa|self assessment|mtd|making tax digital))\b/i.test(m)
+    /\b(need (sa|self assessment|mtd|making tax digital|an? accountant))\b/i.test(
+      m,
+    ) ||
+    /\b(in trouble|over (the )?threshold or not|tell tax people|what do you need from me)\b/i.test(
+      m,
+    )
   );
 }
 
@@ -164,20 +189,43 @@ export function extractCircumstances(
   const ctx = `${prior}\n${message}`.toLowerCase();
   const lower = (message || "").toLowerCase();
 
-  const paye = /\bpaye\b|\bsalary\b|(?<!self-)employ(ed|ment)\b|\bjob\b|\bp45\b/.test(ctx);
-  const selfEmployment =
-    /(self-?employ|sole[- ]?trader|freelance|contracting|trading|side hustle|gig|deliver|uber|tiktok|etsy|photography|babysitting)/i.test(
+  const paye = /\bpaye\b|\bsalary\b|\bwages?\b|(?<!self-)employ(ed|ment)\b|\bjob\b|\bp45\b/.test(
+    ctx,
+  );
+  const marketplace =
+    /\b(depop|vinted|ebay|etsy|facebook marketplace|gumtree|shopee|poshmark|mercari)\b/i.test(
       ctx,
     );
+  const personalPossessions =
+    /(old clothes|personal (belongings|possessions|items)|clear(ing)? out|cleared (out )?my|wardrobe|from the (attic|cupboard|garage)|bits and bobs|selling my (old |used )?|second[- ]?hand (clothes|stuff|items)|declutter|kids toys|old bike)/i.test(
+      ctx,
+    );
+  const futureIntent =
+    /(thinking of starting|planning to start|planning to open|considering starting|want to start|might start|might launch|looking to start|hoping to start|hoping to open|about to start|not started yet|haven'?t started|haven'?t listed|will start|next (month|spring|year|tax year)|soon start|register now|register today)/i.test(
+      ctx,
+    );
+  // Do not treat marketplace platform names alone as self-employment / trading.
+  // Gig platforms (Uber, Just Eat, Deliveroo) do imply self-employment-style trading.
+  const gigPlatform =
+    /\b(uber|just\s*eat|deliveroo|getir|stuart|bolt food|amazon flex)\b/i.test(ctx) ||
+    /\b(gig|deliver(y|ies)?|courier)\b/i.test(ctx);
+  const selfEmployment =
+    (/(self-?employ|sole[- ]?trader|freelance|contracting|trading business|side hustle|tiktok|photography|babysitting|window[- ]?clean)/i.test(
+      ctx,
+    ) ||
+      gigPlatform) &&
+    !personalPossessions;
   const property =
     /(landlord|rental|\brent\b|property income|buy-?to-?let|let(ting)? (a |my )?(flat|house|property))/i.test(
       ctx,
     );
   const cis = /\bcis\b|construction|subcontract/i.test(ctx);
   const gigOrSide =
-    /(side (hustle|cash|income)|on the side|gig|deliver|uber|tiktok|etsy|vinted|babysitting|dog walking|photography|cleaning|gardening|tutoring)/i.test(
+    (/(side (hustle|cash|income)|on the side|tiktok|babysitting|dog walking|photography|cleaning|gardening|tutoring|window[- ]?clean)/i.test(
       ctx,
-    );
+    ) ||
+      gigPlatform) &&
+    !personalPossessions;
   const dividends = /dividend/i.test(ctx);
   const savings = /(bank interest|savings interest|pensioner)/i.test(ctx);
   const crypto = /\b(crypto|bitcoin|ethereum|\beth\b|nft)\b/i.test(ctx);
@@ -202,6 +250,9 @@ export function extractCircumstances(
     property,
     cis,
     gigOrSide,
+    marketplace,
+    personalPossessions,
+    futureIntent,
     dividends,
     savings,
     crypto,
@@ -346,13 +397,137 @@ export function decidePolicy(
 
   // PERSONAL / SA / MTD — only clarify when obligation is being asked and a key fact is missing.
   if (askType === "MTD_QUESTION" || askType === "SA_QUESTION" || askType === "PERSONAL_OBLIGATION") {
+    // Future intent (“thinking of starting…”) — not a current obligation.
+    if (facts.futureIntent && facts.amountGbp == null) {
+      return {
+        askType,
+        facts,
+        mode: "CLARIFY",
+        clarification:
+          "Has this activity actually started and earned income in a UK tax year yet, or is it still only planned? If it has started, roughly how much trading income before expenses do you expect (or have you earned) in the first tax year?",
+        clarificationClass: "future_intent_not_current",
+        allowPackages: false,
+        reason:
+          "Possible future activity is not a confirmed current SA/MTD obligation.",
+      };
+    }
+
+    // Marketplace / personal possessions — platform name ≠ trading status.
+    // If the customer already said “personal possessions”, answer that Self
+    // Assessment trader registration is not automatic — do not re-ask the same fact.
+    if (
+      facts.personalPossessions &&
+      !facts.marketplace &&
+      !/(buying to resell|business selling|trading as|regular trade)/i.test(m)
+    ) {
+      return {
+        askType,
+        facts,
+        mode: "ANSWER_OBLIGATION",
+        clarification: null,
+        clarificationClass: null,
+        allowPackages: false,
+        reason:
+          "Customer already framed sales as personal possessions — educate on SA trader rules without inventing a duty.",
+      };
+    }
+    if (
+      (facts.marketplace || facts.personalPossessions) &&
+      !/(regular trade|buying to resell|business selling|trading as)/i.test(m)
+    ) {
+      return {
+        askType,
+        facts,
+        mode: "CLARIFY",
+        clarification:
+          "Were you mainly selling your own personal possessions (for example clearing a wardrobe), or buying/making items to sell as a trade? Self Assessment trader registration is not automatic from a marketplace sale alone — if it is trading, roughly how much did you take in before expenses in one UK tax year?",
+        clarificationClass: "marketplace_personal_vs_trade",
+        allowPackages: false,
+        reason:
+          "Marketplace / personal-goods selling needs personal-vs-trade before any SA conclusion.",
+      };
+    }
+
+    // Explicit PAYE-only MTD asks — answer “MTD does not apply”, do not
+    // interrogate for Self Assessment side-income on an MTD question.
+    const payeOnlyExplicit =
+      /paye[-\s]?only|only (have |got )?(paye|wages|salary)|only.{0,16}paye income|wages (are )?under paye|boss (does|pays).{0,12}paye/i.test(
+        m,
+      ) && !/(also|plus|and).{0,24}(freelance|self-?employ|rent|side)/i.test(m);
+    if (askType === "MTD_QUESTION" && facts.paye && payeOnlyExplicit) {
+      return {
+        askType,
+        facts,
+        mode: "ANSWER_OBLIGATION",
+        clarification: null,
+        clarificationClass: null,
+        allowPackages: false,
+        reason:
+          "PAYE-only income is not MTD qualifying income — answer directly.",
+      };
+    }
+
+    // PAYE / wages alone — not evidence of self-employment or automatic SA.
+    // Skip when the customer already stated PAYE-only for an MTD question.
+    if (
+      facts.paye &&
+      !facts.selfEmployment &&
+      !facts.property &&
+      !facts.gigOrSide &&
+      !facts.marketplace &&
+      !(askType === "MTD_QUESTION" && payeOnlyExplicit) &&
+      (facts.personalObligationAsk ||
+        /(nothing else matters|so i'?m fine|am i (fine|ok)|paye only)/i.test(m))
+    ) {
+      return {
+        askType,
+        facts,
+        mode: "CLARIFY",
+        clarification:
+          "PAYE wages alone do not automatically create a Self Assessment duty. Do you have any other untaxed income this tax year — for example self-employment, property rent, untaxed interest/dividends, or crypto disposals — or has HMRC asked you to file?",
+        clarificationClass: "employment_status_ambiguity",
+        allowPackages: false,
+        reason:
+          "PAYE employment is not self-employment; confirm other income before SA conclusion.",
+      };
+    }
+
+    // Vague “do I need an accountant for this” with no circumstances in the message.
+    if (
+      /\b(accountant|pay an accountant)\b/i.test(m) &&
+      facts.amountGbp == null &&
+      !facts.selfEmployment &&
+      !facts.property &&
+      !facts.paye &&
+      !facts.gigOrSide &&
+      !facts.crypto &&
+      !facts.marketplace
+    ) {
+      return {
+        askType,
+        facts,
+        mode: "CLARIFY",
+        clarification:
+          "What is the situation you mean by “this”? For example PAYE-only employment, self-employment/freelance, property rent, or something else — and roughly how much before expenses in which tax year?",
+        clarificationClass: "customer_intent_unclear",
+        allowPackages: false,
+        reason: "Accountant-need ask without circumstances — clarify the situation first.",
+      };
+    }
+
     // Bare total without income type (not savings/crypto-labelled amounts).
-    // Skip for educational MTD threshold/band questions (“the £20,000 MTD threshold”).
+    // Skip for educational MTD threshold/band questions (“the £20,000 MTD threshold”,
+    // “remind me the year for £30k MTD”) — those are band rules, not personal QI.
     const mtdBandEducation =
       askType === "MTD_QUESTION" &&
-      /(threshold|april 202[6-9]|start date|qualifying income|\bqi\b|mtd for income tax)/i.test(
+      !/(i earn|i have|i made|my (qi|qualifying|turnover)|qualifying income was)/i.test(
         m,
-      );
+      ) &&
+      (/(threshold|april 202[6-9]|start date|qualifying income|\bqi\b|mtd for income tax|remind me|what about the)/i.test(
+        m,
+      ) ||
+        (/£?\s*(20|30|50)\s*,?000|£?\s*(20|30|50)\s*k\b/i.test(m) &&
+          /(mtd|making tax digital|band|start|year for)/i.test(m)));
     if (
       facts.amountGbp != null &&
       !facts.selfEmployment &&
@@ -460,13 +635,21 @@ export function decidePolicy(
     }
 
     // MTD-shaped ask without year when amount present — but not when the
-    // customer is already discussing a published band/start date (e.g. April 2028).
+    // customer is already discussing a published band/start date (e.g. April 2028),
+    // when they already said PAYE-only (not qualifying income), when SE/property
+    // turnover is already known (let mtd_eligibility answer / ask with context),
+    // or for educational band reminders.
     if (
       askType === "MTD_QUESTION" &&
       facts.amountGbp != null &&
       !facts.taxYear &&
+      !facts.selfEmployment &&
+      !facts.property &&
+      !mtdBandEducation &&
       !/\bqi\b|qualifying income/i.test(m) &&
-      !/april 202[6-9]|threshold|start date/i.test(m)
+      !/april 202[6-9]|threshold|start date/i.test(m) &&
+      !/paye[-\s]?only|only (paye|wages|salary)/i.test(m) &&
+      !/limited compan|ltd compan|as a compan/i.test(m)
     ) {
       return {
         askType,
@@ -480,11 +663,14 @@ export function decidePolicy(
       };
     }
 
-    // Crypto disposal without enough event facts
+    // Crypto disposal without enough event facts (not buy-vs-sell rule education)
     if (
       facts.crypto &&
       facts.personalObligationAsk &&
-      !/(never sold|only (bought|holding)|hold)/i.test(m) &&
+      !facts.educationalOnly &&
+      !/(never sold|only (bought|holding)|hold|buy or (when i )?sell|when i (buy|sell))/i.test(
+        m,
+      ) &&
       facts.amountGbp == null
     ) {
       return {
@@ -569,9 +755,12 @@ export function decidePolicy(
       };
     }
 
-    // Starting business with no amount/structure
+    // Starting / planning a business with no amount/structure
     if (
-      /starting (a )?(small )?business|start(ing)? (up|my business)/i.test(m) &&
+      (/starting (a )?(small )?business|start(ing)? (up|my business)|first steps/i.test(
+        m,
+      ) ||
+        facts.futureIntent) &&
       facts.amountGbp == null
     ) {
       return {
@@ -579,10 +768,35 @@ export function decidePolicy(
         facts,
         mode: "CLARIFY",
         clarification:
-          "Are you planning to trade as a sole trader (or something else), and do you expect more than £1,000 of trading income in the first tax year?",
-        clarificationClass: "customer_intent_unclear",
+          "Has trading actually started yet? If yes (or when it does), are you planning to trade as a sole trader, and do you expect more than £1,000 of trading income in the first tax year?",
+        clarificationClass: facts.futureIntent
+          ? "future_intent_not_current"
+          : "customer_intent_unclear",
         allowPackages: false,
-        reason: "Business start needs structure/expected income before obligations.",
+        reason:
+          "Business start / first-steps needs whether activity is current and expected income before obligations.",
+      };
+    }
+
+    // Exact MTD band threshold without “more than/over” — boundary, not a conclusion.
+    // Skip educational band/start-date / “remind me the year” questions.
+    if (
+      askType === "MTD_QUESTION" &&
+      facts.amountGbp != null &&
+      [20_000, 30_000, 50_000].includes(facts.amountGbp) &&
+      !/(more than|over|above|exceed)/i.test(m) &&
+      /(threshold|mtd|qi|qualifying)/i.test(m) &&
+      !mtdBandEducation &&
+      !/april 202[6-9]|start date|what about the|remind me/i.test(m)
+    ) {
+      return {
+        askType,
+        facts,
+        mode: "CLARIFY",
+        clarification: `GOV.UK uses “more than £${facts.amountGbp.toLocaleString("en-GB")}” for that MTD band. Was your qualifying income more than £${facts.amountGbp.toLocaleString("en-GB")}, or exactly £${facts.amountGbp.toLocaleString("en-GB")} (and confirm the basis tax year)?`,
+        clarificationClass: "gross_profit_ambiguity",
+        allowPackages: false,
+        reason: "Exact band threshold needs more-than vs exact before MTD conclusion.",
       };
     }
 
@@ -598,22 +812,135 @@ export function decidePolicy(
     };
   }
 
-  // Circumstance dumps without an explicit “SA?” still need the same fact gates.
+  // Marketplace / future-intent / PAYE dumps without a crisp “SA?” still need gates
+  // so the LLM cannot invent a confirmed obligation.
   if (
-    hasAmountCorrection(m) &&
-    (facts.gigOrSide || facts.selfEmployment || facts.property)
+    (facts.marketplace || facts.personalPossessions) &&
+    !/(regular trade|buying to resell|business selling)/i.test(m)
   ) {
+    return {
+      askType: "PERSONAL_OBLIGATION",
+      facts,
+      mode: "CLARIFY",
+      clarification:
+        "Were you mainly selling your own personal possessions, or buying/making items to sell as a trade? If trading, roughly how much before expenses in one UK tax year?",
+      clarificationClass: "marketplace_personal_vs_trade",
+      allowPackages: false,
+      reason: "Marketplace selling without trade confirmation — clarify before SA.",
+    };
+  }
+  if (
+    facts.futureIntent ||
+    /(hoping to open|planning to open|might launch|next tax year|next spring)/i.test(
+      m,
+    )
+  ) {
+    return {
+      askType: "PERSONAL_OBLIGATION",
+      facts,
+      mode: "CLARIFY",
+      clarification:
+        "Has this activity actually started and earned income yet, or is it still only planned? Current tax obligations are based on activity that has happened in a tax year — not on plans alone.",
+      clarificationClass: "future_intent_not_current",
+      allowPackages: false,
+      reason: "Future intent without current earnings — do not conclude SA/MTD.",
+    };
+  }
+
+  // Casual / low amount without confirmed trading — ask casual vs trade.
+  if (
+    facts.amountGbp != null &&
+    facts.amountGbp <= 1500 &&
+    /(car boot|craft fair|bits and bobs|garage clear|maybe £|tell tax|hmrc)/i.test(
+      m,
+    ) &&
+    !/(regular|every week|full.?time self-?employ|sole[- ]?trader|freelance)/i.test(
+      m,
+    )
+  ) {
+    return {
+      askType: "PERSONAL_OBLIGATION",
+      facts,
+      mode: "CLARIFY",
+      clarification:
+        "Was this casual occasional activity (for example selling personal items), or regular self-employment trading — and for which UK tax year?",
+      clarificationClass: "casual_vs_trading_ambiguity",
+      allowPackages: false,
+      reason: "Low/uncertain activity amount — confirm casual vs trading before SA.",
+    };
+  }
+
+  // Joint property share without enough filing facts.
+  if (
+    /(partner|spouse|50\/50|50-50|joint)/i.test(m) &&
+    /(let|rent|flat|property)/i.test(m)
+  ) {
+    return {
+      askType: "PERSONAL_OBLIGATION",
+      facts,
+      mode: "CLARIFY",
+      clarification:
+        "Are you joint beneficial owners (and in what shares), roughly how much rent before expenses, and for which tax year?",
+      clarificationClass: "property_share_ambiguity",
+      allowPackages: false,
+      reason: "Joint let needs share/amount/year before filing conclusion.",
+    };
+  }
+
+  // Crypto disposal without gain/year — do not invent SA/CGT conclusions.
+  // Skip educational buy-vs-sell timing questions.
+  if (
+    facts.crypto &&
+    !facts.educationalOnly &&
+    /(sold|sell|dispose|disposal|gain)/i.test(m) &&
+    !/(never sold|only (bought|holding)|hold|buy or (when i )?sell|when i (buy|sell))/i.test(
+      m,
+    )
+  ) {
+    return {
+      askType: "PERSONAL_OBLIGATION",
+      facts,
+      mode: "CLARIFY",
+      clarification:
+        "Roughly what was the gain (or sale proceeds and cost), and in which UK tax year did you dispose of the crypto — or was this frequent trading rather than investment?",
+      clarificationClass: "disposal_gain_ambiguity",
+      allowPackages: false,
+      reason: "Crypto disposal needs gain/year before obligation conclusion.",
+    };
+  }
+
+  if (
+    facts.paye &&
+    !facts.selfEmployment &&
+    !facts.property &&
+    !facts.gigOrSide &&
+    /(nothing else matters|so i'?m fine|am i (fine|ok|in trouble)|yeah\?)/i.test(m)
+  ) {
+    return {
+      askType: "PERSONAL_OBLIGATION",
+      facts,
+      mode: "CLARIFY",
+      clarification:
+        "PAYE wages alone do not automatically create a Self Assessment duty. Do you have any other untaxed income this tax year — for example self-employment, property rent, untaxed interest/dividends, or crypto disposals — or has HMRC asked you to file?",
+      clarificationClass: "employment_status_ambiguity",
+      allowPackages: false,
+      reason: "PAYE confirmation ask — clarify other income before SA conclusion.",
+    };
+  }
+
+  // Circumstance dumps / corrections without a crisp “SA?” still need fact gates.
+  if (hasAmountCorrection(m)) {
     return {
       askType: askType === "UNCLEAR" ? "PERSONAL_OBLIGATION" : askType,
       facts,
       mode: "CLARIFY",
       clarification:
         facts.amountGbp != null
-          ? `Just to confirm — is the correct gross figure about £${facts.amountGbp.toLocaleString("en-GB")} before expenses for one UK tax year, and is that self-employment / gig income (not a mix of salary and expenses)?`
+          ? `Just to confirm — is the correct gross figure about £${facts.amountGbp.toLocaleString("en-GB")} before expenses for one UK tax year, and what kind of income is that (self-employment, gig, property, or something else)?`
           : "You mentioned more than one figure — which amount is the correct gross trading income for one UK tax year, before expenses?",
       clarificationClass: "amount_correction_ambiguity",
       allowPackages: false,
-      reason: "Conflicting amounts without a clear ask — confirm before advising.",
+      reason: "Conflicting amounts — confirm before advising.",
     };
   }
 

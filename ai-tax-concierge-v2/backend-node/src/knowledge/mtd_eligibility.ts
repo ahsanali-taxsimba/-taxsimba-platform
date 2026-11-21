@@ -101,9 +101,9 @@ function parseAmount(text: string): number | null {
 function detectBasisYear(text: string): string | null {
   const lower = text.toLowerCase();
   const patterns: Array<[RegExp, string]> = [
-    [/2024\s*[-/–to]+\s*2025|2024\s*[-/]\s*25|tax year 2024/, "2024-25"],
-    [/2025\s*[-/–to]+\s*2026|2025\s*[-/]\s*26|tax year 2025/, "2025-26"],
-    [/2026\s*[-/–to]+\s*2027|2026\s*[-/]\s*27|tax year 2026/, "2026-27"],
+    [/2024\s*[-/–to]+\s*2025|2024\s*[-/]\s*25|\b24\s*[/]\s*25\b|tax year 2024/, "2024-25"],
+    [/2025\s*[-/–to]+\s*2026|2025\s*[-/]\s*26|\b25\s*[/]\s*26\b|tax year 2025/, "2025-26"],
+    [/2026\s*[-/–to]+\s*2027|2026\s*[-/]\s*27|\b26\s*[/]\s*27\b|tax year 2026/, "2026-27"],
   ];
   for (const [re, year] of patterns) {
     if (re.test(lower)) return year;
@@ -816,12 +816,18 @@ export function answerMtdEligibility(
   // Educational band / commencement questions (“what about the £20,000 MTD
   // threshold and April 2028?”) — explain published bands without treating the
   // threshold figure as the customer’s personal qualifying income.
+  // Do NOT treat personal QI statements (“qualifying income was more than £X…”)
+  // as educational — those must use the exclusive threshold calculation.
+  const personalQiStatement =
+    /(qualifying income|turnover|gross income).{0,48}(was|is|of)|was (more than|over|above)|i (earn|made|have|got)|my (qi|qualifying|turnover|income)/i.test(
+      lowerMsg,
+    );
   if (
-    /(threshold|start date|when (do|does|did) .{0,40}start)/i.test(lowerMsg) &&
-    /(april 202[6-9]|£\s*20,?000|£\s*30,?000|£\s*50,?000|20k|30k|50k)/i.test(
+    !personalQiStatement &&
+    /(threshold|start date|remind me|what about the|when (do|does|did) .{0,40}start)/i.test(
       lowerMsg,
     ) &&
-    !/\b(my|i earn|i made|i have|my qi|my qualifying|my turnover)\b/i.test(
+    /(april 202[6-9]|£\s*20,?000|£\s*30,?000|£\s*50,?000|20k|30k|50k)/i.test(
       lowerMsg,
     )
   ) {
