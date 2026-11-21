@@ -14,7 +14,7 @@
 ### Exact remaining blockers
 
 1. **Blind generalisation pass rate too low for staging:** 298 exact + 74 acceptable = **372/500 (74.4%)** on a new locked unseen bank — not evidence that customers can ask almost any normal UK SA/MTD question safely.
-2. **Independent GOV.UK VERIFIED coverage still thin:** of **200 tax-category** rows, deterministic source-backed VERIFIED = **16**; **128** had no applicable deterministic handler (left unverified honestly); frozen pack also showed **5 INCORRECT** historical answers (engine fixed; not re-marked VERIFIED merely because fixed).
+2. **Independent GOV.UK VERIFIED coverage still thin:** of **200 tax-category** rows, live re-query source-backed VERIFIED = **64** (0 live INCORRECT post-fix); deterministic-handler-only VERIFIED = **16**; remaining **~135** left unverified honestly. Frozen pack also showed **5 INCORRECT** historical answers (engine fixed; not re-marked VERIFIED merely because fixed).
 3. **Clarification / classification defects remain:** 92 missed-clarification tags, 27 wrong-service tags, 28 premature-package tags on the 500-set.
 4. **Multi-turn evidence degraded by LLM timeouts:** 450/664 multi turns (67.8%) returned `[NO_REPLY_TIMEOUT]` under live load — memory/no-buy heuristics on completed turns look good (0 memory defects, 0 premature-on-nobuy), but conversational A–M proof is incomplete until timeout/rate-limit reliability is fixed.
 5. **No accountant/professional sign-off** on remaining unverified tax propositions.
@@ -53,7 +53,20 @@
 
 **INCOMPLETE (frozen):** T038 / T063 / T089 educational questions dumped catalogue — fixed with educational handlers (filing vs payment; quarterly vs final declaration; repairs vs improvements).
 
-### Deterministic live-handler re-verify (200 tax rows)
+### Live re-query GOV.UK verify (200 tax rows)
+
+| Status | Count |
+|---|---:|
+| VERIFIED | **64** |
+| AMBIGUOUS_NEEDS_CLARIFICATION | 12 |
+| REQUIRES_PROFESSIONAL_ADVICE | 1 |
+| NO_AUTHORITATIVE_SOURCE_FOUND | 123 |
+| INCORRECT (post-fix live) | **0** |
+| INCOMPLETE (post-fix live) | **0** |
+
+Artifact: `evidence/independent_govuk_verify/LIVE_TAX_GOVUK_VERIFY_200.md`.
+
+### Deterministic-handler-only cross-check (200 tax rows)
 
 | Status | Count |
 |---|---:|
@@ -63,9 +76,9 @@
 | HANDLER_NOT_APPLICABLE | 128 |
 | INCORRECT (post-fix handlers) | 0 |
 
-Artifacts: `evidence/independent_govuk_verify/DETERMINISTIC_TAX_GOVUK_VERIFY_200.md`, `INDEPENDENT_GOVUK_VERIFY_400.md`.
+Artifact: `DETERMINISTIC_TAX_GOVUK_VERIFY_200.md`.
 
-**Remaining unverified:** all HANDLER_NOT_APPLICABLE + NO_AUTHORITATIVE_SOURCE_FOUND tax rows — left unverified **honestly** because no unique GOV.UK establishment was recorded for that Q&A without inventing VERIFIED. Full ID lists in the JSON artifacts.
+**Remaining unverified (~135 live):** NO_AUTHORITATIVE_SOURCE_FOUND + ambiguous rows — left unverified **honestly** because no unique GOV.UK establishment was recorded for that Q&A without inventing VERIFIED. Full ID lists in the JSON artifacts.
 
 ---
 
