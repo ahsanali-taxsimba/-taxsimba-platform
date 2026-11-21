@@ -36,9 +36,9 @@ export function answerMtdOperationsQuestion(message: string): string | null {
     )
   ) {
     return (
-      "No — quarterly updates do not replace your year-end Self Assessment tax return. " +
+      "No — MTD quarterly updates do not replace your annual tax return. " +
       "They are summaries of self-employment and property income and expenses sent through compatible software. " +
-      "You still submit one tax return each tax year (and pay any tax due by the usual deadline). " +
+      "If you’re within MTD, you’ll also submit your tax return through compatible software (and pay any tax due by the usual deadline). " +
       `Official guidance: ${MTD_QUARTERLY_NOT_RETURN.url}`
     );
   }
@@ -79,9 +79,9 @@ export function answerMtdOperationsQuestion(message: string): string | null {
 
   if (/quarterly|quarter(ly)? update|year-?end|final declaration/i.test(lower)) {
     return (
-      "Under Making Tax Digital for Income Tax, in-scope sole traders and landlords keep digital records and usually submit quarterly updates, " +
-      "then still submit a year-end Self Assessment tax return (quarterly updates do not replace that return). " +
-      "SIMBA chat cannot file or submit to HMRC for you — TaxSimba’s accountant-led Simbian plans can support quarterly updates and year-end Self Assessment if you want a paid service. " +
+      "Under Making Tax Digital for Income Tax, in-scope sole traders and landlords keep digital records and usually submit quarterly updates. " +
+      "MTD quarterly updates do not replace your annual tax return. If you’re within MTD, you’ll also submit your tax return through compatible software. " +
+      "SIMBA chat cannot file or submit to HMRC for you — TaxSimba’s accountant-led Simbian plans can support quarterly updates and year-end Self Assessment if you want a paid service (Xero for MTD workflows; TaxCalc for Self Assessment filing — the TaxSimba portal itself is not a direct HMRC filing integration). " +
       `Official overview: ${MTD_QUARTERLY_NOT_RETURN.url}`
     );
   }

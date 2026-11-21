@@ -148,11 +148,16 @@ export function extractTradingIncomeGbp(text: string): number | null {
   const tradingTagged =
     parseTaggedAmount(
       text,
-      /(?:freelance|self-?employ(?:ed|ment)?|sole[- ]?trader|trading|side (?:hustle|income)|turnover|contracting)[^£\d]{0,40}£\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
+      /(?:freelance|self-?employ(?:ed|ment)?|sole[- ]?trader|trading|side(?:\s+(?:hustle|income|cash|work|gig))?|turnover|contracting|uber(?:\s*eats)?|deliveroo|roofer|roofing)[^£\d]{0,48}£\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
     ) ||
     parseTaggedAmount(
       text,
-      /£\s*([\d,]+(?:\.\d+)?)\s*k?(?=\s*(?:was\s+)?(?:freelance|self-?employ|sole[- ]?trader|trading|turnover|before expenses|contracting))/i,
+      /£\s*([\d,]+(?:\.\d+)?)\s*k?(?=\s*(?:was\s+)?(?:freelance|self-?employ|sole[- ]?trader|trading|turnover|before expenses|contracting|side(?:\s|$)))/i,
+    ) ||
+    // “side maybe £1,675” / “side £1675” (amount on same line as side)
+    parseTaggedAmount(
+      text,
+      /\bside\b(?:\s+\w+){0,3}\s+£\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
     ) ||
     parseTaggedAmount(
       text,
@@ -167,25 +172,47 @@ export function extractTradingIncomeGbp(text: string): number | null {
   // "Freelance turnover so far is about £8,000" / "contracting as X £4,760"
   const narrative = parseTaggedAmount(
     text,
-    /(?:freelance|self-?employ|sole[- ]?trader|trading|turnover|contracting)[^\n£]{0,60}£\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
+    /(?:freelance|self-?employ|sole[- ]?trader|trading|turnover|contracting|side(?:\s+(?:hustle|income|cash))?)[^\n£]{0,60}£\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
   );
   if (narrative != null) return narrative;
 
+  // Multi-turn: amount on one user line, “side / before expenses” on another.
+  const crossLine = parseTaggedAmount(
+    text,
+    /£\s*([\d,]+(?:\.\d+)?)\s*k?\b[\s\S]{0,120}?\b(?:before expenses|side(?:\s+(?:hustle|income|cash))?|freelance|self-?employ|trading)\b/i,
+  );
+  if (crossLine != null) {
+    // Prefer the side/trading figure when PAYE salary is also present.
+    const payeTagged = parseTaggedAmount(
+      text,
+      /(?:paye|salary|wages|main job)[^£\d]{0,24}£\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
+    );
+    if (payeTagged == null || crossLine !== payeTagged) return crossLine;
+  }
+
   const lower = text.toLowerCase();
   const hasTrading =
-    /(freelance|self-?employ|sole[- ]?trader|trading income|side hustle|side income|contracting|landlord|rental|\brent\b)/i.test(
+    /(freelance|self-?employ|sole[- ]?trader|trading income|side hustle|side income|side cash|\bside\b|contracting|landlord|rental|\brent\b|uber|deliveroo|roofing|roofer)/i.test(
       lower,
     );
   if (!hasTrading) return null;
   // If salary/PAYE and freelance both appear, do not grab the first £ figure
   // (often the salary) — require a trading-tagged amount above.
   if (
-    /(paye|salary|employment)/i.test(lower) &&
-    /(freelance|self-?employ|sole[- ]?trader|trading)/i.test(lower)
+    /(paye|salary|employment|main job)/i.test(lower) &&
+    /(freelance|self-?employ|sole[- ]?trader|trading|\bside\b)/i.test(lower)
   ) {
     return null;
   }
   return parsePoundAmount(text);
+}
+
+/** Short obligation follow-ups that must reuse established conversation facts. */
+export function isShortObligationFollowUp(message: string): boolean {
+  const m = (message || "").toLowerCase().trim();
+  return /^(sa|mtd|so\??|and (sa|mtd)\??|what about me\??|so do i need (it|sa|mtd|to file|to register)\??|do i need (it|sa|mtd)\??|what do i file\??|file\??|register\??)\s*$/i.test(
+    m,
+  );
 }
 
 export function evaluateSaEligibility(opts: {
@@ -313,12 +340,37 @@ export function answerSaEligibility(
   }
   const explicit = isSaEligibilityQuestion(message);
   const disclosure = isTradingIncomeDisclosure(message, history);
-  if (!explicit && !disclosure) return null;
+  const shortFollowUp = isShortObligationFollowUp(message);
+  if (!explicit && !disclosure && !shortFollowUp) return null;
+  // Bare “sa?” / “so do I need it?” only when prior turns already discuss SA/trading.
+  if (shortFollowUp && !explicit && !disclosure) {
+    const priorBlob = conversationContextText("", history).toLowerCase();
+    if (
+      !/(self assessment|\bsa\b|freelance|self-?employ|sole[- ]?trader|side|trading|rent|landlord|file|register)/i.test(
+        priorBlob,
+      )
+    ) {
+      return null;
+    }
+  }
   const ctx = conversationContextText(message, history);
   // Prefer the latest user message for amounts (supports corrections like
   // “sorry, £40k was salary and £18k was freelance”).
-  const tradingIncomeGbp =
-    extractTradingIncomeGbp(message) ?? extractTradingIncomeGbp(ctx);
+  // Short follow-ups (“sa?”) carry no amount — walk prior user turns newest-first
+  // so a corrected figure wins over an earlier one.
+  const tradingFromHistoryNewestFirst = (): number | null => {
+    const users = (history || [])
+      .filter((h) => h.role === "user" && h.content?.trim())
+      .map((h) => h.content);
+    for (let i = users.length - 1; i >= 0; i--) {
+      const n = extractTradingIncomeGbp(users[i]!);
+      if (n != null) return n;
+    }
+    return extractTradingIncomeGbp(ctx);
+  };
+  const tradingIncomeGbp = shortFollowUp
+    ? tradingFromHistoryNewestFirst() ?? extractTradingIncomeGbp(message)
+    : extractTradingIncomeGbp(message) ?? tradingFromHistoryNewestFirst();
 
   // Landlord / rental income — do not reuse the sole-trader £1,000 trading test wording.
   const isPropertyAsk =
@@ -362,9 +414,20 @@ export function answerSaEligibility(
   }
   // For pure disclosure turns, require a parsed amount — otherwise let the LLM continue.
   if (disclosure && !explicit && tradingIncomeGbp == null) return null;
-  const yearFromMessage = message.match(/\b(20\d{2})\s*[-–/]\s*(\d{2})\b/);
-  const yearFromCtx = ctx.match(/\b(20\d{2})\s*[-–/]\s*(\d{2})\b/);
-  const yearMatch = yearFromMessage || yearFromCtx;
+  const yearRe = /\b(20\d{2})\s*[-–/]\s*(\d{2})\b/;
+  const yearFromMessage = message.match(yearRe);
+  const yearFromNewestUser = (() => {
+    const users = (history || [])
+      .filter((h) => h.role === "user" && h.content?.trim())
+      .map((h) => h.content);
+    for (let i = users.length - 1; i >= 0; i--) {
+      const ym = users[i]!.match(yearRe);
+      if (ym) return ym;
+    }
+    return null;
+  })();
+  const yearFromCtx = ctx.match(yearRe);
+  const yearMatch = yearFromMessage || yearFromNewestUser || yearFromCtx;
   const taxYearHint = yearMatch
     ? `${yearMatch[1]}-${yearMatch[2]}`
     : null;
