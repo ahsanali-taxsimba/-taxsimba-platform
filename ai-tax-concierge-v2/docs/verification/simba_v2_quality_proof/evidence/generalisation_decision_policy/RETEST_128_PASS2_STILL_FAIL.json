@@ -1,0 +1,194 @@
+{
+  "pass1": {
+    "total": 128,
+    "before_fail": 128,
+    "after_exact": 86,
+    "after_acceptable": 0,
+    "after_fail": 42,
+    "improved": 86,
+    "still_fail": 42,
+    "FACTUAL_TAX_ERROR": 0,
+    "PREMATURE_PACKAGE": 0,
+    "MISSING_CLARIFICATION": 41,
+    "WRONG_SERVICE": 39
+  },
+  "pass2": {
+    "total": 128,
+    "before_fail": 128,
+    "after_exact": 114,
+    "after_acceptable": 0,
+    "after_fail": 14,
+    "improved": 114,
+    "still_fail": 14,
+    "FACTUAL_TAX_ERROR": 0,
+    "PREMATURE_PACKAGE": 0,
+    "MISSING_CLARIFICATION": 13,
+    "WRONG_SERVICE": 10
+  },
+  "still_fail_ids": [
+    "G008",
+    "G029",
+    "G042",
+    "G046",
+    "G049",
+    "G146",
+    "G186",
+    "G226",
+    "G266",
+    "G306",
+    "G346",
+    "G386",
+    "G426",
+    "G466"
+  ],
+  "still_fail_detail": [
+    {
+      "id": "G008",
+      "q": "boss pays me PAYE already so im fine right?",
+      "expected": "MORE_INFO_NEEDED",
+      "after": "NO_TAXSIMBA_SERVICE",
+      "tags": {
+        "missing_clarification": true
+      },
+      "reply": "PAYE usually covers tax on that employment income, but it does not automatically mean you have no Self Assessment duties. Do you have any other income in the tax year \u2014 for example self-employment, pr"
+    },
+    {
+      "id": "G029",
+      "q": "starting a small business next month \u2014 what first?",
+      "expected": "MORE_INFO_NEEDED",
+      "after": "GENERAL_INFO",
+      "tags": {
+        "missing_clarification": true
+      },
+      "reply": "Starting a small business involves several key steps. First, you should choose a suitable business structure (e.g., sole trader, limited company) and register it accordingly. Next, consider obtaining "
+    },
+    {
+      "id": "G042",
+      "q": "do I need to buy Xero separately for Simbian?",
+      "expected": "GENERAL_INFO",
+      "after": "NO_TAXSIMBA_SERVICE",
+      "tags": {},
+      "reply": "You do not need to buy Xero separately to use TaxSimba\u2019s Making Tax Digital (Simbian) plans. Xero is included in the Simbian monthly price for the accountant-led workflow (Comply\u2192Xero Simple, Growth\u2192X"
+    },
+    {
+      "id": "G046",
+      "q": "i made 8k then actually wait 800 quid deliveries",
+      "expected": "MORE_INFO_NEEDED",
+      "after": "SA_ASSIST",
+      "tags": {
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "reply": "If your total trading income is \u00a38,000 and you have \u00a3800 in delivery expenses, your taxable income would be \u00a37,200 (\u00a38,000 - \u00a3800). Since your trading income exceeds \u00a31,000, you are required to regist"
+    },
+    {
+      "id": "G049",
+      "q": "crypto tax on buy or only sell",
+      "expected": "MORE_INFO_NEEDED",
+      "after": "GENERAL_INFO",
+      "tags": {
+        "missing_clarification": true
+      },
+      "reply": "Crypto tax usually depends on what you did: buying is not normally a taxable disposal by itself; tax more often arises when you dispose of crypto (sell, exchange, or certain other events), and frequen"
+    },
+    {
+      "id": "G146",
+      "q": "just started doing some photography on the side maybe \u00a31805 \u2014 hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "after": "SA_ASSIST",
+      "tags": {
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "reply": "Since your self-employed trading income from photography is \u00a31,805 for the tax year 2026-27, you will need to register with HMRC for Self Assessment. This is because your trading income exceeds the \u00a31"
+    },
+    {
+      "id": "G186",
+      "q": "just started doing some photography on the side maybe \u00a32230 \u2014 hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "after": "SA_ASSIST",
+      "tags": {
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "reply": "Since your photography income is \u00a32,230, you will need to register as self-employed with HMRC for Self Assessment, as your trading income exceeds the \u00a31,000 threshold. You must register by 5 October f"
+    },
+    {
+      "id": "G226",
+      "q": "just started doing some photography on the side maybe \u00a32655 \u2014 hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "after": "SA_ASSIST",
+      "tags": {
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "reply": "Since your self-employed trading income from photography is \u00a32,655, you will need to register with HMRC for Self Assessment. This is because your trading income exceeds the \u00a31,000 threshold for the tr"
+    },
+    {
+      "id": "G266",
+      "q": "just started doing some photography on the side maybe \u00a33080 \u2014 hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "after": "SA_ASSIST",
+      "tags": {
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "reply": "Since your gross trading income from photography is \u00a33,080, you will need to register as self-employed with HMRC for Self Assessment. This is because your trading income exceeds the \u00a31,000 threshold f"
+    },
+    {
+      "id": "G306",
+      "q": "just started doing some photography on the side maybe \u00a33505 \u2014 hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "after": "SA_ASSIST",
+      "tags": {
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "reply": "Since your photography income is \u00a33,505, you will need to register as self-employed with HMRC for Self Assessment, as your trading income exceeds the \u00a31,000 threshold. You must register by 5 October f"
+    },
+    {
+      "id": "G346",
+      "q": "just started doing some photography on the side maybe \u00a33930 \u2014 hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "after": "SA_ASSIST",
+      "tags": {
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "reply": "Since your photography income is \u00a33,930, you will need to register as self-employed with HMRC for Self Assessment, as your trading income exceeds the \u00a31,000 threshold. You should register by 5 October"
+    },
+    {
+      "id": "G386",
+      "q": "just started doing some photography on the side maybe \u00a34355 \u2014 hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "after": "SA_ASSIST",
+      "tags": {
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "reply": "Since your photography income is \u00a34,355, you will need to register as self-employed with HMRC for Self Assessment, as your trading income exceeds the \u00a31,000 threshold. You must register by 5 October f"
+    },
+    {
+      "id": "G426",
+      "q": "just started doing some photography on the side maybe \u00a34780 \u2014 hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "after": "SA_ASSIST",
+      "tags": {
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "reply": "Since your photography income is \u00a34,780, which exceeds the \u00a31,000 trading allowance, you will need to register as self-employed with HMRC for Self Assessment. You must do this by 5 October following t"
+    },
+    {
+      "id": "G466",
+      "q": "just started doing some photography on the side maybe \u00a35205 \u2014 hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "after": "SA_ASSIST",
+      "tags": {
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "reply": "Since your self-employed trading income from photography is \u00a35,205 for the 2026-27 tax year, you will need to register with HMRC for Self Assessment and National Insurance. This is because your tradin"
+    }
+  ]
+}

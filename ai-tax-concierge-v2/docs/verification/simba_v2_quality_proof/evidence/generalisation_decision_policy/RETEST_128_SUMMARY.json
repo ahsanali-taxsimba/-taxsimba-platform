@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-11-21T10:44:50.187Z",
+  "metrics": {
+    "total": 128,
+    "before_fail": 128,
+    "after_exact": 124,
+    "after_acceptable": 0,
+    "after_fail": 4,
+    "improved": 124,
+    "still_fail": 4,
+    "FACTUAL_TAX_ERROR": 0,
+    "PREMATURE_PACKAGE": 0,
+    "MISSING_CLARIFICATION": 3,
+    "WRONG_SERVICE": 0
+  }
+}

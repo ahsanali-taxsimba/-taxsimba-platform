@@ -1,0 +1,33 @@
+{
+  "generated_at": "2026-11-21T02:10:45.671Z",
+  "counts": {
+    "VERIFIED": 16,
+    "NO_AUTHORITATIVE_SOURCE_FOUND": 29,
+    "HANDLER_NOT_APPLICABLE": 128,
+    "AMBIGUOUS_NEEDS_CLARIFICATION": 27,
+    "TAX_CATEGORY_ROWS": 200,
+    "HANDLER_COVERED": 72,
+    "PROFESSIONAL_APPROVAL_OBTAINED": 0
+  },
+  "incorrect_ids": [],
+  "verified_ids": [
+    "T001",
+    "T038",
+    "T041",
+    "T044",
+    "T046",
+    "T048",
+    "T049",
+    "T050",
+    "T062",
+    "T063",
+    "T066",
+    "T089",
+    "T099",
+    "T121",
+    "T163",
+    "T168"
+  ],
+  "verified_count": 16,
+  "remaining_unverified": 184
+}

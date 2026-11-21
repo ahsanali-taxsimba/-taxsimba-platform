@@ -1,0 +1,181 @@
+{
+  "generated_at": "2026-11-21T01:36:00.000Z",
+  "journeys": [
+    {
+      "id": "R01",
+      "title": "Deliveries slang → DIY",
+      "turns": [
+        "mate I made some money doing deliveries what do I need to do",
+        "deliveroo about £2,400 2025-26 before expenses",
+        "sa?",
+        "can I just do this myself",
+        "dont sell me packages",
+        "records?"
+      ]
+    },
+    {
+      "id": "R02",
+      "title": "Correction 40k",
+      "turns": [
+        "i earned 40k",
+        "mtd?",
+        "sorry 40k salary and 18k freelance 2024-25 before expenses",
+        "sa?",
+        "mtd?",
+        "no package"
+      ]
+    },
+    {
+      "id": "R03",
+      "title": "Digital tax thing",
+      "turns": [
+        "what is this digital tax thing",
+        "i have a rental",
+        "rent £19k 2024-25 before expenses",
+        "mtd?",
+        "sa too?",
+        "no sell"
+      ]
+    },
+    {
+      "id": "R04",
+      "title": "Exact 50k",
+      "turns": [
+        "qi exactly £50,000 2024-25",
+        "mtd april 2026?",
+        "if more than 50k?",
+        "thanks"
+      ]
+    },
+    {
+      "id": "R05",
+      "title": "No-buy trading allowance",
+      "turns": [
+        "dont sell me anything",
+        "explain trading allowance",
+        "i made £1,200 freelance 2025-26",
+        "sa?"
+      ]
+    },
+    {
+      "id": "R06",
+      "title": "PAYE only large",
+      "turns": ["paye only £99000", "mtd?", "sa?", "ok"]
+    },
+    {
+      "id": "R07",
+      "title": "Package when asked",
+      "turns": [
+        "i want sa help",
+        "first time simple",
+        "cheapest package?",
+        "signup link?"
+      ]
+    },
+    {
+      "id": "R08",
+      "title": "Consult then refuse",
+      "turns": [
+        "hmrc letter investigation",
+        "consultation options?",
+        "actually no thanks",
+        "what should i do generally"
+      ]
+    },
+    {
+      "id": "R09",
+      "title": "CIS",
+      "turns": [
+        "cis deductions",
+        "still sa?",
+        "turnover £27k 2024-25",
+        "mtd?",
+        "no package"
+      ]
+    },
+    {
+      "id": "R10",
+      "title": "Crypto",
+      "turns": ["crypto tax on buy?", "i sold some eth", "cgt or income?", "ok"]
+    },
+    {
+      "id": "R11",
+      "title": "Joint property",
+      "turns": ["partner 50/50 let", "who files?", "rent £22k 2024-25", "thanks"]
+    },
+    {
+      "id": "R12",
+      "title": "Combined QI",
+      "turns": [
+        "£15k rent and £19k freelance 2025-26",
+        "combined for mtd?",
+        "sa?",
+        "no buy"
+      ]
+    },
+    {
+      "id": "R13",
+      "title": "Profit vs turnover",
+      "turns": [
+        "£40k profit £70k turnover 2024-25",
+        "which for mtd?",
+        "start date?"
+      ]
+    },
+    {
+      "id": "R14",
+      "title": "Existing client",
+      "turns": ["existing taxsimba client", "message accountant?", "support email?"]
+    },
+    {
+      "id": "R15",
+      "title": "DIY Xero",
+      "turns": ["can i diy mtd", "do i buy xero myself", "with taxsimba?"]
+    },
+    {
+      "id": "R16",
+      "title": "Student side",
+      "turns": ["student", "babysitting maybe £600", "sa?", "ok"]
+    },
+    {
+      "id": "R17",
+      "title": "Pensioner interest",
+      "turns": [
+        "pensioner",
+        "£2k bank interest",
+        "return?",
+        "other income only state pension"
+      ]
+    },
+    {
+      "id": "R18",
+      "title": "Multi question one message",
+      "turns": [
+        "do i need sa and mtd and an accountant if i have paye and £9k freelance 2025-26?",
+        "i dont want to buy anything yet"
+      ]
+    },
+    {
+      "id": "R19",
+      "title": "Change mind on TaxSimba",
+      "turns": [
+        "which sa package?",
+        "actually forget it i dont want paid help",
+        "just tell me the £1,000 rule"
+      ]
+    },
+    {
+      "id": "R20",
+      "title": "Memory landlord+freelance",
+      "turns": [
+        "im a landlord",
+        "rent £17k 2024-25 before expenses",
+        "also freelance £8k same year",
+        "what is qi roughly",
+        "dont ask landlord again",
+        "sa?",
+        "no sell"
+      ]
+    }
+  ]
+}
