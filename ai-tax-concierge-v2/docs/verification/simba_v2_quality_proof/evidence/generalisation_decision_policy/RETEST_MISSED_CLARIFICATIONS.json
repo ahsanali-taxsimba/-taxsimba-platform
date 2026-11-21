@@ -1,0 +1,88 @@
+{
+  "generated_at": "2026-11-21T14:42:32.657Z",
+  "live": true,
+  "total": 6,
+  "policy_ok": 6,
+  "wrong_sa": 0,
+  "premature_packages": 0,
+  "results": [
+    {
+      "id": "N007",
+      "question": "sold my old clothes on depop am I in trouble",
+      "note": null,
+      "policy_mode": "CLARIFY",
+      "policy_class": "marketplace_personal_vs_trade",
+      "policy_ok": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Were you mainly selling your own personal possessions (for example clearing a wardrobe), or buying/making items to sell as a trade? Self Assessment trader registration is not automatic from a marketplace sale alone — if it is trading, roughly how much did you take in before expenses in one UK tax year?",
+      "packages": [],
+      "live_clarify": true,
+      "wrong_sa_conclusion": false,
+      "premature_package": false
+    },
+    {
+      "id": "N008",
+      "question": "my wages are under PAYE so nothing else matters yeah?",
+      "note": null,
+      "policy_mode": "CLARIFY",
+      "policy_class": "employment_status_ambiguity",
+      "policy_ok": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. PAYE wages alone do not automatically create a Self Assessment duty. Do you have any other untaxed income this tax year — for example self-employment, property rent, untaxed interest/dividends, or crypto disposals — or has HMRC asked you to file?",
+      "packages": [],
+      "live_clarify": true,
+      "wrong_sa_conclusion": false,
+      "premature_package": false
+    },
+    {
+      "id": "N029",
+      "question": "thinking of starting a window-cleaning round — first steps?",
+      "note": null,
+      "policy_mode": "CLARIFY",
+      "policy_class": "future_intent_not_current",
+      "policy_ok": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Has this activity actually started and earned income in a UK tax year yet, or is it still only planned? If it has started, roughly how much trading income before expenses do you expect (or have you earned) in the first tax year?",
+      "packages": [],
+      "live_clarify": true,
+      "wrong_sa_conclusion": false,
+      "premature_package": false
+    },
+    {
+      "id": "N005",
+      "question": "honestly do I need to pay an accountant for this",
+      "note": null,
+      "policy_mode": "CLARIFY",
+      "policy_class": "customer_intent_unclear",
+      "policy_ok": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. What is the situation you mean by “this”? For example PAYE-only employment, self-employment/freelance, property rent, or something else — and roughly how much before expenses in which tax year?",
+      "packages": [],
+      "live_clarify": true,
+      "wrong_sa_conclusion": false,
+      "premature_package": false
+    },
+    {
+      "id": "N042",
+      "question": "50k qi 24/25 — over threshold or not??",
+      "note": "QI + year present; exact £50k band answer OK",
+      "policy_mode": "ANSWER_OBLIGATION",
+      "policy_class": null,
+      "policy_ok": true,
+      "reply_unedited": "For the 2024-25 tax year, if your qualifying income exceeds £50,000, you will need to use Making Tax Digital for Income Tax starting from 6 April 2026. Qualifying income includes total self-employment and property income before expenses. If your qualifying income is indeed over £50,000, then you will be above the threshold. \n\nDo you want to clarify what your qualifying income consists of?",
+      "packages": [],
+      "live_clarify": false,
+      "wrong_sa_conclusion": false,
+      "premature_package": false
+    },
+    {
+      "id": "N048",
+      "question": "is crypto tax when I buy or when I sell",
+      "note": "Educational buy-vs-sell — direct answer OK",
+      "policy_mode": "EDUCATE",
+      "policy_class": null,
+      "policy_ok": true,
+      "reply_unedited": "Crypto tax usually depends on what you did: buying is not normally a taxable disposal by itself; tax more often arises when you dispose of crypto (sell, exchange, or certain other events), and frequent trading can be Income Tax instead of Capital Gains Tax. I won’t invent your treatment. Have you already disposed of any crypto in a UK tax year, and was it investment-style holding or business-like trading? https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets",
+      "packages": [],
+      "live_clarify": false,
+      "wrong_sa_conclusion": false,
+      "premature_package": false
+    }
+  ]
+}

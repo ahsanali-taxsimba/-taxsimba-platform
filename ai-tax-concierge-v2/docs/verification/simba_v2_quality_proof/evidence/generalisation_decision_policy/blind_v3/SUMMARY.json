@@ -1,0 +1,33 @@
+{
+  "generated_at": "2026-11-21T14:41:53.917Z",
+  "live": true,
+  "single_500": {
+    "total": 500,
+    "openai": 500,
+    "exact": 452,
+    "acceptable": 48,
+    "fail": 0,
+    "FACTUAL_TAX_ERROR": 0,
+    "PREMATURE_PACKAGE": 0,
+    "MISSING_CLARIFICATION": 0,
+    "UNNECESSARY_CLARIFICATION": 0,
+    "WRONG_SERVICE": 0,
+    "WRONG_SA_MISSING_FACTS": 0,
+    "WRONG_MTD_MISSING_FACTS": 0,
+    "EMPTY_REPLY": 0
+  },
+  "single_pass_pct": 100,
+  "multi_100": {
+    "total": 100,
+    "memory_defects": 0,
+    "premature_on_nobuy": 0,
+    "timeouts": 0
+  },
+  "launch_targets": {
+    "pass_ge_95": true,
+    "tax_errors_0": true,
+    "premature_le_1pct": true,
+    "wrong_sa_mtd_missing_facts_0": true,
+    "clarification_recall_ge_95": true
+  }
+}

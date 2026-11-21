@@ -81,7 +81,7 @@ export function isSaEligibilityQuestion(message: string): boolean {
   ) {
     return false;
   }
-  // Explicit Self Assessment / tax-return framing.
+  // Explicit Self Assessment / tax-return framing (including shorthand “sa?”).
   if (
     /\b(need (to )?(register for|file|send) (a )?self assessment)\b/i.test(m) ||
     /\b(who must (send|file)|do i need (a )?self assessment|should i register for self assessment)\b/i.test(
@@ -90,7 +90,9 @@ export function isSaEligibilityQuestion(message: string): boolean {
     /\b(register for self assessment)\b/i.test(m) ||
     /\b(do i need to file)\b/i.test(m) ||
     /\b(must i (register|file|send).{0,40}(self assessment|tax return))\b/i.test(m) ||
-    /\b(sa needed|need sa\b|need (a )?sa\b|do i need sa)\b/i.test(m)
+    /\b(sa needed|need sa\b|need (a )?sa\b|do i need sa)\b/i.test(m) ||
+    /(?:^|[—\-–,:]\s*|\.\s*)sa\s*\??\s*$/i.test(m.trim()) ||
+    /\bsa\s*\?\s*$/i.test(m.trim())
   ) {
     return true;
   }
@@ -113,7 +115,19 @@ export function isTradingIncomeDisclosure(
   history?: Array<{ role: string; content: string }> | null,
 ): boolean {
   const m = (message || "").toLowerCase();
-  if (!/(freelance|self-?employ|sole[- ]?trader|trading)/i.test(m)) return false;
+  // Landlord rent + SA ask is handled via explicit SA question + property amount.
+  if (
+    /(landlord|rental|\brent\b)/i.test(m) &&
+    /(?:^|[—\-–,:]\s*|\.\s*)sa\s*\??\s*$/i.test(m.trim()) &&
+    extractTradingIncomeGbp(message) == null
+  ) {
+    // Fall through — property SA uses evaluate path when isSaEligibilityQuestion is true.
+  }
+  if (
+    !/(freelance|self-?employ|sole[- ]?trader|trading|contracting)/i.test(m)
+  ) {
+    return false;
+  }
   if (extractTradingIncomeGbp(message) == null) return false;
   // Avoid stealing pure MTD threshold questions.
   if (
@@ -134,24 +148,32 @@ export function extractTradingIncomeGbp(text: string): number | null {
   const tradingTagged =
     parseTaggedAmount(
       text,
-      /(?:freelance|self-?employ(?:ed|ment)?|sole[- ]?trader|trading|side (?:hustle|income)|turnover)[^£\d]{0,40}£\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
+      /(?:freelance|self-?employ(?:ed|ment)?|sole[- ]?trader|trading|side (?:hustle|income)|turnover|contracting)[^£\d]{0,40}£\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
     ) ||
     parseTaggedAmount(
       text,
-      /£\s*([\d,]+(?:\.\d+)?)\s*k?(?=\s*(?:was\s+)?(?:freelance|self-?employ|sole[- ]?trader|trading|turnover|before expenses))/i,
+      /£\s*([\d,]+(?:\.\d+)?)\s*k?(?=\s*(?:was\s+)?(?:freelance|self-?employ|sole[- ]?trader|trading|turnover|before expenses|contracting))/i,
+    ) ||
+    parseTaggedAmount(
+      text,
+      /(?:landlord|rental|\brent\b)[^£\d]{0,24}£\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
+    ) ||
+    parseTaggedAmount(
+      text,
+      /£\s*([\d,]+(?:\.\d+)?)\s*k?(?=\s*(?:rent|rental|landlord))/i,
     );
   if (tradingTagged != null) return tradingTagged;
 
-  // "Freelance turnover so far is about £8,000"
+  // "Freelance turnover so far is about £8,000" / "contracting as X £4,760"
   const narrative = parseTaggedAmount(
     text,
-    /(?:freelance|self-?employ|sole[- ]?trader|trading|turnover)[^\n£]{0,60}£\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
+    /(?:freelance|self-?employ|sole[- ]?trader|trading|turnover|contracting)[^\n£]{0,60}£\s*([\d,]+(?:\.\d+)?)\s*k?\b/i,
   );
   if (narrative != null) return narrative;
 
   const lower = text.toLowerCase();
   const hasTrading =
-    /(freelance|self-?employ|sole[- ]?trader|trading income|side hustle|side income)/i.test(
+    /(freelance|self-?employ|sole[- ]?trader|trading income|side hustle|side income|contracting|landlord|rental|\brent\b)/i.test(
       lower,
     );
   if (!hasTrading) return null;
@@ -279,6 +301,16 @@ export function answerSaEligibility(
   message: string,
   history?: Array<{ role: string; content: string }> | null,
 ): SaEligibilityResult | null {
+  const m = (message || "").toLowerCase();
+  // Let MTD handlers own QI-combine / band questions.
+  if (
+    /(combin|together|add (them|both)|qualifying income|which number matters|which amount counts|mortgage interest reduce)/i.test(
+      m,
+    ) &&
+    /(rent|rental|property|turnover|profit|mtd|making tax digital)/i.test(m)
+  ) {
+    return null;
+  }
   const explicit = isSaEligibilityQuestion(message);
   const disclosure = isTradingIncomeDisclosure(message, history);
   if (!explicit && !disclosure) return null;
@@ -287,6 +319,47 @@ export function answerSaEligibility(
   // “sorry, £40k was salary and £18k was freelance”).
   const tradingIncomeGbp =
     extractTradingIncomeGbp(message) ?? extractTradingIncomeGbp(ctx);
+
+  // Landlord / rental income — do not reuse the sole-trader £1,000 trading test wording.
+  const isPropertyAsk =
+    /(landlord|rental|\brent\b|property income)/i.test(m) &&
+    !/(freelance|self-?employ|sole[- ]?trader|contracting|trading)/i.test(m);
+  if (isPropertyAsk && tradingIncomeGbp != null && tradingIncomeGbp > 0) {
+    const yearFromMessage = message.match(/\b(20\d{2})\s*[-–/]\s*(\d{2})\b/);
+    const yearHint = yearFromMessage
+      ? `${yearFromMessage[1]}-${yearFromMessage[2]}`
+      : null;
+    if (!yearHint) {
+      return {
+        handled: true,
+        needs_more_info: true,
+        must_usually_file: null,
+        trading_income_gbp: tradingIncomeGbp,
+        reason: "Property rent amount without tax year",
+        clarifying_question: "Which tax year is that rent figure for?",
+        confidence: "high",
+        customer_reply:
+          `Rental income of £${tradingIncomeGbp.toLocaleString("en-GB")} usually needs to be considered for Self Assessment, ` +
+          `but I need the tax year that figure relates to before locking advice. ` +
+          `Which tax year is the rent for (for example 2024-25)? ` +
+          `Guidance: ${SA_WHO_MUST_URL}`,
+      };
+    }
+    const yearNote = ` for ${yearHint}`;
+    return {
+      handled: true,
+      needs_more_info: false,
+      must_usually_file: true,
+      trading_income_gbp: tradingIncomeGbp,
+      reason: "Property rental income usually reported via Self Assessment",
+      clarifying_question: null,
+      confidence: "high",
+      customer_reply:
+        `Rental income of £${tradingIncomeGbp.toLocaleString("en-GB")}${yearNote} is untaxed income that usually needs to be reported on a Self Assessment tax return. ` +
+        `PAYE on a job (if any) does not tax your rent. ` +
+        `Confirm your full circumstances on GOV.UK: ${SA_WHO_MUST_URL}`,
+    };
+  }
   // For pure disclosure turns, require a parsed amount — otherwise let the LLM continue.
   if (disclosure && !explicit && tradingIncomeGbp == null) return null;
   const yearFromMessage = message.match(/\b(20\d{2})\s*[-–/]\s*(\d{2})\b/);

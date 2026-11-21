@@ -29,6 +29,7 @@ import {
 import { scrubCustomerReply } from "../catalog/public.js";
 import { applyGroundingGuard } from "../knowledge/grounding.js";
 import { answerAmbiguousIntent } from "../knowledge/intent_clarifier.js";
+import { decidePolicy } from "../knowledge/decision_policy.js";
 import {
   callbackHonestyReply,
   consultationHint as buildConsultationHint,
@@ -193,16 +194,32 @@ export class ConversationalEngine {
           content: h.content,
         }));
     })();
+    const policy = decidePolicy(request.message, historyForRules);
     const ambiguous = answerAmbiguousIntent(
       request.message,
       historyForRules,
     );
+    // Policy-driven clarification (one high-value question) when personal
+    // obligation is asked without enough facts — prefer over guessing SA/MTD.
+    const policyClarify =
+      policy.mode === "CLARIFY" && policy.clarification
+        ? {
+            handled: true as const,
+            prefer_over_eligibility_probe: true as const,
+            confidence: "high" as const,
+            customer_reply:
+              `Happy to help — I need one key fact before deciding. ${policy.clarification}` +
+              (policy.clarificationClass === "casual_vs_trading_ambiguity"
+                ? ` Official who-must-send guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return`
+                : ""),
+          }
+        : null;
     const saEligibility =
-      serviceModel?.handled || mtdOps
+      serviceModel?.handled || mtdOps || policy.mode === "EDUCATE"
         ? null
         : answerSaEligibility(request.message, historyForRules);
     const mtdEligibility =
-      serviceModel?.handled || mtdOps
+      serviceModel?.handled || mtdOps || policy.mode === "EDUCATE"
         ? null
         : answerMtdEligibility(request.message, historyForRules);
     // Prefer definitive eligibility; otherwise prefer circumstance clarifier
@@ -211,10 +228,14 @@ export class ConversationalEngine {
       Boolean(saEligibility?.handled) && !saEligibility?.needs_more_info;
     const mtdDefinitive =
       Boolean(mtdEligibility?.handled) && !mtdEligibility?.needs_more_info;
+    // Policy CLARIFY always wins: do not let eligibility handlers assert an
+    // SA/MTD conclusion when the decision policy says a material fact is missing.
     const clarifierFirst =
-      Boolean(ambiguous?.handled) &&
-      (ambiguous?.prefer_over_eligibility_probe ||
-        (!saDefinitive && !mtdDefinitive));
+      Boolean(policyClarify?.handled) ||
+      (Boolean(ambiguous?.handled) &&
+        (ambiguous?.prefer_over_eligibility_probe ||
+          (!saDefinitive && !mtdDefinitive)));
+    const activeClarifier = policyClarify || ambiguous;
     const additionalTaxQ = /total income tax|additional (self assessment )?tax|extra tax i (pay|owe)|same as the extra/i.test(
       request.message,
     );
@@ -310,6 +331,16 @@ export class ConversationalEngine {
     } else if (consultIntent) {
       reply = consultationOptionsReply();
       confidence = "high";
+    } else if (mtdOps) {
+      // Process answers (quarterly vs return, agent submit, software) before
+      // generic educational clarifiers that also mention “quarterly updates”.
+      reply = mtdOps;
+      confidence = "high";
+    } else if (policyClarify) {
+      // Decision-policy clarification must beat SA/MTD eligibility assertions
+      // when facts are insufficient for a safe obligation conclusion.
+      reply = policyClarify.customer_reply;
+      confidence = policyClarify.confidence;
     } else if (saDefinitive && saEligibility) {
       reply = saEligibility.customer_reply;
       confidence = saEligibility.confidence;
@@ -347,9 +378,9 @@ export class ConversationalEngine {
           ...sources,
         ];
       }
-    } else if (clarifierFirst && ambiguous) {
-      reply = ambiguous.customer_reply;
-      confidence = ambiguous.confidence;
+    } else if (clarifierFirst && activeClarifier) {
+      reply = activeClarifier.customer_reply;
+      confidence = activeClarifier.confidence;
     } else if (payeFileQ) {
       reply =
         "If your employer deducts tax under PAYE, you may still need to send a Self Assessment tax return — for example if you have untaxed income, self-employment, property income, or other reasons listed on GOV.UK. " +
@@ -468,8 +499,11 @@ export class ConversationalEngine {
       (m) => m.role === "user" && visitorDeclinesSales(m.content || ""),
     );
     const declineSales =
-      visitorDeclinesSales(request.message) || historyDecline;
-    if (declineSales) {
+      visitorDeclinesSales(request.message) ||
+      historyDecline ||
+      policy.facts.declinedPaidHelp;
+    // Package gate: only when policy allows AND customer asked for a service.
+    if (declineSales || !policy.allowPackages) {
       packages = [];
       calculators = [];
     }

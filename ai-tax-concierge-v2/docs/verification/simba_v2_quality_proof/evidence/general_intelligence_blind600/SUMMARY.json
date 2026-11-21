@@ -1,0 +1,25 @@
+{
+  "generated_at": "2026-11-21T03:23:18.062Z",
+  "live": true,
+  "verdict": "NOT READY FOR STAGING",
+  "single_500": {
+    "total": 500,
+    "openai": 440,
+    "exact": 298,
+    "acceptable": 74,
+    "fail": 128,
+    "FACTUAL_TAX_ERROR": 1,
+    "PREMATURE_PACKAGE": 28,
+    "MISSING_CLARIFICATION": 92,
+    "WRONG_SERVICE": 27
+  },
+  "single_pass_pct": 74.4,
+  "multi_100": {
+    "total": 100,
+    "deep_8plus": 38,
+    "memory_defects": 0,
+    "premature_on_nobuy": 0,
+    "timeouts": 450
+  },
+  "note": "Multi-turn had high [NO_REPLY_TIMEOUT] rate; see FINAL report."
+}

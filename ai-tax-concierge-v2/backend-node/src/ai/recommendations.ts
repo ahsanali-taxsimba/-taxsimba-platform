@@ -18,7 +18,7 @@ const MTD_PRICE = /\bmtd\b|\bmaking tax digital\b/i;
 const CONSULT =
   /\b(consult(?:ation)?s?|book (a |an )?(call|meeting|slot|consult)|speak to (an )?accountant|talk to (an )?accountant|accountant consultation|quick tax advice|extended tax consultation)\b/i;
 const NO_BUY =
-  /\b(don'?t want to buy|do not want to buy|not looking to buy|no sales|just information|information only|general information only|only want information|not interested in (a )?package|don'?t sell|do not sell|do not recommend (a )?package|don'?t recommend (a )?package|avoid (a )?checkout|no package|no pressure|just asking|curious only|do not want (a |any )?(paid )?package|don'?t want (a |any )?(paid )?package|just the answer|no paid (package|service)|without (a )?package|refuse (packages?|to buy|paid)|i refuse packages?)\b/i;
+  /\b(don'?t want to buy|do not want to buy|not looking to buy|no sales|just information|information only|general information only|only want information|not interested in (a )?package|don'?t sell|do not sell|do not recommend (a )?package|don'?t recommend (a )?package|avoid (a )?checkout|no packages?|dont want packages?|don'?t want packages?|do not want packages?|no pressure|just asking|curious only|do not want (a |any )?(paid )?package|don'?t want (a |any )?(paid )?package|just the answer|no paid (package|service)|without (a )?package|refuse (packages?|to buy|paid)|i refuse packages?|no buy|no sell|explain without selling)\b/i;
 const EXISTING_CLIENT =
   /\b(existing (taxsimba )?client|already (a )?taxsimba|logged ?in|my dashboard|message my (assigned )?accountant|my assigned accountant)\b/i;
 
@@ -148,8 +148,19 @@ export function wantsServiceRecommendation(message: string): boolean {
   ) {
     return false;
   }
+  // Educational “explain …” is never a package ask — even if the word package appears in a refusal.
+  if (
+    /\bexplain\b/.test(lower) &&
+    !/\b(which|recommend|cheapest|suitable|best|sign up|buy)\b/.test(lower)
+  ) {
+    return false;
+  }
+  // Bare “packages” inside “don’t want packages” must not trigger SA_PRICE.
+  const priceAsk =
+    SA_PRICE.test(message) &&
+    !/\b(don'?t|dont|do not|no)\b.{0,20}\bpackages?\b/.test(lower);
   return (
-    SA_PRICE.test(message) ||
+    priceAsk ||
     CONSULT.test(message) ||
     /\b(recommend|suggestion|which (package|plan|option)|suitable (package|plan)|best (package|plan)|sign up|ready to register|register (on|with) taxsimba|buy (a |the )?(package|plan|service)|cheapest|lowest.?priced)\b/i.test(
       lower,

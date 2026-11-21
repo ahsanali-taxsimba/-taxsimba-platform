@@ -1,0 +1,2322 @@
+{
+  "generated_at": "2026-11-21T03:42:44.231Z",
+  "metrics": {
+    "total": 128,
+    "before_fail": 128,
+    "after_exact": 86,
+    "after_acceptable": 0,
+    "after_fail": 42,
+    "improved": 86,
+    "still_fail": 42,
+    "FACTUAL_TAX_ERROR": 0,
+    "PREMATURE_PACKAGE": 0,
+    "MISSING_CLARIFICATION": 41,
+    "WRONG_SERVICE": 39
+  },
+  "results": [
+    {
+      "id": "G008",
+      "question": "boss pays me PAYE already so im fine right?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "NO_TAXSIMBA_SERVICE",
+      "before_match": false,
+      "after_observed": "NO_TAXSIMBA_SERVICE",
+      "after_match": false,
+      "reply_unedited": "PAYE usually covers tax on that employment income, but it does not automatically mean you have no Self Assessment duties. Do you have any other income in the tax year — for example self-employment, property rent, untaxed interest, dividends, or crypto disposals? If it is truly PAYE-only, you usually do not need Making Tax Digital for Income Tax either. Guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": false
+      },
+      "improved": false
+    },
+    {
+      "id": "G027",
+      "question": "pensioner with £3k bank interest — return?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Do you have any other untaxed income besides that interest (for example self-employment, property, or large untaxed amounts), and for which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G028",
+      "question": "left job in May got P45 — automatic SA?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. PAYE employment alone (including two PAYE jobs or a P45) does not automatically create a Self Assessment duty. Do you have any other untaxed income this tax year — for example self-employment, property rent, untaxed interest/dividends, or crypto disposals — or has HMRC asked you to file?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G029",
+      "question": "starting a small business next month — what first?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Starting a small business involves several key steps. First, you'll want to choose a suitable business structure (like sole trader or limited company) and register your business with HMRC if necessary. Next, consider opening a business bank account to keep your finances separate. \n\nYou should also look into any licenses or permits you might need, depending on your business type. Finally, setting up a system for keeping records and managing your finances is crucial, especially if you plan to file a Self Assessment tax return or comply with Making Tax Digital.\n\nWould you like more information on any specific area, such as registration or tax obligations?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G030",
+      "question": "CIS spark deductions taken — still SA?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Whether you need Self Assessment usually depends on your circumstances. If you were self-employed as a sole trader and earned more than £1,000 before reliefs in a tax year, you normally must register and send a tax return. The £1,000 trading allowance is a relief you may claim — it is not a free pass to ignore Self Assessment when your trading income is already above £1,000.\n\nRoughly how much did you earn from self-employment / freelancing before expenses, and for which tax year?\n\nOfficial guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G031",
+      "question": "sold ETH for a gain — report?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Have you disposed of crypto in a UK tax year (sold, exchanged, or spent), and roughly what gain — or are you only holding?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G033",
+      "question": "two PAYE jobs only — SA automatic?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. PAYE employment alone (including two PAYE jobs or a P45) does not automatically create a Self Assessment duty. Do you have any other untaxed income this tax year — for example self-employment, property rent, untaxed interest/dividends, or crypto disposals — or has HMRC asked you to file?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G042",
+      "question": "do I need to buy Xero separately for Simbian?",
+      "expected_classification": "GENERAL_INFO",
+      "before_observed": "NO_TAXSIMBA_SERVICE",
+      "before_match": false,
+      "after_observed": "NO_TAXSIMBA_SERVICE",
+      "after_match": false,
+      "reply_unedited": "You do not need to buy Xero separately to use TaxSimba’s Making Tax Digital (Simbian) plans. Xero is included in the Simbian monthly price for the accountant-led workflow (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — there is no separate customer Xero charge on those plans. HMRC still requires compatible software and digital records for MTD; TaxSimba’s accountants use the included Xero mapping to deliver that service. SIMBA chat does not file to HMRC. If you only wanted a DIY Xero subscription outside TaxSimba, say so and I can explain that path fairly — otherwise I can help you check whether Simbian fits.",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": false
+    },
+    {
+      "id": "G046",
+      "question": "i made 8k then actually wait 800 quid deliveries",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "If your gross trading income is £8,000 and you have £800 in delivery expenses, your taxable income would be £7,200. Since your trading income exceeds £1,000, you will need to register for Self Assessment and submit a tax return for the relevant tax year.\n\nWould you like more information on how to register for Self Assessment?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G049",
+      "question": "crypto tax on buy or only sell",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "GENERAL_INFO",
+      "after_match": false,
+      "reply_unedited": "Crypto tax usually depends on what you did: buying is not normally a taxable disposal by itself; tax more often arises when you dispose of crypto (sell, exchange, or certain other events), and frequent trading can be Income Tax instead of Capital Gains Tax. I won’t invent your treatment. Have you already disposed of any crypto in a UK tax year, and was it investment-style holding or business-like trading? https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": false
+      },
+      "improved": false
+    },
+    {
+      "id": "G056",
+      "question": "landlord rent £11200  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £11,200 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G066",
+      "question": "just started doing some photography on the side maybe £955 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Was this casual occasional activity, or regular self-employment trading? GOV.UK’s usual sole-trader Self Assessment rule uses more than £1,000 of trading income in a tax year (before reliefs) — that is separate from using the trading allowance as tax relief when you do file. Official who-must-send guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G072",
+      "question": "landlord rent £13600  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £13,600 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G074",
+      "question": "just started doing some cleaning on the side maybe £1040 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G082",
+      "question": "just started doing some gardening on the side maybe £1125 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G088",
+      "question": "landlord rent £16000  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £16,000 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G090",
+      "question": "just started doing some tutoring on the side maybe £1210 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G098",
+      "question": "just started doing some dog walking on the side maybe £1295 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G104",
+      "question": "landlord rent £18400  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £18,400 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G106",
+      "question": "just started doing some photography on the side maybe £1380 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Was this casual occasional activity, or regular self-employment trading? GOV.UK’s usual sole-trader Self Assessment rule uses more than £1,000 of trading income in a tax year (before reliefs) — that is separate from using the trading allowance as tax relief when you do file. Official who-must-send guidance: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G114",
+      "question": "just started doing some cleaning on the side maybe £1465 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G120",
+      "question": "landlord rent £20800  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £20,800 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G122",
+      "question": "just started doing some gardening on the side maybe £1550 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G130",
+      "question": "just started doing some tutoring on the side maybe £1635 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G136",
+      "question": "landlord rent £23200  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £23,200 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G138",
+      "question": "just started doing some dog walking on the side maybe £1720 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G146",
+      "question": "just started doing some photography on the side maybe £1805 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Since your self-employed trading income from photography is £1,805 for the 2026-27 tax year, you will need to register for Self Assessment with HMRC. The threshold for registering is if your trading income exceeds £1,000. You must register by 5 October 2027.\n\nWould you like more information on how to register or what to do next?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G152",
+      "question": "landlord rent £25600  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £25,600 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G154",
+      "question": "just started doing some cleaning on the side maybe £1890 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G162",
+      "question": "just started doing some gardening on the side maybe £1975 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G168",
+      "question": "landlord rent £28000  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £28,000 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G170",
+      "question": "just started doing some tutoring on the side maybe £2060 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G178",
+      "question": "just started doing some dog walking on the side maybe £2145 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G184",
+      "question": "landlord rent £30400  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £30,400 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G186",
+      "question": "just started doing some photography on the side maybe £2230 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Since your self-employed trading income from photography is £2,230 for the tax year 2026-27, you will need to register for Self Assessment with HMRC. This is because your income exceeds the £1,000 threshold for trading income. You must register by 5 October 2027.\n\nOnce registered, you'll need to submit a Self Assessment tax return for that tax year. If you have any questions about the registration process or need assistance, feel free to ask!",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G194",
+      "question": "just started doing some cleaning on the side maybe £2315 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G200",
+      "question": "landlord rent £32800  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £32,800 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G202",
+      "question": "just started doing some gardening on the side maybe £2400 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G210",
+      "question": "just started doing some tutoring on the side maybe £2485 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G211",
+      "question": "contracting as dev £4760 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": true,
+      "reply_unedited": "With freelance / self-employment income of £4,760 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £4,760 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G214",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MTD_ASSIST",
+      "after_match": true,
+      "reply_unedited": "Yes — if your qualifying income was more than £50,000 for 2024-25, you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit. Property and self-employment income is also usually reported through Self Assessment — MTD does not replace that annual return.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G216",
+      "question": "landlord rent £35200  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £35,200 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G218",
+      "question": "just started doing some dog walking on the side maybe £2570 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G219",
+      "question": "contracting as nurse bank £4920 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": true,
+      "reply_unedited": "With freelance / self-employment income of £4,920 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £4,920 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G222",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MTD_ASSIST",
+      "after_match": true,
+      "reply_unedited": "Yes — if your qualifying income was more than £30,000 for 2025-26, you need to use Making Tax Digital for Income Tax from 6 April 2027. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit. Property and self-employment income is also usually reported through Self Assessment — MTD does not replace that annual return.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G224",
+      "question": "landlord rent £36400 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": true,
+      "reply_unedited": "Rental income of £36,400 for 2024-25 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G226",
+      "question": "just started doing some photography on the side maybe £2655 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Since your self-employed trading income from photography is £2,655 for the 2026-27 tax year, you will need to register with HMRC for Self Assessment, as your income exceeds the £1,000 threshold for trading income. You must register by 5 October 2027.\n\nOnce registered, you'll need to submit a Self Assessment tax return detailing your income and any allowable expenses. If you have any questions about the registration process or need assistance, feel free to ask!",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G227",
+      "question": "contracting as barista extra £5080 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": true,
+      "reply_unedited": "With freelance / self-employment income of £5,080 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £5,080 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G230",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MTD_ASSIST",
+      "after_match": true,
+      "reply_unedited": "Yes — if your qualifying income was more than £20,000 for 2026-27, you need to use Making Tax Digital for Income Tax from 6 April 2028. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit. Property and self-employment income is also usually reported through Self Assessment — MTD does not replace that annual return.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G232",
+      "question": "landlord rent £37600  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £37,600 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G234",
+      "question": "just started doing some cleaning on the side maybe £2740 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G235",
+      "question": "contracting as driver £5240 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": true,
+      "reply_unedited": "With freelance / self-employment income of £5,240 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £5,240 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G238",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MTD_ASSIST",
+      "after_match": true,
+      "reply_unedited": "Yes — if your qualifying income was more than £50,000 for 2024-25, you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit. Property and self-employment income is also usually reported through Self Assessment — MTD does not replace that annual return.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G240",
+      "question": "landlord rent £38800 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": true,
+      "reply_unedited": "Rental income of £38,800 for 2024-25 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G242",
+      "question": "just started doing some gardening on the side maybe £2825 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G243",
+      "question": "contracting as writer £5400 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": true,
+      "reply_unedited": "With freelance / self-employment income of £5,400 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £5,400 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G246",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MTD_ASSIST",
+      "after_match": true,
+      "reply_unedited": "Yes — if your qualifying income was more than £30,000 for 2025-26, you need to use Making Tax Digital for Income Tax from 6 April 2027. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit. Property and self-employment income is also usually reported through Self Assessment — MTD does not replace that annual return.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G248",
+      "question": "landlord rent £40000  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £40,000 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G250",
+      "question": "just started doing some tutoring on the side maybe £2910 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G251",
+      "question": "contracting as dev £5560 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": true,
+      "reply_unedited": "With freelance / self-employment income of £5,560 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £5,560 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G254",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MTD_ASSIST",
+      "after_match": true,
+      "reply_unedited": "Yes — if your qualifying income was more than £20,000 for 2026-27, you need to use Making Tax Digital for Income Tax from 6 April 2028. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit. Property and self-employment income is also usually reported through Self Assessment — MTD does not replace that annual return.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G256",
+      "question": "landlord rent £41200 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": true,
+      "reply_unedited": "Rental income of £41,200 for 2024-25 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G258",
+      "question": "just started doing some dog walking on the side maybe £2995 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G259",
+      "question": "contracting as nurse bank £5720 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": true,
+      "reply_unedited": "With freelance / self-employment income of £5,720 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £5,720 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G262",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MTD_ASSIST",
+      "after_match": true,
+      "reply_unedited": "Yes — if your qualifying income was more than £50,000 for 2024-25, you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit. Property and self-employment income is also usually reported through Self Assessment — MTD does not replace that annual return.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G264",
+      "question": "landlord rent £42400  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £42,400 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G266",
+      "question": "just started doing some photography on the side maybe £3080 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Since your gross trading income from photography is £3,080, you will need to register as self-employed with HMRC for Self Assessment, as your income exceeds the £1,000 threshold for trading income. You must register by 5 October following the end of the tax year in which you started your self-employment.\n\nFor the 2026-27 tax year, ensure you keep accurate records of your income and expenses. Would you like more information on how to register or what to do next?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G274",
+      "question": "just started doing some cleaning on the side maybe £3165 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G280",
+      "question": "landlord rent £44800  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £44,800 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G282",
+      "question": "just started doing some gardening on the side maybe £3250 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G290",
+      "question": "just started doing some tutoring on the side maybe £3335 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G296",
+      "question": "landlord rent £47200  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £47,200 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G298",
+      "question": "just started doing some dog walking on the side maybe £3420 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G306",
+      "question": "just started doing some photography on the side maybe £3505 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Since your photography income is £3,505 for the tax year, you will need to register as self-employed with HMRC and submit a Self Assessment tax return. This is because your trading income exceeds the £1,000 threshold for the trading allowance. \n\nYou should register by 5 October following the end of the tax year in which you started your self-employment. For the 2026-27 tax year, that means you need to register by 5 October 2027.\n\nWould you like more information on how to register?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G312",
+      "question": "landlord rent £49600  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £49,600 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G314",
+      "question": "just started doing some cleaning on the side maybe £3590 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G322",
+      "question": "just started doing some gardening on the side maybe £3675 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G328",
+      "question": "landlord rent £52000  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £52,000 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G330",
+      "question": "just started doing some tutoring on the side maybe £3760 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G338",
+      "question": "just started doing some dog walking on the side maybe £3845 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G344",
+      "question": "landlord rent £54400  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £54,400 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G346",
+      "question": "just started doing some photography on the side maybe £3930 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Since your photography income is £3,930, which exceeds the £1,000 trading allowance, you will need to register as self-employed with HMRC for Self Assessment. This registration should be completed by 5 October following the end of the tax year in which you started your self-employment.\n\nMake sure to keep accurate records of your income and expenses for your Self Assessment tax return. If you need help with the registration process or filing, let me know!",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G354",
+      "question": "just started doing some cleaning on the side maybe £4015 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G360",
+      "question": "landlord rent £56800  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £56,800 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G362",
+      "question": "just started doing some gardening on the side maybe £4100 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G370",
+      "question": "just started doing some tutoring on the side maybe £4185 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G376",
+      "question": "landlord rent £59200  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £59,200 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G378",
+      "question": "just started doing some dog walking on the side maybe £4270 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G386",
+      "question": "just started doing some photography on the side maybe £4355 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Since your photography income is £4,355, you will need to register as self-employed with HMRC for Self Assessment, as your trading income exceeds the £1,000 threshold for the tax year 2026-27. You must register by 5 October 2027.\n\nYou may also be eligible for the trading allowance, which allows you to earn up to £1,000 tax-free. However, since your income is above that, you'll need to report it in your Self Assessment return.\n\nWould you like more information on how to register or file your Self Assessment?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G392",
+      "question": "landlord rent £61600  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £61,600 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G394",
+      "question": "just started doing some cleaning on the side maybe £4440 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G402",
+      "question": "just started doing some gardening on the side maybe £4525 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G408",
+      "question": "landlord rent £64000  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £64,000 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G410",
+      "question": "just started doing some tutoring on the side maybe £4610 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G418",
+      "question": "just started doing some dog walking on the side maybe £4695 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G424",
+      "question": "landlord rent £66400  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £66,400 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G426",
+      "question": "just started doing some photography on the side maybe £4780 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Since your photography income is £4,780, you will need to register as self-employed with HMRC for Self Assessment, as your trading income exceeds the £1,000 threshold. You must register by 5 October following the end of the tax year in which you started trading. For the 2026-27 tax year, this means you need to register by 5 October 2027.\n\nWould you like more information on how to register or what to do next?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G434",
+      "question": "just started doing some cleaning on the side maybe £4865 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G440",
+      "question": "landlord rent £68800  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "SA_ASSIST",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £68,800 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G442",
+      "question": "just started doing some gardening on the side maybe £4950 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G446",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MTD_ASSIST",
+      "after_match": true,
+      "reply_unedited": "Yes — if your qualifying income was more than £20,000 for 2026-27, you need to use Making Tax Digital for Income Tax from 6 April 2028. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit. Property and self-employment income is also usually reported through Self Assessment — MTD does not replace that annual return.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G448",
+      "question": "landlord rent £70000 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": true,
+      "reply_unedited": "Rental income of £70,000 for 2024-25 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G450",
+      "question": "just started doing some tutoring on the side maybe £5035 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G451",
+      "question": "contracting as dev £9560 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": true,
+      "reply_unedited": "With freelance / self-employment income of £9,560 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £9,560 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G454",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MTD_ASSIST",
+      "after_match": true,
+      "reply_unedited": "Yes — if your qualifying income was more than £50,000 for 2024-25, you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit. Property and self-employment income is also usually reported through Self Assessment — MTD does not replace that annual return.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G456",
+      "question": "landlord rent £71200  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £71,200 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G458",
+      "question": "just started doing some dog walking on the side maybe £5120 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G459",
+      "question": "contracting as nurse bank £9720 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": true,
+      "reply_unedited": "With freelance / self-employment income of £9,720 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £9,720 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G462",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MTD_ASSIST",
+      "after_match": true,
+      "reply_unedited": "Yes — if your qualifying income was more than £30,000 for 2025-26, you need to use Making Tax Digital for Income Tax from 6 April 2027. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit. Property and self-employment income is also usually reported through Self Assessment — MTD does not replace that annual return.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G464",
+      "question": "landlord rent £72400 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": true,
+      "reply_unedited": "Rental income of £72,400 for 2024-25 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G466",
+      "question": "just started doing some photography on the side maybe £5205 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Since your photography income is £5,205 for the tax year, you will need to register as self-employed with HMRC and submit a Self Assessment tax return. This is because your trading income exceeds the £1,000 threshold for the trading allowance. You should register by 5 October following the end of the tax year in which you started your self-employment.\n\nWould you like more information on how to register or what to include in your tax return?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G467",
+      "question": "contracting as barista extra £9880 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": true,
+      "reply_unedited": "With freelance / self-employment income of £9,880 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £9,880 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G470",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MTD_ASSIST",
+      "after_match": true,
+      "reply_unedited": "Yes — if your qualifying income was more than £20,000 for 2026-27, you need to use Making Tax Digital for Income Tax from 6 April 2028. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit. Property and self-employment income is also usually reported through Self Assessment — MTD does not replace that annual return.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G472",
+      "question": "landlord rent £73600  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £73,600 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G474",
+      "question": "just started doing some cleaning on the side maybe £5290 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G475",
+      "question": "contracting as driver £10040 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": true,
+      "reply_unedited": "With freelance / self-employment income of £10,040 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £10,040 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G478",
+      "question": "qi more than £50000 in 2024-25 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MTD_ASSIST",
+      "after_match": true,
+      "reply_unedited": "Yes — if your qualifying income was more than £50,000 for 2024-25, you need to use Making Tax Digital for Income Tax from 6 April 2026. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit. Property and self-employment income is also usually reported through Self Assessment — MTD does not replace that annual return.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G480",
+      "question": "landlord rent £74800 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": true,
+      "reply_unedited": "Rental income of £74,800 for 2024-25 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G482",
+      "question": "just started doing some gardening on the side maybe £5375 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G483",
+      "question": "contracting as writer £10200 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": true,
+      "reply_unedited": "With freelance / self-employment income of £10,200 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £10,200 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G486",
+      "question": "qi more than £30000 in 2025-26 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MTD_ASSIST",
+      "after_match": true,
+      "reply_unedited": "Yes — if your qualifying income was more than £30,000 for 2025-26, you need to use Making Tax Digital for Income Tax from 6 April 2027. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit. Property and self-employment income is also usually reported through Self Assessment — MTD does not replace that annual return.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G488",
+      "question": "landlord rent £76000  — sa?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": false,
+      "reply_unedited": "Rental income of £76,000 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": true,
+        "wrong_service": true
+      },
+      "improved": false
+    },
+    {
+      "id": "G490",
+      "question": "just started doing some tutoring on the side maybe £5460 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G491",
+      "question": "contracting as dev £10360 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": true,
+      "reply_unedited": "With freelance / self-employment income of £10,360 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £10,360 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G494",
+      "question": "qi more than £20000 in 2026-27 — start when?",
+      "expected_classification": "MTD_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MTD_ASSIST",
+      "after_match": true,
+      "reply_unedited": "Yes — if your qualifying income was more than £20,000 for 2026-27, you need to use Making Tax Digital for Income Tax from 6 April 2028. Qualifying income means self-employment and property income before expenses (turnover/gross), not profit. Property and self-employment income is also usually reported through Self Assessment — MTD does not replace that annual return.\n\nOfficial guidance: https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G496",
+      "question": "landlord rent £77200 2024-25 — sa?",
+      "expected_classification": "SA_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": true,
+      "reply_unedited": "Rental income of £77,200 for 2024-25 is untaxed income that usually needs to be reported on a Self Assessment tax return. PAYE on a job (if any) does not tax your rent. Confirm your full circumstances on GOV.UK: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G498",
+      "question": "just started doing some dog walking on the side maybe £5545 — hmrc?",
+      "expected_classification": "MORE_INFO_NEEDED",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "MORE_INFO_NEEDED",
+      "after_match": true,
+      "reply_unedited": "Happy to help — I need one key fact before deciding. Is that figure PAYE employment salary, self-employment turnover, property rent before expenses, or a mix — and which tax year?",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    },
+    {
+      "id": "G499",
+      "question": "contracting as nurse bank £10520 in 2025-26 before expenses. sa?",
+      "expected_classification": "SA_ASSIST",
+      "before_observed": "GENERAL_INFO",
+      "before_match": false,
+      "after_observed": "SA_ASSIST",
+      "after_match": true,
+      "reply_unedited": "With freelance / self-employment income of £10,520 for 2025-26, you are above the £1,000 sole-trader threshold, so you usually must register for Self Assessment and send a tax return. That £1,000 figure is the “more than £1,000” test on GOV.UK — £10,520 is not below it. You may still be able to claim the trading allowance (up to £1,000) instead of actual expenses when you calculate taxable profit, but that relief does not remove the normal requirement to register and file when trading income is more than £1,000.\n\nRegister: https://www.gov.uk/register-for-self-assessment\nWho must send a return: https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return\nTrading allowance: https://www.gov.uk/guidance/tax-free-allowances-on-property-and-trading-income",
+      "packages": [],
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "missing_clarification": false,
+        "wrong_service": false
+      },
+      "improved": true
+    }
+  ]
+}

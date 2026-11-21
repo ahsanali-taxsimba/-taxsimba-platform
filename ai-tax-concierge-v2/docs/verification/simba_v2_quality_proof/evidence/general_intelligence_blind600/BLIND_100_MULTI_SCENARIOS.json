@@ -1,0 +1,1457 @@
+{
+  "generated_at": "2026-11-20T23:26:55.778Z",
+  "note": "NEW unseen multi-turn bank locked BEFORE answers",
+  "count": 100,
+  "deep_8plus": 38,
+  "scenarios": [
+    {
+      "id": "MJ001",
+      "title": "Delivery driver slang journey",
+      "turns": [
+        "mate I made some money doing deliveries what do I need to do",
+        "it was deliveroo mostly",
+        "maybe like 2 grand",
+        "sorry nearer £2,400 in 2025-26 before expenses",
+        "sa then?",
+        "whats this digital tax thing",
+        "do i need an accountant",
+        "nah i dont want to pay anyone",
+        "can i just do this myself",
+        "cheers"
+      ],
+      "expected_outcome": "clarify→SA; explain MTD; respect no-buy; DIY ok",
+      "adversarial": true
+    },
+    {
+      "id": "MJ002",
+      "title": "Contradiction amount correction",
+      "turns": [
+        "i earned 40k",
+        "mtd?",
+        "sorry 40k was salary and 18k freelance turnover 2024-25 before expenses",
+        "sa?",
+        "mtd?",
+        "dont ask if im self employed again",
+        "i dont want packages",
+        "bye"
+      ],
+      "expected_outcome": "latest facts win; no premature sell",
+      "adversarial": true
+    },
+    {
+      "id": "MJ003",
+      "title": "PAYE + rent gradual",
+      "turns": [
+        "my job already taxes me",
+        "but i rent a flat out",
+        "gross rent about £14k",
+        "that was 2024-25",
+        "sa?",
+        "mtd?",
+        "explain without selling",
+        "ok thanks"
+      ],
+      "expected_outcome": "SA likely; MTD year/QI careful",
+      "adversarial": false
+    },
+    {
+      "id": "MJ004",
+      "title": "TikTok then clarify",
+      "turns": [
+        "I earned a bit from TikTok",
+        "gifts and stuff",
+        "around £1,900 in 2025-26",
+        "do i need sa",
+        "refuse packages please",
+        "records?"
+      ],
+      "expected_outcome": "SA after amount; no sell",
+      "adversarial": true
+    },
+    {
+      "id": "MJ005",
+      "title": "Exact vs more than MTD",
+      "turns": [
+        "sole trader",
+        "qi exactly 50000 in 2024-25",
+        "mtd from april 2026?",
+        "what if more than 50k",
+        "profit or turnover",
+        "paye count?",
+        "no signup"
+      ],
+      "expected_outcome": "exclusive threshold + QI def",
+      "adversarial": false
+    },
+    {
+      "id": "MJ006",
+      "title": "plumber multi-income",
+      "turns": [
+        "hi i work as a plumber",
+        "also some side cash",
+        "main job is paye about 30k",
+        "side maybe £1400",
+        "that side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless i ask",
+        "if i ask later cheapest sa?",
+        "thanks"
+      ],
+      "expected_outcome": "memory of facts; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "MJ007",
+      "title": "nanny multi-income",
+      "turns": [
+        "hi i work as a nanny",
+        "also some side cash",
+        "main job is paye about 30k",
+        "side maybe £1440",
+        "that side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless i ask",
+        "if i ask later cheapest sa?",
+        "thanks"
+      ],
+      "expected_outcome": "memory of facts; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "MJ008",
+      "title": "coder multi-income",
+      "turns": [
+        "hi i work as a coder",
+        "also some side cash",
+        "main job is paye about 30k",
+        "side maybe £1480",
+        "that side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless i ask",
+        "if i ask later cheapest sa?",
+        "thanks"
+      ],
+      "expected_outcome": "memory of facts; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "MJ009",
+      "title": "baker multi-income",
+      "turns": [
+        "hi i work as a baker",
+        "also some side cash",
+        "main job is paye about 30k",
+        "side maybe £1520",
+        "that side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless i ask",
+        "if i ask later cheapest sa?",
+        "thanks"
+      ],
+      "expected_outcome": "memory of facts; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "MJ010",
+      "title": "musician multi-income",
+      "turns": [
+        "hi i work as a musician",
+        "also some side cash",
+        "main job is paye about 30k",
+        "side maybe £1560",
+        "that side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless i ask",
+        "if i ask later cheapest sa?",
+        "thanks"
+      ],
+      "expected_outcome": "memory of facts; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "MJ011",
+      "title": "cleaner multi-income",
+      "turns": [
+        "hi i work as a cleaner",
+        "also some side cash",
+        "main job is paye about 30k",
+        "side maybe £1600",
+        "that side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless i ask",
+        "if i ask later cheapest sa?",
+        "thanks"
+      ],
+      "expected_outcome": "memory of facts; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "MJ012",
+      "title": "tutor multi-income",
+      "turns": [
+        "hi i work as a tutor",
+        "also some side cash",
+        "main job is paye about 30k",
+        "side maybe £1640",
+        "that side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless i ask",
+        "if i ask later cheapest sa?",
+        "thanks"
+      ],
+      "expected_outcome": "memory of facts; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "MJ013",
+      "title": "driver multi-income",
+      "turns": [
+        "hi i work as a driver",
+        "also some side cash",
+        "main job is paye about 30k",
+        "side maybe £1680",
+        "that side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless i ask",
+        "if i ask later cheapest sa?",
+        "thanks"
+      ],
+      "expected_outcome": "memory of facts; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "MJ014",
+      "title": "designer multi-income",
+      "turns": [
+        "hi i work as a designer",
+        "also some side cash",
+        "main job is paye about 30k",
+        "side maybe £1720",
+        "that side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless i ask",
+        "if i ask later cheapest sa?",
+        "thanks"
+      ],
+      "expected_outcome": "memory of facts; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "MJ015",
+      "title": "barber multi-income",
+      "turns": [
+        "hi i work as a barber",
+        "also some side cash",
+        "main job is paye about 30k",
+        "side maybe £1760",
+        "that side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless i ask",
+        "if i ask later cheapest sa?",
+        "thanks"
+      ],
+      "expected_outcome": "memory of facts; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "MJ016",
+      "title": "carpenter multi-income",
+      "turns": [
+        "hi i work as a carpenter",
+        "also some side cash",
+        "main job is paye about 30k",
+        "side maybe £1800",
+        "that side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless i ask",
+        "if i ask later cheapest sa?",
+        "thanks"
+      ],
+      "expected_outcome": "memory of facts; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "MJ017",
+      "title": "coach multi-income",
+      "turns": [
+        "hi i work as a coach",
+        "also some side cash",
+        "main job is paye about 30k",
+        "side maybe £1840",
+        "that side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless i ask",
+        "if i ask later cheapest sa?",
+        "thanks"
+      ],
+      "expected_outcome": "memory of facts; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "MJ018",
+      "title": "photographer multi-income",
+      "turns": [
+        "hi i work as a photographer",
+        "also some side cash",
+        "main job is paye about 30k",
+        "side maybe £1880",
+        "that side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless i ask",
+        "if i ask later cheapest sa?",
+        "thanks"
+      ],
+      "expected_outcome": "memory of facts; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "MJ019",
+      "title": "mechanic multi-income",
+      "turns": [
+        "hi i work as a mechanic",
+        "also some side cash",
+        "main job is paye about 30k",
+        "side maybe £1920",
+        "that side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless i ask",
+        "if i ask later cheapest sa?",
+        "thanks"
+      ],
+      "expected_outcome": "memory of facts; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "MJ020",
+      "title": "writer multi-income",
+      "turns": [
+        "hi i work as a writer",
+        "also some side cash",
+        "main job is paye about 30k",
+        "side maybe £1960",
+        "that side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless i ask",
+        "if i ask later cheapest sa?",
+        "thanks"
+      ],
+      "expected_outcome": "memory of facts; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "MJ021",
+      "title": "nurse multi-income",
+      "turns": [
+        "hi i work as a nurse",
+        "also some side cash",
+        "main job is paye about 30k",
+        "side maybe £2000",
+        "that side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless i ask",
+        "if i ask later cheapest sa?",
+        "thanks"
+      ],
+      "expected_outcome": "memory of facts; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "MJ022",
+      "title": "farmer multi-income",
+      "turns": [
+        "hi i work as a farmer",
+        "also some side cash",
+        "main job is paye about 30k",
+        "side maybe £2040",
+        "that side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless i ask",
+        "if i ask later cheapest sa?",
+        "thanks"
+      ],
+      "expected_outcome": "memory of facts; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "MJ023",
+      "title": "florist multi-income",
+      "turns": [
+        "hi i work as a florist",
+        "also some side cash",
+        "main job is paye about 30k",
+        "side maybe £2080",
+        "that side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless i ask",
+        "if i ask later cheapest sa?",
+        "thanks"
+      ],
+      "expected_outcome": "memory of facts; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "MJ024",
+      "title": "electrician multi-income",
+      "turns": [
+        "hi i work as a electrician",
+        "also some side cash",
+        "main job is paye about 30k",
+        "side maybe £2120",
+        "that side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless i ask",
+        "if i ask later cheapest sa?",
+        "thanks"
+      ],
+      "expected_outcome": "memory of facts; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "MJ025",
+      "title": "painter multi-income",
+      "turns": [
+        "hi i work as a painter",
+        "also some side cash",
+        "main job is paye about 30k",
+        "side maybe £2160",
+        "that side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless i ask",
+        "if i ask later cheapest sa?",
+        "thanks"
+      ],
+      "expected_outcome": "memory of facts; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "MJ026",
+      "title": "deep filler 25",
+      "turns": [
+        "hi tax question",
+        "self employed-ish",
+        "turnover about 12k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines?",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD clarify band; no sell"
+    },
+    {
+      "id": "MJ027",
+      "title": "deep filler 26",
+      "turns": [
+        "hi tax question",
+        "self employed-ish",
+        "turnover about 12k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines?",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD clarify band; no sell"
+    },
+    {
+      "id": "MJ028",
+      "title": "deep filler 27",
+      "turns": [
+        "hi tax question",
+        "self employed-ish",
+        "turnover about 12k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines?",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD clarify band; no sell"
+    },
+    {
+      "id": "MJ029",
+      "title": "deep filler 28",
+      "turns": [
+        "hi tax question",
+        "self employed-ish",
+        "turnover about 12k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines?",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD clarify band; no sell"
+    },
+    {
+      "id": "MJ030",
+      "title": "deep filler 29",
+      "turns": [
+        "hi tax question",
+        "self employed-ish",
+        "turnover about 12k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines?",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD clarify band; no sell"
+    },
+    {
+      "id": "MJ031",
+      "title": "deep filler 30",
+      "turns": [
+        "hi tax question",
+        "self employed-ish",
+        "turnover about 12k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines?",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD clarify band; no sell"
+    },
+    {
+      "id": "MJ032",
+      "title": "deep filler 31",
+      "turns": [
+        "hi tax question",
+        "self employed-ish",
+        "turnover about 12k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines?",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD clarify band; no sell"
+    },
+    {
+      "id": "MJ033",
+      "title": "deep filler 32",
+      "turns": [
+        "hi tax question",
+        "self employed-ish",
+        "turnover about 12k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines?",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD clarify band; no sell"
+    },
+    {
+      "id": "MJ034",
+      "title": "deep filler 33",
+      "turns": [
+        "hi tax question",
+        "self employed-ish",
+        "turnover about 12k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines?",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD clarify band; no sell"
+    },
+    {
+      "id": "MJ035",
+      "title": "deep filler 34",
+      "turns": [
+        "hi tax question",
+        "self employed-ish",
+        "turnover about 12k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines?",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD clarify band; no sell"
+    },
+    {
+      "id": "MJ036",
+      "title": "deep filler 35",
+      "turns": [
+        "hi tax question",
+        "self employed-ish",
+        "turnover about 12k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines?",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD clarify band; no sell"
+    },
+    {
+      "id": "MJ037",
+      "title": "deep filler 36",
+      "turns": [
+        "hi tax question",
+        "self employed-ish",
+        "turnover about 12k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines?",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD clarify band; no sell"
+    },
+    {
+      "id": "MJ038",
+      "title": "deep filler 37",
+      "turns": [
+        "hi tax question",
+        "self employed-ish",
+        "turnover about 12k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines?",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD clarify band; no sell"
+    },
+    {
+      "id": "MJ039",
+      "title": "deep filler 38",
+      "turns": [
+        "hi tax question",
+        "self employed-ish",
+        "turnover about 12k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines?",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD clarify band; no sell"
+    },
+    {
+      "id": "MJ040",
+      "title": "deep filler 39",
+      "turns": [
+        "hi tax question",
+        "self employed-ish",
+        "turnover about 12k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines?",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD clarify band; no sell"
+    },
+    {
+      "id": "MJ041",
+      "title": "bare then paye",
+      "turns": [
+        "i earn 55k",
+        "paye only",
+        "mtd?",
+        "thanks"
+      ],
+      "expected_outcome": "paye out",
+      "adversarial": true
+    },
+    {
+      "id": "MJ042",
+      "title": "no-buy sa",
+      "turns": [
+        "no packages",
+        "freelance 3.2k 2025-26",
+        "sa?",
+        "ok"
+      ],
+      "expected_outcome": "sa no sell",
+      "adversarial": true
+    },
+    {
+      "id": "MJ043",
+      "title": "crypto hold",
+      "turns": [
+        "crypto tax?",
+        "never sold only bought",
+        "so cgt?",
+        "ok"
+      ],
+      "expected_outcome": "no auto cgt",
+      "adversarial": true
+    },
+    {
+      "id": "MJ044",
+      "title": "vat+mtd mix",
+      "turns": [
+        "vat 90k?",
+        "also is that mtd?",
+        "last 12 months supplies",
+        "ok"
+      ],
+      "expected_outcome": "separate regimes",
+      "adversarial": true
+    },
+    {
+      "id": "MJ045",
+      "title": "existing",
+      "turns": [
+        "taxsimba client",
+        "message accountant how",
+        "thanks"
+      ],
+      "expected_outcome": "dashboard",
+      "adversarial": true
+    },
+    {
+      "id": "MJ046",
+      "title": "diy",
+      "turns": [
+        "can i diy sa",
+        "without paying you",
+        "what records",
+        "ok"
+      ],
+      "expected_outcome": "diy",
+      "adversarial": true
+    },
+    {
+      "id": "MJ047",
+      "title": "consult then refuse",
+      "turns": [
+        "need consult?",
+        "hmrc letter",
+        "actually no thanks just info",
+        "what is notice to file"
+      ],
+      "expected_outcome": "respect change",
+      "adversarial": true
+    },
+    {
+      "id": "MJ048",
+      "title": "xero ask",
+      "turns": [
+        "need xero for mtd?",
+        "with taxsimba?",
+        "ok"
+      ],
+      "expected_outcome": "xero included",
+      "adversarial": true
+    },
+    {
+      "id": "MJ049",
+      "title": "short 9",
+      "turns": [
+        "quick q 9",
+        "side cash work",
+        "maybe £960",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ050",
+      "title": "short 10",
+      "turns": [
+        "quick q 10",
+        "side cash work",
+        "maybe £1000",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ051",
+      "title": "short 11",
+      "turns": [
+        "quick q 11",
+        "side cash work",
+        "maybe £1040",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ052",
+      "title": "short 12",
+      "turns": [
+        "quick q 12",
+        "side cash work",
+        "maybe £1080",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ053",
+      "title": "short 13",
+      "turns": [
+        "quick q 13",
+        "side cash work",
+        "maybe £1120",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ054",
+      "title": "short 14",
+      "turns": [
+        "quick q 14",
+        "side cash work",
+        "maybe £1160",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ055",
+      "title": "short 15",
+      "turns": [
+        "quick q 15",
+        "side cash work",
+        "maybe £1200",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ056",
+      "title": "short 16",
+      "turns": [
+        "quick q 16",
+        "side cash work",
+        "maybe £1240",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ057",
+      "title": "short 17",
+      "turns": [
+        "quick q 17",
+        "side cash work",
+        "maybe £1280",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ058",
+      "title": "short 18",
+      "turns": [
+        "quick q 18",
+        "side cash work",
+        "maybe £1320",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ059",
+      "title": "short 19",
+      "turns": [
+        "quick q 19",
+        "side cash work",
+        "maybe £1360",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ060",
+      "title": "short 20",
+      "turns": [
+        "quick q 20",
+        "side cash work",
+        "maybe £1400",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ061",
+      "title": "short 21",
+      "turns": [
+        "quick q 21",
+        "side cash work",
+        "maybe £1440",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ062",
+      "title": "short 22",
+      "turns": [
+        "quick q 22",
+        "side cash work",
+        "maybe £1480",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ063",
+      "title": "short 23",
+      "turns": [
+        "quick q 23",
+        "side cash work",
+        "maybe £1520",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ064",
+      "title": "short 24",
+      "turns": [
+        "quick q 24",
+        "side cash work",
+        "maybe £1560",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ065",
+      "title": "short 25",
+      "turns": [
+        "quick q 25",
+        "side cash work",
+        "maybe £1600",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ066",
+      "title": "short 26",
+      "turns": [
+        "quick q 26",
+        "side cash work",
+        "maybe £1640",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ067",
+      "title": "short 27",
+      "turns": [
+        "quick q 27",
+        "side cash work",
+        "maybe £1680",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ068",
+      "title": "short 28",
+      "turns": [
+        "quick q 28",
+        "side cash work",
+        "maybe £1720",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ069",
+      "title": "short 29",
+      "turns": [
+        "quick q 29",
+        "side cash work",
+        "maybe £1760",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ070",
+      "title": "short 30",
+      "turns": [
+        "quick q 30",
+        "side cash work",
+        "maybe £1800",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ071",
+      "title": "short 31",
+      "turns": [
+        "quick q 31",
+        "side cash work",
+        "maybe £1840",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ072",
+      "title": "short 32",
+      "turns": [
+        "quick q 32",
+        "side cash work",
+        "maybe £1880",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ073",
+      "title": "short 33",
+      "turns": [
+        "quick q 33",
+        "side cash work",
+        "maybe £1920",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ074",
+      "title": "short 34",
+      "turns": [
+        "quick q 34",
+        "side cash work",
+        "maybe £1960",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ075",
+      "title": "short 35",
+      "turns": [
+        "quick q 35",
+        "side cash work",
+        "maybe £2000",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ076",
+      "title": "short 36",
+      "turns": [
+        "quick q 36",
+        "side cash work",
+        "maybe £2040",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ077",
+      "title": "short 37",
+      "turns": [
+        "quick q 37",
+        "side cash work",
+        "maybe £2080",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ078",
+      "title": "short 38",
+      "turns": [
+        "quick q 38",
+        "side cash work",
+        "maybe £2120",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ079",
+      "title": "short 39",
+      "turns": [
+        "quick q 39",
+        "side cash work",
+        "maybe £2160",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ080",
+      "title": "short 40",
+      "turns": [
+        "quick q 40",
+        "side cash work",
+        "maybe £2200",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ081",
+      "title": "short 41",
+      "turns": [
+        "quick q 41",
+        "side cash work",
+        "maybe £2240",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ082",
+      "title": "short 42",
+      "turns": [
+        "quick q 42",
+        "side cash work",
+        "maybe £2280",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ083",
+      "title": "short 43",
+      "turns": [
+        "quick q 43",
+        "side cash work",
+        "maybe £2320",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ084",
+      "title": "short 44",
+      "turns": [
+        "quick q 44",
+        "side cash work",
+        "maybe £2360",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ085",
+      "title": "short 45",
+      "turns": [
+        "quick q 45",
+        "side cash work",
+        "maybe £2400",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ086",
+      "title": "short 46",
+      "turns": [
+        "quick q 46",
+        "side cash work",
+        "maybe £2440",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ087",
+      "title": "short 47",
+      "turns": [
+        "quick q 47",
+        "side cash work",
+        "maybe £2480",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ088",
+      "title": "short 48",
+      "turns": [
+        "quick q 48",
+        "side cash work",
+        "maybe £2520",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ089",
+      "title": "short 49",
+      "turns": [
+        "quick q 49",
+        "side cash work",
+        "maybe £2560",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ090",
+      "title": "short 50",
+      "turns": [
+        "quick q 50",
+        "side cash work",
+        "maybe £2600",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ091",
+      "title": "short 51",
+      "turns": [
+        "quick q 51",
+        "side cash work",
+        "maybe £2640",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ092",
+      "title": "short 52",
+      "turns": [
+        "quick q 52",
+        "side cash work",
+        "maybe £2680",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ093",
+      "title": "short 53",
+      "turns": [
+        "quick q 53",
+        "side cash work",
+        "maybe £2720",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ094",
+      "title": "short 54",
+      "turns": [
+        "quick q 54",
+        "side cash work",
+        "maybe £2760",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ095",
+      "title": "short 55",
+      "turns": [
+        "quick q 55",
+        "side cash work",
+        "maybe £2800",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ096",
+      "title": "short 56",
+      "turns": [
+        "quick q 56",
+        "side cash work",
+        "maybe £2840",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ097",
+      "title": "short 57",
+      "turns": [
+        "quick q 57",
+        "side cash work",
+        "maybe £2880",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ098",
+      "title": "short 58",
+      "turns": [
+        "quick q 58",
+        "side cash work",
+        "maybe £2920",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ099",
+      "title": "short 59",
+      "turns": [
+        "quick q 59",
+        "side cash work",
+        "maybe £2960",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    },
+    {
+      "id": "MJ100",
+      "title": "short 60",
+      "turns": [
+        "quick q 60",
+        "side cash work",
+        "maybe £3000",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify uncertain",
+      "adversarial": true
+    }
+  ]
+}

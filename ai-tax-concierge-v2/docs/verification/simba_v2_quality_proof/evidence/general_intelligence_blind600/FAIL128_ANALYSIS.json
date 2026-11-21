@@ -1,0 +1,2502 @@
+{
+  "generated_at": "2026-11-21T03:36:02.320Z",
+  "total": 128,
+  "by_transition": {
+    "MORE_INFO_NEEDED->NO_TAXSIMBA_SERVICE": 1,
+    "MORE_INFO_NEEDED->SA_ASSIST": 27,
+    "MORE_INFO_NEEDED->GENERAL_INFO": 64,
+    "GENERAL_INFO->NO_TAXSIMBA_SERVICE": 1,
+    "SA_ASSIST->GENERAL_INFO": 21,
+    "MTD_ASSIST->GENERAL_INFO": 14
+  },
+  "root_cause_tally": {
+    "other": 2,
+    "premature_sa_without_facts": 27,
+    "answered_general_instead_of_clarify": 64,
+    "disposal_gain_ambiguity": 2,
+    "income_type_missing": 1,
+    "trading_allowance_sa_confusion": 43,
+    "missed_sa_when_facts_enough": 21,
+    "missed_mtd_when_facts_enough": 14
+  },
+  "failures": [
+    {
+      "id": "G008",
+      "q": "boss pays me PAYE already so im fine right?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "NO_TAXSIMBA_SERVICE",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "PAYE usually covers tax on that employment income, but it does not automatically mean you have no Self Assessment duties. Do you have any other income in the tax year — for example self-employment, property rent, untaxed interest, dividends, or crypto disposals? If it is truly PAYE-only, you usually",
+      "root": [
+        "other"
+      ]
+    },
+    {
+      "id": "G027",
+      "q": "pensioner with £3k bank interest — return?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "As a pensioner with £3,000 in bank interest, whether you need to submit a Self Assessment tax return depends on your overall income and tax situation. If your total income exceeds your Personal Savings Allowance, you may need to file a return. For the 2026-27 tax year, the Personal Savings Allowance",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G028",
+      "q": "left job in May got P45 — automatic SA?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Leaving a job mid-year does not by itself create a Self Assessment duty. PAYE should usually settle employment tax; you may still need a return if you have other untaxed income or HMRC asks you to file. Do you have any self-employment, property, or other untaxed income for that tax year? Guidance: h",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G029",
+      "q": "starting a small business next month — what first?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Starting a small business involves several key steps. First, you'll want to choose a business structure (like sole trader or limited company) and register your business accordingly. Next, consider opening a business bank account to keep your finances separate. \n\nYou should also check if you need to ",
+      "root": [
+        "answered_general_instead_of_clarify"
+      ]
+    },
+    {
+      "id": "G030",
+      "q": "CIS spark deductions taken — still SA?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Yes, even if CIS deductions have been taken from your payments, you may still need to complete a Self Assessment tax return. CIS deductions are not always the final tax position, and you must report your total income and any expenses to determine your overall tax liability. \n\nHave you received any o",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G031",
+      "q": "sold ETH for a gain — report?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If you sold Ethereum (ETH) for a gain in the 2026-27 tax year, you may need to report this under Capital Gains Tax (CGT). You must report any gains above the annual exempt amount, which for the 2026-27 tax year is £12,300. If your total gains exceed this threshold, you will need to report them throu",
+      "root": [
+        "premature_sa_without_facts",
+        "disposal_gain_ambiguity"
+      ]
+    },
+    {
+      "id": "G033",
+      "q": "two PAYE jobs only — SA automatic?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Having two PAYE jobs does not automatically exempt you from Self Assessment obligations. If you have additional untaxed income, such as self-employment or property income, you may still need to file a Self Assessment tax return. It's best to check the criteria on GOV.UK to confirm your specific situ",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G042",
+      "q": "do I need to buy Xero separately for Simbian?",
+      "expected": "GENERAL_INFO",
+      "observed": "NO_TAXSIMBA_SERVICE",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "You do not need to buy Xero separately to use TaxSimba’s Making Tax Digital (Simbian) plans. Xero is included in the Simbian monthly price for the accountant-led workflow (Comply→Xero Simple, Growth→Xero Ignite, Elite→Xero Grow) — there is no separate customer Xero charge on those plans. HMRC still ",
+      "root": [
+        "other"
+      ]
+    },
+    {
+      "id": "G046",
+      "q": "i made 8k then actually wait 800 quid deliveries",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your self-employed trading income is £8,000 before any expenses, you would typically need to register for Self Assessment, as it exceeds the £1,000 trading allowance. However, you can deduct your delivery expenses of £800, which would reduce your taxable income to £7,200.\n\nWould you like more inf",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "income_type_missing",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G049",
+      "q": "crypto tax on buy or only sell",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Crypto tax usually depends on what you did: buying is not normally a taxable disposal by itself; tax more often arises when you dispose of crypto (sell, exchange, or certain other events), and frequent trading can be Income Tax instead of Capital Gains Tax. I won’t invent your treatment. Have you al",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "disposal_gain_ambiguity"
+      ]
+    },
+    {
+      "id": "G056",
+      "q": "landlord rent £11200  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your rental income is £11,200 for the tax year 2026-27, you will need to declare this income to HMRC through Self Assessment, as it exceeds the £1,000 property allowance. You should keep records of the rent received and any allowable expenses. \n\nWould you like more information on how to file y",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G066",
+      "q": "just started doing some photography on the side maybe £955 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": true,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your photography income is £955 for the tax year, you may not need to register for Self Assessment or inform HMRC, as it falls below the £1,000 trading allowance threshold. However, if you have other income or if your total trading income exceeds £1,000, you would need to register and file a S",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G072",
+      "q": "landlord rent £13600  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your rental income from property is £13,600 for the 2026-27 tax year, you will need to declare this income to HMRC through Self Assessment, as it exceeds the £1,000 property allowance. You should keep records of the rent received and any allowable expenses. \n\nWould you like more information on ho",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G074",
+      "q": "just started doing some cleaning on the side maybe £1040 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your cleaning income is £1,040, which exceeds the trading allowance of £1,000 for the 2026-27 tax year, you will need to register as self-employed with HMRC and submit a Self Assessment tax return. You must register by 5 October following the end of the tax year in which you started your self-",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G082",
+      "q": "just started doing some gardening on the side maybe £1125 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your gardening income is £1,125, you will need to register as self-employed with HMRC for Self Assessment, as it exceeds the £1,000 trading allowance. You must register by 5 October following the end of the tax year in which you started your self-employment. \n\nFor the 2026-27 tax year, ensure ",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G088",
+      "q": "landlord rent £16000  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your rental income from property is £16,000 for the 2026-27 tax year, you will need to declare this income to HMRC through Self Assessment, as it exceeds the £1,000 property allowance. You should keep records of your rental income and any allowable expenses. \n\nWould you like more information on h",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G090",
+      "q": "just started doing some tutoring on the side maybe £1210 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your tutoring income is £1,210, which exceeds the trading allowance of £1,000 for the 2026-27 tax year, you will need to register as self-employed with HMRC and submit a Self Assessment tax return. You must register by 5 October following the end of the tax year in which you started your tutor",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G098",
+      "q": "just started doing some dog walking on the side maybe £1295 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your dog walking income is £1,295 for the tax year, you will need to register as self-employed with HMRC and submit a Self Assessment tax return. The trading allowance allows you to earn up to £1,000 tax-free, but since your income exceeds this, you'll need to report it. Make sure to register ",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G104",
+      "q": "landlord rent £18400  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your rental income from property is £18,400 for the 2026-27 tax year, you will need to declare this income to HMRC through Self Assessment, as it exceeds the £1,000 property allowance. You should keep records of the rent received and any allowable expenses. \n\nWould you like more information on ho",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G106",
+      "q": "just started doing some photography on the side maybe £1380 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your photography income is £1,380 for the tax year, you will need to register as self-employed with HMRC and submit a Self Assessment tax return. The trading allowance allows you to earn up to £1,000 tax-free, but since your income exceeds that, you'll need to report it.\n\nYou should register b",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G114",
+      "q": "just started doing some cleaning on the side maybe £1465 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your cleaning income is £1,465, you will need to register as self-employed with HMRC for Self Assessment. The trading allowance of £1,000 means you can deduct this from your income, but since your income exceeds that amount, you must still register and file a Self Assessment return. \n\nYou need",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G120",
+      "q": "landlord rent £20800  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your rental income from property is £20,800 for the 2026-27 tax year, you will need to declare this income to HMRC through Self Assessment, as it exceeds the £1,000 property allowance. You should keep records of the rent received and any allowable expenses. \n\nWould you like to know more about the",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G122",
+      "q": "just started doing some gardening on the side maybe £1550 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your gardening income is £1,550, you will need to register as self-employed with HMRC for Self Assessment, as it exceeds the £1,000 trading allowance for the 2026-27 tax year. You must register by 5 October following the end of the tax year in which you started your self-employment.\n\nWould you",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G130",
+      "q": "just started doing some tutoring on the side maybe £1635 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your tutoring income is £1,635 for the tax year, you will need to register as self-employed with HMRC and submit a Self Assessment tax return. The trading allowance allows you to earn up to £1,000 tax-free, but since your income exceeds this amount, registration is necessary. You must register",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G136",
+      "q": "landlord rent £23200  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your rental income from property is £23,200 for the 2026-27 tax year, you will need to declare this income to HMRC through Self Assessment, as it exceeds the £1,000 property allowance. Since your income is above this threshold, you must register for Self Assessment and file a tax return.\n\nWould y",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G138",
+      "q": "just started doing some dog walking on the side maybe £1720 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your dog walking income is £1,720, you will need to register as self-employed with HMRC for Self Assessment. This is because your trading income exceeds the £1,000 trading allowance for the 2026-27 tax year. You must register by 5 October 2027, which is the deadline for the tax year ending 5 A",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G146",
+      "q": "just started doing some photography on the side maybe £1805 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your photography income is £1,805 for the tax year, you will need to register as self-employed with HMRC and submit a Self Assessment tax return. This is because your trading income exceeds the £1,000 trading allowance. You should register by 5 October following the end of the tax year in whic",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G152",
+      "q": "landlord rent £25600  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your rental income from property is £25,600 for the 2026-27 tax year, you will need to declare this income to HMRC through Self Assessment, as it exceeds the £1,000 property allowance. You should keep records of the rent received and any allowable expenses. \n\nWould you like more information on ho",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G154",
+      "q": "just started doing some cleaning on the side maybe £1890 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your cleaning income is £1,890 for the tax year 2026-27, you will need to register as self-employed with HMRC and submit a Self Assessment tax return. The trading allowance of £1,000 means you can offset this against your income, but since your income exceeds that amount, registration is neces",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G162",
+      "q": "just started doing some gardening on the side maybe £1975 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your gardening income is £1,975 for the tax year, you will need to register as self-employed with HMRC and submit a Self Assessment tax return. The trading allowance allows you to earn up to £1,000 tax-free, but since your income exceeds this amount, you must report it.\n\nYou should register by",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G168",
+      "q": "landlord rent £28000  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your rental income from property is £28,000 for the 2026-27 tax year, you will need to register for Self Assessment and submit a tax return, as your income exceeds the £1,000 property allowance. This means you must declare your rental income and any allowable expenses to HMRC.\n\nWould you like mor",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G170",
+      "q": "just started doing some tutoring on the side maybe £2060 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your tutoring income is £2,060, you will need to register as self-employed with HMRC for Self Assessment, as your trading income exceeds the £1,000 trading allowance for the 2026-27 tax year. You must register by 5 October following the end of the tax year in which you started tutoring.\n\nWould",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G178",
+      "q": "just started doing some dog walking on the side maybe £2145 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your dog walking income is £2,145 for the tax year, you will need to register as self-employed with HMRC and submit a Self Assessment tax return. This is because your trading income exceeds the £1,000 trading allowance for the 2026-27 tax year. \n\nYou must register by 5 October following the en",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G184",
+      "q": "landlord rent £30400  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your rental income from property is £30,400 for the 2026-27 tax year, you will need to declare this income to HMRC through Self Assessment, as it exceeds the £1,000 property allowance. Since your income is above the threshold, you must register for Self Assessment and file a tax return.\n\nWould yo",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G186",
+      "q": "just started doing some photography on the side maybe £2230 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your photography income is £2,230, you will need to register as self-employed with HMRC and submit a Self Assessment tax return for the 2026-27 tax year. The trading allowance allows you to earn up to £1,000 tax-free, but since your income exceeds this amount, you must report it. \n\nYou need to",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G194",
+      "q": "just started doing some cleaning on the side maybe £2315 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your cleaning income of £2,315 exceeds the £1,000 trading allowance for the 2026-27 tax year, you will need to register as self-employed with HMRC and submit a Self Assessment tax return. You must register by 5 October following the end of the tax year in which you started your self-employment",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G200",
+      "q": "landlord rent £32800  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your rental income from property is £32,800 for the 2026-27 tax year, you will need to declare this income to HMRC through Self Assessment, as it exceeds the £1,000 property allowance. Since your income is above the threshold, you must register for Self Assessment and submit a tax return.\n\nWould ",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G202",
+      "q": "just started doing some gardening on the side maybe £2400 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your gardening income is £2,400, you will need to register as self-employed with HMRC for Self Assessment. This is because your trading income exceeds the £1,000 trading allowance for the 2026-27 tax year. You must register by 5 October following the end of the tax year in which you started yo",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G210",
+      "q": "just started doing some tutoring on the side maybe £2485 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your tutoring income is £2,485, which exceeds the £1,000 trading allowance for the 2026-27 tax year, you will need to register as self-employed with HMRC and submit a Self Assessment tax return. You should register by 5 October following the end of the tax year in which you started tutoring.\n\n",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G211",
+      "q": "contracting as dev £4760 in 2025-26 before expenses. sa?",
+      "expected": "SA_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_sa_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G214",
+      "q": "qi more than £50000 in 2024-25 — start when?",
+      "expected": "MTD_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_mtd_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G216",
+      "q": "landlord rent £35200  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "answered_general_instead_of_clarify"
+      ]
+    },
+    {
+      "id": "G218",
+      "q": "just started doing some dog walking on the side maybe £2570 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "answered_general_instead_of_clarify"
+      ]
+    },
+    {
+      "id": "G219",
+      "q": "contracting as nurse bank £4920 in 2025-26 before expenses. sa?",
+      "expected": "SA_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_sa_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G222",
+      "q": "qi more than £30000 in 2025-26 — start when?",
+      "expected": "MTD_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_mtd_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G224",
+      "q": "landlord rent £36400 2024-25 — sa?",
+      "expected": "SA_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_sa_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G226",
+      "q": "just started doing some photography on the side maybe £2655 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "answered_general_instead_of_clarify"
+      ]
+    },
+    {
+      "id": "G227",
+      "q": "contracting as barista extra £5080 in 2025-26 before expenses. sa?",
+      "expected": "SA_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_sa_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G230",
+      "q": "qi more than £20000 in 2026-27 — start when?",
+      "expected": "MTD_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_mtd_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G232",
+      "q": "landlord rent £37600  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "answered_general_instead_of_clarify"
+      ]
+    },
+    {
+      "id": "G234",
+      "q": "just started doing some cleaning on the side maybe £2740 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "answered_general_instead_of_clarify"
+      ]
+    },
+    {
+      "id": "G235",
+      "q": "contracting as driver £5240 in 2025-26 before expenses. sa?",
+      "expected": "SA_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_sa_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G238",
+      "q": "qi more than £50000 in 2024-25 — start when?",
+      "expected": "MTD_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_mtd_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G240",
+      "q": "landlord rent £38800 2024-25 — sa?",
+      "expected": "SA_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_sa_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G242",
+      "q": "just started doing some gardening on the side maybe £2825 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "answered_general_instead_of_clarify"
+      ]
+    },
+    {
+      "id": "G243",
+      "q": "contracting as writer £5400 in 2025-26 before expenses. sa?",
+      "expected": "SA_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_sa_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G246",
+      "q": "qi more than £30000 in 2025-26 — start when?",
+      "expected": "MTD_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_mtd_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G248",
+      "q": "landlord rent £40000  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "answered_general_instead_of_clarify"
+      ]
+    },
+    {
+      "id": "G250",
+      "q": "just started doing some tutoring on the side maybe £2910 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "answered_general_instead_of_clarify"
+      ]
+    },
+    {
+      "id": "G251",
+      "q": "contracting as dev £5560 in 2025-26 before expenses. sa?",
+      "expected": "SA_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_sa_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G254",
+      "q": "qi more than £20000 in 2026-27 — start when?",
+      "expected": "MTD_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_mtd_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G256",
+      "q": "landlord rent £41200 2024-25 — sa?",
+      "expected": "SA_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_sa_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G258",
+      "q": "just started doing some dog walking on the side maybe £2995 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "answered_general_instead_of_clarify"
+      ]
+    },
+    {
+      "id": "G259",
+      "q": "contracting as nurse bank £5720 in 2025-26 before expenses. sa?",
+      "expected": "SA_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_sa_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G262",
+      "q": "qi more than £50000 in 2024-25 — start when?",
+      "expected": "MTD_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_mtd_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G264",
+      "q": "landlord rent £42400  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your rental income from property is £42,400 for the 2026-27 tax year, you will need to declare this income to HMRC through Self Assessment, as it exceeds the £1,000 property allowance. \n\nSince your rental income is above the threshold, you must register for Self Assessment and file a tax return. ",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G266",
+      "q": "just started doing some photography on the side maybe £3080 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your photography income is £3,080, you will need to register as self-employed with HMRC for Self Assessment, as your trading income exceeds the £1,000 trading allowance for the 2026-27 tax year. You must register by 5 October following the end of the tax year in which you started your self-emp",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G274",
+      "q": "just started doing some cleaning on the side maybe £3165 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your cleaning income of £3,165 exceeds the trading allowance of £1,000 for the 2026-27 tax year, you will need to register as self-employed with HMRC and submit a Self Assessment tax return. You must register by 5 October 2027, which is the deadline for the tax year ending 5 April 2027.\n\nWould",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G280",
+      "q": "landlord rent £44800  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your rental income from property is £44,800 for the 2026-27 tax year, you will need to declare this income to HMRC through Self Assessment, as it exceeds the £1,000 property allowance. \n\nYou should keep records of the rent received and any allowable expenses. The deadline for filing your Self Ass",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G282",
+      "q": "just started doing some gardening on the side maybe £3250 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your gardening income is £3,250, you will need to register as self-employed with HMRC for Self Assessment, as your trading income exceeds the £1,000 trading allowance for the 2026-27 tax year. You must register by 5 October following the end of the tax year in which you started your self-emplo",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G290",
+      "q": "just started doing some tutoring on the side maybe £3335 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your tutoring income is £3,335, you will need to register as self-employed with HMRC for Self Assessment, as your trading income exceeds the £1,000 trading allowance. You must register by 5 October following the end of the tax year in which you started tutoring. \n\nFor the 2026-27 tax year, ens",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G296",
+      "q": "landlord rent £47200  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your rental income is £47,200 for the 2026-27 tax year, you will need to declare this income to HMRC, as it exceeds the £1,000 property allowance. Since your income is above this threshold, you will typically need to register for Self Assessment and file a tax return.\n\nWould you like more informa",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G298",
+      "q": "just started doing some dog walking on the side maybe £3420 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your dog walking income is £3,420, you will need to register as self-employed with HMRC for Self Assessment. This is because your trading income exceeds the £1,000 trading allowance for the 2026-27 tax year. You must register by 5 October following the end of the tax year in which you started ",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G306",
+      "q": "just started doing some photography on the side maybe £3505 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your photography income is £3,505 for the tax year, you will need to register as self-employed with HMRC for Self Assessment. This is because your trading income exceeds the £1,000 trading allowance. You must register by 5 October following the end of the tax year in which you started your sel",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G312",
+      "q": "landlord rent £49600  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your rental income is £49,600 for the 2026-27 tax year, you will need to declare this income to HMRC through Self Assessment, as it exceeds the £1,000 property allowance. You must register for Self Assessment if you haven't already and file your tax return by 31 January 2028.\n\nWould you like more",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G314",
+      "q": "just started doing some cleaning on the side maybe £3590 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your cleaning income is £3,590, which exceeds the trading allowance of £1,000 for the 2026-27 tax year, you will need to register as self-employed with HMRC and submit a Self Assessment tax return. You must register by 5 October following the end of the tax year in which you started your self-",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G322",
+      "q": "just started doing some gardening on the side maybe £3675 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your gardening income is £3,675, you will need to register as self-employed with HMRC for Self Assessment, as it exceeds the trading allowance of £1,000 for the 2026-27 tax year. You must register by 5 October following the end of the tax year in which you started your self-employment.\n\nWould ",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G328",
+      "q": "landlord rent £52000  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your rental income is £52,000 for the 2026-27 tax year, you will need to register for Self Assessment and submit a tax return. This is because your property income exceeds the £1,000 property allowance, which means you must declare all your rental income to HMRC.\n\nWould you like more information ",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G330",
+      "q": "just started doing some tutoring on the side maybe £3760 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your tutoring income is £3,760, you will need to register as self-employed with HMRC for Self Assessment because your trading income exceeds the £1,000 trading allowance. You should register by 5 October following the end of the tax year in which you started tutoring. \n\nFor the 2026-27 tax yea",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G338",
+      "q": "just started doing some dog walking on the side maybe £3845 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your dog walking income is £3,845, you will need to register as self-employed with HMRC for Self Assessment, as it exceeds the £1,000 trading allowance for the 2026-27 tax year. You must register by 5 October following the end of the tax year in which you started your self-employment.\n\nWould y",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G344",
+      "q": "landlord rent £54400  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your rental income from property is £54,400 for the 2026-27 tax year, you will need to declare this income to HMRC through Self Assessment, as it exceeds the £1,000 property allowance. Since your income is above the threshold, you must register for Self Assessment and file a tax return.\n\nWould yo",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G346",
+      "q": "just started doing some photography on the side maybe £3930 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your photography income is £3,930, you will need to register as self-employed with HMRC for Self Assessment, as your trading income exceeds the £1,000 trading allowance for the 2026-27 tax year. You must register by 5 October 2027.\n\nOnce registered, you'll need to submit a Self Assessment tax ",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G354",
+      "q": "just started doing some cleaning on the side maybe £4015 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your cleaning income is £4,015, you will need to register as self-employed with HMRC for Self Assessment, as it exceeds the £1,000 trading allowance. You must register by 5 October following the end of the tax year in which you started your self-employment. \n\nFor the 2026-27 tax year, ensure y",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G360",
+      "q": "landlord rent £56800  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your rental income from property is £56,800 for the 2026-27 tax year, you will need to declare this income to HMRC, as it exceeds the £1,000 property allowance. You will typically report this through a Self Assessment tax return. \n\nHave you registered for Self Assessment yet?",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G362",
+      "q": "just started doing some gardening on the side maybe £4100 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your gardening income is £4,100, you will need to register as self-employed with HMRC for Self Assessment, as it exceeds the £1,000 trading allowance. You must register by 5 October following the end of the tax year in which you started your self-employment. \n\nFor the 2026-27 tax year, ensure ",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G370",
+      "q": "just started doing some tutoring on the side maybe £4185 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your tutoring income is £4,185, you will need to register as self-employed with HMRC for Self Assessment, as it exceeds the £1,000 trading allowance for the 2026-27 tax year. You must register by 5 October 2027, which is the deadline after the end of the tax year in which you started your self",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G376",
+      "q": "landlord rent £59200  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your rental income from property is £59,200 for the 2026-27 tax year, you will need to declare this income to HMRC, as it exceeds the £1,000 property allowance. You will typically report this through a Self Assessment tax return.\n\nSince your income is above the threshold, you should register for ",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G378",
+      "q": "just started doing some dog walking on the side maybe £4270 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your dog walking income is £4,270, you will need to register as self-employed with HMRC for Self Assessment, as your trading income exceeds the £1,000 trading allowance. You must register by 5 October following the end of the tax year in which you started your self-employment.\n\nFor the 2026-27",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G386",
+      "q": "just started doing some photography on the side maybe £4355 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your photography income is £4,355, you will need to register as self-employed with HMRC for Self Assessment, as it exceeds the £1,000 trading allowance threshold for the 2026-27 tax year. You must register by 5 October following the end of the tax year in which you started your self-employment",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G392",
+      "q": "landlord rent £61600  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your rental income is £61,600 for the 2026-27 tax year, you will need to register for Self Assessment and file a tax return, as your property income exceeds the £1,000 property allowance. This is necessary to report your rental income and any allowable expenses.\n\nWould you like to know more about",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G394",
+      "q": "just started doing some cleaning on the side maybe £4440 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your cleaning income is £4,440, you will need to register as self-employed with HMRC for Self Assessment, as it exceeds the trading allowance of £1,000 for the 2026-27 tax year. You must register by 5 October following the end of the tax year in which you started your self-employment.\n\nWould y",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G402",
+      "q": "just started doing some gardening on the side maybe £4525 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your gardening income is £4,525, you will need to register as self-employed with HMRC for Self Assessment, as it exceeds the £1,000 trading allowance for the 2026-27 tax year. You must register by 5 October following the end of the tax year in which you started your self-employment.\n\nWould you",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G408",
+      "q": "landlord rent £64000  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your rental income from property is £64,000 for the 2026-27 tax year, you will need to register for Self Assessment and submit a tax return. Since your rental income exceeds the £1,000 property allowance, you must declare the full amount to HMRC.\n\nWould you like more information on how to registe",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G410",
+      "q": "just started doing some tutoring on the side maybe £4610 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your tutoring income is £4,610 for the tax year, you will need to register as self-employed with HMRC for Self Assessment because your trading income exceeds the £1,000 trading allowance. You must register by 5 October following the end of the tax year in which you started tutoring.\n\nFor the 2",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G418",
+      "q": "just started doing some dog walking on the side maybe £4695 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your dog walking income is £4,695, which exceeds the £1,000 trading allowance for the 2026-27 tax year, you will need to register as self-employed with HMRC for Self Assessment. This registration should be completed by 5 October following the end of the tax year in which you started your self-",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G424",
+      "q": "landlord rent £66400  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your rental income as a landlord is £66,400 for the 2026-27 tax year, you will need to declare this income to HMRC through Self Assessment. Since your rental income exceeds the £1,000 property allowance, you cannot avoid registering for Self Assessment.\n\nWould you like more information on how to ",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G426",
+      "q": "just started doing some photography on the side maybe £4780 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your photography income is £4,780, which exceeds the £1,000 trading allowance for the 2026-27 tax year, you will need to register as self-employed with HMRC and submit a Self Assessment tax return. You must register by 5 October following the end of the tax year in which you started your self-",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G434",
+      "q": "just started doing some cleaning on the side maybe £4865 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your cleaning income is £4,865 for the tax year, you will need to register as self-employed with HMRC for Self Assessment, as your trading income exceeds the £1,000 trading allowance. You must register by 5 October following the end of the tax year in which you started your self-employment.\n\nF",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G440",
+      "q": "landlord rent £68800  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "SA_ASSIST",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": true,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "If your rental income is £68,800 for the 2026-27 tax year, you will need to register for Self Assessment and file a tax return, as your property income exceeds the £1,000 property allowance. \n\nMake sure to keep records of your rental income and any allowable expenses. Would you like more information",
+      "root": [
+        "premature_sa_without_facts"
+      ]
+    },
+    {
+      "id": "G442",
+      "q": "just started doing some gardening on the side maybe £4950 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "Since your gardening income is £4,950, which is above the £1,000 trading allowance for the 2026-27 tax year, you will need to register as self-employed with HMRC and submit a Self Assessment tax return. You must register by 5 October following the end of the tax year in which you started your self-e",
+      "root": [
+        "answered_general_instead_of_clarify",
+        "trading_allowance_sa_confusion"
+      ]
+    },
+    {
+      "id": "G446",
+      "q": "qi more than £20000 in 2026-27 — start when?",
+      "expected": "MTD_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_mtd_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G448",
+      "q": "landlord rent £70000 2024-25 — sa?",
+      "expected": "SA_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_sa_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G450",
+      "q": "just started doing some tutoring on the side maybe £5035 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "answered_general_instead_of_clarify"
+      ]
+    },
+    {
+      "id": "G451",
+      "q": "contracting as dev £9560 in 2025-26 before expenses. sa?",
+      "expected": "SA_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_sa_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G454",
+      "q": "qi more than £50000 in 2024-25 — start when?",
+      "expected": "MTD_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_mtd_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G456",
+      "q": "landlord rent £71200  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "answered_general_instead_of_clarify"
+      ]
+    },
+    {
+      "id": "G458",
+      "q": "just started doing some dog walking on the side maybe £5120 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "answered_general_instead_of_clarify"
+      ]
+    },
+    {
+      "id": "G459",
+      "q": "contracting as nurse bank £9720 in 2025-26 before expenses. sa?",
+      "expected": "SA_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_sa_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G462",
+      "q": "qi more than £30000 in 2025-26 — start when?",
+      "expected": "MTD_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_mtd_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G464",
+      "q": "landlord rent £72400 2024-25 — sa?",
+      "expected": "SA_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_sa_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G466",
+      "q": "just started doing some photography on the side maybe £5205 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "answered_general_instead_of_clarify"
+      ]
+    },
+    {
+      "id": "G467",
+      "q": "contracting as barista extra £9880 in 2025-26 before expenses. sa?",
+      "expected": "SA_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_sa_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G470",
+      "q": "qi more than £20000 in 2026-27 — start when?",
+      "expected": "MTD_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_mtd_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G472",
+      "q": "landlord rent £73600  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "answered_general_instead_of_clarify"
+      ]
+    },
+    {
+      "id": "G474",
+      "q": "just started doing some cleaning on the side maybe £5290 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "answered_general_instead_of_clarify"
+      ]
+    },
+    {
+      "id": "G475",
+      "q": "contracting as driver £10040 in 2025-26 before expenses. sa?",
+      "expected": "SA_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_sa_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G478",
+      "q": "qi more than £50000 in 2024-25 — start when?",
+      "expected": "MTD_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_mtd_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G480",
+      "q": "landlord rent £74800 2024-25 — sa?",
+      "expected": "SA_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_sa_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G482",
+      "q": "just started doing some gardening on the side maybe £5375 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "answered_general_instead_of_clarify"
+      ]
+    },
+    {
+      "id": "G483",
+      "q": "contracting as writer £10200 in 2025-26 before expenses. sa?",
+      "expected": "SA_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_sa_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G486",
+      "q": "qi more than £30000 in 2025-26 — start when?",
+      "expected": "MTD_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_mtd_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G488",
+      "q": "landlord rent £76000  — sa?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "answered_general_instead_of_clarify"
+      ]
+    },
+    {
+      "id": "G490",
+      "q": "just started doing some tutoring on the side maybe £5460 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "answered_general_instead_of_clarify"
+      ]
+    },
+    {
+      "id": "G491",
+      "q": "contracting as dev £10360 in 2025-26 before expenses. sa?",
+      "expected": "SA_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_sa_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G494",
+      "q": "qi more than £20000 in 2026-27 — start when?",
+      "expected": "MTD_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_mtd_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G496",
+      "q": "landlord rent £77200 2024-25 — sa?",
+      "expected": "SA_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_sa_when_facts_enough"
+      ]
+    },
+    {
+      "id": "G498",
+      "q": "just started doing some dog walking on the side maybe £5545 — hmrc?",
+      "expected": "MORE_INFO_NEEDED",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": true,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "answered_general_instead_of_clarify"
+      ]
+    },
+    {
+      "id": "G499",
+      "q": "contracting as nurse bank £10520 in 2025-26 before expenses. sa?",
+      "expected": "SA_ASSIST",
+      "observed": "GENERAL_INFO",
+      "tags": {
+        "factual_tax_error": false,
+        "premature_package": false,
+        "unnecessary_clarification": false,
+        "missing_clarification": false,
+        "wrong_service": false,
+        "memory_defect": false,
+        "no_buy_respected": true
+      },
+      "reply": "",
+      "root": [
+        "missed_sa_when_facts_enough"
+      ]
+    }
+  ]
+}
