@@ -14,7 +14,7 @@ Do **not** merge or deploy to production from this task alone.
 |------|-------|
 | Working branch | `cursor/simba-v2-memory-wording-6522` |
 | Base (authoritative stack) | built on current PR #45 / independent-verify (which includes PR #42 TaxSimba-first behaviour) |
-| Commit SHA | *(filled at push)* |
+| Commit SHA | 425f21db72286884331b0d2676517a2dba2598d3 |
 | PR | *(filled when opened)* |
 
 No architecture rewrite. No unrelated portal/UI/security/routing changes.
