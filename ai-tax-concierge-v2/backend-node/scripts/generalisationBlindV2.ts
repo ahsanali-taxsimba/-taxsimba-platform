@@ -1,7 +1,7 @@
 /**
  * NEW locked unseen blind bank AFTER decision-policy fixes.
  * Expectations locked to disk BEFORE any answers are collected.
- * Not derived by paraphrasing the prior G*/MJ* banks.
+ * Not derived by paraphrasing the prior G-series or MJ-series banks.
  */
 import { mkdirSync, writeFileSync, readFileSync, existsSync } from "node:fs";
 import path from "node:path";
@@ -34,16 +34,28 @@ type Turn = { role: "user" | "assistant"; content: string };
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 async function postChat(app: any, body: any) {
-  for (let i = 0; i < 5; i++) {
+  // Do not Promise.race-abandon in-flight requests — that piles up OpenAI calls
+  // and cascades timeouts across later multi-turn journeys.
+  for (let i = 0; i < 8; i++) {
     try {
       const res = await request(app)
         .post("/api/v1/chat")
         .send(body)
-        .timeout({ deadline: 45000, response: 45000 });
-      if (res.status === 200) return res;
-      await sleep(Math.min(20000, 1000 * 2 ** i));
-    } catch {
-      await sleep(Math.min(20000, 1000 * 2 ** i));
+        .timeout({ deadline: 90000, response: 90000 });
+      if (res.status === 200 && String(res.body?.reply || "").trim()) return res;
+      const status = res.status;
+      console.error(
+        `postChat empty/non-200 retry ${i + 1}: status=${status} replyLen=${String(res.body?.reply || "").length}`,
+      );
+      // OpenAI 429 / upstream rate limits need long cool-downs.
+      if (status === 429) await sleep(Math.min(120000, 15000 * 2 ** Math.min(i, 3)));
+      else await sleep(Math.min(30000, 2500 * 2 ** i));
+    } catch (err) {
+      console.error(
+        `postChat retry ${i + 1}:`,
+        (err as Error)?.message || String(err),
+      );
+      await sleep(Math.min(30000, 2500 * 2 ** i));
     }
   }
   return null;
@@ -770,78 +782,111 @@ async function main() {
   const score20 = JSON.parse(readFileSync(lockScore, "utf8")).journeys;
 
   const live = process.env.LIVE !== "0";
+  const skipSingle =
+    process.env.SKIP_SINGLE === "1" ||
+    (existsSync(path.join(OUT, "BLIND_V2_500_RESULTS.json")) &&
+      process.env.FORCE_SINGLE !== "1");
   const app = createApp(
     createSettings({ CONCIERGE_FORCE_MOCK_LLM: live ? false : true }),
   );
 
-  const sResults: any[] = [];
-  for (let i = 0; i < single.length; i++) {
-    const s = single[i]!;
-    const res = await postChat(app, {
-      session_id: `nv2-${s.id}`,
-      message: s.question,
-      history: [],
-    });
-    const body = res?.body || {};
-    const reply = String(body.reply || "");
-    const packages = (body.packages || []).map((p: any) => p.code || p.name || p);
-    const clf = classify(reply, packages, s.expected_classification);
-    sResults.push({
-      id: s.id,
-      question: s.question,
-      expected_classification: s.expected_classification,
-      notes: s.notes,
-      adversarial: s.adversarial,
-      reply_unedited: reply,
-      packages,
-      llm_mode: body.llm_mode,
-      classification_observed: clf.observed,
-      classification_match: clf.match,
-      tags: clf.tags,
-    });
-    if ((i + 1) % 25 === 0) {
-      console.error(`v2-single ${i + 1}/${single.length}`);
-      writeFileSync(
-        path.join(OUT, "BLIND_V2_500_RESULTS.checkpoint.json"),
-        JSON.stringify(
-          { generated_at: new Date().toISOString(), completed: sResults.length, results: sResults },
-          null,
-          2,
-        ),
-      );
+  let sResults: any[] = [];
+  let sMetrics: any;
+  const singleResultsPath = path.join(OUT, "BLIND_V2_500_RESULTS.json");
+  if (skipSingle && existsSync(singleResultsPath)) {
+    const prior = JSON.parse(readFileSync(singleResultsPath, "utf8"));
+    sResults = prior.results || [];
+    sMetrics = prior.metrics;
+    console.error(`v2-single reused locked results (${sResults.length})`);
+  } else {
+    for (let i = 0; i < single.length; i++) {
+      const s = single[i]!;
+      const res = await postChat(app, {
+        session_id: `nv2-${s.id}`,
+        message: s.question,
+        history: [],
+      });
+      const body = res?.body || {};
+      const reply = String(body.reply || "");
+      const packages = (body.packages || []).map((p: any) => p.code || p.name || p);
+      const clf = classify(reply, packages, s.expected_classification);
+      sResults.push({
+        id: s.id,
+        question: s.question,
+        expected_classification: s.expected_classification,
+        notes: s.notes,
+        adversarial: s.adversarial,
+        reply_unedited: reply,
+        packages,
+        llm_mode: body.llm_mode,
+        classification_observed: clf.observed,
+        classification_match: clf.match,
+        tags: clf.tags,
+      });
+      if ((i + 1) % 25 === 0) {
+        console.error(`v2-single ${i + 1}/${single.length}`);
+        writeFileSync(
+          path.join(OUT, "BLIND_V2_500_RESULTS.checkpoint.json"),
+          JSON.stringify(
+            {
+              generated_at: new Date().toISOString(),
+              completed: sResults.length,
+              results: sResults,
+            },
+            null,
+            2,
+          ),
+        );
+      }
+      await sleep(live ? 40 : 5);
     }
-    await sleep(live ? 40 : 5);
+
+    sMetrics = {
+      total: sResults.length,
+      openai: sResults.filter((r) => r.llm_mode === "openai").length,
+      exact: sResults.filter((r) => r.classification_match === true).length,
+      acceptable: sResults.filter((r) => r.classification_match === "ACCEPTABLE")
+        .length,
+      fail: sResults.filter((r) => r.classification_match === false).length,
+      FACTUAL_TAX_ERROR: sResults.filter((r) => r.tags.factual_tax_error).length,
+      PREMATURE_PACKAGE: sResults.filter((r) => r.tags.premature_package).length,
+      MISSING_CLARIFICATION: sResults.filter((r) => r.tags.missing_clarification)
+        .length,
+      UNNECESSARY_CLARIFICATION: sResults.filter(
+        (r) => r.tags.unnecessary_clarification,
+      ).length,
+      WRONG_SERVICE: sResults.filter((r) => r.tags.wrong_service).length,
+      EMPTY_REPLY: sResults.filter((r) => r.tags.empty_reply).length,
+    };
+    writeFileSync(
+      singleResultsPath,
+      JSON.stringify(
+        {
+          generated_at: new Date().toISOString(),
+          live,
+          metrics: sMetrics,
+          results: sResults,
+        },
+        null,
+        2,
+      ),
+    );
   }
 
-  const sMetrics = {
-    total: sResults.length,
-    openai: sResults.filter((r) => r.llm_mode === "openai").length,
-    exact: sResults.filter((r) => r.classification_match === true).length,
-    acceptable: sResults.filter((r) => r.classification_match === "ACCEPTABLE")
-      .length,
-    fail: sResults.filter((r) => r.classification_match === false).length,
-    FACTUAL_TAX_ERROR: sResults.filter((r) => r.tags.factual_tax_error).length,
-    PREMATURE_PACKAGE: sResults.filter((r) => r.tags.premature_package).length,
-    MISSING_CLARIFICATION: sResults.filter((r) => r.tags.missing_clarification)
-      .length,
-    UNNECESSARY_CLARIFICATION: sResults.filter(
-      (r) => r.tags.unnecessary_clarification,
-    ).length,
-    WRONG_SERVICE: sResults.filter((r) => r.tags.wrong_service).length,
-    EMPTY_REPLY: sResults.filter((r) => r.tags.empty_reply).length,
-  };
-  writeFileSync(
-    path.join(OUT, "BLIND_V2_500_RESULTS.json"),
-    JSON.stringify(
-      { generated_at: new Date().toISOString(), live, metrics: sMetrics, results: sResults },
-      null,
-      2,
-    ),
-  );
-
-  const mResults: any[] = [];
+  const multiCk = path.join(OUT, "BLIND_V2_100_MULTI_RESULTS.checkpoint.json");
+  let mResults: any[] = [];
+  if (existsSync(multiCk) && process.env.FORCE_MULTI !== "1") {
+    try {
+      mResults = JSON.parse(readFileSync(multiCk, "utf8")).results || [];
+      console.error(`v2-multi resume from checkpoint (${mResults.length})`);
+    } catch {
+      mResults = [];
+    }
+  }
+  const doneIds = new Set(mResults.map((r) => r.id));
   for (let i = 0; i < multi.length; i++) {
     const s = multi[i]!;
+    if (doneIds.has(s.id)) continue;
     const history: Turn[] = [];
     const transcript: Turn[] = [];
     let lastPkgs: string[] = [];
@@ -858,7 +903,7 @@ async function main() {
       transcript.push({ role: "assistant", content: reply });
       history.push({ role: "user", content: msg });
       history.push({ role: "assistant", content: reply });
-      await sleep(live ? 40 : 5);
+      await sleep(live ? 400 : 5);
     }
     const asst = transcript.filter((t) => t.role === "assistant");
     const memoryDefect =
@@ -882,7 +927,22 @@ async function main() {
       timeouts: asst.filter((t) => t.content.includes("[NO_REPLY_TIMEOUT]")).length,
       adversarial: s.adversarial,
     });
-    if ((i + 1) % 10 === 0) console.error(`v2-multi ${i + 1}/${multi.length}`);
+    doneIds.add(s.id);
+    console.error(`v2-multi ${mResults.length}/${multi.length} ${s.id}`);
+    if (mResults.length % 5 === 0) {
+      writeFileSync(
+        multiCk,
+        JSON.stringify(
+          {
+            generated_at: new Date().toISOString(),
+            completed: mResults.length,
+            results: mResults,
+          },
+          null,
+          2,
+        ),
+      );
+    }
   }
   writeFileSync(
     path.join(OUT, "BLIND_V2_100_MULTI_RESULTS.json"),

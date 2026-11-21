@@ -726,20 +726,26 @@ export function answerAmbiguousIntent(
     };
   }
 
-  // VAT registration — confirm rolling 12-month test before locking an answer
+  // VAT registration — state the current GOV.UK £90,000 overview threshold,
+  // and explain the rolling 12-month / future-expectation tests.
   if (
     /\bvat\b/i.test(lower) &&
     /(register|threshold|£\s*[\d,]+|\d+\s*k\b)/i.test(lower) &&
     !/(already registered|vat return|how to file vat)/i.test(lower)
   ) {
+    const personalFigure = /£\s*[\d,]+|\d+\s*k\b/.test(lower);
     return {
       handled: true,
       prefer_over_eligibility_probe: true,
       confidence: "high",
-      customer_reply:
-        "VAT registration usually depends on your taxable turnover on a rolling 12-month basis (and sometimes on future expectations), not a single figure in isolation. " +
-        "Check the current threshold on GOV.UK and tell me whether your £ figure is the last 12 months’ taxable supplies, expected next 30 days, or something else. " +
-        "https://www.gov.uk/vat-registration-thresholds",
+      customer_reply: personalFigure
+        ? "VAT registration usually depends on your taxable turnover on a rolling 12-month basis (and sometimes on future expectations), not a single figure in isolation. " +
+          "The current GOV.UK overview threshold is £90,000. " +
+          "Tell me whether your £ figure is the last 12 months’ taxable supplies, expected next 30 days, or something else. " +
+          "https://www.gov.uk/vat-registration-thresholds"
+        : "You usually need to register for VAT if your VAT taxable turnover is more than £90,000 (current GOV.UK overview). " +
+          "That test is normally on a rolling 12-month basis, and there is also a forward-looking test if you expect to exceed the threshold in the next 30 days. " +
+          "https://www.gov.uk/vat-registration-thresholds",
     };
   }
 

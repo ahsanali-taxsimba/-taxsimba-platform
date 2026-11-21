@@ -69,7 +69,11 @@ export class OpenAIAdapter implements LLMAdapter {
     user_message: string;
   }): Promise<string> {
     this.rollBudgetDay();
-    if (this.tokensUsedToday >= this.dailyTokenBudget) {
+    // dailyTokenBudget <= 0 disables the in-process cap (eval / ops override).
+    if (
+      this.dailyTokenBudget > 0 &&
+      this.tokensUsedToday >= this.dailyTokenBudget
+    ) {
       throw new ConciergeError(
         "AI usage limit reached for today. Please try again later or speak to TaxSimba.",
         { code: "usage_limit", statusCode: 429 },

@@ -37,6 +37,21 @@ describe("decision_policy", () => {
     expect(p.clarificationClass).toBe("casual_vs_trading_ambiguity");
   });
 
+  it("clarifies tentative side photography above £1,500 before SA", () => {
+    const p = decidePolicy(
+      "just started doing some photography on the side maybe £3505 — hmrc?",
+    );
+    expect(p.mode).toBe("CLARIFY");
+    expect(p.clarificationClass).toBe("casual_vs_trading_ambiguity");
+  });
+
+  it("clarifies mid-message amount corrections before treating figures as income", () => {
+    const p = decidePolicy("i made 8k then actually wait 800 quid deliveries");
+    expect(p.mode).toBe("CLARIFY");
+    expect(p.clarificationClass).toBe("amount_correction_ambiguity");
+    expect(p.facts.amountGbp).toBe(800);
+  });
+
   it("clarifies two PAYE jobs before asserting SA", () => {
     const p = decidePolicy("two PAYE jobs only — SA automatic?");
     expect(p.mode).toBe("CLARIFY");

@@ -1,0 +1,1444 @@
+{
+  "generated_at": "2026-11-21T03:43:50.229Z",
+  "note": "LOCKED before answers. New multi-turn bank.",
+  "count": 100,
+  "scenarios": [
+    {
+      "id": "NJ001",
+      "title": "Courier slang then facts",
+      "turns": [
+        "yo I did some uber eats last month what tax stuff do I sort",
+        "about £2,800 before expenses",
+        "that was 2025-26",
+        "sa then?",
+        "can I DIY",
+        "dont sell me anything",
+        "what records"
+      ],
+      "expected_outcome": "clarify→SA→diy no sell",
+      "adversarial": true
+    },
+    {
+      "id": "NJ002",
+      "title": "Bare earn corrected",
+      "turns": [
+        "I make 62k",
+        "digital tax?",
+        "sorry 62k is PAYE and 16k is freelance turnover 2024-25",
+        "sa?",
+        "mtd?",
+        "no package"
+      ],
+      "expected_outcome": "latest facts win",
+      "adversarial": true
+    },
+    {
+      "id": "NJ003",
+      "title": "Educate then personal",
+      "turns": [
+        "whats this making tax digital nonsense",
+        "I let a flat",
+        "gross rent £22k 2024-25",
+        "mtd?",
+        "sa too?",
+        "no sell"
+      ],
+      "expected_outcome": "educate then classify",
+      "adversarial": false
+    },
+    {
+      "id": "NJ004",
+      "title": "Exact threshold flip",
+      "turns": [
+        "qi exactly 50000 2024-25",
+        "mtd april 2026?",
+        "what if more than 50k",
+        "turnover not profit right?",
+        "no signup"
+      ],
+      "expected_outcome": "exclusive then over",
+      "adversarial": false
+    },
+    {
+      "id": "NJ005",
+      "title": "No-buy educate",
+      "turns": [
+        "dont want packages",
+        "explain trading allowance",
+        "I made £1,400 freelance 2025-26",
+        "sa?"
+      ],
+      "expected_outcome": "educate then SA; no sell",
+      "adversarial": false
+    },
+    {
+      "id": "NJ006",
+      "title": "roofer mixed income",
+      "turns": [
+        "hi I work as a roofer",
+        "also a bit of side cash",
+        "main job PAYE around 32k",
+        "side maybe £1675",
+        "side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless I ask",
+        "ok if I ask later whats cheapest sa",
+        "thanks"
+      ],
+      "expected_outcome": "memory; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "NJ007",
+      "title": "nanny mixed income",
+      "turns": [
+        "hi I work as a nanny",
+        "also a bit of side cash",
+        "main job PAYE around 32k",
+        "side maybe £1710",
+        "side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless I ask",
+        "ok if I ask later whats cheapest sa",
+        "thanks"
+      ],
+      "expected_outcome": "memory; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "NJ008",
+      "title": "app developer mixed income",
+      "turns": [
+        "hi I work as a app developer",
+        "also a bit of side cash",
+        "main job PAYE around 32k",
+        "side maybe £1745",
+        "side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless I ask",
+        "ok if I ask later whats cheapest sa",
+        "thanks"
+      ],
+      "expected_outcome": "memory; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "NJ009",
+      "title": "baker mixed income",
+      "turns": [
+        "hi I work as a baker",
+        "also a bit of side cash",
+        "main job PAYE around 32k",
+        "side maybe £1780",
+        "side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless I ask",
+        "ok if I ask later whats cheapest sa",
+        "thanks"
+      ],
+      "expected_outcome": "memory; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "NJ010",
+      "title": "singer mixed income",
+      "turns": [
+        "hi I work as a singer",
+        "also a bit of side cash",
+        "main job PAYE around 32k",
+        "side maybe £1815",
+        "side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless I ask",
+        "ok if I ask later whats cheapest sa",
+        "thanks"
+      ],
+      "expected_outcome": "memory; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "NJ011",
+      "title": "cleaner mixed income",
+      "turns": [
+        "hi I work as a cleaner",
+        "also a bit of side cash",
+        "main job PAYE around 32k",
+        "side maybe £1850",
+        "side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless I ask",
+        "ok if I ask later whats cheapest sa",
+        "thanks"
+      ],
+      "expected_outcome": "memory; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "NJ012",
+      "title": "maths tutor mixed income",
+      "turns": [
+        "hi I work as a maths tutor",
+        "also a bit of side cash",
+        "main job PAYE around 32k",
+        "side maybe £1885",
+        "side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless I ask",
+        "ok if I ask later whats cheapest sa",
+        "thanks"
+      ],
+      "expected_outcome": "memory; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "NJ013",
+      "title": "courier mixed income",
+      "turns": [
+        "hi I work as a courier",
+        "also a bit of side cash",
+        "main job PAYE around 32k",
+        "side maybe £1920",
+        "side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless I ask",
+        "ok if I ask later whats cheapest sa",
+        "thanks"
+      ],
+      "expected_outcome": "memory; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "NJ014",
+      "title": "UX designer mixed income",
+      "turns": [
+        "hi I work as a UX designer",
+        "also a bit of side cash",
+        "main job PAYE around 32k",
+        "side maybe £1955",
+        "side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless I ask",
+        "ok if I ask later whats cheapest sa",
+        "thanks"
+      ],
+      "expected_outcome": "memory; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "NJ015",
+      "title": "barber mixed income",
+      "turns": [
+        "hi I work as a barber",
+        "also a bit of side cash",
+        "main job PAYE around 32k",
+        "side maybe £1990",
+        "side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless I ask",
+        "ok if I ask later whats cheapest sa",
+        "thanks"
+      ],
+      "expected_outcome": "memory; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "NJ016",
+      "title": "joiner mixed income",
+      "turns": [
+        "hi I work as a joiner",
+        "also a bit of side cash",
+        "main job PAYE around 32k",
+        "side maybe £2025",
+        "side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless I ask",
+        "ok if I ask later whats cheapest sa",
+        "thanks"
+      ],
+      "expected_outcome": "memory; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "NJ017",
+      "title": "personal trainer mixed income",
+      "turns": [
+        "hi I work as a personal trainer",
+        "also a bit of side cash",
+        "main job PAYE around 32k",
+        "side maybe £2060",
+        "side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless I ask",
+        "ok if I ask later whats cheapest sa",
+        "thanks"
+      ],
+      "expected_outcome": "memory; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "NJ018",
+      "title": "wedding photographer mixed income",
+      "turns": [
+        "hi I work as a wedding photographer",
+        "also a bit of side cash",
+        "main job PAYE around 32k",
+        "side maybe £2095",
+        "side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless I ask",
+        "ok if I ask later whats cheapest sa",
+        "thanks"
+      ],
+      "expected_outcome": "memory; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "NJ019",
+      "title": "mechanic mixed income",
+      "turns": [
+        "hi I work as a mechanic",
+        "also a bit of side cash",
+        "main job PAYE around 32k",
+        "side maybe £2130",
+        "side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless I ask",
+        "ok if I ask later whats cheapest sa",
+        "thanks"
+      ],
+      "expected_outcome": "memory; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "NJ020",
+      "title": "ghostwriter mixed income",
+      "turns": [
+        "hi I work as a ghostwriter",
+        "also a bit of side cash",
+        "main job PAYE around 32k",
+        "side maybe £2165",
+        "side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless I ask",
+        "ok if I ask later whats cheapest sa",
+        "thanks"
+      ],
+      "expected_outcome": "memory; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "NJ021",
+      "title": "agency nurse mixed income",
+      "turns": [
+        "hi I work as a agency nurse",
+        "also a bit of side cash",
+        "main job PAYE around 32k",
+        "side maybe £2200",
+        "side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless I ask",
+        "ok if I ask later whats cheapest sa",
+        "thanks"
+      ],
+      "expected_outcome": "memory; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "NJ022",
+      "title": "market gardener mixed income",
+      "turns": [
+        "hi I work as a market gardener",
+        "also a bit of side cash",
+        "main job PAYE around 32k",
+        "side maybe £2235",
+        "side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless I ask",
+        "ok if I ask later whats cheapest sa",
+        "thanks"
+      ],
+      "expected_outcome": "memory; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "NJ023",
+      "title": "florist mixed income",
+      "turns": [
+        "hi I work as a florist",
+        "also a bit of side cash",
+        "main job PAYE around 32k",
+        "side maybe £2270",
+        "side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless I ask",
+        "ok if I ask later whats cheapest sa",
+        "thanks"
+      ],
+      "expected_outcome": "memory; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "NJ024",
+      "title": "sparky mixed income",
+      "turns": [
+        "hi I work as a sparky",
+        "also a bit of side cash",
+        "main job PAYE around 32k",
+        "side maybe £2305",
+        "side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless I ask",
+        "ok if I ask later whats cheapest sa",
+        "thanks"
+      ],
+      "expected_outcome": "memory; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "NJ025",
+      "title": "decorator mixed income",
+      "turns": [
+        "hi I work as a decorator",
+        "also a bit of side cash",
+        "main job PAYE around 32k",
+        "side maybe £2340",
+        "side was 2025-26 before expenses",
+        "sa?",
+        "mtd?",
+        "please dont recommend a package unless I ask",
+        "ok if I ask later whats cheapest sa",
+        "thanks"
+      ],
+      "expected_outcome": "memory; help-first; package only when asked",
+      "adversarial": true
+    },
+    {
+      "id": "NJ026",
+      "title": "deep pad 25",
+      "turns": [
+        "tax q",
+        "self employed-ish",
+        "turnover ~14k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD careful; no sell"
+    },
+    {
+      "id": "NJ027",
+      "title": "deep pad 26",
+      "turns": [
+        "tax q",
+        "self employed-ish",
+        "turnover ~14k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD careful; no sell"
+    },
+    {
+      "id": "NJ028",
+      "title": "deep pad 27",
+      "turns": [
+        "tax q",
+        "self employed-ish",
+        "turnover ~14k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD careful; no sell"
+    },
+    {
+      "id": "NJ029",
+      "title": "deep pad 28",
+      "turns": [
+        "tax q",
+        "self employed-ish",
+        "turnover ~14k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD careful; no sell"
+    },
+    {
+      "id": "NJ030",
+      "title": "deep pad 29",
+      "turns": [
+        "tax q",
+        "self employed-ish",
+        "turnover ~14k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD careful; no sell"
+    },
+    {
+      "id": "NJ031",
+      "title": "deep pad 30",
+      "turns": [
+        "tax q",
+        "self employed-ish",
+        "turnover ~14k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD careful; no sell"
+    },
+    {
+      "id": "NJ032",
+      "title": "deep pad 31",
+      "turns": [
+        "tax q",
+        "self employed-ish",
+        "turnover ~14k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD careful; no sell"
+    },
+    {
+      "id": "NJ033",
+      "title": "deep pad 32",
+      "turns": [
+        "tax q",
+        "self employed-ish",
+        "turnover ~14k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD careful; no sell"
+    },
+    {
+      "id": "NJ034",
+      "title": "deep pad 33",
+      "turns": [
+        "tax q",
+        "self employed-ish",
+        "turnover ~14k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD careful; no sell"
+    },
+    {
+      "id": "NJ035",
+      "title": "deep pad 34",
+      "turns": [
+        "tax q",
+        "self employed-ish",
+        "turnover ~14k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD careful; no sell"
+    },
+    {
+      "id": "NJ036",
+      "title": "deep pad 35",
+      "turns": [
+        "tax q",
+        "self employed-ish",
+        "turnover ~14k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD careful; no sell"
+    },
+    {
+      "id": "NJ037",
+      "title": "deep pad 36",
+      "turns": [
+        "tax q",
+        "self employed-ish",
+        "turnover ~14k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD careful; no sell"
+    },
+    {
+      "id": "NJ038",
+      "title": "deep pad 37",
+      "turns": [
+        "tax q",
+        "self employed-ish",
+        "turnover ~14k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD careful; no sell"
+    },
+    {
+      "id": "NJ039",
+      "title": "deep pad 38",
+      "turns": [
+        "tax q",
+        "self employed-ish",
+        "turnover ~14k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD careful; no sell"
+    },
+    {
+      "id": "NJ040",
+      "title": "deep pad 39",
+      "turns": [
+        "tax q",
+        "self employed-ish",
+        "turnover ~14k 2024-25",
+        "sa?",
+        "mtd?",
+        "no buy",
+        "records",
+        "deadlines",
+        "ok"
+      ],
+      "expected_outcome": "SA; MTD careful; no sell"
+    },
+    {
+      "id": "NJ041",
+      "title": "paye clarify",
+      "turns": [
+        "i earn 48k",
+        "paye only",
+        "mtd?",
+        "cheers"
+      ],
+      "expected_outcome": "paye out",
+      "adversarial": true
+    },
+    {
+      "id": "NJ042",
+      "title": "no-buy sa",
+      "turns": [
+        "no packages please",
+        "freelance 2.8k 2025-26",
+        "sa?",
+        "ok"
+      ],
+      "expected_outcome": "sa no sell",
+      "adversarial": true
+    },
+    {
+      "id": "NJ043",
+      "title": "crypto hold",
+      "turns": [
+        "crypto tax?",
+        "never sold",
+        "so cgt?",
+        "ok"
+      ],
+      "expected_outcome": "no auto",
+      "adversarial": true
+    },
+    {
+      "id": "NJ044",
+      "title": "vat vs mtd",
+      "turns": [
+        "is vat the same as mtd?",
+        "my turnover 95k last 12 months",
+        "ok"
+      ],
+      "expected_outcome": "separate",
+      "adversarial": true
+    },
+    {
+      "id": "NJ045",
+      "title": "existing",
+      "turns": [
+        "taxsimba client already",
+        "how to message accountant",
+        "ta"
+      ],
+      "expected_outcome": "dashboard",
+      "adversarial": true
+    },
+    {
+      "id": "NJ046",
+      "title": "diy",
+      "turns": [
+        "diy sa ok?",
+        "without paying you",
+        "records?",
+        "ok"
+      ],
+      "expected_outcome": "diy",
+      "adversarial": true
+    },
+    {
+      "id": "NJ047",
+      "title": "consult refuse",
+      "turns": [
+        "need a consult?",
+        "hmrc letter",
+        "actually no just info",
+        "notice to file?"
+      ],
+      "expected_outcome": "respect",
+      "adversarial": true
+    },
+    {
+      "id": "NJ048",
+      "title": "xero",
+      "turns": [
+        "need xero separately?",
+        "on simbian?",
+        "ok"
+      ],
+      "expected_outcome": "included",
+      "adversarial": true
+    },
+    {
+      "id": "NJ049",
+      "title": "short pad 9",
+      "turns": [
+        "quick one 9",
+        "side cash work",
+        "maybe £1105",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ050",
+      "title": "short pad 10",
+      "turns": [
+        "quick one 10",
+        "side cash work",
+        "maybe £1150",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ051",
+      "title": "short pad 11",
+      "turns": [
+        "quick one 11",
+        "side cash work",
+        "maybe £1195",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ052",
+      "title": "short pad 12",
+      "turns": [
+        "quick one 12",
+        "side cash work",
+        "maybe £1240",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ053",
+      "title": "short pad 13",
+      "turns": [
+        "quick one 13",
+        "side cash work",
+        "maybe £1285",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ054",
+      "title": "short pad 14",
+      "turns": [
+        "quick one 14",
+        "side cash work",
+        "maybe £1330",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ055",
+      "title": "short pad 15",
+      "turns": [
+        "quick one 15",
+        "side cash work",
+        "maybe £1375",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ056",
+      "title": "short pad 16",
+      "turns": [
+        "quick one 16",
+        "side cash work",
+        "maybe £1420",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ057",
+      "title": "short pad 17",
+      "turns": [
+        "quick one 17",
+        "side cash work",
+        "maybe £1465",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ058",
+      "title": "short pad 18",
+      "turns": [
+        "quick one 18",
+        "side cash work",
+        "maybe £1510",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ059",
+      "title": "short pad 19",
+      "turns": [
+        "quick one 19",
+        "side cash work",
+        "maybe £1555",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ060",
+      "title": "short pad 20",
+      "turns": [
+        "quick one 20",
+        "side cash work",
+        "maybe £1600",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ061",
+      "title": "short pad 21",
+      "turns": [
+        "quick one 21",
+        "side cash work",
+        "maybe £1645",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ062",
+      "title": "short pad 22",
+      "turns": [
+        "quick one 22",
+        "side cash work",
+        "maybe £1690",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ063",
+      "title": "short pad 23",
+      "turns": [
+        "quick one 23",
+        "side cash work",
+        "maybe £1735",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ064",
+      "title": "short pad 24",
+      "turns": [
+        "quick one 24",
+        "side cash work",
+        "maybe £1780",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ065",
+      "title": "short pad 25",
+      "turns": [
+        "quick one 25",
+        "side cash work",
+        "maybe £1825",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ066",
+      "title": "short pad 26",
+      "turns": [
+        "quick one 26",
+        "side cash work",
+        "maybe £1870",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ067",
+      "title": "short pad 27",
+      "turns": [
+        "quick one 27",
+        "side cash work",
+        "maybe £1915",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ068",
+      "title": "short pad 28",
+      "turns": [
+        "quick one 28",
+        "side cash work",
+        "maybe £1960",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ069",
+      "title": "short pad 29",
+      "turns": [
+        "quick one 29",
+        "side cash work",
+        "maybe £2005",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ070",
+      "title": "short pad 30",
+      "turns": [
+        "quick one 30",
+        "side cash work",
+        "maybe £2050",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ071",
+      "title": "short pad 31",
+      "turns": [
+        "quick one 31",
+        "side cash work",
+        "maybe £2095",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ072",
+      "title": "short pad 32",
+      "turns": [
+        "quick one 32",
+        "side cash work",
+        "maybe £2140",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ073",
+      "title": "short pad 33",
+      "turns": [
+        "quick one 33",
+        "side cash work",
+        "maybe £2185",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ074",
+      "title": "short pad 34",
+      "turns": [
+        "quick one 34",
+        "side cash work",
+        "maybe £2230",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ075",
+      "title": "short pad 35",
+      "turns": [
+        "quick one 35",
+        "side cash work",
+        "maybe £2275",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ076",
+      "title": "short pad 36",
+      "turns": [
+        "quick one 36",
+        "side cash work",
+        "maybe £2320",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ077",
+      "title": "short pad 37",
+      "turns": [
+        "quick one 37",
+        "side cash work",
+        "maybe £2365",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ078",
+      "title": "short pad 38",
+      "turns": [
+        "quick one 38",
+        "side cash work",
+        "maybe £2410",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ079",
+      "title": "short pad 39",
+      "turns": [
+        "quick one 39",
+        "side cash work",
+        "maybe £2455",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ080",
+      "title": "short pad 40",
+      "turns": [
+        "quick one 40",
+        "side cash work",
+        "maybe £2500",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ081",
+      "title": "short pad 41",
+      "turns": [
+        "quick one 41",
+        "side cash work",
+        "maybe £2545",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ082",
+      "title": "short pad 42",
+      "turns": [
+        "quick one 42",
+        "side cash work",
+        "maybe £2590",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ083",
+      "title": "short pad 43",
+      "turns": [
+        "quick one 43",
+        "side cash work",
+        "maybe £2635",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ084",
+      "title": "short pad 44",
+      "turns": [
+        "quick one 44",
+        "side cash work",
+        "maybe £2680",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ085",
+      "title": "short pad 45",
+      "turns": [
+        "quick one 45",
+        "side cash work",
+        "maybe £2725",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ086",
+      "title": "short pad 46",
+      "turns": [
+        "quick one 46",
+        "side cash work",
+        "maybe £2770",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ087",
+      "title": "short pad 47",
+      "turns": [
+        "quick one 47",
+        "side cash work",
+        "maybe £2815",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ088",
+      "title": "short pad 48",
+      "turns": [
+        "quick one 48",
+        "side cash work",
+        "maybe £2860",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ089",
+      "title": "short pad 49",
+      "turns": [
+        "quick one 49",
+        "side cash work",
+        "maybe £2905",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ090",
+      "title": "short pad 50",
+      "turns": [
+        "quick one 50",
+        "side cash work",
+        "maybe £2950",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ091",
+      "title": "short pad 51",
+      "turns": [
+        "quick one 51",
+        "side cash work",
+        "maybe £2995",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ092",
+      "title": "short pad 52",
+      "turns": [
+        "quick one 52",
+        "side cash work",
+        "maybe £3040",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ093",
+      "title": "short pad 53",
+      "turns": [
+        "quick one 53",
+        "side cash work",
+        "maybe £3085",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ094",
+      "title": "short pad 54",
+      "turns": [
+        "quick one 54",
+        "side cash work",
+        "maybe £3130",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ095",
+      "title": "short pad 55",
+      "turns": [
+        "quick one 55",
+        "side cash work",
+        "maybe £3175",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ096",
+      "title": "short pad 56",
+      "turns": [
+        "quick one 56",
+        "side cash work",
+        "maybe £3220",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ097",
+      "title": "short pad 57",
+      "turns": [
+        "quick one 57",
+        "side cash work",
+        "maybe £3265",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ098",
+      "title": "short pad 58",
+      "turns": [
+        "quick one 58",
+        "side cash work",
+        "maybe £3310",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ099",
+      "title": "short pad 59",
+      "turns": [
+        "quick one 59",
+        "side cash work",
+        "maybe £3355",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    },
+    {
+      "id": "NJ100",
+      "title": "short pad 60",
+      "turns": [
+        "quick one 60",
+        "side cash work",
+        "maybe £3400",
+        "accountant?",
+        "no just info"
+      ],
+      "expected_outcome": "clarify",
+      "adversarial": true
+    }
+  ]
+}

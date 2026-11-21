@@ -27,6 +27,7 @@ export type ClarificationClass =
   | "property_share_ambiguity"
   | "customer_intent_unclear"
   | "casual_vs_trading_ambiguity"
+  | "amount_correction_ambiguity"
   | null;
 
 export type CircumstanceFacts = {
@@ -58,8 +59,35 @@ export type DecisionPolicyResult = {
   reason: string;
 };
 
+/** True when the customer mid-message corrects an earlier figure. */
+export function hasAmountCorrection(text: string): boolean {
+  const raw = (text || "").toLowerCase();
+  return /(?:wait|actually|i mean|sorry|no it was|correction|not \d)/i.test(raw) &&
+    /\d/.test(raw) &&
+    (raw.match(/\d+(?:\.\d+)?\s*k?\b/g) || []).length >= 2;
+}
+
 function parseAmount(text: string): number | null {
   const raw = text.toLowerCase();
+  // Prefer a correction clause (“wait / actually / I mean … 800”).
+  // Scan all correction-like clauses and take the last numeric one.
+  const correctionRe =
+    /(?:wait|actually|i mean|sorry|no it was|correction)[^\d£]{0,32}(?:£\s*)?([\d,]+(?:\.\d+)?)\s*(k\b)?(?:\s*(?:quid|pounds?))?/gi;
+  let correction: RegExpExecArray | null = null;
+  let m: RegExpExecArray | null;
+  while ((m = correctionRe.exec(raw)) !== null) correction = m;
+  if (correction) {
+    let n = Number(String(correction[1]).replace(/,/g, ""));
+    if (correction[2] && n < 1000) n *= 1000;
+    if (Number.isFinite(n) && n >= 50 && n <= 10_000_000) return n;
+  }
+  const quidCorrection = raw.match(
+    /(?:wait|actually|i mean|sorry|no it was)[^\d£]{0,32}(\d+(?:\.\d+)?)\s*(?:quid|pounds?)\b/,
+  );
+  if (quidCorrection) {
+    const n = Number(quidCorrection[1]);
+    if (Number.isFinite(n) && n >= 50 && n <= 10_000_000) return n;
+  }
   const k = raw.match(/£\s*([\d,]+(?:\.\d+)?)\s*k\b/) || raw.match(/\b(\d+(?:\.\d+)?)\s*k\b/);
   if (k) {
     let n = Number(String(k[1]).replace(/,/g, ""));
@@ -70,6 +98,12 @@ function parseAmount(text: string): number | null {
   if (pound) {
     const n = Number(pound[1]!.replace(/,/g, ""));
     if (Number.isFinite(n) && n >= 100 && n <= 10_000_000) return n;
+  }
+  // “800 quid”
+  const quid = raw.match(/\b(\d+(?:\.\d+)?)\s*(?:quid|pounds?)\b/);
+  if (quid) {
+    const n = Number(quid[1]);
+    if (Number.isFinite(n) && n >= 50 && n <= 10_000_000) return n;
   }
   return null;
 }
@@ -204,12 +238,24 @@ export function classifyAskType(
     return "SOFTWARE";
   }
   if (
-    /\b(package|plan|sign ?up|register on taxsimba|cheapest|consultation|£99|£149)\b/i.test(
+    /\b(packages?|plans?|sign ?up|register on taxsimba|cheapest|consultation|£99|£149|taxsimba offer|prices?)\b/i.test(
+      m,
+    ) &&
+    /\b(package|plan|taxsimba|simbian|self assessment|mtd|price|prices|cost)\b/i.test(
       m,
     ) &&
     !facts.declinedPaidHelp
   ) {
     return "TAXSIMBA_SERVICE";
+  }
+  // VAT registration threshold is a general process topic unless the customer
+  // supplies their own turnover figure for a personal decision.
+  if (
+    /\bvat\b/i.test(m) &&
+    /(register|threshold|when do i need)/i.test(m) &&
+    facts.amountGbp == null
+  ) {
+    return "DEADLINE_PROCESS";
   }
   if (
     /\b(deadline|filing|payment deadline|quarterly update|final declaration|5 october|31 january)\b/i.test(
@@ -300,7 +346,13 @@ export function decidePolicy(
 
   // PERSONAL / SA / MTD — only clarify when obligation is being asked and a key fact is missing.
   if (askType === "MTD_QUESTION" || askType === "SA_QUESTION" || askType === "PERSONAL_OBLIGATION") {
-    // Bare total without income type (not savings/crypto-labelled amounts)
+    // Bare total without income type (not savings/crypto-labelled amounts).
+    // Skip for educational MTD threshold/band questions (“the £20,000 MTD threshold”).
+    const mtdBandEducation =
+      askType === "MTD_QUESTION" &&
+      /(threshold|april 202[6-9]|start date|qualifying income|\bqi\b|mtd for income tax)/i.test(
+        m,
+      );
     if (
       facts.amountGbp != null &&
       !facts.selfEmployment &&
@@ -308,7 +360,8 @@ export function decidePolicy(
       !facts.paye &&
       !facts.savings &&
       !facts.crypto &&
-      !/\b(qualifying income|\bqi\b|turnover|gross)\b/i.test(m)
+      !/\b(qualifying income|\bqi\b|turnover|gross)\b/i.test(m) &&
+      !mtdBandEducation
     ) {
       return {
         askType,
@@ -340,6 +393,51 @@ export function decidePolicy(
       };
     }
 
+    // Mid-message amount correction (“8k … wait 800”) — confirm the figure
+    // before treating either number as trading income or expenses.
+    if (
+      hasAmountCorrection(m) &&
+      (facts.gigOrSide || facts.selfEmployment || facts.property) &&
+      !/(regular|every week|full.?time self-?employ)/i.test(m)
+    ) {
+      return {
+        askType,
+        facts,
+        mode: "CLARIFY",
+        clarification:
+          facts.amountGbp != null
+            ? `Just to confirm — is the correct gross figure about £${facts.amountGbp.toLocaleString("en-GB")} before expenses for one UK tax year, and is that self-employment / gig income (not a mix of salary and expenses)?`
+            : "You mentioned more than one figure — which amount is the correct gross trading income for one UK tax year, before expenses?",
+        clarificationClass: "amount_correction_ambiguity",
+        allowPackages: false,
+        reason: "Conflicting amounts in one message — confirm before SA/MTD.",
+      };
+    }
+
+    // Tentative side activity (“just started… maybe… on the side”) — confirm
+    // casual vs regular trading before asserting Self Assessment, even above £1,500.
+    const tentativeSide =
+      /(just started|thinking of starting|maybe|on the side|might be|not sure if)/i.test(m) &&
+      (facts.gigOrSide || facts.selfEmployment);
+    if (
+      tentativeSide &&
+      facts.amountGbp != null &&
+      facts.amountGbp <= 12000 &&
+      (facts.personalObligationAsk || /\bhmrc\b|\bregister\b|\btax\b|\bsa\b/i.test(m)) &&
+      !/(regular|every week|full.?time self-?employ|established business)/i.test(m)
+    ) {
+      return {
+        askType,
+        facts,
+        mode: "CLARIFY",
+        clarification:
+          "Was this casual occasional activity, or regular self-employment trading? GOV.UK’s usual sole-trader Self Assessment rule uses more than £1,000 of trading income in a tax year (before reliefs) — that is separate from using the trading allowance as tax relief when you do file.",
+        clarificationClass: "casual_vs_trading_ambiguity",
+        allowPackages: false,
+        reason: "Tentative side activity needs casual vs trading before SA conclusion.",
+      };
+    }
+
     // Near-£1,000 side income — casual vs trading before asserting SA
     // Also catch “hmrc?” / “register?” style asks on small side amounts.
     if (
@@ -361,12 +459,14 @@ export function decidePolicy(
       };
     }
 
-    // MTD-shaped ask without year when amount present
+    // MTD-shaped ask without year when amount present — but not when the
+    // customer is already discussing a published band/start date (e.g. April 2028).
     if (
       askType === "MTD_QUESTION" &&
       facts.amountGbp != null &&
       !facts.taxYear &&
-      !/\bqi\b|qualifying income/i.test(m)
+      !/\bqi\b|qualifying income/i.test(m) &&
+      !/april 202[6-9]|threshold|start date/i.test(m)
     ) {
       return {
         askType,
@@ -495,6 +595,45 @@ export function decidePolicy(
       clarificationClass: null,
       allowPackages: baseAllow,
       reason: "Enough circumstance for obligation guidance without a package dump.",
+    };
+  }
+
+  // Circumstance dumps without an explicit “SA?” still need the same fact gates.
+  if (
+    hasAmountCorrection(m) &&
+    (facts.gigOrSide || facts.selfEmployment || facts.property)
+  ) {
+    return {
+      askType: askType === "UNCLEAR" ? "PERSONAL_OBLIGATION" : askType,
+      facts,
+      mode: "CLARIFY",
+      clarification:
+        facts.amountGbp != null
+          ? `Just to confirm — is the correct gross figure about £${facts.amountGbp.toLocaleString("en-GB")} before expenses for one UK tax year, and is that self-employment / gig income (not a mix of salary and expenses)?`
+          : "You mentioned more than one figure — which amount is the correct gross trading income for one UK tax year, before expenses?",
+      clarificationClass: "amount_correction_ambiguity",
+      allowPackages: false,
+      reason: "Conflicting amounts without a clear ask — confirm before advising.",
+    };
+  }
+
+  const tentativeSideFallback =
+    /(just started|thinking of starting|maybe|on the side|might be|not sure if)/i.test(
+      m,
+    ) &&
+    (facts.gigOrSide || facts.selfEmployment) &&
+    facts.amountGbp != null &&
+    facts.amountGbp <= 12000;
+  if (tentativeSideFallback) {
+    return {
+      askType: askType === "UNCLEAR" ? "PERSONAL_OBLIGATION" : askType,
+      facts,
+      mode: "CLARIFY",
+      clarification:
+        "Was this casual occasional activity, or regular self-employment trading? GOV.UK’s usual sole-trader Self Assessment rule uses more than £1,000 of trading income in a tax year (before reliefs) — that is separate from using the trading allowance as tax relief when you do file.",
+      clarificationClass: "casual_vs_trading_ambiguity",
+      allowPackages: false,
+      reason: "Tentative side income dump — confirm trading before SA conclusion.",
     };
   }
 

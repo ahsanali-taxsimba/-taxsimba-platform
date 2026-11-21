@@ -812,6 +812,39 @@ export function answerMtdEligibility(
   history?: Array<{ role: string; content: string }> | null,
 ): MtdEligibilityResult | null {
   if (!isMtdEligibilityQuestion(message)) return null;
+  const lowerMsg = (message || "").toLowerCase();
+  // Educational band / commencement questions (“what about the £20,000 MTD
+  // threshold and April 2028?”) — explain published bands without treating the
+  // threshold figure as the customer’s personal qualifying income.
+  if (
+    /(threshold|start date|when (do|does|did) .{0,40}start)/i.test(lowerMsg) &&
+    /(april 202[6-9]|£\s*20,?000|£\s*30,?000|£\s*50,?000|20k|30k|50k)/i.test(
+      lowerMsg,
+    ) &&
+    !/\b(my|i earn|i made|i have|my qi|my qualifying|my turnover)\b/i.test(
+      lowerMsg,
+    )
+  ) {
+    const lines = MTD_BANDS.map(
+      (b) =>
+        `• more than £${b.threshold_gbp.toLocaleString("en-GB")} in ${b.basis_tax_year} → from ${b.commencement}`,
+    );
+    return {
+      handled: true,
+      needs_more_info: false,
+      in_scope: null,
+      commencement: null,
+      band: null,
+      reason: "Educational MTD band / commencement explanation",
+      clarifying_question: null,
+      confidence: "high",
+      customer_reply:
+        "Making Tax Digital for Income Tax uses published bands of qualifying income (self-employment and property turnover before expenses, not PAYE salary):\n" +
+        lines.join("\n") +
+        "\n\nSo the £20,000 band uses basis year 2026-27 and starts from 6 April 2028; the £30,000 band starts 6 April 2027; the £50,000 band starts 6 April 2026.\n\n" +
+        `Official guidance: ${MTD_SOURCE_URL}`,
+    };
+  }
   const profitTurnover = answerProfitVsTurnover(message);
   if (profitTurnover) return profitTurnover;
   const multi = answerMultiYearComparison(message);

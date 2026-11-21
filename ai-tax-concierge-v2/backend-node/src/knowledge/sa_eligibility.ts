@@ -329,7 +329,23 @@ export function answerSaEligibility(
     const yearHint = yearFromMessage
       ? `${yearFromMessage[1]}-${yearFromMessage[2]}`
       : null;
-    const yearNote = yearHint ? ` for ${yearHint}` : "";
+    if (!yearHint) {
+      return {
+        handled: true,
+        needs_more_info: true,
+        must_usually_file: null,
+        trading_income_gbp: tradingIncomeGbp,
+        reason: "Property rent amount without tax year",
+        clarifying_question: "Which tax year is that rent figure for?",
+        confidence: "high",
+        customer_reply:
+          `Rental income of £${tradingIncomeGbp.toLocaleString("en-GB")} usually needs to be considered for Self Assessment, ` +
+          `but I need the tax year that figure relates to before locking advice. ` +
+          `Which tax year is the rent for (for example 2024-25)? ` +
+          `Guidance: ${SA_WHO_MUST_URL}`,
+      };
+    }
+    const yearNote = ` for ${yearHint}`;
     return {
       handled: true,
       needs_more_info: false,
